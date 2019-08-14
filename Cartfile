@@ -1,0 +1,3 @@
+github "jpsim/SourceKitten" ~> 0.24.0
+github "andrewchang-bird/XcodeProj" ~> 7.0.1
+github "andrewchang-bird/Commander" ~> 0.9.1
