@@ -34,7 +34,7 @@ Add Mockingbird as a dependency in your `Package.swift` file.
 
 ```swift
 dependencies: [
-  .package(url: "https://github.com/birdrides/mockingbird.git", .upToNextMajor(from: "0.0.1")),
+  .package(url: "https://github.com/birdrides/mockingbird.git", .upToNextMajor(from: "0.0.1"))
 ]
 ```
 
@@ -59,17 +59,17 @@ Mockingbird CLI can automatically add a build step to generate mocks in the back
 targets are compiled.
 
 ```bash
-mockingbird install <xcodeproj_path> --targets <comma_separated_targets>
+mockingbird install --project <xcodeproj_path> --targets <comma_separated_targets>
 ```
 
 ### Manual Integration
 
 If you use a project or workspace generator such as [XcodeGen](https://github.com/yonaskolb/XcodeGen) you 
-may need to add a Run Script Phase to generate mocks. See [Mockingbird CLI - Generate](#generate) for advanced 
+may need to add a Run Script Phase to generate mocks. See [Mockingbird CLI - Generate](#generate) for all 
 generator options. 
 
 ```bash
-mockingbird generate <xcodeproj_path> --target "${TARGET_NAME}" &
+mockingbird generate &
 ``` 
 
 ## Mockingbird CLI
@@ -78,29 +78,32 @@ mockingbird generate <xcodeproj_path> --target "${TARGET_NAME}" &
 
 Generate mocks for a set of targets in a project.
 
-`mockingbird generate <xcodeproj_path>`
-* `--srcroot <source_root_path>` Optional path to the directory containing the project’s source files. Defaults to the parent directory of `<xcodeproj_path>`.
-* `--targets <comma_separated_targets>` Comma-separated list of target names to mock. For better performance, batch mock generation by specifying multiple targets. 
-* `--outputs <comma_separated_output_paths>`  Optional comma-separated list of custom file paths to store generated mocks for each target. The number of `outputs` should match the number of `targets`.  
-* `--preprocessor <preprocessor_expression>` Optional preprocessor expression to wrap all generated mocks in. For example, specifying `DEBUG` will add `#if DEBUG ... #endif` to every mock file.
-* `--no-module-import` Whether `@testable import <target_name>` should be omitted from generated mocks. Add this flag if mocks are included in targets instead of in test targets. Consider specifying a `preprocessor` expression when using the `no-module-import` option.
+`mockingbird generate` 
+* `--project <xcodeproj_path>` Path to the Xcode project file. Defaults to the `PROJECT_FILE_PATH` environment variable set during builds.
+* `--srcroot <source_root_path>` Path to the directory containing the project’s source files. Defaults to the `SRCROOT` environment variable set during builds or to the parent directory of `<xcodeproj_path>`.
+* `--targets <comma_separated_targets>` Comma-separated list of target names to mock. For better performance, batch mock generation by specifying multiple targets. Defaults to the `TARGET_NAME` environment variable set during builds.
+* `--outputs <comma_separated_output_paths>` Comma-separated list of custom file paths to store generated mocks for each target. The number of `outputs` should match the number of `targets`. Defaults to `<src_root>/Mockingbird/Mocks/<target_name>Mocks.generated.swift`.
+* `--preprocessor <preprocessor_expression>` Preprocessor expression to wrap all generated mocks in. For example, specifying `DEBUG` will add `#if DEBUG ... #endif` to every mock file. Defaults to not adding a preprocessor expression.
+* `--disable-module-import` Whether `@testable import <target_name>` should be omitted from generated mocks. Add this flag if mocks are included in targets instead of in test targets. Consider specifying a `preprocessor` expression when using the `no-module-import` option.
 
 ### Install
 
-Start automatically calling `mockingbird generate` when building any of the provided targets. Adds a custom 
+Starts automatically calling `mockingbird generate` when building any of the provided targets. Adds a custom 
 Run Script Phase to each target.
 
-`mockingbird install <xcodeproj_path>`
-* `--srcroot <source_root_path>` Optional path to the directory containing the project’s source files. Defaults to the parent directory of `<xcodeproj_path>`.
+`mockingbird install`
+* `--project <xcodeproj_path>` Path to the Xcode project file.
+* `--srcroot <source_root_path>` Path to the directory containing the project’s source files. Defaults to the parent directory of `<xcodeproj_path>`.
 * `--targets <comma_separated_targets>` Comma-separated list of target names that will start automatically generating mocks.
-* `--outputs <comma_separated_output_paths>` Optional comma-separated list of custom file paths to store generated mocks for each target. The number of `outputs` should match the number of `targets`.  
-* `--preprocessor` Optional preprocessor expression to wrap all generated mocks in. For example, specifying `DEBUG` will add `#if DEBUG ... #endif` to every mock file.
+* `--outputs <comma_separated_output_paths>` Comma-separated list of custom file paths to store generated mocks for each target. The number of `outputs` should match the number of `targets`. Defaults to `<src_root>/Mockingbird/Mocks/<target_name>Mocks.generated.swift`.
+* `--preprocessor` Preprocessor expression to wrap all generated mocks in. For example, specifying `DEBUG` will add `#if DEBUG ... #endif` to every mock file. Defaults to not adding a preprocessor expression.
 * `--override` Whether to re-install the Run Script Phase for each target in `targets`.
-* `--synchronous` Whether building each target waits until mock generation completes. Add this flag if mocks are included in targets instead of in test targets. See also the `no-module-import` flag.
+* `--synchronous` Whether building each target waits until mock generation completes. Add this flag if mocks are included in targets instead of in test targets. See also the `disable-module-import` flag.
 
 ### Uninstall
 
-Stop automatically calling `mockingbird generate` when building.
+Stops automatically calling `mockingbird generate` when building.
 
-`mockingbird uninstall <xcodeproj_path>`
-* `--targets <comma_separated_targets>` Comma-separated list of target names to stop automatically generating mocks.
+`mockingbird uninstall`
+* `--project <xcodeproj_path>` Path to the Xcode project file.
+* `--targets <comma_separated_targets>` Comma-separated list of target names that will stop automatically generating mocks.

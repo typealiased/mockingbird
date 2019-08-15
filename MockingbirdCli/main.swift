@@ -16,32 +16,61 @@ enum MockingbirdCliConstants {
   static let generatedFileNameSuffix = "Mocks.generated.swift"
 }
 
-Group {
-  $0.command("generate") { (rawProjectPath: String, parser: ArgumentParser) in
-    let projectPath = Path(rawProjectPath)
-    guard projectPath.isDirectory else {
-      throw ArgumentError.invalidType(value: rawProjectPath,
+extension ArgumentParser {
+  var environment: [String: String] { return ProcessInfo.processInfo.environment }
+  
+  func projectPath() throws -> Path {
+    let projectPath: Path
+    if let rawProjectPath = try shiftValue(for: "project") ?? environment["PROJECT_FILE_PATH"] {
+      projectPath = Path(rawProjectPath)
+    } else {
+      throw ArgumentError.missingValue(argument: "project")
+    }
+    guard projectPath.isDirectory, projectPath.extension == "xcodeproj" else {
+      throw ArgumentError.invalidType(value: String(describing: projectPath.absolute()),
                                       type: String(describing: Path.self),
                                       argument: nil)
     }
-
-    let sourceRoot: Path
-    if let rawSourceRoot = try parser.shiftValue(for: "srcroot") {
-      sourceRoot = Path(rawSourceRoot)
+    return projectPath
+  }
+  
+  func sourceRoot(for projectPath: Path) throws -> Path {
+    if let rawSourceRoot = try shiftValue(for: "srcroot") ?? environment["SRCROOT"] {
+      return Path(rawSourceRoot)
     } else {
-      sourceRoot = projectPath.parent()
+      return projectPath.parent()
     }
-    
-    guard let targets = try (parser.shiftValue(for: "target") ?? parser.shiftValue(for: "targets"))?
-      .components(separatedBy: ",") else {
-        throw ArgumentError.missingValue(argument: "targets")
+  }
+  
+  func targets() throws -> [String] {
+    if let targets = try shiftValue(for: "targets")?.components(separatedBy: ",") {
+      return targets
+    } else if let target = try shiftValue(for: "target") ?? environment["TARGET_NAME"] {
+      return [target]
+    } else {
+      throw ArgumentError.missingValue(argument: "targets")
     }
-    
-    let outputs = try (parser.shiftValue(for: "output") ?? parser.shiftValue(for: "outputs"))?
-      .components(separatedBy: ",").map({ Path($0) })
+  }
+  
+  func outputs() throws -> [Path]? {
+    if let rawOutputs = try shiftValue(for: "outputs")?.components(separatedBy: ",") {
+      return rawOutputs.map({ Path($0) })
+    } else if let output = try shiftValue(for: "output") {
+      return [Path(output)]
+    }
+    return nil
+  }
+}
+
+Group {
+  $0.command("generate") { (parser: ArgumentParser) in
+    let projectPath = try parser.projectPath()
+    let sourceRoot = try parser.sourceRoot(for: projectPath)
+    let targets = try parser.targets()
+    let outputs = try parser.outputs()
     
     let preprocessorExpression: String? = try parser.shiftValue(for: "preprocessor")
-    let shouldImportModule = !(parser.hasOption("no-module-import"))
+    let shouldImportModule = !(parser.hasOption("disable-module-import"))
     
     let config = MockingbirdCliGenerator.Configuration(
       projectPath: projectPath,
@@ -55,27 +84,10 @@ Group {
   }
   
   $0.command("install") { (rawProjectPath: String, parser: ArgumentParser) in
-    let projectPath = Path(rawProjectPath)
-    guard projectPath.isDirectory else {
-      throw ArgumentError.invalidType(value: rawProjectPath,
-                                      type: String(describing: Path.self),
-                                      argument: nil)
-    }
-    
-    let sourceRoot: Path
-    if let rawSourceRoot = try parser.shiftValue(for: "srcroot") {
-      sourceRoot = Path(rawSourceRoot)
-    } else {
-      sourceRoot = projectPath.parent()
-    }
-    
-    guard let targets = try (parser.shiftValue(for: "target") ?? parser.shiftValue(for: "targets"))?
-      .components(separatedBy: ",") else {
-        throw ArgumentError.missingValue(argument: "targets")
-    }
-    
-    let outputs = try (parser.shiftValue(for: "output") ?? parser.shiftValue(for: "outputs"))?
-      .components(separatedBy: ",").map({ Path($0) })
+    let projectPath = try parser.projectPath()
+    let sourceRoot = try parser.sourceRoot(for: projectPath)
+    let targets = try parser.targets()
+    let outputs = try parser.outputs()
     
     let shouldOverride = parser.hasOption("override")
     let synchronousGeneration = parser.hasOption("synchronous")
@@ -95,24 +107,9 @@ Group {
   }
   
   $0.command("uninstall") { (rawProjectPath: String, parser: ArgumentParser) in
-    let projectPath = Path(rawProjectPath)
-    guard projectPath.isDirectory else {
-      throw ArgumentError.invalidType(value: rawProjectPath,
-                                      type: String(describing: Path.self),
-                                      argument: nil)
-    }
-    
-    let sourceRoot: Path
-    if let rawSourceRoot = try parser.shiftValue(for: "srcroot") {
-      sourceRoot = Path(rawSourceRoot)
-    } else {
-      sourceRoot = projectPath.parent()
-    }
-    
-    guard let targets = try (parser.shiftValue(for: "target") ?? parser.shiftValue(for: "targets"))?
-      .components(separatedBy: ",") else {
-        throw ArgumentError.missingValue(argument: "targets")
-    }
+    let projectPath = try parser.projectPath()
+    let sourceRoot = try parser.sourceRoot(for: projectPath)
+    let targets = try parser.targets()
     
     let config = MockingbirdCliInstaller.UninstallConfiguration(
       projectPath: projectPath,

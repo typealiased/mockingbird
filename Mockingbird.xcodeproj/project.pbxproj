@@ -111,6 +111,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		491D2CAA2305D19C000F6513 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		49C7E7AF2304ED2600EECCDF /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		49C7E7B12304ED2600EECCDF /* FileParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileParser.swift; sourceTree = "<group>"; };
 		49C7E7B22304ED2600EECCDF /* TypeAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeAttributes.swift; sourceTree = "<group>"; };
@@ -364,6 +365,7 @@
 		49FF221F2304EBB1003E36D4 = {
 			isa = PBXGroup;
 			children = (
+				491D2CAA2305D19C000F6513 /* README.md */,
 				49C7E86B23050E0F00EECCDF /* Package.swift */,
 				49C7E8232304F80800EECCDF /* Mockingbird */,
 				49C7E7AE2304ED2600EECCDF /* MockingbirdCli */,
