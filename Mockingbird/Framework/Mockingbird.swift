@@ -13,7 +13,7 @@ import Foundation
 ///
 /// - Parameter scope: A mock and its invocation to stub.
 /// - Returns: An internal stubbing scope.
-public func when<T>(_ scope: @escaping @autoclosure () -> MockingbirdScopedStub<T>)
+public func given<T>(_ scope: @escaping @autoclosure () -> MockingbirdScopedStub<T>)
   -> MockingbirdStubbingScope<T> {
     return MockingbirdStubbingScope<T>(scope)
 }
@@ -24,7 +24,7 @@ public func when<T>(_ scope: @escaping @autoclosure () -> MockingbirdScopedStub<
 ///
 /// - Parameter scope: A set of mocks and invocations to stub.
 /// - Returns: An internal stubbing scope.
-public func when<T>(_ scope: @escaping @autoclosure () -> [MockingbirdScopedStub<T>]) -> MockingbirdStubbingScope<T> {
+public func given<T>(_ scope: @escaping @autoclosure () -> [MockingbirdScopedStub<T>]) -> MockingbirdStubbingScope<T> {
     return MockingbirdStubbingScope<T>(scope)
 }
 

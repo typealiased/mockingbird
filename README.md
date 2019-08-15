@@ -6,7 +6,7 @@ Mockingbird is a convenient mocking framework for Swift.
 
 ```swift
 let bird = BirdMock()
-when(bird.chirp(volume: any())) ~> true
+given(bird.chirp(volume: any())) ~> true
 PalmTree(containing: bird).shake()
 verify(bird.chirp(volume: 50)).wasCalled()
 ```
