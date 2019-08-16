@@ -18,6 +18,7 @@ class MockingbirdCliGenerator {
     let outputPaths: [Path]?
     let preprocessorExpression: String?
     let shouldImportModule: Bool
+    let onlyMockProtocols: Bool
   }
   
   enum Failure: LocalizedError {
@@ -80,8 +81,9 @@ class MockingbirdCliGenerator {
           let generateFile = GenerateFileOperation(processTypesResult: processTypes.result,
                                                    inputTargetName: pipeline.inputTarget.name,
                                                    outputPath: pipeline.outputPath,
+                                                   preprocessorExpression: config.preprocessorExpression,
                                                    shouldImportModule: config.shouldImportModule,
-                                                   preprocessorExpression: config.preprocessorExpression)
+                                                   onlyMockProtocols: config.onlyMockProtocols)
           generateFile.addDependency(processTypes)
           generateFileOperations.append(generateFile)
           

@@ -17,16 +17,21 @@ class FileGenerator {
   let outputPath: Path
   let shouldImportModule: Bool
   let preprocessorExpression: String?
+  let onlyMockProtocols: Bool
   init(_ mockableTypes: [String: MockableType],
        for targetName: String,
        outputPath: Path,
+       preprocessorExpression: String?,
        shouldImportModule: Bool,
-       preprocessorExpression: String?) {
-    self.mockableTypes = mockableTypes
+       onlyMockProtocols: Bool) {
+    self.mockableTypes = onlyMockProtocols ?
+      mockableTypes :
+      mockableTypes.filter({ $0.value.kind == .protocol })
     self.targetName = targetName
     self.outputPath = outputPath
-    self.shouldImportModule = shouldImportModule
     self.preprocessorExpression = preprocessorExpression
+    self.shouldImportModule = shouldImportModule
+    self.onlyMockProtocols = onlyMockProtocols
   }
   
   var formattedDate: String {
@@ -34,7 +39,6 @@ class FileGenerator {
     let format = DateFormatter()
     format.dateStyle = .short
     format.timeStyle = .none
-    format.locale = Locale(identifier: "en_US")
     return format.string(from: date)
   }
   

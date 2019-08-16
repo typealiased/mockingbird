@@ -248,29 +248,33 @@ class GenerateFileOperation: BasicOperation {
   private let processTypesResult: ProcessTypesOperation.Result
   private let inputTargetName: String
   private let outputPath: Path
-  private let shouldImportModule: Bool
   private let preprocessorExpression: String?
+  private let shouldImportModule: Bool
+  private let onlyMockProtocols: Bool
   
   private(set) var error: Error?
   
   init(processTypesResult: ProcessTypesOperation.Result,
        inputTargetName: String,
        outputPath: Path,
+       preprocessorExpression: String?,
        shouldImportModule: Bool,
-       preprocessorExpression: String?) {
+       onlyMockProtocols: Bool) {
     self.processTypesResult = processTypesResult
     self.inputTargetName = inputTargetName
     self.outputPath = outputPath
     self.shouldImportModule = shouldImportModule
     self.preprocessorExpression = preprocessorExpression
+    self.onlyMockProtocols = onlyMockProtocols
   }
 
   override func run() {
     let generator = FileGenerator(processTypesResult.mockableTypes,
                                   for: inputTargetName,
                                   outputPath: outputPath,
+                                  preprocessorExpression: preprocessorExpression,
                                   shouldImportModule: shouldImportModule,
-                                  preprocessorExpression: preprocessorExpression)
+                                  onlyMockProtocols: onlyMockProtocols)
     do {
       try generator.generate()
     } catch {
