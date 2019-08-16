@@ -104,15 +104,16 @@ let bird = BirdMock()
 
 ### Stubbing
 
-Stubbing allows mocks to return custom results or perform an operation.
+Stubbing allows mocks to return custom results or perform an operation. Stubs added later have precedence 
+over those added earlier; generic stubs should be added first and specific ones added last.
 
 ```swift
-given(bird.chirp(volume: 10)) ~> true
-given(bird.chirp(volume: any())) ~> true    // Matches any volume
-given(bird.chirp(volume: notNil())) ~> true // Matches any non-nil volume
+given(bird.chirp(volume: any())) ~> true      // Matches any volume
+given(bird.chirp(volume: notNil())) ~> false  // Matches any non-nil volume
+given(bird.chirp(volume: 10)) ~> true         // Matches volume = 10
 ```
 
-You can also stub variables.
+You can also stub variable getters and setters.
 
 ```swift
 given(bird.name.get()) ~> "Big Bird"
