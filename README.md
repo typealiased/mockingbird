@@ -43,7 +43,7 @@ Then download and install the latest `Mockingbird.pkg` from [Releases](https://g
 ### From Source
 
 Clone the repository and build the `MockingbirdFramework` scheme for the desired platform. Drag the built 
-`MockingbirdFramework.framework` product into your project and link the library.
+`Mockingbird.framework` product into your project and link the library.
 
 ```bash
 git clone https://github.com/birdrides/mockingbird.git

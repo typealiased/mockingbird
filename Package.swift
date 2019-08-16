@@ -18,17 +18,7 @@ let package = Package(
     .target(
       name: "MockingbirdFramework",
       dependencies: [],
-      path: "Mockingbird/Framework"
-    ),
-    .testTarget(
-      name: "MockingbirdTests",
-      dependencies: [
-        "MockingbirdFramework"
-      ],
-      path: "Mockingbird/Tests",
-      exclude: [
-        "Resources",
-      ]
+      path: "MockingbirdFramework"
     ),
     .target(
       name: "MockingbirdCli",
@@ -39,5 +29,15 @@ let package = Package(
       ],
       path: "MockingbirdCli"
     ),
+    .testTarget(
+      name: "MockingbirdTests",
+      dependencies: [
+        "MockingbirdFramework"
+      ],
+      path: "MockingbirdTests",
+      exclude: [
+        "Resources",
+      ]
+    )
   ]
 )

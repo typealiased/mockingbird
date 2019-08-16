@@ -42,7 +42,7 @@
 		49C7E8202304F49200EECCDF /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C7E7EA2304EFE300EECCDF /* SWXMLHash.framework */; };
 		49C7E8212304F49200EECCDF /* XcodeProj.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C7E7EB2304EFE300EECCDF /* XcodeProj.framework */; };
 		49C7E8222304F49200EECCDF /* Yams.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C7E7EC2304EFE300EECCDF /* Yams.framework */; };
-		49C7E84D2304F81F00EECCDF /* MockingbirdFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C7E8442304F81F00EECCDF /* MockingbirdFramework.framework */; };
+		49C7E84D2304F81F00EECCDF /* Mockingbird.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C7E8442304F81F00EECCDF /* Mockingbird.framework */; };
 		49C7E85B2304F8AF00EECCDF /* Mockingbird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C7E82D2304F80800EECCDF /* Mockingbird.swift */; };
 		49C7E85C2304F8B800EECCDF /* MockingbirdArgumentCaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C7E8362304F80800EECCDF /* MockingbirdArgumentCaptor.swift */; };
 		49C7E85D2304F8B800EECCDF /* MockingbirdWhen+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C7E8372304F80800EECCDF /* MockingbirdWhen+Convenience.swift */; };
@@ -112,6 +112,7 @@
 
 /* Begin PBXFileReference section */
 		491D2CAA2305D19C000F6513 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		49B1987C2307689E00A3236E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49C7E7AF2304ED2600EECCDF /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		49C7E7B12304ED2600EECCDF /* FileParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileParser.swift; sourceTree = "<group>"; };
 		49C7E7B22304ED2600EECCDF /* TypeAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeAttributes.swift; sourceTree = "<group>"; };
@@ -163,7 +164,7 @@
 		49C7E83A2304F80800EECCDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49C7E83C2304F80800EECCDF /* MockingbirdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockingbirdTests.swift; sourceTree = "<group>"; };
 		49C7E83D2304F80800EECCDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		49C7E8442304F81F00EECCDF /* MockingbirdFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MockingbirdFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		49C7E8442304F81F00EECCDF /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C7E84C2304F81F00EECCDF /* MockingbirdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MockingbirdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C7E86B23050E0F00EECCDF /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		49FF22282304EBB1003E36D4 /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,7 +182,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49C7E84D2304F81F00EECCDF /* MockingbirdFramework.framework in Frameworks */,
+				49C7E84D2304F81F00EECCDF /* Mockingbird.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +211,7 @@
 				49C7E7BC2304ED2600EECCDF /* MockingbirdGenerator.swift */,
 				49C7E7C52304ED2600EECCDF /* MockingbirdInstaller.swift */,
 				49C7E7AF2304ED2600EECCDF /* Utilities.swift */,
+				49B1987C2307689E00A3236E /* Info.plist */,
 				49C7E7BD2304ED2600EECCDF /* Generator */,
 				49C7E7B02304ED2600EECCDF /* Parser */,
 			);
@@ -273,16 +275,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		49C7E8232304F80800EECCDF /* Mockingbird */ = {
-			isa = PBXGroup;
-			children = (
-				49C7E8242304F80800EECCDF /* Framework */,
-				49C7E83B2304F80800EECCDF /* Tests */,
-			);
-			path = Mockingbird;
-			sourceTree = "<group>";
-		};
-		49C7E8242304F80800EECCDF /* Framework */ = {
+		49C7E8232304F80800EECCDF /* MockingbirdFramework */ = {
 			isa = PBXGroup;
 			children = (
 				49C7E82D2304F80800EECCDF /* Mockingbird.swift */,
@@ -294,7 +287,7 @@
 				49C7E8322304F80800EECCDF /* Stubbing */,
 				49C7E82E2304F80800EECCDF /* Verification */,
 			);
-			path = Framework;
+			path = MockingbirdFramework;
 			sourceTree = "<group>";
 		};
 		49C7E8252304F80800EECCDF /* Matching */ = {
@@ -353,13 +346,13 @@
 			path = DSL;
 			sourceTree = "<group>";
 		};
-		49C7E83B2304F80800EECCDF /* Tests */ = {
+		49C7E83B2304F80800EECCDF /* MockingbirdTests */ = {
 			isa = PBXGroup;
 			children = (
 				49C7E83C2304F80800EECCDF /* MockingbirdTests.swift */,
 				49C7E83D2304F80800EECCDF /* Info.plist */,
 			);
-			path = Tests;
+			path = MockingbirdTests;
 			sourceTree = "<group>";
 		};
 		49FF221F2304EBB1003E36D4 = {
@@ -367,8 +360,9 @@
 			children = (
 				491D2CAA2305D19C000F6513 /* README.md */,
 				49C7E86B23050E0F00EECCDF /* Package.swift */,
-				49C7E8232304F80800EECCDF /* Mockingbird */,
+				49C7E8232304F80800EECCDF /* MockingbirdFramework */,
 				49C7E7AE2304ED2600EECCDF /* MockingbirdCli */,
+				49C7E83B2304F80800EECCDF /* MockingbirdTests */,
 				49FF22292304EBB1003E36D4 /* Products */,
 				49C7E7E82304EFE300EECCDF /* Frameworks */,
 			);
@@ -379,7 +373,7 @@
 			children = (
 				49FF22282304EBB1003E36D4 /* MockingbirdCli */,
 				49C7E7DD2304EDB100EECCDF /* MockingbirdCli.bundle */,
-				49C7E8442304F81F00EECCDF /* MockingbirdFramework.framework */,
+				49C7E8442304F81F00EECCDF /* Mockingbird.framework */,
 				49C7E84C2304F81F00EECCDF /* MockingbirdTests.xctest */,
 			);
 			name = Products;
@@ -430,7 +424,7 @@
 			);
 			name = MockingbirdFramework;
 			productName = Mockingbird;
-			productReference = 49C7E8442304F81F00EECCDF /* MockingbirdFramework.framework */;
+			productReference = 49C7E8442304F81F00EECCDF /* Mockingbird.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		49C7E84B2304F81F00EECCDF /* MockingbirdTests */ = {
@@ -606,6 +600,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = P2T4T6R4SL;
+				INFOPLIST_FILE = MockingbirdCli/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = co.bird.MockingbirdCliBundle;
 				PRODUCT_NAME = MockingbirdCli;
 				SKIP_INSTALL = YES;
@@ -619,6 +614,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = P2T4T6R4SL;
+				INFOPLIST_FILE = MockingbirdCli/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = co.bird.MockingbirdCliBundle;
 				PRODUCT_NAME = MockingbirdCli;
 				SKIP_INSTALL = YES;
@@ -637,7 +633,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Mockingbird/Framework/Info.plist;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = MockingbirdFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -650,13 +647,13 @@
 					XCTest,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.bird.Mockingbird;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = Mockingbird;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx watchsimulator watchos appletvsimulator appletvos";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx appletvsimulator appletvos";
 				SWIFT_VERSION = 5.0;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				VALID_ARCHS = "arm64 arm64e armv7 armv7s armv7k x86_64 i386";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -674,7 +671,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Mockingbird/Framework/Info.plist;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = MockingbirdFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -687,13 +685,13 @@
 					XCTest,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.bird.Mockingbird;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = Mockingbird;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx watchsimulator watchos appletvsimulator appletvos";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx appletvsimulator appletvos";
 				SWIFT_VERSION = 5.0;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 arm64e armv7 armv7s armv7k x86_64 i386";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -708,7 +706,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P2T4T6R4SL;
-				INFOPLIST_FILE = Mockingbird/Tests/Info.plist;
+				INFOPLIST_FILE = MockingbirdTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -730,7 +728,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P2T4T6R4SL;
-				INFOPLIST_FILE = Mockingbird/Tests/Info.plist;
+				INFOPLIST_FILE = MockingbirdTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
