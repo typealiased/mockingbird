@@ -42,9 +42,18 @@ Then download and install the latest `Mockingbird.pkg` from [Releases](https://g
 
 ### From Source
 
+Clone the repository and build the `MockingbirdFramework` scheme for the desired platform. Drag the built 
+`MockingbirdFramework.framework` product into your project and link the library.
+
 ```bash
 git clone https://github.com/birdrides/mockingbird.git
 cd mockingbird
+open Mockingbird.xcodeproj
+```
+
+Then install the Mockingbird command line interface.
+
+```bash
 make install
 ```
 
@@ -53,7 +62,7 @@ make install
 Mockingbird generates mocks using the `mockingbird` command line tool which can be integrated into your
 build process in many different ways.
 
-### Easy Integration
+### Automatic Integration
 
 Mockingbird CLI can automatically add a build step to generate mocks in the background whenever the specified 
 targets are compiled.
@@ -70,8 +79,106 @@ generator options.
 
 ```bash
 mockingbird generate &
-``` 
+```
 
+## Usage
+
+### Importing Mocks
+
+By default, Mockingbird will generate target mocks into `Mockingbird/Mocks/` under the project’s source root 
+directory. (Specify a custom location to generate mocks for each target using the `outputs` CLI option.)
+
+Unit test targets that import a module with a corresponding mocks file should include the mocks file under Build
+Phases → Compile Sources.
+
+![Build Phases → Compile Sources](Documentation/Assets/test-target-compile-sources.png)
+
+### Mock Initialization
+
+Mockingbird adds the `Mock` suffix to mocks that it generates, providing the same methods, variables, and 
+initializers as the original type. 
+
+```swift
+let bird = BirdMock()
+```
+
+### Stubbing
+
+Stubbing allows mocks to return custom results or perform an operation.
+
+```swift
+given(bird.chirp(volume: 10)) ~> true
+given(bird.chirp(volume: any())) ~> true    // Matches any volume
+given(bird.chirp(volume: notNil())) ~> true // Matches any non-nil volume
+```
+
+You can also stub variables.
+
+```swift
+given(bird.name.get()) ~> "Big Bird"
+given(bird.name.set(any())) ~> { invocation in
+  print(invocation.arguments.first)
+}
+```
+
+And conveniently stub multiple methods with the same return type.
+
+```swift
+given(
+  bird1.name.get(),
+  bird2.name.get(),
+  bird3.name.get()
+) ~> "Big Bird"
+```
+
+### Verification
+
+Mocks keep a record of invocations that it receives which can then be verified.
+
+```swift
+verify(bird.chirp(volume: 50)).wasCalled()
+```
+
+You can also conveniently verify multiple invocations at once (order doesn’t matter).
+
+```swift
+verify(
+  bird.name.get(),
+  bird.chirp(volume: any()),
+  bird.fly(to: notNil())
+).wasCalled()
+```
+
+It’s possible to verify that an invocation was called a specific number of times.
+
+```swift
+verify(bird.name.get()).wasNeverCalled()             // n = 0
+verify(bird.name.get()).wasCalled(exactly(10))       // n = 10
+verify(bird.name.get()).wasCalled(atLeast(10))       // n ≥ 10
+verify(bird.name.get()).wasCalled(atMost(10))        // n ≤ 10
+verify(bird.name.get()).wasCalled(not(exactly(10)))  // n ≠ 10
+verify(bird.name.get()).wasCalled(
+  atLeast(5).or(atMost(10))                          // 5 ≤ n ≤ 10
+)
+```
+
+Verifying doesn’t remove recorded invocations, so it’s safe to call verify multiple times (even if not recommended).
+
+```swift
+verify(bird.name.get()).wasCalled() // If this succeeds...
+verify(bird.name.get()).wasCalled() // ...this also succeeds
+```
+
+### Resetting Mocks
+
+Sometimes it’s necessary to remove stubs or clear recorded invocations.
+
+```swift
+reset(bird) // Removes all stubs and recorded invocations
+clearStubs(on: bird) // Only removes stubs
+clearInvocations(on: bird) // Only removes recorded invocations
+```
+ 
 ## Mockingbird CLI
 
 ### Generate
