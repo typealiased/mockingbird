@@ -9,16 +9,21 @@
 import Foundation
 
 class Synchronized<T> {
-  private(set) var value: T
+  private var internalValue: T
+  var value: T {
+    lock.wait()
+    defer { lock.signal() }
+    return internalValue
+  }
   private let lock = DispatchSemaphore(value: 1)
   
   init(_ value: T) {
-    self.value = value
+    self.internalValue = value
   }
   
   func update(_ block: (inout T) throws -> Void) rethrows {
     lock.wait()
     defer { lock.signal() }
-    try block(&value)
+    try block(&internalValue)
   }
 }

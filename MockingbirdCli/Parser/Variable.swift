@@ -55,11 +55,11 @@ struct Variable: Hashable {
       let inferredType = inferType(from: cleanedDeclaration)
       self.typeName = inferredType ?? "Any?"
       if inferredType == nil {
-        print("Could not infer type for variable \(name): \(cleanedDeclaration)")
+        print("Could not infer type for variable `\(name)`, declaration: `\(cleanedDeclaration)`") // TODO: Logging utility
       }
     } else {
       self.typeName = "Any?"
-      print("Could not extract type info for variable \(name)")
+      print("Could not extract type info for variable `\(name)`") // TODO: Logging utility
     }
     
     var setterAccessLevel: AccessLevel?

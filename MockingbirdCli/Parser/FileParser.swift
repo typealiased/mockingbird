@@ -280,7 +280,7 @@ class GenerateFileOperation: BasicOperation {
     } catch {
       self.error = error
     }
-    print("Generated file to: \(String(describing: outputPath.absolute()))")
+    print("Generated file to \(String(describing: outputPath.absolute()))") // TODO: logging utility
   }
 }
 
