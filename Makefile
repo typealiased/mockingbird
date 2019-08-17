@@ -31,6 +31,7 @@ build:
 install: build
 	install -d "$(BINARIES_FOLDER)"
 	install "$(EXECUTABLE_PATH)" "$(BINARIES_FOLDER)"
+	rm -rf "$(TEMPORARY_FOLDER)"
 
 uninstall:
 	rm -rf "$(FRAMEWORKS_FOLDER)/Mockingbird.framework"

@@ -19,6 +19,10 @@ struct MockableType: Hashable, Comparable {
   private(set) var shouldMock: Bool
   let attributes: Attributes
   
+  static func < (lhs: MockableType, rhs: MockableType) -> Bool {
+    return lhs.name < rhs.name
+  }
+  
   init?(from rawType: RawType, mockableTypes: [String: MockableType]) {
     guard let substructure = rawType.dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary],
       let rawKind = rawType.dictionary[SwiftDocKey.kind.rawValue] as? String,
@@ -67,9 +71,5 @@ struct MockableType: Hashable, Comparable {
     var clone = other
     clone.shouldMock = shouldMock
     return clone
-  }
-  
-  static func < (lhs: MockableType, rhs: MockableType) -> Bool {
-    return lhs.name < rhs.name
   }
 }

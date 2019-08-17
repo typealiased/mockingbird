@@ -9,7 +9,7 @@
 import Foundation
 import SourceKittenFramework
 
-struct Variable: Hashable {
+struct Variable: Hashable, Comparable {
   let name: String
   let typeName: String
   let kind: SwiftDeclarationKind
@@ -24,6 +24,10 @@ struct Variable: Hashable {
   
   static func ==(lhs: Variable, rhs: Variable) -> Bool {
     return lhs.hashValue == rhs.hashValue
+  }
+  
+  static func < (lhs: Variable, rhs: Variable) -> Bool {
+    return lhs.name < rhs.name
   }
   
   init?(from dictionary: StructureDictionary, rootKind: SwiftDeclarationKind, rawType: RawType) {

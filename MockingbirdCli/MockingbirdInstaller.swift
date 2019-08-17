@@ -139,8 +139,6 @@ class MockingbirdCliInstaller {
                                                     config: InstallConfiguration) -> PBXShellScriptBuildPhase {
     var options = [
       "generate '\(config.projectPath.absolute())'",
-      "--srcroot \"${SRCROOT}\"",
-      "--target \"${TARGET_NAME}\"",
       "--output '\(outputPath.absolute())'"
     ]
     if let expression = config.preprocessorExpression {
@@ -155,9 +153,8 @@ class MockingbirdCliInstaller {
     \(config.cliPath) \\
       \(options.joined(separator: " \\\n  "))
     """
-    return PBXShellScriptBuildPhase(name: Constants.buildPhaseName,
-                                    outputPaths: [String(describing: outputPath.absolute())],
-                                    shellScript: shellScript)
+    // Specifying an output path without input paths causes Xcode to incorrectly cache mock files.
+    return PBXShellScriptBuildPhase(name: Constants.buildPhaseName, shellScript: shellScript)
     
   }
 }

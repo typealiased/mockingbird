@@ -12,12 +12,12 @@ import Foundation
 
 extension MethodParameter {
   var resolvedType: String {
-    let capitalizedName = name.capitalized
+    let capitalizedName = name.capitalizedFirst
     return "let matcher\(capitalizedName) = resolve(`\(name)`)"
   }
   
   func castedMatcherType(in context: MockableType) -> String {
-    let capitalizedName = name.capitalized
+    let capitalizedName = name.capitalizedFirst
     let typeName = matchableTypeName(in: context, unwrapOptional: true)
     let alreadyMatcher = "matcher\(capitalizedName) as? MockingbirdMatcher"
     let createMatcher = "MockingbirdMatcher(matcher\(capitalizedName) as AnyObject as? \(typeName))"

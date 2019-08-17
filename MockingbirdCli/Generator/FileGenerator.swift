@@ -25,8 +25,8 @@ class FileGenerator {
        shouldImportModule: Bool,
        onlyMockProtocols: Bool) {
     self.mockableTypes = onlyMockProtocols ?
-      mockableTypes :
-      mockableTypes.filter({ $0.value.kind == .protocol })
+      mockableTypes.filter({ $0.value.kind == .protocol }) :
+      mockableTypes
     self.targetName = targetName
     self.outputPath = outputPath
     self.preprocessorExpression = preprocessorExpression
@@ -70,6 +70,7 @@ class FileGenerator {
     //
     \(preprocessorDirective)
     \(moduleImports.joined(separator: "\n"))
+    
     """
   }
   
@@ -86,12 +87,12 @@ class FileGenerator {
   }
   
   private func generateFileContents() -> String {
-    return """
-    \(generateFileHeader())
-    
-    \(generateFileBody())
-    \(generateFileFooter())
-    """
+    let sections = [
+      generateFileHeader(),
+      generateFileBody(),
+      generateFileFooter(),
+    ].filter({ !$0.isEmpty })
+    return sections.joined(separator: "\n")
   }
   
   func generate() throws {

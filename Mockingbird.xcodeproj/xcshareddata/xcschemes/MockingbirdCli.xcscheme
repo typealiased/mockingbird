@@ -42,7 +42,7 @@
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -67,11 +67,15 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--project /Users/andrew/api-ios/ios/Bird.xcodeproj"
+            argument = "--project /Users/andrew/Mockingbird/Mockingbird.xcodeproj"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--target Bird"
+            argument = "--target MockingbirdTestsHost"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--output /Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

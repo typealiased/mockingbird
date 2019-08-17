@@ -6,7 +6,7 @@ Mockingbird is a convenient mocking framework for Swift.
 
 ```swift
 let bird = BirdMock()
-given(bird.canFly.get()) ~> true    // Given the bird can fly
+given(bird.getCanFly()) ~> true    // Given the bird can fly
 PalmTree(containing: bird).shake()  // When the palm tree is shaken
 verify(bird.fly()).wasCalled()      // Then the bird flies away
 ```
@@ -88,8 +88,8 @@ mockingbird generate &
 By default, Mockingbird will generate target mocks into `Mockingbird/Mocks/` under the project’s source root 
 directory. (Specify a custom location to generate mocks for each target using the `outputs` CLI option.)
 
-Unit test targets that import a module with a corresponding mocks file should include the mocks file under Build
-Phases → Compile Sources.
+Unit test targets that import a module with generated mocks should include the mocks file under Build Phases → 
+Compile Sources.
 
 ![Build Phases → Compile Sources](Documentation/Assets/test-target-compile-sources.png)
 
@@ -116,8 +116,8 @@ given(bird.chirp(volume: 10)) ~> true         // Matches volume = 10
 You can also stub variable getters and setters.
 
 ```swift
-given(bird.name.get()) ~> "Big Bird"
-given(bird.name.set(any())) ~> { invocation in
+given(bird.getName()) ~> "Big Bird"
+given(bird.setName(any())) ~> { invocation in
   print(invocation.arguments.first)
 }
 ```
@@ -126,9 +126,9 @@ And conveniently stub multiple methods with the same return type.
 
 ```swift
 given(
-  bird1.name.get(),
-  bird2.name.get(),
-  bird3.name.get()
+  bird1.getName(),
+  bird2.getName(),
+  bird3.getName()
 ) ~> "Big Bird"
 ```
 
@@ -144,7 +144,7 @@ You can also conveniently verify multiple invocations at once (order doesn’t m
 
 ```swift
 verify(
-  bird.name.get(),
+  bird.getName(),
   bird.chirp(volume: any()),
   bird.fly(to: notNil())
 ).wasCalled()
@@ -153,12 +153,12 @@ verify(
 It’s possible to verify that an invocation was called a specific number of times with a call matcher.
 
 ```swift
-verify(bird.name.get()).wasNeverCalled()             // n = 0
-verify(bird.name.get()).wasCalled(exactly(10))       // n = 10
-verify(bird.name.get()).wasCalled(atLeast(10))       // n ≥ 10
-verify(bird.name.get()).wasCalled(atMost(10))        // n ≤ 10
-verify(bird.name.get()).wasCalled(not(exactly(10)))  // n ≠ 10
-verify(bird.name.get()).wasCalled(
+verify(bird.getName()).wasNeverCalled()             // n = 0
+verify(bird.getName()).wasCalled(exactly(10))       // n = 10
+verify(bird.getName()).wasCalled(atLeast(10))       // n ≥ 10
+verify(bird.getName()).wasCalled(atMost(10))        // n ≤ 10
+verify(bird.getName()).wasCalled(not(exactly(10)))  // n ≠ 10
+verify(bird.getName()).wasCalled(
   atLeast(5).or(atMost(10))                          // 5 ≤ n ≤ 10
 )
 ```
@@ -175,8 +175,8 @@ XCTAssertEqual(nameCaptor.allValues.count, 1)  // All values received
 Verifying doesn’t remove recorded invocations, so it’s safe to call verify multiple times (even if not recommended).
 
 ```swift
-verify(bird.name.get()).wasCalled() // If this succeeds...
-verify(bird.name.get()).wasCalled() // ...this also succeeds
+verify(bird.getName()).wasCalled() // If this succeeds...
+verify(bird.getName()).wasCalled() // ...this also succeeds
 ```
 
 ### Resetting Mocks

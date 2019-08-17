@@ -82,11 +82,11 @@ extension MockableType {
   }
   
   var allVariables: String {
-    return variables.map({ $0.generate(in: self) }).joined(separator: "\n\n")
+    return variables.sorted(by: <).map({ $0.generate(in: self) }).joined(separator: "\n\n")
   }
   
   var allMethods: String {
-    return methods.map({ $0.generate(in: self) }).joined(separator: "\n\n")
+    return methods.sorted(by: <).map({ $0.generate(in: self) }).joined(separator: "\n\n")
   }
   
   var staticMock: String {

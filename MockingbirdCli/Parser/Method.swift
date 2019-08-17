@@ -31,7 +31,7 @@ struct MethodParameter: Hashable {
   }
 }
 
-struct Method: Hashable {
+struct Method: Hashable, Comparable {
   let name: String
   let returnTypeName: String
   let isInitializer: Bool
@@ -50,6 +50,10 @@ struct Method: Hashable {
   
   static func ==(lhs: Method, rhs: Method) -> Bool {
     return lhs.hashValue == rhs.hashValue
+  }
+  
+  static func < (lhs: Method, rhs: Method) -> Bool { // TODO: Sort overloaded methods by params.
+    return lhs.name < rhs.name
   }
   
   init?(from dictionary: StructureDictionary, rootKind: SwiftDeclarationKind, rawType: RawType) {

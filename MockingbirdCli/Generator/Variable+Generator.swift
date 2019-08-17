@@ -44,7 +44,7 @@ extension Variable {
   }
   
   func createStubs(in context: MockableType) -> String {
-    let capitalizedName = name.capitalized
+    let capitalizedName = name.capitalizedFirst
     let typeName = context.specializeTypeName(self.typeName)
     let unwrappedTypeName = context.specializeTypeName(self.typeName, unwrapOptional: true)
     let modifiers = self.modifiers(in: context)
@@ -75,7 +75,7 @@ extension Variable {
   }
   
   func createVerifications(in context: MockableType) -> String {
-    let uppercaseName = name.capitalized
+    let uppercaseName = name.capitalizedFirst
     let typeName = context.specializeTypeName(self.typeName)
     let unwrappedTypeName = context.specializeTypeName(self.typeName, unwrapOptional: true)
     let modifiers = self.modifiers(in: context)

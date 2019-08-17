@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "49C7E8432304F81F00EECCDF"
-               BuildableName = "MockingbirdFramework.framework"
+               BuildableName = "Mockingbird.framework"
                BlueprintName = "MockingbirdFramework"
                ReferencedContainer = "container:Mockingbird.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "49C7E8432304F81F00EECCDF"
-            BuildableName = "MockingbirdFramework.framework"
+            BuildableName = "Mockingbird.framework"
             BlueprintName = "MockingbirdFramework"
             ReferencedContainer = "container:Mockingbird.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "49C7E8432304F81F00EECCDF"
-            BuildableName = "MockingbirdFramework.framework"
+            BuildableName = "Mockingbird.framework"
             BlueprintName = "MockingbirdFramework"
             ReferencedContainer = "container:Mockingbird.xcodeproj">
          </BuildableReference>
