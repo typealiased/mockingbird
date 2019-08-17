@@ -9,28 +9,28 @@ import Foundation
 
 /// Logs invocations observed by generated mocks.
 public class MockingbirdMockingContext {
-  var invocations = [String: [MockingbirdInvocation]]()
+  private(set) var invocations = Synchronized<[String: [MockingbirdInvocation]]>([:])
   func didInvoke(_ invocation: MockingbirdInvocation) {
-    invocations[invocation.selectorName, default: []].append(invocation)
+    invocations.value[invocation.selectorName, default: []].append(invocation)
     
-    let observersCopy = observers[invocation.selectorName]
+    let observersCopy = observers.value[invocation.selectorName]
     observersCopy?.forEach({ observer in
       guard observer.handle(invocation, mockingContext: self) else { return }
-      observers[invocation.selectorName]?.remove(observer)
+      observers.update { $0[invocation.selectorName]?.remove(observer) }
     })
   }
 
   func invocations(for selectorName: String) -> [MockingbirdInvocation] {
-    return invocations[selectorName] ?? []
+    return invocations.value[selectorName] ?? []
   }
 
   func clearInvocations() {
-    invocations.removeAll()
+    invocations.update { $0.removeAll() }
   }
   
-  var observers = [String: Set<MockingbirdInvocationObserver>]()
+  private(set) var observers = Synchronized<[String: Set<MockingbirdInvocationObserver>]>([:])
   func addObserver(_ observer: MockingbirdInvocationObserver, for selectorName: String) {
-    observers[selectorName, default: []].insert(observer)
+    observers.update { $0[selectorName, default: []].insert(observer) }
   }
 }
 

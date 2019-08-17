@@ -11,6 +11,7 @@
 		49481A222307CA9300E32AE5 /* ChildMockMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A212307CA9300E32AE5 /* ChildMockMockableTests.swift */; };
 		49481A242307D23600E32AE5 /* ChildMockStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A232307D23500E32AE5 /* ChildMockStubbableTests.swift */; };
 		49481A262307D4BD00E32AE5 /* ChildMockVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A252307D4BD00E32AE5 /* ChildMockVerifiableTests.swift */; };
+		49481A2C2308A29800E32AE5 /* Synchronized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A2B2308A29800E32AE5 /* Synchronized.swift */; };
 		49B1989A2307B66000A3236E /* MockingbirdTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49B198912307B65F00A3236E /* MockingbirdTestsHost.framework */; };
 		49B198A82307B6C500A3236E /* MockingbirdFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C7E83C2304F80800EECCDF /* MockingbirdFrameworkTests.swift */; };
 		49B198BA2307BC2D00A3236E /* Parent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B198B92307BC2D00A3236E /* Parent.swift */; };
@@ -131,6 +132,7 @@
 		49481A212307CA9300E32AE5 /* ChildMockMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildMockMockableTests.swift; sourceTree = "<group>"; };
 		49481A232307D23500E32AE5 /* ChildMockStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildMockStubbableTests.swift; sourceTree = "<group>"; };
 		49481A252307D4BD00E32AE5 /* ChildMockVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildMockVerifiableTests.swift; sourceTree = "<group>"; };
+		49481A2B2308A29800E32AE5 /* Synchronized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronized.swift; sourceTree = "<group>"; };
 		49B1987C2307689E00A3236E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49B198872307B5D200A3236E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49B198912307B65F00A3236E /* MockingbirdTestsHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MockingbirdTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -336,7 +338,7 @@
 				49C7E82D2304F80800EECCDF /* Mockingbird.swift */,
 				49C7E83A2304F80800EECCDF /* Info.plist */,
 				49C7E8352304F80800EECCDF /* DSL */,
-				49C7E82B2304F80800EECCDF /* Extensions */,
+				49C7E82B2304F80800EECCDF /* Utilities */,
 				49C7E8252304F80800EECCDF /* Matching */,
 				49C7E8282304F80800EECCDF /* Mocking */,
 				49C7E8322304F80800EECCDF /* Stubbing */,
@@ -363,12 +365,13 @@
 			path = Mocking;
 			sourceTree = "<group>";
 		};
-		49C7E82B2304F80800EECCDF /* Extensions */ = {
+		49C7E82B2304F80800EECCDF /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				49C7E82C2304F80800EECCDF /* String+Extensions.swift */,
+				49481A2B2308A29800E32AE5 /* Synchronized.swift */,
 			);
-			path = Extensions;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		49C7E82E2304F80800EECCDF /* Verification */ = {
@@ -660,6 +663,7 @@
 				49C7E8652304F8CA00EECCDF /* MockingbirdStubbing.swift in Sources */,
 				49C7E8662304F8CB00EECCDF /* MockingbirdStubbingContext.swift in Sources */,
 				49C7E8672304F8CE00EECCDF /* MockingbirdInvocation.swift in Sources */,
+				49481A2C2308A29800E32AE5 /* Synchronized.swift in Sources */,
 				49C7E8682304F8D100EECCDF /* MockingbirdTestFailure.swift in Sources */,
 				49C7E8692304F8D300EECCDF /* MockingbirdVerification.swift in Sources */,
 			);

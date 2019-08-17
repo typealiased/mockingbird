@@ -13,22 +13,22 @@ public class MockingbirdStubbingContext {
     let invocation: MockingbirdInvocation
     let implementation: (MockingbirdInvocation) throws -> Any?
   }
-  var stubs = [String: [Stub]]()
+  var stubs = Synchronized<[String: [Stub]]>([:])
 
   func swizzle(_ invocation: MockingbirdInvocation,
                with implementation: @escaping (MockingbirdInvocation) throws -> Any?) {
     let stub = Stub(invocation: invocation, implementation: implementation)
-    stubs[invocation.selectorName, default: []].append(stub)
+    stubs.update { $0[invocation.selectorName, default: []].append(stub) }
   }
 
   func implementation(for invocation: MockingbirdInvocation) throws -> (MockingbirdInvocation) throws -> Any? {
-    guard let stub = stubs[invocation.selectorName]?.last(where: { $0.invocation == invocation }) else {
-      throw MockingbirdTestFailure.missingStubbedImplementation(invocation: invocation)
+    guard let stub = stubs.value[invocation.selectorName]?.last(where: { $0.invocation == invocation }) else {
+        throw MockingbirdTestFailure.missingStubbedImplementation(invocation: invocation)
     }
     return stub.implementation
   }
 
   func clearStubs() {
-    stubs.removeAll()
+    stubs.update { $0.removeAll() }
   }
 }
