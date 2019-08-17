@@ -64,8 +64,8 @@ build process in many different ways.
 
 ### Automatic Integration
 
-Mockingbird CLI can automatically add a build step to generate mocks in the background whenever the specified 
-targets are compiled.
+The Mockingbird CLI can automatically add a build step to generate mocks in the background whenever the 
+specified targets are compiled.
 
 ```bash
 mockingbird install --project <xcodeproj_path> --targets <comma_separated_targets>
@@ -73,9 +73,9 @@ mockingbird install --project <xcodeproj_path> --targets <comma_separated_target
 
 ### Manual Integration
 
-If you use a project or workspace generator such as [XcodeGen](https://github.com/yonaskolb/XcodeGen) you 
-may need to add a Run Script Phase to generate mocks. See [Mockingbird CLI - Generate](#generate) for all 
-generator options. 
+Add a Run Script Phase to each target that needs generated mocks. If you use a project or workspace generator 
+such as [XcodeGen](https://github.com/yonaskolb/XcodeGen) you should modify the config for that tool instead. 
+See [Mockingbird CLI - Generate](#generate) for available generator options. 
 
 ```bash
 mockingbird generate &
