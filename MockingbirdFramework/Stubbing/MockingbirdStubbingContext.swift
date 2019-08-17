@@ -28,5 +28,7 @@ public class MockingbirdStubbingContext {
     return stub.implementation
   }
 
-  func clearStubs() { stubs.removeAll() }
+  func clearStubs() {
+    stubs.removeAll()
+  }
 }

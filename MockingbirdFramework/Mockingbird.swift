@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import XCTest
 
 // MARK: - Stubbing
 
@@ -50,6 +51,11 @@ public func verify(file: StaticString = #file, line: UInt = #line,
 public func verify(file: StaticString = #file, line: UInt = #line,
                    _ scope: @escaping @autoclosure () -> [MockingbirdScopedMock]) -> MockingbirdVerificationScope {
   return MockingbirdVerificationScope(scope, at: MockingbirdSourceLocation(file, line))
+}
+
+public func eventually(_ description: String? = nil,
+                       _ scope: @escaping () -> Void) -> XCTestExpectation {
+  return createTestExpectation(with: scope, description: description)
 }
 
 // MARK: - Expectation resetting

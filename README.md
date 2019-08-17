@@ -126,9 +126,8 @@ And conveniently stub multiple methods with the same return type.
 
 ```swift
 given(
-  bird1.getName(),
-  bird2.getName(),
-  bird3.getName()
+  birdOne.getName(),
+  birdTwo.getName()
 ) ~> "Big Bird"
 ```
 
@@ -166,10 +165,22 @@ verify(bird.getName()).wasCalled(                   // 5 ≤ n ≤ 10
 Sometimes you need to perform custom checks on received parameters by using an argument captor.
 
 ```swift
-let nameCaptor = ArgumentCaptor<String>()
-verify(bird.setName(nameCaptor)).wasCalled()
-XCTAssertEqual(nameCaptor.value, "Big Bird")   // Last value received 
-XCTAssertEqual(nameCaptor.allValues.count, 1)  // All values received
+let locationCaptor = ArgumentCaptor<Location>()
+verify(bird.fly(to: locationCaptor)).wasCalled()
+XCTAssertEqual(locationCaptor.value.name, "Hawaii")
+```
+
+You can test asynchronous code by using an `eventually` block which returns an `XCTestExpectation`. 
+
+```swift
+let expectation = eventually {
+  verify(bird.fly()).wasCalled()
+  verify(bird.chirp(volume: 50)).wasCalled()
+}
+DispatchQueue.main.async {
+  PalmTree(containing: bird).shake()
+}
+wait(for: [expectation], timeout: 1.0)
 ```
 
 Verifying doesn’t remove recorded invocations, so it’s safe to call verify multiple times (even if not recommended).
@@ -199,9 +210,9 @@ Generate mocks for a set of targets in a project.
 * `--project <xcodeproj_path>` Path to the Xcode project file. Defaults to the `PROJECT_FILE_PATH` environment variable set during builds.
 * `--srcroot <source_root_path>` Path to the directory containing the project’s source files. Defaults to the `SRCROOT` environment variable set during builds or to the parent directory of `<xcodeproj_path>`.
 * `--targets <comma_separated_targets>` Comma-separated list of target names to mock. For better performance, batch mock generation by specifying multiple targets. Defaults to the `TARGET_NAME` environment variable set during builds.
-* `--outputs <comma_separated_output_paths>` Comma-separated list of custom file paths to store generated mocks for each target. The number of `outputs` should match the number of `targets`. Defaults to `<src_root>/Mockingbird/Mocks/<target_name>Mocks.generated.swift`.
+* `--outputs <comma_separated_output_paths>` Comma-separated list of custom file paths to store generated mocks for each target. The number of `outputs` should match the number of `targets`. Defaults to `<srcroot>/Mockingbird/Mocks/<target>Mocks.generated.swift`.
 * `--preprocessor <preprocessor_expression>` Preprocessor expression to wrap all generated mocks in. For example, specifying `DEBUG` will add `#if DEBUG ... #endif` to every mock file. Defaults to not adding a preprocessor expression.
-* `--disable-module-import` Whether `@testable import <target_name>` should be omitted from generated mocks. Add this flag if mocks are included directly within targets instead of in test targets. Consider specifying a `preprocessor` expression when using this option.
+* `--disable-module-import` Whether `@testable import <target>` should be omitted from generated mocks. Add this flag if mocks are included directly within targets instead of in test targets. Consider specifying a preprocessor expression when using this option.
 * `--only-protocols` Whether to only generate mocks for protocols.
 
 ### Install
