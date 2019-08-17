@@ -6,7 +6,7 @@ Mockingbird is a convenient mocking framework for Swift.
 
 ```swift
 let bird = BirdMock()
-given(bird.getCanFly()) ~> true    // Given the bird can fly
+given(bird.getCanFly()) ~> true     // Given the bird can fly
 PalmTree(containing: bird).shake()  // When the palm tree is shaken
 verify(bird.fly()).wasCalled()      // Then the bird flies away
 ```
@@ -158,8 +158,8 @@ verify(bird.getName()).wasCalled(exactly(10))       // n = 10
 verify(bird.getName()).wasCalled(atLeast(10))       // n ≥ 10
 verify(bird.getName()).wasCalled(atMost(10))        // n ≤ 10
 verify(bird.getName()).wasCalled(not(exactly(10)))  // n ≠ 10
-verify(bird.getName()).wasCalled(
-  atLeast(5).or(atMost(10))                          // 5 ≤ n ≤ 10
+verify(bird.getName()).wasCalled(                   // 5 ≤ n ≤ 10
+  atLeast(5).or(atMost(10))
 )
 ```
 
@@ -167,7 +167,7 @@ Sometimes you need to perform custom checks on received parameters by using an a
 
 ```swift
 let nameCaptor = ArgumentCaptor<String>()
-verify(bird.name.set(nameCaptor)).wasCalled()
+verify(bird.setName(nameCaptor)).wasCalled()
 XCTAssertEqual(nameCaptor.value, "Big Bird")   // Last value received 
 XCTAssertEqual(nameCaptor.allValues.count, 1)  // All values received
 ```
@@ -175,8 +175,8 @@ XCTAssertEqual(nameCaptor.allValues.count, 1)  // All values received
 Verifying doesn’t remove recorded invocations, so it’s safe to call verify multiple times (even if not recommended).
 
 ```swift
-verify(bird.getName()).wasCalled() // If this succeeds...
-verify(bird.getName()).wasCalled() // ...this also succeeds
+verify(bird.getName()).wasCalled()  // If this succeeds...
+verify(bird.getName()).wasCalled()  // ...this also succeeds
 ```
 
 ### Resetting Mocks
@@ -184,9 +184,9 @@ verify(bird.getName()).wasCalled() // ...this also succeeds
 Occasionally it’s necessary to remove stubs or clear recorded invocations.
 
 ```swift
-reset(bird) // Removes all stubs and recorded invocations
-clearStubs(on: bird) // Only removes stubs
-clearInvocations(on: bird) // Only removes recorded invocations
+reset(bird)                 // Removes all stubs and recorded invocations
+clearStubs(on: bird)        // Only removes stubs
+clearInvocations(on: bird)  // Only removes recorded invocations
 ```
  
 ## Mockingbird CLI
