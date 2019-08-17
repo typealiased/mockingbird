@@ -122,6 +122,11 @@ public func atMost(_ times: UInt) -> MockingbirdCallMatcher {
                                 describedBy: { "`\($1)` \($2 ? ">" : "≤") \(times)" })
 }
 
+/// Matches calls that fall within a certain inclusive range.
+public func between(_ range: Range<UInt>) -> MockingbirdCallMatcher {
+  return atLeast(range.lowerBound).and(atMost(range.upperBound))
+}
+
 // MARK: Composing multiple call matchers
 extension MockingbirdCallMatcher {
   public func or(_ callMatcher: MockingbirdCallMatcher) -> MockingbirdCallMatcher {

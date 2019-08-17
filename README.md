@@ -156,10 +156,14 @@ verify(bird.getName()).wasNeverCalled()             // n = 0
 verify(bird.getName()).wasCalled(exactly(10))       // n = 10
 verify(bird.getName()).wasCalled(atLeast(10))       // n ≥ 10
 verify(bird.getName()).wasCalled(atMost(10))        // n ≤ 10
-verify(bird.getName()).wasCalled(not(exactly(10)))  // n ≠ 10
-verify(bird.getName()).wasCalled(                   // 5 ≤ n ≤ 10
-  atLeast(5).or(atMost(10))
-)
+verify(bird.getName()).wasCalled(between(5...10))   // 5 ≤ n ≤ 10
+```
+
+Call matchers support chaining and negation using logical operators.
+
+```swift
+verify(bird.getName()).wasCalled(not(exactly(10)))           // n ≠ 10
+verify(bird.getName()).wasCalled(exactly(10).or(atMost(5)))  // n = 10 || n ≤ 5
 ```
 
 Sometimes you need to perform custom checks on received parameters by using an argument captor.
