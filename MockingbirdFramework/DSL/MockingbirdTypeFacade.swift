@@ -17,6 +17,7 @@ import Foundation
 private class TypeFacade {
   static let shared = TypeFacade()
   static let threadValueKey = "co.bird.mockingbird.typefacade.value"
+  static let threadDidSetValueKey = "co.bird.mockingbird.typefacade.didset-value"
   static let threadSemaphoreKey = "co.bird.mockingbird.typefacade.semaphore"
   static let sharedSemaphore = DispatchSemaphore(value: 1)
 }
@@ -38,6 +39,7 @@ private extension Thread {
 
 func createTypeFacade<T>(_ value: Any?) -> T {
   // We can't use the casted TypeFacade directly, so we store the desired wrapped value on the heap.
+  Thread.current.threadDictionary[TypeFacade.threadDidSetValueKey] = true
   Thread.current.threadDictionary[TypeFacade.threadValueKey] = value
   return Unmanaged.passUnretained(TypeFacade.shared)
     .toOpaque()
@@ -50,10 +52,11 @@ func resolve<T>(_ parameter: @escaping () -> T) -> Any? {
   semaphore.wait()
   defer { semaphore.signal() }
   
+  Thread.current.threadDictionary[TypeFacade.threadDidSetValueKey] = false
   Thread.current.threadDictionary[TypeFacade.threadValueKey] = nil
   let realValue = parameter()
-  if let facadeValue = Thread.current.threadDictionary[TypeFacade.threadValueKey] {
-    return facadeValue
+  guard Thread.current.threadDictionary[TypeFacade.threadDidSetValueKey] as? Bool == true else {
+    return realValue
   }
-  return realValue
+  return Thread.current.threadDictionary[TypeFacade.threadValueKey]
 }
