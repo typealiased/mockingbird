@@ -20,8 +20,17 @@ public struct MockingbirdStubbingScope<T>: MockingbirdRunnableScope {
   func run() -> Any? { return runnable() }
 }
 
+public struct MockingbirdStubRequest<T> {
+  let implementation: (MockingbirdInvocation) -> T
+  let callback: AnyObject
+}
+
 struct MockingbirdStub {
+  typealias StubbingCallback = (MockingbirdStubbingContext.Stub, MockingbirdStubbingContext) -> Void
+  
   static let dispatchQueueKey = DispatchSpecificKey<MockingbirdStub>()
+  static let dispatchQueueCallbackKey = DispatchSpecificKey<StubbingCallback>()
+  
   let implementation: (MockingbirdInvocation) -> Any?
   let returnType: Any?
 }
@@ -29,6 +38,10 @@ struct MockingbirdStub {
 extension DispatchQueue {
   class var currentStub: MockingbirdStub? {
     return DispatchQueue.getSpecific(key: MockingbirdStub.dispatchQueueKey)
+  }
+  
+  class var currentStubbingCallback: MockingbirdStub.StubbingCallback? {
+    return DispatchQueue.getSpecific(key: MockingbirdStub.dispatchQueueCallbackKey)
   }
 }
 
@@ -59,8 +72,24 @@ public func ~> <T>(stubbingScope: MockingbirdStubbingScope<T>,
 ///   - implementation: The implementation stub.
 public func ~> <T>(stubbingScope: MockingbirdStubbingScope<T>,
                    implementation: @escaping (MockingbirdInvocation) -> T) {
+  addStub(scope: stubbingScope, implementation: implementation)
+}
+
+/// Internal method for stubbing invocations with side effects.
+public func ~> <T>(stubbingScope: MockingbirdStubbingScope<T>,
+                   request: MockingbirdStubRequest<T>) {
+  guard let callback = request.callback as? MockingbirdStub.StubbingCallback else { return }
+  addStub(scope: stubbingScope, implementation: request.implementation, callback: callback)
+}
+
+internal func addStub<T>(scope: MockingbirdStubbingScope<T>,
+                         implementation: @escaping (MockingbirdInvocation) -> T,
+                         callback: MockingbirdStub.StubbingCallback? = nil) {
   let queue = DispatchQueue(label: "co.bird.mockingbird.stubbing-scope")
   let stub = MockingbirdStub(implementation: implementation, returnType: T.self)
   queue.setSpecific(key: MockingbirdStub.dispatchQueueKey, value: stub)
-  _ = queue.sync { stubbingScope.run() }
+  if let callback = callback {
+    queue.setSpecific(key: MockingbirdStub.dispatchQueueCallbackKey, value: callback)
+  }
+  _ = queue.sync { scope.run() }
 }

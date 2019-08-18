@@ -19,6 +19,9 @@ public class MockingbirdStubbingContext {
                with implementation: @escaping (MockingbirdInvocation) throws -> Any?) {
     let stub = Stub(invocation: invocation, implementation: implementation)
     stubs.update { $0[invocation.selectorName, default: []].append(stub) }
+    
+    guard let callback = DispatchQueue.currentStubbingCallback else { return }
+    callback(stub, self)
   }
 
   func implementation(for invocation: MockingbirdInvocation) throws -> (MockingbirdInvocation) throws -> Any? {

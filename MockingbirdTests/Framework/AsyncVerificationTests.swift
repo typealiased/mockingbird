@@ -1,5 +1,5 @@
 //
-//  MockingbirdFramework.swift
+//  AsyncVerificationTests.swift
 //  MockingbirdTests
 //
 //  Created by Andrew Chang on 8/13/19.
@@ -10,7 +10,7 @@ import XCTest
 import Mockingbird
 @testable import MockingbirdTestsHost
 
-class MockingbirdFrameworkTests: XCTestCase {
+class AsyncVerificationTests: XCTestCase {
   
   var child: ChildMock!
   

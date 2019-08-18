@@ -30,4 +30,26 @@ public struct MockingbirdInvocation: Equatable, CustomStringConvertible {
     }
     return true
   }
+  
+  enum Constants {
+    static let getterSuffix = ".get"
+    static let setterSuffix = ".set"
+  }
+  
+  public var isGetter: Bool {
+    return selectorName.hasSuffix(Constants.getterSuffix)
+  }
+  
+  public var isSetter: Bool {
+    return selectorName.hasPrefix(Constants.setterSuffix)
+  }
+}
+
+extension MockingbirdInvocation {
+  func toSetter() -> MockingbirdInvocation? {
+    guard isGetter else { return nil }
+    let setterSelectorName = String(selectorName.dropLast(4) + Constants.setterSuffix)
+    let matcher = MockingbirdMatcher(nil, description: "any()", true)
+    return MockingbirdInvocation(selectorName: setterSelectorName, arguments: [matcher])
+  }
 }

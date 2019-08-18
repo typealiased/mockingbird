@@ -16,8 +16,12 @@
 		49481A302308D62300E32AE5 /* ParseFilesOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A2F2308D62300E32AE5 /* ParseFilesOperation.swift */; };
 		49481A322308D63300E32AE5 /* ProcessTypesOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A312308D63300E32AE5 /* ProcessTypesOperation.swift */; };
 		49481A342308D65A00E32AE5 /* GenerateFileOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A332308D65A00E32AE5 /* GenerateFileOperation.swift */; };
+		49481A362309096100E32AE5 /* LastSetValueStubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A352309096100E32AE5 /* LastSetValueStubTests.swift */; };
+		49481A3A23090CB400E32AE5 /* GrandparentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A3923090CB400E32AE5 /* GrandparentProtocol.swift */; };
+		49481A3C23090D8B00E32AE5 /* ParentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A3B23090D8B00E32AE5 /* ParentProtocol.swift */; };
+		49481A3E23090DA800E32AE5 /* ChildProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A3D23090DA700E32AE5 /* ChildProtocol.swift */; };
 		49B1989A2307B66000A3236E /* MockingbirdTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49B198912307B65F00A3236E /* MockingbirdTestsHost.framework */; };
-		49B198A82307B6C500A3236E /* MockingbirdFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C7E83C2304F80800EECCDF /* MockingbirdFrameworkTests.swift */; };
+		49B198A82307B6C500A3236E /* AsyncVerificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C7E83C2304F80800EECCDF /* AsyncVerificationTests.swift */; };
 		49B198BA2307BC2D00A3236E /* Parent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B198B92307BC2D00A3236E /* Parent.swift */; };
 		49B198BC2307BC3400A3236E /* Grandparent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B198BB2307BC3400A3236E /* Grandparent.swift */; };
 		49B198BE2307BC3B00A3236E /* Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B198BD2307BC3B00A3236E /* Child.swift */; };
@@ -141,6 +145,10 @@
 		49481A2F2308D62300E32AE5 /* ParseFilesOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseFilesOperation.swift; sourceTree = "<group>"; };
 		49481A312308D63300E32AE5 /* ProcessTypesOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessTypesOperation.swift; sourceTree = "<group>"; };
 		49481A332308D65A00E32AE5 /* GenerateFileOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateFileOperation.swift; sourceTree = "<group>"; };
+		49481A352309096100E32AE5 /* LastSetValueStubTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastSetValueStubTests.swift; sourceTree = "<group>"; };
+		49481A3923090CB400E32AE5 /* GrandparentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrandparentProtocol.swift; sourceTree = "<group>"; };
+		49481A3B23090D8B00E32AE5 /* ParentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentProtocol.swift; sourceTree = "<group>"; };
+		49481A3D23090DA700E32AE5 /* ChildProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildProtocol.swift; sourceTree = "<group>"; };
 		49B1987C2307689E00A3236E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49B198872307B5D200A3236E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49B198912307B65F00A3236E /* MockingbirdTestsHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MockingbirdTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,7 +206,7 @@
 		49C7E8382304F80800EECCDF /* MockingbirdTypeFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockingbirdTypeFacade.swift; sourceTree = "<group>"; };
 		49C7E8392304F80800EECCDF /* MockingbirdVerify+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MockingbirdVerify+Convenience.swift"; sourceTree = "<group>"; };
 		49C7E83A2304F80800EECCDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		49C7E83C2304F80800EECCDF /* MockingbirdFrameworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockingbirdFrameworkTests.swift; sourceTree = "<group>"; };
+		49C7E83C2304F80800EECCDF /* AsyncVerificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncVerificationTests.swift; sourceTree = "<group>"; };
 		49C7E83D2304F80800EECCDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49C7E8442304F81F00EECCDF /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C7E86B23050E0F00EECCDF /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
@@ -252,7 +260,8 @@
 		49481A282307D5C600E32AE5 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
-				49C7E83C2304F80800EECCDF /* MockingbirdFrameworkTests.swift */,
+				49C7E83C2304F80800EECCDF /* AsyncVerificationTests.swift */,
+				49481A352309096100E32AE5 /* LastSetValueStubTests.swift */,
 			);
 			path = Framework;
 			sourceTree = "<group>";
@@ -261,6 +270,9 @@
 			isa = PBXGroup;
 			children = (
 				49B198872307B5D200A3236E /* Info.plist */,
+				49481A3923090CB400E32AE5 /* GrandparentProtocol.swift */,
+				49481A3B23090D8B00E32AE5 /* ParentProtocol.swift */,
+				49481A3D23090DA700E32AE5 /* ChildProtocol.swift */,
 				49B198BB2307BC3400A3236E /* Grandparent.swift */,
 				49B198B92307BC2D00A3236E /* Parent.swift */,
 				49B198BD2307BC3B00A3236E /* Child.swift */,
@@ -640,8 +652,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49481A3A23090CB400E32AE5 /* GrandparentProtocol.swift in Sources */,
 				49B198BE2307BC3B00A3236E /* Child.swift in Sources */,
+				49481A3E23090DA800E32AE5 /* ChildProtocol.swift in Sources */,
 				49B198BC2307BC3400A3236E /* Grandparent.swift in Sources */,
+				49481A3C23090D8B00E32AE5 /* ParentProtocol.swift in Sources */,
 				49B198BA2307BC2D00A3236E /* Parent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -652,7 +667,8 @@
 			files = (
 				49B198C22307C0CA00A3236E /* Mocks.generated.swift in Sources */,
 				49481A242307D23600E32AE5 /* ChildMockStubbableTests.swift in Sources */,
-				49B198A82307B6C500A3236E /* MockingbirdFrameworkTests.swift in Sources */,
+				49B198A82307B6C500A3236E /* AsyncVerificationTests.swift in Sources */,
+				49481A362309096100E32AE5 /* LastSetValueStubTests.swift in Sources */,
 				49481A222307CA9300E32AE5 /* ChildMockMockableTests.swift in Sources */,
 				49481A262307D4BD00E32AE5 /* ChildMockVerifiableTests.swift in Sources */,
 			);

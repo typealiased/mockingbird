@@ -837,6 +837,413 @@ public final class ChildMock: MockingbirdTestsHost.Child, MockingbirdMock {
   }
 }
 
+// MARK: - Mocked ChildProtocol
+
+public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, MockingbirdMock {
+  static let staticMock = ChildProtocolStaticMock()
+  public let mockingContext = MockingbirdMockingContext()
+  public let stubbingContext = MockingbirdStubbingContext()
+
+  // MARK: Mockable `childInstanceVariable`
+
+  public var childInstanceVariable: Bool {
+    get {
+      let invocation = MockingbirdInvocation(selectorName: "childInstanceVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (try? (try! stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+    }
+    set {
+      let invocation = MockingbirdInvocation(selectorName: "childInstanceVariable.set",
+                                             arguments: [MockingbirdMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      _ = try? (try? stubbingContext.implementation(for: invocation))?(invocation)
+    }
+  }
+
+  // MARK: Stubbable `childInstanceVariable`
+
+  public func getChildInstanceVariable() -> MockingbirdScopedStub<Bool> {
+    let invocation = MockingbirdInvocation(selectorName: "childInstanceVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  public func setChildInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedStub<Bool> {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "childInstanceVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `childInstanceVariable`
+
+  public func getChildInstanceVariable() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "childInstanceVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+    expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  public func setChildInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedMock {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "childInstanceVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `childPrivateSetterInstanceVariable`
+
+  public var childPrivateSetterInstanceVariable: Bool {
+    get {
+      let invocation = MockingbirdInvocation(selectorName: "childPrivateSetterInstanceVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (try? (try! stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+    }
+    set {
+      let invocation = MockingbirdInvocation(selectorName: "childPrivateSetterInstanceVariable.set",
+                                             arguments: [MockingbirdMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      _ = try? (try? stubbingContext.implementation(for: invocation))?(invocation)
+    }
+  }
+
+  // MARK: Stubbable `childPrivateSetterInstanceVariable`
+
+  public func getChildPrivateSetterInstanceVariable() -> MockingbirdScopedStub<Bool> {
+    let invocation = MockingbirdInvocation(selectorName: "childPrivateSetterInstanceVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  public func setChildPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedStub<Bool> {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "childPrivateSetterInstanceVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `childPrivateSetterInstanceVariable`
+
+  public func getChildPrivateSetterInstanceVariable() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "childPrivateSetterInstanceVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+    expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  public func setChildPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedMock {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "childPrivateSetterInstanceVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `childPrivateSetterStaticVariable`
+
+  public class var childPrivateSetterStaticVariable: Bool {
+    get {
+      let invocation = MockingbirdInvocation(selectorName: "childPrivateSetterStaticVariable.get", arguments: [])
+      staticMock.mockingContext.didInvoke(invocation)
+      return (try? (try! staticMock.stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+    }
+    set {
+      let invocation = MockingbirdInvocation(selectorName: "childPrivateSetterStaticVariable.set",
+                                             arguments: [MockingbirdMatcher(newValue)])
+      staticMock.mockingContext.didInvoke(invocation)
+      _ = try? (try? staticMock.stubbingContext.implementation(for: invocation))?(invocation)
+    }
+  }
+
+  // MARK: Stubbable `childPrivateSetterStaticVariable`
+
+  public class func getChildPrivateSetterStaticVariable() -> MockingbirdScopedStub<Bool> {
+    let invocation = MockingbirdInvocation(selectorName: "childPrivateSetterStaticVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  public class func setChildPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedStub<Bool> {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "childPrivateSetterStaticVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `childPrivateSetterStaticVariable`
+
+  public class func getChildPrivateSetterStaticVariable() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "childPrivateSetterStaticVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+    expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  public class func setChildPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedMock {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "childPrivateSetterStaticVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `childStaticVariable`
+
+  public class var childStaticVariable: Bool {
+    get {
+      let invocation = MockingbirdInvocation(selectorName: "childStaticVariable.get", arguments: [])
+      staticMock.mockingContext.didInvoke(invocation)
+      return (try? (try! staticMock.stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+    }
+    set {
+      let invocation = MockingbirdInvocation(selectorName: "childStaticVariable.set",
+                                             arguments: [MockingbirdMatcher(newValue)])
+      staticMock.mockingContext.didInvoke(invocation)
+      _ = try? (try? staticMock.stubbingContext.implementation(for: invocation))?(invocation)
+    }
+  }
+
+  // MARK: Stubbable `childStaticVariable`
+
+  public class func getChildStaticVariable() -> MockingbirdScopedStub<Bool> {
+    let invocation = MockingbirdInvocation(selectorName: "childStaticVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  public class func setChildStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedStub<Bool> {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "childStaticVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `childStaticVariable`
+
+  public class func getChildStaticVariable() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "childStaticVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+    expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  public class func setChildStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedMock {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "childStaticVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  public static func ==(lhs: ChildProtocolMock, rhs: ChildProtocolMock) -> Bool {
+    return true
+  }
+
+  // MARK: Mockable `childParameterizedInstanceMethod(param1:_:)`
+
+  public func childParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
+    let invocation = MockingbirdInvocation(selectorName: "childParameterizedInstanceMethod(param1:_:) -> Bool",
+                                           arguments: [MockingbirdMatcher(`param1`), MockingbirdMatcher(`param2`)])
+    mockingContext.didInvoke(invocation)
+    return (try? (try! stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+  }
+
+  // MARK: Stubbable `childParameterizedInstanceMethod(param1:_:)`
+
+  public func childParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> MockingbirdScopedStub<Bool> {
+    let matcherParam1 = resolve(`param1`)
+    let matcherParam2 = resolve(`param2`)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherParam1 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam1 as AnyObject as? Bool),
+      (matcherParam2 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam2 as AnyObject as? Int)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "childParameterizedInstanceMethod(param1:_:) -> Bool",
+                                           arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `childParameterizedInstanceMethod(param1:_:)`
+
+  public func childParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> MockingbirdScopedMock {
+    let matcherParam1 = resolve(`param1`)
+    let matcherParam2 = resolve(`param2`)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherParam1 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam1 as AnyObject as? Bool),
+      (matcherParam2 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam2 as AnyObject as? Int)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "childParameterizedInstanceMethod(param1:_:) -> Bool",
+                                           arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `childParameterizedStaticMethod(param1:_:)`
+
+  public static func childParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool {
+    let invocation = MockingbirdInvocation(selectorName: "childParameterizedStaticMethod(param1:_:) -> Bool",
+                                           arguments: [MockingbirdMatcher(`param1`), MockingbirdMatcher(`param2`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    return (try? (try! staticMock.stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+  }
+
+  // MARK: Stubbable `childParameterizedStaticMethod(param1:_:)`
+
+  public static func childParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> MockingbirdScopedStub<Bool> {
+    let matcherParam1 = resolve(`param1`)
+    let matcherParam2 = resolve(`param2`)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherParam1 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam1 as AnyObject as? Bool),
+      (matcherParam2 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam2 as AnyObject as? Int)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "childParameterizedStaticMethod(param1:_:) -> Bool",
+                                           arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `childParameterizedStaticMethod(param1:_:)`
+
+  public static func childParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> MockingbirdScopedMock {
+    let matcherParam1 = resolve(`param1`)
+    let matcherParam2 = resolve(`param2`)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherParam1 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam1 as AnyObject as? Bool),
+      (matcherParam2 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam2 as AnyObject as? Int)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "childParameterizedStaticMethod(param1:_:) -> Bool",
+                                           arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `childTrivialInstanceMethod()`
+
+  public func childTrivialInstanceMethod() -> Void {
+    let invocation = MockingbirdInvocation(selectorName: "childTrivialInstanceMethod() -> Void",
+                                           arguments: [])
+    mockingContext.didInvoke(invocation)
+    guard let implementation = try? stubbingContext.implementation(for: invocation) else { return }
+    (try? implementation(invocation)) as! Void
+  }
+
+  // MARK: Stubbable `childTrivialInstanceMethod()`
+
+  public func childTrivialInstanceMethod() -> MockingbirdScopedStub<Void> {
+    let invocation = MockingbirdInvocation(selectorName: "childTrivialInstanceMethod() -> Void",
+                                           arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Void>()
+  }
+
+  // MARK: Verifiable `childTrivialInstanceMethod()`
+
+  public func childTrivialInstanceMethod() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "childTrivialInstanceMethod() -> Void",
+                                           arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `childTrivialStaticMethod()`
+
+  public static func childTrivialStaticMethod() -> Void {
+    let invocation = MockingbirdInvocation(selectorName: "childTrivialStaticMethod() -> Void",
+                                           arguments: [])
+    staticMock.mockingContext.didInvoke(invocation)
+    guard let implementation = try? staticMock.stubbingContext.implementation(for: invocation) else { return }
+    (try? implementation(invocation)) as! Void
+  }
+
+  // MARK: Stubbable `childTrivialStaticMethod()`
+
+  public static func childTrivialStaticMethod() -> MockingbirdScopedStub<Void> {
+    let invocation = MockingbirdInvocation(selectorName: "childTrivialStaticMethod() -> Void",
+                                           arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Void>()
+  }
+
+  // MARK: Verifiable `childTrivialStaticMethod()`
+
+  public static func childTrivialStaticMethod() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "childTrivialStaticMethod() -> Void",
+                                           arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  internal final class ChildProtocolStaticMock: MockingbirdMock {
+    public let mockingContext = MockingbirdMockingContext()
+    public let stubbingContext = MockingbirdStubbingContext()
+  }
+}
+
 // MARK: - Mocked Grandparent
 
 public final class GrandparentMock: MockingbirdTestsHost.Grandparent, MockingbirdMock {
@@ -1119,6 +1526,413 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   }
 
   internal final class GrandparentStaticMock: MockingbirdMock {
+    public let mockingContext = MockingbirdMockingContext()
+    public let stubbingContext = MockingbirdStubbingContext()
+  }
+}
+
+// MARK: - Mocked GrandparentProtocol
+
+public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProtocol, MockingbirdMock {
+  static let staticMock = GrandparentProtocolStaticMock()
+  public let mockingContext = MockingbirdMockingContext()
+  public let stubbingContext = MockingbirdStubbingContext()
+
+  // MARK: Mockable `grandparentInstanceVariable`
+
+  public var grandparentInstanceVariable: Bool {
+    get {
+      let invocation = MockingbirdInvocation(selectorName: "grandparentInstanceVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (try? (try! stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+    }
+    set {
+      let invocation = MockingbirdInvocation(selectorName: "grandparentInstanceVariable.set",
+                                             arguments: [MockingbirdMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      _ = try? (try? stubbingContext.implementation(for: invocation))?(invocation)
+    }
+  }
+
+  // MARK: Stubbable `grandparentInstanceVariable`
+
+  public func getGrandparentInstanceVariable() -> MockingbirdScopedStub<Bool> {
+    let invocation = MockingbirdInvocation(selectorName: "grandparentInstanceVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  public func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedStub<Bool> {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "grandparentInstanceVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `grandparentInstanceVariable`
+
+  public func getGrandparentInstanceVariable() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "grandparentInstanceVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+    expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  public func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedMock {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "grandparentInstanceVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `grandparentPrivateSetterInstanceVariable`
+
+  public var grandparentPrivateSetterInstanceVariable: Bool {
+    get {
+      let invocation = MockingbirdInvocation(selectorName: "grandparentPrivateSetterInstanceVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (try? (try! stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+    }
+    set {
+      let invocation = MockingbirdInvocation(selectorName: "grandparentPrivateSetterInstanceVariable.set",
+                                             arguments: [MockingbirdMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      _ = try? (try? stubbingContext.implementation(for: invocation))?(invocation)
+    }
+  }
+
+  // MARK: Stubbable `grandparentPrivateSetterInstanceVariable`
+
+  public func getGrandparentPrivateSetterInstanceVariable() -> MockingbirdScopedStub<Bool> {
+    let invocation = MockingbirdInvocation(selectorName: "grandparentPrivateSetterInstanceVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedStub<Bool> {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `grandparentPrivateSetterInstanceVariable`
+
+  public func getGrandparentPrivateSetterInstanceVariable() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "grandparentPrivateSetterInstanceVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+    expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedMock {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `grandparentPrivateSetterStaticVariable`
+
+  public class var grandparentPrivateSetterStaticVariable: Bool {
+    get {
+      let invocation = MockingbirdInvocation(selectorName: "grandparentPrivateSetterStaticVariable.get", arguments: [])
+      staticMock.mockingContext.didInvoke(invocation)
+      return (try? (try! staticMock.stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+    }
+    set {
+      let invocation = MockingbirdInvocation(selectorName: "grandparentPrivateSetterStaticVariable.set",
+                                             arguments: [MockingbirdMatcher(newValue)])
+      staticMock.mockingContext.didInvoke(invocation)
+      _ = try? (try? staticMock.stubbingContext.implementation(for: invocation))?(invocation)
+    }
+  }
+
+  // MARK: Stubbable `grandparentPrivateSetterStaticVariable`
+
+  public class func getGrandparentPrivateSetterStaticVariable() -> MockingbirdScopedStub<Bool> {
+    let invocation = MockingbirdInvocation(selectorName: "grandparentPrivateSetterStaticVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedStub<Bool> {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `grandparentPrivateSetterStaticVariable`
+
+  public class func getGrandparentPrivateSetterStaticVariable() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "grandparentPrivateSetterStaticVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+    expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedMock {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `grandparentStaticVariable`
+
+  public class var grandparentStaticVariable: Bool {
+    get {
+      let invocation = MockingbirdInvocation(selectorName: "grandparentStaticVariable.get", arguments: [])
+      staticMock.mockingContext.didInvoke(invocation)
+      return (try? (try! staticMock.stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+    }
+    set {
+      let invocation = MockingbirdInvocation(selectorName: "grandparentStaticVariable.set",
+                                             arguments: [MockingbirdMatcher(newValue)])
+      staticMock.mockingContext.didInvoke(invocation)
+      _ = try? (try? staticMock.stubbingContext.implementation(for: invocation))?(invocation)
+    }
+  }
+
+  // MARK: Stubbable `grandparentStaticVariable`
+
+  public class func getGrandparentStaticVariable() -> MockingbirdScopedStub<Bool> {
+    let invocation = MockingbirdInvocation(selectorName: "grandparentStaticVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  public class func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedStub<Bool> {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "grandparentStaticVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `grandparentStaticVariable`
+
+  public class func getGrandparentStaticVariable() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "grandparentStaticVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+    expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  public class func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedMock {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "grandparentStaticVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  public static func ==(lhs: GrandparentProtocolMock, rhs: GrandparentProtocolMock) -> Bool {
+    return true
+  }
+
+  // MARK: Mockable `grandparentParameterizedInstanceMethod(param1:_:)`
+
+  public func grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
+    let invocation = MockingbirdInvocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool",
+                                           arguments: [MockingbirdMatcher(`param1`), MockingbirdMatcher(`param2`)])
+    mockingContext.didInvoke(invocation)
+    return (try? (try! stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+  }
+
+  // MARK: Stubbable `grandparentParameterizedInstanceMethod(param1:_:)`
+
+  public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> MockingbirdScopedStub<Bool> {
+    let matcherParam1 = resolve(`param1`)
+    let matcherParam2 = resolve(`param2`)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherParam1 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam1 as AnyObject as? Bool),
+      (matcherParam2 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam2 as AnyObject as? Int)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool",
+                                           arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `grandparentParameterizedInstanceMethod(param1:_:)`
+
+  public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> MockingbirdScopedMock {
+    let matcherParam1 = resolve(`param1`)
+    let matcherParam2 = resolve(`param2`)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherParam1 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam1 as AnyObject as? Bool),
+      (matcherParam2 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam2 as AnyObject as? Int)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool",
+                                           arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `grandparentParameterizedStaticMethod(param1:_:)`
+
+  public static func grandparentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool {
+    let invocation = MockingbirdInvocation(selectorName: "grandparentParameterizedStaticMethod(param1:_:) -> Bool",
+                                           arguments: [MockingbirdMatcher(`param1`), MockingbirdMatcher(`param2`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    return (try? (try! staticMock.stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+  }
+
+  // MARK: Stubbable `grandparentParameterizedStaticMethod(param1:_:)`
+
+  public static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> MockingbirdScopedStub<Bool> {
+    let matcherParam1 = resolve(`param1`)
+    let matcherParam2 = resolve(`param2`)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherParam1 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam1 as AnyObject as? Bool),
+      (matcherParam2 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam2 as AnyObject as? Int)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "grandparentParameterizedStaticMethod(param1:_:) -> Bool",
+                                           arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `grandparentParameterizedStaticMethod(param1:_:)`
+
+  public static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> MockingbirdScopedMock {
+    let matcherParam1 = resolve(`param1`)
+    let matcherParam2 = resolve(`param2`)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherParam1 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam1 as AnyObject as? Bool),
+      (matcherParam2 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam2 as AnyObject as? Int)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "grandparentParameterizedStaticMethod(param1:_:) -> Bool",
+                                           arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `grandparentTrivialInstanceMethod()`
+
+  public func grandparentTrivialInstanceMethod() -> Void {
+    let invocation = MockingbirdInvocation(selectorName: "grandparentTrivialInstanceMethod() -> Void",
+                                           arguments: [])
+    mockingContext.didInvoke(invocation)
+    guard let implementation = try? stubbingContext.implementation(for: invocation) else { return }
+    (try? implementation(invocation)) as! Void
+  }
+
+  // MARK: Stubbable `grandparentTrivialInstanceMethod()`
+
+  public func grandparentTrivialInstanceMethod() -> MockingbirdScopedStub<Void> {
+    let invocation = MockingbirdInvocation(selectorName: "grandparentTrivialInstanceMethod() -> Void",
+                                           arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Void>()
+  }
+
+  // MARK: Verifiable `grandparentTrivialInstanceMethod()`
+
+  public func grandparentTrivialInstanceMethod() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "grandparentTrivialInstanceMethod() -> Void",
+                                           arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `grandparentTrivialStaticMethod()`
+
+  public static func grandparentTrivialStaticMethod() -> Void {
+    let invocation = MockingbirdInvocation(selectorName: "grandparentTrivialStaticMethod() -> Void",
+                                           arguments: [])
+    staticMock.mockingContext.didInvoke(invocation)
+    guard let implementation = try? staticMock.stubbingContext.implementation(for: invocation) else { return }
+    (try? implementation(invocation)) as! Void
+  }
+
+  // MARK: Stubbable `grandparentTrivialStaticMethod()`
+
+  public static func grandparentTrivialStaticMethod() -> MockingbirdScopedStub<Void> {
+    let invocation = MockingbirdInvocation(selectorName: "grandparentTrivialStaticMethod() -> Void",
+                                           arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Void>()
+  }
+
+  // MARK: Verifiable `grandparentTrivialStaticMethod()`
+
+  public static func grandparentTrivialStaticMethod() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "grandparentTrivialStaticMethod() -> Void",
+                                           arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  internal final class GrandparentProtocolStaticMock: MockingbirdMock {
     public let mockingContext = MockingbirdMockingContext()
     public let stubbingContext = MockingbirdStubbingContext()
   }
@@ -1676,6 +2490,413 @@ public final class ParentMock: MockingbirdTestsHost.Parent, MockingbirdMock {
   }
 
   internal final class ParentStaticMock: MockingbirdMock {
+    public let mockingContext = MockingbirdMockingContext()
+    public let stubbingContext = MockingbirdStubbingContext()
+  }
+}
+
+// MARK: - Mocked ParentProtocol
+
+public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, MockingbirdMock {
+  static let staticMock = ParentProtocolStaticMock()
+  public let mockingContext = MockingbirdMockingContext()
+  public let stubbingContext = MockingbirdStubbingContext()
+
+  // MARK: Mockable `parentInstanceVariable`
+
+  public var parentInstanceVariable: Bool {
+    get {
+      let invocation = MockingbirdInvocation(selectorName: "parentInstanceVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (try? (try! stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+    }
+    set {
+      let invocation = MockingbirdInvocation(selectorName: "parentInstanceVariable.set",
+                                             arguments: [MockingbirdMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      _ = try? (try? stubbingContext.implementation(for: invocation))?(invocation)
+    }
+  }
+
+  // MARK: Stubbable `parentInstanceVariable`
+
+  public func getParentInstanceVariable() -> MockingbirdScopedStub<Bool> {
+    let invocation = MockingbirdInvocation(selectorName: "parentInstanceVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  public func setParentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedStub<Bool> {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "parentInstanceVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `parentInstanceVariable`
+
+  public func getParentInstanceVariable() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "parentInstanceVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+    expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  public func setParentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedMock {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "parentInstanceVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `parentPrivateSetterInstanceVariable`
+
+  public var parentPrivateSetterInstanceVariable: Bool {
+    get {
+      let invocation = MockingbirdInvocation(selectorName: "parentPrivateSetterInstanceVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (try? (try! stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+    }
+    set {
+      let invocation = MockingbirdInvocation(selectorName: "parentPrivateSetterInstanceVariable.set",
+                                             arguments: [MockingbirdMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      _ = try? (try? stubbingContext.implementation(for: invocation))?(invocation)
+    }
+  }
+
+  // MARK: Stubbable `parentPrivateSetterInstanceVariable`
+
+  public func getParentPrivateSetterInstanceVariable() -> MockingbirdScopedStub<Bool> {
+    let invocation = MockingbirdInvocation(selectorName: "parentPrivateSetterInstanceVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  public func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedStub<Bool> {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "parentPrivateSetterInstanceVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `parentPrivateSetterInstanceVariable`
+
+  public func getParentPrivateSetterInstanceVariable() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "parentPrivateSetterInstanceVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+    expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  public func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedMock {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "parentPrivateSetterInstanceVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `parentPrivateSetterStaticVariable`
+
+  public class var parentPrivateSetterStaticVariable: Bool {
+    get {
+      let invocation = MockingbirdInvocation(selectorName: "parentPrivateSetterStaticVariable.get", arguments: [])
+      staticMock.mockingContext.didInvoke(invocation)
+      return (try? (try! staticMock.stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+    }
+    set {
+      let invocation = MockingbirdInvocation(selectorName: "parentPrivateSetterStaticVariable.set",
+                                             arguments: [MockingbirdMatcher(newValue)])
+      staticMock.mockingContext.didInvoke(invocation)
+      _ = try? (try? staticMock.stubbingContext.implementation(for: invocation))?(invocation)
+    }
+  }
+
+  // MARK: Stubbable `parentPrivateSetterStaticVariable`
+
+  public class func getParentPrivateSetterStaticVariable() -> MockingbirdScopedStub<Bool> {
+    let invocation = MockingbirdInvocation(selectorName: "parentPrivateSetterStaticVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  public class func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedStub<Bool> {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "parentPrivateSetterStaticVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `parentPrivateSetterStaticVariable`
+
+  public class func getParentPrivateSetterStaticVariable() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "parentPrivateSetterStaticVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+    expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  public class func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedMock {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "parentPrivateSetterStaticVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `parentStaticVariable`
+
+  public class var parentStaticVariable: Bool {
+    get {
+      let invocation = MockingbirdInvocation(selectorName: "parentStaticVariable.get", arguments: [])
+      staticMock.mockingContext.didInvoke(invocation)
+      return (try? (try! staticMock.stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+    }
+    set {
+      let invocation = MockingbirdInvocation(selectorName: "parentStaticVariable.set",
+                                             arguments: [MockingbirdMatcher(newValue)])
+      staticMock.mockingContext.didInvoke(invocation)
+      _ = try? (try? staticMock.stubbingContext.implementation(for: invocation))?(invocation)
+    }
+  }
+
+  // MARK: Stubbable `parentStaticVariable`
+
+  public class func getParentStaticVariable() -> MockingbirdScopedStub<Bool> {
+    let invocation = MockingbirdInvocation(selectorName: "parentStaticVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  public class func setParentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedStub<Bool> {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "parentStaticVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `parentStaticVariable`
+
+  public class func getParentStaticVariable() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "parentStaticVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+    expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  public class func setParentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> MockingbirdScopedMock {
+    let matcherNewValue = resolve(newValue)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? Bool)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "parentStaticVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  public static func ==(lhs: ParentProtocolMock, rhs: ParentProtocolMock) -> Bool {
+    return true
+  }
+
+  // MARK: Mockable `parentParameterizedInstanceMethod(param1:_:)`
+
+  public func parentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
+    let invocation = MockingbirdInvocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool",
+                                           arguments: [MockingbirdMatcher(`param1`), MockingbirdMatcher(`param2`)])
+    mockingContext.didInvoke(invocation)
+    return (try? (try! stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+  }
+
+  // MARK: Stubbable `parentParameterizedInstanceMethod(param1:_:)`
+
+  public func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> MockingbirdScopedStub<Bool> {
+    let matcherParam1 = resolve(`param1`)
+    let matcherParam2 = resolve(`param2`)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherParam1 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam1 as AnyObject as? Bool),
+      (matcherParam2 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam2 as AnyObject as? Int)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool",
+                                           arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `parentParameterizedInstanceMethod(param1:_:)`
+
+  public func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> MockingbirdScopedMock {
+    let matcherParam1 = resolve(`param1`)
+    let matcherParam2 = resolve(`param2`)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherParam1 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam1 as AnyObject as? Bool),
+      (matcherParam2 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam2 as AnyObject as? Int)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool",
+                                           arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `parentParameterizedStaticMethod(param1:_:)`
+
+  public static func parentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool {
+    let invocation = MockingbirdInvocation(selectorName: "parentParameterizedStaticMethod(param1:_:) -> Bool",
+                                           arguments: [MockingbirdMatcher(`param1`), MockingbirdMatcher(`param2`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    return (try? (try! staticMock.stubbingContext.implementation(for: invocation))(invocation)) as! Bool
+  }
+
+  // MARK: Stubbable `parentParameterizedStaticMethod(param1:_:)`
+
+  public static func parentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> MockingbirdScopedStub<Bool> {
+    let matcherParam1 = resolve(`param1`)
+    let matcherParam2 = resolve(`param2`)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherParam1 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam1 as AnyObject as? Bool),
+      (matcherParam2 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam2 as AnyObject as? Int)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "parentParameterizedStaticMethod(param1:_:) -> Bool",
+                                           arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Bool>()
+  }
+
+  // MARK: Verifiable `parentParameterizedStaticMethod(param1:_:)`
+
+  public static func parentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> MockingbirdScopedMock {
+    let matcherParam1 = resolve(`param1`)
+    let matcherParam2 = resolve(`param2`)
+    let arguments: [MockingbirdMatcher] = [
+      (matcherParam1 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam1 as AnyObject as? Bool),
+      (matcherParam2 as? MockingbirdMatcher) ?? MockingbirdMatcher(matcherParam2 as AnyObject as? Int)
+    ]
+    let invocation = MockingbirdInvocation(selectorName: "parentParameterizedStaticMethod(param1:_:) -> Bool",
+                                           arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `parentTrivialInstanceMethod()`
+
+  public func parentTrivialInstanceMethod() -> Void {
+    let invocation = MockingbirdInvocation(selectorName: "parentTrivialInstanceMethod() -> Void",
+                                           arguments: [])
+    mockingContext.didInvoke(invocation)
+    guard let implementation = try? stubbingContext.implementation(for: invocation) else { return }
+    (try? implementation(invocation)) as! Void
+  }
+
+  // MARK: Stubbable `parentTrivialInstanceMethod()`
+
+  public func parentTrivialInstanceMethod() -> MockingbirdScopedStub<Void> {
+    let invocation = MockingbirdInvocation(selectorName: "parentTrivialInstanceMethod() -> Void",
+                                           arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Void>()
+  }
+
+  // MARK: Verifiable `parentTrivialInstanceMethod()`
+
+  public func parentTrivialInstanceMethod() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "parentTrivialInstanceMethod() -> Void",
+                                           arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  // MARK: Mockable `parentTrivialStaticMethod()`
+
+  public static func parentTrivialStaticMethod() -> Void {
+    let invocation = MockingbirdInvocation(selectorName: "parentTrivialStaticMethod() -> Void",
+                                           arguments: [])
+    staticMock.mockingContext.didInvoke(invocation)
+    guard let implementation = try? staticMock.stubbingContext.implementation(for: invocation) else { return }
+    (try? implementation(invocation)) as! Void
+  }
+
+  // MARK: Stubbable `parentTrivialStaticMethod()`
+
+  public static func parentTrivialStaticMethod() -> MockingbirdScopedStub<Void> {
+    let invocation = MockingbirdInvocation(selectorName: "parentTrivialStaticMethod() -> Void",
+                                           arguments: [])
+    if let stub = DispatchQueue.currentStub {
+      staticMock.stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return MockingbirdScopedStub<Void>()
+  }
+
+  // MARK: Verifiable `parentTrivialStaticMethod()`
+
+  public static func parentTrivialStaticMethod() -> MockingbirdScopedMock {
+    let invocation = MockingbirdInvocation(selectorName: "parentTrivialStaticMethod() -> Void",
+                                           arguments: [])
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(staticMock.mockingContext, handled: invocation, using: expectation)
+    }
+    return MockingbirdScopedMock()
+  }
+
+  internal final class ParentProtocolStaticMock: MockingbirdMock {
     public let mockingContext = MockingbirdMockingContext()
     public let stubbingContext = MockingbirdStubbingContext()
   }

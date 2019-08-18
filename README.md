@@ -122,7 +122,15 @@ given(bird.setName(any())) ~> { invocation in
 }
 ```
 
-And conveniently stub multiple methods with the same return type.
+And automatically stub getters to store and return values.  
+
+```swift
+given(bird.getLocation()) ~> lastSetValue(initial: nil)
+bird.location = Location(name: "Hawaii")
+XCTAssertEqual(bird.location?.name, "Hawaii")
+```
+
+It’s possible to stub multiple methods with the same return type in a single call.
 
 ```swift
 given(

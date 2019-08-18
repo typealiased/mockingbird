@@ -11,7 +11,7 @@ import Mockingbird
 
 // MARK: - Verifiable declarations
 
-protocol VerifiableChild {
+private protocol VerifiableChild {
   // MARK: Child
   func getChildComputedInstanceVariable() -> MockingbirdScopedMock
   func setChildComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)

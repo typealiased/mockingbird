@@ -85,7 +85,7 @@ extension Variable {
       public \(modifiers)func get\(uppercaseName)() -> MockingbirdScopedMock {
         let invocation = MockingbirdInvocation(selectorName: "\(getterName)", arguments: [])
         if let expectation = DispatchQueue.currentExpectation {
-        expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation)
+          expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation)
         }
         return MockingbirdScopedMock()
       }

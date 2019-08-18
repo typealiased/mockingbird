@@ -11,7 +11,7 @@ import Mockingbird
 
 // MARK: - Stubbable declarations
 
-protocol StubbableChild {
+private protocol StubbableChild {
   // MARK: Child
   func getChildComputedInstanceVariable() -> MockingbirdScopedStub<Bool>
   func setChildComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)

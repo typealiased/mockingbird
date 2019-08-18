@@ -25,8 +25,23 @@ public func given<T>(_ scope: @escaping @autoclosure () -> MockingbirdScopedStub
 ///
 /// - Parameter scope: A set of mocks and invocations to stub.
 /// - Returns: An internal stubbing scope.
-public func given<T>(_ scope: @escaping @autoclosure () -> [MockingbirdScopedStub<T>]) -> MockingbirdStubbingScope<T> {
+public func given<T>(_ scope: @escaping @autoclosure () -> [MockingbirdScopedStub<T>])
+  -> MockingbirdStubbingScope<T> {
     return MockingbirdStubbingScope<T>(scope)
+}
+
+public func lastSetValue<T>(initial: T) -> MockingbirdStubRequest<T> {
+    var currentValue = initial
+    let implementation: (MockingbirdInvocation) -> T = { _ in return currentValue }
+    let callback: MockingbirdStub.StubbingCallback = { (stub, context) in
+      guard let setterInvocation = stub.invocation.toSetter() else { return }
+      context.swizzle(setterInvocation) { invocation -> Void in
+        guard let newValue = invocation.arguments.first?.base as? T else { return }
+        currentValue = newValue
+      }
+    }
+    return MockingbirdStubRequest(implementation: implementation,
+                                            callback: callback as AnyObject)
 }
 
 // MARK: - Verification
