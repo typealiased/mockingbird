@@ -12,7 +12,7 @@ import Foundation
 
 // MARK: - Mocked Child
 
-public final class ChildMock: Child, MockingbirdMock {
+public final class ChildMock: MockingbirdTestsHost.Child, MockingbirdMock {
   static let staticMock = ChildStaticMock()
   public let mockingContext = MockingbirdMockingContext()
   public let stubbingContext = MockingbirdStubbingContext()
@@ -839,7 +839,7 @@ public final class ChildMock: Child, MockingbirdMock {
 
 // MARK: - Mocked Grandparent
 
-public final class GrandparentMock: Grandparent, MockingbirdMock {
+public final class GrandparentMock: MockingbirdTestsHost.Grandparent, MockingbirdMock {
   static let staticMock = GrandparentStaticMock()
   public let mockingContext = MockingbirdMockingContext()
   public let stubbingContext = MockingbirdStubbingContext()
@@ -1126,7 +1126,7 @@ public final class GrandparentMock: Grandparent, MockingbirdMock {
 
 // MARK: - Mocked Parent
 
-public final class ParentMock: Parent, MockingbirdMock {
+public final class ParentMock: MockingbirdTestsHost.Parent, MockingbirdMock {
   static let staticMock = ParentStaticMock()
   public let mockingContext = MockingbirdMockingContext()
   public let stubbingContext = MockingbirdStubbingContext()

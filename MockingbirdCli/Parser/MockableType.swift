@@ -11,6 +11,7 @@ import SourceKittenFramework
 
 struct MockableType: Hashable, Comparable {
   let name: String
+  let moduleName: String
   let kind: SwiftDeclarationKind
   let methods: Set<Method>
   let variables: Set<Variable>
@@ -35,6 +36,7 @@ struct MockableType: Hashable, Comparable {
     guard !attributes.contains(.final) else { return nil }
     
     self.name = rawType.name
+    self.moduleName = rawType.parsedFile.moduleName
     self.kind = kind
     var methods = Set<Method>()
     var variables = Set<Variable>()

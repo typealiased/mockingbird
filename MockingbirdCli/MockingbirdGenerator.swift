@@ -55,8 +55,9 @@ class MockingbirdCliGenerator {
         path = outputPath
       } else {
         try config.sourceRoot.mocksDirectory.mkpath()
+        let moduleName = target.productModuleName ?? target.name
         path = config.sourceRoot.mocksDirectory
-          + "\(targetName)\(MockingbirdCliConstants.generatedFileNameSuffix)"
+          + "\(moduleName)\(MockingbirdCliConstants.generatedFileNameSuffix)"
       }
       guard !path.isDirectory else {
         throw Failure.malformedConfiguration(description: "Output file path points to a directory: \(path)")
@@ -78,8 +79,9 @@ class MockingbirdCliGenerator {
           parseFiles.addDependency(extractSources)
           let processTypes = ProcessTypesOperation(parseFilesResult: parseFiles.result )
           processTypes.addDependency(parseFiles)
+          let moduleName = pipeline.inputTarget.productModuleName ?? pipeline.inputTarget.name
           let generateFile = GenerateFileOperation(processTypesResult: processTypes.result,
-                                                   inputTargetName: pipeline.inputTarget.name,
+                                                   moduleName: moduleName,
                                                    outputPath: pipeline.outputPath,
                                                    preprocessorExpression: config.preprocessorExpression,
                                                    shouldImportModule: config.shouldImportModule,

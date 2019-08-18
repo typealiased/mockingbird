@@ -5,10 +5,9 @@
 //  Created by Andrew Chang on 8/6/19.
 //  Copyright © 2019 Bird Rides, Inc. All rights reserved.
 //
+// swiftlint:disable leading_whitespace
 
 import Foundation
-
-// swiftlint:disable leading_whitespace
 
 private enum Constants {
   static let objectProtocolPrefixes = Set(["NS", "CB", "UI"])
@@ -38,8 +37,10 @@ extension MockableType {
       .joined(separator: ", ")
   }
   
+  var fullyQualifiedName: String { return "\(moduleName).\(name)" }
+  
   var subclass: String? {
-    guard kind != .class else { return name }
+    guard kind != .class else { return fullyQualifiedName }
     let prefix = String(name.prefix(2))
     if Constants.objectProtocolPrefixes.contains(prefix) {
       return "NSObject"
@@ -50,7 +51,7 @@ extension MockableType {
   
   var inheritedProtocol: String? {
     guard kind == .protocol else { return nil }
-    return name
+    return fullyQualifiedName
   }
   
   var body: String {
