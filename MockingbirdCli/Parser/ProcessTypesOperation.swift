@@ -27,6 +27,7 @@ class ProcessTypesOperation: BasicOperation {
   class Result {
     fileprivate(set) var rawTypes = [String: RawType]()
     fileprivate(set) var mockableTypes = [String: MockableType]()
+    fileprivate(set) var imports = Set<String>()
   }
   
   let result = Result()
@@ -40,6 +41,7 @@ class ProcessTypesOperation: BasicOperation {
       processStructureDictionary($0.structure.dictionary, in: $0)
     })
     result.rawTypes.forEach({ flattenInheritence(for: $0.value) })
+    result.imports = parseFilesResult.importedModuleNames
   }
   
   private func processStructureDictionary(_ dictionary: StructureDictionary,

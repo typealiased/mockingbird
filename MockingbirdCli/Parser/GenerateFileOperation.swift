@@ -36,6 +36,7 @@ class GenerateFileOperation: BasicOperation {
   override func run() {
     let generator = FileGenerator(processTypesResult.mockableTypes,
                                   moduleName: moduleName,
+                                  imports: processTypesResult.imports,
                                   outputPath: outputPath,
                                   preprocessorExpression: preprocessorExpression,
                                   shouldImportModule: shouldImportModule,

@@ -14,6 +14,7 @@ import PathKit
 class FileGenerator {
   let mockableTypes: [String: MockableType]
   let moduleName: String
+  let imports: Set<String>
   let outputPath: Path
   let shouldImportModule: Bool
   let preprocessorExpression: String?
@@ -21,6 +22,7 @@ class FileGenerator {
   
   init(_ mockableTypes: [String: MockableType],
        moduleName: String,
+       imports: Set<String>,
        outputPath: Path,
        preprocessorExpression: String?,
        shouldImportModule: Bool,
@@ -29,6 +31,7 @@ class FileGenerator {
       mockableTypes.filter({ $0.value.kind == .protocol }) :
       mockableTypes
     self.moduleName = moduleName
+    self.imports = imports
     self.outputPath = outputPath
     self.preprocessorExpression = preprocessorExpression
     self.shouldImportModule = shouldImportModule
@@ -55,11 +58,11 @@ class FileGenerator {
       preprocessorDirective = ""
     }
     
-    var moduleImports = [
-      "@testable import Mockingbird",
-      "import Foundation"
-    ]
-    if shouldImportModule { moduleImports.insert("@testable import \(moduleName)", at: 0) }
+    let moduleImports = (
+      ["@testable import Mockingbird"]
+      + imports.union(["import Foundation"])
+      + (shouldImportModule ? ["@testable import \(moduleName)"] : [])
+    ).sorted()
     
     return """
     //

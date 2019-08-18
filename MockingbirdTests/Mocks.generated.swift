@@ -6,9 +6,18 @@
 //  DO NOT EDIT
 //
 
-@testable import MockingbirdTestsHost
 @testable import Mockingbird
+@testable import MockingbirdTestsHost
+import CoreAudio
+import CoreData
+import CoreFoundation
+import CoreImage
+import CoreML
+import CoreText
 import Foundation
+import ObjectiveC
+import class CoreFoundation.CFArray
+import enum CoreText.CTFontUIFontType
 
 // MARK: - Mocked Child
 
