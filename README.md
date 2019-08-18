@@ -93,14 +93,14 @@ Compile Sources.
 
 ![Build Phases → Compile Sources](Documentation/Assets/test-target-compile-sources.png)
 
-### Mock Initialization
+### Mocking
 
 Mockingbird adds the `Mock` suffix to mocks that it generates, providing the same methods, variables, and 
 initializers as the original type. 
 
 ```swift
 let bird = BirdMock()
-```
+``` 
 
 ### Stubbing
 
@@ -122,7 +122,7 @@ given(bird.setName(any())) ~> { invocation in
 }
 ```
 
-And automatically stub getters to store and return values.  
+And automatically create stubbed getters that store and return values.  
 
 ```swift
 given(bird.getLocation()) ~> lastSetValue(initial: nil)
