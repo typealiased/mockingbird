@@ -15,7 +15,7 @@ private protocol StubbableChild {
   // MARK: Child
   func getChildComputedInstanceVariable() -> MockingbirdScopedStub<Bool>
   func setChildComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Bool>
+    -> MockingbirdScopedStub<Void>
   
   func childTrivialInstanceMethod() -> MockingbirdScopedStub<Void>
   func childParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
@@ -24,7 +24,7 @@ private protocol StubbableChild {
   
   static func getChildClassVariable() -> MockingbirdScopedStub<Bool>
   static func setChildClassVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Bool>
+    -> MockingbirdScopedStub<Void>
   static func childTrivialClassMethod() -> MockingbirdScopedStub<Void>
   static func childParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool,
                                             _ param2: @escaping @autoclosure () -> Int)
@@ -33,7 +33,7 @@ private protocol StubbableChild {
   // MARK: Parent
   func getParentComputedInstanceVariable() -> MockingbirdScopedStub<Bool>
   func setParentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Bool>
+    -> MockingbirdScopedStub<Void>
   
   func parentTrivialInstanceMethod() -> MockingbirdScopedStub<Void>
   func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
@@ -42,7 +42,7 @@ private protocol StubbableChild {
   
   static func getParentClassVariable() -> MockingbirdScopedStub<Bool>
   static func setParentClassVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Bool>
+    -> MockingbirdScopedStub<Void>
   static func parentTrivialClassMethod() -> MockingbirdScopedStub<Void>
   static func parentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool,
                                              _ param2: @escaping @autoclosure () -> Int)
@@ -51,7 +51,7 @@ private protocol StubbableChild {
   // MARK: Grandparent
   func getGrandparentComputedInstanceVariable() -> MockingbirdScopedStub<Bool>
   func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Bool>
+    -> MockingbirdScopedStub<Void>
   
   func grandparentTrivialInstanceMethod() -> MockingbirdScopedStub<Void>
   func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
@@ -60,7 +60,7 @@ private protocol StubbableChild {
   
   static func getGrandparentClassVariable() -> MockingbirdScopedStub<Bool>
   static func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Bool>
+    -> MockingbirdScopedStub<Void>
   static func grandparentTrivialClassMethod() -> MockingbirdScopedStub<Void>
   static func grandparentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool,
                                                   _ param2: @escaping @autoclosure () -> Int)

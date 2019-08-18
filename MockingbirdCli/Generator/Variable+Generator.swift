@@ -59,7 +59,7 @@ extension Variable {
         return MockingbirdScopedStub<\(typeName)>()
       }
     
-      public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> MockingbirdScopedStub<\(typeName)> {
+      public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> MockingbirdScopedStub<Void> {
         let matcherNewValue = resolve(newValue)
         let arguments: [MockingbirdMatcher] = [
           (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? \(unwrappedTypeName))
@@ -68,7 +68,7 @@ extension Variable {
         if let stub = DispatchQueue.currentStub {
           \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation)
         }
-        return MockingbirdScopedStub<\(typeName)>()
+        return MockingbirdScopedStub<Void>()
       }
     """
   }

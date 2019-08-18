@@ -187,4 +187,3 @@ private extension ChildMock {
   static func grandparentParameterizedStaticMethod(param1: Bool, _ param2: Int)
     -> Bool { return true }
 }
-

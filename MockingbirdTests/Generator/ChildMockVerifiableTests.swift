@@ -22,46 +22,46 @@ private protocol VerifiableChild {
                                         _ param2: @escaping @autoclosure () -> Int)
     -> MockingbirdScopedMock
   
-  static func getChildClassVariable() -> MockingbirdScopedStub<Bool>
+  static func getChildClassVariable() -> MockingbirdScopedMock
   static func setChildClassVariable(_ newValue: @escaping @autoclosure () -> Bool)
     -> MockingbirdScopedMock
-  static func childTrivialClassMethod() -> MockingbirdScopedStub<Void>
+  static func childTrivialClassMethod() -> MockingbirdScopedMock
   static func childParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool,
                                             _ param2: @escaping @autoclosure () -> Int)
     -> MockingbirdScopedMock
   
   // MARK: Parent
-  func getParentComputedInstanceVariable() -> MockingbirdScopedStub<Bool>
+  func getParentComputedInstanceVariable() -> MockingbirdScopedMock
   func setParentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
     -> MockingbirdScopedMock
   
-  func parentTrivialInstanceMethod() -> MockingbirdScopedStub<Void>
+  func parentTrivialInstanceMethod() -> MockingbirdScopedMock
   func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                          _ param2: @escaping @autoclosure () -> Int)
     -> MockingbirdScopedMock
   
-  static func getParentClassVariable() -> MockingbirdScopedStub<Bool>
+  static func getParentClassVariable() -> MockingbirdScopedMock
   static func setParentClassVariable(_ newValue: @escaping @autoclosure () -> Bool)
     -> MockingbirdScopedMock
-  static func parentTrivialClassMethod() -> MockingbirdScopedStub<Void>
+  static func parentTrivialClassMethod() -> MockingbirdScopedMock
   static func parentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool,
                                              _ param2: @escaping @autoclosure () -> Int)
     -> MockingbirdScopedMock
   
   // MARK: Grandparent
-  func getGrandparentComputedInstanceVariable() -> MockingbirdScopedStub<Bool>
+  func getGrandparentComputedInstanceVariable() -> MockingbirdScopedMock
   func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
     -> MockingbirdScopedMock
   
-  func grandparentTrivialInstanceMethod() -> MockingbirdScopedStub<Void>
+  func grandparentTrivialInstanceMethod() -> MockingbirdScopedMock
   func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                               _ param2: @escaping @autoclosure () -> Int)
     -> MockingbirdScopedMock
   
-  static func getGrandparentClassVariable() -> MockingbirdScopedStub<Bool>
+  static func getGrandparentClassVariable() -> MockingbirdScopedMock
   static func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool)
     -> MockingbirdScopedMock
-  static func grandparentTrivialClassMethod() -> MockingbirdScopedStub<Void>
+  static func grandparentTrivialClassMethod() -> MockingbirdScopedMock
   static func grandparentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool,
                                                   _ param2: @escaping @autoclosure () -> Int)
     -> MockingbirdScopedMock

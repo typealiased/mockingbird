@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ParentProtocol {
+protocol ParentProtocol: GrandparentProtocol {
   // MARK: Instance
   var parentPrivateSetterInstanceVariable: Bool { get }
   var parentInstanceVariable: Bool { get set }

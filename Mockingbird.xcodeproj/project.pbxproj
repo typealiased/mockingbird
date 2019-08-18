@@ -20,6 +20,9 @@
 		49481A3A23090CB400E32AE5 /* GrandparentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A3923090CB400E32AE5 /* GrandparentProtocol.swift */; };
 		49481A3C23090D8B00E32AE5 /* ParentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A3B23090D8B00E32AE5 /* ParentProtocol.swift */; };
 		49481A3E23090DA800E32AE5 /* ChildProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A3D23090DA700E32AE5 /* ChildProtocol.swift */; };
+		49481A4023093D0100E32AE5 /* ChildProtocolMockMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A3F23093D0100E32AE5 /* ChildProtocolMockMockableTests.swift */; };
+		49481A4223093E4B00E32AE5 /* ChildProtocolMockStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A4123093E4B00E32AE5 /* ChildProtocolMockStubbableTests.swift */; };
+		49481A44230941E300E32AE5 /* ChildProtocolMockVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A43230941E200E32AE5 /* ChildProtocolMockVerifiableTests.swift */; };
 		49B1989A2307B66000A3236E /* MockingbirdTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49B198912307B65F00A3236E /* MockingbirdTestsHost.framework */; };
 		49B198A82307B6C500A3236E /* AsyncVerificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C7E83C2304F80800EECCDF /* AsyncVerificationTests.swift */; };
 		49B198BA2307BC2D00A3236E /* Parent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B198B92307BC2D00A3236E /* Parent.swift */; };
@@ -149,6 +152,9 @@
 		49481A3923090CB400E32AE5 /* GrandparentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrandparentProtocol.swift; sourceTree = "<group>"; };
 		49481A3B23090D8B00E32AE5 /* ParentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentProtocol.swift; sourceTree = "<group>"; };
 		49481A3D23090DA700E32AE5 /* ChildProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildProtocol.swift; sourceTree = "<group>"; };
+		49481A3F23093D0100E32AE5 /* ChildProtocolMockMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildProtocolMockMockableTests.swift; sourceTree = "<group>"; };
+		49481A4123093E4B00E32AE5 /* ChildProtocolMockStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildProtocolMockStubbableTests.swift; sourceTree = "<group>"; };
+		49481A43230941E200E32AE5 /* ChildProtocolMockVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildProtocolMockVerifiableTests.swift; sourceTree = "<group>"; };
 		49B1987C2307689E00A3236E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49B198872307B5D200A3236E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49B198912307B65F00A3236E /* MockingbirdTestsHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MockingbirdTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -250,6 +256,9 @@
 		49481A272307D56600E32AE5 /* Generator */ = {
 			isa = PBXGroup;
 			children = (
+				49481A3F23093D0100E32AE5 /* ChildProtocolMockMockableTests.swift */,
+				49481A4123093E4B00E32AE5 /* ChildProtocolMockStubbableTests.swift */,
+				49481A43230941E200E32AE5 /* ChildProtocolMockVerifiableTests.swift */,
 				49481A212307CA9300E32AE5 /* ChildMockMockableTests.swift */,
 				49481A232307D23500E32AE5 /* ChildMockStubbableTests.swift */,
 				49481A252307D4BD00E32AE5 /* ChildMockVerifiableTests.swift */,
@@ -669,8 +678,11 @@
 				49481A242307D23600E32AE5 /* ChildMockStubbableTests.swift in Sources */,
 				49B198A82307B6C500A3236E /* AsyncVerificationTests.swift in Sources */,
 				49481A362309096100E32AE5 /* LastSetValueStubTests.swift in Sources */,
+				49481A4023093D0100E32AE5 /* ChildProtocolMockMockableTests.swift in Sources */,
 				49481A222307CA9300E32AE5 /* ChildMockMockableTests.swift in Sources */,
 				49481A262307D4BD00E32AE5 /* ChildMockVerifiableTests.swift in Sources */,
+				49481A44230941E300E32AE5 /* ChildProtocolMockVerifiableTests.swift in Sources */,
+				49481A4223093E4B00E32AE5 /* ChildProtocolMockStubbableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
