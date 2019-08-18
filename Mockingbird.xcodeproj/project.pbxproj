@@ -239,22 +239,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		49481A272307D56600E32AE5 /* Generator Tests */ = {
+		49481A272307D56600E32AE5 /* Generator */ = {
 			isa = PBXGroup;
 			children = (
 				49481A212307CA9300E32AE5 /* ChildMockMockableTests.swift */,
 				49481A232307D23500E32AE5 /* ChildMockStubbableTests.swift */,
 				49481A252307D4BD00E32AE5 /* ChildMockVerifiableTests.swift */,
 			);
-			path = "Generator Tests";
+			path = Generator;
 			sourceTree = "<group>";
 		};
-		49481A282307D5C600E32AE5 /* Framework Tests */ = {
+		49481A282307D5C600E32AE5 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
 				49C7E83C2304F80800EECCDF /* MockingbirdFrameworkTests.swift */,
 			);
-			path = "Framework Tests";
+			path = Framework;
 			sourceTree = "<group>";
 		};
 		49B198852307B5D200A3236E /* MockingbirdTestsHost */ = {
@@ -420,8 +420,8 @@
 			isa = PBXGroup;
 			children = (
 				49B198C12307C0CA00A3236E /* Mocks.generated.swift */,
-				49481A282307D5C600E32AE5 /* Framework Tests */,
-				49481A272307D56600E32AE5 /* Generator Tests */,
+				49481A282307D5C600E32AE5 /* Framework */,
+				49481A272307D56600E32AE5 /* Generator */,
 				49C7E83D2304F80800EECCDF /* Info.plist */,
 			);
 			path = MockingbirdTests;
