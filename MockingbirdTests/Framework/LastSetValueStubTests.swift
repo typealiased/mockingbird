@@ -10,7 +10,7 @@ import XCTest
 import Mockingbird
 @testable import MockingbirdTestsHost
 
-class AutomaticLastValueStubTests: XCTestCase {
+class LastSetValueStubTests: XCTestCase {
   
   var child: ChildProtocolMock!
   

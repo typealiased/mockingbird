@@ -9,25 +9,25 @@ import Foundation
 
 /// MARK: - Convenience methods for multi-stubbing
 
-public func when<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
+public func given<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope1: @escaping @autoclosure () -> MockingbirdScopedStub<T>) -> MockingbirdStubbingScope<T> {
   return MockingbirdStubbingScope<T>({ [scope0(), scope1()] })
 }
 
-public func when<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
+public func given<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope1: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope2: @escaping @autoclosure () -> MockingbirdScopedStub<T>) -> MockingbirdStubbingScope<T> {
   return MockingbirdStubbingScope<T>({ [scope0(), scope1(), scope2()] })
 }
 
-public func when<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
+public func given<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope1: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope2: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope3: @escaping @autoclosure () -> MockingbirdScopedStub<T>) -> MockingbirdStubbingScope<T> {
   return MockingbirdStubbingScope<T>({ [scope0(), scope1(), scope2(), scope3()] })
 }
 
-public func when<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
+public func given<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope1: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope2: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope3: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
@@ -35,7 +35,7 @@ public func when<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub
   return MockingbirdStubbingScope<T>({ [scope0(), scope1(), scope2(), scope3(), scope4()] })
 }
 
-public func when<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
+public func given<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope1: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope2: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope3: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
@@ -44,7 +44,7 @@ public func when<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub
   return MockingbirdStubbingScope<T>({ [scope0(), scope1(), scope2(), scope3(), scope4(), scope5()] })
 }
 
-public func when<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
+public func given<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope1: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope2: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope3: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
@@ -54,7 +54,7 @@ public func when<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub
   return MockingbirdStubbingScope<T>({ [scope0(), scope1(), scope2(), scope3(), scope4(), scope5(), scope6()] })
 }
 
-public func when<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
+public func given<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope1: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope2: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope3: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
@@ -67,7 +67,7 @@ public func when<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub
   })
 }
 
-public func when<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
+public func given<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope1: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope2: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope3: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
@@ -81,7 +81,7 @@ public func when<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub
   })
 }
 
-public func when<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
+public func given<T>(_ scope0: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope1: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope2: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
                     _ scope3: @escaping @autoclosure () -> MockingbirdScopedStub<T>,
