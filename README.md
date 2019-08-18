@@ -127,7 +127,7 @@ And automatically stub getters to store and return values.
 ```swift
 given(bird.getLocation()) ~> lastSetValue(initial: nil)
 bird.location = Location(name: "Hawaii")
-XCTAssertEqual(bird.location?.name, "Hawaii")
+assert(bird.location?.name == "Hawaii")
 ```
 
 It’s possible to stub multiple methods with the same return type in a single call.
@@ -179,7 +179,7 @@ Sometimes you need to perform custom checks on received parameters by using an a
 ```swift
 let locationCaptor = ArgumentCaptor<Location>()
 verify(bird.fly(to: locationCaptor)).wasCalled()
-XCTAssertEqual(locationCaptor.value.name, "Hawaii")
+assert(locationCaptor.value?.name == "Hawaii")
 ```
 
 You can test asynchronous code by using an `eventually` block which returns an `XCTestExpectation`. 
@@ -238,7 +238,7 @@ Starts automatically generating mocks by adding a custom Run Script Phase to eac
 * `--outputs <comma_separated_output_paths>` Comma-separated list of custom file paths to store generated mocks for each target. The number of `outputs` should match the number of `targets`. Defaults to `<srcroot>/Mockingbird/Mocks/<module_name>Mocks.generated.swift`.
 * `--preprocessor` Preprocessor expression to wrap all generated mocks in. For example, specifying `DEBUG` will add `#if DEBUG ... #endif` to every mock file. Defaults to not adding a preprocessor expression.
 * `--override` Whether to re-install the Run Script Phase for each target in `targets`.
-* `--synchronous` Whether building each target waits until mock generation completes. Add this flag if mocks are included in targets instead of in test targets. See also the `disable-module-import` flag.
+* `--synchronous` Whether to wait until mock generation completes before compiling target sources. Add this flag if mocks are included in targets instead of in test targets. See also the `disable-module-import` flag.
 
 ### Uninstall
 
