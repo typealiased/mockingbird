@@ -113,11 +113,9 @@ struct Method: Hashable, Comparable {
 
 private extension String {
   var argumentLabels: [String?] {
-    let arguments = self.components(separatedBy: "(")
-    guard arguments.count == 2 else { return [] }
-    return arguments[1]
-      .components(separatedBy: ")")[0]
-      .components(separatedBy: ":")
-      .map({ $0 != "_" ? $0 : nil })
+    guard let startIndex = firstIndex(of: "("),
+      let stopIndex = firstIndex(of: ")") else { return [] }
+    let arguments = self[index(startIndex, offsetBy: 1)..<stopIndex]
+    return arguments.substringComponents(separatedBy: ":").map({ $0 != "_" ? String($0) : nil })
   }
 }

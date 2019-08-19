@@ -68,30 +68,28 @@ class MockingbirdCliGenerator {
     
     time("Generated mocks for all targets") {
       let queue = OperationQueue()
-      queue.maxConcurrentOperationCount = ProcessInfo.processInfo.activeProcessorCount * 2
+      queue.maxConcurrentOperationCount = ProcessInfo.processInfo.activeProcessorCount
       
       var generateFileOperations = [GenerateFileOperation]()
       pipelines.forEach({ pipeline in
-        time("Generated mocks for \(pipeline.inputTarget.name)") {
-          let extractSources = ExtractSourcesOperation(with: pipeline.inputTarget,
-                                                       sourceRoot: config.sourceRoot)
-          let parseFiles = ParseFilesOperation(extractSourcesResult: extractSources.result)
-          parseFiles.addDependency(extractSources)
-          let processTypes = ProcessTypesOperation(parseFilesResult: parseFiles.result )
-          processTypes.addDependency(parseFiles)
-          let moduleName = pipeline.inputTarget.productModuleName ?? pipeline.inputTarget.name
-          let generateFile = GenerateFileOperation(processTypesResult: processTypes.result,
-                                                   moduleName: moduleName,
-                                                   outputPath: pipeline.outputPath,
-                                                   preprocessorExpression: config.preprocessorExpression,
-                                                   shouldImportModule: config.shouldImportModule,
-                                                   onlyMockProtocols: config.onlyMockProtocols)
-          generateFile.addDependency(processTypes)
-          generateFileOperations.append(generateFile)
-          
-          queue.addOperations([extractSources, parseFiles, processTypes, generateFile],
-                              waitUntilFinished: false)
-        }
+        let extractSources = ExtractSourcesOperation(with: pipeline.inputTarget,
+                                                     sourceRoot: config.sourceRoot)
+        let parseFiles = ParseFilesOperation(extractSourcesResult: extractSources.result)
+        parseFiles.addDependency(extractSources)
+        let processTypes = ProcessTypesOperation(parseFilesResult: parseFiles.result )
+        processTypes.addDependency(parseFiles)
+        let moduleName = pipeline.inputTarget.productModuleName ?? pipeline.inputTarget.name
+        let generateFile = GenerateFileOperation(processTypesResult: processTypes.result,
+                                                 moduleName: moduleName,
+                                                 outputPath: pipeline.outputPath,
+                                                 preprocessorExpression: config.preprocessorExpression,
+                                                 shouldImportModule: config.shouldImportModule,
+                                                 onlyMockProtocols: config.onlyMockProtocols)
+        generateFile.addDependency(processTypes)
+        generateFileOperations.append(generateFile)
+        
+        queue.addOperations([extractSources, parseFiles, processTypes, generateFile],
+                            waitUntilFinished: false)
       })
       queue.waitUntilAllOperationsAreFinished()
       generateFileOperations.forEach({

@@ -83,7 +83,7 @@ class ParseFilesOperation: BasicOperation {
     }) + extractSourcesResult.dependencyPaths.map({
       SubOperation(sourcePath: $0, shouldMock: false)
     })
-    queue.maxConcurrentOperationCount = ProcessInfo.processInfo.activeProcessorCount * 2
+    queue.maxConcurrentOperationCount = ProcessInfo.processInfo.activeProcessorCount
     queue.addOperations(operations, waitUntilFinished: true)
     result.parsedFiles = operations.compactMap({ $0.result.parsedFile })
     result.importedModuleNames = Set(result.parsedFiles.flatMap({ $0.imports }))
@@ -103,25 +103,26 @@ private extension File {
     var imports = Set<String>()
     var currentSource = contents[..<contents.endIndex]
 
-    while !currentSource.isEmpty {
-      guard let lineIndex = currentSource.firstIndex(of: "\n") else { break }
+    while true {
+      let lineIndex = currentSource.firstIndex(of: "\n") ?? currentSource.endIndex
       let lineContents = currentSource[..<lineIndex].trimmingCharacters(in: .whitespacesAndNewlines)
       
-      let lineIndexDistance = currentSource.distance(from: currentSource.startIndex, to: lineIndex)
-      currentSource = currentSource.dropFirst(lineIndexDistance+1)
+      if !lineContents.isEmpty && (
+        lineContents.hasPrefix("import ") ||
+        lineContents.hasPrefix("@testable import ") ||
+        lineContents.hasPrefix(";")
+      ) {
+        let moduleNames = lineContents.substringComponents(separatedBy: ";")
+          .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
+          .filter({ $0.hasPrefix("import ") || $0.hasPrefix("@testable import ") })
+          .map({String($0
+            .substringComponents(separatedBy: "/").first!
+            .trimmingCharacters(in: .whitespacesAndNewlines)) })
+        imports = imports.union(moduleNames)
+      }
       
-      guard !lineContents.isEmpty else { continue }
-      guard lineContents.hasPrefix("import ")
-        || lineContents.hasPrefix("@testable import ")
-        || lineContents.hasPrefix(";")
-        else { continue }
-      let moduleNames = lineContents.components(separatedBy: ";")
-        .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
-        .filter({ $0.hasPrefix("import ") || $0.hasPrefix("@testable import ") })
-        .map({String($0
-          .components(separatedBy: "/").first!
-          .trimmingCharacters(in: .whitespacesAndNewlines)) })
-      imports = imports.union(moduleNames)
+      guard lineIndex != currentSource.endIndex else { break }
+      currentSource = currentSource[currentSource.index(lineIndex, offsetBy: 1)..<currentSource.endIndex]
     }
     return imports
   }

@@ -79,11 +79,16 @@ class FileGenerator {
   }
   
   func generateFileBody() -> String {
-    return mockableTypes
+    let memoizedContainer = MemoizedContainer()
+    let operations = mockableTypes
       .map({ $0.value })
       .sorted(by: <)
-      .map({ $0.generate() })
-      .joined(separator: "\n\n")
+      .map({ GenerateMockableTypeOperation(mockableType: $0,
+                                           memoizedContainer: memoizedContainer) })
+    let queue = OperationQueue()
+    queue.maxConcurrentOperationCount = ProcessInfo.processInfo.activeProcessorCount
+    queue.addOperations(operations, waitUntilFinished: true)
+    return operations.map({ $0.result.generatedContents }).joined(separator: "\n\n")
   }
   
   private func generateFileFooter() -> String {

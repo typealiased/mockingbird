@@ -46,82 +46,100 @@ extension MethodParameter {
 }
 
 extension Method {
-  func generate(in context: MockableType) -> String {
-    return [createMock(in: context),
-            createStub(in: context),
-            createVerification(in: context)]
+  func createGenerator(in context: MockableType) -> MethodGenerator {
+    return MethodGenerator(method: self, context: context)
+  }
+}
+
+class MethodGenerator {
+  let method: Method
+  let context: MockableType
+  init(method: Method, context: MockableType) {
+    self.method = method
+    self.context = context
+  }
+  
+  func generate() -> String {
+    return [generatedMock,
+            generatedStub,
+            generatedVerification]
       .filter({ !$0.isEmpty })
       .joined(separator: "\n\n")
   }
   
-  func createMock(in context: MockableType) -> String {
-    let returnTypeName = context.specializeTypeName(self.returnTypeName)
+  lazy var generatedMock: String = {
     return """
-      // MARK: Mockable `\(name)`
+      // MARK: Mockable `\(method.name)`
     
-      public \(modifiers(in: context))func \(fullName(in: context)) \(returnTypeAttributes)-> \(returnTypeName) {
-        let invocation = MockingbirdInvocation(selectorName: "\(fullSelectorName(in: context))",
+      public \(overridableModifiers)func \(regularFullName) \(returnTypeAttributes)-> \(specializedReturnTypeName) {
+        let invocation = MockingbirdInvocation(selectorName: "\(fullSelectorName)",
                                                arguments: [\(mockArgumentMatchers)])
         \(contextPrefix)mockingContext.didInvoke(invocation)
-    \(stubbedImplementationCall(in: context))
+    \(stubbedImplementationCall)
       }
     """
-  }
+  }()
   
-  func createStub(in context: MockableType) -> String {
-    guard !isInitializer else { return "" }
-    let returnTypeName = context.specializeTypeName(self.returnTypeName)
+  lazy var generatedStub: String = {
+    guard !method.isInitializer else { return "" }
+    let returnTypeName = specializedReturnTypeName
     return """
-      // MARK: Stubbable `\(name)`
+      // MARK: Stubbable `\(method.name)`
     
-      public \(modifiers(in: context, allowOverride: false))func \(fullName(in: context, forMatching: true)) -> MockingbirdScopedStub<\(returnTypeName)> {
-    \(matchableInvocation(in: context))
+      public \(regularModifiers)func \(fullNameForMatching) -> MockingbirdScopedStub<\(returnTypeName)> {
+    \(matchableInvocation)
         if let stub = DispatchQueue.currentStub {
           \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation)
         }
         return MockingbirdScopedStub<\(returnTypeName)>()
       }
     """
-  }
+  }()
   
-  func createVerification(in context: MockableType) -> String {
+  lazy var generatedVerification: String = {
     return """
-      // MARK: Verifiable `\(name)`
+      // MARK: Verifiable `\(method.name)`
     
-      public \(modifiers(in: context, allowOverride: false))func \(fullName(in: context, forMatching: true)) -> MockingbirdScopedMock {
-    \(matchableInvocation(in: context))
+      public \(regularModifiers)func \(fullNameForMatching) -> MockingbirdScopedMock {
+    \(matchableInvocation)
         if let expectation = DispatchQueue.currentExpectation {
           expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation)
         }
         return MockingbirdScopedMock()
       }
     """
-  }
+  }()
   
-  func modifiers(in context: MockableType, allowOverride: Bool = true) -> String {
-    let isRequired = attributes.contains(.required)
+  lazy var regularModifiers: String = { return modifiers(allowOverride: false) }()
+  lazy var overridableModifiers: String = { return modifiers(allowOverride: true) }()
+  func modifiers(allowOverride: Bool = true) -> String {
+    let isRequired = method.attributes.contains(.required)
     let required = (isRequired ? "required " : "")
     let override = (context.kind == .class && !isRequired && allowOverride ? "override " : "")
-    let `static` = (kind.typeScope == .static || kind.typeScope == .class ? "static " : "")
+    let `static` = (method.kind.typeScope == .static || method.kind.typeScope == .class ? "static " : "")
     return "\(required)\(override)\(`static`)"
   }
   
-  var genericConstraints: String { // This might be slow, we should consider caching it.
-    return genericTypes.map({ genericType -> String in
+  lazy var genericConstraints: String = { // This might be slow, we should consider caching it.
+    return method.genericTypes.map({ genericType -> String in
       guard !genericType.inheritedTypes.isEmpty else { return genericType.name }
       let inheritedTypes = Array(genericType.inheritedTypes).joined(separator: " & ")
       return "\(genericType.name): \(inheritedTypes)"
     }).joined(separator: ", ")
-  }
+  }()
   
-  var shortName: String {
-    guard let shortName = name.components(separatedBy: "(").first else { return name }
+  lazy var shortName: String = {
+    guard let shortName = method.name.substringComponents(separatedBy: "(").first else {
+      return method.name
+    }
     let genericConstraints = self.genericConstraints
     return genericConstraints.isEmpty ? "\(shortName)" : "\(shortName)<\(genericConstraints)>"
-  }
+  }()
   
-  func fullName(in context: MockableType, forMatching: Bool = false) -> String {
-    let parameterNames = parameters.map({ parameter -> String in
+  lazy var regularFullName: String = { return fullName() }()
+  lazy var fullNameForMatching: String = { return fullName(forMatching: true) }()
+  func fullName(forMatching: Bool = false) -> String {
+    let parameterNames = method.parameters.map({ parameter -> String in
       let typeName: String
       if forMatching {
         typeName = "@escaping @autoclosure () -> \(parameter.matchableTypeName(in: context))"
@@ -138,73 +156,75 @@ extension Method {
     return "\(shortName)(\(parameterNames))"
   }
   
-  func fullSelectorName(in context: MockableType) -> String {
-    let returnTypeName = context.specializeTypeName(self.returnTypeName)
-    return "\(name) -> \(returnTypeName)"
-  }
+  lazy var fullSelectorName: String = {
+    return "\(method.name) -> \(specializedReturnTypeName)"
+  }()
   
-  func stubbedImplementationCall(in context: MockableType) -> String {
-    if returnTypeName == "Void" {
+  lazy var stubbedImplementationCall: String = {
+    if method.returnTypeName == "Void" {
       return """
           guard let implementation = try? \(contextPrefix)stubbingContext.implementation(for: invocation) else { return }
           (\(tryInvocation)implementation(invocation)) as! Void
       """
     } else {
-      let returnTypeName = context.specializeTypeName(self.returnTypeName)
-      let castedResult = !isInitializer ? " as! \(returnTypeName)" : ""
+      let castedResult = !method.isInitializer ? " as! \(specializedReturnTypeName)" : ""
       return """
-          \(!isInitializer ? "return " : "")(\(tryInvocation)(try! \(contextPrefix)stubbingContext.implementation(for: invocation))(invocation))\(castedResult)
+          \(!method.isInitializer ? "return " : "")(\(tryInvocation)(try! \(contextPrefix)stubbingContext.implementation(for: invocation))(invocation))\(castedResult)
       """
     }
-  }
+  }()
   
-  func matchableInvocation(in context: MockableType) -> String {
-    guard !parameters.isEmpty else {
+  lazy var matchableInvocation: String = {
+    guard !method.parameters.isEmpty else {
       return """
-          let invocation = MockingbirdInvocation(selectorName: "\(fullSelectorName(in: context))",
+          let invocation = MockingbirdInvocation(selectorName: "\(fullSelectorName)",
                                                  arguments: [])
       """
     }
     
     return """
-    \(resolvedArgumentMatchers(in: context))
-        let invocation = MockingbirdInvocation(selectorName: "\(fullSelectorName(in: context))",
+    \(resolvedArgumentMatchers)
+        let invocation = MockingbirdInvocation(selectorName: "\(fullSelectorName)",
                                                arguments: arguments)
     """
-  }
+  }()
   
-  func resolvedArgumentMatchers(in context: MockableType) -> String {
-    let resolved = parameters.map({ $0.resolvedType }).joined(separator: "\n    ")
-    let arguments = parameters.map({ $0.castedMatcherType(in: context) }).joined(separator: ",\n      ")
+  lazy var resolvedArgumentMatchers: String = {
+    let resolved = method.parameters.map({ $0.resolvedType }).joined(separator: "\n    ")
+    let arguments = method.parameters.map({ $0.castedMatcherType(in: context) }).joined(separator: ",\n      ")
     return """
         \(resolved)
         let arguments: [MockingbirdMatcher] = [
           \(arguments)
         ]
     """
-  }
+  }()
   
-  var tryInvocation: String {
-    return "try\(attributes.contains(.throws) ? "" : "?") "
-  }
+  lazy var tryInvocation: String = {
+    return "try\(method.attributes.contains(.throws) ? "" : "?") "
+  }()
   
-  var returnTypeAttributes: String {
-    let `throws` = attributes.contains(.throws) ? "throws " : ""
-    let `rethrows` = attributes.contains(.rethrows) ? "rethrows " : ""
+  lazy var returnTypeAttributes: String = {
+    let `throws` = method.attributes.contains(.throws) ? "throws " : ""
+    let `rethrows` = method.attributes.contains(.rethrows) ? "rethrows " : ""
     return "\(`throws`)\(`rethrows`)"
-  }
+  }()
   
-  var mockArgumentMatchers: String {
-    return parameters.map({ parameter -> String in
+  lazy var mockArgumentMatchers: String = {
+    return method.parameters.map({ parameter -> String in
       guard !parameter.isClosure || parameter.isEscapingClosure else {
         // Can't save the parameter in the invocation because it's non-escaping
         return "MockingbirdMatcher(nil)"
       }
       return "MockingbirdMatcher(`\(parameter.name)`)"
     }).joined(separator: ", ")
-  }
+  }()
   
-  var contextPrefix: String {
-    return (kind.typeScope == .static || kind.typeScope == .class ? "staticMock." : "")
-  }
+  lazy var contextPrefix: String = {
+    return (method.kind.typeScope == .static || method.kind.typeScope == .class ? "staticMock." : "")
+  }()
+  
+  lazy var specializedReturnTypeName: String = {
+    return context.specializeTypeName(method.returnTypeName)
+  }()
 }

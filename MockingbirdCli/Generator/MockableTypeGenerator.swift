@@ -15,7 +15,8 @@ private enum Constants {
 }
 
 extension MockableType {
-  func generate() -> String {
+  func generate(memoizedVariables: inout [Variable: String],
+                memoizedMethods: inout [Method: String]) -> String {
     return """
     // MARK: - Mocked \(name)
     
@@ -24,7 +25,7 @@ extension MockableType {
       public let mockingContext = MockingbirdMockingContext()
       public let stubbingContext = MockingbirdStubbingContext()
     
-    \(body)
+    \(generateBody(memoizedVariables: &memoizedVariables, memoizedMethods: &memoizedMethods))
     }
     """
   }
@@ -54,11 +55,12 @@ extension MockableType {
     return fullyQualifiedName
   }
   
-  var body: String {
-    return [allVariables,
+  func generateBody(memoizedVariables: inout [Variable: String],
+                    memoizedMethods: inout [Method: String]) -> String {
+    return [generateVariables(with: &memoizedVariables),
             equatableConformance,
             codeableInitializer,
-            allMethods,
+            generateMethods(with: &memoizedMethods),
             staticMock].filter({ !$0.isEmpty }).joined(separator: "\n\n")
   }
   
@@ -82,12 +84,22 @@ extension MockableType {
     """
   }
   
-  var allVariables: String {
-    return variables.sorted(by: <).map({ $0.generate(in: self) }).joined(separator: "\n\n")
+  func generateVariables(with memoizedVariables: inout [Variable: String]) -> String {
+    return variables.sorted(by: <).map({
+      if let memoized = memoizedVariables[$0] { return memoized }
+      let generated = $0.createGenerator(in: self).generate()
+      memoizedVariables[$0] = generated
+      return generated
+    }).joined(separator: "\n\n")
   }
   
-  var allMethods: String {
-    return methods.sorted(by: <).map({ $0.generate(in: self) }).joined(separator: "\n\n")
+  func generateMethods(with memoizedMethods: inout [Method: String]) -> String {
+    return methods.sorted(by: <).map({
+      if let memoized = memoizedMethods[$0] { return memoized }
+      let generated = $0.createGenerator(in: self).generate()
+      memoizedMethods[$0] = generated
+      return generated
+    }).joined(separator: "\n\n")
   }
   
   var staticMock: String {

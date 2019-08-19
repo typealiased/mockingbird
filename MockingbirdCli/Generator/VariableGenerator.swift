@@ -10,9 +10,22 @@
 import Foundation
 
 extension Variable {
-  func generate(in context: MockableType) -> String {
+  func createGenerator(in context: MockableType) -> VariableGenerator {
+    return VariableGenerator(variable: self, context: context)
+  }
+}
+
+class VariableGenerator {
+  let variable: Variable
+  let context: MockableType
+  init(variable: Variable, context: MockableType) {
+    self.variable = variable
+    self.context = context
+  }
+  
+  func generate() -> String {
     return """
-    \(createMocks(in: context))
+    \(generatedMocks)
     
     \(createStubs(in: context))
     
@@ -20,13 +33,13 @@ extension Variable {
     """
   }
   
-  func createMocks(in context: MockableType) -> String {
-    let typeName = context.specializeTypeName(self.typeName)
+  lazy var generatedMocks: String = {
+    let typeName = specializedTypeName
     let contextPrefix = self.contextPrefix
     return """
-      // MARK: Mockable `\(name)`
+      // MARK: Mockable `\(variable.name)`
     
-      \(context.kind == .class ? "override " : "")\(accessLevel)\(modifiers(in: context))var \(name): \(typeName) {
+      \(context.kind == .class ? "override " : "")\(accessLevel)\(modifiers)var \(variable.name): \(typeName) {
         get {
           let invocation = MockingbirdInvocation(selectorName: "\(getterName)", arguments: [])
           \(contextPrefix)mockingContext.didInvoke(invocation)
@@ -40,16 +53,16 @@ extension Variable {
         }
       }
     """
-  }
+  }()
   
   func createStubs(in context: MockableType) -> String {
-    let capitalizedName = name.capitalizedFirst
-    let typeName = context.specializeTypeName(self.typeName)
-    let unwrappedTypeName = context.specializeTypeName(self.typeName, unwrapOptional: true)
-    let modifiers = self.modifiers(in: context)
+    let capitalizedName = self.capitalizedName
+    let typeName = specializedTypeName
+    let unwrappedTypeName = specializedUnwrappedTypeName
+    let modifiers = self.modifiers
     let contextPrefix = self.contextPrefix
     return """
-      // MARK: Stubbable `\(name)`
+      // MARK: Stubbable `\(variable.name)`
     
       public \(modifiers)func get\(capitalizedName)() -> MockingbirdScopedStub<\(typeName)> {
         let invocation = MockingbirdInvocation(selectorName: "\(getterName)", arguments: [])
@@ -74,15 +87,15 @@ extension Variable {
   }
   
   func createVerifications(in context: MockableType) -> String {
-    let uppercaseName = name.capitalizedFirst
-    let typeName = context.specializeTypeName(self.typeName)
-    let unwrappedTypeName = context.specializeTypeName(self.typeName, unwrapOptional: true)
-    let modifiers = self.modifiers(in: context)
+    let capitalizedName = self.capitalizedName
+    let typeName = specializedTypeName
+    let unwrappedTypeName = specializedUnwrappedTypeName
+    let modifiers = self.modifiers
     let contextPrefix = self.contextPrefix
     return """
-      // MARK: Verifiable `\(name)`
+      // MARK: Verifiable `\(variable.name)`
     
-      public \(modifiers)func get\(uppercaseName)() -> MockingbirdScopedMock {
+      public \(modifiers)func get\(capitalizedName)() -> MockingbirdScopedMock {
         let invocation = MockingbirdInvocation(selectorName: "\(getterName)", arguments: [])
         if let expectation = DispatchQueue.currentExpectation {
           expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation)
@@ -90,7 +103,7 @@ extension Variable {
         return MockingbirdScopedMock()
       }
     
-      public \(modifiers)func set\(uppercaseName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> MockingbirdScopedMock {
+      public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> MockingbirdScopedMock {
         let matcherNewValue = resolve(newValue)
         let arguments: [MockingbirdMatcher] = [
           (matcherNewValue as? MockingbirdMatcher) ?? MockingbirdMatcher(newValue as AnyObject as? \(unwrappedTypeName))
@@ -104,19 +117,31 @@ extension Variable {
     """
   }
   
-  func modifiers(in context: MockableType) -> String {
-    return (kind.typeScope == .static || kind.typeScope == .class ? "class " : "")
-  }
+  lazy var modifiers: String = {
+    return (variable.kind.typeScope == .static || variable.kind.typeScope == .class ? "class " : "")
+  }()
   
-  var contextPrefix: String {
-    return (kind.typeScope == .static || kind.typeScope == .class ? "staticMock." : "")
-  }
+  lazy var contextPrefix: String = {
+    return (variable.kind.typeScope == .static || variable.kind.typeScope == .class ? "staticMock." : "")
+  }()
   
-  var accessLevel: String {
-    guard setterAccessLevel == .private || setterAccessLevel == .fileprivate else { return "public " }
-    return "public \(String(describing: setterAccessLevel))(set) "
-  }
+  lazy var accessLevel: String = {
+    guard variable.setterAccessLevel == .private || variable.setterAccessLevel == .fileprivate
+      else { return "public " }
+    return "public \(variable.setterAccessLevel)(set) "
+  }()
   
-  var getterName: String { return "\(name).get" }
-  var setterName: String { return "\(name).set" }
+  lazy var getterName: String = { return "\(variable.name).get" }()
+  lazy var setterName: String = { return "\(variable.name).set" }()
+  
+  lazy var specializedTypeName: String = {
+    return context.specializeTypeName(variable.typeName)
+  }()
+  lazy var specializedUnwrappedTypeName: String = {
+    return context.specializeTypeName(variable.typeName, unwrapOptional: true)
+  }()
+  
+  lazy var capitalizedName: String = {
+    return variable.name.capitalizedFirst
+  }()
 }
