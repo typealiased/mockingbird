@@ -26,11 +26,59 @@ class ProcessTypesOperation: BasicOperation {
   
   class Result {
     fileprivate(set) var rawTypes = [String: RawType]()
-    fileprivate(set) var mockableTypes = [String: MockableType]()
+    fileprivate(set) var mockableTypes = [MockableType]()
     fileprivate(set) var imports = Set<String>()
   }
   
   let result = Result()
+  
+  class SubOperation: BasicOperation {
+    let rawType: RawType
+    let rawTypes: [String: RawType]
+    
+    class Result {
+      fileprivate(set) var mockableType: MockableType?
+    }
+    
+    let result = Result()
+    
+    init(rawType: RawType, rawTypes: [String: RawType]) {
+      self.rawType = rawType
+      self.rawTypes = rawTypes
+    }
+    
+    override func run() {
+      result.mockableType = flattenInheritence(for: rawType)
+    }
+    
+    private static var memoizedMockbleTypes = Synchronized<[String: MockableType]>([:])
+    private func flattenInheritence(for rawType: RawType) -> MockableType? {
+      let memoizedMockableTypes = SubOperation.memoizedMockbleTypes.value
+      if let memoized = memoizedMockableTypes[rawType.name] { return memoized }
+      let createMockableType: () -> MockableType? = {
+        let memoizedMockableTypes = SubOperation.memoizedMockbleTypes.value
+        let mockableType = MockableType(from: rawType, mockableTypes: memoizedMockableTypes)
+        SubOperation.memoizedMockbleTypes.update { $0[rawType.name] = mockableType }
+        return mockableType
+      }
+      
+      // Base case where the type doesn't inherit from anything.
+      guard let inheritedTypes =
+        rawType.dictionary[SwiftDocKey.inheritedtypes.rawValue] as? [StructureDictionary],
+        inheritedTypes.count > 0 else { return createMockableType() }
+      
+      let rawInheritedTypes = inheritedTypes
+        .compactMap({ $0[SwiftDocKey.name.rawValue] as? String }) // Get type name.
+        .compactMap({ rawTypes[$0] }) // Get stored raw type.
+      
+      if rawInheritedTypes.filter({ memoizedMockableTypes[$0.name] == nil }).count > 0 {
+        rawInheritedTypes.forEach({ _ = flattenInheritence(for: $0) }) // Flatten inherited types.
+      }
+      
+      // All inherited types are now flattened.
+      return createMockableType()
+    }
+  }
   
   init(parseFilesResult: ParseFilesOperation.Result) {
     self.parseFilesResult = parseFilesResult
@@ -40,7 +88,13 @@ class ProcessTypesOperation: BasicOperation {
     parseFilesResult.parsedFiles.forEach({
       processStructureDictionary($0.structure.dictionary, in: $0)
     })
-    result.rawTypes.forEach({ flattenInheritence(for: $0.value) })
+    let operations = result.rawTypes
+      .filter({ $0.value.parsedFile.shouldMock })
+      .map({ SubOperation(rawType: $0.value, rawTypes: result.rawTypes) })
+    let queue = OperationQueue()
+    queue.maxConcurrentOperationCount = ProcessInfo.processInfo.activeProcessorCount
+    queue.addOperations(operations, waitUntilFinished: true)
+    result.mockableTypes = operations.compactMap({ $0.result.mockableType })
     result.imports = parseFilesResult.importedModuleNames
   }
   
@@ -56,32 +110,5 @@ class ProcessTypesOperation: BasicOperation {
     
     guard let name = dictionary[SwiftDocKey.name.rawValue] as? String else { return }
     result.rawTypes[name] = RawType(dictionary: dictionary, name: name, parsedFile: parsedFile)
-  }
-  
-  private static var memoizedMockbleTypes = Synchronized<[String: MockableType]>([:])
-  private func flattenInheritence(for rawType: RawType) {
-    guard result.mockableTypes[rawType.name] == nil else { return }
-    if let memoized = ProcessTypesOperation.memoizedMockbleTypes.value[rawType.name] {
-      result.mockableTypes[rawType.name] =
-        MockableType.clone(memoized, shouldMock: rawType.parsedFile.shouldMock)
-      return
-    }
-    defer {
-      let mockableType = MockableType(from: rawType, mockableTypes: result.mockableTypes)
-      result.mockableTypes[rawType.name] = mockableType
-      ProcessTypesOperation.memoizedMockbleTypes.update { $0[rawType.name] = mockableType }
-    }
-    
-    // Base case where the type doesn't inherit from anything.
-    guard let inheritedTypes = rawType.dictionary[SwiftDocKey.inheritedtypes.rawValue] as? [StructureDictionary],
-      inheritedTypes.count > 0 else { return }
-    
-    let rawInheritedTypes = inheritedTypes
-      .compactMap({ $0[SwiftDocKey.name.rawValue] as? String }) // Get type name
-      .compactMap({ result.rawTypes[$0] }) // Get stored raw type
-    
-    // All inherited types are flattened.
-    guard rawInheritedTypes.filter({ result.mockableTypes[$0.name] == nil }).count > 0 else { return }
-    rawInheritedTypes.forEach({ flattenInheritence(for: $0) }) // Flatten inherited
   }
 }

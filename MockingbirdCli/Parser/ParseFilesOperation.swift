@@ -36,7 +36,6 @@ class ParseFilesOperation: BasicOperation {
   
   let result = Result()
   
-  private let queue = OperationQueue()
   class SubOperation: BasicOperation {
     let sourcePath: SourcePath
     let shouldMock: Bool
@@ -83,6 +82,7 @@ class ParseFilesOperation: BasicOperation {
     }) + extractSourcesResult.dependencyPaths.map({
       SubOperation(sourcePath: $0, shouldMock: false)
     })
+    let queue = OperationQueue()
     queue.maxConcurrentOperationCount = ProcessInfo.processInfo.activeProcessorCount
     queue.addOperations(operations, waitUntilFinished: true)
     result.parsedFiles = operations.compactMap({ $0.result.parsedFile })

@@ -12,7 +12,7 @@ import PathKit
 // swiftlint:disable leading_whitespace
 
 class FileGenerator {
-  let mockableTypes: [String: MockableType]
+  let mockableTypes: [MockableType]
   let moduleName: String
   let imports: Set<String>
   let outputPath: Path
@@ -20,7 +20,7 @@ class FileGenerator {
   let preprocessorExpression: String?
   let onlyMockProtocols: Bool
   
-  init(_ mockableTypes: [String: MockableType],
+  init(_ mockableTypes: [MockableType],
        moduleName: String,
        imports: Set<String>,
        outputPath: Path,
@@ -28,7 +28,7 @@ class FileGenerator {
        shouldImportModule: Bool,
        onlyMockProtocols: Bool) {
     self.mockableTypes = onlyMockProtocols ?
-      mockableTypes.filter({ $0.value.kind == .protocol }) :
+      mockableTypes.filter({ $0.kind == .protocol }) :
       mockableTypes
     self.moduleName = moduleName
     self.imports = imports
@@ -81,7 +81,6 @@ class FileGenerator {
   func generateFileBody() -> String {
     let memoizedContainer = MemoizedContainer()
     let operations = mockableTypes
-      .map({ $0.value })
       .sorted(by: <)
       .map({ GenerateMockableTypeOperation(mockableType: $0,
                                            memoizedContainer: memoizedContainer) })
