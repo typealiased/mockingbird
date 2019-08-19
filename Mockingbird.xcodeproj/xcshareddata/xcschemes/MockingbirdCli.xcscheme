@@ -88,15 +88,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "49C7E7DC2304EDB100EECCDF"
-            BuildableName = "MockingbirdCli.bundle"
-            BlueprintName = "MockingbirdCliBundle"
+            BlueprintIdentifier = "49FF22272304EBB1003E36D4"
+            BuildableName = "MockingbirdCli"
+            BlueprintName = "MockingbirdCli"
             ReferencedContainer = "container:Mockingbird.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
