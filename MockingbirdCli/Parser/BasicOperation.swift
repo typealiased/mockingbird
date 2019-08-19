@@ -7,9 +7,6 @@
 //
 
 import Foundation
-import PathKit
-import XcodeProj
-import SourceKittenFramework
 
 class BasicOperation: Operation {
   override var isAsynchronous: Bool { return false }

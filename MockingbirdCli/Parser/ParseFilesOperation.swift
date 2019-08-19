@@ -82,8 +82,7 @@ class ParseFilesOperation: BasicOperation {
     }) + extractSourcesResult.dependencyPaths.map({
       SubOperation(sourcePath: $0, shouldMock: false)
     })
-    let queue = OperationQueue()
-    queue.maxConcurrentOperationCount = ProcessInfo.processInfo.activeProcessorCount
+    let queue = OperationQueue.createForActiveProcessors()
     queue.addOperations(operations, waitUntilFinished: true)
     result.parsedFiles = operations.compactMap({ $0.result.parsedFile })
     result.importedModuleNames = Set(result.parsedFiles.flatMap({ $0.imports }))

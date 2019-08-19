@@ -84,8 +84,7 @@ class FileGenerator {
       .sorted(by: <)
       .map({ GenerateMockableTypeOperation(mockableType: $0,
                                            memoizedContainer: memoizedContainer) })
-    let queue = OperationQueue()
-    queue.maxConcurrentOperationCount = ProcessInfo.processInfo.activeProcessorCount
+    let queue = OperationQueue.createForActiveProcessors()
     queue.addOperations(operations, waitUntilFinished: true)
     return operations.map({ $0.result.generatedContents }).joined(separator: "\n\n")
   }

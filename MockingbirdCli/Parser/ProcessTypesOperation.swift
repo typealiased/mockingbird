@@ -91,8 +91,7 @@ class ProcessTypesOperation: BasicOperation {
     let operations = result.rawTypes
       .filter({ $0.value.parsedFile.shouldMock })
       .map({ SubOperation(rawType: $0.value, rawTypes: result.rawTypes) })
-    let queue = OperationQueue()
-    queue.maxConcurrentOperationCount = ProcessInfo.processInfo.activeProcessorCount
+    let queue = OperationQueue.createForActiveProcessors()
     queue.addOperations(operations, waitUntilFinished: true)
     result.mockableTypes = operations.compactMap({ $0.result.mockableType })
     result.imports = parseFilesResult.importedModuleNames

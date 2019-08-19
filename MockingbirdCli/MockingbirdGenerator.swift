@@ -67,8 +67,7 @@ class MockingbirdCliGenerator {
     }
     
     time("Generated mocks for all targets") {
-      let queue = OperationQueue()
-      queue.maxConcurrentOperationCount = ProcessInfo.processInfo.activeProcessorCount
+      let queue = OperationQueue.createForActiveProcessors()
       
       var generateFileOperations = [GenerateFileOperation]()
       pipelines.forEach({ pipeline in

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		492A0889230A95FB00F92B2F /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0888230A95FB00F92B2F /* Array+Extensions.swift */; };
+		492A088B230B0D2100F92B2F /* OperationQueue+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A088A230B0D2100F92B2F /* OperationQueue+Extensions.swift */; };
 		49481A202307C99700E32AE5 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A1F2307C99700E32AE5 /* String+Extensions.swift */; };
 		49481A222307CA9300E32AE5 /* ChildMockMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A212307CA9300E32AE5 /* ChildMockMockableTests.swift */; };
 		49481A242307D23600E32AE5 /* ChildMockStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A232307D23500E32AE5 /* ChildMockStubbableTests.swift */; };
@@ -142,6 +144,8 @@
 
 /* Begin PBXFileReference section */
 		491D2CAA2305D19C000F6513 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		492A0888230A95FB00F92B2F /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		492A088A230B0D2100F92B2F /* OperationQueue+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OperationQueue+Extensions.swift"; sourceTree = "<group>"; };
 		49481A1F2307C99700E32AE5 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		49481A212307CA9300E32AE5 /* ChildMockMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildMockMockableTests.swift; sourceTree = "<group>"; };
 		49481A232307D23500E32AE5 /* ChildMockStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildMockStubbableTests.swift; sourceTree = "<group>"; };
@@ -304,6 +308,8 @@
 				49C7E7BC2304ED2600EECCDF /* MockingbirdGenerator.swift */,
 				49C7E7C52304ED2600EECCDF /* MockingbirdInstaller.swift */,
 				49C7E7AF2304ED2600EECCDF /* Utilities.swift */,
+				492A0888230A95FB00F92B2F /* Array+Extensions.swift */,
+				492A088A230B0D2100F92B2F /* OperationQueue+Extensions.swift */,
 				49B1987C2307689E00A3236E /* Info.plist */,
 				49C7E7BD2304ED2600EECCDF /* Generator */,
 				49C7E7B02304ED2600EECCDF /* Parser */,
@@ -730,6 +736,7 @@
 				49C7E7D32304ED2600EECCDF /* MockableTypeGenerator.swift in Sources */,
 				49C7E7D22304ED2600EECCDF /* FileGenerator.swift in Sources */,
 				49481A2E2308D60C00E32AE5 /* ExtractSourcesOperation.swift in Sources */,
+				492A0889230A95FB00F92B2F /* Array+Extensions.swift in Sources */,
 				49C7E7CD2304ED2600EECCDF /* InferType.swift in Sources */,
 				49C7E7D42304ED2600EECCDF /* MethodGenerator.swift in Sources */,
 				49C7E7D12304ED2600EECCDF /* MockingbirdGenerator.swift in Sources */,
@@ -742,6 +749,7 @@
 				49C7E7CE2304ED2600EECCDF /* String+SourceryExtensions.swift in Sources */,
 				49481A202307C99700E32AE5 /* String+Extensions.swift in Sources */,
 				49C7E7D02304ED2600EECCDF /* Variable.swift in Sources */,
+				492A088B230B0D2100F92B2F /* OperationQueue+Extensions.swift in Sources */,
 				49481A322308D63300E32AE5 /* ProcessTypesOperation.swift in Sources */,
 				49C7E7CF2304ED2600EECCDF /* GenericType.swift in Sources */,
 				49481A342308D65A00E32AE5 /* GenerateFileOperation.swift in Sources */,

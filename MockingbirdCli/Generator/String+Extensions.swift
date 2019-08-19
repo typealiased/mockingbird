@@ -16,8 +16,7 @@ extension String {
   
   /// Splits a string into substrings given a character delimiter.
   ///
-  /// - note: This method is generally 2x faster than the built in `components(separatedBy:)` method
-  ///   when compiled with Release optimizations.
+  /// - note: This method is 2x faster than the built-in method on Release builds.
   ///
   /// - Parameter delimiter: A character to use to split the string.
   /// - Returns: An array of substrings.
