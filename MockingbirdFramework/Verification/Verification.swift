@@ -8,7 +8,7 @@
 import Foundation
 import XCTest
 
-struct MockingbirdSourceLocation {
+struct SourceLocation {
   let file: StaticString
   let line: UInt
   init(_ file: StaticString, _ line: UInt) {
@@ -20,11 +20,11 @@ struct MockingbirdSourceLocation {
 /// Intermediate verification object.
 public struct Verification: RunnableScope {
   let uuid = UUID()
-  let sourceLocation: MockingbirdSourceLocation
+  let sourceLocation: SourceLocation
 
   private let runnable: () -> Any?
 
-  init(_ runnable: @escaping () -> Any?, at sourceLocation: MockingbirdSourceLocation) {
+  init(_ runnable: @escaping () -> Any?, at sourceLocation: SourceLocation) {
     self.runnable = runnable
     self.sourceLocation = sourceLocation
   }
@@ -45,7 +45,7 @@ struct Expectation {
   static let asyncGroupKey = DispatchSpecificKey<AsyncExpectationGroup>()
   
   let callMatcher: CallMatcher
-  let sourceLocation: MockingbirdSourceLocation
+  let sourceLocation: SourceLocation
   let asyncGroup: AsyncExpectationGroup?
   
   func copy(withAsyncGroup: Bool = false) -> Expectation {
@@ -80,7 +80,7 @@ extension DispatchQueue {
 
 internal func verify(_ verificationScope: Verification,
                      using callMatcher: CallMatcher,
-                     for sourceLocation: MockingbirdSourceLocation) {
+                     for sourceLocation: SourceLocation) {
   let queue = DispatchQueue(label: "co.bird.mockingbird.verification-scope")
   let expectation = Expectation(callMatcher: callMatcher,
                                 sourceLocation: sourceLocation,

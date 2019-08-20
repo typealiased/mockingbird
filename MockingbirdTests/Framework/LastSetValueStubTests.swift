@@ -29,18 +29,18 @@ class LastSetValueStubTests: XCTestCase {
     }
   }
   
-  func testLastSetValueStubReturnsInitialValue() {
+  func testLastSetValueStub_returnsInitialValue() {
     given(self.child.getChildInstanceVariable()) ~> lastSetValue(initial: false)
     XCTAssertFalse(ChildVerificationProxy.getInstanceVariable(for: child))
   }
   
-  func testLastSetValueStubReturnsLastSetValue() {
+  func testLastSetValueStub_returnsLastSetValue() {
     given(self.child.getChildInstanceVariable()) ~> lastSetValue(initial: false)
     ChildVerificationProxy.setInstanceVariable(for: child, to: true)
     XCTAssertTrue(ChildVerificationProxy.getInstanceVariable(for: child))
   }
   
-  func testSettingValueOverridesLastSetValue() {
+  func testLastSetValueStub_settingValueOverridesLastSetValue() {
     given(self.child.getChildInstanceVariable()) ~> lastSetValue(initial: false)
     ChildVerificationProxy.setInstanceVariable(for: child, to: true)
     ChildVerificationProxy.setInstanceVariable(for: child, to: false)

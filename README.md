@@ -122,9 +122,7 @@ Stub variables with their getter and setter methods.
 
 ```swift
 given(bird.getName()) ~> "Big Bird"
-given(bird.setName(any())) ~> { invocation in
-  print(invocation.arguments.first)
-}
+given(bird.setName(any())) ~> { print($0) }
 ```
 
 Getters can be stubbed to automatically save and return values.

@@ -8,22 +8,22 @@
 import Foundation
 
 /// Mocks create invocations when receiving calls to methods or member methods.
-public struct Invocation: Equatable, CustomStringConvertible {
+struct Invocation: Equatable, CustomStringConvertible {
   let selectorName: String
   let arguments: [ArgumentMatcher]
   let timestamp = Date()
 
-  public init(selectorName: String, arguments: [ArgumentMatcher]) {
+  init(selectorName: String, arguments: [ArgumentMatcher]) {
     self.selectorName = selectorName
     self.arguments = arguments
   }
 
-  public var description: String {
+  var description: String {
     let matchers = arguments.map({ String(describing: $0) }).joined(separator: ", ")
     return "`\(selectorName)` matching (\(matchers))"
   }
 
-  public static func == (lhs: Invocation, rhs: Invocation) -> Bool {
+  static func == (lhs: Invocation, rhs: Invocation) -> Bool {
     guard lhs.arguments.count == rhs.arguments.count else { return false }
     for (index, argument) in lhs.arguments.enumerated() {
       if argument != rhs.arguments[index] { return false }
@@ -36,11 +36,11 @@ public struct Invocation: Equatable, CustomStringConvertible {
     static let setterSuffix = ".set"
   }
   
-  public var isGetter: Bool {
+  var isGetter: Bool {
     return selectorName.hasSuffix(Constants.getterSuffix)
   }
   
-  public var isSetter: Bool {
+  var isSetter: Bool {
     return selectorName.hasPrefix(Constants.setterSuffix)
   }
 }

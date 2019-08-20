@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		491AFAB6230C5BD900F085F0 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491AFAB5230C5BD900F085F0 /* Array+Extensions.swift */; };
+		491AFAB8230CAE5E00F085F0 /* TestKiller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491AFAB7230CAE5E00F085F0 /* TestKiller.swift */; };
 		492A0889230A95FB00F92B2F /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A0888230A95FB00F92B2F /* Array+Extensions.swift */; };
 		492A088B230B0D2100F92B2F /* OperationQueue+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492A088A230B0D2100F92B2F /* OperationQueue+Extensions.swift */; };
 		49481A202307C99700E32AE5 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49481A1F2307C99700E32AE5 /* String+Extensions.swift */; };
@@ -143,6 +145,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		491AFAB5230C5BD900F085F0 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		491AFAB7230CAE5E00F085F0 /* TestKiller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKiller.swift; sourceTree = "<group>"; };
 		491D2CAA2305D19C000F6513 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		492A0888230A95FB00F92B2F /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		492A088A230B0D2100F92B2F /* OperationQueue+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OperationQueue+Extensions.swift"; sourceTree = "<group>"; };
@@ -417,6 +421,7 @@
 			isa = PBXGroup;
 			children = (
 				49C7E82C2304F80800EECCDF /* String+Extensions.swift */,
+				491AFAB5230C5BD900F085F0 /* Array+Extensions.swift */,
 				49481A2B2308A29800E32AE5 /* Synchronized.swift */,
 			);
 			path = Utilities;
@@ -437,6 +442,7 @@
 			children = (
 				49C7E8332304F80800EECCDF /* Stubbing.swift */,
 				49C7E8342304F80800EECCDF /* StubbingContext.swift */,
+				491AFAB7230CAE5E00F085F0 /* TestKiller.swift */,
 			);
 			path = Stubbing;
 			sourceTree = "<group>";
@@ -715,8 +721,10 @@
 				49C7E85F2304F8B800EECCDF /* Verify+Convenience.swift in Sources */,
 				49C7E8602304F8BC00EECCDF /* String+Extensions.swift in Sources */,
 				49C7E8612304F8C000EECCDF /* CallMatcher.swift in Sources */,
+				491AFAB6230C5BD900F085F0 /* Array+Extensions.swift in Sources */,
 				49C7E8632304F8C500EECCDF /* MockingContext.swift in Sources */,
 				49C7E8642304F8C700EECCDF /* Mock.swift in Sources */,
+				491AFAB8230CAE5E00F085F0 /* TestKiller.swift in Sources */,
 				49C7E8652304F8CA00EECCDF /* Stubbing.swift in Sources */,
 				49C7E8662304F8CB00EECCDF /* StubbingContext.swift in Sources */,
 				49C7E8672304F8CE00EECCDF /* Invocation.swift in Sources */,

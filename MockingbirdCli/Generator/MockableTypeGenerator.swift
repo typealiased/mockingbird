@@ -24,6 +24,13 @@ extension MockableType {
       static let staticMock = \(name)StaticMock()
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()
+      private var sourceLocation: Mockingbird.SourceLocation? {
+        get { return stubbingContext.sourceLocation }
+        set {
+          stubbingContext.sourceLocation = newValue
+          \(name)Mock.staticMock.stubbingContext.sourceLocation = newValue
+        }
+      }
     
     \(generateBody(memoizedVariables: &memoizedVariables, memoizedMethods: &memoizedMethods))
     }
@@ -60,6 +67,7 @@ extension MockableType {
     return [generateVariables(with: &memoizedVariables),
             equatableConformance,
             codeableInitializer,
+            defaultInitializer,
             generateMethods(with: &memoizedMethods),
             staticMock].filter({ !$0.isEmpty }).joined(separator: "\n\n")
   }
@@ -80,6 +88,16 @@ extension MockableType {
     return """
       public required init(from decoder: Decoder) throws {
         fatalError("init(from:) has not been implemented")
+      }
+    """
+  }
+  
+  var defaultInitializer: String {
+    return """
+      public init(__file: StaticString = #file, __line: UInt = #line) {
+        let sourceLocation = Mockingbird.SourceLocation(__file, __line)
+        self.stubbingContext.sourceLocation = sourceLocation
+        \(name)Mock.staticMock.stubbingContext.sourceLocation = sourceLocation
       }
     """
   }

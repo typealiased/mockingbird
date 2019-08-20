@@ -33,7 +33,7 @@ class AsyncVerificationTests: XCTestCase {
     }
   }
   
-  func testAsyncVerificationTrivialOnce() {
+  func testAsyncVerification_receivesTriviaInvocationOnce() {
     let expectation = eventually("childTrivialInstanceMethod() is called") {
       verify(self.child.childTrivialInstanceMethod()).wasCalled()
     }
@@ -44,7 +44,7 @@ class AsyncVerificationTests: XCTestCase {
     wait(for: [expectation], timeout: Constants.asyncTestTimeout)
   }
   
-  func testAsyncVerificationTrivialTwice() {
+  func testAsyncVerification_receivesTrivialInvocationTwice() {
     let expectation = eventually("childTrivialInstanceMethod() is called twice") {
       verify(self.child.childTrivialInstanceMethod()).wasCalled(exactly(2))
     }
@@ -55,7 +55,7 @@ class AsyncVerificationTests: XCTestCase {
     wait(for: [expectation], timeout: Constants.asyncTestTimeout)
   }
   
-  func testAsyncVerificationParameterizedOnce() {
+  func testAsyncVerification_receivesParameterizedInvocationOnce() {
     given(self.child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     let expectation = eventually("childParameterizedInstanceMethod(param1:_:) is called once") {
       verify(self.child.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
@@ -67,7 +67,7 @@ class AsyncVerificationTests: XCTestCase {
     wait(for: [expectation], timeout: Constants.asyncTestTimeout)
   }
   
-  func testAsyncVerificationParameterizedTwice() {
+  func testAsyncVerification_receivesParameterizedInvocationTwice() {
     given(self.child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     let expectation = eventually("childParameterizedInstanceMethod(param1:_:) is called twice") {
       verify(self.child.childParameterizedInstanceMethod(param1: any(), any()))
@@ -80,7 +80,7 @@ class AsyncVerificationTests: XCTestCase {
     wait(for: [expectation], timeout: Constants.asyncTestTimeout)
   }
   
-  func testAsyncVerificationOnSynchronousInvocations() {
+  func testAsyncVerification_withSynchronousInvocations() {
     given(self.child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     let expectation = eventually("childParameterizedInstanceMethod(param1:_:) is called twice") {
       verify(self.child.childParameterizedInstanceMethod(param1: any(), any()))
@@ -90,7 +90,7 @@ class AsyncVerificationTests: XCTestCase {
     wait(for: [expectation], timeout: Constants.asyncTestTimeout)
   }
   
-  func testAsyncVerificationReceivesPastInvocations() {
+  func testAsyncVerification_receivesPastInvocations() {
     given(self.child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     ChildCaller.callParameterizedInstanceMethod(on: self.child, times: 2)
     let expectation = eventually("childParameterizedInstanceMethod(param1:_:) is called twice") {

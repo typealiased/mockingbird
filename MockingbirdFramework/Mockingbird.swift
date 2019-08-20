@@ -13,24 +13,24 @@ import XCTest
 /// Stub a single mock object to return a value or perform an operation.
 ///
 /// - Parameter mock: A mock and its invocation to stub.
-public func given<T>(_ mock: @escaping @autoclosure () -> Stubbable<T>) -> Stub<T> {
-  return Stub<T>(mock)
+public func given<T, R>(_ mock: @escaping @autoclosure () -> Stubbable<T, R>) -> Stub<T, R> {
+    return Stub<T, R>(mock)
 }
 
 /// Stubs a variable getter to return the last value received by the setter.
 ///
 /// - Parameter initial: The initial value to return.
-public func lastSetValue<T>(initial: T) -> StubImplementation<T> {
+public func lastSetValue<T, R>(initial: R) -> StubImplementation<T, R> {
   var currentValue = initial
-  let implementation: (Invocation) -> T = { _ in return currentValue }
+  let implementation: () -> R = { return currentValue }
   let callback: StubbingRequest.StubbingCallback = { (stub, context) in
     guard let setterInvocation = stub.invocation.toSetter() else { return }
-    context.swizzle(setterInvocation) { invocation -> Void in
-      guard let newValue = invocation.arguments.first?.base as? T else { return }
+    let setterImplementation = { (newValue: R) -> Void in
       currentValue = newValue
     }
+    context.swizzle(setterInvocation, with: setterImplementation)
   }
-  return StubImplementation(handler: implementation, callback: callback as AnyObject)
+  return StubImplementation(handler: implementation as! T, callback: callback as AnyObject)
 }
 
 // MARK: - Verification
@@ -42,7 +42,7 @@ public func lastSetValue<T>(initial: T) -> StubImplementation<T> {
 ///   - mock: A mock and its invocation to verify.
 public func verify<T>(file: StaticString = #file, line: UInt = #line,
                       _ mock: @escaping @autoclosure () -> Mockable<T>) -> Verification {
-  return Verification(mock, at: MockingbirdSourceLocation(file, line))
+  return Verification(mock, at: SourceLocation(file, line))
 }
 
 /// Create a deferrable test expectation from a block containing verification calls.

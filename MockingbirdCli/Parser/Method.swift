@@ -69,7 +69,6 @@ struct Method: Hashable, Comparable {
     var attributes = Attributes.create(from: dictionary)
     guard !attributes.contains(.final) else { return nil }
     let isInitializer = (name == "init" || name.hasPrefix("init("))
-    guard attributes.contains(.required) || !isInitializer else { return nil }
     
     let source = rawType.parsedFile.file.contents
     if let declaration = SourceSubstring.key.extract(from: dictionary, contents: source) {

@@ -68,30 +68,48 @@ class MethodGenerator {
   }
   
   lazy var generatedMock: String = {
-    return """
-      // MARK: Mockable `\(method.name)`
-    
-      public \(overridableModifiers)func \(regularFullName) \(returnTypeAttributes)-> \(specializedReturnTypeName) {
-        let invocation = Invocation(selectorName: "\(fullSelectorName)",
-                                    arguments: [\(mockArgumentMatchers)])
-        \(contextPrefix)mockingContext.didInvoke(invocation)
-    \(stubbedImplementationCall)
-      }
-    """
+    if method.isInitializer {
+      let initializerPrefix = (context.kind == .class ? "super." : "self.")
+      return """
+        // MARK: Mockable `\(method.name)`
+      
+        public \(overridableModifiers)\(fullNameForMocking) {
+          \(initializerPrefix)init(\(superCallParameters))
+          self.sourceLocation = Mockingbird.SourceLocation(__file, __line)
+          let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)",
+          arguments: [\(mockArgumentMatchers)])
+          \(contextPrefix)mockingContext.didInvoke(invocation)
+        \(stubbedImplementationCall)
+        }
+      """
+    } else {
+      return """
+        // MARK: Mockable `\(method.name)`
+      
+        public \(overridableModifiers)func \(fullNameForMocking) \(returnTypeAttributes)-> \(specializedReturnTypeName) {
+          let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)",
+                                                  arguments: [\(mockArgumentMatchers)])
+          \(contextPrefix)mockingContext.didInvoke(invocation)
+      \(stubbedImplementationCall)
+        }
+      """
+    }
   }()
   
   lazy var generatedStub: String = {
     guard !method.isInitializer else { return "" }
+    let parameterTypes = methodParameterTypesForGenerics
     let returnTypeName = specializedReturnTypeName
+    let invocationType = "(\(parameterTypes)) \(returnTypeAttributes)-> \(returnTypeName)"
     return """
       // MARK: Stubbable `\(method.name)`
     
-      public \(regularModifiers)func \(fullNameForMatching) -> Stubbable<\(returnTypeName)> {
+      public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Stubbable<\(invocationType), \(returnTypeName)> {
     \(matchableInvocation)
         if let stub = DispatchQueue.currentStub {
           \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation)
         }
-        return Stubbable<\(returnTypeName)>()
+        return Mockingbird.Stubbable<\(invocationType), \(returnTypeName)>()
       }
     """
   }()
@@ -101,12 +119,12 @@ class MethodGenerator {
     return """
       // MARK: Verifiable `\(method.name)`
     
-      public \(regularModifiers)func \(fullNameForMatching) -> Mockable<\(returnTypeName)> {
+      public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Mockable<\(returnTypeName)> {
     \(matchableInvocation)
         if let expectation = DispatchQueue.currentExpectation {
           expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation)
         }
-        return Mockable<\(returnTypeName)>()
+        return Mockingbird.Mockable<\(returnTypeName)>()
       }
     """
   }()
@@ -137,10 +155,12 @@ class MethodGenerator {
     return genericConstraints.isEmpty ? "\(shortName)" : "\(shortName)<\(genericConstraints)>"
   }()
   
-  lazy var regularFullName: String = { return fullName() }()
+  lazy var fullNameForMocking: String = { return fullName() }()
   lazy var fullNameForMatching: String = { return fullName(forMatching: true) }()
   func fullName(forMatching: Bool = false) -> String {
-    let parameterNames = method.parameters.map({ parameter -> String in
+    let initializerParameters =
+      method.isInitializer ? ["__file: StaticString = #file", "__line: UInt = #line"] : []
+    let parameterNames = initializerParameters + method.parameters.map({ parameter -> String in
       let typeName: String
       if forMatching {
         typeName = "@escaping @autoclosure () -> \(parameter.matchableTypeName(in: context))"
@@ -153,26 +173,38 @@ class MethodGenerator {
       } else {
         return "\(parameter.name): \(typeName)"
       }
-    }).joined(separator: ", ")
-    return "\(shortName)(\(parameterNames))"
+    })
+    return "\(shortName)(\(parameterNames.joined(separator: ", ")))"
   }
   
   lazy var fullSelectorName: String = {
     return "\(method.name) -> \(specializedReturnTypeName)"
   }()
   
+  lazy var superCallParameters: String = {
+    return method.parameters.map({ parameter -> String in
+      let label = parameter.argumentLabel ?? parameter.name
+      return "\(label): `\(parameter.name)`"
+    }).joined(separator: ", ")
+  }()
+  
   lazy var stubbedImplementationCall: String = {
-    if method.returnTypeName == "Void" {
-      return """
-          guard let implementation = try? \(contextPrefix)stubbingContext.implementation(for: invocation) else { return }
-          (\(tryInvocation)implementation(invocation)) as! Void
-      """
-    } else {
-      let castedResult = !method.isInitializer ? " as! \(specializedReturnTypeName)" : ""
-      return """
-          \(!method.isInitializer ? "return " : "")(\(tryInvocation)(try! \(contextPrefix)stubbingContext.implementation(for: invocation))(invocation))\(castedResult)
-      """
-    }
+    let returnTypeName = specializedReturnTypeName
+    let shouldReturn = !method.isInitializer && returnTypeName != "Void"
+    let returnStatement = shouldReturn ? "return " : ""
+    let tryInvocation = self.tryInvocation
+    let implementationType = "(\(methodParameterTypesForGenerics)) \(returnTypeAttributes)-> \(returnTypeName)"
+    let optionalImplementation = shouldReturn ? "false" : "true"
+    let typeCaster = shouldReturn ? "as!" : "as?"
+    let invocationOptional = shouldReturn ? "" : "?"
+    return """
+        let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation, optional: \(optionalImplementation))
+        if let concreteImplementation = implementation as? \(implementationType) {
+          \(returnStatement)\(tryInvocation)concreteImplementation(\(methodParameterNamesForInvocation))
+        } else {
+          \(returnStatement)\(tryInvocation)(implementation \(typeCaster) () -> \(returnTypeName))\(invocationOptional)()
+        }
+    """
   }()
   
   lazy var matchableInvocation: String = {
@@ -200,7 +232,7 @@ class MethodGenerator {
   }()
   
   lazy var tryInvocation: String = {
-    return "try\(method.attributes.contains(.throws) ? "" : "?") "
+    return method.attributes.contains(.throws) ? "try " : ""
   }()
   
   lazy var returnTypeAttributes: String = {
@@ -225,5 +257,13 @@ class MethodGenerator {
   
   lazy var specializedReturnTypeName: String = {
     return context.specializeTypeName(method.returnTypeName)
+  }()
+  
+  lazy var methodParameterTypesForGenerics: String = {
+    return method.parameters.map({ $0.typeName }).joined(separator: ", ")
+  }()
+  
+  lazy var methodParameterNamesForInvocation: String = {
+    return method.parameters.map({ "`\($0.name)`" }).joined(separator: ", ")
   }()
 }

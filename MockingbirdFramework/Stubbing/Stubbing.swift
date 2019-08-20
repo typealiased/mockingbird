@@ -11,18 +11,19 @@ import XCTest
 
 infix operator ~>
 
-public struct Stubbable<T> {}
+/// P = Invocation function type, R = Return type
+public struct Stubbable<T, R> {}
 
 /// Intermediate stubbing object.
-public struct Stub<T>: RunnableScope {
+public struct Stub<T, R>: RunnableScope {
   let uuid = UUID()
   private let runnable: () -> Any?
   init(_ runnable: @escaping () -> Any?) { self.runnable = runnable }
   func run() -> Any? { return runnable() }
 }
 
-public struct StubImplementation<T> {
-  let handler: (Invocation) -> T
+public struct StubImplementation<T, R> {
+  let handler: T
   let callback: AnyObject
 }
 
@@ -32,8 +33,7 @@ struct StubbingRequest {
   static let dispatchQueueKey = DispatchSpecificKey<StubbingRequest>()
   static let dispatchQueueCallbackKey = DispatchSpecificKey<StubbingCallback>()
   
-  let implementation: (Invocation) -> Any?
-  let returnType: Any?
+  let implementation: Any?
 }
 
 extension DispatchQueue {
@@ -49,19 +49,21 @@ extension DispatchQueue {
 /// Convenience method for ignoring all parameters while stubbing.
 ///
 /// - Parameters:
-///   - stubbingScope: An internal stubbing scope.
-///   - implementation: The implementation stub.
-public func ~> <T>(stubbingScope: Stub<T>, implementation: @escaping @autoclosure () -> T) {
-  stubbingScope ~> { _ in implementation() }
+///   - stubbingScope: An autoclosed internal stubbing scope.
+///   - implementation: The non-throwing implementation stub.
+public func ~> <T, R>(stubbingScope: Stub<T, R>,
+                      implementation: @escaping @autoclosure () -> R) {
+  addStub(scope: stubbingScope, implementation: implementation)
 }
 
 /// Convenience method for ignoring all parameters while stubbing.
 ///
 /// - Parameters:
 ///   - stubbingScope: An internal stubbing scope.
-///   - implementation: The implementation stub.
-public func ~> <T>(stubbingScope: Stub<T>, implementation: @escaping () -> T) {
-  stubbingScope ~> { _ in implementation() }
+///   - implementation: The non-throwing implementation stub.
+public func ~> <T, R>(stubbingScope: Stub<T, R>,
+                      implementation: @escaping () -> R) {
+  addStub(scope: stubbingScope, implementation: implementation)
 }
 
 /// Stub invocations to a mock taking into account the invocation (and its parameters).
@@ -69,21 +71,22 @@ public func ~> <T>(stubbingScope: Stub<T>, implementation: @escaping () -> T) {
 /// - Parameters:
 ///   - stubbingScope: An internal stubbing scope.
 ///   - implementation: The implementation stub.
-public func ~> <T>(stubbingScope: Stub<T>, implementation: @escaping (Invocation) -> T) {
+public func ~> <T, R>(stubbingScope: Stub<T, R>, implementation: T) {
   addStub(scope: stubbingScope, implementation: implementation)
 }
 
 /// Internal method for stubbing invocations with side effects.
-public func ~> <T>(stubbingScope: Stub<T>, implementation: StubImplementation<T>) {
+public func ~> <T, R>(stubbingScope: Stub<T, R>,
+                      implementation: StubImplementation<T, R>) {
   guard let callback = implementation.callback as? StubbingRequest.StubbingCallback else { return }
   addStub(scope: stubbingScope, implementation: implementation.handler, callback: callback)
 }
 
-internal func addStub<T>(scope: Stub<T>,
-                         implementation: @escaping (Invocation) -> T,
-                         callback: StubbingRequest.StubbingCallback? = nil) {
+internal func addStub<T, R>(scope: Stub<T, R>,
+                            implementation: Any?,
+                            callback: StubbingRequest.StubbingCallback? = nil) {
   let queue = DispatchQueue(label: "co.bird.mockingbird.stubbing-scope")
-  let stub = StubbingRequest(implementation: implementation, returnType: T.self)
+  let stub = StubbingRequest(implementation: implementation)
   queue.setSpecific(key: StubbingRequest.dispatchQueueKey, value: stub)
   if let callback = callback {
     queue.setSpecific(key: StubbingRequest.dispatchQueueCallbackKey, value: callback)

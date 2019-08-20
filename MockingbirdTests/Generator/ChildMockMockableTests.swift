@@ -11,6 +11,8 @@ import Foundation
 // MARK: - Mockable declarations
 
 private protocol MockableChild {
+  init(__file: StaticString, __line: UInt)
+  
   // MARK: Child
   var childComputedInstanceVariable: Bool { get }
   
