@@ -50,8 +50,8 @@ struct Expectation {
   
   func copy(withAsyncGroup: Bool = false) -> Expectation {
     return Expectation(callMatcher: callMatcher,
-                                  sourceLocation: sourceLocation,
-                                  asyncGroup: withAsyncGroup ? asyncGroup : nil)
+                       sourceLocation: sourceLocation,
+                       asyncGroup: withAsyncGroup ? asyncGroup : nil)
   }
 }
 
@@ -99,7 +99,7 @@ internal func createTestExpectation(with scope: () -> Void,
   let testExpectation = XCTestExpectation(description: description ?? "Async verification group")
   testExpectation.expectedFulfillmentCount = asyncGroup.expectations.count
   asyncGroup.expectations.forEach({ asyncExpectation in
-    let observer = MockingbirdInvocationObserver({ (invocation, mockingContext) -> Bool in
+    let observer = InvocationObserver({ (invocation, mockingContext) -> Bool in
       let allInvocations = mockingContext.invocations(for: asyncExpectation.invocation.selectorName)
         .filter({ $0 == asyncExpectation.invocation })
       let actualCallCount = UInt(allInvocations.count)

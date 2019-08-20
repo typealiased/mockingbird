@@ -185,12 +185,12 @@ assert(locationCaptor.value?.name == "Hawaii")
 You can test asynchronous code by using an `eventually` block which returns an `XCTestExpectation`. 
 
 ```swift
+DispatchQueue.main.async {
+  PalmTree(containing: bird).shake()
+}
 let expectation = eventually {
   verify(bird.fly()).wasCalled()
   verify(bird.chirp(volume: 50)).wasCalled()
-}
-DispatchQueue.main.async {
-  PalmTree(containing: bird).shake()
 }
 wait(for: [expectation], timeout: 1.0)
 ```

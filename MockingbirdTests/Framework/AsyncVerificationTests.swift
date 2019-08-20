@@ -79,4 +79,24 @@ class AsyncVerificationTests: XCTestCase {
     }
     wait(for: [expectation], timeout: Constants.asyncTestTimeout)
   }
+  
+  func testAsyncVerificationOnSynchronousInvocations() {
+    given(self.child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
+    let expectation = eventually("childParameterizedInstanceMethod(param1:_:) is called twice") {
+      verify(self.child.childParameterizedInstanceMethod(param1: any(), any()))
+        .wasCalled(exactly(2))
+    }
+    ChildCaller.callParameterizedInstanceMethod(on: self.child, times: 2)
+    wait(for: [expectation], timeout: Constants.asyncTestTimeout)
+  }
+  
+  func testAsyncVerificationReceivesPastInvocations() {
+    given(self.child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
+    ChildCaller.callParameterizedInstanceMethod(on: self.child, times: 2)
+    let expectation = eventually("childParameterizedInstanceMethod(param1:_:) is called twice") {
+      verify(self.child.childParameterizedInstanceMethod(param1: any(), any()))
+        .wasCalled(exactly(2))
+    }
+    wait(for: [expectation], timeout: Constants.asyncTestTimeout)
+  }
 }

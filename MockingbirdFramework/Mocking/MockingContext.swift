@@ -28,13 +28,19 @@ public class MockingContext {
     invocations.update { $0.removeAll() }
   }
   
-  private(set) var observers = Synchronized<[String: Set<MockingbirdInvocationObserver>]>([:])
-  func addObserver(_ observer: MockingbirdInvocationObserver, for selectorName: String) {
+  private(set) var observers = Synchronized<[String: Set<InvocationObserver>]>([:])
+  func addObserver(_ observer: InvocationObserver, for selectorName: String) {
+    // New observers receive all past invocations for the given `selectorName`.
+    if let invocations = invocations.value[selectorName] {
+      for invocation in invocations {
+        if observer.handle(invocation, mockingContext: self) { return } // Don't add this observer.
+      }
+    }
     observers.update { $0[selectorName, default: []].insert(observer) }
   }
 }
 
-struct MockingbirdInvocationObserver: Hashable, Equatable {
+struct InvocationObserver: Hashable, Equatable {
   init(_ handler: @escaping (Invocation, MockingContext) -> Bool) {
     self.handler = handler
   }
@@ -50,7 +56,7 @@ struct MockingbirdInvocationObserver: Hashable, Equatable {
     hasher.combine(identifier)
   }
   
-  static func == (lhs: MockingbirdInvocationObserver, rhs: MockingbirdInvocationObserver) -> Bool {
+  static func == (lhs: InvocationObserver, rhs: InvocationObserver) -> Bool {
     return lhs.identifier == rhs.identifier
   }
 }
