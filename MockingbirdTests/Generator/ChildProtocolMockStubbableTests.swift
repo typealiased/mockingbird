@@ -13,84 +13,84 @@ import Mockingbird
 
 private protocol StubbableChildProtocol {
   // MARK: Child
-  func getChildPrivateSetterInstanceVariable() -> MockingbirdScopedStub<Bool>
+  func getChildPrivateSetterInstanceVariable() -> Stubbable<Bool>
   func setChildPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Void>
+    -> Stubbable<Void>
   
-  func getChildInstanceVariable() -> MockingbirdScopedStub<Bool>
+  func getChildInstanceVariable() -> Stubbable<Bool>
   func setChildInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Void>
+    -> Stubbable<Void>
   
-  func childTrivialInstanceMethod() -> MockingbirdScopedStub<Void>
+  func childTrivialInstanceMethod() -> Stubbable<Void>
   func childParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                         _ param2: @escaping @autoclosure () -> Int)
-    -> MockingbirdScopedStub<Bool>
+    -> Stubbable<Bool>
   
-  static func getChildPrivateSetterStaticVariable() -> MockingbirdScopedStub<Bool>
+  static func getChildPrivateSetterStaticVariable() -> Stubbable<Bool>
   static func setChildPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Void>
+    -> Stubbable<Void>
   
-  static func getChildStaticVariable() -> MockingbirdScopedStub<Bool>
+  static func getChildStaticVariable() -> Stubbable<Bool>
   static func setChildStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Void>
+    -> Stubbable<Void>
   
-  static func childTrivialStaticMethod() -> MockingbirdScopedStub<Void>
+  static func childTrivialStaticMethod() -> Stubbable<Void>
   static func childParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool,
                                              _ param2: @escaping @autoclosure () -> Int)
-    -> MockingbirdScopedStub<Bool>
+    -> Stubbable<Bool>
   
   // MARK: Parent
-  func getParentPrivateSetterInstanceVariable() -> MockingbirdScopedStub<Bool>
+  func getParentPrivateSetterInstanceVariable() -> Stubbable<Bool>
   func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Void>
+    -> Stubbable<Void>
   
-  func getParentInstanceVariable() -> MockingbirdScopedStub<Bool>
+  func getParentInstanceVariable() -> Stubbable<Bool>
   func setParentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Void>
+    -> Stubbable<Void>
   
-  func parentTrivialInstanceMethod() -> MockingbirdScopedStub<Void>
+  func parentTrivialInstanceMethod() -> Stubbable<Void>
   func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                          _ param2: @escaping @autoclosure () -> Int)
-    -> MockingbirdScopedStub<Bool>
+    -> Stubbable<Bool>
   
-  static func getParentPrivateSetterStaticVariable() -> MockingbirdScopedStub<Bool>
+  static func getParentPrivateSetterStaticVariable() -> Stubbable<Bool>
   static func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Void>
+    -> Stubbable<Void>
   
-  static func getParentStaticVariable() -> MockingbirdScopedStub<Bool>
+  static func getParentStaticVariable() -> Stubbable<Bool>
   static func setParentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Void>
+    -> Stubbable<Void>
   
-  static func parentTrivialStaticMethod() -> MockingbirdScopedStub<Void>
+  static func parentTrivialStaticMethod() -> Stubbable<Void>
   static func parentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool,
                                               _ param2: @escaping @autoclosure () -> Int)
-    -> MockingbirdScopedStub<Bool>
+    -> Stubbable<Bool>
   
   // MARK: Grandparent
-  func getGrandparentPrivateSetterInstanceVariable() -> MockingbirdScopedStub<Bool>
+  func getGrandparentPrivateSetterInstanceVariable() -> Stubbable<Bool>
   func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Void>
+    -> Stubbable<Void>
   
-  func getGrandparentInstanceVariable() -> MockingbirdScopedStub<Bool>
+  func getGrandparentInstanceVariable() -> Stubbable<Bool>
   func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Void>
+    -> Stubbable<Void>
   
-  func grandparentTrivialInstanceMethod() -> MockingbirdScopedStub<Void>
+  func grandparentTrivialInstanceMethod() -> Stubbable<Void>
   func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                               _ param2: @escaping @autoclosure () -> Int)
-    -> MockingbirdScopedStub<Bool>
+    -> Stubbable<Bool>
   
-  static func getGrandparentPrivateSetterStaticVariable() -> MockingbirdScopedStub<Bool>
+  static func getGrandparentPrivateSetterStaticVariable() -> Stubbable<Bool>
   static func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Void>
+    -> Stubbable<Void>
   
-  static func getGrandparentStaticVariable() -> MockingbirdScopedStub<Bool>
+  static func getGrandparentStaticVariable() -> Stubbable<Bool>
   static func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedStub<Void>
+    -> Stubbable<Void>
   
-  static func grandparentTrivialStaticMethod() -> MockingbirdScopedStub<Void>
+  static func grandparentTrivialStaticMethod() -> Stubbable<Void>
   static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool,
                                                    _ param2: @escaping @autoclosure () -> Int)
-    -> MockingbirdScopedStub<Bool>
+    -> Stubbable<Bool>
 }
 extension ChildProtocolMock: StubbableChildProtocol {}

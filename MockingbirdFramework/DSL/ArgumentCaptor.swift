@@ -1,5 +1,5 @@
 //
-//  MockingbirdArgumentCaptor.swift
+//  ArgumentCaptor.swift
 //  Mockingbird
 //
 //  Created by Andrew Chang on 7/29/19.
@@ -8,7 +8,7 @@
 import Foundation
 
 /// Captures method arguments passed during mock invocations.
-public class ArgumentCaptor<Type>: MockingbirdMatcher {
+public class ArgumentCaptor<Type>: ArgumentMatcher {
   final class WeakBox<A: AnyObject> {
     weak var value: A?
     init(_ value: A) {

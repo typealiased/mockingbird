@@ -8,12 +8,12 @@
 import Foundation
 
 /// Mocks create invocations when receiving calls to methods or member methods.
-public struct MockingbirdInvocation: Equatable, CustomStringConvertible {
+public struct Invocation: Equatable, CustomStringConvertible {
   let selectorName: String
-  let arguments: [MockingbirdMatcher]
+  let arguments: [ArgumentMatcher]
   let timestamp = Date()
 
-  public init(selectorName: String, arguments: [MockingbirdMatcher]) {
+  public init(selectorName: String, arguments: [ArgumentMatcher]) {
     self.selectorName = selectorName
     self.arguments = arguments
   }
@@ -23,7 +23,7 @@ public struct MockingbirdInvocation: Equatable, CustomStringConvertible {
     return "`\(selectorName)` matching (\(matchers))"
   }
 
-  public static func == (lhs: MockingbirdInvocation, rhs: MockingbirdInvocation) -> Bool {
+  public static func == (lhs: Invocation, rhs: Invocation) -> Bool {
     guard lhs.arguments.count == rhs.arguments.count else { return false }
     for (index, argument) in lhs.arguments.enumerated() {
       if argument != rhs.arguments[index] { return false }
@@ -45,11 +45,11 @@ public struct MockingbirdInvocation: Equatable, CustomStringConvertible {
   }
 }
 
-extension MockingbirdInvocation {
-  func toSetter() -> MockingbirdInvocation? {
+extension Invocation {
+  func toSetter() -> Invocation? {
     guard isGetter else { return nil }
     let setterSelectorName = String(selectorName.dropLast(4) + Constants.setterSuffix)
-    let matcher = MockingbirdMatcher(nil, description: "any()", true)
-    return MockingbirdInvocation(selectorName: setterSelectorName, arguments: [matcher])
+    let matcher = ArgumentMatcher(nil, description: "any()", true)
+    return Invocation(selectorName: setterSelectorName, arguments: [matcher])
   }
 }

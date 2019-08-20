@@ -8,9 +8,9 @@
 import Foundation
 
 /// Logs invocations observed by generated mocks.
-public class MockingbirdMockingContext {
-  private(set) var invocations = Synchronized<[String: [MockingbirdInvocation]]>([:])
-  func didInvoke(_ invocation: MockingbirdInvocation) {
+public class MockingContext {
+  private(set) var invocations = Synchronized<[String: [Invocation]]>([:])
+  func didInvoke(_ invocation: Invocation) {
     invocations.value[invocation.selectorName, default: []].append(invocation)
     
     let observersCopy = observers.value[invocation.selectorName]
@@ -20,7 +20,7 @@ public class MockingbirdMockingContext {
     })
   }
 
-  func invocations(for selectorName: String) -> [MockingbirdInvocation] {
+  func invocations(for selectorName: String) -> [Invocation] {
     return invocations.value[selectorName] ?? []
   }
 
@@ -35,14 +35,13 @@ public class MockingbirdMockingContext {
 }
 
 struct MockingbirdInvocationObserver: Hashable, Equatable {
-  init(_ handler: @escaping (MockingbirdInvocation, MockingbirdMockingContext) -> Bool) {
+  init(_ handler: @escaping (Invocation, MockingContext) -> Bool) {
     self.handler = handler
   }
   
   /// Attempts to handle an invocation, returning `true` if successful.
-  let handler: (MockingbirdInvocation, MockingbirdMockingContext) -> Bool
-  func handle(_ invocation: MockingbirdInvocation,
-              mockingContext: MockingbirdMockingContext) -> Bool {
+  let handler: (Invocation, MockingContext) -> Bool
+  func handle(_ invocation: Invocation, mockingContext: MockingContext) -> Bool {
     return handler(invocation, mockingContext)
   }
   

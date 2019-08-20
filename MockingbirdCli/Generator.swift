@@ -1,5 +1,5 @@
 //
-//  MockingbirdGenerator.swift
+//  Generator.swift
 //  MockingbirdCli
 //
 //  Created by Andrew Chang on 8/10/19.
@@ -10,7 +10,7 @@ import Foundation
 import XcodeProj
 import PathKit
 
-class MockingbirdCliGenerator {
+class Generator {
   struct Configuration {
     let projectPath: Path
     let sourceRoot: Path

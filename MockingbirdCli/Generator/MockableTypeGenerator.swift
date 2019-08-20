@@ -11,7 +11,7 @@ import Foundation
 
 private enum Constants {
   static let objectProtocolPrefixes = Set(["NS", "CB", "UI"])
-  static let mockProtocolName = "MockingbirdMock"
+  static let mockProtocolName = "Mockingbird.Mock"
 }
 
 extension MockableType {
@@ -22,8 +22,8 @@ extension MockableType {
     
     public final class \(name)Mock: \(allInheritedTypes) {
       static let staticMock = \(name)StaticMock()
-      public let mockingContext = MockingbirdMockingContext()
-      public let stubbingContext = MockingbirdStubbingContext()
+      public let mockingContext = Mockingbird.MockingContext()
+      public let stubbingContext = Mockingbird.StubbingContext()
     
     \(generateBody(memoizedVariables: &memoizedVariables, memoizedMethods: &memoizedMethods))
     }
@@ -104,9 +104,9 @@ extension MockableType {
   
   var staticMock: String {
     return """
-      internal final class \(name)StaticMock: MockingbirdMock {
-        public let mockingContext = MockingbirdMockingContext()
-        public let stubbingContext = MockingbirdStubbingContext()
+      internal final class \(name)StaticMock: \(Constants.mockProtocolName) {
+        public let mockingContext = Mockingbird.MockingContext()
+        public let stubbingContext = Mockingbird.StubbingContext()
       }
     """
   }

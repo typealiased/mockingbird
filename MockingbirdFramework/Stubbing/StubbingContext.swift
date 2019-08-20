@@ -1,5 +1,5 @@
 //
-//  MockingbirdStubbingContext.swift
+//  StubbingContext.swift
 //  Mockingbird
 //
 //  Created by Andrew Chang on 7/29/19.
@@ -8,15 +8,15 @@
 import Foundation
 
 /// Holds stubbed invocation implementations used by stubs.
-public class MockingbirdStubbingContext {
+public class StubbingContext {
   struct Stub {
-    let invocation: MockingbirdInvocation
-    let implementation: (MockingbirdInvocation) throws -> Any?
+    let invocation: Invocation
+    let implementation: (Invocation) throws -> Any?
   }
   var stubs = Synchronized<[String: [Stub]]>([:])
 
-  func swizzle(_ invocation: MockingbirdInvocation,
-               with implementation: @escaping (MockingbirdInvocation) throws -> Any?) {
+  func swizzle(_ invocation: Invocation,
+               with implementation: @escaping (Invocation) throws -> Any?) {
     let stub = Stub(invocation: invocation, implementation: implementation)
     stubs.update { $0[invocation.selectorName, default: []].append(stub) }
     
@@ -24,9 +24,9 @@ public class MockingbirdStubbingContext {
     callback(stub, self)
   }
 
-  func implementation(for invocation: MockingbirdInvocation) throws -> (MockingbirdInvocation) throws -> Any? {
+  func implementation(for invocation: Invocation) throws -> (Invocation) throws -> Any? {
     guard let stub = stubs.value[invocation.selectorName]?.last(where: { $0.invocation == invocation }) else {
-        throw MockingbirdTestFailure.missingStubbedImplementation(invocation: invocation)
+        throw TestFailure.missingStubbedImplementation(invocation: invocation)
     }
     return stub.implementation
   }

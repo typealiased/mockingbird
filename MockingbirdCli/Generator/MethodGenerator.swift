@@ -18,8 +18,8 @@ extension MethodParameter {
   func castedMatcherType(in context: MockableType) -> String {
     let capitalizedName = name.capitalizedFirst
     let typeName = matchableTypeName(in: context, unwrapOptional: true)
-    let alreadyMatcher = "matcher\(capitalizedName) as? MockingbirdMatcher"
-    let createMatcher = "MockingbirdMatcher(matcher\(capitalizedName) as AnyObject as? \(typeName))"
+    let alreadyMatcher = "matcher\(capitalizedName) as? ArgumentMatcher"
+    let createMatcher = "ArgumentMatcher(matcher\(capitalizedName) as AnyObject as? \(typeName))"
     return "(\(alreadyMatcher)) ?? \(createMatcher)"
   }
   
@@ -72,8 +72,8 @@ class MethodGenerator {
       // MARK: Mockable `\(method.name)`
     
       public \(overridableModifiers)func \(regularFullName) \(returnTypeAttributes)-> \(specializedReturnTypeName) {
-        let invocation = MockingbirdInvocation(selectorName: "\(fullSelectorName)",
-                                               arguments: [\(mockArgumentMatchers)])
+        let invocation = Invocation(selectorName: "\(fullSelectorName)",
+                                    arguments: [\(mockArgumentMatchers)])
         \(contextPrefix)mockingContext.didInvoke(invocation)
     \(stubbedImplementationCall)
       }
@@ -86,26 +86,27 @@ class MethodGenerator {
     return """
       // MARK: Stubbable `\(method.name)`
     
-      public \(regularModifiers)func \(fullNameForMatching) -> MockingbirdScopedStub<\(returnTypeName)> {
+      public \(regularModifiers)func \(fullNameForMatching) -> Stubbable<\(returnTypeName)> {
     \(matchableInvocation)
         if let stub = DispatchQueue.currentStub {
           \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation)
         }
-        return MockingbirdScopedStub<\(returnTypeName)>()
+        return Stubbable<\(returnTypeName)>()
       }
     """
   }()
   
   lazy var generatedVerification: String = {
+    let returnTypeName = specializedReturnTypeName
     return """
       // MARK: Verifiable `\(method.name)`
     
-      public \(regularModifiers)func \(fullNameForMatching) -> MockingbirdScopedMock {
+      public \(regularModifiers)func \(fullNameForMatching) -> Mockable<\(returnTypeName)> {
     \(matchableInvocation)
         if let expectation = DispatchQueue.currentExpectation {
           expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation)
         }
-        return MockingbirdScopedMock()
+        return Mockable<\(returnTypeName)>()
       }
     """
   }()
@@ -177,15 +178,13 @@ class MethodGenerator {
   lazy var matchableInvocation: String = {
     guard !method.parameters.isEmpty else {
       return """
-          let invocation = MockingbirdInvocation(selectorName: "\(fullSelectorName)",
-                                                 arguments: [])
+          let invocation = Invocation(selectorName: "\(fullSelectorName)", arguments: [])
       """
     }
     
     return """
     \(resolvedArgumentMatchers)
-        let invocation = MockingbirdInvocation(selectorName: "\(fullSelectorName)",
-                                               arguments: arguments)
+        let invocation = Invocation(selectorName: "\(fullSelectorName)", arguments: arguments)
     """
   }()
   
@@ -194,7 +193,7 @@ class MethodGenerator {
     let arguments = method.parameters.map({ $0.castedMatcherType(in: context) }).joined(separator: ",\n      ")
     return """
         \(resolved)
-        let arguments: [MockingbirdMatcher] = [
+        let arguments: [ArgumentMatcher] = [
           \(arguments)
         ]
     """
@@ -214,9 +213,9 @@ class MethodGenerator {
     return method.parameters.map({ parameter -> String in
       guard !parameter.isClosure || parameter.isEscapingClosure else {
         // Can't save the parameter in the invocation because it's non-escaping
-        return "MockingbirdMatcher(nil)"
+        return "ArgumentMatcher(nil)"
       }
-      return "MockingbirdMatcher(`\(parameter.name)`)"
+      return "ArgumentMatcher(`\(parameter.name)`)"
     }).joined(separator: ", ")
   }()
   

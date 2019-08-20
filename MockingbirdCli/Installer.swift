@@ -1,5 +1,5 @@
 //
-//  MockingbirdCliInstaller.swift
+//  Installer.swift
 //  MockingbirdCli
 //
 //  Created by Andrew Chang on 8/10/19.
@@ -10,7 +10,7 @@ import Foundation
 import XcodeProj
 import PathKit
 
-class MockingbirdCliInstaller {
+class Installer {
   struct InstallConfiguration {
     let projectPath: Path
     let sourceRoot: Path

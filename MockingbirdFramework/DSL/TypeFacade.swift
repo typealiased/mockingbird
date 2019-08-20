@@ -1,5 +1,5 @@
 //
-//  MockingbirdTypeFacade.swift
+//  TypeFacade.swift
 //  Mockingbird
 //
 //  Created by Andrew Chang on 8/3/19.
@@ -8,7 +8,7 @@
 import Foundation
 
 // This is a hack to get strongly-typed stubbing/verification parameters. The goal is to have
-// `MockingbirdMatcher` "conform" to any reference or value type so that it's possible to pass both
+// `ArgumentMatcher` "conform" to any reference or value type so that it's possible to pass both
 // an actual concrete instance of a type OR a matcher. The method provides stronger compile-time
 // guarantees and better autocomplete compared to simply conforming parameter types to a common
 // protocol such as `Matchable`.

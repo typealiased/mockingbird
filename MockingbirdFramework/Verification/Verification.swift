@@ -17,7 +17,8 @@ struct MockingbirdSourceLocation {
   }
 }
 
-public struct MockingbirdVerificationScope: MockingbirdRunnableScope {
+/// Intermediate verification object.
+public struct Verification: RunnableScope {
   let uuid = UUID()
   let sourceLocation: MockingbirdSourceLocation
 
@@ -28,7 +29,7 @@ public struct MockingbirdVerificationScope: MockingbirdRunnableScope {
     self.sourceLocation = sourceLocation
   }
 
-  public func wasCalled(_ callMatcher: MockingbirdCallMatcher = once) {
+  public func wasCalled(_ callMatcher: CallMatcher = once) {
     verify(self, using: callMatcher, for: sourceLocation)
   }
 
@@ -39,60 +40,60 @@ public struct MockingbirdVerificationScope: MockingbirdRunnableScope {
   func run() -> Any? { return runnable() }
 }
 
-struct MockingbirdExpectation {
-  static let verificationScopeKey = DispatchSpecificKey<MockingbirdExpectation>()
-  static let asyncGroupKey = DispatchSpecificKey<MockingbirdAsyncExpectationGroup>()
+struct Expectation {
+  static let verificationScopeKey = DispatchSpecificKey<Expectation>()
+  static let asyncGroupKey = DispatchSpecificKey<AsyncExpectationGroup>()
   
-  let callMatcher: MockingbirdCallMatcher
+  let callMatcher: CallMatcher
   let sourceLocation: MockingbirdSourceLocation
-  let asyncGroup: MockingbirdAsyncExpectationGroup?
+  let asyncGroup: AsyncExpectationGroup?
   
-  func copy(withAsyncGroup: Bool = false) -> MockingbirdExpectation {
-    return MockingbirdExpectation(callMatcher: callMatcher,
+  func copy(withAsyncGroup: Bool = false) -> Expectation {
+    return Expectation(callMatcher: callMatcher,
                                   sourceLocation: sourceLocation,
                                   asyncGroup: withAsyncGroup ? asyncGroup : nil)
   }
 }
 
 /// Defers expectations until an invocation arrives later.
-struct MockingbirdAsyncExpectation {
-  let mockingContext: MockingbirdMockingContext
-  let invocation: MockingbirdInvocation
-  let expectation: MockingbirdExpectation
+struct AsyncExpectation {
+  let mockingContext: MockingContext
+  let invocation: Invocation
+  let expectation: Expectation
 }
-class MockingbirdAsyncExpectationGroup {
-  private(set) var expectations = [MockingbirdAsyncExpectation]()
-  func addExpectation(_ expectation: MockingbirdAsyncExpectation) {
+class AsyncExpectationGroup {
+  private(set) var expectations = [AsyncExpectation]()
+  func addExpectation(_ expectation: AsyncExpectation) {
     expectations.append(expectation)
   }
 }
 
 extension DispatchQueue {
-  class var currentExpectation: MockingbirdExpectation? {
-    return DispatchQueue.getSpecific(key: MockingbirdExpectation.verificationScopeKey)
+  class var currentExpectation: Expectation? {
+    return DispatchQueue.getSpecific(key: Expectation.verificationScopeKey)
   }
   
-  class var currentAsyncGroup: MockingbirdAsyncExpectationGroup? {
-    return DispatchQueue.getSpecific(key: MockingbirdExpectation.asyncGroupKey)
+  class var currentAsyncGroup: AsyncExpectationGroup? {
+    return DispatchQueue.getSpecific(key: Expectation.asyncGroupKey)
   }
 }
 
-internal func verify(_ verificationScope: MockingbirdVerificationScope,
-                     using callMatcher: MockingbirdCallMatcher,
+internal func verify(_ verificationScope: Verification,
+                     using callMatcher: CallMatcher,
                      for sourceLocation: MockingbirdSourceLocation) {
   let queue = DispatchQueue(label: "co.bird.mockingbird.verification-scope")
-  let expectation = MockingbirdExpectation(callMatcher: callMatcher,
-                                           sourceLocation: sourceLocation,
-                                           asyncGroup: DispatchQueue.currentAsyncGroup)
-  queue.setSpecific(key: MockingbirdExpectation.verificationScopeKey, value: expectation)
+  let expectation = Expectation(callMatcher: callMatcher,
+                                sourceLocation: sourceLocation,
+                                asyncGroup: DispatchQueue.currentAsyncGroup)
+  queue.setSpecific(key: Expectation.verificationScopeKey, value: expectation)
   _ = queue.sync { verificationScope.run() }
 }
 
 internal func createTestExpectation(with scope: () -> Void,
                                     description: String?) -> XCTestExpectation {
-  let asyncGroup = MockingbirdAsyncExpectationGroup()
+  let asyncGroup = AsyncExpectationGroup()
   let queue = DispatchQueue(label: "co.bird.mockingbird.async-verification-scope")
-  queue.setSpecific(key: MockingbirdExpectation.asyncGroupKey, value: asyncGroup)
+  queue.setSpecific(key: Expectation.asyncGroupKey, value: asyncGroup)
   queue.sync { scope() }
   
   let testExpectation = XCTestExpectation(description: description ?? "Async verification group")
@@ -113,14 +114,13 @@ internal func createTestExpectation(with scope: () -> Void,
 }
 
 /// Used by generated mocks to verify invocations with a call matcher.
-internal func expect(
-  _ mockingContext: MockingbirdMockingContext,
-  handled invocation: MockingbirdInvocation,
-  using expectation: MockingbirdExpectation) {
+internal func expect(_ mockingContext: MockingContext,
+                     handled invocation: Invocation,
+                     using expectation: Expectation) {
   if let asyncGroup = expectation.asyncGroup {
-    let asyncExpectation = MockingbirdAsyncExpectation(mockingContext: mockingContext,
-                                                       invocation: invocation,
-                                                       expectation: expectation.copy())
+    let asyncExpectation = AsyncExpectation(mockingContext: mockingContext,
+                                            invocation: invocation,
+                                            expectation: expectation.copy())
     asyncGroup.addExpectation(asyncExpectation)
     return
   }
@@ -130,8 +130,8 @@ internal func expect(
   let actualCallCount = UInt(allInvocations.count)
   guard !expectation.callMatcher.matches(actualCallCount) else { return }
   let description = expectation.callMatcher.describe(invocation: invocation, count: actualCallCount)
-  let failure = MockingbirdTestFailure.incorrectInvocationCount(invocation: invocation,
-                                                                description: description)
+  let failure = TestFailure.incorrectInvocationCount(invocation: invocation,
+                                                     description: description)
   XCTFail(String(describing: failure),
           file: expectation.sourceLocation.file,
           line: expectation.sourceLocation.line)

@@ -74,7 +74,7 @@ Group {
     let shouldImportModule = !(parser.hasOption("disable-module-import"))
     let onlyMockProtocols = parser.hasOption("only-protocols")
     
-    let config = MockingbirdCliGenerator.Configuration(
+    let config = Generator.Configuration(
       projectPath: projectPath,
       sourceRoot: sourceRoot,
       inputTargetNames: targets,
@@ -83,7 +83,7 @@ Group {
       shouldImportModule: shouldImportModule,
       onlyMockProtocols: onlyMockProtocols
     )
-    try MockingbirdCliGenerator.generate(using: config)
+    try Generator.generate(using: config)
   }
   
   $0.command("install", description: "Starts automatically generating mocks by adding a custom Run Script Phase to each target.") {
@@ -97,7 +97,7 @@ Group {
     let synchronousGeneration = parser.hasOption("synchronous")
     let preprocessorExpression: String? = try parser.shiftValue(for: "preprocessor")
     
-    let config = MockingbirdCliInstaller.InstallConfiguration(
+    let config = Installer.InstallConfiguration(
       projectPath: projectPath,
       sourceRoot: sourceRoot,
       targetNames: targets,
@@ -107,7 +107,7 @@ Group {
       synchronousGeneration: synchronousGeneration,
       preprocessorExpression: preprocessorExpression
     )
-    try MockingbirdCliInstaller.install(using: config)
+    try Installer.install(using: config)
   }
   
   $0.command("uninstall", description: "Stops automatically generating mocks.") {
@@ -116,11 +116,11 @@ Group {
     let sourceRoot = try parser.sourceRoot(for: projectPath)
     let targets = try parser.targets()
     
-    let config = MockingbirdCliInstaller.UninstallConfiguration(
+    let config = Installer.UninstallConfiguration(
       projectPath: projectPath,
       sourceRoot: sourceRoot,
       targetNames: targets
     )
-    try MockingbirdCliInstaller.uninstall(using: config)
+    try Installer.uninstall(using: config)
   }
 }.run()

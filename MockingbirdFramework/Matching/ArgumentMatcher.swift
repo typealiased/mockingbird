@@ -1,5 +1,5 @@
 //
-//  MockingbirdMatcher.swift
+//  ArgumentMatcher.swift
 //  Mockingbird
 //
 //  Created by Andrew Chang on 7/29/19.
@@ -10,7 +10,7 @@ import Foundation
 /// Matchers use equality for objects conforming to `Equatable` and fall back to comparison by
 /// reference. For custom objects that are not equatable, provide a custom `comparator` that should
 /// return `true` if `base` (lhs) is equal to the other `base` (rhs).
-public class MockingbirdMatcher: CustomStringConvertible {
+public class ArgumentMatcher: CustomStringConvertible {
   /// Necessary for custom comparators such as `any()` that only work on the lhs.
   public struct Commutativity: OptionSet {
     public let rawValue: Int
@@ -73,8 +73,8 @@ public class MockingbirdMatcher: CustomStringConvertible {
   }
 }
 
-extension MockingbirdMatcher: Equatable {
-  public static func == (lhs: MockingbirdMatcher, rhs: MockingbirdMatcher) -> Bool {
+extension ArgumentMatcher: Equatable {
+  public static func == (lhs: ArgumentMatcher, rhs: ArgumentMatcher) -> Bool {
     if lhs.commutativity == .lhs {
       return lhs.compare(with: rhs.base)
     } else if lhs.commutativity == .rhs {

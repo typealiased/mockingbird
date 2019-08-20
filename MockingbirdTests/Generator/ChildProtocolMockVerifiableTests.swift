@@ -13,84 +13,84 @@ import Mockingbird
 
 private protocol VerifiableChildProtocol {
   // MARK: Child
-  func getChildPrivateSetterInstanceVariable() -> MockingbirdScopedMock
+  func getChildPrivateSetterInstanceVariable() -> Mockable<Bool>
   func setChildPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedMock
+    -> Mockable<Void>
   
-  func getChildInstanceVariable() -> MockingbirdScopedMock
+  func getChildInstanceVariable() -> Mockable<Bool>
   func setChildInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedMock
+    -> Mockable<Void>
   
-  func childTrivialInstanceMethod() -> MockingbirdScopedMock
+  func childTrivialInstanceMethod() -> Mockable<Void>
   func childParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                         _ param2: @escaping @autoclosure () -> Int)
-    -> MockingbirdScopedMock
+    -> Mockable<Bool>
   
-  static func getChildPrivateSetterStaticVariable() -> MockingbirdScopedMock
+  static func getChildPrivateSetterStaticVariable() -> Mockable<Bool>
   static func setChildPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedMock
+    -> Mockable<Void>
   
-  static func getChildStaticVariable() -> MockingbirdScopedMock
+  static func getChildStaticVariable() -> Mockable<Bool>
   static func setChildStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedMock
+    -> Mockable<Void>
   
-  static func childTrivialStaticMethod() -> MockingbirdScopedMock
+  static func childTrivialStaticMethod() -> Mockable<Void>
   static func childParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool,
                                              _ param2: @escaping @autoclosure () -> Int)
-    -> MockingbirdScopedMock
+    -> Mockable<Bool>
   
   // MARK: Parent
-  func getParentPrivateSetterInstanceVariable() -> MockingbirdScopedMock
+  func getParentPrivateSetterInstanceVariable() -> Mockable<Bool>
   func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedMock
+    -> Mockable<Void>
   
-  func getParentInstanceVariable() -> MockingbirdScopedMock
+  func getParentInstanceVariable() -> Mockable<Bool>
   func setParentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedMock
+    -> Mockable<Void>
   
-  func parentTrivialInstanceMethod() -> MockingbirdScopedMock
+  func parentTrivialInstanceMethod() -> Mockable<Void>
   func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                          _ param2: @escaping @autoclosure () -> Int)
-    -> MockingbirdScopedMock
+    -> Mockable<Bool>
   
-  static func getParentPrivateSetterStaticVariable() -> MockingbirdScopedMock
+  static func getParentPrivateSetterStaticVariable() -> Mockable<Bool>
   static func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedMock
+    -> Mockable<Void>
   
-  static func getParentStaticVariable() -> MockingbirdScopedMock
+  static func getParentStaticVariable() -> Mockable<Bool>
   static func setParentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedMock
+    -> Mockable<Void>
   
-  static func parentTrivialStaticMethod() -> MockingbirdScopedMock
+  static func parentTrivialStaticMethod() -> Mockable<Void>
   static func parentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool,
                                               _ param2: @escaping @autoclosure () -> Int)
-    -> MockingbirdScopedMock
+    -> Mockable<Bool>
   
   // MARK: Grandparent
-  func getGrandparentPrivateSetterInstanceVariable() -> MockingbirdScopedMock
+  func getGrandparentPrivateSetterInstanceVariable() -> Mockable<Bool>
   func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedMock
+    -> Mockable<Void>
   
-  func getGrandparentInstanceVariable() -> MockingbirdScopedMock
+  func getGrandparentInstanceVariable() -> Mockable<Bool>
   func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedMock
+    -> Mockable<Void>
   
-  func grandparentTrivialInstanceMethod() -> MockingbirdScopedMock
+  func grandparentTrivialInstanceMethod() -> Mockable<Void>
   func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                               _ param2: @escaping @autoclosure () -> Int)
-    -> MockingbirdScopedMock
+    -> Mockable<Bool>
   
-  static func getGrandparentPrivateSetterStaticVariable() -> MockingbirdScopedMock
+  static func getGrandparentPrivateSetterStaticVariable() -> Mockable<Bool>
   static func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedMock
+    -> Mockable<Void>
   
-  static func getGrandparentStaticVariable() -> MockingbirdScopedMock
+  static func getGrandparentStaticVariable() -> Mockable<Bool>
   static func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> MockingbirdScopedMock
+    -> Mockable<Void>
   
-  static func grandparentTrivialStaticMethod() -> MockingbirdScopedMock
+  static func grandparentTrivialStaticMethod() -> Mockable<Void>
   static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool,
                                                    _ param2: @escaping @autoclosure () -> Int)
-    -> MockingbirdScopedMock
+    -> Mockable<Bool>
 }
 extension ChildProtocolMock: VerifiableChildProtocol {}
