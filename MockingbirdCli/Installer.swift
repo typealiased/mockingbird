@@ -17,7 +17,7 @@ class Installer {
     let targetNames: [String]
     let outputPaths: [Path]?
     let cliPath: Path
-    let shouldOverride: Bool
+    let shouldReinstall: Bool
     let synchronousGeneration: Bool
     let preprocessorExpression: String?
   }
@@ -58,7 +58,7 @@ class Installer {
       }
       
       // Cleanup past installations.
-      if config.shouldOverride {
+      if config.shouldReinstall {
         try uninstall(from: xcodeproj, target: target, sourceRoot: config.sourceRoot)
       }
       

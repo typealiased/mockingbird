@@ -9,6 +9,7 @@ import Foundation
 
 /// MARK: - Convenience methods for multi-verification
 
+/// Verify that a set of mocks recieved a specific invocation some number of times.
 public func verify<T>(file: StaticString = #file, line: UInt = #line,
                    _ mock0: @escaping @autoclosure () -> Mockable<T>,
                    _ mock1: @escaping @autoclosure () -> Mockable<T>) -> Verification {
@@ -17,6 +18,7 @@ public func verify<T>(file: StaticString = #file, line: UInt = #line,
   }, at: MockingbirdSourceLocation(file, line))
 }
 
+/// Verify that a set of mocks recieved a specific invocation some number of times.
 public func verify<T>(file: StaticString = #file, line: UInt = #line,
                    _ mock0: @escaping @autoclosure () -> Mockable<T>,
                    _ mock1: @escaping @autoclosure () -> Mockable<T>,
@@ -26,6 +28,7 @@ public func verify<T>(file: StaticString = #file, line: UInt = #line,
   }, at: MockingbirdSourceLocation(file, line))
 }
 
+/// Verify that a set of mocks recieved a specific invocation some number of times.
 public func verify<T>(file: StaticString = #file, line: UInt = #line,
                    _ mock0: @escaping @autoclosure () -> Mockable<T>,
                    _ mock1: @escaping @autoclosure () -> Mockable<T>,
@@ -36,6 +39,7 @@ public func verify<T>(file: StaticString = #file, line: UInt = #line,
   }, at: MockingbirdSourceLocation(file, line))
 }
 
+/// Verify that a set of mocks recieved a specific invocation some number of times.
 public func verify<T>(file: StaticString = #file, line: UInt = #line,
                    _ mock0: @escaping @autoclosure () -> Mockable<T>,
                    _ mock1: @escaping @autoclosure () -> Mockable<T>,
@@ -47,6 +51,7 @@ public func verify<T>(file: StaticString = #file, line: UInt = #line,
   }, at: MockingbirdSourceLocation(file, line))
 }
 
+/// Verify that a set of mocks recieved a specific invocation some number of times.
 public func verify<T>(file: StaticString = #file, line: UInt = #line,
                    _ mock0: @escaping @autoclosure () -> Mockable<T>,
                    _ mock1: @escaping @autoclosure () -> Mockable<T>,
@@ -59,6 +64,7 @@ public func verify<T>(file: StaticString = #file, line: UInt = #line,
   }, at: MockingbirdSourceLocation(file, line))
 }
 
+/// Verify that a set of mocks recieved a specific invocation some number of times.
 public func verify<T>(file: StaticString = #file, line: UInt = #line,
                    _ mock0: @escaping @autoclosure () -> Mockable<T>,
                    _ mock1: @escaping @autoclosure () -> Mockable<T>,
@@ -72,6 +78,7 @@ public func verify<T>(file: StaticString = #file, line: UInt = #line,
   }, at: MockingbirdSourceLocation(file, line))
 }
 
+/// Verify that a set of mocks recieved a specific invocation some number of times.
 public func verify<T>(file: StaticString = #file, line: UInt = #line,
                    _ mock0: @escaping @autoclosure () -> Mockable<T>,
                    _ mock1: @escaping @autoclosure () -> Mockable<T>,
@@ -86,6 +93,7 @@ public func verify<T>(file: StaticString = #file, line: UInt = #line,
   }, at: MockingbirdSourceLocation(file, line))
 }
 
+/// Verify that a set of mocks recieved a specific invocation some number of times.
 public func verify<T>(file: StaticString = #file, line: UInt = #line,
                    _ mock0: @escaping @autoclosure () -> Mockable<T>,
                    _ mock1: @escaping @autoclosure () -> Mockable<T>,
@@ -101,6 +109,7 @@ public func verify<T>(file: StaticString = #file, line: UInt = #line,
   }, at: MockingbirdSourceLocation(file, line))
 }
 
+/// Verify that a set of mocks recieved a specific invocation some number of times.
 public func verify<T>(file: StaticString = #file, line: UInt = #line,
                    _ mock0: @escaping @autoclosure () -> Mockable<T>,
                    _ mock1: @escaping @autoclosure () -> Mockable<T>,

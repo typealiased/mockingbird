@@ -93,7 +93,7 @@ Group {
     let targets = try parser.targets()
     let outputs = try parser.outputs()
     
-    let shouldOverride = parser.hasOption("override")
+    let shouldReinstall = parser.hasOption("reinstall")
     let synchronousGeneration = parser.hasOption("synchronous")
     let preprocessorExpression: String? = try parser.shiftValue(for: "preprocessor")
     
@@ -103,7 +103,7 @@ Group {
       targetNames: targets,
       outputPaths: outputs,
       cliPath: Path(CommandLine.arguments[0]),
-      shouldOverride: shouldOverride,
+      shouldReinstall: shouldReinstall,
       synchronousGeneration: synchronousGeneration,
       preprocessorExpression: preprocessorExpression
     )

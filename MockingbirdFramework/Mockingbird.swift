@@ -10,14 +10,16 @@ import XCTest
 
 // MARK: - Stubbing
 
-/// Convenience method to stub a single mock object.
+/// Stub a single mock object to return a value or perform an operation.
 ///
 /// - Parameter mock: A mock and its invocation to stub.
-/// - Returns: An internal stubbing scope.
 public func given<T>(_ mock: @escaping @autoclosure () -> Stubbable<T>) -> Stub<T> {
   return Stub<T>(mock)
 }
 
+/// Stubs a variable getter to return the last value received by the setter.
+///
+/// - Parameter initial: The initial value to return.
 public func lastSetValue<T>(initial: T) -> StubImplementation<T> {
   var currentValue = initial
   let implementation: (Invocation) -> T = { _ in return currentValue }
