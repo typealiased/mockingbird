@@ -262,38 +262,6 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
 
   // MARK: Mockable `request(object:)`
 
-  public func request<T: AssociatedTypeProtocol>(object: T) -> T.HashableType where T.EquatableType == Bool, T.HashableType == String {
-    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType",
-                                            arguments: [Mockingbird.ArgumentMatcher(`object`)])
-    mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? (T) -> T.HashableType {
-      return concreteImplementation(`object`)
-    } else {
-      return (implementation as! () -> T.HashableType)()
-    }
-  }
-
-  // MARK: Stubbable `request(object:)`
-
-  public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Stubbable<(T) -> T.HashableType, T.HashableType> where T.EquatableType == Bool, T.HashableType == String {
-    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(`object`), as: T.self)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType", arguments: arguments)
-    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
-    return Mockingbird.Stubbable<(T) -> T.HashableType, T.HashableType>()
-  }
-
-  // MARK: Verifiable `request(object:)`
-
-  public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<T.HashableType> where T.EquatableType == Bool, T.HashableType == String {
-    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(`object`), as: T.self)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType", arguments: arguments)
-    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
-    return Mockingbird.Mockable<T.HashableType>()
-  }
-
-  // MARK: Mockable `request(object:)`
-
   public func request<T: AssociatedTypeProtocol>(object: T) -> Void where T.EquatableType == Int, T.HashableType == String {
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void",
                                             arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -350,6 +318,38 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
   // MARK: Verifiable `request(object:)`
 
   public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<T.HashableType> where T.EquatableType == Int, T.HashableType == String {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(`object`), as: T.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<T.HashableType>()
+  }
+
+  // MARK: Mockable `request(object:)`
+
+  public func request<T: AssociatedTypeProtocol>(object: T) -> T.HashableType where T.EquatableType == Bool, T.HashableType == String {
+    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType",
+                                            arguments: [Mockingbird.ArgumentMatcher(`object`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (T) -> T.HashableType {
+      return concreteImplementation(`object`)
+    } else {
+      return (implementation as! () -> T.HashableType)()
+    }
+  }
+
+  // MARK: Stubbable `request(object:)`
+
+  public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Stubbable<(T) -> T.HashableType, T.HashableType> where T.EquatableType == Bool, T.HashableType == String {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(`object`), as: T.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(T) -> T.HashableType, T.HashableType>()
+  }
+
+  // MARK: Verifiable `request(object:)`
+
+  public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<T.HashableType> where T.EquatableType == Bool, T.HashableType == String {
     let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(`object`), as: T.self)]
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
@@ -2253,6 +2253,335 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 }
 
+// MARK: - Mocked ExtendableProtocol
+
+public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  private var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ExtendableProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mockable `anotherExtendedVariable`
+
+  public var anotherExtendedVariable: Bool {
+    get {
+      let invocation = Mockingbird.Invocation(selectorName: "anotherExtendedVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation = Mockingbird.Invocation(selectorName: "anotherExtendedVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  // MARK: Stubbable `anotherExtendedVariable`
+
+  public func getAnotherExtendedVariable() -> Mockingbird.Stubbable<() -> Bool, Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "anotherExtendedVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Stubbable<() -> Bool, Bool>()
+  }
+
+  public func setAnotherExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(newValue), as: Bool.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "anotherExtendedVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(Bool) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `anotherExtendedVariable`
+
+  public func getAnotherExtendedVariable() -> Mockingbird.Mockable<Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "anotherExtendedVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  public func setAnotherExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(newValue), as: Bool.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "anotherExtendedVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  // MARK: Mockable `baseVariable`
+
+  public var baseVariable: Bool {
+    get {
+      let invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  // MARK: Stubbable `baseVariable`
+
+  public func getBaseVariable() -> Mockingbird.Stubbable<() -> Bool, Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Stubbable<() -> Bool, Bool>()
+  }
+
+  public func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(newValue), as: Bool.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(Bool) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `baseVariable`
+
+  public func getBaseVariable() -> Mockingbird.Mockable<Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  public func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(newValue), as: Bool.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  // MARK: Mockable `extendedVariable`
+
+  public var extendedVariable: Bool {
+    get {
+      let invocation = Mockingbird.Invocation(selectorName: "extendedVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation = Mockingbird.Invocation(selectorName: "extendedVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  // MARK: Stubbable `extendedVariable`
+
+  public func getExtendedVariable() -> Mockingbird.Stubbable<() -> Bool, Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "extendedVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Stubbable<() -> Bool, Bool>()
+  }
+
+  public func setExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(newValue), as: Bool.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "extendedVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(Bool) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `extendedVariable`
+
+  public func getExtendedVariable() -> Mockingbird.Mockable<Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "extendedVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  public func setExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(newValue), as: Bool.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "extendedVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  public static func ==(lhs: ExtendableProtocolMock, rhs: ExtendableProtocolMock) -> Bool {
+    return true
+  }
+
+  public init(__file: StaticString = #file, __line: UInt = #line) {
+    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
+    self.stubbingContext.sourceLocation = sourceLocation
+    ExtendableProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `anotherTrivialExtendedMethod()`
+
+  public func anotherTrivialExtendedMethod() -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "anotherTrivialExtendedMethod() -> Void",
+                                            arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `anotherTrivialExtendedMethod()`
+
+  public func anotherTrivialExtendedMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
+    let invocation = Mockingbird.Invocation(selectorName: "anotherTrivialExtendedMethod() -> Void", arguments: [])
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<() -> Void, Void>()
+  }
+
+  // MARK: Verifiable `anotherTrivialExtendedMethod()`
+
+  public func anotherTrivialExtendedMethod() -> Mockingbird.Mockable<Void> {
+    let invocation = Mockingbird.Invocation(selectorName: "anotherTrivialExtendedMethod() -> Void", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  // MARK: Mockable `parameterizedExtendedMethod(param1:)`
+
+  public func parameterizedExtendedMethod(param1: Bool) -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedExtendedMethod(param1:) -> Void",
+                                            arguments: [Mockingbird.ArgumentMatcher(`param1`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Bool) -> Void {
+      concreteImplementation(`param1`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `parameterizedExtendedMethod(param1:)`
+
+  public func parameterizedExtendedMethod(param1: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(`param1`), as: Bool.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedExtendedMethod(param1:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(Bool) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `parameterizedExtendedMethod(param1:)`
+
+  public func parameterizedExtendedMethod(param1: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(`param1`), as: Bool.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedExtendedMethod(param1:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  // MARK: Mockable `parameterizedReturningExtendedMethod(param1:)`
+
+  public func parameterizedReturningExtendedMethod(param1: Bool) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedReturningExtendedMethod(param1:) -> Bool",
+                                            arguments: [Mockingbird.ArgumentMatcher(`param1`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (Bool) -> Bool {
+      return concreteImplementation(`param1`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `parameterizedReturningExtendedMethod(param1:)`
+
+  public func parameterizedReturningExtendedMethod(param1: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Bool, Bool> {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(`param1`), as: Bool.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedReturningExtendedMethod(param1:) -> Bool", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(Bool) -> Bool, Bool>()
+  }
+
+  // MARK: Verifiable `parameterizedReturningExtendedMethod(param1:)`
+
+  public func parameterizedReturningExtendedMethod(param1: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(`param1`), as: Bool.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedReturningExtendedMethod(param1:) -> Bool", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  // MARK: Mockable `trivialBaseMethod()`
+
+  public func trivialBaseMethod() -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "trivialBaseMethod() -> Void",
+                                            arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `trivialBaseMethod()`
+
+  public func trivialBaseMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
+    let invocation = Mockingbird.Invocation(selectorName: "trivialBaseMethod() -> Void", arguments: [])
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<() -> Void, Void>()
+  }
+
+  // MARK: Verifiable `trivialBaseMethod()`
+
+  public func trivialBaseMethod() -> Mockingbird.Mockable<Void> {
+    let invocation = Mockingbird.Invocation(selectorName: "trivialBaseMethod() -> Void", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  // MARK: Mockable `trivialExtendedMethod()`
+
+  public func trivialExtendedMethod() -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "trivialExtendedMethod() -> Void",
+                                            arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `trivialExtendedMethod()`
+
+  public func trivialExtendedMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
+    let invocation = Mockingbird.Invocation(selectorName: "trivialExtendedMethod() -> Void", arguments: [])
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<() -> Void, Void>()
+  }
+
+  // MARK: Verifiable `trivialExtendedMethod()`
+
+  public func trivialExtendedMethod() -> Mockingbird.Mockable<Void> {
+    let invocation = Mockingbird.Invocation(selectorName: "trivialExtendedMethod() -> Void", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+}
+
 // MARK: - Mocked Grandparent
 
 public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbird.Mock {
@@ -2871,6 +3200,111 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   public static func grandparentTrivialStaticMethod() -> Mockingbird.Mockable<Void> {
     let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialStaticMethod() -> Void", arguments: [])
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+}
+
+// MARK: - Mocked NonExtendableClass
+
+public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableClass, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  private var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      NonExtendableClassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mockable `baseVariable`
+
+  override public var baseVariable: Bool {
+    get {
+      let invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  // MARK: Stubbable `baseVariable`
+
+  public func getBaseVariable() -> Mockingbird.Stubbable<() -> Bool, Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Stubbable<() -> Bool, Bool>()
+  }
+
+  public func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(newValue), as: Bool.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(Bool) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `baseVariable`
+
+  public func getBaseVariable() -> Mockingbird.Mockable<Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  public func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(newValue), as: Bool.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  public static func ==(lhs: NonExtendableClassMock, rhs: NonExtendableClassMock) -> Bool {
+    return true
+  }
+
+  public init(__file: StaticString = #file, __line: UInt = #line) {
+    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
+    self.stubbingContext.sourceLocation = sourceLocation
+    NonExtendableClassMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `trivialBaseMethod()`
+
+  public override func trivialBaseMethod() -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "trivialBaseMethod() -> Void",
+                                            arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `trivialBaseMethod()`
+
+  public func trivialBaseMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
+    let invocation = Mockingbird.Invocation(selectorName: "trivialBaseMethod() -> Void", arguments: [])
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<() -> Void, Void>()
+  }
+
+  // MARK: Verifiable `trivialBaseMethod()`
+
+  public func trivialBaseMethod() -> Mockingbird.Mockable<Void> {
+    let invocation = Mockingbird.Invocation(selectorName: "trivialBaseMethod() -> Void", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
   }
 }

@@ -12,11 +12,16 @@ import SourceKittenFramework
 struct RawType {
   let dictionary: StructureDictionary
   let name: String
+  let kind: SwiftDeclarationKind
   let parsedFile: ParsedFile
   
-  init(dictionary: StructureDictionary, name: String, parsedFile: ParsedFile) {
+  init(dictionary: StructureDictionary,
+       name: String,
+       kind: SwiftDeclarationKind,
+       parsedFile: ParsedFile) {
     self.dictionary = dictionary
     self.name = name
+    self.kind = kind
     self.parsedFile = parsedFile
   }
 }
@@ -25,7 +30,7 @@ class ProcessTypesOperation: BasicOperation {
   let parseFilesResult: ParseFilesOperation.Result
   
   class Result {
-    fileprivate(set) var rawTypes = [String: RawType]()
+    fileprivate(set) var rawTypes = [String: [RawType]]() // Handle multiple extensions.
     fileprivate(set) var mockableTypes = [MockableType]()
     fileprivate(set) var imports = Set<String>()
   }
@@ -33,8 +38,8 @@ class ProcessTypesOperation: BasicOperation {
   let result = Result()
   
   class SubOperation: BasicOperation {
-    let rawType: RawType
-    let rawTypes: [String: RawType]
+    let rawType: [RawType]
+    let allRawTypes: [String: [RawType]]
     
     class Result {
       fileprivate(set) var mockableType: MockableType?
@@ -42,9 +47,10 @@ class ProcessTypesOperation: BasicOperation {
     
     let result = Result()
     
-    init(rawType: RawType, rawTypes: [String: RawType]) {
+    init(rawType: [RawType], allRawTypes: [String: [RawType]]) {
+      assert(!rawType.isEmpty)
       self.rawType = rawType
-      self.rawTypes = rawTypes
+      self.allRawTypes = allRawTypes
     }
     
     override func run() {
@@ -52,27 +58,30 @@ class ProcessTypesOperation: BasicOperation {
     }
     
     private static var memoizedMockbleTypes = Synchronized<[String: MockableType]>([:])
-    private func flattenInheritence(for rawType: RawType) -> MockableType? {
+    private func flattenInheritence(for rawType: [RawType]) -> MockableType? {
       let memoizedMockableTypes = SubOperation.memoizedMockbleTypes.value
-      if let memoized = memoizedMockableTypes[rawType.name] { return memoized }
+      guard let rawTypeName = rawType.first?.name else { return nil }
+      if let memoized = memoizedMockableTypes[rawTypeName] { return memoized }
       let createMockableType: () -> MockableType? = {
         let memoizedMockableTypes = SubOperation.memoizedMockbleTypes.value
         let mockableType = MockableType(from: rawType, mockableTypes: memoizedMockableTypes)
-        SubOperation.memoizedMockbleTypes.update { $0[rawType.name] = mockableType }
+        SubOperation.memoizedMockbleTypes.update { $0[rawTypeName] = mockableType }
         return mockableType
       }
       
       // Base case where the type doesn't inherit from anything.
-      guard let inheritedTypes =
-        rawType.dictionary[SwiftDocKey.inheritedtypes.rawValue] as? [StructureDictionary],
-        inheritedTypes.count > 0 else { return createMockableType() }
+      let inheritedTypes = rawType
+        .compactMap({ $0.dictionary[SwiftDocKey.inheritedtypes.rawValue] as? [StructureDictionary] })
+        .flatMap({ $0 })
+      guard !inheritedTypes.isEmpty else { return createMockableType() }
       
       let rawInheritedTypes = inheritedTypes
         .compactMap({ $0[SwiftDocKey.name.rawValue] as? String }) // Get type name.
-        .compactMap({ rawTypes[$0] }) // Get stored raw type.
+        .compactMap({ allRawTypes[$0] }) // Get stored raw type.
+        .flatMap({ $0 })
       
       if rawInheritedTypes.filter({ memoizedMockableTypes[$0.name] == nil }).count > 0 {
-        rawInheritedTypes.forEach({ _ = flattenInheritence(for: $0) }) // Flatten inherited types.
+        rawInheritedTypes.forEach({ _ = flattenInheritence(for: [$0]) }) // Flatten inherited types.
       }
       
       // All inherited types are now flattened.
@@ -89,8 +98,9 @@ class ProcessTypesOperation: BasicOperation {
       processStructureDictionary($0.structure.dictionary, in: $0)
     })
     let operations = result.rawTypes
-      .filter({ $0.value.parsedFile.shouldMock })
-      .map({ SubOperation(rawType: $0.value, rawTypes: result.rawTypes) })
+      .map({ $0.value })
+      .filter({ $0.first(where: { $0.kind.isMockable })?.parsedFile.shouldMock == true })
+      .map({ SubOperation(rawType: $0, allRawTypes: result.rawTypes) })
     let queue = OperationQueue.createForActiveProcessors()
     queue.addOperations(operations, waitUntilFinished: true)
     result.mockableTypes = operations.compactMap({ $0.result.mockableType })
@@ -105,9 +115,12 @@ class ProcessTypesOperation: BasicOperation {
     substructure.forEach({ processStructureDictionary($0, in: parsedFile) })
     
     guard let rawKind = dictionary[SwiftDocKey.kind.rawValue] as? String,
-      let kind = SwiftDeclarationKind(rawValue: rawKind), kind.isMockable else { return }
+      let kind = SwiftDeclarationKind(rawValue: rawKind), kind.isParsable else { return }
     
     guard let name = dictionary[SwiftDocKey.name.rawValue] as? String else { return }
-    result.rawTypes[name] = RawType(dictionary: dictionary, name: name, parsedFile: parsedFile)
+    result.rawTypes[name, default: []].append(RawType(dictionary: dictionary,
+                                                      name: name,
+                                                      kind: kind,
+                                                      parsedFile: parsedFile))
   }
 }

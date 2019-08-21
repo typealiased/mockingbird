@@ -19,6 +19,13 @@ extension SwiftDeclarationKind {
     }
   }
   
+  var isParsable: Bool {
+    switch self {
+    case .class, .protocol, .extension: return true
+    default: return false
+    }
+  }
+  
   var isMethod: Bool {
     switch self {
     case .functionMethodInstance, .functionMethodStatic, .functionMethodClass: return true
