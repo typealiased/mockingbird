@@ -246,7 +246,7 @@ Starts automatically generating mocks by adding a custom Run Script Phase to eac
 | --- | --- | --- |
 | `--project` | *(required)* | Your project’s `.xcodeproj` file. |
 | `--targets` | *(required)* | Comma-separated list of target names to install the Run Script Phase. |
-| `--srcroot` |  `../<project>` | The folder containing your project’s source files. |
+| `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |
 | `--outputs` | `$MOCKINGBIRD_SRCROOT` | Comma-separated list of mock output file paths for each target. |
 | `--preprocessor` | `nil` | Preprocessor expression to wrap all generated mocks in, e.g. `DEBUG`. |
 
