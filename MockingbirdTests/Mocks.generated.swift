@@ -3204,6 +3204,120 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   }
 }
 
+// MARK: - Mocked InoutClass
+
+public final class InoutClassMock: MockingbirdTestsHost.InoutClass, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  private var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      InoutClassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: InoutClassMock, rhs: InoutClassMock) -> Bool {
+    return true
+  }
+
+  public init(__file: StaticString = #file, __line: UInt = #line) {
+    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
+    self.stubbingContext.sourceLocation = sourceLocation
+    InoutClassMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `parameterizedMethod(object:)`
+
+  public override func parameterizedMethod(object: inout String) -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedMethod(object:) -> Void",
+                                            arguments: [Mockingbird.ArgumentMatcher(`object`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (inout String) -> Void {
+      concreteImplementation(&`object`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `parameterizedMethod(object:)`
+
+  public func parameterizedMethod(object: @escaping @autoclosure () -> String) -> Mockingbird.Stubbable<(inout String) -> Void, Void> {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(`object`), as: String.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedMethod(object:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(inout String) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `parameterizedMethod(object:)`
+
+  public func parameterizedMethod(object: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Void> {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(`object`), as: String.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedMethod(object:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+}
+
+// MARK: - Mocked InoutProtocol
+
+public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  private var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      InoutProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: InoutProtocolMock, rhs: InoutProtocolMock) -> Bool {
+    return true
+  }
+
+  public init(__file: StaticString = #file, __line: UInt = #line) {
+    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
+    self.stubbingContext.sourceLocation = sourceLocation
+    InoutProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `parameterizedMethod(object:)`
+
+  public func parameterizedMethod(object: inout String) -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedMethod(object:) -> Void",
+                                            arguments: [Mockingbird.ArgumentMatcher(`object`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (inout String) -> Void {
+      concreteImplementation(&`object`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `parameterizedMethod(object:)`
+
+  public func parameterizedMethod(object: @escaping @autoclosure () -> String) -> Mockingbird.Stubbable<(inout String) -> Void, Void> {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(`object`), as: String.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedMethod(object:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(inout String) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `parameterizedMethod(object:)`
+
+  public func parameterizedMethod(object: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Void> {
+    let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(`object`), as: String.self)]
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedMethod(object:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+}
+
 // MARK: - Mocked NonExtendableClass
 
 public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableClass, Mockingbird.Mock {

@@ -10,7 +10,16 @@
 import Foundation
 
 extension MethodParameter {
-  var resolvedType: String { return "resolve(`\(name)`)" }
+  func mockableTypeName(in context: MockableType) -> String {
+    let typeName = context.specializeTypeName(self.typeName)
+    let inoutAttribute = attributes.contains(.inout) ? "inout " : ""
+    return "\(inoutAttribute)\(typeName)"
+  }
+  
+  var invocationName: String {
+    let inoutAttribute = attributes.contains(.inout) ? "&" : ""
+    return "\(inoutAttribute)`\(name)`"
+  }
   
   func castedMatcherType(in context: MockableType) -> String {
     let capitalizedName = name.capitalizedFirst
@@ -160,7 +169,7 @@ class MethodGenerator {
       if forMatching {
         typeName = "@escaping @autoclosure () -> \(parameter.matchableTypeName(in: context))"
       } else {
-        typeName = context.specializeTypeName(parameter.typeName)
+        typeName = parameter.mockableTypeName(in: context)
       }
       let argumentLabel = parameter.argumentLabel ?? "_"
       if argumentLabel != parameter.name {
@@ -218,7 +227,7 @@ class MethodGenerator {
   lazy var resolvedArgumentMatchers: String = {
     let resolved = method.parameters.map({
       let matchableTypeName = $0.matchableTypeName(in: context, unwrapOptional: true)
-      return "Mockingbird.ArgumentMatcher.create(from: \($0.resolvedType), as: \(matchableTypeName).self)"
+      return "Mockingbird.ArgumentMatcher.create(from: resolve(`\($0.name)`), as: \(matchableTypeName).self)"
     }).joined(separator: ",\n      ")
     if method.parameters.count == 1 {
       return "    let arguments = [\(resolved)]"
@@ -260,10 +269,10 @@ class MethodGenerator {
   }()
   
   lazy var methodParameterTypesForGenerics: String = {
-    return method.parameters.map({ $0.typeName }).joined(separator: ", ")
+    return method.parameters.map({ $0.mockableTypeName(in: context) }).joined(separator: ", ")
   }()
   
   lazy var methodParameterNamesForInvocation: String = {
-    return method.parameters.map({ "`\($0.name)`" }).joined(separator: ", ")
+    return method.parameters.map({ $0.invocationName }).joined(separator: ", ")
   }()
 }

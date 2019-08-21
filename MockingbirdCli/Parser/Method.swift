@@ -21,13 +21,19 @@ struct MethodParameter: Hashable {
       let kind = SwiftDeclarationKind(rawValue: rawKind), kind == .varParameter
       else { return nil }
     guard let name = dictionary[SwiftDocKey.name.rawValue] as? String,
-      let typeName = dictionary[SwiftDocKey.typeName.rawValue] as? String
+      let rawTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String
       else { return nil }
     self.name = name
-    self.typeName = typeName
     self.kind = kind
     self.argumentLabel = argumentLabel
-    self.attributes = Attributes.create(from: dictionary)
+    var typeName = rawTypeName
+    var attributes = Attributes.create(from: dictionary)
+    if typeName.hasPrefix("inout ") {
+      attributes.insert(.`inout`)
+      typeName = String(typeName.dropFirst(6))
+    }
+    self.typeName = typeName
+    self.attributes = attributes
   }
 }
 
