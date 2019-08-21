@@ -72,21 +72,14 @@ class VariableGenerator {
     
       public \(modifiers)func get\(capitalizedName)() -> Mockingbird.Stubbable<\(getterInvocationType), \(typeName)> {
         let invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
-        if let stub = DispatchQueue.currentStub {
-          \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation)
-        }
+        if let stub = DispatchQueue.currentStub { \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation) }
         return Stubbable<\(getterInvocationType), \(typeName)>()
       }
     
       public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Stubbable<\(setterInvocationType), Void> {
-        let matcherNewValue = resolve(newValue)
-        let arguments: [Mockingbird.ArgumentMatcher] = [
-          (matcherNewValue as? Mockingbird.ArgumentMatcher) ?? Mockingbird.ArgumentMatcher(newValue as AnyObject as? \(unwrappedTypeName))
-        ]
+        let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(newValue), as: \(unwrappedTypeName).self)]
         let invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments)
-        if let stub = DispatchQueue.currentStub {
-          \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation)
-        }
+        if let stub = DispatchQueue.currentStub { \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation) }
         return Mockingbird.Stubbable<\(setterInvocationType), Void>()
       }
     """
@@ -103,21 +96,14 @@ class VariableGenerator {
     
       public \(modifiers)func get\(capitalizedName)() -> Mockingbird.Mockable<\(typeName)> {
         let invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
-        if let expectation = DispatchQueue.currentExpectation {
-          expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation)
-        }
+        if let expectation = DispatchQueue.currentExpectation { expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation) }
         return Mockingbird.Mockable<\(typeName)>()
       }
     
       public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Mockable<Void> {
-        let matcherNewValue = resolve(newValue)
-        let arguments: [Mockingbird.ArgumentMatcher] = [
-          (matcherNewValue as? Mockingbird.ArgumentMatcher) ?? Mockingbird.ArgumentMatcher(newValue as AnyObject as? \(unwrappedTypeName))
-        ]
+        let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(newValue), as: \(unwrappedTypeName).self)]
         let invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments)
-        if let expectation = DispatchQueue.currentExpectation {
-          expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation)
-        }
+        if let expectation = DispatchQueue.currentExpectation { expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation) }
         return Mockingbird.Mockable<Void>()
       }
     """

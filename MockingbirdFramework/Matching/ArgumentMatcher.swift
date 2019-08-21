@@ -90,3 +90,9 @@ extension ArgumentMatcher: Equatable {
     return lhs.compare(with: rhs.base) && rhs.compare(with: lhs.base)
   }
 }
+
+extension ArgumentMatcher {
+  static func create<T>(from object: Any?, as type: T.Type) -> ArgumentMatcher {
+    return (object as? ArgumentMatcher) ?? ArgumentMatcher(object as AnyObject as? T)
+  }
+}

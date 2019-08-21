@@ -12,7 +12,7 @@ import Foundation
 extension MethodParameter {
   var resolvedType: String {
     let capitalizedName = name.capitalizedFirst
-    return "let matcher\(capitalizedName) = resolve(`\(name)`)"
+    return "resolve(`\(name)`)"
   }
   
   func castedMatcherType(in context: MockableType) -> String {
@@ -106,9 +106,7 @@ class MethodGenerator {
     
       public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Stubbable<\(invocationType), \(returnTypeName)> {
     \(matchableInvocation)
-        if let stub = DispatchQueue.currentStub {
-          \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation)
-        }
+        if let stub = DispatchQueue.currentStub { \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation) }
         return Mockingbird.Stubbable<\(invocationType), \(returnTypeName)>()
       }
     """
@@ -121,9 +119,7 @@ class MethodGenerator {
     
       public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Mockable<\(returnTypeName)> {
     \(matchableInvocation)
-        if let expectation = DispatchQueue.currentExpectation {
-          expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation)
-        }
+        if let expectation = DispatchQueue.currentExpectation { expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation) }
         return Mockingbird.Mockable<\(returnTypeName)>()
       }
     """
@@ -206,25 +202,30 @@ class MethodGenerator {
   lazy var matchableInvocation: String = {
     guard !method.parameters.isEmpty else {
       return """
-          let invocation = Invocation(selectorName: "\(fullSelectorName)", arguments: [])
+          let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: [])
       """
     }
     
     return """
     \(resolvedArgumentMatchers)
-        let invocation = Invocation(selectorName: "\(fullSelectorName)", arguments: arguments)
+        let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: arguments)
     """
   }()
   
   lazy var resolvedArgumentMatchers: String = {
-    let resolved = method.parameters.map({ $0.resolvedType }).joined(separator: "\n    ")
-    let arguments = method.parameters.map({ $0.castedMatcherType(in: context) }).joined(separator: ",\n      ")
-    return """
-        \(resolved)
-        let arguments: [ArgumentMatcher] = [
-          \(arguments)
-        ]
-    """
+    let resolved = method.parameters.map({
+      let matchableTypeName = $0.matchableTypeName(in: context, unwrapOptional: true)
+      return "Mockingbird.ArgumentMatcher.create(from: \($0.resolvedType), as: \(matchableTypeName).self)"
+    }).joined(separator: ",\n      ")
+    if method.parameters.count == 1 {
+      return "    let arguments = [\(resolved)]"
+    } else {
+      return """
+          let arguments = [
+            \(resolved)
+          ]
+      """
+    }
   }()
   
   lazy var tryInvocation: String = {
@@ -241,9 +242,9 @@ class MethodGenerator {
     return method.parameters.map({ parameter -> String in
       guard !parameter.isClosure || parameter.isEscapingClosure else {
         // Can't save the parameter in the invocation because it's non-escaping
-        return "ArgumentMatcher(nil)"
+        return "Mockingbird.ArgumentMatcher(nil)"
       }
-      return "ArgumentMatcher(`\(parameter.name)`)"
+      return "Mockingbird.ArgumentMatcher(`\(parameter.name)`)"
     }).joined(separator: ", ")
   }()
   
