@@ -1,14 +1,17 @@
 //
-//  Generics.swift
-//  MockingbirdTestsHost
+//  GenericsMockableTests.swift
+//  MockingbirdTests
 //
 //  Created by Andrew Chang on 8/20/19.
 //  Copyright © 2019 Bird Rides, Inc. All rights reserved.
 //
 
 import Foundation
+import MockingbirdTestsHost
 
-public protocol AssociatedTypeProtocol {
+// MARK: Mockable declarations
+
+private protocol MockableAssociatedTypeProtocol {
   associatedtype EquatableType: Equatable
   associatedtype HashableType: Hashable
   
@@ -16,19 +19,18 @@ public protocol AssociatedTypeProtocol {
   func methodUsingHashableType(hashable: HashableType)
   func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType
 }
+extension AssociatedTypeProtocolMock: MockableAssociatedTypeProtocol {}
 
-public class AssociatedTypeGenericImplementer<EquatableType: Equatable, S: Sequence>: AssociatedTypeProtocol
-where S.Element == EquatableType {
-  public typealias HashableType = String
+private protocol MockableAssociatedTypeGenericImplementer: AssociatedTypeProtocol {
+  associatedtype S: Sequence
   
-  public func methodUsingEquatableType(equatable: EquatableType) {}
-  public func methodUsingHashableType(hashable: HashableType) {}
-  public func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType {
-    return 1 as! EquatableType
-  }
+  func methodUsingEquatableType(equatable: EquatableType)
+  func methodUsingHashableType(hashable: HashableType)
+  func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType
 }
+extension AssociatedTypeGenericImplementerMock: MockableAssociatedTypeGenericImplementer {}
 
-public protocol AssociatedTypeImplementerProtocol {
+private protocol MockableAssociatedTypeImplementerProtocol {
   func request<T: AssociatedTypeProtocol>(object: T)
     where T.EquatableType == Int, T.HashableType == String
   
@@ -38,16 +40,20 @@ public protocol AssociatedTypeImplementerProtocol {
   func request<T: AssociatedTypeProtocol>(object: T) -> T.HashableType
     where T.EquatableType == Bool, T.HashableType == String
 }
+extension AssociatedTypeImplementerProtocolMock: MockableAssociatedTypeImplementerProtocol {}
 
-public class AssociatedTypeImplementer {
+private protocol MockableAssociatedTypeImplementer {
   func request<T: AssociatedTypeProtocol>(object: T)
-    where T.EquatableType == Int, T.HashableType == String {}
-  
+    where T.EquatableType == Int, T.HashableType == String
+}
+extension AssociatedTypeImplementerMock: MockableAssociatedTypeImplementer {}
+
+// MARK: Non-mockable declarations
+
+private extension AssociatedTypeImplementerMock {
   func request<T: AssociatedTypeProtocol>(object: T) -> T.EquatableType
     where T.EquatableType == Int, T.HashableType == String { return 1 }
-  
-  // Not possible to override overloaded methods where uniqueness is from generic constraints.
-  // https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
+
   func request<T: AssociatedTypeProtocol>(object: T) -> T.EquatableType
     where T.EquatableType == Bool, T.HashableType == String { return true }
 }

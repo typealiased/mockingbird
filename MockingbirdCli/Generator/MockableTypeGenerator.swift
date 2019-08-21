@@ -28,7 +28,7 @@ extension MockableType {
     return """
     // MARK: - Mocked \(name)
     
-    public final class \(name)Mock\(allSpecializedGenericTypes): \(allInheritedTypes) {
+    public final class \(name)Mock\(allSpecializedGenericTypes): \(allInheritedTypes)\(allGenericConstraints) {
     \(staticMockingContext)
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()
@@ -74,6 +74,11 @@ extension MockableType {
   var allGenericTypes: String {
     guard !genericTypes.isEmpty, kind == .class else { return "" }
     return "<" + genericTypes.map({ $0.name }).joined(separator: ", ") + ">"
+  }
+  
+  var allGenericConstraints: String {
+    guard !genericConstraints.isEmpty else { return "" }
+    return " where " + genericConstraints.joined(separator: ", ")
   }
   
   var allInheritedTypes: String {
@@ -152,12 +157,22 @@ extension MockableType {
   }
   
   func generateMethods(with memoizedMethods: inout [Method: String]) -> String {
-    return methods.sorted(by: <).map({
-      if let memoized = memoizedMethods[$0] { return memoized }
-      let generated = $0.createGenerator(in: self).generate()
-      memoizedMethods[$0] = generated
-      return generated
-    }).joined(separator: "\n\n")
+    return methods
+      .sorted(by: <)
+      .filter({ method -> Bool in
+        // Not possible to override overloaded methods where uniqueness is from generic constraints.
+        // https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
+        guard self.kind == .class else { return true }
+        guard !method.genericConstraints.isEmpty else { return true }
+        return methodsCount[Method.Reduced(from: method)] == 1
+      })
+      .map({
+        if let memoized = memoizedMethods[$0] { return memoized }
+        let generated = $0.createGenerator(in: self).generate()
+        memoizedMethods[$0] = generated
+        return generated
+      })
+      .joined(separator: "\n\n")
   }
   
   func specializeTypeName(_ typeName: String, unwrapOptional: Bool = false) -> String {

@@ -10,10 +10,7 @@
 import Foundation
 
 extension MethodParameter {
-  var resolvedType: String {
-    let capitalizedName = name.capitalizedFirst
-    return "resolve(`\(name)`)"
-  }
+  var resolvedType: String { return "resolve(`\(name)`)" }
   
   func castedMatcherType(in context: MockableType) -> String {
     let capitalizedName = name.capitalizedFirst
@@ -70,10 +67,11 @@ class MethodGenerator {
   lazy var generatedMock: String = {
     if method.isInitializer {
       let initializerPrefix = (context.kind == .class ? "super." : "self.")
+      let genericConstraints = self.genericConstraints
       return """
         // MARK: Mockable `\(method.name)`
       
-        public \(overridableModifiers)\(fullNameForMocking) {
+        public \(overridableModifiers)\(fullNameForMocking)\(genericConstraints) {
           \(initializerPrefix)init(\(superCallParameters))
           self.sourceLocation = Mockingbird.SourceLocation(__file, __line)
           let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)",
@@ -86,7 +84,7 @@ class MethodGenerator {
       return """
         // MARK: Mockable `\(method.name)`
       
-        public \(overridableModifiers)func \(fullNameForMocking) \(returnTypeAttributes)-> \(specializedReturnTypeName) {
+        public \(overridableModifiers)func \(fullNameForMocking) \(returnTypeAttributes)-> \(specializedReturnTypeName)\(genericConstraints) {
           let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)",
                                                   arguments: [\(mockArgumentMatchers)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
@@ -104,7 +102,7 @@ class MethodGenerator {
     return """
       // MARK: Stubbable `\(method.name)`
     
-      public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Stubbable<\(invocationType), \(returnTypeName)> {
+      public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Stubbable<\(invocationType), \(returnTypeName)>\(genericConstraints) {
     \(matchableInvocation)
         if let stub = DispatchQueue.currentStub { \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation) }
         return Mockingbird.Stubbable<\(invocationType), \(returnTypeName)>()
@@ -117,7 +115,7 @@ class MethodGenerator {
     return """
       // MARK: Verifiable `\(method.name)`
     
-      public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Mockable<\(returnTypeName)> {
+      public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Mockable<\(returnTypeName)>\(genericConstraints) {
     \(matchableInvocation)
         if let expectation = DispatchQueue.currentExpectation { expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation) }
         return Mockingbird.Mockable<\(returnTypeName)>()
@@ -135,16 +133,21 @@ class MethodGenerator {
     return "\(required)\(override)\(`static`)"
   }
   
-  lazy var genericConstraints: String = { // This might be slow, we should consider caching it.
+  lazy var genericTypes: String = {
     return method.genericTypes.map({ $0.flattenedDeclaration }).joined(separator: ", ")
+  }()
+  
+  lazy var genericConstraints: String = {
+    guard !method.genericConstraints.isEmpty else { return "" }
+    return " where " + method.genericConstraints.joined(separator: ", ")
   }()
   
   lazy var shortName: String = {
     guard let shortName = method.name.substringComponents(separatedBy: "(").first else {
       return method.name
     }
-    let genericConstraints = self.genericConstraints
-    return genericConstraints.isEmpty ? "\(shortName)" : "\(shortName)<\(genericConstraints)>"
+    let genericTypes = self.genericTypes
+    return genericTypes.isEmpty ? "\(shortName)" : "\(shortName)<\(genericTypes)>"
   }()
   
   lazy var fullNameForMocking: String = { return fullName() }()

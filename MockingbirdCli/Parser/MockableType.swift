@@ -14,9 +14,11 @@ struct MockableType: Hashable, Comparable {
   let moduleName: String
   let kind: SwiftDeclarationKind
   let methods: Set<Method>
+  let methodsCount: [Method.Reduced: UInt] // For de-duping generic methods.
   let variables: Set<Variable>
   let inheritedTypes: Set<MockableType>
   let genericTypes: [GenericType]
+  let genericConstraints: [String]
   private(set) var shouldMock: Bool
   let attributes: Attributes
   
@@ -63,10 +65,27 @@ struct MockableType: Hashable, Comparable {
     self.inheritedTypes = inheritedTypes
     self.shouldMock = rawType.parsedFile.shouldMock
     
+    var methodsCount = [Method.Reduced: UInt]()
+    methods.forEach({ methodsCount[Method.Reduced(from: $0), default: 0] += 1 })
+    self.methodsCount = methodsCount
+    
     self.genericTypes = substructure.compactMap({ structure -> GenericType? in
       guard let genericType = GenericType(from: structure, rawType: rawType) else { return nil }
       return genericType
     })
+    
+    var genericConstraints = [String]()
+    if kind == .class {
+      let source = rawType.parsedFile.file.contents
+      if let nameSuffix = SourceSubstring.nameSuffixUpToBody.extract(from: rawType.dictionary, contents: source) {
+        if let whereRange = nameSuffix.range(of: #"\bwhere\b"#, options: .regularExpression) {
+          genericConstraints = nameSuffix[whereRange.upperBound..<nameSuffix.endIndex]
+            .substringComponents(separatedBy: ",")
+            .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
+        }
+      }
+    }
+    self.genericConstraints = genericConstraints
   }
   
   static func clone(_ other: MockableType, shouldMock: Bool) -> MockableType {

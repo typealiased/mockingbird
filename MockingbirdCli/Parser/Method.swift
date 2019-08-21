@@ -37,14 +37,31 @@ struct Method: Hashable, Comparable {
   let isInitializer: Bool
   let kind: SwiftDeclarationKind
   let genericTypes: [GenericType]
+  let genericConstraints: [String]
   let parameters: [MethodParameter]
   let attributes: Attributes
+  
+  // A hashable version of Method that's unique according to Swift generics when subclassing.
+  // https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
+  struct Reduced: Hashable {
+    let name: String
+    let returnTypeName: String
+    let genericTypes: [GenericType.Reduced]
+    let parameters: [MethodParameter]
+    init(from method: Method) {
+      self.name = method.name
+      self.returnTypeName = method.returnTypeName
+      self.genericTypes = method.genericTypes.map({ GenericType.Reduced(from: $0) })
+      self.parameters = method.parameters
+    }
+  }
   
   func hash(into hasher: inout Hasher) {
     hasher.combine(name)
     hasher.combine(returnTypeName)
     hasher.combine(kind.typeScope == .instance)
     hasher.combine(genericTypes)
+    hasher.combine(genericConstraints)
     hasher.combine(parameters)
   }
   
@@ -70,14 +87,25 @@ struct Method: Hashable, Comparable {
     guard !attributes.contains(.final) else { return nil }
     let isInitializer = (name == "init" || name.hasPrefix("init("))
     
+    var genericConstraints = [String]()
     let source = rawType.parsedFile.file.contents
-    if let declaration = SourceSubstring.key.extract(from: dictionary, contents: source) {
+    if let declaration = SourceSubstring.declaration.extract(from: dictionary, contents: source) {
       let startIndex = declaration.firstIndex(of: ")") ?? declaration.startIndex
-      if declaration[startIndex..<declaration.endIndex].contains("throws") {
+      let endIndex = declaration.firstIndex(of: "-") ?? declaration.endIndex
+      let returnAttributes = declaration[startIndex..<endIndex]
+      if returnAttributes.range(of: #"\bthrows\b"#, options: .regularExpression) != nil {
         attributes.insert(.throws)
       }
     }
+    if let nameSuffix = SourceSubstring.nameSuffixUpToBody.extract(from: dictionary, contents: source) {
+      if let whereRange = nameSuffix.range(of: #"\bwhere\b"#, options: .regularExpression) {
+        genericConstraints = nameSuffix[whereRange.upperBound..<nameSuffix.endIndex]
+          .substringComponents(separatedBy: ",")
+          .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
+      }
+    }
     self.attributes = attributes
+    self.genericConstraints = genericConstraints
     self.isInitializer = isInitializer
     
     self.name = name

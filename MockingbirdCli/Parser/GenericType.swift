@@ -13,6 +13,13 @@ struct GenericType: Hashable {
   let name: String
   let inheritedTypes: Set<String>
   
+  struct Reduced: Hashable {
+    let name: String
+    init(from genericType: GenericType) {
+      self.name = genericType.name
+    }
+  }
+  
   init?(from dictionary: StructureDictionary, rawType: RawType) {
     guard let rawKind = dictionary[SwiftDocKey.kind.rawValue] as? String,
       let kind = SwiftDeclarationKind(rawValue: rawKind),
