@@ -64,7 +64,7 @@ struct MockableType: Hashable, Comparable {
     self.shouldMock = rawType.parsedFile.shouldMock
     
     self.genericTypes = substructure.compactMap({ structure -> GenericType? in
-      guard let genericType = GenericType(from: structure) else { return nil }
+      guard let genericType = GenericType(from: structure, rawType: rawType) else { return nil }
       return genericType
     })
   }

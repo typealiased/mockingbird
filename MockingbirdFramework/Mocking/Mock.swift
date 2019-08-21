@@ -13,6 +13,11 @@ public protocol Mock {
   var stubbingContext: StubbingContext { get }
 }
 
+public class StaticMock: Mock {
+  public let mockingContext = MockingContext()
+  public let stubbingContext = StubbingContext()
+}
+
 internal protocol RunnableScope {
   var uuid: UUID { get }
   func run() -> Any?

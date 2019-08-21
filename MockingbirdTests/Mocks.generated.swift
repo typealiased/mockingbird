@@ -19,10 +19,410 @@ import ObjectiveC
 import class CoreFoundation.CFArray
 import enum CoreText.CTFontUIFontType
 
+fileprivate class Synchronized<T> {
+  private var internalValue: T
+  fileprivate var value: T {
+    get {
+      lock.wait()
+      defer { lock.signal() }
+      return internalValue
+    }
+
+    set {
+      lock.wait()
+      defer { lock.signal() }
+      internalValue = newValue
+    }
+  }
+  private let lock = DispatchSemaphore(value: 1)
+
+  fileprivate init(_ value: T) {
+    self.internalValue = value
+  }
+
+  fileprivate func update(_ block: (inout T) throws -> Void) rethrows {
+    lock.wait()
+    defer { lock.signal() }
+    try block(&internalValue)
+  }
+}
+
+fileprivate var genericTypesStaticMocks = Synchronized<[String: Mockingbird.StaticMock]>([:])
+
+// MARK: - Mocked AssociatedTypeGenericImplementer
+
+public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable, HashableType: Hashable>: MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, HashableType>, Mockingbird.Mock {
+  static var staticMock: Mockingbird.StaticMock {
+    let runtimeGenericTypeNames = ["\(EquatableType.self)", "\(HashableType.self)"].joined(separator: ",")
+    let staticMockIdentifier = "AssociatedTypeGenericImplementerMock<EquatableType: Equatable, HashableType: Hashable>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
+      return staticMock
+    }
+    let staticMock = Mockingbird.StaticMock()
+    genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+    return staticMock
+  }
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  private var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      AssociatedTypeGenericImplementerMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: AssociatedTypeGenericImplementerMock, rhs: AssociatedTypeGenericImplementerMock) -> Bool {
+    return true
+  }
+
+  public init(__file: StaticString = #file, __line: UInt = #line) {
+    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
+    self.stubbingContext.sourceLocation = sourceLocation
+    AssociatedTypeGenericImplementerMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `methodUsingEquatableType(equatable:)`
+
+  public override func methodUsingEquatableType(equatable: EquatableType) -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableType(equatable:) -> Void",
+                                            arguments: [ArgumentMatcher(`equatable`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (EquatableType) -> Void {
+      concreteImplementation(`equatable`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `methodUsingEquatableType(equatable:)`
+
+  public func methodUsingEquatableType(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Stubbable<(EquatableType) -> Void, Void> {
+    let matcherEquatable = resolve(`equatable`)
+    let arguments: [ArgumentMatcher] = [
+      (matcherEquatable as? ArgumentMatcher) ?? ArgumentMatcher(matcherEquatable as AnyObject as? EquatableType)
+    ]
+    let invocation = Invocation(selectorName: "methodUsingEquatableType(equatable:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return Mockingbird.Stubbable<(EquatableType) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `methodUsingEquatableType(equatable:)`
+
+  public func methodUsingEquatableType(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Void> {
+    let matcherEquatable = resolve(`equatable`)
+    let arguments: [ArgumentMatcher] = [
+      (matcherEquatable as? ArgumentMatcher) ?? ArgumentMatcher(matcherEquatable as AnyObject as? EquatableType)
+    ]
+    let invocation = Invocation(selectorName: "methodUsingEquatableType(equatable:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  // MARK: Mockable `methodUsingHashableType(hashable:)`
+
+  public override func methodUsingHashableType(hashable: HashableType) -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "methodUsingHashableType(hashable:) -> Void",
+                                            arguments: [ArgumentMatcher(`hashable`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (HashableType) -> Void {
+      concreteImplementation(`hashable`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `methodUsingHashableType(hashable:)`
+
+  public func methodUsingHashableType(hashable: @escaping @autoclosure () -> HashableType) -> Mockingbird.Stubbable<(HashableType) -> Void, Void> {
+    let matcherHashable = resolve(`hashable`)
+    let arguments: [ArgumentMatcher] = [
+      (matcherHashable as? ArgumentMatcher) ?? ArgumentMatcher(matcherHashable as AnyObject as? HashableType)
+    ]
+    let invocation = Invocation(selectorName: "methodUsingHashableType(hashable:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return Mockingbird.Stubbable<(HashableType) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `methodUsingHashableType(hashable:)`
+
+  public func methodUsingHashableType(hashable: @escaping @autoclosure () -> HashableType) -> Mockingbird.Mockable<Void> {
+    let matcherHashable = resolve(`hashable`)
+    let arguments: [ArgumentMatcher] = [
+      (matcherHashable as? ArgumentMatcher) ?? ArgumentMatcher(matcherHashable as AnyObject as? HashableType)
+    ]
+    let invocation = Invocation(selectorName: "methodUsingHashableType(hashable:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return Mockingbird.Mockable<Void>()
+  }
+}
+
+// MARK: - Mocked AssociatedTypeImplementer
+
+public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.AssociatedTypeImplementer, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  private var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      AssociatedTypeImplementerMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: AssociatedTypeImplementerMock, rhs: AssociatedTypeImplementerMock) -> Bool {
+    return true
+  }
+
+  public init(__file: StaticString = #file, __line: UInt = #line) {
+    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
+    self.stubbingContext.sourceLocation = sourceLocation
+    AssociatedTypeImplementerMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `request(object:)`
+
+  public override func request<T: AssociatedTypeProtocol>(object: T) -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void",
+                                            arguments: [ArgumentMatcher(`object`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (T) -> Void {
+      concreteImplementation(`object`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `request(object:)`
+
+  public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Stubbable<(T) -> Void, Void> {
+    let matcherObject = resolve(`object`)
+    let arguments: [ArgumentMatcher] = [
+      (matcherObject as? ArgumentMatcher) ?? ArgumentMatcher(matcherObject as AnyObject as? T)
+    ]
+    let invocation = Invocation(selectorName: "request(object:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return Mockingbird.Stubbable<(T) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `request(object:)`
+
+  public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Void> {
+    let matcherObject = resolve(`object`)
+    let arguments: [ArgumentMatcher] = [
+      (matcherObject as? ArgumentMatcher) ?? ArgumentMatcher(matcherObject as AnyObject as? T)
+    ]
+    let invocation = Invocation(selectorName: "request(object:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return Mockingbird.Mockable<Void>()
+  }
+}
+
+// MARK: - Mocked AssociatedTypeImplementerProtocol
+
+public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.AssociatedTypeImplementerProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  private var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      AssociatedTypeImplementerProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: AssociatedTypeImplementerProtocolMock, rhs: AssociatedTypeImplementerProtocolMock) -> Bool {
+    return true
+  }
+
+  public init(__file: StaticString = #file, __line: UInt = #line) {
+    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
+    self.stubbingContext.sourceLocation = sourceLocation
+    AssociatedTypeImplementerProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `request(object:)`
+
+  public func request<T: AssociatedTypeProtocol>(object: T) -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void",
+                                            arguments: [ArgumentMatcher(`object`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (T) -> Void {
+      concreteImplementation(`object`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `request(object:)`
+
+  public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Stubbable<(T) -> Void, Void> {
+    let matcherObject = resolve(`object`)
+    let arguments: [ArgumentMatcher] = [
+      (matcherObject as? ArgumentMatcher) ?? ArgumentMatcher(matcherObject as AnyObject as? T)
+    ]
+    let invocation = Invocation(selectorName: "request(object:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return Mockingbird.Stubbable<(T) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `request(object:)`
+
+  public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Void> {
+    let matcherObject = resolve(`object`)
+    let arguments: [ArgumentMatcher] = [
+      (matcherObject as? ArgumentMatcher) ?? ArgumentMatcher(matcherObject as AnyObject as? T)
+    ]
+    let invocation = Invocation(selectorName: "request(object:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return Mockingbird.Mockable<Void>()
+  }
+}
+
+// MARK: - Mocked AssociatedTypeProtocol
+
+public final class AssociatedTypeProtocolMock<EquatableType: Equatable, HashableType: Hashable>: MockingbirdTestsHost.AssociatedTypeProtocol, Mockingbird.Mock {
+  static var staticMock: Mockingbird.StaticMock {
+    let runtimeGenericTypeNames = ["\(EquatableType.self)", "\(HashableType.self)"].joined(separator: ",")
+    let staticMockIdentifier = "AssociatedTypeProtocolMock<EquatableType: Equatable, HashableType: Hashable>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
+      return staticMock
+    }
+    let staticMock = Mockingbird.StaticMock()
+    genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+    return staticMock
+  }
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  private var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      AssociatedTypeProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: AssociatedTypeProtocolMock, rhs: AssociatedTypeProtocolMock) -> Bool {
+    return true
+  }
+
+  public init(__file: StaticString = #file, __line: UInt = #line) {
+    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
+    self.stubbingContext.sourceLocation = sourceLocation
+    AssociatedTypeProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `methodUsingEquatableType(equatable:)`
+
+  public func methodUsingEquatableType(equatable: EquatableType) -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableType(equatable:) -> Void",
+                                            arguments: [ArgumentMatcher(`equatable`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (EquatableType) -> Void {
+      concreteImplementation(`equatable`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `methodUsingEquatableType(equatable:)`
+
+  public func methodUsingEquatableType(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Stubbable<(EquatableType) -> Void, Void> {
+    let matcherEquatable = resolve(`equatable`)
+    let arguments: [ArgumentMatcher] = [
+      (matcherEquatable as? ArgumentMatcher) ?? ArgumentMatcher(matcherEquatable as AnyObject as? EquatableType)
+    ]
+    let invocation = Invocation(selectorName: "methodUsingEquatableType(equatable:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return Mockingbird.Stubbable<(EquatableType) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `methodUsingEquatableType(equatable:)`
+
+  public func methodUsingEquatableType(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Void> {
+    let matcherEquatable = resolve(`equatable`)
+    let arguments: [ArgumentMatcher] = [
+      (matcherEquatable as? ArgumentMatcher) ?? ArgumentMatcher(matcherEquatable as AnyObject as? EquatableType)
+    ]
+    let invocation = Invocation(selectorName: "methodUsingEquatableType(equatable:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  // MARK: Mockable `methodUsingHashableType(hashable:)`
+
+  public func methodUsingHashableType(hashable: HashableType) -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "methodUsingHashableType(hashable:) -> Void",
+                                            arguments: [ArgumentMatcher(`hashable`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (HashableType) -> Void {
+      concreteImplementation(`hashable`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `methodUsingHashableType(hashable:)`
+
+  public func methodUsingHashableType(hashable: @escaping @autoclosure () -> HashableType) -> Mockingbird.Stubbable<(HashableType) -> Void, Void> {
+    let matcherHashable = resolve(`hashable`)
+    let arguments: [ArgumentMatcher] = [
+      (matcherHashable as? ArgumentMatcher) ?? ArgumentMatcher(matcherHashable as AnyObject as? HashableType)
+    ]
+    let invocation = Invocation(selectorName: "methodUsingHashableType(hashable:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub {
+      stubbingContext.swizzle(invocation, with: stub.implementation)
+    }
+    return Mockingbird.Stubbable<(HashableType) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `methodUsingHashableType(hashable:)`
+
+  public func methodUsingHashableType(hashable: @escaping @autoclosure () -> HashableType) -> Mockingbird.Mockable<Void> {
+    let matcherHashable = resolve(`hashable`)
+    let arguments: [ArgumentMatcher] = [
+      (matcherHashable as? ArgumentMatcher) ?? ArgumentMatcher(matcherHashable as AnyObject as? HashableType)
+    ]
+    let invocation = Invocation(selectorName: "methodUsingHashableType(hashable:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation {
+      expect(mockingContext, handled: invocation, using: expectation)
+    }
+    return Mockingbird.Mockable<Void>()
+  }
+}
+
 // MARK: - Mocked Child
 
 public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
-  static let staticMock = ChildStaticMock()
+  static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   private var sourceLocation: Mockingbird.SourceLocation? {
@@ -906,17 +1306,12 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     }
     return Mockingbird.Mockable<Void>()
   }
-
-  internal final class ChildStaticMock: Mockingbird.Mock {
-    public let mockingContext = Mockingbird.MockingContext()
-    public let stubbingContext = Mockingbird.StubbingContext()
-  }
 }
 
 // MARK: - Mocked ChildProtocol
 
 public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockingbird.Mock {
-  static let staticMock = ChildProtocolStaticMock()
+  static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   private var sourceLocation: Mockingbird.SourceLocation? {
@@ -2184,17 +2579,12 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     }
     return Mockingbird.Mockable<Void>()
   }
-
-  internal final class ChildProtocolStaticMock: Mockingbird.Mock {
-    public let mockingContext = Mockingbird.MockingContext()
-    public let stubbingContext = Mockingbird.StubbingContext()
-  }
 }
 
 // MARK: - Mocked Grandparent
 
 public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbird.Mock {
-  static let staticMock = GrandparentStaticMock()
+  static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   private var sourceLocation: Mockingbird.SourceLocation? {
@@ -2502,17 +2892,12 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     }
     return Mockingbird.Mockable<Void>()
   }
-
-  internal final class GrandparentStaticMock: Mockingbird.Mock {
-    public let mockingContext = Mockingbird.MockingContext()
-    public let stubbingContext = Mockingbird.StubbingContext()
-  }
 }
 
 // MARK: - Mocked GrandparentProtocol
 
 public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProtocol, Mockingbird.Mock {
-  static let staticMock = GrandparentProtocolStaticMock()
+  static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   private var sourceLocation: Mockingbird.SourceLocation? {
@@ -2948,17 +3333,12 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     }
     return Mockingbird.Mockable<Void>()
   }
-
-  internal final class GrandparentProtocolStaticMock: Mockingbird.Mock {
-    public let mockingContext = Mockingbird.MockingContext()
-    public let stubbingContext = Mockingbird.StubbingContext()
-  }
 }
 
 // MARK: - Mocked Parent
 
 public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
-  static let staticMock = ParentStaticMock()
+  static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   private var sourceLocation: Mockingbird.SourceLocation? {
@@ -3554,17 +3934,12 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     }
     return Mockingbird.Mockable<Void>()
   }
-
-  internal final class ParentStaticMock: Mockingbird.Mock {
-    public let mockingContext = Mockingbird.MockingContext()
-    public let stubbingContext = Mockingbird.StubbingContext()
-  }
 }
 
 // MARK: - Mocked ParentProtocol
 
 public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mockingbird.Mock {
-  static let staticMock = ParentProtocolStaticMock()
+  static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   private var sourceLocation: Mockingbird.SourceLocation? {
@@ -4415,10 +4790,5 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
       expect(staticMock.mockingContext, handled: invocation, using: expectation)
     }
     return Mockingbird.Mockable<Void>()
-  }
-
-  internal final class ParentProtocolStaticMock: Mockingbird.Mock {
-    public let mockingContext = Mockingbird.MockingContext()
-    public let stubbingContext = Mockingbird.StubbingContext()
   }
 }

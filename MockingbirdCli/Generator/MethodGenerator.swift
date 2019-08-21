@@ -140,11 +140,7 @@ class MethodGenerator {
   }
   
   lazy var genericConstraints: String = { // This might be slow, we should consider caching it.
-    return method.genericTypes.map({ genericType -> String in
-      guard !genericType.inheritedTypes.isEmpty else { return genericType.name }
-      let inheritedTypes = Array(genericType.inheritedTypes).joined(separator: " & ")
-      return "\(genericType.name): \(inheritedTypes)"
-    }).joined(separator: ", ")
+    return method.genericTypes.map({ $0.flattenedDeclaration }).joined(separator: ", ")
   }()
   
   lazy var shortName: String = {

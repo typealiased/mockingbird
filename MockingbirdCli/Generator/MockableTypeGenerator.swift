@@ -14,14 +14,22 @@ private enum Constants {
   static let mockProtocolName = "Mockingbird.Mock"
 }
 
+extension GenericType {
+  var flattenedDeclaration: String {
+    guard !inheritedTypes.isEmpty else { return name }
+    let flattenedInheritedTypes = Array(inheritedTypes).joined(separator: " & ")
+    return "\(name): \(flattenedInheritedTypes)"
+  }
+}
+
 extension MockableType {
   func generate(memoizedVariables: inout [Variable: String],
                 memoizedMethods: inout [Method: String]) -> String {
     return """
     // MARK: - Mocked \(name)
     
-    public final class \(name)Mock: \(allInheritedTypes) {
-      static let staticMock = \(name)StaticMock()
+    public final class \(name)Mock\(allSpecializedGenericTypes): \(allInheritedTypes) {
+    \(staticMockingContext)
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()
       private var sourceLocation: Mockingbird.SourceLocation? {
@@ -37,6 +45,37 @@ extension MockableType {
     """
   }
   
+  var staticMockingContext: String {
+    guard !genericTypes.isEmpty else { return "  static let staticMock = Mockingbird.StaticMock()" }
+    return """
+      static var staticMock: Mockingbird.StaticMock {
+        let runtimeGenericTypeNames = \(runtimeGenericTypeNames)
+        let staticMockIdentifier = "\(name)Mock\(allSpecializedGenericTypes)," + runtimeGenericTypeNames
+        if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
+          return staticMock
+        }
+        let staticMock = Mockingbird.StaticMock()
+        genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+        return staticMock
+      }
+    """
+  }
+  
+  var runtimeGenericTypeNames: String {
+    let genericTypeSelfNames = genericTypes.map({ "\"\\(\($0.name).self)\"" }).joined(separator: ", ")
+    return "[\(genericTypeSelfNames)].joined(separator: \",\")"
+  }
+  
+  var allSpecializedGenericTypes: String {
+    guard !genericTypes.isEmpty else { return "" }
+    return "<" + genericTypes.map({ $0.flattenedDeclaration }).joined(separator: ", ") + ">"
+  }
+  
+  var allGenericTypes: String {
+    guard !genericTypes.isEmpty, kind == .class else { return "" }
+    return "<" + genericTypes.map({ $0.name }).joined(separator: ", ") + ">"
+  }
+  
   var allInheritedTypes: String {
     return [subclass,
             inheritedProtocol,
@@ -45,7 +84,7 @@ extension MockableType {
       .joined(separator: ", ")
   }
   
-  var fullyQualifiedName: String { return "\(moduleName).\(name)" }
+  var fullyQualifiedName: String { return "\(moduleName).\(name)\(allGenericTypes)" }
   
   var subclass: String? {
     guard kind != .class else { return fullyQualifiedName }
@@ -68,8 +107,9 @@ extension MockableType {
             equatableConformance,
             codeableInitializer,
             defaultInitializer,
-            generateMethods(with: &memoizedMethods),
-            staticMock].filter({ !$0.isEmpty }).joined(separator: "\n\n")
+            generateMethods(with: &memoizedMethods)]
+      .filter({ !$0.isEmpty })
+      .joined(separator: "\n\n")
   }
   
   var equatableConformance: String {
@@ -118,15 +158,6 @@ extension MockableType {
       memoizedMethods[$0] = generated
       return generated
     }).joined(separator: "\n\n")
-  }
-  
-  var staticMock: String {
-    return """
-      internal final class \(name)StaticMock: \(Constants.mockProtocolName) {
-        public let mockingContext = Mockingbird.MockingContext()
-        public let stubbingContext = Mockingbird.StubbingContext()
-      }
-    """
   }
   
   func specializeTypeName(_ typeName: String, unwrapOptional: Bool = false) -> String {

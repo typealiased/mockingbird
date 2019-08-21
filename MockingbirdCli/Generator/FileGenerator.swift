@@ -78,7 +78,8 @@ class FileGenerator {
     """
   }
   
-  func generateFileBody() -> String {
+  private func generateFileBody() -> String {
+    guard !mockableTypes.isEmpty else { return "" }
     let memoizedContainer = MemoizedContainer()
     let operations = mockableTypes
       .sorted(by: <)
@@ -86,7 +87,10 @@ class FileGenerator {
                                            memoizedContainer: memoizedContainer) })
     let queue = OperationQueue.createForActiveProcessors()
     queue.addOperations(operations, waitUntilFinished: true)
-    return operations.map({ $0.result.generatedContents }).joined(separator: "\n\n")
+    return (
+      [synchronizedClass, genericTypesStaticMocks]
+        + operations.map({ $0.result.generatedContents })
+    ).joined(separator: "\n\n")
   }
   
   private func generateFileFooter() -> String {
@@ -104,5 +108,41 @@ class FileGenerator {
   
   func generate() throws {
     try outputPath.write(generateFileContents(), encoding: .utf8)
+  }
+  
+  private var synchronizedClass: String {
+    return """
+    fileprivate class Synchronized<T> {
+      private var internalValue: T
+      fileprivate var value: T {
+        get {
+          lock.wait()
+          defer { lock.signal() }
+          return internalValue
+        }
+    
+        set {
+          lock.wait()
+          defer { lock.signal() }
+          internalValue = newValue
+        }
+      }
+      private let lock = DispatchSemaphore(value: 1)
+    
+      fileprivate init(_ value: T) {
+        self.internalValue = value
+      }
+    
+      fileprivate func update(_ block: (inout T) throws -> Void) rethrows {
+        lock.wait()
+        defer { lock.signal() }
+        try block(&internalValue)
+      }
+    }
+    """
+  }
+  
+  private var genericTypesStaticMocks: String {
+    return "fileprivate var genericTypesStaticMocks = Synchronized<[String: Mockingbird.StaticMock]>([:])"
   }
 }

@@ -91,7 +91,7 @@ struct Method: Hashable, Comparable {
     
     let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary] ?? []
     self.genericTypes = substructure.compactMap({ structure -> GenericType? in
-      guard let genericType = GenericType(from: structure) else { return nil }
+      guard let genericType = GenericType(from: structure, rawType: rawType) else { return nil }
       return genericType
     })
     
