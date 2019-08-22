@@ -10,7 +10,10 @@ import Foundation
 
 struct StructType: Equatable {
   let identifier: String = "foo-bar"
-  let value: Int = 42
+  let value: Int
+  init(value: Int = 42) {
+    self.value = value
+  }
 }
 
 class ClassType {

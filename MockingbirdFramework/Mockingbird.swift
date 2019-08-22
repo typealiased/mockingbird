@@ -92,6 +92,28 @@ public func any<T>(type: T.Type = T.self) -> T {
   return createTypeFacade(matcher)
 }
 
+/// Matches any of the provided values by equality.
+///
+/// - Parameter objects: A set of equatable objects that should result in a match.
+public func any<T: Equatable>(of objects: T...) -> T {
+  let matcher = ArgumentMatcher(nil, description: "any(of:)", priority: .high) { (_, rhs) in
+    guard let other = rhs as? T else { return false }
+    return objects.contains(where: { $0 == other })
+  }
+  return createTypeFacade(matcher)
+}
+
+/// Matches any of the provided values by reference.
+///
+/// - Parameter objects: A set of non-equatable objects that should result in a match.
+public func any<T>(of objects: T...) -> T {
+  let matcher = ArgumentMatcher(nil, description: "any(of:) (by reference)", priority: .high) {
+    (_, rhs) in
+    return objects.contains(where: { $0 as AnyObject === rhs as AnyObject })
+  }
+  return createTypeFacade(matcher)
+}
+
 /// Matches any non-nil argument value of a specific type `T`.
 public func notNil<T>() -> T {
   let matcher = ArgumentMatcher(nil, description: "notNil()", priority: .high, { $1 != nil })

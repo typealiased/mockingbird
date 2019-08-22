@@ -351,38 +351,6 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
 
   // MARK: Mockable `request(object:)`
 
-  public func request<T: AssociatedTypeProtocol>(object: T) -> T.HashableType where T.EquatableType == Bool, T.HashableType == String {
-    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType",
-                                            arguments: [Mockingbird.ArgumentMatcher(`object`)])
-    mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? (T) -> T.HashableType {
-      return concreteImplementation(`object`)
-    } else {
-      return (implementation as! () -> T.HashableType)()
-    }
-  }
-
-  // MARK: Stubbable `request(object:)`
-
-  public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Stubbable<(T) -> T.HashableType, T.HashableType> where T.EquatableType == Bool, T.HashableType == String {
-    let arguments = [resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType", arguments: arguments)
-    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
-    return Mockingbird.Stubbable<(T) -> T.HashableType, T.HashableType>()
-  }
-
-  // MARK: Verifiable `request(object:)`
-
-  public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<T.HashableType> where T.EquatableType == Bool, T.HashableType == String {
-    let arguments = [resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType", arguments: arguments)
-    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
-    return Mockingbird.Mockable<T.HashableType>()
-  }
-
-  // MARK: Mockable `request(object:)`
-
   public func request<T: AssociatedTypeProtocol>(object: T) -> Void where T.EquatableType == Int, T.HashableType == String {
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void",
                                             arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -439,6 +407,38 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
   // MARK: Verifiable `request(object:)`
 
   public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<T.HashableType> where T.EquatableType == Int, T.HashableType == String {
+    let arguments = [resolve(`object`)]
+    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<T.HashableType>()
+  }
+
+  // MARK: Mockable `request(object:)`
+
+  public func request<T: AssociatedTypeProtocol>(object: T) -> T.HashableType where T.EquatableType == Bool, T.HashableType == String {
+    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType",
+                                            arguments: [Mockingbird.ArgumentMatcher(`object`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (T) -> T.HashableType {
+      return concreteImplementation(`object`)
+    } else {
+      return (implementation as! () -> T.HashableType)()
+    }
+  }
+
+  // MARK: Stubbable `request(object:)`
+
+  public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Stubbable<(T) -> T.HashableType, T.HashableType> where T.EquatableType == Bool, T.HashableType == String {
+    let arguments = [resolve(`object`)]
+    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(T) -> T.HashableType, T.HashableType>()
+  }
+
+  // MARK: Verifiable `request(object:)`
+
+  public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<T.HashableType> where T.EquatableType == Bool, T.HashableType == String {
     let arguments = [resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
@@ -4613,52 +4613,6 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
 
   // MARK: Mockable `variadicMethod(objects:param2:)`
 
-  public override func variadicMethod(objects: Bool..., param2: Int) -> Void {
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void",
-                                            arguments: [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.ArgumentMatcher(`param2`)])
-    mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? ([Bool], Int) -> Void {
-      concreteImplementation(`objects`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
-  }
-
-  // MARK: Stubbable `variadicMethod(objects:param2:)`
-
-  public func variadicMethod(objects: @escaping @autoclosure () -> [Bool], param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([Bool], Int) -> Void, Void> {
-    let arguments = [resolve(`objects`), resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
-    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
-    return Mockingbird.Stubbable<([Bool], Int) -> Void, Void>()
-  }
-
-  public func variadicMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([Bool], Int) -> Void, Void> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
-    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
-    return Mockingbird.Stubbable<([Bool], Int) -> Void, Void>()
-  }
-
-  // MARK: Verifiable `variadicMethod(objects:param2:)`
-
-  public func variadicMethod(objects: @escaping @autoclosure () -> [Bool], param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(`objects`), resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
-    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
-    return Mockingbird.Mockable<Void>()
-  }
-
-  public func variadicMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Void> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
-    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
-    return Mockingbird.Mockable<Void>()
-  }
-
-  // MARK: Mockable `variadicMethod(objects:param2:)`
-
   public override func variadicMethod(objects: String..., param2: Int) -> Void {
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void",
                                             arguments: [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -4697,6 +4651,52 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
   }
 
   public func variadicMethod(objects: String..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Void> {
+    let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
+    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  // MARK: Mockable `variadicMethod(objects:param2:)`
+
+  public override func variadicMethod(objects: Bool..., param2: Int) -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void",
+                                            arguments: [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.ArgumentMatcher(`param2`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? ([Bool], Int) -> Void {
+      concreteImplementation(`objects`, `param2`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `variadicMethod(objects:param2:)`
+
+  public func variadicMethod(objects: @escaping @autoclosure () -> [Bool], param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([Bool], Int) -> Void, Void> {
+    let arguments = [resolve(`objects`), resolve(`param2`)]
+    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<([Bool], Int) -> Void, Void>()
+  }
+
+  public func variadicMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([Bool], Int) -> Void, Void> {
+    let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
+    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<([Bool], Int) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `variadicMethod(objects:param2:)`
+
+  public func variadicMethod(objects: @escaping @autoclosure () -> [Bool], param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Void> {
+    let arguments = [resolve(`objects`), resolve(`param2`)]
+    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  public func variadicMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Void> {
     let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }

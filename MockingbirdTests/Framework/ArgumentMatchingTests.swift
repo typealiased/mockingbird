@@ -545,4 +545,149 @@ class ArgumentMatchingTests: XCTestCase {
                             optionalAnyType: any(),
                             optionalAnyObjectType: any())).wasCalled()
   }
+  
+  // MARK: - Multiple argument matching
+  
+  func testArgumentMatching_structType_multipleValueMatching() {
+    given(self.mock.method(structType: any(of: StructType(value: 0), StructType(value: 1)),
+                           classType: any(),
+                           enumType: any(),
+                           stringType: any(),
+                           boolType: any(),
+                           metaType: any(),
+                           anyType: any(),
+                           anyObjectType: any())) ~> true
+    XCTAssertTrue(callMethod(on: mock, structType: StructType(value: 1)))
+    verify(self.mock.method(structType: any(of: StructType(value: 0), StructType(value: 1)),
+                            classType: any(),
+                            enumType: any(),
+                            stringType: any(),
+                            boolType: any(),
+                            metaType: any(),
+                            anyType: any(),
+                            anyObjectType: any())).wasCalled()
+  }
+  
+  func testArgumentMatching_classType_multipleValueMatching() {
+    let classType = ClassType()
+    let otherClassType = ClassType()
+    given(self.mock.method(structType: any(),
+                           classType: any(of: otherClassType, classType),
+                           enumType: any(),
+                           stringType: any(),
+                           boolType: any(),
+                           metaType: any(),
+                           anyType: any(),
+                           anyObjectType: any())) ~> true
+    XCTAssertTrue(callMethod(on: mock, classType: classType))
+    verify(self.mock.method(structType: any(),
+                            classType: any(of: otherClassType, classType),
+                            enumType: any(),
+                            stringType: any(),
+                            boolType: any(),
+                            metaType: any(),
+                            anyType: any(),
+                            anyObjectType: any())).wasCalled()
+  }
+  
+  func testArgumentMatching_enumType_multipleValueMatching() {
+    given(self.mock.method(structType: any(),
+                           classType: any(),
+                           enumType: any(of: .success, .failure),
+                           stringType: any(),
+                           boolType: any(),
+                           metaType: any(),
+                           anyType: any(),
+                           anyObjectType: any())) ~> true
+    XCTAssertTrue(callMethod(on: mock, enumType: .failure))
+    verify(self.mock.method(structType: any(),
+                            classType: any(),
+                            enumType: any(of: .success, .failure),
+                            stringType: any(),
+                            boolType: any(),
+                            metaType: any(),
+                            anyType: any(),
+                            anyObjectType: any())).wasCalled()
+  }
+  
+  func testArgumentMatching_stringType_multipleValueMatching() {
+    given(self.mock.method(structType: any(),
+                           classType: any(),
+                           enumType: any(),
+                           stringType: any(of: "foo", "bar", "hello-world"),
+                           boolType: any(),
+                           metaType: any(),
+                           anyType: any(),
+                           anyObjectType: any())) ~> true
+    XCTAssertTrue(callMethod(on: mock, stringType: "hello-world"))
+    verify(self.mock.method(structType: any(),
+                            classType: any(),
+                            enumType: any(),
+                            stringType: any(of: "foo", "bar", "hello-world"),
+                            boolType: any(),
+                            metaType: any(),
+                            anyType: any(),
+                            anyObjectType: any())).wasCalled()
+  }
+  
+  func testArgumentMatching_boolType_multipleValueMatching() {
+    given(self.mock.method(structType: any(),
+                           classType: any(),
+                           enumType: any(),
+                           stringType: any(),
+                           boolType: any(of: true, false),
+                           metaType: any(),
+                           anyType: any(),
+                           anyObjectType: any())) ~> true
+    XCTAssertTrue(callMethod(on: mock, boolType: false))
+    verify(self.mock.method(structType: any(),
+                            classType: any(),
+                            enumType: any(),
+                            stringType: any(),
+                            boolType: any(of: true, false),
+                            metaType: any(),
+                            anyType: any(),
+                            anyObjectType: any())).wasCalled()
+  }
+  
+  func testArgumentMatching_anyType_multipleValueMatching() {
+    given(self.mock.method(structType: any(),
+                           classType: any(),
+                           enumType: any(),
+                           stringType: any(),
+                           boolType: any(),
+                           metaType: any(),
+                           anyType: any(of: true, "hello", StructType(), ClassType()),
+                           anyObjectType: any())) ~> true
+    XCTAssertTrue(callMethod(on: mock, anyType: "hello"))
+    verify(self.mock.method(structType: any(),
+                            classType: any(),
+                            enumType: any(),
+                            stringType: any(),
+                            boolType: any(),
+                            metaType: any(),
+                            anyType: any(of: true, "hello", StructType(), ClassType()),
+                            anyObjectType: any())).wasCalled()
+  }
+  
+  func testArgumentMatching_anyObjectType_multipleValueMatching() {
+    let classTypeReference = ClassType()
+    given(self.mock.method(structType: any(),
+                           classType: any(),
+                           enumType: any(),
+                           stringType: any(),
+                           boolType: any(),
+                           metaType: any(),
+                           anyType: any(),
+                           anyObjectType: any(of: ClassType(), classTypeReference))) ~> true
+    XCTAssertTrue(callMethod(on: mock, anyObjectType: classTypeReference))
+    verify(self.mock.method(structType: any(),
+                            classType: any(),
+                            enumType: any(),
+                            stringType: any(),
+                            boolType: any(),
+                            metaType: any(),
+                            anyType: any(),
+                            anyObjectType: any(of: ClassType(), classTypeReference))).wasCalled()
+  }
 }
