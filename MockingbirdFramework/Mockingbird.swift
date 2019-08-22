@@ -88,12 +88,14 @@ public func clearStubs<M: Mock>(on mocks: M...) {
 ///
 /// - Parameter type: Provide an explicit type to help Swift disambiguate overloaded methods.
 public func any<T>(type: T.Type = T.self) -> T {
-  return createTypeFacade(ArgumentMatcher(nil, description: "any()", true))
+  let matcher = ArgumentMatcher(nil, description: "any()", priority: .high, true)
+  return createTypeFacade(matcher)
 }
 
 /// Matches any non-nil argument value of a specific type `T`.
 public func notNil<T>() -> T {
-  return createTypeFacade(ArgumentMatcher(nil, description: "notNil()", { $1 != nil }))
+  let matcher = ArgumentMatcher(nil, description: "notNil()", priority: .high, { $1 != nil })
+  return createTypeFacade(matcher)
 }
 
 // MARK: - Standard call matchers

@@ -22,6 +22,8 @@ private class TypeFacade {
   static let sharedSemaphore = DispatchSemaphore(value: 1)
 }
 
+struct AnyObjectFake {}
+
 private extension Thread {
   // Creating a shared DispatchSemaphore on the current thread without access to test-and-set.
   var typeFacadeSemaphore: DispatchSemaphore {
@@ -41,6 +43,7 @@ func createTypeFacade<T>(_ value: Any?) -> T {
   // We can't use the casted TypeFacade directly, so we store the desired wrapped value on the heap.
   Thread.current.threadDictionary[TypeFacade.threadDidSetValueKey] = true
   Thread.current.threadDictionary[TypeFacade.threadValueKey] = value
+  if let concreteType = AnyObjectFake() as? T { return concreteType }
   return Unmanaged.passUnretained(TypeFacade.shared)
     .toOpaque()
     .bindMemory(to: T.self, capacity: 1)
@@ -56,6 +59,7 @@ func resolve<T>(_ parameter: @escaping () -> T) -> ArgumentMatcher {
   Thread.current.threadDictionary[TypeFacade.threadValueKey] = nil
   let realValue = parameter()
   guard Thread.current.threadDictionary[TypeFacade.threadDidSetValueKey] as? Bool == true else {
+    if let matcher = realValue as? ArgumentMatcher { return matcher }
     return ArgumentMatcher(realValue)
   }
   return Thread.current.threadDictionary[TypeFacade.threadValueKey] as! ArgumentMatcher
@@ -71,6 +75,7 @@ func resolve<T: Equatable>(_ parameter: @escaping () -> T) -> ArgumentMatcher {
   Thread.current.threadDictionary[TypeFacade.threadValueKey] = nil
   let realValue = parameter()
   guard Thread.current.threadDictionary[TypeFacade.threadDidSetValueKey] as? Bool == true else {
+    if let matcher = realValue as? ArgumentMatcher { return matcher }
     return ArgumentMatcher(realValue)
   }
   return Thread.current.threadDictionary[TypeFacade.threadValueKey] as! ArgumentMatcher

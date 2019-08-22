@@ -12,18 +12,8 @@ import Foundation
 /// return `true` if `base` (lhs) is equal to the other `base` (rhs).
 public class ArgumentMatcher: CustomStringConvertible {
   /// Necessary for custom comparators such as `any()` that only work on the lhs.
-  public struct Commutativity: OptionSet {
-    public let rawValue: Int
-    public init(rawValue: Int) {
-      self.rawValue = rawValue
-    }
-
-    /// The matcher can be used as the receiver (lhs) for comparison operations.
-    public static let lhs = Commutativity(rawValue: 1 << 0)
-    /// The matcher can be used as the argument (rhs) for comparison operations.
-    public static let rhs = Commutativity(rawValue: 1 << 1)
-    /// The matcher can be used as either the receiver or the argument for comparison operations.
-    public static let commutative: Commutativity = [.lhs, .rhs]
+  public enum Priority: UInt {
+    case low = 0, `default` = 500, high = 1000
   }
 
   /// A base instance to compare using `comparator`.
@@ -36,7 +26,7 @@ public class ArgumentMatcher: CustomStringConvertible {
   public let description: String
 
   /// The commutativity of the matcher comparator.
-  let commutativity: Commutativity
+  let priority: Priority
 
   /// The method to compare base instances, returning `true` if they should be considered the same.
   let comparator: (_ lhs: Any?, _ rhs: Any?) -> Bool
@@ -47,52 +37,52 @@ public class ArgumentMatcher: CustomStringConvertible {
 
   public init<T: Equatable>(_ base: T?,
                             description: String? = nil,
-                            commutativity: Commutativity = .commutative) {
+                            priority: Priority = .default) {
     self.base = base
     self.baseType = T.self
     self.description = description ?? "\(String.describe(base))"
-    self.commutativity = commutativity
+    self.priority = priority
     self.comparator = { base == $1 as? T }
   }
 
   public init(_ base: Any?,
               description: String,
-              commutativity: Commutativity = .lhs,
+              priority: Priority = .default,
               _ comparator: @escaping @autoclosure () -> Bool) {
     self.base = base
     self.baseType = type(of: base)
     self.description = description
-    self.commutativity = commutativity
+    self.priority = priority
     self.comparator = { _, _ in comparator() }
   }
 
   public init(_ base: Any?,
               description: String? = nil,
-              commutativity: Commutativity = .lhs,
+              priority: Priority = .low,
               _ comparator: ((Any?, Any?) -> Bool)? = nil) {
     self.base = base
     self.baseType = type(of: base)
-    self.commutativity = comparator != nil ? commutativity : .commutative
+    self.priority = priority
     self.comparator = comparator ?? { $0 as AnyObject === $1 as AnyObject }
     let annotation = comparator == nil && base != nil ? " (by reference)" : ""
     self.description = description ?? "\(String.describe(base))\(annotation)"
+  }
+  
+  public init(_ matcher: ArgumentMatcher) {
+    self.base = matcher.base
+    self.baseType = type(of: matcher.base)
+    self.priority = matcher.priority
+    self.comparator = matcher.comparator
+    self.description = matcher.description
   }
 }
 
 extension ArgumentMatcher: Equatable {
   public static func == (lhs: ArgumentMatcher, rhs: ArgumentMatcher) -> Bool {
-    if lhs.commutativity == .lhs {
+    if lhs.priority.rawValue >= rhs.priority.rawValue {
       return lhs.compare(with: rhs.base)
-    } else if lhs.commutativity == .rhs {
+    } else {
       return rhs.compare(with: lhs.base)
     }
-
-    if rhs.commutativity == .lhs {
-      return rhs.compare(with: lhs.base)
-    } else if rhs.commutativity == .rhs {
-      return lhs.compare(with: rhs.base)
-    }
-
-    return lhs.compare(with: rhs.base) && rhs.compare(with: lhs.base)
   }
 }
