@@ -47,7 +47,7 @@ func createTypeFacade<T>(_ value: Any?) -> T {
     .pointee
 }
 
-func resolve<T>(_ parameter: @escaping () -> T) -> Any? {
+func resolve<T>(_ parameter: @escaping () -> T) -> ArgumentMatcher {
   let semaphore = Thread.current.typeFacadeSemaphore
   semaphore.wait()
   defer { semaphore.signal() }
@@ -56,7 +56,27 @@ func resolve<T>(_ parameter: @escaping () -> T) -> Any? {
   Thread.current.threadDictionary[TypeFacade.threadValueKey] = nil
   let realValue = parameter()
   guard Thread.current.threadDictionary[TypeFacade.threadDidSetValueKey] as? Bool == true else {
-    return realValue
+    return ArgumentMatcher(realValue)
   }
-  return Thread.current.threadDictionary[TypeFacade.threadValueKey]
+  return Thread.current.threadDictionary[TypeFacade.threadValueKey] as! ArgumentMatcher
+}
+
+// When `T` is known to be equatable at compile time.
+func resolve<T: Equatable>(_ parameter: @escaping () -> T) -> ArgumentMatcher {
+  let semaphore = Thread.current.typeFacadeSemaphore
+  semaphore.wait()
+  defer { semaphore.signal() }
+  
+  Thread.current.threadDictionary[TypeFacade.threadDidSetValueKey] = false
+  Thread.current.threadDictionary[TypeFacade.threadValueKey] = nil
+  let realValue = parameter()
+  guard Thread.current.threadDictionary[TypeFacade.threadDidSetValueKey] as? Bool == true else {
+    return ArgumentMatcher(realValue)
+  }
+  return Thread.current.threadDictionary[TypeFacade.threadValueKey] as! ArgumentMatcher
+}
+
+// When the compiler knows the closure returns an ArgumentMatcher.
+func resolve(_ parameter: @escaping () -> ArgumentMatcher) -> ArgumentMatcher {
+  return parameter()
 }

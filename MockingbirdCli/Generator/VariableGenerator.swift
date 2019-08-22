@@ -62,7 +62,6 @@ class VariableGenerator {
   func createStubs(in context: MockableType) -> String {
     let capitalizedName = self.capitalizedName
     let typeName = specializedTypeName
-    let unwrappedTypeName = specializedUnwrappedTypeName
     let modifiers = self.modifiers
     let contextPrefix = self.contextPrefix
     let getterInvocationType = "() -> \(typeName)"
@@ -77,7 +76,7 @@ class VariableGenerator {
       }
     
       public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Stubbable<\(setterInvocationType), Void> {
-        let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(newValue), as: \(unwrappedTypeName).self)]
+        let arguments = [resolve(newValue)]
         let invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments)
         if let stub = DispatchQueue.currentStub { \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation) }
         return Mockingbird.Stubbable<\(setterInvocationType), Void>()
@@ -88,7 +87,6 @@ class VariableGenerator {
   func createVerifications(in context: MockableType) -> String {
     let capitalizedName = self.capitalizedName
     let typeName = specializedTypeName
-    let unwrappedTypeName = specializedUnwrappedTypeName
     let modifiers = self.modifiers
     let contextPrefix = self.contextPrefix
     return """
@@ -101,7 +99,7 @@ class VariableGenerator {
       }
     
       public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Mockable<Void> {
-        let arguments = [Mockingbird.ArgumentMatcher.create(from: resolve(newValue), as: \(unwrappedTypeName).self)]
+        let arguments = [resolve(newValue)]
         let invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments)
         if let expectation = DispatchQueue.currentExpectation { expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation) }
         return Mockingbird.Mockable<Void>()
@@ -128,9 +126,6 @@ class VariableGenerator {
   
   lazy var specializedTypeName: String = {
     return context.specializeTypeName(variable.typeName)
-  }()
-  lazy var specializedUnwrappedTypeName: String = {
-    return context.specializeTypeName(variable.typeName, unwrapOptional: true)
   }()
   
   lazy var capitalizedName: String = {

@@ -100,6 +100,7 @@ struct Attributes: OptionSet, Hashable {
   static let computed = Attributes(rawValue: 1 << 8)
   static let `throws` = Attributes(rawValue: 1 << 9)
   static let `inout` = Attributes(rawValue: 1 << 10)
+  static let variadic = Attributes(rawValue: 1 << 11)
   
   static let attributesKey = "key.attributes"
   static let attributeKey = "key.attribute"

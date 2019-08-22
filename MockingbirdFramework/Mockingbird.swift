@@ -85,7 +85,9 @@ public func clearStubs<M: Mock>(on mocks: M...) {
 // MARK: - Standard argument matchers
 
 /// Matches any argument value of a specific type `T`.
-public func any<T>() -> T {
+///
+/// - Parameter type: Provide an explicit type to help Swift disambiguate overloaded methods.
+public func any<T>(type: T.Type = T.self) -> T {
   return createTypeFacade(ArgumentMatcher(nil, description: "any()", true))
 }
 

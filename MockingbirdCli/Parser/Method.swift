@@ -16,7 +16,7 @@ struct MethodParameter: Hashable {
   let kind: SwiftDeclarationKind
   let attributes: Attributes
   
-  init?(from dictionary: StructureDictionary, argumentLabel: String?) {
+  init?(from dictionary: StructureDictionary, argumentLabel: String?, rawDeclaration: Substring?) {
     guard let rawKind = dictionary[SwiftDocKey.kind.rawValue] as? String,
       let kind = SwiftDeclarationKind(rawValue: rawKind), kind == .varParameter
       else { return nil }
@@ -31,6 +31,9 @@ struct MethodParameter: Hashable {
     if typeName.hasPrefix("inout ") {
       attributes.insert(.`inout`)
       typeName = String(typeName.dropFirst(6))
+    }
+    if rawDeclaration?.hasSuffix("...") == true {
+      attributes.insert(.variadic)
     }
     self.typeName = typeName
     self.attributes = attributes
@@ -93,12 +96,17 @@ struct Method: Hashable, Comparable {
     guard !attributes.contains(.final) else { return nil }
     let isInitializer = (name == "init" || name.hasPrefix("init("))
     
+    var rawParametersDeclaration: Substring?
     var genericConstraints = [String]()
     let source = rawType.parsedFile.file.contents
-    if let declaration = SourceSubstring.declaration.extract(from: dictionary, contents: source) {
-      let startIndex = declaration.firstIndex(of: ")") ?? declaration.startIndex
-      let endIndex = declaration.firstIndex(of: "-") ?? declaration.endIndex
-      let returnAttributes = declaration[startIndex..<endIndex]
+    if let declaration = SourceSubstring.key.extract(from: dictionary, contents: source) {
+      let parametersEndIndex = declaration.firstIndex(of: ")")
+      if let startIndex = declaration.firstIndex(of: "("), let endIndex = parametersEndIndex {
+        rawParametersDeclaration = declaration[startIndex..<endIndex]
+      }
+      let returnAttributesStartIndex = parametersEndIndex ?? declaration.startIndex
+      let returnAttributesEndIndex = declaration.firstIndex(of: "-") ?? declaration.endIndex
+      let returnAttributes = declaration[returnAttributesStartIndex..<returnAttributesEndIndex]
       if returnAttributes.range(of: #"\bthrows\b"#, options: .regularExpression) != nil {
         attributes.insert(.throws)
       }
@@ -133,8 +141,12 @@ struct Method: Hashable, Comparable {
     let labels = name.argumentLabels
     if !labels.isEmpty {
       var parameterIndex = 0
+      let rawDeclarations = rawParametersDeclaration?.substringComponents(separatedBy: ",")
       parameters = substructure.compactMap({
-        guard let parameter = MethodParameter(from: $0, argumentLabel: labels[parameterIndex])
+        let rawDeclaration = rawDeclarations?.get(parameterIndex)
+        guard let parameter = MethodParameter(from: $0,
+                                              argumentLabel: labels[parameterIndex],
+                                              rawDeclaration: rawDeclaration)
           else { return nil }
         parameterIndex += 1
         return parameter

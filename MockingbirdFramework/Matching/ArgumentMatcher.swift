@@ -28,6 +28,9 @@ public class ArgumentMatcher: CustomStringConvertible {
 
   /// A base instance to compare using `comparator`.
   let base: Any?
+  
+  /// The original type of the base instance.
+  let baseType: Any?
 
   /// A description for test failure output.
   public let description: String
@@ -42,13 +45,14 @@ public class ArgumentMatcher: CustomStringConvertible {
     return comparator(base, rhs)
   }
 
-  public init<E>(_ base: E?,
-                 description: String? = nil,
-                 commutativity: Commutativity = .commutative) where E: Equatable {
+  public init<T: Equatable>(_ base: T?,
+                            description: String? = nil,
+                            commutativity: Commutativity = .commutative) {
     self.base = base
+    self.baseType = T.self
     self.description = description ?? "\(String.describe(base))"
     self.commutativity = commutativity
-    self.comparator = { base == $1 as? E }
+    self.comparator = { base == $1 as? T }
   }
 
   public init(_ base: Any?,
@@ -56,6 +60,7 @@ public class ArgumentMatcher: CustomStringConvertible {
               commutativity: Commutativity = .lhs,
               _ comparator: @escaping @autoclosure () -> Bool) {
     self.base = base
+    self.baseType = type(of: base)
     self.description = description
     self.commutativity = commutativity
     self.comparator = { _, _ in comparator() }
@@ -66,6 +71,7 @@ public class ArgumentMatcher: CustomStringConvertible {
               commutativity: Commutativity = .lhs,
               _ comparator: ((Any?, Any?) -> Bool)? = nil) {
     self.base = base
+    self.baseType = type(of: base)
     self.commutativity = comparator != nil ? commutativity : .commutative
     self.comparator = comparator ?? { $0 as AnyObject === $1 as AnyObject }
     let annotation = comparator == nil && base != nil ? " (by reference)" : ""
@@ -88,11 +94,5 @@ extension ArgumentMatcher: Equatable {
     }
 
     return lhs.compare(with: rhs.base) && rhs.compare(with: lhs.base)
-  }
-}
-
-extension ArgumentMatcher {
-  static func create<T>(from object: Any?, as type: T.Type) -> ArgumentMatcher {
-    return (object as? ArgumentMatcher) ?? ArgumentMatcher(object as AnyObject as? T)
   }
 }
