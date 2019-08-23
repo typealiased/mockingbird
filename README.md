@@ -14,15 +14,20 @@ verify(bird.fly()).wasCalled()      // Then the bird flies away
 
 ## Installation
 
+Mockingbird comes in two parts, both of which should be installed:
+
+1. The **Mockingbird Framework** which provides functions for mocking, stubbing, and verification in tests.
+2. The **Mockingbird CLI** which generates mocks.
+
 ### Carthage
 
-Add Mockingbird to your `Cartfile`.
+Add the framework to your `Cartfile`.
 
 ```
 github "birdrides/mockingbird" ~> 0.0.1
 ```
 
-Then download and install the latest `Mockingbird.pkg` from [Releases](https://github.com/birdrides/mockingbird/releases).
+Then download and install the latest CLI from [Releases](https://github.com/birdrides/mockingbird/releases).
 
 ### CocoaPods
 
@@ -30,7 +35,7 @@ CocoaPods support coming soon™
 
 ### Swift Package Manager
 
-Add Mockingbird as a dependency in your `Package.swift` file.
+Add the framework as a dependency in your `Package.swift` file.
 
 ```swift
 dependencies: [
@@ -38,7 +43,7 @@ dependencies: [
 ]
 ```
 
-Then download and install the latest `Mockingbird.pkg` from [Releases](https://github.com/birdrides/mockingbird/releases).
+Then download and install the latest CLI from [Releases](https://github.com/birdrides/mockingbird/releases).
 
 ### From Source
 
@@ -51,7 +56,7 @@ cd mockingbird
 open Mockingbird.xcodeproj
 ```
 
-Then install the Mockingbird command line interface.
+Then build and install the CLI.
 
 ```bash
 make install
@@ -80,8 +85,6 @@ for available generator options.
 mockingbird generate &
 ```
 
-## Usage
-
 ### Importing Mocks
 
 By default, Mockingbird will generate target mocks into `Mockingbird/Mocks/` under the project’s source root 
@@ -91,6 +94,8 @@ Unit test targets that import a module with generated mocks should include the m
 Compile Sources.
 
 ![Build Phases → Compile Sources](Documentation/Assets/test-target-compile-sources.png)
+
+## Usage
 
 ### Mocking
 
@@ -109,8 +114,8 @@ Stubbing allows you to define a custom value to return when a mocked method is c
 given(bird.createNest()) ~> Nest()
 ```
 
-You can use an argument matcher to selectively return results. Stubs added later have precedence over those 
-added earlier, so stubs with more generic argument matchers should be added first.
+You can use an [argument matcher](#argument-matching) to selectively return results. Stubs added later have 
+precedence over those added earlier, so stubs with more generic argument matchers should be added first.
 
 ```swift
 given(bird.chirp(volume: any())) ~> false     // Matches any volume
@@ -214,7 +219,40 @@ reset(bird)                 // Removes all stubs and recorded invocations
 clearStubs(on: bird)        // Only removes stubs
 clearInvocations(on: bird)  // Only removes recorded invocations
 ```
- 
+
+### Argument Matching
+
+Mockingbird provides a set of matchers that can be passed as an argument during stubbing or verification.
+
+```swift
+any()                            // Matches any value
+any(of: 1, 2, 3)                 // Matches any value in {1, 2, 3}
+any(where: { $0.name.isEmpty })  // Matches any object with an empty name
+notNil()                         // Matches any non-nil value
+```
+
+For methods overloaded by parameter type, using a matcher may cause ambiguity for the compiler. You can help 
+the compiler by specifying an explicit matcher type.
+
+```swift
+any(Int.self)
+any(Int.self, of: 1, 2, 3)
+any(Bird.self, where: { $0.name.isEmpty })
+notNil(String?.self)
+```
+
+If you provide a concrete instance instead of an argument matcher, comparisons will use equality and fall back to 
+comparing by reference if the parameter type doesn’t conform to `Equatable`.
+
+```swift
+bird.chirp(volume: 50)
+verify(bird.chirp(volume: 50)).wasCalled()   // Comparing by equality
+
+let bigBird = Bird()
+bird.parent = bigBird
+verify(bird.setParent(bigBird)).wasCalled()  // Comparing by reference
+```
+
 ## Mockingbird CLI
 
 ### Generate
