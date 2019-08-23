@@ -86,17 +86,21 @@ public func clearStubs<M: Mock>(on mocks: M...) {
 
 /// Matches any argument value of a specific type `T`.
 ///
-/// - Parameter type: Provide an explicit type to help Swift disambiguate overloaded methods.
-public func any<T>(type: T.Type = T.self) -> T {
-  let matcher = ArgumentMatcher(nil, description: "any()", priority: .high, true)
+/// - Parameter type: Optionally provide an explicit type to disambiguate overloaded methods.
+public func any<T>(_ type: T.Type = T.self) -> T {
+  let matcher = ArgumentMatcher(description: "any()", priority: ArgumentMatcher.Priority.high) {
+    return true
+  }
   return createTypeFacade(matcher)
 }
 
 /// Matches any of the provided values by equality.
 ///
-/// - Parameter objects: A set of equatable objects that should result in a match.
-public func any<T: Equatable>(of objects: T...) -> T {
-  let matcher = ArgumentMatcher(nil, description: "any(of:)", priority: .high) { (_, rhs) in
+/// - Parameters:
+///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
+///   - objects: A set of equatable objects that should result in a match.
+public func any<T: Equatable>(_ type: T.Type = T.self, of objects: T...) -> T {
+  let matcher = ArgumentMatcher(description: "any(of:)", priority: .high) { (_, rhs) in
     guard let other = rhs as? T else { return false }
     return objects.contains(where: { $0 == other })
   }
@@ -105,18 +109,34 @@ public func any<T: Equatable>(of objects: T...) -> T {
 
 /// Matches any of the provided values by reference.
 ///
-/// - Parameter objects: A set of non-equatable objects that should result in a match.
-public func any<T>(of objects: T...) -> T {
-  let matcher = ArgumentMatcher(nil, description: "any(of:) (by reference)", priority: .high) {
+/// - Parameters:
+///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
+///   - objects: A set of non-equatable objects that should result in a match.
+public func any<T>(_ type: T.Type = T.self, of objects: T...) -> T {
+  let matcher = ArgumentMatcher(description: "any(of:) (by reference)", priority: .high) {
     (_, rhs) in
     return objects.contains(where: { $0 as AnyObject === rhs as AnyObject })
   }
   return createTypeFacade(matcher)
 }
 
+/// Matches any values where the predicate returns `true`.
+///
+/// - Parameters:
+///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
+///   - predicate: A closure that takes a value `T` and returns `true` if it represents a match.
+public func any<T>(_ type: T.Type = T.self, where predicate: @escaping (_ value: T) -> Bool) -> T {
+  let matcher = ArgumentMatcher(description: "matching(where:)", priority: .high) {
+    (_: Any?, rhs: Any?) -> Bool in
+    guard let rhs = rhs as? T else { return false }
+    return predicate(rhs)
+  }
+  return createTypeFacade(matcher)
+}
+
 /// Matches any non-nil argument value of a specific type `T`.
-public func notNil<T>() -> T {
-  let matcher = ArgumentMatcher(nil, description: "notNil()", priority: .high, { $1 != nil })
+public func notNil<T>(_ type: T.Type = T.self) -> T {
+  let matcher = ArgumentMatcher(description: "notNil()", priority: .high) { $1 != nil }
   return createTypeFacade(matcher)
 }
 

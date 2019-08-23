@@ -8,7 +8,7 @@
 import Foundation
 
 /// Captures method arguments passed during mock invocations.
-public class ArgumentCaptor<Type>: ArgumentMatcher {
+public class ArgumentCaptor<T>: ArgumentMatcher {
   final class WeakBox<A: AnyObject> {
     weak var value: A?
     init(_ value: A) {
@@ -17,13 +17,13 @@ public class ArgumentCaptor<Type>: ArgumentMatcher {
   }
 
   /// Passed as a parameter to mock verification contexts.
-  public var matcher: Type { return createTypeFacade(self) }
+  public var matcher: T { return createTypeFacade(self) }
 
   /// All argument values received.
-  public var allValues: [Type] { return capturedValues.filter({ $0 is Type }).map({ $0 as! Type }) }
+  public var allValues: [T] { return capturedValues.filter({ $0 is T }).map({ $0 as! T }) }
 
   /// The last argument value received.
-  public var value: Type? { return allValues.last }
+  public var value: T? { return allValues.last }
 
   /// Whether captured arguments are weakly captured.
   let weak: Bool
@@ -35,11 +35,11 @@ public class ArgumentCaptor<Type>: ArgumentMatcher {
   /// - Parameter weak: Whether captured arguments should be weakly captured.
   public init(weak: Bool = false) {
     self.weak = weak
-    super.init(nil, description: "any()", true)
+    super.init(description: "any()") { (_, _) in return true }
   }
 
   override func compare(with rhs: Any?) -> Bool {
-    if let value = rhs as? Type {
+    if let value = rhs as? T {
       let shouldStoreWeakly = type(of: value) is AnyClass && weak
       capturedValues.append(shouldStoreWeakly ? WeakBox<AnyObject>(value as AnyObject) : value)
     }

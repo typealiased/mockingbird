@@ -49,7 +49,7 @@ extension Invocation {
   func toSetter() -> Invocation? {
     guard isGetter else { return nil }
     let setterSelectorName = String(selectorName.dropLast(4) + Constants.setterSuffix)
-    let matcher = ArgumentMatcher(nil, description: "any()", true)
+    let matcher = ArgumentMatcher(description: "any()", priority: .high) { return true }
     return Invocation(selectorName: setterSelectorName, arguments: [matcher])
   }
 }

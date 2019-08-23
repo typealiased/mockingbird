@@ -188,7 +188,7 @@ class ArgumentMatchingTests: XCTestCase {
                            stringType: any(),
                            boolType: any(),
                            metaType: any(),
-                           anyType: ArgumentMatcher(1),
+                           anyType: any(of: 1),
                            anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: mock, anyType: 1))
     verify(self.mock.method(structType: any(),
@@ -197,7 +197,7 @@ class ArgumentMatchingTests: XCTestCase {
                             stringType: any(),
                             boolType: any(),
                             metaType: any(),
-                            anyType: ArgumentMatcher(1),
+                            anyType: any(of: 1),
                             anyObjectType: any())).wasCalled()
   }
   
@@ -209,7 +209,7 @@ class ArgumentMatchingTests: XCTestCase {
                            stringType: any(),
                            boolType: any(),
                            metaType: any(),
-                           anyType: ArgumentMatcher(ConcreteAnyType()),
+                           anyType: any(of: ConcreteAnyType()),
                            anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: mock, anyType: ConcreteAnyType()))
     verify(self.mock.method(structType: any(),
@@ -218,7 +218,7 @@ class ArgumentMatchingTests: XCTestCase {
                             stringType: any(),
                             boolType: any(),
                             metaType: any(),
-                            anyType: ArgumentMatcher(ConcreteAnyType()),
+                            anyType: any(of: ConcreteAnyType()),
                             anyObjectType: any())).wasCalled()
   }
   
@@ -226,161 +226,161 @@ class ArgumentMatchingTests: XCTestCase {
   
   func testArgumentMatching_optionalStructType_usingStrictMatching() {
     given(self.mock.method(optionalStructType: nil,
-                           optionalClassType: any(),
-                           optionalEnumType: any(),
-                           optionalStringType: any(),
-                           optionalBoolType: any(),
-                           optionalMetaType: any(),
-                           optionalAnyType: any(),
-                           optionalAnyObjectType: any())) ~> true
+                           optionalClassType: notNil(),
+                           optionalEnumType: notNil(),
+                           optionalStringType: notNil(),
+                           optionalBoolType: notNil(),
+                           optionalMetaType: notNil(),
+                           optionalAnyType: notNil(),
+                           optionalAnyObjectType: notNil())) ~> true
     XCTAssertTrue(callOptionalMethod(on: mock, optionalStructType: nil))
     verify(self.mock.method(optionalStructType: nil,
-                            optionalClassType: any(),
-                            optionalEnumType: any(),
-                            optionalStringType: any(),
-                            optionalBoolType: any(),
-                            optionalMetaType: any(),
-                            optionalAnyType: any(),
-                            optionalAnyObjectType: any())).wasCalled()
+                            optionalClassType: notNil(),
+                            optionalEnumType: notNil(),
+                            optionalStringType: notNil(),
+                            optionalBoolType: notNil(),
+                            optionalMetaType: notNil(),
+                            optionalAnyType: notNil(),
+                            optionalAnyObjectType: notNil())).wasCalled()
   }
   
   func testArgumentMatching_optionalClassType_usingStrictMatching() {
-    given(self.mock.method(optionalStructType: any(),
+    given(self.mock.method(optionalStructType: notNil(),
                            optionalClassType: nil,
-                           optionalEnumType: any(),
-                           optionalStringType: any(),
-                           optionalBoolType: any(),
-                           optionalMetaType: any(),
-                           optionalAnyType: any(),
-                           optionalAnyObjectType: any())) ~> true
+                           optionalEnumType: notNil(),
+                           optionalStringType: notNil(),
+                           optionalBoolType: notNil(),
+                           optionalMetaType: notNil(),
+                           optionalAnyType: notNil(),
+                           optionalAnyObjectType: notNil())) ~> true
     XCTAssertTrue(callOptionalMethod(on: mock, optionalClassType: nil))
-    verify(self.mock.method(optionalStructType: any(),
+    verify(self.mock.method(optionalStructType: notNil(),
                             optionalClassType: nil,
-                            optionalEnumType: any(),
-                            optionalStringType: any(),
-                            optionalBoolType: any(),
-                            optionalMetaType: any(),
-                            optionalAnyType: any(),
-                            optionalAnyObjectType: any())).wasCalled()
+                            optionalEnumType: notNil(),
+                            optionalStringType: notNil(),
+                            optionalBoolType: notNil(),
+                            optionalMetaType: notNil(),
+                            optionalAnyType: notNil(),
+                            optionalAnyObjectType: notNil())).wasCalled()
   }
   
   func testArgumentMatching_optionalEnumType_usingStrictMatching() {
-    given(self.mock.method(optionalStructType: any(),
-                           optionalClassType: any(),
+    given(self.mock.method(optionalStructType: notNil(),
+                           optionalClassType: notNil(),
                            optionalEnumType: nil,
-                           optionalStringType: any(),
-                           optionalBoolType: any(),
-                           optionalMetaType: any(),
-                           optionalAnyType: any(),
-                           optionalAnyObjectType: any())) ~> true
+                           optionalStringType: notNil(),
+                           optionalBoolType: notNil(),
+                           optionalMetaType: notNil(),
+                           optionalAnyType: notNil(),
+                           optionalAnyObjectType: notNil())) ~> true
     XCTAssertTrue(callOptionalMethod(on: mock, optionalEnumType: nil))
-    verify(self.mock.method(optionalStructType: any(),
-                            optionalClassType: any(),
+    verify(self.mock.method(optionalStructType: notNil(),
+                            optionalClassType: notNil(),
                             optionalEnumType: nil,
-                            optionalStringType: any(),
-                            optionalBoolType: any(),
-                            optionalMetaType: any(),
-                            optionalAnyType: any(),
-                            optionalAnyObjectType: any())).wasCalled()
+                            optionalStringType: notNil(),
+                            optionalBoolType: notNil(),
+                            optionalMetaType: notNil(),
+                            optionalAnyType: notNil(),
+                            optionalAnyObjectType: notNil())).wasCalled()
   }
   
   func testArgumentMatching_optionalStringType_usingStrictMatching() {
-    given(self.mock.method(optionalStructType: any(),
-                           optionalClassType: any(),
-                           optionalEnumType: any(),
+    given(self.mock.method(optionalStructType: notNil(),
+                           optionalClassType: notNil(),
+                           optionalEnumType: notNil(),
                            optionalStringType: nil,
-                           optionalBoolType: any(),
-                           optionalMetaType: any(),
-                           optionalAnyType: any(),
-                           optionalAnyObjectType: any())) ~> true
+                           optionalBoolType: notNil(),
+                           optionalMetaType: notNil(),
+                           optionalAnyType: notNil(),
+                           optionalAnyObjectType: notNil())) ~> true
     XCTAssertTrue(callOptionalMethod(on: mock, optionalStringType: nil))
-    verify(self.mock.method(optionalStructType: any(),
-                            optionalClassType: any(),
-                            optionalEnumType: any(),
+    verify(self.mock.method(optionalStructType: notNil(),
+                            optionalClassType: notNil(),
+                            optionalEnumType: notNil(),
                             optionalStringType: nil,
-                            optionalBoolType: any(),
-                            optionalMetaType: any(),
-                            optionalAnyType: any(),
-                            optionalAnyObjectType: any())).wasCalled()
+                            optionalBoolType: notNil(),
+                            optionalMetaType: notNil(),
+                            optionalAnyType: notNil(),
+                            optionalAnyObjectType: notNil())).wasCalled()
   }
   
   func testArgumentMatching_optionalBoolType_usingStrictMatching() {
-    given(self.mock.method(optionalStructType: any(),
-                           optionalClassType: any(),
-                           optionalEnumType: any(),
-                           optionalStringType: any(),
+    given(self.mock.method(optionalStructType: notNil(),
+                           optionalClassType: notNil(),
+                           optionalEnumType: notNil(),
+                           optionalStringType: notNil(),
                            optionalBoolType: nil,
-                           optionalMetaType: any(),
-                           optionalAnyType: any(),
-                           optionalAnyObjectType: any())) ~> true
+                           optionalMetaType: notNil(),
+                           optionalAnyType: notNil(),
+                           optionalAnyObjectType: notNil())) ~> true
     XCTAssertTrue(callOptionalMethod(on: mock, optionalBoolType: nil))
-    verify(self.mock.method(optionalStructType: any(),
-                            optionalClassType: any(),
-                            optionalEnumType: any(),
-                            optionalStringType: any(),
+    verify(self.mock.method(optionalStructType: notNil(),
+                            optionalClassType: notNil(),
+                            optionalEnumType: notNil(),
+                            optionalStringType: notNil(),
                             optionalBoolType: nil,
-                            optionalMetaType: any(),
-                            optionalAnyType: any(),
-                            optionalAnyObjectType: any())).wasCalled()
+                            optionalMetaType: notNil(),
+                            optionalAnyType: notNil(),
+                            optionalAnyObjectType: notNil())).wasCalled()
   }
   
   func testArgumentMatching_optionalMetaType_usingStrictMatching() {
-    given(self.mock.method(optionalStructType: any(),
-                           optionalClassType: any(),
-                           optionalEnumType: any(),
-                           optionalStringType: any(),
-                           optionalBoolType: any(),
+    given(self.mock.method(optionalStructType: notNil(),
+                           optionalClassType: notNil(),
+                           optionalEnumType: notNil(),
+                           optionalStringType: notNil(),
+                           optionalBoolType: notNil(),
                            optionalMetaType: nil,
-                           optionalAnyType: any(),
-                           optionalAnyObjectType: any())) ~> true
+                           optionalAnyType: notNil(),
+                           optionalAnyObjectType: notNil())) ~> true
     XCTAssertTrue(callOptionalMethod(on: mock, optionalMetaType: nil))
-    verify(self.mock.method(optionalStructType: any(),
-                            optionalClassType: any(),
-                            optionalEnumType: any(),
-                            optionalStringType: any(),
-                            optionalBoolType: any(),
+    verify(self.mock.method(optionalStructType: notNil(),
+                            optionalClassType: notNil(),
+                            optionalEnumType: notNil(),
+                            optionalStringType: notNil(),
+                            optionalBoolType: notNil(),
                             optionalMetaType: nil,
-                            optionalAnyType: any(),
-                            optionalAnyObjectType: any())).wasCalled()
+                            optionalAnyType: notNil(),
+                            optionalAnyObjectType: notNil())).wasCalled()
   }
   
   func testArgumentMatching_optionalAnyType_usingStrictMatching() {
-    given(self.mock.method(optionalStructType: any(),
-                           optionalClassType: any(),
-                           optionalEnumType: any(),
-                           optionalStringType: any(),
-                           optionalBoolType: any(),
-                           optionalMetaType: any(),
+    given(self.mock.method(optionalStructType: notNil(),
+                           optionalClassType: notNil(),
+                           optionalEnumType: notNil(),
+                           optionalStringType: notNil(),
+                           optionalBoolType: notNil(),
+                           optionalMetaType: notNil(),
                            optionalAnyType: nil,
-                           optionalAnyObjectType: any())) ~> true
+                           optionalAnyObjectType: notNil())) ~> true
     XCTAssertTrue(callOptionalMethod(on: mock, optionalAnyType: nil))
-    verify(self.mock.method(optionalStructType: any(),
-                            optionalClassType: any(),
-                            optionalEnumType: any(),
-                            optionalStringType: any(),
-                            optionalBoolType: any(),
-                            optionalMetaType: any(),
+    verify(self.mock.method(optionalStructType: notNil(),
+                            optionalClassType: notNil(),
+                            optionalEnumType: notNil(),
+                            optionalStringType: notNil(),
+                            optionalBoolType: notNil(),
+                            optionalMetaType: notNil(),
                             optionalAnyType: nil,
-                            optionalAnyObjectType: any())).wasCalled()
+                            optionalAnyObjectType: notNil())).wasCalled()
   }
   
   func testArgumentMatching_optionalAnyObjectType_usingStrictMatching() {
-    given(self.mock.method(optionalStructType: any(),
-                           optionalClassType: any(),
-                           optionalEnumType: any(),
-                           optionalStringType: any(),
-                           optionalBoolType: any(),
-                           optionalMetaType: any(),
-                           optionalAnyType: any(),
+    given(self.mock.method(optionalStructType: notNil(),
+                           optionalClassType: notNil(),
+                           optionalEnumType: notNil(),
+                           optionalStringType: notNil(),
+                           optionalBoolType: notNil(),
+                           optionalMetaType: notNil(),
+                           optionalAnyType: notNil(),
                            optionalAnyObjectType: nil)) ~> true
     XCTAssertTrue(callOptionalMethod(on: mock, optionalAnyObjectType: nil))
-    verify(self.mock.method(optionalStructType: any(),
-                            optionalClassType: any(),
-                            optionalEnumType: any(),
-                            optionalStringType: any(),
-                            optionalBoolType: any(),
-                            optionalMetaType: any(),
-                            optionalAnyType: any(),
+    verify(self.mock.method(optionalStructType: notNil(),
+                            optionalClassType: notNil(),
+                            optionalEnumType: notNil(),
+                            optionalStringType: notNil(),
+                            optionalBoolType: notNil(),
+                            optionalMetaType: notNil(),
+                            optionalAnyType: notNil(),
                             optionalAnyObjectType: nil)).wasCalled()
   }
   
@@ -689,5 +689,27 @@ class ArgumentMatchingTests: XCTestCase {
                             metaType: any(),
                             anyType: any(),
                             anyObjectType: any(of: ClassType(), classTypeReference))).wasCalled()
+  }
+  
+  // MARK: - Conditional matching
+  
+  func testArgumentMatching_structType_conditionalMatching() {
+    given(self.mock.method(structType: any(where: { $0.value > 99 }),
+                           classType: any(),
+                           enumType: any(),
+                           stringType: any(),
+                           boolType: any(),
+                           metaType: any(),
+                           anyType: any(),
+                           anyObjectType: any())) ~> true
+    XCTAssertTrue(callMethod(on: mock, structType: StructType(value: 100)))
+    verify(self.mock.method(structType: any(where: { $0.value > 99 }),
+                            classType: any(),
+                            enumType: any(),
+                            stringType: any(),
+                            boolType: any(),
+                            metaType: any(),
+                            anyType: any(),
+                            anyObjectType: any())).wasCalled()
   }
 }

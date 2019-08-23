@@ -36,7 +36,7 @@ class VeriadicParametersTests: XCTestCase {
   }
   func testVariadicMethod_calledWithStrings_usingWildcardMatching() {
     VariadicCaller.callVariadicStringsMethod(on: mock)
-    verify(self.mock.variadicMethod(objects: any(type: [String].self), param2: 1)).wasCalled()
+    verify(self.mock.variadicMethod(objects: any([String].self), param2: 1)).wasCalled()
   }
   
   func testVariadicMethod_calledWithBools_usingStrictMatching() {
@@ -45,7 +45,7 @@ class VeriadicParametersTests: XCTestCase {
   }
   func testVariadicMethod_calledWithBools_usingWildcardMatching() {
     VariadicCaller.callVariadicBoolsMethod(on: mock)
-    verify(self.mock.variadicMethod(objects: any(type: [Bool].self), param2: 1)).wasCalled()
+    verify(self.mock.variadicMethod(objects: any([Bool].self), param2: 1)).wasCalled()
   }
   
   func testVariadicReturningMethod_calledWithBools_usingStrictMatching() {

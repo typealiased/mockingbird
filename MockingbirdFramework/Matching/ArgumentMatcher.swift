@@ -12,7 +12,7 @@ import Foundation
 /// return `true` if `base` (lhs) is equal to the other `base` (rhs).
 public class ArgumentMatcher: CustomStringConvertible {
   /// Necessary for custom comparators such as `any()` that only work on the lhs.
-  public enum Priority: UInt {
+  enum Priority: UInt {
     case low = 0, `default` = 500, high = 1000
   }
 
@@ -35,31 +35,28 @@ public class ArgumentMatcher: CustomStringConvertible {
     return comparator(base, rhs)
   }
 
-  public init<T: Equatable>(_ base: T?,
-                            description: String? = nil,
-                            priority: Priority = .default) {
+  init<T: Equatable>(_ base: T?,
+                     description: String? = nil,
+                     priority: Priority = .default) {
     self.base = base
     self.baseType = T.self
     self.description = description ?? "\(String.describe(base))"
     self.priority = priority
     self.comparator = { base == $1 as? T }
   }
-
-  public init(_ base: Any?,
-              description: String,
-              priority: Priority = .default,
-              _ comparator: @escaping @autoclosure () -> Bool) {
-    self.base = base
-    self.baseType = type(of: base)
-    self.description = description
-    self.priority = priority
-    self.comparator = { _, _ in comparator() }
+  
+  convenience init(description: String,
+                   priority: Priority = .low,
+                   comparator: @escaping () -> Bool) {
+    self.init(nil, description: description, priority: priority) { (_, _) -> Bool in
+      return comparator()
+    }
   }
-
-  public init(_ base: Any?,
-              description: String? = nil,
-              priority: Priority = .low,
-              _ comparator: ((Any?, Any?) -> Bool)? = nil) {
+  
+  init(_ base: Any? = nil,
+       description: String? = nil,
+       priority: Priority = .low,
+       comparator: ((Any?, Any?) -> Bool)? = nil) {
     self.base = base
     self.baseType = type(of: base)
     self.priority = priority
@@ -68,7 +65,7 @@ public class ArgumentMatcher: CustomStringConvertible {
     self.description = description ?? "\(String.describe(base))\(annotation)"
   }
   
-  public init(_ matcher: ArgumentMatcher) {
+  init(_ matcher: ArgumentMatcher) {
     self.base = matcher.base
     self.baseType = type(of: matcher.base)
     self.priority = matcher.priority
