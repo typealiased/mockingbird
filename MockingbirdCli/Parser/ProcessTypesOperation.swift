@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MockingbirdShared
 import SourceKittenFramework
 
 struct RawType {

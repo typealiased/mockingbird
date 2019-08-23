@@ -91,13 +91,21 @@ class MethodGenerator {
   
   lazy var generatedMock: String = {
     if method.isInitializer {
-      let initializerPrefix = (context.kind == .class ? "super." : "self.")
+      let checkVersion: String
+      if context.kind == .class {
+        checkVersion = """
+            super.init(\(superCallParameters))
+            Mockingbird.checkVersion(for: self)
+        """
+      } else {
+        checkVersion = "Mockingbird.checkVersion(for: self)"
+      }
       let genericConstraints = self.genericConstraints
       return """
         // MARK: Mockable `\(method.name)`
       
         public \(overridableModifiers)\(fullNameForMocking)\(genericConstraints) {
-          \(initializerPrefix)init(\(superCallParameters))
+          \(checkVersion)
           self.sourceLocation = Mockingbird.SourceLocation(__file, __line)
           let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)",
           arguments: [\(mockArgumentMatchers)])

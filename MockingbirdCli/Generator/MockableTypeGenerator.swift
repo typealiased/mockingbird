@@ -8,6 +8,7 @@
 // swiftlint:disable leading_whitespace
 
 import Foundation
+import MockingbirdShared
 
 private enum Constants {
   static let objectProtocolPrefixes = Set(["NS", "CB", "UI"])
@@ -24,7 +25,10 @@ extension GenericType {
 
 extension MockableType {
   func generate(memoizedVariables: inout [Variable: String],
-                memoizedMethods: inout [Method: String]) -> String {
+                memoizedMethods: inout [Method: String],
+                moduleName: String) -> String {
+    let formatter = DateFormatter.standard()
+    let generatedDate = formatter.string(from: Date())
     return """
     // MARK: - Mocked \(name)
     
@@ -32,6 +36,7 @@ extension MockableType {
     \(staticMockingContext)
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()
+      public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "\(mockingbirdVersion.shortString)", "generated_date": "\(generatedDate)", "module_name": "\(moduleName)"])
       private var sourceLocation: Mockingbird.SourceLocation? {
         get { return stubbingContext.sourceLocation }
         set {
@@ -138,8 +143,18 @@ extension MockableType {
   }
   
   var defaultInitializer: String {
+    let checkVersion: String
+    if kind == .class {
+      checkVersion = """
+          super.init()
+          Mockingbird.checkVersion(for: self)
+      """
+    } else {
+      checkVersion = "Mockingbird.checkVersion(for: self)"
+    }
     return """
       public init(__file: StaticString = #file, __line: UInt = #line) {
+        \(checkVersion)
         let sourceLocation = Mockingbird.SourceLocation(__file, __line)
         self.stubbingContext.sourceLocation = sourceLocation
         \(name)Mock.staticMock.stubbingContext.sourceLocation = sourceLocation

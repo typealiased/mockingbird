@@ -5,7 +5,7 @@ let package = Package(
   name: "Mockingbird",
   products: [
     .library(name: "Mockingbird", targets: ["MockingbirdFramework"]),
-    .executable(name: "mockingbird", targets: ["MockingbirdCli"]),
+    .executable(name: "mockingbird", targets: ["MockingbirdCli"])
   ],
   dependencies: [
 //    .package(url: "https://github.com/kylef/Commander.git", from: "0.9.0"),
@@ -16,8 +16,15 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "MockingbirdFramework",
+      name: "MockingbirdShared",
       dependencies: [],
+      path: "MockingbirdShared"
+    ),
+    .target(
+      name: "MockingbirdFramework",
+      dependencies: [
+        "MockingbirdShared"
+      ],
       path: "MockingbirdFramework"
     ),
     .target(
@@ -26,6 +33,7 @@ let package = Package(
         "Commander",
         "SourceKittenFramework",
         "XcodeProj",
+        "MockingbirdShared",
       ],
       path: "MockingbirdCli"
     ),

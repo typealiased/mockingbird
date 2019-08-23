@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MockingbirdShared
 import PathKit
 import SourceKittenFramework
 

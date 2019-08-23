@@ -14,7 +14,7 @@ import XCTest
 ///
 /// - Parameter mock: A mock and its invocation to stub.
 public func given<T, R>(_ mock: @escaping @autoclosure () -> Stubbable<T, R>) -> Stub<T, R> {
-    return Stub<T, R>(mock)
+  return Stub<T, R>(mock)
 }
 
 /// Stubs a variable getter to return the last value received by the setter.

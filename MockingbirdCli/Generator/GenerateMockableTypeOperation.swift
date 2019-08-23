@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MockingbirdShared
 
 class MemoizedContainer {
   var variables = Synchronized<[Variable: String]>([:])
@@ -18,6 +19,7 @@ class GenerateMockableTypeOperation: BasicOperation {
   let memoizedContainer: MemoizedContainer
   var memoizedVariables: [Variable: String]
   var memoizedMethods: [Method: String]
+  let moduleName: String
   
   class Result {
     fileprivate(set) var generatedContents = ""
@@ -25,16 +27,18 @@ class GenerateMockableTypeOperation: BasicOperation {
   
   let result = Result()
   
-  init(mockableType: MockableType, memoizedContainer: MemoizedContainer) {
+  init(mockableType: MockableType, memoizedContainer: MemoizedContainer, moduleName: String) {
     self.mockableType = mockableType
     self.memoizedContainer = memoizedContainer
     self.memoizedVariables = memoizedContainer.variables.value
     self.memoizedMethods = memoizedContainer.methods.value
+    self.moduleName = moduleName
   }
   
   override func run() {
     result.generatedContents = mockableType.generate(memoizedVariables: &memoizedVariables,
-                                                     memoizedMethods: &memoizedMethods)
+                                                     memoizedMethods: &memoizedMethods,
+                                                     moduleName: moduleName)
     let mergeStrategy = { (lhs: String, _: String) -> String in
       return lhs // lhs should always equal rhs
     }
