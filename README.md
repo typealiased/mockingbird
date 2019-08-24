@@ -27,15 +27,14 @@ Add the framework to your `Podfile`.
 pod 'Mockingbird', '~> 0.1.0'
 ```
 
-Then build and install the CLI.
+Then build and install the CLI. (Alternatively, download the latest CLI from 
+[Releases](https://github.com/birdrides/mockingbird/releases).)
 
 ```bash
 pod install
 cd Pods/Mockingbird
 make install
 ```
-
-Alternatively, download the latest CLI from [Releases](https://github.com/birdrides/mockingbird/releases).
 
 ### Carthage
 
@@ -45,15 +44,14 @@ Add the framework to your `Cartfile`.
 github "birdrides/mockingbird" ~> 0.1.0
 ```
 
-Then build and install the CLI.
+Then build and install the CLI. (Alternatively, download the latest CLI from 
+[Releases](https://github.com/birdrides/mockingbird/releases).)
 
 ```bash
 carthage update
 cd Carthage/Checkouts/Mockingbird
 make install
 ```
-
-Alternatively, download the latest CLI from [Releases](https://github.com/birdrides/mockingbird/releases).
 
 ### Swift Package Manager
 
@@ -65,15 +63,14 @@ dependencies: [
 ]
 ```
 
-Then build and install the CLI.
+Then build and install the CLI. (Alternatively, download the latest CLI from 
+[Releases](https://github.com/birdrides/mockingbird/releases).)
 
 ```bash
 swift package update
 cd .build/checkouts/Mockingbird
 make install
 ```
-
-Alternatively, download the latest CLI from [Releases](https://github.com/birdrides/mockingbird/releases).
 
 ### From Source
 
@@ -86,7 +83,8 @@ cd mockingbird
 open Mockingbird.xcodeproj
 ```
 
-Then build and install the CLI.
+Then build and install the CLI. (Alternatively, download the latest CLI from 
+[Releases](https://github.com/birdrides/mockingbird/releases).)
 
 ```bash
 make install
