@@ -21,7 +21,21 @@ Mockingbird comes in two parts, both of which should be installed:
 
 ### CocoaPods
 
-CocoaPods support coming soon™
+Add the framework to your `Podfile`.
+
+```
+pod 'Mockingbird', '~> 0.1.0'
+```
+
+Then build and install the CLI.
+
+```bash
+pod install
+cd Pods/Mockingbird
+make install
+```
+
+Alternatively, download the latest CLI from [Releases](https://github.com/birdrides/mockingbird/releases).
 
 ### Carthage
 
@@ -31,7 +45,15 @@ Add the framework to your `Cartfile`.
 github "birdrides/mockingbird" ~> 0.1.0
 ```
 
-Then download and install the latest CLI from [Releases](https://github.com/birdrides/mockingbird/releases).
+Then build and install the CLI.
+
+```bash
+carthage update
+cd Carthage/Checkouts/Mockingbird
+make install
+```
+
+Alternatively, download the latest CLI from [Releases](https://github.com/birdrides/mockingbird/releases).
 
 ### Swift Package Manager
 
@@ -43,12 +65,20 @@ dependencies: [
 ]
 ```
 
-Then download and install the latest CLI from [Releases](https://github.com/birdrides/mockingbird/releases).
+Then build and install the CLI.
+
+```bash
+swift package update
+cd .build/checkouts/Mockingbird
+make install
+```
+
+Alternatively, download the latest CLI from [Releases](https://github.com/birdrides/mockingbird/releases).
 
 ### From Source
 
 Clone the repository and build the `MockingbirdFramework` scheme for the desired platform. Drag the built 
-`Mockingbird.framework` product into your project and link the library.
+`MockingbirdFramework.framework` product into your project and link the library.
 
 ```bash
 git clone https://github.com/birdrides/mockingbird.git
