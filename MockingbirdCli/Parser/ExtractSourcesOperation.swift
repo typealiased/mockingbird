@@ -79,9 +79,9 @@ extension PBXTarget {
     guard let inferredDebugConfig = buildConfigurationList?.buildConfigurations
       .first(where: { $0.name.lowercased() == "debug" })
       ?? buildConfigurationList?.buildConfigurations.first,
-      let moduleName = inferredDebugConfig.buildSettings["PRODUCT_MODULE_NAME"] as? String else {
-        return productName
-    }
+      let moduleName = inferredDebugConfig.buildSettings["PRODUCT_MODULE_NAME"] as? String,
+      !moduleName.hasPrefix("$(") // TODO: Parse environment vars in build configurations.
+      else { return productName }
     return moduleName
   }
 }

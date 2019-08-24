@@ -60,9 +60,9 @@ class FileGenerator {
     }
     
     let moduleImports = (
-      ["@testable import Mockingbird"]
-      + imports.union(["import Foundation"])
-      + (shouldImportModule ? ["@testable import \(moduleName)"] : [])
+      imports.union(["import Foundation", "@testable import Mockingbird"]).union(
+        shouldImportModule ? ["@testable import \(moduleName)"] : []
+      )
     ).sorted()
     
     return """

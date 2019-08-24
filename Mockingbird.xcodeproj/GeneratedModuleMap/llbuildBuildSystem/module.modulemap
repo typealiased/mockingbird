@@ -1,0 +1,4 @@
+module llbuildBuildSystem {
+    umbrella "/Users/andrew/Mockingbird/.build/checkouts/swift-llbuild/lib/BuildSystem/include"
+    export *
+}

@@ -16,7 +16,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "49B198982307B66000A3236E"
+               BlueprintIdentifier = "Mockingbird::MockingbirdTests"
                BuildableName = "MockingbirdTests.xctest"
                BlueprintName = "MockingbirdTests"
                ReferencedContainer = "container:Mockingbird.xcodeproj">

@@ -67,7 +67,7 @@ class Installer {
       
       // Add build phase reference to project.
       let defaultOutputPath = config.sourceRoot.mocksDirectory
-        + Path("\(targetName)\(MockingbirdCliConstants.generatedFileNameSuffix)")
+        + Path("\(targetName)\(Generator.Constants.generatedFileNameSuffix)")
       let outputPath = config.outputPaths?[index] ?? defaultOutputPath
       let buildPhase = createGenerateMocksBuildPhase(outputPath: outputPath, config: config)
       xcodeproj.pbxproj.add(object: buildPhase)
@@ -144,9 +144,7 @@ class Installer {
     if let expression = config.preprocessorExpression {
       options.append("--preprocessor '\(expression)'")
     }
-    if config.synchronousGeneration {
-      options.append("--no-module-import")
-    } else {
+    if !config.synchronousGeneration {
       options.append("&")
     }
     let shellScript = """

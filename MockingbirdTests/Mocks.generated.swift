@@ -55,7 +55,7 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -155,7 +155,7 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
   }
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -279,7 +279,7 @@ public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.Associate
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -339,7 +339,7 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -471,7 +471,7 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
   }
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -594,7 +594,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -1294,7 +1294,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -2293,7 +2293,7 @@ public final class ClassTypeMock: MockingbirdTestsHost.ClassType, Mockingbird.Mo
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -2321,7 +2321,7 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -2652,7 +2652,7 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -2904,7 +2904,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -3255,7 +3255,7 @@ public final class InoutClassMock: MockingbirdTestsHost.InoutClass, Mockingbird.
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -3315,7 +3315,7 @@ public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockin
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -3374,7 +3374,7 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -3482,7 +3482,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -3958,7 +3958,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -4633,7 +4633,7 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -4845,7 +4845,7 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 11:41:06 +PDT", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.0", "generated_date": "2019-08-23 20:42:38 +PDT", "module_name": "MockingbirdTestsHost"])
   private var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {

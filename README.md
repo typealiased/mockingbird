@@ -19,19 +19,19 @@ Mockingbird comes in two parts, both of which should be installed:
 1. The **Mockingbird Framework** which provides functions for mocking, stubbing, and verification in tests.
 2. The **Mockingbird CLI** which generates mocks.
 
+### CocoaPods
+
+CocoaPods support coming soon™
+
 ### Carthage
 
 Add the framework to your `Cartfile`.
 
 ```
-github "birdrides/mockingbird" ~> 0.0.1
+github "birdrides/mockingbird" ~> 0.1.0
 ```
 
 Then download and install the latest CLI from [Releases](https://github.com/birdrides/mockingbird/releases).
-
-### CocoaPods
-
-CocoaPods support coming soon™
 
 ### Swift Package Manager
 
@@ -39,7 +39,7 @@ Add the framework as a dependency in your `Package.swift` file.
 
 ```swift
 dependencies: [
-  .package(url: "https://github.com/birdrides/mockingbird.git", .upToNextMajor(from: "0.0.1"))
+  .package(url: "https://github.com/birdrides/mockingbird.git", .upToNextMajor(from: "0.1.0"))
 ]
 ```
 
@@ -73,7 +73,7 @@ The Mockingbird CLI can automatically add a build step to generate mocks in the 
 specified targets are compiled.
 
 ```bash
-mockingbird install --project <xcodeproj_path> --targets <comma_separated_targets>
+mockingbird install --project <xcodeproj_path> --targets <target_names>
 ```
 
 ### Manual Integration
@@ -264,9 +264,9 @@ Generate mocks for a set of targets in a project.
 | Option | Default Value | Description | 
 | --- | --- | --- |
 | `--project` | `$PROJECT_FILE_PATH` | Path to your project’s `.xcodeproj` file. |
-| `--targets` | `$TARGET_NAME` | Comma-separated list of target names to mock. |
+| `--targets` | `$TARGET_NAME` | List of target names to generate mocks for. |
 | `--srcroot` | `$SRCROOT` | The folder containing your project’s source files. |
-| `--outputs` | `$MOCKINGBIRD_SRCROOT` | Comma-separated list of mock output file paths for each target. |
+| `--outputs` | `$MOCKINGBIRD_SRCROOT` | List of mock output file paths for each target. |
 | `--preprocessor` | `nil` | Preprocessor expression to wrap all generated mocks in, e.g. `DEBUG`. |
 
 | Flag | Description |
@@ -283,15 +283,16 @@ Starts automatically generating mocks by adding a custom Run Script Phase to eac
 | Option | Default Value | Description |
 | --- | --- | --- |
 | `--project` | *(required)* | Your project’s `.xcodeproj` file. |
-| `--targets` | *(required)* | Comma-separated list of target names to install the Run Script Phase. |
+| `--targets` | *(required)* | List of target names to install the Run Script Phase. |
 | `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |
-| `--outputs` | `$MOCKINGBIRD_SRCROOT` | Comma-separated list of mock output file paths for each target. |
+| `--outputs` | `$MOCKINGBIRD_SRCROOT` | List of mock output file paths for each target. |
 | `--preprocessor` | `nil` | Preprocessor expression to wrap all generated mocks in, e.g. `DEBUG`. |
 
 | Flag | Description |
 | --- | --- |
 | `--reinstall` | Overwrite existing Run Script Phases created by Mockingbird CLI. |
 | `--synchronous` | Wait until mock generation completes before compiling target sources. |
+| `--only-protocols` | Only generate mocks for protocols. |
 
 ### Uninstall
 
@@ -302,4 +303,5 @@ Stops automatically generating mocks.
 | Option | Default Value | Description |
 | --- | --- | --- |
 | `--project` | *(required)* | Your project’s `.xcodeproj` file. |
-| `--targets` | *(required)* | Comma-separated list of target names to uninstall the Run Script Phase. |
+| `--targets` | *(required)* | List of target names to uninstall the Run Script Phase. |
+| `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |

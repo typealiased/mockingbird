@@ -1,0 +1,4 @@
+module llvmSupport {
+    umbrella "/Users/andrew/Mockingbird/.build/checkouts/swift-llbuild/lib/llvm/Support/include"
+    export *
+}

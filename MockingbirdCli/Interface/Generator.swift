@@ -32,6 +32,10 @@ class Generator {
     }
   }
   
+  enum Constants {
+    static let generatedFileNameSuffix = "Mocks.generated.swift"
+  }
+  
   static func generate(using config: Configuration) throws {
     guard config.outputPaths == nil || config.inputTargetNames.count == config.outputPaths?.count else {
       throw Failure.malformedConfiguration(description: "Number of input targets does not match the number of output file paths")
@@ -57,7 +61,7 @@ class Generator {
         try config.sourceRoot.mocksDirectory.mkpath()
         let moduleName = target.productModuleName ?? target.name
         path = config.sourceRoot.mocksDirectory
-          + "\(moduleName)\(MockingbirdCliConstants.generatedFileNameSuffix)"
+          + "\(moduleName)\(Constants.generatedFileNameSuffix)"
       }
       guard !path.isDirectory else {
         throw Failure.malformedConfiguration(description: "Output file path points to a directory: \(path)")

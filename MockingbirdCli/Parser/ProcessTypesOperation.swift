@@ -49,7 +49,7 @@ class ProcessTypesOperation: BasicOperation {
     let result = Result()
     
     init(rawType: [RawType], allRawTypes: [String: [RawType]]) {
-      assert(!rawType.isEmpty)
+      precondition(!rawType.isEmpty)
       self.rawType = rawType
       self.allRawTypes = allRawTypes
     }
