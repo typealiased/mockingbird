@@ -6,6 +6,10 @@
 build/
 DerivedData
 Mockingbird.pkg
+mockingbird.zip
+MockingbirdCli.pkg
+mockingbirdCli.zip
+mockingbird
 
 ## Various settings
 *.pbxuser

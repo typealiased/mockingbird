@@ -1,6 +1,9 @@
 # Mockingbird
 
-[![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
+[![CocoaPods compatible](https://img.shields.io/cocoapods/v/Mockingbird.svg)](http://cocoapods.org/pods/Cuckoo)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager compatible](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/birdrides/mockingbird/blob/master/LICENSE)
 
 Mockingbird is a convenient mocking framework for Swift.
 
@@ -16,25 +19,20 @@ verify(bird.fly()).wasCalled()      // Then the bird flies away
 
 Mockingbird comes in two parts, both of which should be installed:
 
-1. The **Mockingbird Framework** which provides functions for mocking, stubbing, and verification in tests.
-2. The **Mockingbird CLI** which generates mocks.
+1. The **Mockingbird Framework** provides functions for mocking, stubbing, and verification in tests.
+2. The **Mockingbird CLI** generates mocks.
 
 ### CocoaPods
 
-Add the framework to your `Podfile`.
+Add the framework to a test target in your `Podfile`.
 
-```
-pod 'Mockingbird', '~> 0.1.0'
+```ruby
+target 'ATestTarget' do
+  pod 'Mockingbird', '~> 0.1.0'
+end
 ```
 
-Then build and install the CLI. (Alternatively, download the latest CLI from 
-[Releases](https://github.com/birdrides/mockingbird/releases).)
-
-```bash
-pod install
-cd Pods/Mockingbird
-make install
-```
+This will download and install the CLI during the next `pod install`.
 
 ### Carthage
 
@@ -44,13 +42,18 @@ Add the framework to your `Cartfile`.
 github "birdrides/mockingbird" ~> 0.1.0
 ```
 
-Then build and install the CLI. (Alternatively, download the latest CLI from 
-[Releases](https://github.com/birdrides/mockingbird/releases).)
+And set up Carthage to only build the framework when running `carthage update`.
 
 ```bash
-carthage update
+carthage update --no-build
 cd Carthage/Checkouts/Mockingbird
-make install
+make bootstrap-carthage
+```
+
+Then download and install the CLI.
+
+```bash
+make install-prebuilt
 ```
 
 ### Swift Package Manager
@@ -60,22 +63,29 @@ Add the framework as a dependency in your `Package.swift` file.
 ```swift
 dependencies: [
   .package(url: "https://github.com/birdrides/mockingbird.git", .upToNextMajor(from: "0.1.0"))
+],
+targets: [
+  .testTarget(
+    name: "ATestTarget",
+    dependencies: [
+      "Mockingbird"
+    ]
+  )
 ]
 ```
 
-Then build and install the CLI. (Alternatively, download the latest CLI from 
-[Releases](https://github.com/birdrides/mockingbird/releases).)
+Then download and install the CLI.
 
 ```bash
 swift package update
 cd .build/checkouts/Mockingbird
-make install
+make install-prebuilt
 ```
 
 ### From Source
 
 Clone the repository and build the `MockingbirdFramework` scheme for the desired platform. Drag the built 
-`MockingbirdFramework.framework` product into your project and link the library.
+`Mockingbird.framework` product into your project and link the library.
 
 ```bash
 git clone https://github.com/birdrides/mockingbird.git
@@ -83,8 +93,7 @@ cd mockingbird
 open Mockingbird.xcodeproj
 ```
 
-Then build and install the CLI. (Alternatively, download the latest CLI from 
-[Releases](https://github.com/birdrides/mockingbird/releases).)
+Then build and install the CLI.
 
 ```bash
 make install
@@ -106,12 +115,14 @@ mockingbird install --project <xcodeproj_path> --targets <target_names>
 
 ### Manual Integration
 
-Add a Run Script Phase to each target that needs generated mocks. Add See [Mockingbird CLI - Generate](#generate) 
-for available generator options.
+Add a Run Script Phase to each target that needs generated mocks. 
 
 ```bash
 mockingbird generate &
 ```
+
+Remove the trailing `&` if mocks should generate synchronously when building the target. This may increase build 
+times by a few seconds. See [Mockingbird CLI - Generate](#generate) for available generator options.
 
 ### Importing Mocks
 

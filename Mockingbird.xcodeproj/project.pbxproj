@@ -223,7 +223,7 @@
 		OBJ_716 /* VariadicParametersVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_117 /* VariadicParametersVerifiableTests.swift */; };
 		OBJ_717 /* Mocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_118 /* Mocks.generated.swift */; };
 		OBJ_719 /* MockingbirdTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdTestsHost::Product" /* MockingbirdTestsHost.framework */; };
-		OBJ_720 /* MockingbirdFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdFramework::Product" /* MockingbirdFramework.framework */; };
+		OBJ_720 /* Mockingbird.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */; };
 		OBJ_721 /* MockingbirdShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdShared::Product" /* MockingbirdShared.framework */; };
 		OBJ_730 /* ArgumentMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_78 /* ArgumentMatching.swift */; };
 		OBJ_731 /* Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_79 /* Child.swift */; };
@@ -710,7 +710,7 @@
 /* Begin PBXFileReference section */
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; lastKnownFileType = text; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
-		"Mockingbird::MockingbirdFramework::Product" /* MockingbirdFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MockingbirdFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdShared::Product" /* MockingbirdShared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MockingbirdShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdTests::Product" /* MockingbirdTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = MockingbirdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdTestsHost::Product" /* MockingbirdTestsHost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MockingbirdTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1185,7 +1185,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_719 /* MockingbirdTestsHost.framework in Frameworks */,
-				OBJ_720 /* MockingbirdFramework.framework in Frameworks */,
+				OBJ_720 /* Mockingbird.framework in Frameworks */,
 				OBJ_721 /* MockingbirdShared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2101,7 +2101,7 @@
 				"SourceKitten::Clang_C::Product" /* Clang_C.framework */,
 				"SwiftPM::SPMUtility::Product" /* SPMUtility.framework */,
 				"SwiftPM::SPMLibc::Product" /* SPMLibc.framework */,
-				"Mockingbird::MockingbirdFramework::Product" /* MockingbirdFramework.framework */,
+				"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */,
 				"SwiftPM::clibc::Product" /* clibc.framework */,
 				"Mockingbird::MockingbirdTestsHost::Product" /* MockingbirdTestsHost.framework */,
 				"Yams::Yams::Product" /* Yams.framework */,
@@ -2430,7 +2430,7 @@
 			);
 			name = MockingbirdFramework;
 			productName = MockingbirdFramework;
-			productReference = "Mockingbird::MockingbirdFramework::Product" /* MockingbirdFramework.framework */;
+			productReference = "Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		"Mockingbird::MockingbirdShared" /* MockingbirdShared */ = {
@@ -4151,6 +4151,8 @@
 		OBJ_646 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4162,15 +4164,20 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = MockingbirdFramework;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = Mockingbird;
+				PRODUCT_MODULE_NAME = Mockingbird;
+				PRODUCT_NAME = Mockingbird;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGET_NAME = MockingbirdFramework;
+				TARGET_NAME = Mockingbird;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -4179,6 +4186,8 @@
 		OBJ_647 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4190,15 +4199,20 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = MockingbirdFramework;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = Mockingbird;
+				PRODUCT_MODULE_NAME = Mockingbird;
+				PRODUCT_NAME = Mockingbird;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGET_NAME = MockingbirdFramework;
+				TARGET_NAME = Mockingbird;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
