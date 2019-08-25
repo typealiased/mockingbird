@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import MockingbirdShared
 import XCTest
 
 /// Holds stubbed invocation implementations used by stubs.

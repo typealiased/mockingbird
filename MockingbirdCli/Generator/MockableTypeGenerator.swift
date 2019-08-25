@@ -8,7 +8,6 @@
 // swiftlint:disable leading_whitespace
 
 import Foundation
-import MockingbirdShared
 
 private enum Constants {
   static let objectProtocolPrefixes = Set(["NS", "CB", "UI"])

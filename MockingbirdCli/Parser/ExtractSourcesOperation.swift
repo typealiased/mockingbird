@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MockingbirdShared
 import PathKit
 import XcodeProj
 

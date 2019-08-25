@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MockingbirdShared
 import PathKit
 
 // swiftlint:disable leading_whitespace

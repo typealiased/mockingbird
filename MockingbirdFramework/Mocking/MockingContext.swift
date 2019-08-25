@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import MockingbirdShared
 
 /// Logs invocations observed by generated mocks.
 public class MockingContext {

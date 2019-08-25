@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MockingbirdShared
 
 class GenerateMockableTypeOperation: BasicOperation {
   let mockableType: MockableType

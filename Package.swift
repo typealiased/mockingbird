@@ -14,21 +14,13 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "MockingbirdShared",
-      dependencies: [],
-      path: "MockingbirdShared"
-    ),
-    .target(
       name: "MockingbirdFramework",
-      dependencies: [
-        "MockingbirdShared",
-      ],
+      dependencies: [],
       path: "MockingbirdFramework"
     ),
     .target(
       name: "MockingbirdCli",
       dependencies: [
-        "MockingbirdShared",
         "SourceKittenFramework",
         "SPMUtility",
         "XcodeProj",

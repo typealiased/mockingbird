@@ -17,5 +17,4 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig    = { 'ENABLE_BITCODE' => 'NO' }
   s.swift_version          = '5.0'
   s.preserve_paths         = '*'
-  s.dependency 'MockingbirdShared', "#{s.version}"
 end

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MockingbirdShared
 import XCTest
 
 extension Mock {
