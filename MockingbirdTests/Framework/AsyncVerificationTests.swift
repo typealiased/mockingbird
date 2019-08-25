@@ -22,15 +22,12 @@ class AsyncVerificationTests: XCTestCase {
     static let asyncTestTimeout: TimeInterval = 1.0
   }
   
-  /// Test harness.
-  class ChildCaller {
-    static func callTrivialInstanceMethod(on child: Child, times: UInt = 1) {
-      for _ in 0..<times { child.childTrivialInstanceMethod() }
-    }
-    
-    static func callParameterizedInstanceMethod(on child: Child, times: UInt = 1) {
-      for _ in 0..<times { _ = child.childParameterizedInstanceMethod(param1: true, 1) }
-    }
+  func callTrivialInstanceMethod(on child: Child, times: UInt = 1) {
+    for _ in 0..<times { child.childTrivialInstanceMethod() }
+  }
+  
+  func callParameterizedInstanceMethod(on child: Child, times: UInt = 1) {
+    for _ in 0..<times { _ = child.childParameterizedInstanceMethod(param1: true, 1) }
   }
   
   func testAsyncVerification_receivesTriviaInvocationOnce() {
@@ -39,7 +36,7 @@ class AsyncVerificationTests: XCTestCase {
     }
     let queue = DispatchQueue(label: "co.bird.mockingbird.tests")
     queue.async {
-      ChildCaller.callTrivialInstanceMethod(on: self.child)
+      self.callTrivialInstanceMethod(on: self.child)
     }
     wait(for: [expectation], timeout: Constants.asyncTestTimeout)
   }
@@ -50,7 +47,7 @@ class AsyncVerificationTests: XCTestCase {
     }
     let queue = DispatchQueue(label: "co.bird.mockingbird.tests")
     queue.async {
-      ChildCaller.callTrivialInstanceMethod(on: self.child, times: 2)
+      self.callTrivialInstanceMethod(on: self.child, times: 2)
     }
     wait(for: [expectation], timeout: Constants.asyncTestTimeout)
   }
@@ -62,7 +59,7 @@ class AsyncVerificationTests: XCTestCase {
     }
     let queue = DispatchQueue(label: "co.bird.mockingbird.tests")
     queue.async {
-      ChildCaller.callParameterizedInstanceMethod(on: self.child)
+      self.callParameterizedInstanceMethod(on: self.child)
     }
     wait(for: [expectation], timeout: Constants.asyncTestTimeout)
   }
@@ -75,7 +72,7 @@ class AsyncVerificationTests: XCTestCase {
     }
     let queue = DispatchQueue(label: "co.bird.mockingbird.tests")
     queue.async {
-      ChildCaller.callParameterizedInstanceMethod(on: self.child, times: 2)
+      self.callParameterizedInstanceMethod(on: self.child, times: 2)
     }
     wait(for: [expectation], timeout: Constants.asyncTestTimeout)
   }
@@ -86,13 +83,13 @@ class AsyncVerificationTests: XCTestCase {
       verify(self.child.childParameterizedInstanceMethod(param1: any(), any()))
         .wasCalled(exactly(2))
     }
-    ChildCaller.callParameterizedInstanceMethod(on: self.child, times: 2)
+    callParameterizedInstanceMethod(on: self.child, times: 2)
     wait(for: [expectation], timeout: Constants.asyncTestTimeout)
   }
   
   func testAsyncVerification_receivesPastInvocations() {
     given(self.child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
-    ChildCaller.callParameterizedInstanceMethod(on: self.child, times: 2)
+    callParameterizedInstanceMethod(on: self.child, times: 2)
     let expectation = eventually("childParameterizedInstanceMethod(param1:_:) is called twice") {
       verify(self.child.childParameterizedInstanceMethod(param1: any(), any()))
         .wasCalled(exactly(2))

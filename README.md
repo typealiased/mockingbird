@@ -194,13 +194,12 @@ Mocks keep a record of invocations that it receives which can then be verified.
 verify(bird.chirp(volume: 50)).wasCalled()
 ```
 
-You can also conveniently verify multiple invocations at once (order doesn’t matter).
+You can also conveniently verify multiple invocations with the same return type at once (order doesn’t matter).
 
 ```swift
 verify(
-  bird.getName(),
-  bird.chirp(volume: any()),
-  bird.fly(to: notNil())
+  birdOne.getName(),
+  birdTwo.getName()
 ).wasCalled()
 ```
 
@@ -225,7 +224,7 @@ Sometimes you need to perform custom checks on received parameters by using an a
 
 ```swift
 let locationCaptor = ArgumentCaptor<Location>()
-verify(bird.fly(to: locationCaptor)).wasCalled()
+verify(bird.fly(to: locationCaptor.matcher)).wasCalled()
 assert(locationCaptor.value?.name == "Hawaii")
 ```
 

@@ -50,6 +50,7 @@
 		49124C3A23131ED9008C8CE0 /* Synchronized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49124C3923131ED9008C8CE0 /* Synchronized.swift */; };
 		49124C3C23131EEB008C8CE0 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49124C3B23131EEB008C8CE0 /* Version.swift */; };
 		49124C3E23131F9A008C8CE0 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49124C3D23131F9A008C8CE0 /* String+Extensions.swift */; };
+		49124C4323132E1E008C8CE0 /* ArgumentCaptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49124C4223132E1E008C8CE0 /* ArgumentCaptorTests.swift */; };
 		49B4F32F231309C6002106EB /* ProtocolInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4F32E231309C6002106EB /* ProtocolInitializers.swift */; };
 		49B4F33123130AD7002106EB /* ClassInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4F33023130AD7002106EB /* ClassInitializers.swift */; };
 		OBJ_1000 /* XCWorkspaceDataGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_420 /* XCWorkspaceDataGroup.swift */; };
@@ -693,6 +694,7 @@
 		49124C3923131ED9008C8CE0 /* Synchronized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronized.swift; sourceTree = "<group>"; };
 		49124C3B23131EEB008C8CE0 /* Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
 		49124C3D23131F9A008C8CE0 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		49124C4223132E1E008C8CE0 /* ArgumentCaptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentCaptorTests.swift; sourceTree = "<group>"; };
 		49B4F32E231309C6002106EB /* ProtocolInitializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolInitializers.swift; sourceTree = "<group>"; };
 		49B4F33023130AD7002106EB /* ClassInitializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassInitializers.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2256,6 +2258,7 @@
 				OBJ_96 /* LastSetValueStubTests.swift */,
 				OBJ_97 /* StubbingTests.swift */,
 				OBJ_98 /* VariadicParametersTests.swift */,
+				49124C4223132E1E008C8CE0 /* ArgumentCaptorTests.swift */,
 			);
 			path = Framework;
 			sourceTree = "<group>";
@@ -3066,6 +3069,7 @@
 				OBJ_709 /* GenericsStubbableTests.swift in Sources */,
 				OBJ_710 /* GenericsVerifiableTests.swift in Sources */,
 				OBJ_711 /* InoutParametersMockableTests.swift in Sources */,
+				49124C4323132E1E008C8CE0 /* ArgumentCaptorTests.swift in Sources */,
 				OBJ_712 /* InoutParametersStubbableTests.swift in Sources */,
 				OBJ_713 /* InoutParametersVerifiableTests.swift in Sources */,
 				OBJ_714 /* VariadicParametersMockableTests.swift in Sources */,

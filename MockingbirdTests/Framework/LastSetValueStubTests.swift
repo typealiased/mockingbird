@@ -18,32 +18,30 @@ class LastSetValueStubTests: XCTestCase {
     child = ChildProtocolMock()
   }
   
-  class ChildVerificationProxy {
-    static func getInstanceVariable(for child: ChildProtocol) -> Bool {
-      return child.childInstanceVariable
-    }
-    
-    static func setInstanceVariable(for child: ChildProtocol, to value: Bool) {
-      var childCopy = child
-      childCopy.childInstanceVariable = value
-    }
+  func getInstanceVariable(for child: ChildProtocol) -> Bool {
+    return child.childInstanceVariable
+  }
+  
+  func setInstanceVariable(for child: ChildProtocol, to value: Bool) {
+    var childCopy = child
+    childCopy.childInstanceVariable = value
   }
   
   func testLastSetValueStub_returnsInitialValue() {
     given(self.child.getChildInstanceVariable()) ~> lastSetValue(initial: false)
-    XCTAssertFalse(ChildVerificationProxy.getInstanceVariable(for: child))
+    XCTAssertFalse(getInstanceVariable(for: child))
   }
   
   func testLastSetValueStub_returnsLastSetValue() {
     given(self.child.getChildInstanceVariable()) ~> lastSetValue(initial: false)
-    ChildVerificationProxy.setInstanceVariable(for: child, to: true)
-    XCTAssertTrue(ChildVerificationProxy.getInstanceVariable(for: child))
+    setInstanceVariable(for: child, to: true)
+    XCTAssertTrue(getInstanceVariable(for: child))
   }
   
   func testLastSetValueStub_settingValueOverridesLastSetValue() {
     given(self.child.getChildInstanceVariable()) ~> lastSetValue(initial: false)
-    ChildVerificationProxy.setInstanceVariable(for: child, to: true)
-    ChildVerificationProxy.setInstanceVariable(for: child, to: false)
-    XCTAssertFalse(ChildVerificationProxy.getInstanceVariable(for: child))
+    setInstanceVariable(for: child, to: true)
+    setInstanceVariable(for: child, to: false)
+    XCTAssertFalse(getInstanceVariable(for: child))
   }
 }

@@ -35,7 +35,7 @@ public class ArgumentCaptor<T>: ArgumentMatcher {
   /// - Parameter weak: Whether captured arguments should be weakly captured.
   public init(weak: Bool = false) {
     self.weak = weak
-    super.init(description: "any()") { (_, _) in return true }
+    super.init(description: "any()", priority: .high) { (_, _) in return true }
   }
 
   override func compare(with rhs: Any?) -> Bool {
