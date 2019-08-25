@@ -44,7 +44,8 @@ struct GenerateCommand: Command {
                                                  environment: environment,
                                                  projectPath: projectPath)
     let targets = try arguments.getTargets(using: targetsArgument,
-                                           convenienceArgument: targetArgument)
+                                           convenienceArgument: targetArgument,
+                                           environment: environment)
     let outputs = try arguments.getOutputs(using: outputsArgument,
                                            convenienceArgument: outputArgument)
     

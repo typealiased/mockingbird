@@ -118,10 +118,11 @@ extension ArgumentParser.Result {
   }
   
   func getTargets(using argument: OptionArgument<[String]>,
-                  convenienceArgument: OptionArgument<String>) throws -> [String] {
+                  convenienceArgument: OptionArgument<String>,
+                  environment: [String: String]) throws -> [String] {
     if let targets = get(argument) {
       return targets
-    } else if let target = get(convenienceArgument) {
+    } else if let target = get(convenienceArgument) ?? environment["TARGET_NAME"] {
       return [target]
     } else {
       throw ArgumentParserError.expectedValue(option: "--targets")

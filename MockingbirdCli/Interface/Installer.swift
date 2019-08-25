@@ -138,7 +138,7 @@ class Installer {
   private static func createGenerateMocksBuildPhase(outputPath: Path,
                                                     config: InstallConfiguration) -> PBXShellScriptBuildPhase {
     var options = [
-      "generate '\(config.projectPath.absolute())'",
+      "--project '\(config.projectPath.absolute())'",
       "--output '\(outputPath.absolute())'"
     ]
     if let expression = config.preprocessorExpression {
@@ -148,7 +148,7 @@ class Installer {
       options.append("&")
     }
     let shellScript = """
-    \(config.cliPath) \\
+    \(config.cliPath) generate \\
       \(options.joined(separator: " \\\n  "))
     """
     // Specifying an output path without input paths causes Xcode to incorrectly cache mock files.

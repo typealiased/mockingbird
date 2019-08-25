@@ -34,7 +34,8 @@ struct UninstallCommand: Command {
                                                  environment: environment,
                                                  projectPath: projectPath)
     let targets = try arguments.getTargets(using: targetsArgument,
-                                           convenienceArgument: targetArgument)
+                                           convenienceArgument: targetArgument,
+                                           environment: environment)
     
     let config = Installer.UninstallConfiguration(
       projectPath: projectPath,
