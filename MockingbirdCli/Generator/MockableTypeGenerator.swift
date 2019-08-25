@@ -24,9 +24,7 @@ extension GenericType {
 }
 
 extension MockableType {
-  func generate(memoizedVariables: inout [Variable: String],
-                memoizedMethods: inout [Method: String],
-                moduleName: String) -> String {
+  func generate(moduleName: String) -> String {
     let formatter = DateFormatter.standard()
     let generatedDate = formatter.string(from: Date())
     return """
@@ -45,7 +43,7 @@ extension MockableType {
         }
       }
     
-    \(generateBody(memoizedVariables: &memoizedVariables, memoizedMethods: &memoizedMethods))
+    \(generateBody())
     }
     """
   }
@@ -111,13 +109,12 @@ extension MockableType {
     return fullyQualifiedName
   }
   
-  func generateBody(memoizedVariables: inout [Variable: String],
-                    memoizedMethods: inout [Method: String]) -> String {
-    return [generateVariables(with: &memoizedVariables),
+  func generateBody() -> String {
+    return [generateVariables(),
             equatableConformance,
             codeableInitializer,
             defaultInitializer,
-            generateMethods(with: &memoizedMethods)]
+            generateMethods()]
       .filter({ !$0.isEmpty })
       .joined(separator: "\n\n")
   }
@@ -143,6 +140,7 @@ extension MockableType {
   }
   
   var defaultInitializer: String {
+    guard !methods.contains(where: { $0.isInitializer }) else { return "" }
     let checkVersion: String
     if kind == .class {
       checkVersion = """
@@ -150,11 +148,11 @@ extension MockableType {
           Mockingbird.checkVersion(for: self)
       """
     } else {
-      checkVersion = "Mockingbird.checkVersion(for: self)"
+      checkVersion = "    Mockingbird.checkVersion(for: self)"
     }
     return """
       public init(__file: StaticString = #file, __line: UInt = #line) {
-        \(checkVersion)
+    \(checkVersion)
         let sourceLocation = Mockingbird.SourceLocation(__file, __line)
         self.stubbingContext.sourceLocation = sourceLocation
         \(name)Mock.staticMock.stubbingContext.sourceLocation = sourceLocation
@@ -162,16 +160,14 @@ extension MockableType {
     """
   }
   
-  func generateVariables(with memoizedVariables: inout [Variable: String]) -> String {
+  func generateVariables() -> String {
     return variables.sorted(by: <).map({
-      if let memoized = memoizedVariables[$0] { return memoized }
       let generated = $0.createGenerator(in: self).generate()
-      memoizedVariables[$0] = generated
       return generated
     }).joined(separator: "\n\n")
   }
   
-  func generateMethods(with memoizedMethods: inout [Method: String]) -> String {
+  func generateMethods() -> String {
     return methods
       .sorted(by: <)
       .filter({ method -> Bool in
@@ -182,11 +178,10 @@ extension MockableType {
         return methodsCount[Method.Reduced(from: method)] == 1
       })
       .map({
-        if let memoized = memoizedMethods[$0] { return memoized }
         let generated = $0.createGenerator(in: self).generate()
-        memoizedMethods[$0] = generated
         return generated
       })
+      .filter({ !$0.isEmpty })
       .joined(separator: "\n\n")
   }
   

@@ -81,12 +81,9 @@ class FileGenerator {
   
   private func generateFileBody() -> String {
     guard !mockableTypes.isEmpty else { return "" }
-    let memoizedContainer = MemoizedContainer()
     let operations = mockableTypes
       .sorted(by: <)
-      .map({ GenerateMockableTypeOperation(mockableType: $0,
-                                           memoizedContainer: memoizedContainer,
-                                           moduleName: moduleName) })
+      .map({ GenerateMockableTypeOperation(mockableType: $0, moduleName: moduleName) })
     let queue = OperationQueue.createForActiveProcessors()
     queue.addOperations(operations, waitUntilFinished: true)
     return (

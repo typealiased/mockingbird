@@ -68,6 +68,7 @@ struct Attributes: OptionSet, Hashable {
     case .dynamic: return .dynamic
     case .weak: return .weak
     case .rethrows: return .rethrows
+    case .convenience: return .convenience
     default: return nil
     }
   }
@@ -94,13 +95,14 @@ struct Attributes: OptionSet, Hashable {
   static let dynamic = Attributes(rawValue: 1 << 4)
   static let weak = Attributes(rawValue: 1 << 5)
   static let `rethrows` = Attributes(rawValue: 1 << 6)
+  static let convenience = Attributes(rawValue: 1 << 7)
   
   // Inferred attributes
-  static let constant = Attributes(rawValue: 1 << 7)
-  static let computed = Attributes(rawValue: 1 << 8)
-  static let `throws` = Attributes(rawValue: 1 << 9)
-  static let `inout` = Attributes(rawValue: 1 << 10)
-  static let variadic = Attributes(rawValue: 1 << 11)
+  static let constant = Attributes(rawValue: 1 << 8)
+  static let computed = Attributes(rawValue: 1 << 9)
+  static let `throws` = Attributes(rawValue: 1 << 10)
+  static let `inout` = Attributes(rawValue: 1 << 11)
+  static let variadic = Attributes(rawValue: 1 << 12)
   
   static let attributesKey = "key.attributes"
   static let attributeKey = "key.attribute"

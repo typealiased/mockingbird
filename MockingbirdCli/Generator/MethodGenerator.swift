@@ -91,6 +91,9 @@ class MethodGenerator {
   
   lazy var generatedMock: String = {
     if method.isInitializer {
+      // We can't usually infer what concrete arguments to pass to the designated initializer.
+      guard !method.attributes.contains(.convenience) else { return "" }
+      
       let checkVersion: String
       if context.kind == .class {
         checkVersion = """
@@ -98,15 +101,14 @@ class MethodGenerator {
             Mockingbird.checkVersion(for: self)
         """
       } else {
-        checkVersion = "Mockingbird.checkVersion(for: self)"
+        checkVersion = "    Mockingbird.checkVersion(for: self)"
       }
       let genericConstraints = self.genericConstraints
       return """
         // MARK: Mockable `\(method.name)`
       
         public \(overridableModifiers)\(fullNameForMocking)\(genericConstraints) {
-          \(checkVersion)
-          self.sourceLocation = Mockingbird.SourceLocation(__file, __line)
+      \(checkVersion)
           let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)",
           arguments: [\(mockArgumentMatchers)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
@@ -156,6 +158,7 @@ class MethodGenerator {
   }()
   
   lazy var generatedVerification: String = {
+    guard !method.isInitializer else { return "" }
     let returnTypeName = specializedReturnTypeName
     let stub = """
       // MARK: Verifiable `\(method.name)`
@@ -217,9 +220,7 @@ class MethodGenerator {
     return fullName(forMatching: true, useVariadics: true)
   }()
   func fullName(forMatching: Bool, useVariadics: Bool) -> String {
-    let initializerParameters =
-      method.isInitializer ? ["__file: StaticString = #file", "__line: UInt = #line"] : []
-    let parameterNames = initializerParameters + method.parameters.map({ parameter -> String in
+    let parameterNames = method.parameters.map({ parameter -> String in
       let typeName: String
       if forMatching && (!useVariadics || !parameter.attributes.contains(.variadic)) {
         typeName = "@escaping @autoclosure () -> \(parameter.matchableTypeName(in: context))"

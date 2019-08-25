@@ -94,7 +94,7 @@ struct Method: Hashable, Comparable {
     
     var attributes = Attributes.create(from: dictionary)
     guard !attributes.contains(.final) else { return nil }
-    let isInitializer = (name == "init" || name.hasPrefix("init("))
+    let isInitializer = name.hasPrefix("init(")
     
     var rawParametersDeclaration: Substring?
     var genericConstraints = [String]()

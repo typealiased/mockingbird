@@ -27,13 +27,13 @@ class VariableGenerator {
     return """
     \(generatedMocks)
     
-    \(createStubs(in: context))
+    \(generatedStubs)
     
-    \(createVerifications(in: context))
+    \(generatedVerifications)
     """
   }
   
-  lazy var generatedMocks: String = {
+  var generatedMocks: String {
     let typeName = specializedTypeName
     let contextPrefix = self.contextPrefix
     return """
@@ -57,9 +57,9 @@ class VariableGenerator {
         }
       }
     """
-  }()
+  }
   
-  func createStubs(in context: MockableType) -> String {
+  var generatedStubs: String {
     let capitalizedName = self.capitalizedName
     let typeName = specializedTypeName
     let modifiers = self.modifiers
@@ -84,7 +84,7 @@ class VariableGenerator {
     """
   }
   
-  func createVerifications(in context: MockableType) -> String {
+  var generatedVerifications: String {
     let capitalizedName = self.capitalizedName
     let typeName = specializedTypeName
     let modifiers = self.modifiers
