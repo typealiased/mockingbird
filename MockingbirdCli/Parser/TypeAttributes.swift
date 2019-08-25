@@ -103,6 +103,8 @@ struct Attributes: OptionSet, Hashable {
   static let `throws` = Attributes(rawValue: 1 << 10)
   static let `inout` = Attributes(rawValue: 1 << 11)
   static let variadic = Attributes(rawValue: 1 << 12)
+  static let failable = Attributes(rawValue: 1 << 13)
+  static let unwrappedFailable = Attributes(rawValue: 1 << 14)
   
   static let attributesKey = "key.attributes"
   static let attributeKey = "key.attribute"

@@ -16,3 +16,19 @@ protocol EmptyInitializerProtocol {
 protocol ParameterizedInitializerProtocol {
   init(param1: Bool, param2: Int)
 }
+
+protocol FailableEmptyInitializerProtocol {
+  init?()
+}
+
+protocol FailableUnwrappedEmptyInitializerProtocol {
+  init!()
+}
+
+protocol FailableParameterizedInitializerProtocol {
+  init?(param1: Bool, param2: Int)
+}
+
+protocol FailableUnwrappedParameterizedInitializerProtocol {
+  init!(param1: Bool, param2: Int)
+}

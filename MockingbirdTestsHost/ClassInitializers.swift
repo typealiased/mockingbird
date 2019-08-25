@@ -27,3 +27,19 @@ class ConvenienceInitializerClass {
     self.init(param1: param1, param2: 1)
   }
 }
+
+class FailableEmptyInitializerClass {
+  init?() {}
+}
+
+class FailableUnwrappedEmptyInitializerClass {
+  init!() {}
+}
+
+class FailableParameterizedInitializerClass {
+  init?(param1: Bool, param2: Int) {}
+}
+
+class FailableUnwrappedParameterizedInitializerClass {
+  init!(param1: Bool, param2: Int) {}
+}

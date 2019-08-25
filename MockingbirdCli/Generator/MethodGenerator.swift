@@ -234,7 +234,15 @@ class MethodGenerator {
         return "\(parameter.name): \(typeName)"
       }
     })
-    return "\(shortName)(\(parameterNames.joined(separator: ", ")))"
+    let failable: String
+    if method.attributes.contains(.failable) {
+      failable = "?"
+    } else if method.attributes.contains(.unwrappedFailable) {
+      failable = "!"
+    } else {
+      failable = ""
+    }
+    return "\(shortName)\(failable)(\(parameterNames.joined(separator: ", ")))"
   }
   
   lazy var fullSelectorName: String = {

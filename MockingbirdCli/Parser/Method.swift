@@ -103,6 +103,15 @@ struct Method: Hashable, Comparable {
       let parametersEndIndex = declaration.firstIndex(of: ")")
       if let startIndex = declaration.firstIndex(of: "("), let endIndex = parametersEndIndex {
         rawParametersDeclaration = declaration[startIndex..<endIndex]
+        
+        if isInitializer {
+          let failable = declaration[declaration.index(before: startIndex)..<startIndex]
+          if failable == "?" {
+            attributes.insert(.failable)
+          } else if failable == "!" {
+            attributes.insert(.unwrappedFailable)
+          }
+        }
       }
       let returnAttributesStartIndex = parametersEndIndex ?? declaration.startIndex
       let returnAttributesEndIndex = declaration.firstIndex(of: "-") ?? declaration.endIndex
