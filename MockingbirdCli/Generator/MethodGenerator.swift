@@ -109,8 +109,7 @@ class MethodGenerator {
       
         public \(overridableModifiers)\(fullNameForMocking)\(genericConstraints) {
       \(checkVersion)
-          let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)",
-          arguments: [\(mockArgumentMatchers)])
+          let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: [\(mockArgumentMatchers)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
         \(stubbedImplementationCall)
         }
@@ -120,8 +119,7 @@ class MethodGenerator {
         // MARK: Mockable `\(method.name)`
       
         public \(overridableModifiers)func \(fullNameForMocking) \(returnTypeAttributes)-> \(specializedReturnTypeName)\(genericConstraints) {
-          let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)",
-                                                  arguments: [\(mockArgumentMatchers)])
+          let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: [\(mockArgumentMatchers)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
       \(stubbedImplementationCall)
         }
