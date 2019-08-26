@@ -64,7 +64,7 @@ class ParseFilesOperation: BasicOperation {
         let structure = try? Structure(file: file) else { return }
       let parsedFile = ParsedFile(file: file,
                                   moduleName: sourcePath.moduleName,
-                                  imports: file.parseImports(),
+                                  imports: shouldMock ? file.parseImports() : [],
                                   structure: structure,
                                   shouldMock: shouldMock)
       ParseFilesOperation.SubOperation.memoizedParsedFiles.update { $0[sourcePath] = parsedFile }
