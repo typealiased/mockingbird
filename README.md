@@ -198,7 +198,7 @@ Mocks keep a record of invocations that it receives which can then be verified.
 verify(bird.chirp(volume: 50)).wasCalled()
 ```
 
-You can also conveniently verify multiple invocations with the same return type at once (order doesn’t matter).
+You can conveniently verify multiple invocations with the same return type at once (order doesn’t matter).
 
 ```swift
 verify(
@@ -207,7 +207,7 @@ verify(
 ).wasCalled()
 ```
 
-It’s possible to verify that an invocation was called a specific number of times with a call matcher.
+It’s also possible to verify that an invocation was called a specific number of times with a call matcher.
 
 ```swift
 verify(bird.getName()).wasNeverCalled()             // n = 0
@@ -236,7 +236,7 @@ You can test asynchronous code by using an `eventually` block which returns an `
 
 ```swift
 DispatchQueue.main.async {
-  PalmTree(containing: bird).shake()
+  Tree(with: bird).shake()
 }
 let expectation = eventually {
   verify(bird.fly()).wasCalled()
@@ -250,6 +250,12 @@ Verifying doesn’t remove recorded invocations, so it’s safe to call verify m
 ```swift
 verify(bird.getName()).wasCalled()  // If this succeeds...
 verify(bird.getName()).wasCalled()  // ...this also succeeds
+```
+
+For methods overloaded by return type, you should help the compiler by specifying the type returned.
+
+```swift
+verify(bird.getMessage()).returning(String.self).wasCalled()
 ```
 
 ### Resetting Mocks

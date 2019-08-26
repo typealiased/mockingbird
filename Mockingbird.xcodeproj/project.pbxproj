@@ -51,6 +51,8 @@
 		49124C3C23131EEB008C8CE0 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49124C3B23131EEB008C8CE0 /* Version.swift */; };
 		49124C3E23131F9A008C8CE0 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49124C3D23131F9A008C8CE0 /* String+Extensions.swift */; };
 		49124C4323132E1E008C8CE0 /* ArgumentCaptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49124C4223132E1E008C8CE0 /* ArgumentCaptorTests.swift */; };
+		49606F1A2313B3B5003C1969 /* OverloadedMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49606F192313B3B5003C1969 /* OverloadedMethods.swift */; };
+		49606F1C2313B43D003C1969 /* OverloadedMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49606F1B2313B43D003C1969 /* OverloadedMethodTests.swift */; };
 		49B4F32F231309C6002106EB /* ProtocolInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4F32E231309C6002106EB /* ProtocolInitializers.swift */; };
 		49B4F33123130AD7002106EB /* ClassInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4F33023130AD7002106EB /* ClassInitializers.swift */; };
 		OBJ_1000 /* XCWorkspaceDataGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_420 /* XCWorkspaceDataGroup.swift */; };
@@ -695,6 +697,8 @@
 		49124C3B23131EEB008C8CE0 /* Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
 		49124C3D23131F9A008C8CE0 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		49124C4223132E1E008C8CE0 /* ArgumentCaptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentCaptorTests.swift; sourceTree = "<group>"; };
+		49606F192313B3B5003C1969 /* OverloadedMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverloadedMethods.swift; sourceTree = "<group>"; };
+		49606F1B2313B43D003C1969 /* OverloadedMethodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverloadedMethodTests.swift; sourceTree = "<group>"; };
 		49B4F32E231309C6002106EB /* ProtocolInitializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolInitializers.swift; sourceTree = "<group>"; };
 		49B4F33023130AD7002106EB /* ClassInitializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassInitializers.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2214,6 +2218,7 @@
 				OBJ_89 /* VariadicParameters.swift */,
 				49B4F32E231309C6002106EB /* ProtocolInitializers.swift */,
 				49B4F33023130AD7002106EB /* ClassInitializers.swift */,
+				49606F192313B3B5003C1969 /* OverloadedMethods.swift */,
 			);
 			path = MockingbirdTestsHost;
 			sourceTree = SOURCE_ROOT;
@@ -2253,12 +2258,13 @@
 		OBJ_93 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				49124C4223132E1E008C8CE0 /* ArgumentCaptorTests.swift */,
 				OBJ_94 /* ArgumentMatchingTests.swift */,
 				OBJ_95 /* AsyncVerificationTests.swift */,
 				OBJ_96 /* LastSetValueStubTests.swift */,
+				49606F1B2313B43D003C1969 /* OverloadedMethodTests.swift */,
 				OBJ_97 /* StubbingTests.swift */,
 				OBJ_98 /* VariadicParametersTests.swift */,
-				49124C4223132E1E008C8CE0 /* ArgumentCaptorTests.swift */,
 			);
 			path = Framework;
 			sourceTree = "<group>";
@@ -3072,6 +3078,7 @@
 				49124C4323132E1E008C8CE0 /* ArgumentCaptorTests.swift in Sources */,
 				OBJ_712 /* InoutParametersStubbableTests.swift in Sources */,
 				OBJ_713 /* InoutParametersVerifiableTests.swift in Sources */,
+				49606F1C2313B43D003C1969 /* OverloadedMethodTests.swift in Sources */,
 				OBJ_714 /* VariadicParametersMockableTests.swift in Sources */,
 				OBJ_715 /* VariadicParametersStubbableTests.swift in Sources */,
 				OBJ_716 /* VariadicParametersVerifiableTests.swift in Sources */,
@@ -3084,6 +3091,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_730 /* ArgumentMatching.swift in Sources */,
+				49606F1A2313B3B5003C1969 /* OverloadedMethods.swift in Sources */,
 				OBJ_731 /* Child.swift in Sources */,
 				OBJ_732 /* ChildProtocol.swift in Sources */,
 				OBJ_733 /* Extensions.swift in Sources */,

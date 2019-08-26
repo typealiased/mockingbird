@@ -41,7 +41,7 @@ public func lastSetValue<T, R>(initial: R) -> StubImplementation<T, R> {
 ///   - callMatcher: A call matcher defining the total number of invocations.
 ///   - mock: A mock and its invocation to verify.
 public func verify<T>(file: StaticString = #file, line: UInt = #line,
-                      _ mock: @escaping @autoclosure () -> Mockable<T>) -> Verification {
+                      _ mock: @escaping @autoclosure () -> Mockable<T>) -> Verification<T> {
   return Verification(mock, at: SourceLocation(file, line))
 }
 
@@ -88,8 +88,8 @@ public func clearStubs<M: Mock>(on mocks: M...) {
 ///
 /// - Parameter type: Optionally provide an explicit type to disambiguate overloaded methods.
 public func any<T>(_ type: T.Type = T.self) -> T {
-  let matcher = ArgumentMatcher(description: "any()", priority: ArgumentMatcher.Priority.high) {
-    return true
+  let matcher = ArgumentMatcher(description: "any<\(T.self)>()", priority: .high) { (_, rhs) in
+    return rhs is T
   }
   return createTypeFacade(matcher)
 }
@@ -100,7 +100,8 @@ public func any<T>(_ type: T.Type = T.self) -> T {
 ///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
 ///   - objects: A set of equatable objects that should result in a match.
 public func any<T: Equatable>(_ type: T.Type = T.self, of objects: T...) -> T {
-  let matcher = ArgumentMatcher(description: "any(of:)", priority: .high) { (_, rhs) in
+  let matcher = ArgumentMatcher(description: "any<\(T.self)>(of: [\(objects)])", priority: .high) {
+    (_, rhs) in
     guard let other = rhs as? T else { return false }
     return objects.contains(where: { $0 == other })
   }
@@ -113,8 +114,8 @@ public func any<T: Equatable>(_ type: T.Type = T.self, of objects: T...) -> T {
 ///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
 ///   - objects: A set of non-equatable objects that should result in a match.
 public func any<T>(_ type: T.Type = T.self, of objects: T...) -> T {
-  let matcher = ArgumentMatcher(description: "any(of:) (by reference)", priority: .high) {
-    (_, rhs) in
+  let description = "any<\(T.self)>(of: [\(objects)]) (by reference)"
+  let matcher = ArgumentMatcher(description: description, priority: .high) { (_, rhs) in
     return objects.contains(where: { $0 as AnyObject === rhs as AnyObject })
   }
   return createTypeFacade(matcher)
@@ -126,8 +127,8 @@ public func any<T>(_ type: T.Type = T.self, of objects: T...) -> T {
 ///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
 ///   - predicate: A closure that takes a value `T` and returns `true` if it represents a match.
 public func any<T>(_ type: T.Type = T.self, where predicate: @escaping (_ value: T) -> Bool) -> T {
-  let matcher = ArgumentMatcher(description: "matching(where:)", priority: .high) {
-    (_: Any?, rhs: Any?) -> Bool in
+  let matcher = ArgumentMatcher(description: "matching<\(T.self)>(where:)", priority: .high) {
+    (_, rhs) in
     guard let rhs = rhs as? T else { return false }
     return predicate(rhs)
   }
@@ -136,7 +137,9 @@ public func any<T>(_ type: T.Type = T.self, where predicate: @escaping (_ value:
 
 /// Matches any non-nil argument value of a specific type `T`.
 public func notNil<T>(_ type: T.Type = T.self) -> T {
-  let matcher = ArgumentMatcher(description: "notNil()", priority: .high) { $1 != nil }
+  let matcher = ArgumentMatcher(description: "notNil<\(T.self)>()", priority: .high) { (_, rhs) in
+    return rhs is T && rhs != nil
+  }
   return createTypeFacade(matcher)
 }
 

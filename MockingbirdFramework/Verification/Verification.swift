@@ -18,7 +18,7 @@ struct SourceLocation {
 }
 
 /// Intermediate verification object.
-public struct Verification: RunnableScope {
+public struct Verification<T>: RunnableScope {
   let uuid = UUID()
   let sourceLocation: SourceLocation
 
@@ -28,16 +28,27 @@ public struct Verification: RunnableScope {
     self.runnable = runnable
     self.sourceLocation = sourceLocation
   }
+  
+  func run() -> Any? { return runnable() }
 
+  /// Verify that the mock received the invocation some number of times.
+  ///
+  /// - Parameter callMatcher: A call matcher defining the number of invocations to verify.
   public func wasCalled(_ callMatcher: CallMatcher = once) {
     verify(self, using: callMatcher, for: sourceLocation)
   }
 
+  /// Verify that the mock never received the invocation.
   public func wasNeverCalled() {
     verify(self, using: never, for: sourceLocation)
   }
-
-  func run() -> Any? { return runnable() }
+  
+  /// Disambiguate methods overloaded by return type.
+  ///
+  /// - Parameter type: The return type of the method.
+  public func returning(_ type: T.Type = T.self) -> Verification<T> {
+    return self
+  }
 }
 
 struct Expectation {
@@ -78,9 +89,9 @@ extension DispatchQueue {
   }
 }
 
-internal func verify(_ verificationScope: Verification,
-                     using callMatcher: CallMatcher,
-                     for sourceLocation: SourceLocation) {
+internal func verify<T>(_ verificationScope: Verification<T>,
+                        using callMatcher: CallMatcher,
+                        for sourceLocation: SourceLocation) {
   let queue = DispatchQueue(label: "co.bird.mockingbird.verification-scope")
   let expectation = Expectation(callMatcher: callMatcher,
                                 sourceLocation: sourceLocation,
