@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                   = 'Mockingbird'
-  s.version                = '0.1.0'
+  s.version                = `make get-version`
   s.summary                = 'A convenient mocking framework for Swift.'
   s.homepage               = 'https://github.com/birdrides/mockingbird'
   s.license                = { :type => 'MIT', :file => 'LICENSE' }
