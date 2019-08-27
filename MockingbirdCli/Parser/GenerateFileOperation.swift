@@ -16,6 +16,7 @@ class GenerateFileOperation: BasicOperation {
   private let preprocessorExpression: String?
   private let shouldImportModule: Bool
   private let onlyMockProtocols: Bool
+  private let disableSwiftlint: Bool
   
   private(set) var error: Error?
   
@@ -24,13 +25,15 @@ class GenerateFileOperation: BasicOperation {
        outputPath: Path,
        preprocessorExpression: String?,
        shouldImportModule: Bool,
-       onlyMockProtocols: Bool) {
+       onlyMockProtocols: Bool,
+       disableSwiftlint: Bool) {
     self.processTypesResult = processTypesResult
     self.moduleName = moduleName
     self.outputPath = outputPath
     self.shouldImportModule = shouldImportModule
     self.preprocessorExpression = preprocessorExpression
     self.onlyMockProtocols = onlyMockProtocols
+    self.disableSwiftlint = disableSwiftlint
   }
   
   override func run() {
@@ -40,7 +43,8 @@ class GenerateFileOperation: BasicOperation {
                                   outputPath: outputPath,
                                   preprocessorExpression: preprocessorExpression,
                                   shouldImportModule: shouldImportModule,
-                                  onlyMockProtocols: onlyMockProtocols)
+                                  onlyMockProtocols: onlyMockProtocols,
+                                  disableSwiftlint: disableSwiftlint)
     do {
       try generator.generate()
     } catch {

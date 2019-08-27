@@ -22,6 +22,7 @@ struct GenerateCommand: Command {
   private let preprocessorExpressionArgument: OptionArgument<String>
   private let disableModuleImportArgument: OptionArgument<Bool>
   private let onlyMockProtocolsArgument: OptionArgument<Bool>
+  private let disableSwiftlintArgument: OptionArgument<Bool>
   
   init(parser: ArgumentParser) {
     let subparser = parser.add(subparser: command, overview: overview)
@@ -35,6 +36,7 @@ struct GenerateCommand: Command {
     preprocessorExpressionArgument = subparser.addPreprocessorExpression()
     disableModuleImportArgument = subparser.addDisableModuleImport()
     onlyMockProtocolsArgument = subparser.addOnlyProtocols()
+    disableSwiftlintArgument = subparser.addDisableSwiftlint()
   }
   
   func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
@@ -56,7 +58,8 @@ struct GenerateCommand: Command {
       outputPaths: outputs,
       preprocessorExpression: arguments.get(preprocessorExpressionArgument),
       shouldImportModule: arguments.get(disableModuleImportArgument) != true,
-      onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true
+      onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
+      disableSwiftlint: arguments.get(disableSwiftlintArgument) == true
     )
     try Generator.generate(using: config)
   }

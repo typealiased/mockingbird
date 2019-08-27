@@ -7,8 +7,9 @@
 //
 
 import Foundation
-import XcodeProj
 import PathKit
+import SPMUtility
+import XcodeProj
 
 class Generator {
   struct Configuration {
@@ -19,6 +20,7 @@ class Generator {
     let preprocessorExpression: String?
     let shouldImportModule: Bool
     let onlyMockProtocols: Bool
+    let disableSwiftlint: Bool
   }
   
   enum Failure: LocalizedError {
@@ -87,7 +89,8 @@ class Generator {
                                                  outputPath: pipeline.outputPath,
                                                  preprocessorExpression: config.preprocessorExpression,
                                                  shouldImportModule: config.shouldImportModule,
-                                                 onlyMockProtocols: config.onlyMockProtocols)
+                                                 onlyMockProtocols: config.onlyMockProtocols,
+                                                 disableSwiftlint: config.disableSwiftlint)
         generateFile.addDependency(processTypes)
         generateFileOperations.append(generateFile)
         

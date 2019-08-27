@@ -24,6 +24,7 @@ struct InstallCommand: Command {
   private let reinstallArgument: OptionArgument<Bool>
   private let synchronousGenerationArgument: OptionArgument<Bool>
   private let onlyMockProtocolsArgument: OptionArgument<Bool>
+  private let disableSwiftlintArgument: OptionArgument<Bool>
   
   init(parser: ArgumentParser) {
     let subparser = parser.add(subparser: command, overview: overview)
@@ -38,6 +39,7 @@ struct InstallCommand: Command {
     reinstallArgument = subparser.addReinstallRunScript()
     synchronousGenerationArgument = subparser.addSynchronousGeneration()
     onlyMockProtocolsArgument = subparser.addOnlyProtocols()
+    disableSwiftlintArgument = subparser.addDisableSwiftlint()
   }
   
   func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
@@ -60,7 +62,9 @@ struct InstallCommand: Command {
       cliPath: Path(CommandLine.arguments[0]),
       shouldReinstall: arguments.get(reinstallArgument) == true,
       synchronousGeneration: arguments.get(synchronousGenerationArgument) == true,
-      preprocessorExpression: arguments.get(preprocessorExpressionArgument)
+      preprocessorExpression: arguments.get(preprocessorExpressionArgument),
+      onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
+      disableSwiftlint: arguments.get(disableSwiftlintArgument) == true
     )
     try Installer.install(using: config)
     print("Installed Mockingbird to \(targets.map({ "`\($0)`" }).joined(separator: ", ")) in \(projectPath)")

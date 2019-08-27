@@ -89,6 +89,12 @@ extension ArgumentParser {
                kind: Bool.self,
                usage: "Wait until mock generation completes before compiling target sources.")
   }
+  
+  func addDisableSwiftlint() -> OptionArgument<Bool> {
+    return add(option: "--disable-swiftlint",
+               kind: Bool.self,
+               usage: "Disable all SwiftLint rules in generated mocks.")
+  }
 }
 
 extension ArgumentParser.Result {

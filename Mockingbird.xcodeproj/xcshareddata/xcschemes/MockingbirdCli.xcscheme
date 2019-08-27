@@ -93,6 +93,10 @@
             argument = "--output /Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--disable-swiftlint"
+            isEnabled = "YES">
+         </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>

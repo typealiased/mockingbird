@@ -321,6 +321,7 @@ Generate mocks for a set of targets in a project.
 | --- | --- |
 | `--disable-module-import` | Omit `@testable import <module>` from generated mocks. |
 | `--only-protocols` | Only generate mocks for protocols. |
+| `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
 
 ### Install
 
@@ -341,6 +342,7 @@ Starts automatically generating mocks by adding a custom Run Script Phase to eac
 | `--reinstall` | Overwrite existing Run Script Phases created by Mockingbird CLI. |
 | `--synchronous` | Wait until mock generation completes before compiling target sources. |
 | `--only-protocols` | Only generate mocks for protocols. |
+| `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
 
 ### Uninstall
 

@@ -20,6 +20,8 @@ class Installer {
     let shouldReinstall: Bool
     let synchronousGeneration: Bool
     let preprocessorExpression: String?
+    let onlyMockProtocols: Bool
+    let disableSwiftlint: Bool
   }
   
   struct UninstallConfiguration {
@@ -135,24 +137,29 @@ class Installer {
     })
   }
   
-  private static func createGenerateMocksBuildPhase(outputPath: Path,
-                                                    config: InstallConfiguration) -> PBXShellScriptBuildPhase {
-    var options = [
-      "--project '\(config.projectPath.absolute())'",
-      "--output '\(outputPath.absolute())'"
-    ]
-    if let expression = config.preprocessorExpression {
-      options.append("--preprocessor '\(expression)'")
-    }
-    if !config.synchronousGeneration {
-      options.append("&")
-    }
-    let shellScript = """
-    \(config.cliPath) generate \\
+  private static func createGenerateMocksBuildPhase(outputPath: Path, config: InstallConfiguration)
+    -> PBXShellScriptBuildPhase {
+      var options = [
+        "--project '\(config.projectPath.absolute())'",
+        "--output '\(outputPath.absolute())'"
+      ]
+      if let expression = config.preprocessorExpression {
+        options.append("--preprocessor '\(expression)'")
+      }
+      if config.onlyMockProtocols {
+        options.append("--only-protocols")
+      }
+      if config.disableSwiftlint {
+        options.append("--disable-swiftlint")
+      }
+      if !config.synchronousGeneration {
+        options.append("&")
+      }
+      let shellScript = """
+      \(config.cliPath) generate \\
       \(options.joined(separator: " \\\n  "))
-    """
-    // Specifying an output path without input paths causes Xcode to incorrectly cache mock files.
-    return PBXShellScriptBuildPhase(name: Constants.buildPhaseName, shellScript: shellScript)
-    
+      """
+      // Specifying an output path without input paths causes Xcode to incorrectly cache mock files.
+      return PBXShellScriptBuildPhase(name: Constants.buildPhaseName, shellScript: shellScript)
   }
 }
