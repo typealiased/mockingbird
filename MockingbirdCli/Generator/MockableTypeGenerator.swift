@@ -36,7 +36,7 @@ extension MockableType {
     \(staticMockingContext)
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()
-      public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "\(mockingbirdVersion.shortString)", "generated_date": "\(generatedDate)", "module_name": "\(moduleName)"])
+      public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "\(mockingbirdVersion.shortString)", "module_name": "\(moduleName)"])
       private var sourceLocation: Mockingbird.SourceLocation? {
         get { return stubbingContext.sourceLocation }
         set {
