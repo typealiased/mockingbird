@@ -9,6 +9,7 @@ import Dispatch
 import Foundation
 import XCTest
 
+/// The `~>` infix operator is also defined by Swift `stdlib/public/core/Policy.swift`.
 infix operator ~>
 
 /// P = Invocation function type, R = Return type
@@ -27,12 +28,15 @@ public struct StubImplementation<T, R> {
   let callback: AnyObject
 }
 
+/// A wrapper around a type-erased stub implementation.
 struct StubbingRequest {
+  /// Callback block sent when a stub implementation is applied to a mock object.
   typealias StubbingCallback = (StubbingContext.Stub, StubbingContext) -> Void
   
   static let dispatchQueueKey = DispatchSpecificKey<StubbingRequest>()
   static let dispatchQueueCallbackKey = DispatchSpecificKey<StubbingCallback>()
   
+  /// A type-erased `StubImplementation<T, R>`.
   let implementation: Any?
 }
 
@@ -82,9 +86,10 @@ public func ~> <T, R>(stubbingScope: Stub<T, R>,
   addStub(scope: stubbingScope, implementation: implementation.handler, callback: callback)
 }
 
-internal func addStub<T, R>(scope: Stub<T, R>,
-                            implementation: Any?,
-                            callback: StubbingRequest.StubbingCallback? = nil) {
+/// Internal helper to create an attributed `DispatchQueue` for stubbing.
+func addStub<T, R>(scope: Stub<T, R>,
+                   implementation: Any?,
+                   callback: StubbingRequest.StubbingCallback? = nil) {
   let queue = DispatchQueue(label: "co.bird.mockingbird.stubbing-scope")
   let stub = StubbingRequest(implementation: implementation)
   queue.setSpecific(key: StubbingRequest.dispatchQueueKey, value: stub)

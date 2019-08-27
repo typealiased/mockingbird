@@ -23,17 +23,16 @@ struct MockableType: Hashable, Comparable {
   private(set) var shouldMock: Bool
   let attributes: Attributes
   
+  private let sortableIdentifier: String
   static func < (lhs: MockableType, rhs: MockableType) -> Bool {
-    return lhs.name < rhs.name
+    return lhs.sortableIdentifier < rhs.sortableIdentifier
   }
   
   init?(from rawTypes: [RawType], mockableTypes: [String: MockableType]) {
-    guard let baseRawType = rawTypes.first(where: { $0.kind.isMockable }) else { return nil }
-    guard let substructure = baseRawType.dictionary[SwiftDocKey.substructure.rawValue]
-      as? [StructureDictionary] else { return nil }
-    guard let rawAccessLevel = baseRawType.dictionary[AccessLevel.accessLevelKey] as? String,
-      let accessLevel = AccessLevel(rawValue: rawAccessLevel),
-      accessLevel != .fileprivate, accessLevel != .private else { return nil }
+    guard let baseRawType = rawTypes.first(where: { $0.kind.isMockable }),
+      let substructure = baseRawType.dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary],
+      let accessLevel = AccessLevel(from: baseRawType.dictionary), accessLevel.isMockable
+      else { return nil }
     
     var attributes = Attributes()
     rawTypes.forEach({ attributes.formUnion(Attributes.create(from: $0.dictionary)) })
@@ -96,6 +95,16 @@ struct MockableType: Hashable, Comparable {
       }
     }
     self.genericConstraints = genericConstraints
+    
+    if baseRawType.parsedFile.shouldMock {
+      self.sortableIdentifier = [
+        self.name,
+        self.genericTypes.map({ "\($0.name):\($0.inheritedTypes)" }).joined(separator: ","),
+        self.genericConstraints.joined(separator: ",")
+      ].joined(separator: "|")
+    } else {
+      self.sortableIdentifier = name
+    }
   }
   
   static func clone(_ other: MockableType, shouldMock: Bool) -> MockableType {

@@ -15,6 +15,7 @@ struct SourcePath: Hashable, Equatable {
   let moduleName: String
 }
 
+/// Given a target, find all related source files including those compiled by dependencies.
 class ExtractSourcesOperation: BasicOperation {
   let target: PBXTarget
   let sourceRoot: Path
@@ -31,7 +32,7 @@ class ExtractSourcesOperation: BasicOperation {
     self.sourceRoot = sourceRoot
   }
   
-  override func run() {
+  override func run() throws {
     result.targetPaths = sourceFilePaths(for: target)
     result.dependencyPaths =
       Set(allTargets(for: target, includeTarget: false).flatMap({ sourceFilePaths(for: $0) }))
@@ -39,6 +40,7 @@ class ExtractSourcesOperation: BasicOperation {
   }
   
   private static var memoizedSourceFilePaths = Synchronized<[PBXTarget: Set<SourcePath>]>([:])
+  /// Returns the compiled source file paths for a single given target.
   private func sourceFilePaths(for target: PBXTarget) -> Set<SourcePath> {
     if let memoized = ExtractSourcesOperation.memoizedSourceFilePaths.value[target] {
       return memoized
@@ -59,8 +61,8 @@ class ExtractSourcesOperation: BasicOperation {
     return paths
   }
   
-  // Includes dependencies
   private static var memoizedAllTargets = Synchronized<[PBXTarget: Set<PBXTarget>]>([:])
+  /// Recursively find all targets and its dependency targets.
   private func allTargets(for target: PBXTarget, includeTarget: Bool = true) -> Set<PBXTarget> {
     if let memoized = ExtractSourcesOperation.memoizedAllTargets.value[target] {
       return memoized

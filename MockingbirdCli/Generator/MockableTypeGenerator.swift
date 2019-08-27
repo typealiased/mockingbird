@@ -5,11 +5,14 @@
 //  Created by Andrew Chang on 8/6/19.
 //  Copyright © 2019 Bird Rides, Inc. All rights reserved.
 //
+
 // swiftlint:disable leading_whitespace
 
 import Foundation
 
 private enum Constants {
+  /// A heuristic set of class prefixes used by system frameworks requiring NSObjectProtocol
+  /// conformance. In the future, we want to mock Obj-C classes and system frameworks instead.
   static let objectProtocolPrefixes = Set(["NS", "CB", "UI"])
   static let mockProtocolName = "Mockingbird.Mock"
 }
@@ -47,8 +50,12 @@ extension MockableType {
     """
   }
   
+  /// The static mocking context allows static (or class) declared methods to be mocked.
   var staticMockingContext: String {
     guard !genericTypes.isEmpty else { return "  static let staticMock = Mockingbird.StaticMock()" }
+    // Since class-level generic types don't support static variables, we instead use a global
+    // variable `genericTypesStaticMocks` that maps a runtime generated `staticMockIdentifier` to a
+    // `StaticMock` instance.
     return """
       static var staticMock: Mockingbird.StaticMock {
         let runtimeGenericTypeNames = \(runtimeGenericTypeNames)
@@ -138,6 +145,9 @@ extension MockableType {
     """
   }
   
+  /// For types that don't define any initializers, we generate an empty default initializer that
+  /// stores the source location of where the mock was initialized. This allows us to show XCTest
+  /// errors from unstubbed method invocations in the testing code rather than just in the console.
   var defaultInitializer: String {
     guard !methods.contains(where: { $0.isInitializer }) else { return "" }
     let checkVersion: String

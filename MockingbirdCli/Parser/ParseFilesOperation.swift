@@ -53,15 +53,15 @@ class ParseFilesOperation: BasicOperation {
     
     private static var memoizedParsedFiles = Synchronized<[SourcePath: ParsedFile]>([:])
     
-    override func run() {
+    override func run() throws {
       let sourcePath = self.sourcePath
       if let memoized = ParseFilesOperation.SubOperation.memoizedParsedFiles.value[sourcePath] {
         result.parsedFile = memoized.clone(shouldMock: shouldMock)
         return
       }
       
-      guard let file = sourcePath.path.getFile(),
-        let structure = try? Structure(file: file) else { return }
+      let file = try sourcePath.path.getFile()
+      let structure = try Structure(file: file)
       let parsedFile = ParsedFile(file: file,
                                   moduleName: sourcePath.moduleName,
                                   imports: shouldMock ? file.parseImports() : [],
@@ -90,14 +90,14 @@ class ParseFilesOperation: BasicOperation {
 }
 
 private extension Path {
-  func getFile() -> File? {
-    guard isFile else { return nil }
+  func getFile() throws -> File {
     let url = URL(fileURLWithPath: String(describing: absolute()), isDirectory: false)
-    return try? File(contents: String(contentsOf: url, encoding: .utf8))
+    return try File(contents: String(contentsOf: url, encoding: .utf8))
   }
 }
 
 private extension File {
+  /// Parses a file line-by-line looking for valid import declarations.
   func parseImports() -> Set<String> {
     var imports = Set<String>()
     var currentSource = contents[..<contents.endIndex]

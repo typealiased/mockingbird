@@ -43,9 +43,7 @@ struct Invocation: Equatable, CustomStringConvertible {
   var isSetter: Bool {
     return selectorName.hasPrefix(Constants.setterSuffix)
   }
-}
-
-extension Invocation {
+  
   func toSetter() -> Invocation? {
     guard isGetter else { return nil }
     let setterSelectorName = String(selectorName.dropLast(4) + Constants.setterSuffix)

@@ -38,7 +38,7 @@ struct GenericType: Hashable {
       }
     }
     
-    if kind == .associatedtype { // Need to manually parse any associated type constraint.
+    if kind == .associatedtype { // We need to manually parse any associated type constraint.
       let source = rawType.parsedFile.file.contents
       if let declaration = SourceSubstring.key.extract(from: dictionary, contents: source),
         let inferredType = declaration.substringComponents(separatedBy: ":").get(1) {

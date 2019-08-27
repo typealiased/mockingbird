@@ -5,6 +5,7 @@
 //  Created by Andrew Chang on 8/6/19.
 //  Copyright © 2019 Bird Rides, Inc. All rights reserved.
 //
+
 // swiftlint:disable leading_whitespace
 
 import Foundation
@@ -31,14 +32,6 @@ extension MethodParameter {
     return "\(inoutAttribute)`\(name)`"
   }
   
-  func castedMatcherType(in context: MockableType) -> String {
-    let capitalizedName = name.capitalizedFirst
-    let typeName = matchableTypeName(in: context, unwrapOptional: true)
-    let alreadyMatcher = "matcher\(capitalizedName) as? ArgumentMatcher"
-    let createMatcher = "ArgumentMatcher(matcher\(capitalizedName) as AnyObject as? \(typeName))"
-    return "(\(alreadyMatcher)) ?? \(createMatcher)"
-  }
-  
   func matchableTypeName(in context: MockableType, unwrapOptional: Bool = false) -> String {
     let typeName = context.specializeTypeName(self.typeName, unwrapOptional: unwrapOptional)
     guard isClosure else {
@@ -54,15 +47,15 @@ extension MethodParameter {
       .trimmingCharacters(in: .whitespacesAndNewlines)
   }
   
-  var isClosure: Bool { // This could be slow, should cache
+  var isClosure: Bool {
     return typeName.contains(" -> ")
   }
   
-  var isEscapingClosure: Bool { // This could be slow, should cache
+  var isEscapingClosure: Bool {
     return typeName.contains("@escaping")
   }
   
-  var isAutoclosure: Bool { // This could be slow, should cache
+  var isAutoclosure: Bool {
     return typeName.contains("@autoclosure")
   }
 }
@@ -181,7 +174,9 @@ class MethodGenerator {
     """
   }()
   
+  /// Modifiers specifically for stubbing and verification methods.
   lazy var regularModifiers: String = { return modifiers(allowOverride: false) }()
+  /// Modifiers for mocked methods.
   lazy var overridableModifiers: String = { return modifiers(allowOverride: true) }()
   func modifiers(allowOverride: Bool = true) -> String {
     let isRequired = method.attributes.contains(.required)
@@ -214,6 +209,9 @@ class MethodGenerator {
   lazy var fullNameForMatching: String = {
     return fullName(forMatching: true, useVariadics: false)
   }()
+  /// It's not possible to have an autoclosure with variadics. However, since a method can only have
+  /// one variadic parameter, we can generate one method for wildcard matching using an argument
+  /// matcher, and another for specific matching using variadics.
   lazy var fullNameForMatchingVariadics: String = {
     return fullName(forMatching: true, useVariadics: true)
   }()
@@ -300,6 +298,7 @@ class MethodGenerator {
     return "    let arguments = [\(resolved)]"
   }()
   
+  /// Variadic parameters cannot be resolved indirectly using `resolve()`.
   lazy var resolvedArgumentMatchersVariadics: String = {
     let resolved = method.parameters.map({
       let matchableTypeName = $0.matchableTypeName(in: context, unwrapOptional: true)

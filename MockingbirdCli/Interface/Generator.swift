@@ -38,67 +38,70 @@ class Generator {
     static let generatedFileNameSuffix = "Mocks.generated.swift"
   }
   
+  struct Pipeline {
+    let inputTarget: PBXTarget
+    let outputPath: Path
+    
+    func createOperations(with config: Configuration) -> [BasicOperation] {
+      let extractSources = ExtractSourcesOperation(with: inputTarget,
+                                                   sourceRoot: config.sourceRoot)
+      let parseFiles = ParseFilesOperation(extractSourcesResult: extractSources.result)
+      parseFiles.addDependency(extractSources)
+      let processTypes = ProcessTypesOperation(parseFilesResult: parseFiles.result )
+      processTypes.addDependency(parseFiles)
+      let moduleName = inputTarget.productModuleName ?? inputTarget.name
+      let generateFile = GenerateFileOperation(processTypesResult: processTypes.result,
+                                               moduleName: moduleName,
+                                               outputPath: outputPath,
+                                               preprocessorExpression: config.preprocessorExpression,
+                                               shouldImportModule: config.shouldImportModule,
+                                               onlyMockProtocols: config.onlyMockProtocols,
+                                               disableSwiftlint: config.disableSwiftlint)
+      generateFile.addDependency(processTypes)
+      return [extractSources, parseFiles, processTypes, generateFile]
+    }
+  }
+  
   static func generate(using config: Configuration) throws {
     guard config.outputPaths == nil || config.inputTargetNames.count == config.outputPaths?.count else {
       throw Failure.malformedConfiguration(description: "Number of input targets does not match the number of output file paths")
     }
     
-    struct Pipeline {
-      let inputTarget: PBXTarget
-      let outputPath: Path
-    }
-    
     let xcodeproj = try XcodeProj(path: config.projectPath)
-    var pipelines = [Pipeline]()
-    for i in 0..<config.inputTargetNames.count {
-      let targetName = config.inputTargetNames[i]
+    
+    // Resolve target names to concrete Xcode project targets.
+    let targets = try config.inputTargetNames.map({ targetName throws -> PBXTarget in
       guard let target = xcodeproj.pbxproj.targets(named: targetName).first else {
         throw Failure.malformedConfiguration(description: "Unable to find input target named `\(targetName)`")
       }
-      
-      let path: Path
-      if let outputPath = config.outputPaths?[i] {
-        path = outputPath
-      } else {
-        try config.sourceRoot.mocksDirectory.mkpath()
-        let moduleName = target.productModuleName ?? target.name
-        path = config.sourceRoot.mocksDirectory
-          + "\(moduleName)\(Constants.generatedFileNameSuffix)"
+      return target
+    })
+    
+    // Resolve nil output paths to mocks source root and output suffix.
+    let outputPaths = try config.outputPaths ?? targets.map({ target throws -> Path in
+      try config.sourceRoot.mocksDirectory.mkpath()
+      let moduleName = target.productModuleName ?? target.name
+      return config.sourceRoot.mocksDirectory + "\(moduleName)\(Constants.generatedFileNameSuffix)"
+    })
+    
+    // Create abstract generation pipelines from targets and output paths.
+    var pipelines = [Pipeline]()
+    for (target, outputPath) in zip(targets, outputPaths) {
+      guard !outputPath.isDirectory else {
+        throw Failure.malformedConfiguration(description: "Output file path points to a directory: \(outputPath)")
       }
-      guard !path.isDirectory else {
-        throw Failure.malformedConfiguration(description: "Output file path points to a directory: \(path)")
-      }
-      
-      pipelines.append(Pipeline(inputTarget: target, outputPath: path))
+      pipelines.append(Pipeline(inputTarget: target, outputPath: outputPath))
     }
     
+    // Create concrete generation operation graphs from pipelines.
     time("Generated mocks for all targets") {
       let queue = OperationQueue.createForActiveProcessors()
-      
-      var generateFileOperations = [GenerateFileOperation]()
-      pipelines.forEach({ pipeline in
-        let extractSources = ExtractSourcesOperation(with: pipeline.inputTarget,
-                                                     sourceRoot: config.sourceRoot)
-        let parseFiles = ParseFilesOperation(extractSourcesResult: extractSources.result)
-        parseFiles.addDependency(extractSources)
-        let processTypes = ProcessTypesOperation(parseFilesResult: parseFiles.result )
-        processTypes.addDependency(parseFiles)
-        let moduleName = pipeline.inputTarget.productModuleName ?? pipeline.inputTarget.name
-        let generateFile = GenerateFileOperation(processTypesResult: processTypes.result,
-                                                 moduleName: moduleName,
-                                                 outputPath: pipeline.outputPath,
-                                                 preprocessorExpression: config.preprocessorExpression,
-                                                 shouldImportModule: config.shouldImportModule,
-                                                 onlyMockProtocols: config.onlyMockProtocols,
-                                                 disableSwiftlint: config.disableSwiftlint)
-        generateFile.addDependency(processTypes)
-        generateFileOperations.append(generateFile)
-        
-        queue.addOperations([extractSources, parseFiles, processTypes, generateFile],
-                            waitUntilFinished: false)
+      pipelines.forEach({
+        queue.addOperations($0.createOperations(with: config), waitUntilFinished: false)
       })
+      let operationsCopy = queue.operations.compactMap({ $0 as? BasicOperation })
       queue.waitUntilAllOperationsAreFinished()
-      generateFileOperations.forEach({
+      operationsCopy.forEach({
         guard let error = $0.error else { return }
         fputs(error.localizedDescription + "\n", stderr)
       })

@@ -6,10 +6,10 @@
 //  Copyright © 2019 Bird Rides, Inc. All rights reserved.
 //
 
+// swiftlint:disable leading_whitespace
+
 import Foundation
 import PathKit
-
-// swiftlint:disable leading_whitespace
 
 class FileGenerator {
   let mockableTypes: [MockableType]
@@ -115,7 +115,7 @@ class FileGenerator {
   
   private var synchronizedClass: String {
     return """
-    fileprivate class Synchronized<T> {
+    private class Synchronized<T> {
       private var internalValue: T
       fileprivate var value: T {
         get {
@@ -146,6 +146,6 @@ class FileGenerator {
   }
   
   private var genericTypesStaticMocks: String {
-    return "fileprivate var genericTypesStaticMocks = Synchronized<[String: Mockingbird.StaticMock]>([:])"
+    return "private var genericTypesStaticMocks = Synchronized<[String: Mockingbird.StaticMock]>([:])"
   }
 }

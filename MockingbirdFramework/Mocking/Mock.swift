@@ -27,7 +27,7 @@ public struct MockMetadata {
   }
 }
 
-internal protocol RunnableScope {
+protocol RunnableScope {
   var uuid: UUID { get }
   func run() -> Any?
 }

@@ -23,7 +23,7 @@ public extension String {
   /// :nodoc:
   /// Returns a copy of str with leading and trailing whitespace removed.
   func stripped() -> String {
-    return String(self.trimmingCharacters(in: .whitespaces))
+    return trimmingCharacters(in: .whitespaces)
   }
   
   /// :nodoc:

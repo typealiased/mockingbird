@@ -12,6 +12,11 @@ import SourceKittenFramework
 typealias StructureDictionary = [String: SourceKitRepresentable]
 
 extension SwiftDeclarationKind {
+  init?(from dictionary: StructureDictionary) {
+    guard let rawKind = dictionary[SwiftDocKey.kind.rawValue] as? String else { return nil }
+    self.init(rawValue: rawKind)
+  }
+  
   var isMockable: Bool {
     switch self {
     case .class, .protocol: return true
@@ -87,7 +92,7 @@ struct Attributes: OptionSet, Hashable {
     return attributes
   }
   
-  // SourceKit-provided attributes
+  // MARK: SourceKit-provided attributes
   static let final = Attributes(rawValue: 1 << 0)
   static let required = Attributes(rawValue: 1 << 1)
   static let optional = Attributes(rawValue: 1 << 2)
@@ -97,7 +102,7 @@ struct Attributes: OptionSet, Hashable {
   static let `rethrows` = Attributes(rawValue: 1 << 6)
   static let convenience = Attributes(rawValue: 1 << 7)
   
-  // Inferred attributes
+  // MARK: Inferred attributes
   static let constant = Attributes(rawValue: 1 << 8)
   static let computed = Attributes(rawValue: 1 << 9)
   static let `throws` = Attributes(rawValue: 1 << 10)
@@ -128,5 +133,20 @@ enum AccessLevel: String, CustomStringConvertible {
     case .fileprivate: return "fileprivate"
     case .private: return "private"
     }
+  }
+  
+  init?(from dictionary: StructureDictionary) {
+    guard let rawAccessLevel = dictionary[AccessLevel.accessLevelKey] as? String else { return nil }
+    self.init(rawValue: rawAccessLevel)
+  }
+  
+  init?(setter dictionary: StructureDictionary) {
+    guard let rawAccessLevel = dictionary[AccessLevel.setterAccessLevelKey] as? String
+      else { return nil }
+    self.init(rawValue: rawAccessLevel)
+  }
+  
+  var isMockable: Bool {
+    return self != .fileprivate && self != .private
   }
 }

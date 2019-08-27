@@ -42,6 +42,7 @@ class Installer {
   }
   
   private enum Constants {
+    /// The name of the build phase is also used for uninstalling previous phases the CLI installed.
     static let buildPhaseName = "Generate Mockingbird Mocks"
   }
   

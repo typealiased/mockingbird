@@ -8,6 +8,7 @@
 import Foundation
 import XCTest
 
+/// References a line of code in a file.
 struct SourceLocation {
   let file: StaticString
   let line: UInt
@@ -35,12 +36,12 @@ public struct Verification<T>: RunnableScope {
   ///
   /// - Parameter callMatcher: A call matcher defining the number of invocations to verify.
   public func wasCalled(_ callMatcher: CallMatcher = once) {
-    verify(self, using: callMatcher, for: sourceLocation)
+    verify(using: callMatcher, for: sourceLocation)
   }
 
   /// Verify that the mock never received the invocation.
   public func wasNeverCalled() {
-    verify(self, using: never, for: sourceLocation)
+    verify(using: never, for: sourceLocation)
   }
   
   /// Disambiguate methods overloaded by return type.
@@ -49,8 +50,19 @@ public struct Verification<T>: RunnableScope {
   public func returning(_ type: T.Type = T.self) -> Verification<T> {
     return self
   }
+  
+  /// Runs the block within an attributed `DispatchQueue`.
+  func verify(using callMatcher: CallMatcher, for sourceLocation: SourceLocation) {
+    let queue = DispatchQueue(label: "co.bird.mockingbird.verification-scope")
+    let expectation = Expectation(callMatcher: callMatcher,
+                                  sourceLocation: sourceLocation,
+                                  asyncGroup: DispatchQueue.currentAsyncGroup)
+    queue.setSpecific(key: Expectation.verificationScopeKey, value: expectation)
+    _ = queue.sync { self.run() }
+  }
 }
 
+/// Packages a call matcher and its call site. Used by verification methods in attributed scopes.
 struct Expectation {
   static let verificationScopeKey = DispatchSpecificKey<Expectation>()
   static let asyncGroupKey = DispatchSpecificKey<AsyncExpectationGroup>()
@@ -66,12 +78,14 @@ struct Expectation {
   }
 }
 
-/// Defers expectations until an invocation arrives later.
+/// A deferred expectation that can be fulfilled when an invocation arrives later.
 struct AsyncExpectation {
   let mockingContext: MockingContext
   let invocation: Invocation
   let expectation: Expectation
 }
+
+/// Stores all expectations invoked by verification methods within an `eventually` scope.
 class AsyncExpectationGroup {
   private(set) var expectations = [AsyncExpectation]()
   func addExpectation(_ expectation: AsyncExpectation) {
@@ -89,19 +103,10 @@ extension DispatchQueue {
   }
 }
 
-internal func verify<T>(_ verificationScope: Verification<T>,
-                        using callMatcher: CallMatcher,
-                        for sourceLocation: SourceLocation) {
-  let queue = DispatchQueue(label: "co.bird.mockingbird.verification-scope")
-  let expectation = Expectation(callMatcher: callMatcher,
-                                sourceLocation: sourceLocation,
-                                asyncGroup: DispatchQueue.currentAsyncGroup)
-  queue.setSpecific(key: Expectation.verificationScopeKey, value: expectation)
-  _ = queue.sync { verificationScope.run() }
-}
-
-internal func createTestExpectation(with scope: () -> Void,
-                                    description: String?) -> XCTestExpectation {
+/// Internal helper for `eventually` async verification scopes.
+///   1. Creates an attributed `DispatchQueue` scope which collects all verifications.
+///   2. Observes invocations on each mock and fulfills the test expectation if there is a match.
+func createTestExpectation(with scope: () -> Void, description: String?) -> XCTestExpectation {
   let asyncGroup = AsyncExpectationGroup()
   let queue = DispatchQueue(label: "co.bird.mockingbird.async-verification-scope")
   queue.setSpecific(key: Expectation.asyncGroupKey, value: asyncGroup)
@@ -125,9 +130,9 @@ internal func createTestExpectation(with scope: () -> Void,
 }
 
 /// Used by generated mocks to verify invocations with a call matcher.
-internal func expect(_ mockingContext: MockingContext,
-                     handled invocation: Invocation,
-                     using expectation: Expectation) {
+func expect(_ mockingContext: MockingContext,
+            handled invocation: Invocation,
+            using expectation: Expectation) {
   if let asyncGroup = expectation.asyncGroup {
     let asyncExpectation = AsyncExpectation(mockingContext: mockingContext,
                                             invocation: invocation,

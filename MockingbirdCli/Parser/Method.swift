@@ -17,10 +17,8 @@ struct MethodParameter: Hashable {
   let attributes: Attributes
   
   init?(from dictionary: StructureDictionary, argumentLabel: String?, rawDeclaration: Substring?) {
-    guard let rawKind = dictionary[SwiftDocKey.kind.rawValue] as? String,
-      let kind = SwiftDeclarationKind(rawValue: rawKind), kind == .varParameter
-      else { return nil }
-    guard let name = dictionary[SwiftDocKey.name.rawValue] as? String,
+    guard let kind = SwiftDeclarationKind(from: dictionary), kind == .varParameter,
+      let name = dictionary[SwiftDocKey.name.rawValue] as? String,
       let rawTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String
       else { return nil }
     self.name = name
@@ -50,8 +48,8 @@ struct Method: Hashable, Comparable {
   let parameters: [MethodParameter]
   let attributes: Attributes
   
-  // A hashable version of Method that's unique according to Swift generics when subclassing.
-  // https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
+  /// A hashable version of Method that's unique according to Swift generics when subclassing.
+  /// https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
   struct Reduced: Hashable {
     let name: String
     let returnTypeName: String
@@ -78,19 +76,22 @@ struct Method: Hashable, Comparable {
     return lhs.hashValue == rhs.hashValue
   }
   
-  static func < (lhs: Method, rhs: Method) -> Bool { // TODO: Sort overloaded methods by params.
-    return lhs.name < rhs.name
+  private let sortableIdentifier: String
+  static func < (lhs: Method, rhs: Method) -> Bool {
+    return lhs.sortableIdentifier < rhs.sortableIdentifier
   }
   
   init?(from dictionary: StructureDictionary, rootKind: SwiftDeclarationKind, rawType: RawType) {
-    guard let rawKind = dictionary[SwiftDocKey.kind.rawValue] as? String,
-      let kind = SwiftDeclarationKind(rawValue: rawKind), kind.isMethod
+    guard let kind = SwiftDeclarationKind(from: dictionary), kind.isMethod,
+      // Can't override static method declarations in classes.
+      kind.typeScope == .instance
+      || kind.typeScope == .class
+      || (kind.typeScope == .static && rootKind == .protocol)
       else { return nil }
-    guard let name = dictionary[SwiftDocKey.name.rawValue] as? String, name != "deinit"
+    
+    guard let name = dictionary[SwiftDocKey.name.rawValue] as? String, name != "deinit",
+      let accessLevel = AccessLevel(from: dictionary), accessLevel.isMockable
       else { return nil }
-    guard let rawAccessLevel = dictionary[AccessLevel.accessLevelKey] as? String,
-      let accessLevel = AccessLevel(rawValue: rawAccessLevel),
-      accessLevel != .fileprivate, accessLevel != .private else { return nil }
     
     var attributes = Attributes.create(from: dictionary)
     guard !attributes.contains(.final) else { return nil }
@@ -134,11 +135,6 @@ struct Method: Hashable, Comparable {
     self.name = name
     self.returnTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String ?? "Void"
     self.kind = kind
-    guard kind.typeScope == .instance
-      || kind.typeScope == .class
-      || (kind.typeScope == .static && rootKind == .protocol) else {
-        return nil // Can't override static method declarations in classes.
-    }
     
     let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary] ?? []
     self.genericTypes = substructure.compactMap({ structure -> GenericType? in
@@ -162,6 +158,20 @@ struct Method: Hashable, Comparable {
       })
     }
     self.parameters = parameters
+    
+    if rawType.parsedFile.shouldMock {
+      self.sortableIdentifier = [
+        self.name,
+        self.genericTypes.map({ "\($0.name):\($0.inheritedTypes)" }).joined(separator: ","),
+        self.parameters
+          .map({ "\($0.argumentLabel ?? ""):\($0.name):\($0.typeName)" })
+          .joined(separator: ","),
+        self.returnTypeName,
+        self.genericConstraints.joined(separator: ",")
+      ].joined(separator: "|")
+    } else {
+      self.sortableIdentifier = name
+    }
   }
 }
 

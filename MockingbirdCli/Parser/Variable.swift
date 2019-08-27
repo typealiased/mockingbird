@@ -31,65 +31,55 @@ struct Variable: Hashable, Comparable {
   }
   
   init?(from dictionary: StructureDictionary, rootKind: SwiftDeclarationKind, rawType: RawType) {
-    guard let rawKind = dictionary[SwiftDocKey.kind.rawValue] as? String,
-      let kind = SwiftDeclarationKind(rawValue: rawKind), kind.isVariable,
-      let name = dictionary[SwiftDocKey.name.rawValue] as? String
-      else { return nil }
-    guard let rawAccessLevel = dictionary[AccessLevel.accessLevelKey] as? String,
-      let accessLevel = AccessLevel(rawValue: rawAccessLevel),
-      accessLevel != .fileprivate, accessLevel != .private else { return nil }
+    guard let kind = SwiftDeclarationKind(from: dictionary), kind.isVariable,
+      // Can't override static variable declarations in classes.
+      kind.typeScope == .instance
+        || kind.typeScope == .class
+        || (kind.typeScope == .static && rootKind == .protocol) else { return nil }
+    
+    guard let name = dictionary[SwiftDocKey.name.rawValue] as? String,
+      let accessLevel = AccessLevel(from: dictionary), accessLevel.isMockable else { return nil }
     
     var attributes = Attributes.create(from: dictionary)
     guard !attributes.contains(.final) else { return nil }
     
     if let typeName = dictionary[SwiftDocKey.typeName.rawValue] as? String {
-      self.typeName = typeName
+      self.typeName = typeName // Type was explicitly declared, hooray!
     } else if let declaration = SourceSubstring.nameSuffix
-      .extract(from: dictionary,
-               contents: rawType.parsedFile.file.contents)?.trimmingCharacters(in: .whitespaces),
-      declaration.hasPrefix("=") {
-      
+      .extract(from: dictionary, contents: rawType.parsedFile.file.contents)?.stripped(),
+      declaration.hasPrefix("=") { // We might be able to infer the type...
       var cleanedDeclaration = declaration.dropFirst().trimmingCharacters(in: .whitespaces)
       cleanedDeclaration = cleanedDeclaration.components(separatedBy: .newlines)[0]
       
       if cleanedDeclaration.hasSuffix("{") {
-        cleanedDeclaration = String(cleanedDeclaration.dropLast()).trimmingCharacters(in: .whitespaces)
+        cleanedDeclaration = cleanedDeclaration.dropLast().trimmingCharacters(in: .whitespaces)
       }
       
+      // Use a slightly modified version of Sourcery's type inference system.
       let inferredType = inferType(from: cleanedDeclaration)
       self.typeName = inferredType ?? "Any?"
       if inferredType == nil {
-        print("Could not infer type for variable `\(name)`, declaration: `\(cleanedDeclaration)`") // TODO: Logging utility
+        fputs("WARNING: Could not infer type for variable `\(name)`, declaration: `\(cleanedDeclaration)`\n", stderr)
       }
     } else {
       self.typeName = "Any?"
-      print("Could not extract type info for variable `\(name)`") // TODO: Logging utility
+      fputs("WARNING: Could not extract type info for variable `\(name)`\n", stderr)
     }
     
-    var setterAccessLevel: AccessLevel?
-    if let rawAccessLevel = dictionary[AccessLevel.setterAccessLevelKey] as? String,
-      let accessLevel = AccessLevel(rawValue: rawAccessLevel) {
-      setterAccessLevel = accessLevel
-    }
     self.name = name
-    
     self.kind = kind
-    guard kind.typeScope == .instance
-      || kind.typeScope == .class
-      || (kind.typeScope == .static && rootKind == .protocol) else {
-        return nil // Can't override static variable declarations in classes.
-    }
+    self.setterAccessLevel = AccessLevel(setter: dictionary) ?? .internal
     
-    self.setterAccessLevel = setterAccessLevel ?? .internal
-    
+    // Determine if the variable type is computed, stored, or constant.
     let source = rawType.parsedFile.file.contents
     let isConstant = SourceSubstring.key
       .extract(from: dictionary, contents: source)?
       .hasPrefix("let") == true
     guard !isConstant else { return nil } // Can't override constant variables.
+    
     if rootKind == .class {
-      var isComputed = (setterAccessLevel == nil && !isConstant)
-      if !isComputed && setterAccessLevel != nil {
+      var isComputed = setterAccessLevel == nil // && !isConstant (but we don't mock constant vars).
+      if !isComputed { // && setterAccessLevel != nil
         let body = SourceSubstring.body.extract(from: dictionary, contents: source) ?? ""
         let hasPropertyObservers = body.hasPrefix("didSet") || body.hasPrefix("willSet")
         isComputed = (!body.isEmpty && !hasPropertyObservers)

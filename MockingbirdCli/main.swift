@@ -9,11 +9,12 @@
 import Foundation
 
 func main(arguments: [String]) {
-  let registry = Program(usage: "<method>",
-                         overview: "Mockingbird mock generator",
-                         commands: [GenerateCommand.self,
-                                    InstallCommand.self,
-                                    UninstallCommand.self])
-  registry.run(with: arguments)
+  let program = Program(usage: "<method>",
+                        overview: "Mockingbird mock generator",
+                        commands: [GenerateCommand.self,
+                                   InstallCommand.self,
+                                   UninstallCommand.self])
+  program.run(with: arguments)
 }
+
 main(arguments: ProcessInfo.processInfo.arguments)

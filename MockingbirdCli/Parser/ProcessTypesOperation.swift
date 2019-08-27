@@ -30,13 +30,16 @@ class ProcessTypesOperation: BasicOperation {
   let parseFilesResult: ParseFilesOperation.Result
   
   class Result {
-    fileprivate(set) var rawTypes = [String: [RawType]]() // Handle multiple extensions.
+    /// Stores an array of `RawType` references to handle extensions which we can treat as partial
+    /// definitions of a `RawType`. We eventually combine all partials into a final type definition.
+    fileprivate(set) var rawTypes = [String: [RawType]]()
     fileprivate(set) var mockableTypes = [MockableType]()
     fileprivate(set) var imports = Set<String>()
   }
   
   let result = Result()
   
+  /// Type inheritence flattening can be slow, so it's a concurrent suboperation.
   class SubOperation: BasicOperation {
     let rawType: [RawType]
     let allRawTypes: [String: [RawType]]
@@ -53,13 +56,15 @@ class ProcessTypesOperation: BasicOperation {
       self.allRawTypes = allRawTypes
     }
     
-    override func run() {
+    override func run() throws {
       result.mockableType = flattenInheritence(for: rawType)
     }
     
+    /// Recursively traverse the inheritence graph from bottom up (children to parents). Note that
+    /// `rawType` is actually an unmerged set of all `RawType` declarations found eg in extensions.
     private static var memoizedMockbleTypes = Synchronized<[String: MockableType]>([:])
     private func flattenInheritence(for rawType: [RawType]) -> MockableType? {
-      let memoizedMockableTypes = SubOperation.memoizedMockbleTypes.value
+      let memoizedMockableTypes = SubOperation.memoizedMockbleTypes.value // Reduce lock contention.
       guard let rawTypeName = rawType.first?.name else { return nil }
       if let memoized = memoizedMockableTypes[rawTypeName] { return memoized }
       let createMockableType: () -> MockableType? = {
@@ -80,11 +85,11 @@ class ProcessTypesOperation: BasicOperation {
         .compactMap({ allRawTypes[$0] }) // Get stored raw type.
         .flatMap({ $0 })
       
+      // If there are inherited types, flatten them first.
       if rawInheritedTypes.filter({ memoizedMockableTypes[$0.name] == nil }).count > 0 {
-        rawInheritedTypes.forEach({ _ = flattenInheritence(for: [$0]) }) // Flatten inherited types.
+        rawInheritedTypes.forEach({ _ = flattenInheritence(for: [$0]) })
       }
       
-      // All inherited types are now flattened.
       return createMockableType()
     }
   }
@@ -107,11 +112,11 @@ class ProcessTypesOperation: BasicOperation {
     result.imports = parseFilesResult.importedModuleNames
   }
   
+  /// Create a `RawType` object from a parsed file's `StructureDictionary`.
   private func processStructureDictionary(_ dictionary: StructureDictionary,
                                           in parsedFile: ParsedFile) {
-    guard let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary] else {
-      return
-    }
+    guard let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary]
+      else { return }
     substructure.forEach({ processStructureDictionary($0, in: parsedFile) })
     
     guard let rawKind = dictionary[SwiftDocKey.kind.rawValue] as? String,

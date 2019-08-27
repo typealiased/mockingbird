@@ -35,6 +35,12 @@ extension String {
 }
 
 extension Substring {
+  /// Splits a substring into substrings given a character delimiter.
+  ///
+  /// - note: This method is 2x faster than the built-in method on Release builds.
+  ///
+  /// - Parameter delimiter: A character to use to split the substring.
+  /// - Returns: An array of substrings.
   func substringComponents(separatedBy delimiter: Character) -> [Substring] {
     var components = [Substring]()
     var currentSubstring = self[..<endIndex]

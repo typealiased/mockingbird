@@ -16,17 +16,15 @@ protocol Command {
   func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws
 }
 
-class Program {
+/// Represents a CLI that can parse arguments and run the appropriate `Command`.
+struct Program {
   private let parser: ArgumentParser
-  private var commands = [Command]()
+  private let commands: [Command]
   
-  init(usage: String, overview: String, commands: [Command.Type]? = nil) {
-    parser = ArgumentParser(usage: usage, overview: overview)
-    commands?.forEach({ self.commands.append($0.init(parser: parser)) })
-  }
-  
-  func add(command: Command.Type) {
-    commands.append(command.init(parser: parser))
+  init(usage: String, overview: String, commands: [Command.Type]) {
+    let parser = ArgumentParser(usage: usage, overview: overview)
+    self.parser = parser
+    self.commands = commands.map({ $0.init(parser: parser) })
   }
   
   func run(with arguments: [String]) {

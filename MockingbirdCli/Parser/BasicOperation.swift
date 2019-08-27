@@ -12,6 +12,8 @@ class BasicOperation: Operation {
   override var isAsynchronous: Bool { return false }
   override var isConcurrent: Bool { return true }
   
+  private(set) var error: Error?
+  
   private(set) var _isFinished: Bool = false
   override var isFinished: Bool {
     set {
@@ -32,12 +34,16 @@ class BasicOperation: Operation {
     get { return _isExecuting }
   }
   
-  func run() {}
+  func run() throws {}
   
   override func start() {
     guard !isCancelled else { return }
     isExecuting = true
-    run()
+    do {
+      try run()
+    } catch {
+      self.error = error
+    }
     isExecuting = false
     isFinished = true
   }

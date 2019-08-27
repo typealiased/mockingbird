@@ -18,8 +18,6 @@ class GenerateFileOperation: BasicOperation {
   private let onlyMockProtocols: Bool
   private let disableSwiftlint: Bool
   
-  private(set) var error: Error?
-  
   init(processTypesResult: ProcessTypesOperation.Result,
        moduleName: String,
        outputPath: Path,
@@ -36,7 +34,7 @@ class GenerateFileOperation: BasicOperation {
     self.disableSwiftlint = disableSwiftlint
   }
   
-  override func run() {
+  override func run() throws {
     let generator = FileGenerator(processTypesResult.mockableTypes,
                                   moduleName: moduleName,
                                   imports: processTypesResult.imports,
@@ -45,11 +43,7 @@ class GenerateFileOperation: BasicOperation {
                                   shouldImportModule: shouldImportModule,
                                   onlyMockProtocols: onlyMockProtocols,
                                   disableSwiftlint: disableSwiftlint)
-    do {
-      try generator.generate()
-    } catch {
-      self.error = error
-    }
+    try generator.generate()
     print("Generated file to \(String(describing: outputPath.absolute()))") // TODO: logging utility
   }
 }
