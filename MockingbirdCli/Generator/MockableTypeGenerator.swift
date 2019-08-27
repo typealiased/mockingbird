@@ -27,8 +27,6 @@ extension GenericType {
 
 extension MockableType {
   func generate(moduleName: String) -> String {
-    let formatter = DateFormatter.standard()
-    let generatedDate = formatter.string(from: Date())
     return """
     // MARK: - Mocked \(name)
     
@@ -98,7 +96,10 @@ extension MockableType {
       .joined(separator: ", ")
   }
   
-  var fullyQualifiedName: String { return "\(moduleName).\(name)\(allGenericTypes)" }
+  var fullyQualifiedName: String {
+    guard !isContainedType else { return "\(name)\(allGenericTypes)" }
+    return "\(moduleName).\(name)\(allGenericTypes)"
+  }
   
   var subclass: String? {
     guard kind != .class else { return fullyQualifiedName }
@@ -120,8 +121,16 @@ extension MockableType {
             equatableConformance,
             codeableInitializer,
             defaultInitializer,
-            generateMethods()]
+            generateMethods(),
+            generateContainedTypes()]
       .filter({ !$0.isEmpty })
+      .joined(separator: "\n\n")
+  }
+  
+  func generateContainedTypes() -> String {
+    guard !containedTypes.isEmpty else { return "" }
+    return containedTypes
+      .map({ $0.generate(moduleName: moduleName).indent(by: 1) })
       .joined(separator: "\n\n")
   }
   

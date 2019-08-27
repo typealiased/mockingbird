@@ -68,7 +68,7 @@ struct Variable: Hashable, Comparable {
     
     self.name = name
     self.kind = kind
-    self.setterAccessLevel = AccessLevel(setter: dictionary) ?? .internal
+    let setterAccessLevel = AccessLevel(setter: dictionary)
     
     // Determine if the variable type is computed, stored, or constant.
     let source = rawType.parsedFile.file.contents
@@ -88,5 +88,6 @@ struct Variable: Hashable, Comparable {
       attributes.insert(.computed)
     }
     self.attributes = attributes
+    self.setterAccessLevel = setterAccessLevel ?? .internal
   }
 }

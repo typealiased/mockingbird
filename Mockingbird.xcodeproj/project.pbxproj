@@ -53,6 +53,7 @@
 		49124C4323132E1E008C8CE0 /* ArgumentCaptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49124C4223132E1E008C8CE0 /* ArgumentCaptorTests.swift */; };
 		49606F1A2313B3B5003C1969 /* OverloadedMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49606F192313B3B5003C1969 /* OverloadedMethods.swift */; };
 		49606F1C2313B43D003C1969 /* OverloadedMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49606F1B2313B43D003C1969 /* OverloadedMethodTests.swift */; };
+		497A72232315CD9900607C2B /* ScopedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A72222315CD9900607C2B /* ScopedTypes.swift */; };
 		49B4F32F231309C6002106EB /* ProtocolInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4F32E231309C6002106EB /* ProtocolInitializers.swift */; };
 		49B4F33123130AD7002106EB /* ClassInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4F33023130AD7002106EB /* ClassInitializers.swift */; };
 		OBJ_1000 /* XCWorkspaceDataGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_420 /* XCWorkspaceDataGroup.swift */; };
@@ -699,6 +700,7 @@
 		49124C4223132E1E008C8CE0 /* ArgumentCaptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentCaptorTests.swift; sourceTree = "<group>"; };
 		49606F192313B3B5003C1969 /* OverloadedMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverloadedMethods.swift; sourceTree = "<group>"; };
 		49606F1B2313B43D003C1969 /* OverloadedMethodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverloadedMethodTests.swift; sourceTree = "<group>"; };
+		497A72222315CD9900607C2B /* ScopedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedTypes.swift; sourceTree = "<group>"; };
 		49B4F32E231309C6002106EB /* ProtocolInitializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolInitializers.swift; sourceTree = "<group>"; };
 		49B4F33023130AD7002106EB /* ClassInitializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassInitializers.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2203,22 +2205,23 @@
 		OBJ_76 /* MockingbirdTestsHost */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_77 /* Info.plist */,
 				OBJ_78 /* ArgumentMatching.swift */,
 				OBJ_79 /* Child.swift */,
 				OBJ_80 /* ChildProtocol.swift */,
+				49B4F33023130AD7002106EB /* ClassInitializers.swift */,
 				OBJ_81 /* Extensions.swift */,
 				OBJ_82 /* Generics.swift */,
 				OBJ_83 /* Grandparent.swift */,
 				OBJ_84 /* GrandparentProtocol.swift */,
+				OBJ_77 /* Info.plist */,
 				OBJ_85 /* InoutParameters.swift */,
 				OBJ_86 /* ModuleImportCases.swift */,
+				49606F192313B3B5003C1969 /* OverloadedMethods.swift */,
 				OBJ_87 /* Parent.swift */,
 				OBJ_88 /* ParentProtocol.swift */,
-				OBJ_89 /* VariadicParameters.swift */,
 				49B4F32E231309C6002106EB /* ProtocolInitializers.swift */,
-				49B4F33023130AD7002106EB /* ClassInitializers.swift */,
-				49606F192313B3B5003C1969 /* OverloadedMethods.swift */,
+				497A72222315CD9900607C2B /* ScopedTypes.swift */,
+				OBJ_89 /* VariadicParameters.swift */,
 			);
 			path = MockingbirdTestsHost;
 			sourceTree = SOURCE_ROOT;
@@ -3105,6 +3108,7 @@
 				OBJ_740 /* ParentProtocol.swift in Sources */,
 				OBJ_741 /* VariadicParameters.swift in Sources */,
 				49B4F32F231309C6002106EB /* ProtocolInitializers.swift in Sources */,
+				497A72232315CD9900607C2B /* ScopedTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

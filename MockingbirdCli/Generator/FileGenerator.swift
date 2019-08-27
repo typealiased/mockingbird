@@ -97,7 +97,7 @@ class FileGenerator {
   }
   
   private func generateFileFooter() -> String {
-    return (preprocessorExpression != nil ? "\n#endif\n" : "")
+    return (preprocessorExpression != nil ? "\n#endif\n" : "\n")
   }
   
   private func generateFileContents() -> String {

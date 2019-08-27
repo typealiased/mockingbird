@@ -20,15 +20,24 @@ struct MockableType: Hashable, Comparable {
   let inheritedTypes: Set<MockableType>
   let genericTypes: [GenericType]
   let genericConstraints: [String]
-  private(set) var shouldMock: Bool
+  private(set) var shouldMock: Bool // Setter used for cloning `MockableType` objects.
   let attributes: Attributes
+  private(set) var containedTypes = [MockableType]()
+  let isContainedType: Bool
   
   private let sortableIdentifier: String
   static func < (lhs: MockableType, rhs: MockableType) -> Bool {
     return lhs.sortableIdentifier < rhs.sortableIdentifier
   }
   
-  init?(from rawTypes: [RawType], mockableTypes: [String: MockableType]) {
+  /// Creates a `MockableType` from a set of partial `RawType` objects.
+  ///
+  /// - Parameters:
+  ///   - rawTypes: A set of partial `RawType` objects that should include the base declaration.
+  ///   - mockableTypes: All currently known `MockableType` objects used for inheritence flattening.
+  init?(from rawTypes: [RawType],
+        mockableTypes: [String: MockableType],
+        isContainedType: Bool = false) {
     guard let baseRawType = rawTypes.first(where: { $0.kind.isMockable }),
       let substructure = baseRawType.dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary],
       let accessLevel = AccessLevel(from: baseRawType.dictionary), accessLevel.isMockable
@@ -105,6 +114,16 @@ struct MockableType: Hashable, Comparable {
     } else {
       self.sortableIdentifier = name
     }
+    
+    // Contained types can inherit from their containing types!
+    self.isContainedType = isContainedType
+    var attributedMockableTypes = mockableTypes
+    attributedMockableTypes[self.name] = self
+    self.containedTypes = rawTypes
+      .flatMap({ $0.containedTypes })
+      .compactMap({ MockableType(from: [$0],
+                                 mockableTypes: attributedMockableTypes,
+                                 isContainedType: true) })
   }
   
   static func clone(_ other: MockableType, shouldMock: Bool) -> MockableType {

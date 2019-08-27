@@ -5338,6 +5338,500 @@ public final class RequiredInitializerClassMock: MockingbirdTestsHost.RequiredIn
   }
 }
 
+// MARK: - Mocked StaticsContainerClass
+
+public final class StaticsContainerClassMock: MockingbirdTestsHost.StaticsContainerClass, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.2", "module_name": "MockingbirdTestsHost"])
+  private var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      StaticsContainerClassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mockable `classComputedVariable`
+
+  override public class var classComputedVariable: Bool {
+    get {
+      let invocation = Mockingbird.Invocation(selectorName: "classComputedVariable.get", arguments: [])
+      staticMock.mockingContext.didInvoke(invocation)
+      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation = Mockingbird.Invocation(selectorName: "classComputedVariable.set", arguments: [ArgumentMatcher(newValue)])
+      staticMock.mockingContext.didInvoke(invocation)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  // MARK: Stubbable `classComputedVariable`
+
+  public class func getClassComputedVariable() -> Mockingbird.Stubbable<() -> Bool, Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "classComputedVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Stubbable<() -> Bool, Bool>()
+  }
+
+  public class func setClassComputedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
+    let arguments = [resolve(newValue)]
+    let invocation = Mockingbird.Invocation(selectorName: "classComputedVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(Bool) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `classComputedVariable`
+
+  public class func getClassComputedVariable() -> Mockingbird.Mockable<Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "classComputedVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  public class func setClassComputedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
+    let arguments = [resolve(newValue)]
+    let invocation = Mockingbird.Invocation(selectorName: "classComputedVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  public static func ==(lhs: StaticsContainerClassMock, rhs: StaticsContainerClassMock) -> Bool {
+    return true
+  }
+
+  public init(__file: StaticString = #file, __line: UInt = #line) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
+    self.stubbingContext.sourceLocation = sourceLocation
+    StaticsContainerClassMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+  }
+}
+
+// MARK: - Mocked StaticsContainerProtocol
+
+public final class StaticsContainerProtocolMock: MockingbirdTestsHost.StaticsContainerProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.2", "module_name": "MockingbirdTestsHost"])
+  private var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      StaticsContainerProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mockable `staticReadOnlyVariable`
+
+  public class var staticReadOnlyVariable: Bool {
+    get {
+      let invocation = Mockingbird.Invocation(selectorName: "staticReadOnlyVariable.get", arguments: [])
+      staticMock.mockingContext.didInvoke(invocation)
+      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation = Mockingbird.Invocation(selectorName: "staticReadOnlyVariable.set", arguments: [ArgumentMatcher(newValue)])
+      staticMock.mockingContext.didInvoke(invocation)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  // MARK: Stubbable `staticReadOnlyVariable`
+
+  public class func getStaticReadOnlyVariable() -> Mockingbird.Stubbable<() -> Bool, Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "staticReadOnlyVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Stubbable<() -> Bool, Bool>()
+  }
+
+  public class func setStaticReadOnlyVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
+    let arguments = [resolve(newValue)]
+    let invocation = Mockingbird.Invocation(selectorName: "staticReadOnlyVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(Bool) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `staticReadOnlyVariable`
+
+  public class func getStaticReadOnlyVariable() -> Mockingbird.Mockable<Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "staticReadOnlyVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  public class func setStaticReadOnlyVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
+    let arguments = [resolve(newValue)]
+    let invocation = Mockingbird.Invocation(selectorName: "staticReadOnlyVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  // MARK: Mockable `staticVariable`
+
+  public class var staticVariable: Bool {
+    get {
+      let invocation = Mockingbird.Invocation(selectorName: "staticVariable.get", arguments: [])
+      staticMock.mockingContext.didInvoke(invocation)
+      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation = Mockingbird.Invocation(selectorName: "staticVariable.set", arguments: [ArgumentMatcher(newValue)])
+      staticMock.mockingContext.didInvoke(invocation)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  // MARK: Stubbable `staticVariable`
+
+  public class func getStaticVariable() -> Mockingbird.Stubbable<() -> Bool, Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "staticVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Stubbable<() -> Bool, Bool>()
+  }
+
+  public class func setStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
+    let arguments = [resolve(newValue)]
+    let invocation = Mockingbird.Invocation(selectorName: "staticVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(Bool) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `staticVariable`
+
+  public class func getStaticVariable() -> Mockingbird.Mockable<Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "staticVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  public class func setStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
+    let arguments = [resolve(newValue)]
+    let invocation = Mockingbird.Invocation(selectorName: "staticVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  public static func ==(lhs: StaticsContainerProtocolMock, rhs: StaticsContainerProtocolMock) -> Bool {
+    return true
+  }
+
+  public init(__file: StaticString = #file, __line: UInt = #line) {
+    Mockingbird.checkVersion(for: self)
+    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
+    self.stubbingContext.sourceLocation = sourceLocation
+    StaticsContainerProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `staticMethod()`
+
+  public static func staticMethod() -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "staticMethod() -> Bool", arguments: [])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `staticMethod()`
+
+  public static func staticMethod() -> Mockingbird.Stubbable<() -> Bool, Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "staticMethod() -> Bool", arguments: [])
+    if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<() -> Bool, Bool>()
+  }
+
+  // MARK: Verifiable `staticMethod()`
+
+  public static func staticMethod() -> Mockingbird.Mockable<Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "staticMethod() -> Bool", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+}
+
+// MARK: - Mocked TopLevelType
+
+public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.2", "module_name": "MockingbirdTestsHost"])
+  private var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      TopLevelTypeMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: TopLevelTypeMock, rhs: TopLevelTypeMock) -> Bool {
+    return true
+  }
+
+  public init(__file: StaticString = #file, __line: UInt = #line) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
+    self.stubbingContext.sourceLocation = sourceLocation
+    TopLevelTypeMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `topLevelMethod(param1:param2:)`
+
+  public override func topLevelMethod(param1: SecondLevelType, param2: SecondLevelType.ThirdLevelType) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "topLevelMethod(param1:param2:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (SecondLevelType, SecondLevelType.ThirdLevelType) -> Bool {
+      return concreteImplementation(`param1`, `param2`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `topLevelMethod(param1:param2:)`
+
+  public func topLevelMethod(param1: @escaping @autoclosure () -> SecondLevelType, param2: @escaping @autoclosure () -> SecondLevelType.ThirdLevelType) -> Mockingbird.Stubbable<(SecondLevelType, SecondLevelType.ThirdLevelType) -> Bool, Bool> {
+    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let invocation = Mockingbird.Invocation(selectorName: "topLevelMethod(param1:param2:) -> Bool", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(SecondLevelType, SecondLevelType.ThirdLevelType) -> Bool, Bool>()
+  }
+
+  // MARK: Verifiable `topLevelMethod(param1:param2:)`
+
+  public func topLevelMethod(param1: @escaping @autoclosure () -> SecondLevelType, param2: @escaping @autoclosure () -> SecondLevelType.ThirdLevelType) -> Mockingbird.Mockable<Bool> {
+    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let invocation = Mockingbird.Invocation(selectorName: "topLevelMethod(param1:param2:) -> Bool", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  // MARK: - Mocked SecondLevelType
+  
+  public final class SecondLevelTypeMock: SecondLevelType, Mockingbird.Mock {
+    static let staticMock = Mockingbird.StaticMock()
+    public let mockingContext = Mockingbird.MockingContext()
+    public let stubbingContext = Mockingbird.StubbingContext()
+    public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.2", "module_name": "MockingbirdTestsHost"])
+    private var sourceLocation: Mockingbird.SourceLocation? {
+      get { return stubbingContext.sourceLocation }
+      set {
+        stubbingContext.sourceLocation = newValue
+        SecondLevelTypeMock.staticMock.stubbingContext.sourceLocation = newValue
+      }
+    }
+  
+    public static func ==(lhs: SecondLevelTypeMock, rhs: SecondLevelTypeMock) -> Bool {
+      return true
+    }
+  
+    public init(__file: StaticString = #file, __line: UInt = #line) {
+      super.init()
+      Mockingbird.checkVersion(for: self)
+      let sourceLocation = Mockingbird.SourceLocation(__file, __line)
+      self.stubbingContext.sourceLocation = sourceLocation
+      SecondLevelTypeMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+    }
+  
+    // MARK: Mockable `secondLevelMethod(param:)`
+  
+    public override func secondLevelMethod(param: ThirdLevelType) -> Bool {
+      let invocation = Mockingbird.Invocation(selectorName: "secondLevelMethod(param:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: false)
+      if let concreteImplementation = implementation as? (ThirdLevelType) -> Bool {
+        return concreteImplementation(`param`)
+      } else {
+        return (implementation as! () -> Bool)()
+      }
+    }
+  
+    // MARK: Stubbable `secondLevelMethod(param:)`
+  
+    public func secondLevelMethod(param: @escaping @autoclosure () -> ThirdLevelType) -> Mockingbird.Stubbable<(ThirdLevelType) -> Bool, Bool> {
+      let arguments = [resolve(`param`)]
+      let invocation = Mockingbird.Invocation(selectorName: "secondLevelMethod(param:) -> Bool", arguments: arguments)
+      if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+      return Mockingbird.Stubbable<(ThirdLevelType) -> Bool, Bool>()
+    }
+  
+    // MARK: Verifiable `secondLevelMethod(param:)`
+  
+    public func secondLevelMethod(param: @escaping @autoclosure () -> ThirdLevelType) -> Mockingbird.Mockable<Bool> {
+      let arguments = [resolve(`param`)]
+      let invocation = Mockingbird.Invocation(selectorName: "secondLevelMethod(param:) -> Bool", arguments: arguments)
+      if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+      return Mockingbird.Mockable<Bool>()
+    }
+  
+    // MARK: - Mocked ThirdLevelType
+    
+    public final class ThirdLevelTypeMock: ThirdLevelType, Mockingbird.Mock {
+      static let staticMock = Mockingbird.StaticMock()
+      public let mockingContext = Mockingbird.MockingContext()
+      public let stubbingContext = Mockingbird.StubbingContext()
+      public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.2", "module_name": "MockingbirdTestsHost"])
+      private var sourceLocation: Mockingbird.SourceLocation? {
+        get { return stubbingContext.sourceLocation }
+        set {
+          stubbingContext.sourceLocation = newValue
+          ThirdLevelTypeMock.staticMock.stubbingContext.sourceLocation = newValue
+        }
+      }
+    
+      public static func ==(lhs: ThirdLevelTypeMock, rhs: ThirdLevelTypeMock) -> Bool {
+        return true
+      }
+    
+      public init(__file: StaticString = #file, __line: UInt = #line) {
+        super.init()
+        Mockingbird.checkVersion(for: self)
+        let sourceLocation = Mockingbird.SourceLocation(__file, __line)
+        self.stubbingContext.sourceLocation = sourceLocation
+        ThirdLevelTypeMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+      }
+    
+      // MARK: Mockable `thirdLevelMethod()`
+    
+      public override func thirdLevelMethod() -> Bool {
+        let invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod() -> Bool", arguments: [])
+        mockingContext.didInvoke(invocation)
+        let implementation = stubbingContext.implementation(for: invocation, optional: false)
+        if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else {
+          return (implementation as! () -> Bool)()
+        }
+      }
+    
+      // MARK: Stubbable `thirdLevelMethod()`
+    
+      public func thirdLevelMethod() -> Mockingbird.Stubbable<() -> Bool, Bool> {
+        let invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod() -> Bool", arguments: [])
+        if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+        return Mockingbird.Stubbable<() -> Bool, Bool>()
+      }
+    
+      // MARK: Verifiable `thirdLevelMethod()`
+    
+      public func thirdLevelMethod() -> Mockingbird.Mockable<Bool> {
+        let invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod() -> Bool", arguments: [])
+        if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+        return Mockingbird.Mockable<Bool>()
+      }
+    }
+  }
+}
+
+// MARK: - Mocked VariablesContainer
+
+public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContainer, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.2", "module_name": "MockingbirdTestsHost"])
+  private var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      VariablesContainerMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mockable `computedVariable`
+
+  override public var computedVariable: Bool {
+    get {
+      let invocation = Mockingbird.Invocation(selectorName: "computedVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation = Mockingbird.Invocation(selectorName: "computedVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  // MARK: Stubbable `computedVariable`
+
+  public func getComputedVariable() -> Mockingbird.Stubbable<() -> Bool, Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "computedVariable.get", arguments: [])
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Stubbable<() -> Bool, Bool>()
+  }
+
+  public func setComputedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
+    let arguments = [resolve(newValue)]
+    let invocation = Mockingbird.Invocation(selectorName: "computedVariable.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(Bool) -> Void, Void>()
+  }
+
+  // MARK: Verifiable `computedVariable`
+
+  public func getComputedVariable() -> Mockingbird.Mockable<Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "computedVariable.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  public func setComputedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
+    let arguments = [resolve(newValue)]
+    let invocation = Mockingbird.Invocation(selectorName: "computedVariable.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  public static func ==(lhs: VariablesContainerMock, rhs: VariablesContainerMock) -> Bool {
+    return true
+  }
+
+  // MARK: Mockable `init()`
+
+  public override init() {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    let invocation = Mockingbird.Invocation(selectorName: "init() -> Void", arguments: [])
+    mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+}
+
 // MARK: - Mocked VariadicClass
 
 public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockingbird.Mock {
@@ -5752,3 +6246,4 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
     return Mockingbird.Mockable<Bool>()
   }
 }
+

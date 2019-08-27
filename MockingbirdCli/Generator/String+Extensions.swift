@@ -32,6 +32,14 @@ extension String {
     }
     return components
   }
+  
+  func indent(by offset: UInt) -> String {
+    guard offset > 0 else { return self }
+    let lines = substringComponents(separatedBy: "\n")
+    var indentation = "  "
+    for _ in 0..<(offset-1) { indentation += "  " }
+    return lines.map({ indentation + $0 }).joined(separator: "\n")
+  }
 }
 
 extension Substring {

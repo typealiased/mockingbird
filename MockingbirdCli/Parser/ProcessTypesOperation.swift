@@ -12,15 +12,18 @@ import SourceKittenFramework
 struct RawType {
   let dictionary: StructureDictionary
   let name: String
+  let containedTypes: [RawType]
   let kind: SwiftDeclarationKind
   let parsedFile: ParsedFile
   
   init(dictionary: StructureDictionary,
        name: String,
+       containedTypes: [RawType],
        kind: SwiftDeclarationKind,
        parsedFile: ParsedFile) {
     self.dictionary = dictionary
     self.name = name
+    self.containedTypes = containedTypes
     self.kind = kind
     self.parsedFile = parsedFile
   }
@@ -99,8 +102,10 @@ class ProcessTypesOperation: BasicOperation {
   }
   
   override func run() {
-    parseFilesResult.parsedFiles.forEach({
-      processStructureDictionary($0.structure.dictionary, in: $0)
+    parseFilesResult.parsedFiles.flatMap({
+      processStructureDictionary($0.structure.dictionary, parsedFile: $0)
+    }).forEach({
+      result.rawTypes[$0.name, default: []].append($0)
     })
     let operations = result.rawTypes
       .map({ $0.value })
@@ -114,18 +119,20 @@ class ProcessTypesOperation: BasicOperation {
   
   /// Create a `RawType` object from a parsed file's `StructureDictionary`.
   private func processStructureDictionary(_ dictionary: StructureDictionary,
-                                          in parsedFile: ParsedFile) {
+                                          parsedFile: ParsedFile) -> [RawType] {
     guard let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary]
-      else { return }
-    substructure.forEach({ processStructureDictionary($0, in: parsedFile) })
+      else { return [] }
     
-    guard let rawKind = dictionary[SwiftDocKey.kind.rawValue] as? String,
-      let kind = SwiftDeclarationKind(rawValue: rawKind), kind.isParsable else { return }
+    let containedTypes = substructure.flatMap({
+      processStructureDictionary($0, parsedFile: parsedFile)
+    })
     
-    guard let name = dictionary[SwiftDocKey.name.rawValue] as? String else { return }
-    result.rawTypes[name, default: []].append(RawType(dictionary: dictionary,
-                                                      name: name,
-                                                      kind: kind,
-                                                      parsedFile: parsedFile))
+    guard let name = dictionary[SwiftDocKey.name.rawValue] as? String else { return containedTypes }
+    guard let kind = SwiftDeclarationKind(from: dictionary), kind.isParsable else { return [] }
+    return [RawType(dictionary: dictionary,
+                    name: name,
+                    containedTypes: containedTypes,
+                    kind: kind,
+                    parsedFile: parsedFile)]
   }
 }
