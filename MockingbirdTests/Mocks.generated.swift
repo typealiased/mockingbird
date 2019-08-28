@@ -2279,6 +2279,405 @@ public final class ClassTypeMock: MockingbirdTestsHost.ClassType, Mockingbird.Mo
   }
 }
 
+// MARK: - Mocked ClosureParametersProtocol
+
+public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosureParametersProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
+  private var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ClosureParametersProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: ClosureParametersProtocolMock, rhs: ClosureParametersProtocolMock) -> Bool {
+    return true
+  }
+
+  public init(__file: StaticString = #file, __line: UInt = #line) {
+    Mockingbird.checkVersion(for: self)
+    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
+    self.stubbingContext.sourceLocation = sourceLocation
+    ClosureParametersProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `autoclosureTrivialClosure(block:)`
+
+  public func autoclosureTrivialClosure(block: @autoclosure () -> Void) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "autoclosureTrivialClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(nil)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (@autoclosure () -> Void) -> Bool {
+      return concreteImplementation(`block`())
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `autoclosureTrivialClosure(block:)`
+
+  public func autoclosureTrivialClosure(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Stubbable<(@autoclosure () -> Void) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "autoclosureTrivialClosure(block:) -> Bool", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(@autoclosure () -> Void) -> Bool, Bool>()
+  }
+
+  // MARK: Verifiable `autoclosureTrivialClosure(block:)`
+
+  public func autoclosureTrivialClosure(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "autoclosureTrivialClosure(block:) -> Bool", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  // MARK: Mockable `autoclosureTrivialReturningClosure(block:)`
+
+  public func autoclosureTrivialReturningClosure(block: @autoclosure () -> Bool) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "autoclosureTrivialReturningClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(nil)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (@autoclosure () -> Bool) -> Bool {
+      return concreteImplementation(`block`())
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `autoclosureTrivialReturningClosure(block:)`
+
+  public func autoclosureTrivialReturningClosure(block: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.Stubbable<(@autoclosure () -> Bool) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "autoclosureTrivialReturningClosure(block:) -> Bool", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(@autoclosure () -> Bool) -> Bool, Bool>()
+  }
+
+  // MARK: Verifiable `autoclosureTrivialReturningClosure(block:)`
+
+  public func autoclosureTrivialReturningClosure(block: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "autoclosureTrivialReturningClosure(block:) -> Bool", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  // MARK: Mockable `escapingAutoclosureTrivialClosure(block:)`
+
+  public func escapingAutoclosureTrivialClosure(block: @escaping @autoclosure () -> Void) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "escapingAutoclosureTrivialClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (@escaping @autoclosure () -> Void) -> Bool {
+      return concreteImplementation(`block`())
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `escapingAutoclosureTrivialClosure(block:)`
+
+  public func escapingAutoclosureTrivialClosure(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Stubbable<(@escaping @autoclosure () -> Void) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "escapingAutoclosureTrivialClosure(block:) -> Bool", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(@escaping @autoclosure () -> Void) -> Bool, Bool>()
+  }
+
+  // MARK: Verifiable `escapingAutoclosureTrivialClosure(block:)`
+
+  public func escapingAutoclosureTrivialClosure(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "escapingAutoclosureTrivialClosure(block:) -> Bool", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  // MARK: Mockable `escapingAutoclosureTrivialReturningClosure(block:)`
+
+  public func escapingAutoclosureTrivialReturningClosure(block: @escaping @autoclosure () -> Bool) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "escapingAutoclosureTrivialReturningClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (@escaping @autoclosure () -> Bool) -> Bool {
+      return concreteImplementation(`block`())
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `escapingAutoclosureTrivialReturningClosure(block:)`
+
+  public func escapingAutoclosureTrivialReturningClosure(block: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.Stubbable<(@escaping @autoclosure () -> Bool) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "escapingAutoclosureTrivialReturningClosure(block:) -> Bool", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(@escaping @autoclosure () -> Bool) -> Bool, Bool>()
+  }
+
+  // MARK: Verifiable `escapingAutoclosureTrivialReturningClosure(block:)`
+
+  public func escapingAutoclosureTrivialReturningClosure(block: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "escapingAutoclosureTrivialReturningClosure(block:) -> Bool", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  // MARK: Mockable `escapingParameterizedClosure(block:)`
+
+  public func escapingParameterizedClosure(block: @escaping (Bool) -> Void) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "escapingParameterizedClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (@escaping (Bool) -> Void) -> Bool {
+      return concreteImplementation(`block`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `escapingParameterizedClosure(block:)`
+
+  public func escapingParameterizedClosure(block: @escaping @autoclosure () -> (Bool) -> Void) -> Mockingbird.Stubbable<(@escaping (Bool) -> Void) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "escapingParameterizedClosure(block:) -> Bool", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(@escaping (Bool) -> Void) -> Bool, Bool>()
+  }
+
+  // MARK: Verifiable `escapingParameterizedClosure(block:)`
+
+  public func escapingParameterizedClosure(block: @escaping @autoclosure () -> (Bool) -> Void) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "escapingParameterizedClosure(block:) -> Bool", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  // MARK: Mockable `escapingParameterizedReturningClosure(block:)`
+
+  public func escapingParameterizedReturningClosure(block: @escaping (Bool) -> Bool) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "escapingParameterizedReturningClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (@escaping (Bool) -> Bool) -> Bool {
+      return concreteImplementation(`block`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `escapingParameterizedReturningClosure(block:)`
+
+  public func escapingParameterizedReturningClosure(block: @escaping @autoclosure () -> (Bool) -> Bool) -> Mockingbird.Stubbable<(@escaping (Bool) -> Bool) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "escapingParameterizedReturningClosure(block:) -> Bool", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(@escaping (Bool) -> Bool) -> Bool, Bool>()
+  }
+
+  // MARK: Verifiable `escapingParameterizedReturningClosure(block:)`
+
+  public func escapingParameterizedReturningClosure(block: @escaping @autoclosure () -> (Bool) -> Bool) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "escapingParameterizedReturningClosure(block:) -> Bool", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  // MARK: Mockable `escapingTrivialClosure(block:)`
+
+  public func escapingTrivialClosure(block: @escaping () -> Void) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "escapingTrivialClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (@escaping () -> Void) -> Bool {
+      return concreteImplementation(`block`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `escapingTrivialClosure(block:)`
+
+  public func escapingTrivialClosure(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Stubbable<(@escaping () -> Void) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "escapingTrivialClosure(block:) -> Bool", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(@escaping () -> Void) -> Bool, Bool>()
+  }
+
+  // MARK: Verifiable `escapingTrivialClosure(block:)`
+
+  public func escapingTrivialClosure(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "escapingTrivialClosure(block:) -> Bool", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  // MARK: Mockable `escapingTrivialReturningVoidClosure(block:)`
+
+  public func escapingTrivialReturningVoidClosure(block: @escaping () -> Bool) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "escapingTrivialReturningVoidClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (@escaping () -> Bool) -> Bool {
+      return concreteImplementation(`block`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `escapingTrivialReturningVoidClosure(block:)`
+
+  public func escapingTrivialReturningVoidClosure(block: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.Stubbable<(@escaping () -> Bool) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "escapingTrivialReturningVoidClosure(block:) -> Bool", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(@escaping () -> Bool) -> Bool, Bool>()
+  }
+
+  // MARK: Verifiable `escapingTrivialReturningVoidClosure(block:)`
+
+  public func escapingTrivialReturningVoidClosure(block: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "escapingTrivialReturningVoidClosure(block:) -> Bool", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  // MARK: Mockable `parameterizedClosure(block:)`
+
+  public func parameterizedClosure(block: (Bool) -> Void) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(nil)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? ((Bool) -> Void) -> Bool {
+      return concreteImplementation(`block`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `parameterizedClosure(block:)`
+
+  public func parameterizedClosure(block: @escaping @autoclosure () -> (Bool) -> Void) -> Mockingbird.Stubbable<((Bool) -> Void) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedClosure(block:) -> Bool", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<((Bool) -> Void) -> Bool, Bool>()
+  }
+
+  // MARK: Verifiable `parameterizedClosure(block:)`
+
+  public func parameterizedClosure(block: @escaping @autoclosure () -> (Bool) -> Void) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedClosure(block:) -> Bool", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  // MARK: Mockable `parameterizedReturningClosure(block:)`
+
+  public func parameterizedReturningClosure(block: (Bool) -> Bool) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedReturningClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(nil)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? ((Bool) -> Bool) -> Bool {
+      return concreteImplementation(`block`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `parameterizedReturningClosure(block:)`
+
+  public func parameterizedReturningClosure(block: @escaping @autoclosure () -> (Bool) -> Bool) -> Mockingbird.Stubbable<((Bool) -> Bool) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedReturningClosure(block:) -> Bool", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<((Bool) -> Bool) -> Bool, Bool>()
+  }
+
+  // MARK: Verifiable `parameterizedReturningClosure(block:)`
+
+  public func parameterizedReturningClosure(block: @escaping @autoclosure () -> (Bool) -> Bool) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "parameterizedReturningClosure(block:) -> Bool", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  // MARK: Mockable `trivialClosure(block:)`
+
+  public func trivialClosure(block: () -> Void) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "trivialClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(nil)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (() -> Void) -> Bool {
+      return concreteImplementation(`block`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `trivialClosure(block:)`
+
+  public func trivialClosure(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Stubbable<(() -> Void) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "trivialClosure(block:) -> Bool", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(() -> Void) -> Bool, Bool>()
+  }
+
+  // MARK: Verifiable `trivialClosure(block:)`
+
+  public func trivialClosure(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "trivialClosure(block:) -> Bool", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  // MARK: Mockable `trivialReturningClosure(block:)`
+
+  public func trivialReturningClosure(block: () -> Bool) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "trivialReturningClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(nil)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (() -> Bool) -> Bool {
+      return concreteImplementation(`block`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `trivialReturningClosure(block:)`
+
+  public func trivialReturningClosure(block: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.Stubbable<(() -> Bool) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "trivialReturningClosure(block:) -> Bool", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<(() -> Bool) -> Bool, Bool>()
+  }
+
+  // MARK: Verifiable `trivialReturningClosure(block:)`
+
+  public func trivialReturningClosure(block: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`block`)]
+    let invocation = Mockingbird.Invocation(selectorName: "trivialReturningClosure(block:) -> Bool", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+}
+
 // MARK: - Mocked ConvenienceInitializerClass
 
 public final class ConvenienceInitializerClassMock: MockingbirdTestsHost.ConvenienceInitializerClass, Mockingbird.Mock {

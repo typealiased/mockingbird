@@ -29,7 +29,8 @@ extension MethodParameter {
   
   var invocationName: String {
     let inoutAttribute = attributes.contains(.inout) ? "&" : ""
-    return "\(inoutAttribute)`\(name)`"
+    let autoclosureForwarding = isAutoclosure ? "()" : ""
+    return "\(inoutAttribute)`\(name)`\(autoclosureForwarding)"
   }
   
   func matchableTypeName(in context: MockableType, unwrapOptional: Bool = false) -> String {

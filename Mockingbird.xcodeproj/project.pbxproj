@@ -55,6 +55,10 @@
 		4951272523166409002F0E78 /* UndefinedArgumentLabelsMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4951272423166409002F0E78 /* UndefinedArgumentLabelsMockableTests.swift */; };
 		4951272723166499002F0E78 /* UndefinedArgumentLabelsStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4951272623166499002F0E78 /* UndefinedArgumentLabelsStubbableTests.swift */; };
 		49512729231664EF002F0E78 /* UndefinedArgumentLabelsVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49512728231664EF002F0E78 /* UndefinedArgumentLabelsVerifiableTests.swift */; };
+		4951272B23166A23002F0E78 /* ClosureParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4951272A23166A23002F0E78 /* ClosureParameters.swift */; };
+		4951272F23166C42002F0E78 /* ClosureParametersMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4951272E23166C42002F0E78 /* ClosureParametersMockableTests.swift */; };
+		4951273123166D42002F0E78 /* ClosureParametersStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4951273023166D42002F0E78 /* ClosureParametersStubbableTests.swift */; };
+		4951273323166F44002F0E78 /* ClosureParametersVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4951273223166F44002F0E78 /* ClosureParametersVerifiableTests.swift */; };
 		49606F1A2313B3B5003C1969 /* OverloadedMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49606F192313B3B5003C1969 /* OverloadedMethods.swift */; };
 		49606F1C2313B43D003C1969 /* OverloadedMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49606F1B2313B43D003C1969 /* OverloadedMethodTests.swift */; };
 		497A72232315CD9900607C2B /* ScopedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A72222315CD9900607C2B /* ScopedTypes.swift */; };
@@ -710,6 +714,10 @@
 		4951272423166409002F0E78 /* UndefinedArgumentLabelsMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndefinedArgumentLabelsMockableTests.swift; sourceTree = "<group>"; };
 		4951272623166499002F0E78 /* UndefinedArgumentLabelsStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndefinedArgumentLabelsStubbableTests.swift; sourceTree = "<group>"; };
 		49512728231664EF002F0E78 /* UndefinedArgumentLabelsVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndefinedArgumentLabelsVerifiableTests.swift; sourceTree = "<group>"; };
+		4951272A23166A23002F0E78 /* ClosureParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureParameters.swift; sourceTree = "<group>"; };
+		4951272E23166C42002F0E78 /* ClosureParametersMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureParametersMockableTests.swift; sourceTree = "<group>"; };
+		4951273023166D42002F0E78 /* ClosureParametersStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureParametersStubbableTests.swift; sourceTree = "<group>"; };
+		4951273223166F44002F0E78 /* ClosureParametersVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureParametersVerifiableTests.swift; sourceTree = "<group>"; };
 		49606F192313B3B5003C1969 /* OverloadedMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverloadedMethods.swift; sourceTree = "<group>"; };
 		49606F1B2313B43D003C1969 /* OverloadedMethodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverloadedMethodTests.swift; sourceTree = "<group>"; };
 		497A72222315CD9900607C2B /* ScopedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedTypes.swift; sourceTree = "<group>"; };
@@ -2225,6 +2233,7 @@
 				OBJ_79 /* Child.swift */,
 				OBJ_80 /* ChildProtocol.swift */,
 				49B4F33023130AD7002106EB /* ClassInitializers.swift */,
+				4951272A23166A23002F0E78 /* ClosureParameters.swift */,
 				OBJ_81 /* Extensions.swift */,
 				OBJ_82 /* Generics.swift */,
 				OBJ_83 /* Grandparent.swift */,
@@ -2299,6 +2308,9 @@
 				OBJ_103 /* ChildProtocolMockMockableTests.swift */,
 				OBJ_104 /* ChildProtocolMockStubbableTests.swift */,
 				OBJ_105 /* ChildProtocolMockVerifiableTests.swift */,
+				4951272E23166C42002F0E78 /* ClosureParametersMockableTests.swift */,
+				4951273023166D42002F0E78 /* ClosureParametersStubbableTests.swift */,
+				4951273223166F44002F0E78 /* ClosureParametersVerifiableTests.swift */,
 				OBJ_106 /* ExtensionsMockableTests.swift */,
 				OBJ_107 /* ExtensionsStubbableTests.swift */,
 				OBJ_108 /* ExtensionsVerifiableTests.swift */,
@@ -3097,6 +3109,7 @@
 				OBJ_703 /* ChildProtocolMockStubbableTests.swift in Sources */,
 				497A72332315EB3A00607C2B /* ScopedTypesStubbableTests.swift in Sources */,
 				OBJ_704 /* ChildProtocolMockVerifiableTests.swift in Sources */,
+				4951272F23166C42002F0E78 /* ClosureParametersMockableTests.swift in Sources */,
 				OBJ_705 /* ExtensionsMockableTests.swift in Sources */,
 				497A72312315E8D200607C2B /* ScopedTypesMockableTests.swift in Sources */,
 				OBJ_706 /* ExtensionsStubbableTests.swift in Sources */,
@@ -3107,6 +3120,8 @@
 				497F7E3023162ED300675D98 /* ScopedTypesVerifiableTests.swift in Sources */,
 				OBJ_711 /* InoutParametersMockableTests.swift in Sources */,
 				49124C4323132E1E008C8CE0 /* ArgumentCaptorTests.swift in Sources */,
+				4951273323166F44002F0E78 /* ClosureParametersVerifiableTests.swift in Sources */,
+				4951273123166D42002F0E78 /* ClosureParametersStubbableTests.swift in Sources */,
 				OBJ_712 /* InoutParametersStubbableTests.swift in Sources */,
 				OBJ_713 /* InoutParametersVerifiableTests.swift in Sources */,
 				49606F1C2313B43D003C1969 /* OverloadedMethodTests.swift in Sources */,
@@ -3135,6 +3150,7 @@
 				497A72252315E05A00607C2B /* Variables.swift in Sources */,
 				49B4F33123130AD7002106EB /* ClassInitializers.swift in Sources */,
 				OBJ_737 /* InoutParameters.swift in Sources */,
+				4951272B23166A23002F0E78 /* ClosureParameters.swift in Sources */,
 				OBJ_738 /* ModuleImportCases.swift in Sources */,
 				OBJ_739 /* Parent.swift in Sources */,
 				OBJ_740 /* ParentProtocol.swift in Sources */,
