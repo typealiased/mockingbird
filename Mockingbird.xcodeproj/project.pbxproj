@@ -55,10 +55,9 @@
 		49606F1C2313B43D003C1969 /* OverloadedMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49606F1B2313B43D003C1969 /* OverloadedMethodTests.swift */; };
 		497A72232315CD9900607C2B /* ScopedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A72222315CD9900607C2B /* ScopedTypes.swift */; };
 		497A72252315E05A00607C2B /* Variables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A72242315E05A00607C2B /* Variables.swift */; };
-		497A72272315E12300607C2B /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A72262315E12300607C2B /* Statics.swift */; };
-		497A722B2315E24F00607C2B /* StaticsMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A722A2315E24F00607C2B /* StaticsMockableTests.swift */; };
-		497A722D2315E33500607C2B /* StaticsStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A722C2315E33500607C2B /* StaticsStubbableTests.swift */; };
-		497A722F2315E3FA00607C2B /* StaticsVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A722E2315E3FA00607C2B /* StaticsVerifiableTests.swift */; };
+		497A72312315E8D200607C2B /* ScopedTypesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A72302315E8D200607C2B /* ScopedTypesMockableTests.swift */; };
+		497A72332315EB3A00607C2B /* ScopedTypesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A72322315EB3A00607C2B /* ScopedTypesStubbableTests.swift */; };
+		497F7E3023162ED300675D98 /* ScopedTypesVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497F7E2E23162EB300675D98 /* ScopedTypesVerifiableTests.swift */; };
 		49B4F32F231309C6002106EB /* ProtocolInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4F32E231309C6002106EB /* ProtocolInitializers.swift */; };
 		49B4F33123130AD7002106EB /* ClassInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4F33023130AD7002106EB /* ClassInitializers.swift */; };
 		OBJ_1000 /* XCWorkspaceDataGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_420 /* XCWorkspaceDataGroup.swift */; };
@@ -707,10 +706,9 @@
 		49606F1B2313B43D003C1969 /* OverloadedMethodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverloadedMethodTests.swift; sourceTree = "<group>"; };
 		497A72222315CD9900607C2B /* ScopedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedTypes.swift; sourceTree = "<group>"; };
 		497A72242315E05A00607C2B /* Variables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Variables.swift; sourceTree = "<group>"; };
-		497A72262315E12300607C2B /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
-		497A722A2315E24F00607C2B /* StaticsMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticsMockableTests.swift; sourceTree = "<group>"; };
-		497A722C2315E33500607C2B /* StaticsStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticsStubbableTests.swift; sourceTree = "<group>"; };
-		497A722E2315E3FA00607C2B /* StaticsVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticsVerifiableTests.swift; sourceTree = "<group>"; };
+		497A72302315E8D200607C2B /* ScopedTypesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedTypesMockableTests.swift; sourceTree = "<group>"; };
+		497A72322315EB3A00607C2B /* ScopedTypesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedTypesStubbableTests.swift; sourceTree = "<group>"; };
+		497F7E2E23162EB300675D98 /* ScopedTypesVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedTypesVerifiableTests.swift; sourceTree = "<group>"; };
 		49B4F32E231309C6002106EB /* ProtocolInitializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolInitializers.swift; sourceTree = "<group>"; };
 		49B4F33023130AD7002106EB /* ClassInitializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassInitializers.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2232,7 +2230,6 @@
 				49B4F32E231309C6002106EB /* ProtocolInitializers.swift */,
 				497A72222315CD9900607C2B /* ScopedTypes.swift */,
 				497A72242315E05A00607C2B /* Variables.swift */,
-				497A72262315E12300607C2B /* Statics.swift */,
 				OBJ_89 /* VariadicParameters.swift */,
 			);
 			path = MockingbirdTestsHost;
@@ -2302,9 +2299,9 @@
 				OBJ_112 /* InoutParametersMockableTests.swift */,
 				OBJ_113 /* InoutParametersStubbableTests.swift */,
 				OBJ_114 /* InoutParametersVerifiableTests.swift */,
-				497A722A2315E24F00607C2B /* StaticsMockableTests.swift */,
-				497A722C2315E33500607C2B /* StaticsStubbableTests.swift */,
-				497A722E2315E3FA00607C2B /* StaticsVerifiableTests.swift */,
+				497A72302315E8D200607C2B /* ScopedTypesMockableTests.swift */,
+				497A72322315EB3A00607C2B /* ScopedTypesStubbableTests.swift */,
+				497F7E2E23162EB300675D98 /* ScopedTypesVerifiableTests.swift */,
 				OBJ_115 /* VariadicParametersMockableTests.swift */,
 				OBJ_116 /* VariadicParametersStubbableTests.swift */,
 				OBJ_117 /* VariadicParametersVerifiableTests.swift */,
@@ -3075,7 +3072,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				497A722D2315E33500607C2B /* StaticsStubbableTests.swift in Sources */,
 				OBJ_694 /* ArgumentMatchingTests.swift in Sources */,
 				OBJ_695 /* AsyncVerificationTests.swift in Sources */,
 				OBJ_696 /* LastSetValueStubTests.swift in Sources */,
@@ -3086,18 +3082,19 @@
 				OBJ_701 /* ChildMockVerifiableTests.swift in Sources */,
 				OBJ_702 /* ChildProtocolMockMockableTests.swift in Sources */,
 				OBJ_703 /* ChildProtocolMockStubbableTests.swift in Sources */,
+				497A72332315EB3A00607C2B /* ScopedTypesStubbableTests.swift in Sources */,
 				OBJ_704 /* ChildProtocolMockVerifiableTests.swift in Sources */,
 				OBJ_705 /* ExtensionsMockableTests.swift in Sources */,
-				497A722B2315E24F00607C2B /* StaticsMockableTests.swift in Sources */,
+				497A72312315E8D200607C2B /* ScopedTypesMockableTests.swift in Sources */,
 				OBJ_706 /* ExtensionsStubbableTests.swift in Sources */,
 				OBJ_707 /* ExtensionsVerifiableTests.swift in Sources */,
 				OBJ_708 /* GenericsMockableTests.swift in Sources */,
 				OBJ_709 /* GenericsStubbableTests.swift in Sources */,
 				OBJ_710 /* GenericsVerifiableTests.swift in Sources */,
+				497F7E3023162ED300675D98 /* ScopedTypesVerifiableTests.swift in Sources */,
 				OBJ_711 /* InoutParametersMockableTests.swift in Sources */,
 				49124C4323132E1E008C8CE0 /* ArgumentCaptorTests.swift in Sources */,
 				OBJ_712 /* InoutParametersStubbableTests.swift in Sources */,
-				497A722F2315E3FA00607C2B /* StaticsVerifiableTests.swift in Sources */,
 				OBJ_713 /* InoutParametersVerifiableTests.swift in Sources */,
 				49606F1C2313B43D003C1969 /* OverloadedMethodTests.swift in Sources */,
 				OBJ_714 /* VariadicParametersMockableTests.swift in Sources */,
@@ -3118,7 +3115,6 @@
 				OBJ_733 /* Extensions.swift in Sources */,
 				OBJ_734 /* Generics.swift in Sources */,
 				OBJ_735 /* Grandparent.swift in Sources */,
-				497A72272315E12300607C2B /* Statics.swift in Sources */,
 				OBJ_736 /* GrandparentProtocol.swift in Sources */,
 				497A72252315E05A00607C2B /* Variables.swift in Sources */,
 				49B4F33123130AD7002106EB /* ClassInitializers.swift in Sources */,

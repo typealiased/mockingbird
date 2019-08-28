@@ -9,10 +9,17 @@ import Foundation
 
 class TopLevelType {
   class SecondLevelType {
-    class ThirdLevelType {
-      func thirdLevelMethod() -> Bool { return true }
+    class ThirdLevelInheritingTopLevelType: TopLevelType {
+      func thirdLevelInheritingMethod() -> Bool { return true }
     }
-    func secondLevelMethod(param: ThirdLevelType) -> Bool { return true }
+    class ThirdLevelInheritingThirdLevelType: ThirdLevelType {
+      func thirdLevelInheritingMethod() -> Bool { return true }
+    }
+    class ThirdLevelType {
+      func thirdLevelMethod(param1: TopLevelType, param2: SecondLevelType) -> Bool { return true }
+    }
+    
+    func secondLevelMethod(param1: TopLevelType, param2: ThirdLevelType) -> Bool { return true }
   }
   func topLevelMethod(param1: SecondLevelType, param2: SecondLevelType.ThirdLevelType) -> Bool {
     return true

@@ -20,9 +20,9 @@ struct MockableType: Hashable, Comparable {
   let inheritedTypes: Set<MockableType>
   let genericTypes: [GenericType]
   let genericConstraints: [String]
-  private(set) var shouldMock: Bool // Setter used for cloning `MockableType` objects.
+  let shouldMock: Bool
   let attributes: Attributes
-  private(set) var containedTypes = [MockableType]()
+  var containedTypes = [MockableType]()
   let isContainedType: Bool
   
   private let sortableIdentifier: String
@@ -34,10 +34,10 @@ struct MockableType: Hashable, Comparable {
   ///
   /// - Parameters:
   ///   - rawTypes: A set of partial `RawType` objects that should include the base declaration.
-  ///   - mockableTypes: All currently known `MockableType` objects used for inheritence flattening.
+  ///   - mockableTypes: All currently known `MockableType` objects used for inheritance flattening.
   init?(from rawTypes: [RawType],
         mockableTypes: [String: MockableType],
-        isContainedType: Bool = false) {
+        containingTypeNames: [String] = []) {
     guard let baseRawType = rawTypes.first(where: { $0.kind.isMockable }),
       let substructure = baseRawType.dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary],
       let accessLevel = AccessLevel(from: baseRawType.dictionary), accessLevel.isMockable
@@ -51,6 +51,8 @@ struct MockableType: Hashable, Comparable {
     self.name = baseRawType.name
     self.moduleName = baseRawType.parsedFile.moduleName
     self.kind = baseRawType.kind
+    self.isContainedType = !containingTypeNames.isEmpty
+    
     var methods = Set<Method>()
     var variables = Set<Variable>()
     var inheritedTypes = Set<MockableType>()
@@ -73,7 +75,10 @@ struct MockableType: Hashable, Comparable {
       .flatMap({ $0 })
     for type in rawInheritedTypes {
       guard let typeName = type[SwiftDocKey.name.rawValue] as? String,
-        let mockableType = mockableTypes[typeName] else { continue }
+        let mockableType = MockableType.nearestInheritedType(with: typeName,
+                                                             in: mockableTypes,
+                                                             containingTypeNames: containingTypeNames[...])
+        else { continue }
       methods = methods.union(mockableType.methods)
       variables = variables.union(mockableType.variables)
       inheritedTypes = inheritedTypes.union([mockableType] + mockableType.inheritedTypes)
@@ -114,21 +119,31 @@ struct MockableType: Hashable, Comparable {
     } else {
       self.sortableIdentifier = name
     }
-    
-    // Contained types can inherit from their containing types!
-    self.isContainedType = isContainedType
-    var attributedMockableTypes = mockableTypes
-    attributedMockableTypes[self.name] = self
-    self.containedTypes = rawTypes
-      .flatMap({ $0.containedTypes })
-      .compactMap({ MockableType(from: [$0],
-                                 mockableTypes: attributedMockableTypes,
-                                 isContainedType: true) })
   }
   
-  static func clone(_ other: MockableType, shouldMock: Bool) -> MockableType {
-    var clone = other
-    clone.shouldMock = shouldMock
-    return clone
+  /// Contained types can shadow higher level type names, so inheritance requires some inference.
+  /// Type inference starts from the deepest level and works outwards.
+  /*
+   class SecondLevelType {}
+   class TopLevelType {
+     class SecondLevelType {
+       class ThirdLevelType: SecondLevelType {} // Inherits from the contained `SecondLevelType`
+     }
+   }
+   */
+  private static func nearestInheritedType(with name: String,
+                                           in mockableTypes: [String: MockableType],
+                                           containingTypeNames: ArraySlice<String>) -> MockableType? {
+    // Base case, just check directly if `mockableTypes` contains an entry for `name`.
+    guard !containingTypeNames.isEmpty else { return mockableTypes[name] }
+    
+    // Create a fully qualified name and use it to check `mockableTypes`.
+    let fullyQualifiedName = (containingTypeNames + [name]).joined(separator: ".")
+    if let mockableType = mockableTypes[fullyQualifiedName] { return mockableType }
+    
+    let typeNames = containingTypeNames[0..<(containingTypeNames.count-1)]
+    return MockableType.nearestInheritedType(with: name,
+                                             in: mockableTypes,
+                                             containingTypeNames: typeNames)
   }
 }
