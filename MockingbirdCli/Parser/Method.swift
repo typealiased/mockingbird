@@ -16,12 +16,15 @@ struct MethodParameter: Hashable {
   let kind: SwiftDeclarationKind
   let attributes: Attributes
   
-  init?(from dictionary: StructureDictionary, argumentLabel: String?, rawDeclaration: Substring?) {
+  init?(from dictionary: StructureDictionary,
+        argumentLabel: String?,
+        parameterIndex: Int,
+        rawDeclaration: Substring?) {
     guard let kind = SwiftDeclarationKind(from: dictionary), kind == .varParameter,
-      let name = dictionary[SwiftDocKey.name.rawValue] as? String,
       let rawTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String
       else { return nil }
-    self.name = name
+    // It's possible for protocols to define parameters with only the argument label and no name.
+    self.name = dictionary[SwiftDocKey.name.rawValue] as? String ?? "param\(parameterIndex+1)"
     self.kind = kind
     self.argumentLabel = argumentLabel
     var typeName = rawTypeName
@@ -151,6 +154,7 @@ struct Method: Hashable, Comparable {
         let rawDeclaration = rawDeclarations?.get(parameterIndex)
         guard let parameter = MethodParameter(from: $0,
                                               argumentLabel: labels[parameterIndex],
+                                              parameterIndex: parameterIndex,
                                               rawDeclaration: rawDeclaration)
           else { return nil }
         parameterIndex += 1
