@@ -293,7 +293,7 @@ class MethodGenerator {
   lazy var resolvedArgumentMatchers: String = {
     let resolved = method.parameters.map({
       let matchableTypeName = $0.matchableTypeName(in: context, unwrapOptional: true)
-      return "resolve(`\($0.name)`)"
+      return "Mockingbird.resolve(`\($0.name)`)"
     }).joined(separator: ", ")
     return "    let arguments = [\(resolved)]"
   }()
@@ -302,7 +302,7 @@ class MethodGenerator {
   lazy var resolvedArgumentMatchersVariadics: String = {
     let resolved = method.parameters.map({
       let matchableTypeName = $0.matchableTypeName(in: context, unwrapOptional: true)
-      guard $0.attributes.contains(.variadic) else { return "resolve(`\($0.name)`)" }
+      guard $0.attributes.contains(.variadic) else { return "Mockingbird.resolve(`\($0.name)`)" }
       // Directly create an ArgumentMatcher if this parameter is variadic.
       return "Mockingbird.ArgumentMatcher(`\($0.name)`)"
     }).joined(separator: ", ")

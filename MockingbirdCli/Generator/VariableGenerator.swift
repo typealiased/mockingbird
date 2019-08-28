@@ -77,7 +77,7 @@ class VariableGenerator {
       }
     
       public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Stubbable<\(setterInvocationType), Void> {
-        let arguments = [resolve(newValue)]
+        let arguments = [Mockingbird.resolve(newValue)]
         let invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments)
         if let stub = DispatchQueue.currentStub { \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation) }
         return Mockingbird.Stubbable<\(setterInvocationType), Void>()
@@ -100,7 +100,7 @@ class VariableGenerator {
       }
     
       public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Mockable<Void> {
-        let arguments = [resolve(newValue)]
+        let arguments = [Mockingbird.resolve(newValue)]
         let invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments)
         if let expectation = DispatchQueue.currentExpectation { expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation) }
         return Mockingbird.Mockable<Void>()

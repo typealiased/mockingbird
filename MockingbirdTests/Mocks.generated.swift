@@ -91,7 +91,7 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
   // MARK: Stubbable `method(optionalStructType:optionalClassType:optionalEnumType:optionalStringType:optionalBoolType:optionalMetaType:optionalAnyType:optionalAnyObjectType:)`
 
   public func method(optionalStructType: @escaping @autoclosure () -> StructType?, optionalClassType: @escaping @autoclosure () -> ClassType?, optionalEnumType: @escaping @autoclosure () -> EnumType?, optionalStringType: @escaping @autoclosure () -> String?, optionalBoolType: @escaping @autoclosure () -> Bool?, optionalMetaType: @escaping @autoclosure () -> ClassType.Type?, optionalAnyType: @escaping @autoclosure () -> Any?, optionalAnyObjectType: @escaping @autoclosure () -> AnyObject?) -> Mockingbird.Stubbable<(StructType?, ClassType?, EnumType?, String?, Bool?, ClassType.Type?, Any?, AnyObject?) -> Bool, Bool> {
-    let arguments = [resolve(`optionalStructType`), resolve(`optionalClassType`), resolve(`optionalEnumType`), resolve(`optionalStringType`), resolve(`optionalBoolType`), resolve(`optionalMetaType`), resolve(`optionalAnyType`), resolve(`optionalAnyObjectType`)]
+    let arguments = [Mockingbird.resolve(`optionalStructType`), Mockingbird.resolve(`optionalClassType`), Mockingbird.resolve(`optionalEnumType`), Mockingbird.resolve(`optionalStringType`), Mockingbird.resolve(`optionalBoolType`), Mockingbird.resolve(`optionalMetaType`), Mockingbird.resolve(`optionalAnyType`), Mockingbird.resolve(`optionalAnyObjectType`)]
     let invocation = Mockingbird.Invocation(selectorName: "method(optionalStructType:optionalClassType:optionalEnumType:optionalStringType:optionalBoolType:optionalMetaType:optionalAnyType:optionalAnyObjectType:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(StructType?, ClassType?, EnumType?, String?, Bool?, ClassType.Type?, Any?, AnyObject?) -> Bool, Bool>()
@@ -100,7 +100,7 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
   // MARK: Verifiable `method(optionalStructType:optionalClassType:optionalEnumType:optionalStringType:optionalBoolType:optionalMetaType:optionalAnyType:optionalAnyObjectType:)`
 
   public func method(optionalStructType: @escaping @autoclosure () -> StructType?, optionalClassType: @escaping @autoclosure () -> ClassType?, optionalEnumType: @escaping @autoclosure () -> EnumType?, optionalStringType: @escaping @autoclosure () -> String?, optionalBoolType: @escaping @autoclosure () -> Bool?, optionalMetaType: @escaping @autoclosure () -> ClassType.Type?, optionalAnyType: @escaping @autoclosure () -> Any?, optionalAnyObjectType: @escaping @autoclosure () -> AnyObject?) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`optionalStructType`), resolve(`optionalClassType`), resolve(`optionalEnumType`), resolve(`optionalStringType`), resolve(`optionalBoolType`), resolve(`optionalMetaType`), resolve(`optionalAnyType`), resolve(`optionalAnyObjectType`)]
+    let arguments = [Mockingbird.resolve(`optionalStructType`), Mockingbird.resolve(`optionalClassType`), Mockingbird.resolve(`optionalEnumType`), Mockingbird.resolve(`optionalStringType`), Mockingbird.resolve(`optionalBoolType`), Mockingbird.resolve(`optionalMetaType`), Mockingbird.resolve(`optionalAnyType`), Mockingbird.resolve(`optionalAnyObjectType`)]
     let invocation = Mockingbird.Invocation(selectorName: "method(optionalStructType:optionalClassType:optionalEnumType:optionalStringType:optionalBoolType:optionalMetaType:optionalAnyType:optionalAnyObjectType:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -122,7 +122,7 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
   // MARK: Stubbable `method(structType:classType:enumType:stringType:boolType:metaType:anyType:anyObjectType:)`
 
   public func method(structType: @escaping @autoclosure () -> StructType, classType: @escaping @autoclosure () -> ClassType, enumType: @escaping @autoclosure () -> EnumType, stringType: @escaping @autoclosure () -> String, boolType: @escaping @autoclosure () -> Bool, metaType: @escaping @autoclosure () -> ClassType.Type, anyType: @escaping @autoclosure () -> Any, anyObjectType: @escaping @autoclosure () -> AnyObject) -> Mockingbird.Stubbable<(StructType, ClassType, EnumType, String, Bool, ClassType.Type, Any, AnyObject) -> Bool, Bool> {
-    let arguments = [resolve(`structType`), resolve(`classType`), resolve(`enumType`), resolve(`stringType`), resolve(`boolType`), resolve(`metaType`), resolve(`anyType`), resolve(`anyObjectType`)]
+    let arguments = [Mockingbird.resolve(`structType`), Mockingbird.resolve(`classType`), Mockingbird.resolve(`enumType`), Mockingbird.resolve(`stringType`), Mockingbird.resolve(`boolType`), Mockingbird.resolve(`metaType`), Mockingbird.resolve(`anyType`), Mockingbird.resolve(`anyObjectType`)]
     let invocation = Mockingbird.Invocation(selectorName: "method(structType:classType:enumType:stringType:boolType:metaType:anyType:anyObjectType:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(StructType, ClassType, EnumType, String, Bool, ClassType.Type, Any, AnyObject) -> Bool, Bool>()
@@ -131,7 +131,7 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
   // MARK: Verifiable `method(structType:classType:enumType:stringType:boolType:metaType:anyType:anyObjectType:)`
 
   public func method(structType: @escaping @autoclosure () -> StructType, classType: @escaping @autoclosure () -> ClassType, enumType: @escaping @autoclosure () -> EnumType, stringType: @escaping @autoclosure () -> String, boolType: @escaping @autoclosure () -> Bool, metaType: @escaping @autoclosure () -> ClassType.Type, anyType: @escaping @autoclosure () -> Any, anyObjectType: @escaping @autoclosure () -> AnyObject) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`structType`), resolve(`classType`), resolve(`enumType`), resolve(`stringType`), resolve(`boolType`), resolve(`metaType`), resolve(`anyType`), resolve(`anyObjectType`)]
+    let arguments = [Mockingbird.resolve(`structType`), Mockingbird.resolve(`classType`), Mockingbird.resolve(`enumType`), Mockingbird.resolve(`stringType`), Mockingbird.resolve(`boolType`), Mockingbird.resolve(`metaType`), Mockingbird.resolve(`anyType`), Mockingbird.resolve(`anyObjectType`)]
     let invocation = Mockingbird.Invocation(selectorName: "method(structType:classType:enumType:stringType:boolType:metaType:anyType:anyObjectType:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -190,7 +190,7 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
   // MARK: Stubbable `methodUsingEquatableType(equatable:)`
 
   public func methodUsingEquatableType(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Stubbable<(EquatableType) -> Void, Void> {
-    let arguments = [resolve(`equatable`)]
+    let arguments = [Mockingbird.resolve(`equatable`)]
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableType(equatable:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(EquatableType) -> Void, Void>()
@@ -199,7 +199,7 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
   // MARK: Verifiable `methodUsingEquatableType(equatable:)`
 
   public func methodUsingEquatableType(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(`equatable`)]
+    let arguments = [Mockingbird.resolve(`equatable`)]
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableType(equatable:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -221,7 +221,7 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
   // MARK: Stubbable `methodUsingEquatableTypeWithReturn(equatable:)`
 
   public func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Stubbable<(EquatableType) -> EquatableType, EquatableType> {
-    let arguments = [resolve(`equatable`)]
+    let arguments = [Mockingbird.resolve(`equatable`)]
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable:) -> EquatableType", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(EquatableType) -> EquatableType, EquatableType>()
@@ -230,7 +230,7 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
   // MARK: Verifiable `methodUsingEquatableTypeWithReturn(equatable:)`
 
   public func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<EquatableType> {
-    let arguments = [resolve(`equatable`)]
+    let arguments = [Mockingbird.resolve(`equatable`)]
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable:) -> EquatableType", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<EquatableType>()
@@ -252,7 +252,7 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
   // MARK: Stubbable `methodUsingHashableType(hashable:)`
 
   public func methodUsingHashableType(hashable: @escaping @autoclosure () -> HashableType) -> Mockingbird.Stubbable<(HashableType) -> Void, Void> {
-    let arguments = [resolve(`hashable`)]
+    let arguments = [Mockingbird.resolve(`hashable`)]
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingHashableType(hashable:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(HashableType) -> Void, Void>()
@@ -261,7 +261,7 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
   // MARK: Verifiable `methodUsingHashableType(hashable:)`
 
   public func methodUsingHashableType(hashable: @escaping @autoclosure () -> HashableType) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(`hashable`)]
+    let arguments = [Mockingbird.resolve(`hashable`)]
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingHashableType(hashable:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -310,7 +310,7 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
   // MARK: Stubbable `request(object:)`
 
   public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Stubbable<(T) -> T.HashableType, T.HashableType> where T.EquatableType == Bool, T.HashableType == String {
-    let arguments = [resolve(`object`)]
+    let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(T) -> T.HashableType, T.HashableType>()
@@ -319,7 +319,7 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
   // MARK: Verifiable `request(object:)`
 
   public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<T.HashableType> where T.EquatableType == Bool, T.HashableType == String {
-    let arguments = [resolve(`object`)]
+    let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<T.HashableType>()
@@ -341,7 +341,7 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
   // MARK: Stubbable `request(object:)`
 
   public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Stubbable<(T) -> T.HashableType, T.HashableType> where T.EquatableType == Int, T.HashableType == String {
-    let arguments = [resolve(`object`)]
+    let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(T) -> T.HashableType, T.HashableType>()
@@ -350,7 +350,7 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
   // MARK: Verifiable `request(object:)`
 
   public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<T.HashableType> where T.EquatableType == Int, T.HashableType == String {
-    let arguments = [resolve(`object`)]
+    let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<T.HashableType>()
@@ -372,7 +372,7 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
   // MARK: Stubbable `request(object:)`
 
   public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Stubbable<(T) -> Void, Void> where T.EquatableType == Int, T.HashableType == String {
-    let arguments = [resolve(`object`)]
+    let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(T) -> Void, Void>()
@@ -381,7 +381,7 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
   // MARK: Verifiable `request(object:)`
 
   public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Void> where T.EquatableType == Int, T.HashableType == String {
-    let arguments = [resolve(`object`)]
+    let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -431,7 +431,7 @@ public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.Associate
   // MARK: Stubbable `request(object:)`
 
   public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Stubbable<(T) -> Void, Void> where T.EquatableType == Int, T.HashableType == String {
-    let arguments = [resolve(`object`)]
+    let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(T) -> Void, Void>()
@@ -440,7 +440,7 @@ public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.Associate
   // MARK: Verifiable `request(object:)`
 
   public func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Void> where T.EquatableType == Int, T.HashableType == String {
-    let arguments = [resolve(`object`)]
+    let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -498,7 +498,7 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
   // MARK: Stubbable `methodUsingEquatableType(equatable:)`
 
   public func methodUsingEquatableType(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Stubbable<(EquatableType) -> Void, Void> {
-    let arguments = [resolve(`equatable`)]
+    let arguments = [Mockingbird.resolve(`equatable`)]
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableType(equatable:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(EquatableType) -> Void, Void>()
@@ -507,7 +507,7 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
   // MARK: Verifiable `methodUsingEquatableType(equatable:)`
 
   public func methodUsingEquatableType(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(`equatable`)]
+    let arguments = [Mockingbird.resolve(`equatable`)]
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableType(equatable:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -529,7 +529,7 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
   // MARK: Stubbable `methodUsingEquatableTypeWithReturn(equatable:)`
 
   public func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Stubbable<(EquatableType) -> EquatableType, EquatableType> {
-    let arguments = [resolve(`equatable`)]
+    let arguments = [Mockingbird.resolve(`equatable`)]
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable:) -> EquatableType", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(EquatableType) -> EquatableType, EquatableType>()
@@ -538,7 +538,7 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
   // MARK: Verifiable `methodUsingEquatableTypeWithReturn(equatable:)`
 
   public func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<EquatableType> {
-    let arguments = [resolve(`equatable`)]
+    let arguments = [Mockingbird.resolve(`equatable`)]
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable:) -> EquatableType", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<EquatableType>()
@@ -560,7 +560,7 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
   // MARK: Stubbable `methodUsingHashableType(hashable:)`
 
   public func methodUsingHashableType(hashable: @escaping @autoclosure () -> HashableType) -> Mockingbird.Stubbable<(HashableType) -> Void, Void> {
-    let arguments = [resolve(`hashable`)]
+    let arguments = [Mockingbird.resolve(`hashable`)]
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingHashableType(hashable:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(HashableType) -> Void, Void>()
@@ -569,7 +569,7 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
   // MARK: Verifiable `methodUsingHashableType(hashable:)`
 
   public func methodUsingHashableType(hashable: @escaping @autoclosure () -> HashableType) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(`hashable`)]
+    let arguments = [Mockingbird.resolve(`hashable`)]
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingHashableType(hashable:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -620,7 +620,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public func setChildInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -635,7 +635,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public func setChildInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -670,7 +670,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public func setChildPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -685,7 +685,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public func setChildPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -720,7 +720,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public class func setChildPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterStaticVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -735,7 +735,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public class func setChildPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterStaticVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -770,7 +770,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public class func setChildStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childStaticVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -785,7 +785,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public class func setChildStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childStaticVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -820,7 +820,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -835,7 +835,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -870,7 +870,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -885,7 +885,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -920,7 +920,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -935,7 +935,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -970,7 +970,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public class func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -985,7 +985,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public class func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -1020,7 +1020,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public func setParentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -1035,7 +1035,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public func setParentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -1070,7 +1070,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -1085,7 +1085,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -1120,7 +1120,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public class func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -1135,7 +1135,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public class func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -1170,7 +1170,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public class func setParentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -1185,7 +1185,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 
   public class func setParentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -1218,7 +1218,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   // MARK: Stubbable `childParameterizedInstanceMethod(param1:_:)`
 
   public func childParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "childParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -1227,7 +1227,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   // MARK: Verifiable `childParameterizedInstanceMethod(param1:_:)`
 
   public func childParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "childParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -1249,7 +1249,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   // MARK: Stubbable `childParameterizedStaticMethod(param1:_:)`
 
   public static func childParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "childParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -1258,7 +1258,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   // MARK: Verifiable `childParameterizedStaticMethod(param1:_:)`
 
   public static func childParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "childParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -1338,7 +1338,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   // MARK: Stubbable `grandparentParameterizedInstanceMethod(param1:_:)`
 
   public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -1347,7 +1347,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   // MARK: Verifiable `grandparentParameterizedInstanceMethod(param1:_:)`
 
   public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -1369,7 +1369,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   // MARK: Stubbable `grandparentParameterizedStaticMethod(param1:_:)`
 
   public static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -1378,7 +1378,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   // MARK: Verifiable `grandparentParameterizedStaticMethod(param1:_:)`
 
   public static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -1458,7 +1458,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   // MARK: Stubbable `parentParameterizedInstanceMethod(param1:_:)`
 
   public func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -1467,7 +1467,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   // MARK: Verifiable `parentParameterizedInstanceMethod(param1:_:)`
 
   public func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -1489,7 +1489,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   // MARK: Stubbable `parentParameterizedStaticMethod(param1:_:)`
 
   public static func parentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -1498,7 +1498,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   // MARK: Verifiable `parentParameterizedStaticMethod(param1:_:)`
 
   public static func parentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -1607,7 +1607,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   }
 
   public class func setChildClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childClassVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -1622,7 +1622,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   }
 
   public class func setChildClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childClassVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -1657,7 +1657,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   }
 
   public func setChildComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childComputedInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -1672,7 +1672,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   }
 
   public func setChildComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childComputedInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -1707,7 +1707,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   }
 
   public class func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -1722,7 +1722,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   }
 
   public class func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -1757,7 +1757,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   }
 
   public func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -1772,7 +1772,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   }
 
   public func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -1807,7 +1807,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   }
 
   public class func setParentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -1822,7 +1822,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   }
 
   public class func setParentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -1857,7 +1857,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   }
 
   public func setParentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -1872,7 +1872,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   }
 
   public func setParentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -1906,7 +1906,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   // MARK: Stubbable `childParameterizedClassMethod(param1:_:)`
 
   public static func childParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "childParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -1915,7 +1915,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   // MARK: Verifiable `childParameterizedClassMethod(param1:_:)`
 
   public static func childParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "childParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -1937,7 +1937,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   // MARK: Stubbable `childParameterizedInstanceMethod(param1:_:)`
 
   public func childParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "childParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -1946,7 +1946,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   // MARK: Verifiable `childParameterizedInstanceMethod(param1:_:)`
 
   public func childParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "childParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -2026,7 +2026,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   // MARK: Stubbable `grandparentParameterizedClassMethod(param1:_:)`
 
   public static func grandparentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -2035,7 +2035,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   // MARK: Verifiable `grandparentParameterizedClassMethod(param1:_:)`
 
   public static func grandparentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -2057,7 +2057,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   // MARK: Stubbable `grandparentParameterizedInstanceMethod(param1:_:)`
 
   public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -2066,7 +2066,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   // MARK: Verifiable `grandparentParameterizedInstanceMethod(param1:_:)`
 
   public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -2146,7 +2146,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   // MARK: Stubbable `parentParameterizedClassMethod(param1:_:)`
 
   public static func parentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -2155,7 +2155,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   // MARK: Verifiable `parentParameterizedClassMethod(param1:_:)`
 
   public static func parentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -2177,7 +2177,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   // MARK: Stubbable `parentParameterizedInstanceMethod(param1:_:)`
 
   public func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -2186,7 +2186,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   // MARK: Verifiable `parentParameterizedInstanceMethod(param1:_:)`
 
   public func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -2427,7 +2427,7 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   }
 
   public func setAnotherExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "anotherExtendedVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -2442,7 +2442,7 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   }
 
   public func setAnotherExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "anotherExtendedVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -2477,7 +2477,7 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   }
 
   public func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -2492,7 +2492,7 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   }
 
   public func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -2527,7 +2527,7 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   }
 
   public func setExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "extendedVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -2542,7 +2542,7 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   }
 
   public func setExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "extendedVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -2604,7 +2604,7 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   // MARK: Stubbable `parameterizedExtendedMethod(param1:)`
 
   public func parameterizedExtendedMethod(param1: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(`param1`)]
+    let arguments = [Mockingbird.resolve(`param1`)]
     let invocation = Mockingbird.Invocation(selectorName: "parameterizedExtendedMethod(param1:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -2613,7 +2613,7 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   // MARK: Verifiable `parameterizedExtendedMethod(param1:)`
 
   public func parameterizedExtendedMethod(param1: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(`param1`)]
+    let arguments = [Mockingbird.resolve(`param1`)]
     let invocation = Mockingbird.Invocation(selectorName: "parameterizedExtendedMethod(param1:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -2635,7 +2635,7 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   // MARK: Stubbable `parameterizedReturningExtendedMethod(param1:)`
 
   public func parameterizedReturningExtendedMethod(param1: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Bool, Bool> {
-    let arguments = [resolve(`param1`)]
+    let arguments = [Mockingbird.resolve(`param1`)]
     let invocation = Mockingbird.Invocation(selectorName: "parameterizedReturningExtendedMethod(param1:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Bool, Bool>()
@@ -2644,7 +2644,7 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   // MARK: Verifiable `parameterizedReturningExtendedMethod(param1:)`
 
   public func parameterizedReturningExtendedMethod(param1: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`)]
+    let arguments = [Mockingbird.resolve(`param1`)]
     let invocation = Mockingbird.Invocation(selectorName: "parameterizedReturningExtendedMethod(param1:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -3029,7 +3029,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   }
 
   public func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -3044,7 +3044,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   }
 
   public func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -3079,7 +3079,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   }
 
   public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -3094,7 +3094,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   }
 
   public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -3129,7 +3129,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   }
 
   public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -3144,7 +3144,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   }
 
   public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -3179,7 +3179,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   }
 
   public class func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -3194,7 +3194,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   }
 
   public class func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -3227,7 +3227,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   // MARK: Stubbable `grandparentParameterizedInstanceMethod(param1:_:)`
 
   public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -3236,7 +3236,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   // MARK: Verifiable `grandparentParameterizedInstanceMethod(param1:_:)`
 
   public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -3258,7 +3258,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   // MARK: Stubbable `grandparentParameterizedStaticMethod(param1:_:)`
 
   public static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -3267,7 +3267,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   // MARK: Verifiable `grandparentParameterizedStaticMethod(param1:_:)`
 
   public static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -3376,7 +3376,7 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   }
 
   public class func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -3391,7 +3391,7 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   }
 
   public class func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -3426,7 +3426,7 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   }
 
   public func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -3441,7 +3441,7 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   }
 
   public func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -3475,7 +3475,7 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   // MARK: Stubbable `grandparentParameterizedClassMethod(param1:_:)`
 
   public static func grandparentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -3484,7 +3484,7 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   // MARK: Verifiable `grandparentParameterizedClassMethod(param1:_:)`
 
   public static func grandparentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -3506,7 +3506,7 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   // MARK: Stubbable `grandparentParameterizedInstanceMethod(param1:_:)`
 
   public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -3515,7 +3515,7 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   // MARK: Verifiable `grandparentParameterizedInstanceMethod(param1:_:)`
 
   public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -3623,7 +3623,7 @@ public final class InoutClassMock: MockingbirdTestsHost.InoutClass, Mockingbird.
   // MARK: Stubbable `parameterizedMethod(object:)`
 
   public func parameterizedMethod(object: @escaping @autoclosure () -> String) -> Mockingbird.Stubbable<(inout String) -> Void, Void> {
-    let arguments = [resolve(`object`)]
+    let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "parameterizedMethod(object:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(inout String) -> Void, Void>()
@@ -3632,7 +3632,7 @@ public final class InoutClassMock: MockingbirdTestsHost.InoutClass, Mockingbird.
   // MARK: Verifiable `parameterizedMethod(object:)`
 
   public func parameterizedMethod(object: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(`object`)]
+    let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "parameterizedMethod(object:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -3681,7 +3681,7 @@ public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockin
   // MARK: Stubbable `parameterizedMethod(object:)`
 
   public func parameterizedMethod(object: @escaping @autoclosure () -> String) -> Mockingbird.Stubbable<(inout String) -> Void, Void> {
-    let arguments = [resolve(`object`)]
+    let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "parameterizedMethod(object:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(inout String) -> Void, Void>()
@@ -3690,7 +3690,7 @@ public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockin
   // MARK: Verifiable `parameterizedMethod(object:)`
 
   public func parameterizedMethod(object: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(`object`)]
+    let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "parameterizedMethod(object:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -3741,7 +3741,7 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
   }
 
   public func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -3756,7 +3756,7 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
   }
 
   public func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -3847,7 +3847,7 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
   // MARK: Stubbable `overloadedParameters(param1:param2:)`
 
   public func overloadedParameters(param1: @escaping @autoclosure () -> Bool, param2: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool, Bool) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1:param2:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Bool) -> Bool, Bool>()
@@ -3856,7 +3856,7 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
   // MARK: Verifiable `overloadedParameters(param1:param2:)`
 
   public func overloadedParameters(param1: @escaping @autoclosure () -> Bool, param2: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1:param2:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -3878,7 +3878,7 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
   // MARK: Stubbable `overloadedParameters(param1:param2:)`
 
   public func overloadedParameters(param1: @escaping @autoclosure () -> Int, param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Int, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1:param2:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Int, Int) -> Bool, Bool>()
@@ -3887,7 +3887,7 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
   // MARK: Verifiable `overloadedParameters(param1:param2:)`
 
   public func overloadedParameters(param1: @escaping @autoclosure () -> Int, param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1:param2:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -3994,7 +3994,7 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
   // MARK: Stubbable `overloadedParameters(param1:param2:)`
 
   public func overloadedParameters(param1: @escaping @autoclosure () -> Bool, param2: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool, Bool) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1:param2:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Bool) -> Bool, Bool>()
@@ -4003,7 +4003,7 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
   // MARK: Verifiable `overloadedParameters(param1:param2:)`
 
   public func overloadedParameters(param1: @escaping @autoclosure () -> Bool, param2: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1:param2:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -4025,7 +4025,7 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
   // MARK: Stubbable `overloadedParameters(param1:param2:)`
 
   public func overloadedParameters(param1: @escaping @autoclosure () -> Int, param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Int, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1:param2:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Int, Int) -> Bool, Bool>()
@@ -4034,7 +4034,7 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
   // MARK: Verifiable `overloadedParameters(param1:param2:)`
 
   public func overloadedParameters(param1: @escaping @autoclosure () -> Int, param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1:param2:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -4212,7 +4212,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 
   public func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -4227,7 +4227,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 
   public func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -4262,7 +4262,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 
   public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -4277,7 +4277,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 
   public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -4312,7 +4312,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 
   public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -4327,7 +4327,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 
   public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -4362,7 +4362,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 
   public class func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -4377,7 +4377,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 
   public class func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -4412,7 +4412,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 
   public func setParentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -4427,7 +4427,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 
   public func setParentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -4462,7 +4462,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 
   public func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -4477,7 +4477,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 
   public func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -4512,7 +4512,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 
   public class func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -4527,7 +4527,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 
   public class func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -4562,7 +4562,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 
   public class func setParentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -4577,7 +4577,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 
   public class func setParentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -4610,7 +4610,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   // MARK: Stubbable `grandparentParameterizedInstanceMethod(param1:_:)`
 
   public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -4619,7 +4619,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   // MARK: Verifiable `grandparentParameterizedInstanceMethod(param1:_:)`
 
   public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -4641,7 +4641,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   // MARK: Stubbable `grandparentParameterizedStaticMethod(param1:_:)`
 
   public static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -4650,7 +4650,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   // MARK: Verifiable `grandparentParameterizedStaticMethod(param1:_:)`
 
   public static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -4730,7 +4730,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   // MARK: Stubbable `parentParameterizedInstanceMethod(param1:_:)`
 
   public func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -4739,7 +4739,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   // MARK: Verifiable `parentParameterizedInstanceMethod(param1:_:)`
 
   public func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -4761,7 +4761,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   // MARK: Stubbable `parentParameterizedStaticMethod(param1:_:)`
 
   public static func parentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -4770,7 +4770,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   // MARK: Verifiable `parentParameterizedStaticMethod(param1:_:)`
 
   public static func parentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -4879,7 +4879,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   }
 
   public class func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -4894,7 +4894,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   }
 
   public class func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -4929,7 +4929,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   }
 
   public func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -4944,7 +4944,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   }
 
   public func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -4979,7 +4979,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   }
 
   public class func setParentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -4994,7 +4994,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   }
 
   public class func setParentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -5029,7 +5029,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   }
 
   public func setParentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -5044,7 +5044,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   }
 
   public func setParentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -5078,7 +5078,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   // MARK: Stubbable `grandparentParameterizedClassMethod(param1:_:)`
 
   public static func grandparentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -5087,7 +5087,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   // MARK: Verifiable `grandparentParameterizedClassMethod(param1:_:)`
 
   public static func grandparentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -5109,7 +5109,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   // MARK: Stubbable `grandparentParameterizedInstanceMethod(param1:_:)`
 
   public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -5118,7 +5118,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   // MARK: Verifiable `grandparentParameterizedInstanceMethod(param1:_:)`
 
   public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -5198,7 +5198,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   // MARK: Stubbable `parentParameterizedClassMethod(param1:_:)`
 
   public static func parentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -5207,7 +5207,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   // MARK: Verifiable `parentParameterizedClassMethod(param1:_:)`
 
   public static func parentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -5229,7 +5229,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   // MARK: Stubbable `parentParameterizedInstanceMethod(param1:_:)`
 
   public func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>()
@@ -5238,7 +5238,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   // MARK: Verifiable `parentParameterizedInstanceMethod(param1:_:)`
 
   public func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -5381,7 +5381,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
   // MARK: Stubbable `topLevelMethod(param1:param2:)`
 
   public func topLevelMethod(param1: @escaping @autoclosure () -> SecondLevelType, param2: @escaping @autoclosure () -> SecondLevelType.ThirdLevelType) -> Mockingbird.Stubbable<(SecondLevelType, SecondLevelType.ThirdLevelType) -> Bool, Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "topLevelMethod(param1:param2:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(SecondLevelType, SecondLevelType.ThirdLevelType) -> Bool, Bool>()
@@ -5390,7 +5390,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
   // MARK: Verifiable `topLevelMethod(param1:param2:)`
 
   public func topLevelMethod(param1: @escaping @autoclosure () -> SecondLevelType, param2: @escaping @autoclosure () -> SecondLevelType.ThirdLevelType) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`param1`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "topLevelMethod(param1:param2:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -5439,7 +5439,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
     // MARK: Stubbable `secondLevelMethod(param1:param2:)`
   
     public func secondLevelMethod(param1: @escaping @autoclosure () -> TopLevelType, param2: @escaping @autoclosure () -> ThirdLevelType) -> Mockingbird.Stubbable<(TopLevelType, ThirdLevelType) -> Bool, Bool> {
-      let arguments = [resolve(`param1`), resolve(`param2`)]
+      let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
       let invocation = Mockingbird.Invocation(selectorName: "secondLevelMethod(param1:param2:) -> Bool", arguments: arguments)
       if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
       return Mockingbird.Stubbable<(TopLevelType, ThirdLevelType) -> Bool, Bool>()
@@ -5448,7 +5448,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
     // MARK: Verifiable `secondLevelMethod(param1:param2:)`
   
     public func secondLevelMethod(param1: @escaping @autoclosure () -> TopLevelType, param2: @escaping @autoclosure () -> ThirdLevelType) -> Mockingbird.Mockable<Bool> {
-      let arguments = [resolve(`param1`), resolve(`param2`)]
+      let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
       let invocation = Mockingbird.Invocation(selectorName: "secondLevelMethod(param1:param2:) -> Bool", arguments: arguments)
       if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
       return Mockingbird.Mockable<Bool>()
@@ -5526,7 +5526,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       // MARK: Stubbable `topLevelMethod(param1:param2:)`
     
       public func topLevelMethod(param1: @escaping @autoclosure () -> SecondLevelType, param2: @escaping @autoclosure () -> SecondLevelType.ThirdLevelType) -> Mockingbird.Stubbable<(SecondLevelType, SecondLevelType.ThirdLevelType) -> Bool, Bool> {
-        let arguments = [resolve(`param1`), resolve(`param2`)]
+        let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation = Mockingbird.Invocation(selectorName: "topLevelMethod(param1:param2:) -> Bool", arguments: arguments)
         if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
         return Mockingbird.Stubbable<(SecondLevelType, SecondLevelType.ThirdLevelType) -> Bool, Bool>()
@@ -5535,7 +5535,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       // MARK: Verifiable `topLevelMethod(param1:param2:)`
     
       public func topLevelMethod(param1: @escaping @autoclosure () -> SecondLevelType, param2: @escaping @autoclosure () -> SecondLevelType.ThirdLevelType) -> Mockingbird.Mockable<Bool> {
-        let arguments = [resolve(`param1`), resolve(`param2`)]
+        let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation = Mockingbird.Invocation(selectorName: "topLevelMethod(param1:param2:) -> Bool", arguments: arguments)
         if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
         return Mockingbird.Mockable<Bool>()
@@ -5614,7 +5614,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       // MARK: Stubbable `thirdLevelMethod(param1:param2:)`
     
       public func thirdLevelMethod(param1: @escaping @autoclosure () -> TopLevelType, param2: @escaping @autoclosure () -> SecondLevelType) -> Mockingbird.Stubbable<(TopLevelType, SecondLevelType) -> Bool, Bool> {
-        let arguments = [resolve(`param1`), resolve(`param2`)]
+        let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
         if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
         return Mockingbird.Stubbable<(TopLevelType, SecondLevelType) -> Bool, Bool>()
@@ -5623,7 +5623,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       // MARK: Verifiable `thirdLevelMethod(param1:param2:)`
     
       public func thirdLevelMethod(param1: @escaping @autoclosure () -> TopLevelType, param2: @escaping @autoclosure () -> SecondLevelType) -> Mockingbird.Mockable<Bool> {
-        let arguments = [resolve(`param1`), resolve(`param2`)]
+        let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
         if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
         return Mockingbird.Mockable<Bool>()
@@ -5673,7 +5673,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       // MARK: Stubbable `thirdLevelMethod(param1:param2:)`
     
       public func thirdLevelMethod(param1: @escaping @autoclosure () -> TopLevelType, param2: @escaping @autoclosure () -> SecondLevelType) -> Mockingbird.Stubbable<(TopLevelType, SecondLevelType) -> Bool, Bool> {
-        let arguments = [resolve(`param1`), resolve(`param2`)]
+        let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
         if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
         return Mockingbird.Stubbable<(TopLevelType, SecondLevelType) -> Bool, Bool>()
@@ -5682,7 +5682,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       // MARK: Verifiable `thirdLevelMethod(param1:param2:)`
     
       public func thirdLevelMethod(param1: @escaping @autoclosure () -> TopLevelType, param2: @escaping @autoclosure () -> SecondLevelType) -> Mockingbird.Mockable<Bool> {
-        let arguments = [resolve(`param1`), resolve(`param2`)]
+        let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
         if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
         return Mockingbird.Mockable<Bool>()
@@ -5735,7 +5735,7 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
   }
 
   public func setComputedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "computedVariable.set", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Bool) -> Void, Void>()
@@ -5750,7 +5750,7 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
   }
 
   public func setComputedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(newValue)]
+    let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "computedVariable.set", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -5819,14 +5819,14 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
   // MARK: Stubbable `variadicMethod(objects:param2:)`
 
   public func variadicMethod(objects: @escaping @autoclosure () -> [Bool], param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([Bool], Int) -> Void, Void> {
-    let arguments = [resolve(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<([Bool], Int) -> Void, Void>()
   }
 
   public func variadicMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([Bool], Int) -> Void, Void> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<([Bool], Int) -> Void, Void>()
@@ -5835,14 +5835,14 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
   // MARK: Verifiable `variadicMethod(objects:param2:)`
 
   public func variadicMethod(objects: @escaping @autoclosure () -> [Bool], param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
   }
 
   public func variadicMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Void> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -5864,14 +5864,14 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
   // MARK: Stubbable `variadicMethod(objects:param2:)`
 
   public func variadicMethod(objects: @escaping @autoclosure () -> [String], param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([String], Int) -> Void, Void> {
-    let arguments = [resolve(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<([String], Int) -> Void, Void>()
   }
 
   public func variadicMethod(objects: String..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([String], Int) -> Void, Void> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<([String], Int) -> Void, Void>()
@@ -5880,14 +5880,14 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
   // MARK: Verifiable `variadicMethod(objects:param2:)`
 
   public func variadicMethod(objects: @escaping @autoclosure () -> [String], param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
   }
 
   public func variadicMethod(objects: String..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Void> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -5909,14 +5909,14 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
   // MARK: Stubbable `variadicMethodAsFinalParam(param1:objects:)`
 
   public func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int, objects: @escaping @autoclosure () -> [String]) -> Mockingbird.Stubbable<(Int, [String]) -> Void, Void> {
-    let arguments = [resolve(`param1`), resolve(`objects`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`objects`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethodAsFinalParam(param1:objects:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Int, [String]) -> Void, Void>()
   }
 
   public func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int, objects: String...) -> Mockingbird.Stubbable<(Int, [String]) -> Void, Void> {
-    let arguments = [resolve(`param1`), Mockingbird.ArgumentMatcher(`objects`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.ArgumentMatcher(`objects`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethodAsFinalParam(param1:objects:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Int, [String]) -> Void, Void>()
@@ -5925,14 +5925,14 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
   // MARK: Verifiable `variadicMethodAsFinalParam(param1:objects:)`
 
   public func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int, objects: @escaping @autoclosure () -> [String]) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(`param1`), resolve(`objects`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`objects`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethodAsFinalParam(param1:objects:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
   }
 
   public func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int, objects: String...) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(`param1`), Mockingbird.ArgumentMatcher(`objects`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.ArgumentMatcher(`objects`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethodAsFinalParam(param1:objects:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -5954,14 +5954,14 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
   // MARK: Stubbable `variadicReturningMethod(objects:param2:)`
 
   public func variadicReturningMethod(objects: @escaping @autoclosure () -> [Bool], param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([Bool], Int) -> Bool, Bool> {
-    let arguments = [resolve(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicReturningMethod(objects:param2:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<([Bool], Int) -> Bool, Bool>()
   }
 
   public func variadicReturningMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([Bool], Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicReturningMethod(objects:param2:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<([Bool], Int) -> Bool, Bool>()
@@ -5970,14 +5970,14 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
   // MARK: Verifiable `variadicReturningMethod(objects:param2:)`
 
   public func variadicReturningMethod(objects: @escaping @autoclosure () -> [Bool], param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicReturningMethod(objects:param2:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
   }
 
   public func variadicReturningMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicReturningMethod(objects:param2:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
@@ -6026,14 +6026,14 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   // MARK: Stubbable `variadicMethod(objects:param2:)`
 
   public func variadicMethod(objects: @escaping @autoclosure () -> [Bool], param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([Bool], Int) -> Void, Void> {
-    let arguments = [resolve(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<([Bool], Int) -> Void, Void>()
   }
 
   public func variadicMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([Bool], Int) -> Void, Void> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<([Bool], Int) -> Void, Void>()
@@ -6042,14 +6042,14 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   // MARK: Verifiable `variadicMethod(objects:param2:)`
 
   public func variadicMethod(objects: @escaping @autoclosure () -> [Bool], param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
   }
 
   public func variadicMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Void> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -6071,14 +6071,14 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   // MARK: Stubbable `variadicMethod(objects:param2:)`
 
   public func variadicMethod(objects: @escaping @autoclosure () -> [String], param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([String], Int) -> Void, Void> {
-    let arguments = [resolve(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<([String], Int) -> Void, Void>()
   }
 
   public func variadicMethod(objects: String..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([String], Int) -> Void, Void> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<([String], Int) -> Void, Void>()
@@ -6087,14 +6087,14 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   // MARK: Verifiable `variadicMethod(objects:param2:)`
 
   public func variadicMethod(objects: @escaping @autoclosure () -> [String], param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
   }
 
   public func variadicMethod(objects: String..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Void> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -6116,14 +6116,14 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   // MARK: Stubbable `variadicMethodAsFinalParam(param1:objects:)`
 
   public func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int, objects: @escaping @autoclosure () -> [String]) -> Mockingbird.Stubbable<(Int, [String]) -> Void, Void> {
-    let arguments = [resolve(`param1`), resolve(`objects`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`objects`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethodAsFinalParam(param1:objects:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Int, [String]) -> Void, Void>()
   }
 
   public func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int, objects: String...) -> Mockingbird.Stubbable<(Int, [String]) -> Void, Void> {
-    let arguments = [resolve(`param1`), Mockingbird.ArgumentMatcher(`objects`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.ArgumentMatcher(`objects`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethodAsFinalParam(param1:objects:) -> Void", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<(Int, [String]) -> Void, Void>()
@@ -6132,14 +6132,14 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   // MARK: Verifiable `variadicMethodAsFinalParam(param1:objects:)`
 
   public func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int, objects: @escaping @autoclosure () -> [String]) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(`param1`), resolve(`objects`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`objects`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethodAsFinalParam(param1:objects:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
   }
 
   public func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int, objects: String...) -> Mockingbird.Mockable<Void> {
-    let arguments = [resolve(`param1`), Mockingbird.ArgumentMatcher(`objects`)]
+    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.ArgumentMatcher(`objects`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethodAsFinalParam(param1:objects:) -> Void", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
@@ -6161,14 +6161,14 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   // MARK: Stubbable `variadicReturningMethod(objects:param2:)`
 
   public func variadicReturningMethod(objects: @escaping @autoclosure () -> [Bool], param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([Bool], Int) -> Bool, Bool> {
-    let arguments = [resolve(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicReturningMethod(objects:param2:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<([Bool], Int) -> Bool, Bool>()
   }
 
   public func variadicReturningMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([Bool], Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicReturningMethod(objects:param2:) -> Bool", arguments: arguments)
     if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
     return Mockingbird.Stubbable<([Bool], Int) -> Bool, Bool>()
@@ -6177,14 +6177,14 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   // MARK: Verifiable `variadicReturningMethod(objects:param2:)`
 
   public func variadicReturningMethod(objects: @escaping @autoclosure () -> [Bool], param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [resolve(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicReturningMethod(objects:param2:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
   }
 
   public func variadicReturningMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), resolve(`param2`)]
+    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicReturningMethod(objects:param2:) -> Bool", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
