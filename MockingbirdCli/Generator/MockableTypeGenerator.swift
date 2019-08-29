@@ -27,6 +27,8 @@ extension GenericType {
 
 extension MockableType {
   func generate(moduleName: String) -> String {
+    let initializer = mockInitializer
+    let appendedInitializer = !initializer.isEmpty ? "\n\n" + initializer : ""
     return """
     // MARK: - Mocked \(name)
     
@@ -35,7 +37,7 @@ extension MockableType {
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()
       public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "\(mockingbirdVersion.shortString)", "module_name": "\(moduleName)"])
-      private var sourceLocation: Mockingbird.SourceLocation? {
+      public var sourceLocation: Mockingbird.SourceLocation? {
         get { return stubbingContext.sourceLocation }
         set {
           stubbingContext.sourceLocation = newValue
@@ -44,7 +46,7 @@ extension MockableType {
       }
     
     \(generateBody())
-    }
+    }\(appendedInitializer)
     """
   }
   
@@ -73,13 +75,17 @@ extension MockableType {
     return "[\(genericTypeSelfNames)].joined(separator: \",\")"
   }
   
+  var allSpecializedGenericTypesList: [String] {
+    return genericTypes.map({ $0.flattenedDeclaration })
+  }
+  
   var allSpecializedGenericTypes: String {
     guard !genericTypes.isEmpty else { return "" }
-    return "<" + genericTypes.map({ $0.flattenedDeclaration }).joined(separator: ", ") + ">"
+    return "<" + allSpecializedGenericTypesList.joined(separator: ", ") + ">"
   }
   
   var allGenericTypes: String {
-    guard !genericTypes.isEmpty, kind == .class else { return "" }
+    guard !genericTypes.isEmpty else { return "" }
     return "<" + genericTypes.map({ $0.name }).joined(separator: ", ") + ">"
   }
   
@@ -97,6 +103,7 @@ extension MockableType {
   }
   
   var fullyQualifiedName: String {
+    guard kind == .class else { return "\(moduleName).\(name)" }
     guard !isContainedType else { return "\(name)\(allGenericTypes)" }
     return "\(moduleName).\(name)\(allGenericTypes)"
   }
@@ -154,27 +161,38 @@ extension MockableType {
     """
   }
   
-  /// For types that don't define any initializers, we generate an empty default initializer that
-  /// stores the source location of where the mock was initialized. This allows us to show XCTest
-  /// errors from unstubbed method invocations in the testing code rather than just in the console.
+  /// Store the source location of where the protocol mock was initialized. This allows XCTest
+  /// errors from unstubbed method invocations to show up in the testing code.
   var defaultInitializer: String {
-    guard !methods.contains(where: { $0.isInitializer }) else { return "" }
-    let checkVersion: String
-    if kind == .class {
-      checkVersion = """
-          super.init()
-          Mockingbird.checkVersion(for: self)
-      """
+    guard kind == .protocol else { return "" }
+    return """
+      public init(sourceLocation: Mockingbird.SourceLocation) {
+        Mockingbird.checkVersion(for: self)
+        self.sourceLocation = sourceLocation
+      }
+    """
+  }
+  
+  var mockInitializer: String {
+    guard kind == .protocol else { return "" }
+    let allGenericTypes = self.allGenericTypes
+    let genericMethodAttribute: String
+    let protocolType: String
+    if allGenericTypes.count > 0 {
+      let specializedGenericTypes =
+        (["T: \(fullyQualifiedName)"] + allSpecializedGenericTypesList)
+          .joined(separator: ", ")
+      genericMethodAttribute = "<" + specializedGenericTypes + ">"
+      protocolType = "T.Type"
     } else {
-      checkVersion = "    Mockingbird.checkVersion(for: self)"
+      genericMethodAttribute = ""
+      protocolType = "\(fullyQualifiedName).Protocol"
     }
     return """
-      public init(__file: StaticString = #file, __line: UInt = #line) {
-    \(checkVersion)
-        let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-        self.stubbingContext.sourceLocation = sourceLocation
-        \(name)Mock.staticMock.stubbingContext.sourceLocation = sourceLocation
-      }
+    /// Create a source-attributed `\(name)\(allGenericTypes)` mock.
+    public func mockProtocol\(genericMethodAttribute)(file: StaticString = #file, line: UInt = #line, _ protocolType: \(protocolType)) -> \(name)Mock\(allGenericTypes) {
+      return \(name)Mock\(allGenericTypes)(sourceLocation: SourceLocation(file, line))
+    }
     """
   }
   

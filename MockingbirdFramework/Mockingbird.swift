@@ -8,6 +8,22 @@
 import Foundation
 import XCTest
 
+// MARK: - Mocking
+
+/// Create a source-attributed mock for testing.
+///
+/// - note: For protocols you should use `mockProtocol(ProtocolName.self)` instead.
+///
+/// - Parameters:
+///   - classInstance: A concrete instance of the mock.
+/// - Returns: A source-attributed mock for testing.
+public func mockClass<T: Mock>(file: StaticString = #file, line: UInt = #line,
+                               _ classInstance: @autoclosure () -> T) -> T {
+  let instance = classInstance()
+  instance.stubbingContext.sourceLocation = SourceLocation(file, line)
+  return instance
+}
+
 // MARK: - Stubbing
 
 /// Stub a single mock object to return a value or perform an operation.

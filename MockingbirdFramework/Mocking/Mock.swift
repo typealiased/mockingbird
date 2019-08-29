@@ -12,12 +12,17 @@ public protocol Mock {
   var mockingContext: MockingContext { get }
   var stubbingContext: StubbingContext { get }
   var mockMetadata: MockMetadata { get }
+  var sourceLocation: SourceLocation? { get set }
 }
 
 public class StaticMock: Mock {
   public let mockingContext = MockingContext()
   public let stubbingContext = StubbingContext()
   public let mockMetadata = MockMetadata()
+  public var sourceLocation: SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set { stubbingContext.sourceLocation = newValue }
+  }
 }
 
 public struct MockMetadata {

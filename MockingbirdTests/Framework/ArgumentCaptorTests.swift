@@ -14,7 +14,7 @@ class ArgumentCaptorTests: XCTestCase {
   var mock: ArgumentMatchingProtocolMock!
   
   override func setUp() {
-    mock = ArgumentMatchingProtocolMock()
+    mock = mockProtocol(ArgumentMatchingProtocol.self)
   }
   
   func callMethod(on object: ArgumentMatchingProtocol,

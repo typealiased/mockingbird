@@ -15,8 +15,8 @@ class OverloadedMethodTests: XCTestCase {
   var protocolMock: OverloadedMethodsProtocolMock!
   
   override func setUp() {
-    classMock = OverloadedMethodsClassMock()
-    protocolMock = OverloadedMethodsProtocolMock()
+    classMock = mockClass(OverloadedMethodsClassMock())
+    protocolMock = mockProtocol(OverloadedMethodsProtocol.self)
   }
   
   func callOverloadedParametersMethod(on classMock: OverloadedMethodsClass,

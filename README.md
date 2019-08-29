@@ -142,12 +142,19 @@ Compile Sources.
 
 ### Mocking
 
-Mockingbird adds the `Mock` suffix to mocks that it generates, providing the same methods, variables, and 
-initializers as the original type. 
+You can create mocks for both protocols and classes. Mock types are suffixed with `Mock` and provide the same 
+methods, variables, and initializers as the original type.
 
 ```swift
-let bird = BirdMock()
-``` 
+let bird: BirdMock = mockProtocol(Bird.self)
+```
+
+Classes cannot be fully mocked in Swift, so consider using protocols wherever possible. Note that `mockClass` 
+takes an instance of a mock type.
+
+```swift
+let tree: TreeMock = mockClass(TreeMock(with: bird))
+```
 
 ### Stubbing
 

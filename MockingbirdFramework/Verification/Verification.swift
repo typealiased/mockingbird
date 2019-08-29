@@ -9,7 +9,7 @@ import Foundation
 import XCTest
 
 /// References a line of code in a file.
-struct SourceLocation {
+public struct SourceLocation {
   let file: StaticString
   let line: UInt
   init(_ file: StaticString, _ line: UInt) {

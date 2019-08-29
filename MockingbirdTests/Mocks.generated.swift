@@ -56,7 +56,7 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -68,11 +68,9 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     return true
   }
 
-  public init(__file: StaticString = #file, __line: UInt = #line) {
+  public init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    ArgumentMatchingProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `method(optionalStructType:optionalClassType:optionalEnumType:optionalStringType:optionalBoolType:optionalMetaType:optionalAnyType:optionalAnyObjectType:)`
@@ -138,6 +136,11 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
   }
 }
 
+/// Create a source-attributed `ArgumentMatchingProtocol` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ArgumentMatchingProtocol.Protocol) -> ArgumentMatchingProtocolMock {
+  return ArgumentMatchingProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked AssociatedTypeGenericImplementer
 
 public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable, S: Sequence>: MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>, Mockingbird.Mock where S.Element == EquatableType {
@@ -154,7 +157,7 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -164,14 +167,6 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
 
   public static func ==(lhs: AssociatedTypeGenericImplementerMock, rhs: AssociatedTypeGenericImplementerMock) -> Bool {
     return true
-  }
-
-  public init(__file: StaticString = #file, __line: UInt = #line) {
-    super.init()
-    Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    AssociatedTypeGenericImplementerMock.staticMock.stubbingContext.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `methodUsingEquatableType(equatable:)`
@@ -275,7 +270,7 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -287,11 +282,9 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
     return true
   }
 
-  public init(__file: StaticString = #file, __line: UInt = #line) {
+  public init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    AssociatedTypeImplementerProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `request(object:)`
@@ -388,6 +381,11 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
   }
 }
 
+/// Create a source-attributed `AssociatedTypeImplementerProtocol` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.AssociatedTypeImplementerProtocol.Protocol) -> AssociatedTypeImplementerProtocolMock {
+  return AssociatedTypeImplementerProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked AssociatedTypeImplementer
 
 public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.AssociatedTypeImplementer, Mockingbird.Mock {
@@ -395,7 +393,7 @@ public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.Associate
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -405,14 +403,6 @@ public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.Associate
 
   public static func ==(lhs: AssociatedTypeImplementerMock, rhs: AssociatedTypeImplementerMock) -> Bool {
     return true
-  }
-
-  public init(__file: StaticString = #file, __line: UInt = #line) {
-    super.init()
-    Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    AssociatedTypeImplementerMock.staticMock.stubbingContext.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `request(object:)`
@@ -463,7 +453,7 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -475,11 +465,9 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
     return true
   }
 
-  public init(__file: StaticString = #file, __line: UInt = #line) {
+  public init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    AssociatedTypeProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `methodUsingEquatableType(equatable:)`
@@ -576,6 +564,11 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
   }
 }
 
+/// Create a source-attributed `AssociatedTypeProtocol<EquatableType, HashableType>` mock.
+public func mockProtocol<T: MockingbirdTestsHost.AssociatedTypeProtocol, EquatableType: Equatable, HashableType: Hashable>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> AssociatedTypeProtocolMock<EquatableType, HashableType> {
+  return AssociatedTypeProtocolMock<EquatableType, HashableType>(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked ChildProtocol
 
 public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockingbird.Mock {
@@ -583,7 +576,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -1195,11 +1188,9 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return true
   }
 
-  public init(__file: StaticString = #file, __line: UInt = #line) {
+  public init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    ChildProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `childParameterizedInstanceMethod(param1:_:)`
@@ -1563,6 +1554,11 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 }
 
+/// Create a source-attributed `ChildProtocol` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ChildProtocol.Protocol) -> ChildProtocolMock {
+  return ChildProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked Child
 
 public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
@@ -1570,7 +1566,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -1880,14 +1876,6 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
 
   public static func ==(lhs: ChildMock, rhs: ChildMock) -> Bool {
     return true
-  }
-
-  public init(__file: StaticString = #file, __line: UInt = #line) {
-    super.init()
-    Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    ChildMock.staticMock.stubbingContext.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `childParameterizedClassMethod(param1:_:)`
@@ -2258,7 +2246,7 @@ public final class ClassTypeMock: MockingbirdTestsHost.ClassType, Mockingbird.Mo
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -2269,14 +2257,6 @@ public final class ClassTypeMock: MockingbirdTestsHost.ClassType, Mockingbird.Mo
   public static func ==(lhs: ClassTypeMock, rhs: ClassTypeMock) -> Bool {
     return true
   }
-
-  public init(__file: StaticString = #file, __line: UInt = #line) {
-    super.init()
-    Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    ClassTypeMock.staticMock.stubbingContext.sourceLocation = sourceLocation
-  }
 }
 
 // MARK: - Mocked ClosureParametersProtocol
@@ -2286,7 +2266,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -2298,11 +2278,9 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return true
   }
 
-  public init(__file: StaticString = #file, __line: UInt = #line) {
+  public init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    ClosureParametersProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `autoclosureTrivialClosure(block:)`
@@ -2678,6 +2656,11 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   }
 }
 
+/// Create a source-attributed `ClosureParametersProtocol` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ClosureParametersProtocol.Protocol) -> ClosureParametersProtocolMock {
+  return ClosureParametersProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked ConvenienceInitializerClass
 
 public final class ConvenienceInitializerClassMock: MockingbirdTestsHost.ConvenienceInitializerClass, Mockingbird.Mock {
@@ -2685,7 +2668,7 @@ public final class ConvenienceInitializerClassMock: MockingbirdTestsHost.Conveni
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -2720,7 +2703,7 @@ public final class EmptyInitializerClassMock: MockingbirdTestsHost.EmptyInitiali
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -2755,7 +2738,7 @@ public final class EmptyInitializerProtocolMock: MockingbirdTestsHost.EmptyIniti
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -2765,6 +2748,11 @@ public final class EmptyInitializerProtocolMock: MockingbirdTestsHost.EmptyIniti
 
   public static func ==(lhs: EmptyInitializerProtocolMock, rhs: EmptyInitializerProtocolMock) -> Bool {
     return true
+  }
+
+  public init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `init()`
@@ -2782,6 +2770,11 @@ public final class EmptyInitializerProtocolMock: MockingbirdTestsHost.EmptyIniti
   }
 }
 
+/// Create a source-attributed `EmptyInitializerProtocol` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.EmptyInitializerProtocol.Protocol) -> EmptyInitializerProtocolMock {
+  return EmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked ExtendableProtocol
 
 public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtocol, Mockingbird.Mock {
@@ -2789,7 +2782,7 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -2951,11 +2944,9 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     return true
   }
 
-  public init(__file: StaticString = #file, __line: UInt = #line) {
+  public init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    ExtendableProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `anotherTrivialExtendedMethod()`
@@ -3108,6 +3099,11 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   }
 }
 
+/// Create a source-attributed `ExtendableProtocol` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ExtendableProtocol.Protocol) -> ExtendableProtocolMock {
+  return ExtendableProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked FailableEmptyInitializerClass
 
 public final class FailableEmptyInitializerClassMock: MockingbirdTestsHost.FailableEmptyInitializerClass, Mockingbird.Mock {
@@ -3115,7 +3111,7 @@ public final class FailableEmptyInitializerClassMock: MockingbirdTestsHost.Faila
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -3150,7 +3146,7 @@ public final class FailableEmptyInitializerProtocolMock: MockingbirdTestsHost.Fa
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -3160,6 +3156,11 @@ public final class FailableEmptyInitializerProtocolMock: MockingbirdTestsHost.Fa
 
   public static func ==(lhs: FailableEmptyInitializerProtocolMock, rhs: FailableEmptyInitializerProtocolMock) -> Bool {
     return true
+  }
+
+  public init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `init()`
@@ -3177,6 +3178,11 @@ public final class FailableEmptyInitializerProtocolMock: MockingbirdTestsHost.Fa
   }
 }
 
+/// Create a source-attributed `FailableEmptyInitializerProtocol` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.FailableEmptyInitializerProtocol.Protocol) -> FailableEmptyInitializerProtocolMock {
+  return FailableEmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked FailableParameterizedInitializerClass
 
 public final class FailableParameterizedInitializerClassMock: MockingbirdTestsHost.FailableParameterizedInitializerClass, Mockingbird.Mock {
@@ -3184,7 +3190,7 @@ public final class FailableParameterizedInitializerClassMock: MockingbirdTestsHo
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -3219,7 +3225,7 @@ public final class FailableParameterizedInitializerProtocolMock: MockingbirdTest
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -3229,6 +3235,11 @@ public final class FailableParameterizedInitializerProtocolMock: MockingbirdTest
 
   public static func ==(lhs: FailableParameterizedInitializerProtocolMock, rhs: FailableParameterizedInitializerProtocolMock) -> Bool {
     return true
+  }
+
+  public init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `init(param1:param2:)`
@@ -3246,6 +3257,11 @@ public final class FailableParameterizedInitializerProtocolMock: MockingbirdTest
   }
 }
 
+/// Create a source-attributed `FailableParameterizedInitializerProtocol` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.FailableParameterizedInitializerProtocol.Protocol) -> FailableParameterizedInitializerProtocolMock {
+  return FailableParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked FailableUnwrappedEmptyInitializerClass
 
 public final class FailableUnwrappedEmptyInitializerClassMock: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerClass, Mockingbird.Mock {
@@ -3253,7 +3269,7 @@ public final class FailableUnwrappedEmptyInitializerClassMock: MockingbirdTestsH
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -3288,7 +3304,7 @@ public final class FailableUnwrappedEmptyInitializerProtocolMock: MockingbirdTes
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -3298,6 +3314,11 @@ public final class FailableUnwrappedEmptyInitializerProtocolMock: MockingbirdTes
 
   public static func ==(lhs: FailableUnwrappedEmptyInitializerProtocolMock, rhs: FailableUnwrappedEmptyInitializerProtocolMock) -> Bool {
     return true
+  }
+
+  public init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `init()`
@@ -3315,6 +3336,11 @@ public final class FailableUnwrappedEmptyInitializerProtocolMock: MockingbirdTes
   }
 }
 
+/// Create a source-attributed `FailableUnwrappedEmptyInitializerProtocol` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerProtocol.Protocol) -> FailableUnwrappedEmptyInitializerProtocolMock {
+  return FailableUnwrappedEmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked FailableUnwrappedParameterizedInitializerClass
 
 public final class FailableUnwrappedParameterizedInitializerClassMock: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerClass, Mockingbird.Mock {
@@ -3322,7 +3348,7 @@ public final class FailableUnwrappedParameterizedInitializerClassMock: Mockingbi
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -3357,7 +3383,7 @@ public final class FailableUnwrappedParameterizedInitializerProtocolMock: Mockin
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -3367,6 +3393,11 @@ public final class FailableUnwrappedParameterizedInitializerProtocolMock: Mockin
 
   public static func ==(lhs: FailableUnwrappedParameterizedInitializerProtocolMock, rhs: FailableUnwrappedParameterizedInitializerProtocolMock) -> Bool {
     return true
+  }
+
+  public init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `init(param1:param2:)`
@@ -3384,6 +3415,11 @@ public final class FailableUnwrappedParameterizedInitializerProtocolMock: Mockin
   }
 }
 
+/// Create a source-attributed `FailableUnwrappedParameterizedInitializerProtocol` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerProtocol.Protocol) -> FailableUnwrappedParameterizedInitializerProtocolMock {
+  return FailableUnwrappedParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked GrandparentProtocol
 
 public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProtocol, Mockingbird.Mock {
@@ -3391,7 +3427,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -3603,11 +3639,9 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     return true
   }
 
-  public init(__file: StaticString = #file, __line: UInt = #line) {
+  public init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    GrandparentProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `grandparentParameterizedInstanceMethod(param1:_:)`
@@ -3731,6 +3765,11 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   }
 }
 
+/// Create a source-attributed `GrandparentProtocol` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.GrandparentProtocol.Protocol) -> GrandparentProtocolMock {
+  return GrandparentProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked Grandparent
 
 public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbird.Mock {
@@ -3738,7 +3777,7 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -3848,14 +3887,6 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
 
   public static func ==(lhs: GrandparentMock, rhs: GrandparentMock) -> Bool {
     return true
-  }
-
-  public init(__file: StaticString = #file, __line: UInt = #line) {
-    super.init()
-    Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    GrandparentMock.staticMock.stubbingContext.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `grandparentParameterizedClassMethod(param1:_:)`
@@ -3986,7 +4017,7 @@ public final class InoutClassMock: MockingbirdTestsHost.InoutClass, Mockingbird.
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -3996,14 +4027,6 @@ public final class InoutClassMock: MockingbirdTestsHost.InoutClass, Mockingbird.
 
   public static func ==(lhs: InoutClassMock, rhs: InoutClassMock) -> Bool {
     return true
-  }
-
-  public init(__file: StaticString = #file, __line: UInt = #line) {
-    super.init()
-    Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    InoutClassMock.staticMock.stubbingContext.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `parameterizedMethod(object:)`
@@ -4045,7 +4068,7 @@ public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockin
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -4057,11 +4080,9 @@ public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockin
     return true
   }
 
-  public init(__file: StaticString = #file, __line: UInt = #line) {
+  public init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    InoutProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `parameterizedMethod(object:)`
@@ -4096,6 +4117,11 @@ public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockin
   }
 }
 
+/// Create a source-attributed `InoutProtocol` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.InoutProtocol.Protocol) -> InoutProtocolMock {
+  return InoutProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked NonExtendableClass
 
 public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableClass, Mockingbird.Mock {
@@ -4103,7 +4129,7 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -4165,14 +4191,6 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
     return true
   }
 
-  public init(__file: StaticString = #file, __line: UInt = #line) {
-    super.init()
-    Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    NonExtendableClassMock.staticMock.stubbingContext.sourceLocation = sourceLocation
-  }
-
   // MARK: Mockable `trivialBaseMethod()`
 
   public override func trivialBaseMethod() -> Void {
@@ -4210,7 +4228,7 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -4220,14 +4238,6 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
 
   public static func ==(lhs: OverloadedMethodsClassMock, rhs: OverloadedMethodsClassMock) -> Bool {
     return true
-  }
-
-  public init(__file: StaticString = #file, __line: UInt = #line) {
-    super.init()
-    Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    OverloadedMethodsClassMock.staticMock.stubbingContext.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `overloadedParameters(param1:param2:)`
@@ -4358,7 +4368,7 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -4370,11 +4380,9 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
     return true
   }
 
-  public init(__file: StaticString = #file, __line: UInt = #line) {
+  public init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    OverloadedMethodsProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `overloadedParameters(param1:param2:)`
@@ -4498,6 +4506,11 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
   }
 }
 
+/// Create a source-attributed `OverloadedMethodsProtocol` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.OverloadedMethodsProtocol.Protocol) -> OverloadedMethodsProtocolMock {
+  return OverloadedMethodsProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked ParameterizedInitializerClass
 
 public final class ParameterizedInitializerClassMock: MockingbirdTestsHost.ParameterizedInitializerClass, Mockingbird.Mock {
@@ -4505,7 +4518,7 @@ public final class ParameterizedInitializerClassMock: MockingbirdTestsHost.Param
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -4540,7 +4553,7 @@ public final class ParameterizedInitializerProtocolMock: MockingbirdTestsHost.Pa
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -4550,6 +4563,11 @@ public final class ParameterizedInitializerProtocolMock: MockingbirdTestsHost.Pa
 
   public static func ==(lhs: ParameterizedInitializerProtocolMock, rhs: ParameterizedInitializerProtocolMock) -> Bool {
     return true
+  }
+
+  public init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `init(param1:param2:)`
@@ -4567,6 +4585,11 @@ public final class ParameterizedInitializerProtocolMock: MockingbirdTestsHost.Pa
   }
 }
 
+/// Create a source-attributed `ParameterizedInitializerProtocol` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ParameterizedInitializerProtocol.Protocol) -> ParameterizedInitializerProtocolMock {
+  return ParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked ParentProtocol
 
 public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mockingbird.Mock {
@@ -4574,7 +4597,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -4986,11 +5009,9 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     return true
   }
 
-  public init(__file: StaticString = #file, __line: UInt = #line) {
+  public init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    ParentProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `grandparentParameterizedInstanceMethod(param1:_:)`
@@ -5234,6 +5255,11 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 }
 
+/// Create a source-attributed `ParentProtocol` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ParentProtocol.Protocol) -> ParentProtocolMock {
+  return ParentProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked Parent
 
 public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
@@ -5241,7 +5267,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -5451,14 +5477,6 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
 
   public static func ==(lhs: ParentMock, rhs: ParentMock) -> Bool {
     return true
-  }
-
-  public init(__file: StaticString = #file, __line: UInt = #line) {
-    super.init()
-    Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    ParentMock.staticMock.stubbingContext.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `grandparentParameterizedClassMethod(param1:_:)`
@@ -5709,7 +5727,7 @@ public final class RequiredInitializerClassMock: MockingbirdTestsHost.RequiredIn
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -5744,7 +5762,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -5754,14 +5772,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
 
   public static func ==(lhs: TopLevelTypeMock, rhs: TopLevelTypeMock) -> Bool {
     return true
-  }
-
-  public init(__file: StaticString = #file, __line: UInt = #line) {
-    super.init()
-    Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    TopLevelTypeMock.staticMock.stubbingContext.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `topLevelMethod(param1:param2:)`
@@ -5802,7 +5812,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
     public let mockingContext = Mockingbird.MockingContext()
     public let stubbingContext = Mockingbird.StubbingContext()
     public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-    private var sourceLocation: Mockingbird.SourceLocation? {
+    public var sourceLocation: Mockingbird.SourceLocation? {
       get { return stubbingContext.sourceLocation }
       set {
         stubbingContext.sourceLocation = newValue
@@ -5812,14 +5822,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
   
     public static func ==(lhs: SecondLevelTypeMock, rhs: SecondLevelTypeMock) -> Bool {
       return true
-    }
-  
-    public init(__file: StaticString = #file, __line: UInt = #line) {
-      super.init()
-      Mockingbird.checkVersion(for: self)
-      let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-      self.stubbingContext.sourceLocation = sourceLocation
-      SecondLevelTypeMock.staticMock.stubbingContext.sourceLocation = sourceLocation
     }
   
     // MARK: Mockable `secondLevelMethod(param1:param2:)`
@@ -5860,7 +5862,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()
       public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-      private var sourceLocation: Mockingbird.SourceLocation? {
+      public var sourceLocation: Mockingbird.SourceLocation? {
         get { return stubbingContext.sourceLocation }
         set {
           stubbingContext.sourceLocation = newValue
@@ -5870,14 +5872,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
     
       public static func ==(lhs: ThirdLevelInheritingTopLevelTypeMock, rhs: ThirdLevelInheritingTopLevelTypeMock) -> Bool {
         return true
-      }
-    
-      public init(__file: StaticString = #file, __line: UInt = #line) {
-        super.init()
-        Mockingbird.checkVersion(for: self)
-        let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-        self.stubbingContext.sourceLocation = sourceLocation
-        ThirdLevelInheritingTopLevelTypeMock.staticMock.stubbingContext.sourceLocation = sourceLocation
       }
     
       // MARK: Mockable `thirdLevelInheritingMethod()`
@@ -5948,7 +5942,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()
       public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-      private var sourceLocation: Mockingbird.SourceLocation? {
+      public var sourceLocation: Mockingbird.SourceLocation? {
         get { return stubbingContext.sourceLocation }
         set {
           stubbingContext.sourceLocation = newValue
@@ -5958,14 +5952,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
     
       public static func ==(lhs: ThirdLevelInheritingThirdLevelTypeMock, rhs: ThirdLevelInheritingThirdLevelTypeMock) -> Bool {
         return true
-      }
-    
-      public init(__file: StaticString = #file, __line: UInt = #line) {
-        super.init()
-        Mockingbird.checkVersion(for: self)
-        let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-        self.stubbingContext.sourceLocation = sourceLocation
-        ThirdLevelInheritingThirdLevelTypeMock.staticMock.stubbingContext.sourceLocation = sourceLocation
       }
     
       // MARK: Mockable `thirdLevelInheritingMethod()`
@@ -6036,7 +6022,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()
       public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-      private var sourceLocation: Mockingbird.SourceLocation? {
+      public var sourceLocation: Mockingbird.SourceLocation? {
         get { return stubbingContext.sourceLocation }
         set {
           stubbingContext.sourceLocation = newValue
@@ -6046,14 +6032,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
     
       public static func ==(lhs: ThirdLevelTypeMock, rhs: ThirdLevelTypeMock) -> Bool {
         return true
-      }
-    
-      public init(__file: StaticString = #file, __line: UInt = #line) {
-        super.init()
-        Mockingbird.checkVersion(for: self)
-        let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-        self.stubbingContext.sourceLocation = sourceLocation
-        ThirdLevelTypeMock.staticMock.stubbingContext.sourceLocation = sourceLocation
       }
     
       // MARK: Mockable `thirdLevelMethod(param1:param2:)`
@@ -6097,7 +6075,7 @@ public final class UndefinedArgumentLabelsMock: MockingbirdTestsHost.UndefinedAr
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -6109,11 +6087,9 @@ public final class UndefinedArgumentLabelsMock: MockingbirdTestsHost.UndefinedAr
     return true
   }
 
-  public init(__file: StaticString = #file, __line: UInt = #line) {
+  public init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    UndefinedArgumentLabelsMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `method(_:_:_:_:)`
@@ -6148,6 +6124,11 @@ public final class UndefinedArgumentLabelsMock: MockingbirdTestsHost.UndefinedAr
   }
 }
 
+/// Create a source-attributed `UndefinedArgumentLabels` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.UndefinedArgumentLabels.Protocol) -> UndefinedArgumentLabelsMock {
+  return UndefinedArgumentLabelsMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked VariablesContainer
 
 public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContainer, Mockingbird.Mock {
@@ -6155,7 +6136,7 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -6240,7 +6221,7 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -6250,14 +6231,6 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
 
   public static func ==(lhs: VariadicClassMock, rhs: VariadicClassMock) -> Bool {
     return true
-  }
-
-  public init(__file: StaticString = #file, __line: UInt = #line) {
-    super.init()
-    Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    VariadicClassMock.staticMock.stubbingContext.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `variadicMethod(objects:param2:)`
@@ -6448,7 +6421,7 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
-  private var sourceLocation: Mockingbird.SourceLocation? {
+  public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
@@ -6460,11 +6433,9 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
     return true
   }
 
-  public init(__file: StaticString = #file, __line: UInt = #line) {
+  public init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
-    let sourceLocation = Mockingbird.SourceLocation(__file, __line)
-    self.stubbingContext.sourceLocation = sourceLocation
-    VariadicProtocolMock.staticMock.stubbingContext.sourceLocation = sourceLocation
+    self.sourceLocation = sourceLocation
   }
 
   // MARK: Mockable `variadicMethod(objects:param2:)`
@@ -6646,5 +6617,10 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
   }
+}
+
+/// Create a source-attributed `VariadicProtocol` mock.
+public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.VariadicProtocol.Protocol) -> VariadicProtocolMock {
+  return VariadicProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 

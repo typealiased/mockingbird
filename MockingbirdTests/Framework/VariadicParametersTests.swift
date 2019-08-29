@@ -15,7 +15,7 @@ class VeriadicParametersTests: XCTestCase {
   var mock: VariadicProtocolMock!
   
   override func setUp() {
-    mock = VariadicProtocolMock()
+    mock = mockProtocol(VariadicProtocol.self)
   }
   
   func callVariadicStringsMethod(on object: VariadicProtocol) {
