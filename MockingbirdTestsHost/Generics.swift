@@ -51,3 +51,10 @@ public class AssociatedTypeImplementer {
   func request<T: AssociatedTypeProtocol>(object: T) -> T.EquatableType
     where T.EquatableType == Bool, T.HashableType == String { return true }
 }
+
+public protocol AssociatedTypeGenericConstraintsProtocol {
+  associatedtype ConstrainedType: AssociatedTypeProtocol
+    where ConstrainedType.EquatableType == Int, ConstrainedType.HashableType == String
+  
+  func request(object: ConstrainedType) -> Bool
+}

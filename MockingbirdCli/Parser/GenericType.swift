@@ -12,6 +12,7 @@ import SourceKittenFramework
 struct GenericType: Hashable {
   let name: String
   let inheritedTypes: Set<String>
+  let genericConstraints: [String]
   
   struct Reduced: Hashable {
     let name: String
@@ -38,14 +39,26 @@ struct GenericType: Hashable {
       }
     }
     
+    var genericConstraints = [String]()
     if kind == .associatedtype { // We need to manually parse any associated type constraint.
       let source = rawType.parsedFile.file.contents
       if let declaration = SourceSubstring.key.extract(from: dictionary, contents: source),
-        let inferredType = declaration.substringComponents(separatedBy: ":").get(1) {
-        inheritedTypes.insert(String(inferredType.trimmingCharacters(in: .whitespacesAndNewlines)))
+        let inferredTypeLowerBound = declaration.firstIndex(of: ":") {
+        let inferredTypeStartIndex = declaration.index(inferredTypeLowerBound, offsetBy: 1)
+        let typeDeclaration = declaration[inferredTypeStartIndex...]
+        
+        if let whereRange = typeDeclaration.range(of: #"\bwhere\b"#, options: .regularExpression) {
+          let inferredType = typeDeclaration[..<whereRange.lowerBound]
+          inheritedTypes.insert(String(inferredType.trimmingCharacters(in: .whitespacesAndNewlines)))
+          genericConstraints = typeDeclaration[whereRange.upperBound...]
+            .substringComponents(separatedBy: ",")
+            .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
+        } else {
+          inheritedTypes.insert(String(typeDeclaration.trimmingCharacters(in: .whitespacesAndNewlines)))
+        }
       }
     }
-    
+    self.genericConstraints = genericConstraints
     self.inheritedTypes = inheritedTypes
   }
 }

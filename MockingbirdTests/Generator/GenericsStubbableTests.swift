@@ -56,3 +56,9 @@ private protocol StubbableAssociatedTypeImplementer {
     where T.EquatableType == Int, T.HashableType == String
 }
 extension AssociatedTypeImplementerMock: StubbableAssociatedTypeImplementer {}
+
+private protocol StubbableAssociatedTypeGenericConstraintsProtocol: AssociatedTypeGenericConstraintsProtocol {
+  func request(object: @escaping @autoclosure () -> ConstrainedType)
+    -> Stubbable<Mock.Protocol, AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>, (ConstrainedType) -> Bool, Bool>
+}
+extension AssociatedTypeGenericConstraintsProtocolMock: StubbableAssociatedTypeGenericConstraintsProtocol {}

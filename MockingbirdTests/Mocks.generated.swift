@@ -141,6 +141,76 @@ public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ proto
   return ArgumentMatchingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked AssociatedTypeGenericConstraintsProtocol
+
+public final class AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType: AssociatedTypeProtocol>: MockingbirdTestsHost.AssociatedTypeGenericConstraintsProtocol, Mockingbird.Mock where ConstrainedType.EquatableType == Int, ConstrainedType.HashableType == String {
+  static var staticMock: Mockingbird.StaticMock {
+    let runtimeGenericTypeNames = ["\(ConstrainedType.self)"].joined(separator: ",")
+    let staticMockIdentifier = "AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType: AssociatedTypeProtocol>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
+      return staticMock
+    }
+    let staticMock = Mockingbird.StaticMock()
+    genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+    return staticMock
+  }
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      AssociatedTypeGenericConstraintsProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: AssociatedTypeGenericConstraintsProtocolMock, rhs: AssociatedTypeGenericConstraintsProtocolMock) -> Bool {
+    return true
+  }
+
+  public init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `request(object:)`
+
+  public func request(object: ConstrainedType) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`object`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (ConstrainedType) -> Bool {
+      return concreteImplementation(`object`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `request(object:)`
+
+  public func request(object: @escaping @autoclosure () -> ConstrainedType) -> Mockingbird.Stubbable<Mock.Protocol, AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>, (ConstrainedType) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`object`)]
+    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Bool", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<Mock.Protocol, AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>, (ConstrainedType) -> Bool, Bool>(object: Mock.self, stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `request(object:)`
+
+  public func request(object: @escaping @autoclosure () -> ConstrainedType) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`object`)]
+    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Bool", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+}
+
+/// Create a source-attributed `AssociatedTypeGenericConstraintsProtocol<ConstrainedType>` mock.
+public func mockProtocol<T: MockingbirdTestsHost.AssociatedTypeGenericConstraintsProtocol, ConstrainedType: AssociatedTypeProtocol>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType> {
+  return AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked AssociatedTypeGenericImplementer
 
 public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable, S: Sequence>: MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>, Mockingbird.Mock where S.Element == EquatableType {

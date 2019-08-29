@@ -56,3 +56,8 @@ private protocol VerifiableAssociatedTypeImplementer {
     where T.EquatableType == Int, T.HashableType == String
 }
 extension AssociatedTypeImplementerMock: VerifiableAssociatedTypeImplementer {}
+
+private protocol VerifiableAssociatedTypeGenericConstraintsProtocol: AssociatedTypeGenericConstraintsProtocol {
+  func request(object: @escaping @autoclosure () -> ConstrainedType) -> Mockable<Bool>
+}
+extension AssociatedTypeGenericConstraintsProtocolMock: VerifiableAssociatedTypeGenericConstraintsProtocol {}

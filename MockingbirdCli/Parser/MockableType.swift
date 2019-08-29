@@ -97,7 +97,7 @@ struct MockableType: Hashable, Comparable {
       return genericType
     })
     
-    var genericConstraints = [String]()
+    var genericConstraints = genericTypes.flatMap({ $0.genericConstraints })
     if baseRawType.kind == .class {
       let source = baseRawType.parsedFile.file.contents
       if let nameSuffix = SourceSubstring.nameSuffixUpToBody.extract(from: baseRawType.dictionary,
