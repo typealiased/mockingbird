@@ -7,16 +7,11 @@
 //
 
 import Foundation
-import MockingbirdTestsHost
+@testable import MockingbirdTestsHost
 
 // MARK: - Mockable declarations
 
-private protocol MockableVariadicProtocol {
-  func variadicMethod(objects: String ..., param2: Int)
-  func variadicMethod(objects: Bool..., param2: Int)
-  func variadicMethodAsFinalParam(param1: Int, objects: String ...)
-  func variadicReturningMethod(objects: Bool..., param2: Int) -> Bool
-}
+private protocol MockableVariadicProtocol: VariadicProtocol {}
 extension VariadicProtocolMock: MockableVariadicProtocol {}
 
 private protocol MockableVariadicClass {

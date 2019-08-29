@@ -7,13 +7,11 @@
 //
 
 import Foundation
-import MockingbirdTestsHost
+@testable import MockingbirdTestsHost
 
 // MARK: - Mockable declarations
 
-private protocol MockableInoutProtocol {
-  func parameterizedMethod(object: inout String)
-}
+private protocol MockableInoutProtocol: InoutProtocol {}
 extension InoutProtocolMock: MockableInoutProtocol {}
 
 private protocol MockableInoutClass {

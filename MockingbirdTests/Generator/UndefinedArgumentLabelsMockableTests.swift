@@ -6,11 +6,9 @@
 //
 
 import Foundation
-import MockingbirdTestsHost
+@testable import MockingbirdTestsHost
 
 // MARK: - Mockable declarations
 
-private protocol MockableUndefinedArgumentLabels {
-  func method(_ param1: Bool, _ param2: String, _ someParam: Int, _ param3: Bool) -> Bool
-}
+private protocol MockableUndefinedArgumentLabels: UndefinedArgumentLabels {}
 extension UndefinedArgumentLabelsMock: MockableUndefinedArgumentLabels {}
