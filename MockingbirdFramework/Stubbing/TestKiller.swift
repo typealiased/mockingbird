@@ -16,10 +16,12 @@ class TestKiller: NSObject, XCTestObservation {
     XCTestObservationCenter.shared.addTestObserver(self)
   }
   
+  private(set) var testCase: XCTestCase?
   func testCase(_ testCase: XCTestCase,
                 didFailWithDescription description: String,
                 inFile filePath: String?,
                 atLine lineNumber: Int) {
     testCase.continueAfterFailure = false
+    self.testCase = testCase
   }
 }
