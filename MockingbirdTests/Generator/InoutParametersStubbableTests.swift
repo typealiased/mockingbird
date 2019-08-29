@@ -8,18 +8,18 @@
 
 import Foundation
 import Mockingbird
-import MockingbirdTestsHost
+@testable import MockingbirdTestsHost
 
 // MARK: - Stubbable declarations
 
 private protocol StubbableInoutProtocol {
   func parameterizedMethod(object: @escaping @autoclosure () -> String)
-    -> Stubbable<(inout String) -> Void, Void>
+    -> Stubbable<InoutProtocol, InoutProtocolMock, (inout String) -> Void, Void>
 }
 extension InoutProtocolMock: StubbableInoutProtocol {}
 
 private protocol StubbableInoutClass {
   func parameterizedMethod(object: @escaping @autoclosure () -> String)
-    -> Stubbable<(inout String) -> Void, Void>
+    -> Stubbable<InoutClass, InoutClassMock, (inout String) -> Void, Void>
 }
 extension InoutClassMock: StubbableInoutClass {}

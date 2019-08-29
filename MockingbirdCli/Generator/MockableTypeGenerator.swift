@@ -108,6 +108,10 @@ extension MockableType {
     return "\(moduleName).\(name)\(allGenericTypes)"
   }
   
+  var stubbedMockName: String {
+    return "\(name)Mock\(allGenericTypes)"
+  }
+  
   var subclass: String? {
     guard kind != .class else { return fullyQualifiedName }
     let prefix = String(name.prefix(2))

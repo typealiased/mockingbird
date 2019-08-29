@@ -197,6 +197,24 @@ given(
 ) ~> "Big Bird"
 ```
 
+Chained stubbing allows you to easily stub complex object hierarchies.
+
+```swift
+protocol Bird {
+  var wing: Wing { get }
+}
+protocol Wing { 
+  var feather: Feather { get }
+}
+protocol Feather { 
+  var isWet: Bool { get }
+}
+given(bird
+  .getWing() ~ mockProtocol(Wing.self)
+    .getFeather() ~ mockProtocol(Feather.self)
+      .getIsWet()) ~> true
+```
+
 ### Verification
 
 Mocks keep a record of invocations that it receives which can then be verified.

@@ -14,32 +14,36 @@ import Mockingbird
 private protocol StubbableTopLevelType {
   func topLevelMethod(param1: @escaping @autoclosure () -> TopLevelType.SecondLevelType,
                       param2: @escaping @autoclosure () -> TopLevelType.SecondLevelType.ThirdLevelType)
-    -> Stubbable<(TopLevelType.SecondLevelType, TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool>
+    -> Stubbable<TopLevelType, TopLevelTypeMock, (TopLevelType.SecondLevelType, TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool>
 }
 extension TopLevelTypeMock: StubbableTopLevelType {}
 
 private protocol StubbableSecondLevelType {
   func secondLevelMethod(param1: @escaping @autoclosure () -> TopLevelType,
                          param2: @escaping @autoclosure () -> TopLevelType.SecondLevelType.ThirdLevelType)
-    -> Stubbable<(TopLevelType, TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool>
+    -> Stubbable<TopLevelType.SecondLevelType, TopLevelTypeMock.SecondLevelTypeMock, (TopLevelType, TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool>
 }
 extension TopLevelTypeMock.SecondLevelTypeMock: StubbableSecondLevelType {}
 
 private protocol StubbableThirdLevelType {
   func thirdLevelMethod(param1: @escaping @autoclosure () -> TopLevelType,
                         param2: @escaping @autoclosure () -> TopLevelType.SecondLevelType)
-    -> Stubbable<(TopLevelType, TopLevelType.SecondLevelType) -> Bool, Bool>
+    -> Stubbable<TopLevelType.SecondLevelType.ThirdLevelType, TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelTypeMock, (TopLevelType, TopLevelType.SecondLevelType) -> Bool, Bool>
 }
 extension TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelTypeMock: StubbableThirdLevelType {}
 
 private protocol StubbableThirdLevelInheritingTopLevelType: StubbableTopLevelType {
-  func thirdLevelInheritingMethod() -> Stubbable<() -> Bool, Bool>
+  func thirdLevelInheritingMethod()
+    -> Stubbable<TopLevelType.SecondLevelType.ThirdLevelInheritingTopLevelType, TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingTopLevelTypeMock, () -> Bool, Bool>
 }
-extension TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingTopLevelTypeMock:
-StubbableThirdLevelInheritingTopLevelType {}
+// DRAGON: Swift doesn't understand contained types as generic parameters..
+//extension TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingTopLevelTypeMock:
+//StubbableThirdLevelInheritingTopLevelType {}
 
 private protocol StubbableThirdLevelInheritingThirdLevelType: StubbableThirdLevelType {
-  func thirdLevelInheritingMethod() -> Stubbable<() -> Bool, Bool>
+  func thirdLevelInheritingMethod()
+    -> Stubbable<TopLevelType.SecondLevelType.ThirdLevelInheritingThirdLevelType, TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingThirdLevelTypeMock, () -> Bool, Bool>
 }
-extension TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingThirdLevelTypeMock:
-StubbableThirdLevelInheritingThirdLevelType {}
+// DRAGON: Swift doesn't understand contained types as generic parameters..
+//extension TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingThirdLevelTypeMock:
+//StubbableThirdLevelInheritingThirdLevelType {}

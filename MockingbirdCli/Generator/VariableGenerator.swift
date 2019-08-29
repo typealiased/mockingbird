@@ -60,6 +60,32 @@ class VariableGenerator {
     """
   }
   
+  lazy var stubbableGenericTypeList: [String] = {
+    let isGenericProtocol = context.kind == .protocol && !context.genericTypes.isEmpty
+    let useMetatypeObject = variable.kind.typeScope == .static || variable.kind.typeScope == .class
+    
+    // The mock type name.
+    let stubbedMockTypeName = context.stubbedMockName + (useMetatypeObject ? ".Type" : "")
+    
+    // The protocol that this mock is implementing or the class that it is subclassing.
+    let mockedTypeName = !isGenericProtocol
+      ? (!useMetatypeObject ? context.fullyQualifiedName : stubbedMockTypeName)
+      : "Mockingbird.Mock.Protocol"
+    
+    return [mockedTypeName, stubbedMockTypeName]
+  }()
+  
+  // Object used as the returned value of a stubbed implementation. Protocols that can only exist
+  // as generic constraints return `Mockingbird.Mock.self` as an unusuable placeholder since it's
+  // not possible to constrain a generic mock type to a generic prior return type.
+  lazy var stubbableObject: String = {
+    let isGenericProtocol = context.kind == .protocol && !context.genericTypes.isEmpty
+    let useMetatypeObject = variable.kind.typeScope == .static || variable.kind.typeScope == .class
+    return !useMetatypeObject
+      ? (!isGenericProtocol ? "self" : "Mockingbird.Mock.self")
+      : (context.stubbedMockName + ".self")
+  }()
+  
   var generatedStubs: String {
     let capitalizedName = self.capitalizedName
     let typeName = specializedTypeName
@@ -67,20 +93,24 @@ class VariableGenerator {
     let contextPrefix = self.contextPrefix
     let getterInvocationType = "() -> \(typeName)"
     let setterInvocationType = "(\(typeName)) -> Void"
+    let stubbableGetterGenericTypes = (stubbableGenericTypeList
+      + [getterInvocationType, typeName]).joined(separator: ", ")
+    let stubbableSetterGenericTypes = (stubbableGenericTypeList
+      + [setterInvocationType, "Void"]).joined(separator: ", ")
     return """
       // MARK: Stubbable `\(variable.name)`
     
-      public \(modifiers)func get\(capitalizedName)() -> Mockingbird.Stubbable<\(getterInvocationType), \(typeName)> {
+      public \(modifiers)func get\(capitalizedName)() -> Mockingbird.Stubbable<\(stubbableGetterGenericTypes)> {
         let invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
         if let stub = DispatchQueue.currentStub { \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation) }
-        return Stubbable<\(getterInvocationType), \(typeName)>()
+        return Mockingbird.Stubbable<\(stubbableGetterGenericTypes)>(object: \(stubbableObject), stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
       }
     
-      public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Stubbable<\(setterInvocationType), Void> {
+      public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Stubbable<\(stubbableSetterGenericTypes)> {
         let arguments = [Mockingbird.resolve(newValue)]
         let invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments)
         if let stub = DispatchQueue.currentStub { \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation) }
-        return Mockingbird.Stubbable<\(setterInvocationType), Void>()
+        return Mockingbird.Stubbable<\(stubbableSetterGenericTypes)>(object: \(stubbableObject), stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
       }
     """
   }

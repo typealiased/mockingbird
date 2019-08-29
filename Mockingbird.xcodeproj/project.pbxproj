@@ -66,6 +66,8 @@
 		497A72312315E8D200607C2B /* ScopedTypesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A72302315E8D200607C2B /* ScopedTypesMockableTests.swift */; };
 		497A72332315EB3A00607C2B /* ScopedTypesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A72322315EB3A00607C2B /* ScopedTypesStubbableTests.swift */; };
 		497F7E3023162ED300675D98 /* ScopedTypesVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497F7E2E23162EB300675D98 /* ScopedTypesVerifiableTests.swift */; };
+		49A6EB482317C37500BA25FA /* NestedFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A6EB472317C37500BA25FA /* NestedFields.swift */; };
+		49A6EB4A2317C42D00BA25FA /* ChainedStubbingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A6EB492317C42D00BA25FA /* ChainedStubbingTests.swift */; };
 		49B4F32F231309C6002106EB /* ProtocolInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4F32E231309C6002106EB /* ProtocolInitializers.swift */; };
 		49B4F33123130AD7002106EB /* ClassInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4F33023130AD7002106EB /* ClassInitializers.swift */; };
 		OBJ_1000 /* XCWorkspaceDataGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_420 /* XCWorkspaceDataGroup.swift */; };
@@ -725,6 +727,8 @@
 		497A72302315E8D200607C2B /* ScopedTypesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedTypesMockableTests.swift; sourceTree = "<group>"; };
 		497A72322315EB3A00607C2B /* ScopedTypesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedTypesStubbableTests.swift; sourceTree = "<group>"; };
 		497F7E2E23162EB300675D98 /* ScopedTypesVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedTypesVerifiableTests.swift; sourceTree = "<group>"; };
+		49A6EB472317C37500BA25FA /* NestedFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedFields.swift; sourceTree = "<group>"; };
+		49A6EB492317C42D00BA25FA /* ChainedStubbingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainedStubbingTests.swift; sourceTree = "<group>"; };
 		49B4F32E231309C6002106EB /* ProtocolInitializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolInitializers.swift; sourceTree = "<group>"; };
 		49B4F33023130AD7002106EB /* ClassInitializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassInitializers.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2241,6 +2245,7 @@
 				OBJ_77 /* Info.plist */,
 				OBJ_85 /* InoutParameters.swift */,
 				OBJ_86 /* ModuleImportCases.swift */,
+				49A6EB472317C37500BA25FA /* NestedFields.swift */,
 				49606F192313B3B5003C1969 /* OverloadedMethods.swift */,
 				OBJ_87 /* Parent.swift */,
 				OBJ_88 /* ParentProtocol.swift */,
@@ -2291,6 +2296,7 @@
 				49124C4223132E1E008C8CE0 /* ArgumentCaptorTests.swift */,
 				OBJ_94 /* ArgumentMatchingTests.swift */,
 				OBJ_95 /* AsyncVerificationTests.swift */,
+				49A6EB492317C42D00BA25FA /* ChainedStubbingTests.swift */,
 				OBJ_96 /* LastSetValueStubTests.swift */,
 				49606F1B2313B43D003C1969 /* OverloadedMethodTests.swift */,
 				OBJ_97 /* StubbingTests.swift */,
@@ -3102,6 +3108,7 @@
 				OBJ_697 /* StubbingTests.swift in Sources */,
 				4951272723166499002F0E78 /* UndefinedArgumentLabelsStubbableTests.swift in Sources */,
 				OBJ_698 /* VariadicParametersTests.swift in Sources */,
+				49A6EB4A2317C42D00BA25FA /* ChainedStubbingTests.swift in Sources */,
 				OBJ_699 /* ChildMockMockableTests.swift in Sources */,
 				OBJ_700 /* ChildMockStubbableTests.swift in Sources */,
 				OBJ_701 /* ChildMockVerifiableTests.swift in Sources */,
@@ -3145,6 +3152,7 @@
 				OBJ_733 /* Extensions.swift in Sources */,
 				OBJ_734 /* Generics.swift in Sources */,
 				OBJ_735 /* Grandparent.swift in Sources */,
+				49A6EB482317C37500BA25FA /* NestedFields.swift in Sources */,
 				OBJ_736 /* GrandparentProtocol.swift in Sources */,
 				49512723231661FB002F0E78 /* UndefinedArgumentLabels.swift in Sources */,
 				497A72252315E05A00607C2B /* Variables.swift in Sources */,

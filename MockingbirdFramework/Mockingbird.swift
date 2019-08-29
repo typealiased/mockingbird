@@ -29,8 +29,9 @@ public func mockClass<T: Mock>(file: StaticString = #file, line: UInt = #line,
 /// Stub a single mock object to return a value or perform an operation.
 ///
 /// - Parameter mock: A mock and its invocation to stub.
-public func given<T, R>(_ mock: @escaping @autoclosure () -> Stubbable<T, R>) -> Stub<T, R> {
-  return Stub<T, R>(mock)
+public func given<T, M, I, R>(_ mock: @escaping @autoclosure () -> Stubbable<T, M, I, R>)
+  -> Stub<I, R> {
+    return Stub<I, R>(mock)
 }
 
 /// Stubs a variable getter to return the last value received by the setter.

@@ -13,31 +13,31 @@ import Mockingbird
 
 private protocol StubbableClosureParametersProtocol {
   func trivialClosure(block: @escaping @autoclosure () -> () -> Void)
-    -> Stubbable<(() -> Void) -> Bool, Bool>
+    -> Stubbable<ClosureParametersProtocol, ClosureParametersProtocolMock, (() -> Void) -> Bool, Bool>
   func trivialReturningClosure(block: @escaping @autoclosure () -> () -> Bool)
-    -> Stubbable<(() -> Bool) -> Bool, Bool>
+    -> Stubbable<ClosureParametersProtocol, ClosureParametersProtocolMock, (() -> Bool) -> Bool, Bool>
   func parameterizedClosure(block: @escaping @autoclosure () -> (Bool) -> Void)
-    -> Stubbable<((Bool) -> Void) -> Bool, Bool>
+    -> Stubbable<ClosureParametersProtocol, ClosureParametersProtocolMock, ((Bool) -> Void) -> Bool, Bool>
   func parameterizedReturningClosure(block: @escaping @autoclosure () -> (Bool) -> Bool)
-    -> Stubbable<((Bool) -> Bool) -> Bool, Bool>
+    -> Stubbable<ClosureParametersProtocol, ClosureParametersProtocolMock, ((Bool) -> Bool) -> Bool, Bool>
   
   func escapingTrivialClosure(block: @escaping @autoclosure () -> () -> Void)
-    -> Stubbable<(@escaping () -> Void) -> Bool, Bool>
+    -> Stubbable<ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping () -> Void) -> Bool, Bool>
   func escapingTrivialReturningVoidClosure(block: @escaping @autoclosure () -> () -> Bool)
-    -> Stubbable<(@escaping () -> Bool) -> Bool, Bool>
+    -> Stubbable<ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping () -> Bool) -> Bool, Bool>
   func escapingParameterizedClosure(block: @escaping @autoclosure () -> (Bool) -> Void)
-    -> Stubbable<(@escaping (Bool) -> Void) -> Bool, Bool>
+    -> Stubbable<ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping (Bool) -> Void) -> Bool, Bool>
   func escapingParameterizedReturningClosure(block: @escaping @autoclosure () -> (Bool) -> Bool)
-    -> Stubbable<(@escaping (Bool) -> Bool) -> Bool, Bool>
+    -> Stubbable<ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping (Bool) -> Bool) -> Bool, Bool>
   
   func autoclosureTrivialClosure(block: @escaping @autoclosure () -> () -> Void)
-    -> Stubbable<(@autoclosure () -> Void) -> Bool, Bool>
+    -> Stubbable<ClosureParametersProtocol, ClosureParametersProtocolMock, (@autoclosure () -> Void) -> Bool, Bool>
   func autoclosureTrivialReturningClosure(block: @escaping @autoclosure () -> () -> Bool)
-    -> Stubbable<(@autoclosure () -> Bool) -> Bool, Bool>
+    -> Stubbable<ClosureParametersProtocol, ClosureParametersProtocolMock, (@autoclosure () -> Bool) -> Bool, Bool>
   
   func escapingAutoclosureTrivialClosure(block: @escaping @autoclosure () -> () -> Void)
-    -> Stubbable<(@escaping @autoclosure () -> Void) -> Bool, Bool>
+    -> Stubbable<ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping @autoclosure () -> Void) -> Bool, Bool>
   func escapingAutoclosureTrivialReturningClosure(block: @escaping @autoclosure () -> () -> Bool)
-    -> Stubbable<(@escaping @autoclosure () -> Bool) -> Bool, Bool>
+    -> Stubbable<ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping @autoclosure () -> Bool) -> Bool, Bool>
 }
 extension ClosureParametersProtocolMock: StubbableClosureParametersProtocol {}
