@@ -168,9 +168,9 @@ You can use an [argument matcher](#argument-matching) to selectively return resu
 precedence over those added earlier, so stubs with more generic argument matchers should be added first.
 
 ```swift
-given(bird.chirp(volume: any())) ~> false     // Matches any volume
-given(bird.chirp(volume: notNil())) ~> true   // Matches any non-nil volume
-given(bird.chirp(volume: 10)) ~> false        // Matches volume = 10
+given(bird.chirp(volume: any())) ~> false    // Matches any volume
+given(bird.chirp(volume: notNil())) ~> true  // Matches any non-nil volume
+given(bird.chirp(volume: 10)) ~> false       // Matches volume = 10
 ```
 
 Stub variables with their getter and setter methods.
@@ -235,11 +235,11 @@ verify(
 It’s also possible to verify that an invocation was called a specific number of times with a call matcher.
 
 ```swift
-verify(bird.getName()).wasNeverCalled()             // n = 0
-verify(bird.getName()).wasCalled(exactly(10))       // n = 10
-verify(bird.getName()).wasCalled(atLeast(10))       // n ≥ 10
-verify(bird.getName()).wasCalled(atMost(10))        // n ≤ 10
-verify(bird.getName()).wasCalled(between(5...10))   // 5 ≤ n ≤ 10
+verify(bird.getName()).wasNeverCalled()            // n = 0
+verify(bird.getName()).wasCalled(exactly(10))      // n = 10
+verify(bird.getName()).wasCalled(atLeast(10))      // n ≥ 10
+verify(bird.getName()).wasCalled(atMost(10))       // n ≤ 10
+verify(bird.getName()).wasCalled(between(5...10))  // 5 ≤ n ≤ 10
 ```
 
 Call matchers support chaining and negation using logical operators.
@@ -304,8 +304,8 @@ any(where: { $0.name.isEmpty })  // Matches any object with an empty name
 notNil()                         // Matches any non-nil value
 ```
 
-For methods overloaded by parameter type, using a matcher may cause ambiguity for the compiler. You can help 
-the compiler by specifying an explicit matcher type.
+For methods overloaded by parameter type (such as with generics), using a matcher may cause ambiguity for 
+the compiler. You can help the compiler by specifying an explicit type in the matcher.
 
 ```swift
 any(Int.self)
