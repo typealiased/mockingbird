@@ -53,6 +53,8 @@ struct GenericType: Hashable {
           genericConstraints = typeDeclaration[whereRange.upperBound...]
             .substringComponents(separatedBy: ",")
             .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
+          genericConstraints = GenericType.rewriteSelfTypes(constraints: genericConstraints,
+                                                            containingType: rawType)
         } else {
           inheritedTypes.insert(String(typeDeclaration.trimmingCharacters(in: .whitespacesAndNewlines)))
         }
@@ -60,5 +62,14 @@ struct GenericType: Hashable {
     }
     self.genericConstraints = genericConstraints
     self.inheritedTypes = inheritedTypes
+  }
+  
+  static func rewriteSelfTypes(constraints: [String], containingType: RawType) -> [String] {
+    return constraints.map({
+      let components = $0.substringComponents(separatedBy: "=")
+      guard components.count == 3,
+        components[2].trimmingCharacters(in: .whitespaces) == "Self" else { return $0 }
+      return "\(components[0].trimmingCharacters(in: .whitespaces)) == \(containingType.name)Mock"
+    })
   }
 }

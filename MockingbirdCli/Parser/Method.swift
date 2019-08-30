@@ -129,6 +129,8 @@ struct Method: Hashable, Comparable {
         genericConstraints = nameSuffix[whereRange.upperBound..<nameSuffix.endIndex]
           .substringComponents(separatedBy: ",")
           .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
+        genericConstraints = GenericType.rewriteSelfTypes(constraints: genericConstraints,
+                                                          containingType: rawType)
       }
     }
     self.attributes = attributes

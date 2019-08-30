@@ -95,7 +95,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--disable-swiftlint"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

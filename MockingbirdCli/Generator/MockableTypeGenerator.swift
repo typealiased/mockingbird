@@ -226,7 +226,7 @@ extension MockableType {
   }
   
   func specializeTypeName(_ typeName: String, unwrapOptional: Bool = false) -> String {
-    guard typeName != "Self" else { return name }
+    guard typeName != "Self" else { return name + "Mock" }
     guard unwrapOptional, typeName.hasSuffix("?") else { return typeName }
     return typeName.replacingOccurrences(of: "?", with: "")
   }

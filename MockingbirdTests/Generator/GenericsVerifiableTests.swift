@@ -61,3 +61,11 @@ private protocol VerifiableAssociatedTypeGenericConstraintsProtocol: AssociatedT
   func request(object: @escaping @autoclosure () -> ConstrainedType) -> Mockable<Bool>
 }
 extension AssociatedTypeGenericConstraintsProtocolMock: VerifiableAssociatedTypeGenericConstraintsProtocol {}
+
+private protocol VerifiableAssociatedTypeSelfReferencingProtocol: AssociatedTypeSelfReferencingProtocol {
+  func request(array: @escaping @autoclosure () -> SequenceType) -> Mockable<Void>
+  func request<T: Sequence>(array: @escaping @autoclosure () -> T)
+    -> Mockable<Void> where T.Element == Self
+  func request(object: @escaping @autoclosure () -> Self) -> Mockable<Void>
+}
+extension AssociatedTypeSelfReferencingProtocolMock: VerifiableAssociatedTypeSelfReferencingProtocol {}

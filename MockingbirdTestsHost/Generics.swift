@@ -58,3 +58,12 @@ public protocol AssociatedTypeGenericConstraintsProtocol {
   
   func request(object: ConstrainedType) -> Bool
 }
+
+public protocol AssociatedTypeSelfReferencingProtocol {
+  associatedtype SequenceType: Sequence where SequenceType.Element == Self
+  
+  func request(array: SequenceType)
+  func request<T: Sequence>(array: T) where T.Element == Self
+  
+  func request(object: Self)
+}

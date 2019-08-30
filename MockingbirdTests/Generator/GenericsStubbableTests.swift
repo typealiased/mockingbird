@@ -64,3 +64,13 @@ private protocol StubbableAssociatedTypeGenericConstraintsProtocol: AssociatedTy
     -> Stubbable<Mock.Protocol, AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>, (ConstrainedType) -> Bool, Bool>
 }
 extension AssociatedTypeGenericConstraintsProtocolMock: StubbableAssociatedTypeGenericConstraintsProtocol {}
+
+private protocol StubbableAssociatedTypeSelfReferencingProtocol: AssociatedTypeSelfReferencingProtocol {
+  func request(array: @escaping @autoclosure () -> SequenceType)
+    -> Stubbable<Mock.Protocol, Self, (SequenceType) -> Void, Void>
+  func request<T: Sequence>(array: @escaping @autoclosure () -> T)
+    -> Stubbable<Mock.Protocol, Self, (T) -> Void, Void> where T.Element == Self
+  func request(object: @escaping @autoclosure () -> Self)
+    -> Stubbable<Mock.Protocol, Self, (Self) -> Void, Void>
+}
+extension AssociatedTypeSelfReferencingProtocolMock: StubbableAssociatedTypeSelfReferencingProtocol {}

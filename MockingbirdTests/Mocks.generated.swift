@@ -639,6 +639,138 @@ public func mockProtocol<T: MockingbirdTestsHost.AssociatedTypeProtocol, Equatab
   return AssociatedTypeProtocolMock<EquatableType, HashableType>(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked AssociatedTypeSelfReferencingProtocol
+
+public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence>: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, Mockingbird.Mock where SequenceType.Element == AssociatedTypeSelfReferencingProtocolMock {
+  static var staticMock: Mockingbird.StaticMock {
+    let runtimeGenericTypeNames = ["\(SequenceType.self)"].joined(separator: ",")
+    let staticMockIdentifier = "AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
+      return staticMock
+    }
+    let staticMock = Mockingbird.StaticMock()
+    genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+    return staticMock
+  }
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.1.3", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      AssociatedTypeSelfReferencingProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: AssociatedTypeSelfReferencingProtocolMock, rhs: AssociatedTypeSelfReferencingProtocolMock) -> Bool {
+    return true
+  }
+
+  public init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `request(array:)`
+
+  public func request<T: Sequence>(array: T) -> Void where T.Element == AssociatedTypeSelfReferencingProtocolMock {
+    let invocation = Mockingbird.Invocation(selectorName: "request(array:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`array`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (T) -> Void {
+      concreteImplementation(`array`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `request(array:)`
+
+  public func request<T: Sequence>(array: @escaping @autoclosure () -> T) -> Mockingbird.Stubbable<Mockingbird.Mock.Protocol, AssociatedTypeSelfReferencingProtocolMock<SequenceType>, (T) -> Void, Void> where T.Element == AssociatedTypeSelfReferencingProtocolMock {
+    let arguments = [Mockingbird.resolve(`array`)]
+    let invocation = Mockingbird.Invocation(selectorName: "request(array:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<Mockingbird.Mock.Protocol, AssociatedTypeSelfReferencingProtocolMock<SequenceType>, (T) -> Void, Void>(object: Mockingbird.Mock.self, stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `request(array:)`
+
+  public func request<T: Sequence>(array: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Void> where T.Element == AssociatedTypeSelfReferencingProtocolMock {
+    let arguments = [Mockingbird.resolve(`array`)]
+    let invocation = Mockingbird.Invocation(selectorName: "request(array:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  // MARK: Mockable `request(array:)`
+
+  public func request(array: SequenceType) -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "request(array:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`array`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (SequenceType) -> Void {
+      concreteImplementation(`array`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `request(array:)`
+
+  public func request(array: @escaping @autoclosure () -> SequenceType) -> Mockingbird.Stubbable<Mockingbird.Mock.Protocol, AssociatedTypeSelfReferencingProtocolMock<SequenceType>, (SequenceType) -> Void, Void> {
+    let arguments = [Mockingbird.resolve(`array`)]
+    let invocation = Mockingbird.Invocation(selectorName: "request(array:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<Mockingbird.Mock.Protocol, AssociatedTypeSelfReferencingProtocolMock<SequenceType>, (SequenceType) -> Void, Void>(object: Mockingbird.Mock.self, stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `request(array:)`
+
+  public func request(array: @escaping @autoclosure () -> SequenceType) -> Mockingbird.Mockable<Void> {
+    let arguments = [Mockingbird.resolve(`array`)]
+    let invocation = Mockingbird.Invocation(selectorName: "request(array:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  // MARK: Mockable `request(object:)`
+
+  public func request(object: AssociatedTypeSelfReferencingProtocolMock) -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`object`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (AssociatedTypeSelfReferencingProtocolMock) -> Void {
+      concreteImplementation(`object`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `request(object:)`
+
+  public func request(object: @escaping @autoclosure () -> AssociatedTypeSelfReferencingProtocolMock) -> Mockingbird.Stubbable<Mockingbird.Mock.Protocol, AssociatedTypeSelfReferencingProtocolMock<SequenceType>, (AssociatedTypeSelfReferencingProtocolMock) -> Void, Void> {
+    let arguments = [Mockingbird.resolve(`object`)]
+    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<Mockingbird.Mock.Protocol, AssociatedTypeSelfReferencingProtocolMock<SequenceType>, (AssociatedTypeSelfReferencingProtocolMock) -> Void, Void>(object: Mockingbird.Mock.self, stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `request(object:)`
+
+  public func request(object: @escaping @autoclosure () -> AssociatedTypeSelfReferencingProtocolMock) -> Mockingbird.Mockable<Void> {
+    let arguments = [Mockingbird.resolve(`object`)]
+    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+}
+
+/// Create a source-attributed `AssociatedTypeSelfReferencingProtocol<SequenceType>` mock.
+public func mockProtocol<T: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, SequenceType: Sequence>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> AssociatedTypeSelfReferencingProtocolMock<SequenceType> {
+  return AssociatedTypeSelfReferencingProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked ChildProtocol
 
 public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockingbird.Mock {
