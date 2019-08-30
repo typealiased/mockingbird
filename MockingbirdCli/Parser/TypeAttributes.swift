@@ -26,7 +26,7 @@ extension SwiftDeclarationKind {
   
   var isParsable: Bool {
     switch self {
-    case .class, .protocol, .extension: return true
+    case .class, .protocol, .struct, .enum, .extension, .typealias: return true
     default: return false
     }
   }

@@ -14,8 +14,31 @@ struct ParsedFile {
   let file: File
   let moduleName: String
   let imports: Set<String>
+  let importedModuleNames: Set<String>
   let structure: Structure
   let shouldMock: Bool
+  
+  init(file: File,
+       moduleName: String,
+       imports: Set<String>,
+       structure: Structure,
+       shouldMock: Bool) {
+    self.file = file
+    self.moduleName = moduleName
+    self.imports = imports
+    self.importedModuleNames = Set(imports.compactMap({
+      guard let importKeywordIndex = $0.range(of: #"\bimport\b"#, options: .regularExpression)
+        else { return nil }
+      let importDeclaration = $0[$0.index(after: importKeywordIndex.upperBound)...]
+      guard let moduleMemberIndex = importDeclaration.firstIndex(of: ".") else {
+        return String(importDeclaration).trimmingCharacters(in: .whitespacesAndNewlines)
+      }
+      return String(importDeclaration[..<moduleMemberIndex])
+        .trimmingCharacters(in: .whitespacesAndNewlines)
+    }))
+    self.structure = structure
+    self.shouldMock = shouldMock
+  }
   
   func clone(shouldMock: Bool) -> ParsedFile {
     return ParsedFile(file: file,
@@ -31,7 +54,7 @@ class ParseFilesOperation: BasicOperation {
   
   class Result {
     fileprivate(set) var parsedFiles = [ParsedFile]()
-    fileprivate(set) var importedModuleNames = Set<String>()
+    fileprivate(set) var imports = Set<String>()
   }
   
   let result = Result()
@@ -85,7 +108,7 @@ class ParseFilesOperation: BasicOperation {
     let queue = OperationQueue.createForActiveProcessors()
     queue.addOperations(operations, waitUntilFinished: true)
     result.parsedFiles = operations.compactMap({ $0.result.parsedFile })
-    result.importedModuleNames = Set(result.parsedFiles.flatMap({ $0.imports }))
+    result.imports = Set(result.parsedFiles.flatMap({ $0.imports }))
   }
 }
 
@@ -121,7 +144,7 @@ private extension File {
       }
       
       guard lineIndex != currentSource.endIndex else { break }
-      currentSource = currentSource[currentSource.index(lineIndex, offsetBy: 1)..<currentSource.endIndex]
+      currentSource = currentSource[currentSource.index(after: lineIndex)..<currentSource.endIndex]
     }
     return imports
   }

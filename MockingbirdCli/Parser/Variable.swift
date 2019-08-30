@@ -30,7 +30,11 @@ struct Variable: Hashable, Comparable {
     return lhs.name < rhs.name
   }
   
-  init?(from dictionary: StructureDictionary, rootKind: SwiftDeclarationKind, rawType: RawType) {
+  init?(from dictionary: StructureDictionary,
+        rootKind: SwiftDeclarationKind,
+        rawType: RawType,
+        moduleNames: [String],
+        rawTypeRepository: RawTypeRepository) {
     guard let kind = SwiftDeclarationKind(from: dictionary), kind.isVariable,
       // Can't override static variable declarations in classes.
       kind.typeScope == .instance
@@ -43,8 +47,9 @@ struct Variable: Hashable, Comparable {
     var attributes = Attributes.create(from: dictionary)
     guard !attributes.contains(.final) else { return nil }
     
-    if let typeName = dictionary[SwiftDocKey.typeName.rawValue] as? String {
-      self.typeName = typeName // Type was explicitly declared, hooray!
+    var rawTypeName: String
+    if let explicitTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String {
+      rawTypeName = explicitTypeName // Type was explicitly declared, hooray!
     } else if let declaration = SourceSubstring.nameSuffix
       .extract(from: dictionary, contents: rawType.parsedFile.file.contents)?.stripped(),
       declaration.hasPrefix("=") { // We might be able to infer the type...
@@ -57,14 +62,21 @@ struct Variable: Hashable, Comparable {
       
       // Use a slightly modified version of Sourcery's type inference system.
       let inferredType = inferType(from: cleanedDeclaration)
-      self.typeName = inferredType ?? "Any?"
+      rawTypeName = inferredType ?? "Any?"
       if inferredType == nil {
         fputs("WARNING: Could not infer type for variable `\(name)`, declaration: `\(cleanedDeclaration)`\n", stderr)
       }
     } else {
-      self.typeName = "Any?"
+      rawTypeName = "Any?"
       fputs("WARNING: Could not extract type info for variable `\(name)`\n", stderr)
     }
+    let fullyQualifiedTypeName = rawTypeRepository
+      .nearestInheritedType(named: rawTypeName,
+                            moduleNames: moduleNames,
+                            referencingModuleName: rawType.parsedFile.moduleName,
+                            containingTypeNames: rawType.containingTypeNames[...])?
+      .findBaseRawType()?.fullyQualifiedModuleName(from: rawTypeName)
+    self.typeName = fullyQualifiedTypeName ?? rawTypeName
     
     self.name = name
     self.kind = kind

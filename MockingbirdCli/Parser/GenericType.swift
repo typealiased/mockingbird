@@ -22,8 +22,7 @@ struct GenericType: Hashable {
   }
   
   init?(from dictionary: StructureDictionary, rawType: RawType) {
-    guard let rawKind = dictionary[SwiftDocKey.kind.rawValue] as? String,
-      let kind = SwiftDeclarationKind(rawValue: rawKind),
+    guard let kind = SwiftDeclarationKind(from: dictionary),
       kind == .genericTypeParam || kind == .associatedtype,
       let name = dictionary[SwiftDocKey.name.rawValue] as? String
       else { return nil }
@@ -44,7 +43,7 @@ struct GenericType: Hashable {
       let source = rawType.parsedFile.file.contents
       if let declaration = SourceSubstring.key.extract(from: dictionary, contents: source),
         let inferredTypeLowerBound = declaration.firstIndex(of: ":") {
-        let inferredTypeStartIndex = declaration.index(inferredTypeLowerBound, offsetBy: 1)
+        let inferredTypeStartIndex = declaration.index(after: inferredTypeLowerBound)
         let typeDeclaration = declaration[inferredTypeStartIndex...]
         
         if let whereRange = typeDeclaration.range(of: #"\bwhere\b"#, options: .regularExpression) {

@@ -28,7 +28,7 @@ extension String {
       let component = currentSubstring[..<index]
       components.append(component)
       guard index != endIndex else { break }
-      currentSubstring = currentSubstring[currentSubstring.index(index, offsetBy: 1)..<endIndex]
+      currentSubstring = currentSubstring[currentSubstring.index(after: index)..<endIndex]
     }
     return components
   }
@@ -57,7 +57,7 @@ extension Substring {
       let component = currentSubstring[..<index]
       components.append(component)
       guard index != endIndex else { break }
-      currentSubstring = currentSubstring[currentSubstring.index(index, offsetBy: 1)..<endIndex]
+      currentSubstring = currentSubstring[currentSubstring.index(after: index)..<endIndex]
     }
     return components
   }

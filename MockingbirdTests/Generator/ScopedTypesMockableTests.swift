@@ -29,13 +29,25 @@ private protocol MockableThirdLevelType {
 extension TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelTypeMock: MockableThirdLevelType {}
 
 private protocol MockableThirdLevelInheritingTopLevelType: MockableTopLevelType {
-  func thirdLevelInheritingMethod() -> Bool
+  func thirdLevelInheritingMethod() -> TopLevelType
 }
 extension TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingTopLevelTypeMock:
 MockableThirdLevelInheritingTopLevelType {}
 
 private protocol MockableThirdLevelInheritingThirdLevelType: MockableThirdLevelType {
-  func thirdLevelInheritingMethod() -> Bool
+  func thirdLevelInheritingMethod() -> TopLevelType.SecondLevelType.ThirdLevelType
 }
 extension TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingThirdLevelTypeMock:
 MockableThirdLevelInheritingThirdLevelType {}
+
+private protocol MockableThirdLevelInheritingPartiallyQualifiedThirdLevelType: MockableThirdLevelType {
+  func thirdLevelInheritingMethod() -> TopLevelType.SecondLevelType.ThirdLevelType
+}
+extension TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingPartiallyQualifiedThirdLevelType:
+MockableThirdLevelInheritingPartiallyQualifiedThirdLevelType {}
+
+private protocol MockableThirdLevelInheritingFullyQualifiedThirdLevelType: MockableThirdLevelType {
+  func thirdLevelInheritingMethod() -> TopLevelType.SecondLevelType.ThirdLevelType
+}
+extension TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingFullyQualifiedThirdLevelType:
+MockableThirdLevelInheritingFullyQualifiedThirdLevelType {}

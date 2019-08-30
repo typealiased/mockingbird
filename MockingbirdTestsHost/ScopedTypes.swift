@@ -10,10 +10,21 @@ import Foundation
 class TopLevelType {
   class SecondLevelType {
     class ThirdLevelInheritingTopLevelType: TopLevelType {
-      func thirdLevelInheritingMethod() -> Bool { return true }
+      func thirdLevelInheritingMethod() -> TopLevelType { return TopLevelType() }
     }
     class ThirdLevelInheritingThirdLevelType: ThirdLevelType {
-      func thirdLevelInheritingMethod() -> Bool { return true }
+      func thirdLevelInheritingMethod() -> ThirdLevelType { return ThirdLevelType() }
+    }
+    class ThirdLevelInheritingPartiallyQualifiedThirdLevelType: SecondLevelType.ThirdLevelType {
+      func thirdLevelInheritingMethod() -> SecondLevelType.ThirdLevelType {
+        return ThirdLevelType()
+      }
+    }
+    class ThirdLevelInheritingFullyQualifiedThirdLevelType: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType {
+      func thirdLevelInheritingMethod()
+        -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType {
+          return ThirdLevelType()
+      }
     }
     class ThirdLevelType {
       func thirdLevelMethod(param1: TopLevelType, param2: SecondLevelType) -> Bool { return true }

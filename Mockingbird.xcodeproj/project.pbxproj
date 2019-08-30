@@ -51,6 +51,9 @@
 		49124C3C23131EEB008C8CE0 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49124C3B23131EEB008C8CE0 /* Version.swift */; };
 		49124C3E23131F9A008C8CE0 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49124C3D23131F9A008C8CE0 /* String+Extensions.swift */; };
 		49124C4323132E1E008C8CE0 /* ArgumentCaptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49124C4223132E1E008C8CE0 /* ArgumentCaptorTests.swift */; };
+		49321D2B2319A26700EF1A4B /* CharacterSet+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49321D2A2319A26700EF1A4B /* CharacterSet+Extensions.swift */; };
+		495104ED2318BAA000DF85A8 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495104EC2318BAA000DF85A8 /* Typealias.swift */; };
+		495104EF2318D0BD00DF85A8 /* RawType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495104EE2318D0BD00DF85A8 /* RawType.swift */; };
 		49512723231661FB002F0E78 /* UndefinedArgumentLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49512722231661FB002F0E78 /* UndefinedArgumentLabels.swift */; };
 		4951272523166409002F0E78 /* UndefinedArgumentLabelsMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4951272423166409002F0E78 /* UndefinedArgumentLabelsMockableTests.swift */; };
 		4951272723166499002F0E78 /* UndefinedArgumentLabelsStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4951272623166499002F0E78 /* UndefinedArgumentLabelsStubbableTests.swift */; };
@@ -712,6 +715,9 @@
 		49124C3B23131EEB008C8CE0 /* Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
 		49124C3D23131F9A008C8CE0 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		49124C4223132E1E008C8CE0 /* ArgumentCaptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentCaptorTests.swift; sourceTree = "<group>"; };
+		49321D2A2319A26700EF1A4B /* CharacterSet+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Extensions.swift"; sourceTree = "<group>"; };
+		495104EC2318BAA000DF85A8 /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
+		495104EE2318D0BD00DF85A8 /* RawType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawType.swift; sourceTree = "<group>"; };
 		49512722231661FB002F0E78 /* UndefinedArgumentLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndefinedArgumentLabels.swift; sourceTree = "<group>"; };
 		4951272423166409002F0E78 /* UndefinedArgumentLabelsMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndefinedArgumentLabelsMockableTests.swift; sourceTree = "<group>"; };
 		4951272623166499002F0E78 /* UndefinedArgumentLabelsStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndefinedArgumentLabelsStubbableTests.swift; sourceTree = "<group>"; };
@@ -1729,7 +1735,9 @@
 				OBJ_31 /* MockableType.swift */,
 				OBJ_32 /* ParseFilesOperation.swift */,
 				OBJ_33 /* ProcessTypesOperation.swift */,
+				495104EE2318D0BD00DF85A8 /* RawType.swift */,
 				OBJ_34 /* Sourcery */,
+				495104EC2318BAA000DF85A8 /* Typealias.swift */,
 				OBJ_38 /* TypeAttributes.swift */,
 				OBJ_39 /* Variable.swift */,
 			);
@@ -2038,6 +2046,7 @@
 				OBJ_41 /* Array+Extensions.swift */,
 				49124C3723131EC2008C8CE0 /* DateFormatter+Extensions.swift */,
 				OBJ_42 /* OperationQueue+Extensions.swift */,
+				49321D2A2319A26700EF1A4B /* CharacterSet+Extensions.swift */,
 				49124C3923131ED9008C8CE0 /* Synchronized.swift */,
 				OBJ_43 /* Utilities.swift */,
 				49124C3B23131EEB008C8CE0 /* Version.swift */,
@@ -3031,8 +3040,10 @@
 				OBJ_578 /* MethodGenerator.swift in Sources */,
 				OBJ_579 /* MockableTypeGenerator.swift in Sources */,
 				OBJ_580 /* String+Extensions.swift in Sources */,
+				495104EF2318D0BD00DF85A8 /* RawType.swift in Sources */,
 				OBJ_581 /* VariableGenerator.swift in Sources */,
 				OBJ_582 /* ArgumentParser+Extensions.swift in Sources */,
+				49321D2B2319A26700EF1A4B /* CharacterSet+Extensions.swift in Sources */,
 				OBJ_583 /* GenerateCommand.swift in Sources */,
 				OBJ_584 /* Generator.swift in Sources */,
 				OBJ_585 /* InstallCommand.swift in Sources */,
@@ -3056,6 +3067,7 @@
 				OBJ_600 /* TypeAttributes.swift in Sources */,
 				OBJ_601 /* Variable.swift in Sources */,
 				OBJ_602 /* Array+Extensions.swift in Sources */,
+				495104ED2318BAA000DF85A8 /* Typealias.swift in Sources */,
 				OBJ_603 /* OperationQueue+Extensions.swift in Sources */,
 				OBJ_604 /* Utilities.swift in Sources */,
 				OBJ_605 /* main.swift in Sources */,

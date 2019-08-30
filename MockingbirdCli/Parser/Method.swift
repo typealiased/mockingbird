@@ -19,7 +19,10 @@ struct MethodParameter: Hashable {
   init?(from dictionary: StructureDictionary,
         argumentLabel: String?,
         parameterIndex: Int,
-        rawDeclaration: Substring?) {
+        rawDeclaration: Substring?,
+        rawType: RawType,
+        moduleNames: [String],
+        rawTypeRepository: RawTypeRepository) {
     guard let kind = SwiftDeclarationKind(from: dictionary), kind == .varParameter,
       let rawTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String
       else { return nil }
@@ -27,7 +30,13 @@ struct MethodParameter: Hashable {
     self.name = dictionary[SwiftDocKey.name.rawValue] as? String ?? "param\(parameterIndex+1)"
     self.kind = kind
     self.argumentLabel = argumentLabel
-    var typeName = rawTypeName
+    let fullyQualifiedTypeName = rawTypeRepository
+      .nearestInheritedType(named: rawTypeName,
+                            moduleNames: moduleNames,
+                            referencingModuleName: rawType.parsedFile.moduleName,
+                            containingTypeNames: rawType.containingTypeNames[...])?
+      .findBaseRawType()?.fullyQualifiedModuleName(from: rawTypeName)
+    var typeName = fullyQualifiedTypeName ?? rawTypeName
     var attributes = Attributes.create(from: dictionary)
     if typeName.hasPrefix("inout ") {
       attributes.insert(.`inout`)
@@ -84,7 +93,11 @@ struct Method: Hashable, Comparable {
     return lhs.sortableIdentifier < rhs.sortableIdentifier
   }
   
-  init?(from dictionary: StructureDictionary, rootKind: SwiftDeclarationKind, rawType: RawType) {
+  init?(from dictionary: StructureDictionary,
+        rootKind: SwiftDeclarationKind,
+        rawType: RawType,
+        moduleNames: [String],
+        rawTypeRepository: RawTypeRepository) {
     guard let kind = SwiftDeclarationKind(from: dictionary), kind.isMethod,
       // Can't override static method declarations in classes.
       kind.typeScope == .instance
@@ -138,8 +151,16 @@ struct Method: Hashable, Comparable {
     self.isInitializer = isInitializer
     
     self.name = name
-    self.returnTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String ?? "Void"
     self.kind = kind
+    
+    let returnTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String ?? "Void"
+    let fullyQualifiedReturnTypeName = rawTypeRepository
+      .nearestInheritedType(named: returnTypeName,
+                            moduleNames: moduleNames,
+                            referencingModuleName: rawType.parsedFile.moduleName,
+                            containingTypeNames: rawType.containingTypeNames[...])?
+      .findBaseRawType()?.fullyQualifiedModuleName(from: returnTypeName)
+    self.returnTypeName = fullyQualifiedReturnTypeName ?? returnTypeName
     
     let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary] ?? []
     self.genericTypes = substructure.compactMap({ structure -> GenericType? in
@@ -157,7 +178,10 @@ struct Method: Hashable, Comparable {
         guard let parameter = MethodParameter(from: $0,
                                               argumentLabel: labels[parameterIndex],
                                               parameterIndex: parameterIndex,
-                                              rawDeclaration: rawDeclaration)
+                                              rawDeclaration: rawDeclaration,
+                                              rawType: rawType,
+                                              moduleNames: moduleNames,
+                                              rawTypeRepository: rawTypeRepository)
           else { return nil }
         parameterIndex += 1
         return parameter
@@ -185,7 +209,7 @@ private extension String {
   var argumentLabels: [String?] {
     guard let startIndex = firstIndex(of: "("),
       let stopIndex = firstIndex(of: ")") else { return [] }
-    let arguments = self[index(startIndex, offsetBy: 1)..<stopIndex]
+    let arguments = self[index(after: startIndex)..<stopIndex]
     return arguments.substringComponents(separatedBy: ":").map({ $0 != "_" ? String($0) : nil })
   }
 }
