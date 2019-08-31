@@ -1,5 +1,5 @@
 //
-//  ScopedTypesMockableTests.swift
+//  ClassScopedTypesMockableTests.swift
 //  MockingbirdTests
 //
 //  Created by Andrew Chang on 8/27/19.

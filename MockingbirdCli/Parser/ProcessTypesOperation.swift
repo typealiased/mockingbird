@@ -13,12 +13,13 @@ class ProcessTypesOperation: BasicOperation {
   let parseFilesResult: ParseFilesOperation.Result
   
   class Result {
-    fileprivate(set) var rawTypeRepository = RawTypeRepository()
     fileprivate(set) var mockableTypes = [MockableType]()
     fileprivate(set) var imports = Set<String>()
   }
   
   let result = Result()
+  let rawTypeRepository = RawTypeRepository()
+  let typealiasRepository = TypealiasRepository()
   
   init(parseFilesResult: ParseFilesOperation.Result) {
     self.parseFilesResult = parseFilesResult
@@ -31,15 +32,20 @@ class ProcessTypesOperation: BasicOperation {
     })
     queue.addOperations(processStructuresOperations, waitUntilFinished: true)
     processStructuresOperations.forEach({
-      $0.result.rawTypes.forEach({ result.rawTypeRepository.addRawType($0) })
+      $0.result.rawTypes.forEach({
+        rawTypeRepository.addRawType($0)
+        if let typeAlias = Typealias(from: $0) { typealiasRepository.addTypealias(typeAlias) }
+      })
     })
     
-    let flattenInheritanceOperations = result.rawTypeRepository.rawTypes
+    let flattenInheritanceOperations = rawTypeRepository.rawTypes
       .flatMap({ $0.value })
       .map({ $0.value })
       .filter({ $0.first(where: { $0.kind.isMockable })?.parsedFile.shouldMock == true })
       .filter({ $0.first?.isContainedType != true })
-      .map({ FlattenInheritanceOperation(rawType: $0, rawTypeRepository: result.rawTypeRepository) })
+      .map({ FlattenInheritanceOperation(rawType: $0,
+                                         rawTypeRepository: rawTypeRepository,
+                                         typealiasRepository: typealiasRepository) })
     queue.addOperations(flattenInheritanceOperations, waitUntilFinished: true)
     result.mockableTypes = flattenInheritanceOperations
       .compactMap({ $0.result.mockableType })
@@ -73,9 +79,6 @@ private class ProcessStructuresOperation: BasicOperation {
   private func processStructureDictionary(_ dictionary: StructureDictionary,
                                           parsedFile: ParsedFile,
                                           containingTypeNames: [String]) -> [RawType] {
-    guard let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary]
-      else { return [] } // Trivial base case where there isn't any substructure.
-    
     let typeName = dictionary[SwiftDocKey.name.rawValue] as? String
     let attributedContainingTypeNames: [String] // Containing types plus the current type.
     if let name = typeName {
@@ -84,6 +87,7 @@ private class ProcessStructuresOperation: BasicOperation {
       attributedContainingTypeNames = containingTypeNames
     }
     
+    let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary] ?? []
     let containedTypes = substructure.flatMap({
       processStructureDictionary($0,
                                  parsedFile: parsedFile,
@@ -94,7 +98,8 @@ private class ProcessStructuresOperation: BasicOperation {
     // For inheritance, contained types are stored in the root namespace as fully qualified types.
     containedTypes.forEach({ result.rawTypes.append($0) })
     
-    guard let kind = SwiftDeclarationKind(from: dictionary), kind.isParsable else { return [] }
+    guard let kind = SwiftDeclarationKind(from: dictionary), kind.isParsable,
+      let accessLevel = AccessLevel(from: dictionary), accessLevel.isMockable else { return [] }
     let fullyQualifiedName = attributedContainingTypeNames.joined(separator: ".")
     return [RawType(dictionary: dictionary,
                     name: name,
@@ -109,6 +114,7 @@ private class ProcessStructuresOperation: BasicOperation {
 private class FlattenInheritanceOperation: BasicOperation {
   let rawType: [RawType]
   let rawTypeRepository: RawTypeRepository
+  let typealiasRepository: TypealiasRepository
   
   class Result {
     fileprivate(set) var mockableType: MockableType?
@@ -116,10 +122,13 @@ private class FlattenInheritanceOperation: BasicOperation {
   
   let result = Result()
   
-  init(rawType: [RawType], rawTypeRepository: RawTypeRepository) {
+  init(rawType: [RawType],
+       rawTypeRepository: RawTypeRepository,
+       typealiasRepository: TypealiasRepository) {
     precondition(!rawType.isEmpty)
     self.rawType = rawType
     self.rawTypeRepository = rawTypeRepository
+    self.typealiasRepository = typealiasRepository
   }
   
   override func run() throws {
@@ -140,13 +149,15 @@ private class FlattenInheritanceOperation: BasicOperation {
     if let memoized = memoizedMockableTypes[fullyQualifiedName] { return memoized }
     
     let rawTypeRepository = self.rawTypeRepository
+    let typealiasRepository = self.typealiasRepository
     let createMockableType: () -> MockableType? = {
       // Flattening inherited types could have updated `memoizedMockableTypes`.
       var memoizedMockableTypes = FlattenInheritanceOperation.memoizedMockbleTypes.value
       var mockableType = MockableType(from: rawType,
                                       mockableTypes: memoizedMockableTypes,
                                       moduleNames: moduleNames,
-                                      rawTypeRepository: rawTypeRepository)
+                                      rawTypeRepository: rawTypeRepository,
+                                      typealiasRepository: typealiasRepository)
       
       // Contained types can inherit from their containing types, so store store this potentially
       // preliminary result first.

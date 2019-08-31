@@ -70,13 +70,16 @@ struct Variable: Hashable, Comparable {
       rawTypeName = "Any?"
       fputs("WARNING: Could not extract type info for variable `\(name)`\n", stderr)
     }
-    let fullyQualifiedTypeName = rawTypeRepository
+    let containingTypeNames = rawType.containingTypeNames[...] + [rawType.name]
+    let containingScopes = rawType.containingScopes[...] + [rawType.name]
+    let qualifiedTypeNames = rawTypeRepository
       .nearestInheritedType(named: rawTypeName,
                             moduleNames: moduleNames,
                             referencingModuleName: rawType.parsedFile.moduleName,
-                            containingTypeNames: rawType.containingTypeNames[...])?
-      .findBaseRawType()?.fullyQualifiedModuleName(from: rawTypeName)
-    self.typeName = fullyQualifiedTypeName ?? rawTypeName
+                            containingTypeNames: containingTypeNames)?
+      .findBaseRawType()?
+      .qualifiedModuleNames(from: rawTypeName, context: containingScopes)
+    self.typeName = qualifiedTypeNames?.contextQualified ?? rawTypeName
     
     self.name = name
     self.kind = kind

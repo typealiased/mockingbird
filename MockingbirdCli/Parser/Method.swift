@@ -22,7 +22,8 @@ struct MethodParameter: Hashable {
         rawDeclaration: Substring?,
         rawType: RawType,
         moduleNames: [String],
-        rawTypeRepository: RawTypeRepository) {
+        rawTypeRepository: RawTypeRepository,
+        typealiasRepository: TypealiasRepository) {
     guard let kind = SwiftDeclarationKind(from: dictionary), kind == .varParameter,
       let rawTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String
       else { return nil }
@@ -30,21 +31,51 @@ struct MethodParameter: Hashable {
     self.name = dictionary[SwiftDocKey.name.rawValue] as? String ?? "param\(parameterIndex+1)"
     self.kind = kind
     self.argumentLabel = argumentLabel
-    let fullyQualifiedTypeName = rawTypeRepository
+    
+    let containingTypeNames = rawType.containingTypeNames[...] + [rawType.name]
+    let containingScopes = rawType.containingScopes[...] + [rawType.name]
+    var typeName = rawTypeName
+    var actualTypeName = typeName
+    if let qualifiedTypeNames = rawTypeRepository
       .nearestInheritedType(named: rawTypeName,
                             moduleNames: moduleNames,
                             referencingModuleName: rawType.parsedFile.moduleName,
-                            containingTypeNames: rawType.containingTypeNames[...])?
-      .findBaseRawType()?.fullyQualifiedModuleName(from: rawTypeName)
-    var typeName = fullyQualifiedTypeName ?? rawTypeName
+                            containingTypeNames: containingTypeNames)?
+      .findBaseRawType()?
+      .qualifiedModuleNames(from: rawTypeName, context: containingScopes) {
+      typeName = qualifiedTypeNames.contextQualified
+      actualTypeName = typealiasRepository
+        .actualTypeName(for: qualifiedTypeNames.moduleQualified,
+                        rawTypeRepository: rawTypeRepository,
+                        moduleNames: moduleNames,
+                        referencingModuleName: rawType.parsedFile.moduleName,
+                        containingTypeNames: containingTypeNames)
+    }
     var attributes = Attributes.create(from: dictionary)
-    if typeName.hasPrefix("inout ") {
+    if rawTypeName.range(of: #"\binout\b"#,
+                         options: .regularExpression)?.lowerBound == actualTypeName.startIndex {
       attributes.insert(.`inout`)
-      typeName = String(typeName.dropFirst(6))
+      typeName = String(typeName.dropFirst(5)).trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    if actualTypeName.containsUngrouped("->") {
+      attributes.insert(.closure)
+    }
+    if rawTypeName.containsUngrouped("@autoclosure") {
+      attributes.insert(.autoclosure)
+      if !typeName.containsUngrouped("@autoclosure") { // Re-hydrate fully qualified type names.
+        typeName = "@autoclosure " + typeName
+      }
+    }
+    if rawTypeName.containsUngrouped("@escaping") {
+      attributes.insert(.escaping)
+      if !typeName.containsUngrouped("@escaping") { // Re-hydrate fully qualified type names.
+        typeName = "@escaping " + typeName
+      }
     }
     if rawDeclaration?.hasSuffix("...") == true {
       attributes.insert(.variadic)
     }
+    
     self.typeName = typeName
     self.attributes = attributes
   }
@@ -97,7 +128,8 @@ struct Method: Hashable, Comparable {
         rootKind: SwiftDeclarationKind,
         rawType: RawType,
         moduleNames: [String],
-        rawTypeRepository: RawTypeRepository) {
+        rawTypeRepository: RawTypeRepository,
+        typealiasRepository: TypealiasRepository) {
     guard let kind = SwiftDeclarationKind(from: dictionary), kind.isMethod,
       // Can't override static method declarations in classes.
       kind.typeScope == .instance
@@ -142,8 +174,11 @@ struct Method: Hashable, Comparable {
         genericConstraints = nameSuffix[whereRange.upperBound..<nameSuffix.endIndex]
           .substringComponents(separatedBy: ",")
           .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
-        genericConstraints = GenericType.rewriteSelfTypes(constraints: genericConstraints,
-                                                          containingType: rawType)
+        genericConstraints = GenericType
+          .qualifyConstraintTypes(constraints: genericConstraints,
+                                  containingType: rawType,
+                                  moduleNames: moduleNames,
+                                  rawTypeRepository: rawTypeRepository)
       }
     }
     self.attributes = attributes
@@ -153,18 +188,24 @@ struct Method: Hashable, Comparable {
     self.name = name
     self.kind = kind
     
+    let containingTypeNames = rawType.containingTypeNames[...] + [rawType.name]
+    let containingScopes = rawType.containingScopes[...] + [rawType.name]
     let returnTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String ?? "Void"
-    let fullyQualifiedReturnTypeName = rawTypeRepository
+    let qualifiedReturnTypeNames = rawTypeRepository
       .nearestInheritedType(named: returnTypeName,
                             moduleNames: moduleNames,
                             referencingModuleName: rawType.parsedFile.moduleName,
-                            containingTypeNames: rawType.containingTypeNames[...])?
-      .findBaseRawType()?.fullyQualifiedModuleName(from: returnTypeName)
-    self.returnTypeName = fullyQualifiedReturnTypeName ?? returnTypeName
+                            containingTypeNames: containingTypeNames)?
+      .findBaseRawType()?
+      .qualifiedModuleNames(from: returnTypeName, context: containingScopes)
+    self.returnTypeName = qualifiedReturnTypeNames?.contextQualified ?? returnTypeName
     
     let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary] ?? []
     self.genericTypes = substructure.compactMap({ structure -> GenericType? in
-      guard let genericType = GenericType(from: structure, rawType: rawType) else { return nil }
+      guard let genericType = GenericType(from: structure,
+                                          rawType: rawType,
+                                          moduleNames: moduleNames,
+                                          rawTypeRepository: rawTypeRepository) else { return nil }
       return genericType
     })
     
@@ -181,7 +222,8 @@ struct Method: Hashable, Comparable {
                                               rawDeclaration: rawDeclaration,
                                               rawType: rawType,
                                               moduleNames: moduleNames,
-                                              rawTypeRepository: rawTypeRepository)
+                                              rawTypeRepository: rawTypeRepository,
+                                              typealiasRepository: typealiasRepository)
           else { return nil }
         parameterIndex += 1
         return parameter

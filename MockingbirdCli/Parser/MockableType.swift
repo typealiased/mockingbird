@@ -17,7 +17,6 @@ struct MockableType: Hashable, Comparable {
   let methods: Set<Method>
   let methodsCount: [Method.Reduced: UInt] // For de-duping generic methods.
   let variables: Set<Variable>
-  let typealiases: Set<Typealias>
   let inheritedTypes: Set<MockableType>
   let genericTypes: [GenericType]
   let genericConstraints: [String]
@@ -39,7 +38,8 @@ struct MockableType: Hashable, Comparable {
   init?(from rawTypes: [RawType],
         mockableTypes: [String: MockableType],
         moduleNames: [String],
-        rawTypeRepository: RawTypeRepository) {
+        rawTypeRepository: RawTypeRepository,
+        typealiasRepository: TypealiasRepository) {
     guard let baseRawType = rawTypes.findBaseRawType(),
       let substructure = baseRawType.dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary],
       let accessLevel = AccessLevel(from: baseRawType.dictionary), accessLevel.isMockable
@@ -58,7 +58,6 @@ struct MockableType: Hashable, Comparable {
     
     var methods = Set<Method>()
     var variables = Set<Variable>()
-    var typealiases = Set<Typealias>()
     var inheritedTypes = Set<MockableType>()
     for rawType in rawTypes {
       guard let substructure = rawType.dictionary[SwiftDocKey.substructure.rawValue]
@@ -70,7 +69,8 @@ struct MockableType: Hashable, Comparable {
                                rootKind: kind,
                                rawType: rawType,
                                moduleNames: moduleNames,
-                               rawTypeRepository: rawTypeRepository) {
+                               rawTypeRepository: rawTypeRepository,
+                               typealiasRepository: typealiasRepository) {
           methods.insert(method)
         }
         if let variable = Variable(from: structure,
@@ -79,9 +79,6 @@ struct MockableType: Hashable, Comparable {
                                    moduleNames: moduleNames,
                                    rawTypeRepository: rawTypeRepository) {
           variables.insert(variable)
-        }
-        if let typeAlias = Typealias(from: structure, rawType: rawType) {
-          typealiases.insert(typeAlias)
         }
       }
     }
@@ -103,7 +100,6 @@ struct MockableType: Hashable, Comparable {
     }
     self.methods = methods
     self.variables = variables
-    self.typealiases = typealiases
     self.inheritedTypes = inheritedTypes
     self.shouldMock = baseRawType.parsedFile.shouldMock
     
@@ -112,7 +108,10 @@ struct MockableType: Hashable, Comparable {
     self.methodsCount = methodsCount
     
     self.genericTypes = substructure.compactMap({ structure -> GenericType? in
-      guard let genericType = GenericType(from: structure, rawType: baseRawType) else { return nil }
+      guard let genericType = GenericType(from: structure,
+                                          rawType: baseRawType,
+                                          moduleNames: moduleNames,
+                                          rawTypeRepository: rawTypeRepository) else { return nil }
       return genericType
     })
     

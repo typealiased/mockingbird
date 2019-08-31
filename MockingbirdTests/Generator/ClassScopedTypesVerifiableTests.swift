@@ -1,5 +1,5 @@
 //
-//  ScopedTypesVerifiableTests.swift
+//  ClassScopedTypesVerifiableTests.swift
 //  MockingbirdTestsHost
 //
 //  Created by Andrew Chang on 8/27/19.

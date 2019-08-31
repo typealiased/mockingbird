@@ -110,6 +110,9 @@ struct Attributes: OptionSet, Hashable {
   static let variadic = Attributes(rawValue: 1 << 12)
   static let failable = Attributes(rawValue: 1 << 13)
   static let unwrappedFailable = Attributes(rawValue: 1 << 14)
+  static let closure = Attributes(rawValue: 1 << 15)
+  static let escaping = Attributes(rawValue: 1 << 16)
+  static let autoclosure = Attributes(rawValue: 1 << 17)
   
   static let attributesKey = "key.attributes"
   static let attributeKey = "key.attribute"

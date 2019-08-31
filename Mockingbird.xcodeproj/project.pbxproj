@@ -52,6 +52,7 @@
 		49124C3E23131F9A008C8CE0 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49124C3D23131F9A008C8CE0 /* String+Extensions.swift */; };
 		49124C4323132E1E008C8CE0 /* ArgumentCaptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49124C4223132E1E008C8CE0 /* ArgumentCaptorTests.swift */; };
 		49321D2B2319A26700EF1A4B /* CharacterSet+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49321D2A2319A26700EF1A4B /* CharacterSet+Extensions.swift */; };
+		495104EB2318B83400DF85A8 /* Typealiasing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495104EA2318B83400DF85A8 /* Typealiasing.swift */; };
 		495104ED2318BAA000DF85A8 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495104EC2318BAA000DF85A8 /* Typealias.swift */; };
 		495104EF2318D0BD00DF85A8 /* RawType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495104EE2318D0BD00DF85A8 /* RawType.swift */; };
 		49512723231661FB002F0E78 /* UndefinedArgumentLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49512722231661FB002F0E78 /* UndefinedArgumentLabels.swift */; };
@@ -64,11 +65,15 @@
 		4951273323166F44002F0E78 /* ClosureParametersVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4951273223166F44002F0E78 /* ClosureParametersVerifiableTests.swift */; };
 		49606F1A2313B3B5003C1969 /* OverloadedMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49606F192313B3B5003C1969 /* OverloadedMethods.swift */; };
 		49606F1C2313B43D003C1969 /* OverloadedMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49606F1B2313B43D003C1969 /* OverloadedMethodTests.swift */; };
-		497A72232315CD9900607C2B /* ScopedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A72222315CD9900607C2B /* ScopedTypes.swift */; };
+		497A72232315CD9900607C2B /* ClassScopedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A72222315CD9900607C2B /* ClassScopedTypes.swift */; };
 		497A72252315E05A00607C2B /* Variables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A72242315E05A00607C2B /* Variables.swift */; };
-		497A72312315E8D200607C2B /* ScopedTypesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A72302315E8D200607C2B /* ScopedTypesMockableTests.swift */; };
-		497A72332315EB3A00607C2B /* ScopedTypesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A72322315EB3A00607C2B /* ScopedTypesStubbableTests.swift */; };
-		497F7E3023162ED300675D98 /* ScopedTypesVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497F7E2E23162EB300675D98 /* ScopedTypesVerifiableTests.swift */; };
+		497A72312315E8D200607C2B /* ClassScopedTypesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A72302315E8D200607C2B /* ClassScopedTypesMockableTests.swift */; };
+		497A72332315EB3A00607C2B /* ClassScopedTypesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A72322315EB3A00607C2B /* ClassScopedTypesStubbableTests.swift */; };
+		497F7E3023162ED300675D98 /* ClassScopedTypesVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497F7E2E23162EB300675D98 /* ClassScopedTypesVerifiableTests.swift */; };
+		4996FACF231B2E47007AC9C2 /* TypealiasingMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4996FACE231B2E47007AC9C2 /* TypealiasingMockableTests.swift */; };
+		4996FAD1231B2EE6007AC9C2 /* TypealiasingStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4996FAD0231B2EE6007AC9C2 /* TypealiasingStubbableTests.swift */; };
+		4996FAD3231B31DB007AC9C2 /* TypealiasingVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4996FAD2231B31DB007AC9C2 /* TypealiasingVerifiableTests.swift */; };
+		4996FAD5231B4014007AC9C2 /* InheritedTypeQualification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4996FAD4231B4014007AC9C2 /* InheritedTypeQualification.swift */; };
 		49A6EB482317C37500BA25FA /* NestedFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A6EB472317C37500BA25FA /* NestedFields.swift */; };
 		49A6EB4A2317C42D00BA25FA /* ChainedStubbingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A6EB492317C42D00BA25FA /* ChainedStubbingTests.swift */; };
 		49B4F32F231309C6002106EB /* ProtocolInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4F32E231309C6002106EB /* ProtocolInitializers.swift */; };
@@ -716,6 +721,7 @@
 		49124C3D23131F9A008C8CE0 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		49124C4223132E1E008C8CE0 /* ArgumentCaptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentCaptorTests.swift; sourceTree = "<group>"; };
 		49321D2A2319A26700EF1A4B /* CharacterSet+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Extensions.swift"; sourceTree = "<group>"; };
+		495104EA2318B83400DF85A8 /* Typealiasing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiasing.swift; sourceTree = "<group>"; };
 		495104EC2318BAA000DF85A8 /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
 		495104EE2318D0BD00DF85A8 /* RawType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawType.swift; sourceTree = "<group>"; };
 		49512722231661FB002F0E78 /* UndefinedArgumentLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndefinedArgumentLabels.swift; sourceTree = "<group>"; };
@@ -728,11 +734,15 @@
 		4951273223166F44002F0E78 /* ClosureParametersVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureParametersVerifiableTests.swift; sourceTree = "<group>"; };
 		49606F192313B3B5003C1969 /* OverloadedMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverloadedMethods.swift; sourceTree = "<group>"; };
 		49606F1B2313B43D003C1969 /* OverloadedMethodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverloadedMethodTests.swift; sourceTree = "<group>"; };
-		497A72222315CD9900607C2B /* ScopedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedTypes.swift; sourceTree = "<group>"; };
+		497A72222315CD9900607C2B /* ClassScopedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassScopedTypes.swift; sourceTree = "<group>"; };
 		497A72242315E05A00607C2B /* Variables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Variables.swift; sourceTree = "<group>"; };
-		497A72302315E8D200607C2B /* ScopedTypesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedTypesMockableTests.swift; sourceTree = "<group>"; };
-		497A72322315EB3A00607C2B /* ScopedTypesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedTypesStubbableTests.swift; sourceTree = "<group>"; };
-		497F7E2E23162EB300675D98 /* ScopedTypesVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedTypesVerifiableTests.swift; sourceTree = "<group>"; };
+		497A72302315E8D200607C2B /* ClassScopedTypesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassScopedTypesMockableTests.swift; sourceTree = "<group>"; };
+		497A72322315EB3A00607C2B /* ClassScopedTypesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassScopedTypesStubbableTests.swift; sourceTree = "<group>"; };
+		497F7E2E23162EB300675D98 /* ClassScopedTypesVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassScopedTypesVerifiableTests.swift; sourceTree = "<group>"; };
+		4996FACE231B2E47007AC9C2 /* TypealiasingMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypealiasingMockableTests.swift; sourceTree = "<group>"; };
+		4996FAD0231B2EE6007AC9C2 /* TypealiasingStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypealiasingStubbableTests.swift; sourceTree = "<group>"; };
+		4996FAD2231B31DB007AC9C2 /* TypealiasingVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypealiasingVerifiableTests.swift; sourceTree = "<group>"; };
+		4996FAD4231B4014007AC9C2 /* InheritedTypeQualification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InheritedTypeQualification.swift; sourceTree = "<group>"; };
 		49A6EB472317C37500BA25FA /* NestedFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedFields.swift; sourceTree = "<group>"; };
 		49A6EB492317C42D00BA25FA /* ChainedStubbingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainedStubbingTests.swift; sourceTree = "<group>"; };
 		49B4F32E231309C6002106EB /* ProtocolInitializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolInitializers.swift; sourceTree = "<group>"; };
@@ -2246,6 +2256,7 @@
 				OBJ_79 /* Child.swift */,
 				OBJ_80 /* ChildProtocol.swift */,
 				49B4F33023130AD7002106EB /* ClassInitializers.swift */,
+				497A72222315CD9900607C2B /* ClassScopedTypes.swift */,
 				4951272A23166A23002F0E78 /* ClosureParameters.swift */,
 				OBJ_81 /* Extensions.swift */,
 				OBJ_82 /* Generics.swift */,
@@ -2259,7 +2270,8 @@
 				OBJ_87 /* Parent.swift */,
 				OBJ_88 /* ParentProtocol.swift */,
 				49B4F32E231309C6002106EB /* ProtocolInitializers.swift */,
-				497A72222315CD9900607C2B /* ScopedTypes.swift */,
+				495104EA2318B83400DF85A8 /* Typealiasing.swift */,
+				4996FAD4231B4014007AC9C2 /* InheritedTypeQualification.swift */,
 				49512722231661FB002F0E78 /* UndefinedArgumentLabels.swift */,
 				497A72242315E05A00607C2B /* Variables.swift */,
 				OBJ_89 /* VariadicParameters.swift */,
@@ -2323,6 +2335,9 @@
 				OBJ_103 /* ChildProtocolMockMockableTests.swift */,
 				OBJ_104 /* ChildProtocolMockStubbableTests.swift */,
 				OBJ_105 /* ChildProtocolMockVerifiableTests.swift */,
+				497A72302315E8D200607C2B /* ClassScopedTypesMockableTests.swift */,
+				497A72322315EB3A00607C2B /* ClassScopedTypesStubbableTests.swift */,
+				497F7E2E23162EB300675D98 /* ClassScopedTypesVerifiableTests.swift */,
 				4951272E23166C42002F0E78 /* ClosureParametersMockableTests.swift */,
 				4951273023166D42002F0E78 /* ClosureParametersStubbableTests.swift */,
 				4951273223166F44002F0E78 /* ClosureParametersVerifiableTests.swift */,
@@ -2335,9 +2350,9 @@
 				OBJ_112 /* InoutParametersMockableTests.swift */,
 				OBJ_113 /* InoutParametersStubbableTests.swift */,
 				OBJ_114 /* InoutParametersVerifiableTests.swift */,
-				497A72302315E8D200607C2B /* ScopedTypesMockableTests.swift */,
-				497A72322315EB3A00607C2B /* ScopedTypesStubbableTests.swift */,
-				497F7E2E23162EB300675D98 /* ScopedTypesVerifiableTests.swift */,
+				4996FACE231B2E47007AC9C2 /* TypealiasingMockableTests.swift */,
+				4996FAD0231B2EE6007AC9C2 /* TypealiasingStubbableTests.swift */,
+				4996FAD2231B31DB007AC9C2 /* TypealiasingVerifiableTests.swift */,
 				4951272423166409002F0E78 /* UndefinedArgumentLabelsMockableTests.swift */,
 				4951272623166499002F0E78 /* UndefinedArgumentLabelsStubbableTests.swift */,
 				49512728231664EF002F0E78 /* UndefinedArgumentLabelsVerifiableTests.swift */,
@@ -3117,6 +3132,7 @@
 				OBJ_694 /* ArgumentMatchingTests.swift in Sources */,
 				OBJ_695 /* AsyncVerificationTests.swift in Sources */,
 				OBJ_696 /* LastSetValueStubTests.swift in Sources */,
+				4996FAD3231B31DB007AC9C2 /* TypealiasingVerifiableTests.swift in Sources */,
 				OBJ_697 /* StubbingTests.swift in Sources */,
 				4951272723166499002F0E78 /* UndefinedArgumentLabelsStubbableTests.swift in Sources */,
 				OBJ_698 /* VariadicParametersTests.swift in Sources */,
@@ -3126,17 +3142,18 @@
 				OBJ_701 /* ChildMockVerifiableTests.swift in Sources */,
 				OBJ_702 /* ChildProtocolMockMockableTests.swift in Sources */,
 				OBJ_703 /* ChildProtocolMockStubbableTests.swift in Sources */,
-				497A72332315EB3A00607C2B /* ScopedTypesStubbableTests.swift in Sources */,
+				497A72332315EB3A00607C2B /* ClassScopedTypesStubbableTests.swift in Sources */,
 				OBJ_704 /* ChildProtocolMockVerifiableTests.swift in Sources */,
+				4996FACF231B2E47007AC9C2 /* TypealiasingMockableTests.swift in Sources */,
 				4951272F23166C42002F0E78 /* ClosureParametersMockableTests.swift in Sources */,
 				OBJ_705 /* ExtensionsMockableTests.swift in Sources */,
-				497A72312315E8D200607C2B /* ScopedTypesMockableTests.swift in Sources */,
+				497A72312315E8D200607C2B /* ClassScopedTypesMockableTests.swift in Sources */,
 				OBJ_706 /* ExtensionsStubbableTests.swift in Sources */,
 				OBJ_707 /* ExtensionsVerifiableTests.swift in Sources */,
 				OBJ_708 /* GenericsMockableTests.swift in Sources */,
 				OBJ_709 /* GenericsStubbableTests.swift in Sources */,
 				OBJ_710 /* GenericsVerifiableTests.swift in Sources */,
-				497F7E3023162ED300675D98 /* ScopedTypesVerifiableTests.swift in Sources */,
+				497F7E3023162ED300675D98 /* ClassScopedTypesVerifiableTests.swift in Sources */,
 				OBJ_711 /* InoutParametersMockableTests.swift in Sources */,
 				49124C4323132E1E008C8CE0 /* ArgumentCaptorTests.swift in Sources */,
 				4951273323166F44002F0E78 /* ClosureParametersVerifiableTests.swift in Sources */,
@@ -3149,6 +3166,7 @@
 				OBJ_715 /* VariadicParametersStubbableTests.swift in Sources */,
 				OBJ_716 /* VariadicParametersVerifiableTests.swift in Sources */,
 				4951272523166409002F0E78 /* UndefinedArgumentLabelsMockableTests.swift in Sources */,
+				4996FAD1231B2EE6007AC9C2 /* TypealiasingStubbableTests.swift in Sources */,
 				OBJ_717 /* Mocks.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3157,6 +3175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				495104EB2318B83400DF85A8 /* Typealiasing.swift in Sources */,
 				OBJ_730 /* ArgumentMatching.swift in Sources */,
 				49606F1A2313B3B5003C1969 /* OverloadedMethods.swift in Sources */,
 				OBJ_731 /* Child.swift in Sources */,
@@ -3169,6 +3188,7 @@
 				49512723231661FB002F0E78 /* UndefinedArgumentLabels.swift in Sources */,
 				497A72252315E05A00607C2B /* Variables.swift in Sources */,
 				49B4F33123130AD7002106EB /* ClassInitializers.swift in Sources */,
+				4996FAD5231B4014007AC9C2 /* InheritedTypeQualification.swift in Sources */,
 				OBJ_737 /* InoutParameters.swift in Sources */,
 				4951272B23166A23002F0E78 /* ClosureParameters.swift in Sources */,
 				OBJ_738 /* ModuleImportCases.swift in Sources */,
@@ -3176,7 +3196,7 @@
 				OBJ_740 /* ParentProtocol.swift in Sources */,
 				OBJ_741 /* VariadicParameters.swift in Sources */,
 				49B4F32F231309C6002106EB /* ProtocolInitializers.swift in Sources */,
-				497A72232315CD9900607C2B /* ScopedTypes.swift in Sources */,
+				497A72232315CD9900607C2B /* ClassScopedTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

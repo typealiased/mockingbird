@@ -15,6 +15,7 @@ extension MethodParameter {
     let typeName = context.specializeTypeName(self.typeName)
     let inoutAttribute = attributes.contains(.inout) ? "inout " : ""
     
+    // When the type names are used for invocations instead of declaring the method parameters.
     guard forClosure else {
       let variadicAttribute = attributes.contains(.variadic) ? "..." : ""
       return "\(inoutAttribute)\(typeName)\(variadicAttribute)"
@@ -29,35 +30,19 @@ extension MethodParameter {
   
   var invocationName: String {
     let inoutAttribute = attributes.contains(.inout) ? "&" : ""
-    let autoclosureForwarding = isAutoclosure ? "()" : ""
+    let autoclosureForwarding = attributes.contains(.autoclosure) ? "()" : ""
     return "\(inoutAttribute)`\(name)`\(autoclosureForwarding)"
   }
   
   func matchableTypeName(in context: MockableType, unwrapOptional: Bool = false) -> String {
-    let typeName = context.specializeTypeName(self.typeName, unwrapOptional: unwrapOptional)
-    guard isClosure else {
-      if attributes.contains(.variadic) {
-        return "[" + typeName + "]"
-      } else {
-        return typeName
-      }
+    let typeName = context
+      .specializeTypeName(self.typeName, unwrapOptional: unwrapOptional)
+      .removingParameterAttributes()
+    if attributes.contains(.variadic) {
+      return "[" + typeName + "]"
+    } else {
+      return typeName
     }
-    return typeName // Remove attributes from closure types.
-      .replacingOccurrences(of: "@escaping", with: "")
-      .replacingOccurrences(of: "@autoclosure", with: "")
-      .trimmingCharacters(in: .whitespacesAndNewlines)
-  }
-  
-  var isClosure: Bool {
-    return typeName.contains(" -> ")
-  }
-  
-  var isEscapingClosure: Bool {
-    return typeName.contains("@escaping")
-  }
-  
-  var isAutoclosure: Bool {
-    return typeName.contains("@autoclosure")
   }
 }
 
@@ -350,10 +335,9 @@ class MethodGenerator {
   
   lazy var mockArgumentMatchers: String = {
     return method.parameters.map({ parameter -> String in
-      guard !parameter.isClosure || parameter.isEscapingClosure else {
-        // Can't save the parameter in the invocation because it's non-escaping
-        return "Mockingbird.ArgumentMatcher(nil)"
-      }
+      // Can't save the parameter in the invocation because it's non-escaping
+      guard !parameter.attributes.contains(.closure) || parameter.attributes.contains(.escaping)
+        else { return "Mockingbird.ArgumentMatcher(nil)" }
       return "Mockingbird.ArgumentMatcher(`\(parameter.name)`)"
     }).joined(separator: ", ")
   }()

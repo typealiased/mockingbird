@@ -21,7 +21,10 @@ struct GenericType: Hashable {
     }
   }
   
-  init?(from dictionary: StructureDictionary, rawType: RawType) {
+  init?(from dictionary: StructureDictionary,
+        rawType: RawType,
+        moduleNames: [String],
+        rawTypeRepository: RawTypeRepository) {
     guard let kind = SwiftDeclarationKind(from: dictionary),
       kind == .genericTypeParam || kind == .associatedtype,
       let name = dictionary[SwiftDocKey.name.rawValue] as? String
@@ -29,12 +32,21 @@ struct GenericType: Hashable {
     
     self.name = name
     
-    var inheritedTypes = Set<String>()
+    let containingTypeNames = rawType.containingTypeNames[...] + [rawType.name]
+    let containingScopes = rawType.containingScopes[...] + [rawType.name]
     
+    var inheritedTypes = Set<String>()
     if let rawInheritedTypes = dictionary[SwiftDocKey.inheritedtypes.rawValue] as? [StructureDictionary] {
       for rawInheritedType in rawInheritedTypes {
         guard let name = rawInheritedType[SwiftDocKey.name.rawValue] as? String else { continue }
-        inheritedTypes.insert(name)
+        let qualifiedTypeNames = rawTypeRepository
+          .nearestInheritedType(named: name,
+                                moduleNames: moduleNames,
+                                referencingModuleName: rawType.parsedFile.moduleName,
+                                containingTypeNames: containingTypeNames)?
+          .findBaseRawType()?
+          .qualifiedModuleNames(from: name, context: containingScopes)
+        inheritedTypes.insert(qualifiedTypeNames?.contextQualified ?? name)
       }
     }
     
@@ -46,29 +58,62 @@ struct GenericType: Hashable {
         let inferredTypeStartIndex = declaration.index(after: inferredTypeLowerBound)
         let typeDeclaration = declaration[inferredTypeStartIndex...]
         
+        let inferredType: String
         if let whereRange = typeDeclaration.range(of: #"\bwhere\b"#, options: .regularExpression) {
-          let inferredType = typeDeclaration[..<whereRange.lowerBound]
-          inheritedTypes.insert(String(inferredType.trimmingCharacters(in: .whitespacesAndNewlines)))
+          let rawInferredType = typeDeclaration[..<whereRange.lowerBound]
+          inferredType = String(rawInferredType.trimmingCharacters(in: .whitespacesAndNewlines))
+          
           genericConstraints = typeDeclaration[whereRange.upperBound...]
             .substringComponents(separatedBy: ",")
             .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
-          genericConstraints = GenericType.rewriteSelfTypes(constraints: genericConstraints,
-                                                            containingType: rawType)
-        } else {
-          inheritedTypes.insert(String(typeDeclaration.trimmingCharacters(in: .whitespacesAndNewlines)))
+          genericConstraints = GenericType
+            .qualifyConstraintTypes(constraints: genericConstraints,
+                                    containingType: rawType,
+                                    moduleNames: moduleNames,
+                                    rawTypeRepository: rawTypeRepository)
+        } else { // No `where` generic constraint.
+          inferredType = String(typeDeclaration.trimmingCharacters(in: .whitespacesAndNewlines))
         }
+        
+        let qualifiedTypeNames = rawTypeRepository
+          .nearestInheritedType(named: inferredType,
+                                moduleNames: moduleNames,
+                                referencingModuleName: rawType.parsedFile.moduleName,
+                                containingTypeNames: containingTypeNames)?
+          .findBaseRawType()?
+          .qualifiedModuleNames(from: inferredType, context: containingScopes)
+        inheritedTypes.insert(qualifiedTypeNames?.contextQualified ?? inferredType)
       }
     }
     self.genericConstraints = genericConstraints
     self.inheritedTypes = inheritedTypes
   }
   
-  static func rewriteSelfTypes(constraints: [String], containingType: RawType) -> [String] {
-    return constraints.map({
-      let components = $0.substringComponents(separatedBy: "=")
-      guard components.count == 3,
-        components[2].trimmingCharacters(in: .whitespaces) == "Self" else { return $0 }
-      return "\(components[0].trimmingCharacters(in: .whitespaces)) == \(containingType.name)Mock"
+  static func qualifyConstraintTypes(constraints: [String],
+                                     containingType: RawType,
+                                     moduleNames: [String],
+                                     rawTypeRepository: RawTypeRepository) -> [String] {
+    let containingTypeNames = containingType.containingTypeNames[...] + [containingType.name]
+    let containingScopes = containingType.containingScopes[...] + [containingType.name]
+    
+    return constraints.map({ constraint -> String in
+      let components = constraint.substringComponents(separatedBy: "=")
+      guard components.count == 3 else { return constraint }
+      let constrainedMember = components[0].trimmingCharacters(in: .whitespaces)
+      let constraintType = components[2].trimmingCharacters(in: .whitespaces)
+      if constraintType == "Self" {
+        return "\(constrainedMember) == \(containingType.name)Mock"
+      }
+      
+      let qualifiedTypeNames = rawTypeRepository
+        .nearestInheritedType(named: constraintType,
+                              moduleNames: moduleNames,
+                              referencingModuleName: containingType.parsedFile.moduleName,
+                              containingTypeNames: containingTypeNames)?
+        .findBaseRawType()?
+        .qualifiedModuleNames(from: constraintType, context: containingScopes)
+      let qualifiedTypeName = qualifiedTypeNames?.contextQualified ?? constraintType
+      return "\(constrainedMember) == \(qualifiedTypeName)"
     })
   }
 }
