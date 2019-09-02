@@ -16,18 +16,18 @@ struct SourcePath: Hashable, Equatable {
 }
 
 /// Given a target, find all related source files including those compiled by dependencies.
-class ExtractSourcesOperation: BasicOperation {
+public class ExtractSourcesOperation: BasicOperation {
   let target: PBXTarget
   let sourceRoot: Path
   
-  class Result {
+  public class Result {
     fileprivate(set) var targetPaths = Set<SourcePath>()
     fileprivate(set) var dependencyPaths = Set<SourcePath>()
   }
   
-  let result = Result()
+  public let result = Result()
   
-  init(with target: PBXTarget, sourceRoot: Path) {
+  public init(with target: PBXTarget, sourceRoot: Path) {
     self.target = target
     self.sourceRoot = sourceRoot
   }
@@ -75,7 +75,7 @@ class ExtractSourcesOperation: BasicOperation {
   }
 }
 
-extension PBXTarget {
+public extension PBXTarget {
   var productModuleName: String? {
     guard let inferredDebugConfig = buildConfigurationList?.buildConfigurations
       .first(where: { $0.name.lowercased() == "debug" })

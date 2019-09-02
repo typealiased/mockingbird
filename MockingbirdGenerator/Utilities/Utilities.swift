@@ -8,7 +8,7 @@
 
 import Foundation
 
-func time<T>(_ name: String = "Unnamed task", _ block: () throws -> T) rethrows -> T {
+public func time<T>(_ name: String = "Unnamed task", _ block: () throws -> T) rethrows -> T {
   #if DEBUG
   let start = mach_absolute_time()
   let returnValue = try block()

@@ -9,7 +9,7 @@
 import Foundation
 import PathKit
 
-class GenerateFileOperation: BasicOperation {
+public class GenerateFileOperation: BasicOperation {
   private let processTypesResult: ProcessTypesOperation.Result
   private let moduleName: String
   private let outputPath: Path
@@ -18,13 +18,13 @@ class GenerateFileOperation: BasicOperation {
   private let onlyMockProtocols: Bool
   private let disableSwiftlint: Bool
   
-  init(processTypesResult: ProcessTypesOperation.Result,
-       moduleName: String,
-       outputPath: Path,
-       preprocessorExpression: String?,
-       shouldImportModule: Bool,
-       onlyMockProtocols: Bool,
-       disableSwiftlint: Bool) {
+  public init(processTypesResult: ProcessTypesOperation.Result,
+              moduleName: String,
+              outputPath: Path,
+              preprocessorExpression: String?,
+              shouldImportModule: Bool,
+              onlyMockProtocols: Bool,
+              disableSwiftlint: Bool) {
     self.processTypesResult = processTypesResult
     self.moduleName = moduleName
     self.outputPath = outputPath

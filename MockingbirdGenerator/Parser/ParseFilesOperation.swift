@@ -49,15 +49,15 @@ struct ParsedFile {
   }
 }
 
-class ParseFilesOperation: BasicOperation {
+public class ParseFilesOperation: BasicOperation {
   let extractSourcesResult: ExtractSourcesOperation.Result
   
-  class Result {
+  public class Result {
     fileprivate(set) var parsedFiles = [ParsedFile]()
     fileprivate(set) var imports = Set<String>()
   }
   
-  let result = Result()
+  public let result = Result()
   
   class SubOperation: BasicOperation {
     let sourcePath: SourcePath
@@ -95,7 +95,7 @@ class ParseFilesOperation: BasicOperation {
     }
   }
   
-  init(extractSourcesResult: ExtractSourcesOperation.Result) {
+  public init(extractSourcesResult: ExtractSourcesOperation.Result) {
     self.extractSourcesResult = extractSourcesResult
   }
   

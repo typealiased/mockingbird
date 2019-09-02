@@ -5,6 +5,7 @@ let package = Package(
   name: "Mockingbird",
   products: [
     .library(name: "Mockingbird", targets: ["MockingbirdFramework"]),
+    .library(name: "MockingbirdGenerator", targets: ["MockingbirdGenerator"]),
     .executable(name: "mockingbird", targets: ["MockingbirdCli"]),
   ],
   dependencies: [
@@ -19,9 +20,17 @@ let package = Package(
       path: "MockingbirdFramework"
     ),
     .target(
-      name: "MockingbirdCli",
+      name: "MockingbirdGenerator",
       dependencies: [
         "SourceKittenFramework",
+        "XcodeProj",
+      ],
+      path: "MockingbirdGenerator"
+    ),
+    .target(
+      name: "MockingbirdCli",
+      dependencies: [
+        "MockingbirdGenerator",
         "SPMUtility",
         "XcodeProj",
       ],
@@ -36,6 +45,7 @@ let package = Package(
       name: "MockingbirdTests",
       dependencies: [
         "MockingbirdFramework",
+        "MockingbirdGenerator",
         "MockingbirdTestsHost",
       ],
       path: "MockingbirdTests",

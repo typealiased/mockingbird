@@ -8,14 +8,14 @@
 
 import Foundation
 
-class BasicOperation: Operation {
-  override var isAsynchronous: Bool { return false }
-  override var isConcurrent: Bool { return true }
+public class BasicOperation: Operation {
+  override public var isAsynchronous: Bool { return false }
+  override public var isConcurrent: Bool { return true }
   
-  private(set) var error: Error?
+  private(set) public var error: Error?
   
   private(set) var _isFinished: Bool = false
-  override var isFinished: Bool {
+  override public var isFinished: Bool {
     set {
       willChangeValue(forKey: "isFinished")
       _isFinished = newValue
@@ -25,7 +25,7 @@ class BasicOperation: Operation {
   }
   
   private(set) var _isExecuting: Bool = false
-  override var isExecuting: Bool {
+  override public var isExecuting: Bool {
     set {
       willChangeValue(forKey: "isExecuting")
       _isExecuting = newValue
@@ -36,7 +36,7 @@ class BasicOperation: Operation {
   
   func run() throws {}
   
-  override func start() {
+  override public func start() {
     guard !isCancelled else { return }
     isExecuting = true
     do {

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MockingbirdGenerator
 import PathKit
 import SPMUtility
 import XcodeProj
@@ -47,7 +48,7 @@ class Generator {
                                                    sourceRoot: config.sourceRoot)
       let parseFiles = ParseFilesOperation(extractSourcesResult: extractSources.result)
       parseFiles.addDependency(extractSources)
-      let processTypes = ProcessTypesOperation(parseFilesResult: parseFiles.result )
+      let processTypes = ProcessTypesOperation(parseFilesResult: parseFiles.result)
       processTypes.addDependency(parseFiles)
       let moduleName = inputTarget.productModuleName ?? inputTarget.name
       let generateFile = GenerateFileOperation(processTypesResult: processTypes.result,

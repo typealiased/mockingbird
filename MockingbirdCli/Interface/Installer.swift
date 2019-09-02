@@ -6,6 +6,8 @@
 //  Copyright © 2019 Bird Rides, Inc. All rights reserved.
 //
 
+// swiftlint:disable leading_whitespace
+
 import Foundation
 import XcodeProj
 import PathKit
@@ -158,7 +160,7 @@ class Installer {
       }
       let shellScript = """
       \(config.cliPath) generate \\
-      \(options.joined(separator: " \\\n  "))
+        \(options.joined(separator: " \\\n  "))
       """
       // Specifying an output path without input paths causes Xcode to incorrectly cache mock files.
       return PBXShellScriptBuildPhase(name: Constants.buildPhaseName, shellScript: shellScript)

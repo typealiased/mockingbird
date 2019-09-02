@@ -9,9 +9,9 @@
 import Foundation
 
 /// Swift Package Manager doesn't create an Info.plist section in the binary like xcodebuild.
-let mockingbirdVersion = Version(shortString: "0.1.3")
+public let mockingbirdVersion = Version(shortString: "0.1.3")
 
-struct Version: Comparable {
+public struct Version: Comparable {
   let semver: [Int]
   var shortString: String { return semver.map({ "\($0)" }).joined(separator: ".") }
   
@@ -23,14 +23,14 @@ struct Version: Comparable {
     self.init(semver: shortString.components(separatedBy: ".").map({ Int($0) ?? 0 }))
   }
   
-  static func < (lhs: Version, rhs: Version) -> Bool {
+  public static func < (lhs: Version, rhs: Version) -> Bool {
     for i in 0..<min(lhs.semver.count, rhs.semver.count) {
       if lhs.semver[i] < rhs.semver[i] { return true }
     }
     return lhs.semver.count < rhs.semver.count
   }
   
-  static func << (lhs: Version, rhs: Version) -> Bool {
+  public static func << (lhs: Version, rhs: Version) -> Bool {
     return lhs.semver.first ?? 0 < rhs.semver.first ?? 0
   }
 }

@@ -9,19 +9,19 @@
 import Foundation
 import SourceKittenFramework
 
-class ProcessTypesOperation: BasicOperation {
+public class ProcessTypesOperation: BasicOperation {
   let parseFilesResult: ParseFilesOperation.Result
   
-  class Result {
+  public class Result {
     fileprivate(set) var mockableTypes = [MockableType]()
     fileprivate(set) var imports = Set<String>()
   }
   
-  let result = Result()
+  public let result = Result()
   let rawTypeRepository = RawTypeRepository()
   let typealiasRepository = TypealiasRepository()
   
-  init(parseFilesResult: ParseFilesOperation.Result) {
+  public init(parseFilesResult: ParseFilesOperation.Result) {
     self.parseFilesResult = parseFilesResult
   }
   
