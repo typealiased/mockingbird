@@ -64,34 +64,6 @@ struct Attributes: OptionSet, Hashable {
     self.rawValue = rawValue
   }
   
-  static func create(from kind: SwiftDeclarationAttributeKind) -> Attributes? {
-    switch kind {
-    case .final: return .final
-    case .required: return .required
-    case .optional: return .optional
-    case .lazy: return .lazy
-    case .dynamic: return .dynamic
-    case .weak: return .weak
-    case .rethrows: return .rethrows
-    case .convenience: return .convenience
-    default: return nil
-    }
-  }
-  
-  static func create(from dictionary: StructureDictionary) -> Attributes {
-    var attributes: Attributes = []
-    guard let rawAttributes = dictionary[Attributes.attributesKey] as? [StructureDictionary] else {
-      return attributes
-    }
-    for rawAttributeDictionary in rawAttributes {
-      guard let rawAttribute = rawAttributeDictionary[Attributes.attributeKey] as? String,
-        let attributeKind = SwiftDeclarationAttributeKind(rawValue: rawAttribute),
-        let attribute = Attributes.create(from: attributeKind) else { continue }
-      attributes.insert(attribute)
-    }
-    return attributes
-  }
-  
   // MARK: SourceKit-provided attributes
   static let final = Attributes(rawValue: 1 << 0)
   static let required = Attributes(rawValue: 1 << 1)
@@ -116,6 +88,37 @@ struct Attributes: OptionSet, Hashable {
   
   static let attributesKey = "key.attributes"
   static let attributeKey = "key.attribute"
+}
+
+extension Attributes {
+  init?(from kind: SwiftDeclarationAttributeKind) {
+    switch kind {
+    case .final: self = .final
+    case .required: self = .required
+    case .optional: self = .optional
+    case .lazy: self = .lazy
+    case .dynamic: self = .dynamic
+    case .weak: self = .weak
+    case .rethrows: self = .rethrows
+    case .convenience: self = .convenience
+    default: return nil
+    }
+  }
+  
+  init(from dictionary: StructureDictionary) {
+    var attributes = Attributes()
+    guard let rawAttributes = dictionary[Attributes.attributesKey] as? [StructureDictionary] else {
+      self = attributes
+      return
+    }
+    for rawAttributeDictionary in rawAttributes {
+      guard let rawAttribute = rawAttributeDictionary[Attributes.attributeKey] as? String,
+        let attributeKind = SwiftDeclarationAttributeKind(rawValue: rawAttribute),
+        let attribute = Attributes(from: attributeKind) else { continue }
+      attributes.insert(attribute)
+    }
+    self = attributes
+  }
 }
 
 enum AccessLevel: String, CustomStringConvertible {

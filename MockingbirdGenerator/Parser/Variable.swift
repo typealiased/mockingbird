@@ -44,7 +44,7 @@ struct Variable: Hashable, Comparable {
     guard let name = dictionary[SwiftDocKey.name.rawValue] as? String,
       let accessLevel = AccessLevel(from: dictionary), accessLevel.isMockable else { return nil }
     
-    var attributes = Attributes.create(from: dictionary)
+    var attributes = Attributes(from: dictionary)
     guard !attributes.contains(.final) else { return nil }
     
     var rawTypeName: String
@@ -70,16 +70,16 @@ struct Variable: Hashable, Comparable {
       rawTypeName = "Any?"
       fputs("WARNING: Could not extract type info for variable `\(name)`\n", stderr)
     }
-    let containingTypeNames = rawType.containingTypeNames[...] + [rawType.name]
-    let containingScopes = rawType.containingScopes[...] + [rawType.name]
-    let qualifiedTypeNames = rawTypeRepository
-      .nearestInheritedType(named: rawTypeName,
-                            moduleNames: moduleNames,
-                            referencingModuleName: rawType.parsedFile.moduleName,
-                            containingTypeNames: containingTypeNames)?
-      .findBaseRawType()?
-      .qualifiedModuleNames(from: rawTypeName, context: containingScopes)
-    self.typeName = qualifiedTypeNames?.contextQualified ?? rawTypeName
+    
+    let declaredType = DeclaredType(from: rawTypeName)
+    let serializationContext = SerializationRequest
+      .Context(moduleNames: moduleNames,
+               rawType: rawType,
+               rawTypeRepository: rawTypeRepository)
+    let qualifiedTypeNameRequest = SerializationRequest(method: .contextQualified,
+                                                        context: serializationContext,
+                                                        options: .standard)
+    self.typeName = declaredType.serialize(with: qualifiedTypeNameRequest)
     
     self.name = name
     self.kind = kind

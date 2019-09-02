@@ -46,7 +46,7 @@ struct MockableType: Hashable, Comparable {
       else { return nil }
     
     var attributes = Attributes()
-    rawTypes.forEach({ attributes.formUnion(Attributes.create(from: $0.dictionary)) })
+    rawTypes.forEach({ attributes.formUnion(Attributes(from: $0.dictionary)) })
     self.attributes = attributes
     guard !attributes.contains(.final) else { return nil }
     

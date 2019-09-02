@@ -8,6 +8,18 @@
 
 import Foundation
 
+extension Dictionary where Key == Character, Value == Character {
+  static var allGroups: [Character: Character] {
+    return ["(": ")", "[": "]", "<": ">"]
+  }
+}
+
+extension Set where Element == Character {
+  static var whitespacesAndNewlines: Set<Character> {
+    return ["\t", "\n", "\r", " "]
+  }
+}
+
 extension String {
   /// Capitalizes only the first character of the string.
   var capitalizedFirst: String {
@@ -21,16 +33,7 @@ extension String {
   /// - Parameter delimiter: A character to use to split the string.
   /// - Returns: An array of substrings.
   func substringComponents(separatedBy delimiter: Character) -> [Substring] {
-    var components = [Substring]()
-    var currentSubstring = self[..<endIndex]
-    while true {
-      let index = currentSubstring.firstIndex(of: delimiter) ?? endIndex
-      let component = currentSubstring[..<index]
-      components.append(component)
-      guard index != endIndex else { break }
-      currentSubstring = currentSubstring[currentSubstring.index(after: index)..<endIndex]
-    }
-    return components
+    return self[...].substringComponents(separatedBy: delimiter)
   }
   
   /// Adds two-space indentation `offset` number of times.
@@ -45,64 +48,60 @@ extension String {
     return lines.map({ indentation + $0 }).joined(separator: "\n")
   }
   
-  /// Whether the current string contains some needle outside of any parenthetical groups.
-  ///
-  /// - Note: This does the same thing as Sourcery's `isValidClosure()`, but ~3x faster.
-  ///
-  /// - Parameter needle: The string to search for within the current string.
-  func containsUngrouped(_ needle: String,
-                         groupStart: Character = "(",
-                         groupEnd: Character = ")") -> Bool {
-    var groupIndex = 0
-    var stateMachine = 0
-    var substring = self[...]
-    while let character = substring.first {
-      switch character {
-      case groupStart:
-        groupIndex += 1
-        stateMachine = 0
-      case groupEnd:
-        groupIndex -= 1
-        stateMachine = 0
-      default:
-        guard groupIndex == 0 else { break }
-        let needleIndex = needle.index(needle.startIndex, offsetBy: stateMachine)
-        guard character == needle[needleIndex] else {
-          stateMachine = 0
-          break
-        }
-        stateMachine += 1
-        if stateMachine == needle.count { return true }
-      }
-      substring = substring.dropFirst()
-    }
-    return false
-  }
-  
   /// Returns a new string created by removing function parameter attributes.
   func removingParameterAttributes() -> String {
-    let groupDelimiter = (open: "(", close: ")")
-    var trimmed = trimmingCharacters(in: .whitespacesAndNewlines)
-      .components(separatedBy: "@escaping", excludingDelimiterBetween: groupDelimiter)
-      .joined(separator: "")
-      .components(separatedBy: "@autoclosure", excludingDelimiterBetween: groupDelimiter)
-      .joined(separator: "")
-    if let inoutRange = trimmed.range(of: #"\binout\b"#, options: .regularExpression),
-      inoutRange.lowerBound == trimmed.startIndex {
-      trimmed = String(trimmed[inoutRange.upperBound...])
-    }
-    if trimmed.hasSuffix("...") {
-      trimmed = String(trimmed[..<trimmed.index(trimmed.endIndex, offsetBy: -3)])
-    }
-    return trimmed.trimmingCharacters(in: .whitespacesAndNewlines)
+    return "\(Function.Parameter(from: self).type)"
   }
   
   /// Returns a new string created by removing generic typing, e.g. `SomeType<T>` becomes `SomeType`
   func removingGenericTyping() -> String {
-    return substringComponents(separatedBy: ".").map({ component -> Substring in
-      guard let genericTypeStartIndex = component.firstIndex(of: "<") else { return component }
-      return component[..<genericTypeStartIndex]
-    }).joined(separator: ".")
+    return self[...]
+      .components(separatedBy: ".", excluding: .allGroups)
+      .map({ component -> Substring in
+        guard let genericTypeStartIndex = component.firstIndex(of: "<") else { return component }
+        return component[..<genericTypeStartIndex]
+      }).joined(separator: ".")
+  }
+  
+  /// Whether the string contains `needle`, ignoring any characters within the excluded `groups`.
+  ///
+  /// - Parameters:
+  ///   - needle: The string to search for.
+  ///   - groups: A map containing start group characters to end group characters.
+  func contains(_ needle: String, excluding groups: [Character: Character]) -> Bool {
+    return self[...].contains(needle, excluding: groups)
+  }
+  
+  /// The start of the first index of `needle` found in the string, excluding grouped characters.
+  ///
+  /// - Parameters:
+  ///   - needle: The string to search for.
+  ///   - groups: A map containing start group characters to end group characters.
+  /// - Returns: The first index if found, `nil` if `needle` does not exist.
+  func firstIndex(of needle: String, excluding groups: [Character: Character]) -> String.Index? {
+    return self[...].firstIndex(of: needle, excluding: groups)
+  }
+  
+  /// Split the string by a single delimiter character, excluding any characters found in groups.
+  ///
+  /// - Parameters:
+  ///   - delimiter: A character to split the string by.
+  ///   - groups: A map containing start group characters to end group characters.
+  /// - Returns: Substring components from splitting the current string.
+  func components(separatedBy delimiter: Character,
+                  excluding groups: [Character: Character]) -> [Substring] {
+    return self[...].components(separatedBy: delimiter, excluding: groups)
+  }
+  
+  /// Split the string by multiple delimiters, excluding any characters found in groups.
+  ///
+  /// - Parameters:
+  ///   - delimiters: A set of characters to split the string by.
+  ///   - groups: A map containing start group characters to end group characters.
+  /// - Returns: Substring components from splitting the current string.
+  func components(separatedBy delimiters: Set<Character>,
+                  excluding groups: [Character: Character]) -> [Substring] {
+    return self[...].components(separatedBy: delimiters, excluding: groups)
   }
 }
 
@@ -123,6 +122,96 @@ extension Substring {
       guard index != endIndex else { break }
       currentSubstring = currentSubstring[currentSubstring.index(after: index)..<endIndex]
     }
+    return components
+  }
+
+  /// Whether the substring contains `needle`, ignoring any characters within the excluded `groups`.
+  ///
+  /// - Parameters:
+  ///   - needle: The string to search for.
+  ///   - groups: A map containing start group characters to end group characters.
+  func contains(_ needle: String, excluding groups: [Character: Character]) -> Bool {
+    return firstIndex(of: needle, excluding: groups) != nil
+  }
+  
+  /// The start of the first index of `needle` found in the substring, excluding grouped characters.
+  ///
+  /// - Parameters:
+  ///   - needle: The string to search for.
+  ///   - groups: A map containing start group characters to end group characters.
+  /// - Returns: The first index if found, `nil` if `needle` does not exist.
+  func firstIndex(of needle: String, excluding groups: [Character: Character]) -> String.Index? {
+    var currentGroups = [Character]()
+    var stateMachineStartIndex: String.Index?
+    var stateMachine = 0
+    var substring = self
+    while let character = substring.first {
+      let currentIndex = substring.startIndex
+      substring = substring.dropFirst()
+      
+      if currentGroups.isEmpty {
+        let needleIndex = needle.index(needle.startIndex, offsetBy: stateMachine)
+        if character != needle[needleIndex] {
+          stateMachine = 0
+        } else {
+          stateMachine += 1
+          if stateMachine == 1 { stateMachineStartIndex = currentIndex }
+          if stateMachine == needle.count { return stateMachineStartIndex }
+        }
+      }
+      
+      if groups[character] != nil {
+        currentGroups.append(character)
+        stateMachine = 0
+      }
+      if let groupEnd = currentGroups.last, groups[groupEnd] == character {
+        currentGroups.removeLast()
+        stateMachine = 0
+      }
+    }
+    return nil
+  }
+  
+  /// Split the substring by a single delimiter character, excluding any characters found in groups.
+  ///
+  /// - Parameters:
+  ///   - delimiter: A character to split the substring by.
+  ///   - groups: A map containing start group characters to end group characters.
+  /// - Returns: Substring components from splitting the current substring.
+  func components(separatedBy delimiter: Character,
+                  excluding groups: [Character: Character]) -> [Substring] {
+    return components(separatedBy: [delimiter], excluding: groups)
+  }
+  
+  /// Split the substring by multiple delimiters, excluding any characters found in groups.
+  ///
+  /// - Parameters:
+  ///   - delimiters: A set of characters to split the substring by.
+  ///   - groups: A map containing start group characters to end group characters.
+  /// - Returns: Substring components from splitting the current substring.
+  func components(separatedBy delimiters: Set<Character>,
+                  excluding groups: [Character: Character]) -> [Substring] {
+    var currentGroups = [Character]()
+    var components = [Substring]()
+    var currentComponent = Substring()
+    var substring = self
+    while let character = substring.first {
+      if groups[character] != nil {
+        currentGroups.append(character)
+      }
+      if let groupEnd = currentGroups.last, groups[groupEnd] == character {
+        currentGroups.removeLast()
+      }
+      if delimiters.contains(character) && currentGroups.isEmpty {
+        components.append(currentComponent)
+        currentComponent = Substring()
+      }
+      if !currentGroups.isEmpty || !delimiters.contains(character) {
+        currentComponent.append(character)
+      }
+      substring = substring.dropFirst()
+    }
+    components.append(currentComponent)
     return components
   }
 }

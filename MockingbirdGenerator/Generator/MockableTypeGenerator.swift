@@ -225,9 +225,8 @@ extension MockableType {
       .joined(separator: "\n\n")
   }
   
-  func specializeTypeName(_ typeName: String, unwrapOptional: Bool = false) -> String {
-    guard typeName != "Self" else { return name + "Mock" }
-    guard unwrapOptional, typeName.hasSuffix("?") else { return typeName }
-    return typeName.replacingOccurrences(of: "?", with: "")
+  @inlinable func specializeTypeName(_ typeName: String) -> String {
+    return typeName
+      .replacingOccurrences(of: SerializationRequest.Constants.selfToken, with: name + "Mock")
   }
 }

@@ -32,21 +32,19 @@ struct GenericType: Hashable {
     
     self.name = name
     
-    let containingTypeNames = rawType.containingTypeNames[...] + [rawType.name]
-    let containingScopes = rawType.containingScopes[...] + [rawType.name]
-    
     var inheritedTypes = Set<String>()
     if let rawInheritedTypes = dictionary[SwiftDocKey.inheritedtypes.rawValue] as? [StructureDictionary] {
       for rawInheritedType in rawInheritedTypes {
         guard let name = rawInheritedType[SwiftDocKey.name.rawValue] as? String else { continue }
-        let qualifiedTypeNames = rawTypeRepository
-          .nearestInheritedType(named: name,
-                                moduleNames: moduleNames,
-                                referencingModuleName: rawType.parsedFile.moduleName,
-                                containingTypeNames: containingTypeNames)?
-          .findBaseRawType()?
-          .qualifiedModuleNames(from: name, context: containingScopes)
-        inheritedTypes.insert(qualifiedTypeNames?.contextQualified ?? name)
+        let declaredType = DeclaredType(from: name)
+        let serializationContext = SerializationRequest
+          .Context(moduleNames: moduleNames,
+                   rawType: rawType,
+                   rawTypeRepository: rawTypeRepository)
+        let qualifiedTypeNameRequest = SerializationRequest(method: .contextQualified,
+                                                            context: serializationContext,
+                                                            options: .standard)
+        inheritedTypes.insert(declaredType.serialize(with: qualifiedTypeNameRequest))
       }
     }
     
@@ -75,14 +73,15 @@ struct GenericType: Hashable {
           inferredType = String(typeDeclaration.trimmingCharacters(in: .whitespacesAndNewlines))
         }
         
-        let qualifiedTypeNames = rawTypeRepository
-          .nearestInheritedType(named: inferredType,
-                                moduleNames: moduleNames,
-                                referencingModuleName: rawType.parsedFile.moduleName,
-                                containingTypeNames: containingTypeNames)?
-          .findBaseRawType()?
-          .qualifiedModuleNames(from: inferredType, context: containingScopes)
-        inheritedTypes.insert(qualifiedTypeNames?.contextQualified ?? inferredType)
+        let declaredType = DeclaredType(from: inferredType)
+        let serializationContext = SerializationRequest
+          .Context(moduleNames: moduleNames,
+                   rawType: rawType,
+                   rawTypeRepository: rawTypeRepository)
+        let qualifiedTypeNameRequest = SerializationRequest(method: .contextQualified,
+                                                            context: serializationContext,
+                                                            options: .standard)
+        inheritedTypes.insert(declaredType.serialize(with: qualifiedTypeNameRequest))
       }
     }
     self.genericConstraints = genericConstraints
@@ -93,9 +92,6 @@ struct GenericType: Hashable {
                                      containingType: RawType,
                                      moduleNames: [String],
                                      rawTypeRepository: RawTypeRepository) -> [String] {
-    let containingTypeNames = containingType.containingTypeNames[...] + [containingType.name]
-    let containingScopes = containingType.containingScopes[...] + [containingType.name]
-    
     return constraints.map({ constraint -> String in
       let components = constraint.substringComponents(separatedBy: "=")
       guard components.count == 3 else { return constraint }
@@ -105,14 +101,15 @@ struct GenericType: Hashable {
         return "\(constrainedMember) == \(containingType.name)Mock"
       }
       
-      let qualifiedTypeNames = rawTypeRepository
-        .nearestInheritedType(named: constraintType,
-                              moduleNames: moduleNames,
-                              referencingModuleName: containingType.parsedFile.moduleName,
-                              containingTypeNames: containingTypeNames)?
-        .findBaseRawType()?
-        .qualifiedModuleNames(from: constraintType, context: containingScopes)
-      let qualifiedTypeName = qualifiedTypeNames?.contextQualified ?? constraintType
+      let declaredType = DeclaredType(from: constraintType)
+      let serializationContext = SerializationRequest
+        .Context(moduleNames: moduleNames,
+                 rawType: containingType,
+                 rawTypeRepository: rawTypeRepository)
+      let qualifiedTypeNameRequest = SerializationRequest(method: .contextQualified,
+                                                          context: serializationContext,
+                                                          options: .standard)
+      let qualifiedTypeName = declaredType.serialize(with: qualifiedTypeNameRequest)
       return "\(constrainedMember) == \(qualifiedTypeName)"
     })
   }

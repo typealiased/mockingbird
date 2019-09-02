@@ -13,18 +13,16 @@ import Foundation
 extension MethodParameter {
   func mockableTypeName(in context: MockableType, forClosure: Bool) -> String {
     let typeName = context.specializeTypeName(self.typeName)
-    let inoutAttribute = attributes.contains(.inout) ? "inout " : ""
     
     // When the type names are used for invocations instead of declaring the method parameters.
     guard forClosure else {
-      let variadicAttribute = attributes.contains(.variadic) ? "..." : ""
-      return "\(inoutAttribute)\(typeName)\(variadicAttribute)"
+      return "\(typeName)"
     }
     
     if attributes.contains(.variadic) {
-      return "\(inoutAttribute)[\(typeName)]"
+      return "[\(typeName.dropLast(3))]"
     } else {
-      return "\(inoutAttribute)\(typeName)"
+      return "\(typeName)"
     }
   }
   
@@ -34,10 +32,8 @@ extension MethodParameter {
     return "\(inoutAttribute)`\(name)`\(autoclosureForwarding)"
   }
   
-  func matchableTypeName(in context: MockableType, unwrapOptional: Bool = false) -> String {
-    let typeName = context
-      .specializeTypeName(self.typeName, unwrapOptional: unwrapOptional)
-      .removingParameterAttributes()
+  func matchableTypeName(in context: MockableType) -> String {
+    let typeName = context.specializeTypeName(self.typeName).removingParameterAttributes()
     if attributes.contains(.variadic) {
       return "[" + typeName + "]"
     } else {
@@ -306,7 +302,6 @@ class MethodGenerator {
   
   lazy var resolvedArgumentMatchers: String = {
     let resolved = method.parameters.map({
-      let matchableTypeName = $0.matchableTypeName(in: context, unwrapOptional: true)
       return "Mockingbird.resolve(`\($0.name)`)"
     }).joined(separator: ", ")
     return "    let arguments = [\(resolved)]"
@@ -315,7 +310,6 @@ class MethodGenerator {
   /// Variadic parameters cannot be resolved indirectly using `resolve()`.
   lazy var resolvedArgumentMatchersVariadics: String = {
     let resolved = method.parameters.map({
-      let matchableTypeName = $0.matchableTypeName(in: context, unwrapOptional: true)
       guard $0.attributes.contains(.variadic) else { return "Mockingbird.resolve(`\($0.name)`)" }
       // Directly create an ArgumentMatcher if this parameter is variadic.
       return "Mockingbird.ArgumentMatcher(`\($0.name)`)"

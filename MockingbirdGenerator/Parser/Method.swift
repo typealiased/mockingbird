@@ -19,7 +19,7 @@ struct MethodParameter: Hashable {
   init?(from dictionary: StructureDictionary,
         argumentLabel: String?,
         parameterIndex: Int,
-        rawDeclaration: Substring?,
+        rawDeclaration: String?,
         rawType: RawType,
         moduleNames: [String],
         rawTypeRepository: RawTypeRepository,
@@ -32,50 +32,26 @@ struct MethodParameter: Hashable {
     self.kind = kind
     self.argumentLabel = argumentLabel
     
-    let containingTypeNames = rawType.containingTypeNames[...] + [rawType.name]
-    let containingScopes = rawType.containingScopes[...] + [rawType.name]
-    var typeName = rawTypeName
-    var actualTypeName = typeName
-    if let qualifiedTypeNames = rawTypeRepository
-      .nearestInheritedType(named: rawTypeName,
-                            moduleNames: moduleNames,
-                            referencingModuleName: rawType.parsedFile.moduleName,
-                            containingTypeNames: containingTypeNames)?
-      .findBaseRawType()?
-      .qualifiedModuleNames(from: rawTypeName, context: containingScopes) {
-      typeName = qualifiedTypeNames.contextQualified
-      actualTypeName = typealiasRepository
-        .actualTypeName(for: qualifiedTypeNames.moduleQualified,
-                        rawTypeRepository: rawTypeRepository,
-                        moduleNames: moduleNames,
-                        referencingModuleName: rawType.parsedFile.moduleName,
-                        containingTypeNames: containingTypeNames)
-    }
-    var attributes = Attributes.create(from: dictionary)
-    if rawTypeName.range(of: #"\binout\b"#,
-                         options: .regularExpression)?.lowerBound == actualTypeName.startIndex {
-      attributes.insert(.`inout`)
-      typeName = String(typeName.dropFirst(5)).trimmingCharacters(in: .whitespacesAndNewlines)
-    }
-    if actualTypeName.containsUngrouped("->") {
-      attributes.insert(.closure)
-    }
-    if rawTypeName.containsUngrouped("@autoclosure") {
-      attributes.insert(.autoclosure)
-      if !typeName.containsUngrouped("@autoclosure") { // Re-hydrate fully qualified type names.
-        typeName = "@autoclosure " + typeName
-      }
-    }
-    if rawTypeName.containsUngrouped("@escaping") {
-      attributes.insert(.escaping)
-      if !typeName.containsUngrouped("@escaping") { // Re-hydrate fully qualified type names.
-        typeName = "@escaping " + typeName
-      }
-    }
-    if rawDeclaration?.hasSuffix("...") == true {
-      attributes.insert(.variadic)
-    }
+    let declaredParameter = rawDeclaration ?? rawTypeName
+    let parameter = Function.Parameter(from: declaredParameter)
+    let serializationContext = SerializationRequest
+      .Context(moduleNames: moduleNames,
+               rawType: rawType,
+               rawTypeRepository: rawTypeRepository,
+               typealiasRepository: typealiasRepository)
+    let qualifiedTypeNameRequest = SerializationRequest(method: .contextQualified,
+                                                        context: serializationContext,
+                                                        options: .standard)
+    let actualTypeNameRequest = SerializationRequest(method: .actualTypeName,
+                                                     context: serializationContext,
+                                                     options: .standard)
+    let typeName = parameter.serialize(with: qualifiedTypeNameRequest)
+    let actualParameterName = parameter.serialize(with: actualTypeNameRequest)
+    let actualParameter = Function.Parameter(from: actualParameterName)
     
+    // Final attributes can differ from those in `parameter` due to knowing the typealiased type.
+    var attributes = Attributes(from: dictionary).union(actualParameter.attributes)
+    if actualParameter.type.isFunction { attributes.insert(.closure) }
     self.typeName = typeName
     self.attributes = attributes
   }
@@ -141,7 +117,7 @@ struct Method: Hashable, Comparable {
       let accessLevel = AccessLevel(from: dictionary), accessLevel.isMockable
       else { return nil }
     
-    var attributes = Attributes.create(from: dictionary)
+    var attributes = Attributes(from: dictionary)
     guard !attributes.contains(.final) else { return nil }
     let isInitializer = name.hasPrefix("init(")
     
@@ -149,9 +125,12 @@ struct Method: Hashable, Comparable {
     var genericConstraints = [String]()
     let source = rawType.parsedFile.file.contents
     if let declaration = SourceSubstring.key.extract(from: dictionary, contents: source) {
-      let parametersEndIndex = declaration.firstIndex(of: ")")
-      if let startIndex = declaration.firstIndex(of: "("), let endIndex = parametersEndIndex {
-        rawParametersDeclaration = declaration[startIndex..<endIndex]
+      let startIndex = declaration.firstIndex(of: "(", excluding: .allGroups)
+      let parametersEndIndex =
+        declaration[declaration.index(after: (startIndex ?? declaration.startIndex))...]
+        .firstIndex(of: ")", excluding: .allGroups)
+      if let startIndex = startIndex, let endIndex = parametersEndIndex {
+        rawParametersDeclaration = declaration[declaration.index(after: startIndex)..<endIndex]
         
         if isInitializer {
           let failable = declaration[declaration.index(before: startIndex)..<startIndex]
@@ -163,7 +142,8 @@ struct Method: Hashable, Comparable {
         }
       }
       let returnAttributesStartIndex = parametersEndIndex ?? declaration.startIndex
-      let returnAttributesEndIndex = declaration.firstIndex(of: "-") ?? declaration.endIndex
+      let returnAttributesEndIndex = declaration.firstIndex(of: "-", excluding: .allGroups)
+        ?? declaration.endIndex
       let returnAttributes = declaration[returnAttributesStartIndex..<returnAttributesEndIndex]
       if returnAttributes.range(of: #"\bthrows\b"#, options: .regularExpression) != nil {
         attributes.insert(.throws)
@@ -188,17 +168,20 @@ struct Method: Hashable, Comparable {
     self.name = name
     self.kind = kind
     
-    let containingTypeNames = rawType.containingTypeNames[...] + [rawType.name]
-    let containingScopes = rawType.containingScopes[...] + [rawType.name]
-    let returnTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String ?? "Void"
-    let qualifiedReturnTypeNames = rawTypeRepository
-      .nearestInheritedType(named: returnTypeName,
-                            moduleNames: moduleNames,
-                            referencingModuleName: rawType.parsedFile.moduleName,
-                            containingTypeNames: containingTypeNames)?
-      .findBaseRawType()?
-      .qualifiedModuleNames(from: returnTypeName, context: containingScopes)
-    self.returnTypeName = qualifiedReturnTypeNames?.contextQualified ?? returnTypeName
+    if let rawReturnTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String {
+      let declaredType = DeclaredType(from: rawReturnTypeName)
+      let serializationContext = SerializationRequest
+        .Context(moduleNames: moduleNames,
+                 rawType: rawType,
+                 rawTypeRepository: rawTypeRepository,
+                 typealiasRepository: typealiasRepository)
+      let qualifiedTypeNameRequest = SerializationRequest(method: .contextQualified,
+                                                          context: serializationContext,
+                                                          options: .standard)
+      self.returnTypeName = declaredType.serialize(with: qualifiedTypeNameRequest)
+    } else {
+      self.returnTypeName = "Void"
+    }
     
     let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary] ?? []
     self.genericTypes = substructure.compactMap({ structure -> GenericType? in
@@ -213,7 +196,9 @@ struct Method: Hashable, Comparable {
     let labels = name.argumentLabels
     if !labels.isEmpty {
       var parameterIndex = 0
-      let rawDeclarations = rawParametersDeclaration?.substringComponents(separatedBy: ",")
+      let rawDeclarations = rawParametersDeclaration?
+        .components(separatedBy: ",", excluding: .allGroups)
+        .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
       parameters = substructure.compactMap({
         let rawDeclaration = rawDeclarations?.get(parameterIndex)
         guard let parameter = MethodParameter(from: $0,

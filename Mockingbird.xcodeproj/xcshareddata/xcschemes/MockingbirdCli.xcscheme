@@ -66,6 +66,30 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "install"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--project ./Mockingbird.xcodeproj"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--target MockingbirdTestsHost"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--output ./MockingbirdTests/Mocks.generated.swift"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--synchronous"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--reinstall"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "generate"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -78,14 +102,6 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--output ./MockingbirdTests/Mocks.generated.swift"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "--synchronous"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "--reinstall"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
