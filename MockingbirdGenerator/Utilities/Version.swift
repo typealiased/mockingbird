@@ -11,9 +11,10 @@ import Foundation
 /// Swift Package Manager doesn't create an Info.plist section in the binary like xcodebuild.
 public let mockingbirdVersion = Version(shortString: "0.2.0")
 
-public struct Version: Comparable {
+public struct Version: Comparable, CustomStringConvertible {
   let semver: [Int]
   var shortString: String { return semver.map({ "\($0)" }).joined(separator: ".") }
+  public var description: String { return shortString }
   
   init(semver: [Int]) {
     self.semver = semver

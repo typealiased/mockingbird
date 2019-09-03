@@ -13,7 +13,8 @@ func main(arguments: [String]) {
                         overview: "Mockingbird mock generator",
                         commands: [GenerateCommand.self,
                                    InstallCommand.self,
-                                   UninstallCommand.self])
+                                   UninstallCommand.self,
+                                   VersionCommand.self])
   program.run(with: arguments)
 }
 

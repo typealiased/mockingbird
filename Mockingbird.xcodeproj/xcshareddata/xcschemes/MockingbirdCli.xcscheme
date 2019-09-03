@@ -90,18 +90,22 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "generate"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--project ./Mockingbird.xcodeproj"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--target MockingbirdTestsHost"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--output ./MockingbirdTests/Mocks.generated.swift"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "version"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
