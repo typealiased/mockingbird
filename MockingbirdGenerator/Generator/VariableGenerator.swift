@@ -81,9 +81,8 @@ class VariableGenerator {
   lazy var stubbableObject: String = {
     let isGenericProtocol = context.kind == .protocol && !context.genericTypes.isEmpty
     let useMetatypeObject = variable.kind.typeScope == .static || variable.kind.typeScope == .class
-    return !useMetatypeObject
-      ? (!isGenericProtocol ? "self" : "Mockingbird.Mock.self")
-      : (context.stubbedMockName + ".self")
+    return isGenericProtocol ? "Mockingbird.Mock.self" :
+      (!useMetatypeObject ? "self" : (context.stubbedMockName + ".self"))
   }()
   
   var generatedStubs: String {

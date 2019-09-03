@@ -15,6 +15,11 @@ public protocol AssociatedTypeProtocol {
   func methodUsingEquatableType(equatable: EquatableType)
   func methodUsingHashableType(hashable: HashableType)
   func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType
+  
+  static func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType
+  
+  var equatableTypeVariable: EquatableType { get }
+  static var equatableTypeVariable: EquatableType { get }
 }
 
 public class AssociatedTypeGenericImplementer<EquatableType: Equatable, S: Sequence>: AssociatedTypeProtocol
@@ -26,6 +31,13 @@ where S.Element == EquatableType {
   public func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType {
     return 1 as! EquatableType
   }
+  
+  public static func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType {
+    return 1 as! EquatableType
+  }
+  
+  public var equatableTypeVariable: EquatableType { return 1 as! EquatableType }
+  public static var equatableTypeVariable: EquatableType { return 1 as! EquatableType }
 }
 
 public protocol AssociatedTypeImplementerProtocol {

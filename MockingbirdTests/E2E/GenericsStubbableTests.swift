@@ -22,6 +22,11 @@ private protocol StubbableAssociatedTypeProtocol {
     -> Stubbable<Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>, (HashableType) -> Void, Void>
   func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType)
     -> Stubbable<Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>, (EquatableType) -> EquatableType, EquatableType>
+  
+  func getEquatableTypeVariable()
+    -> Stubbable<Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>, () -> EquatableType, EquatableType>
+  func setEquatableTypeVariable(_ newValue: @escaping @autoclosure () -> EquatableType)
+    -> Stubbable<Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>, (EquatableType) -> Void, Void>
 }
 extension AssociatedTypeProtocolMock: StubbableAssociatedTypeProtocol {}
 
@@ -34,6 +39,11 @@ private protocol StubbableAssociatedTypeGenericImplementer: AssociatedTypeProtoc
     -> Stubbable<AssociatedTypeGenericImplementer<EquatableType, S>, AssociatedTypeGenericImplementerMock<EquatableType, S>, (HashableType) -> Void, Void>
   func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType)
     -> Stubbable<AssociatedTypeGenericImplementer<EquatableType, S>, AssociatedTypeGenericImplementerMock<EquatableType, S>, (EquatableType) -> EquatableType, EquatableType>
+  
+  func getEquatableTypeVariable()
+    -> Stubbable<AssociatedTypeGenericImplementer<EquatableType, S>, AssociatedTypeGenericImplementerMock<EquatableType, S>, () -> EquatableType, EquatableType>
+  func setEquatableTypeVariable(_ newValue: @escaping @autoclosure () -> EquatableType)
+    -> Stubbable<AssociatedTypeGenericImplementer<EquatableType, S>, AssociatedTypeGenericImplementerMock<EquatableType, S>, (EquatableType) -> Void, Void>
 }
 extension AssociatedTypeGenericImplementerMock: StubbableAssociatedTypeGenericImplementer {}
 

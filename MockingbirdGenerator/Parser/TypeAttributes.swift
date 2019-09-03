@@ -56,6 +56,13 @@ extension SwiftDeclarationKind {
 
 enum TypeScope {
   case `instance`, `static`, `class`
+  
+  func isMockable(in kind: SwiftDeclarationKind) -> Bool {
+    switch self {
+    case .instance, .class: return true
+    case .static: return kind == .protocol
+    }
+  }
 }
 
 struct Attributes: OptionSet, Hashable {

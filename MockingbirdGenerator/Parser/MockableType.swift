@@ -94,8 +94,12 @@ struct MockableType: Hashable, Comparable {
                                 containingTypeNames: containingTypeNames[...])?.findBaseRawType(),
         let mockableType = mockableTypes[nearestRawType.fullyQualifiedModuleName]
         else { continue }
-      methods = methods.union(mockableType.methods)
-      variables = variables.union(mockableType.variables)
+      methods = methods.union(mockableType.methods.filter({
+        $0.kind.typeScope.isMockable(in: baseRawType.kind)
+      }))
+      variables = variables.union(mockableType.variables.filter({
+        $0.kind.typeScope.isMockable(in: baseRawType.kind)
+      }))
       inheritedTypes = inheritedTypes.union([mockableType] + mockableType.inheritedTypes)
     }
     self.methods = methods

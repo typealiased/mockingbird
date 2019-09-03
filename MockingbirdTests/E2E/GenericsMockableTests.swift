@@ -20,6 +20,8 @@ private protocol MockableAssociatedTypeGenericImplementer: AssociatedTypeProtoco
   func methodUsingEquatableType(equatable: EquatableType)
   func methodUsingHashableType(hashable: HashableType)
   func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType
+  
+  var equatableTypeVariable: EquatableType { get }
 }
 extension AssociatedTypeGenericImplementerMock: MockableAssociatedTypeGenericImplementer {}
 

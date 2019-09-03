@@ -123,9 +123,8 @@ class MethodGenerator {
   lazy var stubbableObject: String = {
     let isGenericProtocol = context.kind == .protocol && !context.genericTypes.isEmpty
     let useMetatypeObject = method.kind.typeScope == .static || method.kind.typeScope == .class
-    return !useMetatypeObject
-      ? (!isGenericProtocol ? "self" : "Mockingbird.Mock.self")
-      : (context.stubbedMockName + ".self")
+    return isGenericProtocol ? "Mockingbird.Mock.self" :
+      (!useMetatypeObject ? "self" : (context.stubbedMockName + ".self"))
   }()
   
   lazy var generatedStub: String = {

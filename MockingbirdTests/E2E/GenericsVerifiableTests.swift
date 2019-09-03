@@ -22,6 +22,10 @@ private protocol VerifiableAssociatedTypeProtocol {
     -> Mockable<Void>
   func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType)
     -> Mockable<EquatableType>
+  
+  func getEquatableTypeVariable() -> Mockable<EquatableType>
+  func setEquatableTypeVariable(_ newValue: @escaping @autoclosure () -> EquatableType)
+    -> Mockable<Void>
 }
 extension AssociatedTypeProtocolMock: VerifiableAssociatedTypeProtocol {}
 
@@ -32,6 +36,10 @@ private protocol VerifiableAssociatedTypeGenericImplementer: AssociatedTypeProto
     -> Mockable<Void>
   func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType)
     -> Mockable<EquatableType>
+  
+  func getEquatableTypeVariable() -> Mockable<EquatableType>
+  func setEquatableTypeVariable(_ newValue: @escaping @autoclosure () -> EquatableType)
+    -> Mockable<Void>
 }
 extension AssociatedTypeGenericImplementerMock: VerifiableAssociatedTypeGenericImplementer {}
 
