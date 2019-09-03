@@ -62,7 +62,7 @@ make install-prebuilt
 
 ### Swift Package Manager
 
-Add the framework as a dependency in your `Package.swift` file.
+Add the framework as a package and test target dependency in your `Package.swift` file.
 
 ```swift
 dependencies: [
@@ -142,8 +142,8 @@ Compile Sources.
 
 ### Mocking
 
-You can create mocks for both protocols and classes. Mock types are suffixed with `Mock` and provide the same 
-methods, variables, and initializers as the original type.
+You can initialize mocks for both protocols and classes, which can be passed in place of the original type. 
+Generated mock types are suffixed with `Mock`.
 
 ```swift
 let bird: BirdMock = mockProtocol(Bird.self)
@@ -197,7 +197,7 @@ given(
 ) ~> "Big Bird"
 ```
 
-Chained stubbing allows you to easily stub complex object hierarchies.
+Stub complex object hierarchies by using the `~` operator to stub intermediary values.
 
 ```swift
 protocol Bird {
@@ -209,6 +209,8 @@ protocol Wing {
 protocol Feather { 
   var isWet: Bool { get }
 }
+
+// Returns `true` when `bird.wing.feather.isWet` is called
 given(bird
   .getWing() ~ mockProtocol(Wing.self)
     .getFeather() ~ mockProtocol(Feather.self)
@@ -217,22 +219,13 @@ given(bird
 
 ### Verification
 
-Mocks keep a record of invocations that it receives which can then be verified.
+Verification lets you assert that a mock received a particular invocation during its lifetime.
 
 ```swift
 verify(bird.chirp(volume: 50)).wasCalled()
 ```
 
-You can conveniently verify multiple invocations with the same return type at once (order doesn’t matter).
-
-```swift
-verify(
-  birdOne.getName(),
-  birdTwo.getName()
-).wasCalled()
-```
-
-It’s also possible to verify that an invocation was called a specific number of times with a call matcher.
+It’s possible to verify that an invocation was called a specific number of times with a call matcher.
 
 ```swift
 verify(bird.getName()).wasNeverCalled()            // n = 0
@@ -242,7 +235,7 @@ verify(bird.getName()).wasCalled(atMost(10))       // n ≤ 10
 verify(bird.getName()).wasCalled(between(5...10))  // 5 ≤ n ≤ 10
 ```
 
-Call matchers support chaining and negation using logical operators.
+Call matchers also support chaining and negation using logical operators.
 
 ```swift
 verify(bird.getName()).wasCalled(not(exactly(10)))           // n ≠ 10
@@ -280,6 +273,7 @@ verify(bird.getName()).wasCalled()  // ...this also succeeds
 For methods overloaded by return type, you should help the compiler by specifying the type returned.
 
 ```swift
+// Stubbing `getMessage<T>() -> T`
 verify(bird.getMessage()).returning(String.self).wasCalled()
 ```
 
@@ -295,7 +289,7 @@ clearInvocations(on: bird)  // Only removes recorded invocations
 
 ### Argument Matching
 
-Mockingbird provides a set of matchers that can be passed as an argument during stubbing or verification.
+Argument matchers allow wildcard matching of arguments during stubbing or verification.
 
 ```swift
 any()                            // Matches any value
@@ -310,7 +304,7 @@ the compiler. You can help the compiler by specifying an explicit type in the ma
 ```swift
 any(Int.self)
 any(Int.self, of: 1, 2, 3)
-any(Bird.self, where: { $0.name.isEmpty })
+any(Int.self, where: { $0 > 42 })
 notNil(String?.self)
 ```
 
