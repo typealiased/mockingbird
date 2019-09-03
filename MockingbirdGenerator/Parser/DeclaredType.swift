@@ -374,6 +374,7 @@ struct Function: CustomStringConvertible, SerializableType {
   struct Parameter: CustomStringConvertible, SerializableType {
     let label: String? // Includes the argument label `_`
     let type: DeclaredType
+    let defaultValue: String?
     let attributes: Attributes
     
     var description: String {
@@ -412,15 +413,25 @@ struct Function: CustomStringConvertible, SerializableType {
     }
     
     init(from serialized: Substring) {
+      let defaultValueIndex = serialized.firstIndex(of: "=", excluding: .allGroups)
+      if let defaultValueIndex = defaultValueIndex {
+        self.defaultValue = serialized[serialized.index(after: defaultValueIndex)...]
+          .trimmingCharacters(in: .whitespacesAndNewlines)
+      } else {
+        self.defaultValue = nil
+      }
+      
       let typeDeclaration: String
+      let typeDeclarationEndIndex = defaultValueIndex ?? serialized.endIndex
       if serialized.contains(":", excluding: .allGroups),
         let labelIndex = serialized.firstIndex(of: ":") {
         self.label = serialized[..<labelIndex].trimmingCharacters(in: .whitespacesAndNewlines)
-        typeDeclaration = serialized[serialized.index(after: labelIndex)...]
+        typeDeclaration = serialized[serialized.index(after: labelIndex)..<typeDeclarationEndIndex]
           .trimmingCharacters(in: .whitespacesAndNewlines)
       } else {
         self.label = nil
-        typeDeclaration = serialized.trimmingCharacters(in: .whitespacesAndNewlines)
+        typeDeclaration = serialized[..<typeDeclarationEndIndex]
+          .trimmingCharacters(in: .whitespacesAndNewlines)
       }
       
       var attributes = Attributes()

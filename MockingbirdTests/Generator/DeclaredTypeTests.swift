@@ -226,4 +226,12 @@ class DeclaredTypeTests: XCTestCase {
     XCTAssertEqual("\(actual)", "() -> Foundation.NSObject")
     XCTAssertTrue(actual.isFunction)
   }
+  
+  // MARK: - Parameters
+  
+  func testParameterType_parsesDefaultParameters() {
+    let actual = Function.Parameter(from: "label parameter: String = \"Hello\"")
+    XCTAssertEqual("\(actual)", "label parameter: String")
+    XCTAssertEqual(actual.defaultValue, "\"Hello\"")
+  }
 }
