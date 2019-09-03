@@ -11,7 +11,7 @@ LICENSE_PATH="$(shell pwd)/LICENSE"
 PKG_BUNDLE_IDENTIFIER=co.bird.mockingbird
 PKG_IDENTITY_NAME=3rd Party Mac Developer Installer: Bird Rides, Inc. (P2T4T6R4SL)
 ZIP_IDENTITY_NAME=3rd Party Mac Developer Application: Bird Rides, Inc. (P2T4T6R4SL)
-TEAM_IDENTIFIER=P2T4T6R4SL
+CLI_DESIGNATED_REQUIREMENT=Codesigning/MockingbirdCli.dr
 ZIP_FILENAME=MockingbirdCli.zip
 CLI_FILENAME=mockingbird
 
@@ -26,7 +26,7 @@ VERSION_STRING=$(shell /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionSt
 S3_BUCKET_URL=https://bird-mockingbird.s3-us-west-1.amazonaws.com
 ZIP_PRERELEASE_URL=$(S3_BUCKET_URL)/$(VERSION_STRING)/$(ZIP_FILENAME)
 SUCCESS_MSG=Verified the Mockingbird CLI binary
-ERROR_MSG=FATAL ERROR: The downloaded Mockingbird CLI binary does not have the expected code signature!
+ERROR_MSG=FATAL ERROR: The downloaded Mockingbird CLI binary does not have the expected code signature! See <Codesigning/README.md>.
 
 .PHONY: all \
 		clean \
@@ -62,7 +62,7 @@ build:
 download:
 	curl -Lo "$(ZIP_FILENAME)" "$(ZIP_PRERELEASE_URL)"
 	unzip -o "$(ZIP_FILENAME)" "$(CLI_FILENAME)"
-	@codesign -dv "$(CLI_FILENAME)" 2>&1 | grep -q "TeamIdentifier=$(TEAM_IDENTIFIER)" \
+	@codesign -v -R "$(CLI_DESIGNATED_REQUIREMENT)" "$(CLI_FILENAME)" \
 		&& echo "$(SUCCESS_MSG)" \
 		|| $$(echo "$(ERROR_MSG)" >&2; exit 1)
 	chmod +x "$(CLI_FILENAME)"
@@ -74,6 +74,7 @@ install: build
 install-prebuilt: download
 	install -d "$(BINARIES_FOLDER)"
 	install "$(CLI_FILENAME)" "$(BINARIES_FOLDER)"
+	rm "$(CLI_FILENAME)"
 
 uninstall:
 	rm -rf "$(FRAMEWORKS_FOLDER)/Mockingbird.framework"
@@ -109,6 +110,9 @@ signed-zip: installables
 	cp -f "$(TEMPORARY_FOLDER)$(BINARIES_FOLDER)/$(CLI_FILENAME)" "$(TEMPORARY_FOLDER)"
 	cp -f "$(LICENSE_PATH)" "$(TEMPORARY_FOLDER)"
 	codesign --sign "$(ZIP_IDENTITY_NAME)" "$(TEMPORARY_FOLDER)/$(CLI_FILENAME)"
+	codesign -d -r- "$(TEMPORARY_FOLDER)/$(CLI_FILENAME)" | cut -c 15- > "$(CLI_DESIGNATED_REQUIREMENT)"
+	# Double-check that the signed binary satisfies the explicit designated requirements.
+	codesign -v -R "$(CLI_DESIGNATED_REQUIREMENT)" "$(TEMPORARY_FOLDER)/$(CLI_FILENAME)"
 	(cd "$(TEMPORARY_FOLDER)"; zip -yr - "$(CLI_FILENAME)" "LICENSE") > "$(OUTPUT_ZIP)"	
 
 release: clean package zip
