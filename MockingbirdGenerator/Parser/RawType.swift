@@ -75,9 +75,8 @@ struct RawType {
 extension Array where Element == RawType {
   /// Given an array of partial `RawType` objects, return the root declaration (not an extension).
   func findBaseRawType() -> RawType? {
-    return first(where: {
-      ($0.kind.isMockable && $0.parsedFile.shouldMock) || !$0.kind.isMockable
-    })
+    return first(where: { $0.kind.isMockable && $0.parsedFile.shouldMock })
+      ?? first(where: { !$0.kind.isMockable })
   }
 }
 
