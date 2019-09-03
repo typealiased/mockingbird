@@ -137,7 +137,7 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
 }
 
 /// Create a source-attributed `ArgumentMatchingProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ArgumentMatchingProtocol.Protocol) -> ArgumentMatchingProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ArgumentMatchingProtocol.Protocol) -> ArgumentMatchingProtocolMock {
   return ArgumentMatchingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -919,7 +919,7 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
 }
 
 /// Create a source-attributed `ArrayTypes` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ArrayTypes.Protocol) -> ArrayTypesMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ArrayTypes.Protocol) -> ArrayTypesMock {
   return ArrayTypesMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -989,7 +989,7 @@ public final class AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType:
 }
 
 /// Create a source-attributed `AssociatedTypeGenericConstraintsProtocol<ConstrainedType>` mock.
-public func mockProtocol<T: MockingbirdTestsHost.AssociatedTypeGenericConstraintsProtocol, ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType> {
+public func mock<T: MockingbirdTestsHost.AssociatedTypeGenericConstraintsProtocol, ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType> {
   return AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>(sourceLocation: SourceLocation(file, line))
 }
 
@@ -1284,7 +1284,7 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
 }
 
 /// Create a source-attributed `AssociatedTypeImplementerProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.AssociatedTypeImplementerProtocol.Protocol) -> AssociatedTypeImplementerProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.AssociatedTypeImplementerProtocol.Protocol) -> AssociatedTypeImplementerProtocolMock {
   return AssociatedTypeImplementerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -1598,7 +1598,7 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
 }
 
 /// Create a source-attributed `AssociatedTypeProtocol<EquatableType, HashableType>` mock.
-public func mockProtocol<T: MockingbirdTestsHost.AssociatedTypeProtocol, EquatableType: Equatable, HashableType: Hashable>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> AssociatedTypeProtocolMock<EquatableType, HashableType> {
+public func mock<T: MockingbirdTestsHost.AssociatedTypeProtocol, EquatableType: Equatable, HashableType: Hashable>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> AssociatedTypeProtocolMock<EquatableType, HashableType> {
   return AssociatedTypeProtocolMock<EquatableType, HashableType>(sourceLocation: SourceLocation(file, line))
 }
 
@@ -1730,7 +1730,7 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
 }
 
 /// Create a source-attributed `AssociatedTypeSelfReferencingProtocol<SequenceType>` mock.
-public func mockProtocol<T: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, SequenceType: Sequence>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> AssociatedTypeSelfReferencingProtocolMock<SequenceType> {
+public func mock<T: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, SequenceType: Sequence>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> AssociatedTypeSelfReferencingProtocolMock<SequenceType> {
   return AssociatedTypeSelfReferencingProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line))
 }
 
@@ -2720,7 +2720,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
 }
 
 /// Create a source-attributed `ChildProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ChildProtocol.Protocol) -> ChildProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ChildProtocol.Protocol) -> ChildProtocolMock {
   return ChildProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -3822,7 +3822,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
 }
 
 /// Create a source-attributed `ClosureParametersProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ClosureParametersProtocol.Protocol) -> ClosureParametersProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ClosureParametersProtocol.Protocol) -> ClosureParametersProtocolMock {
   return ClosureParametersProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -3969,7 +3969,7 @@ public final class DefaultArgumentValuesProtocolMock: MockingbirdTestsHost.Defau
 }
 
 /// Create a source-attributed `DefaultArgumentValuesProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.DefaultArgumentValuesProtocol.Protocol) -> DefaultArgumentValuesProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.DefaultArgumentValuesProtocol.Protocol) -> DefaultArgumentValuesProtocolMock {
   return DefaultArgumentValuesProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -4751,7 +4751,7 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
 }
 
 /// Create a source-attributed `DictionaryTypes` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.DictionaryTypes.Protocol) -> DictionaryTypesMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.DictionaryTypes.Protocol) -> DictionaryTypesMock {
   return DictionaryTypesMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -4830,7 +4830,7 @@ public final class EmptyInitializerProtocolMock: MockingbirdTestsHost.EmptyIniti
 }
 
 /// Create a source-attributed `EmptyInitializerProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.EmptyInitializerProtocol.Protocol) -> EmptyInitializerProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.EmptyInitializerProtocol.Protocol) -> EmptyInitializerProtocolMock {
   return EmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -5159,7 +5159,7 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
 }
 
 /// Create a source-attributed `ExtendableProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ExtendableProtocol.Protocol) -> ExtendableProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ExtendableProtocol.Protocol) -> ExtendableProtocolMock {
   return ExtendableProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -5238,7 +5238,7 @@ public final class FailableEmptyInitializerProtocolMock: MockingbirdTestsHost.Fa
 }
 
 /// Create a source-attributed `FailableEmptyInitializerProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.FailableEmptyInitializerProtocol.Protocol) -> FailableEmptyInitializerProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.FailableEmptyInitializerProtocol.Protocol) -> FailableEmptyInitializerProtocolMock {
   return FailableEmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -5317,7 +5317,7 @@ public final class FailableParameterizedInitializerProtocolMock: MockingbirdTest
 }
 
 /// Create a source-attributed `FailableParameterizedInitializerProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.FailableParameterizedInitializerProtocol.Protocol) -> FailableParameterizedInitializerProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.FailableParameterizedInitializerProtocol.Protocol) -> FailableParameterizedInitializerProtocolMock {
   return FailableParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -5396,7 +5396,7 @@ public final class FailableUnwrappedEmptyInitializerProtocolMock: MockingbirdTes
 }
 
 /// Create a source-attributed `FailableUnwrappedEmptyInitializerProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerProtocol.Protocol) -> FailableUnwrappedEmptyInitializerProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerProtocol.Protocol) -> FailableUnwrappedEmptyInitializerProtocolMock {
   return FailableUnwrappedEmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -5475,7 +5475,7 @@ public final class FailableUnwrappedParameterizedInitializerProtocolMock: Mockin
 }
 
 /// Create a source-attributed `FailableUnwrappedParameterizedInitializerProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerProtocol.Protocol) -> FailableUnwrappedParameterizedInitializerProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerProtocol.Protocol) -> FailableUnwrappedParameterizedInitializerProtocolMock {
   return FailableUnwrappedParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -5825,7 +5825,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
 }
 
 /// Create a source-attributed `GrandparentProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.GrandparentProtocol.Protocol) -> GrandparentProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.GrandparentProtocol.Protocol) -> GrandparentProtocolMock {
   return GrandparentProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -6339,7 +6339,7 @@ public final class InheritedTypeQualificationProtocolMock<ScopedType>: Mockingbi
 }
 
 /// Create a source-attributed `InheritedTypeQualificationProtocol<ScopedType>` mock.
-public func mockProtocol<T: MockingbirdTestsHost.InheritedTypeQualificationProtocol, ScopedType>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> InheritedTypeQualificationProtocolMock<ScopedType> {
+public func mock<T: MockingbirdTestsHost.InheritedTypeQualificationProtocol, ScopedType>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> InheritedTypeQualificationProtocolMock<ScopedType> {
   return InheritedTypeQualificationProtocolMock<ScopedType>(sourceLocation: SourceLocation(file, line))
 }
 
@@ -6451,7 +6451,7 @@ public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockin
 }
 
 /// Create a source-attributed `InoutProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.InoutProtocol.Protocol) -> InoutProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.InoutProtocol.Protocol) -> InoutProtocolMock {
   return InoutProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -6490,7 +6490,7 @@ public final class ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, D
 }
 
 /// Create a source-attributed `ModuleScopedAssociatedTypeProtocol<Element, Subelement, Data>` mock.
-public func mockProtocol<T: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, Element, Subelement, Data: ModuleScopedAssociatedTypeProtocol>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data> {
+public func mock<T: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, Element, Subelement, Data: ModuleScopedAssociatedTypeProtocol>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data> {
   return ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>(sourceLocation: SourceLocation(file, line))
 }
 
@@ -6706,7 +6706,7 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
 }
 
 /// Create a source-attributed `ModuleScopedTypealiasedProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ModuleScopedTypealiasedProtocol.Protocol) -> ModuleScopedTypealiasedProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ModuleScopedTypealiasedProtocol.Protocol) -> ModuleScopedTypealiasedProtocolMock {
   return ModuleScopedTypealiasedProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -7095,7 +7095,7 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
 }
 
 /// Create a source-attributed `OverloadedMethodsProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.OverloadedMethodsProtocol.Protocol) -> OverloadedMethodsProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.OverloadedMethodsProtocol.Protocol) -> OverloadedMethodsProtocolMock {
   return OverloadedMethodsProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -7174,7 +7174,7 @@ public final class ParameterizedInitializerProtocolMock: MockingbirdTestsHost.Pa
 }
 
 /// Create a source-attributed `ParameterizedInitializerProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ParameterizedInitializerProtocol.Protocol) -> ParameterizedInitializerProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ParameterizedInitializerProtocol.Protocol) -> ParameterizedInitializerProtocolMock {
   return ParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -7844,7 +7844,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
 }
 
 /// Create a source-attributed `ParentProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ParentProtocol.Protocol) -> ParentProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ParentProtocol.Protocol) -> ParentProtocolMock {
   return ParentProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -8419,7 +8419,7 @@ public final class ServiceRepositoryMock: MockingbirdTestsHost.ServiceRepository
 }
 
 /// Create a source-attributed `ServiceRepository` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ServiceRepository.Protocol) -> ServiceRepositoryMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ServiceRepository.Protocol) -> ServiceRepositoryMock {
   return ServiceRepositoryMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -8480,7 +8480,7 @@ public final class TestCaseMock: MockingbirdTestsHost.TestCase, Mockingbird.Mock
 }
 
 /// Create a source-attributed `TestCase` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.TestCase.Protocol) -> TestCaseMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.TestCase.Protocol) -> TestCaseMock {
   return TestCaseMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -8589,7 +8589,7 @@ public final class TestManagerMock: MockingbirdTestsHost.TestManager, Mockingbir
 }
 
 /// Create a source-attributed `TestManager` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.TestManager.Protocol) -> TestManagerMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.TestManager.Protocol) -> TestManagerMock {
   return TestManagerMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -8700,7 +8700,7 @@ public final class TestMock: MockingbirdTestsHost.Test, Mockingbird.Mock {
 }
 
 /// Create a source-attributed `Test` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.Test.Protocol) -> TestMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.Test.Protocol) -> TestMock {
   return TestMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -9955,7 +9955,7 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
 }
 
 /// Create a source-attributed `TupleTypes` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.TupleTypes.Protocol) -> TupleTypesMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.TupleTypes.Protocol) -> TupleTypesMock {
   return TupleTypesMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -10191,7 +10191,7 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
 }
 
 /// Create a source-attributed `TypealiasedProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.TypealiasedProtocol.Protocol) -> TypealiasedProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.TypealiasedProtocol.Protocol) -> TypealiasedProtocolMock {
   return TypealiasedProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -10252,7 +10252,7 @@ public final class UndefinedArgumentLabelsMock: MockingbirdTestsHost.UndefinedAr
 }
 
 /// Create a source-attributed `UndefinedArgumentLabels` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.UndefinedArgumentLabels.Protocol) -> UndefinedArgumentLabelsMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.UndefinedArgumentLabels.Protocol) -> UndefinedArgumentLabelsMock {
   return UndefinedArgumentLabelsMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -10747,7 +10747,7 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
 }
 
 /// Create a source-attributed `VariadicProtocol` mock.
-public func mockProtocol(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.VariadicProtocol.Protocol) -> VariadicProtocolMock {
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.VariadicProtocol.Protocol) -> VariadicProtocolMock {
   return VariadicProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 

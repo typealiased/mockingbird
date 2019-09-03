@@ -16,8 +16,8 @@ class StubbingTests: XCTestCase {
   var childProtocol: ChildProtocolMock!
   
   override func setUp() {
-    child = mockClass(instance: ChildMock())
-    childProtocol = mockProtocol(ChildProtocol.self)
+    child = mock(instance: ChildMock())
+    childProtocol = mock(ChildProtocol.self)
   }
   
   func callTrivialInstanceMethod(on child: Child) {

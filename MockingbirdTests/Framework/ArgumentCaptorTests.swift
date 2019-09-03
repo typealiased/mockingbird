@@ -11,10 +11,10 @@ import Mockingbird
 
 class ArgumentCaptorTests: XCTestCase {
   
-  var mock: ArgumentMatchingProtocolMock!
+  var concreteMock: ArgumentMatchingProtocolMock!
   
   override func setUp() {
-    mock = mockProtocol(ArgumentMatchingProtocol.self)
+    concreteMock = mock(ArgumentMatchingProtocol.self)
   }
   
   func callMethod(on object: ArgumentMatchingProtocol,
@@ -38,45 +38,45 @@ class ArgumentCaptorTests: XCTestCase {
   
   func testArgumentCaptor_capturesSingleValue() {
     let structTypeCaptor = ArgumentCaptor<StructType>()
-    given(self.mock.method(structType: structTypeCaptor.matcher,
-                           classType: any(),
-                           enumType: any(),
-                           stringType: any(),
-                           boolType: any(),
-                           metaType: any(),
-                           anyType: any(),
-                           anyObjectType: any())) ~> true
-    XCTAssertTrue(callMethod(on: mock, structType: StructType(value: 99)))
+    given(self.concreteMock.method(structType: structTypeCaptor.matcher,
+                                   classType: any(),
+                                   enumType: any(),
+                                   stringType: any(),
+                                   boolType: any(),
+                                   metaType: any(),
+                                   anyType: any(),
+                                   anyObjectType: any())) ~> true
+    XCTAssertTrue(callMethod(on: concreteMock, structType: StructType(value: 99)))
     XCTAssert(structTypeCaptor.value?.value == 99)
   }
   
   func testArgumentCaptor_capturesMultipleValues_returnsLastValueCaptured() {
     let structTypeCaptor = ArgumentCaptor<StructType>()
-    given(self.mock.method(structType: structTypeCaptor.matcher,
-                           classType: any(),
-                           enumType: any(),
-                           stringType: any(),
-                           boolType: any(),
-                           metaType: any(),
-                           anyType: any(),
-                           anyObjectType: any())) ~> true
-    XCTAssertTrue(callMethod(on: mock, structType: StructType(value: 99)))
-    XCTAssertTrue(callMethod(on: mock, structType: StructType(value: 42)))
+    given(self.concreteMock.method(structType: structTypeCaptor.matcher,
+                                   classType: any(),
+                                   enumType: any(),
+                                   stringType: any(),
+                                   boolType: any(),
+                                   metaType: any(),
+                                   anyType: any(),
+                                   anyObjectType: any())) ~> true
+    XCTAssertTrue(callMethod(on: concreteMock, structType: StructType(value: 99)))
+    XCTAssertTrue(callMethod(on: concreteMock, structType: StructType(value: 42)))
     XCTAssert(structTypeCaptor.value?.value == 42)
   }
   
   func testArgumentCaptor_capturesMultipleValues_returnsAllValuesCaptured() {
     let structTypeCaptor = ArgumentCaptor<StructType>()
-    given(self.mock.method(structType: structTypeCaptor.matcher,
-                           classType: any(),
-                           enumType: any(),
-                           stringType: any(),
-                           boolType: any(),
-                           metaType: any(),
-                           anyType: any(),
-                           anyObjectType: any())) ~> true
-    XCTAssertTrue(callMethod(on: mock, structType: StructType(value: 99)))
-    XCTAssertTrue(callMethod(on: mock, structType: StructType(value: 42)))
+    given(self.concreteMock.method(structType: structTypeCaptor.matcher,
+                                   classType: any(),
+                                   enumType: any(),
+                                   stringType: any(),
+                                   boolType: any(),
+                                   metaType: any(),
+                                   anyType: any(),
+                                   anyObjectType: any())) ~> true
+    XCTAssertTrue(callMethod(on: concreteMock, structType: StructType(value: 99)))
+    XCTAssertTrue(callMethod(on: concreteMock, structType: StructType(value: 42)))
     XCTAssert(structTypeCaptor.allValues.map({ $0.value }) == [99, 42])
   }
 }

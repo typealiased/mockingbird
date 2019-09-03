@@ -1290,10 +1290,6 @@
 		"SwiftPM::SPMLibc::Product" /* SPMLibc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SPMLibc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"SwiftPM::SPMUtility::Product" /* SPMUtility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SPMUtility.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"SwiftPM::clibc::Product" /* clibc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = clibc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"TEMP_1BA65513-74AF-4457-905B-40645E80AED8" /* /Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = /Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift; path = MockingbirdTests/Mocks.generated.swift; sourceTree = "<group>"; };
-		"TEMP_538AB924-FC74-4B1C-94C4-19AFFFE9050D" /* /Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = /Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift; path = MockingbirdTests/Mocks.generated.swift; sourceTree = "<group>"; };
-		"TEMP_D8D3B32F-890B-4B2A-B092-D4E7608FCDBC" /* /Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = /Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift; path = MockingbirdTests/Mocks.generated.swift; sourceTree = "<group>"; };
-		"TEMP_F8CBD0DE-9F3C-492B-9444-6352E3631500" /* /Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = /Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift; path = MockingbirdTests/Mocks.generated.swift; sourceTree = "<group>"; };
 		"XcodeProj::XcodeProj::Product" /* XcodeProj.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = XcodeProj.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Yams::CYaml::Product" /* CYaml.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CYaml.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Yams::Yams::Product" /* Yams.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Yams.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1490,17 +1486,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		491CDEFD231CC82D00C48C47 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				"TEMP_1BA65513-74AF-4457-905B-40645E80AED8" /* /Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift */,
-				"TEMP_F8CBD0DE-9F3C-492B-9444-6352E3631500" /* /Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift */,
-				"TEMP_D8D3B32F-890B-4B2A-B092-D4E7608FCDBC" /* /Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift */,
-				"TEMP_538AB924-FC74-4B1C-94C4-19AFFFE9050D" /* /Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		491CDEFE231CCA1000C48C47 /* Generator */ = {
 			isa = PBXGroup;
 			children = (
@@ -2453,7 +2438,6 @@
 				OBJ_113 /* Tests */,
 				OBJ_157 /* Dependencies */,
 				OBJ_471 /* Products */,
-				491CDEFD231CC82D00C48C47 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};

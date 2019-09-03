@@ -14,7 +14,7 @@ class ChainedStubbingTests: XCTestCase {
   var serviceRepository: ServiceRepositoryMock!
   
   override func setUp() {
-    serviceRepository = mockProtocol(ServiceRepository.self)
+    serviceRepository = mock(ServiceRepository.self)
   }
   
   func runTestCase(serviceRepository: ServiceRepository, description: String = "foo-bar") -> Bool {
@@ -23,18 +23,18 @@ class ChainedStubbingTests: XCTestCase {
   
   func testChainedStubbing_withSpecificMatching() {
     given(self.serviceRepository
-      .getTestManager() ~ mockProtocol(TestManager.self)
-        .getCurrentTest() ~ mockProtocol(Test.self)
-          .getTestCase() ~ mockProtocol(TestCase.self)
+      .getTestManager() ~ mock(TestManager.self)
+        .getCurrentTest() ~ mock(Test.self)
+          .getTestCase() ~ mock(TestCase.self)
             .run(description: "my test")) ~> true
     XCTAssertTrue(runTestCase(serviceRepository: serviceRepository, description: "my test"))
   }
   
   func testChainedStubbing_withWildcardMatching() {
     given(self.serviceRepository
-      .getTestManager() ~ mockProtocol(TestManager.self)
-        .getCurrentTest() ~ mockProtocol(Test.self)
-          .getTestCase() ~ mockProtocol(TestCase.self)
+      .getTestManager() ~ mock(TestManager.self)
+        .getCurrentTest() ~ mock(Test.self)
+          .getTestCase() ~ mock(TestCase.self)
             .run(description: any())) ~> true
     XCTAssertTrue(runTestCase(serviceRepository: serviceRepository, description: "my test"))
   }

@@ -15,7 +15,7 @@ class LastSetValueStubTests: XCTestCase {
   var child: ChildProtocolMock!
   
   override func setUp() {
-    child = mockProtocol(ChildProtocol.self)
+    child = MockingbirdTests.mock(ChildProtocol.self)
   }
   
   func getInstanceVariable(for child: ChildProtocol) -> Bool {

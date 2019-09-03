@@ -146,14 +146,13 @@ You can initialize mocks for both protocols and classes, which can be passed in 
 Generated mock types are suffixed with `Mock`.
 
 ```swift
-let bird: BirdMock = mockProtocol(Bird.self)
+let bird = mock(Bird.self)  // Returns a `BirdMock`
 ```
 
-Classes cannot be fully mocked in Swift, so consider using protocols wherever possible. Note that `mockClass` 
-takes an instance of a mock type.
+Class mocks rely on subclassing which has certain limitations, so consider using protocols whenever possible.
 
 ```swift
-let tree: TreeMock = mockClass(instance: TreeMock(with: bird))
+let tree = mock(instance: TreeMock(with: bird))  // Returns a `TreeMock`
 ```
 
 ### Stubbing
@@ -183,9 +182,9 @@ given(bird.setName(any())) ~> { print($0) }
 Getters can be stubbed to automatically save and return values.
 
 ```swift
-given(bird.getLocation()) ~> lastSetValue(initial: nil)
-bird.location = Location(name: "Hawaii")
-assert(bird.location?.name == "Hawaii")
+given(bird.getName()) ~> lastSetValue(initial: "One")
+bird.name = "Two"
+assert(bird.name == "Two")
 ```
 
 It’s possible to stub multiple methods with the same return type in a single call.
@@ -212,8 +211,8 @@ protocol Feather {
 
 // Returns `true` when `bird.wing.feather.isWet` is called
 given(bird
-  .getWing() ~ mockProtocol(Wing.self)
-    .getFeather() ~ mockProtocol(Feather.self)
+  .getWing() ~ mock(Wing.self)
+    .getFeather() ~ mock(Feather.self)
       .getIsWet()) ~> true
 ```
 

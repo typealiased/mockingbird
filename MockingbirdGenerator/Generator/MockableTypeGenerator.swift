@@ -194,7 +194,7 @@ extension MockableType {
     }
     return """
     /// Create a source-attributed `\(name)\(allGenericTypes)` mock.
-    public func mockProtocol\(genericMethodAttribute)(file: StaticString = #file, line: UInt = #line, _ protocolType: \(protocolType)) -> \(name)Mock\(allGenericTypes) {
+    public func mock\(genericMethodAttribute)(file: StaticString = #file, line: UInt = #line, _ protocolType: \(protocolType)) -> \(name)Mock\(allGenericTypes) {
       return \(name)Mock\(allGenericTypes)(sourceLocation: SourceLocation(file, line))
     }
     """
