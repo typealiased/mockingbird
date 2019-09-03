@@ -15,13 +15,13 @@ import XCTest
 /// - note: For protocols you should use `mockProtocol(ProtocolName.self)` instead.
 ///
 /// - Parameters:
-///   - classInstance: A concrete instance of the mock.
+///   - instance: A class mock instance, which is the class type name suffixed with `Mock`.
 /// - Returns: A source-attributed mock for testing.
 public func mockClass<T: Mock>(file: StaticString = #file, line: UInt = #line,
-                               _ classInstance: @autoclosure () -> T) -> T {
-  let instance = classInstance()
-  instance.stubbingContext.sourceLocation = SourceLocation(file, line)
-  return instance
+                               instance: @autoclosure () -> T) -> T {
+  let classMockInstance = instance()
+  classMockInstance.stubbingContext.sourceLocation = SourceLocation(file, line)
+  return classMockInstance
 }
 
 // MARK: - Stubbing

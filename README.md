@@ -153,7 +153,7 @@ Classes cannot be fully mocked in Swift, so consider using protocols wherever po
 takes an instance of a mock type.
 
 ```swift
-let tree: TreeMock = mockClass(TreeMock(with: bird))
+let tree: TreeMock = mockClass(instance: TreeMock(with: bird))
 ```
 
 ### Stubbing
