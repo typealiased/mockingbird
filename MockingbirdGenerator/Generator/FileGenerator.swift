@@ -102,7 +102,7 @@ class FileGenerator {
   }
   
   func generate() throws {
-    try outputPath.write(generateFileContents(), encoding: .utf8)
+    try outputPath.writeUtf8String(generateFileContents())
   }
   
   private var synchronizedClass: String {

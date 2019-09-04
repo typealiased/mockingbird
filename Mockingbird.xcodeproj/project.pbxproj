@@ -52,6 +52,7 @@
 		49C07FA0231DDA80003F7712 /* CompoundTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C07F9F231DDA80003F7712 /* CompoundTypes.swift */; };
 		49C07FA2231DED21003F7712 /* VersionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C07FA1231DED21003F7712 /* VersionCommand.swift */; };
 		49C07FA4231E00B3003F7712 /* DefaultArgumentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C07FA3231E00B3003F7712 /* DefaultArgumentValues.swift */; };
+		49D7D4CB231F2E0300537655 /* Path+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D7D4CA231F2E0300537655 /* Path+Extensions.swift */; };
 		OBJ_1000 /* SourceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SourceKitten::SourceKit::Product" /* SourceKit.framework */; };
 		OBJ_1001 /* Clang_C.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SourceKitten::Clang_C::Product" /* Clang_C.framework */; };
 		OBJ_1012 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_315 /* Package.swift */; };
@@ -894,6 +895,7 @@
 		49C07F9F231DDA80003F7712 /* CompoundTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundTypes.swift; sourceTree = "<group>"; };
 		49C07FA1231DED21003F7712 /* VersionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionCommand.swift; sourceTree = "<group>"; };
 		49C07FA3231E00B3003F7712 /* DefaultArgumentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultArgumentValues.swift; sourceTree = "<group>"; };
+		49D7D4CA231F2E0300537655 /* Path+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+Extensions.swift"; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2469,6 +2471,7 @@
 				OBJ_59 /* GenerateMockableTypeOperation.swift */,
 				OBJ_60 /* MethodGenerator.swift */,
 				OBJ_61 /* MockableTypeGenerator.swift */,
+				49D7D4CA231F2E0300537655 /* Path+Extensions.swift */,
 				OBJ_62 /* String+Extensions.swift */,
 				OBJ_63 /* VariableGenerator.swift */,
 			);
@@ -3455,6 +3458,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				49D7D4CB231F2E0300537655 /* Path+Extensions.swift in Sources */,
 				OBJ_701 /* FileGenerator.swift in Sources */,
 				OBJ_702 /* GenerateMockableTypeOperation.swift in Sources */,
 				OBJ_703 /* MethodGenerator.swift in Sources */,
