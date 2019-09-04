@@ -1505,37 +1505,6 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
 
   // MARK: Mockable `methodUsingEquatableTypeWithReturn(equatable:)`
 
-  public static func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType {
-    let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable:) -> EquatableType", arguments: [Mockingbird.ArgumentMatcher(`equatable`)])
-    staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? (EquatableType) -> EquatableType {
-      return concreteImplementation(`equatable`)
-    } else {
-      return (implementation as! () -> EquatableType)()
-    }
-  }
-
-  // MARK: Stubbable `methodUsingEquatableTypeWithReturn(equatable:)`
-
-  public static func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Stubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>.Type, (EquatableType) -> EquatableType, EquatableType> {
-    let arguments = [Mockingbird.resolve(`equatable`)]
-    let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable:) -> EquatableType", arguments: arguments)
-    if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
-    return Mockingbird.Stubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>.Type, (EquatableType) -> EquatableType, EquatableType>(object: Mockingbird.Mock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  // MARK: Verifiable `methodUsingEquatableTypeWithReturn(equatable:)`
-
-  public static func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<EquatableType> {
-    let arguments = [Mockingbird.resolve(`equatable`)]
-    let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable:) -> EquatableType", arguments: arguments)
-    if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
-    return Mockingbird.Mockable<EquatableType>()
-  }
-
-  // MARK: Mockable `methodUsingEquatableTypeWithReturn(equatable:)`
-
   public func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType {
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable:) -> EquatableType", arguments: [Mockingbird.ArgumentMatcher(`equatable`)])
     mockingContext.didInvoke(invocation)
@@ -1562,6 +1531,37 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
     let arguments = [Mockingbird.resolve(`equatable`)]
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable:) -> EquatableType", arguments: arguments)
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<EquatableType>()
+  }
+
+  // MARK: Mockable `methodUsingEquatableTypeWithReturn(equatable:)`
+
+  public static func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType {
+    let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable:) -> EquatableType", arguments: [Mockingbird.ArgumentMatcher(`equatable`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (EquatableType) -> EquatableType {
+      return concreteImplementation(`equatable`)
+    } else {
+      return (implementation as! () -> EquatableType)()
+    }
+  }
+
+  // MARK: Stubbable `methodUsingEquatableTypeWithReturn(equatable:)`
+
+  public static func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Stubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>.Type, (EquatableType) -> EquatableType, EquatableType> {
+    let arguments = [Mockingbird.resolve(`equatable`)]
+    let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable:) -> EquatableType", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { staticMock.stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>.Type, (EquatableType) -> EquatableType, EquatableType>(object: Mockingbird.Mock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `methodUsingEquatableTypeWithReturn(equatable:)`
+
+  public static func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<EquatableType> {
+    let arguments = [Mockingbird.resolve(`equatable`)]
+    let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable:) -> EquatableType", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(staticMock.mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<EquatableType>()
   }
 
@@ -10750,4 +10750,3 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
 public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.VariadicProtocol.Protocol) -> VariadicProtocolMock {
   return VariadicProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-

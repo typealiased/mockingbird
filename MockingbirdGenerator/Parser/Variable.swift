@@ -27,7 +27,7 @@ struct Variable: Hashable, Comparable {
   }
   
   static func < (lhs: Variable, rhs: Variable) -> Bool {
-    return lhs.name < rhs.name
+    return lhs.name + lhs.kind.typeScope.rawValue < rhs.name + rhs.kind.typeScope.rawValue
   }
   
   init?(from dictionary: StructureDictionary,

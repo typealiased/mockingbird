@@ -224,6 +224,7 @@ struct Method: Hashable, Comparable {
           .map({ "\($0.argumentLabel ?? ""):\($0.name):\($0.typeName)" })
           .joined(separator: ","),
         self.returnTypeName,
+        self.kind.typeScope.rawValue,
         self.genericConstraints.joined(separator: ",")
       ].joined(separator: "|")
     } else {

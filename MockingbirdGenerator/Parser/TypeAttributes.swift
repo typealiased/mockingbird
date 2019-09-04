@@ -54,8 +54,10 @@ extension SwiftDeclarationKind {
   }
 }
 
-enum TypeScope {
-  case `instance`, `static`, `class`
+enum TypeScope: String {
+  case `instance` = "instance"
+  case `static` = "static"
+  case `class` = "class"
   
   func isMockable(in kind: SwiftDeclarationKind) -> Bool {
     switch self {
