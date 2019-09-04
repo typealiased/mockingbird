@@ -89,6 +89,7 @@ private extension SerializationRequest {
     
     guard let qualifiedTypeNames = context.rawTypeRepository
       .nearestInheritedType(named: typeName,
+                            trimmedName: typeName.removingGenericTyping(),
                             moduleNames: context.moduleNames,
                             referencingModuleName: context.referencingModuleName,
                             containingTypeNames: context.containingTypeNames)?
@@ -190,7 +191,7 @@ indirect enum Single: CustomStringConvertible, SerializableType {
     qualification: String,
     genericTypes: [DeclaredType]
   )
-  case list(element: ListElement)
+  case list(element: DeclaredType)
   case map(key: DeclaredType, value: DeclaredType)
   case function(Function)
   
@@ -282,7 +283,7 @@ extension Single {
       self = .map(key: DeclaredType(from: keyTypeName[...]),
                   value: DeclaredType(from: valueTypeName[...]))
     } else {
-      self = .list(element: ListElement(from: flattened))
+      self = .list(element: DeclaredType(from: flattened))
     }
   }
 }
@@ -338,35 +339,6 @@ struct Tuple: CustomStringConvertible, SerializableType {
       labeledElements.append((label: label, type: DeclaredType(from: declaration)))
     }
     self.elements = labeledElements
-  }
-}
-
-enum ListElement: CustomStringConvertible, SerializableType {
-  case single(Single)
-  case tuple(Tuple)
-  
-  var description: String {
-    switch self {
-    case let .single(single): return "\(single)"
-    case let .tuple(tuple): return "\(tuple)"
-    }
-  }
-  
-  func serialize(with request: SerializationRequest) -> String {
-    switch self {
-    case let .single(single): return single.serialize(with: request)
-    case let .tuple(tuple): return tuple.serialize(with: request)
-    }
-  }
-}
-
-extension ListElement {
-  init(from serialized: Substring) {
-    if let tuple = Tuple(from: serialized) {
-      self = .tuple(tuple)
-    } else {
-      self = .single(Single(from: serialized))
-    }
   }
 }
 
