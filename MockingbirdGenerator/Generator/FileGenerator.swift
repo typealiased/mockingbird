@@ -89,7 +89,7 @@ class FileGenerator {
   }
   
   private func generateFileFooter() -> String {
-    return (preprocessorExpression != nil ? "\n#endif\n" : "\n")
+    return (preprocessorExpression != nil ? "\n#endif" : "")
   }
   
   private func generateFileContents() -> String {
@@ -98,7 +98,7 @@ class FileGenerator {
       generateFileBody(),
       generateFileFooter(),
     ].filter({ !$0.isEmpty })
-    return sections.joined(separator: "\n")
+    return sections.joined(separator: "\n") + "\n"
   }
   
   func generate() throws {
