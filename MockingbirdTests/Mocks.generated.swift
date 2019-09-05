@@ -1734,6 +1734,208 @@ public func mock<T: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, 
   return AssociatedTypeSelfReferencingProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked Bird
+
+public final class BirdMock: MockingbirdTestsHost.Bird, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.2.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      BirdMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mockable `canFly`
+
+  public var canFly: Bool {
+    get {
+      let invocation = Mockingbird.Invocation(selectorName: "canFly.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation = Mockingbird.Invocation(selectorName: "canFly.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  // MARK: Stubbable `canFly`
+
+  public func getCanFly() -> Mockingbird.Stubbable<MockingbirdTestsHost.Bird, BirdMock, () -> Bool, Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "canFly.get", arguments: [])
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<MockingbirdTestsHost.Bird, BirdMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  public func setCanFly(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<MockingbirdTestsHost.Bird, BirdMock, (Bool) -> Void, Void> {
+    let arguments = [Mockingbird.resolve(newValue)]
+    let invocation = Mockingbird.Invocation(selectorName: "canFly.set", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<MockingbirdTestsHost.Bird, BirdMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `canFly`
+
+  public func getCanFly() -> Mockingbird.Mockable<Bool> {
+    let invocation = Mockingbird.Invocation(selectorName: "canFly.get", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  public func setCanFly(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Void> {
+    let arguments = [Mockingbird.resolve(newValue)]
+    let invocation = Mockingbird.Invocation(selectorName: "canFly.set", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  public static func ==(lhs: BirdMock, rhs: BirdMock) -> Bool {
+    return true
+  }
+
+  public init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `canEat(_:)`
+
+  public func canEat<T>(_ object: T) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "canEat(_:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`object`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (T) -> Bool {
+      return concreteImplementation(`object`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `canEat(_:)`
+
+  public func canEat<T>(_ object: @escaping @autoclosure () -> T) -> Mockingbird.Stubbable<MockingbirdTestsHost.Bird, BirdMock, (T) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`object`)]
+    let invocation = Mockingbird.Invocation(selectorName: "canEat(_:) -> Bool", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<MockingbirdTestsHost.Bird, BirdMock, (T) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `canEat(_:)`
+
+  public func canEat<T>(_ object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`object`)]
+    let invocation = Mockingbird.Invocation(selectorName: "canEat(_:) -> Bool", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Bool>()
+  }
+
+  // MARK: Mockable `chirp(volume:)`
+
+  public func chirp(volume: Int) -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "chirp(volume:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`volume`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Int) -> Void {
+      concreteImplementation(`volume`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `chirp(volume:)`
+
+  public func chirp(volume: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<MockingbirdTestsHost.Bird, BirdMock, (Int) -> Void, Void> {
+    let arguments = [Mockingbird.resolve(`volume`)]
+    let invocation = Mockingbird.Invocation(selectorName: "chirp(volume:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<MockingbirdTestsHost.Bird, BirdMock, (Int) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `chirp(volume:)`
+
+  public func chirp(volume: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Void> {
+    let arguments = [Mockingbird.resolve(`volume`)]
+    let invocation = Mockingbird.Invocation(selectorName: "chirp(volume:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  // MARK: Mockable `eat(_:)`
+
+  public func eat<T>(_ object: T) -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "eat(_:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`object`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (T) -> Void {
+      concreteImplementation(`object`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `eat(_:)`
+
+  public func eat<T>(_ object: @escaping @autoclosure () -> T) -> Mockingbird.Stubbable<MockingbirdTestsHost.Bird, BirdMock, (T) -> Void, Void> {
+    let arguments = [Mockingbird.resolve(`object`)]
+    let invocation = Mockingbird.Invocation(selectorName: "eat(_:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<MockingbirdTestsHost.Bird, BirdMock, (T) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `eat(_:)`
+
+  public func eat<T>(_ object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Void> {
+    let arguments = [Mockingbird.resolve(`object`)]
+    let invocation = Mockingbird.Invocation(selectorName: "eat(_:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  // MARK: Mockable `fly()`
+
+  public func fly() -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "fly() -> Void", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `fly()`
+
+  public func fly() -> Mockingbird.Stubbable<MockingbirdTestsHost.Bird, BirdMock, () -> Void, Void> {
+    let invocation = Mockingbird.Invocation(selectorName: "fly() -> Void", arguments: [])
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<MockingbirdTestsHost.Bird, BirdMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `fly()`
+
+  public func fly() -> Mockingbird.Mockable<Void> {
+    let invocation = Mockingbird.Invocation(selectorName: "fly() -> Void", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+}
+
+/// Create a source-attributed `Bird` mock.
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.Bird.Protocol) -> BirdMock {
+  return BirdMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked ChildProtocol
 
 public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockingbird.Mock {
@@ -9172,6 +9374,136 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         let invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
         if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
         return Mockingbird.Mockable<Bool>()
+      }
+    }
+  }
+}
+
+// MARK: - Mocked Tree
+
+public final class TreeMock: MockingbirdTestsHost.Tree, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.2.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      TreeMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: TreeMock, rhs: TreeMock) -> Bool {
+    return true
+  }
+
+  // MARK: Mockable `drop(_:)`
+
+  public override func drop(_ fruit: Fruit) -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "drop(_:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`fruit`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Fruit) -> Void {
+      concreteImplementation(`fruit`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `drop(_:)`
+
+  public func drop(_ fruit: @escaping @autoclosure () -> Fruit) -> Mockingbird.Stubbable<MockingbirdTestsHost.Tree, TreeMock, (Fruit) -> Void, Void> {
+    let arguments = [Mockingbird.resolve(`fruit`)]
+    let invocation = Mockingbird.Invocation(selectorName: "drop(_:) -> Void", arguments: arguments)
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<MockingbirdTestsHost.Tree, TreeMock, (Fruit) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `drop(_:)`
+
+  public func drop(_ fruit: @escaping @autoclosure () -> Fruit) -> Mockingbird.Mockable<Void> {
+    let arguments = [Mockingbird.resolve(`fruit`)]
+    let invocation = Mockingbird.Invocation(selectorName: "drop(_:) -> Void", arguments: arguments)
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  // MARK: Mockable `init(with:)`
+
+  public override init(with bird: MockingbirdTestsHost.Bird) {
+    super.init(with: `bird`)
+    Mockingbird.checkVersion(for: self)
+    let invocation = Mockingbird.Invocation(selectorName: "init(with:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`bird`)])
+    mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (MockingbirdTestsHost.Bird) -> Void {
+      concreteImplementation(`bird`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Mockable `shake()`
+
+  public override func shake() -> Void {
+    let invocation = Mockingbird.Invocation(selectorName: "shake() -> Void", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Stubbable `shake()`
+
+  public func shake() -> Mockingbird.Stubbable<MockingbirdTestsHost.Tree, TreeMock, () -> Void, Void> {
+    let invocation = Mockingbird.Invocation(selectorName: "shake() -> Void", arguments: [])
+    if let stub = DispatchQueue.currentStub { stubbingContext.swizzle(invocation, with: stub.implementation) }
+    return Mockingbird.Stubbable<MockingbirdTestsHost.Tree, TreeMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `shake()`
+
+  public func shake() -> Mockingbird.Mockable<Void> {
+    let invocation = Mockingbird.Invocation(selectorName: "shake() -> Void", arguments: [])
+    if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
+    return Mockingbird.Mockable<Void>()
+  }
+
+  // MARK: - Mocked Fruit
+  
+  public final class FruitMock: Fruit, Mockingbird.Mock {
+    static let staticMock = Mockingbird.StaticMock()
+    public let mockingContext = Mockingbird.MockingContext()
+    public let stubbingContext = Mockingbird.StubbingContext()
+    public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.2.0", "module_name": "MockingbirdTestsHost"])
+    public var sourceLocation: Mockingbird.SourceLocation? {
+      get { return stubbingContext.sourceLocation }
+      set {
+        stubbingContext.sourceLocation = newValue
+        FruitMock.staticMock.stubbingContext.sourceLocation = newValue
+      }
+    }
+  
+    public static func ==(lhs: FruitMock, rhs: FruitMock) -> Bool {
+      return true
+    }
+  
+    // MARK: Mockable `init(size:)`
+  
+    public override init(size: Int) {
+      super.init(size: `size`)
+      Mockingbird.checkVersion(for: self)
+      let invocation = Mockingbird.Invocation(selectorName: "init(size:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`size`)])
+      mockingContext.didInvoke(invocation)
+        let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Int) -> Void {
+        concreteImplementation(`size`)
+      } else {
+        (implementation as? () -> Void)?()
       }
     }
   }

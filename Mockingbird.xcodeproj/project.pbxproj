@@ -49,6 +49,9 @@
 		49377CC4231E0496003C0EA2 /* DefaultArgumentValuesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49377CC3231E0496003C0EA2 /* DefaultArgumentValuesMockableTests.swift */; };
 		49377CC6231E0BE4003C0EA2 /* DefaultArgumentValuesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49377CC5231E0BE4003C0EA2 /* DefaultArgumentValuesStubbableTests.swift */; };
 		49377CC8231E0C8B003C0EA2 /* DefaultArgumentValuesVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49377CC7231E0C8B003C0EA2 /* DefaultArgumentValuesVerifiableTests.swift */; };
+		49965D322321B7E2002F9CD5 /* TreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49965D312321B7E2002F9CD5 /* TreeTests.swift */; };
+		49965D352321B8D1002F9CD5 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49965D342321B8D1002F9CD5 /* Bird.swift */; };
+		49965D372321BA90002F9CD5 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49965D362321BA90002F9CD5 /* Tree.swift */; };
 		49C07FA0231DDA80003F7712 /* CompoundTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C07F9F231DDA80003F7712 /* CompoundTypes.swift */; };
 		49C07FA2231DED21003F7712 /* VersionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C07FA1231DED21003F7712 /* VersionCommand.swift */; };
 		49C07FA4231E00B3003F7712 /* DefaultArgumentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C07FA3231E00B3003F7712 /* DefaultArgumentValues.swift */; };
@@ -892,6 +895,9 @@
 		49377CC3231E0496003C0EA2 /* DefaultArgumentValuesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultArgumentValuesMockableTests.swift; sourceTree = "<group>"; };
 		49377CC5231E0BE4003C0EA2 /* DefaultArgumentValuesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultArgumentValuesStubbableTests.swift; sourceTree = "<group>"; };
 		49377CC7231E0C8B003C0EA2 /* DefaultArgumentValuesVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultArgumentValuesVerifiableTests.swift; sourceTree = "<group>"; };
+		49965D312321B7E2002F9CD5 /* TreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeTests.swift; sourceTree = "<group>"; };
+		49965D342321B8D1002F9CD5 /* Bird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
+		49965D362321BA90002F9CD5 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 		49C07F9F231DDA80003F7712 /* CompoundTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundTypes.swift; sourceTree = "<group>"; };
 		49C07FA1231DED21003F7712 /* VersionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionCommand.swift; sourceTree = "<group>"; };
 		49C07FA3231E00B3003F7712 /* DefaultArgumentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultArgumentValues.swift; sourceTree = "<group>"; };
@@ -1497,6 +1503,23 @@
 			path = Generator;
 			sourceTree = "<group>";
 		};
+		49965D302321B7C5002F9CD5 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				49965D312321B7E2002F9CD5 /* TreeTests.swift */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
+		49965D332321B8C3002F9CD5 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				49965D342321B8D1002F9CD5 /* Bird.swift */,
+				49965D362321BA90002F9CD5 /* Tree.swift */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
 		OBJ_10 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
@@ -1525,6 +1548,7 @@
 			children = (
 				OBJ_115 /* Info.plist */,
 				OBJ_156 /* Mocks.generated.swift */,
+				49965D302321B7C5002F9CD5 /* Example */,
 				OBJ_125 /* E2E */,
 				OBJ_116 /* Framework */,
 				491CDEFE231CCA1000C48C47 /* Generator */,
@@ -2548,6 +2572,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_90 /* Info.plist */,
+				49965D332321B8C3002F9CD5 /* Example */,
 				OBJ_91 /* ArgumentMatching.swift */,
 				OBJ_92 /* Child.swift */,
 				OBJ_93 /* ChildProtocol.swift */,
@@ -3510,6 +3535,7 @@
 				OBJ_768 /* LastSetValueStubTests.swift in Sources */,
 				49377CC8231E0C8B003C0EA2 /* DefaultArgumentValuesVerifiableTests.swift in Sources */,
 				OBJ_769 /* OverloadedMethodTests.swift in Sources */,
+				49965D322321B7E2002F9CD5 /* TreeTests.swift in Sources */,
 				49377CC4231E0496003C0EA2 /* DefaultArgumentValuesMockableTests.swift in Sources */,
 				OBJ_770 /* StubbingTests.swift in Sources */,
 				OBJ_771 /* VariadicParametersTests.swift in Sources */,
@@ -3565,6 +3591,8 @@
 				OBJ_841 /* Grandparent.swift in Sources */,
 				OBJ_842 /* GrandparentProtocol.swift in Sources */,
 				OBJ_843 /* InheritedTypeQualification.swift in Sources */,
+				49965D372321BA90002F9CD5 /* Tree.swift in Sources */,
+				49965D352321B8D1002F9CD5 /* Bird.swift in Sources */,
 				OBJ_844 /* InoutParameters.swift in Sources */,
 				OBJ_845 /* ModuleImportCases.swift in Sources */,
 				OBJ_846 /* NestedFields.swift in Sources */,

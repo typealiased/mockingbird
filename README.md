@@ -17,6 +17,7 @@ given(bird.getCanFly()) ~> true
 // Verification
 verify(bird.fly()).wasCalled()
 ```
+
 ---
 
 ## Installation
@@ -140,10 +141,13 @@ Compile Sources.
 
 ## Usage
 
+An example demonstrating basic usage of Mockingbird can be found at 
+[TreeTests.swift](/MockingbirdTests/Example/TreeTests.swift). 
+
 ### Mocking
 
-You can initialize mocks for both protocols and classes, which can be passed in place of the original type. 
-Generated mock types are suffixed with `Mock`.
+Mocking lets you create objects which can be passed in place of the original type. Generated mock types are 
+always suffixed with `Mock`.
 
 ```swift
 let bird = mock(Bird.self)  // Returns a `BirdMock`
