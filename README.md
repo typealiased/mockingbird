@@ -8,13 +8,13 @@
 Mockingbird is a convenient mocking framework for Swift.
 
 ```swift
-// Given the bird can fly
+// Mocking
+let bird = mock(Bird.self)
+
+// Stubbing
 given(bird.getCanFly()) ~> true
 
-// When the tree is shaken
-Tree(with: bird).shake()
-
-// Then the bird flies away
+// Verification
 verify(bird.fly()).wasCalled()
 ```
 ---
@@ -49,15 +49,15 @@ github "birdrides/mockingbird" ~> 0.2.0
 And set up Carthage to only build the framework when running `carthage update`.
 
 ```bash
-carthage update --no-build
-cd Carthage/Checkouts/Mockingbird
-make bootstrap-carthage
+$ carthage update --no-build
+$ cd Carthage/Checkouts/Mockingbird
+$ make bootstrap-carthage
 ```
 
 Then download and install the CLI.
 
 ```bash
-make install-prebuilt
+$ make install-prebuilt
 ```
 
 ### Swift Package Manager
@@ -81,9 +81,9 @@ targets: [
 Then download and install the CLI.
 
 ```bash
-swift package update
-cd .build/checkouts/Mockingbird
-make install-prebuilt
+$ swift package update
+$ cd .build/checkouts/Mockingbird
+$ make install-prebuilt
 ```
 
 ### From Source
@@ -92,15 +92,15 @@ Clone the repository and build the `MockingbirdFramework` scheme for the desired
 `Mockingbird.framework` product into your project and link the library.
 
 ```bash
-git clone https://github.com/birdrides/mockingbird.git
-cd mockingbird
-open Mockingbird.xcodeproj
+$ git clone https://github.com/birdrides/mockingbird.git
+$ cd mockingbird
+$ open Mockingbird.xcodeproj
 ```
 
 Then build and install the CLI.
 
 ```bash
-make install
+$ make install
 ```
 
 ## Setup
@@ -114,12 +114,12 @@ The Mockingbird CLI can automatically add a build step to generate mocks in the 
 specified targets are compiled.
 
 ```bash
-mockingbird install --project <xcodeproj_path> --targets <target_names>
+$ mockingbird install --project <xcodeproj_path> --targets <target_names>
 ```
 
 ### Manual Integration
 
-Add a Run Script Phase to each target that needs generated mocks. 
+Add a Run Script Phase to each target that should generate mocks. 
 
 ```bash
 mockingbird generate &
