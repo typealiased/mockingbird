@@ -30,21 +30,8 @@ public class StubbingContext {
       .last(where: { $0.invocation == invocation })
       else {
         if !optional {
-          let testKiller = TestKiller()
-          let message = "\(TestFailure.missingStubbedImplementation(invocation: invocation))"
-          if let sourceLocation = sourceLocation {
-            XCTFail(message, file: sourceLocation.file, line: sourceLocation.line)
-          } else {
-            XCTFail(message)
-          }
-          
-          // `XCTest` execution should already be "gracefully" stopped by this point, EXCEPT that
-          // Nimble doesn't respect the `XCTestCase.continueAfterFailure` flag and has no built-in
-          // support for anything similar <https://github.com/Quick/Quick/issues/249>. The hacky
-          // workaround is to force an assertion failure within `xctest` by calling `stop()`
-          // multiple times on the current test run.
-          testKiller.testCase?.testRun?.stop()
-          testKiller.testCase?.testRun?.stop()
+          TestKiller().failTest(.missingStubbedImplementation(invocation: invocation),
+                                at: sourceLocation)
         }
         return nil
       }
