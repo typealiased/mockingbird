@@ -17,12 +17,10 @@ public class StubbingContext {
   var stubs = Synchronized<[String: [Stub]]>([:])
   var sourceLocation: SourceLocation?
   
-  func swizzle(_ invocation: Invocation, with implementation: Any?) {
+  func swizzle(_ invocation: Invocation, with implementation: Any?) -> Stub {
     let stub = Stub(invocation: invocation, implementation: implementation)
     stubs.update { $0[invocation.selectorName, default: []].append(stub) }
-    
-    guard let callback = DispatchQueue.currentStubbingCallback else { return }
-    callback(stub, self)
+    return stub
   }
 
   func implementation(for invocation: Invocation, optional: Bool = false) -> Any? {

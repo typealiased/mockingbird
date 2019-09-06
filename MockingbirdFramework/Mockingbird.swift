@@ -10,12 +10,18 @@ import XCTest
 
 // MARK: - Stubbing
 
-/// Stub a single mock object to return a value or perform an operation.
+/// Stub mock objects with the same function signature to return a value or perform an operation.
 ///
-/// - Parameter mock: A mock and its invocation to stub.
-public func given<T, M, I, R>(_ mock: @escaping @autoclosure () -> Stubbable<T, M, I, R>)
-  -> Stub<I, R> {
-    return Stub<I, R>(mock)
+/// - Parameter stubbable: A set of stubbable invocations.
+public func given<I, R>(_ stubbable: Stubbable<I, R>...) -> Stub<I, R> {
+  return Stub<I, R>(from: stubbable)
+}
+
+/// Chain stub a nested set of mock objects to return a value or perform an operation.
+///
+/// - Parameter stubbable: A chained set of stubbable invocations.
+public func given<T, M, I, R>(_ stubbable: ChainStubbable<T, M, I, R>) -> Stub<I, R> {
+  return Stub<I, R>(from: stubbable)
 }
 
 /// Stubs a variable getter to return the last value received by the setter.
@@ -24,14 +30,14 @@ public func given<T, M, I, R>(_ mock: @escaping @autoclosure () -> Stubbable<T, 
 public func lastSetValue<T, R>(initial: R) -> StubImplementation<T, R> {
   var currentValue = initial
   let implementation: () -> R = { return currentValue }
-  let callback: StubbingRequest.StubbingCallback = { (stub, context) in
+  let callback = { (stub: StubbingContext.Stub, context: StubbingContext) in
     guard let setterInvocation = stub.invocation.toSetter() else { return }
     let setterImplementation = { (newValue: R) -> Void in
       currentValue = newValue
     }
-    context.swizzle(setterInvocation, with: setterImplementation)
+    _ = context.swizzle(setterInvocation, with: setterImplementation)
   }
-  return StubImplementation(handler: implementation as! T, callback: callback as AnyObject)
+  return StubImplementation(handler: implementation as! T, callback: callback)
 }
 
 // MARK: - Verification

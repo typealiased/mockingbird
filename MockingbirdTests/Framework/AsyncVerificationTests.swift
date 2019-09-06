@@ -53,7 +53,7 @@ class AsyncVerificationTests: XCTestCase {
   }
   
   func testAsyncVerification_receivesParameterizedInvocationOnce() {
-    given(self.child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
+    given(child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     let expectation = eventually("childParameterizedInstanceMethod(param1:_:) is called once") {
       verify(self.child.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
     }
@@ -65,7 +65,7 @@ class AsyncVerificationTests: XCTestCase {
   }
   
   func testAsyncVerification_receivesParameterizedInvocationTwice() {
-    given(self.child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
+    given(child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     let expectation = eventually("childParameterizedInstanceMethod(param1:_:) is called twice") {
       verify(self.child.childParameterizedInstanceMethod(param1: any(), any()))
         .wasCalled(exactly(2))
@@ -78,7 +78,7 @@ class AsyncVerificationTests: XCTestCase {
   }
   
   func testAsyncVerification_withSynchronousInvocations() {
-    given(self.child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
+    given(child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     let expectation = eventually("childParameterizedInstanceMethod(param1:_:) is called twice") {
       verify(self.child.childParameterizedInstanceMethod(param1: any(), any()))
         .wasCalled(exactly(2))
@@ -88,7 +88,7 @@ class AsyncVerificationTests: XCTestCase {
   }
   
   func testAsyncVerification_receivesPastInvocations() {
-    given(self.child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
+    given(child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     callParameterizedInstanceMethod(on: self.child, times: 2)
     let expectation = eventually("childParameterizedInstanceMethod(param1:_:) is called twice") {
       verify(self.child.childParameterizedInstanceMethod(param1: any(), any()))

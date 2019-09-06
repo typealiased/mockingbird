@@ -22,7 +22,7 @@ class ChainedStubbingTests: XCTestCase {
   }
   
   func testChainedStubbing_withSpecificMatching() {
-    given(self.serviceRepository
+    given(serviceRepository
       .getTestManager() ~ mock(TestManager.self)
         .getCurrentTest() ~ mock(Test.self)
           .getTestCase() ~ mock(TestCase.self)
@@ -31,7 +31,7 @@ class ChainedStubbingTests: XCTestCase {
   }
   
   func testChainedStubbing_withWildcardMatching() {
-    given(self.serviceRepository
+    given(serviceRepository
       .getTestManager() ~ mock(TestManager.self)
         .getCurrentTest() ~ mock(Test.self)
           .getTestCase() ~ mock(TestCase.self)

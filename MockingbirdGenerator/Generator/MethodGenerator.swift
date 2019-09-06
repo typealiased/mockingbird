@@ -132,15 +132,20 @@ class MethodGenerator {
     let parameterTypes = methodParameterTypes
     let returnTypeName = specializedReturnTypeName
     let invocationType = "(\(parameterTypes)) \(returnTypeAttributes)-> \(returnTypeName)"
-    let stubbableGenericTypes = (stubbableGenericTypesList +
+    let stubbableGenericTypes = [invocationType, returnTypeName].joined(separator: ", ")
+    let chainStubbableGenericTypes = (stubbableGenericTypesList +
       [invocationType, returnTypeName]).joined(separator: ", ")
     let stub = """
       // MARK: Stubbable `\(method.name)`
     
       public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Stubbable<\(stubbableGenericTypes)>\(genericConstraints) {
     \(matchableInvocation)
-        if let stub = DispatchQueue.currentStub { \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation) }
-        return Mockingbird.Stubbable<\(stubbableGenericTypes)>(object: \(stubbableObject), stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
+        return Mockingbird.Stubbable<\(stubbableGenericTypes)>(stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
+      }
+    
+      public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.ChainStubbable<\(chainStubbableGenericTypes)>\(genericConstraints) {
+    \(matchableInvocation)
+        return Mockingbird.ChainStubbable<\(chainStubbableGenericTypes)>(object: \(stubbableObject), stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
       }
     """
     guard isVariadicMethod else { return stub }
@@ -151,8 +156,12 @@ class MethodGenerator {
     
       public \(regularModifiers)func \(fullNameForMatchingVariadics) -> Mockingbird.Stubbable<\(stubbableGenericTypes)>\(genericConstraints) {
     \(matchableInvocationVariadics)
-        if let stub = DispatchQueue.currentStub { \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation) }
-        return Mockingbird.Stubbable<\(stubbableGenericTypes)>(object: \(stubbableObject), stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
+        return Mockingbird.Stubbable<\(stubbableGenericTypes)>(stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
+      }
+    
+      public \(regularModifiers)func \(fullNameForMatchingVariadics) -> Mockingbird.ChainStubbable<\(chainStubbableGenericTypes)>\(genericConstraints) {
+    \(matchableInvocationVariadics)
+        return Mockingbird.ChainStubbable<\(chainStubbableGenericTypes)>(object: \(stubbableObject), stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
       }
     """
   }()

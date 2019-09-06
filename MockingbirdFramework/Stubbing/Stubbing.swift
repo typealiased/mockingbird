@@ -15,8 +15,15 @@ infix operator ~>
 /// Used for chained stubbing which doesn't work with `~>` because of the default precedence group.
 infix operator ~: AdditionPrecedence
 
+/// A object used as a stubbing request for a particular mock.
+public struct Stubbable<I, R> {
+  let stubbingContext: StubbingContext
+  let invocation: Invocation
+}
+
+/// An object used for chained / intermediary stubbing.
 /// T = Mocked type, M = Concrete mock type, I = Invocation function type, R = Return type
-public struct Stubbable<T, M, I, R> {
+public struct ChainStubbable<T, M, I, R> {
   // When created from a normal method this is the mocked type.
   // When created from a static context this is the mock type.
   // When created from an associated type protocol this is the `Mock` metatype.
@@ -26,38 +33,24 @@ public struct Stubbable<T, M, I, R> {
 }
 
 /// Intermediate stubbing object.
-public struct Stub<I, R>: RunnableScope {
-  let uuid = UUID()
-  private let runnable: () -> Any?
-  init(_ runnable: @escaping () -> Any?) { self.runnable = runnable }
-  func run() -> Any? { return runnable() }
+public struct Stub<I, R> {
+  let requests: [(stubbingContext: StubbingContext, invocation: Invocation)]
+  
+  init(from stubbable: [Stubbable<I, R>]) {
+    self.requests = stubbable.map({
+      (stubbingContext: $0.stubbingContext, invocation: $0.invocation)
+    })
+  }
+  
+  init<T, M>(from stubbable: ChainStubbable<T, M, I, R>) {
+    self.requests = [(stubbingContext: stubbable.stubbingContext, invocation: stubbable.invocation)]
+  }
 }
 
+/// Used to add side effects to stubbing, such as stubbing a setter when stubbing a getter.
 public struct StubImplementation<I, R> {
   let handler: I
-  let callback: AnyObject
-}
-
-/// A wrapper around a type-erased stub implementation.
-struct StubbingRequest {
-  /// Callback block sent when a stub implementation is applied to a mock object.
-  typealias StubbingCallback = (StubbingContext.Stub, StubbingContext) -> Void
-  
-  static let dispatchQueueKey = DispatchSpecificKey<StubbingRequest>()
-  static let dispatchQueueCallbackKey = DispatchSpecificKey<StubbingCallback>()
-  
-  /// A type-erased `StubImplementation<T, R>`.
-  let implementation: Any?
-}
-
-extension DispatchQueue {
-  class var currentStub: StubbingRequest? {
-    return DispatchQueue.getSpecific(key: StubbingRequest.dispatchQueueKey)
-  }
-  
-  class var currentStubbingCallback: StubbingRequest.StubbingCallback? {
-    return DispatchQueue.getSpecific(key: StubbingRequest.dispatchQueueCallbackKey)
-  }
+  let callback: (StubbingContext.Stub, StubbingContext) -> Void
 }
 
 /// Convenience method for ignoring all parameters while stubbing.
@@ -65,9 +58,9 @@ extension DispatchQueue {
 /// - Parameters:
 ///   - stubbingScope: An autoclosed internal stubbing scope.
 ///   - implementation: The non-throwing implementation stub.
-public func ~> <I, R>(stubbingScope: Stub<I, R>,
+public func ~> <I, R>(stub: Stub<I, R>,
                       implementation: @escaping @autoclosure () -> R) {
-  addStub(scope: stubbingScope, implementation: implementation)
+  addStub(stub, implementation: implementation)
 }
 
 /// Convenience method for ignoring all parameters while stubbing.
@@ -75,9 +68,9 @@ public func ~> <I, R>(stubbingScope: Stub<I, R>,
 /// - Parameters:
 ///   - stubbingScope: An internal stubbing scope.
 ///   - implementation: The non-throwing implementation stub.
-public func ~> <I, R>(stubbingScope: Stub<I, R>,
+public func ~> <I, R>(stub: Stub<I, R>,
                       implementation: @escaping () -> R) {
-  addStub(scope: stubbingScope, implementation: implementation)
+  addStub(stub, implementation: implementation)
 }
 
 /// Stub invocations to a mock taking into account the invocation (and its parameters).
@@ -85,35 +78,30 @@ public func ~> <I, R>(stubbingScope: Stub<I, R>,
 /// - Parameters:
 ///   - stubbingScope: An internal stubbing scope.
 ///   - implementation: The implementation stub.
-public func ~> <I, R>(stubbingScope: Stub<I, R>, implementation: I) {
-  addStub(scope: stubbingScope, implementation: implementation)
+public func ~> <I, R>(stub: Stub<I, R>, implementation: I) {
+  addStub(stub, implementation: implementation)
 }
 
 /// Internal method for stubbing invocations with side effects.
-public func ~> <I, R>(stubbingScope: Stub<I, R>,
-                      implementation: StubImplementation<I, R>) {
-  guard let callback = implementation.callback as? StubbingRequest.StubbingCallback else { return }
-  addStub(scope: stubbingScope, implementation: implementation.handler, callback: callback)
+public func ~> <I, R>(stub: Stub<I, R>, implementation: StubImplementation<I, R>) {
+  addStub(stub, implementation: implementation.handler, callback: implementation.callback)
 }
 
 /// Internal method for chaining stubs.
-public func ~ <T1, M1: Mock, I1, R1, M2: Mock, I2, R2>(lhs: Stubbable<T1, M1, I1, R1>,
-                                                        rhs: Stubbable<R1, M2, I2, R2>)
-  -> Stubbable<R1, M2, I2, R2> {
+public func ~ <T1, M1: Mock, I1, R1, M2: Mock, I2, R2>(lhs: ChainStubbable<T1, M1, I1, R1>,
+                                                       rhs: ChainStubbable<R1, M2, I2, R2>)
+  -> ChainStubbable<R1, M2, I2, R2> {
     let implementation: () -> R1 = { rhs.object }
-    lhs.stubbingContext.swizzle(lhs.invocation, with: implementation)
+    _ = lhs.stubbingContext.swizzle(lhs.invocation, with: implementation)
     return rhs
 }
 
-/// Internal helper to create an attributed `DispatchQueue` for stubbing.
-func addStub<I, R>(scope: Stub<I, R>,
+/// Internal helper to swizzle type-erased stub implementations onto stubbing contexts.
+func addStub<I, R>(_ stub: Stub<I, R>,
                    implementation: Any?,
-                   callback: StubbingRequest.StubbingCallback? = nil) {
-  let queue = DispatchQueue(label: "co.bird.mockingbird.stubbing-scope")
-  let stub = StubbingRequest(implementation: implementation)
-  queue.setSpecific(key: StubbingRequest.dispatchQueueKey, value: stub)
-  if let callback = callback {
-    queue.setSpecific(key: StubbingRequest.dispatchQueueCallbackKey, value: callback)
-  }
-  _ = queue.sync { scope.run() }
+                   callback: ((StubbingContext.Stub, StubbingContext) -> Void)? = nil) {
+  stub.requests.forEach({
+    let stub = $0.stubbingContext.swizzle($0.invocation, with: implementation)
+    callback?(stub, $0.stubbingContext)
+  })
 }

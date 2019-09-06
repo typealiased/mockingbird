@@ -16,7 +16,7 @@ private protocol StubbableUndefinedArgumentLabels {
               _ param2: @escaping @autoclosure () -> String,
               _ someParam: @escaping @autoclosure () -> Int,
               _ param3: @escaping @autoclosure () -> Bool)
-    -> Stubbable<UndefinedArgumentLabels, UndefinedArgumentLabelsMock, (Bool, String, Int, Bool) -> Bool, Bool>
+    -> Stubbable<(Bool, String, Int, Bool) -> Bool, Bool>
 }
 extension UndefinedArgumentLabelsMock: StubbableUndefinedArgumentLabels {}
 

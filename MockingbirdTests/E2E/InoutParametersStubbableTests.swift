@@ -14,12 +14,12 @@ import Mockingbird
 
 private protocol StubbableInoutProtocol {
   func parameterizedMethod(object: @escaping @autoclosure () -> String)
-    -> Stubbable<InoutProtocol, InoutProtocolMock, (inout String) -> Void, Void>
+    -> Stubbable<(inout String) -> Void, Void>
 }
 extension InoutProtocolMock: StubbableInoutProtocol {}
 
 private protocol StubbableInoutClass {
   func parameterizedMethod(object: @escaping @autoclosure () -> String)
-    -> Stubbable<InoutClass, InoutClassMock, (inout String) -> Void, Void>
+    -> Stubbable<(inout String) -> Void, Void>
 }
 extension InoutClassMock: StubbableInoutClass {}

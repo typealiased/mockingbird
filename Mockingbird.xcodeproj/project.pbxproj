@@ -263,9 +263,7 @@
 		OBJ_646 /* SourceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SourceKitten::SourceKit::Product" /* SourceKit.framework */; };
 		OBJ_647 /* Clang_C.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SourceKitten::Clang_C::Product" /* Clang_C.framework */; };
 		OBJ_675 /* ArgumentCaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* ArgumentCaptor.swift */; };
-		OBJ_676 /* Given+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* Given+Convenience.swift */; };
 		OBJ_677 /* TypeFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* TypeFacade.swift */; };
-		OBJ_678 /* Verify+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* Verify+Convenience.swift */; };
 		OBJ_679 /* ArgumentMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* ArgumentMatcher.swift */; };
 		OBJ_680 /* CallMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* CallMatcher.swift */; };
 		OBJ_681 /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* Mock.swift */; };
@@ -1097,7 +1095,6 @@
 		OBJ_307 /* Xcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Xcode.swift; sourceTree = "<group>"; };
 		OBJ_308 /* XcodeBuildSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeBuildSetting.swift; sourceTree = "<group>"; };
 		OBJ_309 /* library_wrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = library_wrapper.swift; sourceTree = "<group>"; };
-		OBJ_31 /* Given+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Given+Convenience.swift"; sourceTree = "<group>"; };
 		OBJ_310 /* library_wrapper_CXString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = library_wrapper_CXString.swift; sourceTree = "<group>"; };
 		OBJ_311 /* library_wrapper_Documentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = library_wrapper_Documentation.swift; sourceTree = "<group>"; };
 		OBJ_312 /* library_wrapper_Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = library_wrapper_Index.swift; sourceTree = "<group>"; };
@@ -1113,7 +1110,6 @@
 		OBJ_326 /* CYaml.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CYaml.h; sourceTree = "<group>"; };
 		OBJ_327 /* yaml.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = yaml.h; sourceTree = "<group>"; };
 		OBJ_329 /* Constructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constructor.swift; sourceTree = "<group>"; };
-		OBJ_33 /* Verify+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Verify+Convenience.swift"; sourceTree = "<group>"; };
 		OBJ_330 /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
 		OBJ_331 /* Emitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emitter.swift; sourceTree = "<group>"; };
 		OBJ_332 /* Encoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encoder.swift; sourceTree = "<group>"; };
@@ -2040,9 +2036,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_30 /* ArgumentCaptor.swift */,
-				OBJ_31 /* Given+Convenience.swift */,
 				OBJ_32 /* TypeFacade.swift */,
-				OBJ_33 /* Verify+Convenience.swift */,
 			);
 			path = DSL;
 			sourceTree = "<group>";
@@ -3462,9 +3456,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_675 /* ArgumentCaptor.swift in Sources */,
-				OBJ_676 /* Given+Convenience.swift in Sources */,
 				OBJ_677 /* TypeFacade.swift in Sources */,
-				OBJ_678 /* Verify+Convenience.swift in Sources */,
 				OBJ_679 /* ArgumentMatcher.swift in Sources */,
 				OBJ_680 /* CallMatcher.swift in Sources */,
 				OBJ_681 /* Mock.swift in Sources */,

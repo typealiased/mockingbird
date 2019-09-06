@@ -15,31 +15,31 @@ import Mockingbird
 private protocol StubbableVariadicProtocol {
   func variadicMethod(objects: @escaping @autoclosure () -> [String],
                       param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<VariadicProtocol, VariadicProtocolMock, ([String], Int) -> Void, Void>
+    -> Stubbable<([String], Int) -> Void, Void>
   func variadicMethod(objects: @escaping @autoclosure () -> [Bool],
                       param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<VariadicProtocol, VariadicProtocolMock, ([Bool], Int) -> Void, Void>
+    -> Stubbable<([Bool], Int) -> Void, Void>
   func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int,
                                   objects: @escaping @autoclosure () -> [String])
-    -> Stubbable<VariadicProtocol, VariadicProtocolMock, (Int, [String]) -> Void, Void>
+    -> Stubbable<(Int, [String]) -> Void, Void>
   func variadicReturningMethod(objects: @escaping @autoclosure () -> [Bool],
                                param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<VariadicProtocol, VariadicProtocolMock, ([Bool], Int) -> Bool, Bool>
+    -> Stubbable<([Bool], Int) -> Bool, Bool>
 }
 extension VariadicProtocolMock: StubbableVariadicProtocol {}
 
 private protocol StubbableVariadicClass {
   func variadicMethod(objects: @escaping @autoclosure () -> [String],
                       param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<VariadicClass, VariadicClassMock, ([String], Int) -> Void, Void>
+    -> Stubbable<([String], Int) -> Void, Void>
   func variadicMethod(objects: @escaping @autoclosure () -> [Bool],
                       param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<VariadicClass, VariadicClassMock, ([Bool], Int) -> Void, Void>
+    -> Stubbable<([Bool], Int) -> Void, Void>
   func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int,
                                   objects: @escaping @autoclosure () -> [String])
-    -> Stubbable<VariadicClass, VariadicClassMock, (Int, [String]) -> Void, Void>
+    -> Stubbable<(Int, [String]) -> Void, Void>
   func variadicReturningMethod(objects: @escaping @autoclosure () -> [Bool],
                                param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<VariadicClass, VariadicClassMock, ([Bool], Int) -> Bool, Bool>
+    -> Stubbable<([Bool], Int) -> Bool, Bool>
 }
 extension VariadicClassMock: StubbableVariadicClass {}

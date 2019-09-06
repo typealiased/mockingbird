@@ -92,24 +92,35 @@ class VariableGenerator {
     let contextPrefix = self.contextPrefix
     let getterInvocationType = "() -> \(typeName)"
     let setterInvocationType = "(\(typeName)) -> Void"
-    let stubbableGetterGenericTypes = (stubbableGenericTypeList
+    let stubbableGetterGenericTypes = [getterInvocationType, typeName].joined(separator: ", ")
+    let stubbableSetterGenericTypes = [setterInvocationType, "Void"].joined(separator: ", ")
+    let chainStubbableGetterGenericTypes = (stubbableGenericTypeList
       + [getterInvocationType, typeName]).joined(separator: ", ")
-    let stubbableSetterGenericTypes = (stubbableGenericTypeList
+    let chainStubbableSetterGenericTypes = (stubbableGenericTypeList
       + [setterInvocationType, "Void"]).joined(separator: ", ")
     return """
       // MARK: Stubbable `\(variable.name)`
     
       public \(modifiers)func get\(capitalizedName)() -> Mockingbird.Stubbable<\(stubbableGetterGenericTypes)> {
         let invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
-        if let stub = DispatchQueue.currentStub { \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation) }
-        return Mockingbird.Stubbable<\(stubbableGetterGenericTypes)>(object: \(stubbableObject), stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
+        return Mockingbird.Stubbable<\(stubbableGetterGenericTypes)>(stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
+      }
+    
+      public \(modifiers)func get\(capitalizedName)() -> Mockingbird.ChainStubbable<\(chainStubbableGetterGenericTypes)> {
+        let invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
+        return Mockingbird.ChainStubbable<\(chainStubbableGetterGenericTypes)>(object: \(stubbableObject), stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
       }
     
       public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Stubbable<\(stubbableSetterGenericTypes)> {
         let arguments = [Mockingbird.resolve(newValue)]
         let invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments)
-        if let stub = DispatchQueue.currentStub { \(contextPrefix)stubbingContext.swizzle(invocation, with: stub.implementation) }
-        return Mockingbird.Stubbable<\(stubbableSetterGenericTypes)>(object: \(stubbableObject), stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
+        return Mockingbird.Stubbable<\(stubbableSetterGenericTypes)>(stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
+      }
+    
+      public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.ChainStubbable<\(chainStubbableSetterGenericTypes)> {
+        let arguments = [Mockingbird.resolve(newValue)]
+        let invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments)
+        return Mockingbird.ChainStubbable<\(chainStubbableSetterGenericTypes)>(object: \(stubbableObject), stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
       }
     """
   }

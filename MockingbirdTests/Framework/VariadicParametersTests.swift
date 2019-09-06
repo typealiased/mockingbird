@@ -47,12 +47,12 @@ class VeriadicParametersTests: XCTestCase {
   }
   
   func testVariadicReturningMethod_calledWithBools_usingStrictMatching() {
-    given(self.concreteMock.variadicReturningMethod(objects: true, false, true, param2: 1)) ~> true
+    given(concreteMock.variadicReturningMethod(objects: true, false, true, param2: 1)) ~> true
     XCTAssertTrue(callVariadicReturningMethod(on: concreteMock))
     verify(self.concreteMock.variadicReturningMethod(objects: true, false, true, param2: 1)).wasCalled()
   }
   func testVariadicReturningMethod_calledWithBools_usingWildcardMatching() {
-    given(self.concreteMock.variadicReturningMethod(objects: any(), param2: 1)) ~> true
+    given(concreteMock.variadicReturningMethod(objects: any(), param2: 1)) ~> true
     XCTAssertTrue(callVariadicReturningMethod(on: concreteMock))
     verify(self.concreteMock.variadicReturningMethod(objects: any(), param2: 1)).wasCalled()
   }
