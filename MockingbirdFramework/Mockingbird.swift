@@ -17,13 +17,6 @@ public func given<I, R>(_ stubbable: Stubbable<I, R>...) -> Stub<I, R> {
   return Stub<I, R>(from: stubbable)
 }
 
-/// Chain stub a nested set of mock objects to return a value or perform an operation.
-///
-/// - Parameter stubbable: A chained set of stubbable invocations.
-public func given<T, M, I, R>(_ stubbable: ChainStubbable<T, M, I, R>) -> Stub<I, R> {
-  return Stub<I, R>(from: stubbable)
-}
-
 /// Stubs a variable getter to return the last value received by the setter.
 ///
 /// - Parameter initial: The initial value to return.

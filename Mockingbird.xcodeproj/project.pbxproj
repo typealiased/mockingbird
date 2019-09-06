@@ -322,7 +322,6 @@
 		OBJ_764 /* ArgumentCaptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_117 /* ArgumentCaptorTests.swift */; };
 		OBJ_765 /* ArgumentMatchingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_118 /* ArgumentMatchingTests.swift */; };
 		OBJ_766 /* AsyncVerificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_119 /* AsyncVerificationTests.swift */; };
-		OBJ_767 /* ChainedStubbingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_120 /* ChainedStubbingTests.swift */; };
 		OBJ_768 /* LastSetValueStubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_121 /* LastSetValueStubTests.swift */; };
 		OBJ_769 /* OverloadedMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_122 /* OverloadedMethodTests.swift */; };
 		OBJ_770 /* StubbingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_123 /* StubbingTests.swift */; };
@@ -929,7 +928,6 @@
 		OBJ_118 /* ArgumentMatchingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentMatchingTests.swift; sourceTree = "<group>"; };
 		OBJ_119 /* AsyncVerificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncVerificationTests.swift; sourceTree = "<group>"; };
 		OBJ_12 /* GenerateCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateCommand.swift; sourceTree = "<group>"; };
-		OBJ_120 /* ChainedStubbingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainedStubbingTests.swift; sourceTree = "<group>"; };
 		OBJ_121 /* LastSetValueStubTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastSetValueStubTests.swift; sourceTree = "<group>"; };
 		OBJ_122 /* OverloadedMethodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverloadedMethodTests.swift; sourceTree = "<group>"; };
 		OBJ_123 /* StubbingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbingTests.swift; sourceTree = "<group>"; };
@@ -1562,7 +1560,6 @@
 				OBJ_117 /* ArgumentCaptorTests.swift */,
 				OBJ_118 /* ArgumentMatchingTests.swift */,
 				OBJ_119 /* AsyncVerificationTests.swift */,
-				OBJ_120 /* ChainedStubbingTests.swift */,
 				49F5DD492322346500EC87E4 /* InitializerTests.swift */,
 				OBJ_121 /* LastSetValueStubTests.swift */,
 				OBJ_122 /* OverloadedMethodTests.swift */,
@@ -3529,7 +3526,6 @@
 				OBJ_764 /* ArgumentCaptorTests.swift in Sources */,
 				OBJ_765 /* ArgumentMatchingTests.swift in Sources */,
 				OBJ_766 /* AsyncVerificationTests.swift in Sources */,
-				OBJ_767 /* ChainedStubbingTests.swift in Sources */,
 				OBJ_768 /* LastSetValueStubTests.swift in Sources */,
 				49377CC8231E0C8B003C0EA2 /* DefaultArgumentValuesVerifiableTests.swift in Sources */,
 				OBJ_769 /* OverloadedMethodTests.swift in Sources */,

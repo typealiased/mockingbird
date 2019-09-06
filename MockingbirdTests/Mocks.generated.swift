@@ -94,12 +94,6 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     return Mockingbird.Stubbable<(MockingbirdTestsHost.StructType?, MockingbirdTestsHost.ClassType?, MockingbirdTestsHost.EnumType?, String?, Bool?, ClassType.Type?, Any?, AnyObject?) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func method(optionalStructType: @escaping @autoclosure () -> MockingbirdTestsHost.StructType?, optionalClassType: @escaping @autoclosure () -> MockingbirdTestsHost.ClassType?, optionalEnumType: @escaping @autoclosure () -> MockingbirdTestsHost.EnumType?, optionalStringType: @escaping @autoclosure () -> String?, optionalBoolType: @escaping @autoclosure () -> Bool?, optionalMetaType: @escaping @autoclosure () -> ClassType.Type?, optionalAnyType: @escaping @autoclosure () -> Any?, optionalAnyObjectType: @escaping @autoclosure () -> AnyObject?) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArgumentMatchingProtocol, ArgumentMatchingProtocolMock, (MockingbirdTestsHost.StructType?, MockingbirdTestsHost.ClassType?, MockingbirdTestsHost.EnumType?, String?, Bool?, ClassType.Type?, Any?, AnyObject?) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`optionalStructType`), Mockingbird.resolve(`optionalClassType`), Mockingbird.resolve(`optionalEnumType`), Mockingbird.resolve(`optionalStringType`), Mockingbird.resolve(`optionalBoolType`), Mockingbird.resolve(`optionalMetaType`), Mockingbird.resolve(`optionalAnyType`), Mockingbird.resolve(`optionalAnyObjectType`)]
-    let invocation = Mockingbird.Invocation(selectorName: "method(optionalStructType:optionalClassType:optionalEnumType:optionalStringType:optionalBoolType:optionalMetaType:optionalAnyType:optionalAnyObjectType:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArgumentMatchingProtocol, ArgumentMatchingProtocolMock, (MockingbirdTestsHost.StructType?, MockingbirdTestsHost.ClassType?, MockingbirdTestsHost.EnumType?, String?, Bool?, ClassType.Type?, Any?, AnyObject?) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `method(optionalStructType:optionalClassType:optionalEnumType:optionalStringType:optionalBoolType:optionalMetaType:optionalAnyType:optionalAnyObjectType:)`
 
   public func method(optionalStructType: @escaping @autoclosure () -> MockingbirdTestsHost.StructType?, optionalClassType: @escaping @autoclosure () -> MockingbirdTestsHost.ClassType?, optionalEnumType: @escaping @autoclosure () -> MockingbirdTestsHost.EnumType?, optionalStringType: @escaping @autoclosure () -> String?, optionalBoolType: @escaping @autoclosure () -> Bool?, optionalMetaType: @escaping @autoclosure () -> ClassType.Type?, optionalAnyType: @escaping @autoclosure () -> Any?, optionalAnyObjectType: @escaping @autoclosure () -> AnyObject?) -> Mockingbird.Mockable<Bool> {
@@ -127,12 +121,6 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     let arguments = [Mockingbird.resolve(`structType`), Mockingbird.resolve(`classType`), Mockingbird.resolve(`enumType`), Mockingbird.resolve(`stringType`), Mockingbird.resolve(`boolType`), Mockingbird.resolve(`metaType`), Mockingbird.resolve(`anyType`), Mockingbird.resolve(`anyObjectType`)]
     let invocation = Mockingbird.Invocation(selectorName: "method(structType:classType:enumType:stringType:boolType:metaType:anyType:anyObjectType:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(MockingbirdTestsHost.StructType, MockingbirdTestsHost.ClassType, MockingbirdTestsHost.EnumType, String, Bool, ClassType.Type, Any, AnyObject) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func method(structType: @escaping @autoclosure () -> MockingbirdTestsHost.StructType, classType: @escaping @autoclosure () -> MockingbirdTestsHost.ClassType, enumType: @escaping @autoclosure () -> MockingbirdTestsHost.EnumType, stringType: @escaping @autoclosure () -> String, boolType: @escaping @autoclosure () -> Bool, metaType: @escaping @autoclosure () -> ClassType.Type, anyType: @escaping @autoclosure () -> Any, anyObjectType: @escaping @autoclosure () -> AnyObject) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArgumentMatchingProtocol, ArgumentMatchingProtocolMock, (MockingbirdTestsHost.StructType, MockingbirdTestsHost.ClassType, MockingbirdTestsHost.EnumType, String, Bool, ClassType.Type, Any, AnyObject) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`structType`), Mockingbird.resolve(`classType`), Mockingbird.resolve(`enumType`), Mockingbird.resolve(`stringType`), Mockingbird.resolve(`boolType`), Mockingbird.resolve(`metaType`), Mockingbird.resolve(`anyType`), Mockingbird.resolve(`anyObjectType`)]
-    let invocation = Mockingbird.Invocation(selectorName: "method(structType:classType:enumType:stringType:boolType:metaType:anyType:anyObjectType:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArgumentMatchingProtocol, ArgumentMatchingProtocolMock, (MockingbirdTestsHost.StructType, MockingbirdTestsHost.ClassType, MockingbirdTestsHost.EnumType, String, Bool, ClassType.Type, Any, AnyObject) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `method(structType:classType:enumType:stringType:boolType:metaType:anyType:anyObjectType:)`
@@ -191,21 +179,10 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> [Foundation.NSObject], [Foundation.NSObject]>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getAnotherVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> [Foundation.NSObject], [Foundation.NSObject]> {
-    let invocation = Mockingbird.Invocation(selectorName: "anotherVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> [Foundation.NSObject], [Foundation.NSObject]>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setAnotherVariable(_ newValue: @escaping @autoclosure () -> [Foundation.NSObject]) -> Mockingbird.Stubbable<([Foundation.NSObject]) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "anotherVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<([Foundation.NSObject]) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setAnotherVariable(_ newValue: @escaping @autoclosure () -> [Foundation.NSObject]) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, ([Foundation.NSObject]) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "anotherVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, ([Foundation.NSObject]) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `anotherVariable`
@@ -248,21 +225,10 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> Array<Foundation.NSObject>, Array<Foundation.NSObject>>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getExplicitAnotherVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> Array<Foundation.NSObject>, Array<Foundation.NSObject>> {
-    let invocation = Mockingbird.Invocation(selectorName: "explicitAnotherVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> Array<Foundation.NSObject>, Array<Foundation.NSObject>>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setExplicitAnotherVariable(_ newValue: @escaping @autoclosure () -> Array<Foundation.NSObject>) -> Mockingbird.Stubbable<(Array<Foundation.NSObject>) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "explicitAnotherVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Array<Foundation.NSObject>) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setExplicitAnotherVariable(_ newValue: @escaping @autoclosure () -> Array<Foundation.NSObject>) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, (Array<Foundation.NSObject>) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "explicitAnotherVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, (Array<Foundation.NSObject>) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `explicitAnotherVariable`
@@ -305,21 +271,10 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> Array<MockingbirdTestsHost.NSObject>, Array<MockingbirdTestsHost.NSObject>>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getExplicitVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> Array<MockingbirdTestsHost.NSObject>, Array<MockingbirdTestsHost.NSObject>> {
-    let invocation = Mockingbird.Invocation(selectorName: "explicitVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> Array<MockingbirdTestsHost.NSObject>, Array<MockingbirdTestsHost.NSObject>>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setExplicitVariable(_ newValue: @escaping @autoclosure () -> Array<MockingbirdTestsHost.NSObject>) -> Mockingbird.Stubbable<(Array<MockingbirdTestsHost.NSObject>) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "explicitVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Array<MockingbirdTestsHost.NSObject>) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setExplicitVariable(_ newValue: @escaping @autoclosure () -> Array<MockingbirdTestsHost.NSObject>) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, (Array<MockingbirdTestsHost.NSObject>) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "explicitVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, (Array<MockingbirdTestsHost.NSObject>) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `explicitVariable`
@@ -362,21 +317,10 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> [Foundation.NSObject?], [Foundation.NSObject?]>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getOptionalAnotherVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> [Foundation.NSObject?], [Foundation.NSObject?]> {
-    let invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> [Foundation.NSObject?], [Foundation.NSObject?]>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setOptionalAnotherVariable(_ newValue: @escaping @autoclosure () -> [Foundation.NSObject?]) -> Mockingbird.Stubbable<([Foundation.NSObject?]) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<([Foundation.NSObject?]) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setOptionalAnotherVariable(_ newValue: @escaping @autoclosure () -> [Foundation.NSObject?]) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, ([Foundation.NSObject?]) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, ([Foundation.NSObject?]) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `optionalAnotherVariable`
@@ -419,21 +363,10 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> Array<Foundation.NSObject?>, Array<Foundation.NSObject?>>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getOptionalExplicitAnotherVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> Array<Foundation.NSObject?>, Array<Foundation.NSObject?>> {
-    let invocation = Mockingbird.Invocation(selectorName: "optionalExplicitAnotherVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> Array<Foundation.NSObject?>, Array<Foundation.NSObject?>>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setOptionalExplicitAnotherVariable(_ newValue: @escaping @autoclosure () -> Array<Foundation.NSObject?>) -> Mockingbird.Stubbable<(Array<Foundation.NSObject?>) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "optionalExplicitAnotherVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Array<Foundation.NSObject?>) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setOptionalExplicitAnotherVariable(_ newValue: @escaping @autoclosure () -> Array<Foundation.NSObject?>) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, (Array<Foundation.NSObject?>) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "optionalExplicitAnotherVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, (Array<Foundation.NSObject?>) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `optionalExplicitAnotherVariable`
@@ -476,21 +409,10 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> Array<MockingbirdTestsHost.NSObject?>, Array<MockingbirdTestsHost.NSObject?>>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getOptionalExplicitVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> Array<MockingbirdTestsHost.NSObject?>, Array<MockingbirdTestsHost.NSObject?>> {
-    let invocation = Mockingbird.Invocation(selectorName: "optionalExplicitVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> Array<MockingbirdTestsHost.NSObject?>, Array<MockingbirdTestsHost.NSObject?>>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setOptionalExplicitVariable(_ newValue: @escaping @autoclosure () -> Array<MockingbirdTestsHost.NSObject?>) -> Mockingbird.Stubbable<(Array<MockingbirdTestsHost.NSObject?>) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "optionalExplicitVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Array<MockingbirdTestsHost.NSObject?>) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setOptionalExplicitVariable(_ newValue: @escaping @autoclosure () -> Array<MockingbirdTestsHost.NSObject?>) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, (Array<MockingbirdTestsHost.NSObject?>) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "optionalExplicitVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, (Array<MockingbirdTestsHost.NSObject?>) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `optionalExplicitVariable`
@@ -533,21 +455,10 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> [MockingbirdTestsHost.NSObject?], [MockingbirdTestsHost.NSObject?]>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getOptionalVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> [MockingbirdTestsHost.NSObject?], [MockingbirdTestsHost.NSObject?]> {
-    let invocation = Mockingbird.Invocation(selectorName: "optionalVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> [MockingbirdTestsHost.NSObject?], [MockingbirdTestsHost.NSObject?]>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setOptionalVariable(_ newValue: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject?]) -> Mockingbird.Stubbable<([MockingbirdTestsHost.NSObject?]) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "optionalVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<([MockingbirdTestsHost.NSObject?]) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setOptionalVariable(_ newValue: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject?]) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, ([MockingbirdTestsHost.NSObject?]) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "optionalVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, ([MockingbirdTestsHost.NSObject?]) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `optionalVariable`
@@ -590,21 +501,10 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> [MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.NSObject]>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> [MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.NSObject]> {
-    let invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> [MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.NSObject]>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setVariable(_ newValue: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject]) -> Mockingbird.Stubbable<([MockingbirdTestsHost.NSObject]) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: arguments)
     return Mockingbird.Stubbable<([MockingbirdTestsHost.NSObject]) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setVariable(_ newValue: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject]) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, ([MockingbirdTestsHost.NSObject]) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, ([MockingbirdTestsHost.NSObject]) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `variable`
@@ -649,11 +549,6 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func explicitMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)> {
-    let invocation = Mockingbird.Invocation(selectorName: "explicitMethod() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `explicitMethod()`
 
   public func explicitMethod() -> Mockingbird.Mockable<(Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)> {
@@ -679,11 +574,6 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func explicitMethod() -> Mockingbird.Stubbable<() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)> {
     let invocation = Mockingbird.Invocation(selectorName: "explicitMethod() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)", arguments: [])
     return Mockingbird.Stubbable<() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func explicitMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)> {
-    let invocation = Mockingbird.Invocation(selectorName: "explicitMethod() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `explicitMethod()`
@@ -713,11 +603,6 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> Array<Foundation.NSObject>, Array<Foundation.NSObject>>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func explicitMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> Array<Foundation.NSObject>, Array<Foundation.NSObject>> {
-    let invocation = Mockingbird.Invocation(selectorName: "explicitMethod() -> Array<Foundation.NSObject>", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> Array<Foundation.NSObject>, Array<Foundation.NSObject>>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `explicitMethod()`
 
   public func explicitMethod() -> Mockingbird.Mockable<Array<Foundation.NSObject>> {
@@ -743,11 +628,6 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func explicitMethod() -> Mockingbird.Stubbable<() -> Array<MockingbirdTestsHost.NSObject>, Array<MockingbirdTestsHost.NSObject>> {
     let invocation = Mockingbird.Invocation(selectorName: "explicitMethod() -> Array<MockingbirdTestsHost.NSObject>", arguments: [])
     return Mockingbird.Stubbable<() -> Array<MockingbirdTestsHost.NSObject>, Array<MockingbirdTestsHost.NSObject>>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func explicitMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> Array<MockingbirdTestsHost.NSObject>, Array<MockingbirdTestsHost.NSObject>> {
-    let invocation = Mockingbird.Invocation(selectorName: "explicitMethod() -> Array<MockingbirdTestsHost.NSObject>", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> Array<MockingbirdTestsHost.NSObject>, Array<MockingbirdTestsHost.NSObject>>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `explicitMethod()`
@@ -778,12 +658,6 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     return Mockingbird.Stubbable<(Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func explicitMethod(param1: @escaping @autoclosure () -> Array<MockingbirdTestsHost.NSObject>, param2: @escaping @autoclosure () -> Array<Foundation.NSObject>) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "explicitMethod(param1:param2:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `explicitMethod(param1:param2:)`
 
   public func explicitMethod(param1: @escaping @autoclosure () -> Array<MockingbirdTestsHost.NSObject>, param2: @escaping @autoclosure () -> Array<Foundation.NSObject>) -> Mockingbird.Mockable<Void> {
@@ -810,11 +684,6 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func explicitMethodWithParameterLabels() -> Mockingbird.Stubbable<() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)> {
     let invocation = Mockingbird.Invocation(selectorName: "explicitMethodWithParameterLabels() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)", arguments: [])
     return Mockingbird.Stubbable<() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func explicitMethodWithParameterLabels() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)> {
-    let invocation = Mockingbird.Invocation(selectorName: "explicitMethodWithParameterLabels() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `explicitMethodWithParameterLabels()`
@@ -844,11 +713,6 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func method() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])> {
-    let invocation = Mockingbird.Invocation(selectorName: "method() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `method()`
 
   public func method() -> Mockingbird.Mockable<([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])> {
@@ -874,11 +738,6 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func method() -> Mockingbird.Stubbable<() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])> {
     let invocation = Mockingbird.Invocation(selectorName: "method() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])", arguments: [])
     return Mockingbird.Stubbable<() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func method() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])> {
-    let invocation = Mockingbird.Invocation(selectorName: "method() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `method()`
@@ -908,11 +767,6 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> [Foundation.NSObject], [Foundation.NSObject]>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func method() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> [Foundation.NSObject], [Foundation.NSObject]> {
-    let invocation = Mockingbird.Invocation(selectorName: "method() -> [Foundation.NSObject]", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> [Foundation.NSObject], [Foundation.NSObject]>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `method()`
 
   public func method() -> Mockingbird.Mockable<[Foundation.NSObject]> {
@@ -938,11 +792,6 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func method() -> Mockingbird.Stubbable<() -> [MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.NSObject]> {
     let invocation = Mockingbird.Invocation(selectorName: "method() -> [MockingbirdTestsHost.NSObject]", arguments: [])
     return Mockingbird.Stubbable<() -> [MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.NSObject]>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func method() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> [MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.NSObject]> {
-    let invocation = Mockingbird.Invocation(selectorName: "method() -> [MockingbirdTestsHost.NSObject]", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> [MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.NSObject]>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `method()`
@@ -973,12 +822,6 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     return Mockingbird.Stubbable<([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func method(param1: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject], param2: @escaping @autoclosure () -> [Foundation.NSObject]) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "method(param1:param2:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `method(param1:param2:)`
 
   public func method(param1: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject], param2: @escaping @autoclosure () -> [Foundation.NSObject]) -> Mockingbird.Mockable<Void> {
@@ -1005,11 +848,6 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func methodWithParameterLabels() -> Mockingbird.Stubbable<() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])> {
     let invocation = Mockingbird.Invocation(selectorName: "methodWithParameterLabels() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])", arguments: [])
     return Mockingbird.Stubbable<() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func methodWithParameterLabels() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])> {
-    let invocation = Mockingbird.Invocation(selectorName: "methodWithParameterLabels() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ArrayTypes, ArrayTypesMock, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `methodWithParameterLabels()`
@@ -1079,12 +917,6 @@ public final class AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType:
     return Mockingbird.Stubbable<(ConstrainedType) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func request(object: @escaping @autoclosure () -> ConstrainedType) -> Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>, (ConstrainedType) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>, (ConstrainedType) -> Bool, Bool>(object: Mockingbird.Mock.self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `request(object:)`
 
   public func request(object: @escaping @autoclosure () -> ConstrainedType) -> Mockingbird.Mockable<Bool> {
@@ -1150,21 +982,10 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
     return Mockingbird.Stubbable<() -> EquatableType, EquatableType>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getEquatableTypeVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>, AssociatedTypeGenericImplementerMock<EquatableType, S>, () -> EquatableType, EquatableType> {
-    let invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>, AssociatedTypeGenericImplementerMock<EquatableType, S>, () -> EquatableType, EquatableType>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setEquatableTypeVariable(_ newValue: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Stubbable<(EquatableType) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(EquatableType) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setEquatableTypeVariable(_ newValue: @escaping @autoclosure () -> EquatableType) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>, AssociatedTypeGenericImplementerMock<EquatableType, S>, (EquatableType) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>, AssociatedTypeGenericImplementerMock<EquatableType, S>, (EquatableType) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `equatableTypeVariable`
@@ -1205,12 +1026,6 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
     return Mockingbird.Stubbable<(EquatableType) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func methodUsingEquatableType(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>, AssociatedTypeGenericImplementerMock<EquatableType, S>, (EquatableType) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`equatable`)]
-    let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableType(equatable:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>, AssociatedTypeGenericImplementerMock<EquatableType, S>, (EquatableType) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `methodUsingEquatableType(equatable:)`
 
   public func methodUsingEquatableType(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Void> {
@@ -1240,12 +1055,6 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
     return Mockingbird.Stubbable<(EquatableType) -> EquatableType, EquatableType>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>, AssociatedTypeGenericImplementerMock<EquatableType, S>, (EquatableType) -> EquatableType, EquatableType> {
-    let arguments = [Mockingbird.resolve(`equatable`)]
-    let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable:) -> EquatableType", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>, AssociatedTypeGenericImplementerMock<EquatableType, S>, (EquatableType) -> EquatableType, EquatableType>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `methodUsingEquatableTypeWithReturn(equatable:)`
 
   public func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<EquatableType> {
@@ -1273,12 +1082,6 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
     let arguments = [Mockingbird.resolve(`hashable`)]
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingHashableType(hashable:) -> Void", arguments: arguments)
     return Mockingbird.Stubbable<(HashableType) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func methodUsingHashableType(hashable: @escaping @autoclosure () -> HashableType) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>, AssociatedTypeGenericImplementerMock<EquatableType, S>, (HashableType) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`hashable`)]
-    let invocation = Mockingbird.Invocation(selectorName: "methodUsingHashableType(hashable:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>, AssociatedTypeGenericImplementerMock<EquatableType, S>, (HashableType) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `methodUsingHashableType(hashable:)`
@@ -1340,12 +1143,6 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
     return Mockingbird.Stubbable<(T) -> T.HashableType, T.HashableType>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeImplementerProtocol, AssociatedTypeImplementerProtocolMock, (T) -> T.HashableType, T.HashableType> where T.EquatableType == Bool, T.HashableType == String {
-    let arguments = [Mockingbird.resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeImplementerProtocol, AssociatedTypeImplementerProtocolMock, (T) -> T.HashableType, T.HashableType>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `request(object:)`
 
   public func request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<T.HashableType> where T.EquatableType == Bool, T.HashableType == String {
@@ -1375,12 +1172,6 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
     return Mockingbird.Stubbable<(T) -> T.HashableType, T.HashableType>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeImplementerProtocol, AssociatedTypeImplementerProtocolMock, (T) -> T.HashableType, T.HashableType> where T.EquatableType == Int, T.HashableType == String {
-    let arguments = [Mockingbird.resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> T.HashableType", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeImplementerProtocol, AssociatedTypeImplementerProtocolMock, (T) -> T.HashableType, T.HashableType>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `request(object:)`
 
   public func request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<T.HashableType> where T.EquatableType == Int, T.HashableType == String {
@@ -1408,12 +1199,6 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
     let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void", arguments: arguments)
     return Mockingbird.Stubbable<(T) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeImplementerProtocol, AssociatedTypeImplementerProtocolMock, (T) -> Void, Void> where T.EquatableType == Int, T.HashableType == String {
-    let arguments = [Mockingbird.resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeImplementerProtocol, AssociatedTypeImplementerProtocolMock, (T) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `request(object:)`
@@ -1468,12 +1253,6 @@ public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.Associate
     let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void", arguments: arguments)
     return Mockingbird.Stubbable<(T) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeImplementer, AssociatedTypeImplementerMock, (T) -> Void, Void> where T.EquatableType == Int, T.HashableType == String {
-    let arguments = [Mockingbird.resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.AssociatedTypeImplementer, AssociatedTypeImplementerMock, (T) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `request(object:)`
@@ -1541,21 +1320,10 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
     return Mockingbird.Stubbable<() -> EquatableType, EquatableType>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getEquatableTypeVariable() -> Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>, () -> EquatableType, EquatableType> {
-    let invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>, () -> EquatableType, EquatableType>(object: Mockingbird.Mock.self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setEquatableTypeVariable(_ newValue: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Stubbable<(EquatableType) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(EquatableType) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setEquatableTypeVariable(_ newValue: @escaping @autoclosure () -> EquatableType) -> Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>, (EquatableType) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>, (EquatableType) -> Void, Void>(object: Mockingbird.Mock.self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `equatableTypeVariable`
@@ -1598,21 +1366,10 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
     return Mockingbird.Stubbable<() -> EquatableType, EquatableType>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getEquatableTypeVariable() -> Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>.Type, () -> EquatableType, EquatableType> {
-    let invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>.Type, () -> EquatableType, EquatableType>(object: Mockingbird.Mock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setEquatableTypeVariable(_ newValue: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Stubbable<(EquatableType) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(EquatableType) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setEquatableTypeVariable(_ newValue: @escaping @autoclosure () -> EquatableType) -> Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>.Type, (EquatableType) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>.Type, (EquatableType) -> Void, Void>(object: Mockingbird.Mock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `equatableTypeVariable`
@@ -1658,12 +1415,6 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
     return Mockingbird.Stubbable<(EquatableType) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func methodUsingEquatableType(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>, (EquatableType) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`equatable`)]
-    let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableType(equatable:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>, (EquatableType) -> Void, Void>(object: Mockingbird.Mock.self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `methodUsingEquatableType(equatable:)`
 
   public func methodUsingEquatableType(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Void> {
@@ -1691,12 +1442,6 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
     let arguments = [Mockingbird.resolve(`equatable`)]
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable:) -> EquatableType", arguments: arguments)
     return Mockingbird.Stubbable<(EquatableType) -> EquatableType, EquatableType>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>, (EquatableType) -> EquatableType, EquatableType> {
-    let arguments = [Mockingbird.resolve(`equatable`)]
-    let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable:) -> EquatableType", arguments: arguments)
-    return Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>, (EquatableType) -> EquatableType, EquatableType>(object: Mockingbird.Mock.self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `methodUsingEquatableTypeWithReturn(equatable:)`
@@ -1728,12 +1473,6 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
     return Mockingbird.Stubbable<(EquatableType) -> EquatableType, EquatableType>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public static func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>.Type, (EquatableType) -> EquatableType, EquatableType> {
-    let arguments = [Mockingbird.resolve(`equatable`)]
-    let invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable:) -> EquatableType", arguments: arguments)
-    return Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>.Type, (EquatableType) -> EquatableType, EquatableType>(object: Mockingbird.Mock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `methodUsingEquatableTypeWithReturn(equatable:)`
 
   public static func methodUsingEquatableTypeWithReturn(equatable: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<EquatableType> {
@@ -1761,12 +1500,6 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
     let arguments = [Mockingbird.resolve(`hashable`)]
     let invocation = Mockingbird.Invocation(selectorName: "methodUsingHashableType(hashable:) -> Void", arguments: arguments)
     return Mockingbird.Stubbable<(HashableType) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func methodUsingHashableType(hashable: @escaping @autoclosure () -> HashableType) -> Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>, (HashableType) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`hashable`)]
-    let invocation = Mockingbird.Invocation(selectorName: "methodUsingHashableType(hashable:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeProtocolMock<EquatableType, HashableType>, (HashableType) -> Void, Void>(object: Mockingbird.Mock.self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `methodUsingHashableType(hashable:)`
@@ -1837,12 +1570,6 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
     return Mockingbird.Stubbable<(T) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func request<T: Sequence>(array: @escaping @autoclosure () -> T) -> Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeSelfReferencingProtocolMock<SequenceType>, (T) -> Void, Void> where T.Element == AssociatedTypeSelfReferencingProtocolMock {
-    let arguments = [Mockingbird.resolve(`array`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(array:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeSelfReferencingProtocolMock<SequenceType>, (T) -> Void, Void>(object: Mockingbird.Mock.self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `request(array:)`
 
   public func request<T: Sequence>(array: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Void> where T.Element == AssociatedTypeSelfReferencingProtocolMock {
@@ -1872,12 +1599,6 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
     return Mockingbird.Stubbable<(SequenceType) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func request(array: @escaping @autoclosure () -> SequenceType) -> Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeSelfReferencingProtocolMock<SequenceType>, (SequenceType) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`array`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(array:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeSelfReferencingProtocolMock<SequenceType>, (SequenceType) -> Void, Void>(object: Mockingbird.Mock.self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `request(array:)`
 
   public func request(array: @escaping @autoclosure () -> SequenceType) -> Mockingbird.Mockable<Void> {
@@ -1905,12 +1626,6 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
     let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void", arguments: arguments)
     return Mockingbird.Stubbable<(AssociatedTypeSelfReferencingProtocolMock) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func request(object: @escaping @autoclosure () -> AssociatedTypeSelfReferencingProtocolMock) -> Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeSelfReferencingProtocolMock<SequenceType>, (AssociatedTypeSelfReferencingProtocolMock) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, AssociatedTypeSelfReferencingProtocolMock<SequenceType>, (AssociatedTypeSelfReferencingProtocolMock) -> Void, Void>(object: Mockingbird.Mock.self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `request(object:)`
@@ -1969,21 +1684,10 @@ public final class BirdMock: MockingbirdTestsHost.Bird, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getCanFly() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Bird, BirdMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "canFly.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Bird, BirdMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setCanFly(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "canFly.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setCanFly(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Bird, BirdMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "canFly.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Bird, BirdMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `canFly`
@@ -2029,12 +1733,6 @@ public final class BirdMock: MockingbirdTestsHost.Bird, Mockingbird.Mock {
     return Mockingbird.Stubbable<(T) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func canEat<T>(_ object: @escaping @autoclosure () -> T) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Bird, BirdMock, (T) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "canEat(_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Bird, BirdMock, (T) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `canEat(_:)`
 
   public func canEat<T>(_ object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Bool> {
@@ -2062,12 +1760,6 @@ public final class BirdMock: MockingbirdTestsHost.Bird, Mockingbird.Mock {
     let arguments = [Mockingbird.resolve(`volume`)]
     let invocation = Mockingbird.Invocation(selectorName: "chirp(volume:) -> Void", arguments: arguments)
     return Mockingbird.Stubbable<(Int) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func chirp(volume: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Bird, BirdMock, (Int) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`volume`)]
-    let invocation = Mockingbird.Invocation(selectorName: "chirp(volume:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Bird, BirdMock, (Int) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `chirp(volume:)`
@@ -2099,12 +1791,6 @@ public final class BirdMock: MockingbirdTestsHost.Bird, Mockingbird.Mock {
     return Mockingbird.Stubbable<(T) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func eat<T>(_ object: @escaping @autoclosure () -> T) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Bird, BirdMock, (T) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "eat(_:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Bird, BirdMock, (T) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `eat(_:)`
 
   public func eat<T>(_ object: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Void> {
@@ -2131,11 +1817,6 @@ public final class BirdMock: MockingbirdTestsHost.Bird, Mockingbird.Mock {
   public func fly() -> Mockingbird.Stubbable<() -> Void, Void> {
     let invocation = Mockingbird.Invocation(selectorName: "fly() -> Void", arguments: [])
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func fly() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Bird, BirdMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "fly() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Bird, BirdMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `fly()`
@@ -2193,21 +1874,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getChildInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "childInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setChildInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setChildInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "childInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `childInstanceVariable`
@@ -2250,21 +1920,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getChildPrivateSetterInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setChildPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setChildPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `childPrivateSetterInstanceVariable`
@@ -2307,21 +1966,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getChildPrivateSetterStaticVariable() -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterStaticVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Bool, Bool>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setChildPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterStaticVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setChildPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterStaticVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool) -> Void, Void>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `childPrivateSetterStaticVariable`
@@ -2364,21 +2012,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getChildStaticVariable() -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "childStaticVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Bool, Bool>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setChildStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childStaticVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setChildStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "childStaticVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool) -> Void, Void>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `childStaticVariable`
@@ -2421,21 +2058,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getGrandparentInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentInstanceVariable`
@@ -2478,21 +2104,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getGrandparentPrivateSetterInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentPrivateSetterInstanceVariable`
@@ -2535,21 +2150,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getGrandparentPrivateSetterStaticVariable() -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Bool, Bool>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool) -> Void, Void>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentPrivateSetterStaticVariable`
@@ -2592,21 +2196,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getGrandparentStaticVariable() -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Bool, Bool>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool) -> Void, Void>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentStaticVariable`
@@ -2649,21 +2242,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getParentInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setParentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setParentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentInstanceVariable`
@@ -2706,21 +2288,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getParentPrivateSetterInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentPrivateSetterInstanceVariable`
@@ -2763,21 +2334,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getParentPrivateSetterStaticVariable() -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Bool, Bool>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool) -> Void, Void>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentPrivateSetterStaticVariable`
@@ -2820,21 +2380,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getParentStaticVariable() -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Bool, Bool>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setParentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setParentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool) -> Void, Void>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentStaticVariable`
@@ -2880,12 +2429,6 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func childParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "childParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool, Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `childParameterizedInstanceMethod(param1:_:)`
 
   public func childParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
@@ -2913,12 +2456,6 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "childParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public static func childParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "childParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool, Int) -> Bool, Bool>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `childParameterizedStaticMethod(param1:_:)`
@@ -2949,11 +2486,6 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func childTrivialInstanceMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "childTrivialInstanceMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `childTrivialInstanceMethod()`
 
   public func childTrivialInstanceMethod() -> Mockingbird.Mockable<Void> {
@@ -2979,11 +2511,6 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   public static func childTrivialStaticMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
     let invocation = Mockingbird.Invocation(selectorName: "childTrivialStaticMethod() -> Void", arguments: [])
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public static func childTrivialStaticMethod() -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "childTrivialStaticMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Void, Void>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `childTrivialStaticMethod()`
@@ -3012,12 +2539,6 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool, Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentParameterizedInstanceMethod(param1:_:)`
@@ -3049,12 +2570,6 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool, Int) -> Bool, Bool>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `grandparentParameterizedStaticMethod(param1:_:)`
 
   public static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
@@ -3081,11 +2596,6 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   public func grandparentTrivialInstanceMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
     let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialInstanceMethod() -> Void", arguments: [])
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func grandparentTrivialInstanceMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialInstanceMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentTrivialInstanceMethod()`
@@ -3115,11 +2625,6 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public static func grandparentTrivialStaticMethod() -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialStaticMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Void, Void>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `grandparentTrivialStaticMethod()`
 
   public static func grandparentTrivialStaticMethod() -> Mockingbird.Mockable<Void> {
@@ -3146,12 +2651,6 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, (Bool, Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentParameterizedInstanceMethod(param1:_:)`
@@ -3183,12 +2682,6 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public static func parentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, (Bool, Int) -> Bool, Bool>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `parentParameterizedStaticMethod(param1:_:)`
 
   public static func parentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
@@ -3217,11 +2710,6 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func parentTrivialInstanceMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentTrivialInstanceMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ChildProtocol, ChildProtocolMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `parentTrivialInstanceMethod()`
 
   public func parentTrivialInstanceMethod() -> Mockingbird.Mockable<Void> {
@@ -3247,11 +2735,6 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   public static func parentTrivialStaticMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
     let invocation = Mockingbird.Invocation(selectorName: "parentTrivialStaticMethod() -> Void", arguments: [])
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public static func parentTrivialStaticMethod() -> Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentTrivialStaticMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<ChildProtocolMock.Type, ChildProtocolMock.Type, () -> Void, Void>(object: ChildProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentTrivialStaticMethod()`
@@ -3309,21 +2792,10 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getChildClassVariable() -> Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "childClassVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, () -> Bool, Bool>(object: ChildMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setChildClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childClassVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setChildClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "childClassVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, (Bool) -> Void, Void>(object: ChildMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `childClassVariable`
@@ -3366,21 +2838,10 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getChildComputedInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "childComputedInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setChildComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "childComputedInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setChildComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "childComputedInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `childComputedInstanceVariable`
@@ -3423,21 +2884,10 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getGrandparentClassVariable() -> Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, () -> Bool, Bool>(object: ChildMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, (Bool) -> Void, Void>(object: ChildMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentClassVariable`
@@ -3480,21 +2930,10 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getGrandparentComputedInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentComputedInstanceVariable`
@@ -3537,21 +2976,10 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getParentClassVariable() -> Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, () -> Bool, Bool>(object: ChildMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setParentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setParentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, (Bool) -> Void, Void>(object: ChildMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentClassVariable`
@@ -3594,21 +3022,10 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getParentComputedInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setParentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setParentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentComputedInstanceVariable`
@@ -3649,12 +3066,6 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public static func childParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "childParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, (Bool, Int) -> Bool, Bool>(object: ChildMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `childParameterizedClassMethod(param1:_:)`
 
   public static func childParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
@@ -3682,12 +3093,6 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "childParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func childParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "childParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, (Bool, Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `childParameterizedInstanceMethod(param1:_:)`
@@ -3718,11 +3123,6 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public static func childTrivialClassMethod() -> Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "childTrivialClassMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, () -> Void, Void>(object: ChildMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `childTrivialClassMethod()`
 
   public static func childTrivialClassMethod() -> Mockingbird.Mockable<Void> {
@@ -3748,11 +3148,6 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   public func childTrivialInstanceMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
     let invocation = Mockingbird.Invocation(selectorName: "childTrivialInstanceMethod() -> Void", arguments: [])
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func childTrivialInstanceMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "childTrivialInstanceMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `childTrivialInstanceMethod()`
@@ -3781,12 +3176,6 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public static func grandparentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, (Bool, Int) -> Bool, Bool>(object: ChildMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentParameterizedClassMethod(param1:_:)`
@@ -3818,12 +3207,6 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, (Bool, Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `grandparentParameterizedInstanceMethod(param1:_:)`
 
   public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
@@ -3850,11 +3233,6 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   public static func grandparentTrivialClassMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
     let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialClassMethod() -> Void", arguments: [])
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public static func grandparentTrivialClassMethod() -> Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialClassMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, () -> Void, Void>(object: ChildMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentTrivialClassMethod()`
@@ -3884,11 +3262,6 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func grandparentTrivialInstanceMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialInstanceMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `grandparentTrivialInstanceMethod()`
 
   public func grandparentTrivialInstanceMethod() -> Mockingbird.Mockable<Void> {
@@ -3915,12 +3288,6 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public static func parentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, (Bool, Int) -> Bool, Bool>(object: ChildMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentParameterizedClassMethod(param1:_:)`
@@ -3952,12 +3319,6 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, (Bool, Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `parentParameterizedInstanceMethod(param1:_:)`
 
   public func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
@@ -3986,11 +3347,6 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public static func parentTrivialClassMethod() -> Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentTrivialClassMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<ChildMock.Type, ChildMock.Type, () -> Void, Void>(object: ChildMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `parentTrivialClassMethod()`
 
   public static func parentTrivialClassMethod() -> Mockingbird.Mockable<Void> {
@@ -4016,11 +3372,6 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   public func parentTrivialInstanceMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
     let invocation = Mockingbird.Invocation(selectorName: "parentTrivialInstanceMethod() -> Void", arguments: [])
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func parentTrivialInstanceMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentTrivialInstanceMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Child, ChildMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentTrivialInstanceMethod()`
@@ -4106,12 +3457,6 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Stubbable<(@autoclosure () -> Void) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func autoclosureTrivialClosure(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (@autoclosure () -> Void) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`block`)]
-    let invocation = Mockingbird.Invocation(selectorName: "autoclosureTrivialClosure(block:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (@autoclosure () -> Void) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `autoclosureTrivialClosure(block:)`
 
   public func autoclosureTrivialClosure(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Bool> {
@@ -4139,12 +3484,6 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     let arguments = [Mockingbird.resolve(`block`)]
     let invocation = Mockingbird.Invocation(selectorName: "autoclosureTrivialReturningClosure(block:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(@autoclosure () -> Bool) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func autoclosureTrivialReturningClosure(block: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (@autoclosure () -> Bool) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`block`)]
-    let invocation = Mockingbird.Invocation(selectorName: "autoclosureTrivialReturningClosure(block:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (@autoclosure () -> Bool) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `autoclosureTrivialReturningClosure(block:)`
@@ -4176,12 +3515,6 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Stubbable<(@escaping @autoclosure () -> Void) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func escapingAutoclosureTrivialClosure(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping @autoclosure () -> Void) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`block`)]
-    let invocation = Mockingbird.Invocation(selectorName: "escapingAutoclosureTrivialClosure(block:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping @autoclosure () -> Void) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `escapingAutoclosureTrivialClosure(block:)`
 
   public func escapingAutoclosureTrivialClosure(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Bool> {
@@ -4209,12 +3542,6 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     let arguments = [Mockingbird.resolve(`block`)]
     let invocation = Mockingbird.Invocation(selectorName: "escapingAutoclosureTrivialReturningClosure(block:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(@escaping @autoclosure () -> Bool) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func escapingAutoclosureTrivialReturningClosure(block: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping @autoclosure () -> Bool) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`block`)]
-    let invocation = Mockingbird.Invocation(selectorName: "escapingAutoclosureTrivialReturningClosure(block:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping @autoclosure () -> Bool) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `escapingAutoclosureTrivialReturningClosure(block:)`
@@ -4246,12 +3573,6 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Stubbable<(@escaping (Bool) -> Void) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func escapingParameterizedClosure(block: @escaping @autoclosure () -> (Bool) -> Void) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping (Bool) -> Void) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`block`)]
-    let invocation = Mockingbird.Invocation(selectorName: "escapingParameterizedClosure(block:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping (Bool) -> Void) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `escapingParameterizedClosure(block:)`
 
   public func escapingParameterizedClosure(block: @escaping @autoclosure () -> (Bool) -> Void) -> Mockingbird.Mockable<Bool> {
@@ -4279,12 +3600,6 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     let arguments = [Mockingbird.resolve(`block`)]
     let invocation = Mockingbird.Invocation(selectorName: "escapingParameterizedReturningClosure(block:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(@escaping (Bool) -> Bool) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func escapingParameterizedReturningClosure(block: @escaping @autoclosure () -> (Bool) -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping (Bool) -> Bool) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`block`)]
-    let invocation = Mockingbird.Invocation(selectorName: "escapingParameterizedReturningClosure(block:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping (Bool) -> Bool) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `escapingParameterizedReturningClosure(block:)`
@@ -4316,12 +3631,6 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Stubbable<(@escaping () -> Void) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func escapingTrivialClosure(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping () -> Void) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`block`)]
-    let invocation = Mockingbird.Invocation(selectorName: "escapingTrivialClosure(block:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping () -> Void) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `escapingTrivialClosure(block:)`
 
   public func escapingTrivialClosure(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Bool> {
@@ -4349,12 +3658,6 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     let arguments = [Mockingbird.resolve(`block`)]
     let invocation = Mockingbird.Invocation(selectorName: "escapingTrivialReturningVoidClosure(block:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(@escaping () -> Bool) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func escapingTrivialReturningVoidClosure(block: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping () -> Bool) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`block`)]
-    let invocation = Mockingbird.Invocation(selectorName: "escapingTrivialReturningVoidClosure(block:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (@escaping () -> Bool) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `escapingTrivialReturningVoidClosure(block:)`
@@ -4386,12 +3689,6 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Stubbable<((Bool) -> Void) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func parameterizedClosure(block: @escaping @autoclosure () -> (Bool) -> Void) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, ((Bool) -> Void) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`block`)]
-    let invocation = Mockingbird.Invocation(selectorName: "parameterizedClosure(block:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, ((Bool) -> Void) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `parameterizedClosure(block:)`
 
   public func parameterizedClosure(block: @escaping @autoclosure () -> (Bool) -> Void) -> Mockingbird.Mockable<Bool> {
@@ -4419,12 +3716,6 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     let arguments = [Mockingbird.resolve(`block`)]
     let invocation = Mockingbird.Invocation(selectorName: "parameterizedReturningClosure(block:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<((Bool) -> Bool) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func parameterizedReturningClosure(block: @escaping @autoclosure () -> (Bool) -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, ((Bool) -> Bool) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`block`)]
-    let invocation = Mockingbird.Invocation(selectorName: "parameterizedReturningClosure(block:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, ((Bool) -> Bool) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parameterizedReturningClosure(block:)`
@@ -4456,12 +3747,6 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Stubbable<(() -> Void) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func trivialClosure(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (() -> Void) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`block`)]
-    let invocation = Mockingbird.Invocation(selectorName: "trivialClosure(block:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (() -> Void) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `trivialClosure(block:)`
 
   public func trivialClosure(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Bool> {
@@ -4489,12 +3774,6 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     let arguments = [Mockingbird.resolve(`block`)]
     let invocation = Mockingbird.Invocation(selectorName: "trivialReturningClosure(block:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(() -> Bool) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func trivialReturningClosure(block: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (() -> Bool) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`block`)]
-    let invocation = Mockingbird.Invocation(selectorName: "trivialReturningClosure(block:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ClosureParametersProtocol, ClosureParametersProtocolMock, (() -> Bool) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `trivialReturningClosure(block:)`
@@ -4585,12 +3864,6 @@ public final class DefaultArgumentValuesClassMock: MockingbirdTestsHost.DefaultA
     return Mockingbird.Stubbable<(String, [MockingbirdTestsHost.NSObject]) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func method(param1: @escaping @autoclosure () -> String, param2: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject]) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DefaultArgumentValuesClass, DefaultArgumentValuesClassMock, (String, [MockingbirdTestsHost.NSObject]) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "method(param1:param2:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DefaultArgumentValuesClass, DefaultArgumentValuesClassMock, (String, [MockingbirdTestsHost.NSObject]) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `method(param1:param2:)`
 
   public func method(param1: @escaping @autoclosure () -> String, param2: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject]) -> Mockingbird.Mockable<Void> {
@@ -4650,12 +3923,6 @@ public final class DefaultArgumentValuesProtocolMock: MockingbirdTestsHost.Defau
     return Mockingbird.Stubbable<(String, [MockingbirdTestsHost.NSObject]) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func method(param1: @escaping @autoclosure () -> String, param2: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject]) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DefaultArgumentValuesProtocol, DefaultArgumentValuesProtocolMock, (String, [MockingbirdTestsHost.NSObject]) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "method(param1:param2:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DefaultArgumentValuesProtocol, DefaultArgumentValuesProtocolMock, (String, [MockingbirdTestsHost.NSObject]) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `method(param1:param2:)`
 
   public func method(param1: @escaping @autoclosure () -> String, param2: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject]) -> Mockingbird.Mockable<Void> {
@@ -4712,21 +3979,10 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     return Mockingbird.Stubbable<() -> [Foundation.URL: Foundation.NSObject], [Foundation.URL: Foundation.NSObject]>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getAnotherVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> [Foundation.URL: Foundation.NSObject], [Foundation.URL: Foundation.NSObject]> {
-    let invocation = Mockingbird.Invocation(selectorName: "anotherVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> [Foundation.URL: Foundation.NSObject], [Foundation.URL: Foundation.NSObject]>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setAnotherVariable(_ newValue: @escaping @autoclosure () -> [Foundation.URL: Foundation.NSObject]) -> Mockingbird.Stubbable<([Foundation.URL: Foundation.NSObject]) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "anotherVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<([Foundation.URL: Foundation.NSObject]) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setAnotherVariable(_ newValue: @escaping @autoclosure () -> [Foundation.URL: Foundation.NSObject]) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, ([Foundation.URL: Foundation.NSObject]) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "anotherVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, ([Foundation.URL: Foundation.NSObject]) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `anotherVariable`
@@ -4769,21 +4025,10 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     return Mockingbird.Stubbable<() -> Dictionary<Foundation.URL, Foundation.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getExplicitAnotherVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> Dictionary<Foundation.URL, Foundation.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>> {
-    let invocation = Mockingbird.Invocation(selectorName: "explicitAnotherVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> Dictionary<Foundation.URL, Foundation.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setExplicitAnotherVariable(_ newValue: @escaping @autoclosure () -> Dictionary<Foundation.URL, Foundation.NSObject>) -> Mockingbird.Stubbable<(Dictionary<Foundation.URL, Foundation.NSObject>) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "explicitAnotherVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Dictionary<Foundation.URL, Foundation.NSObject>) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setExplicitAnotherVariable(_ newValue: @escaping @autoclosure () -> Dictionary<Foundation.URL, Foundation.NSObject>) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, (Dictionary<Foundation.URL, Foundation.NSObject>) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "explicitAnotherVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, (Dictionary<Foundation.URL, Foundation.NSObject>) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `explicitAnotherVariable`
@@ -4826,21 +4071,10 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     return Mockingbird.Stubbable<() -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getExplicitVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>> {
-    let invocation = Mockingbird.Invocation(selectorName: "explicitVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setExplicitVariable(_ newValue: @escaping @autoclosure () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>) -> Mockingbird.Stubbable<(Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "explicitVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setExplicitVariable(_ newValue: @escaping @autoclosure () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "explicitVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `explicitVariable`
@@ -4883,21 +4117,10 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     return Mockingbird.Stubbable<() -> [Foundation.URL: Foundation.NSObject?], [Foundation.URL: Foundation.NSObject?]>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getOptionalAnotherVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> [Foundation.URL: Foundation.NSObject?], [Foundation.URL: Foundation.NSObject?]> {
-    let invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> [Foundation.URL: Foundation.NSObject?], [Foundation.URL: Foundation.NSObject?]>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setOptionalAnotherVariable(_ newValue: @escaping @autoclosure () -> [Foundation.URL: Foundation.NSObject?]) -> Mockingbird.Stubbable<([Foundation.URL: Foundation.NSObject?]) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<([Foundation.URL: Foundation.NSObject?]) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setOptionalAnotherVariable(_ newValue: @escaping @autoclosure () -> [Foundation.URL: Foundation.NSObject?]) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, ([Foundation.URL: Foundation.NSObject?]) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, ([Foundation.URL: Foundation.NSObject?]) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `optionalAnotherVariable`
@@ -4940,21 +4163,10 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     return Mockingbird.Stubbable<() -> Dictionary<Foundation.URL, Foundation.NSObject?>, Dictionary<Foundation.URL, Foundation.NSObject?>>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getOptionalExplicitAnotherVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> Dictionary<Foundation.URL, Foundation.NSObject?>, Dictionary<Foundation.URL, Foundation.NSObject?>> {
-    let invocation = Mockingbird.Invocation(selectorName: "optionalExplicitAnotherVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> Dictionary<Foundation.URL, Foundation.NSObject?>, Dictionary<Foundation.URL, Foundation.NSObject?>>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setOptionalExplicitAnotherVariable(_ newValue: @escaping @autoclosure () -> Dictionary<Foundation.URL, Foundation.NSObject?>) -> Mockingbird.Stubbable<(Dictionary<Foundation.URL, Foundation.NSObject?>) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "optionalExplicitAnotherVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Dictionary<Foundation.URL, Foundation.NSObject?>) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setOptionalExplicitAnotherVariable(_ newValue: @escaping @autoclosure () -> Dictionary<Foundation.URL, Foundation.NSObject?>) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, (Dictionary<Foundation.URL, Foundation.NSObject?>) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "optionalExplicitAnotherVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, (Dictionary<Foundation.URL, Foundation.NSObject?>) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `optionalExplicitAnotherVariable`
@@ -4997,21 +4209,10 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     return Mockingbird.Stubbable<() -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getOptionalExplicitVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>> {
-    let invocation = Mockingbird.Invocation(selectorName: "optionalExplicitVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setOptionalExplicitVariable(_ newValue: @escaping @autoclosure () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>) -> Mockingbird.Stubbable<(Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "optionalExplicitVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setOptionalExplicitVariable(_ newValue: @escaping @autoclosure () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "optionalExplicitVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `optionalExplicitVariable`
@@ -5054,21 +4255,10 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     return Mockingbird.Stubbable<() -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?]>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getOptionalVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?]> {
-    let invocation = Mockingbird.Invocation(selectorName: "optionalVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?]>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setOptionalVariable(_ newValue: @escaping @autoclosure () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?]) -> Mockingbird.Stubbable<([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?]) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "optionalVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?]) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setOptionalVariable(_ newValue: @escaping @autoclosure () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?]) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?]) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "optionalVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?]) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `optionalVariable`
@@ -5111,21 +4301,10 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     return Mockingbird.Stubbable<() -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]> {
-    let invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setVariable(_ newValue: @escaping @autoclosure () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]) -> Mockingbird.Stubbable<([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: arguments)
     return Mockingbird.Stubbable<([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setVariable(_ newValue: @escaping @autoclosure () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `variable`
@@ -5170,11 +4349,6 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     return Mockingbird.Stubbable<() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func explicitMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)> {
-    let invocation = Mockingbird.Invocation(selectorName: "explicitMethod() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `explicitMethod()`
 
   public func explicitMethod() -> Mockingbird.Mockable<(Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)> {
@@ -5200,11 +4374,6 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func explicitMethod() -> Mockingbird.Stubbable<() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)> {
     let invocation = Mockingbird.Invocation(selectorName: "explicitMethod() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)", arguments: [])
     return Mockingbird.Stubbable<() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func explicitMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)> {
-    let invocation = Mockingbird.Invocation(selectorName: "explicitMethod() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `explicitMethod()`
@@ -5234,11 +4403,6 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     return Mockingbird.Stubbable<() -> Dictionary<Foundation.URL, Foundation.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func explicitMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> Dictionary<Foundation.URL, Foundation.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>> {
-    let invocation = Mockingbird.Invocation(selectorName: "explicitMethod() -> Dictionary<Foundation.URL, Foundation.NSObject>", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> Dictionary<Foundation.URL, Foundation.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `explicitMethod()`
 
   public func explicitMethod() -> Mockingbird.Mockable<Dictionary<Foundation.URL, Foundation.NSObject>> {
@@ -5264,11 +4428,6 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func explicitMethod() -> Mockingbird.Stubbable<() -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>> {
     let invocation = Mockingbird.Invocation(selectorName: "explicitMethod() -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>", arguments: [])
     return Mockingbird.Stubbable<() -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func explicitMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>> {
-    let invocation = Mockingbird.Invocation(selectorName: "explicitMethod() -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `explicitMethod()`
@@ -5299,12 +4458,6 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     return Mockingbird.Stubbable<(Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func explicitMethod(param1: @escaping @autoclosure () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, param2: @escaping @autoclosure () -> Dictionary<Foundation.URL, Foundation.NSObject>) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "explicitMethod(param1:param2:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `explicitMethod(param1:param2:)`
 
   public func explicitMethod(param1: @escaping @autoclosure () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, param2: @escaping @autoclosure () -> Dictionary<Foundation.URL, Foundation.NSObject>) -> Mockingbird.Mockable<Void> {
@@ -5331,11 +4484,6 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func explicitMethodWithParameterLabels() -> Mockingbird.Stubbable<() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)> {
     let invocation = Mockingbird.Invocation(selectorName: "explicitMethodWithParameterLabels() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)", arguments: [])
     return Mockingbird.Stubbable<() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func explicitMethodWithParameterLabels() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)> {
-    let invocation = Mockingbird.Invocation(selectorName: "explicitMethodWithParameterLabels() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `explicitMethodWithParameterLabels()`
@@ -5365,11 +4513,6 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     return Mockingbird.Stubbable<() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func method() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])> {
-    let invocation = Mockingbird.Invocation(selectorName: "method() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `method()`
 
   public func method() -> Mockingbird.Mockable<([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])> {
@@ -5395,11 +4538,6 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func method() -> Mockingbird.Stubbable<() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])> {
     let invocation = Mockingbird.Invocation(selectorName: "method() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])", arguments: [])
     return Mockingbird.Stubbable<() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func method() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])> {
-    let invocation = Mockingbird.Invocation(selectorName: "method() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `method()`
@@ -5429,11 +4567,6 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     return Mockingbird.Stubbable<() -> [Foundation.URL: Foundation.NSObject], [Foundation.URL: Foundation.NSObject]>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func method() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> [Foundation.URL: Foundation.NSObject], [Foundation.URL: Foundation.NSObject]> {
-    let invocation = Mockingbird.Invocation(selectorName: "method() -> [Foundation.URL: Foundation.NSObject]", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> [Foundation.URL: Foundation.NSObject], [Foundation.URL: Foundation.NSObject]>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `method()`
 
   public func method() -> Mockingbird.Mockable<[Foundation.URL: Foundation.NSObject]> {
@@ -5459,11 +4592,6 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func method() -> Mockingbird.Stubbable<() -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]> {
     let invocation = Mockingbird.Invocation(selectorName: "method() -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]", arguments: [])
     return Mockingbird.Stubbable<() -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func method() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]> {
-    let invocation = Mockingbird.Invocation(selectorName: "method() -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `method()`
@@ -5494,12 +4622,6 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     return Mockingbird.Stubbable<([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func method(param1: @escaping @autoclosure () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], param2: @escaping @autoclosure () -> [Foundation.URL: Foundation.NSObject]) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "method(param1:param2:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `method(param1:param2:)`
 
   public func method(param1: @escaping @autoclosure () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], param2: @escaping @autoclosure () -> [Foundation.URL: Foundation.NSObject]) -> Mockingbird.Mockable<Void> {
@@ -5526,11 +4648,6 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func methodWithParameterLabels() -> Mockingbird.Stubbable<() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])> {
     let invocation = Mockingbird.Invocation(selectorName: "methodWithParameterLabels() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])", arguments: [])
     return Mockingbird.Stubbable<() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func methodWithParameterLabels() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])> {
-    let invocation = Mockingbird.Invocation(selectorName: "methodWithParameterLabels() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.DictionaryTypes, DictionaryTypesMock, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `methodWithParameterLabels()`
@@ -5660,21 +4777,10 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getAnotherExtendedVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "anotherExtendedVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setAnotherExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "anotherExtendedVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setAnotherExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "anotherExtendedVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `anotherExtendedVariable`
@@ -5717,21 +4823,10 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getBaseVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `baseVariable`
@@ -5774,21 +4869,10 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getExtendedVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "extendedVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "extendedVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "extendedVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `extendedVariable`
@@ -5833,11 +4917,6 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func anotherTrivialExtendedMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "anotherTrivialExtendedMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `anotherTrivialExtendedMethod()`
 
   public func anotherTrivialExtendedMethod() -> Mockingbird.Mockable<Void> {
@@ -5864,12 +4943,6 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     let arguments = [Mockingbird.resolve(`param1`)]
     let invocation = Mockingbird.Invocation(selectorName: "parameterizedExtendedMethod(param1:) -> Void", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func parameterizedExtendedMethod(param1: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`param1`)]
-    let invocation = Mockingbird.Invocation(selectorName: "parameterizedExtendedMethod(param1:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parameterizedExtendedMethod(param1:)`
@@ -5901,12 +4974,6 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     return Mockingbird.Stubbable<(Bool) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func parameterizedReturningExtendedMethod(param1: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, (Bool) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`)]
-    let invocation = Mockingbird.Invocation(selectorName: "parameterizedReturningExtendedMethod(param1:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, (Bool) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `parameterizedReturningExtendedMethod(param1:)`
 
   public func parameterizedReturningExtendedMethod(param1: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Bool> {
@@ -5935,11 +5002,6 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func trivialBaseMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "trivialBaseMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `trivialBaseMethod()`
 
   public func trivialBaseMethod() -> Mockingbird.Mockable<Void> {
@@ -5965,11 +5027,6 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   public func trivialExtendedMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
     let invocation = Mockingbird.Invocation(selectorName: "trivialExtendedMethod() -> Void", arguments: [])
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func trivialExtendedMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "trivialExtendedMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ExtendableProtocol, ExtendableProtocolMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `trivialExtendedMethod()`
@@ -6315,21 +5372,10 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getGrandparentInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.GrandparentProtocol, GrandparentProtocolMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.GrandparentProtocol, GrandparentProtocolMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.GrandparentProtocol, GrandparentProtocolMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.GrandparentProtocol, GrandparentProtocolMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentInstanceVariable`
@@ -6372,21 +5418,10 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getGrandparentPrivateSetterInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.GrandparentProtocol, GrandparentProtocolMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.GrandparentProtocol, GrandparentProtocolMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.GrandparentProtocol, GrandparentProtocolMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.GrandparentProtocol, GrandparentProtocolMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentPrivateSetterInstanceVariable`
@@ -6429,21 +5464,10 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getGrandparentPrivateSetterStaticVariable() -> Mockingbird.ChainStubbable<GrandparentProtocolMock.Type, GrandparentProtocolMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<GrandparentProtocolMock.Type, GrandparentProtocolMock.Type, () -> Bool, Bool>(object: GrandparentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<GrandparentProtocolMock.Type, GrandparentProtocolMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<GrandparentProtocolMock.Type, GrandparentProtocolMock.Type, (Bool) -> Void, Void>(object: GrandparentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentPrivateSetterStaticVariable`
@@ -6486,21 +5510,10 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getGrandparentStaticVariable() -> Mockingbird.ChainStubbable<GrandparentProtocolMock.Type, GrandparentProtocolMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<GrandparentProtocolMock.Type, GrandparentProtocolMock.Type, () -> Bool, Bool>(object: GrandparentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<GrandparentProtocolMock.Type, GrandparentProtocolMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<GrandparentProtocolMock.Type, GrandparentProtocolMock.Type, (Bool) -> Void, Void>(object: GrandparentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentStaticVariable`
@@ -6546,12 +5559,6 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.GrandparentProtocol, GrandparentProtocolMock, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.GrandparentProtocol, GrandparentProtocolMock, (Bool, Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `grandparentParameterizedInstanceMethod(param1:_:)`
 
   public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
@@ -6579,12 +5586,6 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<GrandparentProtocolMock.Type, GrandparentProtocolMock.Type, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<GrandparentProtocolMock.Type, GrandparentProtocolMock.Type, (Bool, Int) -> Bool, Bool>(object: GrandparentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentParameterizedStaticMethod(param1:_:)`
@@ -6615,11 +5616,6 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func grandparentTrivialInstanceMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.GrandparentProtocol, GrandparentProtocolMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialInstanceMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.GrandparentProtocol, GrandparentProtocolMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `grandparentTrivialInstanceMethod()`
 
   public func grandparentTrivialInstanceMethod() -> Mockingbird.Mockable<Void> {
@@ -6645,11 +5641,6 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   public static func grandparentTrivialStaticMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
     let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialStaticMethod() -> Void", arguments: [])
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public static func grandparentTrivialStaticMethod() -> Mockingbird.ChainStubbable<GrandparentProtocolMock.Type, GrandparentProtocolMock.Type, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialStaticMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<GrandparentProtocolMock.Type, GrandparentProtocolMock.Type, () -> Void, Void>(object: GrandparentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentTrivialStaticMethod()`
@@ -6707,21 +5698,10 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getGrandparentClassVariable() -> Mockingbird.ChainStubbable<GrandparentMock.Type, GrandparentMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<GrandparentMock.Type, GrandparentMock.Type, () -> Bool, Bool>(object: GrandparentMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<GrandparentMock.Type, GrandparentMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<GrandparentMock.Type, GrandparentMock.Type, (Bool) -> Void, Void>(object: GrandparentMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentClassVariable`
@@ -6764,21 +5744,10 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getGrandparentComputedInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Grandparent, GrandparentMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Grandparent, GrandparentMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Grandparent, GrandparentMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Grandparent, GrandparentMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentComputedInstanceVariable`
@@ -6819,12 +5788,6 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public static func grandparentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<GrandparentMock.Type, GrandparentMock.Type, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<GrandparentMock.Type, GrandparentMock.Type, (Bool, Int) -> Bool, Bool>(object: GrandparentMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `grandparentParameterizedClassMethod(param1:_:)`
 
   public static func grandparentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
@@ -6852,12 +5815,6 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Grandparent, GrandparentMock, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Grandparent, GrandparentMock, (Bool, Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentParameterizedInstanceMethod(param1:_:)`
@@ -6888,11 +5845,6 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public static func grandparentTrivialClassMethod() -> Mockingbird.ChainStubbable<GrandparentMock.Type, GrandparentMock.Type, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialClassMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<GrandparentMock.Type, GrandparentMock.Type, () -> Void, Void>(object: GrandparentMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `grandparentTrivialClassMethod()`
 
   public static func grandparentTrivialClassMethod() -> Mockingbird.Mockable<Void> {
@@ -6918,11 +5870,6 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   public func grandparentTrivialInstanceMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
     let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialInstanceMethod() -> Void", arguments: [])
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func grandparentTrivialInstanceMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Grandparent, GrandparentMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialInstanceMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Grandparent, GrandparentMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentTrivialInstanceMethod()`
@@ -6987,12 +5934,6 @@ public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: 
     return Mockingbird.Stubbable<(MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func lessQualifiedImplementation(param: @escaping @autoclosure () -> MockingbirdTestsHost.UnscopedType) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>, InheritedTypeQualificationProtocolGenericImplementerMock<T>, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?> {
-    let arguments = [Mockingbird.resolve(`param`)]
-    let invocation = Mockingbird.Invocation(selectorName: "lessQualifiedImplementation(param:) -> MockingbirdTestsHost.UnscopedType?", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>, InheritedTypeQualificationProtocolGenericImplementerMock<T>, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `lessQualifiedImplementation(param:)`
 
   public func lessQualifiedImplementation(param: @escaping @autoclosure () -> MockingbirdTestsHost.UnscopedType) -> Mockingbird.Mockable<MockingbirdTestsHost.UnscopedType?> {
@@ -7020,12 +5961,6 @@ public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: 
     let arguments = [Mockingbird.resolve(`param`)]
     let invocation = Mockingbird.Invocation(selectorName: "moreQualifiedImplementation(param:) -> ScopedType?", arguments: arguments)
     return Mockingbird.Stubbable<(ScopedType) -> ScopedType?, ScopedType?>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func moreQualifiedImplementation(param: @escaping @autoclosure () -> ScopedType) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>, InheritedTypeQualificationProtocolGenericImplementerMock<T>, (ScopedType) -> ScopedType?, ScopedType?> {
-    let arguments = [Mockingbird.resolve(`param`)]
-    let invocation = Mockingbird.Invocation(selectorName: "moreQualifiedImplementation(param:) -> ScopedType?", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>, InheritedTypeQualificationProtocolGenericImplementerMock<T>, (ScopedType) -> ScopedType?, ScopedType?>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `moreQualifiedImplementation(param:)`
@@ -7082,12 +6017,6 @@ public final class InheritedTypeQualificationProtocolImplementerMock: Mockingbir
     return Mockingbird.Stubbable<(MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func lessQualifiedImplementation(param: @escaping @autoclosure () -> MockingbirdTestsHost.UnscopedType) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.InheritedTypeQualificationProtocolImplementer, InheritedTypeQualificationProtocolImplementerMock, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?> {
-    let arguments = [Mockingbird.resolve(`param`)]
-    let invocation = Mockingbird.Invocation(selectorName: "lessQualifiedImplementation(param:) -> MockingbirdTestsHost.UnscopedType?", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.InheritedTypeQualificationProtocolImplementer, InheritedTypeQualificationProtocolImplementerMock, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `lessQualifiedImplementation(param:)`
 
   public func lessQualifiedImplementation(param: @escaping @autoclosure () -> MockingbirdTestsHost.UnscopedType) -> Mockingbird.Mockable<MockingbirdTestsHost.UnscopedType?> {
@@ -7115,12 +6044,6 @@ public final class InheritedTypeQualificationProtocolImplementerMock: Mockingbir
     let arguments = [Mockingbird.resolve(`param`)]
     let invocation = Mockingbird.Invocation(selectorName: "moreQualifiedImplementation(param:) -> ScopedType?", arguments: arguments)
     return Mockingbird.Stubbable<(ScopedType) -> ScopedType?, ScopedType?>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func moreQualifiedImplementation(param: @escaping @autoclosure () -> ScopedType) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.InheritedTypeQualificationProtocolImplementer, InheritedTypeQualificationProtocolImplementerMock, (ScopedType) -> ScopedType?, ScopedType?> {
-    let arguments = [Mockingbird.resolve(`param`)]
-    let invocation = Mockingbird.Invocation(selectorName: "moreQualifiedImplementation(param:) -> ScopedType?", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.InheritedTypeQualificationProtocolImplementer, InheritedTypeQualificationProtocolImplementerMock, (ScopedType) -> ScopedType?, ScopedType?>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `moreQualifiedImplementation(param:)`
@@ -7191,12 +6114,6 @@ public final class InheritedTypeQualificationProtocolMock<ScopedType>: Mockingbi
     return Mockingbird.Stubbable<(MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func lessQualifiedImplementation(param: @escaping @autoclosure () -> MockingbirdTestsHost.UnscopedType) -> Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, InheritedTypeQualificationProtocolMock<ScopedType>, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?> {
-    let arguments = [Mockingbird.resolve(`param`)]
-    let invocation = Mockingbird.Invocation(selectorName: "lessQualifiedImplementation(param:) -> MockingbirdTestsHost.UnscopedType?", arguments: arguments)
-    return Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, InheritedTypeQualificationProtocolMock<ScopedType>, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?>(object: Mockingbird.Mock.self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `lessQualifiedImplementation(param:)`
 
   public func lessQualifiedImplementation(param: @escaping @autoclosure () -> MockingbirdTestsHost.UnscopedType) -> Mockingbird.Mockable<MockingbirdTestsHost.UnscopedType?> {
@@ -7224,12 +6141,6 @@ public final class InheritedTypeQualificationProtocolMock<ScopedType>: Mockingbi
     let arguments = [Mockingbird.resolve(`param`)]
     let invocation = Mockingbird.Invocation(selectorName: "moreQualifiedImplementation(param:) -> ScopedType?", arguments: arguments)
     return Mockingbird.Stubbable<(ScopedType) -> ScopedType?, ScopedType?>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func moreQualifiedImplementation(param: @escaping @autoclosure () -> ScopedType) -> Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, InheritedTypeQualificationProtocolMock<ScopedType>, (ScopedType) -> ScopedType?, ScopedType?> {
-    let arguments = [Mockingbird.resolve(`param`)]
-    let invocation = Mockingbird.Invocation(selectorName: "moreQualifiedImplementation(param:) -> ScopedType?", arguments: arguments)
-    return Mockingbird.ChainStubbable<Mockingbird.Mock.Protocol, InheritedTypeQualificationProtocolMock<ScopedType>, (ScopedType) -> ScopedType?, ScopedType?>(object: Mockingbird.Mock.self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `moreQualifiedImplementation(param:)`
@@ -7435,12 +6346,6 @@ public final class InoutClassMock: MockingbirdTestsHost.InoutClass, Mockingbird.
     return Mockingbird.Stubbable<(inout String) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func parameterizedMethod(object: @escaping @autoclosure () -> String) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.InoutClass, InoutClassMock, (inout String) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "parameterizedMethod(object:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.InoutClass, InoutClassMock, (inout String) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `parameterizedMethod(object:)`
 
   public func parameterizedMethod(object: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Void> {
@@ -7498,12 +6403,6 @@ public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockin
     let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "parameterizedMethod(object:) -> Void", arguments: arguments)
     return Mockingbird.Stubbable<(inout String) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func parameterizedMethod(object: @escaping @autoclosure () -> String) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.InoutProtocol, InoutProtocolMock, (inout String) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "parameterizedMethod(object:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.InoutProtocol, InoutProtocolMock, (inout String) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parameterizedMethod(object:)`
@@ -7604,12 +6503,6 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     return Mockingbird.Stubbable<(T?) -> T?, T?>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func genericRequest<T: MockingbirdTestsHost.NSObjectProtocol>(object: @escaping @autoclosure () -> T?) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ModuleScopedTypealiasedProtocol, ModuleScopedTypealiasedProtocolMock, (T?) -> T?, T?> where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdTestsHost.NSObject? {
-    let arguments = [Mockingbird.resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "genericRequest(object:) -> T?", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ModuleScopedTypealiasedProtocol, ModuleScopedTypealiasedProtocolMock, (T?) -> T?, T?>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `genericRequest(object:)`
 
   public func genericRequest<T: MockingbirdTestsHost.NSObjectProtocol>(object: @escaping @autoclosure () -> T?) -> Mockingbird.Mockable<T?> where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdTestsHost.NSObject? {
@@ -7637,12 +6530,6 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "genericRequest(object:) -> T", arguments: arguments)
     return Mockingbird.Stubbable<(T) -> T, T>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func genericRequest<T: MockingbirdTestsHost.NSObjectProtocol>(object: @escaping @autoclosure () -> T) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ModuleScopedTypealiasedProtocol, ModuleScopedTypealiasedProtocolMock, (T) -> T, T> where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdTestsHost.NSObject {
-    let arguments = [Mockingbird.resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "genericRequest(object:) -> T", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ModuleScopedTypealiasedProtocol, ModuleScopedTypealiasedProtocolMock, (T) -> T, T>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `genericRequest(object:)`
@@ -7674,12 +6561,6 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     return Mockingbird.Stubbable<(Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func request(object: @escaping @autoclosure () -> Foundation.NSObject?) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ModuleScopedTypealiasedProtocol, ModuleScopedTypealiasedProtocolMock, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?> {
-    let arguments = [Mockingbird.resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Foundation.NSObject?", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ModuleScopedTypealiasedProtocol, ModuleScopedTypealiasedProtocolMock, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `request(object:)`
 
   public func request(object: @escaping @autoclosure () -> Foundation.NSObject?) -> Mockingbird.Mockable<Foundation.NSObject?> {
@@ -7707,12 +6588,6 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Foundation.NSObject", arguments: arguments)
     return Mockingbird.Stubbable<(Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func request(object: @escaping @autoclosure () -> Foundation.NSObject) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ModuleScopedTypealiasedProtocol, ModuleScopedTypealiasedProtocolMock, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject> {
-    let arguments = [Mockingbird.resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Foundation.NSObject", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ModuleScopedTypealiasedProtocol, ModuleScopedTypealiasedProtocolMock, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `request(object:)`
@@ -7744,12 +6619,6 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     return Mockingbird.Stubbable<(MockingbirdTestsHost.NSObject?) -> MockingbirdTestsHost.NSObject?, MockingbirdTestsHost.NSObject?>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func request(object: @escaping @autoclosure () -> MockingbirdTestsHost.NSObject?) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ModuleScopedTypealiasedProtocol, ModuleScopedTypealiasedProtocolMock, (MockingbirdTestsHost.NSObject?) -> MockingbirdTestsHost.NSObject?, MockingbirdTestsHost.NSObject?> {
-    let arguments = [Mockingbird.resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> MockingbirdTestsHost.NSObject?", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ModuleScopedTypealiasedProtocol, ModuleScopedTypealiasedProtocolMock, (MockingbirdTestsHost.NSObject?) -> MockingbirdTestsHost.NSObject?, MockingbirdTestsHost.NSObject?>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `request(object:)`
 
   public func request(object: @escaping @autoclosure () -> MockingbirdTestsHost.NSObject?) -> Mockingbird.Mockable<MockingbirdTestsHost.NSObject?> {
@@ -7777,12 +6646,6 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     let arguments = [Mockingbird.resolve(`object`)]
     let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> MockingbirdTestsHost.NSObject", arguments: arguments)
     return Mockingbird.Stubbable<(MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func request(object: @escaping @autoclosure () -> MockingbirdTestsHost.NSObject) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ModuleScopedTypealiasedProtocol, ModuleScopedTypealiasedProtocolMock, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject> {
-    let arguments = [Mockingbird.resolve(`object`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(object:) -> MockingbirdTestsHost.NSObject", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ModuleScopedTypealiasedProtocol, ModuleScopedTypealiasedProtocolMock, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `request(object:)`
@@ -7841,21 +6704,10 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getBaseVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.NonExtendableClass, NonExtendableClassMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.NonExtendableClass, NonExtendableClassMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.NonExtendableClass, NonExtendableClassMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.NonExtendableClass, NonExtendableClassMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `baseVariable`
@@ -7893,11 +6745,6 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
   public func trivialBaseMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
     let invocation = Mockingbird.Invocation(selectorName: "trivialBaseMethod() -> Void", arguments: [])
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func trivialBaseMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.NonExtendableClass, NonExtendableClassMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "trivialBaseMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.NonExtendableClass, NonExtendableClassMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `trivialBaseMethod()`
@@ -7953,12 +6800,6 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
     return Mockingbird.Stubbable<(Bool, Bool) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func overloadedParameters(param1: @escaping @autoclosure () -> Bool, param2: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.OverloadedMethodsClass, OverloadedMethodsClassMock, (Bool, Bool) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1:param2:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.OverloadedMethodsClass, OverloadedMethodsClassMock, (Bool, Bool) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `overloadedParameters(param1:param2:)`
 
   public func overloadedParameters(param1: @escaping @autoclosure () -> Bool, param2: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Bool> {
@@ -7986,12 +6827,6 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
     let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1:param2:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(Int, Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func overloadedParameters(param1: @escaping @autoclosure () -> Int, param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.OverloadedMethodsClass, OverloadedMethodsClassMock, (Int, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1:param2:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.OverloadedMethodsClass, OverloadedMethodsClassMock, (Int, Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `overloadedParameters(param1:param2:)`
@@ -8022,11 +6857,6 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func overloadedReturnType() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.OverloadedMethodsClass, OverloadedMethodsClassMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "overloadedReturnType() -> Bool", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.OverloadedMethodsClass, OverloadedMethodsClassMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `overloadedReturnType()`
 
   public func overloadedReturnType() -> Mockingbird.Mockable<Bool> {
@@ -8052,11 +6882,6 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
   public func overloadedReturnType() -> Mockingbird.Stubbable<() -> Int, Int> {
     let invocation = Mockingbird.Invocation(selectorName: "overloadedReturnType() -> Int", arguments: [])
     return Mockingbird.Stubbable<() -> Int, Int>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func overloadedReturnType() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.OverloadedMethodsClass, OverloadedMethodsClassMock, () -> Int, Int> {
-    let invocation = Mockingbird.Invocation(selectorName: "overloadedReturnType() -> Int", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.OverloadedMethodsClass, OverloadedMethodsClassMock, () -> Int, Int>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `overloadedReturnType()`
@@ -8117,12 +6942,6 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
     return Mockingbird.Stubbable<(Bool, Bool) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func overloadedParameters(param1: @escaping @autoclosure () -> Bool, param2: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.OverloadedMethodsProtocol, OverloadedMethodsProtocolMock, (Bool, Bool) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1:param2:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.OverloadedMethodsProtocol, OverloadedMethodsProtocolMock, (Bool, Bool) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `overloadedParameters(param1:param2:)`
 
   public func overloadedParameters(param1: @escaping @autoclosure () -> Bool, param2: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Bool> {
@@ -8150,12 +6969,6 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
     let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1:param2:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(Int, Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func overloadedParameters(param1: @escaping @autoclosure () -> Int, param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.OverloadedMethodsProtocol, OverloadedMethodsProtocolMock, (Int, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1:param2:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.OverloadedMethodsProtocol, OverloadedMethodsProtocolMock, (Int, Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `overloadedParameters(param1:param2:)`
@@ -8186,11 +6999,6 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func overloadedReturnType() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.OverloadedMethodsProtocol, OverloadedMethodsProtocolMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "overloadedReturnType() -> Bool", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.OverloadedMethodsProtocol, OverloadedMethodsProtocolMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `overloadedReturnType()`
 
   public func overloadedReturnType() -> Mockingbird.Mockable<Bool> {
@@ -8216,11 +7024,6 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
   public func overloadedReturnType() -> Mockingbird.Stubbable<() -> Int, Int> {
     let invocation = Mockingbird.Invocation(selectorName: "overloadedReturnType() -> Int", arguments: [])
     return Mockingbird.Stubbable<() -> Int, Int>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func overloadedReturnType() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.OverloadedMethodsProtocol, OverloadedMethodsProtocolMock, () -> Int, Int> {
-    let invocation = Mockingbird.Invocation(selectorName: "overloadedReturnType() -> Int", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.OverloadedMethodsProtocol, OverloadedMethodsProtocolMock, () -> Int, Int>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `overloadedReturnType()`
@@ -8350,21 +7153,10 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getGrandparentInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentInstanceVariable`
@@ -8407,21 +7199,10 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getGrandparentPrivateSetterInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentPrivateSetterInstanceVariable`
@@ -8464,21 +7245,10 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getGrandparentPrivateSetterStaticVariable() -> Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, () -> Bool, Bool>(object: ParentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, (Bool) -> Void, Void>(object: ParentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentPrivateSetterStaticVariable`
@@ -8521,21 +7291,10 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getGrandparentStaticVariable() -> Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, () -> Bool, Bool>(object: ParentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, (Bool) -> Void, Void>(object: ParentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentStaticVariable`
@@ -8578,21 +7337,10 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getParentInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setParentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setParentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentInstanceVariable`
@@ -8635,21 +7383,10 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getParentPrivateSetterInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentPrivateSetterInstanceVariable`
@@ -8692,21 +7429,10 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getParentPrivateSetterStaticVariable() -> Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, () -> Bool, Bool>(object: ParentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, (Bool) -> Void, Void>(object: ParentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentPrivateSetterStaticVariable`
@@ -8749,21 +7475,10 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getParentStaticVariable() -> Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, () -> Bool, Bool>(object: ParentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setParentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setParentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, (Bool) -> Void, Void>(object: ParentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentStaticVariable`
@@ -8809,12 +7524,6 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, (Bool, Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `grandparentParameterizedInstanceMethod(param1:_:)`
 
   public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
@@ -8842,12 +7551,6 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, (Bool, Int) -> Bool, Bool>(object: ParentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentParameterizedStaticMethod(param1:_:)`
@@ -8878,11 +7581,6 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func grandparentTrivialInstanceMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialInstanceMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `grandparentTrivialInstanceMethod()`
 
   public func grandparentTrivialInstanceMethod() -> Mockingbird.Mockable<Void> {
@@ -8908,11 +7606,6 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   public static func grandparentTrivialStaticMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
     let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialStaticMethod() -> Void", arguments: [])
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public static func grandparentTrivialStaticMethod() -> Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialStaticMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, () -> Void, Void>(object: ParentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentTrivialStaticMethod()`
@@ -8941,12 +7634,6 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, (Bool, Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentParameterizedInstanceMethod(param1:_:)`
@@ -8978,12 +7665,6 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public static func parentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedStaticMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, (Bool, Int) -> Bool, Bool>(object: ParentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `parentParameterizedStaticMethod(param1:_:)`
 
   public static func parentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
@@ -9012,11 +7693,6 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func parentTrivialInstanceMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentTrivialInstanceMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ParentProtocol, ParentProtocolMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `parentTrivialInstanceMethod()`
 
   public func parentTrivialInstanceMethod() -> Mockingbird.Mockable<Void> {
@@ -9042,11 +7718,6 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   public static func parentTrivialStaticMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
     let invocation = Mockingbird.Invocation(selectorName: "parentTrivialStaticMethod() -> Void", arguments: [])
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public static func parentTrivialStaticMethod() -> Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentTrivialStaticMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<ParentProtocolMock.Type, ParentProtocolMock.Type, () -> Void, Void>(object: ParentProtocolMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentTrivialStaticMethod()`
@@ -9104,21 +7775,10 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getGrandparentClassVariable() -> Mockingbird.ChainStubbable<ParentMock.Type, ParentMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<ParentMock.Type, ParentMock.Type, () -> Bool, Bool>(object: ParentMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<ParentMock.Type, ParentMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<ParentMock.Type, ParentMock.Type, (Bool) -> Void, Void>(object: ParentMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentClassVariable`
@@ -9161,21 +7821,10 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getGrandparentComputedInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Parent, ParentMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Parent, ParentMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Parent, ParentMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Parent, ParentMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentComputedInstanceVariable`
@@ -9218,21 +7867,10 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public class func getParentClassVariable() -> Mockingbird.ChainStubbable<ParentMock.Type, ParentMock.Type, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<ParentMock.Type, ParentMock.Type, () -> Bool, Bool>(object: ParentMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   public class func setParentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public class func setParentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<ParentMock.Type, ParentMock.Type, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<ParentMock.Type, ParentMock.Type, (Bool) -> Void, Void>(object: ParentMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentClassVariable`
@@ -9275,21 +7913,10 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getParentComputedInstanceVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Parent, ParentMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Parent, ParentMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setParentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setParentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Parent, ParentMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Parent, ParentMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentComputedInstanceVariable`
@@ -9330,12 +7957,6 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public static func grandparentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<ParentMock.Type, ParentMock.Type, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<ParentMock.Type, ParentMock.Type, (Bool, Int) -> Bool, Bool>(object: ParentMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `grandparentParameterizedClassMethod(param1:_:)`
 
   public static func grandparentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
@@ -9363,12 +7984,6 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Parent, ParentMock, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Parent, ParentMock, (Bool, Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentParameterizedInstanceMethod(param1:_:)`
@@ -9399,11 +8014,6 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public static func grandparentTrivialClassMethod() -> Mockingbird.ChainStubbable<ParentMock.Type, ParentMock.Type, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialClassMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<ParentMock.Type, ParentMock.Type, () -> Void, Void>(object: ParentMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `grandparentTrivialClassMethod()`
 
   public static func grandparentTrivialClassMethod() -> Mockingbird.Mockable<Void> {
@@ -9429,11 +8039,6 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   public func grandparentTrivialInstanceMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
     let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialInstanceMethod() -> Void", arguments: [])
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func grandparentTrivialInstanceMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Parent, ParentMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "grandparentTrivialInstanceMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Parent, ParentMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `grandparentTrivialInstanceMethod()`
@@ -9462,12 +8067,6 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
-  public static func parentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<ParentMock.Type, ParentMock.Type, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedClassMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<ParentMock.Type, ParentMock.Type, (Bool, Int) -> Bool, Bool>(object: ParentMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentParameterizedClassMethod(param1:_:)`
@@ -9499,12 +8098,6 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     return Mockingbird.Stubbable<(Bool, Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Parent, ParentMock, (Bool, Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Parent, ParentMock, (Bool, Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `parentParameterizedInstanceMethod(param1:_:)`
 
   public func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Bool> {
@@ -9533,11 +8126,6 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: staticMock.stubbingContext, invocation: invocation)
   }
 
-  public static func parentTrivialClassMethod() -> Mockingbird.ChainStubbable<ParentMock.Type, ParentMock.Type, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentTrivialClassMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<ParentMock.Type, ParentMock.Type, () -> Void, Void>(object: ParentMock.self, stubbingContext: staticMock.stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `parentTrivialClassMethod()`
 
   public static func parentTrivialClassMethod() -> Mockingbird.Mockable<Void> {
@@ -9563,11 +8151,6 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   public func parentTrivialInstanceMethod() -> Mockingbird.Stubbable<() -> Void, Void> {
     let invocation = Mockingbird.Invocation(selectorName: "parentTrivialInstanceMethod() -> Void", arguments: [])
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func parentTrivialInstanceMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Parent, ParentMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "parentTrivialInstanceMethod() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Parent, ParentMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `parentTrivialInstanceMethod()`
@@ -9659,21 +8242,10 @@ public final class ServiceRepositoryMock: MockingbirdTestsHost.ServiceRepository
     return Mockingbird.Stubbable<() -> MockingbirdTestsHost.TestManager, MockingbirdTestsHost.TestManager>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getTestManager() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ServiceRepository, ServiceRepositoryMock, () -> MockingbirdTestsHost.TestManager, MockingbirdTestsHost.TestManager> {
-    let invocation = Mockingbird.Invocation(selectorName: "testManager.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ServiceRepository, ServiceRepositoryMock, () -> MockingbirdTestsHost.TestManager, MockingbirdTestsHost.TestManager>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setTestManager(_ newValue: @escaping @autoclosure () -> MockingbirdTestsHost.TestManager) -> Mockingbird.Stubbable<(MockingbirdTestsHost.TestManager) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "testManager.set", arguments: arguments)
     return Mockingbird.Stubbable<(MockingbirdTestsHost.TestManager) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setTestManager(_ newValue: @escaping @autoclosure () -> MockingbirdTestsHost.TestManager) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.ServiceRepository, ServiceRepositoryMock, (MockingbirdTestsHost.TestManager) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "testManager.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.ServiceRepository, ServiceRepositoryMock, (MockingbirdTestsHost.TestManager) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `testManager`
@@ -9749,12 +8321,6 @@ public final class TestCaseMock: MockingbirdTestsHost.TestCase, Mockingbird.Mock
     return Mockingbird.Stubbable<(String) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func run(description: @escaping @autoclosure () -> String) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TestCase, TestCaseMock, (String) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`description`)]
-    let invocation = Mockingbird.Invocation(selectorName: "run(description:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TestCase, TestCaseMock, (String) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `run(description:)`
 
   public func run(description: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Bool> {
@@ -9811,21 +8377,10 @@ public final class TestManagerMock: MockingbirdTestsHost.TestManager, Mockingbir
     return Mockingbird.Stubbable<() -> MockingbirdTestsHost.Test, MockingbirdTestsHost.Test>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getCurrentTest() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TestManager, TestManagerMock, () -> MockingbirdTestsHost.Test, MockingbirdTestsHost.Test> {
-    let invocation = Mockingbird.Invocation(selectorName: "currentTest.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TestManager, TestManagerMock, () -> MockingbirdTestsHost.Test, MockingbirdTestsHost.Test>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setCurrentTest(_ newValue: @escaping @autoclosure () -> MockingbirdTestsHost.Test) -> Mockingbird.Stubbable<(MockingbirdTestsHost.Test) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "currentTest.set", arguments: arguments)
     return Mockingbird.Stubbable<(MockingbirdTestsHost.Test) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setCurrentTest(_ newValue: @escaping @autoclosure () -> MockingbirdTestsHost.Test) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TestManager, TestManagerMock, (MockingbirdTestsHost.Test) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "currentTest.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TestManager, TestManagerMock, (MockingbirdTestsHost.Test) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `currentTest`
@@ -9868,11 +8423,6 @@ public final class TestManagerMock: MockingbirdTestsHost.TestManager, Mockingbir
   public func stopTests() -> Mockingbird.Stubbable<() -> Bool, Bool> {
     let invocation = Mockingbird.Invocation(selectorName: "stopTests() -> Bool", arguments: [])
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func stopTests() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TestManager, TestManagerMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "stopTests() -> Bool", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TestManager, TestManagerMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `stopTests()`
@@ -9930,21 +8480,10 @@ public final class TestMock: MockingbirdTestsHost.Test, Mockingbird.Mock {
     return Mockingbird.Stubbable<() -> MockingbirdTestsHost.TestCase, MockingbirdTestsHost.TestCase>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getTestCase() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Test, TestMock, () -> MockingbirdTestsHost.TestCase, MockingbirdTestsHost.TestCase> {
-    let invocation = Mockingbird.Invocation(selectorName: "testCase.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Test, TestMock, () -> MockingbirdTestsHost.TestCase, MockingbirdTestsHost.TestCase>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setTestCase(_ newValue: @escaping @autoclosure () -> MockingbirdTestsHost.TestCase) -> Mockingbird.Stubbable<(MockingbirdTestsHost.TestCase) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "testCase.set", arguments: arguments)
     return Mockingbird.Stubbable<(MockingbirdTestsHost.TestCase) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setTestCase(_ newValue: @escaping @autoclosure () -> MockingbirdTestsHost.TestCase) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Test, TestMock, (MockingbirdTestsHost.TestCase) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "testCase.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Test, TestMock, (MockingbirdTestsHost.TestCase) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `testCase`
@@ -9988,12 +8527,6 @@ public final class TestMock: MockingbirdTestsHost.Test, Mockingbird.Mock {
     let arguments = [Mockingbird.resolve(`testCase`)]
     let invocation = Mockingbird.Invocation(selectorName: "add(testCase:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<(MockingbirdTestsHost.TestCase) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func add(testCase: @escaping @autoclosure () -> MockingbirdTestsHost.TestCase) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Test, TestMock, (MockingbirdTestsHost.TestCase) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`testCase`)]
-    let invocation = Mockingbird.Invocation(selectorName: "add(testCase:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Test, TestMock, (MockingbirdTestsHost.TestCase) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `add(testCase:)`
@@ -10050,12 +8583,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
     return Mockingbird.Stubbable<(SecondLevelType, SecondLevelType.ThirdLevelType) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func topLevelMethod(param1: @escaping @autoclosure () -> SecondLevelType, param2: @escaping @autoclosure () -> SecondLevelType.ThirdLevelType) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TopLevelType, TopLevelTypeMock, (SecondLevelType, SecondLevelType.ThirdLevelType) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "topLevelMethod(param1:param2:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TopLevelType, TopLevelTypeMock, (SecondLevelType, SecondLevelType.ThirdLevelType) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `topLevelMethod(param1:param2:)`
 
   public func topLevelMethod(param1: @escaping @autoclosure () -> SecondLevelType, param2: @escaping @autoclosure () -> SecondLevelType.ThirdLevelType) -> Mockingbird.Mockable<Bool> {
@@ -10102,12 +8629,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
       let invocation = Mockingbird.Invocation(selectorName: "secondLevelMethod(param1:param2:) -> Bool", arguments: arguments)
       return Mockingbird.Stubbable<(TopLevelType, ThirdLevelType) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-    }
-  
-    public func secondLevelMethod(param1: @escaping @autoclosure () -> TopLevelType, param2: @escaping @autoclosure () -> ThirdLevelType) -> Mockingbird.ChainStubbable<SecondLevelType, SecondLevelTypeMock, (TopLevelType, ThirdLevelType) -> Bool, Bool> {
-      let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-      let invocation = Mockingbird.Invocation(selectorName: "secondLevelMethod(param1:param2:) -> Bool", arguments: arguments)
-      return Mockingbird.ChainStubbable<SecondLevelType, SecondLevelTypeMock, (TopLevelType, ThirdLevelType) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
     }
   
     // MARK: Verifiable `secondLevelMethod(param1:param2:)`
@@ -10157,11 +8678,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         return Mockingbird.Stubbable<() -> TopLevelType, TopLevelType>(stubbingContext: stubbingContext, invocation: invocation)
       }
     
-      public func thirdLevelInheritingMethod() -> Mockingbird.ChainStubbable<ThirdLevelInheritingTopLevelType, ThirdLevelInheritingTopLevelTypeMock, () -> TopLevelType, TopLevelType> {
-        let invocation = Mockingbird.Invocation(selectorName: "thirdLevelInheritingMethod() -> TopLevelType", arguments: [])
-        return Mockingbird.ChainStubbable<ThirdLevelInheritingTopLevelType, ThirdLevelInheritingTopLevelTypeMock, () -> TopLevelType, TopLevelType>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-      }
-    
       // MARK: Verifiable `thirdLevelInheritingMethod()`
     
       public func thirdLevelInheritingMethod() -> Mockingbird.Mockable<TopLevelType> {
@@ -10188,12 +8704,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation = Mockingbird.Invocation(selectorName: "topLevelMethod(param1:param2:) -> Bool", arguments: arguments)
         return Mockingbird.Stubbable<(SecondLevelType, SecondLevelType.ThirdLevelType) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-      }
-    
-      public func topLevelMethod(param1: @escaping @autoclosure () -> SecondLevelType, param2: @escaping @autoclosure () -> SecondLevelType.ThirdLevelType) -> Mockingbird.ChainStubbable<ThirdLevelInheritingTopLevelType, ThirdLevelInheritingTopLevelTypeMock, (SecondLevelType, SecondLevelType.ThirdLevelType) -> Bool, Bool> {
-        let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-        let invocation = Mockingbird.Invocation(selectorName: "topLevelMethod(param1:param2:) -> Bool", arguments: arguments)
-        return Mockingbird.ChainStubbable<ThirdLevelInheritingTopLevelType, ThirdLevelInheritingTopLevelTypeMock, (SecondLevelType, SecondLevelType.ThirdLevelType) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
       }
     
       // MARK: Verifiable `topLevelMethod(param1:param2:)`
@@ -10249,11 +8759,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         return Mockingbird.Stubbable<() -> ThirdLevelType, ThirdLevelType>(stubbingContext: stubbingContext, invocation: invocation)
       }
     
-      public func thirdLevelInheritingMethod() -> Mockingbird.ChainStubbable<ThirdLevelInheritingThirdLevelType, ThirdLevelInheritingThirdLevelTypeMock, () -> ThirdLevelType, ThirdLevelType> {
-        let invocation = Mockingbird.Invocation(selectorName: "thirdLevelInheritingMethod() -> ThirdLevelType", arguments: [])
-        return Mockingbird.ChainStubbable<ThirdLevelInheritingThirdLevelType, ThirdLevelInheritingThirdLevelTypeMock, () -> ThirdLevelType, ThirdLevelType>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-      }
-    
       // MARK: Verifiable `thirdLevelInheritingMethod()`
     
       public func thirdLevelInheritingMethod() -> Mockingbird.Mockable<ThirdLevelType> {
@@ -10280,12 +8785,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
         return Mockingbird.Stubbable<(TopLevelType, SecondLevelType) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-      }
-    
-      public func thirdLevelMethod(param1: @escaping @autoclosure () -> TopLevelType, param2: @escaping @autoclosure () -> SecondLevelType) -> Mockingbird.ChainStubbable<ThirdLevelInheritingThirdLevelType, ThirdLevelInheritingThirdLevelTypeMock, (TopLevelType, SecondLevelType) -> Bool, Bool> {
-        let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-        let invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
-        return Mockingbird.ChainStubbable<ThirdLevelInheritingThirdLevelType, ThirdLevelInheritingThirdLevelTypeMock, (TopLevelType, SecondLevelType) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
       }
     
       // MARK: Verifiable `thirdLevelMethod(param1:param2:)`
@@ -10341,11 +8840,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         return Mockingbird.Stubbable<() -> ThirdLevelType, ThirdLevelType>(stubbingContext: stubbingContext, invocation: invocation)
       }
     
-      public func thirdLevelInheritingMethod() -> Mockingbird.ChainStubbable<ThirdLevelInheritingPartiallyQualifiedThirdLevelType, ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock, () -> ThirdLevelType, ThirdLevelType> {
-        let invocation = Mockingbird.Invocation(selectorName: "thirdLevelInheritingMethod() -> ThirdLevelType", arguments: [])
-        return Mockingbird.ChainStubbable<ThirdLevelInheritingPartiallyQualifiedThirdLevelType, ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock, () -> ThirdLevelType, ThirdLevelType>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-      }
-    
       // MARK: Verifiable `thirdLevelInheritingMethod()`
     
       public func thirdLevelInheritingMethod() -> Mockingbird.Mockable<ThirdLevelType> {
@@ -10372,12 +8866,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
         return Mockingbird.Stubbable<(TopLevelType, SecondLevelType) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-      }
-    
-      public func thirdLevelMethod(param1: @escaping @autoclosure () -> TopLevelType, param2: @escaping @autoclosure () -> SecondLevelType) -> Mockingbird.ChainStubbable<ThirdLevelInheritingPartiallyQualifiedThirdLevelType, ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock, (TopLevelType, SecondLevelType) -> Bool, Bool> {
-        let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-        let invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
-        return Mockingbird.ChainStubbable<ThirdLevelInheritingPartiallyQualifiedThirdLevelType, ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock, (TopLevelType, SecondLevelType) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
       }
     
       // MARK: Verifiable `thirdLevelMethod(param1:param2:)`
@@ -10433,11 +8921,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         return Mockingbird.Stubbable<() -> ThirdLevelType, ThirdLevelType>(stubbingContext: stubbingContext, invocation: invocation)
       }
     
-      public func thirdLevelInheritingMethod() -> Mockingbird.ChainStubbable<ThirdLevelInheritingFullyQualifiedThirdLevelType, ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock, () -> ThirdLevelType, ThirdLevelType> {
-        let invocation = Mockingbird.Invocation(selectorName: "thirdLevelInheritingMethod() -> ThirdLevelType", arguments: [])
-        return Mockingbird.ChainStubbable<ThirdLevelInheritingFullyQualifiedThirdLevelType, ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock, () -> ThirdLevelType, ThirdLevelType>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-      }
-    
       // MARK: Verifiable `thirdLevelInheritingMethod()`
     
       public func thirdLevelInheritingMethod() -> Mockingbird.Mockable<ThirdLevelType> {
@@ -10464,12 +8947,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
         return Mockingbird.Stubbable<(TopLevelType, SecondLevelType) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-      }
-    
-      public func thirdLevelMethod(param1: @escaping @autoclosure () -> TopLevelType, param2: @escaping @autoclosure () -> SecondLevelType) -> Mockingbird.ChainStubbable<ThirdLevelInheritingFullyQualifiedThirdLevelType, ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock, (TopLevelType, SecondLevelType) -> Bool, Bool> {
-        let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-        let invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
-        return Mockingbird.ChainStubbable<ThirdLevelInheritingFullyQualifiedThirdLevelType, ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock, (TopLevelType, SecondLevelType) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
       }
     
       // MARK: Verifiable `thirdLevelMethod(param1:param2:)`
@@ -10524,12 +9001,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
         return Mockingbird.Stubbable<(TopLevelType, SecondLevelType) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-      }
-    
-      public func thirdLevelMethod(param1: @escaping @autoclosure () -> TopLevelType, param2: @escaping @autoclosure () -> SecondLevelType) -> Mockingbird.ChainStubbable<ThirdLevelType, ThirdLevelTypeMock, (TopLevelType, SecondLevelType) -> Bool, Bool> {
-        let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-        let invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
-        return Mockingbird.ChainStubbable<ThirdLevelType, ThirdLevelTypeMock, (TopLevelType, SecondLevelType) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
       }
     
       // MARK: Verifiable `thirdLevelMethod(param1:param2:)`
@@ -10598,12 +9069,6 @@ public final class TreeMock: MockingbirdTestsHost.Tree, Mockingbird.Mock {
     return Mockingbird.Stubbable<(Fruit) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func drop(_ fruit: @escaping @autoclosure () -> Fruit) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Tree, TreeMock, (Fruit) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`fruit`)]
-    let invocation = Mockingbird.Invocation(selectorName: "drop(_:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Tree, TreeMock, (Fruit) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `drop(_:)`
 
   public func drop(_ fruit: @escaping @autoclosure () -> Fruit) -> Mockingbird.Mockable<Void> {
@@ -10639,11 +9104,6 @@ public final class TreeMock: MockingbirdTestsHost.Tree, Mockingbird.Mock {
   public func shake() -> Mockingbird.Stubbable<() -> Void, Void> {
     let invocation = Mockingbird.Invocation(selectorName: "shake() -> Void", arguments: [])
     return Mockingbird.Stubbable<() -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func shake() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.Tree, TreeMock, () -> Void, Void> {
-    let invocation = Mockingbird.Invocation(selectorName: "shake() -> Void", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.Tree, TreeMock, () -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `shake()`
@@ -10735,21 +9195,10 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> (Foundation.URL, Foundation.NSObject), (Foundation.URL, Foundation.NSObject)>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getAnotherVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (Foundation.URL, Foundation.NSObject), (Foundation.URL, Foundation.NSObject)> {
-    let invocation = Mockingbird.Invocation(selectorName: "anotherVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (Foundation.URL, Foundation.NSObject), (Foundation.URL, Foundation.NSObject)>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setAnotherVariable(_ newValue: @escaping @autoclosure () -> (Foundation.URL, Foundation.NSObject)) -> Mockingbird.Stubbable<((Foundation.URL, Foundation.NSObject)) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "anotherVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<((Foundation.URL, Foundation.NSObject)) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setAnotherVariable(_ newValue: @escaping @autoclosure () -> (Foundation.URL, Foundation.NSObject)) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((Foundation.URL, Foundation.NSObject)) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "anotherVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((Foundation.URL, Foundation.NSObject)) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `anotherVariable`
@@ -10792,21 +9241,10 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getLabeledAnotherVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))> {
-    let invocation = Mockingbird.Invocation(selectorName: "labeledAnotherVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setLabeledAnotherVariable(_ newValue: @escaping @autoclosure () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Mockingbird.Stubbable<((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "labeledAnotherVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setLabeledAnotherVariable(_ newValue: @escaping @autoclosure () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "labeledAnotherVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `labeledAnotherVariable`
@@ -10849,21 +9287,10 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getLabeledVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))> {
-    let invocation = Mockingbird.Invocation(selectorName: "labeledVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setLabeledVariable(_ newValue: @escaping @autoclosure () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))) -> Mockingbird.Stubbable<((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "labeledVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setLabeledVariable(_ newValue: @escaping @autoclosure () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "labeledVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `labeledVariable`
@@ -10906,21 +9333,10 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> (Foundation.URL?, Foundation.NSObject?), (Foundation.URL?, Foundation.NSObject?)>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getOptionalAnotherVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (Foundation.URL?, Foundation.NSObject?), (Foundation.URL?, Foundation.NSObject?)> {
-    let invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (Foundation.URL?, Foundation.NSObject?), (Foundation.URL?, Foundation.NSObject?)>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setOptionalAnotherVariable(_ newValue: @escaping @autoclosure () -> (Foundation.URL?, Foundation.NSObject?)) -> Mockingbird.Stubbable<((Foundation.URL?, Foundation.NSObject?)) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<((Foundation.URL?, Foundation.NSObject?)) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setOptionalAnotherVariable(_ newValue: @escaping @autoclosure () -> (Foundation.URL?, Foundation.NSObject?)) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((Foundation.URL?, Foundation.NSObject?)) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((Foundation.URL?, Foundation.NSObject?)) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `optionalAnotherVariable`
@@ -10963,21 +9379,10 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?)>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getOptionalLabeledAnotherVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?)> {
-    let invocation = Mockingbird.Invocation(selectorName: "optionalLabeledAnotherVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?)>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setOptionalLabeledAnotherVariable(_ newValue: @escaping @autoclosure () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?)) -> Mockingbird.Stubbable<((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?)) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "optionalLabeledAnotherVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?)) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setOptionalLabeledAnotherVariable(_ newValue: @escaping @autoclosure () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?)) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?)) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "optionalLabeledAnotherVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?)) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `optionalLabeledAnotherVariable`
@@ -11020,21 +9425,10 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> (a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?), (a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?)>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getOptionalLabeledVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?), (a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?)> {
-    let invocation = Mockingbird.Invocation(selectorName: "optionalLabeledVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?), (a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?)>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setOptionalLabeledVariable(_ newValue: @escaping @autoclosure () -> (a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?)) -> Mockingbird.Stubbable<((a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?)) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "optionalLabeledVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<((a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?)) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setOptionalLabeledVariable(_ newValue: @escaping @autoclosure () -> (a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?)) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?)) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "optionalLabeledVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?)) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `optionalLabeledVariable`
@@ -11077,21 +9471,10 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?), (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getOptionalVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?), (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)> {
-    let invocation = Mockingbird.Invocation(selectorName: "optionalVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?), (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setOptionalVariable(_ newValue: @escaping @autoclosure () -> (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)) -> Mockingbird.Stubbable<((MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "optionalVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<((MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setOptionalVariable(_ newValue: @escaping @autoclosure () -> (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "optionalVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `optionalVariable`
@@ -11134,21 +9517,10 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)> {
-    let invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setVariable(_ newValue: @escaping @autoclosure () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)) -> Mockingbird.Stubbable<((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: arguments)
     return Mockingbird.Stubbable<((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setVariable(_ newValue: @escaping @autoclosure () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `variable`
@@ -11193,11 +9565,6 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func labeledMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))> {
-    let invocation = Mockingbird.Invocation(selectorName: "labeledMethod() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `labeledMethod()`
 
   public func labeledMethod() -> Mockingbird.Mockable<((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))> {
@@ -11223,11 +9590,6 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func labeledMethod() -> Mockingbird.Stubbable<() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))> {
     let invocation = Mockingbird.Invocation(selectorName: "labeledMethod() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))", arguments: [])
     return Mockingbird.Stubbable<() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func labeledMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))> {
-    let invocation = Mockingbird.Invocation(selectorName: "labeledMethod() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `labeledMethod()`
@@ -11257,11 +9619,6 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func labeledMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))> {
-    let invocation = Mockingbird.Invocation(selectorName: "labeledMethod() -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `labeledMethod()`
 
   public func labeledMethod() -> Mockingbird.Mockable<(a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))> {
@@ -11287,11 +9644,6 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func labeledMethod() -> Mockingbird.Stubbable<() -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))> {
     let invocation = Mockingbird.Invocation(selectorName: "labeledMethod() -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))", arguments: [])
     return Mockingbird.Stubbable<() -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func labeledMethod() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))> {
-    let invocation = Mockingbird.Invocation(selectorName: "labeledMethod() -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `labeledMethod()`
@@ -11322,12 +9674,6 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     return Mockingbird.Stubbable<((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func labeledMethod(param1: @escaping @autoclosure () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), param2: @escaping @autoclosure () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "labeledMethod(param1:param2:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `labeledMethod(param1:param2:)`
 
   public func labeledMethod(param1: @escaping @autoclosure () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), param2: @escaping @autoclosure () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Mockingbird.Mockable<Void> {
@@ -11354,11 +9700,6 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func labeledMethodWithParameterLabels() -> Mockingbird.Stubbable<() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))> {
     let invocation = Mockingbird.Invocation(selectorName: "labeledMethodWithParameterLabels() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))", arguments: [])
     return Mockingbird.Stubbable<() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func labeledMethodWithParameterLabels() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))> {
-    let invocation = Mockingbird.Invocation(selectorName: "labeledMethodWithParameterLabels() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `labeledMethodWithParameterLabels()`
@@ -11388,11 +9729,6 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func method() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))> {
-    let invocation = Mockingbird.Invocation(selectorName: "method() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `method()`
 
   public func method() -> Mockingbird.Mockable<((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))> {
@@ -11418,11 +9754,6 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func method() -> Mockingbird.Stubbable<() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))> {
     let invocation = Mockingbird.Invocation(selectorName: "method() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))", arguments: [])
     return Mockingbird.Stubbable<() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func method() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))> {
-    let invocation = Mockingbird.Invocation(selectorName: "method() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `method()`
@@ -11452,11 +9783,6 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     return Mockingbird.Stubbable<() -> (Foundation.URL, Foundation.NSObject), (Foundation.URL, Foundation.NSObject)>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func method() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (Foundation.URL, Foundation.NSObject), (Foundation.URL, Foundation.NSObject)> {
-    let invocation = Mockingbird.Invocation(selectorName: "method() -> (Foundation.URL, Foundation.NSObject)", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (Foundation.URL, Foundation.NSObject), (Foundation.URL, Foundation.NSObject)>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `method()`
 
   public func method() -> Mockingbird.Mockable<(Foundation.URL, Foundation.NSObject)> {
@@ -11482,11 +9808,6 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func method() -> Mockingbird.Stubbable<() -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)> {
     let invocation = Mockingbird.Invocation(selectorName: "method() -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)", arguments: [])
     return Mockingbird.Stubbable<() -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func method() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)> {
-    let invocation = Mockingbird.Invocation(selectorName: "method() -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `method()`
@@ -11517,12 +9838,6 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     return Mockingbird.Stubbable<((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func method(param1: @escaping @autoclosure () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), param2: @escaping @autoclosure () -> (Foundation.URL, Foundation.NSObject)) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "method(param1:param2:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `method(param1:param2:)`
 
   public func method(param1: @escaping @autoclosure () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), param2: @escaping @autoclosure () -> (Foundation.URL, Foundation.NSObject)) -> Mockingbird.Mockable<Void> {
@@ -11549,11 +9864,6 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func methodWithParameterLabels() -> Mockingbird.Stubbable<() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))> {
     let invocation = Mockingbird.Invocation(selectorName: "methodWithParameterLabels() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))", arguments: [])
     return Mockingbird.Stubbable<() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func methodWithParameterLabels() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))> {
-    let invocation = Mockingbird.Invocation(selectorName: "methodWithParameterLabels() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TupleTypes, TupleTypesMock, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `methodWithParameterLabels()`
@@ -11609,12 +9919,6 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
     return Mockingbird.Stubbable<(IndirectCallback) -> Foundation.NSObject, Foundation.NSObject>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func request(callback: @escaping @autoclosure () -> IndirectCallback) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TypealiasedClass, TypealiasedClassMock, (IndirectCallback) -> Foundation.NSObject, Foundation.NSObject> {
-    let arguments = [Mockingbird.resolve(`callback`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(callback:) -> Foundation.NSObject", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TypealiasedClass, TypealiasedClassMock, (IndirectCallback) -> Foundation.NSObject, Foundation.NSObject>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `request(callback:)`
 
   public func request(callback: @escaping @autoclosure () -> IndirectCallback) -> Mockingbird.Mockable<Foundation.NSObject> {
@@ -11644,12 +9948,6 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
     return Mockingbird.Stubbable<(IndirectCallback) -> IndirectRequestResult, IndirectRequestResult>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func request(callback: @escaping @autoclosure () -> IndirectCallback) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TypealiasedClass, TypealiasedClassMock, (IndirectCallback) -> IndirectRequestResult, IndirectRequestResult> {
-    let arguments = [Mockingbird.resolve(`callback`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(callback:) -> IndirectRequestResult", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TypealiasedClass, TypealiasedClassMock, (IndirectCallback) -> IndirectRequestResult, IndirectRequestResult>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `request(callback:)`
 
   public func request(callback: @escaping @autoclosure () -> IndirectCallback) -> Mockingbird.Mockable<IndirectRequestResult> {
@@ -11677,12 +9975,6 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
     let arguments = [Mockingbird.resolve(`escapingCallback`)]
     let invocation = Mockingbird.Invocation(selectorName: "request(escapingCallback:) -> IndirectRequestResult", arguments: arguments)
     return Mockingbird.Stubbable<(@escaping IndirectCallback) -> IndirectRequestResult, IndirectRequestResult>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func request(escapingCallback: @escaping @autoclosure () -> IndirectCallback) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TypealiasedClass, TypealiasedClassMock, (@escaping IndirectCallback) -> IndirectRequestResult, IndirectRequestResult> {
-    let arguments = [Mockingbird.resolve(`escapingCallback`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(escapingCallback:) -> IndirectRequestResult", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TypealiasedClass, TypealiasedClassMock, (@escaping IndirectCallback) -> IndirectRequestResult, IndirectRequestResult>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `request(escapingCallback:)`
@@ -11744,12 +10036,6 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
     return Mockingbird.Stubbable<(IndirectCallback) -> Foundation.NSObject, Foundation.NSObject>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func request(callback: @escaping @autoclosure () -> IndirectCallback) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TypealiasedProtocol, TypealiasedProtocolMock, (IndirectCallback) -> Foundation.NSObject, Foundation.NSObject> {
-    let arguments = [Mockingbird.resolve(`callback`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(callback:) -> Foundation.NSObject", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TypealiasedProtocol, TypealiasedProtocolMock, (IndirectCallback) -> Foundation.NSObject, Foundation.NSObject>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `request(callback:)`
 
   public func request(callback: @escaping @autoclosure () -> IndirectCallback) -> Mockingbird.Mockable<Foundation.NSObject> {
@@ -11779,12 +10065,6 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
     return Mockingbird.Stubbable<(IndirectCallback) -> IndirectRequestResult, IndirectRequestResult>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func request(callback: @escaping @autoclosure () -> IndirectCallback) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TypealiasedProtocol, TypealiasedProtocolMock, (IndirectCallback) -> IndirectRequestResult, IndirectRequestResult> {
-    let arguments = [Mockingbird.resolve(`callback`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(callback:) -> IndirectRequestResult", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TypealiasedProtocol, TypealiasedProtocolMock, (IndirectCallback) -> IndirectRequestResult, IndirectRequestResult>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `request(callback:)`
 
   public func request(callback: @escaping @autoclosure () -> IndirectCallback) -> Mockingbird.Mockable<IndirectRequestResult> {
@@ -11812,12 +10092,6 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
     let arguments = [Mockingbird.resolve(`escapingCallback`)]
     let invocation = Mockingbird.Invocation(selectorName: "request(escapingCallback:) -> IndirectRequestResult", arguments: arguments)
     return Mockingbird.Stubbable<(@escaping IndirectCallback) -> IndirectRequestResult, IndirectRequestResult>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func request(escapingCallback: @escaping @autoclosure () -> IndirectCallback) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.TypealiasedProtocol, TypealiasedProtocolMock, (@escaping IndirectCallback) -> IndirectRequestResult, IndirectRequestResult> {
-    let arguments = [Mockingbird.resolve(`escapingCallback`)]
-    let invocation = Mockingbird.Invocation(selectorName: "request(escapingCallback:) -> IndirectRequestResult", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.TypealiasedProtocol, TypealiasedProtocolMock, (@escaping IndirectCallback) -> IndirectRequestResult, IndirectRequestResult>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `request(escapingCallback:)`
@@ -11879,12 +10153,6 @@ public final class UndefinedArgumentLabelsMock: MockingbirdTestsHost.UndefinedAr
     return Mockingbird.Stubbable<(Bool, String, Int, Bool) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func method(_ param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> String, _ someParam: @escaping @autoclosure () -> Int, _ param4: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.UndefinedArgumentLabels, UndefinedArgumentLabelsMock, (Bool, String, Int, Bool) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`), Mockingbird.resolve(`someParam`), Mockingbird.resolve(`param4`)]
-    let invocation = Mockingbird.Invocation(selectorName: "method(_:_:_:_:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.UndefinedArgumentLabels, UndefinedArgumentLabelsMock, (Bool, String, Int, Bool) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   // MARK: Verifiable `method(_:_:_:_:)`
 
   public func method(_ param1: @escaping @autoclosure () -> Bool, _ param2: @escaping @autoclosure () -> String, _ someParam: @escaping @autoclosure () -> Int, _ param4: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Bool> {
@@ -11941,21 +10209,10 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     return Mockingbird.Stubbable<() -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func getComputedVariable() -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariablesContainer, VariablesContainerMock, () -> Bool, Bool> {
-    let invocation = Mockingbird.Invocation(selectorName: "computedVariable.get", arguments: [])
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariablesContainer, VariablesContainerMock, () -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func setComputedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Stubbable<(Bool) -> Void, Void> {
     let arguments = [Mockingbird.resolve(newValue)]
     let invocation = Mockingbird.Invocation(selectorName: "computedVariable.set", arguments: arguments)
     return Mockingbird.Stubbable<(Bool) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func setComputedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariablesContainer, VariablesContainerMock, (Bool) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(newValue)]
-    let invocation = Mockingbird.Invocation(selectorName: "computedVariable.set", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariablesContainer, VariablesContainerMock, (Bool) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `computedVariable`
@@ -12030,22 +10287,10 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
     return Mockingbird.Stubbable<([Bool], Int) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func variadicMethod(objects: @escaping @autoclosure () -> [Bool], param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicClass, VariadicClassMock, ([Bool], Int) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicClass, VariadicClassMock, ([Bool], Int) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func variadicMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([Bool], Int) -> Void, Void> {
     let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     return Mockingbird.Stubbable<([Bool], Int) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func variadicMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicClass, VariadicClassMock, ([Bool], Int) -> Void, Void> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicClass, VariadicClassMock, ([Bool], Int) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `variadicMethod(objects:param2:)`
@@ -12083,22 +10328,10 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
     return Mockingbird.Stubbable<([String], Int) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func variadicMethod(objects: @escaping @autoclosure () -> [String], param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicClass, VariadicClassMock, ([String], Int) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicClass, VariadicClassMock, ([String], Int) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func variadicMethod(objects: String..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([String], Int) -> Void, Void> {
     let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     return Mockingbird.Stubbable<([String], Int) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func variadicMethod(objects: String..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicClass, VariadicClassMock, ([String], Int) -> Void, Void> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicClass, VariadicClassMock, ([String], Int) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `variadicMethod(objects:param2:)`
@@ -12136,22 +10369,10 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
     return Mockingbird.Stubbable<(Int, [String]) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int, objects: @escaping @autoclosure () -> [String]) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicClass, VariadicClassMock, (Int, [String]) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`objects`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethodAsFinalParam(param1:objects:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicClass, VariadicClassMock, (Int, [String]) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int, objects: String...) -> Mockingbird.Stubbable<(Int, [String]) -> Void, Void> {
     let arguments = [Mockingbird.resolve(`param1`), Mockingbird.ArgumentMatcher(`objects`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethodAsFinalParam(param1:objects:) -> Void", arguments: arguments)
     return Mockingbird.Stubbable<(Int, [String]) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int, objects: String...) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicClass, VariadicClassMock, (Int, [String]) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.ArgumentMatcher(`objects`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethodAsFinalParam(param1:objects:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicClass, VariadicClassMock, (Int, [String]) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `variadicMethodAsFinalParam(param1:objects:)`
@@ -12189,22 +10410,10 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
     return Mockingbird.Stubbable<([Bool], Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func variadicReturningMethod(objects: @escaping @autoclosure () -> [Bool], param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicClass, VariadicClassMock, ([Bool], Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicReturningMethod(objects:param2:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicClass, VariadicClassMock, ([Bool], Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func variadicReturningMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([Bool], Int) -> Bool, Bool> {
     let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicReturningMethod(objects:param2:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<([Bool], Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func variadicReturningMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicClass, VariadicClassMock, ([Bool], Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicReturningMethod(objects:param2:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicClass, VariadicClassMock, ([Bool], Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `variadicReturningMethod(objects:param2:)`
@@ -12272,22 +10481,10 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
     return Mockingbird.Stubbable<([Bool], Int) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func variadicMethod(objects: @escaping @autoclosure () -> [Bool], param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicProtocol, VariadicProtocolMock, ([Bool], Int) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicProtocol, VariadicProtocolMock, ([Bool], Int) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func variadicMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([Bool], Int) -> Void, Void> {
     let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     return Mockingbird.Stubbable<([Bool], Int) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func variadicMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicProtocol, VariadicProtocolMock, ([Bool], Int) -> Void, Void> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicProtocol, VariadicProtocolMock, ([Bool], Int) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `variadicMethod(objects:param2:)`
@@ -12325,22 +10522,10 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
     return Mockingbird.Stubbable<([String], Int) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func variadicMethod(objects: @escaping @autoclosure () -> [String], param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicProtocol, VariadicProtocolMock, ([String], Int) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicProtocol, VariadicProtocolMock, ([String], Int) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func variadicMethod(objects: String..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([String], Int) -> Void, Void> {
     let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
     return Mockingbird.Stubbable<([String], Int) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func variadicMethod(objects: String..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicProtocol, VariadicProtocolMock, ([String], Int) -> Void, Void> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects:param2:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicProtocol, VariadicProtocolMock, ([String], Int) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `variadicMethod(objects:param2:)`
@@ -12378,22 +10563,10 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
     return Mockingbird.Stubbable<(Int, [String]) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int, objects: @escaping @autoclosure () -> [String]) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicProtocol, VariadicProtocolMock, (Int, [String]) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`objects`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethodAsFinalParam(param1:objects:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicProtocol, VariadicProtocolMock, (Int, [String]) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int, objects: String...) -> Mockingbird.Stubbable<(Int, [String]) -> Void, Void> {
     let arguments = [Mockingbird.resolve(`param1`), Mockingbird.ArgumentMatcher(`objects`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicMethodAsFinalParam(param1:objects:) -> Void", arguments: arguments)
     return Mockingbird.Stubbable<(Int, [String]) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int, objects: String...) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicProtocol, VariadicProtocolMock, (Int, [String]) -> Void, Void> {
-    let arguments = [Mockingbird.resolve(`param1`), Mockingbird.ArgumentMatcher(`objects`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicMethodAsFinalParam(param1:objects:) -> Void", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicProtocol, VariadicProtocolMock, (Int, [String]) -> Void, Void>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `variadicMethodAsFinalParam(param1:objects:)`
@@ -12431,22 +10604,10 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
     return Mockingbird.Stubbable<([Bool], Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
   }
 
-  public func variadicReturningMethod(objects: @escaping @autoclosure () -> [Bool], param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicProtocol, VariadicProtocolMock, ([Bool], Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicReturningMethod(objects:param2:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicProtocol, VariadicProtocolMock, ([Bool], Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
-  }
-
   public func variadicReturningMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.Stubbable<([Bool], Int) -> Bool, Bool> {
     let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation = Mockingbird.Invocation(selectorName: "variadicReturningMethod(objects:param2:) -> Bool", arguments: arguments)
     return Mockingbird.Stubbable<([Bool], Int) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
-  }
-
-  public func variadicReturningMethod(objects: Bool..., param2: @escaping @autoclosure () -> Int) -> Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicProtocol, VariadicProtocolMock, ([Bool], Int) -> Bool, Bool> {
-    let arguments = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
-    let invocation = Mockingbird.Invocation(selectorName: "variadicReturningMethod(objects:param2:) -> Bool", arguments: arguments)
-    return Mockingbird.ChainStubbable<MockingbirdTestsHost.VariadicProtocol, VariadicProtocolMock, ([Bool], Int) -> Bool, Bool>(object: self, stubbingContext: stubbingContext, invocation: invocation)
   }
 
   // MARK: Verifiable `variadicReturningMethod(objects:param2:)`

@@ -102,50 +102,18 @@ class MethodGenerator {
     }
   }()
   
-  lazy var stubbableGenericTypesList: [String] = {
-    let isGenericProtocol = context.kind == .protocol && !context.genericTypes.isEmpty
-    let useMetatypeObject = method.kind.typeScope == .static || method.kind.typeScope == .class
-    
-    // The mock type name.
-    let stubbedMockTypeName = context.stubbedMockName + (useMetatypeObject ? ".Type" : "")
-    
-    // The protocol that this mock is implementing or the class that it is subclassing.
-    let mockedTypeName = !isGenericProtocol
-      ? (!useMetatypeObject ? context.fullyQualifiedName : stubbedMockTypeName)
-      : "Mockingbird.Mock.Protocol"
-    
-    return [mockedTypeName, stubbedMockTypeName]
-  }()
-  
-  // Object used as the returned value of a stubbed implementation. Protocols that can only exist
-  // as generic constraints return `Mockingbird.Mock.self` as an unusuable placeholder since it's
-  // not possible to constrain a generic mock type to a generic prior return type.
-  lazy var stubbableObject: String = {
-    let isGenericProtocol = context.kind == .protocol && !context.genericTypes.isEmpty
-    let useMetatypeObject = method.kind.typeScope == .static || method.kind.typeScope == .class
-    return isGenericProtocol ? "Mockingbird.Mock.self" :
-      (!useMetatypeObject ? "self" : (context.stubbedMockName + ".self"))
-  }()
-  
   lazy var generatedStub: String = {
     guard !method.isInitializer else { return "" }
     let parameterTypes = methodParameterTypes
     let returnTypeName = specializedReturnTypeName
     let invocationType = "(\(parameterTypes)) \(returnTypeAttributes)-> \(returnTypeName)"
     let stubbableGenericTypes = [invocationType, returnTypeName].joined(separator: ", ")
-    let chainStubbableGenericTypes = (stubbableGenericTypesList +
-      [invocationType, returnTypeName]).joined(separator: ", ")
     let stub = """
       // MARK: Stubbable `\(method.name)`
     
       public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Stubbable<\(stubbableGenericTypes)>\(genericConstraints) {
     \(matchableInvocation)
         return Mockingbird.Stubbable<\(stubbableGenericTypes)>(stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
-      }
-    
-      public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.ChainStubbable<\(chainStubbableGenericTypes)>\(genericConstraints) {
-    \(matchableInvocation)
-        return Mockingbird.ChainStubbable<\(chainStubbableGenericTypes)>(object: \(stubbableObject), stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
       }
     """
     guard isVariadicMethod else { return stub }
@@ -157,11 +125,6 @@ class MethodGenerator {
       public \(regularModifiers)func \(fullNameForMatchingVariadics) -> Mockingbird.Stubbable<\(stubbableGenericTypes)>\(genericConstraints) {
     \(matchableInvocationVariadics)
         return Mockingbird.Stubbable<\(stubbableGenericTypes)>(stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
-      }
-    
-      public \(regularModifiers)func \(fullNameForMatchingVariadics) -> Mockingbird.ChainStubbable<\(chainStubbableGenericTypes)>\(genericConstraints) {
-    \(matchableInvocationVariadics)
-        return Mockingbird.ChainStubbable<\(chainStubbableGenericTypes)>(object: \(stubbableObject), stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
       }
     """
   }()

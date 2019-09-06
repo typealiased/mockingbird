@@ -21,17 +21,6 @@ public struct Stubbable<I, R> {
   let invocation: Invocation
 }
 
-/// An object used for chained / intermediary stubbing.
-/// T = Mocked type, M = Concrete mock type, I = Invocation function type, R = Return type
-public struct ChainStubbable<T, M, I, R> {
-  // When created from a normal method this is the mocked type.
-  // When created from a static context this is the mock type.
-  // When created from an associated type protocol this is the `Mock` metatype.
-  let object: T
-  let stubbingContext: StubbingContext
-  let invocation: Invocation
-}
-
 /// Intermediate stubbing object.
 public struct Stub<I, R> {
   let requests: [(stubbingContext: StubbingContext, invocation: Invocation)]
@@ -40,10 +29,6 @@ public struct Stub<I, R> {
     self.requests = stubbable.map({
       (stubbingContext: $0.stubbingContext, invocation: $0.invocation)
     })
-  }
-  
-  init<T, M>(from stubbable: ChainStubbable<T, M, I, R>) {
-    self.requests = [(stubbingContext: stubbable.stubbingContext, invocation: stubbable.invocation)]
   }
 }
 
@@ -85,15 +70,6 @@ public func ~> <I, R>(stub: Stub<I, R>, implementation: I) {
 /// Internal method for stubbing invocations with side effects.
 public func ~> <I, R>(stub: Stub<I, R>, implementation: StubImplementation<I, R>) {
   addStub(stub, implementation: implementation.handler, callback: implementation.callback)
-}
-
-/// Internal method for chaining stubs.
-public func ~ <T1, M1: Mock, I1, R1, M2: Mock, I2, R2>(lhs: ChainStubbable<T1, M1, I1, R1>,
-                                                       rhs: ChainStubbable<R1, M2, I2, R2>)
-  -> ChainStubbable<R1, M2, I2, R2> {
-    let implementation: () -> R1 = { rhs.object }
-    _ = lhs.stubbingContext.swizzle(lhs.invocation, with: implementation)
-    return rhs
 }
 
 /// Internal helper to swizzle type-erased stub implementations onto stubbing contexts.

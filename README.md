@@ -200,26 +200,6 @@ given(
 ) ~> "Big Bird"
 ```
 
-Stub complex object hierarchies by using the `~` operator to stub intermediary values.
-
-```swift
-protocol Bird {
-  var wing: Wing { get }
-}
-protocol Wing { 
-  var feather: Feather { get }
-}
-protocol Feather { 
-  var isWet: Bool { get }
-}
-
-// Returns `true` when `bird.wing.feather.isWet` is called
-given(bird
-  .getWing() ~ mock(Wing.self)
-    .getFeather() ~ mock(Feather.self)
-      .getIsWet()) ~> true
-```
-
 ### Verification
 
 Verification lets you assert that a mock received a particular invocation during its lifetime.
