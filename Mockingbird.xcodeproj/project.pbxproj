@@ -265,7 +265,7 @@
 		OBJ_675 /* ArgumentCaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* ArgumentCaptor.swift */; };
 		OBJ_677 /* TypeFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* TypeFacade.swift */; };
 		OBJ_679 /* ArgumentMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* ArgumentMatcher.swift */; };
-		OBJ_680 /* CallMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* CallMatcher.swift */; };
+		OBJ_680 /* CountMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* CountMatcher.swift */; };
 		OBJ_681 /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* Mock.swift */; };
 		OBJ_682 /* MockingContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* MockingContext.swift */; };
 		OBJ_683 /* Mockingbird.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* Mockingbird.swift */; };
@@ -1134,7 +1134,7 @@
 		OBJ_357 /* Array+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extras.swift"; sourceTree = "<group>"; };
 		OBJ_358 /* Bool+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Extras.swift"; sourceTree = "<group>"; };
 		OBJ_359 /* Dictionary+Enumerate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Enumerate.swift"; sourceTree = "<group>"; };
-		OBJ_36 /* CallMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallMatcher.swift; sourceTree = "<group>"; };
+		OBJ_36 /* CountMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountMatcher.swift; sourceTree = "<group>"; };
 		OBJ_360 /* Dictionary+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extras.swift"; sourceTree = "<group>"; };
 		OBJ_361 /* KeyedDecodingContainer+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+Additions.swift"; sourceTree = "<group>"; };
 		OBJ_362 /* NSRecursiveLock+Sync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRecursiveLock+Sync.swift"; sourceTree = "<group>"; };
@@ -2116,7 +2116,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_35 /* ArgumentMatcher.swift */,
-				OBJ_36 /* CallMatcher.swift */,
+				OBJ_36 /* CountMatcher.swift */,
 			);
 			path = Matching;
 			sourceTree = "<group>";
@@ -3455,7 +3455,7 @@
 				OBJ_675 /* ArgumentCaptor.swift in Sources */,
 				OBJ_677 /* TypeFacade.swift in Sources */,
 				OBJ_679 /* ArgumentMatcher.swift in Sources */,
-				OBJ_680 /* CallMatcher.swift in Sources */,
+				OBJ_680 /* CountMatcher.swift in Sources */,
 				OBJ_681 /* Mock.swift in Sources */,
 				OBJ_682 /* MockingContext.swift in Sources */,
 				OBJ_683 /* Mockingbird.swift in Sources */,

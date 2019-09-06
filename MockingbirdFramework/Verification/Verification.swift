@@ -30,9 +30,9 @@ public struct Verification<T> {
 
   /// Verify that the mock received the invocation some number of times.
   ///
-  /// - Parameter callMatcher: A call matcher defining the number of invocations to verify.
-  public func wasCalled(_ callMatcher: CallMatcher = once) {
-    verify(using: callMatcher, for: sourceLocation)
+  /// - Parameter countMathcer: A count matcher defining the number of invocations to verify.
+  public func wasCalled(_ countMatcher: CountMatcher = once) {
+    verify(using: countMatcher, for: sourceLocation)
   }
 
   /// Verify that the mock never received the invocation.
@@ -48,8 +48,8 @@ public struct Verification<T> {
   }
   
   /// Runs the block within an attributed `DispatchQueue`.
-  func verify(using callMatcher: CallMatcher, for sourceLocation: SourceLocation) {
-    let expectation = Expectation(callMatcher: callMatcher,
+  func verify(using countMatcher: CountMatcher, for sourceLocation: SourceLocation) {
+    let expectation = Expectation(countMatcher: countMatcher,
                                   sourceLocation: sourceLocation,
                                   asyncGroup: DispatchQueue.currentAsyncGroup)
     expect(mockable.mockingContext, handled: mockable.invocation, using: expectation)
@@ -60,12 +60,12 @@ public struct Verification<T> {
 struct Expectation {
   static let asyncGroupKey = DispatchSpecificKey<AsyncExpectationGroup>()
   
-  let callMatcher: CallMatcher
+  let countMatcher: CountMatcher
   let sourceLocation: SourceLocation
   let asyncGroup: AsyncExpectationGroup?
   
   func copy(withAsyncGroup: Bool = false) -> Expectation {
-    return Expectation(callMatcher: callMatcher,
+    return Expectation(countMatcher: countMatcher,
                        sourceLocation: sourceLocation,
                        asyncGroup: withAsyncGroup ? asyncGroup : nil)
   }
@@ -108,7 +108,7 @@ func createTestExpectation(with scope: () -> Void, description: String?) -> XCTe
       let allInvocations = mockingContext.invocations(for: asyncExpectation.invocation.selectorName)
         .filter({ $0 == asyncExpectation.invocation })
       let actualCallCount = UInt(allInvocations.count)
-      guard asyncExpectation.expectation.callMatcher.matches(actualCallCount) else { return false }
+      guard asyncExpectation.expectation.countMatcher.matches(actualCallCount) else { return false }
       testExpectation.fulfill()
       return true
     })
@@ -133,8 +133,9 @@ func expect(_ mockingContext: MockingContext,
   let allInvocations =
     mockingContext.invocations(for: invocation.selectorName).filter({ $0 == invocation })
   let actualCallCount = UInt(allInvocations.count)
-  guard !expectation.callMatcher.matches(actualCallCount) else { return }
-  let description = expectation.callMatcher.describe(invocation: invocation, count: actualCallCount)
+  guard !expectation.countMatcher.matches(actualCallCount) else { return }
+  let description = expectation.countMatcher.describe(invocation: invocation,
+                                                      count: actualCallCount)
   let failure = TestFailure.incorrectInvocationCount(invocation: invocation,
                                                      description: description)
   XCTFail(String(describing: failure),

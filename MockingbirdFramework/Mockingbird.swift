@@ -126,7 +126,7 @@ public func any<T>(_ type: T.Type = T.self, of objects: T...) -> T {
 ///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
 ///   - predicate: A closure that takes a value `T` and returns `true` if it represents a match.
 public func any<T>(_ type: T.Type = T.self, where predicate: @escaping (_ value: T) -> Bool) -> T {
-  let matcher = ArgumentMatcher(description: "matching<\(T.self)>(where:)", priority: .high) {
+  let matcher = ArgumentMatcher(description: "any<\(T.self)>(where:)", priority: .high) {
     (_, rhs) in
     guard let rhs = rhs as? T else { return false }
     return predicate(rhs)
@@ -135,6 +135,8 @@ public func any<T>(_ type: T.Type = T.self, where predicate: @escaping (_ value:
 }
 
 /// Matches any non-nil argument value of a specific type `T`.
+///
+/// - Parameter type: Optionally provide an explicit type to disambiguate overloaded methods.
 public func notNil<T>(_ type: T.Type = T.self) -> T {
   let matcher = ArgumentMatcher(description: "notNil<\(T.self)>()", priority: .high) { (_, rhs) in
     return rhs is T && rhs != nil
@@ -142,40 +144,40 @@ public func notNil<T>(_ type: T.Type = T.self) -> T {
   return createTypeFacade(matcher)
 }
 
-// MARK: - Standard call matchers
+// MARK: - Standard count matchers
 
-/// Matches exactly the number of calls.
-public func exactly(_ times: UInt) -> CallMatcher {
-  return CallMatcher({ $0 == times }, describedBy: { "`\($1)` \($2 ? "≠" : "=") \(times)" })
+/// Matches an exact count.
+public func exactly(_ times: UInt) -> CountMatcher {
+  return CountMatcher({ $0 == times }, describedBy: { "`\($1)` \($2 ? "≠" : "=") \(times)" })
 }
 
-/// Matches exactly a single call.
-public var once: CallMatcher { return exactly(1) }
+/// Matches a single count.
+public var once: CountMatcher { return exactly(1) }
 
-/// Matches no calls.
-public var never: CallMatcher { return exactly(0) }
+/// Matches a count of zero.
+public var never: CountMatcher { return exactly(0) }
 
-/// Matches greater than or equal to the number of calls.
-public func atLeast(_ times: UInt) -> CallMatcher {
-  return CallMatcher({ $0 >= times }, describedBy: { "`\($1)` \($2 ? "<" : "≥") \(times)" })
+/// Matches greater than or equal to some count.
+public func atLeast(_ times: UInt) -> CountMatcher {
+  return CountMatcher({ $0 >= times }, describedBy: { "`\($1)` \($2 ? "<" : "≥") \(times)" })
 }
 
-/// Matches less than or equal to the number of calls.
-public func atMost(_ times: UInt) -> CallMatcher {
-  return CallMatcher({ $0 <= times }, describedBy: { "`\($1)` \($2 ? ">" : "≤") \(times)" })
+/// Matches less than or equal to some count.
+public func atMost(_ times: UInt) -> CountMatcher {
+  return CountMatcher({ $0 <= times }, describedBy: { "`\($1)` \($2 ? ">" : "≤") \(times)" })
 }
 
-/// Matches calls that fall within a certain inclusive range.
-public func between(_ range: Range<UInt>) -> CallMatcher {
+/// Matches counts that fall within a certain inclusive range.
+public func between(_ range: Range<UInt>) -> CountMatcher {
   return atLeast(range.lowerBound).and(atMost(range.upperBound))
 }
 
-// MARK: Composing multiple call matchers
-extension CallMatcher {
-  public func or(_ callMatcher: CallMatcher) -> CallMatcher {
+// MARK: Composing multiple count matchers
+extension CountMatcher {
+  public func or(_ countMatcher: CountMatcher) -> CountMatcher {
     let matcherCopy = self
-    let otherMatcherCopy = callMatcher
-    return CallMatcher({ matcherCopy.matcher($0) || otherMatcherCopy.matcher($0) },
+    let otherMatcherCopy = countMatcher
+    return CountMatcher({ matcherCopy.matcher($0) || otherMatcherCopy.matcher($0) },
       describedBy: {
         let matcherDescription = matcherCopy.describe(invocation: $0, count: $1, negated: $2)
         let otherMatcherDescription = otherMatcherCopy.describe(invocation: $0, count: $1, negated: $2)
@@ -184,10 +186,10 @@ extension CallMatcher {
     })
   }
 
-  public func and(_ callMatcher: CallMatcher) -> CallMatcher {
+  public func and(_ countMatcher: CountMatcher) -> CountMatcher {
     let matcherCopy = self
-    let otherMatcherCopy = callMatcher
-    return CallMatcher({ matcherCopy.matcher($0) && otherMatcherCopy.matcher($0) },
+    let otherMatcherCopy = countMatcher
+    return CountMatcher({ matcherCopy.matcher($0) && otherMatcherCopy.matcher($0) },
       describedBy: {
         let matcherDescription = matcherCopy.describe(invocation: $0, count: $1, negated: $2)
         let otherMatcherDescription = otherMatcherCopy.describe(invocation: $0, count: $1, negated: $2)
@@ -196,10 +198,10 @@ extension CallMatcher {
     })
   }
 
-  public func xor(_ callMatcher: CallMatcher) -> CallMatcher {
+  public func xor(_ countMatcher: CountMatcher) -> CountMatcher {
     let matcherCopy = self
-    let otherMatcherCopy = callMatcher
-    return CallMatcher({ matcherCopy.matcher($0) != otherMatcherCopy.matcher($0) },
+    let otherMatcherCopy = countMatcher
+    return CountMatcher({ matcherCopy.matcher($0) != otherMatcherCopy.matcher($0) },
       describedBy: {
         let matcherDescription = matcherCopy.describe(invocation: $0, count: $1, negated: $2)
         let otherMatcherDescription = otherMatcherCopy.describe(invocation: $0, count: $1, negated: $2)
@@ -209,9 +211,9 @@ extension CallMatcher {
   }
 }
 
-public func not(_ callMatcher: CallMatcher) -> CallMatcher {
-  let matcherCopy = callMatcher
-  return CallMatcher({ !matcherCopy.matcher($0) },
+public func not(_ countMatcher: CountMatcher) -> CountMatcher {
+  let matcherCopy = countMatcher
+  return CountMatcher({ !matcherCopy.matcher($0) },
     describedBy: {
       let matcherDescription = matcherCopy.describe(invocation: $0, count: $1, negated: !$2)
       return "\(matcherDescription)"

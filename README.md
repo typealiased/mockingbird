@@ -208,7 +208,7 @@ Verification lets you assert that a mock received a particular invocation during
 verify(bird.chirp(volume: 50)).wasCalled()
 ```
 
-It’s possible to verify that an invocation was called a specific number of times with a call matcher.
+It’s possible to verify that an invocation was called a specific number of times with a count matcher.
 
 ```swift
 verify(bird.getName()).wasNeverCalled()            // n = 0
@@ -218,7 +218,7 @@ verify(bird.getName()).wasCalled(atMost(10))       // n ≤ 10
 verify(bird.getName()).wasCalled(between(5...10))  // 5 ≤ n ≤ 10
 ```
 
-Call matchers also support chaining and negation using logical operators.
+Count matchers also support chaining and negation using logical operators.
 
 ```swift
 verify(bird.getName()).wasCalled(not(exactly(10)))           // n ≠ 10
@@ -275,10 +275,10 @@ clearInvocations(on: bird)  // Only removes recorded invocations
 Argument matchers allow wildcard matching of arguments during stubbing or verification.
 
 ```swift
-any()                            // Matches any value
-any(of: 1, 2, 3)                 // Matches any value in {1, 2, 3}
-any(where: { $0.name.isEmpty })  // Matches any object with an empty name
-notNil()                         // Matches any non-nil value
+any()                    // Matches any value
+any(of: 1, 2, 3)         // Matches any value in {1, 2, 3}
+any(where: { $0 > 42 })  // Matches any number greater than 42
+notNil()                 // Matches any non-nil value
 ```
 
 For methods overloaded by parameter type (such as with generics), using a matcher may cause ambiguity for 

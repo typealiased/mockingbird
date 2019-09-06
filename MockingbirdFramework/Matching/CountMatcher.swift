@@ -1,5 +1,5 @@
 //
-//  CallMatcher.swift
+//  CountMatcher.swift
 //  Mockingbird
 //
 //  Created by Andrew Chang on 7/29/19.
@@ -8,7 +8,7 @@
 import Foundation
 
 /// Checks whether some number of calls matches an expected number of calls.
-public struct CallMatcher {
+public struct CountMatcher {
   let matcher: (UInt) -> Bool
 
   /// Creates a printable description of the expected call count.
