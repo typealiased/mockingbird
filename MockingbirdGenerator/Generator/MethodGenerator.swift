@@ -71,8 +71,9 @@ class MethodGenerator {
       
       let checkVersion: String
       if context.kind == .class {
+        let trySuper = method.attributes.contains(.throws) ? "try " : ""
         checkVersion = """
-            super.init(\(superCallParameters))
+            \(trySuper)super.init(\(superCallParameters))
             Mockingbird.checkVersion(for: self)
         """
       } else {
@@ -82,11 +83,10 @@ class MethodGenerator {
       return """
         // MARK: Mockable `\(method.name)`
       
-        public \(overridableModifiers)\(fullNameForMocking)\(genericConstraints) {
+        public \(overridableModifiers)\(fullNameForMocking)\(genericConstraints) \(returnTypeAttributes){
       \(checkVersion)
           let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: [\(mockArgumentMatchers)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
-        \(stubbedImplementationCall)
         }
       """
     } else {
@@ -256,7 +256,7 @@ class MethodGenerator {
   
   lazy var superCallParameters: String = {
     return method.parameters.map({ parameter -> String in
-      let label = parameter.argumentLabel ?? parameter.name
+      guard let label = parameter.argumentLabel else { return "`\(parameter.name)`" }
       return "\(label): `\(parameter.name)`"
     }).joined(separator: ", ")
   }()

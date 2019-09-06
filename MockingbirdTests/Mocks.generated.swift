@@ -6545,6 +6545,216 @@ public func mock<T: MockingbirdTestsHost.InheritedTypeQualificationProtocol, Sco
   return InheritedTypeQualificationProtocolMock<ScopedType>(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked InitializerClass
+
+public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.2.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      InitializerClassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: InitializerClassMock, rhs: InitializerClassMock) -> Bool {
+    return true
+  }
+
+  // MARK: Mockable `init()`
+
+  public override init() {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    let invocation = Mockingbird.Invocation(selectorName: "init() -> Void", arguments: [])
+    mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Mockable `init(param1:_:)`
+
+  public override init(param1: Bool, _ param2: Int) {
+    super.init(param1: `param1`, `param2`)
+    Mockingbird.checkVersion(for: self)
+    let invocation = Mockingbird.Invocation(selectorName: "init(param1:_:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
+    mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Bool, Int) -> Void {
+      concreteImplementation(`param1`, `param2`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Mockable `init(param:)`
+
+  public override init?(param: Bool) {
+    super.init(param: `param`)
+    Mockingbird.checkVersion(for: self)
+    let invocation = Mockingbird.Invocation(selectorName: "init(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Bool) -> Void {
+      concreteImplementation(`param`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Mockable `init(param:)`
+
+  public override init!(param: Int) {
+    super.init(param: `param`)
+    Mockingbird.checkVersion(for: self)
+    let invocation = Mockingbird.Invocation(selectorName: "init(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Int) -> Void {
+      concreteImplementation(`param`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Mockable `init(param:)`
+
+  public required init(param: String?) {
+    super.init(param: `param`)
+    Mockingbird.checkVersion(for: self)
+    let invocation = Mockingbird.Invocation(selectorName: "init(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (String?) -> Void {
+      concreteImplementation(`param`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Mockable `init(param:)`
+
+  public override init(param: String) throws {
+    try super.init(param: `param`)
+    Mockingbird.checkVersion(for: self)
+    let invocation = Mockingbird.Invocation(selectorName: "init(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (String) throws -> Void {
+      try concreteImplementation(`param`)
+    } else {
+      try (implementation as? () -> Void)?()
+    }
+  }
+}
+
+// MARK: - Mocked InitializerProtocol
+
+public final class InitializerProtocolMock: MockingbirdTestsHost.InitializerProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.2.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      InitializerProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: InitializerProtocolMock, rhs: InitializerProtocolMock) -> Bool {
+    return true
+  }
+
+  public init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `init()`
+
+  public init() {
+    Mockingbird.checkVersion(for: self)
+    let invocation = Mockingbird.Invocation(selectorName: "init() -> Void", arguments: [])
+    mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Mockable `init(param1:_:)`
+
+  public init(param1: Bool, _ param2: Int) {
+    Mockingbird.checkVersion(for: self)
+    let invocation = Mockingbird.Invocation(selectorName: "init(param1:_:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
+    mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Bool, Int) -> Void {
+      concreteImplementation(`param1`, `param2`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Mockable `init(param:)`
+
+  public init?(param: Bool) {
+    Mockingbird.checkVersion(for: self)
+    let invocation = Mockingbird.Invocation(selectorName: "init(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Bool) -> Void {
+      concreteImplementation(`param`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Mockable `init(param:)`
+
+  public init!(param: Int) {
+    Mockingbird.checkVersion(for: self)
+    let invocation = Mockingbird.Invocation(selectorName: "init(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Int) -> Void {
+      concreteImplementation(`param`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  // MARK: Mockable `init(param:)`
+
+  public init(param: String) throws {
+    Mockingbird.checkVersion(for: self)
+    let invocation = Mockingbird.Invocation(selectorName: "init(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (String) throws -> Void {
+      try concreteImplementation(`param`)
+    } else {
+      try (implementation as? () -> Void)?()
+    }
+  }
+}
+
+/// Create a source-attributed `InitializerProtocol` mock.
+public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.InitializerProtocol.Protocol) -> InitializerProtocolMock {
+  return InitializerProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked InoutClass
 
 public final class InoutClassMock: MockingbirdTestsHost.InoutClass, Mockingbird.Mock {
