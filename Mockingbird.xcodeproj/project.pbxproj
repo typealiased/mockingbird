@@ -58,6 +58,8 @@
 		49C07FA4231E00B3003F7712 /* DefaultArgumentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C07FA3231E00B3003F7712 /* DefaultArgumentValues.swift */; };
 		49D7D4CB231F2E0300537655 /* Path+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D7D4CA231F2E0300537655 /* Path+Extensions.swift */; };
 		49F5DD4A2322346500EC87E4 /* InitializerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F5DD492322346500EC87E4 /* InitializerTests.swift */; };
+		49F5DD4C2322E95300EC87E4 /* CollectionArgumentMatchingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F5DD4B2322E95300EC87E4 /* CollectionArgumentMatchingTests.swift */; };
+		49F5DD4E2322EAC500EC87E4 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F5DD4D2322EAC500EC87E4 /* Collections.swift */; };
 		OBJ_1000 /* SourceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SourceKitten::SourceKit::Product" /* SourceKit.framework */; };
 		OBJ_1001 /* Clang_C.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SourceKitten::Clang_C::Product" /* Clang_C.framework */; };
 		OBJ_1012 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_315 /* Package.swift */; };
@@ -903,6 +905,8 @@
 		49C07FA3231E00B3003F7712 /* DefaultArgumentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultArgumentValues.swift; sourceTree = "<group>"; };
 		49D7D4CA231F2E0300537655 /* Path+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+Extensions.swift"; sourceTree = "<group>"; };
 		49F5DD492322346500EC87E4 /* InitializerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializerTests.swift; sourceTree = "<group>"; };
+		49F5DD4B2322E95300EC87E4 /* CollectionArgumentMatchingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionArgumentMatchingTests.swift; sourceTree = "<group>"; };
+		49F5DD4D2322EAC500EC87E4 /* Collections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1560,6 +1564,7 @@
 				OBJ_117 /* ArgumentCaptorTests.swift */,
 				OBJ_118 /* ArgumentMatchingTests.swift */,
 				OBJ_119 /* AsyncVerificationTests.swift */,
+				49F5DD4B2322E95300EC87E4 /* CollectionArgumentMatchingTests.swift */,
 				49F5DD492322346500EC87E4 /* InitializerTests.swift */,
 				OBJ_121 /* LastSetValueStubTests.swift */,
 				OBJ_122 /* OverloadedMethodTests.swift */,
@@ -2575,6 +2580,7 @@
 				OBJ_94 /* ClassInitializers.swift */,
 				OBJ_95 /* ClassScopedTypes.swift */,
 				OBJ_96 /* ClosureParameters.swift */,
+				49F5DD4D2322EAC500EC87E4 /* Collections.swift */,
 				49C07F9F231DDA80003F7712 /* CompoundTypes.swift */,
 				49C07FA3231E00B3003F7712 /* DefaultArgumentValues.swift */,
 				OBJ_97 /* Extensions.swift */,
@@ -3550,6 +3556,7 @@
 				OBJ_784 /* ExtensionsMockableTests.swift in Sources */,
 				49F5DD4A2322346500EC87E4 /* InitializerTests.swift in Sources */,
 				OBJ_785 /* ExtensionsStubbableTests.swift in Sources */,
+				49F5DD4C2322E95300EC87E4 /* CollectionArgumentMatchingTests.swift in Sources */,
 				OBJ_786 /* ExtensionsVerifiableTests.swift in Sources */,
 				OBJ_787 /* GenericsMockableTests.swift in Sources */,
 				OBJ_788 /* GenericsStubbableTests.swift in Sources */,
@@ -3594,6 +3601,7 @@
 				OBJ_847 /* OverloadedMethods.swift in Sources */,
 				OBJ_848 /* Parent.swift in Sources */,
 				OBJ_849 /* ParentProtocol.swift in Sources */,
+				49F5DD4E2322EAC500EC87E4 /* Collections.swift in Sources */,
 				OBJ_850 /* ProtocolInitializers.swift in Sources */,
 				49965D3923222E29002F9CD5 /* Initializers.swift in Sources */,
 				OBJ_851 /* Typealiasing.swift in Sources */,

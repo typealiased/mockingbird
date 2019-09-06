@@ -291,6 +291,25 @@ any(Int.self, where: { $0 > 42 })
 notNil(String?.self)
 ```
 
+You can also match elements or keys within collection types.
+
+```swift
+any(containing: 1, 2, 3)  // Matches any collection with values {1, 2, 3}
+any(keys: "a", "b", "c")  // Matches any dictionary with keys {"a", "b", "c"}
+any(count: atMost(42))    // Matches any collection with at most 42 elements
+notEmpty()                // Matches any non-empty collection
+```
+
+Argument matchers for collections can contain a nested argument matcher.
+
+```swift
+// Matches any collection containing a value greater than 42
+any(containing: any(where: $0 > 42))
+
+// Matches any dictionary containing a key prefixed with "a"
+any(key: any(where: $0.hasPrefix("a")))
+```
+
 If you provide a concrete instance instead of an argument matcher, comparisons will use equality and fall back to 
 comparing by reference if the parameter type doesn’t conform to `Equatable`.
 

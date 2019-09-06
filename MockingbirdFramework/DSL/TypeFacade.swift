@@ -16,33 +16,27 @@ import Foundation
 // It goes without saying that this should probably never be done in production.
 private class TypeFacade {
   static let shared = TypeFacade()
-  static let threadValueKey = "co.bird.mockingbird.typefacade.value"
-  static let threadDidSetValueKey = "co.bird.mockingbird.typefacade.didset-value"
-  static let threadSemaphoreKey = "co.bird.mockingbird.typefacade.semaphore"
-  static let sharedSemaphore = DispatchSemaphore(value: 1)
+  static let threadValueKey = "value"
+  static let threadDidSetValueKey = "didset-value"
+  static let threadScopeKey = DispatchSpecificKey<String>()
 }
 
 struct AnyObjectFake {}
 
-private extension Thread {
-  // Creating a shared DispatchSemaphore on the current thread without access to test-and-set.
-  var typeFacadeSemaphore: DispatchSemaphore {
-    TypeFacade.sharedSemaphore.wait()
-    defer { TypeFacade.sharedSemaphore.signal() }
-    
-    if let semaphore = Thread.current.threadDictionary[TypeFacade.threadSemaphoreKey] as? DispatchSemaphore {
-      return semaphore
-    }
-    let semaphore = DispatchSemaphore(value: 1)
-    Thread.current.threadDictionary[TypeFacade.threadSemaphoreKey] = semaphore
-    return semaphore
+extension DispatchQueue {
+  class var threadScope: String? {
+    return DispatchQueue.getSpecific(key: TypeFacade.threadScopeKey)
   }
 }
 
 func createTypeFacade<T>(_ value: Any?) -> T {
   // We can't use the casted TypeFacade directly, so we store the desired wrapped value on the heap.
-  Thread.current.threadDictionary[TypeFacade.threadDidSetValueKey] = true
-  Thread.current.threadDictionary[TypeFacade.threadValueKey] = value
+  if let threadScope = DispatchQueue.threadScope {
+    Thread.current.threadDictionary["\(threadScope)-\(TypeFacade.threadDidSetValueKey)"] = true
+    Thread.current.threadDictionary["\(threadScope)-\(TypeFacade.threadValueKey)"] = value
+  }
+  
+  // Trivial case where `T` is a non-nominal type such as `Any` or `AnyObject`.
   if let concreteType = AnyObjectFake() as? T { return concreteType }
   return Unmanaged.passUnretained(TypeFacade.shared)
     .toOpaque()
@@ -51,34 +45,54 @@ func createTypeFacade<T>(_ value: Any?) -> T {
 }
 
 func resolve<T>(_ parameter: @escaping () -> T) -> ArgumentMatcher {
-  let semaphore = Thread.current.typeFacadeSemaphore
-  semaphore.wait()
-  defer { semaphore.signal() }
+  let scope = UUID().uuidString
+  let scopedDidSetValueKey = "\(scope)-\(TypeFacade.threadDidSetValueKey)"
+  let scopedValueKey = "\(scope)-\(TypeFacade.threadValueKey)"
   
-  Thread.current.threadDictionary[TypeFacade.threadDidSetValueKey] = false
-  Thread.current.threadDictionary[TypeFacade.threadValueKey] = nil
-  let realValue = parameter()
-  guard Thread.current.threadDictionary[TypeFacade.threadDidSetValueKey] as? Bool == true else {
-    if let matcher = realValue as? ArgumentMatcher { return matcher }
-    return ArgumentMatcher(realValue)
+  let queue = DispatchQueue(label: "co.bird.mockingbird.typefacade")
+  queue.setSpecific(key: TypeFacade.threadScopeKey, value: scope)
+  
+  var resolvedMatcher: ArgumentMatcher!
+  queue.sync {
+    let realValue = parameter() // It's only safe to store this on the stack.
+    guard Thread.current.threadDictionary[scopedDidSetValueKey] as? Bool == true else {
+      if let matcher = realValue as? ArgumentMatcher {
+        resolvedMatcher = matcher // `realValue` is already an `ArgumentMatcher`.
+      } else {
+        resolvedMatcher = ArgumentMatcher(realValue)
+      }
+      return
+    }
+    // Use the wrapped value returned by resolving type facade.
+    resolvedMatcher = Thread.current.threadDictionary[scopedValueKey] as? ArgumentMatcher
   }
-  return Thread.current.threadDictionary[TypeFacade.threadValueKey] as! ArgumentMatcher
+  return resolvedMatcher
 }
 
 // When `T` is known to be equatable at compile time.
 func resolve<T: Equatable>(_ parameter: @escaping () -> T) -> ArgumentMatcher {
-  let semaphore = Thread.current.typeFacadeSemaphore
-  semaphore.wait()
-  defer { semaphore.signal() }
+  let scope = UUID().uuidString
+  let scopedDidSetValueKey = "\(scope)-\(TypeFacade.threadDidSetValueKey)"
+  let scopedValueKey = "\(scope)-\(TypeFacade.threadValueKey)"
   
-  Thread.current.threadDictionary[TypeFacade.threadDidSetValueKey] = false
-  Thread.current.threadDictionary[TypeFacade.threadValueKey] = nil
-  let realValue = parameter()
-  guard Thread.current.threadDictionary[TypeFacade.threadDidSetValueKey] as? Bool == true else {
-    if let matcher = realValue as? ArgumentMatcher { return matcher }
-    return ArgumentMatcher(realValue)
+  let queue = DispatchQueue(label: "co.bird.mockingbird.typefacade")
+  queue.setSpecific(key: TypeFacade.threadScopeKey, value: scope)
+  
+  var resolvedMatcher: ArgumentMatcher!
+  queue.sync {
+    let realValue = parameter() // It's only safe to store this on the stack.
+    guard Thread.current.threadDictionary[scopedDidSetValueKey] as? Bool == true else {
+      if let matcher = realValue as? ArgumentMatcher {
+        resolvedMatcher = matcher // `realValue` is already an `ArgumentMatcher`.
+      } else {
+        resolvedMatcher = ArgumentMatcher(realValue)
+      }
+      return
+    }
+    // Use the wrapped value returned by resolving type facade.
+    resolvedMatcher = Thread.current.threadDictionary[scopedValueKey] as? ArgumentMatcher
   }
-  return Thread.current.threadDictionary[TypeFacade.threadValueKey] as! ArgumentMatcher
+  return resolvedMatcher
 }
 
 // When the compiler knows the closure returns an ArgumentMatcher.

@@ -144,6 +144,118 @@ public func notNil<T>(_ type: T.Type = T.self) -> T {
   return createTypeFacade(matcher)
 }
 
+// MARK: Collection matchers
+
+/// Matches any collection containing all of the values.
+///
+/// - Parameters:
+///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
+///   - values: A set of concrete values to look for in the collection.
+public func any<T: Collection>(_ type: T.Type = T.self, containing values: T.Element...) -> T {
+  let matcher = ArgumentMatcher(description: "any<\(T.self)>(containing:)", priority: .high) {
+    (_, rhs) in
+    guard let collection = rhs as? T else { return false }
+    return values.allSatisfy({
+      let valueMatcher = ArgumentMatcher($0)
+      return collection.contains(where: { valueMatcher == ArgumentMatcher($0) })
+    })
+  }
+  return createTypeFacade(matcher)
+}
+
+/// Matches any dictionary containing all of the values.
+///
+/// - Parameters:
+///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
+///   - values: A set of concrete values to look for in the dictionary.
+public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
+                      containing values: V...) -> Dictionary<K, V> {
+  let description = "any<\(Dictionary<K, V>.self)>(containing:)"
+  let matcher = ArgumentMatcher(description: description, priority: .high) {
+    (_, rhs) in
+    guard let collection = rhs as? Dictionary<K, V> else { return false }
+    return values.allSatisfy({
+      let valueMatcher = ArgumentMatcher($0)
+      return collection.contains(where: { valueMatcher == ArgumentMatcher($0.value) })
+    })
+  }
+  return createTypeFacade(matcher)
+}
+
+/// Matches any dictionary containing all of the keys.
+///
+/// - Parameters:
+///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
+///   - keys: A set of concrete keys to look for in the dictionary.
+public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
+                      keys: K...) -> Dictionary<K, V> {
+  let description = "any<\(Dictionary<K, V>.self)>(keys:)"
+  let matcher = ArgumentMatcher(description: description, priority: .high) {
+    (_, rhs) in
+    guard let collection = rhs as? Dictionary<K, V> else { return false }
+    return keys.allSatisfy({
+      let keyMatcher = ArgumentMatcher($0)
+      return collection.contains(where: { keyMatcher == ArgumentMatcher($0.key) })
+    })
+  }
+  return createTypeFacade(matcher)
+}
+
+/// Matches any dictionary containing containing a specific key, which could be a wildcard argument
+/// matcher.
+///
+/// - Parameters:
+///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
+///   - keys: A key to look for in the dictionary, which can be an argument matcher.
+public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
+                      key: @escaping @autoclosure () -> K) -> Dictionary<K, V> {
+  let keyMatcher = resolve(key)
+  let description = "any<\(Dictionary<K, V>.self)>(keys:)"
+  let matcher = ArgumentMatcher(description: description, priority: .high) {
+    (_, rhs) in
+    guard let collection = rhs as? Dictionary<K, V> else { return false }
+    return collection.contains(where: { return keyMatcher == ArgumentMatcher($0.key) })
+  }
+  return createTypeFacade(matcher)
+}
+
+/// Matches any collection containing a specific value, which could be a wildcard argument matcher.
+///
+/// - Parameters:
+///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
+///   - value: A value to look for within the collection, which can be an argument matcher.
+public func any<T: Collection>(_ type: T.Type = T.self,
+                               containing value: @escaping @autoclosure () -> T.Element) -> T {
+  let valueMatcher = resolve(value)
+  let matcher = ArgumentMatcher(description: "any<\(T.self)>(containing:)", priority: .high) {
+    (_, rhs) in
+    guard let collection = rhs as? T else { return false }
+    return collection.contains(where: { return valueMatcher == ArgumentMatcher($0) })
+  }
+  return createTypeFacade(matcher)
+}
+
+/// Matches any collection with a specific number of elements defined by a count matcher.
+///
+/// - Parameters:
+///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
+///   - countMatcher: A count matcher defining the number of acceptable elements in the collection.
+public func any<T: Collection>(_ type: T.Type = T.self, count countMatcher: CountMatcher) -> T {
+  let matcher = ArgumentMatcher(description: "any<\(T.self)>(count:)", priority: .high) {
+    (_, rhs) in
+    guard let collection = rhs as? T else { return false }
+    return countMatcher.matches(UInt(collection.count))
+  }
+  return createTypeFacade(matcher)
+}
+
+/// Matches any collection with at least one element.
+///
+/// - Parameter type: Optionally provide an explicit type to disambiguate overloaded methods.
+public func notEmpty<T: Collection>(_ type: T.Type = T.self) -> T {
+  return any(count: atLeast(1))
+}
+
 // MARK: - Standard count matchers
 
 /// Matches an exact count.

@@ -15,12 +15,12 @@ public struct CountMatcher {
   let descriptionCreator: (Invocation, UInt, Bool) -> String
 
   init(_ matcher: @escaping (UInt) -> Bool,
-              describedBy descriptionCreator: @escaping (Invocation, UInt, Bool) -> String) {
+       describedBy descriptionCreator: @escaping (Invocation, UInt, Bool) -> String) {
     self.matcher = matcher
     self.descriptionCreator = descriptionCreator
   }
 
-  func matches(_ actualCalls: UInt) -> Bool { return matcher(actualCalls) }
+  func matches(_ count: UInt) -> Bool { return matcher(count) }
 
   func describe(invocation: Invocation, count: UInt, negated: Bool = false) -> String {
     return descriptionCreator(invocation, count, negated)

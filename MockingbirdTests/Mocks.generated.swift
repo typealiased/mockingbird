@@ -137,6 +137,65 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return ArgumentMatchingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked ArrayCollection
+
+public final class ArrayCollectionMock: MockingbirdTestsHost.ArrayCollection, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.2.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ArrayCollectionMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: ArrayCollectionMock, rhs: ArrayCollectionMock) -> Bool {
+    return true
+  }
+
+  public init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `method(objects:)`
+
+  public func method(objects: [String]) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "method(objects:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`objects`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? ([String]) -> Bool {
+      return concreteImplementation(`objects`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `method(objects:)`
+
+  public func method(objects: @escaping @autoclosure () -> [String]) -> Mockingbird.Stubbable<([String]) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`objects`)]
+    let invocation = Mockingbird.Invocation(selectorName: "method(objects:) -> Bool", arguments: arguments)
+    return Mockingbird.Stubbable<([String]) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `method(objects:)`
+
+  public func method(objects: @escaping @autoclosure () -> [String]) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`objects`)]
+    let invocation = Mockingbird.Invocation(selectorName: "method(objects:) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Bool>(mockingContext: mockingContext, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `ArrayCollection` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ArrayCollection.Protocol) -> ArrayCollectionMock {
+  return ArrayCollectionMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked ArrayTypes
 
 public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.Mock {
@@ -3935,6 +3994,65 @@ public final class DefaultArgumentValuesProtocolMock: MockingbirdTestsHost.Defau
 /// Create a source-attributed `DefaultArgumentValuesProtocol` concrete mock instance.
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.DefaultArgumentValuesProtocol.Protocol) -> DefaultArgumentValuesProtocolMock {
   return DefaultArgumentValuesProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked DictionaryCollection
+
+public final class DictionaryCollectionMock: MockingbirdTestsHost.DictionaryCollection, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.2.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      DictionaryCollectionMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: DictionaryCollectionMock, rhs: DictionaryCollectionMock) -> Bool {
+    return true
+  }
+
+  public init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `method(objects:)`
+
+  public func method(objects: [String: String]) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "method(objects:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`objects`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? ([String: String]) -> Bool {
+      return concreteImplementation(`objects`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `method(objects:)`
+
+  public func method(objects: @escaping @autoclosure () -> [String: String]) -> Mockingbird.Stubbable<([String: String]) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`objects`)]
+    let invocation = Mockingbird.Invocation(selectorName: "method(objects:) -> Bool", arguments: arguments)
+    return Mockingbird.Stubbable<([String: String]) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `method(objects:)`
+
+  public func method(objects: @escaping @autoclosure () -> [String: String]) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`objects`)]
+    let invocation = Mockingbird.Invocation(selectorName: "method(objects:) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Bool>(mockingContext: mockingContext, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `DictionaryCollection` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.DictionaryCollection.Protocol) -> DictionaryCollectionMock {
+  return DictionaryCollectionMock(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked DictionaryTypes
