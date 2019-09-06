@@ -135,15 +135,13 @@ class VariableGenerator {
     
       public \(modifiers)func get\(capitalizedName)() -> Mockingbird.Mockable<\(typeName)> {
         let invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
-        if let expectation = DispatchQueue.currentExpectation { expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation) }
-        return Mockingbird.Mockable<\(typeName)>()
+        return Mockingbird.Mockable<\(typeName)>(mockingContext: \(contextPrefix)mockingContext, invocation: invocation)
       }
     
       public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Mockable<Void> {
         let arguments = [Mockingbird.resolve(newValue)]
         let invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments)
-        if let expectation = DispatchQueue.currentExpectation { expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation) }
-        return Mockingbird.Mockable<Void>()
+        return Mockingbird.Mockable<Void>(mockingContext: \(contextPrefix)mockingContext, invocation: invocation)
       }
     """
   }

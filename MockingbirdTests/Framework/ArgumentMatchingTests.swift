@@ -70,14 +70,14 @@ class ArgumentMatchingTests: XCTestCase {
                               anyType: any(),
                               anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: concreteMock, structType: StructType()))
-    verify(self.concreteMock.method(structType: StructType(),
-                                    classType: any(),
-                                    enumType: any(),
-                                    stringType: any(),
-                                    boolType: any(),
-                                    metaType: any(),
-                                    anyType: any(),
-                                    anyObjectType: any())).wasCalled()
+    verify(concreteMock.method(structType: StructType(),
+                               classType: any(),
+                               enumType: any(),
+                               stringType: any(),
+                               boolType: any(),
+                               metaType: any(),
+                               anyType: any(),
+                               anyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_classType() {
@@ -91,14 +91,14 @@ class ArgumentMatchingTests: XCTestCase {
                               anyType: any(),
                               anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: concreteMock, classType: classTypeReference))
-    verify(self.concreteMock.method(structType: any(),
-                                    classType: classTypeReference,
-                                    enumType: any(),
-                                    stringType: any(),
-                                    boolType: any(),
-                                    metaType: any(),
-                                    anyType: any(),
-                                    anyObjectType: any())).wasCalled()
+    verify(concreteMock.method(structType: any(),
+                               classType: classTypeReference,
+                               enumType: any(),
+                               stringType: any(),
+                               boolType: any(),
+                               metaType: any(),
+                               anyType: any(),
+                               anyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_enumType() {
@@ -111,14 +111,14 @@ class ArgumentMatchingTests: XCTestCase {
                               anyType: any(),
                               anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: concreteMock, enumType: .failure))
-    verify(self.concreteMock.method(structType: any(),
-                                    classType: any(),
-                                    enumType: .failure,
-                                    stringType: any(),
-                                    boolType: any(),
-                                    metaType: any(),
-                                    anyType: any(),
-                                    anyObjectType: any())).wasCalled()
+    verify(concreteMock.method(structType: any(),
+                               classType: any(),
+                               enumType: .failure,
+                               stringType: any(),
+                               boolType: any(),
+                               metaType: any(),
+                               anyType: any(),
+                               anyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_stringType() {
@@ -131,14 +131,14 @@ class ArgumentMatchingTests: XCTestCase {
                               anyType: any(),
                               anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: concreteMock, stringType: "hello-world"))
-    verify(self.concreteMock.method(structType: any(),
-                                    classType: any(),
-                                    enumType: any(),
-                                    stringType: "hello-world",
-                                    boolType: any(),
-                                    metaType: any(),
-                                    anyType: any(),
-                                    anyObjectType: any())).wasCalled()
+    verify(concreteMock.method(structType: any(),
+                               classType: any(),
+                               enumType: any(),
+                               stringType: "hello-world",
+                               boolType: any(),
+                               metaType: any(),
+                               anyType: any(),
+                               anyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_boolType() {
@@ -151,14 +151,14 @@ class ArgumentMatchingTests: XCTestCase {
                               anyType: any(),
                               anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: concreteMock, boolType: false))
-    verify(self.concreteMock.method(structType: any(),
-                                    classType: any(),
-                                    enumType: any(),
-                                    stringType: any(),
-                                    boolType: false,
-                                    metaType: any(),
-                                    anyType: any(),
-                                    anyObjectType: any())).wasCalled()
+    verify(concreteMock.method(structType: any(),
+                               classType: any(),
+                               enumType: any(),
+                               stringType: any(),
+                               boolType: false,
+                               metaType: any(),
+                               anyType: any(),
+                               anyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_metaType() {
@@ -171,14 +171,14 @@ class ArgumentMatchingTests: XCTestCase {
                               anyType: any(),
                               anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: concreteMock, metaType: ClassType.self))
-    verify(self.concreteMock.method(structType: any(),
-                                    classType: any(),
-                                    enumType: any(),
-                                    stringType: any(),
-                                    boolType: any(),
-                                    metaType: ClassType.self,
-                                    anyType: any(),
-                                    anyObjectType: any())).wasCalled()
+    verify(concreteMock.method(structType: any(),
+                               classType: any(),
+                               enumType: any(),
+                               stringType: any(),
+                               boolType: any(),
+                               metaType: ClassType.self,
+                               anyType: any(),
+                               anyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_anyType() {
@@ -191,14 +191,14 @@ class ArgumentMatchingTests: XCTestCase {
                               anyType: any(of: 1),
                               anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: concreteMock, anyType: 1))
-    verify(self.concreteMock.method(structType: any(),
-                                    classType: any(),
-                                    enumType: any(),
-                                    stringType: any(),
-                                    boolType: any(),
-                                    metaType: any(),
-                                    anyType: any(of: 1),
-                                    anyObjectType: any())).wasCalled()
+    verify(concreteMock.method(structType: any(),
+                               classType: any(),
+                               enumType: any(),
+                               stringType: any(),
+                               boolType: any(),
+                               metaType: any(),
+                               anyType: any(of: 1),
+                               anyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_anyObjectType() {
@@ -212,14 +212,14 @@ class ArgumentMatchingTests: XCTestCase {
                               anyType: any(of: ConcreteAnyType()),
                               anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: concreteMock, anyType: ConcreteAnyType()))
-    verify(self.concreteMock.method(structType: any(),
-                                    classType: any(),
-                                    enumType: any(),
-                                    stringType: any(),
-                                    boolType: any(),
-                                    metaType: any(),
-                                    anyType: any(of: ConcreteAnyType()),
-                                    anyObjectType: any())).wasCalled()
+    verify(concreteMock.method(structType: any(),
+                               classType: any(),
+                               enumType: any(),
+                               stringType: any(),
+                               boolType: any(),
+                               metaType: any(),
+                               anyType: any(of: ConcreteAnyType()),
+                               anyObjectType: any())).wasCalled()
   }
   
   // MARK: - Optional arguments + strict matching
@@ -234,14 +234,14 @@ class ArgumentMatchingTests: XCTestCase {
                               optionalAnyType: notNil(),
                               optionalAnyObjectType: notNil())) ~> true
     XCTAssertTrue(callOptionalMethod(on: concreteMock, optionalStructType: nil))
-    verify(self.concreteMock.method(optionalStructType: nil,
-                                    optionalClassType: notNil(),
-                                    optionalEnumType: notNil(),
-                                    optionalStringType: notNil(),
-                                    optionalBoolType: notNil(),
-                                    optionalMetaType: notNil(),
-                                    optionalAnyType: notNil(),
-                                    optionalAnyObjectType: notNil())).wasCalled()
+    verify(concreteMock.method(optionalStructType: nil,
+                               optionalClassType: notNil(),
+                               optionalEnumType: notNil(),
+                               optionalStringType: notNil(),
+                               optionalBoolType: notNil(),
+                               optionalMetaType: notNil(),
+                               optionalAnyType: notNil(),
+                               optionalAnyObjectType: notNil())).wasCalled()
   }
   
   func testArgumentMatching_optionalClassType_usingStrictMatching() {
@@ -254,14 +254,14 @@ class ArgumentMatchingTests: XCTestCase {
                               optionalAnyType: notNil(),
                               optionalAnyObjectType: notNil())) ~> true
     XCTAssertTrue(callOptionalMethod(on: concreteMock, optionalClassType: nil))
-    verify(self.concreteMock.method(optionalStructType: notNil(),
-                                    optionalClassType: nil,
-                                    optionalEnumType: notNil(),
-                                    optionalStringType: notNil(),
-                                    optionalBoolType: notNil(),
-                                    optionalMetaType: notNil(),
-                                    optionalAnyType: notNil(),
-                                    optionalAnyObjectType: notNil())).wasCalled()
+    verify(concreteMock.method(optionalStructType: notNil(),
+                               optionalClassType: nil,
+                               optionalEnumType: notNil(),
+                               optionalStringType: notNil(),
+                               optionalBoolType: notNil(),
+                               optionalMetaType: notNil(),
+                               optionalAnyType: notNil(),
+                               optionalAnyObjectType: notNil())).wasCalled()
   }
   
   func testArgumentMatching_optionalEnumType_usingStrictMatching() {
@@ -274,14 +274,14 @@ class ArgumentMatchingTests: XCTestCase {
                               optionalAnyType: notNil(),
                               optionalAnyObjectType: notNil())) ~> true
     XCTAssertTrue(callOptionalMethod(on: concreteMock, optionalEnumType: nil))
-    verify(self.concreteMock.method(optionalStructType: notNil(),
-                                    optionalClassType: notNil(),
-                                    optionalEnumType: nil,
-                                    optionalStringType: notNil(),
-                                    optionalBoolType: notNil(),
-                                    optionalMetaType: notNil(),
-                                    optionalAnyType: notNil(),
-                                    optionalAnyObjectType: notNil())).wasCalled()
+    verify(concreteMock.method(optionalStructType: notNil(),
+                               optionalClassType: notNil(),
+                               optionalEnumType: nil,
+                               optionalStringType: notNil(),
+                               optionalBoolType: notNil(),
+                               optionalMetaType: notNil(),
+                               optionalAnyType: notNil(),
+                               optionalAnyObjectType: notNil())).wasCalled()
   }
   
   func testArgumentMatching_optionalStringType_usingStrictMatching() {
@@ -294,14 +294,14 @@ class ArgumentMatchingTests: XCTestCase {
                               optionalAnyType: notNil(),
                               optionalAnyObjectType: notNil())) ~> true
     XCTAssertTrue(callOptionalMethod(on: concreteMock, optionalStringType: nil))
-    verify(self.concreteMock.method(optionalStructType: notNil(),
-                                    optionalClassType: notNil(),
-                                    optionalEnumType: notNil(),
-                                    optionalStringType: nil,
-                                    optionalBoolType: notNil(),
-                                    optionalMetaType: notNil(),
-                                    optionalAnyType: notNil(),
-                                    optionalAnyObjectType: notNil())).wasCalled()
+    verify(concreteMock.method(optionalStructType: notNil(),
+                               optionalClassType: notNil(),
+                               optionalEnumType: notNil(),
+                               optionalStringType: nil,
+                               optionalBoolType: notNil(),
+                               optionalMetaType: notNil(),
+                               optionalAnyType: notNil(),
+                               optionalAnyObjectType: notNil())).wasCalled()
   }
   
   func testArgumentMatching_optionalBoolType_usingStrictMatching() {
@@ -314,14 +314,14 @@ class ArgumentMatchingTests: XCTestCase {
                               optionalAnyType: notNil(),
                               optionalAnyObjectType: notNil())) ~> true
     XCTAssertTrue(callOptionalMethod(on: concreteMock, optionalBoolType: nil))
-    verify(self.concreteMock.method(optionalStructType: notNil(),
-                                    optionalClassType: notNil(),
-                                    optionalEnumType: notNil(),
-                                    optionalStringType: notNil(),
-                                    optionalBoolType: nil,
-                                    optionalMetaType: notNil(),
-                                    optionalAnyType: notNil(),
-                                    optionalAnyObjectType: notNil())).wasCalled()
+    verify(concreteMock.method(optionalStructType: notNil(),
+                               optionalClassType: notNil(),
+                               optionalEnumType: notNil(),
+                               optionalStringType: notNil(),
+                               optionalBoolType: nil,
+                               optionalMetaType: notNil(),
+                               optionalAnyType: notNil(),
+                               optionalAnyObjectType: notNil())).wasCalled()
   }
   
   func testArgumentMatching_optionalMetaType_usingStrictMatching() {
@@ -334,14 +334,14 @@ class ArgumentMatchingTests: XCTestCase {
                               optionalAnyType: notNil(),
                               optionalAnyObjectType: notNil())) ~> true
     XCTAssertTrue(callOptionalMethod(on: concreteMock, optionalMetaType: nil))
-    verify(self.concreteMock.method(optionalStructType: notNil(),
-                                    optionalClassType: notNil(),
-                                    optionalEnumType: notNil(),
-                                    optionalStringType: notNil(),
-                                    optionalBoolType: notNil(),
-                                    optionalMetaType: nil,
-                                    optionalAnyType: notNil(),
-                                    optionalAnyObjectType: notNil())).wasCalled()
+    verify(concreteMock.method(optionalStructType: notNil(),
+                               optionalClassType: notNil(),
+                               optionalEnumType: notNil(),
+                               optionalStringType: notNil(),
+                               optionalBoolType: notNil(),
+                               optionalMetaType: nil,
+                               optionalAnyType: notNil(),
+                               optionalAnyObjectType: notNil())).wasCalled()
   }
   
   func testArgumentMatching_optionalAnyType_usingStrictMatching() {
@@ -354,14 +354,14 @@ class ArgumentMatchingTests: XCTestCase {
                               optionalAnyType: nil,
                               optionalAnyObjectType: notNil())) ~> true
     XCTAssertTrue(callOptionalMethod(on: concreteMock, optionalAnyType: nil))
-    verify(self.concreteMock.method(optionalStructType: notNil(),
-                                    optionalClassType: notNil(),
-                                    optionalEnumType: notNil(),
-                                    optionalStringType: notNil(),
-                                    optionalBoolType: notNil(),
-                                    optionalMetaType: notNil(),
-                                    optionalAnyType: nil,
-                                    optionalAnyObjectType: notNil())).wasCalled()
+    verify(concreteMock.method(optionalStructType: notNil(),
+                               optionalClassType: notNil(),
+                               optionalEnumType: notNil(),
+                               optionalStringType: notNil(),
+                               optionalBoolType: notNil(),
+                               optionalMetaType: notNil(),
+                               optionalAnyType: nil,
+                               optionalAnyObjectType: notNil())).wasCalled()
   }
   
   func testArgumentMatching_optionalAnyObjectType_usingStrictMatching() {
@@ -374,14 +374,14 @@ class ArgumentMatchingTests: XCTestCase {
                               optionalAnyType: notNil(),
                               optionalAnyObjectType: nil)) ~> true
     XCTAssertTrue(callOptionalMethod(on: concreteMock, optionalAnyObjectType: nil))
-    verify(self.concreteMock.method(optionalStructType: notNil(),
-                                    optionalClassType: notNil(),
-                                    optionalEnumType: notNil(),
-                                    optionalStringType: notNil(),
-                                    optionalBoolType: notNil(),
-                                    optionalMetaType: notNil(),
-                                    optionalAnyType: notNil(),
-                                    optionalAnyObjectType: nil)).wasCalled()
+    verify(concreteMock.method(optionalStructType: notNil(),
+                               optionalClassType: notNil(),
+                               optionalEnumType: notNil(),
+                               optionalStringType: notNil(),
+                               optionalBoolType: notNil(),
+                               optionalMetaType: notNil(),
+                               optionalAnyType: notNil(),
+                               optionalAnyObjectType: nil)).wasCalled()
   }
   
   // MARK: - Optional arguments + wildcard matching
@@ -396,14 +396,14 @@ class ArgumentMatchingTests: XCTestCase {
                               optionalAnyType: any(),
                               optionalAnyObjectType: any())) ~> true
     XCTAssertTrue(callOptionalMethod(on: concreteMock, optionalStructType: nil))
-    verify(self.concreteMock.method(optionalStructType: any(),
-                                    optionalClassType: any(),
-                                    optionalEnumType: any(),
-                                    optionalStringType: any(),
-                                    optionalBoolType: any(),
-                                    optionalMetaType: any(),
-                                    optionalAnyType: any(),
-                                    optionalAnyObjectType: any())).wasCalled()
+    verify(concreteMock.method(optionalStructType: any(),
+                               optionalClassType: any(),
+                               optionalEnumType: any(),
+                               optionalStringType: any(),
+                               optionalBoolType: any(),
+                               optionalMetaType: any(),
+                               optionalAnyType: any(),
+                               optionalAnyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_optionalClassType_usingWildcardMatching() {
@@ -416,14 +416,14 @@ class ArgumentMatchingTests: XCTestCase {
                               optionalAnyType: any(),
                               optionalAnyObjectType: any())) ~> true
     XCTAssertTrue(callOptionalMethod(on: concreteMock, optionalClassType: nil))
-    verify(self.concreteMock.method(optionalStructType: any(),
-                                    optionalClassType: any(),
-                                    optionalEnumType: any(),
-                                    optionalStringType: any(),
-                                    optionalBoolType: any(),
-                                    optionalMetaType: any(),
-                                    optionalAnyType: any(),
-                                    optionalAnyObjectType: any())).wasCalled()
+    verify(concreteMock.method(optionalStructType: any(),
+                               optionalClassType: any(),
+                               optionalEnumType: any(),
+                               optionalStringType: any(),
+                               optionalBoolType: any(),
+                               optionalMetaType: any(),
+                               optionalAnyType: any(),
+                               optionalAnyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_optionalEnumType_usingWildcardMatching() {
@@ -436,14 +436,14 @@ class ArgumentMatchingTests: XCTestCase {
                               optionalAnyType: any(),
                               optionalAnyObjectType: any())) ~> true
     XCTAssertTrue(callOptionalMethod(on: concreteMock, optionalEnumType: nil))
-    verify(self.concreteMock.method(optionalStructType: any(),
-                                    optionalClassType: any(),
-                                    optionalEnumType: any(),
-                                    optionalStringType: any(),
-                                    optionalBoolType: any(),
-                                    optionalMetaType: any(),
-                                    optionalAnyType: any(),
-                                    optionalAnyObjectType: any())).wasCalled()
+    verify(concreteMock.method(optionalStructType: any(),
+                               optionalClassType: any(),
+                               optionalEnumType: any(),
+                               optionalStringType: any(),
+                               optionalBoolType: any(),
+                               optionalMetaType: any(),
+                               optionalAnyType: any(),
+                               optionalAnyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_optionalStringType_usingWildcardMatching() {
@@ -456,14 +456,14 @@ class ArgumentMatchingTests: XCTestCase {
                               optionalAnyType: any(),
                               optionalAnyObjectType: any())) ~> true
     XCTAssertTrue(callOptionalMethod(on: concreteMock, optionalStringType: nil))
-    verify(self.concreteMock.method(optionalStructType: any(),
-                                    optionalClassType: any(),
-                                    optionalEnumType: any(),
-                                    optionalStringType: any(),
-                                    optionalBoolType: any(),
-                                    optionalMetaType: any(),
-                                    optionalAnyType: any(),
-                                    optionalAnyObjectType: any())).wasCalled()
+    verify(concreteMock.method(optionalStructType: any(),
+                               optionalClassType: any(),
+                               optionalEnumType: any(),
+                               optionalStringType: any(),
+                               optionalBoolType: any(),
+                               optionalMetaType: any(),
+                               optionalAnyType: any(),
+                               optionalAnyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_optionalBoolType_usingWildcardMatching() {
@@ -476,14 +476,14 @@ class ArgumentMatchingTests: XCTestCase {
                               optionalAnyType: any(),
                               optionalAnyObjectType: any())) ~> true
     XCTAssertTrue(callOptionalMethod(on: concreteMock, optionalBoolType: nil))
-    verify(self.concreteMock.method(optionalStructType: any(),
-                                    optionalClassType: any(),
-                                    optionalEnumType: any(),
-                                    optionalStringType: any(),
-                                    optionalBoolType: any(),
-                                    optionalMetaType: any(),
-                                    optionalAnyType: any(),
-                                    optionalAnyObjectType: any())).wasCalled()
+    verify(concreteMock.method(optionalStructType: any(),
+                               optionalClassType: any(),
+                               optionalEnumType: any(),
+                               optionalStringType: any(),
+                               optionalBoolType: any(),
+                               optionalMetaType: any(),
+                               optionalAnyType: any(),
+                               optionalAnyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_optionalMetaType_usingWildcardMatching() {
@@ -496,14 +496,14 @@ class ArgumentMatchingTests: XCTestCase {
                               optionalAnyType: any(),
                               optionalAnyObjectType: any())) ~> true
     XCTAssertTrue(callOptionalMethod(on: concreteMock, optionalMetaType: nil))
-    verify(self.concreteMock.method(optionalStructType: any(),
-                                    optionalClassType: any(),
-                                    optionalEnumType: any(),
-                                    optionalStringType: any(),
-                                    optionalBoolType: any(),
-                                    optionalMetaType: any(),
-                                    optionalAnyType: any(),
-                                    optionalAnyObjectType: any())).wasCalled()
+    verify(concreteMock.method(optionalStructType: any(),
+                               optionalClassType: any(),
+                               optionalEnumType: any(),
+                               optionalStringType: any(),
+                               optionalBoolType: any(),
+                               optionalMetaType: any(),
+                               optionalAnyType: any(),
+                               optionalAnyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_optionalAnyType_usingWildcardMatching() {
@@ -516,14 +516,14 @@ class ArgumentMatchingTests: XCTestCase {
                               optionalAnyType: any(),
                               optionalAnyObjectType: any())) ~> true
     XCTAssertTrue(callOptionalMethod(on: concreteMock, optionalAnyType: nil))
-    verify(self.concreteMock.method(optionalStructType: any(),
-                                    optionalClassType: any(),
-                                    optionalEnumType: any(),
-                                    optionalStringType: any(),
-                                    optionalBoolType: any(),
-                                    optionalMetaType: any(),
-                                    optionalAnyType: any(),
-                                    optionalAnyObjectType: any())).wasCalled()
+    verify(concreteMock.method(optionalStructType: any(),
+                               optionalClassType: any(),
+                               optionalEnumType: any(),
+                               optionalStringType: any(),
+                               optionalBoolType: any(),
+                               optionalMetaType: any(),
+                               optionalAnyType: any(),
+                               optionalAnyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_optionalAnyObjectType_usingWildcardMatching() {
@@ -536,14 +536,14 @@ class ArgumentMatchingTests: XCTestCase {
                               optionalAnyType: any(),
                               optionalAnyObjectType: any())) ~> true
     XCTAssertTrue(callOptionalMethod(on: concreteMock, optionalAnyObjectType: nil))
-    verify(self.concreteMock.method(optionalStructType: any(),
-                                    optionalClassType: any(),
-                                    optionalEnumType: any(),
-                                    optionalStringType: any(),
-                                    optionalBoolType: any(),
-                                    optionalMetaType: any(),
-                                    optionalAnyType: any(),
-                                    optionalAnyObjectType: any())).wasCalled()
+    verify(concreteMock.method(optionalStructType: any(),
+                               optionalClassType: any(),
+                               optionalEnumType: any(),
+                               optionalStringType: any(),
+                               optionalBoolType: any(),
+                               optionalMetaType: any(),
+                               optionalAnyType: any(),
+                               optionalAnyObjectType: any())).wasCalled()
   }
   
   // MARK: - Multiple argument matching
@@ -558,14 +558,14 @@ class ArgumentMatchingTests: XCTestCase {
                               anyType: any(),
                               anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: concreteMock, structType: StructType(value: 1)))
-    verify(self.concreteMock.method(structType: any(of: StructType(value: 0), StructType(value: 1)),
-                                    classType: any(),
-                                    enumType: any(),
-                                    stringType: any(),
-                                    boolType: any(),
-                                    metaType: any(),
-                                    anyType: any(),
-                                    anyObjectType: any())).wasCalled()
+    verify(concreteMock.method(structType: any(of: StructType(value: 0), StructType(value: 1)),
+                               classType: any(),
+                               enumType: any(),
+                               stringType: any(),
+                               boolType: any(),
+                               metaType: any(),
+                               anyType: any(),
+                               anyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_classType_multipleValueMatching() {
@@ -580,14 +580,14 @@ class ArgumentMatchingTests: XCTestCase {
                               anyType: any(),
                               anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: concreteMock, classType: classType))
-    verify(self.concreteMock.method(structType: any(),
-                                    classType: any(of: otherClassType, classType),
-                                    enumType: any(),
-                                    stringType: any(),
-                                    boolType: any(),
-                                    metaType: any(),
-                                    anyType: any(),
-                                    anyObjectType: any())).wasCalled()
+    verify(concreteMock.method(structType: any(),
+                               classType: any(of: otherClassType, classType),
+                               enumType: any(),
+                               stringType: any(),
+                               boolType: any(),
+                               metaType: any(),
+                               anyType: any(),
+                               anyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_enumType_multipleValueMatching() {
@@ -600,14 +600,14 @@ class ArgumentMatchingTests: XCTestCase {
                               anyType: any(),
                               anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: concreteMock, enumType: .failure))
-    verify(self.concreteMock.method(structType: any(),
-                                    classType: any(),
-                                    enumType: any(of: .success, .failure),
-                                    stringType: any(),
-                                    boolType: any(),
-                                    metaType: any(),
-                                    anyType: any(),
-                                    anyObjectType: any())).wasCalled()
+    verify(concreteMock.method(structType: any(),
+                               classType: any(),
+                               enumType: any(of: .success, .failure),
+                               stringType: any(),
+                               boolType: any(),
+                               metaType: any(),
+                               anyType: any(),
+                               anyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_stringType_multipleValueMatching() {
@@ -620,14 +620,14 @@ class ArgumentMatchingTests: XCTestCase {
                               anyType: any(),
                               anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: concreteMock, stringType: "hello-world"))
-    verify(self.concreteMock.method(structType: any(),
-                                    classType: any(),
-                                    enumType: any(),
-                                    stringType: any(of: "foo", "bar", "hello-world"),
-                                    boolType: any(),
-                                    metaType: any(),
-                                    anyType: any(),
-                                    anyObjectType: any())).wasCalled()
+    verify(concreteMock.method(structType: any(),
+                               classType: any(),
+                               enumType: any(),
+                               stringType: any(of: "foo", "bar", "hello-world"),
+                               boolType: any(),
+                               metaType: any(),
+                               anyType: any(),
+                               anyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_boolType_multipleValueMatching() {
@@ -640,14 +640,14 @@ class ArgumentMatchingTests: XCTestCase {
                               anyType: any(),
                               anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: concreteMock, boolType: false))
-    verify(self.concreteMock.method(structType: any(),
-                                    classType: any(),
-                                    enumType: any(),
-                                    stringType: any(),
-                                    boolType: any(of: true, false),
-                                    metaType: any(),
-                                    anyType: any(),
-                                    anyObjectType: any())).wasCalled()
+    verify(concreteMock.method(structType: any(),
+                               classType: any(),
+                               enumType: any(),
+                               stringType: any(),
+                               boolType: any(of: true, false),
+                               metaType: any(),
+                               anyType: any(),
+                               anyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_anyType_multipleValueMatching() {
@@ -660,14 +660,14 @@ class ArgumentMatchingTests: XCTestCase {
                               anyType: any(of: true, "hello", StructType(), ClassType()),
                               anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: concreteMock, anyType: "hello"))
-    verify(self.concreteMock.method(structType: any(),
-                                    classType: any(),
-                                    enumType: any(),
-                                    stringType: any(),
-                                    boolType: any(),
-                                    metaType: any(),
-                                    anyType: any(of: true, "hello", StructType(), ClassType()),
-                                    anyObjectType: any())).wasCalled()
+    verify(concreteMock.method(structType: any(),
+                               classType: any(),
+                               enumType: any(),
+                               stringType: any(),
+                               boolType: any(),
+                               metaType: any(),
+                               anyType: any(of: true, "hello", StructType(), ClassType()),
+                               anyObjectType: any())).wasCalled()
   }
   
   func testArgumentMatching_anyObjectType_multipleValueMatching() {
@@ -681,14 +681,14 @@ class ArgumentMatchingTests: XCTestCase {
                               anyType: any(),
                               anyObjectType: any(of: ClassType(), classTypeReference))) ~> true
     XCTAssertTrue(callMethod(on: concreteMock, anyObjectType: classTypeReference))
-    verify(self.concreteMock.method(structType: any(),
-                                    classType: any(),
-                                    enumType: any(),
-                                    stringType: any(),
-                                    boolType: any(),
-                                    metaType: any(),
-                                    anyType: any(),
-                                    anyObjectType: any(of: ClassType(), classTypeReference))).wasCalled()
+    verify(concreteMock.method(structType: any(),
+                               classType: any(),
+                               enumType: any(),
+                               stringType: any(),
+                               boolType: any(),
+                               metaType: any(),
+                               anyType: any(),
+                               anyObjectType: any(of: ClassType(), classTypeReference))).wasCalled()
   }
   
   // MARK: - Conditional matching
@@ -703,13 +703,13 @@ class ArgumentMatchingTests: XCTestCase {
                               anyType: any(),
                               anyObjectType: any())) ~> true
     XCTAssertTrue(callMethod(on: concreteMock, structType: StructType(value: 100)))
-    verify(self.concreteMock.method(structType: any(where: { $0.value > 99 }),
-                                    classType: any(),
-                                    enumType: any(),
-                                    stringType: any(),
-                                    boolType: any(),
-                                    metaType: any(),
-                                    anyType: any(),
-                                    anyObjectType: any())).wasCalled()
+    verify(concreteMock.method(structType: any(where: { $0.value > 99 }),
+                               classType: any(),
+                               enumType: any(),
+                               stringType: any(),
+                               boolType: any(),
+                               metaType: any(),
+                               anyType: any(),
+                               anyObjectType: any())).wasCalled()
   }
 }

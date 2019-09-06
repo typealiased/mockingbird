@@ -32,9 +32,7 @@ public struct MockMetadata {
   }
 }
 
-protocol RunnableScope {
-  var uuid: UUID { get }
-  func run() -> Any?
+public struct Mockable<T> {
+  let mockingContext: MockingContext
+  let invocation: Invocation
 }
-
-public struct Mockable<T> {}

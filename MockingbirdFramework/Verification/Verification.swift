@@ -19,18 +19,14 @@ public struct SourceLocation {
 }
 
 /// Intermediate verification object.
-public struct Verification<T>: RunnableScope {
-  let uuid = UUID()
+public struct Verification<T> {
+  let mockable: Mockable<T>
   let sourceLocation: SourceLocation
 
-  private let runnable: () -> Any?
-
-  init(_ runnable: @escaping () -> Any?, at sourceLocation: SourceLocation) {
-    self.runnable = runnable
+  init(with mockable: Mockable<T>, at sourceLocation: SourceLocation) {
+    self.mockable = mockable
     self.sourceLocation = sourceLocation
   }
-  
-  func run() -> Any? { return runnable() }
 
   /// Verify that the mock received the invocation some number of times.
   ///
@@ -53,18 +49,15 @@ public struct Verification<T>: RunnableScope {
   
   /// Runs the block within an attributed `DispatchQueue`.
   func verify(using callMatcher: CallMatcher, for sourceLocation: SourceLocation) {
-    let queue = DispatchQueue(label: "co.bird.mockingbird.verification-scope")
     let expectation = Expectation(callMatcher: callMatcher,
                                   sourceLocation: sourceLocation,
                                   asyncGroup: DispatchQueue.currentAsyncGroup)
-    queue.setSpecific(key: Expectation.verificationScopeKey, value: expectation)
-    _ = queue.sync { self.run() }
+    expect(mockable.mockingContext, handled: mockable.invocation, using: expectation)
   }
 }
 
 /// Packages a call matcher and its call site. Used by verification methods in attributed scopes.
 struct Expectation {
-  static let verificationScopeKey = DispatchSpecificKey<Expectation>()
   static let asyncGroupKey = DispatchSpecificKey<AsyncExpectationGroup>()
   
   let callMatcher: CallMatcher
@@ -94,10 +87,6 @@ class AsyncExpectationGroup {
 }
 
 extension DispatchQueue {
-  class var currentExpectation: Expectation? {
-    return DispatchQueue.getSpecific(key: Expectation.verificationScopeKey)
-  }
-  
   class var currentAsyncGroup: AsyncExpectationGroup? {
     return DispatchQueue.getSpecific(key: Expectation.asyncGroupKey)
   }

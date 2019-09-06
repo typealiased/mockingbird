@@ -30,30 +30,30 @@ class VeriadicParametersTests: XCTestCase {
   
   func testVariadicMethod_calledWithStrings_usingStrictMatching() {
     callVariadicStringsMethod(on: concreteMock)
-    verify(self.concreteMock.variadicMethod(objects: "a", "b", "c", param2: 1)).wasCalled()
+    verify(concreteMock.variadicMethod(objects: "a", "b", "c", param2: 1)).wasCalled()
   }
   func testVariadicMethod_calledWithStrings_usingWildcardMatching() {
     callVariadicStringsMethod(on: concreteMock)
-    verify(self.concreteMock.variadicMethod(objects: any([String].self), param2: 1)).wasCalled()
+    verify(concreteMock.variadicMethod(objects: any([String].self), param2: 1)).wasCalled()
   }
   
   func testVariadicMethod_calledWithBools_usingStrictMatching() {
     callVariadicBoolsMethod(on: concreteMock)
-    verify(self.concreteMock.variadicMethod(objects: true, false, true, param2: 1)).wasCalled()
+    verify(concreteMock.variadicMethod(objects: true, false, true, param2: 1)).wasCalled()
   }
   func testVariadicMethod_calledWithBools_usingWildcardMatching() {
     callVariadicBoolsMethod(on: concreteMock)
-    verify(self.concreteMock.variadicMethod(objects: any([Bool].self), param2: 1)).wasCalled()
+    verify(concreteMock.variadicMethod(objects: any([Bool].self), param2: 1)).wasCalled()
   }
   
   func testVariadicReturningMethod_calledWithBools_usingStrictMatching() {
     given(concreteMock.variadicReturningMethod(objects: true, false, true, param2: 1)) ~> true
     XCTAssertTrue(callVariadicReturningMethod(on: concreteMock))
-    verify(self.concreteMock.variadicReturningMethod(objects: true, false, true, param2: 1)).wasCalled()
+    verify(concreteMock.variadicReturningMethod(objects: true, false, true, param2: 1)).wasCalled()
   }
   func testVariadicReturningMethod_calledWithBools_usingWildcardMatching() {
     given(concreteMock.variadicReturningMethod(objects: any(), param2: 1)) ~> true
     XCTAssertTrue(callVariadicReturningMethod(on: concreteMock))
-    verify(self.concreteMock.variadicReturningMethod(objects: any(), param2: 1)).wasCalled()
+    verify(concreteMock.variadicReturningMethod(objects: any(), param2: 1)).wasCalled()
   }
 }

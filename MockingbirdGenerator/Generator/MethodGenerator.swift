@@ -174,8 +174,7 @@ class MethodGenerator {
     
       public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Mockable<\(returnTypeName)>\(genericConstraints) {
     \(matchableInvocation)
-        if let expectation = DispatchQueue.currentExpectation { expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation) }
-        return Mockingbird.Mockable<\(returnTypeName)>()
+        return Mockingbird.Mockable<\(returnTypeName)>(mockingContext: \(contextPrefix)mockingContext, invocation: invocation)
       }
     """
     guard isVariadicMethod else { return stub }
@@ -186,8 +185,7 @@ class MethodGenerator {
     
       public \(regularModifiers)func \(fullNameForMatchingVariadics) -> Mockingbird.Mockable<\(returnTypeName)>\(genericConstraints) {
     \(matchableInvocationVariadics)
-        if let expectation = DispatchQueue.currentExpectation { expect(\(contextPrefix)mockingContext, handled: invocation, using: expectation) }
-        return Mockingbird.Mockable<\(returnTypeName)>()
+        return Mockingbird.Mockable<\(returnTypeName)>(mockingContext: \(contextPrefix)mockingContext, invocation: invocation)
       }
     """
   }()

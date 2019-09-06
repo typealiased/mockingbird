@@ -42,14 +42,13 @@ public func lastSetValue<T, R>(initial: R) -> StubImplementation<T, R> {
 
 // MARK: - Verification
 
-/// Verify that a single mock recieved a specific invocation some number of times.
+/// Verify that a mock recieved a specific invocation some number of times.
 ///
 /// - Parameters:
-///   - callMatcher: A call matcher defining the total number of invocations.
-///   - mock: A mock and its invocation to verify.
+///   - mock: A mockable invocation to verify.
 public func verify<T>(file: StaticString = #file, line: UInt = #line,
-                      _ mock: @escaping @autoclosure () -> Mockable<T>) -> Verification<T> {
-  return Verification(mock, at: SourceLocation(file, line))
+                      _ mockable: Mockable<T>) -> Verification<T> {
+  return Verification(with: mockable, at: SourceLocation(file, line))
 }
 
 /// Create a deferrable test expectation from a block containing verification calls.
