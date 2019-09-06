@@ -189,7 +189,7 @@ class MethodGenerator {
   lazy var overridableModifiers: String = { return modifiers(allowOverride: true) }()
   func modifiers(allowOverride: Bool = true) -> String {
     let isRequired = method.attributes.contains(.required)
-    let required = (isRequired ? "required " : "")
+    let required = (isRequired || method.isInitializer ? "required " : "")
     let override = (context.kind == .class && !isRequired && allowOverride ? "override " : "")
     let `static` = (method.kind.typeScope == .static || method.kind.typeScope == .class ? "static " : "")
     return "\(required)\(override)\(`static`)"

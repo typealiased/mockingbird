@@ -136,8 +136,8 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
   }
 }
 
-/// Create a source-attributed `ArgumentMatchingProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ArgumentMatchingProtocol.Protocol) -> ArgumentMatchingProtocolMock {
+/// Create a source-attributed `ArgumentMatchingProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ArgumentMatchingProtocol.Protocol) -> ArgumentMatchingProtocolMock {
   return ArgumentMatchingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -918,8 +918,8 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   }
 }
 
-/// Create a source-attributed `ArrayTypes` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ArrayTypes.Protocol) -> ArrayTypesMock {
+/// Create a source-attributed `ArrayTypes` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ArrayTypes.Protocol) -> ArrayTypesMock {
   return ArrayTypesMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -988,8 +988,8 @@ public final class AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType:
   }
 }
 
-/// Create a source-attributed `AssociatedTypeGenericConstraintsProtocol<ConstrainedType>` mock.
-public func mock<T: MockingbirdTestsHost.AssociatedTypeGenericConstraintsProtocol, ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType> {
+/// Create a source-attributed `AssociatedTypeGenericConstraintsProtocol<ConstrainedType>` concrete mock instance.
+public func mock<MockType: MockingbirdTestsHost.AssociatedTypeGenericConstraintsProtocol, ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType> {
   return AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>(sourceLocation: SourceLocation(file, line))
 }
 
@@ -1165,6 +1165,11 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
   }
 }
 
+/// Create a source-attributed `AssociatedTypeGenericImplementer<EquatableType, S>` mock metatype.
+public func mock<MockType: MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>, EquatableType: Equatable, S: Sequence>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> AssociatedTypeGenericImplementerMock<EquatableType, S>.Type {
+  return AssociatedTypeGenericImplementerMock.self
+}
+
 // MARK: - Mocked AssociatedTypeImplementerProtocol
 
 public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.AssociatedTypeImplementerProtocol, Mockingbird.Mock {
@@ -1283,8 +1288,8 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
   }
 }
 
-/// Create a source-attributed `AssociatedTypeImplementerProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.AssociatedTypeImplementerProtocol.Protocol) -> AssociatedTypeImplementerProtocolMock {
+/// Create a source-attributed `AssociatedTypeImplementerProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.AssociatedTypeImplementerProtocol.Protocol) -> AssociatedTypeImplementerProtocolMock {
   return AssociatedTypeImplementerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -1337,6 +1342,11 @@ public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.Associate
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
   }
+}
+
+/// Create a source-attributed `AssociatedTypeImplementer` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.AssociatedTypeImplementer.Type) -> AssociatedTypeImplementerMock.Type {
+  return AssociatedTypeImplementerMock.self
 }
 
 // MARK: - Mocked AssociatedTypeProtocol
@@ -1597,8 +1607,8 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
   }
 }
 
-/// Create a source-attributed `AssociatedTypeProtocol<EquatableType, HashableType>` mock.
-public func mock<T: MockingbirdTestsHost.AssociatedTypeProtocol, EquatableType: Equatable, HashableType: Hashable>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> AssociatedTypeProtocolMock<EquatableType, HashableType> {
+/// Create a source-attributed `AssociatedTypeProtocol<EquatableType, HashableType>` concrete mock instance.
+public func mock<MockType: MockingbirdTestsHost.AssociatedTypeProtocol, EquatableType: Equatable, HashableType: Hashable>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> AssociatedTypeProtocolMock<EquatableType, HashableType> {
   return AssociatedTypeProtocolMock<EquatableType, HashableType>(sourceLocation: SourceLocation(file, line))
 }
 
@@ -1729,8 +1739,8 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
   }
 }
 
-/// Create a source-attributed `AssociatedTypeSelfReferencingProtocol<SequenceType>` mock.
-public func mock<T: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, SequenceType: Sequence>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> AssociatedTypeSelfReferencingProtocolMock<SequenceType> {
+/// Create a source-attributed `AssociatedTypeSelfReferencingProtocol<SequenceType>` concrete mock instance.
+public func mock<MockType: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, SequenceType: Sequence>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> AssociatedTypeSelfReferencingProtocolMock<SequenceType> {
   return AssociatedTypeSelfReferencingProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line))
 }
 
@@ -1931,8 +1941,8 @@ public final class BirdMock: MockingbirdTestsHost.Bird, Mockingbird.Mock {
   }
 }
 
-/// Create a source-attributed `Bird` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.Bird.Protocol) -> BirdMock {
+/// Create a source-attributed `Bird` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.Bird.Protocol) -> BirdMock {
   return BirdMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -2921,8 +2931,8 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 }
 
-/// Create a source-attributed `ChildProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ChildProtocol.Protocol) -> ChildProtocolMock {
+/// Create a source-attributed `ChildProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ChildProtocol.Protocol) -> ChildProtocolMock {
   return ChildProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -3606,6 +3616,11 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   }
 }
 
+/// Create a source-attributed `Child` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.Child.Type) -> ChildMock.Type {
+  return ChildMock.self
+}
+
 // MARK: - Mocked ClassType
 
 public final class ClassTypeMock: MockingbirdTestsHost.ClassType, Mockingbird.Mock {
@@ -3624,6 +3639,11 @@ public final class ClassTypeMock: MockingbirdTestsHost.ClassType, Mockingbird.Mo
   public static func ==(lhs: ClassTypeMock, rhs: ClassTypeMock) -> Bool {
     return true
   }
+}
+
+/// Create a source-attributed `ClassType` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ClassType.Type) -> ClassTypeMock.Type {
+  return ClassTypeMock.self
 }
 
 // MARK: - Mocked ClosureParametersProtocol
@@ -4023,8 +4043,8 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   }
 }
 
-/// Create a source-attributed `ClosureParametersProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ClosureParametersProtocol.Protocol) -> ClosureParametersProtocolMock {
+/// Create a source-attributed `ClosureParametersProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ClosureParametersProtocol.Protocol) -> ClosureParametersProtocolMock {
   return ClosureParametersProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -4049,18 +4069,17 @@ public final class ConvenienceInitializerClassMock: MockingbirdTestsHost.Conveni
 
   // MARK: Mockable `init(param1:param2:)`
 
-  public override init(param1: Bool, param2: Int) {
+  public required override init(param1: Bool, param2: Int) {
     super.init(param1: `param1`, param2: `param2`)
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param1:param2:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (Bool, Int) -> Void {
-      concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
+}
+
+/// Create a source-attributed `ConvenienceInitializerClass` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ConvenienceInitializerClass.Type) -> ConvenienceInitializerClassMock.Type {
+  return ConvenienceInitializerClassMock.self
 }
 
 // MARK: - Mocked DefaultArgumentValuesClass
@@ -4112,6 +4131,11 @@ public final class DefaultArgumentValuesClassMock: MockingbirdTestsHost.DefaultA
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
   }
+}
+
+/// Create a source-attributed `DefaultArgumentValuesClass` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.DefaultArgumentValuesClass.Type) -> DefaultArgumentValuesClassMock.Type {
+  return DefaultArgumentValuesClassMock.self
 }
 
 // MARK: - Mocked DefaultArgumentValuesProtocol
@@ -4170,8 +4194,8 @@ public final class DefaultArgumentValuesProtocolMock: MockingbirdTestsHost.Defau
   }
 }
 
-/// Create a source-attributed `DefaultArgumentValuesProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.DefaultArgumentValuesProtocol.Protocol) -> DefaultArgumentValuesProtocolMock {
+/// Create a source-attributed `DefaultArgumentValuesProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.DefaultArgumentValuesProtocol.Protocol) -> DefaultArgumentValuesProtocolMock {
   return DefaultArgumentValuesProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -4952,8 +4976,8 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   }
 }
 
-/// Create a source-attributed `DictionaryTypes` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.DictionaryTypes.Protocol) -> DictionaryTypesMock {
+/// Create a source-attributed `DictionaryTypes` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.DictionaryTypes.Protocol) -> DictionaryTypesMock {
   return DictionaryTypesMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -4978,18 +5002,17 @@ public final class EmptyInitializerClassMock: MockingbirdTestsHost.EmptyInitiali
 
   // MARK: Mockable `init()`
 
-  public override init() {
+  public required override init() {
     super.init()
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? () -> Void {
-      concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
+}
+
+/// Create a source-attributed `EmptyInitializerClass` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.EmptyInitializerClass.Type) -> EmptyInitializerClassMock.Type {
+  return EmptyInitializerClassMock.self
 }
 
 // MARK: - Mocked EmptyInitializerProtocol
@@ -5018,21 +5041,15 @@ public final class EmptyInitializerProtocolMock: MockingbirdTestsHost.EmptyIniti
 
   // MARK: Mockable `init()`
 
-  public init() {
+  public required init() {
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? () -> Void {
-      concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
 }
 
-/// Create a source-attributed `EmptyInitializerProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.EmptyInitializerProtocol.Protocol) -> EmptyInitializerProtocolMock {
+/// Create a source-attributed `EmptyInitializerProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.EmptyInitializerProtocol.Protocol) -> EmptyInitializerProtocolMock {
   return EmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -5360,8 +5377,8 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   }
 }
 
-/// Create a source-attributed `ExtendableProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ExtendableProtocol.Protocol) -> ExtendableProtocolMock {
+/// Create a source-attributed `ExtendableProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ExtendableProtocol.Protocol) -> ExtendableProtocolMock {
   return ExtendableProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -5386,18 +5403,17 @@ public final class FailableEmptyInitializerClassMock: MockingbirdTestsHost.Faila
 
   // MARK: Mockable `init()`
 
-  public override init?() {
+  public required override init?() {
     super.init()
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? () -> Void {
-      concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
+}
+
+/// Create a source-attributed `FailableEmptyInitializerClass` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.FailableEmptyInitializerClass.Type) -> FailableEmptyInitializerClassMock.Type {
+  return FailableEmptyInitializerClassMock.self
 }
 
 // MARK: - Mocked FailableEmptyInitializerProtocol
@@ -5426,21 +5442,15 @@ public final class FailableEmptyInitializerProtocolMock: MockingbirdTestsHost.Fa
 
   // MARK: Mockable `init()`
 
-  public init?() {
+  public required init?() {
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? () -> Void {
-      concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
 }
 
-/// Create a source-attributed `FailableEmptyInitializerProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.FailableEmptyInitializerProtocol.Protocol) -> FailableEmptyInitializerProtocolMock {
+/// Create a source-attributed `FailableEmptyInitializerProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.FailableEmptyInitializerProtocol.Protocol) -> FailableEmptyInitializerProtocolMock {
   return FailableEmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -5465,18 +5475,17 @@ public final class FailableParameterizedInitializerClassMock: MockingbirdTestsHo
 
   // MARK: Mockable `init(param1:param2:)`
 
-  public override init?(param1: Bool, param2: Int) {
+  public required override init?(param1: Bool, param2: Int) {
     super.init(param1: `param1`, param2: `param2`)
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param1:param2:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (Bool, Int) -> Void {
-      concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
+}
+
+/// Create a source-attributed `FailableParameterizedInitializerClass` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.FailableParameterizedInitializerClass.Type) -> FailableParameterizedInitializerClassMock.Type {
+  return FailableParameterizedInitializerClassMock.self
 }
 
 // MARK: - Mocked FailableParameterizedInitializerProtocol
@@ -5505,21 +5514,15 @@ public final class FailableParameterizedInitializerProtocolMock: MockingbirdTest
 
   // MARK: Mockable `init(param1:param2:)`
 
-  public init?(param1: Bool, param2: Int) {
+  public required init?(param1: Bool, param2: Int) {
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param1:param2:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (Bool, Int) -> Void {
-      concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
 }
 
-/// Create a source-attributed `FailableParameterizedInitializerProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.FailableParameterizedInitializerProtocol.Protocol) -> FailableParameterizedInitializerProtocolMock {
+/// Create a source-attributed `FailableParameterizedInitializerProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.FailableParameterizedInitializerProtocol.Protocol) -> FailableParameterizedInitializerProtocolMock {
   return FailableParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -5544,18 +5547,17 @@ public final class FailableUnwrappedEmptyInitializerClassMock: MockingbirdTestsH
 
   // MARK: Mockable `init()`
 
-  public override init!() {
+  public required override init!() {
     super.init()
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? () -> Void {
-      concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
+}
+
+/// Create a source-attributed `FailableUnwrappedEmptyInitializerClass` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerClass.Type) -> FailableUnwrappedEmptyInitializerClassMock.Type {
+  return FailableUnwrappedEmptyInitializerClassMock.self
 }
 
 // MARK: - Mocked FailableUnwrappedEmptyInitializerProtocol
@@ -5584,21 +5586,15 @@ public final class FailableUnwrappedEmptyInitializerProtocolMock: MockingbirdTes
 
   // MARK: Mockable `init()`
 
-  public init!() {
+  public required init!() {
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? () -> Void {
-      concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
 }
 
-/// Create a source-attributed `FailableUnwrappedEmptyInitializerProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerProtocol.Protocol) -> FailableUnwrappedEmptyInitializerProtocolMock {
+/// Create a source-attributed `FailableUnwrappedEmptyInitializerProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerProtocol.Protocol) -> FailableUnwrappedEmptyInitializerProtocolMock {
   return FailableUnwrappedEmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -5623,18 +5619,17 @@ public final class FailableUnwrappedParameterizedInitializerClassMock: Mockingbi
 
   // MARK: Mockable `init(param1:param2:)`
 
-  public override init!(param1: Bool, param2: Int) {
+  public required override init!(param1: Bool, param2: Int) {
     super.init(param1: `param1`, param2: `param2`)
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param1:param2:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (Bool, Int) -> Void {
-      concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
+}
+
+/// Create a source-attributed `FailableUnwrappedParameterizedInitializerClass` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerClass.Type) -> FailableUnwrappedParameterizedInitializerClassMock.Type {
+  return FailableUnwrappedParameterizedInitializerClassMock.self
 }
 
 // MARK: - Mocked FailableUnwrappedParameterizedInitializerProtocol
@@ -5663,21 +5658,15 @@ public final class FailableUnwrappedParameterizedInitializerProtocolMock: Mockin
 
   // MARK: Mockable `init(param1:param2:)`
 
-  public init!(param1: Bool, param2: Int) {
+  public required init!(param1: Bool, param2: Int) {
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param1:param2:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (Bool, Int) -> Void {
-      concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
 }
 
-/// Create a source-attributed `FailableUnwrappedParameterizedInitializerProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerProtocol.Protocol) -> FailableUnwrappedParameterizedInitializerProtocolMock {
+/// Create a source-attributed `FailableUnwrappedParameterizedInitializerProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerProtocol.Protocol) -> FailableUnwrappedParameterizedInitializerProtocolMock {
   return FailableUnwrappedParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -6026,8 +6015,8 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   }
 }
 
-/// Create a source-attributed `GrandparentProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.GrandparentProtocol.Protocol) -> GrandparentProtocolMock {
+/// Create a source-attributed `GrandparentProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.GrandparentProtocol.Protocol) -> GrandparentProtocolMock {
   return GrandparentProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -6271,6 +6260,11 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   }
 }
 
+/// Create a source-attributed `Grandparent` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.Grandparent.Type) -> GrandparentMock.Type {
+  return GrandparentMock.self
+}
+
 // MARK: - Mocked InheritedTypeQualificationProtocolGenericImplementer
 
 public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>, Mockingbird.Mock {
@@ -6362,6 +6356,11 @@ public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: 
   }
 }
 
+/// Create a source-attributed `InheritedTypeQualificationProtocolGenericImplementer<T>` mock metatype.
+public func mock<MockType: MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>, T>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> InheritedTypeQualificationProtocolGenericImplementerMock<T>.Type {
+  return InheritedTypeQualificationProtocolGenericImplementerMock.self
+}
+
 // MARK: - Mocked InheritedTypeQualificationProtocolImplementer
 
 public final class InheritedTypeQualificationProtocolImplementerMock: MockingbirdTestsHost.InheritedTypeQualificationProtocolImplementer, Mockingbird.Mock {
@@ -6442,6 +6441,11 @@ public final class InheritedTypeQualificationProtocolImplementerMock: Mockingbir
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<ScopedType?>()
   }
+}
+
+/// Create a source-attributed `InheritedTypeQualificationProtocolImplementer` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.InheritedTypeQualificationProtocolImplementer.Type) -> InheritedTypeQualificationProtocolImplementerMock.Type {
+  return InheritedTypeQualificationProtocolImplementerMock.self
 }
 
 // MARK: - Mocked InheritedTypeQualificationProtocol
@@ -6540,8 +6544,8 @@ public final class InheritedTypeQualificationProtocolMock<ScopedType>: Mockingbi
   }
 }
 
-/// Create a source-attributed `InheritedTypeQualificationProtocol<ScopedType>` mock.
-public func mock<T: MockingbirdTestsHost.InheritedTypeQualificationProtocol, ScopedType>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> InheritedTypeQualificationProtocolMock<ScopedType> {
+/// Create a source-attributed `InheritedTypeQualificationProtocol<ScopedType>` concrete mock instance.
+public func mock<MockType: MockingbirdTestsHost.InheritedTypeQualificationProtocol, ScopedType>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> InheritedTypeQualificationProtocolMock<ScopedType> {
   return InheritedTypeQualificationProtocolMock<ScopedType>(sourceLocation: SourceLocation(file, line))
 }
 
@@ -6566,62 +6570,38 @@ public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, 
 
   // MARK: Mockable `init()`
 
-  public override init() {
+  public required override init() {
     super.init()
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? () -> Void {
-      concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
 
   // MARK: Mockable `init(param1:_:)`
 
-  public override init(param1: Bool, _ param2: Int) {
+  public required override init(param1: Bool, _ param2: Int) {
     super.init(param1: `param1`, `param2`)
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param1:_:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (Bool, Int) -> Void {
-      concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
 
   // MARK: Mockable `init(param:)`
 
-  public override init?(param: Bool) {
+  public required override init?(param: Bool) {
     super.init(param: `param`)
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (Bool) -> Void {
-      concreteImplementation(`param`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
 
   // MARK: Mockable `init(param:)`
 
-  public override init!(param: Int) {
+  public required override init!(param: Int) {
     super.init(param: `param`)
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (Int) -> Void {
-      concreteImplementation(`param`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
 
   // MARK: Mockable `init(param:)`
@@ -6631,28 +6611,21 @@ public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, 
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (String?) -> Void {
-      concreteImplementation(`param`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
 
   // MARK: Mockable `init(param:)`
 
-  public override init(param: String) throws {
+  public required override init(param: String) throws {
     try super.init(param: `param`)
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (String) throws -> Void {
-      try concreteImplementation(`param`)
-    } else {
-      try (implementation as? () -> Void)?()
-    }
   }
+}
+
+/// Create a source-attributed `InitializerClass` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.InitializerClass.Type) -> InitializerClassMock.Type {
+  return InitializerClassMock.self
 }
 
 // MARK: - Mocked InitializerProtocol
@@ -6681,77 +6654,47 @@ public final class InitializerProtocolMock: MockingbirdTestsHost.InitializerProt
 
   // MARK: Mockable `init()`
 
-  public init() {
+  public required init() {
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? () -> Void {
-      concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
 
   // MARK: Mockable `init(param1:_:)`
 
-  public init(param1: Bool, _ param2: Int) {
+  public required init(param1: Bool, _ param2: Int) {
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param1:_:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (Bool, Int) -> Void {
-      concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
 
   // MARK: Mockable `init(param:)`
 
-  public init?(param: Bool) {
+  public required init?(param: Bool) {
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (Bool) -> Void {
-      concreteImplementation(`param`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
 
   // MARK: Mockable `init(param:)`
 
-  public init!(param: Int) {
+  public required init!(param: Int) {
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (Int) -> Void {
-      concreteImplementation(`param`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
 
   // MARK: Mockable `init(param:)`
 
-  public init(param: String) throws {
+  public required init(param: String) throws {
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (String) throws -> Void {
-      try concreteImplementation(`param`)
-    } else {
-      try (implementation as? () -> Void)?()
-    }
   }
 }
 
-/// Create a source-attributed `InitializerProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.InitializerProtocol.Protocol) -> InitializerProtocolMock {
+/// Create a source-attributed `InitializerProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.InitializerProtocol.Protocol) -> InitializerProtocolMock {
   return InitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -6804,6 +6747,11 @@ public final class InoutClassMock: MockingbirdTestsHost.InoutClass, Mockingbird.
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
   }
+}
+
+/// Create a source-attributed `InoutClass` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.InoutClass.Type) -> InoutClassMock.Type {
+  return InoutClassMock.self
 }
 
 // MARK: - Mocked InoutProtocol
@@ -6862,8 +6810,8 @@ public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockin
   }
 }
 
-/// Create a source-attributed `InoutProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.InoutProtocol.Protocol) -> InoutProtocolMock {
+/// Create a source-attributed `InoutProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.InoutProtocol.Protocol) -> InoutProtocolMock {
   return InoutProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -6901,8 +6849,8 @@ public final class ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, D
   }
 }
 
-/// Create a source-attributed `ModuleScopedAssociatedTypeProtocol<Element, Subelement, Data>` mock.
-public func mock<T: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, Element, Subelement, Data: ModuleScopedAssociatedTypeProtocol>(file: StaticString = #file, line: UInt = #line, _ protocolType: T.Type) -> ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data> {
+/// Create a source-attributed `ModuleScopedAssociatedTypeProtocol<Element, Subelement, Data>` concrete mock instance.
+public func mock<MockType: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, Element, Subelement, Data: ModuleScopedAssociatedTypeProtocol>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data> {
   return ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>(sourceLocation: SourceLocation(file, line))
 }
 
@@ -7117,8 +7065,8 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
   }
 }
 
-/// Create a source-attributed `ModuleScopedTypealiasedProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ModuleScopedTypealiasedProtocol.Protocol) -> ModuleScopedTypealiasedProtocolMock {
+/// Create a source-attributed `ModuleScopedTypealiasedProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ModuleScopedTypealiasedProtocol.Protocol) -> ModuleScopedTypealiasedProtocolMock {
   return ModuleScopedTypealiasedProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -7219,6 +7167,11 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Void>()
   }
+}
+
+/// Create a source-attributed `NonExtendableClass` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.NonExtendableClass.Type) -> NonExtendableClassMock.Type {
+  return NonExtendableClassMock.self
 }
 
 // MARK: - Mocked OverloadedMethodsClass
@@ -7359,6 +7312,11 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Int>()
   }
+}
+
+/// Create a source-attributed `OverloadedMethodsClass` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.OverloadedMethodsClass.Type) -> OverloadedMethodsClassMock.Type {
+  return OverloadedMethodsClassMock.self
 }
 
 // MARK: - Mocked OverloadedMethodsProtocol
@@ -7506,8 +7464,8 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
   }
 }
 
-/// Create a source-attributed `OverloadedMethodsProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.OverloadedMethodsProtocol.Protocol) -> OverloadedMethodsProtocolMock {
+/// Create a source-attributed `OverloadedMethodsProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.OverloadedMethodsProtocol.Protocol) -> OverloadedMethodsProtocolMock {
   return OverloadedMethodsProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -7532,18 +7490,17 @@ public final class ParameterizedInitializerClassMock: MockingbirdTestsHost.Param
 
   // MARK: Mockable `init(param1:param2:)`
 
-  public override init(param1: Bool, param2: Int) {
+  public required override init(param1: Bool, param2: Int) {
     super.init(param1: `param1`, param2: `param2`)
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param1:param2:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (Bool, Int) -> Void {
-      concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
+}
+
+/// Create a source-attributed `ParameterizedInitializerClass` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ParameterizedInitializerClass.Type) -> ParameterizedInitializerClassMock.Type {
+  return ParameterizedInitializerClassMock.self
 }
 
 // MARK: - Mocked ParameterizedInitializerProtocol
@@ -7572,21 +7529,15 @@ public final class ParameterizedInitializerProtocolMock: MockingbirdTestsHost.Pa
 
   // MARK: Mockable `init(param1:param2:)`
 
-  public init(param1: Bool, param2: Int) {
+  public required init(param1: Bool, param2: Int) {
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param1:param2:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (Bool, Int) -> Void {
-      concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
 }
 
-/// Create a source-attributed `ParameterizedInitializerProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ParameterizedInitializerProtocol.Protocol) -> ParameterizedInitializerProtocolMock {
+/// Create a source-attributed `ParameterizedInitializerProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ParameterizedInitializerProtocol.Protocol) -> ParameterizedInitializerProtocolMock {
   return ParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -8255,8 +8206,8 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 }
 
-/// Create a source-attributed `ParentProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ParentProtocol.Protocol) -> ParentProtocolMock {
+/// Create a source-attributed `ParentProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ParentProtocol.Protocol) -> ParentProtocolMock {
   return ParentProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -8720,6 +8671,11 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   }
 }
 
+/// Create a source-attributed `Parent` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.Parent.Type) -> ParentMock.Type {
+  return ParentMock.self
+}
+
 // MARK: - Mocked RequiredInitializerClass
 
 public final class RequiredInitializerClassMock: MockingbirdTestsHost.RequiredInitializerClass, Mockingbird.Mock {
@@ -8746,13 +8702,12 @@ public final class RequiredInitializerClassMock: MockingbirdTestsHost.RequiredIn
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(param1:param2:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (Bool, Int) -> Void {
-      concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
+}
+
+/// Create a source-attributed `RequiredInitializerClass` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.RequiredInitializerClass.Type) -> RequiredInitializerClassMock.Type {
+  return RequiredInitializerClassMock.self
 }
 
 // MARK: - Mocked ServiceRepository
@@ -8830,8 +8785,8 @@ public final class ServiceRepositoryMock: MockingbirdTestsHost.ServiceRepository
   }
 }
 
-/// Create a source-attributed `ServiceRepository` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.ServiceRepository.Protocol) -> ServiceRepositoryMock {
+/// Create a source-attributed `ServiceRepository` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ServiceRepository.Protocol) -> ServiceRepositoryMock {
   return ServiceRepositoryMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -8891,8 +8846,8 @@ public final class TestCaseMock: MockingbirdTestsHost.TestCase, Mockingbird.Mock
   }
 }
 
-/// Create a source-attributed `TestCase` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.TestCase.Protocol) -> TestCaseMock {
+/// Create a source-attributed `TestCase` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.TestCase.Protocol) -> TestCaseMock {
   return TestCaseMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -9000,8 +8955,8 @@ public final class TestManagerMock: MockingbirdTestsHost.TestManager, Mockingbir
   }
 }
 
-/// Create a source-attributed `TestManager` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.TestManager.Protocol) -> TestManagerMock {
+/// Create a source-attributed `TestManager` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.TestManager.Protocol) -> TestManagerMock {
   return TestManagerMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -9111,8 +9066,8 @@ public final class TestMock: MockingbirdTestsHost.Test, Mockingbird.Mock {
   }
 }
 
-/// Create a source-attributed `Test` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.Test.Protocol) -> TestMock {
+/// Create a source-attributed `Test` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.Test.Protocol) -> TestMock {
   return TestMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -9295,6 +9250,11 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         return Mockingbird.Mockable<Bool>()
       }
     }
+    
+    /// Create a source-attributed `ThirdLevelInheritingTopLevelType` mock metatype.
+    public func mock(file: StaticString = #file, line: UInt = #line, _ type: ThirdLevelInheritingTopLevelType.Type) -> ThirdLevelInheritingTopLevelTypeMock.Type {
+      return ThirdLevelInheritingTopLevelTypeMock.self
+    }
   
     // MARK: - Mocked ThirdLevelInheritingThirdLevelType
     
@@ -9374,6 +9334,11 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
         return Mockingbird.Mockable<Bool>()
       }
+    }
+    
+    /// Create a source-attributed `ThirdLevelInheritingThirdLevelType` mock metatype.
+    public func mock(file: StaticString = #file, line: UInt = #line, _ type: ThirdLevelInheritingThirdLevelType.Type) -> ThirdLevelInheritingThirdLevelTypeMock.Type {
+      return ThirdLevelInheritingThirdLevelTypeMock.self
     }
   
     // MARK: - Mocked ThirdLevelInheritingPartiallyQualifiedThirdLevelType
@@ -9455,6 +9420,11 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         return Mockingbird.Mockable<Bool>()
       }
     }
+    
+    /// Create a source-attributed `ThirdLevelInheritingPartiallyQualifiedThirdLevelType` mock metatype.
+    public func mock(file: StaticString = #file, line: UInt = #line, _ type: ThirdLevelInheritingPartiallyQualifiedThirdLevelType.Type) -> ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock.Type {
+      return ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock.self
+    }
   
     // MARK: - Mocked ThirdLevelInheritingFullyQualifiedThirdLevelType
     
@@ -9535,6 +9505,11 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         return Mockingbird.Mockable<Bool>()
       }
     }
+    
+    /// Create a source-attributed `ThirdLevelInheritingFullyQualifiedThirdLevelType` mock metatype.
+    public func mock(file: StaticString = #file, line: UInt = #line, _ type: ThirdLevelInheritingFullyQualifiedThirdLevelType.Type) -> ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock.Type {
+      return ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock.self
+    }
   
     // MARK: - Mocked ThirdLevelType
     
@@ -9586,7 +9561,22 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         return Mockingbird.Mockable<Bool>()
       }
     }
+    
+    /// Create a source-attributed `ThirdLevelType` mock metatype.
+    public func mock(file: StaticString = #file, line: UInt = #line, _ type: ThirdLevelType.Type) -> ThirdLevelTypeMock.Type {
+      return ThirdLevelTypeMock.self
+    }
   }
+  
+  /// Create a source-attributed `SecondLevelType` mock metatype.
+  public func mock(file: StaticString = #file, line: UInt = #line, _ type: SecondLevelType.Type) -> SecondLevelTypeMock.Type {
+    return SecondLevelTypeMock.self
+  }
+}
+
+/// Create a source-attributed `TopLevelType` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.TopLevelType.Type) -> TopLevelTypeMock.Type {
+  return TopLevelTypeMock.self
 }
 
 // MARK: - Mocked Tree
@@ -9641,17 +9631,11 @@ public final class TreeMock: MockingbirdTestsHost.Tree, Mockingbird.Mock {
 
   // MARK: Mockable `init(with:)`
 
-  public override init(with bird: MockingbirdTestsHost.Bird) {
+  public required override init(with bird: MockingbirdTestsHost.Bird) {
     super.init(with: `bird`)
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init(with:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`bird`)])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (MockingbirdTestsHost.Bird) -> Void {
-      concreteImplementation(`bird`)
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
 
   // MARK: Mockable `shake()`
@@ -9704,19 +9688,23 @@ public final class TreeMock: MockingbirdTestsHost.Tree, Mockingbird.Mock {
   
     // MARK: Mockable `init(size:)`
   
-    public override init(size: Int) {
+    public required override init(size: Int) {
       super.init(size: `size`)
       Mockingbird.checkVersion(for: self)
       let invocation = Mockingbird.Invocation(selectorName: "init(size:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`size`)])
       mockingContext.didInvoke(invocation)
-        let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Int) -> Void {
-        concreteImplementation(`size`)
-      } else {
-        (implementation as? () -> Void)?()
-      }
     }
   }
+  
+  /// Create a source-attributed `Fruit` mock metatype.
+  public func mock(file: StaticString = #file, line: UInt = #line, _ type: Fruit.Type) -> FruitMock.Type {
+    return FruitMock.self
+  }
+}
+
+/// Create a source-attributed `Tree` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.Tree.Type) -> TreeMock.Type {
+  return TreeMock.self
 }
 
 // MARK: - Mocked TupleTypes
@@ -10496,8 +10484,8 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   }
 }
 
-/// Create a source-attributed `TupleTypes` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.TupleTypes.Protocol) -> TupleTypesMock {
+/// Create a source-attributed `TupleTypes` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.TupleTypes.Protocol) -> TupleTypesMock {
   return TupleTypesMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -10612,6 +10600,11 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<IndirectRequestResult>()
   }
+}
+
+/// Create a source-attributed `TypealiasedClass` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.TypealiasedClass.Type) -> TypealiasedClassMock.Type {
+  return TypealiasedClassMock.self
 }
 
 // MARK: - Mocked TypealiasedProtocol
@@ -10732,8 +10725,8 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
   }
 }
 
-/// Create a source-attributed `TypealiasedProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.TypealiasedProtocol.Protocol) -> TypealiasedProtocolMock {
+/// Create a source-attributed `TypealiasedProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.TypealiasedProtocol.Protocol) -> TypealiasedProtocolMock {
   return TypealiasedProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -10793,8 +10786,8 @@ public final class UndefinedArgumentLabelsMock: MockingbirdTestsHost.UndefinedAr
   }
 }
 
-/// Create a source-attributed `UndefinedArgumentLabels` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.UndefinedArgumentLabels.Protocol) -> UndefinedArgumentLabelsMock {
+/// Create a source-attributed `UndefinedArgumentLabels` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.UndefinedArgumentLabels.Protocol) -> UndefinedArgumentLabelsMock {
   return UndefinedArgumentLabelsMock(sourceLocation: SourceLocation(file, line))
 }
 
@@ -10869,18 +10862,17 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
 
   // MARK: Mockable `init()`
 
-  public override init() {
+  public required override init() {
     super.init()
     Mockingbird.checkVersion(for: self)
     let invocation = Mockingbird.Invocation(selectorName: "init() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? () -> Void {
-      concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
-    }
   }
+}
+
+/// Create a source-attributed `VariablesContainer` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.VariablesContainer.Type) -> VariablesContainerMock.Type {
+  return VariablesContainerMock.self
 }
 
 // MARK: - Mocked VariadicClass
@@ -11081,6 +11073,11 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
     if let expectation = DispatchQueue.currentExpectation { expect(mockingContext, handled: invocation, using: expectation) }
     return Mockingbird.Mockable<Bool>()
   }
+}
+
+/// Create a source-attributed `VariadicClass` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.VariadicClass.Type) -> VariadicClassMock.Type {
+  return VariadicClassMock.self
 }
 
 // MARK: - Mocked VariadicProtocol
@@ -11288,7 +11285,7 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   }
 }
 
-/// Create a source-attributed `VariadicProtocol` mock.
-public func mock(file: StaticString = #file, line: UInt = #line, _ protocolType: MockingbirdTestsHost.VariadicProtocol.Protocol) -> VariadicProtocolMock {
+/// Create a source-attributed `VariadicProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.VariadicProtocol.Protocol) -> VariadicProtocolMock {
   return VariadicProtocolMock(sourceLocation: SourceLocation(file, line))
 }

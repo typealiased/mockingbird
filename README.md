@@ -156,7 +156,7 @@ let bird = mock(Bird.self)  // Returns a `BirdMock`
 Class mocks rely on subclassing which has certain limitations, so consider using protocols whenever possible.
 
 ```swift
-let tree = mock(instance: TreeMock(with: bird))  // Returns a `TreeMock`
+let tree = mock(Tree.self).init(with: bird)  // Returns a `TreeMock`
 ```
 
 ### Stubbing

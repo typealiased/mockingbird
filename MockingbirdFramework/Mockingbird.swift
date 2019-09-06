@@ -8,20 +8,6 @@
 import Foundation
 import XCTest
 
-// MARK: - Mocking
-
-/// Attributes an existing mock instance with testing information.
-///
-/// - note: For protocols you should use `mock(ProtocolName.self)` instead.
-///
-/// - Parameters:
-///   - instance: A mock instance, which is the type name suffixed with `Mock`.
-/// - Returns: A source-attributed mock for testing.
-public func mock<T: Mock>(file: StaticString = #file, line: UInt = #line, instance: T) -> T {
-  instance.stubbingContext.sourceLocation = SourceLocation(file, line)
-  return instance
-}
-
 // MARK: - Stubbing
 
 /// Stub a single mock object to return a value or perform an operation.

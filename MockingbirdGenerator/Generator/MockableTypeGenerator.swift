@@ -178,27 +178,42 @@ extension MockableType {
   }
   
   var mockInitializer: String {
-    guard kind == .protocol else { return "" }
     let allGenericTypes = self.allGenericTypes
     let genericMethodAttribute: String
-    let protocolType: String
+    let metatype: String
     if allGenericTypes.count > 0 {
       let specializedGenericTypes =
-        (["T: \(fullyQualifiedName)"] + allSpecializedGenericTypesList)
+        (["MockType: \(fullyQualifiedName)"] + allSpecializedGenericTypesList)
           .joined(separator: ", ")
       genericMethodAttribute = "<" + specializedGenericTypes + ">"
-      protocolType = "T.Type"
+      metatype = "MockType.Type"
     } else {
       genericMethodAttribute = ""
-      protocolType = "\(fullyQualifiedName).Protocol"
+      let metatypeKeyword = (kind == .class ? "Type" : "Protocol")
+      metatype = "\(fullyQualifiedName).\(metatypeKeyword)"
     }
+    
+    let returnType: String
+    let returnObject: String
+    let returnTypeDescription: String
+    if kind == .class {
+      returnType = "\(name)Mock\(allGenericTypes).Type"
+      returnObject = "\(name)Mock.self"
+      returnTypeDescription = "mock metatype"
+    } else {
+      returnType = "\(name)Mock\(allGenericTypes)"
+      returnObject = "\(name)Mock\(allGenericTypes)(sourceLocation: SourceLocation(file, line))"
+      returnTypeDescription = "concrete mock instance"
+    }
+    
     return """
-    /// Create a source-attributed `\(name)\(allGenericTypes)` mock.
-    public func mock\(genericMethodAttribute)(file: StaticString = #file, line: UInt = #line, _ protocolType: \(protocolType)) -> \(name)Mock\(allGenericTypes) {
-      return \(name)Mock\(allGenericTypes)(sourceLocation: SourceLocation(file, line))
+    /// Create a source-attributed `\(name)\(allGenericTypes)` \(returnTypeDescription).
+    public func mock\(genericMethodAttribute)(file: StaticString = #file, line: UInt = #line, _ type: \(metatype)) -> \(returnType) {
+      return \(returnObject)
     }
     """
   }
+
   
   func generateVariables() -> String {
     return variables.sorted(by: <).map({
