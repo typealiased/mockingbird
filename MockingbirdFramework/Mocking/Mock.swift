@@ -15,6 +15,7 @@ public protocol Mock {
   var sourceLocation: SourceLocation? { get set }
 }
 
+/// Used to store invocations on static or class scoped methods.
 public class StaticMock: Mock {
   public let mockingContext = MockingContext()
   public let stubbingContext = StubbingContext()
@@ -25,6 +26,7 @@ public class StaticMock: Mock {
   }
 }
 
+/// Stores information about generated mocks.
 public struct MockMetadata {
   let dictionary: [String: Any]
   init(_ dictionary: [String: Any] = [:]) {
@@ -32,7 +34,14 @@ public struct MockMetadata {
   }
 }
 
-public struct Mockable<T> {
-  let mockingContext: MockingContext
+/// A object used as a stubbing or verification request for a particular concrete mock instance.
+/// T = Declaration type, I = Invocation function type, R = Return type
+public struct Mockable<T: DeclarationType, I, R> {
+  let mock: Mock
   let invocation: Invocation
 }
+
+/// Used for disambiguating methods with the same function signature as a variable accessor.
+public protocol DeclarationType {}
+public enum VariableDeclaration: DeclarationType {}
+public enum MethodDeclaration: DeclarationType {}

@@ -15,19 +15,13 @@ infix operator ~>
 /// Used for chained stubbing which doesn't work with `~>` because of the default precedence group.
 infix operator ~: AdditionPrecedence
 
-/// A object used as a stubbing request for a particular mock.
-public struct Stubbable<I, R> {
-  let stubbingContext: StubbingContext
-  let invocation: Invocation
-}
-
 /// Intermediate stubbing object.
 public struct Stub<I, R> {
   let requests: [(stubbingContext: StubbingContext, invocation: Invocation)]
   
-  init(from stubbable: [Stubbable<I, R>]) {
-    self.requests = stubbable.map({
-      (stubbingContext: $0.stubbingContext, invocation: $0.invocation)
+  init<T>(from mockable: [Mockable<T, I, R>]) {
+    self.requests = mockable.map({
+      (stubbingContext: $0.mock.stubbingContext, invocation: $0.invocation)
     })
   }
 }

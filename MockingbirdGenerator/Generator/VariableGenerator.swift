@@ -28,9 +28,7 @@ class VariableGenerator {
     return """
     \(generatedMocks)
     
-    \(generatedStubs)
-    
-    \(generatedVerifications)
+    \(generatedMockableHook)
     """
   }
   
@@ -38,16 +36,16 @@ class VariableGenerator {
     let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
     let typeName = specializedTypeName
     return """
-      // MARK: Mockable `\(variable.name)`
+      // MARK: Mocked `\(variable.name)`
     \(attributes)
       \(context.kind == .class ? "override " : "")\(accessLevel)\(modifiers)var \(variable.name): \(typeName) {
         get {
-          let invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
+          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
           \(contextPrefix)mockingContext.didInvoke(invocation)
           return (\(contextPrefix)stubbingContext.implementation(for: invocation) as! () -> \(typeName))()
         }
         set {
-          let invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: [ArgumentMatcher(newValue)])
+          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: [ArgumentMatcher(newValue)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
           let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation, optional: true)
           if let concreteImplementation = implementation as? (\(typeName)) -> Void {
@@ -60,44 +58,28 @@ class VariableGenerator {
     """
   }
   
-  var generatedStubs: String {
-    let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
+  var generatedMockableHook: String {
+    let attributes = declarationAttributes.isEmpty ? "" : "  \(declarationAttributes)\n"
     let typeName = specializedTypeName
     let getterInvocationType = "() -> \(typeName)"
     let setterInvocationType = "(\(typeName)) -> Void"
-    let stubbableGetterGenericTypes = [getterInvocationType, typeName].joined(separator: ", ")
-    let stubbableSetterGenericTypes = [setterInvocationType, "Void"].joined(separator: ", ")
+    let variableDeclarationType = "Mockingbird.VariableDeclaration"
+    let mockableGetterGenericTypes = [variableDeclarationType,
+                                      getterInvocationType,
+                                      typeName].joined(separator: ", ")
+    let mockableSetterGenericTypes = [variableDeclarationType,
+                                      setterInvocationType,
+                                      "Void"].joined(separator: ", ")
     return """
-      // MARK: Stubbable `\(variable.name)`
-    \(attributes)
-      public \(modifiers)func get\(capitalizedName)() -> Mockingbird.Stubbable<\(stubbableGetterGenericTypes)> {
-        let invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
-        return Mockingbird.Stubbable<\(stubbableGetterGenericTypes)>(stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
+    \(attributes)  public \(modifiers)func get\(capitalizedName)() -> Mockingbird.Mockable<\(mockableGetterGenericTypes)> {
+        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
+        return Mockingbird.Mockable<\(mockableGetterGenericTypes)>(mock: \(mockObject), invocation: invocation)
       }
-    \(attributes)
-      public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Stubbable<\(stubbableSetterGenericTypes)> {
-        let arguments = [Mockingbird.resolve(newValue)]
-        let invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments)
-        return Mockingbird.Stubbable<\(stubbableSetterGenericTypes)>(stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
-      }
-    """
-  }
-  
-  var generatedVerifications: String {
-    let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
-    let typeName = specializedTypeName
-    return """
-      // MARK: Verifiable `\(variable.name)`
-    \(attributes)
-      public \(modifiers)func get\(capitalizedName)() -> Mockingbird.Mockable<\(typeName)> {
-        let invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
-        return Mockingbird.Mockable<\(typeName)>(mockingContext: \(contextPrefix)mockingContext, invocation: invocation)
-      }
-    \(attributes)
-      public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Mockable<Void> {
-        let arguments = [Mockingbird.resolve(newValue)]
-        let invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments)
-        return Mockingbird.Mockable<Void>(mockingContext: \(contextPrefix)mockingContext, invocation: invocation)
+    
+    \(attributes)  public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Mockable<\(mockableSetterGenericTypes)> {
+        let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments)
+        return Mockingbird.Mockable<\(mockableSetterGenericTypes)>(mock: \(mockObject), invocation: invocation)
       }
     """
   }
@@ -110,8 +92,14 @@ class VariableGenerator {
     return (variable.kind.typeScope == .static || variable.kind.typeScope == .class ? "class " : "")
   }()
   
+  lazy var mockObject: String = {
+    return variable.kind.typeScope == .static || variable.kind.typeScope == .class
+      ? "staticMock" : "self"
+  }()
+  
   lazy var contextPrefix: String = {
-    return (variable.kind.typeScope == .static || variable.kind.typeScope == .class ? "staticMock." : "")
+    return variable.kind.typeScope == .static || variable.kind.typeScope == .class
+      ? "staticMock." : ""
   }()
   
   lazy var accessLevel: String = {

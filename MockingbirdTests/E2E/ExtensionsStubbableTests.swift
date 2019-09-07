@@ -13,31 +13,31 @@ import Mockingbird
 // MARK: - Stubbable declarations
 
 private protocol StubbableExtendableProtocol {
-  func trivialBaseMethod() -> Stubbable<() -> Void, Void>
-  func getBaseVariable() -> Stubbable<() -> Bool, Bool>
+  func trivialBaseMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  func getBaseVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
   func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
-  func trivialExtendedMethod() -> Stubbable<() -> Void, Void>
+  func trivialExtendedMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
   func parameterizedExtendedMethod(param1: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<MethodDeclaration, (Bool) -> Void, Void>
   func parameterizedReturningExtendedMethod(param1: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Bool, Bool>
-  func getExtendedVariable() -> Stubbable<() -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (Bool) -> Bool, Bool>
+  func getExtendedVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
   func setExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
-  func anotherTrivialExtendedMethod() -> Stubbable<() -> Void, Void>
-  func getAnotherExtendedVariable() -> Stubbable<() -> Bool, Bool>
+  func anotherTrivialExtendedMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  func getAnotherExtendedVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
   func setAnotherExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
 }
 extension ExtendableProtocolMock: StubbableExtendableProtocol {}
 
 private protocol StubbableNonExtendableClass {
-  func trivialBaseMethod() -> Stubbable<() -> Void, Void>
-  func getBaseVariable() -> Stubbable<() -> Bool, Bool>
+  func trivialBaseMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  func getBaseVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
   func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
 }
 extension NonExtendableClassMock: StubbableNonExtendableClass {}

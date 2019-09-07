@@ -15,31 +15,31 @@ import Mockingbird
 private protocol StubbableVariadicProtocol {
   func variadicMethod(objects: @escaping @autoclosure () -> [String],
                       param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<([String], Int) -> Void, Void>
+    -> Mockable<MethodDeclaration, ([String], Int) -> Void, Void>
   func variadicMethod(objects: @escaping @autoclosure () -> [Bool],
                       param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<([Bool], Int) -> Void, Void>
+    -> Mockable<MethodDeclaration, ([Bool], Int) -> Void, Void>
   func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int,
                                   objects: @escaping @autoclosure () -> [String])
-    -> Stubbable<(Int, [String]) -> Void, Void>
+    -> Mockable<MethodDeclaration, (Int, [String]) -> Void, Void>
   func variadicReturningMethod(objects: @escaping @autoclosure () -> [Bool],
                                param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<([Bool], Int) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, ([Bool], Int) -> Bool, Bool>
 }
 extension VariadicProtocolMock: StubbableVariadicProtocol {}
 
 private protocol StubbableVariadicClass {
   func variadicMethod(objects: @escaping @autoclosure () -> [String],
                       param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<([String], Int) -> Void, Void>
+    -> Mockable<MethodDeclaration, ([String], Int) -> Void, Void>
   func variadicMethod(objects: @escaping @autoclosure () -> [Bool],
                       param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<([Bool], Int) -> Void, Void>
+    -> Mockable<MethodDeclaration, ([Bool], Int) -> Void, Void>
   func variadicMethodAsFinalParam(param1: @escaping @autoclosure () -> Int,
                                   objects: @escaping @autoclosure () -> [String])
-    -> Stubbable<(Int, [String]) -> Void, Void>
+    -> Mockable<MethodDeclaration, (Int, [String]) -> Void, Void>
   func variadicReturningMethod(objects: @escaping @autoclosure () -> [Bool],
                                param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<([Bool], Int) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, ([Bool], Int) -> Bool, Bool>
 }
 extension VariadicClassMock: StubbableVariadicClass {}

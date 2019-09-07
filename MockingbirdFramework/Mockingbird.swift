@@ -13,7 +13,7 @@ import XCTest
 /// Stub mock objects with the same function signature to return a value or perform an operation.
 ///
 /// - Parameter stubbable: A set of stubbable invocations.
-public func given<I, R>(_ stubbable: Stubbable<I, R>...) -> Stub<I, R> {
+public func given<T, I, R>(_ stubbable: Mockable<T, I, R>...) -> Stub<I, R> {
   return Stub<I, R>(from: stubbable)
 }
 
@@ -39,8 +39,8 @@ public func lastSetValue<T, R>(initial: R) -> StubImplementation<T, R> {
 ///
 /// - Parameters:
 ///   - mock: A mockable invocation to verify.
-public func verify<T>(file: StaticString = #file, line: UInt = #line,
-                      _ mockable: Mockable<T>) -> Verification<T> {
+public func verify<T, I, R>(file: StaticString = #file, line: UInt = #line,
+                            _ mockable: Mockable<T, I, R>) -> Verification<I, R> {
   return Verification(with: mockable, at: SourceLocation(file, line))
 }
 

@@ -19,12 +19,14 @@ public struct SourceLocation {
 }
 
 /// Intermediate verification object.
-public struct Verification<T> {
-  let mockable: Mockable<T>
+public struct Verification<I, R> {
+  let mockingContext: MockingContext
+  let invocation: Invocation
   let sourceLocation: SourceLocation
 
-  init(with mockable: Mockable<T>, at sourceLocation: SourceLocation) {
-    self.mockable = mockable
+  init<T>(with mockable: Mockable<T, I, R>, at sourceLocation: SourceLocation) {
+    self.mockingContext = mockable.mock.mockingContext
+    self.invocation = mockable.invocation
     self.sourceLocation = sourceLocation
   }
 
@@ -43,7 +45,7 @@ public struct Verification<T> {
   /// Disambiguate methods overloaded by return type.
   ///
   /// - Parameter type: The return type of the method.
-  public func returning(_ type: T.Type = T.self) -> Verification<T> {
+  public func returning(_ type: R.Type = R.self) -> Verification<I, R> {
     return self
   }
   
@@ -52,7 +54,7 @@ public struct Verification<T> {
     let expectation = Expectation(countMatcher: countMatcher,
                                   sourceLocation: sourceLocation,
                                   asyncGroup: DispatchQueue.currentAsyncGroup)
-    expect(mockable.mockingContext, handled: mockable.invocation, using: expectation)
+    expect(mockingContext, handled: invocation, using: expectation)
   }
 }
 

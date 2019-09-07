@@ -48,7 +48,6 @@
 		491CDF05231DD41A00C48C47 /* DeclaredTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491CDF04231DD41A00C48C47 /* DeclaredTypeTests.swift */; };
 		49377CC4231E0496003C0EA2 /* DefaultArgumentValuesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49377CC3231E0496003C0EA2 /* DefaultArgumentValuesMockableTests.swift */; };
 		49377CC6231E0BE4003C0EA2 /* DefaultArgumentValuesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49377CC5231E0BE4003C0EA2 /* DefaultArgumentValuesStubbableTests.swift */; };
-		49377CC8231E0C8B003C0EA2 /* DefaultArgumentValuesVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49377CC7231E0C8B003C0EA2 /* DefaultArgumentValuesVerifiableTests.swift */; };
 		49965D322321B7E2002F9CD5 /* TreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49965D312321B7E2002F9CD5 /* TreeTests.swift */; };
 		49965D352321B8D1002F9CD5 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49965D342321B8D1002F9CD5 /* Bird.swift */; };
 		49965D372321BA90002F9CD5 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49965D362321BA90002F9CD5 /* Tree.swift */; };
@@ -331,34 +330,24 @@
 		OBJ_771 /* VariadicParametersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_124 /* VariadicParametersTests.swift */; };
 		OBJ_772 /* ChildMockMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_126 /* ChildMockMockableTests.swift */; };
 		OBJ_773 /* ChildMockStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_127 /* ChildMockStubbableTests.swift */; };
-		OBJ_774 /* ChildMockVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_128 /* ChildMockVerifiableTests.swift */; };
 		OBJ_775 /* ChildProtocolMockMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_129 /* ChildProtocolMockMockableTests.swift */; };
 		OBJ_776 /* ChildProtocolMockStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_130 /* ChildProtocolMockStubbableTests.swift */; };
-		OBJ_777 /* ChildProtocolMockVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_131 /* ChildProtocolMockVerifiableTests.swift */; };
 		OBJ_778 /* ClassScopedTypesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_132 /* ClassScopedTypesMockableTests.swift */; };
 		OBJ_779 /* ClassScopedTypesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_133 /* ClassScopedTypesStubbableTests.swift */; };
-		OBJ_780 /* ClassScopedTypesVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_134 /* ClassScopedTypesVerifiableTests.swift */; };
 		OBJ_781 /* ClosureParametersMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_135 /* ClosureParametersMockableTests.swift */; };
 		OBJ_782 /* ClosureParametersStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_136 /* ClosureParametersStubbableTests.swift */; };
-		OBJ_783 /* ClosureParametersVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_137 /* ClosureParametersVerifiableTests.swift */; };
 		OBJ_784 /* ExtensionsMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_138 /* ExtensionsMockableTests.swift */; };
 		OBJ_785 /* ExtensionsStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_139 /* ExtensionsStubbableTests.swift */; };
-		OBJ_786 /* ExtensionsVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_140 /* ExtensionsVerifiableTests.swift */; };
 		OBJ_787 /* GenericsMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_141 /* GenericsMockableTests.swift */; };
 		OBJ_788 /* GenericsStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_142 /* GenericsStubbableTests.swift */; };
-		OBJ_789 /* GenericsVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_143 /* GenericsVerifiableTests.swift */; };
 		OBJ_790 /* InoutParametersMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_144 /* InoutParametersMockableTests.swift */; };
 		OBJ_791 /* InoutParametersStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_145 /* InoutParametersStubbableTests.swift */; };
-		OBJ_792 /* InoutParametersVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_146 /* InoutParametersVerifiableTests.swift */; };
 		OBJ_793 /* TypealiasingMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_147 /* TypealiasingMockableTests.swift */; };
 		OBJ_794 /* TypealiasingStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_148 /* TypealiasingStubbableTests.swift */; };
-		OBJ_795 /* TypealiasingVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_149 /* TypealiasingVerifiableTests.swift */; };
 		OBJ_796 /* UndefinedArgumentLabelsMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_150 /* UndefinedArgumentLabelsMockableTests.swift */; };
 		OBJ_797 /* UndefinedArgumentLabelsStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_151 /* UndefinedArgumentLabelsStubbableTests.swift */; };
-		OBJ_798 /* UndefinedArgumentLabelsVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_152 /* UndefinedArgumentLabelsVerifiableTests.swift */; };
 		OBJ_799 /* VariadicParametersMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_153 /* VariadicParametersMockableTests.swift */; };
 		OBJ_800 /* VariadicParametersStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_154 /* VariadicParametersStubbableTests.swift */; };
-		OBJ_801 /* VariadicParametersVerifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_155 /* VariadicParametersVerifiableTests.swift */; };
 		OBJ_802 /* Mocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_156 /* Mocks.generated.swift */; };
 		OBJ_804 /* MockingbirdTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdTestsHost::Product" /* MockingbirdTestsHost.framework */; };
 		OBJ_805 /* MockingbirdGenerator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */; };
@@ -896,7 +885,6 @@
 		491CDF04231DD41A00C48C47 /* DeclaredTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclaredTypeTests.swift; sourceTree = "<group>"; };
 		49377CC3231E0496003C0EA2 /* DefaultArgumentValuesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultArgumentValuesMockableTests.swift; sourceTree = "<group>"; };
 		49377CC5231E0BE4003C0EA2 /* DefaultArgumentValuesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultArgumentValuesStubbableTests.swift; sourceTree = "<group>"; };
-		49377CC7231E0C8B003C0EA2 /* DefaultArgumentValuesVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultArgumentValuesVerifiableTests.swift; sourceTree = "<group>"; };
 		49965D312321B7E2002F9CD5 /* TreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeTests.swift; sourceTree = "<group>"; };
 		49965D342321B8D1002F9CD5 /* Bird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
 		49965D362321BA90002F9CD5 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
@@ -940,37 +928,27 @@
 		OBJ_124 /* VariadicParametersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariadicParametersTests.swift; sourceTree = "<group>"; };
 		OBJ_126 /* ChildMockMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildMockMockableTests.swift; sourceTree = "<group>"; };
 		OBJ_127 /* ChildMockStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildMockStubbableTests.swift; sourceTree = "<group>"; };
-		OBJ_128 /* ChildMockVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildMockVerifiableTests.swift; sourceTree = "<group>"; };
 		OBJ_129 /* ChildProtocolMockMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildProtocolMockMockableTests.swift; sourceTree = "<group>"; };
 		OBJ_13 /* Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
 		OBJ_130 /* ChildProtocolMockStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildProtocolMockStubbableTests.swift; sourceTree = "<group>"; };
-		OBJ_131 /* ChildProtocolMockVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildProtocolMockVerifiableTests.swift; sourceTree = "<group>"; };
 		OBJ_132 /* ClassScopedTypesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassScopedTypesMockableTests.swift; sourceTree = "<group>"; };
 		OBJ_133 /* ClassScopedTypesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassScopedTypesStubbableTests.swift; sourceTree = "<group>"; };
-		OBJ_134 /* ClassScopedTypesVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassScopedTypesVerifiableTests.swift; sourceTree = "<group>"; };
 		OBJ_135 /* ClosureParametersMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureParametersMockableTests.swift; sourceTree = "<group>"; };
 		OBJ_136 /* ClosureParametersStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureParametersStubbableTests.swift; sourceTree = "<group>"; };
-		OBJ_137 /* ClosureParametersVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureParametersVerifiableTests.swift; sourceTree = "<group>"; };
 		OBJ_138 /* ExtensionsMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsMockableTests.swift; sourceTree = "<group>"; };
 		OBJ_139 /* ExtensionsStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsStubbableTests.swift; sourceTree = "<group>"; };
 		OBJ_14 /* InstallCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallCommand.swift; sourceTree = "<group>"; };
-		OBJ_140 /* ExtensionsVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsVerifiableTests.swift; sourceTree = "<group>"; };
 		OBJ_141 /* GenericsMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericsMockableTests.swift; sourceTree = "<group>"; };
 		OBJ_142 /* GenericsStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericsStubbableTests.swift; sourceTree = "<group>"; };
-		OBJ_143 /* GenericsVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericsVerifiableTests.swift; sourceTree = "<group>"; };
 		OBJ_144 /* InoutParametersMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InoutParametersMockableTests.swift; sourceTree = "<group>"; };
 		OBJ_145 /* InoutParametersStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InoutParametersStubbableTests.swift; sourceTree = "<group>"; };
-		OBJ_146 /* InoutParametersVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InoutParametersVerifiableTests.swift; sourceTree = "<group>"; };
 		OBJ_147 /* TypealiasingMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypealiasingMockableTests.swift; sourceTree = "<group>"; };
 		OBJ_148 /* TypealiasingStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypealiasingStubbableTests.swift; sourceTree = "<group>"; };
-		OBJ_149 /* TypealiasingVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypealiasingVerifiableTests.swift; sourceTree = "<group>"; };
 		OBJ_15 /* Installer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Installer.swift; sourceTree = "<group>"; };
 		OBJ_150 /* UndefinedArgumentLabelsMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndefinedArgumentLabelsMockableTests.swift; sourceTree = "<group>"; };
 		OBJ_151 /* UndefinedArgumentLabelsStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndefinedArgumentLabelsStubbableTests.swift; sourceTree = "<group>"; };
-		OBJ_152 /* UndefinedArgumentLabelsVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndefinedArgumentLabelsVerifiableTests.swift; sourceTree = "<group>"; };
 		OBJ_153 /* VariadicParametersMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariadicParametersMockableTests.swift; sourceTree = "<group>"; };
 		OBJ_154 /* VariadicParametersStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariadicParametersStubbableTests.swift; sourceTree = "<group>"; };
-		OBJ_155 /* VariadicParametersVerifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariadicParametersVerifiableTests.swift; sourceTree = "<group>"; };
 		OBJ_156 /* Mocks.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.generated.swift; sourceTree = "<group>"; };
 		OBJ_16 /* Program.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
 		OBJ_160 /* Await.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Await.swift; sourceTree = "<group>"; };
@@ -1581,37 +1559,26 @@
 			children = (
 				OBJ_126 /* ChildMockMockableTests.swift */,
 				OBJ_127 /* ChildMockStubbableTests.swift */,
-				OBJ_128 /* ChildMockVerifiableTests.swift */,
 				OBJ_129 /* ChildProtocolMockMockableTests.swift */,
 				OBJ_130 /* ChildProtocolMockStubbableTests.swift */,
-				OBJ_131 /* ChildProtocolMockVerifiableTests.swift */,
 				OBJ_132 /* ClassScopedTypesMockableTests.swift */,
 				OBJ_133 /* ClassScopedTypesStubbableTests.swift */,
-				OBJ_134 /* ClassScopedTypesVerifiableTests.swift */,
 				OBJ_135 /* ClosureParametersMockableTests.swift */,
 				OBJ_136 /* ClosureParametersStubbableTests.swift */,
-				OBJ_137 /* ClosureParametersVerifiableTests.swift */,
 				49377CC3231E0496003C0EA2 /* DefaultArgumentValuesMockableTests.swift */,
 				49377CC5231E0BE4003C0EA2 /* DefaultArgumentValuesStubbableTests.swift */,
-				49377CC7231E0C8B003C0EA2 /* DefaultArgumentValuesVerifiableTests.swift */,
 				OBJ_138 /* ExtensionsMockableTests.swift */,
 				OBJ_139 /* ExtensionsStubbableTests.swift */,
-				OBJ_140 /* ExtensionsVerifiableTests.swift */,
 				OBJ_141 /* GenericsMockableTests.swift */,
 				OBJ_142 /* GenericsStubbableTests.swift */,
-				OBJ_143 /* GenericsVerifiableTests.swift */,
 				OBJ_144 /* InoutParametersMockableTests.swift */,
 				OBJ_145 /* InoutParametersStubbableTests.swift */,
-				OBJ_146 /* InoutParametersVerifiableTests.swift */,
 				OBJ_147 /* TypealiasingMockableTests.swift */,
 				OBJ_148 /* TypealiasingStubbableTests.swift */,
-				OBJ_149 /* TypealiasingVerifiableTests.swift */,
 				OBJ_150 /* UndefinedArgumentLabelsMockableTests.swift */,
 				OBJ_151 /* UndefinedArgumentLabelsStubbableTests.swift */,
-				OBJ_152 /* UndefinedArgumentLabelsVerifiableTests.swift */,
 				OBJ_153 /* VariadicParametersMockableTests.swift */,
 				OBJ_154 /* VariadicParametersStubbableTests.swift */,
-				OBJ_155 /* VariadicParametersVerifiableTests.swift */,
 			);
 			path = E2E;
 			sourceTree = "<group>";
@@ -1968,10 +1935,10 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_28 /* Info.plist */,
+				OBJ_40 /* Mockingbird.swift */,
 				OBJ_29 /* DSL */,
 				OBJ_34 /* Matching */,
 				OBJ_37 /* Mocking */,
-				OBJ_40 /* Mockingbird.swift */,
 				OBJ_41 /* Stubbing */,
 				OBJ_45 /* Utilities */,
 				OBJ_52 /* Verification */,
@@ -3536,7 +3503,6 @@
 				OBJ_765 /* ArgumentMatchingTests.swift in Sources */,
 				OBJ_766 /* AsyncVerificationTests.swift in Sources */,
 				OBJ_768 /* LastSetValueStubTests.swift in Sources */,
-				49377CC8231E0C8B003C0EA2 /* DefaultArgumentValuesVerifiableTests.swift in Sources */,
 				OBJ_769 /* OverloadedMethodTests.swift in Sources */,
 				49965D322321B7E2002F9CD5 /* TreeTests.swift in Sources */,
 				49377CC4231E0496003C0EA2 /* DefaultArgumentValuesMockableTests.swift in Sources */,
@@ -3545,38 +3511,28 @@
 				491CDF03231DC6EE00C48C47 /* StringExtensionsTests.swift in Sources */,
 				OBJ_772 /* ChildMockMockableTests.swift in Sources */,
 				OBJ_773 /* ChildMockStubbableTests.swift in Sources */,
-				OBJ_774 /* ChildMockVerifiableTests.swift in Sources */,
 				OBJ_775 /* ChildProtocolMockMockableTests.swift in Sources */,
 				OBJ_776 /* ChildProtocolMockStubbableTests.swift in Sources */,
-				OBJ_777 /* ChildProtocolMockVerifiableTests.swift in Sources */,
 				OBJ_778 /* ClassScopedTypesMockableTests.swift in Sources */,
 				OBJ_779 /* ClassScopedTypesStubbableTests.swift in Sources */,
-				OBJ_780 /* ClassScopedTypesVerifiableTests.swift in Sources */,
 				OBJ_781 /* ClosureParametersMockableTests.swift in Sources */,
 				OBJ_782 /* ClosureParametersStubbableTests.swift in Sources */,
-				OBJ_783 /* ClosureParametersVerifiableTests.swift in Sources */,
 				49377CC6231E0BE4003C0EA2 /* DefaultArgumentValuesStubbableTests.swift in Sources */,
 				OBJ_784 /* ExtensionsMockableTests.swift in Sources */,
 				49F5DD4A2322346500EC87E4 /* InitializerTests.swift in Sources */,
 				OBJ_785 /* ExtensionsStubbableTests.swift in Sources */,
 				49F5DD4C2322E95300EC87E4 /* CollectionArgumentMatchingTests.swift in Sources */,
-				OBJ_786 /* ExtensionsVerifiableTests.swift in Sources */,
 				OBJ_787 /* GenericsMockableTests.swift in Sources */,
 				OBJ_788 /* GenericsStubbableTests.swift in Sources */,
-				OBJ_789 /* GenericsVerifiableTests.swift in Sources */,
 				OBJ_790 /* InoutParametersMockableTests.swift in Sources */,
 				491CDF05231DD41A00C48C47 /* DeclaredTypeTests.swift in Sources */,
 				OBJ_791 /* InoutParametersStubbableTests.swift in Sources */,
-				OBJ_792 /* InoutParametersVerifiableTests.swift in Sources */,
 				OBJ_793 /* TypealiasingMockableTests.swift in Sources */,
 				OBJ_794 /* TypealiasingStubbableTests.swift in Sources */,
-				OBJ_795 /* TypealiasingVerifiableTests.swift in Sources */,
 				OBJ_796 /* UndefinedArgumentLabelsMockableTests.swift in Sources */,
 				OBJ_797 /* UndefinedArgumentLabelsStubbableTests.swift in Sources */,
-				OBJ_798 /* UndefinedArgumentLabelsVerifiableTests.swift in Sources */,
 				OBJ_799 /* VariadicParametersMockableTests.swift in Sources */,
 				OBJ_800 /* VariadicParametersStubbableTests.swift in Sources */,
-				OBJ_801 /* VariadicParametersVerifiableTests.swift in Sources */,
 				OBJ_802 /* Mocks.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

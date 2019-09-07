@@ -170,7 +170,7 @@ extension MockableType {
   var defaultInitializer: String {
     guard kind == .protocol else { return "" }
     return """
-      public init(sourceLocation: Mockingbird.SourceLocation) {
+      fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
         Mockingbird.checkVersion(for: self)
         self.sourceLocation = sourceLocation
       }

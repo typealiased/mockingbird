@@ -15,99 +15,99 @@ import Mockingbird
 private protocol StubbableChildProtocol {
   // MARK: Child
   func getChildPrivateSetterInstanceVariable()
-    -> Stubbable<() -> Bool, Bool>
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
   func setChildPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
   func getChildInstanceVariable()
-    -> Stubbable<() -> Bool, Bool>
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
   func setChildInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
   func childTrivialInstanceMethod()
-    -> Stubbable<() -> Void, Void>
+    -> Mockable<MethodDeclaration, () -> Void, Void>
   func childParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                         _ param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<(Bool, Int) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
   
   static func getChildPrivateSetterStaticVariable()
-    -> Stubbable<() -> Bool, Bool>
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
   static func setChildPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
   static func getChildStaticVariable()
-    -> Stubbable<() -> Bool, Bool>
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
   static func setChildStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
   static func childTrivialStaticMethod()
-    -> Stubbable<() -> Void, Void>
+    -> Mockable<MethodDeclaration, () -> Void, Void>
   static func childParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool,
                                              _ param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<(Bool, Int) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
   
   // MARK: Parent
   func getParentPrivateSetterInstanceVariable()
-    -> Stubbable<() -> Bool, Bool>
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
   func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
   func getParentInstanceVariable()
-    -> Stubbable<() -> Bool, Bool>
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
   func setParentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
   func parentTrivialInstanceMethod()
-    -> Stubbable<() -> Void, Void>
+    -> Mockable<MethodDeclaration, () -> Void, Void>
   func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                          _ param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<(Bool, Int) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
   
   static func getParentPrivateSetterStaticVariable()
-    -> Stubbable<() -> Bool, Bool>
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
   static func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
   static func getParentStaticVariable()
-    -> Stubbable<() -> Bool, Bool>
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
   static func setParentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
   static func parentTrivialStaticMethod()
-    -> Stubbable<() -> Void, Void>
+    -> Mockable<MethodDeclaration, () -> Void, Void>
   static func parentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool,
                                               _ param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<(Bool, Int) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
   
   // MARK: Grandparent
   func getGrandparentPrivateSetterInstanceVariable()
-    -> Stubbable<() -> Bool, Bool>
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
   func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
-  func getGrandparentInstanceVariable() -> Stubbable<() -> Bool, Bool>
+  func getGrandparentInstanceVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
   func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
-  func grandparentTrivialInstanceMethod() -> Stubbable<() -> Void, Void>
+  func grandparentTrivialInstanceMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
   func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                               _ param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<(Bool, Int) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
   
   static func getGrandparentPrivateSetterStaticVariable()
-    -> Stubbable<() -> Bool, Bool>
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
   static func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
   static func getGrandparentStaticVariable()
-    -> Stubbable<() -> Bool, Bool>
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
   static func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Stubbable<(Bool) -> Void, Void>
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
   static func grandparentTrivialStaticMethod()
-    -> Stubbable<() -> Void, Void>
+    -> Mockable<MethodDeclaration, () -> Void, Void>
   static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool,
                                                    _ param2: @escaping @autoclosure () -> Int)
-    -> Stubbable<(Bool, Int) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
 }
 extension ChildProtocolMock: StubbableChildProtocol {}

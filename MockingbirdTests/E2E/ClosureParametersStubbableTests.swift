@@ -13,31 +13,31 @@ import Mockingbird
 
 private protocol StubbableClosureParametersProtocol {
   func trivialClosure(block: @escaping @autoclosure () -> () -> Void)
-    -> Stubbable<(() -> Void) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (() -> Void) -> Bool, Bool>
   func trivialReturningClosure(block: @escaping @autoclosure () -> () -> Bool)
-    -> Stubbable<(() -> Bool) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (() -> Bool) -> Bool, Bool>
   func parameterizedClosure(block: @escaping @autoclosure () -> (Bool) -> Void)
-    -> Stubbable<((Bool) -> Void) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, ((Bool) -> Void) -> Bool, Bool>
   func parameterizedReturningClosure(block: @escaping @autoclosure () -> (Bool) -> Bool)
-    -> Stubbable<((Bool) -> Bool) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, ((Bool) -> Bool) -> Bool, Bool>
   
   func escapingTrivialClosure(block: @escaping @autoclosure () -> () -> Void)
-    -> Stubbable<(@escaping () -> Void) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (@escaping () -> Void) -> Bool, Bool>
   func escapingTrivialReturningVoidClosure(block: @escaping @autoclosure () -> () -> Bool)
-    -> Stubbable<(@escaping () -> Bool) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (@escaping () -> Bool) -> Bool, Bool>
   func escapingParameterizedClosure(block: @escaping @autoclosure () -> (Bool) -> Void)
-    -> Stubbable<(@escaping (Bool) -> Void) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (@escaping (Bool) -> Void) -> Bool, Bool>
   func escapingParameterizedReturningClosure(block: @escaping @autoclosure () -> (Bool) -> Bool)
-    -> Stubbable<(@escaping (Bool) -> Bool) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (@escaping (Bool) -> Bool) -> Bool, Bool>
   
   func autoclosureTrivialClosure(block: @escaping @autoclosure () -> () -> Void)
-    -> Stubbable<(@autoclosure () -> Void) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (@autoclosure () -> Void) -> Bool, Bool>
   func autoclosureTrivialReturningClosure(block: @escaping @autoclosure () -> () -> Bool)
-    -> Stubbable<(@autoclosure () -> Bool) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (@autoclosure () -> Bool) -> Bool, Bool>
   
   func escapingAutoclosureTrivialClosure(block: @escaping @autoclosure () -> () -> Void)
-    -> Stubbable<(@escaping @autoclosure () -> Void) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (@escaping @autoclosure () -> Void) -> Bool, Bool>
   func escapingAutoclosureTrivialReturningClosure(block: @escaping @autoclosure () -> () -> Bool)
-    -> Stubbable<(@escaping @autoclosure () -> Bool) -> Bool, Bool>
+    -> Mockable<MethodDeclaration, (@escaping @autoclosure () -> Bool) -> Bool, Bool>
 }
 extension ClosureParametersProtocolMock: StubbableClosureParametersProtocol {}

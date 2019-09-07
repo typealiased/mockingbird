@@ -58,8 +58,7 @@ class MethodGenerator {
   
   func generate() -> String {
     return [generatedMock,
-            generatedStub,
-            generatedVerification]
+            generatedMockableHook]
       .filter({ !$0.isEmpty })
       .joined(separator: "\n\n")
   }
@@ -82,20 +81,20 @@ class MethodGenerator {
       }
       let genericConstraints = self.genericConstraints
       return """
-        // MARK: Mockable `\(method.name)`
+        // MARK: Mocked `\(method.name)`
       \(attributes)
         public \(overridableModifiers)\(fullNameForMocking)\(genericConstraints) \(returnTypeAttributes){
       \(checkVersion)
-          let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: [\(mockArgumentMatchers)])
+          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: [\(mockArgumentMatchers)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
         }
       """
     } else {
       return """
-        // MARK: Mockable `\(method.name)`
+        // MARK: Mocked `\(method.name)`
       \(attributes)
         public \(overridableModifiers)func \(fullNameForMocking) \(returnTypeAttributes)-> \(specializedReturnTypeName)\(genericConstraints) {
-          let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: [\(mockArgumentMatchers)])
+          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: [\(mockArgumentMatchers)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
       \(stubbedImplementationCall)
         }
@@ -103,59 +102,33 @@ class MethodGenerator {
     }
   }()
   
-  lazy var generatedStub: String = {
+  lazy var generatedMockableHook: String = {
     guard !method.isInitializer else { return "" }
-    let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
+    let attributes = declarationAttributes.isEmpty ? "" : "  \(declarationAttributes)\n"
     let parameterTypes = methodParameterTypes
     let returnTypeName = specializedReturnTypeName
     let invocationType = "(\(parameterTypes)) \(returnTypeAttributes)-> \(returnTypeName)"
-    let stubbableGenericTypes = [invocationType, returnTypeName].joined(separator: ", ")
-    let stub = """
-      // MARK: Stubbable `\(method.name)`
-    \(attributes)
-      public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Stubbable<\(stubbableGenericTypes)>\(genericConstraints) {
+    let mockableGenericTypes = ["Mockingbird.MethodDeclaration",
+                                 invocationType,
+                                 returnTypeName].joined(separator: ", ")
+    let mockable = """
+    \(attributes)  public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) {
     \(matchableInvocation)
-        return Mockingbird.Stubbable<\(stubbableGenericTypes)>(stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
+        return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
       }
     """
-    guard isVariadicMethod else { return stub }
+    guard isVariadicMethod else { return mockable }
     
     // Allow methods with a variadic parameter to use variadics when stubbing.
     return """
-    \(stub)
-    \(attributes)
-      public \(regularModifiers)func \(fullNameForMatchingVariadics) -> Mockingbird.Stubbable<\(stubbableGenericTypes)>\(genericConstraints) {
+    \(mockable)
+    \(attributes)  public \(regularModifiers)func \(fullNameForMatchingVariadics) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) {
     \(matchableInvocationVariadics)
-        return Mockingbird.Stubbable<\(stubbableGenericTypes)>(stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
+        return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
       }
     """
   }()
-  
-  lazy var generatedVerification: String = {
-    guard !method.isInitializer else { return "" }
-    let returnTypeName = specializedReturnTypeName
-    let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
-    let stub = """
-      // MARK: Verifiable `\(method.name)`
-    \(attributes)
-      public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Mockable<\(returnTypeName)>\(genericConstraints) {
-    \(matchableInvocation)
-        return Mockingbird.Mockable<\(returnTypeName)>(mockingContext: \(contextPrefix)mockingContext, invocation: invocation)
-      }
-    """
-    guard isVariadicMethod else { return stub }
-    
-    // Allow methods with a variadic parameter to use variadics when verifying.
-    return """
-    \(stub)
-    \(attributes)
-      public \(regularModifiers)func \(fullNameForMatchingVariadics) -> Mockingbird.Mockable<\(returnTypeName)>\(genericConstraints) {
-    \(matchableInvocationVariadics)
-        return Mockingbird.Mockable<\(returnTypeName)>(mockingContext: \(contextPrefix)mockingContext, invocation: invocation)
-      }
-    """
-  }()
-  
+
   lazy var declarationAttributes: String = {
     return method.attributes.declarations.joined(separator: " ")
   }()
@@ -260,19 +233,19 @@ class MethodGenerator {
   lazy var matchableInvocation: String = {
     guard !method.parameters.isEmpty else {
       return """
-          let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: [])
+          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: [])
       """
     }
     return """
     \(resolvedArgumentMatchers)
-        let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: arguments)
+        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: arguments)
     """
   }()
   
   lazy var matchableInvocationVariadics: String = {
     return """
     \(resolvedArgumentMatchersVariadics)
-        let invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: arguments)
+        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: arguments)
     """
   }()
   
@@ -280,7 +253,7 @@ class MethodGenerator {
     let resolved = method.parameters.map({
       return "Mockingbird.resolve(`\($0.name)`)"
     }).joined(separator: ", ")
-    return "    let arguments = [\(resolved)]"
+    return "    let arguments: [Mockingbird.ArgumentMatcher] = [\(resolved)]"
   }()
   
   /// Variadic parameters cannot be resolved indirectly using `resolve()`.
@@ -290,7 +263,7 @@ class MethodGenerator {
       // Directly create an ArgumentMatcher if this parameter is variadic.
       return "Mockingbird.ArgumentMatcher(`\($0.name)`)"
     }).joined(separator: ", ")
-    return "    let arguments = [\(resolved)]"
+    return "    let arguments: [Mockingbird.ArgumentMatcher] = [\(resolved)]"
   }()
   
   lazy var tryInvocation: String = {
@@ -312,8 +285,14 @@ class MethodGenerator {
     }).joined(separator: ", ")
   }()
   
+  lazy var mockObject: String = {
+    return method.kind.typeScope == .static || method.kind.typeScope == .class
+      ? "staticMock" : "self"
+  }()
+  
   lazy var contextPrefix: String = {
-    return (method.kind.typeScope == .static || method.kind.typeScope == .class ? "staticMock." : "")
+    return method.kind.typeScope == .static || method.kind.typeScope == .class
+      ? "staticMock." : ""
   }()
   
   lazy var specializedReturnTypeName: String = {
