@@ -117,73 +117,37 @@ struct Method: Hashable, Comparable {
       let accessLevel = AccessLevel(from: dictionary), accessLevel.isMockable
       else { return nil }
     
-    var attributes = Attributes(from: dictionary)
-    guard !attributes.contains(.final) else { return nil }
-    let isInitializer = name.hasPrefix("init(")
-    
-    var rawParametersDeclaration: Substring?
-    var genericConstraints = [String]()
     let source = rawType.parsedFile.file.contents
-    if let declaration = SourceSubstring.key.extract(from: dictionary, contents: source) {
-      let startIndex = declaration.firstIndex(of: "(", excluding: .allGroups)
-      let parametersEndIndex =
-        declaration[declaration.index(after: (startIndex ?? declaration.startIndex))...]
-        .firstIndex(of: ")", excluding: .allGroups)
-      if let startIndex = startIndex, let endIndex = parametersEndIndex {
-        rawParametersDeclaration = declaration[declaration.index(after: startIndex)..<endIndex]
-        
-        if isInitializer {
-          let failable = declaration[declaration.index(before: startIndex)..<startIndex]
-          if failable == "?" {
-            attributes.insert(.failable)
-          } else if failable == "!" {
-            attributes.insert(.unwrappedFailable)
-          }
-        }
-      }
-      let returnAttributesStartIndex = parametersEndIndex ?? declaration.startIndex
-      let returnAttributesEndIndex = declaration.firstIndex(of: "-", excluding: .allGroups)
-        ?? declaration.endIndex
-      let returnAttributes = declaration[returnAttributesStartIndex..<returnAttributesEndIndex]
-      if returnAttributes.range(of: #"\bthrows\b"#, options: .regularExpression) != nil {
-        attributes.insert(.throws)
-      }
-    }
-    if let nameSuffix = SourceSubstring.nameSuffixUpToBody.extract(from: dictionary, contents: source) {
-      if let whereRange = nameSuffix.range(of: #"\bwhere\b"#, options: .regularExpression) {
-        genericConstraints = nameSuffix[whereRange.upperBound..<nameSuffix.endIndex]
-          .substringComponents(separatedBy: ",")
-          .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
-        genericConstraints = GenericType
-          .qualifyConstraintTypes(constraints: genericConstraints,
-                                  containingType: rawType,
-                                  moduleNames: moduleNames,
-                                  rawTypeRepository: rawTypeRepository)
-      }
-    }
-    self.attributes = attributes
-    self.genericConstraints = genericConstraints
-    self.isInitializer = isInitializer
-    
-    self.name = name
-    self.kind = kind
-    
-    if let rawReturnTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String {
-      let declaredType = DeclaredType(from: rawReturnTypeName)
-      let serializationContext = SerializationRequest
-        .Context(moduleNames: moduleNames,
-                 rawType: rawType,
-                 rawTypeRepository: rawTypeRepository,
-                 typealiasRepository: typealiasRepository)
-      let qualifiedTypeNameRequest = SerializationRequest(method: .contextQualified,
-                                                          context: serializationContext,
-                                                          options: .standard)
-      self.returnTypeName = declaredType.serialize(with: qualifiedTypeNameRequest)
-    } else {
-      self.returnTypeName = "Void"
-    }
+    let attributes = Attributes(from: dictionary, source: source)
+    guard !attributes.contains(.final) else { return nil }
     
     let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary] ?? []
+    
+    self.name = name
+    self.isInitializer = name.hasPrefix("init(")
+    self.kind = kind
+    
+    // Parse declared attributes and parameters.
+    let rawParametersDeclaration: Substring?
+    (self.attributes,
+     rawParametersDeclaration) = Method.parseDeclaration(from: dictionary,
+                                                         source: source,
+                                                         isInitializer: self.isInitializer,
+                                                         attributes: attributes)
+    
+    // Parse return type.
+    self.returnTypeName = Method.parseReturnTypeName(from: dictionary,
+                                                     rawType: rawType,
+                                                     moduleNames: moduleNames,
+                                                     rawTypeRepository: rawTypeRepository,
+                                                     typealiasRepository: typealiasRepository)
+    
+    // Parse generic types and constraints.
+    self.genericConstraints = Method.parseGenericConstraints(from: dictionary,
+                                                             source: source,
+                                                             rawType: rawType,
+                                                             moduleNames: moduleNames,
+                                                             rawTypeRepository: rawTypeRepository)
     self.genericTypes = substructure.compactMap({ structure -> GenericType? in
       guard let genericType = GenericType(from: structure,
                                           rawType: rawType,
@@ -192,30 +156,17 @@ struct Method: Hashable, Comparable {
       return genericType
     })
     
-    var parameters = [MethodParameter]()
-    let labels = name.argumentLabels
-    if !labels.isEmpty {
-      var parameterIndex = 0
-      let rawDeclarations = rawParametersDeclaration?
-        .components(separatedBy: ",", excluding: .allGroups)
-        .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
-      parameters = substructure.compactMap({
-        let rawDeclaration = rawDeclarations?.get(parameterIndex)
-        guard let parameter = MethodParameter(from: $0,
-                                              argumentLabel: labels[parameterIndex],
-                                              parameterIndex: parameterIndex,
-                                              rawDeclaration: rawDeclaration,
-                                              rawType: rawType,
-                                              moduleNames: moduleNames,
-                                              rawTypeRepository: rawTypeRepository,
-                                              typealiasRepository: typealiasRepository)
-          else { return nil }
-        parameterIndex += 1
-        return parameter
-      })
-    }
-    self.parameters = parameters
+    // Parse parameters.
+    let labels = name.extractArgumentLabels()
+    self.parameters = Method.parseParameters(labels: labels,
+                                             substructure: substructure,
+                                             rawParametersDeclaration: rawParametersDeclaration,
+                                             rawType: rawType,
+                                             moduleNames: moduleNames,
+                                             rawTypeRepository: rawTypeRepository,
+                                             typealiasRepository: typealiasRepository)
     
+    // Create a unique and sortable identifier for this method.
     if rawType.parsedFile.shouldMock {
       self.sortableIdentifier = [
         self.name,
@@ -231,10 +182,120 @@ struct Method: Hashable, Comparable {
       self.sortableIdentifier = name
     }
   }
+  
+  @inlinable
+  static func parseDeclaration(from dictionary: StructureDictionary,
+                               source: String,
+                               isInitializer: Bool,
+                               attributes: Attributes) -> (Attributes, Substring?) {
+    guard let declaration = SourceSubstring.key.extract(from: dictionary, contents: source)
+      else { return (attributes, nil) }
+    
+    var fullAttributes = attributes
+    var rawParametersDeclaration: Substring?
+    
+    // Parse parameter attributes.
+    let startIndex = declaration.firstIndex(of: "(", excluding: .allGroups)
+    let parametersEndIndex =
+      declaration[declaration.index(after: (startIndex ?? declaration.startIndex))...]
+        .firstIndex(of: ")", excluding: .allGroups)
+    if let startIndex = startIndex, let endIndex = parametersEndIndex {
+      rawParametersDeclaration = declaration[declaration.index(after: startIndex)..<endIndex]
+      
+      if isInitializer { // Parse failable initializers.
+        let failable = declaration[declaration.index(before: startIndex)..<startIndex]
+        if failable == "?" {
+          fullAttributes.insert(.failable)
+        } else if failable == "!" {
+          fullAttributes.insert(.unwrappedFailable)
+        }
+      }
+    }
+    
+    // Parse return type attributes.
+    let returnAttributesStartIndex = parametersEndIndex ?? declaration.startIndex
+    let returnAttributesEndIndex = declaration.firstIndex(of: "-", excluding: .allGroups)
+      ?? declaration.endIndex
+    let returnAttributes = declaration[returnAttributesStartIndex..<returnAttributesEndIndex]
+    if returnAttributes.range(of: #"\bthrows\b"#, options: .regularExpression) != nil {
+      fullAttributes.insert(.throws)
+    }
+    
+    return (fullAttributes, rawParametersDeclaration)
+  }
+  
+  @inlinable
+  static func parseGenericConstraints(from dictionary: StructureDictionary,
+                                      source: String,
+                                      rawType: RawType,
+                                      moduleNames: [String],
+                                      rawTypeRepository: RawTypeRepository) -> [String] {
+    guard let nameSuffix = SourceSubstring.nameSuffixUpToBody.extract(from: dictionary,
+                                                                      contents: source),
+      let whereRange = nameSuffix.range(of: #"\bwhere\b"#, options: .regularExpression)
+      else { return [] }
+    let rawGenericConstraints = nameSuffix[whereRange.upperBound..<nameSuffix.endIndex]
+      .substringComponents(separatedBy: ",")
+      .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
+    return GenericType.qualifyConstraintTypes(constraints: rawGenericConstraints,
+                                              containingType: rawType,
+                                              moduleNames: moduleNames,
+                                              rawTypeRepository: rawTypeRepository)
+  }
+  
+  @inlinable
+  static func parseReturnTypeName(from dictionary: StructureDictionary,
+                                  rawType: RawType,
+                                  moduleNames: [String],
+                                  rawTypeRepository: RawTypeRepository,
+                                  typealiasRepository: TypealiasRepository) -> String {
+    guard let rawReturnTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String else {
+      return "Void"
+    }
+    let declaredType = DeclaredType(from: rawReturnTypeName)
+    let serializationContext = SerializationRequest
+      .Context(moduleNames: moduleNames,
+               rawType: rawType,
+               rawTypeRepository: rawTypeRepository,
+               typealiasRepository: typealiasRepository)
+    let qualifiedTypeNameRequest = SerializationRequest(method: .contextQualified,
+                                                        context: serializationContext,
+                                                        options: .standard)
+    return declaredType.serialize(with: qualifiedTypeNameRequest)
+  }
+  
+  @inlinable
+  static func parseParameters(labels: [String?],
+                              substructure: [StructureDictionary],
+                              rawParametersDeclaration: Substring?,
+                              rawType: RawType,
+                              moduleNames: [String],
+                              rawTypeRepository: RawTypeRepository,
+                              typealiasRepository: TypealiasRepository) -> [MethodParameter] {
+    guard !labels.isEmpty else { return [] }
+    var parameterIndex = 0
+    let rawDeclarations = rawParametersDeclaration?
+      .components(separatedBy: ",", excluding: .allGroups)
+      .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
+    return substructure.compactMap({
+      let rawDeclaration = rawDeclarations?.get(parameterIndex)
+      guard let parameter = MethodParameter(from: $0,
+                                            argumentLabel: labels[parameterIndex],
+                                            parameterIndex: parameterIndex,
+                                            rawDeclaration: rawDeclaration,
+                                            rawType: rawType,
+                                            moduleNames: moduleNames,
+                                            rawTypeRepository: rawTypeRepository,
+                                            typealiasRepository: typealiasRepository)
+        else { return nil }
+      parameterIndex += 1
+      return parameter
+    })
+  }
 }
 
 private extension String {
-  var argumentLabels: [String?] {
+  func extractArgumentLabels() -> [String?] {
     guard let startIndex = firstIndex(of: "("),
       let stopIndex = firstIndex(of: ")") else { return [] }
     let arguments = self[index(after: startIndex)..<stopIndex]

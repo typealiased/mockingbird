@@ -44,33 +44,18 @@ struct Variable: Hashable, Comparable {
     guard let name = dictionary[SwiftDocKey.name.rawValue] as? String,
       let accessLevel = AccessLevel(from: dictionary), accessLevel.isMockable else { return nil }
     
-    var attributes = Attributes(from: dictionary)
+    let source = rawType.parsedFile.file.contents
+    var attributes = Attributes(from: dictionary, source: source)
     guard !attributes.contains(.final) else { return nil }
     
-    var rawTypeName: String
-    if let explicitTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String {
-      rawTypeName = explicitTypeName // Type was explicitly declared, hooray!
-    } else if let declaration = SourceSubstring.nameSuffix
-      .extract(from: dictionary, contents: rawType.parsedFile.file.contents)?.stripped(),
-      declaration.hasPrefix("=") { // We might be able to infer the type...
-      var cleanedDeclaration = declaration.dropFirst().trimmingCharacters(in: .whitespaces)
-      cleanedDeclaration = cleanedDeclaration.components(separatedBy: .newlines)[0]
-      
-      if cleanedDeclaration.hasSuffix("{") {
-        cleanedDeclaration = cleanedDeclaration.dropLast().trimmingCharacters(in: .whitespaces)
-      }
-      
-      // Use a slightly modified version of Sourcery's type inference system.
-      let inferredType = inferType(from: cleanedDeclaration)
-      rawTypeName = inferredType ?? "Any?"
-      if inferredType == nil {
-        fputs("WARNING: Could not infer type for variable `\(name)`, declaration: `\(cleanedDeclaration)`\n", stderr)
-      }
+    let rawTypeName: String
+    if let inferredTypeName = Variable.parseRawTypeName(from: dictionary, source: source) {
+      rawTypeName = inferredTypeName
     } else {
-      rawTypeName = "Any?"
-      fputs("WARNING: Could not extract type info for variable `\(name)`\n", stderr)
+      fputs("Unable to infer type for variable `\(name)` in module `\(rawType.parsedFile.moduleName)`. You should explicitly declare the variable type in the source file \(rawType.parsedFile.path.absolute())", stderr)
+      // Use an editor placeholder to trigger a compiler error if this type is ever generated.
+      rawTypeName = "<#__UnknownType__#>"
     }
-    
     let declaredType = DeclaredType(from: rawTypeName)
     let serializationContext = SerializationRequest
       .Context(moduleNames: moduleNames,
@@ -86,7 +71,6 @@ struct Variable: Hashable, Comparable {
     let setterAccessLevel = AccessLevel(setter: dictionary)
     
     // Determine if the variable type is computed, stored, or constant.
-    let source = rawType.parsedFile.file.contents
     let isConstant = SourceSubstring.key
       .extract(from: dictionary, contents: source)?
       .hasPrefix("let") == true
@@ -104,5 +88,27 @@ struct Variable: Hashable, Comparable {
     }
     self.attributes = attributes
     self.setterAccessLevel = setterAccessLevel ?? .internal
+  }
+  
+  @inlinable
+  static func parseRawTypeName(from dictionary: StructureDictionary, source: String) -> String? {
+    if let explicitTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String {
+      return explicitTypeName // The type was explicitly declared, hooray!
+    }
+    
+    // Try to infer the type from the raw declaration.
+    guard let declaration = SourceSubstring.nameSuffix.extract(from: dictionary,
+                                                               contents: source)?.stripped(),
+      declaration.hasPrefix("=") else { return nil }
+    
+    var cleanedDeclaration = declaration.dropFirst().trimmingCharacters(in: .whitespaces)
+    cleanedDeclaration = cleanedDeclaration.components(separatedBy: .newlines)[0]
+    
+    if cleanedDeclaration.hasSuffix("{") {
+      cleanedDeclaration = cleanedDeclaration.dropLast().trimmingCharacters(in: .whitespaces)
+    }
+    
+    // Use a slightly modified version of Sourcery's type inference system.
+    return inferType(from: cleanedDeclaration)
   }
 }
