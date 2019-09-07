@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Fully qualifies tokenized `DeclaredType` objects given a declaration context.
 struct SerializationRequest {
   enum Constants {
     static let selfToken = "{#Self#}"
@@ -117,8 +118,8 @@ private extension SerializationRequest {
   }
 }
 
-/// Parses type declarations into a usable type object (which could be nested).
-enum DeclaredType: CustomStringConvertible, SerializableType {
+/// Tokenizes type declarations.
+enum DeclaredType: CustomStringConvertible, CustomDebugStringConvertible, SerializableType {
   case single(Single, optionals: String)
   case tuple(Tuple, optionals: String)
   
@@ -156,6 +157,16 @@ enum DeclaredType: CustomStringConvertible, SerializableType {
     }
   }
   
+  var debugDescription: String {
+    var description: String {
+      switch self {
+      case let .single(single, optionals): return "\(String(reflecting: single))\(optionals)"
+      case let .tuple(tuple, optionals): return "\(String(reflecting: tuple))\(optionals)"
+      }
+    }
+    return "DeclaredType(\(description))"
+  }
+  
   func serialize(with request: SerializationRequest) -> String {
     switch self {
     case let .single(single, optionals):
@@ -185,7 +196,7 @@ extension DeclaredType {
   }
 }
 
-indirect enum Single: CustomStringConvertible, SerializableType {
+indirect enum Single: CustomStringConvertible, CustomDebugStringConvertible, SerializableType {
   case generic(
     typeName: String,
     qualification: String,
@@ -222,6 +233,24 @@ indirect enum Single: CustomStringConvertible, SerializableType {
     case let .function(function):
       return "\(function)"
     }
+  }
+  
+  var debugDescription: String {
+    var description: String {
+      switch self {
+      case let .generic(typeName, qualification, genericTypes):
+        let qualificationPrefix = qualification + (qualification.isEmpty ? "" : ".")
+        guard !genericTypes.isEmpty else { return "\(qualificationPrefix)\(typeName)" }
+        return "\(qualificationPrefix)\(typeName)<\(genericTypes.map({ String(reflecting: $0) }).joined(separator: ", "))>"
+      case let .list(element):
+        return "[\(String(reflecting: element))]"
+      case let .map(key, value):
+        return "[\(String(reflecting: key)): \(String(reflecting: value))]"
+      case let .function(function):
+        return String(reflecting: function)
+      }
+    }
+    return "Single(\(description))"
   }
   
   func serialize(with request: SerializationRequest) -> String {
@@ -288,7 +317,7 @@ extension Single {
   }
 }
 
-struct Tuple: CustomStringConvertible, SerializableType {
+struct Tuple: CustomStringConvertible, CustomDebugStringConvertible, SerializableType {
   let elements: [(label: String, type: DeclaredType)] // Label => Type
   
   var description: String {
@@ -299,6 +328,19 @@ struct Tuple: CustomStringConvertible, SerializableType {
       return "\(element.label): \(element.type)"
     }).joined(separator: ", ")
     return "(\(serializedElements))"
+  }
+  
+  var debugDescription: String {
+    var description: String {
+      let serializedElements = elements.map({ element -> String in
+        guard !element.label.hasPrefix(".") else {
+          return String(reflecting: element.type)
+        }
+        return "\(element.label): \(String(reflecting: element.type))"
+      }).joined(separator: ", ")
+      return "(\(serializedElements))"
+    }
+    return "Tuple(\(description))"
   }
   
   func serialize(with request: SerializationRequest) -> String {
@@ -342,8 +384,8 @@ struct Tuple: CustomStringConvertible, SerializableType {
   }
 }
 
-struct Function: CustomStringConvertible, SerializableType {
-  struct Parameter: CustomStringConvertible, SerializableType {
+struct Function: CustomStringConvertible, CustomDebugStringConvertible, SerializableType {
+  struct Parameter: CustomStringConvertible, CustomDebugStringConvertible, SerializableType {
     let label: String? // Includes the argument label `_`
     let type: DeclaredType
     let defaultValue: String?
@@ -364,15 +406,33 @@ struct Function: CustomStringConvertible, SerializableType {
       return "\(label): \(serializedComponents)"
     }
     
+    var debugDescription: String {
+      var description: String {
+        var components = [String]()
+        if attributes.contains(.escaping) { components.append("@escaping") }
+        if attributes.contains(.autoclosure) { components.append("@autoclosure") }
+        if attributes.contains(.inout) { components.append("inout") }
+        if attributes.contains(.variadic) {
+          components.append(String(reflecting: type) + "...")
+        } else {
+          components.append(String(reflecting: type))
+        }
+        let serializedComponents = components.joined(separator: " ")
+        guard let label = self.label else { return serializedComponents }
+        return "\(label): \(serializedComponents)"
+      }
+      return "Parameter(\(description))"
+    }
+    
     func serialize(with request: SerializationRequest) -> String {
       var components = [String]()
       if attributes.contains(.escaping) { components.append("@escaping") }
       if attributes.contains(.autoclosure) { components.append("@autoclosure") }
       if attributes.contains(.inout) { components.append("inout") }
       if attributes.contains(.variadic) {
-        components.append("\(type.serialize(with: request))...")
+        components.append(type.serialize(with: request) + "...")
       } else {
-        components.append("\(type.serialize(with: request))")
+        components.append(type.serialize(with: request))
       }
       let serializedComponents = components.joined(separator: " ")
       guard let label = self.label, !request.options.contains(.shouldExcludeArgumentLabels)
@@ -444,6 +504,13 @@ struct Function: CustomStringConvertible, SerializableType {
   
   var description: String {
     return "(\(parameters.map({ "\($0)" }).joined(separator: ", "))) -> \(returnType)"
+  }
+  
+  var debugDescription: String {
+    var description: String {
+      return "(\(parameters.map({ String(reflecting: $0) }).joined(separator: ", "))) -> \(String(reflecting: returnType))"
+    }
+    return "Function(\(description))"
   }
   
   func serialize(with request: SerializationRequest) -> String {
