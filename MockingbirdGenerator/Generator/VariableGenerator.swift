@@ -35,11 +35,11 @@ class VariableGenerator {
   }
   
   var generatedMocks: String {
+    let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
     let typeName = specializedTypeName
-    let contextPrefix = self.contextPrefix
     return """
       // MARK: Mockable `\(variable.name)`
-    
+    \(attributes)
       \(context.kind == .class ? "override " : "")\(accessLevel)\(modifiers)var \(variable.name): \(typeName) {
         get {
           let invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
@@ -61,22 +61,20 @@ class VariableGenerator {
   }
   
   var generatedStubs: String {
-    let capitalizedName = self.capitalizedName
+    let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
     let typeName = specializedTypeName
-    let modifiers = self.modifiers
-    let contextPrefix = self.contextPrefix
     let getterInvocationType = "() -> \(typeName)"
     let setterInvocationType = "(\(typeName)) -> Void"
     let stubbableGetterGenericTypes = [getterInvocationType, typeName].joined(separator: ", ")
     let stubbableSetterGenericTypes = [setterInvocationType, "Void"].joined(separator: ", ")
     return """
       // MARK: Stubbable `\(variable.name)`
-    
+    \(attributes)
       public \(modifiers)func get\(capitalizedName)() -> Mockingbird.Stubbable<\(stubbableGetterGenericTypes)> {
         let invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
         return Mockingbird.Stubbable<\(stubbableGetterGenericTypes)>(stubbingContext: \(contextPrefix)stubbingContext, invocation: invocation)
       }
-    
+    \(attributes)
       public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Stubbable<\(stubbableSetterGenericTypes)> {
         let arguments = [Mockingbird.resolve(newValue)]
         let invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments)
@@ -86,18 +84,16 @@ class VariableGenerator {
   }
   
   var generatedVerifications: String {
-    let capitalizedName = self.capitalizedName
+    let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
     let typeName = specializedTypeName
-    let modifiers = self.modifiers
-    let contextPrefix = self.contextPrefix
     return """
       // MARK: Verifiable `\(variable.name)`
-    
+    \(attributes)
       public \(modifiers)func get\(capitalizedName)() -> Mockingbird.Mockable<\(typeName)> {
         let invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
         return Mockingbird.Mockable<\(typeName)>(mockingContext: \(contextPrefix)mockingContext, invocation: invocation)
       }
-    
+    \(attributes)
       public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Mockable<Void> {
         let arguments = [Mockingbird.resolve(newValue)]
         let invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments)
@@ -105,6 +101,10 @@ class VariableGenerator {
       }
     """
   }
+  
+  lazy var declarationAttributes: String = {
+    return variable.attributes.declarations.joined(separator: " ")
+  }()
   
   lazy var modifiers: String = {
     return (variable.kind.typeScope == .static || variable.kind.typeScope == .class ? "class " : "")

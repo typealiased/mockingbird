@@ -3883,6 +3883,259 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return ConvenienceInitializerClassMock.self
 }
 
+// MARK: - Mocked DeclarationAttributesClass
+
+public final class DeclarationAttributesClassMock: MockingbirdTestsHost.DeclarationAttributesClass, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.3.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      DeclarationAttributesClassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mockable `availableVariable`
+
+  @available(iOSMac 10.10, *)
+  override public var availableVariable: String {
+    get {
+      let invocation = Mockingbird.Invocation(selectorName: "availableVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> String)()
+    }
+    set {
+      let invocation = Mockingbird.Invocation(selectorName: "availableVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (String) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  // MARK: Stubbable `availableVariable`
+
+  @available(iOSMac 10.10, *)
+  public func getAvailableVariable() -> Mockingbird.Stubbable<() -> String, String> {
+    let invocation = Mockingbird.Invocation(selectorName: "availableVariable.get", arguments: [])
+    return Mockingbird.Stubbable<() -> String, String>(stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  @available(iOSMac 10.10, *)
+  public func setAvailableVariable(_ newValue: @escaping @autoclosure () -> String) -> Mockingbird.Stubbable<(String) -> Void, Void> {
+    let arguments = [Mockingbird.resolve(newValue)]
+    let invocation = Mockingbird.Invocation(selectorName: "availableVariable.set", arguments: arguments)
+    return Mockingbird.Stubbable<(String) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `availableVariable`
+
+  @available(iOSMac 10.10, *)
+  public func getAvailableVariable() -> Mockingbird.Mockable<String> {
+    let invocation = Mockingbird.Invocation(selectorName: "availableVariable.get", arguments: [])
+    return Mockingbird.Mockable<String>(mockingContext: mockingContext, invocation: invocation)
+  }
+
+  @available(iOSMac 10.10, *)
+  public func setAvailableVariable(_ newValue: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Void> {
+    let arguments = [Mockingbird.resolve(newValue)]
+    let invocation = Mockingbird.Invocation(selectorName: "availableVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Void>(mockingContext: mockingContext, invocation: invocation)
+  }
+
+  public static func ==(lhs: DeclarationAttributesClassMock, rhs: DeclarationAttributesClassMock) -> Bool {
+    return true
+  }
+
+  // MARK: Mockable `availableMethod(param:)`
+
+  @available(iOSMac 10.10, *)
+  public override func availableMethod(param: String) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "availableMethod(param:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (String) -> Bool {
+      return concreteImplementation(`param`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `availableMethod(param:)`
+
+  @available(iOSMac 10.10, *)
+  public func availableMethod(param: @escaping @autoclosure () -> String) -> Mockingbird.Stubbable<(String) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`param`)]
+    let invocation = Mockingbird.Invocation(selectorName: "availableMethod(param:) -> Bool", arguments: arguments)
+    return Mockingbird.Stubbable<(String) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `availableMethod(param:)`
+
+  @available(iOSMac 10.10, *)
+  public func availableMethod(param: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`param`)]
+    let invocation = Mockingbird.Invocation(selectorName: "availableMethod(param:) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Bool>(mockingContext: mockingContext, invocation: invocation)
+  }
+
+  // MARK: Mockable `multipleAttributesMethod(param:)`
+
+  @available(iOSMac 10.10, *)
+  public override func multipleAttributesMethod(param: String) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "multipleAttributesMethod(param:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (String) -> Bool {
+      return concreteImplementation(`param`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `multipleAttributesMethod(param:)`
+
+  @available(iOSMac 10.10, *)
+  public func multipleAttributesMethod(param: @escaping @autoclosure () -> String) -> Mockingbird.Stubbable<(String) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`param`)]
+    let invocation = Mockingbird.Invocation(selectorName: "multipleAttributesMethod(param:) -> Bool", arguments: arguments)
+    return Mockingbird.Stubbable<(String) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `multipleAttributesMethod(param:)`
+
+  @available(iOSMac 10.10, *)
+  public func multipleAttributesMethod(param: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`param`)]
+    let invocation = Mockingbird.Invocation(selectorName: "multipleAttributesMethod(param:) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Bool>(mockingContext: mockingContext, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `DeclarationAttributesClass` mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.DeclarationAttributesClass.Type) -> DeclarationAttributesClassMock.Type {
+  return DeclarationAttributesClassMock.self
+}
+
+// MARK: - Mocked DeclarationAttributesProtocol
+
+public final class DeclarationAttributesProtocolMock: MockingbirdTestsHost.DeclarationAttributesProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.3.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      DeclarationAttributesProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mockable `availableVariable`
+
+  @available(iOSMac 10.10, *)
+  public var availableVariable: String {
+    get {
+      let invocation = Mockingbird.Invocation(selectorName: "availableVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> String)()
+    }
+    set {
+      let invocation = Mockingbird.Invocation(selectorName: "availableVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (String) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  // MARK: Stubbable `availableVariable`
+
+  @available(iOSMac 10.10, *)
+  public func getAvailableVariable() -> Mockingbird.Stubbable<() -> String, String> {
+    let invocation = Mockingbird.Invocation(selectorName: "availableVariable.get", arguments: [])
+    return Mockingbird.Stubbable<() -> String, String>(stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  @available(iOSMac 10.10, *)
+  public func setAvailableVariable(_ newValue: @escaping @autoclosure () -> String) -> Mockingbird.Stubbable<(String) -> Void, Void> {
+    let arguments = [Mockingbird.resolve(newValue)]
+    let invocation = Mockingbird.Invocation(selectorName: "availableVariable.set", arguments: arguments)
+    return Mockingbird.Stubbable<(String) -> Void, Void>(stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `availableVariable`
+
+  @available(iOSMac 10.10, *)
+  public func getAvailableVariable() -> Mockingbird.Mockable<String> {
+    let invocation = Mockingbird.Invocation(selectorName: "availableVariable.get", arguments: [])
+    return Mockingbird.Mockable<String>(mockingContext: mockingContext, invocation: invocation)
+  }
+
+  @available(iOSMac 10.10, *)
+  public func setAvailableVariable(_ newValue: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Void> {
+    let arguments = [Mockingbird.resolve(newValue)]
+    let invocation = Mockingbird.Invocation(selectorName: "availableVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Void>(mockingContext: mockingContext, invocation: invocation)
+  }
+
+  public static func ==(lhs: DeclarationAttributesProtocolMock, rhs: DeclarationAttributesProtocolMock) -> Bool {
+    return true
+  }
+
+  public init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mockable `availableMethod(param:)`
+
+  @available(iOSMac 10.10, *)
+  public func availableMethod(param: String) -> Bool {
+    let invocation = Mockingbird.Invocation(selectorName: "availableMethod(param:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (String) -> Bool {
+      return concreteImplementation(`param`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  // MARK: Stubbable `availableMethod(param:)`
+
+  @available(iOSMac 10.10, *)
+  public func availableMethod(param: @escaping @autoclosure () -> String) -> Mockingbird.Stubbable<(String) -> Bool, Bool> {
+    let arguments = [Mockingbird.resolve(`param`)]
+    let invocation = Mockingbird.Invocation(selectorName: "availableMethod(param:) -> Bool", arguments: arguments)
+    return Mockingbird.Stubbable<(String) -> Bool, Bool>(stubbingContext: stubbingContext, invocation: invocation)
+  }
+
+  // MARK: Verifiable `availableMethod(param:)`
+
+  @available(iOSMac 10.10, *)
+  public func availableMethod(param: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Bool> {
+    let arguments = [Mockingbird.resolve(`param`)]
+    let invocation = Mockingbird.Invocation(selectorName: "availableMethod(param:) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Bool>(mockingContext: mockingContext, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `DeclarationAttributesProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.DeclarationAttributesProtocol.Protocol) -> DeclarationAttributesProtocolMock {
+  return DeclarationAttributesProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked DefaultArgumentValuesClass
 
 public final class DefaultArgumentValuesClassMock: MockingbirdTestsHost.DefaultArgumentValuesClass, Mockingbird.Mock {

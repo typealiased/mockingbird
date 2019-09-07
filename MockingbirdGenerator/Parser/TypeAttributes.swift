@@ -68,32 +68,31 @@ enum TypeScope: String {
 }
 
 struct Attributes: OptionSet, Hashable {
-  let rawValue: Int
+  private(set) var rawValue: Int
+  private(set) var declarations = [String]()
   init(rawValue: Int) {
     self.rawValue = rawValue
   }
   
   // MARK: SourceKit-provided attributes
-  static let final = Attributes(rawValue: 1 << 0)
-  static let required = Attributes(rawValue: 1 << 1)
-  static let optional = Attributes(rawValue: 1 << 2)
-  static let lazy = Attributes(rawValue: 1 << 3)
-  static let dynamic = Attributes(rawValue: 1 << 4)
-  static let weak = Attributes(rawValue: 1 << 5)
-  static let `rethrows` = Attributes(rawValue: 1 << 6)
-  static let convenience = Attributes(rawValue: 1 << 7)
+  static let available = Attributes(rawValue: 1 << 0)
+  static let final = Attributes(rawValue: 1 << 1)
+  static let required = Attributes(rawValue: 1 << 2)
+  static let weak = Attributes(rawValue: 1 << 3)
+  static let `rethrows` = Attributes(rawValue: 1 << 4)
+  static let convenience = Attributes(rawValue: 1 << 5)
   
   // MARK: Inferred attributes
-  static let constant = Attributes(rawValue: 1 << 8)
-  static let computed = Attributes(rawValue: 1 << 9)
-  static let `throws` = Attributes(rawValue: 1 << 10)
-  static let `inout` = Attributes(rawValue: 1 << 11)
-  static let variadic = Attributes(rawValue: 1 << 12)
-  static let failable = Attributes(rawValue: 1 << 13)
-  static let unwrappedFailable = Attributes(rawValue: 1 << 14)
-  static let closure = Attributes(rawValue: 1 << 15)
-  static let escaping = Attributes(rawValue: 1 << 16)
-  static let autoclosure = Attributes(rawValue: 1 << 17)
+  static let constant = Attributes(rawValue: 1 << 6)
+  static let computed = Attributes(rawValue: 1 << 7)
+  static let `throws` = Attributes(rawValue: 1 << 8)
+  static let `inout` = Attributes(rawValue: 1 << 9)
+  static let variadic = Attributes(rawValue: 1 << 10)
+  static let failable = Attributes(rawValue: 1 << 11)
+  static let unwrappedFailable = Attributes(rawValue: 1 << 12)
+  static let closure = Attributes(rawValue: 1 << 13)
+  static let escaping = Attributes(rawValue: 1 << 14)
+  static let autoclosure = Attributes(rawValue: 1 << 15)
   
   static let attributesKey = "key.attributes"
   static let attributeKey = "key.attribute"
@@ -102,11 +101,9 @@ struct Attributes: OptionSet, Hashable {
 extension Attributes {
   init?(from kind: SwiftDeclarationAttributeKind) {
     switch kind {
+    case .available: self = .available
     case .final: self = .final
     case .required: self = .required
-    case .optional: self = .optional
-    case .lazy: self = .lazy
-    case .dynamic: self = .dynamic
     case .weak: self = .weak
     case .rethrows: self = .rethrows
     case .convenience: self = .convenience
@@ -114,7 +111,18 @@ extension Attributes {
     }
   }
   
-  init(from dictionary: StructureDictionary) {
+  @inlinable
+  mutating func insert(_ declaration: String) {
+    declarations.append(declaration)
+  }
+  
+  // DRAGON: Using the built-in `insert` method overwrites other members in the `OptionSet`.
+  @inlinable
+  mutating func insert(_ newMember: Attributes) {
+    rawValue |= newMember.rawValue
+  }
+  
+  init(from dictionary: StructureDictionary, source: String? = nil) {
     var attributes = Attributes()
     guard let rawAttributes = dictionary[Attributes.attributesKey] as? [StructureDictionary] else {
       self = attributes
@@ -124,9 +132,21 @@ extension Attributes {
       guard let rawAttribute = rawAttributeDictionary[Attributes.attributeKey] as? String,
         let attributeKind = SwiftDeclarationAttributeKind(rawValue: rawAttribute),
         let attribute = Attributes(from: attributeKind) else { continue }
+      if attribute.shouldExtractDeclaration, let source = source,
+        let declaration = SourceSubstring.key.extract(from: rawAttributeDictionary,
+                                                      contents: source) {
+        attributes.insert(declaration)
+      }
       attributes.insert(attribute)
     }
     self = attributes
+  }
+  
+  var shouldExtractDeclaration: Bool {
+    switch self {
+    case .available: return true
+    default: return false
+    }
   }
 }
 

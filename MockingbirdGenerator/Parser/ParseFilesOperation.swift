@@ -12,6 +12,7 @@ import SourceKittenFramework
 
 struct ParsedFile {
   let file: File
+  let path: Path
   let moduleName: String
   let imports: Set<String>
   let importedModuleNames: Set<String>
@@ -19,11 +20,13 @@ struct ParsedFile {
   let shouldMock: Bool
   
   init(file: File,
+       path: Path,
        moduleName: String,
        imports: Set<String>,
        structure: Structure,
        shouldMock: Bool) {
     self.file = file
+    self.path = path
     self.moduleName = moduleName
     self.imports = imports
     self.importedModuleNames = Set(imports.compactMap({
@@ -42,6 +45,7 @@ struct ParsedFile {
   
   func clone(shouldMock: Bool) -> ParsedFile {
     return ParsedFile(file: file,
+                      path: path,
                       moduleName: moduleName,
                       imports: imports,
                       structure: structure,
@@ -86,6 +90,7 @@ public class ParseFilesOperation: BasicOperation {
       let file = try sourcePath.path.getFile()
       let structure = try Structure(file: file)
       let parsedFile = ParsedFile(file: file,
+                                  path: sourcePath.path,
                                   moduleName: sourcePath.moduleName,
                                   imports: shouldMock ? file.parseImports() : [],
                                   structure: structure,
