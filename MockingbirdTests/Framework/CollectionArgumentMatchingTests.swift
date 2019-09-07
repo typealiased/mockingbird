@@ -46,28 +46,6 @@ class CollectionArgumentMatchingTests: XCTestCase {
     verify(array.method(objects: any(containing: "a", "b", "c"))).wasNeverCalled()
   }
   
-  func testArrayMatching_anyContainingValues_matchesNestedAnyMatcher() {
-    given(array.method(objects: any())) ~> false
-    given(array.method(objects: any(containing: any()))) ~> true
-    XCTAssertTrue(callArray(array, objects: ["the", "quick", "brown", "fox"]))
-    verify(array.method(objects: any(containing: any()))).wasCalled()
-  }
-  
-  func testArrayMatching_anyContainingValues_matchesNestedAnyWhereMatcher() {
-    given(array.method(objects: any())) ~> false
-    given(array.method(objects: any(containing: any(where: { $0.hasPrefix("br") })))) ~> true
-    XCTAssertTrue(callArray(array, objects: ["the", "quick", "brown", "fox"]))
-    verify(array.method(objects: any(containing: any(where: { $0.hasPrefix("br") })))).wasCalled()
-  }
-  
-  func testArrayMatching_anyContainingValues_ignoresNestedAnyWhereMatcher() {
-    given(array.method(objects: any())) ~> false
-    given(array.method(objects: any(containing: any(where: { $0.hasPrefix("zz") })))) ~> true
-    XCTAssertFalse(callArray(array, objects: ["the", "quick", "brown", "fox"]))
-    verify(array.method(objects: any(containing: any(where: { $0.hasPrefix("zz") }))))
-      .wasNeverCalled()
-  }
-  
   func testArrayMatching_anyCount_matchesCountMatcher() {
     given(array.method(objects: any())) ~> false
     given(array.method(objects: any(count: atMost(4)))) ~> true
@@ -125,31 +103,6 @@ class CollectionArgumentMatchingTests: XCTestCase {
     verify(dictionary.method(objects: any(containing: "A", "B"))).wasNeverCalled()
   }
   
-  func testDictionaryMatching_anyContainingValues_matchesNestedAnyMatcher() {
-    given(dictionary.method(objects: any())) ~> false
-    given(dictionary.method(objects: any(containing: any()))) ~> true
-    XCTAssertTrue(callDictionary(dictionary, objects: ["c": "C"]))
-    verify(dictionary.method(objects: any(containing: any()))).wasCalled()
-  }
-  
-  func testDictionaryMatching_anyContainingValues_matchesNestedAnyWhereMatcher() {
-    given(dictionary.method(objects: any())) ~> false
-    given(dictionary.method(objects:
-      any(containing: any(where: { $0.value == $0.key.uppercased() })))) ~> true
-    XCTAssertTrue(callDictionary(dictionary, objects: ["c": "C"]))
-    verify(dictionary.method(objects:
-      any(containing: any(where: { $0.value == $0.key.uppercased() })))).wasCalled()
-  }
-  
-  func testDictionaryMatching_anyContainingValues_ignoresNestedAnyWhereMatcher() {
-    given(dictionary.method(objects: any())) ~> false
-    given(dictionary.method(objects:
-      any(containing: any(where: { $0.value == $0.key.uppercased() })))) ~> true
-    XCTAssertFalse(callDictionary(dictionary, objects: ["a": "a"]))
-    verify(dictionary.method(objects:
-      any(containing: any(where: { $0.value == $0.key.uppercased() })))).wasNeverCalled()
-  }
-  
   // MARK: Keys
   
   func testDictionaryMatching_anyKeys_matchesIncludedElements() {
@@ -171,31 +124,6 @@ class CollectionArgumentMatchingTests: XCTestCase {
     given(dictionary.method(objects: any(keys: "a", "b"))) ~> true
     XCTAssertFalse(callDictionary(dictionary, objects: ["c": "C"]))
     verify(dictionary.method(objects: any(keys: "a", "b"))).wasNeverCalled()
-  }
-  
-  func testDictionaryMatching_anyKeys_matchesNestedAnyMatcher() {
-    given(dictionary.method(objects: any())) ~> false
-    given(dictionary.method(objects: any(key: any()))) ~> true
-    XCTAssertTrue(callDictionary(dictionary, objects: ["c": "C"]))
-    verify(dictionary.method(objects: any(key: any()))).wasCalled()
-  }
-  
-  func testDictionaryMatching_anyKeys_matchesNestedAnyWhereMatcher() {
-    given(dictionary.method(objects: any())) ~> false
-    given(dictionary.method(objects:
-      any(key: any(where: { $0.hasPrefix("br") })))) ~> true
-    XCTAssertTrue(callDictionary(dictionary, objects: ["the": "THE", "brown": "BROWN"]))
-    verify(dictionary.method(objects:
-      any(key: any(where: { $0.hasPrefix("br") })))).wasCalled()
-  }
-  
-  func testDictionaryMatching_anyKeys_ignoresNestedAnyWhereMatcher() {
-    given(dictionary.method(objects: any())) ~> false
-    given(dictionary.method(objects:
-      any(key: any(where: { $0.hasPrefix("zz") })))) ~> true
-    XCTAssertFalse(callDictionary(dictionary, objects: ["the": "THE", "brown": "BROWN"]))
-    verify(dictionary.method(objects:
-      any(key: any(where: { $0.hasPrefix("zz") })))).wasNeverCalled()
   }
   
   func testDictionaryMatching_anyCount_matchesCountMatcher() {
