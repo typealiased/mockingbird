@@ -84,10 +84,10 @@ extension ArgumentParser {
                usage: "Overwrite existing Run Script Phases created by Mockingbird CLI.")
   }
   
-  func addSynchronousGeneration() -> OptionArgument<Bool> {
-    return add(option: "--synchronous",
+  func addAynchronousGeneration() -> OptionArgument<Bool> {
+    return add(option: "--asynchronous",
                kind: Bool.self,
-               usage: "Wait until mock generation completes before compiling target sources.")
+               usage: "Generate mocks asynchronously in the background when building.")
   }
   
   func addDisableSwiftlint() -> OptionArgument<Bool> {

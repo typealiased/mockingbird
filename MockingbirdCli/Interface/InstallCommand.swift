@@ -22,7 +22,7 @@ struct InstallCommand: Command {
   
   private let preprocessorExpressionArgument: OptionArgument<String>
   private let reinstallArgument: OptionArgument<Bool>
-  private let synchronousGenerationArgument: OptionArgument<Bool>
+  private let asynchronousGenerationArgument: OptionArgument<Bool>
   private let onlyMockProtocolsArgument: OptionArgument<Bool>
   private let disableSwiftlintArgument: OptionArgument<Bool>
   
@@ -37,7 +37,7 @@ struct InstallCommand: Command {
     outputArgument = subparser.addOutput()
     preprocessorExpressionArgument = subparser.addPreprocessorExpression()
     reinstallArgument = subparser.addReinstallRunScript()
-    synchronousGenerationArgument = subparser.addSynchronousGeneration()
+    asynchronousGenerationArgument = subparser.addAynchronousGeneration()
     onlyMockProtocolsArgument = subparser.addOnlyProtocols()
     disableSwiftlintArgument = subparser.addDisableSwiftlint()
   }
@@ -61,7 +61,7 @@ struct InstallCommand: Command {
       outputPaths: outputs,
       cliPath: Path(CommandLine.arguments[0]),
       shouldReinstall: arguments.get(reinstallArgument) == true,
-      synchronousGeneration: arguments.get(synchronousGenerationArgument) == true,
+      asynchronousGeneration: arguments.get(asynchronousGenerationArgument) == true,
       preprocessorExpression: arguments.get(preprocessorExpressionArgument),
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
       disableSwiftlint: arguments.get(disableSwiftlintArgument) == true

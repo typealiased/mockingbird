@@ -20,7 +20,7 @@ class Installer {
     let outputPaths: [Path]?
     let cliPath: Path
     let shouldReinstall: Bool
-    let synchronousGeneration: Bool
+    let asynchronousGeneration: Bool
     let preprocessorExpression: String?
     let onlyMockProtocols: Bool
     let disableSwiftlint: Bool
@@ -85,14 +85,6 @@ class Installer {
         target.buildPhases.append(buildPhase)
       }
       
-      // Add generated mocks file reference to project if synchronous.
-      if config.synchronousGeneration {
-        let fileReference = PBXFileReference(sourceTree: .group,
-                                             path: String(describing: outputPath.absolute()))
-        xcodeproj.pbxproj.add(object: fileReference)
-        _ = try target.sourcesBuildPhase()?.add(file: fileReference)
-      }
-      
       index += 1
     })
     
@@ -155,7 +147,7 @@ class Installer {
       if config.disableSwiftlint {
         options.append("--disable-swiftlint")
       }
-      if !config.synchronousGeneration {
+      if config.asynchronousGeneration {
         options.append("&")
       }
       let shellScript = """

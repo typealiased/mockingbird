@@ -123,11 +123,10 @@ $ mockingbird install --project <xcodeproj_path> --targets <target_names>
 Add a Run Script Phase to each target that should generate mocks. 
 
 ```bash
-mockingbird generate &
+mockingbird generate
 ```
 
-Remove the trailing `&` if mocks should generate synchronously when building the target. This may increase build 
-times by a few seconds. See [Mockingbird CLI - Generate](#generate) for available generator options.
+See [Mockingbird CLI - Generate](#generate) for available generator options.
 
 ### Importing Mocks
 
@@ -312,6 +311,10 @@ bird.parent = bigBird
 verify(bird.setParent(bigBird)).wasCalled()  // Comparing by reference
 ```
 
+## Performance
+
+`// TODO `
+
 ## Mockingbird CLI
 
 ### Generate
@@ -351,7 +354,7 @@ Starts automatically generating mocks by adding a custom Run Script Phase to eac
 | Flag | Description |
 | --- | --- |
 | `--reinstall` | Overwrite existing Run Script Phases created by Mockingbird CLI. |
-| `--synchronous` | Wait until mock generation completes before compiling target sources. |
+| `--asynchronous` | Generate mocks asynchronously in the background when building. |
 | `--only-protocols` | Only generate mocks for protocols. |
 | `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
 
