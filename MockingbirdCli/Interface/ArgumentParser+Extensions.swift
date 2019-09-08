@@ -64,6 +64,20 @@ extension ArgumentParser {
                 (value: "TEST", description: "Test build configuration")]))
   }
   
+  func addMetagenerateOutput() -> OptionArgument<PathArgument> {
+    return add(option: "--output",
+               kind: PathArgument.self,
+               usage: "Output directory to generate source files.",
+               completion: .filename)
+  }
+  
+  func addMetagenerateCount() -> OptionArgument<Int> {
+    return add(option: "--count",
+               kind: Int.self,
+               usage: "Number of source files to generate.",
+               completion: .none)
+  }
+  
   // MARK: Flags
   
   func addOnlyProtocols() -> OptionArgument<Bool> {
@@ -141,6 +155,29 @@ extension ArgumentParser.Result {
       return rawOutputs.map({ Path($0) })
     } else if let rawOutput = get(convenienceArgument)?.path.pathString {
       return [Path(rawOutput)]
+    }
+    return nil
+  }
+  
+  func getOutputDirectory(using argument: OptionArgument<PathArgument>) throws -> Path {
+    if let rawOutput = get(argument)?.path.pathString {
+      let path = Path(rawOutput)
+      guard path.isDirectory else {
+        throw ArgumentParserError.invalidValue(argument: "--output",
+                                               error: .custom("Not a valid directory"))
+      }
+      return path
+    }
+    throw ArgumentParserError.expectedValue(option: "--output")
+  }
+  
+  func getCount(using argument: OptionArgument<Int>) throws -> Int? {
+    if let count = get(argument) {
+      guard count > 0 else {
+        throw ArgumentParserError.invalidValue(argument: "--count",
+                                               error: .custom("Not a positive number"))
+      }
+      return count
     }
     return nil
   }

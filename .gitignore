@@ -11,6 +11,9 @@ MockingbirdCli.pkg
 mockingbirdCli.zip
 mockingbird
 
+## Benchmarking
+MockingbirdTestsHost/Generated
+
 ## Various settings
 *.pbxuser
 !default.pbxuser

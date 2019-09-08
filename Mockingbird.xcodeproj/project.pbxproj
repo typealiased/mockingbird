@@ -43,6 +43,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		490AD8E72324DD5400681457 /* MetagenerateCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490AD8E62324DD5400681457 /* MetagenerateCommand.swift */; };
 		491CDF01231CF51C00C48C47 /* DeclaredType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491CDF00231CF51C00C48C47 /* DeclaredType.swift */; };
 		491CDF03231DC6EE00C48C47 /* StringExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491CDF02231DC6EE00C48C47 /* StringExtensionsTests.swift */; };
 		491CDF05231DD41A00C48C47 /* DeclaredTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491CDF04231DD41A00C48C47 /* DeclaredTypeTests.swift */; };
@@ -882,6 +883,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		490AD8E62324DD5400681457 /* MetagenerateCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetagenerateCommand.swift; sourceTree = "<group>"; };
 		491CDEFF231CCBE700C48C47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		491CDF00231CF51C00C48C47 /* DeclaredType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclaredType.swift; sourceTree = "<group>"; };
 		491CDF02231DC6EE00C48C47 /* StringExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTests.swift; sourceTree = "<group>"; };
@@ -907,7 +909,6 @@
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"Mockingbird::MockingbirdTests::Product" /* MockingbirdTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = MockingbirdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdTests::Product" /* MockingbirdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = MockingbirdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdTestsHost::Product" /* MockingbirdTestsHost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MockingbirdTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_100 /* GrandparentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrandparentProtocol.swift; sourceTree = "<group>"; };
@@ -1517,6 +1518,7 @@
 				OBJ_13 /* Generator.swift */,
 				OBJ_14 /* InstallCommand.swift */,
 				OBJ_15 /* Installer.swift */,
+				490AD8E62324DD5400681457 /* MetagenerateCommand.swift */,
 				OBJ_16 /* Program.swift */,
 				OBJ_17 /* UninstallCommand.swift */,
 				49C07FA1231DED21003F7712 /* VersionCommand.swift */,
@@ -3431,6 +3433,7 @@
 				OBJ_622 /* Program.swift in Sources */,
 				OBJ_623 /* UninstallCommand.swift in Sources */,
 				OBJ_631 /* main.swift in Sources */,
+				490AD8E72324DD5400681457 /* MetagenerateCommand.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
