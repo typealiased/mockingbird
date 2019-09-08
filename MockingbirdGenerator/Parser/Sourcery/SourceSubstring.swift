@@ -56,9 +56,9 @@ internal enum SourceSubstring {
     return nil
   }
   
-  func extract(from source: [String: SourceKitRepresentable], contents: String) -> String? {
+  func extract(from source: [String: SourceKitRepresentable], contents: Data?) -> String? {
     let substring = range(for: source).flatMap { range -> String? in
-      guard let subdata = contents.data(using: .utf8)?.subdata(in: Int(range.offset)..<Int(range.offset + range.length)) else {
+      guard let subdata = contents?.subdata(in: Int(range.offset)..<Int(range.offset + range.length)) else {
         return nil
       }
       return String(data: subdata, encoding: .utf8)

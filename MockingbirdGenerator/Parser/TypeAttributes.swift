@@ -122,7 +122,7 @@ extension Attributes {
     rawValue |= newMember.rawValue
   }
   
-  init(from dictionary: StructureDictionary, source: String? = nil) {
+  init(from dictionary: StructureDictionary, source: Data? = nil) {
     var attributes = Attributes()
     guard let rawAttributes = dictionary[Attributes.attributesKey] as? [StructureDictionary] else {
       self = attributes

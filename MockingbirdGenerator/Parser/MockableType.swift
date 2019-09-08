@@ -121,7 +121,7 @@ struct MockableType: Hashable, Comparable {
     
     var genericConstraints = genericTypes.flatMap({ $0.genericConstraints })
     if baseRawType.kind == .class {
-      let source = baseRawType.parsedFile.file.contents
+      let source = baseRawType.parsedFile.data
       if let nameSuffix = SourceSubstring.nameSuffixUpToBody.extract(from: baseRawType.dictionary,
                                                                      contents: source),
         let whereRange = nameSuffix.range(of: #"\bwhere\b"#, options: .regularExpression) {

@@ -20,7 +20,7 @@ struct Typealias {
     self.name = name
     self.rawType = rawType
     
-    let source = rawType.parsedFile.file.contents
+    let source = rawType.parsedFile.data
     guard let typeName = SourceSubstring.nameSuffix.extract(from: rawType.dictionary,
                                                             contents: source),
       let declarationIndex = typeName.firstIndex(of: "=") else { return nil }

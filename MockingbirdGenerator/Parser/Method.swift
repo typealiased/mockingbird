@@ -117,7 +117,7 @@ struct Method: Hashable, Comparable {
       let accessLevel = AccessLevel(from: dictionary), accessLevel.isMockable
       else { return nil }
     
-    let source = rawType.parsedFile.file.contents
+    let source = rawType.parsedFile.data
     let attributes = Attributes(from: dictionary, source: source)
     guard !attributes.contains(.final) else { return nil }
     
@@ -185,7 +185,7 @@ struct Method: Hashable, Comparable {
   
   @inlinable
   static func parseDeclaration(from dictionary: StructureDictionary,
-                               source: String,
+                               source: Data?,
                                isInitializer: Bool,
                                attributes: Attributes) -> (Attributes, Substring?) {
     guard let declaration = SourceSubstring.key.extract(from: dictionary, contents: source)
@@ -226,7 +226,7 @@ struct Method: Hashable, Comparable {
   
   @inlinable
   static func parseGenericConstraints(from dictionary: StructureDictionary,
-                                      source: String,
+                                      source: Data?,
                                       rawType: RawType,
                                       moduleNames: [String],
                                       rawTypeRepository: RawTypeRepository) -> [String] {

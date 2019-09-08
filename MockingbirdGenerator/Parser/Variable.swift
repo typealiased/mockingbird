@@ -44,7 +44,7 @@ struct Variable: Hashable, Comparable {
     guard let name = dictionary[SwiftDocKey.name.rawValue] as? String,
       let accessLevel = AccessLevel(from: dictionary), accessLevel.isMockable else { return nil }
     
-    let source = rawType.parsedFile.file.contents
+    let source = rawType.parsedFile.data
     var attributes = Attributes(from: dictionary, source: source)
     guard !attributes.contains(.final) else { return nil }
     
@@ -91,7 +91,7 @@ struct Variable: Hashable, Comparable {
   }
   
   @inlinable
-  static func parseRawTypeName(from dictionary: StructureDictionary, source: String) -> String? {
+  static func parseRawTypeName(from dictionary: StructureDictionary, source: Data?) -> String? {
     if let explicitTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String {
       return explicitTypeName // The type was explicitly declared, hooray!
     }

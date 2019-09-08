@@ -12,6 +12,7 @@ import SourceKittenFramework
 
 struct ParsedFile {
   let file: File
+  let data: Data?
   let path: Path
   let moduleName: String
   let imports: Set<String>
@@ -26,6 +27,7 @@ struct ParsedFile {
        structure: Structure,
        shouldMock: Bool) {
     self.file = file
+    self.data = file.contents.data(using: .utf8, allowLossyConversion: false)
     self.path = path
     self.moduleName = moduleName
     self.imports = imports

@@ -50,7 +50,7 @@ struct GenericType: Hashable {
     
     var genericConstraints = [String]()
     if kind == .associatedtype { // We need to manually parse any associated type constraint.
-      let source = rawType.parsedFile.file.contents
+      let source = rawType.parsedFile.data
       if let declaration = SourceSubstring.key.extract(from: dictionary, contents: source),
         let inferredTypeLowerBound = declaration.firstIndex(of: ":") {
         let inferredTypeStartIndex = declaration.index(after: inferredTypeLowerBound)
