@@ -10,7 +10,7 @@ import Foundation
 /// Fully qualifies tokenized `DeclaredType` objects given a declaration context.
 struct SerializationRequest {
   enum Constants {
-    static let selfToken = "{#Self#}"
+    static let selfToken = "<#Self#>"
   }
   
   enum Method: String {
