@@ -89,6 +89,7 @@ struct MockableType: Hashable, Comparable {
       guard let typeName = type[SwiftDocKey.name.rawValue] as? String,
         let nearestRawType = rawTypeRepository
           .nearestInheritedType(named: typeName,
+                                trimmedName: typeName.removingGenericTyping(),
                                 moduleNames: moduleNames,
                                 referencingModuleName: moduleName,
                                 containingTypeNames: containingTypeNames[...])?.findBaseRawType(),

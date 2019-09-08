@@ -65,6 +65,7 @@ extension String {
   
   /// Returns a new string created by removing generic typing, e.g. `SomeType<T>` becomes `SomeType`
   func removingGenericTyping() -> String {
+    guard firstIndex(of: "<") != nil else { return self }
     return self[...]
       .components(separatedBy: ".", excluding: .allGroups)
       .map({ component -> Substring in
