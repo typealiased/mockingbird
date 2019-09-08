@@ -48,15 +48,16 @@ public class ArgumentMatcher: CustomStringConvertible {
   convenience init(description: String,
                    priority: Priority = .low,
                    comparator: @escaping () -> Bool) {
-    self.init(nil, description: description, priority: priority) { (_, _) -> Bool in
+    self.init(Optional<ArgumentMatcher>(nil), description: description, priority: priority) {
+      (_, _) -> Bool in
       return comparator()
     }
   }
   
-  init(_ base: Any? = nil,
-       description: String? = nil,
-       priority: Priority = .low,
-       comparator: ((Any?, Any?) -> Bool)? = nil) {
+  init<T>(_ base: T? = nil,
+          description: String? = nil,
+          priority: Priority = .low,
+          comparator: ((Any?, Any?) -> Bool)? = nil) {
     self.base = base
     self.baseType = type(of: base)
     self.priority = priority

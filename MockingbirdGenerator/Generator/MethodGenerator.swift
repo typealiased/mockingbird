@@ -12,13 +12,14 @@ import Foundation
 
 extension MethodParameter {
   func mockableTypeName(in context: MockableType, forClosure: Bool) -> String {
-    let typeName = context.specializeTypeName(self.typeName)
+    let rawTypeName = context.specializeTypeName(self.typeName)
     
     // When the type names are used for invocations instead of declaring the method parameters.
     guard forClosure else {
-      return "\(typeName)"
+      return "\(rawTypeName)"
     }
     
+    let typeName = rawTypeName.removingImplicitlyUnwrappedOptionals()
     if attributes.contains(.variadic) {
       return "[\(typeName.dropLast(3))]"
     } else {
@@ -106,7 +107,7 @@ class MethodGenerator {
     guard !method.isInitializer else { return "" }
     let attributes = declarationAttributes.isEmpty ? "" : "  \(declarationAttributes)\n"
     let parameterTypes = methodParameterTypes
-    let returnTypeName = specializedReturnTypeName
+    let returnTypeName = specializedReturnTypeName.removingImplicitlyUnwrappedOptionals()
     let invocationType = "(\(parameterTypes)) \(returnTypeAttributes)-> \(returnTypeName)"
     let mockableGenericTypes = ["Mockingbird.MethodDeclaration",
                                  invocationType,
@@ -212,10 +213,9 @@ class MethodGenerator {
   }()
   
   lazy var stubbedImplementationCall: String = {
-    let returnTypeName = specializedReturnTypeName
+    let returnTypeName = specializedReturnTypeName.removingImplicitlyUnwrappedOptionals()
     let shouldReturn = !method.isInitializer && returnTypeName != "Void"
     let returnStatement = shouldReturn ? "return " : ""
-    let tryInvocation = self.tryInvocation
     let implementationType = "(\(methodParameterTypes)) \(returnTypeAttributes)-> \(returnTypeName)"
     let optionalImplementation = shouldReturn ? "false" : "true"
     let typeCaster = shouldReturn ? "as!" : "as?"
@@ -278,9 +278,9 @@ class MethodGenerator {
   
   lazy var mockArgumentMatchers: String = {
     return method.parameters.map({ parameter -> String in
-      // Can't save the parameter in the invocation because it's non-escaping
+      // Can't save the argument in the invocation because it's a non-escaping parameter.
       guard !parameter.attributes.contains(.closure) || parameter.attributes.contains(.escaping)
-        else { return "Mockingbird.ArgumentMatcher(nil)" }
+        else { return "Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<\(parameter.matchableTypeName(in: context))>())" }
       return "Mockingbird.ArgumentMatcher(`\(parameter.name)`)"
     }).joined(separator: ", ")
   }()

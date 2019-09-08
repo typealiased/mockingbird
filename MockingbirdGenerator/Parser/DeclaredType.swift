@@ -14,6 +14,7 @@ struct SerializationRequest {
   }
   
   enum Method: String {
+    case notQualified = "notQualified"
     case contextQualified = "contextQualified"
     case moduleQualified = "moduleQualified"
     case actualTypeName = "actualTypeName"
@@ -27,34 +28,23 @@ struct SerializationRequest {
     
     static let shouldTokenizeSelf = Options(rawValue: 1 << 0)
     static let shouldExcludeArgumentLabels = Options(rawValue: 1 << 1)
+    static let shouldExcludeImplicitlyUnwrappedOptionals = Options(rawValue: 1 << 2)
     
     static let standard: Options = [.shouldTokenizeSelf, .shouldExcludeArgumentLabels]
   }
   
   class Context {
     let moduleNames: [String]
-    let referencingModuleName: String // The module referencing the type in some declaration.
+    let referencingModuleName: String? // The module referencing the type in some declaration.
     let containingTypeNames: ArraySlice<String>
     let containingScopes: ArraySlice<String>
-    let rawTypeRepository: RawTypeRepository
+    let rawTypeRepository: RawTypeRepository?
     let typealiasRepository: TypealiasRepository?
     init(moduleNames: [String],
-         rawType: RawType,
-         rawTypeRepository: RawTypeRepository,
-         typealiasRepository: TypealiasRepository? = nil) {
-      self.moduleNames = moduleNames
-      self.referencingModuleName = rawType.parsedFile.moduleName
-      self.containingTypeNames = rawType.containingTypeNames[...] + [rawType.name]
-      self.containingScopes = rawType.containingScopes[...] + [rawType.name]
-      self.rawTypeRepository = rawTypeRepository
-      self.typealiasRepository = typealiasRepository
-    }
-    
-    init(moduleNames: [String],
-         referencingModuleName: String,
+         referencingModuleName: String?,
          containingTypeNames: ArraySlice<String>,
          containingScopes: ArraySlice<String>,
-         rawTypeRepository: RawTypeRepository,
+         rawTypeRepository: RawTypeRepository?,
          typealiasRepository: TypealiasRepository? = nil) {
       self.moduleNames = moduleNames
       self.referencingModuleName = referencingModuleName
@@ -62,6 +52,27 @@ struct SerializationRequest {
       self.containingScopes = containingScopes
       self.rawTypeRepository = rawTypeRepository
       self.typealiasRepository = typealiasRepository
+    }
+    
+    convenience init(moduleNames: [String],
+         rawType: RawType,
+         rawTypeRepository: RawTypeRepository,
+         typealiasRepository: TypealiasRepository? = nil) {
+      self.init(moduleNames: moduleNames,
+                referencingModuleName: rawType.parsedFile.moduleName,
+                containingTypeNames: rawType.containingTypeNames[...] + [rawType.name],
+                containingScopes: rawType.containingScopes[...] + [rawType.name],
+                rawTypeRepository: rawTypeRepository,
+                typealiasRepository: typealiasRepository)
+    }
+    
+    convenience init() {
+      self.init(moduleNames: [],
+                referencingModuleName: nil,
+                containingTypeNames: [],
+                containingScopes: [],
+                rawTypeRepository: nil,
+                typealiasRepository: nil)
     }
     
     /// typeName => method => serialized
@@ -84,11 +95,17 @@ private extension SerializationRequest {
       return (options.contains(.shouldTokenizeSelf) ? Constants.selfToken : typeName)
     }
     
+    guard method != .notQualified,
+      let rawTypeRepository = context.rawTypeRepository,
+      let referencingModuleName = context.referencingModuleName else {
+        return typeName // This is a non-qualifying serialization request.
+    }
+    
     if let memoized = context.memoizedTypeNames[typeName]?[method.rawValue] {
       return memoized
     }
     
-    guard let qualifiedTypeNames = context.rawTypeRepository
+    guard let qualifiedTypeNames = rawTypeRepository
       .nearestInheritedType(named: typeName,
                             trimmedName: typeName.removingGenericTyping(),
                             moduleNames: context.moduleNames,
@@ -108,12 +125,13 @@ private extension SerializationRequest {
       guard let typealiasRepository = context.typealiasRepository else { return typeName }
       let actualTypeName = typealiasRepository
         .actualTypeName(for: qualifiedTypeNames.moduleQualified,
-                        rawTypeRepository: context.rawTypeRepository,
+                        rawTypeRepository: rawTypeRepository,
                         moduleNames: context.moduleNames,
-                        referencingModuleName: context.referencingModuleName,
+                        referencingModuleName: referencingModuleName,
                         containingTypeNames: context.containingTypeNames)
       context.memoizedTypeNames[typeName]?[Method.actualTypeName.rawValue] = actualTypeName
       return actualTypeName
+    case .notQualified: return typeName
     }
   }
 }
@@ -168,11 +186,16 @@ enum DeclaredType: CustomStringConvertible, CustomDebugStringConvertible, Serial
   }
   
   func serialize(with request: SerializationRequest) -> String {
+    let processOptionals: (String) -> String = { optionals in
+      guard request.options.contains(.shouldExcludeImplicitlyUnwrappedOptionals),
+        optionals.hasSuffix("!") else { return optionals }
+      return String(optionals.dropLast()) // Not possible to implicitly unwrap multiple times.
+    }
     switch self {
     case let .single(single, optionals):
-      return single.serialize(with: request) + optionals
+      return single.serialize(with: request) + processOptionals(optionals)
     case let .tuple(tuple, optionals):
-      return tuple.serialize(with: request) + optionals
+      return tuple.serialize(with: request) + processOptionals(optionals)
     }
   }
 }
@@ -185,7 +208,9 @@ extension DeclaredType {
   init(from serialized: Substring) {
     let trimmed = serialized.trimmingCharacters(in: .whitespacesAndNewlines)[...]
     // Handle optionals (which can be wrapped multiple times).
-    let firstOptionalIndex = trimmed.firstIndex(of: "?", excluding: .allGroups) ?? trimmed.endIndex
+    let firstOptionalIndex = trimmed.firstIndex(of: "?", excluding: .allGroups)
+      ?? trimmed.firstIndex(of: "!", excluding: .allGroups)
+      ?? trimmed.endIndex
     let optionals = String(trimmed[firstOptionalIndex...])
     let unwrappedType = trimmed[..<firstOptionalIndex]
     guard let tuple = Tuple(from: unwrappedType) else {

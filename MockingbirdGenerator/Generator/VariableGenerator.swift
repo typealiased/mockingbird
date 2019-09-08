@@ -34,21 +34,20 @@ class VariableGenerator {
   
   var generatedMocks: String {
     let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
-    let typeName = specializedTypeName
     return """
       // MARK: Mocked `\(variable.name)`
     \(attributes)
-      \(context.kind == .class ? "override " : "")\(accessLevel)\(modifiers)var \(variable.name): \(typeName) {
+      \(context.kind == .class ? "override " : "")\(accessLevel)\(modifiers)var \(variable.name): \(specializedTypeName) {
         get {
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
           \(contextPrefix)mockingContext.didInvoke(invocation)
-          return (\(contextPrefix)stubbingContext.implementation(for: invocation) as! () -> \(typeName))()
+          return (\(contextPrefix)stubbingContext.implementation(for: invocation) as! () -> \(unwrappedSpecializedTypeName))()
         }
         set {
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: [ArgumentMatcher(newValue)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
           let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation, optional: true)
-          if let concreteImplementation = implementation as? (\(typeName)) -> Void {
+          if let concreteImplementation = implementation as? (\(unwrappedSpecializedTypeName)) -> Void {
             concreteImplementation(newValue)
           } else {
             (implementation as? () -> Void)?()
@@ -60,7 +59,7 @@ class VariableGenerator {
   
   var generatedMockableHook: String {
     let attributes = declarationAttributes.isEmpty ? "" : "  \(declarationAttributes)\n"
-    let typeName = specializedTypeName
+    let typeName = unwrappedSpecializedTypeName
     let getterInvocationType = "() -> \(typeName)"
     let setterInvocationType = "(\(typeName)) -> Void"
     let variableDeclarationType = "Mockingbird.VariableDeclaration"
@@ -113,6 +112,10 @@ class VariableGenerator {
   
   lazy var specializedTypeName: String = {
     return context.specializeTypeName(variable.typeName)
+  }()
+  
+  lazy var unwrappedSpecializedTypeName: String = {
+    return specializedTypeName.removingImplicitlyUnwrappedOptionals()
   }()
   
   lazy var capitalizedName: String = {

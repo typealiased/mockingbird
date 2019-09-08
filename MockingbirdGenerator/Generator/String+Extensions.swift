@@ -48,9 +48,19 @@ extension String {
     return lines.map({ indentation + $0 }).joined(separator: "\n")
   }
   
+  /// Returns a new string created by removing implicitly unwrapped optionals.
+  func removingImplicitlyUnwrappedOptionals() -> String {
+    return replacingOccurrences(of: "!", with: "")
+  }
+  
   /// Returns a new string created by removing function parameter attributes.
   func removingParameterAttributes() -> String {
-    return "\(Function.Parameter(from: self).type)"
+    var options = SerializationRequest.Options.standard
+    options.insert(.shouldExcludeImplicitlyUnwrappedOptionals)
+    let request = SerializationRequest(method: .notQualified,
+                                       context: SerializationRequest.Context(),
+                                       options: options)
+    return Function.Parameter(from: self).type.serialize(with: request)
   }
   
   /// Returns a new string created by removing generic typing, e.g. `SomeType<T>` becomes `SomeType`

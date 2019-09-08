@@ -2491,7 +2491,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   // MARK: Mocked `autoclosureTrivialClosure(block:)`
 
   public func autoclosureTrivialClosure(block: @autoclosure () -> Void) -> Bool {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "autoclosureTrivialClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(nil)])
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "autoclosureTrivialClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() -> Void>())])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
     if let concreteImplementation = implementation as? (@autoclosure () -> Void) -> Bool {
@@ -2510,7 +2510,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   // MARK: Mocked `autoclosureTrivialReturningClosure(block:)`
 
   public func autoclosureTrivialReturningClosure(block: @autoclosure () -> Bool) -> Bool {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "autoclosureTrivialReturningClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(nil)])
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "autoclosureTrivialReturningClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() -> Bool>())])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
     if let concreteImplementation = implementation as? (@autoclosure () -> Bool) -> Bool {
@@ -2643,7 +2643,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   // MARK: Mocked `parameterizedClosure(block:)`
 
   public func parameterizedClosure(block: (Bool) -> Void) -> Bool {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parameterizedClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(nil)])
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parameterizedClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<(Bool) -> Void>())])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
     if let concreteImplementation = implementation as? ((Bool) -> Void) -> Bool {
@@ -2662,7 +2662,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   // MARK: Mocked `parameterizedReturningClosure(block:)`
 
   public func parameterizedReturningClosure(block: (Bool) -> Bool) -> Bool {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parameterizedReturningClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(nil)])
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parameterizedReturningClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<(Bool) -> Bool>())])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
     if let concreteImplementation = implementation as? ((Bool) -> Bool) -> Bool {
@@ -2681,7 +2681,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   // MARK: Mocked `trivialClosure(block:)`
 
   public func trivialClosure(block: () -> Void) -> Bool {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "trivialClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(nil)])
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "trivialClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() -> Void>())])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
     if let concreteImplementation = implementation as? (() -> Void) -> Bool {
@@ -2700,7 +2700,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   // MARK: Mocked `trivialReturningClosure(block:)`
 
   public func trivialReturningClosure(block: () -> Bool) -> Bool {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "trivialReturningClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(nil)])
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "trivialReturningClosure(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() -> Bool>())])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
     if let concreteImplementation = implementation as? (() -> Bool) -> Bool {
@@ -5255,6 +5255,399 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return NonExtendableClassMock.self
 }
 
+// MARK: - Mocked OptionalsProtocol
+
+public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.3.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      OptionalsProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mocked `multiUnwrappedOptionalVariable`
+
+  public var multiUnwrappedOptionalVariable: Bool???! {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "multiUnwrappedOptionalVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool???)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "multiUnwrappedOptionalVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool???) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getMultiUnwrappedOptionalVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool???, Bool???> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "multiUnwrappedOptionalVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool???, Bool???>(mock: self, invocation: invocation)
+  }
+
+  public func setMultiUnwrappedOptionalVariable(_ newValue: @escaping @autoclosure () -> Bool???) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool???) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "multiUnwrappedOptionalVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool???) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `optionalVariable`
+
+  public var optionalVariable: Bool? {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool?)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool?) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getOptionalVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool?, Bool?> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool?, Bool?>(mock: self, invocation: invocation)
+  }
+
+  public func setOptionalVariable(_ newValue: @escaping @autoclosure () -> Bool?) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool?) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool?) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `unwrappedOptionalVariable`
+
+  public var unwrappedOptionalVariable: Bool! {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "unwrappedOptionalVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "unwrappedOptionalVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getUnwrappedOptionalVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "unwrappedOptionalVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setUnwrappedOptionalVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "unwrappedOptionalVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  public static func ==(lhs: OptionalsProtocolMock, rhs: OptionalsProtocolMock) -> Bool {
+    return true
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `methodWithMultiOptionalParameter(param:)`
+
+  public func methodWithMultiOptionalParameter(param: Bool???) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiOptionalParameter(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Bool???) -> Void {
+      concreteImplementation(`param`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func methodWithMultiOptionalParameter(param: @escaping @autoclosure () -> Bool???) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool???) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiOptionalParameter(param:) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool???) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `methodWithMultiOptionalReturn()`
+
+  public func methodWithMultiOptionalReturn() -> Bool??? {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiOptionalReturn() -> Bool???", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> Bool??? {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> Bool???)()
+    }
+  }
+
+  public func methodWithMultiOptionalReturn() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool???, Bool???> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiOptionalReturn() -> Bool???", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool???, Bool???>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `methodWithMultiOptionalVariadicParameter(param:)`
+
+  public func methodWithMultiOptionalVariadicParameter(param: Bool???...) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiOptionalVariadicParameter(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? ([Bool???]) -> Void {
+      concreteImplementation(`param`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func methodWithMultiOptionalVariadicParameter(param: @escaping @autoclosure () -> [Bool???]) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool???]) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiOptionalVariadicParameter(param:) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool???]) -> Void, Void>(mock: self, invocation: invocation)
+  }
+  public func methodWithMultiOptionalVariadicParameter(param: Bool???...) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool???]) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.ArgumentMatcher(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiOptionalVariadicParameter(param:) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool???]) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `methodWithMultiUnwrappedOptionalCompoundParameter(param:)`
+
+  public func methodWithMultiUnwrappedOptionalCompoundParameter(param: (Bool?, Int)???!) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiUnwrappedOptionalCompoundParameter(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? ((Bool?, Int)???) -> Void {
+      concreteImplementation(`param`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func methodWithMultiUnwrappedOptionalCompoundParameter(param: @escaping @autoclosure () -> (Bool?, Int)???) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool?, Int)???) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiUnwrappedOptionalCompoundParameter(param:) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool?, Int)???) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `methodWithMultiUnwrappedOptionalCompoundReturn()`
+
+  public func methodWithMultiUnwrappedOptionalCompoundReturn() -> (Bool?, Int)???! {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiUnwrappedOptionalCompoundReturn() -> (Bool?, Int)???!", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> (Bool?, Int)??? {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> (Bool?, Int)???)()
+    }
+  }
+
+  public func methodWithMultiUnwrappedOptionalCompoundReturn() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Bool?, Int)???, (Bool?, Int)???> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiUnwrappedOptionalCompoundReturn() -> (Bool?, Int)???!", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Bool?, Int)???, (Bool?, Int)???>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `methodWithMultiUnwrappedOptionalParameter(param:)`
+
+  public func methodWithMultiUnwrappedOptionalParameter(param: Bool???!) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiUnwrappedOptionalParameter(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Bool???) -> Void {
+      concreteImplementation(`param`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func methodWithMultiUnwrappedOptionalParameter(param: @escaping @autoclosure () -> Bool???) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool???) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiUnwrappedOptionalParameter(param:) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool???) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `methodWithMultiUnwrappedOptionalReturn()`
+
+  public func methodWithMultiUnwrappedOptionalReturn() -> Bool???! {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiUnwrappedOptionalReturn() -> Bool???!", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> Bool??? {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> Bool???)()
+    }
+  }
+
+  public func methodWithMultiUnwrappedOptionalReturn() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool???, Bool???> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiUnwrappedOptionalReturn() -> Bool???!", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool???, Bool???>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `methodWithOptionalParameter(param:)`
+
+  public func methodWithOptionalParameter(param: Bool?) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithOptionalParameter(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Bool?) -> Void {
+      concreteImplementation(`param`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func methodWithOptionalParameter(param: @escaping @autoclosure () -> Bool?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool?) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithOptionalParameter(param:) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool?) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `methodWithOptionalReturn()`
+
+  public func methodWithOptionalReturn() -> Bool? {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithOptionalReturn() -> Bool?", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> Bool? {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> Bool?)()
+    }
+  }
+
+  public func methodWithOptionalReturn() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool?, Bool?> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithOptionalReturn() -> Bool?", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool?, Bool?>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `methodWithOptionalVariadicParameter(param:)`
+
+  public func methodWithOptionalVariadicParameter(param: Bool?...) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithOptionalVariadicParameter(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? ([Bool?]) -> Void {
+      concreteImplementation(`param`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func methodWithOptionalVariadicParameter(param: @escaping @autoclosure () -> [Bool?]) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool?]) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithOptionalVariadicParameter(param:) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool?]) -> Void, Void>(mock: self, invocation: invocation)
+  }
+  public func methodWithOptionalVariadicParameter(param: Bool?...) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool?]) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.ArgumentMatcher(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithOptionalVariadicParameter(param:) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool?]) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `methodWithUnwrappedCompoundParameter(param:)`
+
+  public func methodWithUnwrappedCompoundParameter(param: (Bool?, Int)!) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithUnwrappedCompoundParameter(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? ((Bool?, Int)) -> Void {
+      concreteImplementation(`param`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func methodWithUnwrappedCompoundParameter(param: @escaping @autoclosure () -> (Bool?, Int)) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool?, Int)) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithUnwrappedCompoundParameter(param:) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool?, Int)) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `methodWithUnwrappedCompoundReturn()`
+
+  public func methodWithUnwrappedCompoundReturn() -> (Bool?, Int)! {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithUnwrappedCompoundReturn() -> (Bool?, Int)!", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> (Bool?, Int) {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> (Bool?, Int))()
+    }
+  }
+
+  public func methodWithUnwrappedCompoundReturn() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Bool?, Int), (Bool?, Int)> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithUnwrappedCompoundReturn() -> (Bool?, Int)!", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Bool?, Int), (Bool?, Int)>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `methodWithUnwrappedParameter(param:)`
+
+  public func methodWithUnwrappedParameter(param: Bool!) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithUnwrappedParameter(param:) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Bool) -> Void {
+      concreteImplementation(`param`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func methodWithUnwrappedParameter(param: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithUnwrappedParameter(param:) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `methodWithUnwrappedReturn()`
+
+  public func methodWithUnwrappedReturn() -> Bool! {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithUnwrappedReturn() -> Bool!", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func methodWithUnwrappedReturn() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithUnwrappedReturn() -> Bool!", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `OptionalsProtocol` concrete mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.OptionalsProtocol.Protocol) -> OptionalsProtocolMock {
+  return OptionalsProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked OverloadedMethodsClass
 
 public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMethodsClass, Mockingbird.Mock {
@@ -7559,7 +7952,7 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
   // MARK: Mocked `request(callback:)`
 
   public override func request(callback: IndirectCallback) -> Foundation.NSObject {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(callback:) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(nil)])
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(callback:) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<IndirectCallback>())])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
     if let concreteImplementation = implementation as? (IndirectCallback) -> Foundation.NSObject {
@@ -7578,7 +7971,7 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
   // MARK: Mocked `request(callback:)`
 
   public override func request(callback: IndirectCallback) -> IndirectRequestResult {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(callback:) -> IndirectRequestResult", arguments: [Mockingbird.ArgumentMatcher(nil)])
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(callback:) -> IndirectRequestResult", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<IndirectCallback>())])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
     if let concreteImplementation = implementation as? (IndirectCallback) -> IndirectRequestResult {
@@ -7646,7 +8039,7 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
   // MARK: Mocked `request(callback:)`
 
   public func request(callback: IndirectCallback) -> Foundation.NSObject {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(callback:) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(nil)])
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(callback:) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<IndirectCallback>())])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
     if let concreteImplementation = implementation as? (IndirectCallback) -> Foundation.NSObject {
@@ -7665,7 +8058,7 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
   // MARK: Mocked `request(callback:)`
 
   public func request(callback: IndirectCallback) -> IndirectRequestResult {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(callback:) -> IndirectRequestResult", arguments: [Mockingbird.ArgumentMatcher(nil)])
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(callback:) -> IndirectRequestResult", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<IndirectCallback>())])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
     if let concreteImplementation = implementation as? (IndirectCallback) -> IndirectRequestResult {

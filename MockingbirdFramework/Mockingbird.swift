@@ -87,7 +87,9 @@ public func clearStubs<M: Mock>(on mocks: M...) {
 ///
 /// - Parameter type: Optionally provide an explicit type to disambiguate overloaded methods.
 public func any<T>(_ type: T.Type = T.self) -> T {
-  let matcher = ArgumentMatcher(description: "any<\(T.self)>()", priority: .high) { (_, rhs) in
+  let base: T? = nil
+  let description = "any<\(T.self)>()"
+  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
     return rhs is T
   }
   return createTypeFacade(matcher)
@@ -99,8 +101,9 @@ public func any<T>(_ type: T.Type = T.self) -> T {
 ///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
 ///   - objects: A set of equatable objects that should result in a match.
 public func any<T: Equatable>(_ type: T.Type = T.self, of objects: T...) -> T {
-  let matcher = ArgumentMatcher(description: "any<\(T.self)>(of: [\(objects)])", priority: .high) {
-    (_, rhs) in
+  let base: T? = nil
+  let description = "any<\(T.self)>(of: [\(objects)])"
+  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
     guard let other = rhs as? T else { return false }
     return objects.contains(where: { $0 == other })
   }
@@ -113,8 +116,9 @@ public func any<T: Equatable>(_ type: T.Type = T.self, of objects: T...) -> T {
 ///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
 ///   - objects: A set of non-equatable objects that should result in a match.
 public func any<T>(_ type: T.Type = T.self, of objects: T...) -> T {
+  let base: T? = nil
   let description = "any<\(T.self)>(of: [\(objects)]) (by reference)"
-  let matcher = ArgumentMatcher(description: description, priority: .high) { (_, rhs) in
+  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
     return objects.contains(where: { $0 as AnyObject === rhs as AnyObject })
   }
   return createTypeFacade(matcher)
@@ -126,8 +130,9 @@ public func any<T>(_ type: T.Type = T.self, of objects: T...) -> T {
 ///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
 ///   - predicate: A closure that takes a value `T` and returns `true` if it represents a match.
 public func any<T>(_ type: T.Type = T.self, where predicate: @escaping (_ value: T) -> Bool) -> T {
-  let matcher = ArgumentMatcher(description: "any<\(T.self)>(where:)", priority: .high) {
-    (_, rhs) in
+  let base: T? = nil
+  let description = "any<\(T.self)>(where:)"
+  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
     guard let rhs = rhs as? T else { return false }
     return predicate(rhs)
   }
@@ -138,7 +143,9 @@ public func any<T>(_ type: T.Type = T.self, where predicate: @escaping (_ value:
 ///
 /// - Parameter type: Optionally provide an explicit type to disambiguate overloaded methods.
 public func notNil<T>(_ type: T.Type = T.self) -> T {
-  let matcher = ArgumentMatcher(description: "notNil<\(T.self)>()", priority: .high) { (_, rhs) in
+  let base: T? = nil
+  let description = "notNil<\(T.self)>()"
+  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
     return rhs is T && rhs != nil
   }
   return createTypeFacade(matcher)
@@ -152,8 +159,9 @@ public func notNil<T>(_ type: T.Type = T.self) -> T {
 ///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
 ///   - values: A set of concrete values to look for in the collection.
 public func any<T: Collection>(_ type: T.Type = T.self, containing values: T.Element...) -> T {
-  let matcher = ArgumentMatcher(description: "any<\(T.self)>(containing:)", priority: .high) {
-    (_, rhs) in
+  let base: T? = nil
+  let description = "any<\(T.self)>(containing:)"
+  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
     guard let collection = rhs as? T else { return false }
     return values.allSatisfy({
       let valueMatcher = ArgumentMatcher($0)
@@ -170,9 +178,9 @@ public func any<T: Collection>(_ type: T.Type = T.self, containing values: T.Ele
 ///   - values: A set of concrete values to look for in the dictionary.
 public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
                       containing values: V...) -> Dictionary<K, V> {
+  let base: Dictionary<K, V>? = nil
   let description = "any<\(Dictionary<K, V>.self)>(containing:)"
-  let matcher = ArgumentMatcher(description: description, priority: .high) {
-    (_, rhs) in
+  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
     guard let collection = rhs as? Dictionary<K, V> else { return false }
     return values.allSatisfy({
       let valueMatcher = ArgumentMatcher($0)
@@ -189,9 +197,9 @@ public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
 ///   - keys: A set of concrete keys to look for in the dictionary.
 public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
                       keys: K...) -> Dictionary<K, V> {
+  let base: Dictionary<K, V>? = nil
   let description = "any<\(Dictionary<K, V>.self)>(keys:)"
-  let matcher = ArgumentMatcher(description: description, priority: .high) {
-    (_, rhs) in
+  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
     guard let collection = rhs as? Dictionary<K, V> else { return false }
     return keys.allSatisfy({
       let keyMatcher = ArgumentMatcher($0)
@@ -207,8 +215,9 @@ public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
 ///   - type: Optionally provide an explicit type to disambiguate overloaded methods.
 ///   - countMatcher: A count matcher defining the number of acceptable elements in the collection.
 public func any<T: Collection>(_ type: T.Type = T.self, count countMatcher: CountMatcher) -> T {
-  let matcher = ArgumentMatcher(description: "any<\(T.self)>(count:)", priority: .high) {
-    (_, rhs) in
+  let base: T? = nil
+  let description = "any<\(T.self)>(count:)"
+  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
     guard let collection = rhs as? T else { return false }
     return countMatcher.matches(UInt(collection.count))
   }

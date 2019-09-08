@@ -164,9 +164,21 @@ class DeclaredTypeTests: XCTestCase {
     XCTAssertTrue(actual.isOptional)
   }
   
+  func testDeclaredType_parsesGenericImplicitlyUnwrappedOptionalType() {
+    let actual = DeclaredType(from: "Array<String>!")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Array<DeclaredType(Single(String))>)!)")
+    XCTAssertTrue(actual.isOptional)
+  }
+  
   func testDeclaredType_parsesGenericMultiWrappedOptionalType() {
     let actual = DeclaredType(from: "Array<String>???")
     XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Array<DeclaredType(Single(String))>)???)")
+    XCTAssertTrue(actual.isOptional)
+  }
+  
+  func testDeclaredType_parsesGenericMultiWrappedOptionalTypeWithImplicitlyUnwrappedEnding() {
+    let actual = DeclaredType(from: "Array<String>???!")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Array<DeclaredType(Single(String))>)???!)")
     XCTAssertTrue(actual.isOptional)
   }
   
