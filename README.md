@@ -313,7 +313,8 @@ verify(bird.setParent(bigBird)).wasCalled()  // Comparing by reference
 
 ## Performance
 
-`// TODO `
+Mockingbird was built to be fast. Its current baseline is under 1 ms per generated mock. See 
+[Performance](Documentation/Performance.md) for benchmarks and methodology. 
 
 ## Mockingbird CLI
 
