@@ -12,7 +12,7 @@ Mockingbird is a convenient mocking framework for Swift.
 let bird = mock(Bird.self)
 
 // Stubbing
-given(bird.getCanFly()) ~> true
+given(bird.getName()) ~> "Ryan"
 
 // Verification
 verify(bird.fly()).wasCalled()
