@@ -93,6 +93,7 @@ struct Attributes: OptionSet, Hashable {
   static let closure = Attributes(rawValue: 1 << 13)
   static let escaping = Attributes(rawValue: 1 << 14)
   static let autoclosure = Attributes(rawValue: 1 << 15)
+  static let readonly = Attributes(rawValue: 1 << 16)
   
   static let attributesKey = "key.attributes"
   static let attributeKey = "key.attribute"

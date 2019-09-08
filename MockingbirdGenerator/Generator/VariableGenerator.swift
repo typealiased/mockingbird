@@ -34,15 +34,8 @@ class VariableGenerator {
   
   var generatedMocks: String {
     let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
-    return """
-      // MARK: Mocked `\(variable.name)`
-    \(attributes)
-      \(context.kind == .class ? "override " : "")\(accessLevel)\(modifiers)var \(variable.name): \(specializedTypeName) {
-        get {
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
-          \(contextPrefix)mockingContext.didInvoke(invocation)
-          return (\(contextPrefix)stubbingContext.implementation(for: invocation) as! () -> \(unwrappedSpecializedTypeName))()
-        }
+    let setter = """
+
         set {
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: [ArgumentMatcher(newValue)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
@@ -53,6 +46,16 @@ class VariableGenerator {
             (implementation as? () -> Void)?()
           }
         }
+    """
+    return """
+      // MARK: Mocked `\(variable.name)`
+    \(attributes)
+      \(context.kind == .class ? "override " : "")\(accessLevel)\(modifiers)var \(variable.name): \(specializedTypeName) {
+        get {
+          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
+          \(contextPrefix)mockingContext.didInvoke(invocation)
+          return (\(contextPrefix)stubbingContext.implementation(for: invocation) as! () -> \(unwrappedSpecializedTypeName))()
+        }\(shouldGenerateSetter ? setter : "")
       }
     """
   }
@@ -69,17 +72,20 @@ class VariableGenerator {
     let mockableSetterGenericTypes = [variableDeclarationType,
                                       setterInvocationType,
                                       "Void"].joined(separator: ", ")
-    return """
-    \(attributes)  public \(modifiers)func get\(capitalizedName)() -> Mockingbird.Mockable<\(mockableGetterGenericTypes)> {
-        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
-        return Mockingbird.Mockable<\(mockableGetterGenericTypes)>(mock: \(mockObject), invocation: invocation)
-      }
+    let setter = """
+
     
     \(attributes)  public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Mockable<\(mockableSetterGenericTypes)> {
         let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments)
         return Mockingbird.Mockable<\(mockableSetterGenericTypes)>(mock: \(mockObject), invocation: invocation)
       }
+    """
+    return """
+    \(attributes)  public \(modifiers)func get\(capitalizedName)() -> Mockingbird.Mockable<\(mockableGetterGenericTypes)> {
+        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
+        return Mockingbird.Mockable<\(mockableGetterGenericTypes)>(mock: \(mockObject), invocation: invocation)
+      }\(shouldGenerateSetter ? setter : "")
     """
   }
   
@@ -120,5 +126,9 @@ class VariableGenerator {
   
   lazy var capitalizedName: String = {
     return variable.name.capitalizedFirst
+  }()
+  
+  lazy var shouldGenerateSetter: Bool = {
+    return !variable.attributes.contains(.readonly) && !variable.attributes.contains(.computed)
   }()
 }

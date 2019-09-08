@@ -25,8 +25,6 @@ private protocol StubbableAssociatedTypeProtocol {
   
   func getEquatableTypeVariable()
     -> Mockable<VariableDeclaration, () -> EquatableType, EquatableType>
-  func setEquatableTypeVariable(_ newValue: @escaping @autoclosure () -> EquatableType)
-    -> Mockable<VariableDeclaration, (EquatableType) -> Void, Void>
 }
 extension AssociatedTypeProtocolMock: StubbableAssociatedTypeProtocol {}
 
@@ -42,8 +40,6 @@ private protocol StubbableAssociatedTypeGenericImplementer: AssociatedTypeProtoc
   
   func getEquatableTypeVariable()
     -> Mockable<VariableDeclaration, () -> EquatableType, EquatableType>
-  func setEquatableTypeVariable(_ newValue: @escaping @autoclosure () -> EquatableType)
-    -> Mockable<VariableDeclaration, (EquatableType) -> Void, Void>
 }
 extension AssociatedTypeGenericImplementerMock: StubbableAssociatedTypeGenericImplementer {}
 

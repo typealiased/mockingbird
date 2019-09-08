@@ -189,27 +189,11 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> [Foundation.NSObject])()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? ([Foundation.NSObject]) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getAnotherVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [Foundation.NSObject], [Foundation.NSObject]> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [Foundation.NSObject], [Foundation.NSObject]>(mock: self, invocation: invocation)
-  }
-
-  public func setAnotherVariable(_ newValue: @escaping @autoclosure () -> [Foundation.NSObject]) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([Foundation.NSObject]) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([Foundation.NSObject]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `explicitAnotherVariable`
@@ -220,27 +204,11 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Array<Foundation.NSObject>)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitAnotherVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Array<Foundation.NSObject>) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getExplicitAnotherVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Array<Foundation.NSObject>, Array<Foundation.NSObject>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitAnotherVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Array<Foundation.NSObject>, Array<Foundation.NSObject>>(mock: self, invocation: invocation)
-  }
-
-  public func setExplicitAnotherVariable(_ newValue: @escaping @autoclosure () -> Array<Foundation.NSObject>) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Array<Foundation.NSObject>) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitAnotherVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Array<Foundation.NSObject>) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `explicitVariable`
@@ -251,27 +219,11 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Array<MockingbirdTestsHost.NSObject>)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Array<MockingbirdTestsHost.NSObject>) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getExplicitVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Array<MockingbirdTestsHost.NSObject>, Array<MockingbirdTestsHost.NSObject>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Array<MockingbirdTestsHost.NSObject>, Array<MockingbirdTestsHost.NSObject>>(mock: self, invocation: invocation)
-  }
-
-  public func setExplicitVariable(_ newValue: @escaping @autoclosure () -> Array<MockingbirdTestsHost.NSObject>) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Array<MockingbirdTestsHost.NSObject>) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Array<MockingbirdTestsHost.NSObject>) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `optionalAnotherVariable`
@@ -282,27 +234,11 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> [Foundation.NSObject?])()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? ([Foundation.NSObject?]) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getOptionalAnotherVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [Foundation.NSObject?], [Foundation.NSObject?]> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [Foundation.NSObject?], [Foundation.NSObject?]>(mock: self, invocation: invocation)
-  }
-
-  public func setOptionalAnotherVariable(_ newValue: @escaping @autoclosure () -> [Foundation.NSObject?]) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([Foundation.NSObject?]) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([Foundation.NSObject?]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `optionalExplicitAnotherVariable`
@@ -313,27 +249,11 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Array<Foundation.NSObject?>)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalExplicitAnotherVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Array<Foundation.NSObject?>) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getOptionalExplicitAnotherVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Array<Foundation.NSObject?>, Array<Foundation.NSObject?>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalExplicitAnotherVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Array<Foundation.NSObject?>, Array<Foundation.NSObject?>>(mock: self, invocation: invocation)
-  }
-
-  public func setOptionalExplicitAnotherVariable(_ newValue: @escaping @autoclosure () -> Array<Foundation.NSObject?>) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Array<Foundation.NSObject?>) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalExplicitAnotherVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Array<Foundation.NSObject?>) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `optionalExplicitVariable`
@@ -344,27 +264,11 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Array<MockingbirdTestsHost.NSObject?>)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalExplicitVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Array<MockingbirdTestsHost.NSObject?>) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getOptionalExplicitVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Array<MockingbirdTestsHost.NSObject?>, Array<MockingbirdTestsHost.NSObject?>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalExplicitVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Array<MockingbirdTestsHost.NSObject?>, Array<MockingbirdTestsHost.NSObject?>>(mock: self, invocation: invocation)
-  }
-
-  public func setOptionalExplicitVariable(_ newValue: @escaping @autoclosure () -> Array<MockingbirdTestsHost.NSObject?>) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Array<MockingbirdTestsHost.NSObject?>) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalExplicitVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Array<MockingbirdTestsHost.NSObject?>) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `optionalVariable`
@@ -375,27 +279,11 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> [MockingbirdTestsHost.NSObject?])()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? ([MockingbirdTestsHost.NSObject?]) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getOptionalVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [MockingbirdTestsHost.NSObject?], [MockingbirdTestsHost.NSObject?]> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [MockingbirdTestsHost.NSObject?], [MockingbirdTestsHost.NSObject?]>(mock: self, invocation: invocation)
-  }
-
-  public func setOptionalVariable(_ newValue: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject?]) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([MockingbirdTestsHost.NSObject?]) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([MockingbirdTestsHost.NSObject?]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `variable`
@@ -406,27 +294,11 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> [MockingbirdTestsHost.NSObject])()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? ([MockingbirdTestsHost.NSObject]) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.NSObject]> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.NSObject]>(mock: self, invocation: invocation)
-  }
-
-  public func setVariable(_ newValue: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject]) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([MockingbirdTestsHost.NSObject]) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([MockingbirdTestsHost.NSObject]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: ArrayTypesMock, rhs: ArrayTypesMock) -> Bool {
@@ -752,27 +624,11 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> EquatableType)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (EquatableType) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getEquatableTypeVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> EquatableType, EquatableType> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> EquatableType, EquatableType>(mock: self, invocation: invocation)
-  }
-
-  public func setEquatableTypeVariable(_ newValue: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (EquatableType) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (EquatableType) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: AssociatedTypeGenericImplementerMock, rhs: AssociatedTypeGenericImplementerMock) -> Bool {
@@ -1005,27 +861,11 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> EquatableType)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (EquatableType) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getEquatableTypeVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> EquatableType, EquatableType> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> EquatableType, EquatableType>(mock: self, invocation: invocation)
-  }
-
-  public func setEquatableTypeVariable(_ newValue: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (EquatableType) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (EquatableType) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `equatableTypeVariable`
@@ -1036,27 +876,11 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
       staticMock.mockingContext.didInvoke(invocation)
       return (staticMock.stubbingContext.implementation(for: invocation) as! () -> EquatableType)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.set", arguments: [ArgumentMatcher(newValue)])
-      staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (EquatableType) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public class func getEquatableTypeVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> EquatableType, EquatableType> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> EquatableType, EquatableType>(mock: staticMock, invocation: invocation)
-  }
-
-  public class func setEquatableTypeVariable(_ newValue: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (EquatableType) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (EquatableType) -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   public static func ==(lhs: AssociatedTypeProtocolMock, rhs: AssociatedTypeProtocolMock) -> Bool {
@@ -1269,27 +1093,11 @@ public final class BirdMock: MockingbirdTestsHost.Bird, Mockingbird.Mock {
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "canFly.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getCanFly() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "canFly.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setCanFly(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "canFly.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: BirdMock, rhs: BirdMock) -> Bool {
@@ -1436,27 +1244,11 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getChildPrivateSetterInstanceVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterInstanceVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setChildPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterInstanceVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `childPrivateSetterStaticVariable`
@@ -1467,27 +1259,11 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
       staticMock.mockingContext.didInvoke(invocation)
       return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
-      staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public class func getChildPrivateSetterStaticVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterStaticVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: staticMock, invocation: invocation)
-  }
-
-  public class func setChildPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterStaticVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `childStaticVariable`
@@ -1560,27 +1336,11 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getGrandparentPrivateSetterInstanceVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentPrivateSetterStaticVariable`
@@ -1591,27 +1351,11 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
       staticMock.mockingContext.didInvoke(invocation)
       return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
-      staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public class func getGrandparentPrivateSetterStaticVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: staticMock, invocation: invocation)
-  }
-
-  public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentStaticVariable`
@@ -1684,27 +1428,11 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getParentPrivateSetterInstanceVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentPrivateSetterStaticVariable`
@@ -1715,27 +1443,11 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
       staticMock.mockingContext.didInvoke(invocation)
       return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
-      staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public class func getParentPrivateSetterStaticVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: staticMock, invocation: invocation)
-  }
-
-  public class func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentStaticVariable`
@@ -2029,27 +1741,11 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
       staticMock.mockingContext.didInvoke(invocation)
       return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childClassVariable.set", arguments: [ArgumentMatcher(newValue)])
-      staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public class func getChildClassVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childClassVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: staticMock, invocation: invocation)
-  }
-
-  public class func setChildClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childClassVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `childComputedInstanceVariable`
@@ -2060,27 +1756,11 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childComputedInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getChildComputedInstanceVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childComputedInstanceVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setChildComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childComputedInstanceVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentClassVariable`
@@ -2091,27 +1771,11 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
       staticMock.mockingContext.didInvoke(invocation)
       return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: [ArgumentMatcher(newValue)])
-      staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public class func getGrandparentClassVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: staticMock, invocation: invocation)
-  }
-
-  public class func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentComputedInstanceVariable`
@@ -2122,27 +1786,11 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getGrandparentComputedInstanceVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentClassVariable`
@@ -2153,27 +1801,11 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
       staticMock.mockingContext.didInvoke(invocation)
       return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.set", arguments: [ArgumentMatcher(newValue)])
-      staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public class func getParentClassVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: staticMock, invocation: invocation)
-  }
-
-  public class func setParentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentComputedInstanceVariable`
@@ -2184,27 +1816,11 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getParentComputedInstanceVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setParentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: ChildMock, rhs: ChildMock) -> Bool {
@@ -2780,29 +2396,12 @@ public final class DeclarationAttributesClassMock: MockingbirdTestsHost.Declarat
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> String)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (String) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   @available(iOSMac 10.10, *)
   public func getAvailableVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String>(mock: self, invocation: invocation)
-  }
-
-  @available(iOSMac 10.10, *)
-  public func setAvailableVariable(_ newValue: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (String) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: DeclarationAttributesClassMock, rhs: DeclarationAttributesClassMock) -> Bool {
@@ -2881,29 +2480,12 @@ public final class DeclarationAttributesProtocolMock: MockingbirdTestsHost.Decla
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> String)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (String) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   @available(iOSMac 10.10, *)
   public func getAvailableVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String>(mock: self, invocation: invocation)
-  }
-
-  @available(iOSMac 10.10, *)
-  public func setAvailableVariable(_ newValue: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (String) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: DeclarationAttributesProtocolMock, rhs: DeclarationAttributesProtocolMock) -> Bool {
@@ -3107,27 +2689,11 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> [Foundation.URL: Foundation.NSObject])()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? ([Foundation.URL: Foundation.NSObject]) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getAnotherVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [Foundation.URL: Foundation.NSObject], [Foundation.URL: Foundation.NSObject]> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [Foundation.URL: Foundation.NSObject], [Foundation.URL: Foundation.NSObject]>(mock: self, invocation: invocation)
-  }
-
-  public func setAnotherVariable(_ newValue: @escaping @autoclosure () -> [Foundation.URL: Foundation.NSObject]) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([Foundation.URL: Foundation.NSObject]) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([Foundation.URL: Foundation.NSObject]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `explicitAnotherVariable`
@@ -3138,27 +2704,11 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Dictionary<Foundation.URL, Foundation.NSObject>)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitAnotherVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Dictionary<Foundation.URL, Foundation.NSObject>) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getExplicitAnotherVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Dictionary<Foundation.URL, Foundation.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitAnotherVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Dictionary<Foundation.URL, Foundation.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>>(mock: self, invocation: invocation)
-  }
-
-  public func setExplicitAnotherVariable(_ newValue: @escaping @autoclosure () -> Dictionary<Foundation.URL, Foundation.NSObject>) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Dictionary<Foundation.URL, Foundation.NSObject>) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitAnotherVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Dictionary<Foundation.URL, Foundation.NSObject>) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `explicitVariable`
@@ -3169,27 +2719,11 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getExplicitVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>>(mock: self, invocation: invocation)
-  }
-
-  public func setExplicitVariable(_ newValue: @escaping @autoclosure () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `optionalAnotherVariable`
@@ -3200,27 +2734,11 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> [Foundation.URL: Foundation.NSObject?])()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? ([Foundation.URL: Foundation.NSObject?]) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getOptionalAnotherVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [Foundation.URL: Foundation.NSObject?], [Foundation.URL: Foundation.NSObject?]> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [Foundation.URL: Foundation.NSObject?], [Foundation.URL: Foundation.NSObject?]>(mock: self, invocation: invocation)
-  }
-
-  public func setOptionalAnotherVariable(_ newValue: @escaping @autoclosure () -> [Foundation.URL: Foundation.NSObject?]) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([Foundation.URL: Foundation.NSObject?]) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([Foundation.URL: Foundation.NSObject?]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `optionalExplicitAnotherVariable`
@@ -3231,27 +2749,11 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Dictionary<Foundation.URL, Foundation.NSObject?>)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalExplicitAnotherVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Dictionary<Foundation.URL, Foundation.NSObject?>) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getOptionalExplicitAnotherVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Dictionary<Foundation.URL, Foundation.NSObject?>, Dictionary<Foundation.URL, Foundation.NSObject?>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalExplicitAnotherVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Dictionary<Foundation.URL, Foundation.NSObject?>, Dictionary<Foundation.URL, Foundation.NSObject?>>(mock: self, invocation: invocation)
-  }
-
-  public func setOptionalExplicitAnotherVariable(_ newValue: @escaping @autoclosure () -> Dictionary<Foundation.URL, Foundation.NSObject?>) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Dictionary<Foundation.URL, Foundation.NSObject?>) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalExplicitAnotherVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Dictionary<Foundation.URL, Foundation.NSObject?>) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `optionalExplicitVariable`
@@ -3262,27 +2764,11 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalExplicitVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getOptionalExplicitVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalExplicitVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>>(mock: self, invocation: invocation)
-  }
-
-  public func setOptionalExplicitVariable(_ newValue: @escaping @autoclosure () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalExplicitVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `optionalVariable`
@@ -3293,27 +2779,11 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?])()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?]) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getOptionalVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?]> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?]>(mock: self, invocation: invocation)
-  }
-
-  public func setOptionalVariable(_ newValue: @escaping @autoclosure () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?]) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?]) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `variable`
@@ -3324,27 +2794,11 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject])()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]>(mock: self, invocation: invocation)
-  }
-
-  public func setVariable(_ newValue: @escaping @autoclosure () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: DictionaryTypesMock, rhs: DictionaryTypesMock) -> Bool {
@@ -3675,27 +3129,11 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherExtendedVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getAnotherExtendedVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherExtendedVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setAnotherExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherExtendedVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `baseVariable`
@@ -3706,27 +3144,11 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getBaseVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `extendedVariable`
@@ -3737,27 +3159,11 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getExtendedVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: ExtendableProtocolMock, rhs: ExtendableProtocolMock) -> Bool {
@@ -4209,27 +3615,11 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getGrandparentPrivateSetterInstanceVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentPrivateSetterStaticVariable`
@@ -4240,27 +3630,11 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
       staticMock.mockingContext.didInvoke(invocation)
       return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
-      staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public class func getGrandparentPrivateSetterStaticVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: staticMock, invocation: invocation)
-  }
-
-  public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentStaticVariable`
@@ -4406,27 +3780,11 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
       staticMock.mockingContext.didInvoke(invocation)
       return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: [ArgumentMatcher(newValue)])
-      staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public class func getGrandparentClassVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: staticMock, invocation: invocation)
-  }
-
-  public class func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentComputedInstanceVariable`
@@ -4437,27 +3795,11 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getGrandparentComputedInstanceVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: GrandparentMock, rhs: GrandparentMock) -> Bool {
@@ -5204,27 +4546,11 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getBaseVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: NonExtendableClassMock, rhs: NonExtendableClassMock) -> Bool {
@@ -5278,27 +4604,11 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool???)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "multiUnwrappedOptionalVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool???) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getMultiUnwrappedOptionalVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool???, Bool???> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "multiUnwrappedOptionalVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool???, Bool???>(mock: self, invocation: invocation)
-  }
-
-  public func setMultiUnwrappedOptionalVariable(_ newValue: @escaping @autoclosure () -> Bool???) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool???) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "multiUnwrappedOptionalVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool???) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `optionalVariable`
@@ -5309,27 +4619,11 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool?)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool?) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getOptionalVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool?, Bool?> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool?, Bool?>(mock: self, invocation: invocation)
-  }
-
-  public func setOptionalVariable(_ newValue: @escaping @autoclosure () -> Bool?) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool?) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool?) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `unwrappedOptionalVariable`
@@ -5340,27 +4634,11 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "unwrappedOptionalVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getUnwrappedOptionalVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "unwrappedOptionalVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setUnwrappedOptionalVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "unwrappedOptionalVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: OptionalsProtocolMock, rhs: OptionalsProtocolMock) -> Bool {
@@ -5977,27 +5255,11 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getGrandparentPrivateSetterInstanceVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentPrivateSetterStaticVariable`
@@ -6008,27 +5270,11 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
       staticMock.mockingContext.didInvoke(invocation)
       return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
-      staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public class func getGrandparentPrivateSetterStaticVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: staticMock, invocation: invocation)
-  }
-
-  public class func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentStaticVariable`
@@ -6101,27 +5347,11 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getParentPrivateSetterInstanceVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentPrivateSetterStaticVariable`
@@ -6132,27 +5362,11 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
       staticMock.mockingContext.didInvoke(invocation)
       return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
-      staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public class func getParentPrivateSetterStaticVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: staticMock, invocation: invocation)
-  }
-
-  public class func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentStaticVariable`
@@ -6372,27 +5586,11 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
       staticMock.mockingContext.didInvoke(invocation)
       return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: [ArgumentMatcher(newValue)])
-      staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public class func getGrandparentClassVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: staticMock, invocation: invocation)
-  }
-
-  public class func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentComputedInstanceVariable`
@@ -6403,27 +5601,11 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getGrandparentComputedInstanceVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentClassVariable`
@@ -6434,27 +5616,11 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
       staticMock.mockingContext.didInvoke(invocation)
       return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.set", arguments: [ArgumentMatcher(newValue)])
-      staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public class func getParentClassVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: staticMock, invocation: invocation)
-  }
-
-  public class func setParentClassVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentComputedInstanceVariable`
@@ -6465,27 +5631,11 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getParentComputedInstanceVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setParentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: ParentMock, rhs: ParentMock) -> Bool {
@@ -6703,27 +5853,11 @@ public final class ServiceRepositoryMock: MockingbirdTestsHost.ServiceRepository
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> MockingbirdTestsHost.TestManager)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "testManager.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (MockingbirdTestsHost.TestManager) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getTestManager() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.TestManager, MockingbirdTestsHost.TestManager> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "testManager.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.TestManager, MockingbirdTestsHost.TestManager>(mock: self, invocation: invocation)
-  }
-
-  public func setTestManager(_ newValue: @escaping @autoclosure () -> MockingbirdTestsHost.TestManager) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (MockingbirdTestsHost.TestManager) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "testManager.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (MockingbirdTestsHost.TestManager) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: ServiceRepositoryMock, rhs: ServiceRepositoryMock) -> Bool {
@@ -6813,27 +5947,11 @@ public final class TestManagerMock: MockingbirdTestsHost.TestManager, Mockingbir
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> MockingbirdTestsHost.Test)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "currentTest.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (MockingbirdTestsHost.Test) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getCurrentTest() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.Test, MockingbirdTestsHost.Test> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "currentTest.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.Test, MockingbirdTestsHost.Test>(mock: self, invocation: invocation)
-  }
-
-  public func setCurrentTest(_ newValue: @escaping @autoclosure () -> MockingbirdTestsHost.Test) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (MockingbirdTestsHost.Test) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "currentTest.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (MockingbirdTestsHost.Test) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: TestManagerMock, rhs: TestManagerMock) -> Bool {
@@ -6892,27 +6010,11 @@ public final class TestMock: MockingbirdTestsHost.Test, Mockingbird.Mock {
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> MockingbirdTestsHost.TestCase)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "testCase.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (MockingbirdTestsHost.TestCase) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getTestCase() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.TestCase, MockingbirdTestsHost.TestCase> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "testCase.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.TestCase, MockingbirdTestsHost.TestCase>(mock: self, invocation: invocation)
-  }
-
-  public func setTestCase(_ newValue: @escaping @autoclosure () -> MockingbirdTestsHost.TestCase) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (MockingbirdTestsHost.TestCase) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "testCase.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (MockingbirdTestsHost.TestCase) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: TestMock, rhs: TestMock) -> Bool {
@@ -7457,27 +6559,11 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> (Foundation.URL, Foundation.NSObject))()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? ((Foundation.URL, Foundation.NSObject)) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getAnotherVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (Foundation.URL, Foundation.NSObject), (Foundation.URL, Foundation.NSObject)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (Foundation.URL, Foundation.NSObject), (Foundation.URL, Foundation.NSObject)>(mock: self, invocation: invocation)
-  }
-
-  public func setAnotherVariable(_ newValue: @escaping @autoclosure () -> (Foundation.URL, Foundation.NSObject)) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((Foundation.URL, Foundation.NSObject)) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((Foundation.URL, Foundation.NSObject)) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `labeledAnotherVariable`
@@ -7488,27 +6574,11 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "labeledAnotherVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? ((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getLabeledAnotherVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "labeledAnotherVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))>(mock: self, invocation: invocation)
-  }
-
-  public func setLabeledAnotherVariable(_ newValue: @escaping @autoclosure () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "labeledAnotherVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `labeledVariable`
@@ -7519,27 +6589,11 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)))()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "labeledVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getLabeledVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "labeledVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))>(mock: self, invocation: invocation)
-  }
-
-  public func setLabeledVariable(_ newValue: @escaping @autoclosure () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "labeledVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `optionalAnotherVariable`
@@ -7550,27 +6604,11 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> (Foundation.URL?, Foundation.NSObject?))()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? ((Foundation.URL?, Foundation.NSObject?)) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getOptionalAnotherVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (Foundation.URL?, Foundation.NSObject?), (Foundation.URL?, Foundation.NSObject?)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (Foundation.URL?, Foundation.NSObject?), (Foundation.URL?, Foundation.NSObject?)>(mock: self, invocation: invocation)
-  }
-
-  public func setOptionalAnotherVariable(_ newValue: @escaping @autoclosure () -> (Foundation.URL?, Foundation.NSObject?)) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((Foundation.URL?, Foundation.NSObject?)) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((Foundation.URL?, Foundation.NSObject?)) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `optionalLabeledAnotherVariable`
@@ -7581,27 +6619,11 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?))()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalLabeledAnotherVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? ((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?)) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getOptionalLabeledAnotherVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalLabeledAnotherVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?)>(mock: self, invocation: invocation)
-  }
-
-  public func setOptionalLabeledAnotherVariable(_ newValue: @escaping @autoclosure () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?)) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?)) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalLabeledAnotherVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?)) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `optionalLabeledVariable`
@@ -7612,27 +6634,11 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> (a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?))()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalLabeledVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? ((a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?)) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getOptionalLabeledVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?), (a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalLabeledVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?), (a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?)>(mock: self, invocation: invocation)
-  }
-
-  public func setOptionalLabeledVariable(_ newValue: @escaping @autoclosure () -> (a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?)) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?)) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalLabeledVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?)) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `optionalVariable`
@@ -7643,27 +6649,11 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?))()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? ((MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getOptionalVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?), (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?), (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)>(mock: self, invocation: invocation)
-  }
-
-  public func setOptionalVariable(_ newValue: @escaping @autoclosure () -> (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `variable`
@@ -7674,27 +6664,11 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)>(mock: self, invocation: invocation)
-  }
-
-  public func setVariable(_ newValue: @escaping @autoclosure () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: TupleTypesMock, rhs: TupleTypesMock) -> Bool {
@@ -8171,27 +7145,11 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
       mockingContext.didInvoke(invocation)
       return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
     }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "computedVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
   }
 
   public func getComputedVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "computedVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setComputedVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "computedVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   public static func ==(lhs: VariablesContainerMock, rhs: VariablesContainerMock) -> Bool {

@@ -85,6 +85,8 @@ struct Variable: Hashable, Comparable {
       }
       guard isComputed else { return nil } // Can't override non-computed instance variables.
       attributes.insert(.computed)
+    } else {
+      if setterAccessLevel == nil { attributes.insert(.readonly) }
     }
     self.attributes = attributes
     self.setterAccessLevel = setterAccessLevel ?? .internal
