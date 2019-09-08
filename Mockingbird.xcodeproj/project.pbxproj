@@ -61,6 +61,8 @@
 		49F5DD4E2322EAC500EC87E4 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F5DD4D2322EAC500EC87E4 /* Collections.swift */; };
 		49F5DD5023236FB100EC87E4 /* DeclarationAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F5DD4F23236FB100EC87E4 /* DeclarationAttributes.swift */; };
 		49F5DD5223246E4F00EC87E4 /* Optionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F5DD5123246E4F00EC87E4 /* Optionals.swift */; };
+		49F5E5252324968500EC87E4 /* SerializationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F5E5242324968500EC87E4 /* SerializationRequest.swift */; };
+		49F5E527232496C800EC87E4 /* Primitives.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F5E526232496C800EC87E4 /* Primitives.swift */; };
 		OBJ_1000 /* SourceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SourceKitten::SourceKit::Product" /* SourceKit.framework */; };
 		OBJ_1001 /* Clang_C.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SourceKitten::Clang_C::Product" /* Clang_C.framework */; };
 		OBJ_1012 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_315 /* Package.swift */; };
@@ -899,11 +901,14 @@
 		49F5DD4D2322EAC500EC87E4 /* Collections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
 		49F5DD4F23236FB100EC87E4 /* DeclarationAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclarationAttributes.swift; sourceTree = "<group>"; };
 		49F5DD5123246E4F00EC87E4 /* Optionals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optionals.swift; sourceTree = "<group>"; };
+		49F5E5242324968500EC87E4 /* SerializationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializationRequest.swift; sourceTree = "<group>"; };
+		49F5E526232496C800EC87E4 /* Primitives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Primitives.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdTests::Product" /* MockingbirdTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = MockingbirdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		"Mockingbird::MockingbirdTests::Product" /* MockingbirdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = MockingbirdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdTestsHost::Product" /* MockingbirdTestsHost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MockingbirdTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_100 /* GrandparentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrandparentProtocol.swift; sourceTree = "<group>"; };
 		OBJ_101 /* InheritedTypeQualification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InheritedTypeQualification.swift; sourceTree = "<group>"; };
@@ -2485,8 +2490,10 @@
 				OBJ_69 /* Method.swift */,
 				OBJ_70 /* MockableType.swift */,
 				OBJ_71 /* ParseFilesOperation.swift */,
+				49F5E526232496C800EC87E4 /* Primitives.swift */,
 				OBJ_72 /* ProcessTypesOperation.swift */,
 				OBJ_73 /* RawType.swift */,
+				49F5E5242324968500EC87E4 /* SerializationRequest.swift */,
 				OBJ_74 /* Sourcery */,
 				OBJ_79 /* Typealias.swift */,
 				OBJ_78 /* TypeAttributes.swift */,
@@ -3472,12 +3479,14 @@
 				OBJ_712 /* MockableType.swift in Sources */,
 				OBJ_713 /* ParseFilesOperation.swift in Sources */,
 				OBJ_714 /* ProcessTypesOperation.swift in Sources */,
+				49F5E527232496C800EC87E4 /* Primitives.swift in Sources */,
 				OBJ_715 /* RawType.swift in Sources */,
 				OBJ_716 /* InferType.swift in Sources */,
 				OBJ_717 /* SourceSubstring.swift in Sources */,
 				OBJ_718 /* String+SourceryExtensions.swift in Sources */,
 				OBJ_719 /* TypeAttributes.swift in Sources */,
 				491CDF01231CF51C00C48C47 /* DeclaredType.swift in Sources */,
+				49F5E5252324968500EC87E4 /* SerializationRequest.swift in Sources */,
 				OBJ_720 /* Typealias.swift in Sources */,
 				OBJ_721 /* Variable.swift in Sources */,
 				OBJ_722 /* Array+Extensions.swift in Sources */,
