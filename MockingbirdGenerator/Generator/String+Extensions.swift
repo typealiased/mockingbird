@@ -76,6 +76,25 @@ extension String {
   /// Whether the string contains `needle`, ignoring any characters within the excluded `groups`.
   ///
   /// - Parameters:
+  ///   - needle: The character to search for.
+  ///   - groups: A map containing start group characters to end group characters.
+  func contains(_ needle: Character, excluding groups: [Character: Character]) -> Bool {
+    return self[...].contains(needle, excluding: groups)
+  }
+  
+  /// The start of the first index of `needle` found in the string, excluding grouped characters.
+  ///
+  /// - Parameters:
+  ///   - needle: The character to search for.
+  ///   - groups: A map containing start group characters to end group characters.
+  /// - Returns: The first index if found, `nil` if `needle` does not exist.
+  func firstIndex(of needle: Character, excluding groups: [Character: Character]) -> String.Index? {
+    return self[...].firstIndex(of: needle, excluding: groups)
+  }
+  
+  /// Whether the string contains `needle`, ignoring any characters within the excluded `groups`.
+  ///
+  /// - Parameters:
   ///   - needle: The string to search for.
   ///   - groups: A map containing start group characters to end group characters.
   func contains(_ needle: String, excluding groups: [Character: Character]) -> Bool {
@@ -134,7 +153,43 @@ extension Substring {
     }
     return components
   }
-
+  
+  /// Whether the substring contains `needle`, ignoring any characters within the excluded `groups`.
+  ///
+  /// - Parameters:
+  ///   - needle: The character to search for.
+  ///   - groups: A map containing start group characters to end group characters.
+  func contains(_ needle: Character, excluding groups: [Character: Character]) -> Bool {
+    return firstIndex(of: needle, excluding: groups) != nil
+  }
+  
+  /// The start of the first index of `needle` found in the substring, excluding grouped characters.
+  ///
+  /// - Parameters:
+  ///   - needle: The character to search for.
+  ///   - groups: A map containing start group characters to end group characters.
+  /// - Returns: The first index if found, `nil` if `needle` does not exist.
+  func firstIndex(of needle: Character, excluding groups: [Character: Character]) -> String.Index? {
+    var currentGroups = [Character]()
+    var substring = self
+    while let character = substring.first {
+      let currentIndex = substring.startIndex
+      substring = substring.dropFirst()
+      
+      if currentGroups.isEmpty && character == needle {
+        return currentIndex
+      }
+      
+      if groups[character] != nil {
+        currentGroups.append(character)
+      }
+      if let groupEnd = currentGroups.last, groups[groupEnd] == character {
+        currentGroups.removeLast()
+      }
+    }
+    return nil
+  }
+  
   /// Whether the substring contains `needle`, ignoring any characters within the excluded `groups`.
   ///
   /// - Parameters:
