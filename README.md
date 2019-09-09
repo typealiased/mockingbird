@@ -33,7 +33,7 @@ Add the framework to a test target in your `Podfile`.
 
 ```ruby
 target 'ATestTarget' do
-  pod 'Mockingbird', '~> 0.3.0'
+  pod 'Mockingbird', '~> 0.4.0'
 end
 ```
 
@@ -44,7 +44,7 @@ This will download and install the CLI during the next `pod install`.
 Add the framework to your `Cartfile`.
 
 ```
-github "birdrides/mockingbird" ~> 0.3.0
+github "birdrides/mockingbird" ~> 0.4.0
 ```
 
 And set up Carthage to only build the framework when running `carthage update`.
@@ -67,7 +67,7 @@ Add the framework as a package and test target dependency in your `Package.swift
 
 ```swift
 dependencies: [
-  .package(url: "https://github.com/birdrides/mockingbird.git", .upToNextMajor(from: "0.3.0"))
+  .package(url: "https://github.com/birdrides/mockingbird.git", .upToNextMajor(from: "0.4.0"))
 ],
 targets: [
   .testTarget(
