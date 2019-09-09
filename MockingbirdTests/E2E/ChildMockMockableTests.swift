@@ -12,7 +12,11 @@ import Foundation
 
 private protocol MockableChild {
   // MARK: Child
+  var childStoredPrivateSetterInstanceVariable: Bool { get }
+  var childStoredFileprivateSetterInstanceVariable: Bool { get }
+  
   var childComputedInstanceVariable: Bool { get }
+  var childStoredInstanceVariable: Bool { get set }
   
   func childTrivialInstanceMethod()
   func childParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool
@@ -22,7 +26,11 @@ private protocol MockableChild {
   static func childParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool
   
   // MARK: Parent
+  var parentStoredPrivateSetterInstanceVariable: Bool { get }
+  var parentStoredFileprivateSetterInstanceVariable: Bool { get }
+  
   var parentComputedInstanceVariable: Bool { get }
+  var parentStoredInstanceVariable: Bool { get set }
   
   func parentTrivialInstanceMethod()
   func parentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool
@@ -32,7 +40,11 @@ private protocol MockableChild {
   static func parentParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool
   
   // MARK: Grandparent
+  var grandparentStoredPrivateSetterInstanceVariable: Bool { get }
+  var grandparentStoredFileprivateSetterInstanceVariable: Bool { get }
+  
   var grandparentComputedInstanceVariable: Bool { get }
+  var grandparentStoredInstanceVariable: Bool { get set }
   
   func grandparentTrivialInstanceMethod()
   func grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool
@@ -47,12 +59,8 @@ extension ChildMock: MockableChild {}
 
 private extension ChildMock {
   // MARK: Child
-  var childStoredPrivateSetterInstanceVariable: Bool { return true }
-  var childStoredFileprivateSetterInstanceVariable: Bool { return true }
-  
   var childPrivateInstanceVariable: Bool { return true }
   var childFileprivateInstanceVariable: Bool { return true }
-  var childStoredInstanceVariable: Bool { return true }
   
   var childComputedPrivateInstanceVariable: Bool { return true }
   var childComputedFileprivateInstanceVariable: Bool { return true }
@@ -94,12 +102,8 @@ private extension ChildMock {
     -> Bool { return true }
   
   // MARK: Parent
-  var parentStoredPrivateSetterInstanceVariable: Bool { return true }
-  var parentStoredFileprivateSetterInstanceVariable: Bool { return true }
-  
   var parentPrivateInstanceVariable: Bool { return true }
   var parentFileprivateInstanceVariable: Bool { return true }
-  var parentStoredInstanceVariable: Bool { return true }
   
   var parentComputedPrivateInstanceVariable: Bool { return true }
   var parentComputedFileprivateInstanceVariable: Bool { return true }
@@ -141,12 +145,8 @@ private extension ChildMock {
     -> Bool { return true }
   
   // MARK: Grandparent
-  var grandparentStoredPrivateSetterInstanceVariable: Bool { return true }
-  var grandparentStoredFileprivateSetterInstanceVariable: Bool { return true }
-  
   var grandparentPrivateInstanceVariable: Bool { return true }
   var grandparentFileprivateInstanceVariable: Bool { return true }
-  var grandparentStoredInstanceVariable: Bool { return true }
   
   var grandparentComputedPrivateInstanceVariable: Bool { return true }
   var grandparentComputedFileprivateInstanceVariable: Bool { return true }

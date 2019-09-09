@@ -50,7 +50,7 @@ class VariableGenerator {
     return """
       // MARK: Mocked `\(variable.name)`
     \(attributes)
-      \(context.kind == .class ? "override " : "")\(accessLevel)\(modifiers)var \(variable.name): \(specializedTypeName) {
+      \(context.kind == .class ? "override " : "")public \(modifiers)var \(variable.name): \(specializedTypeName) {
         get {
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
           \(contextPrefix)mockingContext.didInvoke(invocation)
@@ -107,12 +107,6 @@ class VariableGenerator {
       ? "staticMock." : ""
   }()
   
-  lazy var accessLevel: String = {
-    guard variable.setterAccessLevel == .private || variable.setterAccessLevel == .fileprivate
-      else { return "public " }
-    return "public \(variable.setterAccessLevel)(set) "
-  }()
-  
   lazy var getterName: String = { return "\(variable.name).get" }()
   lazy var setterName: String = { return "\(variable.name).set" }()
   
@@ -129,6 +123,6 @@ class VariableGenerator {
   }()
   
   lazy var shouldGenerateSetter: Bool = {
-    return !variable.attributes.contains(.readonly) && !variable.attributes.contains(.computed)
+    return !variable.attributes.contains(.readonly) && variable.setterAccessLevel.isMockable
   }()
 }

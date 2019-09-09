@@ -83,8 +83,7 @@ struct Variable: Hashable, Comparable {
         let hasPropertyObservers = body.hasPrefix("didSet") || body.hasPrefix("willSet")
         isComputed = (!body.isEmpty && !hasPropertyObservers)
       }
-      guard isComputed else { return nil } // Can't override non-computed instance variables.
-      attributes.insert(.computed)
+      if isComputed { attributes.insert(.readonly) }
     } else {
       if setterAccessLevel == nil { attributes.insert(.readonly) }
     }

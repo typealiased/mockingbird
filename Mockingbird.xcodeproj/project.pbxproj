@@ -57,6 +57,7 @@
 		49C07FA2231DED21003F7712 /* VersionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C07FA1231DED21003F7712 /* VersionCommand.swift */; };
 		49C07FA4231E00B3003F7712 /* DefaultArgumentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C07FA3231E00B3003F7712 /* DefaultArgumentValues.swift */; };
 		49D7D4CB231F2E0300537655 /* Path+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D7D4CA231F2E0300537655 /* Path+Extensions.swift */; };
+		49F3D94E232714D10088D713 /* VariablesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F3D94D232714D10088D713 /* VariablesTests.swift */; };
 		49F5DD4A2322346500EC87E4 /* InitializerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F5DD492322346500EC87E4 /* InitializerTests.swift */; };
 		49F5DD4C2322E95300EC87E4 /* CollectionArgumentMatchingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F5DD4B2322E95300EC87E4 /* CollectionArgumentMatchingTests.swift */; };
 		49F5DD4E2322EAC500EC87E4 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F5DD4D2322EAC500EC87E4 /* Collections.swift */; };
@@ -898,6 +899,7 @@
 		49C07FA1231DED21003F7712 /* VersionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionCommand.swift; sourceTree = "<group>"; };
 		49C07FA3231E00B3003F7712 /* DefaultArgumentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultArgumentValues.swift; sourceTree = "<group>"; };
 		49D7D4CA231F2E0300537655 /* Path+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+Extensions.swift"; sourceTree = "<group>"; };
+		49F3D94D232714D10088D713 /* VariablesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariablesTests.swift; sourceTree = "<group>"; };
 		49F5DD492322346500EC87E4 /* InitializerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializerTests.swift; sourceTree = "<group>"; };
 		49F5DD4B2322E95300EC87E4 /* CollectionArgumentMatchingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionArgumentMatchingTests.swift; sourceTree = "<group>"; };
 		49F5DD4D2322EAC500EC87E4 /* Collections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
@@ -1586,6 +1588,7 @@
 				OBJ_148 /* TypealiasingStubbableTests.swift */,
 				OBJ_150 /* UndefinedArgumentLabelsMockableTests.swift */,
 				OBJ_151 /* UndefinedArgumentLabelsStubbableTests.swift */,
+				49F3D94D232714D10088D713 /* VariablesTests.swift */,
 				OBJ_153 /* VariadicParametersMockableTests.swift */,
 				OBJ_154 /* VariadicParametersStubbableTests.swift */,
 			);
@@ -3525,6 +3528,7 @@
 				OBJ_771 /* VariadicParametersTests.swift in Sources */,
 				491CDF03231DC6EE00C48C47 /* StringExtensionsTests.swift in Sources */,
 				OBJ_772 /* ChildMockMockableTests.swift in Sources */,
+				49F3D94E232714D10088D713 /* VariablesTests.swift in Sources */,
 				OBJ_773 /* ChildMockStubbableTests.swift in Sources */,
 				OBJ_775 /* ChildProtocolMockMockableTests.swift in Sources */,
 				OBJ_776 /* ChildProtocolMockStubbableTests.swift in Sources */,

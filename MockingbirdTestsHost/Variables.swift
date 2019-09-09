@@ -7,7 +7,15 @@
 
 import Foundation
 
-class VariablesContainer {
+protocol VariablesContainerProtocol {
+  var readonlyVariableOverwrittenAsReadwrite: Bool { get }
+}
+
+class VariablesContainer: VariablesContainerProtocol {
+  var readonlyVariableOverwrittenAsReadwrite: Bool
+  
+  var uninitializedVariable: Bool
+  
   var computedVariable: Bool { return true }
   
   var computedVariableWithDidSetObserver: Bool {
@@ -24,6 +32,8 @@ class VariablesContainer {
   let constantVariableWithExplicitType: Bool = true
   
   init() {
+    self.readonlyVariableOverwrittenAsReadwrite = true
+    self.uninitializedVariable = true
     self.computedVariableWithDidSetObserver = true
     self.computedVariableWithWillSetObserver = true
   }
