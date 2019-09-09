@@ -23,6 +23,7 @@ public class ExtractSourcesOperation: BasicOperation {
   public class Result {
     fileprivate(set) var targetPaths = Set<SourcePath>()
     fileprivate(set) var dependencyPaths = Set<SourcePath>()
+    fileprivate(set) var moduleDependencies = [String: Set<String>]()
   }
   
   public let result = Result()
@@ -50,8 +51,6 @@ public class ExtractSourcesOperation: BasicOperation {
       return []
     }
     let inferredModuleName = target.productModuleName
-      ?? self.target.productModuleName
-      ?? self.target.name // This is a good assumption, but might not always be the case.
     let paths = Set(phase.files?
       .compactMap({ try? $0.file?.fullPath(sourceRoot: sourceRoot) })
       .filter({ $0.extension == "swift" })
@@ -70,19 +69,20 @@ public class ExtractSourcesOperation: BasicOperation {
     let targets = Set([target]).union(target.dependencies
       .compactMap({ $0.target })
       .flatMap({ allTargets(for: $0) }))
+    result.moduleDependencies[target.productModuleName] = Set(targets.map({ $0.productModuleName }))
     ExtractSourcesOperation.memoizedAllTargets.update { $0[target] = targets }
     return targets
   }
 }
 
 public extension PBXTarget {
-  var productModuleName: String? {
+  var productModuleName: String {
     guard let inferredDebugConfig = buildConfigurationList?.buildConfigurations
       .first(where: { $0.name.lowercased() == "debug" })
       ?? buildConfigurationList?.buildConfigurations.first,
       let moduleName = inferredDebugConfig.buildSettings["PRODUCT_MODULE_NAME"] as? String,
       !moduleName.hasPrefix("$(") // TODO: Parse environment vars in build configurations.
-      else { return productName }
+      else { return productName ?? name }
     return moduleName
   }
 }

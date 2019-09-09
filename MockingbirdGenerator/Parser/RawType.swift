@@ -34,23 +34,23 @@ struct RawType {
   func qualifiedModuleNames(from declaration: String, context: ArraySlice<String>)
     -> (moduleQualified: String, contextQualified: String) {
       let trimmedDeclaration = declaration.removingParameterAttributes()
-      let groupDelimiter = (open: "<", close: ">")
-      let rawComponents = trimmedDeclaration.components(separatedBy: ".",
-                                                        excludingDelimiterBetween: groupDelimiter)
-      let components = rawComponents[(rawComponents.count-1)...]
-      
+      let rawComponents = trimmedDeclaration
+        .components(separatedBy: ".", excluding: .allGroups)
+        .map({ String($0) })
+      let specializedName = rawComponents[(rawComponents.count-1)...]
       let qualifiers = [parsedFile.moduleName] + containingTypeNames + [name]
       
       // Check if the referencing declaration is in the same scope as the type declaration.
-      let lowestCommonAncestorIndex = zip(qualifiers, context)
+      let lcaScopeIndex = zip(qualifiers, context)
         .map({ ($0, $1) })
-        .lastIndex(where: { $0 == $1 }) ?? context.count
-      let endIndex = qualifiers.count - components.count
+        .lastIndex(where: { $0 == $1 }) ?? 0
+      let endIndex = qualifiers.count - 1
       // If the LCA is the module then include the module name, else exclude type-scoped qualifiers.
-      let startIndex = min(lowestCommonAncestorIndex + (lowestCommonAncestorIndex > 0 ? 1 : 0),
-                           endIndex)
-      let moduleQualified = (qualifiers[..<endIndex] + components).joined(separator: ".")
-      let contextQualified = (qualifiers[startIndex..<endIndex] + components).joined(separator: ".")
+      let startIndex = min(lcaScopeIndex + (lcaScopeIndex > 0 ? 1 : 0), endIndex)
+      let moduleQualified = (qualifiers[..<endIndex] + specializedName).joined(separator: ".")
+      let contextQualified = (qualifiers[startIndex..<endIndex] + specializedName)
+        .joined(separator: ".")
+      
       return (moduleQualified: moduleQualified, contextQualified: contextQualified)
   }
   
@@ -75,8 +75,7 @@ struct RawType {
 extension Array where Element == RawType {
   /// Given an array of partial `RawType` objects, return the root declaration (not an extension).
   func findBaseRawType() -> RawType? {
-    return first(where: { $0.kind.isMockable && $0.parsedFile.shouldMock })
-      ?? first(where: { !$0.kind.isMockable })
+    return first(where: { $0.kind != .extension })
   }
 }
 
@@ -139,8 +138,10 @@ class RawTypeRepository {
     }
     let getRawType: (String) -> [RawType]? = {
       guard let rawTypes = self.rawTypes(named: $0) else { return nil }
-      for moduleName in moduleNames {
-        guard let rawType = rawTypes[moduleName] else { continue }
+      for moduleName in attributedModuleNames {
+        guard let rawType = rawTypes[moduleName],
+          rawType.contains(where: { $0.kind != .extension })
+          else { continue }
         return rawType
       }
       return nil
@@ -149,10 +150,12 @@ class RawTypeRepository {
       // Check if this is a potentially fully qualified name (from the module).
       guard let firstComponentIndex = name.firstIndex(of: ".") else { return getRawType(name) }
       if let rawType = getRawType(name) { return rawType }
+      
       // Ensure that the first component is actually a module that we've indexed.
-      guard moduleNames.contains(String(name[..<firstComponentIndex])) else { return nil }
+      let moduleName = String(name[..<firstComponentIndex])
+      guard attributedModuleNames.contains(moduleName) else { return nil }
       let dequalifiedName = name[name.index(after: firstComponentIndex)...]
-      return getRawType(String(dequalifiedName))
+      return self.rawTypes(named: String(dequalifiedName))?[moduleName]
     }
     
     let fullyQualifiedName = (containingTypeNames + [name]).joined(separator: ".")

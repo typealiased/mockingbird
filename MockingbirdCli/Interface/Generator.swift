@@ -50,7 +50,7 @@ class Generator {
       parseFiles.addDependency(extractSources)
       let processTypes = ProcessTypesOperation(parseFilesResult: parseFiles.result)
       processTypes.addDependency(parseFiles)
-      let moduleName = inputTarget.productModuleName ?? inputTarget.name
+      let moduleName = inputTarget.productModuleName
       let generateFile = GenerateFileOperation(processTypesResult: processTypes.result,
                                                moduleName: moduleName,
                                                outputPath: outputPath,
@@ -81,7 +81,7 @@ class Generator {
     // Resolve nil output paths to mocks source root and output suffix.
     let outputPaths = try config.outputPaths ?? targets.map({ target throws -> Path in
       try config.sourceRoot.mocksDirectory.mkpath()
-      let moduleName = target.productModuleName ?? target.name
+      let moduleName = target.productModuleName
       return config.sourceRoot.mocksDirectory + "\(moduleName)\(Constants.generatedFileNameSuffix)"
     })
     

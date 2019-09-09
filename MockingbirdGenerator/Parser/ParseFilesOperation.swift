@@ -61,6 +61,7 @@ public class ParseFilesOperation: BasicOperation {
   public class Result {
     fileprivate(set) var parsedFiles = [ParsedFile]()
     fileprivate(set) var imports = Set<String>()
+    fileprivate(set) var moduleDependencies = [String: Set<String>]()
   }
   
   public let result = Result()
@@ -116,6 +117,7 @@ public class ParseFilesOperation: BasicOperation {
     queue.addOperations(operations, waitUntilFinished: true)
     result.parsedFiles = operations.compactMap({ $0.result.parsedFile })
     result.imports = Set(result.parsedFiles.flatMap({ $0.imports }))
+    result.moduleDependencies = extractSourcesResult.moduleDependencies
   }
 }
 

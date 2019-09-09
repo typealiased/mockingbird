@@ -44,6 +44,7 @@ public class ProcessTypesOperation: BasicOperation {
       .filter({ $0.first(where: { $0.kind.isMockable })?.parsedFile.shouldMock == true })
       .filter({ $0.first?.isContainedType != true })
       .map({ FlattenInheritanceOperation(rawType: $0,
+                                         moduleDependencies: parseFilesResult.moduleDependencies,
                                          rawTypeRepository: rawTypeRepository,
                                          typealiasRepository: typealiasRepository) })
     queue.addOperations(flattenInheritanceOperations, waitUntilFinished: true)
@@ -113,6 +114,7 @@ private class ProcessStructuresOperation: BasicOperation {
 
 private class FlattenInheritanceOperation: BasicOperation {
   let rawType: [RawType]
+  let moduleDependencies: [String: Set<String>]
   let rawTypeRepository: RawTypeRepository
   let typealiasRepository: TypealiasRepository
   
@@ -123,17 +125,22 @@ private class FlattenInheritanceOperation: BasicOperation {
   let result = Result()
   
   init(rawType: [RawType],
+       moduleDependencies: [String: Set<String>],
        rawTypeRepository: RawTypeRepository,
        typealiasRepository: TypealiasRepository) {
     precondition(!rawType.isEmpty)
     self.rawType = rawType
+    self.moduleDependencies = moduleDependencies
     self.rawTypeRepository = rawTypeRepository
     self.typealiasRepository = typealiasRepository
   }
   
   override func run() throws {
     // Module names are put into an array and sorted so that looking up types is deterministic.
-    let moduleNames = Array(Set(rawType.map({ $0.parsedFile.moduleName }))).sorted()
+    let moduleNames = Array(Set(rawType.flatMap({
+      $0.parsedFile.importedModuleNames.flatMap({ moduleDependencies[$0] ?? [$0] })
+        + [$0.parsedFile.moduleName]
+    }))).sorted()
     result.mockableType = flattenInheritance(for: rawType, moduleNames: moduleNames)
   }
   
