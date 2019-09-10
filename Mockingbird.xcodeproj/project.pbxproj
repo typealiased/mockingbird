@@ -3171,7 +3171,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/Users/andrew/Library/Developer/Xcode/DerivedData/Mockingbird-agsjxwhkkkzllxguwkxolnnkjhqj/Build/Products/Debug/MockingbirdCli generate \\\n  --project '/Users/andrew/Mockingbird/Mockingbird.xcodeproj' \\\n  --output '/Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift'";
+			shellScript = "/Users/andrew/Library/Developer/Xcode/DerivedData/Mockingbird-agsjxwhkkkzllxguwkxolnnkjhqj/Build/Products/Debug/MockingbirdCli generate \\\n  --project '/Users/andrew/Mockingbird/Mockingbird.xcodeproj' \\\n  --output '/Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift'\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
