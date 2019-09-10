@@ -61,6 +61,7 @@ struct Method: Hashable, Comparable {
   let name: String
   let returnTypeName: String
   let isInitializer: Bool
+  let accessLevel: AccessLevel
   let kind: SwiftDeclarationKind
   let genericTypes: [GenericType]
   let genericConstraints: [String]
@@ -114,8 +115,10 @@ struct Method: Hashable, Comparable {
       else { return nil }
     
     guard let name = dictionary[SwiftDocKey.name.rawValue] as? String, name != "deinit",
-      let accessLevel = AccessLevel(from: dictionary), accessLevel.isMockable
+      let accessLevel = AccessLevel(from: dictionary),
+      accessLevel.isMockableMember(in: rootKind, withinSameModule: rawType.parsedFile.shouldMock)
       else { return nil }
+    self.accessLevel = accessLevel
     
     let source = rawType.parsedFile.data
     let attributes = Attributes(from: dictionary, source: source)

@@ -4460,8 +4460,20 @@ public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, 
   }
 
   public enum InitializerProxy {
-    public static func initialize(param: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
+    public static func initialize(__file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
+      let mock: InitializerClassMock = InitializerClassMock()
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+
+    public static func initialize(param: String?, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
       let mock: InitializerClassMock = InitializerClassMock(param: `param`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+
+    public static func initialize(param: String, __file: StaticString = #file, __line: UInt = #line) throws -> InitializerClassMock {
+      let mock: InitializerClassMock = try InitializerClassMock(param: `param`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
@@ -4478,20 +4490,8 @@ public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, 
       return mock
     }
 
-    public static func initialize(param: String, __file: StaticString = #file, __line: UInt = #line) throws -> InitializerClassMock {
-      let mock: InitializerClassMock = try InitializerClassMock(param: `param`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return mock
-    }
-
-    public static func initialize(param: String?, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
+    public static func initialize(param: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
       let mock: InitializerClassMock = InitializerClassMock(param: `param`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return mock
-    }
-
-    public static func initialize(__file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
-      let mock: InitializerClassMock = InitializerClassMock()
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }

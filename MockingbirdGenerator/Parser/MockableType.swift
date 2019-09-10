@@ -42,7 +42,8 @@ struct MockableType: Hashable, Comparable {
         typealiasRepository: TypealiasRepository) {
     guard let baseRawType = rawTypes.findBaseRawType(),
       let substructure = baseRawType.dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary],
-      let accessLevel = AccessLevel(from: baseRawType.dictionary), accessLevel.isMockable
+      let accessLevel = AccessLevel(from: baseRawType.dictionary),
+      accessLevel.isMockableType(withinSameModule: baseRawType.parsedFile.shouldMock)
       else { return nil }
     
     var attributes = Attributes()

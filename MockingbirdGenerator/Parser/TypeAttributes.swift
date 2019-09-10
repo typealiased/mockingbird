@@ -181,7 +181,25 @@ enum AccessLevel: String, CustomStringConvertible {
     self.init(rawValue: rawAccessLevel)
   }
   
-  var isMockable: Bool {
+  var isMockable: Bool { // For types or member declarations.
     return self != .fileprivate && self != .private
+  }
+  
+  func isMockableType(withinSameModule: Bool) -> Bool {
+    switch self {
+    case .open: return true
+    case .public: return true // Could inherit members from externally defined types.
+    case .internal: return withinSameModule
+    case .fileprivate, .private: return false
+    }
+  }
+  
+  func isMockableMember(in context: SwiftDeclarationKind, withinSameModule: Bool) -> Bool {
+    switch self {
+    case .open: return true
+    case .public: return context == .protocol || withinSameModule
+    case .internal: return withinSameModule
+    case .fileprivate, .private: return false
+    }
   }
 }
