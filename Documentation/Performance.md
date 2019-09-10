@@ -1,6 +1,6 @@
 # Performance
 
-Last revised on September 8, 2019 for version `0.4.0`.
+Last revised on September 9, 2019 for version `0.4.0`.
 
 ## Methodology
 
@@ -12,7 +12,7 @@ up to 15 members. See [MetagenerateCommand.swift](/MockingbirdCli/Interface/Meta
 for the benchmarking source template.
 
 ```bash
-mockingbird metagenerate --output ./MockingbirdTestsHost/Generated --count 1000
+$ mockingbird metagenerate --output ./MockingbirdTestsHost/Generated --count 1000
 ```
 
 All results are from a MacBook Pro (15-inch, 2018), 2.9 GHz Intel Core i9, 32 GB 2400 MHz DDR4.
@@ -69,7 +69,7 @@ $ hyperfine --warmup 10 'cuckoo generate --testable "MockingbirdTestsHost" --out
 | --- | --- | --- |
 | 53.697 ±  0.341 | 53.142 | 54.122 |
 
-17.9 seconds per generated mock; Mockingbird is 22x faster.
+17.9 ms per generated mock; Mockingbird is 22x faster.
 
 ```bash
 $ loc CuckooMocks.generated.swift
