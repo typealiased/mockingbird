@@ -152,10 +152,11 @@ always suffixed with `Mock`.
 let bird = mock(Bird.self)  // Returns a `BirdMock`
 ```
 
-Class mocks rely on subclassing which has certain limitations, so consider using protocols whenever possible.
+You can also mock classes that have designated initializers. Keep in mind that class mocks rely on subclassing 
+which has certain limitations, so consider using protocols whenever possible.
 
 ```swift
-let tree = mock(Tree.self).init(with: bird)  // Returns a `TreeMock`
+let tree = mock(Tree.self).initialize(with: bird)  // Returns a `TreeMock`
 ```
 
 ### Stubbing

@@ -15,12 +15,11 @@ class InitializerTests: XCTestCase {
   var initializerProtocol: InitializerProtocolMock!
   
   func testInitializerClass() {
-    initializerClass = mock(InitializerClass.self).init()
-    initializerClass = mock(InitializerClass.self).init(param: true)
-    initializerClass = mock(InitializerClass.self).init(param: 1)
-    initializerClass = try! mock(InitializerClass.self).init(param: "hello world")
-    initializerClass = mock(InitializerClass.self).init(param: Optional<String>(nil))
-    initializerClass = mock(InitializerClass.self).init(param: Optional<Double>(nil))
+    initializerClass = mock(InitializerClass.self).initialize()
+    initializerClass = mock(InitializerClass.self).initialize(param: true)
+    initializerClass = mock(InitializerClass.self).initialize(param: 1)
+    initializerClass = try! mock(InitializerClass.self).initialize(param: "hello world")
+    initializerClass = mock(InitializerClass.self).initialize(param: Optional<String>(nil))
   }
   
   func testInitializerProtocol() {

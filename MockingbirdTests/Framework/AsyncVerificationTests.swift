@@ -15,7 +15,7 @@ class AsyncVerificationTests: XCTestCase {
   var child: ChildMock!
   
   override func setUp() {
-    child = mock(Child.self).init()
+    child = mock(Child.self)
   }
   
   enum Constants {

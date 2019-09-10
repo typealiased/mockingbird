@@ -123,7 +123,8 @@ extension MockableType {
       return "\(name)\(suffix)\(allGenericTypes)"
     }
     let containingTypeNames = containingTypeNames.map({ $0 + suffix }).joined(separator: ".")
-    return "\(containingTypeNames).\(name)\(suffix)\(allGenericTypes)"
+      + (containingTypeNames.isEmpty ? "" : ".")
+    return "\(containingTypeNames)\(name)\(suffix)\(allGenericTypes)"
   }
   
   var stubbedMockName: String {
@@ -146,7 +147,8 @@ extension MockableType {
   }
   
   func generateBody() -> String {
-    return [generateVariables(),
+    return [generateClassInitializerProxy(),
+            generateVariables(),
             equatableConformance,
             codeableInitializer,
             defaultInitializer,
@@ -183,13 +185,14 @@ extension MockableType {
     """
   }
   
-  /// Store the source location of where the protocol mock was initialized. This allows XCTest
-  /// errors from unstubbed method invocations to show up in the testing code.
+  /// Store the source location of where the mock was initialized. This allows XCTest errors from
+  /// unstubbed method invocations to show up in the testing code.
   var defaultInitializer: String {
-    guard kind == .protocol else { return "" }
+    guard kind == .protocol || !methods.contains(where: { $0.isInitializer }) else { return "" }
+    let superInit = (kind == .class ? "super.init()\n    " : "")
     return """
       fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
-        Mockingbird.checkVersion(for: self)
+        \(superInit)Mockingbird.checkVersion(for: self)
         self.sourceLocation = sourceLocation
       }
     """
@@ -217,14 +220,19 @@ extension MockableType {
     let returnObject: String
     let returnTypeDescription: String
     let mockedScopedName = createScopedName(with: containingTypeNames, suffix: "Mock")
-    if kind == .class {
-      returnType = "\(mockedScopedName).Type"
-      returnObject = "\(mockedScopedName).self"
-      returnTypeDescription = "mock metatype"
+    if kind == .class && methods.contains(where: { $0.isInitializer }) {
+      // Requires an initializer proxy to create the partial class mock.
+      returnType = "\(mockedScopedName).InitializerProxy.Type"
+      returnObject = "\(mockedScopedName).InitializerProxy.self"
+      returnTypeDescription = "class mock metatype"
+    } else if kind == .class { // Does not require an initializer proxy.
+      returnType = "\(mockedScopedName)"
+      returnObject = "\(mockedScopedName)(sourceLocation: SourceLocation(file, line))"
+      returnTypeDescription = "concrete class mock instance"
     } else {
       returnType = "\(mockedScopedName)"
       returnObject = "\(mockedScopedName)(sourceLocation: SourceLocation(file, line))"
-      returnTypeDescription = "concrete mock instance"
+      returnTypeDescription = "concrete protocol mock instance"
     }
     
     return """
@@ -235,6 +243,17 @@ extension MockableType {
     """
   }
 
+  func generateClassInitializerProxy() -> String {
+    guard kind == .class, methods.contains(where: { $0.isInitializer }) else { return "" }
+    let initializers = methods.map({
+      MethodGenerator(method: $0, context: self).generateClassInitializerProxy()
+    }).filter({ !$0.isEmpty }).joined(separator: "\n\n")
+    return """
+      public enum InitializerProxy {
+    \(initializers)
+      }
+    """
+  }
   
   func generateVariables() -> String {
     return variables.sorted(by: <).map({

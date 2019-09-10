@@ -64,6 +64,23 @@ class MethodGenerator {
       .joined(separator: "\n\n")
   }
   
+  func generateClassInitializerProxy() -> String {
+    guard method.isInitializer, context.kind == .class else { return "" }
+    // We can't usually infer what concrete arguments to pass to the designated initializer.
+    guard !method.attributes.contains(.convenience) else { return "" }
+    let attributes = declarationAttributes.isEmpty ? "" : "  \(declarationAttributes)\n"
+    let genericConstraints = self.genericConstraints
+    let failable = method.attributes.contains(.failable) ? "?" : ""
+    let scopedName = context.createScopedName(with: [], suffix: "Mock")
+    return """
+    \(attributes)    public static func \(fullNameForInitializerProxy)\(genericConstraints) \(returnTypeAttributes)-> \(scopedName)\(failable) {
+          let mock: \(scopedName)\(failable) = \(tryInvocation)\(scopedName)(\(superCallParameters))
+          mock\(failable).sourceLocation = SourceLocation(__file, __line)
+          return mock
+        }
+    """
+  }
+  
   lazy var generatedMock: String = {
     let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
     if method.isInitializer {
@@ -164,18 +181,21 @@ class MethodGenerator {
   }()
   
   lazy var fullNameForMocking: String = {
-    return fullName(forMatching: false, useVariadics: false)
+    return fullName(forMatching: false, useVariadics: false, forInitializerProxy: false)
   }()
   lazy var fullNameForMatching: String = {
-    return fullName(forMatching: true, useVariadics: false)
+    return fullName(forMatching: true, useVariadics: false, forInitializerProxy: false)
   }()
   /// It's not possible to have an autoclosure with variadics. However, since a method can only have
   /// one variadic parameter, we can generate one method for wildcard matching using an argument
   /// matcher, and another for specific matching using variadics.
   lazy var fullNameForMatchingVariadics: String = {
-    return fullName(forMatching: true, useVariadics: true)
+    return fullName(forMatching: true, useVariadics: true, forInitializerProxy: false)
   }()
-  func fullName(forMatching: Bool, useVariadics: Bool) -> String {
+  lazy var fullNameForInitializerProxy: String = {
+    return fullName(forMatching: false, useVariadics: false, forInitializerProxy: true)
+  }()
+  func fullName(forMatching: Bool, useVariadics: Bool, forInitializerProxy: Bool) -> String {
     let parameterNames = method.parameters.map({ parameter -> String in
       let typeName: String
       if forMatching && (!useVariadics || !parameter.attributes.contains(.variadic)) {
@@ -189,15 +209,18 @@ class MethodGenerator {
       } else {
         return "\(parameter.name): \(typeName)"
       }
-    })
+    }) + (!forInitializerProxy ? [] : ["__file: StaticString = #file", "__line: UInt = #line"])
     let failable: String
-    if method.attributes.contains(.failable) {
+    if forInitializerProxy {
+      failable = ""
+    } else if method.attributes.contains(.failable) {
       failable = "?"
     } else if method.attributes.contains(.unwrappedFailable) {
       failable = "!"
     } else {
       failable = ""
     }
+    let shortName = forInitializerProxy ? "initialize" : self.shortName
     return "\(shortName)\(failable)(\(parameterNames.joined(separator: ", ")))"
   }
   
