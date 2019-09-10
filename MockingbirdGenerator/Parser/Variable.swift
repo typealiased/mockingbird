@@ -81,13 +81,15 @@ struct Variable: Hashable, Comparable {
     guard !isConstant else { return nil } // Can't override constant variables.
     
     if rootKind == .class {
-      var isComputed = setterAccessLevel == nil // && !isConstant (but we don't mock constant vars).
+      let isComputed = setterAccessLevel == nil // && !isConstant (but we don't mock constant vars).
+      var isMutable = !isComputed
       if !isComputed { // && setterAccessLevel != nil
         let body = SourceSubstring.body.extract(from: dictionary, contents: source) ?? ""
-        let hasPropertyObservers = body.hasPrefix("didSet") || body.hasPrefix("willSet")
-        isComputed = (!body.isEmpty && !hasPropertyObservers)
+        let hasSetter = body.hasPrefix("didSet") || body.hasPrefix("willSet")
+          || body.contains("set", excluding: ["{": "}"])
+        isMutable = (body.isEmpty || hasSetter)
       }
-      if isComputed { attributes.insert(.readonly) }
+      if isComputed && !isMutable { attributes.insert(.readonly) }
     } else {
       if setterAccessLevel == nil { attributes.insert(.readonly) }
     }

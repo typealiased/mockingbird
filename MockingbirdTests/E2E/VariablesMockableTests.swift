@@ -1,11 +1,12 @@
 //
-//  VariablesTests.swift
+//  VariablesMockableTests.swift
 //  MockingbirdTests
 //
 //  Created by Andrew Chang on 9/9/19.
 //
 
 import Foundation
+@testable import MockingbirdTestsHost
 
 // MARK: - Mockable declarations
 
@@ -14,6 +15,7 @@ private protocol MockableVariablesContainer {
   var uninitializedVariable: Bool { get set }
   
   var computedVariable: Bool { get }
+  var computedMutableVariable: Bool { get set }
   
   var computedVariableWithDidSetObserver: Bool { get set }
   var computedVariableWithWillSetObserver: Bool { get set }

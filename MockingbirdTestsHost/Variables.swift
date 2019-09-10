@@ -17,6 +17,10 @@ class VariablesContainer: VariablesContainerProtocol {
   var uninitializedVariable: Bool
   
   var computedVariable: Bool { return true }
+  var computedMutableVariable: Bool {
+    get { return true }
+    set { }
+  }
   
   var computedVariableWithDidSetObserver: Bool {
     didSet {}

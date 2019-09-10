@@ -7800,6 +7800,37 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     }
   }
 
+  // MARK: Mocked `computedMutableVariable`
+
+  override public var computedMutableVariable: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "computedMutableVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "computedMutableVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getComputedMutableVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "computedMutableVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setComputedMutableVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "computedMutableVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
   // MARK: Mocked `computedVariableWithDidSetObserver`
 
   override public var computedVariableWithDidSetObserver: Bool {
