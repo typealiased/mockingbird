@@ -27,8 +27,6 @@ extension GenericType {
 
 extension MockableType {
   func generate(moduleName: String) -> String {
-    let initializer = mockInitializer
-    let appendedInitializer = !initializer.isEmpty ? "\n\n" + initializer : ""
     return """
     // MARK: - Mocked \(name)
     
@@ -46,8 +44,15 @@ extension MockableType {
       }
     
     \(generateBody())
-    }\(appendedInitializer)
+    }
     """
+  }
+  
+  func generateInitializer(containingTypeNames: [String]) -> String {
+    let initializers = [createInitializer(with: containingTypeNames)] + containedTypes.map({
+      $0.generateInitializer(containingTypeNames: containingTypeNames + [name])
+    })
+    return initializers.joined(separator: "\n\n")
   }
   
   /// The static mocking context allows static (or class) declared methods to be mocked.
@@ -102,10 +107,23 @@ extension MockableType {
       .joined(separator: ", ")
   }
   
+  /// For scoped types referenced within their containing type.
   var fullyQualifiedName: String {
     guard kind == .class else { return "\(moduleName).\(name)" }
     guard !isContainedType else { return "\(name)\(allGenericTypes)" }
     return "\(moduleName).\(name)\(allGenericTypes)"
+  }
+  
+  /// For scoped types referenced at the top level but in the same module.
+  func createScopedName(with containingTypeNames: [String], suffix: String = "") -> String {
+    guard kind == .class else { // Protocols can't be nested
+      return name + suffix + (!suffix.isEmpty ? allGenericTypes : "")
+    }
+    guard isContainedType else {
+      return "\(name)\(suffix)\(allGenericTypes)"
+    }
+    let containingTypeNames = containingTypeNames.map({ $0 + suffix }).joined(separator: ".")
+    return "\(containingTypeNames).\(name)\(suffix)\(allGenericTypes)"
   }
   
   var stubbedMockName: String {
@@ -177,37 +195,40 @@ extension MockableType {
     """
   }
   
-  var mockInitializer: String {
+  func createInitializer(with containingTypeNames: [String]) -> String {
     let allGenericTypes = self.allGenericTypes
+    let scopedName = createScopedName(with: containingTypeNames)
+    let fullyQualifiedScopedName = "\(moduleName).\(scopedName)"
     let genericMethodAttribute: String
     let metatype: String
     if allGenericTypes.count > 0 {
       let specializedGenericTypes =
-        (["MockType: \(fullyQualifiedName)"] + allSpecializedGenericTypesList)
+        (["MockType: \(fullyQualifiedScopedName)"] + allSpecializedGenericTypesList)
           .joined(separator: ", ")
       genericMethodAttribute = "<" + specializedGenericTypes + ">"
       metatype = "MockType.Type"
     } else {
       genericMethodAttribute = ""
       let metatypeKeyword = (kind == .class ? "Type" : "Protocol")
-      metatype = "\(fullyQualifiedName).\(metatypeKeyword)"
+      metatype = "\(fullyQualifiedScopedName).\(metatypeKeyword)"
     }
     
     let returnType: String
     let returnObject: String
     let returnTypeDescription: String
+    let mockedScopedName = createScopedName(with: containingTypeNames, suffix: "Mock")
     if kind == .class {
-      returnType = "\(name)Mock\(allGenericTypes).Type"
-      returnObject = "\(name)Mock.self"
+      returnType = "\(mockedScopedName).Type"
+      returnObject = "\(mockedScopedName).self"
       returnTypeDescription = "mock metatype"
     } else {
-      returnType = "\(name)Mock\(allGenericTypes)"
-      returnObject = "\(name)Mock\(allGenericTypes)(sourceLocation: SourceLocation(file, line))"
+      returnType = "\(mockedScopedName)"
+      returnObject = "\(mockedScopedName)(sourceLocation: SourceLocation(file, line))"
       returnTypeDescription = "concrete mock instance"
     }
     
     return """
-    /// Create a source-attributed `\(name)\(allGenericTypes)` \(returnTypeDescription).
+    /// Create a source-attributed `\(fullyQualifiedName)\(allGenericTypes)` \(returnTypeDescription).
     public func mock\(genericMethodAttribute)(file: StaticString = #file, line: UInt = #line, _ type: \(metatype)) -> \(returnType) {
       return \(returnObject)
     }

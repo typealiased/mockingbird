@@ -25,5 +25,6 @@ class GenerateMockableTypeOperation: BasicOperation {
   
   override func run() {
     result.generatedContents = mockableType.generate(moduleName: moduleName)
+      + "\n\n" + mockableType.generateInitializer(containingTypeNames: [])
   }
 }
