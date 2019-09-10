@@ -245,7 +245,7 @@ extension MockableType {
 
   func generateClassInitializerProxy() -> String {
     guard kind == .class, methods.contains(where: { $0.isInitializer }) else { return "" }
-    let initializers = methods.map({
+    let initializers = methods.sorted().map({
       MethodGenerator(method: $0, context: self).generateClassInitializerProxy()
     }).filter({ !$0.isEmpty }).joined(separator: "\n\n")
     return """
