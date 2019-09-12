@@ -9,6 +9,7 @@
 import Foundation
 import PathKit
 import SourceKittenFramework
+import os.log
 
 struct ParsedFile {
   let file: File
@@ -91,11 +92,16 @@ public class ParseFilesOperation: BasicOperation {
       }
       
       let file = try sourcePath.path.getFile()
+      
       let structure = try Structure(file: file)
+      var imports: Set<String>!
+      time(.collectImports, options: .quiet) {
+        imports = shouldMock ? file.parseImports() : []
+      }
       let parsedFile = ParsedFile(file: file,
                                   path: sourcePath.path,
                                   moduleName: sourcePath.moduleName,
-                                  imports: shouldMock ? file.parseImports() : [],
+                                  imports: imports,
                                   structure: structure,
                                   shouldMock: shouldMock)
       ParseFilesOperation.SubOperation.memoizedParsedFiles.update { $0[sourcePath] = parsedFile }
@@ -108,14 +114,16 @@ public class ParseFilesOperation: BasicOperation {
   }
   
   override func run() {
-    let operations = extractSourcesResult.targetPaths.map({
-      SubOperation(sourcePath: $0, shouldMock: true)
-    }) + extractSourcesResult.dependencyPaths.map({
-      SubOperation(sourcePath: $0, shouldMock: false)
-    })
-    let queue = OperationQueue.createForActiveProcessors()
-    queue.addOperations(operations, waitUntilFinished: true)
-    result.parsedFiles = operations.compactMap({ $0.result.parsedFile })
+    time(.parseFiles) {
+      let operations = extractSourcesResult.targetPaths.map({
+        SubOperation(sourcePath: $0, shouldMock: true)
+      }) + extractSourcesResult.dependencyPaths.map({
+        SubOperation(sourcePath: $0, shouldMock: false)
+      })
+      let queue = OperationQueue.createForActiveProcessors()
+      queue.addOperations(operations, waitUntilFinished: true)
+      result.parsedFiles = operations.compactMap({ $0.result.parsedFile })
+    }
     result.imports = Set(result.parsedFiles.flatMap({ $0.imports }))
     result.moduleDependencies = extractSourcesResult.moduleDependencies
   }

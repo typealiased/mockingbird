@@ -11,6 +11,7 @@ import MockingbirdGenerator
 import PathKit
 import SPMUtility
 import XcodeProj
+import os.log
 
 class Generator {
   struct Configuration {
@@ -68,8 +69,11 @@ class Generator {
       throw Failure.malformedConfiguration(description: "Number of input targets does not match the number of output file paths")
     }
     
-    let xcodeproj = try XcodeProj(path: config.projectPath)
-    
+    var xcodeproj: XcodeProj!
+    try time(.parseXcodeProject) {
+      xcodeproj = try XcodeProj(path: config.projectPath)
+    }
+      
     // Resolve target names to concrete Xcode project targets.
     let targets = try config.inputTargetNames.map({ targetName throws -> PBXTarget in
       guard let target = xcodeproj.pbxproj.targets(named: targetName).first else {
@@ -95,18 +99,16 @@ class Generator {
     }
     
     // Create concrete generation operation graphs from pipelines.
-    time("Generated mocks for all targets") {
-      let queue = OperationQueue.createForActiveProcessors()
-      pipelines.forEach({
-        queue.addOperations($0.createOperations(with: config), waitUntilFinished: false)
-      })
-      let operationsCopy = queue.operations.compactMap({ $0 as? BasicOperation })
-      queue.waitUntilAllOperationsAreFinished()
-      operationsCopy.forEach({
-        guard let error = $0.error else { return }
-        fputs(error.localizedDescription + "\n", stderr)
-      })
-    }
+    let queue = OperationQueue.createForActiveProcessors()
+    pipelines.forEach({
+      queue.addOperations($0.createOperations(with: config), waitUntilFinished: false)
+    })
+    let operationsCopy = queue.operations.compactMap({ $0 as? BasicOperation })
+    queue.waitUntilAllOperationsAreFinished()
+    operationsCopy.forEach({
+      guard let error = $0.error else { return }
+      fputs(error.localizedDescription + "\n", stderr)
+    })
   }
 }
 

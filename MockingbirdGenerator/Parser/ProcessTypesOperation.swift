@@ -8,6 +8,7 @@
 
 import Foundation
 import SourceKittenFramework
+import os.log
 
 public class ProcessTypesOperation: BasicOperation {
   let parseFilesResult: ParseFilesOperation.Result
@@ -26,32 +27,34 @@ public class ProcessTypesOperation: BasicOperation {
   }
   
   override func run() {
-    let queue = OperationQueue.createForActiveProcessors()
-    let processStructuresOperations = parseFilesResult.parsedFiles.map({
-      ProcessStructuresOperation(structureDictionary: $0.structure.dictionary, parsedFile: $0)
-    })
-    queue.addOperations(processStructuresOperations, waitUntilFinished: true)
-    processStructuresOperations.forEach({
-      $0.result.rawTypes.forEach({
-        rawTypeRepository.addRawType($0)
-        if let typeAlias = Typealias(from: $0) { typealiasRepository.addTypealias(typeAlias) }
+    time(.processTypes) {
+      let queue = OperationQueue.createForActiveProcessors()
+      let processStructuresOperations = parseFilesResult.parsedFiles.map({
+        ProcessStructuresOperation(structureDictionary: $0.structure.dictionary, parsedFile: $0)
       })
-    })
-    
-    let flattenInheritanceOperations = rawTypeRepository.rawTypes
-      .flatMap({ $0.value })
-      .map({ $0.value })
-      .filter({ $0.first(where: { $0.kind.isMockable })?.parsedFile.shouldMock == true })
-      .filter({ $0.first?.isContainedType != true })
-      .map({ FlattenInheritanceOperation(rawType: $0,
-                                         moduleDependencies: parseFilesResult.moduleDependencies,
-                                         rawTypeRepository: rawTypeRepository,
-                                         typealiasRepository: typealiasRepository) })
-    queue.addOperations(flattenInheritanceOperations, waitUntilFinished: true)
-    result.mockableTypes = flattenInheritanceOperations
-      .compactMap({ $0.result.mockableType })
-      .filter({ !$0.isContainedType })
-    result.imports = parseFilesResult.imports
+      queue.addOperations(processStructuresOperations, waitUntilFinished: true)
+      processStructuresOperations.forEach({
+        $0.result.rawTypes.forEach({
+          rawTypeRepository.addRawType($0)
+          if let typeAlias = Typealias(from: $0) { typealiasRepository.addTypealias(typeAlias) }
+        })
+      })
+      
+      let flattenInheritanceOperations = rawTypeRepository.rawTypes
+        .flatMap({ $0.value })
+        .map({ $0.value })
+        .filter({ $0.first(where: { $0.kind.isMockable })?.parsedFile.shouldMock == true })
+        .filter({ $0.first?.isContainedType != true })
+        .map({ FlattenInheritanceOperation(rawType: $0,
+                                           moduleDependencies: parseFilesResult.moduleDependencies,
+                                           rawTypeRepository: rawTypeRepository,
+                                           typealiasRepository: typealiasRepository) })
+      queue.addOperations(flattenInheritanceOperations, waitUntilFinished: true)
+      result.mockableTypes = flattenInheritanceOperations
+        .compactMap({ $0.result.mockableType })
+        .filter({ !$0.isContainedType })
+      result.imports = parseFilesResult.imports
+    }
   }
 }
 

@@ -7,7 +7,9 @@
 
 import Basic
 import Foundation
+import MockingbirdGenerator
 import SPMUtility
+import os.log
 
 protocol Command {
   var command: String { get }
@@ -28,16 +30,21 @@ struct Program {
   }
   
   func run(with arguments: [String]) {
-    do {
-      let arguments = Array(arguments.dropFirst())
-      let parsedArguments = try parser.parse(arguments)
-      try process(arguments: parsedArguments)
-    }
-    catch let error as ArgumentParserError {
-      print(error.description)
-    }
-    catch let error {
-      print(error.localizedDescription)
+    time(.runProgram) {
+      do {
+        var parsedArguments: ArgumentParser.Result!
+        try time(.parseArguments) {
+          let arguments = Array(arguments.dropFirst())
+          parsedArguments = try parser.parse(arguments)
+        }
+        try process(arguments: parsedArguments)
+      }
+      catch let error as ArgumentParserError {
+        print(error.description)
+      }
+      catch let error {
+        print(error.localizedDescription)
+      }
     }
   }
   

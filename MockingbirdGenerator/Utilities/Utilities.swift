@@ -7,14 +7,48 @@
 //
 
 import Foundation
+import os.log
 
-public func time<T>(_ name: String = "Unnamed task", _ block: () throws -> T) rethrows -> T {
-  #if DEBUG
-  let start = mach_absolute_time()
-  let returnValue = try block()
-  print("\(name) - Took \(round(Double(mach_absolute_time() - start) / 10000.0) / 100.0) ms")
-  return returnValue
-  #else
-  return try block()
-  #endif
+public struct TimingOptions: OptionSet {
+  public let rawValue: Int
+  public init(rawValue: Int) {
+    self.rawValue = rawValue
+  }
+  
+  public static let printToConsole = TimingOptions(rawValue: 1 << 0)
+  public static let storeSignposts = TimingOptions(rawValue: 1 << 1)
+  
+  public static let standard: TimingOptions = [.printToConsole, .storeSignposts]
+  public static let quiet: TimingOptions = [.storeSignposts]
+}
+
+@inlinable
+public func time<T>(_ signpostType: SignpostType,
+                    options: TimingOptions = .standard,
+                    _ block: () throws -> T) rethrows -> T {
+  if #available(OSX 10.14, *) {
+    let storeSignposts = options.contains(.storeSignposts)
+    
+    let signpost: Signpost?
+    if storeSignposts {
+      signpost = OSLog.beginSignpost(signpostType)
+    } else {
+      signpost = nil
+    }
+    
+    let start = mach_absolute_time()
+    let returnValue = try block()
+    
+    #if DEBUG
+    if options.contains(.printToConsole) {
+      let delta = round(Double(mach_absolute_time() - start) / 10000.0) / 100.0
+      print("\(signpostType.name) - Took \(delta) ms")
+    }
+    #endif
+    
+    if let signpost = signpost { OSLog.endSignpost(signpost) }
+    return returnValue
+  } else {
+    return try block()
+  }
 }

@@ -45,6 +45,7 @@
 /* Begin PBXBuildFile section */
 		490AD8E72324DD5400681457 /* MetagenerateCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490AD8E62324DD5400681457 /* MetagenerateCommand.swift */; };
 		490B56F42329E752007D8025 /* IgnoredSourceExclusionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490B56F32329E752007D8025 /* IgnoredSourceExclusionTests.swift */; };
+		490B66C5232B0DAC007D8025 /* OSLog+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490B66C4232B0DAB007D8025 /* OSLog+Extensions.swift */; };
 		491CDF01231CF51C00C48C47 /* DeclaredType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491CDF00231CF51C00C48C47 /* DeclaredType.swift */; };
 		491CDF03231DC6EE00C48C47 /* StringExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491CDF02231DC6EE00C48C47 /* StringExtensionsTests.swift */; };
 		491CDF05231DD41A00C48C47 /* DeclaredTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491CDF04231DD41A00C48C47 /* DeclaredTypeTests.swift */; };
@@ -896,6 +897,7 @@
 /* Begin PBXFileReference section */
 		490AD8E62324DD5400681457 /* MetagenerateCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetagenerateCommand.swift; sourceTree = "<group>"; };
 		490B56F32329E752007D8025 /* IgnoredSourceExclusionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IgnoredSourceExclusionTests.swift; sourceTree = "<group>"; };
+		490B66C4232B0DAB007D8025 /* OSLog+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OSLog+Extensions.swift"; sourceTree = "<group>"; };
 		491CDEFF231CCBE700C48C47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		491CDF00231CF51C00C48C47 /* DeclaredType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclaredType.swift; sourceTree = "<group>"; };
 		491CDF02231DC6EE00C48C47 /* StringExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTests.swift; sourceTree = "<group>"; };
@@ -2613,6 +2615,7 @@
 				OBJ_83 /* CharacterSet+Extensions.swift */,
 				OBJ_84 /* DateFormatter+Extensions.swift */,
 				OBJ_85 /* OperationQueue+Extensions.swift */,
+				490B66C4232B0DAB007D8025 /* OSLog+Extensions.swift */,
 				OBJ_86 /* Synchronized.swift */,
 				OBJ_87 /* Utilities.swift */,
 				OBJ_88 /* Version.swift */,
@@ -3566,6 +3569,7 @@
 				49F5E5252324968500EC87E4 /* SerializationRequest.swift in Sources */,
 				OBJ_720 /* Typealias.swift in Sources */,
 				OBJ_721 /* Variable.swift in Sources */,
+				490B66C5232B0DAC007D8025 /* OSLog+Extensions.swift in Sources */,
 				OBJ_722 /* Array+Extensions.swift in Sources */,
 				OBJ_723 /* CharacterSet+Extensions.swift in Sources */,
 				OBJ_724 /* DateFormatter+Extensions.swift in Sources */,

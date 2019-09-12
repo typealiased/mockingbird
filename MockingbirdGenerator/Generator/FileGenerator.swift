@@ -10,6 +10,7 @@
 
 import Foundation
 import PathKit
+import os.log
 
 class FileGenerator {
   let mockableTypes: [MockableType]
@@ -92,17 +93,13 @@ class FileGenerator {
     return PartialFileContents(contents: (preprocessorExpression != nil ? "\n#endif" : ""))
   }
   
-  private func generateFileContents() -> PartialFileContents {
+  func generate() -> PartialFileContents {
     return PartialFileContents(contents: nil,
                                substructure: [generateFileHeader(),
                                               generateFileBody(),
                                               generateFileFooter()].filter({ !$0.isEmpty }),
                                delimiter: "\n",
                                footer: "\n")
-  }
-  
-  func generate() throws {
-    try outputPath.writeUtf8Strings(generateFileContents())
   }
   
   private var synchronizedClass: String {

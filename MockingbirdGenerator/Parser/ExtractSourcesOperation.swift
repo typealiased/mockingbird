@@ -9,6 +9,7 @@
 import Foundation
 import PathKit
 import XcodeProj
+import os.log
 
 struct SourcePath: Hashable, Equatable {
   let path: Path
@@ -34,10 +35,12 @@ public class ExtractSourcesOperation: BasicOperation {
   }
   
   override func run() throws {
-    result.targetPaths = sourceFilePaths(for: target)
-    result.dependencyPaths =
-      Set(allTargets(for: target, includeTarget: false).flatMap({ sourceFilePaths(for: $0) }))
-        .subtracting(result.targetPaths)
+    time(.extractSources) {
+      result.targetPaths = sourceFilePaths(for: target)
+      result.dependencyPaths =
+        Set(allTargets(for: target, includeTarget: false).flatMap({ sourceFilePaths(for: $0) }))
+          .subtracting(result.targetPaths)
+    }
   }
   
   private static var memoizedSourceFilePaths = Synchronized<[PBXTarget: Set<SourcePath>]>([:])

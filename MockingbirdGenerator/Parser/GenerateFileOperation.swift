@@ -8,6 +8,7 @@
 
 import Foundation
 import PathKit
+import os.log
 
 public class GenerateFileOperation: BasicOperation {
   private let processTypesResult: ProcessTypesOperation.Result
@@ -35,15 +36,23 @@ public class GenerateFileOperation: BasicOperation {
   }
   
   override func run() throws {
-    let generator = FileGenerator(processTypesResult.mockableTypes,
-                                  moduleName: moduleName,
-                                  imports: processTypesResult.imports,
-                                  outputPath: outputPath,
-                                  preprocessorExpression: preprocessorExpression,
-                                  shouldImportModule: shouldImportModule,
-                                  onlyMockProtocols: onlyMockProtocols,
-                                  disableSwiftlint: disableSwiftlint)
-    try generator.generate()
-    print("Generated file to \(String(describing: outputPath.absolute()))") // TODO: logging utility
+    var contents: PartialFileContents!
+    time(.generateMocks) {
+      let generator = FileGenerator(processTypesResult.mockableTypes,
+                                    moduleName: moduleName,
+                                    imports: processTypesResult.imports,
+                                    outputPath: outputPath,
+                                    preprocessorExpression: preprocessorExpression,
+                                    shouldImportModule: shouldImportModule,
+                                    onlyMockProtocols: onlyMockProtocols,
+                                    disableSwiftlint: disableSwiftlint)
+      contents = generator.generate()
+    }
+    
+    try time(.writeFiles) {
+      try outputPath.writeUtf8Strings(contents)
+    }
+    
+    print("Generated file to \(String(describing: outputPath.absolute()))")
   }
 }
