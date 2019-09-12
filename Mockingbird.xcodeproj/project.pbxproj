@@ -44,6 +44,7 @@
 
 /* Begin PBXBuildFile section */
 		490AD8E72324DD5400681457 /* MetagenerateCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490AD8E62324DD5400681457 /* MetagenerateCommand.swift */; };
+		490B56F42329E752007D8025 /* IgnoredSourceExclusionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490B56F32329E752007D8025 /* IgnoredSourceExclusionTests.swift */; };
 		491CDF01231CF51C00C48C47 /* DeclaredType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491CDF00231CF51C00C48C47 /* DeclaredType.swift */; };
 		491CDF03231DC6EE00C48C47 /* StringExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491CDF02231DC6EE00C48C47 /* StringExtensionsTests.swift */; };
 		491CDF05231DD41A00C48C47 /* DeclaredTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491CDF04231DD41A00C48C47 /* DeclaredTypeTests.swift */; };
@@ -57,8 +58,16 @@
 		49C07FA2231DED21003F7712 /* VersionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C07FA1231DED21003F7712 /* VersionCommand.swift */; };
 		49C07FA4231E00B3003F7712 /* DefaultArgumentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C07FA3231E00B3003F7712 /* DefaultArgumentValues.swift */; };
 		49D7D4CB231F2E0300537655 /* Path+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D7D4CA231F2E0300537655 /* Path+Extensions.swift */; };
+		49DFC2442329CBF9000AB23B /* TopLevelFileIgnoredSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC2432329CBF9000AB23B /* TopLevelFileIgnoredSource.swift */; };
+		49DFC2472329CC26000AB23B /* SecondLevelFileIgnoredSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC2462329CC26000AB23B /* SecondLevelFileIgnoredSource.swift */; };
+		49DFC24A2329CC5F000AB23B /* DirectoryIgnoredSource1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC2492329CC5F000AB23B /* DirectoryIgnoredSource1.swift */; };
+		49DFC24C2329CC69000AB23B /* DirectoryIgnoredSource2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC24B2329CC69000AB23B /* DirectoryIgnoredSource2.swift */; };
+		49DFC2512329CD77000AB23B /* WildcardFileIgnoredSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC2502329CD77000AB23B /* WildcardFileIgnoredSource.swift */; };
+		49DFC2542329D139000AB23B /* WildcardDirectoryIgnoredSource1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC2532329D139000AB23B /* WildcardDirectoryIgnoredSource1.swift */; };
+		49DFC2572329D188000AB23B /* WildcardDirectoryIgnoredSource2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DFC2562329D188000AB23B /* WildcardDirectoryIgnoredSource2.swift */; };
 		49F3D94E232714D10088D713 /* VariablesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F3D94D232714D10088D713 /* VariablesMockableTests.swift */; };
 		49F3D95023283E040088D713 /* VariablesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F3D94F23283E040088D713 /* VariablesStubbableTests.swift */; };
+		49F3D95A2329B4C80088D713 /* Path+FnmatchExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F3D9582329B44D0088D713 /* Path+FnmatchExtensions.swift */; };
 		49F5DD4A2322346500EC87E4 /* InitializerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F5DD492322346500EC87E4 /* InitializerTests.swift */; };
 		49F5DD4C2322E95300EC87E4 /* CollectionArgumentMatchingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F5DD4B2322E95300EC87E4 /* CollectionArgumentMatchingTests.swift */; };
 		49F5DD4E2322EAC500EC87E4 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F5DD4D2322EAC500EC87E4 /* Collections.swift */; };
@@ -886,6 +895,7 @@
 
 /* Begin PBXFileReference section */
 		490AD8E62324DD5400681457 /* MetagenerateCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetagenerateCommand.swift; sourceTree = "<group>"; };
+		490B56F32329E752007D8025 /* IgnoredSourceExclusionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IgnoredSourceExclusionTests.swift; sourceTree = "<group>"; };
 		491CDEFF231CCBE700C48C47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		491CDF00231CF51C00C48C47 /* DeclaredType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclaredType.swift; sourceTree = "<group>"; };
 		491CDF02231DC6EE00C48C47 /* StringExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTests.swift; sourceTree = "<group>"; };
@@ -900,8 +910,16 @@
 		49C07FA1231DED21003F7712 /* VersionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionCommand.swift; sourceTree = "<group>"; };
 		49C07FA3231E00B3003F7712 /* DefaultArgumentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultArgumentValues.swift; sourceTree = "<group>"; };
 		49D7D4CA231F2E0300537655 /* Path+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+Extensions.swift"; sourceTree = "<group>"; };
+		49DFC2432329CBF9000AB23B /* TopLevelFileIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopLevelFileIgnoredSource.swift; sourceTree = "<group>"; };
+		49DFC2462329CC26000AB23B /* SecondLevelFileIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondLevelFileIgnoredSource.swift; sourceTree = "<group>"; };
+		49DFC2492329CC5F000AB23B /* DirectoryIgnoredSource1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryIgnoredSource1.swift; sourceTree = "<group>"; };
+		49DFC24B2329CC69000AB23B /* DirectoryIgnoredSource2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryIgnoredSource2.swift; sourceTree = "<group>"; };
+		49DFC2502329CD77000AB23B /* WildcardFileIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildcardFileIgnoredSource.swift; sourceTree = "<group>"; };
+		49DFC2532329D139000AB23B /* WildcardDirectoryIgnoredSource1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildcardDirectoryIgnoredSource1.swift; sourceTree = "<group>"; };
+		49DFC2562329D188000AB23B /* WildcardDirectoryIgnoredSource2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildcardDirectoryIgnoredSource2.swift; sourceTree = "<group>"; };
 		49F3D94D232714D10088D713 /* VariablesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariablesMockableTests.swift; sourceTree = "<group>"; };
 		49F3D94F23283E040088D713 /* VariablesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariablesStubbableTests.swift; sourceTree = "<group>"; };
+		49F3D9582329B44D0088D713 /* Path+FnmatchExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+FnmatchExtensions.swift"; sourceTree = "<group>"; };
 		49F5DD492322346500EC87E4 /* InitializerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializerTests.swift; sourceTree = "<group>"; };
 		49F5DD4B2322E95300EC87E4 /* CollectionArgumentMatchingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionArgumentMatchingTests.swift; sourceTree = "<group>"; };
 		49F5DD4D2322EAC500EC87E4 /* Collections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
@@ -1514,6 +1532,51 @@
 			path = Example;
 			sourceTree = "<group>";
 		};
+		49DFC2452329CBFF000AB23B /* Ignored */ = {
+			isa = PBXGroup;
+			children = (
+				49DFC2462329CC26000AB23B /* SecondLevelFileIgnoredSource.swift */,
+				49DFC2482329CC3E000AB23B /* Group1 */,
+				49DFC24F2329CD54000AB23B /* Group2 */,
+				49DFC2522329D11F000AB23B /* Group3 */,
+			);
+			path = Ignored;
+			sourceTree = "<group>";
+		};
+		49DFC2482329CC3E000AB23B /* Group1 */ = {
+			isa = PBXGroup;
+			children = (
+				49DFC2492329CC5F000AB23B /* DirectoryIgnoredSource1.swift */,
+				49DFC24B2329CC69000AB23B /* DirectoryIgnoredSource2.swift */,
+			);
+			path = Group1;
+			sourceTree = "<group>";
+		};
+		49DFC24F2329CD54000AB23B /* Group2 */ = {
+			isa = PBXGroup;
+			children = (
+				49DFC2502329CD77000AB23B /* WildcardFileIgnoredSource.swift */,
+			);
+			path = Group2;
+			sourceTree = "<group>";
+		};
+		49DFC2522329D11F000AB23B /* Group3 */ = {
+			isa = PBXGroup;
+			children = (
+				49DFC2552329D16E000AB23B /* Group */,
+			);
+			path = Group3;
+			sourceTree = "<group>";
+		};
+		49DFC2552329D16E000AB23B /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				49DFC2532329D139000AB23B /* WildcardDirectoryIgnoredSource1.swift */,
+				49DFC2562329D188000AB23B /* WildcardDirectoryIgnoredSource2.swift */,
+			);
+			path = Group;
+			sourceTree = "<group>";
+		};
 		OBJ_10 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
@@ -1584,6 +1647,7 @@
 				OBJ_139 /* ExtensionsStubbableTests.swift */,
 				OBJ_141 /* GenericsMockableTests.swift */,
 				OBJ_142 /* GenericsStubbableTests.swift */,
+				490B56F32329E752007D8025 /* IgnoredSourceExclusionTests.swift */,
 				OBJ_144 /* InoutParametersMockableTests.swift */,
 				OBJ_145 /* InoutParametersStubbableTests.swift */,
 				OBJ_147 /* TypealiasingMockableTests.swift */,
@@ -2498,6 +2562,7 @@
 				OBJ_69 /* Method.swift */,
 				OBJ_70 /* MockableType.swift */,
 				OBJ_71 /* ParseFilesOperation.swift */,
+				49F3D9582329B44D0088D713 /* Path+FnmatchExtensions.swift */,
 				49F5E526232496C800EC87E4 /* Primitives.swift */,
 				OBJ_72 /* ProcessTypesOperation.swift */,
 				OBJ_73 /* RawType.swift */,
@@ -2574,6 +2639,7 @@
 				OBJ_98 /* Generics.swift */,
 				OBJ_99 /* Grandparent.swift */,
 				OBJ_100 /* GrandparentProtocol.swift */,
+				49DFC2452329CBFF000AB23B /* Ignored */,
 				OBJ_101 /* InheritedTypeQualification.swift */,
 				49965D3823222E29002F9CD5 /* Initializers.swift */,
 				OBJ_102 /* InoutParameters.swift */,
@@ -2584,6 +2650,7 @@
 				OBJ_106 /* Parent.swift */,
 				OBJ_107 /* ParentProtocol.swift */,
 				OBJ_108 /* ProtocolInitializers.swift */,
+				49DFC2432329CBF9000AB23B /* TopLevelFileIgnoredSource.swift */,
 				OBJ_109 /* Typealiasing.swift */,
 				OBJ_110 /* UndefinedArgumentLabels.swift */,
 				OBJ_111 /* Variables.swift */,
@@ -3478,6 +3545,7 @@
 				OBJ_702 /* GenerateMockableTypeOperation.swift in Sources */,
 				OBJ_703 /* MethodGenerator.swift in Sources */,
 				OBJ_704 /* MockableTypeGenerator.swift in Sources */,
+				49F3D95A2329B4C80088D713 /* Path+FnmatchExtensions.swift in Sources */,
 				OBJ_705 /* String+Extensions.swift in Sources */,
 				OBJ_706 /* VariableGenerator.swift in Sources */,
 				OBJ_707 /* BasicOperation.swift in Sources */,
@@ -3557,6 +3625,7 @@
 				OBJ_799 /* VariadicParametersMockableTests.swift in Sources */,
 				OBJ_800 /* VariadicParametersStubbableTests.swift in Sources */,
 				OBJ_802 /* Mocks.generated.swift in Sources */,
+				490B56F42329E752007D8025 /* IgnoredSourceExclusionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3570,13 +3639,16 @@
 				OBJ_836 /* ClassInitializers.swift in Sources */,
 				OBJ_837 /* ClassScopedTypes.swift in Sources */,
 				OBJ_838 /* ClosureParameters.swift in Sources */,
+				49DFC2472329CC26000AB23B /* SecondLevelFileIgnoredSource.swift in Sources */,
 				OBJ_839 /* Extensions.swift in Sources */,
 				OBJ_840 /* Generics.swift in Sources */,
 				OBJ_841 /* Grandparent.swift in Sources */,
 				49F5DD5023236FB100EC87E4 /* DeclarationAttributes.swift in Sources */,
 				OBJ_842 /* GrandparentProtocol.swift in Sources */,
+				49DFC24A2329CC5F000AB23B /* DirectoryIgnoredSource1.swift in Sources */,
 				OBJ_843 /* InheritedTypeQualification.swift in Sources */,
 				49965D372321BA90002F9CD5 /* Tree.swift in Sources */,
+				49DFC2542329D139000AB23B /* WildcardDirectoryIgnoredSource1.swift in Sources */,
 				49965D352321B8D1002F9CD5 /* Bird.swift in Sources */,
 				OBJ_844 /* InoutParameters.swift in Sources */,
 				OBJ_845 /* ModuleImportCases.swift in Sources */,
@@ -3584,8 +3656,11 @@
 				OBJ_847 /* OverloadedMethods.swift in Sources */,
 				OBJ_848 /* Parent.swift in Sources */,
 				OBJ_849 /* ParentProtocol.swift in Sources */,
+				49DFC24C2329CC69000AB23B /* DirectoryIgnoredSource2.swift in Sources */,
+				49DFC2442329CBF9000AB23B /* TopLevelFileIgnoredSource.swift in Sources */,
 				49F5DD4E2322EAC500EC87E4 /* Collections.swift in Sources */,
 				OBJ_850 /* ProtocolInitializers.swift in Sources */,
+				49DFC2512329CD77000AB23B /* WildcardFileIgnoredSource.swift in Sources */,
 				49F5DD5223246E4F00EC87E4 /* Optionals.swift in Sources */,
 				49965D3923222E29002F9CD5 /* Initializers.swift in Sources */,
 				OBJ_851 /* Typealiasing.swift in Sources */,
@@ -3594,6 +3669,7 @@
 				49C07FA0231DDA80003F7712 /* CompoundTypes.swift in Sources */,
 				49C07FA4231E00B3003F7712 /* DefaultArgumentValues.swift in Sources */,
 				OBJ_854 /* VariadicParameters.swift in Sources */,
+				49DFC2572329D188000AB23B /* WildcardDirectoryIgnoredSource2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

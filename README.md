@@ -138,6 +138,12 @@ Compile Sources.
 
 ![Build Phases → Compile Sources](Documentation/Assets/test-target-compile-sources.png)
 
+### Excluding Files
+
+You can exclude unwanted or problematic sources from being mocked by adding a `.mockingbird-ignore` file. 
+Mockingbird follows the same pattern format as [`.gitignore`](https://git-scm.com/docs/gitignore#_pattern_format) 
+and scopes ignore files to their enclosing directory.
+
 ## Usage
 
 An example demonstrating basic usage of Mockingbird can be found at 
@@ -315,7 +321,7 @@ verify(bird.setParent(bigBird)).wasCalled()  // Comparing by reference
 ## Performance
 
 Mockingbird was built to be fast. Its current baseline is under 1 ms per generated mock. See 
-[Performance](Documentation/Performance.md) for benchmarks and methodology. 
+[Performance](Documentation/Performance.md) for benchmarks and methodology.
 
 ## Mockingbird CLI
 

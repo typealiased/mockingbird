@@ -28,6 +28,11 @@ public class ExtractSourcesOperation: BasicOperation {
   
   public let result = Result()
   
+  private enum Constants {
+    static let mockingbirdIgnoreFileName = ".mockingbird-ignore"
+    static let commentPrefix = "#"
+  }
+  
   public init(with target: PBXTarget, sourceRoot: Path) {
     self.target = target
     self.sourceRoot = sourceRoot
@@ -56,8 +61,9 @@ public class ExtractSourcesOperation: BasicOperation {
       .filter({ $0.extension == "swift" })
       .map({ SourcePath(path: $0, moduleName: inferredModuleName) })
       ?? [])
-    ExtractSourcesOperation.memoizedSourceFilePaths.update { $0[target] = paths }
-    return paths
+    let includedPaths = includedSourcePaths(for: paths)
+    ExtractSourcesOperation.memoizedSourceFilePaths.update { $0[target] = includedPaths }
+    return includedPaths
   }
   
   private static var memoizedAllTargets = Synchronized<[PBXTarget: Set<PBXTarget>]>([:])
@@ -72,6 +78,53 @@ public class ExtractSourcesOperation: BasicOperation {
     result.moduleDependencies[target.productModuleName] = Set(targets.map({ $0.productModuleName }))
     ExtractSourcesOperation.memoizedAllTargets.update { $0[target] = targets }
     return targets
+  }
+  
+  /// Only returns non-ignored source file paths based on `.mockingbird-ignored` glob declarations.
+  private func includedSourcePaths(for sourcePaths: Set<SourcePath>) -> Set<SourcePath> {
+    return sourcePaths.filter({ shouldInclude(sourcePath: $0.path, in: $0.path.parent()).value })
+  }
+  
+  private static var memoizedGlobs = Synchronized<[String: Set<String>]>([:])
+  private func shouldInclude(sourcePath: Path, in directory: Path) -> (value: Bool, globs: Set<String>) {
+    guard directory.isDirectory else { return (true, []) }
+    let memoizationKey = "\(directory.absolute())"
+    let matches: (Set<String>) -> Bool = { globs in
+      return globs.contains(where: {
+        directory.matches(pattern: $0, isDirectory: true)
+          || sourcePath.matches(pattern: $0, isDirectory: false)
+      })
+    }
+    
+    // Recursively find globs if this source is within the project SRCROOT.
+    guard memoizationKey.hasPrefix("\(sourceRoot.absolute())") else { return (true, []) }
+    let (parentShouldInclude, parentGlobs) = shouldInclude(sourcePath: sourcePath,
+                                                           in: directory.parent())
+    if !parentShouldInclude { return (false, parentGlobs) }
+    
+    if let memoized = ExtractSourcesOperation.memoizedGlobs.value[memoizationKey] {
+      let globs = parentGlobs.union(memoized)
+      return (!matches(globs), globs)
+    }
+    
+    // Read in the `.mockingbird-ignore` file contents and find glob declarations.
+    let ignoreFile = directory + Constants.mockingbirdIgnoreFileName
+    guard ignoreFile.isFile else { return (!matches(parentGlobs), parentGlobs) }
+    guard let lines = try? ignoreFile.read(.utf8).components(separatedBy: "\n")
+      .filter({ line -> Bool in
+        let stripped = line.stripped()
+        return !stripped.isEmpty && !stripped.hasPrefix(Constants.commentPrefix)
+      })
+      .map({ line -> String in
+        guard !line.hasPrefix("/") else { return line }
+        return "\(directory.absolute())/" + line
+      }) else {
+      fputs("Unable to read \(Constants.mockingbirdIgnoreFileName) at \(ignoreFile.absolute())\n", stderr)
+      return (!matches(parentGlobs), parentGlobs)
+    }
+    let globs = parentGlobs.union(Set(lines))
+    ExtractSourcesOperation.memoizedGlobs.update { $0[memoizationKey] = globs }
+    return (!matches(globs), globs)
   }
 }
 
