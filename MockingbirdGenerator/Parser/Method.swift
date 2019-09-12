@@ -59,6 +59,7 @@ struct MethodParameter: Hashable {
 
 struct Method: Hashable, Comparable {
   let name: String
+  let shortName: String
   let returnTypeName: String
   let isInitializer: Bool
   let accessLevel: AccessLevel
@@ -160,7 +161,8 @@ struct Method: Hashable, Comparable {
     })
     
     // Parse parameters.
-    let labels = name.extractArgumentLabels()
+    let (shortName, labels) = name.extractArgumentLabels()
+    self.shortName = shortName
     self.parameters = Method.parseParameters(labels: labels,
                                              substructure: substructure,
                                              rawParametersDeclaration: rawParametersDeclaration,
@@ -198,7 +200,7 @@ struct Method: Hashable, Comparable {
     var rawParametersDeclaration: Substring?
     
     // Parse parameter attributes.
-    let startIndex = declaration.firstIndex(of: "(", excluding: .allGroups)
+    let startIndex = declaration.firstIndex(of: "(")
     let parametersEndIndex =
       declaration[declaration.index(after: (startIndex ?? declaration.startIndex))...]
         .firstIndex(of: ")", excluding: .allGroups)
@@ -298,10 +300,14 @@ struct Method: Hashable, Comparable {
 }
 
 private extension String {
-  func extractArgumentLabels() -> [String?] {
+  func extractArgumentLabels() -> (String, [String?]) {
     guard let startIndex = firstIndex(of: "("),
-      let stopIndex = firstIndex(of: ")") else { return [] }
+      let stopIndex = firstIndex(of: ")") else { return (self, []) }
+    let shortName = String(self[..<startIndex])
     let arguments = self[index(after: startIndex)..<stopIndex]
-    return arguments.substringComponents(separatedBy: ":").map({ $0 != "_" ? String($0) : nil })
+    let labels = arguments
+      .substringComponents(separatedBy: ":")
+      .map({ $0 != "_" ? String($0) : nil })
+    return (shortName, labels)
   }
 }

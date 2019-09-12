@@ -160,7 +160,7 @@ private class FlattenInheritanceOperation: BasicOperation {
     let createMockableType: () -> MockableType? = {
       // Flattening inherited types could have updated `memoizedMockableTypes`.
       var memoizedMockableTypes = FlattenInheritanceOperation.memoizedMockbleTypes.value
-      var mockableType = MockableType(from: rawType,
+      let mockableType = MockableType(from: rawType,
                                       mockableTypes: memoizedMockableTypes,
                                       moduleNames: moduleNames,
                                       rawTypeRepository: rawTypeRepository,

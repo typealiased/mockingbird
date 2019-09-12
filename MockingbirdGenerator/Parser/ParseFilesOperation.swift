@@ -131,30 +131,23 @@ private extension Path {
 private extension File {
   /// Parses a file line-by-line looking for valid import declarations.
   func parseImports() -> Set<String> {
-    var imports = Set<String>()
-    var currentSource = contents[..<contents.endIndex]
-
-    while true {
-      let lineIndex = currentSource.firstIndex(of: "\n") ?? currentSource.endIndex
-      let lineContents = currentSource[..<lineIndex].trimmingCharacters(in: .whitespacesAndNewlines)
-      
-      if !lineContents.isEmpty && (
-        lineContents.hasPrefix("import ") ||
-        lineContents.hasPrefix("@testable import ") ||
-        lineContents.hasPrefix(";")
-      ) {
-        let moduleNames = lineContents.substringComponents(separatedBy: ";")
+    return Set(contents
+      .substringComponents(separatedBy: "\n")
+      .flatMap({ line -> [String] in
+        let lineContents = line.trimmingCharacters(in: .whitespaces)
+        
+        guard !lineContents.isEmpty && (
+          lineContents.hasPrefix("import ") ||
+          lineContents.hasPrefix("@testable import ") ||
+          lineContents.hasPrefix(";")
+          ) else { return [] }
+        
+        return lineContents.substringComponents(separatedBy: ";")
           .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
           .filter({ $0.hasPrefix("import ") || $0.hasPrefix("@testable import ") })
           .map({String($0
             .substringComponents(separatedBy: "/").first!
             .trimmingCharacters(in: .whitespacesAndNewlines)) })
-        imports = imports.union(moduleNames)
-      }
-      
-      guard lineIndex != currentSource.endIndex else { break }
-      currentSource = currentSource[currentSource.index(after: lineIndex)..<currentSource.endIndex]
-    }
-    return imports
+      }))
   }
 }

@@ -1,6 +1,6 @@
 # Performance
 
-Last revised on September 9, 2019 for version `0.4.0`.
+Last revised on September 12, 2019 for version `0.5.0`.
 
 ## Methodology
 
@@ -34,9 +34,9 @@ $ hyperfine --warmup 10 'mockingbird generate --project ./Mockingbird.xcodeproj 
 
 | Mean (s) | Min (s) | Max (s) |
 | --- | --- | --- |
-| 2.403 ± 0.083 | 2.277 | 2.528 |
+| 1.671 ±  0.061 | 1.593 | 1.790 |
 
-This comes out to 0.8 ms per generated mock, which also includes the overhead in parsing the Xcode project file.
+This comes out to 0.56 ms per generated mock, which also includes the overhead in parsing the Xcode project file.
 
 ## File Complexity
 
@@ -69,7 +69,7 @@ $ hyperfine --warmup 10 'cuckoo generate --testable "MockingbirdTestsHost" --out
 | --- | --- | --- |
 | 53.697 ±  0.341 | 53.142 | 54.122 |
 
-17.9 ms per generated mock; Mockingbird is 22x faster.
+17.9 ms per generated mock; Mockingbird is 32x faster.
 
 ```bash
 $ loc CuckooMocks.generated.swift

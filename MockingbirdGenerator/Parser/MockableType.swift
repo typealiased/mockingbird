@@ -10,7 +10,7 @@ import Foundation
 import SourceKittenFramework
 
 /// Methods, variables, extensions
-struct MockableType: Hashable, Comparable {
+class MockableType: Hashable, Comparable {
   let name: String
   let moduleName: String
   let kind: SwiftDeclarationKind
@@ -28,6 +28,14 @@ struct MockableType: Hashable, Comparable {
   private let sortableIdentifier: String
   static func < (lhs: MockableType, rhs: MockableType) -> Bool {
     return lhs.sortableIdentifier < rhs.sortableIdentifier
+  }
+  
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(sortableIdentifier)
+  }
+  
+  static func == (lhs: MockableType, rhs: MockableType) -> Bool {
+    return lhs.hashValue == rhs.hashValue
   }
   
   /// Creates a `MockableType` from a set of partial `RawType` objects.

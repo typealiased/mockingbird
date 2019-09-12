@@ -173,9 +173,7 @@ class MethodGenerator {
   }()
   
   lazy var shortName: String = {
-    guard let shortName = method.name.substringComponents(separatedBy: "(").first else {
-      return method.name
-    }
+    let shortName = method.shortName
     let genericTypes = self.genericTypes
     return genericTypes.isEmpty ? "\(shortName)" : "\(shortName)<\(genericTypes)>"
   }()

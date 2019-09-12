@@ -55,6 +55,15 @@ extension String {
   
   /// Returns a new string created by removing function parameter attributes.
   func removingParameterAttributes() -> String {
+    // Happy path; heuristically determines if we need to perform the complex encode-decode routine.
+    // This is potentially dangerous but saves a lot of computation time.
+    guard firstIndex(of: ":") != nil // Has label
+      || firstIndex(of: "!") != nil // Has implicitly unwrapped optional
+      || firstIndex(of: "@") != nil // Has attribute
+      || contains("...") // Is variadic
+      || contains("inout") // Is inout (probably)
+      else { return self }
+    
     var options = SerializationRequest.Options.standard
     options.insert(.shouldExcludeImplicitlyUnwrappedOptionals)
     let request = SerializationRequest(method: .notQualified,
@@ -172,13 +181,11 @@ extension Substring {
   /// - Returns: The first index if found, `nil` if `needle` does not exist.
   func firstIndex(of needle: Character, excluding groups: [Character: Character]) -> String.Index? {
     var currentGroups = [Character]()
-    var substring = self
-    while let character = substring.first {
-      let currentIndex = substring.startIndex
-      substring = substring.dropFirst()
+    for (i, scalarValue) in utf8.enumerated() {
+      let character = Character(UnicodeScalar(scalarValue))
       
       if currentGroups.isEmpty && character == needle {
-        return currentIndex
+        return index(startIndex, offsetBy: i)
       }
       
       if groups[character] != nil {
@@ -208,12 +215,10 @@ extension Substring {
   /// - Returns: The first index if found, `nil` if `needle` does not exist.
   func firstIndex(of needle: String, excluding groups: [Character: Character]) -> String.Index? {
     var currentGroups = [Character]()
-    var stateMachineStartIndex: String.Index?
+    var stateMachineStartIndex: Int?
     var stateMachine = 0
-    var substring = self
-    while let character = substring.first {
-      let currentIndex = substring.startIndex
-      substring = substring.dropFirst()
+    for (i, scalarValue) in utf8.enumerated() {
+      let character = Character(UnicodeScalar(scalarValue))
       
       if currentGroups.isEmpty {
         let needleIndex = needle.index(needle.startIndex, offsetBy: stateMachine)
@@ -221,8 +226,10 @@ extension Substring {
           stateMachine = 0
         } else {
           stateMachine += 1
-          if stateMachine == 1 { stateMachineStartIndex = currentIndex }
-          if stateMachine == needle.count { return stateMachineStartIndex }
+          if stateMachine == 1 { stateMachineStartIndex = i }
+          if stateMachine == needle.count {
+            return index(startIndex, offsetBy: stateMachineStartIndex ?? 0)
+          }
         }
       }
       
@@ -260,8 +267,8 @@ extension Substring {
     var currentGroups = [Character]()
     var components = [Substring]()
     var currentComponent = Substring()
-    var substring = self
-    while let character = substring.first {
+    for scalarValue in utf8 {
+      let character = Character(UnicodeScalar(scalarValue))
       if groups[character] != nil {
         currentGroups.append(character)
       }
@@ -275,7 +282,6 @@ extension Substring {
       if !currentGroups.isEmpty || !delimiters.contains(character) {
         currentComponent.append(character)
       }
-      substring = substring.dropFirst()
     }
     components.append(currentComponent)
     return components
