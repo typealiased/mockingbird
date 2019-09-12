@@ -20,8 +20,7 @@ All results are from a MacBook Pro (15-inch, 2018), 2.9 GHz Intel Core i9, 32 GB
 ## Generator Speed
 
 Since Mockingbird typically runs as part of the build process, it’s imperative that mocks generate quickly. 
-Mockingbird’s performance baseline is 1 ms per generated mock, with a target of 0.5 ms per generated mock by
-version `1.0.0`.
+Mockingbird’s performance baseline is 1 ms per generated mock.
 
 Aside from leveraging best practices such as concurrency and caching, Mockingbird achieves reasonably good 
 performance by eschewing [Sourcery](https://github.com/krzysztofzablocki/Sourcery) and 
@@ -34,9 +33,9 @@ $ hyperfine --warmup 10 'mockingbird generate --project ./Mockingbird.xcodeproj 
 
 | Mean (s) | Min (s) | Max (s) |
 | --- | --- | --- |
-| 1.671 ±  0.061 | 1.593 | 1.790 |
+| 1.543 ± 0.096 | 1.434 | 1.736 |
 
-This comes out to 0.56 ms per generated mock, which also includes the overhead in parsing the Xcode project file.
+This comes out to 0.51 ms per generated mock, which also includes the overhead in parsing the Xcode project file.
 
 ## File Complexity
 
@@ -50,7 +49,7 @@ $ loc MockingbirdMocks.generated.swift
 
 | Lines | Blank | Comment | Code |
 | --- | --- | --- | --- |
-| 698,531 | 110,451 | 35,827 | 552,253 |
+| 697,829 | 110,340 | 35,791 | 551,698 |
 
 This comes out to 184 lines of code per generated mock.
 
@@ -67,9 +66,9 @@ $ hyperfine --warmup 10 'cuckoo generate --testable "MockingbirdTestsHost" --out
 
 | Mean (s) | Min (s) | Max (s) |
 | --- | --- | --- |
-| 53.697 ±  0.341 | 53.142 | 54.122 |
+| 53.697 ± 0.341 | 53.142 | 54.122 |
 
-17.9 ms per generated mock; Mockingbird is 32x faster.
+17.9 ms per generated mock; Mockingbird is 35x faster.
 
 ```bash
 $ loc CuckooMocks.generated.swift

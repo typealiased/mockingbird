@@ -281,6 +281,9 @@ extension MockableType {
   }
   
   @inlinable func specializeTypeName(_ typeName: String) -> String {
+    guard typeName.contains(SerializationRequest.Constants.selfTokenIndicator) else {
+      return typeName // Checking prior to running `replacingOccurrences` is 4x faster.
+    }
     return typeName
       .replacingOccurrences(of: SerializationRequest.Constants.selfToken, with: name + "Mock")
   }
