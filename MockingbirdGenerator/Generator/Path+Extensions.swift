@@ -35,34 +35,68 @@ private class FileManagerMoveDelegate: NSObject, FileManagerDelegate {
   static let shared = FileManagerMoveDelegate()
 }
 
+struct PartialFileContents {
+  let contents: String?
+  let substructure: [PartialFileContents]
+  let delimiter: String?
+  let footer: String?
+  
+  var isEmpty: Bool {
+    return contents?.isEmpty == true && substructure.isEmpty
+  }
+  
+  init(contents: String? = nil,
+       substructure: [PartialFileContents] = [],
+       delimiter: String? = nil,
+       footer: String? = nil) {
+    self.contents = contents
+    self.substructure = substructure
+    self.delimiter = delimiter
+    self.footer = footer
+  }
+}
+
 extension Path {
-  /// Writes a UTF-8 string to disk without validating the encoding.
+  /// Writes a set of UTF-8 strings to disk without validating the encoding.
   ///
   /// - Note: This is ~15-20% faster compared to String.write(toFile:atomically:encoding:)
   ///
   /// - Parameters:
-  ///   - contents: The UTF-8 string to write to disk.
+  ///   - fileContents: An array of partial content objects containing strings to write to disk.
   ///   - atomically: Whether to write to a temporary file first, then atomically move it to the
   ///     current path, replacing any existing file.
   /// - Throws: A `BufferedWriteFailure` if an error occurs.
-  func writeUtf8String(_ contents: String, atomically: Bool = true) throws {
-    guard !contents.isEmpty else { return }
-    
+  func writeUtf8Strings(_ fileContents: PartialFileContents, atomically: Bool = true) throws {
     let tmpFilePath = (atomically ? try Path.uniqueTemporary() + lastComponent : self)
     guard let outputStream = OutputStream(toFileAtPath: "\(tmpFilePath.absolute())", append: true)
       else { throw WriteUtf8StringFailure.streamCreationFailure(path: tmpFilePath) }
     outputStream.open()
     defer { outputStream.close() }
     
-    let count = contents.utf8CString.count-1 // Last character is a `Nul` character in a C string.
-    guard let data = contents.utf8CString.withUnsafeBytes({
-      $0.bindMemory(to: UInt8.self).baseAddress
-    }) else { throw WriteUtf8StringFailure.dataEncodingFailure }
-    
-    let written = outputStream.write(data, maxLength: count)
-    guard written > 0 else {
-      throw WriteUtf8StringFailure.streamWritingFailure(error: outputStream.streamError)
+    let write: (String) throws -> Void = { contents in
+      let count = contents.utf8CString.count-1 // Last character is a `Nul` character in a C string.
+      guard let data = contents.utf8CString.withUnsafeBytes({
+        $0.bindMemory(to: UInt8.self).baseAddress
+      }) else { throw WriteUtf8StringFailure.dataEncodingFailure }
+      
+      let written = outputStream.write(data, maxLength: count)
+      guard written == count else {
+        throw WriteUtf8StringFailure.streamWritingFailure(error: outputStream.streamError)
+      }
     }
+    
+    var writePartial: ((PartialFileContents) throws -> Void)!
+    writePartial = { partial in
+      if let contents = partial.contents { try write(contents) }
+      var isFirstElement = true
+      for structure in partial.substructure {
+        if !isFirstElement, let delimiter = partial.delimiter { try write(delimiter) }
+        isFirstElement = false
+        try writePartial(structure)
+      }
+      if let footer = partial.footer { try write(footer) }
+    }
+    try writePartial(fileContents)
     
     guard atomically else { return }
     let tmpFileURL = URL(fileURLWithPath: "\(tmpFilePath.absolute())", isDirectory: false)

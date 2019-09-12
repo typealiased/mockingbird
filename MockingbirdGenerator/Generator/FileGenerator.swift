@@ -45,7 +45,7 @@ class FileGenerator {
     return outputPath.components.last ?? "MockingbirdMocks.generated.swift"
   }
   
-  private func generateFileHeader() -> String {
+  private func generateFileHeader() -> PartialFileContents {
     let swiftlintDirective = disableSwiftlint ? "\n// swiftlint:disable all\n": ""
     
     let preprocessorDirective: String
@@ -61,7 +61,7 @@ class FileGenerator {
       )
     ).sorted()
     
-    return """
+    return PartialFileContents(contents: """
     //
     //  \(outputFilename)
     //  \(moduleName)
@@ -72,37 +72,37 @@ class FileGenerator {
     \(swiftlintDirective)\(preprocessorDirective)
     \(moduleImports.joined(separator: "\n"))
     
-    """
+    """)
   }
   
-  private func generateFileBody() -> String {
-    guard !mockableTypes.isEmpty else { return "" }
+  private func generateFileBody() -> PartialFileContents {
+    guard !mockableTypes.isEmpty else { return PartialFileContents(contents: "") }
     let operations = mockableTypes
       .sorted(by: <)
       .map({ GenerateMockableTypeOperation(mockableType: $0, moduleName: moduleName) })
     let queue = OperationQueue.createForActiveProcessors()
     queue.addOperations(operations, waitUntilFinished: true)
-    return (
-      [synchronizedClass, genericTypesStaticMocks]
-        + operations.map({ $0.result.generatedContents })
-    ).joined(separator: "\n\n")
+    let substructure = [PartialFileContents(contents: synchronizedClass),
+                        PartialFileContents(contents: genericTypesStaticMocks)]
+      + operations.map({ PartialFileContents(contents: $0.result.generatedContents) })
+    return PartialFileContents(substructure: substructure, delimiter: "\n\n")
   }
   
-  private func generateFileFooter() -> String {
-    return (preprocessorExpression != nil ? "\n#endif" : "")
+  private func generateFileFooter() -> PartialFileContents {
+    return PartialFileContents(contents: (preprocessorExpression != nil ? "\n#endif" : ""))
   }
   
-  private func generateFileContents() -> String {
-    let sections = [
-      generateFileHeader(),
-      generateFileBody(),
-      generateFileFooter(),
-    ].filter({ !$0.isEmpty })
-    return sections.joined(separator: "\n") + "\n"
+  private func generateFileContents() -> PartialFileContents {
+    return PartialFileContents(contents: nil,
+                               substructure: [generateFileHeader(),
+                                              generateFileBody(),
+                                              generateFileFooter()].filter({ !$0.isEmpty }),
+                               delimiter: "\n",
+                               footer: "\n")
   }
   
   func generate() throws {
-    try outputPath.writeUtf8String(generateFileContents())
+    try outputPath.writeUtf8Strings(generateFileContents())
   }
   
   private var synchronizedClass: String {
