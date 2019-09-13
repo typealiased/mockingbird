@@ -74,7 +74,6 @@ install: build
 install-prebuilt: download
 	install -d "$(BINARIES_FOLDER)"
 	install "$(CLI_FILENAME)" "$(BINARIES_FOLDER)"
-	rm "$(CLI_FILENAME)"
 
 uninstall:
 	rm -rf "$(FRAMEWORKS_FOLDER)/Mockingbird.framework"
