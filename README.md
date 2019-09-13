@@ -90,7 +90,8 @@ $ make install-prebuilt
 ### From Source
 
 Clone the repository and build the `MockingbirdFramework` scheme for the desired platform. Drag the built 
-`Mockingbird.framework` product into your project and link the library.
+`Mockingbird.framework` product into your project and 
+[link the library to your test target](Documentation/Assets/install-from-source-linking.png).
 
 ```bash
 $ git clone https://github.com/birdrides/mockingbird.git
