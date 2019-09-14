@@ -30,14 +30,37 @@ extension ArgumentParser {
     return add(option: "--targets",
                kind: [String].self,
                usage: "List of target names to generate mocks for.",
-               completion: .filename)
+               completion: .none)
   }
   
-  func addTarget() -> OptionArgument<String> {
+  /// Convenience for `--targets`. Accepts multiple targets.
+  func addTarget() -> OptionArgument<[String]> {
     return add(option: "--target",
+               kind: [String].self,
+               usage: "A target name to generate mocks for.",
+               completion: .none)
+  }
+  
+  func addSourceTargets() -> OptionArgument<[String]> {
+    return add(option: "--src-targets",
+               kind: [String].self,
+               usage: "List of target names that should generate mocks.",
+               completion: .none)
+  }
+  
+  /// Convenience for `--src-targets`. Accepts multiple targets.
+  func addSourceTarget() -> OptionArgument<[String]> {
+    return add(option: "--src-target",
+               kind: [String].self,
+               usage: "A target name that should generate mocks.",
+               completion: .none)
+  }
+  
+  func addDestinationTarget() -> OptionArgument<String> {
+    return add(option: "--destination",
                kind: String.self,
-               usage: "(Convenience) A target name to generate mocks for.",
-               completion: .filename)
+               usage: "The target name where the Run Script Phase will be installed.",
+               completion: .none)
   }
   
   func addOutputs() -> OptionArgument<[PathArgument]> {
@@ -47,10 +70,11 @@ extension ArgumentParser {
                completion: .filename)
   }
   
-  func addOutput() -> OptionArgument<PathArgument> {
+  /// Convenience for `--outputs`. Accepts multiple outputs.
+  func addOutput() -> OptionArgument<[PathArgument]> {
     return add(option: "--output",
-               kind: PathArgument.self,
-               usage: "(Convenience) Mock output file path.",
+               kind: [PathArgument].self,
+               usage: "Mock output file path.",
                completion: .filename)
   }
   
@@ -92,10 +116,10 @@ extension ArgumentParser {
                usage: "Omit `@testable import <module>` from generated mocks.")
   }
   
-  func addReinstallRunScript() -> OptionArgument<Bool> {
-    return add(option: "--reinstall",
+  func addIgnoreExistingRunScript() -> OptionArgument<Bool> {
+    return add(option: "--ignore-existing",
                kind: Bool.self,
-               usage: "Overwrite existing Run Script Phases created by Mockingbird CLI.")
+               usage: "Don’t overwrite existing Run Scripts created by Mockingbird CLI.")
   }
   
   func addAynchronousGeneration() -> OptionArgument<Bool> {
@@ -118,10 +142,10 @@ extension ArgumentParser.Result {
     if let rawProjectPath = get(argument)?.path.pathString ?? environment["PROJECT_FILE_PATH"] {
       projectPath = Path(rawProjectPath)
     } else {
-      throw ArgumentParserError.expectedValue(option: "--project")
+      throw ArgumentParserError.expectedValue(option: "--project <xcodeproj file path>")
     }
     guard projectPath.isDirectory, projectPath.extension == "xcodeproj" else {
-      throw ArgumentParserError.invalidValue(argument: "--project",
+      throw ArgumentParserError.invalidValue(argument: "--project \(projectPath.absolute())",
                                              error: .custom("Not a valid `.xcodeproj` path"))
     }
     return projectPath
@@ -138,43 +162,58 @@ extension ArgumentParser.Result {
   }
   
   func getTargets(using argument: OptionArgument<[String]>,
-                  convenienceArgument: OptionArgument<String>,
+                  convenienceArgument: OptionArgument<[String]>,
                   environment: [String: String]) throws -> [String] {
-    if let targets = get(argument) {
+    if let targets = get(argument) ?? get(convenienceArgument) {
       return targets
-    } else if let target = get(convenienceArgument) ?? environment["TARGET_NAME"] {
+    } else if let target = environment["TARGET_NAME"] {
       return [target]
     } else {
-      throw ArgumentParserError.expectedValue(option: "--targets")
+      throw ArgumentParserError.expectedValue(option: "--targets <list of target names>")
     }
   }
   
   func getOutputs(using argument: OptionArgument<[PathArgument]>,
-                  convenienceArgument: OptionArgument<PathArgument>) throws -> [Path]? {
-    if let rawOutputs = get(argument)?.map({ $0.path.pathString }) {
+                  convenienceArgument: OptionArgument<[PathArgument]>) throws -> [Path]? {
+    if let rawOutputs = (get(argument) ?? get(convenienceArgument))?.map({ $0.path.pathString }) {
       return rawOutputs.map({ Path($0) })
-    } else if let rawOutput = get(convenienceArgument)?.path.pathString {
-      return [Path(rawOutput)]
     }
     return nil
+  }
+  
+  func getSourceTargets(using argument: OptionArgument<[String]>,
+                        convenienceArgument: OptionArgument<[String]>) throws -> [String] {
+    if let targets = get(argument) ?? get(convenienceArgument) {
+      return targets
+    } else {
+      throw ArgumentParserError.expectedValue(option: "--src-targets <list of target names>")
+    }
+  }
+  
+  func getDestinationTarget(using argument: OptionArgument<String>) throws -> String {
+    if let target = get(argument) {
+      return target
+    } else {
+      throw ArgumentParserError.expectedValue(option: "--destination <target name>")
+    }
   }
   
   func getOutputDirectory(using argument: OptionArgument<PathArgument>) throws -> Path {
     if let rawOutput = get(argument)?.path.pathString {
       let path = Path(rawOutput)
       guard path.isDirectory else {
-        throw ArgumentParserError.invalidValue(argument: "--output",
+        throw ArgumentParserError.invalidValue(argument: "--output \(path.absolute())",
                                                error: .custom("Not a valid directory"))
       }
       return path
     }
-    throw ArgumentParserError.expectedValue(option: "--output")
+    throw ArgumentParserError.expectedValue(option: "--output <list of output file paths>")
   }
   
   func getCount(using argument: OptionArgument<Int>) throws -> Int? {
     if let count = get(argument) {
       guard count > 0 else {
-        throw ArgumentParserError.invalidValue(argument: "--count",
+        throw ArgumentParserError.invalidValue(argument: "--count \(count)",
                                                error: .custom("Not a positive number"))
       }
       return count

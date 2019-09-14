@@ -76,7 +76,11 @@ class Generator {
       
     // Resolve target names to concrete Xcode project targets.
     let targets = try config.inputTargetNames.map({ targetName throws -> PBXTarget in
-      guard let target = xcodeproj.pbxproj.targets(named: targetName).first else {
+      let targets = xcodeproj.pbxproj.targets(named: targetName)
+      if targets.count > 1 {
+        fputs("Found multiple input targets named `\(targetName)`, using the first one\n", stderr)
+      }
+      guard let target = targets.first else {
         throw Failure.malformedConfiguration(description: "Unable to find input target named `\(targetName)`")
       }
       return target

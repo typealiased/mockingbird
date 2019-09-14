@@ -11,7 +11,7 @@ import SPMUtility
 
 struct MetagenerateCommand: Command {
   let command = "metagenerate"
-  let overview = "Generates source files used for benchmarking."
+  let overview = "Generate source files for benchmarking Mockingbird."
   
   private let outputArgument: OptionArgument<PathArgument>
   private let countArgument: OptionArgument<Int>

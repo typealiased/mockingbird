@@ -1,5 +1,5 @@
 //
-//  Path+FnmatchExtensions.swift
+//  Path+Fnmatch.swift
 //  MockingbirdFramework
 //
 //  Created by Andrew Chang on 9/11/19.

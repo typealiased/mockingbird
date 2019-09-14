@@ -11,17 +11,18 @@ import SPMUtility
 
 struct InstallCommand: Command {
   let command = "install"
-  let overview = "Starts automatically generating mocks by adding a custom Run Script Phase to each target."
+  let overview = "Set up a destination (unit test) target."
   
   private let projectPathArgument: OptionArgument<PathArgument>
-  private let targetsArgument: OptionArgument<[String]>
-  private let targetArgument: OptionArgument<String>
+  private let sourceTargetsArgument: OptionArgument<[String]>
+  private let sourceTargetArgument: OptionArgument<[String]>
+  private let destinationTargetArgument: OptionArgument<String>
   private let sourceRootArgument: OptionArgument<PathArgument>
   private let outputsArgument: OptionArgument<[PathArgument]>
-  private let outputArgument: OptionArgument<PathArgument>
+  private let outputArgument: OptionArgument<[PathArgument]>
   
   private let preprocessorExpressionArgument: OptionArgument<String>
-  private let reinstallArgument: OptionArgument<Bool>
+  private let ignoreExistingRunScriptArgument: OptionArgument<Bool>
   private let asynchronousGenerationArgument: OptionArgument<Bool>
   private let onlyMockProtocolsArgument: OptionArgument<Bool>
   private let disableSwiftlintArgument: OptionArgument<Bool>
@@ -30,13 +31,14 @@ struct InstallCommand: Command {
     let subparser = parser.add(subparser: command, overview: overview)
     
     projectPathArgument = subparser.addProjectPath()
-    targetsArgument = subparser.addTargets()
-    targetArgument = subparser.addTarget()
+    sourceTargetsArgument = subparser.addSourceTargets()
+    sourceTargetArgument = subparser.addSourceTarget()
+    destinationTargetArgument = subparser.addDestinationTarget()
     sourceRootArgument = subparser.addSourceRoot()
     outputsArgument = subparser.addOutputs()
     outputArgument = subparser.addOutput()
     preprocessorExpressionArgument = subparser.addPreprocessorExpression()
-    reinstallArgument = subparser.addReinstallRunScript()
+    ignoreExistingRunScriptArgument = subparser.addIgnoreExistingRunScript()
     asynchronousGenerationArgument = subparser.addAynchronousGeneration()
     onlyMockProtocolsArgument = subparser.addOnlyProtocols()
     disableSwiftlintArgument = subparser.addDisableSwiftlint()
@@ -48,25 +50,26 @@ struct InstallCommand: Command {
     let sourceRoot = try arguments.getSourceRoot(using: sourceRootArgument,
                                                  environment: environment,
                                                  projectPath: projectPath)
-    let targets = try arguments.getTargets(using: targetsArgument,
-                                           convenienceArgument: targetArgument,
-                                           environment: environment)
+    let sourceTargets = try arguments.getSourceTargets(using: sourceTargetsArgument,
+                                                       convenienceArgument: sourceTargetArgument)
+    let destinationTarget = try arguments.getDestinationTarget(using: destinationTargetArgument)
     let outputs = try arguments.getOutputs(using: outputsArgument,
                                            convenienceArgument: outputArgument)
     
     let config = Installer.InstallConfiguration(
       projectPath: projectPath,
       sourceRoot: sourceRoot,
-      targetNames: targets,
+      sourceTargetNames: sourceTargets,
+      destinationTargetName: destinationTarget,
       outputPaths: outputs,
       cliPath: Path(CommandLine.arguments[0]),
-      shouldReinstall: arguments.get(reinstallArgument) == true,
+      ignoreExisting: arguments.get(ignoreExistingRunScriptArgument) == true,
       asynchronousGeneration: arguments.get(asynchronousGenerationArgument) == true,
       preprocessorExpression: arguments.get(preprocessorExpressionArgument),
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
       disableSwiftlint: arguments.get(disableSwiftlintArgument) == true
     )
     try Installer.install(using: config)
-    print("Installed Mockingbird to \(targets.map({ "`\($0)`" }).joined(separator: ", ")) in \(projectPath)")
+    print("Installed Mockingbird to `\(destinationTarget)` in \(projectPath)")
   }
 }

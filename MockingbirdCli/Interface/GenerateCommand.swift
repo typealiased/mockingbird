@@ -14,10 +14,10 @@ struct GenerateCommand: Command {
   
   private let projectPathArgument: OptionArgument<PathArgument>
   private let targetsArgument: OptionArgument<[String]>
-  private let targetArgument: OptionArgument<String>
+  private let targetArgument: OptionArgument<[String]>
   private let sourceRootArgument: OptionArgument<PathArgument>
   private let outputsArgument: OptionArgument<[PathArgument]>
-  private let outputArgument: OptionArgument<PathArgument>
+  private let outputArgument: OptionArgument<[PathArgument]>
   
   private let preprocessorExpressionArgument: OptionArgument<String>
   private let disableModuleImportArgument: OptionArgument<Bool>

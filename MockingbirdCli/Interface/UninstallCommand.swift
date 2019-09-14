@@ -11,11 +11,11 @@ import SPMUtility
 
 struct UninstallCommand: Command {
   let command = "uninstall"
-  let overview = "Stops automatically generating mocks."
+  let overview = "Remove Mockingbird from a (unit test) target."
   
   private let projectPathArgument: OptionArgument<PathArgument>
   private let targetsArgument: OptionArgument<[String]>
-  private let targetArgument: OptionArgument<String>
+  private let targetArgument: OptionArgument<[String]>
   private let sourceRootArgument: OptionArgument<PathArgument>
   
   init(parser: ArgumentParser) {

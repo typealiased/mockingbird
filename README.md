@@ -112,30 +112,29 @@ build process in many different ways.
 
 ### Automatic Integration
 
-The Mockingbird CLI can automatically add a build step to generate mocks in the background whenever the 
-specified targets are compiled.
+Use the Mockingbird CLI to set up destination (unit test) target. List all source targets that should generate mocks.
 
 ```bash
-$ mockingbird install --project <xcodeproj_path> --targets <target_names>
+$ mockingbird install \
+  --project Bird.xcodeproj \
+  --src-targets BirdModels BirdManagers \
+  --destination UnitTestTarget
 ```
 
 ### Manual Integration
 
-Add a Run Script Phase to each target that should generate mocks. 
+Add a Run Script Phase to each target that should generate mocks. See [Mockingbird CLI - Generate](#generate) 
+for all available generator options.
 
 ```bash
 mockingbird generate
 ```
 
-See [Mockingbird CLI - Generate](#generate) for available generator options.
+By default, Mockingbird will generate target mocks into the `$(SRCROOT)/Mockingbird/Mocks` directory.
+You can specify a custom output location for each target using the
+[`outputs`](https://github.com/birdrides/mockingbird#generate) CLI option.
 
-### Importing Mocks
-
-By default, Mockingbird will generate target mocks into `Mockingbird/Mocks/` under the project’s source root 
-directory. (Specify a custom location to generate mocks for each target using the `outputs` CLI option.)
-
-Unit test targets that import a module with generated mocks should include the mocks file under Build Phases → 
-Compile Sources.
+Once generated, you much include each `.generated.swift` mock file as part of your unit test target sources.
 
 ![Build Phases → Compile Sources](Documentation/Assets/test-target-compile-sources.png)
 
@@ -348,28 +347,29 @@ Generate mocks for a set of targets in a project.
 
 ### Install
 
-Starts automatically generating mocks by adding a custom Run Script Phase to each target.
+Set up a destination (unit test) target
 
 `mockingbird install`
 
 | Option | Default Value | Description |
 | --- | --- | --- |
 | `--project` | *(required)* | Your project’s `.xcodeproj` file. |
-| `--targets` | *(required)* | List of target names to install the Run Script Phase. |
+| `--src-targets` | *(required)* | List of target names that should generate mocks. |
+| `--destination` | *(required)* | The target name where the Run Script Phase will be installed. |
 | `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |
 | `--outputs` | `$MOCKINGBIRD_SRCROOT` | List of mock output file paths for each target. |
 | `--preprocessor` | `nil` | Preprocessor expression to wrap all generated mocks in, e.g. `DEBUG`. |
 
 | Flag | Description |
 | --- | --- |
-| `--reinstall` | Overwrite existing Run Script Phases created by Mockingbird CLI. |
+| `--ignore-existing` | Don’t overwrite existing Run Scripts created by Mockingbird CLI. |
 | `--asynchronous` | Generate mocks asynchronously in the background when building. |
 | `--only-protocols` | Only generate mocks for protocols. |
 | `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
 
 ### Uninstall
 
-Stops automatically generating mocks.
+Remove Mockingbird from a (unit test) target.
 
 `mockingbird uninstall`
 

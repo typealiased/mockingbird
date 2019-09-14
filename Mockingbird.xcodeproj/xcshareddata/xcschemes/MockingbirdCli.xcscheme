@@ -73,19 +73,35 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--target MockingbirdTestsHost"
+            argument = "--src-targets MockingbirdTestsHost"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--output ./MockingbirdTests/Mocks.generated.swift"
+            argument = "--destination MockingbirdTests"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--synchronous"
+            argument = "--outputs ./MockingbirdTests/Mocks.generated.swift"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--reinstall"
+            argument = "--asynchronous"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--ignore-existing"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "uninstall"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--project ./Mockingbird.xcodeproj"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--targets MockingbirdTestsHost"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument

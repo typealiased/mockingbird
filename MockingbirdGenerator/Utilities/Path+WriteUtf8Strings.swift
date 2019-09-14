@@ -1,5 +1,5 @@
 //
-//  Path+Extensions.swift
+//  Path+WriteUtf8Strings.swift
 //  MockingbirdGenerator
 //
 //  Created by Andrew Chang on 9/3/19.
@@ -65,8 +65,13 @@ extension Path {
   ///   - fileContents: An array of partial content objects containing strings to write to disk.
   ///   - atomically: Whether to write to a temporary file first, then atomically move it to the
   ///     current path, replacing any existing file.
+  ///   - creatingIntermediaries: Whether to create intermediary directories that don't exist.
   /// - Throws: A `BufferedWriteFailure` if an error occurs.
-  func writeUtf8Strings(_ fileContents: PartialFileContents, atomically: Bool = true) throws {
+  func writeUtf8Strings(_ fileContents: PartialFileContents,
+                        atomically: Bool = true,
+                        creatingIntermediaries: Bool = true) throws {
+    if creatingIntermediaries { try parent().mkpath() }
+    
     let tmpFilePath = (atomically ? try Path.uniqueTemporary() + lastComponent : self)
     guard let outputStream = OutputStream(toFileAtPath: "\(tmpFilePath.absolute())", append: true)
       else { throw WriteUtf8StringFailure.streamCreationFailure(path: tmpFilePath) }
