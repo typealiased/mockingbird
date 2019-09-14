@@ -33,7 +33,7 @@ Add the framework to a test target in your `Podfile`.
 
 ```ruby
 target 'ATestTarget' do
-  pod 'Mockingbird', '~> 0.4.0'
+  pod 'Mockingbird', '~> 0.5.0'
 end
 ```
 
@@ -44,7 +44,7 @@ This will download and install the CLI during the next `pod install`.
 Add the framework to your `Cartfile`.
 
 ```
-github "birdrides/mockingbird" ~> 0.4.0
+github "birdrides/mockingbird" ~> 0.5.0
 ```
 
 And set up Carthage to only build the framework when running `carthage update`.
@@ -67,7 +67,7 @@ Add the framework as a package and test target dependency in your `Package.swift
 
 ```swift
 dependencies: [
-  .package(url: "https://github.com/birdrides/mockingbird.git", .upToNextMajor(from: "0.4.0"))
+  .package(url: "https://github.com/birdrides/mockingbird.git", .upToNextMajor(from: "0.5.0"))
 ],
 targets: [
   .testTarget(
@@ -112,7 +112,7 @@ build process in many different ways.
 
 ### Automatic Integration
 
-Use the Mockingbird CLI to set up destination (unit test) target. List all source targets that should generate mocks.
+Use the Mockingbird CLI to set up a destination (unit test) target. List all source targets that should generate mocks.
 
 ```bash
 $ mockingbird install \
@@ -123,8 +123,7 @@ $ mockingbird install \
 
 ### Manual Integration
 
-Add a Run Script Phase to each target that should generate mocks. See [Mockingbird CLI - Generate](#generate) 
-for all available generator options.
+Add a Run Script Phase to each target that should generate mocks.
 
 ```bash
 mockingbird generate
@@ -134,7 +133,7 @@ By default, Mockingbird will generate target mocks into the `$(SRCROOT)/Mockingb
 You can specify a custom output location for each target using the
 [`outputs`](https://github.com/birdrides/mockingbird#generate) CLI option.
 
-Once generated, you much include each `.generated.swift` mock file as part of your unit test target sources.
+Once generated, you must include each `.generated.swift` mock file as part of your unit test target sources.
 
 ![Build Phases → Compile Sources](Documentation/Assets/test-target-compile-sources.png)
 
