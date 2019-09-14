@@ -1,0 +1,15 @@
+name: Build Framework and CLI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macOS-10.14
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Clean
+      run: make clean
+    - name: Build
+      run: make build
