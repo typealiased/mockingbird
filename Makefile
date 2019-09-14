@@ -60,6 +60,7 @@ clean:
 
 clean-xcode:
 	$(BUILD_TOOL) -scheme 'MockingbirdFramework' $(XCODEBUILD_FLAGS) clean
+	$(BUILD_TOOL) -scheme 'MockingbirdTestsHost' $(XCODEBUILD_FLAGS) clean
 
 boostrap-carthage:
 	(cd Mockingbird.xcodeproj/xcshareddata/xcschemes; \
