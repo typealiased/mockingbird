@@ -6376,6 +6376,74 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return RequiredInitializerClassMock.InitializerProxy.self
 }
 
+// MARK: - Mocked RethrowingProtocol
+
+public final class RethrowingProtocolMock: MockingbirdTestsHost.RethrowingProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.5.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      RethrowingProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: RethrowingProtocolMock, rhs: RethrowingProtocolMock) -> Bool {
+    return true
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `rethrowingMethod(block:)`
+
+  public func rethrowingMethod(block: () throws -> Bool) rethrows -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "rethrowingMethod(block:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() throws -> Bool>())])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (() throws -> Bool) -> Bool {
+      return concreteImplementation(`block`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func rethrowingMethod(block: @escaping @autoclosure () -> () throws -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() throws -> Bool) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "rethrowingMethod(block:) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() throws -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `rethrowingMethod(block:)`
+
+  public func rethrowingMethod(block: () throws -> Bool) rethrows -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "rethrowingMethod(block:) -> Void", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() throws -> Bool>())])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (() throws -> Bool) -> Void {
+      concreteImplementation(`block`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func rethrowingMethod(block: @escaping @autoclosure () -> () throws -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() throws -> Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "rethrowingMethod(block:) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() throws -> Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.RethrowingProtocol` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.RethrowingProtocol.Protocol) -> RethrowingProtocolMock {
+  return RethrowingProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked ServiceRepository
 
 public final class ServiceRepositoryMock: MockingbirdTestsHost.ServiceRepository, Mockingbird.Mock {
@@ -6595,6 +6663,91 @@ public final class TestMock: MockingbirdTestsHost.Test, Mockingbird.Mock {
 /// Create a source-attributed `MockingbirdTestsHost.Test` concrete protocol mock instance.
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.Test.Protocol) -> TestMock {
   return TestMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked ThrowingProtocol
+
+public final class ThrowingProtocolMock: MockingbirdTestsHost.ThrowingProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.5.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ThrowingProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public static func ==(lhs: ThrowingProtocolMock, rhs: ThrowingProtocolMock) -> Bool {
+    return true
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `throwingMethod()`
+
+  public func throwingMethod() throws -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "throwingMethod() -> Bool", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () throws -> Bool {
+      return try concreteImplementation()
+    } else {
+      return try (implementation as! () throws -> Bool)()
+    }
+  }
+
+  public func throwingMethod() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () throws -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "throwingMethod() -> Bool", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () throws -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `throwingMethod()`
+
+  public func throwingMethod() throws -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "throwingMethod() -> Void", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? () throws -> Void {
+      try concreteImplementation()
+    } else {
+      try (implementation as? () throws -> Void)?()
+    }
+  }
+
+  public func throwingMethod() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () throws -> Void, Void> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "throwingMethod() -> Void", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () throws -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `throwingMethod(block:)`
+
+  public func throwingMethod(block: () throws -> Bool) throws -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "throwingMethod(block:) -> Void", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() throws -> Bool>())])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (() throws -> Bool) throws -> Void {
+      try concreteImplementation(`block`)
+    } else {
+      try (implementation as? () throws -> Void)?()
+    }
+  }
+
+  public func throwingMethod(block: @escaping @autoclosure () -> () throws -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() throws -> Bool) throws -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "throwingMethod(block:) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() throws -> Bool) throws -> Void, Void>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.ThrowingProtocol` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ThrowingProtocol.Protocol) -> ThrowingProtocolMock {
+  return ThrowingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked TopLevelType

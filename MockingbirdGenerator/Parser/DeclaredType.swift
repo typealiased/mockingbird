@@ -402,20 +402,24 @@ struct Function: CustomStringConvertible, CustomDebugStringConvertible, Serializ
   
   let parameters: [Parameter]
   let returnType: DeclaredType
+  let isThrowing: Bool
   
   var description: String {
-    return "(\(parameters.map({ "\($0)" }).joined(separator: ", "))) -> \(returnType)"
+    let throwing = isThrowing ? "throws " : ""
+    return "(\(parameters.map({ "\($0)" }).joined(separator: ", "))) \(throwing)-> \(returnType)"
   }
   
   var debugDescription: String {
     var description: String {
-      return "(\(parameters.map({ String(reflecting: $0) }).joined(separator: ", "))) -> \(String(reflecting: returnType))"
+      let throwing = isThrowing ? "throws " : ""
+      return "(\(parameters.map({ String(reflecting: $0) }).joined(separator: ", "))) \(throwing)-> \(String(reflecting: returnType))"
     }
     return "Function(\(description))"
   }
   
   func serialize(with request: SerializationRequest) -> String {
-    return "(\(parameters.map({ $0.serialize(with: request) }).joined(separator: ", "))) -> \(returnType.serialize(with: request))"
+    let throwing = isThrowing ? "throws " : ""
+    return "(\(parameters.map({ $0.serialize(with: request) }).joined(separator: ", "))) \(throwing)-> \(returnType.serialize(with: request))"
   }
   
   init?(from serialized: Substring) {
@@ -432,5 +436,10 @@ struct Function: CustomStringConvertible, CustomDebugStringConvertible, Serializ
     let returnTypeDeclaration = serialized[serialized.index(returnTypeIndex, offsetBy: 2)...]
       .trimmingCharacters(in: .whitespacesAndNewlines)
     self.returnType = DeclaredType(from: returnTypeDeclaration)
+    
+    let returnAttributes = serialized[parametersEndIndex..<returnTypeIndex]
+      .trimmingCharacters(in: .whitespacesAndNewlines)
+    self.isThrowing = !returnAttributes.isEmpty &&
+      returnAttributes.range(of: #"\bthrows\b"#, options: .regularExpression) != nil
   }
 }

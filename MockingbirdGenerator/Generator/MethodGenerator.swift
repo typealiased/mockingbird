@@ -73,7 +73,7 @@ class MethodGenerator {
     let failable = method.attributes.contains(.failable) ? "?" : ""
     let scopedName = context.createScopedName(with: [], suffix: "Mock")
     return """
-    \(attributes)    public static func \(fullNameForInitializerProxy)\(genericConstraints) \(returnTypeAttributes)-> \(scopedName)\(failable) {
+    \(attributes)    public static func \(fullNameForInitializerProxy)\(genericConstraints) \(returnTypeAttributesForMocking)-> \(scopedName)\(failable) {
           let mock: \(scopedName)\(failable) = \(tryInvocation)\(scopedName)(\(superCallParameters))
           mock\(failable).sourceLocation = SourceLocation(__file, __line)
           return mock
@@ -101,7 +101,7 @@ class MethodGenerator {
       return """
         // MARK: Mocked `\(method.name)`
       \(attributes)
-        public \(overridableModifiers)\(fullNameForMocking)\(genericConstraints) \(returnTypeAttributes){
+        public \(overridableModifiers)\(fullNameForMocking)\(genericConstraints) \(returnTypeAttributesForMocking){
       \(checkVersion)
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: [\(mockArgumentMatchers)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
@@ -111,7 +111,7 @@ class MethodGenerator {
       return """
         // MARK: Mocked `\(method.name)`
       \(attributes)
-        public \(overridableModifiers)func \(fullNameForMocking) \(returnTypeAttributes)-> \(specializedReturnTypeName)\(genericConstraints) {
+        public \(overridableModifiers)func \(fullNameForMocking) \(returnTypeAttributesForMocking)-> \(specializedReturnTypeName)\(genericConstraints) {
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: [\(mockArgumentMatchers)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
       \(stubbedImplementationCall)
@@ -125,7 +125,7 @@ class MethodGenerator {
     let attributes = declarationAttributes.isEmpty ? "" : "  \(declarationAttributes)\n"
     let parameterTypes = methodParameterTypes
     let returnTypeName = specializedReturnTypeName.removingImplicitlyUnwrappedOptionals()
-    let invocationType = "(\(parameterTypes)) \(returnTypeAttributes)-> \(returnTypeName)"
+    let invocationType = "(\(parameterTypes)) \(returnTypeAttributesForMatching)-> \(returnTypeName)"
     let mockableGenericTypes = ["Mockingbird.MethodDeclaration",
                                  invocationType,
                                  returnTypeName].joined(separator: ", ")
@@ -237,7 +237,7 @@ class MethodGenerator {
     let returnTypeName = specializedReturnTypeName.removingImplicitlyUnwrappedOptionals()
     let shouldReturn = !method.isInitializer && returnTypeName != "Void"
     let returnStatement = shouldReturn ? "return " : ""
-    let implementationType = "(\(methodParameterTypes)) \(returnTypeAttributes)-> \(returnTypeName)"
+    let implementationType = "(\(methodParameterTypes)) \(returnTypeAttributesForMatching)-> \(returnTypeName)"
     let optionalImplementation = shouldReturn ? "false" : "true"
     let typeCaster = shouldReturn ? "as!" : "as?"
     let invocationOptional = shouldReturn ? "" : "?"
@@ -246,7 +246,7 @@ class MethodGenerator {
         if let concreteImplementation = implementation as? \(implementationType) {
           \(returnStatement)\(tryInvocation)concreteImplementation(\(methodParameterNamesForInvocation))
         } else {
-          \(returnStatement)\(tryInvocation)(implementation \(typeCaster) () -> \(returnTypeName))\(invocationOptional)()
+          \(returnStatement)\(tryInvocation)(implementation \(typeCaster) () \(returnTypeAttributesForMatching)-> \(returnTypeName))\(invocationOptional)()
         }
     """
   }()
@@ -288,13 +288,23 @@ class MethodGenerator {
   }()
   
   lazy var tryInvocation: String = {
+    // We only try the invocation for throwing methods, not rethrowing ones since the stubbed
+    // implementation is not actually the passed-in parameter to the wrapped function.
     return method.attributes.contains(.throws) ? "try " : ""
   }()
   
-  lazy var returnTypeAttributes: String = {
-    let `throws` = method.attributes.contains(.throws) ? "throws " : ""
-    let `rethrows` = method.attributes.contains(.rethrows) ? "rethrows " : ""
-    return "\(`throws`)\(`rethrows`)"
+  lazy var returnTypeAttributesForMocking: String = {
+    if method.attributes.contains(.rethrows) { return "rethrows " }
+    if method.attributes.contains(.throws) { return "throws " }
+    return ""
+  }()
+  
+  lazy var returnTypeAttributesForMatching: String = {
+    if method.attributes.contains(.throws) {
+      return "throws "
+    } else { // Cannot rethrow stubbed implementations.
+      return ""
+    }
   }()
   
   lazy var mockArgumentMatchers: String = {

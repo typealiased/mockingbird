@@ -51,6 +51,9 @@
 		491CDF05231DD41A00C48C47 /* DeclaredTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491CDF04231DD41A00C48C47 /* DeclaredTypeTests.swift */; };
 		49377CC4231E0496003C0EA2 /* DefaultArgumentValuesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49377CC3231E0496003C0EA2 /* DefaultArgumentValuesMockableTests.swift */; };
 		49377CC6231E0BE4003C0EA2 /* DefaultArgumentValuesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49377CC5231E0BE4003C0EA2 /* DefaultArgumentValuesStubbableTests.swift */; };
+		493EA24B232D51BB008BF44B /* Exceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493EA24A232D51BB008BF44B /* Exceptions.swift */; };
+		493EA24D232D5C5D008BF44B /* ExceptionsMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493EA24C232D5C5D008BF44B /* ExceptionsMockableTests.swift */; };
+		493EA24F232D5CCD008BF44B /* ExceptionsStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493EA24E232D5CCD008BF44B /* ExceptionsStubbableTests.swift */; };
 		49965D322321B7E2002F9CD5 /* TreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49965D312321B7E2002F9CD5 /* TreeTests.swift */; };
 		49965D352321B8D1002F9CD5 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49965D342321B8D1002F9CD5 /* Bird.swift */; };
 		49965D372321BA90002F9CD5 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49965D362321BA90002F9CD5 /* Tree.swift */; };
@@ -904,6 +907,9 @@
 		491CDF04231DD41A00C48C47 /* DeclaredTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclaredTypeTests.swift; sourceTree = "<group>"; };
 		49377CC3231E0496003C0EA2 /* DefaultArgumentValuesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultArgumentValuesMockableTests.swift; sourceTree = "<group>"; };
 		49377CC5231E0BE4003C0EA2 /* DefaultArgumentValuesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultArgumentValuesStubbableTests.swift; sourceTree = "<group>"; };
+		493EA24A232D51BB008BF44B /* Exceptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exceptions.swift; sourceTree = "<group>"; };
+		493EA24C232D5C5D008BF44B /* ExceptionsMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionsMockableTests.swift; sourceTree = "<group>"; };
+		493EA24E232D5CCD008BF44B /* ExceptionsStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionsStubbableTests.swift; sourceTree = "<group>"; };
 		49965D312321B7E2002F9CD5 /* TreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeTests.swift; sourceTree = "<group>"; };
 		49965D342321B8D1002F9CD5 /* Bird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
 		49965D362321BA90002F9CD5 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
@@ -1652,6 +1658,8 @@
 				OBJ_136 /* ClosureParametersStubbableTests.swift */,
 				49377CC3231E0496003C0EA2 /* DefaultArgumentValuesMockableTests.swift */,
 				49377CC5231E0BE4003C0EA2 /* DefaultArgumentValuesStubbableTests.swift */,
+				493EA24C232D5C5D008BF44B /* ExceptionsMockableTests.swift */,
+				493EA24E232D5CCD008BF44B /* ExceptionsStubbableTests.swift */,
 				OBJ_138 /* ExtensionsMockableTests.swift */,
 				OBJ_139 /* ExtensionsStubbableTests.swift */,
 				OBJ_141 /* GenericsMockableTests.swift */,
@@ -2646,6 +2654,7 @@
 				49C07F9F231DDA80003F7712 /* CompoundTypes.swift */,
 				49F5DD4F23236FB100EC87E4 /* DeclarationAttributes.swift */,
 				49C07FA3231E00B3003F7712 /* DefaultArgumentValues.swift */,
+				493EA24A232D51BB008BF44B /* Exceptions.swift */,
 				OBJ_97 /* Extensions.swift */,
 				OBJ_98 /* Generics.swift */,
 				OBJ_99 /* Grandparent.swift */,
@@ -3602,6 +3611,7 @@
 			files = (
 				OBJ_764 /* ArgumentCaptorTests.swift in Sources */,
 				OBJ_765 /* ArgumentMatchingTests.swift in Sources */,
+				493EA24F232D5CCD008BF44B /* ExceptionsStubbableTests.swift in Sources */,
 				OBJ_766 /* AsyncVerificationTests.swift in Sources */,
 				OBJ_768 /* LastSetValueStubTests.swift in Sources */,
 				OBJ_769 /* OverloadedMethodTests.swift in Sources */,
@@ -3632,6 +3642,7 @@
 				OBJ_791 /* InoutParametersStubbableTests.swift in Sources */,
 				OBJ_793 /* TypealiasingMockableTests.swift in Sources */,
 				OBJ_794 /* TypealiasingStubbableTests.swift in Sources */,
+				493EA24D232D5C5D008BF44B /* ExceptionsMockableTests.swift in Sources */,
 				OBJ_796 /* UndefinedArgumentLabelsMockableTests.swift in Sources */,
 				OBJ_797 /* UndefinedArgumentLabelsStubbableTests.swift in Sources */,
 				OBJ_799 /* VariadicParametersMockableTests.swift in Sources */,
@@ -3670,6 +3681,7 @@
 				OBJ_849 /* ParentProtocol.swift in Sources */,
 				49DFC24C2329CC69000AB23B /* DirectoryIgnoredSource2.swift in Sources */,
 				49DFC2442329CBF9000AB23B /* TopLevelFileIgnoredSource.swift in Sources */,
+				493EA24B232D51BB008BF44B /* Exceptions.swift in Sources */,
 				49F5DD4E2322EAC500EC87E4 /* Collections.swift in Sources */,
 				OBJ_850 /* ProtocolInitializers.swift in Sources */,
 				49DFC2512329CD77000AB23B /* WildcardFileIgnoredSource.swift in Sources */,
