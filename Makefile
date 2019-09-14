@@ -1,7 +1,11 @@
-TEMPORARY_FOLDER?=/tmp/MockingbirdCli.make.dst
+TEMPORARY_FOLDER?=/tmp/Mockingbird.make.dst
 PREFIX?=/usr/local
+BUILD_TOOL?=xcodebuild
 
 SWIFT_BUILD_FLAGS=--configuration release
+XCODEBUILD_FLAGS=-project 'Mockingbird.xcodeproj' \
+	-destination 'platform=OS X' \
+	DSTROOT=$(TEMPORARY_FOLDER)
 
 EXECUTABLE_PATH=$(shell swift build $(SWIFT_BUILD_FLAGS) --show-bin-path)/mockingbird
 
@@ -30,8 +34,10 @@ ERROR_MSG=FATAL ERROR: The downloaded Mockingbird CLI binary does not have the e
 
 .PHONY: all \
 		clean \
+		clean-xcode \
 		boostrap-carthage \
 		build \
+		test \
 		carthage-update \
 		install \
 		uninstall \
@@ -52,12 +58,18 @@ clean:
 	rm -f "$(OUTPUT_ZIP)"
 	swift package clean
 
+clean-xcode:
+	$(BUILD_TOOL) -scheme 'MockingbirdFramework' $(XCODEBUILD_FLAGS) clean
+
 boostrap-carthage:
 	(cd Mockingbird.xcodeproj/xcshareddata/xcschemes; \
 		find . ! -name "MockingbirdFramework.xcscheme" ! -name "MockingbirdShared.xcscheme" -delete)
 
 build:
 	swift build $(SWIFT_BUILD_FLAGS)
+
+test: clean-xcode
+	$(BUILD_TOOL) -scheme 'MockingbirdTests' $(XCODEBUILD_FLAGS) test
 
 download:
 	curl -Lo "$(ZIP_FILENAME)" "$(ZIP_PRERELEASE_URL)"

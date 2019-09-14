@@ -13,3 +13,14 @@ jobs:
       run: make clean
     - name: Build
       run: make build
+    - name: Install
+      run: make install
+    - name: Set Up
+      run: |
+        mockingbird install \
+          --project Mockingbird.xcodeproj \
+          --src-target MockingbirdTestsHost \
+          --destination MockingbirdTests \
+          --output MockingbirdTests/Mocks.generated.swift
+    - name: Test
+      run: make test
