@@ -2,7 +2,7 @@
 Both the zipped binary and installer should be code signed with a Bird Rides, Inc. (P2T4T6R4SL) certificate.
 
 The explicit [designated requirement](https://developer.apple.com/library/archive/technotes/tn2206/_index.html#//apple_ref/doc/uid/DTS40007919-CH1-TNTAG4) 
-for verifying the zipped CLI binary is stored under `Codesigning/MockingbirdCli.dr`. This file should rarely change, if ever.
+for verifying the zipped CLI binary is stored under `Codesigning/MockingbirdCli.dr`. This file should rarely change, and commits should be signed with a verified signature from a known contributor.
 
 ## Zipped Binary
 If you use a dependency manager such as CocoaPods, Carthage, or Swift Package Manager, you will probably
