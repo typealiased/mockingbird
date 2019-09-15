@@ -19,8 +19,8 @@ private enum Constants {
 
 extension GenericType {
   var flattenedDeclaration: String {
-    guard !inheritedTypes.isEmpty else { return name }
-    let flattenedInheritedTypes = Array(inheritedTypes).joined(separator: " & ")
+    guard !constraints.isEmpty else { return name }
+    let flattenedInheritedTypes = Array(constraints).joined(separator: " & ")
     return "\(name): \(flattenedInheritedTypes)"
   }
 }

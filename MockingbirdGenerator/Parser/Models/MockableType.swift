@@ -62,56 +62,25 @@ class MockableType: Hashable, Comparable {
     self.name = baseRawType.name
     self.moduleName = baseRawType.parsedFile.moduleName
     self.kind = baseRawType.kind
-    let containingTypeNames = baseRawType.containingTypeNames
-    self.isContainedType = !containingTypeNames.isEmpty
+    self.isContainedType = !baseRawType.containingTypeNames.isEmpty
     
-    var methods = Set<Method>()
-    var variables = Set<Variable>()
-    var inheritedTypes = Set<MockableType>()
-    for rawType in rawTypes {
-      guard let substructure = rawType.dictionary[SwiftDocKey.substructure.rawValue]
-        as? [StructureDictionary] else { continue }
-      // Cannot override declarations in extensions for classes.
-      guard baseRawType.kind != .class || rawType.kind != .extension else { continue }
-      for structure in substructure {
-        if let method = Method(from: structure,
-                               rootKind: kind,
-                               rawType: rawType,
-                               moduleNames: moduleNames,
-                               rawTypeRepository: rawTypeRepository,
-                               typealiasRepository: typealiasRepository) {
-          methods.insert(method)
-        }
-        if let variable = Variable(from: structure,
-                                   rootKind: kind,
-                                   rawType: rawType,
-                                   moduleNames: moduleNames,
-                                   rawTypeRepository: rawTypeRepository) {
-          variables.insert(variable)
-        }
-      }
-    }
+    var (methods, variables) = MockableType
+      .parseDeclaredTypes(rawTypes: rawTypes,
+                          baseRawType: baseRawType,
+                          moduleNames: moduleNames,
+                          rawTypeRepository: rawTypeRepository,
+                          typealiasRepository: typealiasRepository)
     let rawInheritedTypes = rawTypes
       .compactMap({ $0.dictionary[SwiftDocKey.inheritedtypes.rawValue] as? [StructureDictionary] })
       .flatMap({ $0 })
-    for type in rawInheritedTypes {
-      guard let typeName = type[SwiftDocKey.name.rawValue] as? String,
-        let nearestRawType = rawTypeRepository
-          .nearestInheritedType(named: typeName,
-                                trimmedName: typeName.removingGenericTyping(),
-                                moduleNames: moduleNames,
-                                referencingModuleName: moduleName,
-                                containingTypeNames: containingTypeNames[...])?.findBaseRawType(),
-        let mockableType = mockableTypes[nearestRawType.fullyQualifiedModuleName]
-        else { continue }
-      methods = methods.union(mockableType.methods.filter({
-        $0.kind.typeScope.isMockable(in: baseRawType.kind)
-      }))
-      variables = variables.union(mockableType.variables.filter({
-        $0.kind.typeScope.isMockable(in: baseRawType.kind)
-      }))
-      inheritedTypes = inheritedTypes.union([mockableType] + mockableType.inheritedTypes)
-    }
+    let inheritedTypes = MockableType
+      .parseInheritedTypes(rawInheritedTypes: rawInheritedTypes,
+                           methods: &methods,
+                           variables: &variables,
+                           mockableTypes: mockableTypes,
+                           moduleNames: moduleNames,
+                           baseRawType: baseRawType,
+                           rawTypeRepository: rawTypeRepository)
     self.methods = methods
     self.variables = variables
     self.inheritedTypes = inheritedTypes
@@ -129,7 +98,7 @@ class MockableType: Hashable, Comparable {
       return genericType
     })
     
-    var genericConstraints = genericTypes.flatMap({ $0.genericConstraints })
+    var genericConstraints = genericTypes.flatMap({ $0.whereClauses })
     if baseRawType.kind == .class {
       let source = baseRawType.parsedFile.data
       if let nameSuffix = SourceSubstring.nameSuffixUpToBody.extract(from: baseRawType.dictionary,
@@ -145,11 +114,76 @@ class MockableType: Hashable, Comparable {
     if baseRawType.parsedFile.shouldMock {
       self.sortableIdentifier = [
         self.name,
-        self.genericTypes.map({ "\($0.name):\($0.inheritedTypes)" }).joined(separator: ","),
+        self.genericTypes.map({ "\($0.name):\($0.constraints)" }).joined(separator: ","),
         self.genericConstraints.joined(separator: ",")
       ].joined(separator: "|")
     } else {
       self.sortableIdentifier = name
     }
+  }
+  
+  @inlinable
+  static func parseDeclaredTypes(rawTypes: [RawType],
+                                 baseRawType: RawType,
+                                 moduleNames: [String],
+                                 rawTypeRepository: RawTypeRepository,
+                                 typealiasRepository: TypealiasRepository)
+    -> (methods: Set<Method>, variables: Set<Variable>) {
+      var methods = Set<Method>()
+      var variables = Set<Variable>()
+      for rawType in rawTypes {
+        guard let substructure = rawType.dictionary[SwiftDocKey.substructure.rawValue]
+          as? [StructureDictionary] else { continue }
+        // Cannot override declarations in extensions for classes.
+        guard baseRawType.kind != .class || rawType.kind != .extension else { continue }
+        for structure in substructure {
+          if let method = Method(from: structure,
+                                 rootKind: baseRawType.kind,
+                                 rawType: rawType,
+                                 moduleNames: moduleNames,
+                                 rawTypeRepository: rawTypeRepository,
+                                 typealiasRepository: typealiasRepository) {
+            methods.insert(method)
+          }
+          if let variable = Variable(from: structure,
+                                     rootKind: baseRawType.kind,
+                                     rawType: rawType,
+                                     moduleNames: moduleNames,
+                                     rawTypeRepository: rawTypeRepository) {
+            variables.insert(variable)
+          }
+        }
+      }
+      return (methods, variables)
+  }
+  
+  @inlinable
+  static func parseInheritedTypes(rawInheritedTypes: [StructureDictionary],
+                                  methods: inout Set<Method>,
+                                  variables: inout Set<Variable>,
+                                  mockableTypes: [String: MockableType],
+                                  moduleNames: [String],
+                                  baseRawType: RawType,
+                                  rawTypeRepository: RawTypeRepository) -> Set<MockableType> {
+    var inheritedTypes = Set<MockableType>()
+    for type in rawInheritedTypes {
+      guard let typeName = type[SwiftDocKey.name.rawValue] as? String,
+        let nearestRawType = rawTypeRepository
+          .nearestInheritedType(named: typeName,
+                                trimmedName: typeName.removingGenericTyping(),
+                                moduleNames: moduleNames,
+                                referencingModuleName: baseRawType.parsedFile.moduleName,
+                                containingTypeNames: baseRawType.containingTypeNames[...])?.findBaseRawType(),
+        let mockableType = mockableTypes[nearestRawType.fullyQualifiedModuleName]
+        else { continue }
+      methods = methods.union(mockableType.methods.filter({
+        $0.kind.typeScope.isMockable(in: baseRawType.kind)
+      }))
+      variables = variables.union(mockableType.variables.filter({
+        $0.kind.typeScope.isMockable(in: baseRawType.kind)
+      }))
+      inheritedTypes = inheritedTypes.union([mockableType] + mockableType.inheritedTypes)
+    }
+    return inheritedTypes
   }
 }

@@ -175,7 +175,7 @@ struct Method: Hashable, Comparable {
     if rawType.parsedFile.shouldMock {
       self.sortableIdentifier = [
         self.name,
-        self.genericTypes.map({ "\($0.name):\($0.inheritedTypes)" }).joined(separator: ","),
+        self.genericTypes.map({ "\($0.name):\($0.constraints)" }).joined(separator: ","),
         self.parameters
           .map({ "\($0.argumentLabel ?? ""):\($0.name):\($0.typeName)" })
           .joined(separator: ","),
