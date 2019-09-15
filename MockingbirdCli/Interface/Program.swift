@@ -40,10 +40,10 @@ struct Program {
         try process(arguments: parsedArguments)
       }
       catch let error as ArgumentParserError {
-        print(error.description)
+        fputs(error.description + "\n", stderr)
       }
       catch let error {
-        print(error.localizedDescription)
+        fputs(error.localizedDescription + "\n", stderr)
       }
     }
   }
