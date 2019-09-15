@@ -1527,6 +1527,55 @@
 			path = Generator;
 			sourceTree = "<group>";
 		};
+		493EB9CD232E2AE6008BF44B /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_65 /* BasicOperation.swift */,
+				OBJ_66 /* ExtractSourcesOperation.swift */,
+				OBJ_71 /* ParseFilesOperation.swift */,
+				OBJ_72 /* ProcessTypesOperation.swift */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		493EB9CE232E2AF5008BF44B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				491CDF00231CF51C00C48C47 /* DeclaredType.swift */,
+				OBJ_68 /* GenericType.swift */,
+				OBJ_69 /* Method.swift */,
+				OBJ_70 /* MockableType.swift */,
+				49F5E526232496C800EC87E4 /* Primitives.swift */,
+				OBJ_73 /* RawType.swift */,
+				49F5E5242324968500EC87E4 /* SerializationRequest.swift */,
+				OBJ_79 /* Typealias.swift */,
+				OBJ_78 /* TypeAttributes.swift */,
+				OBJ_80 /* Variable.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		493EB9CF232E2B33008BF44B /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_60 /* MethodTemplate.swift */,
+				493EA252232D8CD6008BF44B /* MockableTypeInitializerTemplate.swift */,
+				OBJ_61 /* MockableTypeTemplate.swift */,
+				493EA250232D8A03008BF44B /* Renderable.swift */,
+				OBJ_63 /* VariableTemplate.swift */,
+			);
+			path = Templates;
+			sourceTree = "<group>";
+		};
+		493EB9D0232E2B3F008BF44B /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_67 /* GenerateFileOperation.swift */,
+				OBJ_59 /* RenderMockableTypeOperation.swift */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
 		49965D302321B7C5002F9CD5 /* Example */ = {
 			isa = PBXGroup;
 			children = (
@@ -2563,13 +2612,8 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_58 /* FileGenerator.swift */,
-				OBJ_67 /* GenerateFileOperation.swift */,
-				OBJ_60 /* MethodTemplate.swift */,
-				493EA252232D8CD6008BF44B /* MockableTypeInitializerTemplate.swift */,
-				OBJ_61 /* MockableTypeTemplate.swift */,
-				493EA250232D8A03008BF44B /* Renderable.swift */,
-				OBJ_59 /* RenderMockableTypeOperation.swift */,
-				OBJ_63 /* VariableTemplate.swift */,
+				493EB9D0232E2B3F008BF44B /* Operations */,
+				493EB9CF232E2B33008BF44B /* Templates */,
 			);
 			path = Generator;
 			sourceTree = "<group>";
@@ -2577,21 +2621,9 @@
 		OBJ_64 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_65 /* BasicOperation.swift */,
-				491CDF00231CF51C00C48C47 /* DeclaredType.swift */,
-				OBJ_66 /* ExtractSourcesOperation.swift */,
-				OBJ_68 /* GenericType.swift */,
-				OBJ_69 /* Method.swift */,
-				OBJ_70 /* MockableType.swift */,
-				OBJ_71 /* ParseFilesOperation.swift */,
-				49F5E526232496C800EC87E4 /* Primitives.swift */,
-				OBJ_72 /* ProcessTypesOperation.swift */,
-				OBJ_73 /* RawType.swift */,
-				49F5E5242324968500EC87E4 /* SerializationRequest.swift */,
+				493EB9CD232E2AE6008BF44B /* Operations */,
+				493EB9CE232E2AF5008BF44B /* Models */,
 				OBJ_74 /* Sourcery */,
-				OBJ_79 /* Typealias.swift */,
-				OBJ_78 /* TypeAttributes.swift */,
-				OBJ_80 /* Variable.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
