@@ -68,7 +68,7 @@ extension Path {
   ///   - atomically: Whether to write to a temporary file first, then atomically move it to the
   ///     current path, replacing any existing file.
   ///   - creatingIntermediaries: Whether to create intermediary directories that don't exist.
-  /// - Throws: A `BufferedWriteFailure` if an error occurs.
+  /// - Throws: A `WriteUtf8StringFailure` if an error occurs.
   func writeUtf8Strings(_ fileContents: PartialFileContent,
                         atomically: Bool = true,
                         creatingIntermediaries: Bool = true) throws {
@@ -98,7 +98,19 @@ extension Path {
       if let contents = partial.contents { try write(contents) }
       var isFirstElement = true
       for structure in partial.substructure {
-        if !isFirstElement, let delimiter = partial.delimiter { try write(delimiter) }
+        if !isFirstElement, let delimiter = partial.delimiter {
+          if let contents = structure.contents, structure.substructure.isEmpty {
+            // Optimization for writing both the delimiter and any substructure contents at once.
+            if let footer = structure.footer {
+              try write(delimiter + contents + footer)
+            } else {
+              try write(delimiter + contents)
+            }
+            continue
+          } else {
+            try write(delimiter)
+          }
+        }
         isFirstElement = false
         try writePartial(structure)
       }
