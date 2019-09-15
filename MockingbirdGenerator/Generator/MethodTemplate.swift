@@ -14,26 +14,16 @@ import Foundation
 class MethodTemplate: Renderable {
   let method: Method
   let context: MockableTypeTemplate
-  private var parameterTemplates = [MethodParameter: MethodParameterTemplate]()
   init(method: Method, context: MockableTypeTemplate) {
     self.method = method
     self.context = context
   }
   
-  @inlinable
-  func parameterTemplate(for parameter: MethodParameter) -> MethodParameterTemplate {
-    if let existing = parameterTemplates[parameter] { return existing }
-    let template = MethodParameterTemplate(methodParameter: parameter, context: self)
-    parameterTemplates[parameter] = template
-    return template
-  }
-  
-  func render(in context: RenderContext) -> PartialFileContent {
-    let substructure = [
-      PartialFileContent(contents: mockedDeclarations.indent(by: context.indentation)),
-      PartialFileContent(contents: frameworkDeclarations.indent(by: context.indentation)),
-    ].filter({ !$0.isEmpty })
-    return PartialFileContent(substructure: substructure, delimiter: "\n\n")
+  func render() -> String {
+    return [
+      mockedDeclarations,
+      frameworkDeclarations,
+    ].filter({ !$0.isEmpty }).joined(separator: "\n\n")
   }
   
   var classInitializerProxy: String {
@@ -94,9 +84,8 @@ class MethodTemplate: Renderable {
   var frameworkDeclarations: String {
     guard !method.isInitializer else { return "" }
     let attributes = declarationAttributes.isEmpty ? "" : "  \(declarationAttributes)\n"
-    let parameterTypes = methodParameterTypes
     let returnTypeName = specializedReturnTypeName.removingImplicitlyUnwrappedOptionals()
-    let invocationType = "(\(parameterTypes)) \(returnTypeAttributesForMatching)-> \(returnTypeName)"
+    let invocationType = "(\(methodParameterTypes)) \(returnTypeAttributesForMatching)-> \(returnTypeName)"
     let mockableGenericTypes = ["Mockingbird.MethodDeclaration",
                                  invocationType,
                                  returnTypeName].joined(separator: ", ")
@@ -166,12 +155,11 @@ class MethodTemplate: Renderable {
   }()
   func fullName(forMatching: Bool, useVariadics: Bool, forInitializerProxy: Bool) -> String {
     let parameterNames = method.parameters.map({ parameter -> String in
-      let parameterTemplate = self.parameterTemplate(for: parameter)
       let typeName: String
       if forMatching && (!useVariadics || !parameter.attributes.contains(.variadic)) {
-        typeName = "@escaping @autoclosure () -> \(parameterTemplate.matchableTypeName)"
+        typeName = "@escaping @autoclosure () -> \(parameter.matchableTypeName(in: self))"
       } else {
-        typeName = parameterTemplate.mockableTypeName(forClosure: false)
+        typeName = parameter.mockableTypeName(in: self, forClosure: false)
       }
       let argumentLabel = parameter.argumentLabel ?? "_"
       if argumentLabel != parameter.name {
@@ -283,8 +271,7 @@ class MethodTemplate: Renderable {
     return method.parameters.map({ parameter -> String in
       // Can't save the argument in the invocation because it's a non-escaping parameter.
       guard !parameter.attributes.contains(.closure) || parameter.attributes.contains(.escaping) else {
-        let parameterTemplate = self.parameterTemplate(for: parameter)
-        return "Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<\(parameterTemplate.matchableTypeName)>())"
+        return "Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<\(parameter.matchableTypeName(in: self))>())"
       }
       return "Mockingbird.ArgumentMatcher(`\(parameter.name)`)"
     }).joined(separator: ", ")
@@ -306,21 +293,48 @@ class MethodTemplate: Renderable {
   
   lazy var methodParameterTypes: String = {
     return method.parameters
-      .map({ parameter -> String in
-        let parameterTemplate = self.parameterTemplate(for: parameter)
-        return parameterTemplate.mockableTypeName(forClosure: true)
-      })
+      .map({ $0.mockableTypeName(in: self, forClosure: true) })
       .joined(separator: ", ")
   }()
   
   lazy var methodParameterNamesForInvocation: String = {
-    return method.parameters.map({ parameter -> String in
-      let parameterTemplate = self.parameterTemplate(for: parameter)
-      return parameterTemplate.invocationName
-    }).joined(separator: ", ")
+    return method.parameters.map({ $0.invocationName }).joined(separator: ", ")
   }()
   
   lazy var isVariadicMethod: Bool = {
     return method.parameters.contains(where: { $0.attributes.contains(.variadic) })
   }()
+}
+
+private extension MethodParameter {
+  func mockableTypeName(in context: MethodTemplate, forClosure: Bool) -> String {
+    let rawTypeName = context.context.specializeTypeName(self.typeName)
+    
+    // When the type names are used for invocations instead of declaring the method parameters.
+    guard forClosure else {
+      return "\(rawTypeName)"
+    }
+    
+    let typeName = rawTypeName.removingImplicitlyUnwrappedOptionals()
+    if attributes.contains(.variadic) {
+      return "[\(typeName.dropLast(3))]"
+    } else {
+      return "\(typeName)"
+    }
+  }
+  
+  var invocationName: String {
+    let inoutAttribute = attributes.contains(.inout) ? "&" : ""
+    let autoclosureForwarding = attributes.contains(.autoclosure) ? "()" : ""
+    return "\(inoutAttribute)`\(name)`\(autoclosureForwarding)"
+  }
+  
+  func matchableTypeName(in context: MethodTemplate) -> String {
+    let typeName = context.context.specializeTypeName(self.typeName).removingParameterAttributes()
+    if attributes.contains(.variadic) {
+      return "[" + typeName + "]"
+    } else {
+      return typeName
+    }
+  }
 }

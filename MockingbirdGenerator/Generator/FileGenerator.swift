@@ -85,7 +85,7 @@ class FileGenerator {
     queue.addOperations(operations, waitUntilFinished: true)
     let substructure = [PartialFileContent(contents: synchronizedClass),
                         PartialFileContent(contents: genericTypesStaticMocks)]
-      + operations.map({ $0.result.renderedContents })
+      + operations.map({ PartialFileContent(contents: $0.result.renderedContents) })
     return PartialFileContent(substructure: substructure, delimiter: "\n\n")
   }
   

@@ -19,12 +19,8 @@ class VariableTemplate: Renderable {
     self.context = context
   }
   
-  func render(in context: RenderContext) -> PartialFileContent {
-    let substructure = [
-      PartialFileContent(contents: mockedDeclaration.indent(by: context.indentation)),
-      PartialFileContent(contents: frameworkDeclarations.indent(by: context.indentation)),
-    ]
-    return PartialFileContent(substructure: substructure, delimiter: "\n\n")
+  func render() -> String {
+    return [mockedDeclaration, frameworkDeclarations].joined(separator: "\n\n")
   }
   
   var mockedDeclaration: String {

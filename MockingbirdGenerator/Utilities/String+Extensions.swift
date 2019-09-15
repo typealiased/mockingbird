@@ -43,7 +43,7 @@ public extension String {
   /// - Parameter offset: The number of times to indent the current string.
   /// - Returns: A new indented string instance.
   @inlinable
-  func indent(by offset: UInt) -> String {
+  func indent(by offset: UInt = 1) -> String {
     guard offset > 0, !isEmpty else { return self }
     let lines = substringComponents(separatedBy: "\n")
     var indentation = "  "

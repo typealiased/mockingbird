@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MockableTypeInitializerTemplate: Renderable {
+struct MockableTypeInitializerTemplate: Renderable {
   let mockableTypeTemplate: MockableTypeTemplate
   let containingTypeNames: [String]
   init(mockableTypeTemplate: MockableTypeTemplate, containingTypeNames: [String]) {
@@ -15,20 +15,20 @@ class MockableTypeInitializerTemplate: Renderable {
     self.containingTypeNames = containingTypeNames
   }
   
-  func render(in context: RenderContext) -> PartialFileContent {
+  func render() -> String {
     let nestedContainingTypeNames = containingTypeNames + [mockableTypeTemplate.mockableType.name]
     let initializers = [renderInitializer(with: containingTypeNames)] +
-      mockableTypeTemplate.mockableType.containedTypes.map({ type -> PartialFileContent in
+      mockableTypeTemplate.mockableType.containedTypes.map({ type -> String in
         let template = MockableTypeInitializerTemplate(
           mockableTypeTemplate: MockableTypeTemplate(mockableType: type),
           containingTypeNames: nestedContainingTypeNames
         )
-        return template.render(in: context)
+        return template.render()
       })
-    return PartialFileContent(substructure: initializers, delimiter: "\n\n")
+    return initializers.joined(separator: "\n\n")
   }
 
-  private func renderInitializer(with containingTypeNames: [String]) -> PartialFileContent {
+  private func renderInitializer(with containingTypeNames: [String]) -> String {
     let allGenericTypes = mockableTypeTemplate.allGenericTypes
     let kind = mockableTypeTemplate.mockableType.kind
     let scopedName = mockableTypeTemplate.createScopedName(with: containingTypeNames)
@@ -67,12 +67,11 @@ class MockableTypeInitializerTemplate: Renderable {
       returnTypeDescription = "concrete protocol mock instance"
     }
     
-    let contents = """
+    return """
     /// Create a source-attributed `\(mockableTypeTemplate.fullyQualifiedName)\(allGenericTypes)` \(returnTypeDescription).
     public func mock\(genericMethodAttribute)(file: StaticString = #file, line: UInt = #line, _ type: \(metatype)) -> \(returnType) {
       return \(returnObject)
     }
     """
-    return PartialFileContent(contents: contents)
   }
 }

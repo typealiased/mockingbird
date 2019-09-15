@@ -41,8 +41,8 @@ class MockableTypeTemplate: Renderable {
     return template
   }
   
-  func render(in context: RenderContext) -> PartialFileContent {
-    let contents = """
+  func render() -> String {
+    return """
     // MARK: - Mocked \(mockableType.name)
     
     public final class \(mockableType.name)Mock\(allSpecializedGenericTypes): \(allInheritedTypes)\(allGenericConstraints) {
@@ -57,14 +57,10 @@ class MockableTypeTemplate: Renderable {
           \(mockableType.name)Mock.staticMock.stubbingContext.sourceLocation = newValue
         }
       }
-
-
-    """.indent(by: context.indentation)
-    let bodySubstructure = renderBody(in: context)
-    return PartialFileContent(contents: contents,
-                              substructure: bodySubstructure,
-                              delimiter: "\n\n",
-                              footer: "\n" + "}".indent(by: context.indentation))
+    
+    \(renderBody())
+    }
+    """
   }
   
   /// The static mocking context allows static (or class) declared methods to be mocked.
@@ -158,45 +154,42 @@ class MockableTypeTemplate: Renderable {
     return fullyQualifiedName
   }
   
-  func renderBody(in context: RenderContext) -> [PartialFileContent] {
-    return [renderInitializerProxy(in: context),
-            renderVariables(in: context),
-            PartialFileContent(contents: equatableConformance.indent(by: context.indentation)),
-            PartialFileContent(contents: codeableInitializer.indent(by: context.indentation)),
-            PartialFileContent(contents: defaultInitializer.indent(by: context.indentation)),
-            renderMethods(in: context),
-            renderContainedTypes(in: context)]
+  func renderBody() -> String {
+    return [renderInitializerProxy(),
+            renderVariables(),
+            equatableConformance,
+            codeableInitializer,
+            defaultInitializer,
+            renderMethods(),
+            renderContainedTypes()]
       .filter({ !$0.isEmpty })
+      .joined(separator: "\n\n")
   }
   
-  func renderContainedTypes(in context: RenderContext) -> PartialFileContent {
-    guard !mockableType.containedTypes.isEmpty else { return .empty }
+  func renderContainedTypes() -> String {
+    guard !mockableType.containedTypes.isEmpty else { return "" }
     let containedTypesSubstructure = mockableType.containedTypes
-      .map({ MockableTypeTemplate(mockableType: $0).render(in: RenderContext(nestedIn: context)) })
-    return PartialFileContent(substructure: containedTypesSubstructure, delimiter: "\n\n")
+      .map({ MockableTypeTemplate(mockableType: $0).render().indent() })
+    return containedTypesSubstructure.joined(separator: "\n\n")
   }
   
-  func renderInitializerProxy(in context: RenderContext) -> PartialFileContent {
+  func renderInitializerProxy() -> String {
     let isProxyable: (Method) -> Bool = {
       // We can't usually infer what concrete arguments to pass to the designated initializer.
       $0.isInitializer && !$0.attributes.contains(.convenience)
     }
     guard mockableType.kind == .class, mockableType.methods.contains(where: isProxyable)
-      else { return .empty }
+      else { return "" }
     let initializers = mockableType.methods
       .filter(isProxyable)
       .sorted()
-      .map({ methodTemplate(for: $0).classInitializerProxy.indent(by: context.indentation) })
-      .map({ PartialFileContent(contents: $0) })
+      .map({ methodTemplate(for: $0).classInitializerProxy })
     
-    let contents = """
+    return """
       public enum InitializerProxy {
-
-    """.indent(by: context.indentation)
-    return PartialFileContent(contents: contents,
-                              substructure: initializers,
-                              delimiter: "\n\n",
-                              footer: "\n" + "  }".indent(by: context.indentation))
+    \(initializers.joined(separator: "\n\n"))
+      }
+    """
   }
   
   var equatableConformance: String {
@@ -234,15 +227,15 @@ class MockableTypeTemplate: Renderable {
     """
   }
   
-  func renderVariables(in context: RenderContext) -> PartialFileContent {
-    let substructure = mockableType.variables
+  func renderVariables() -> String {
+    return mockableType.variables
       .sorted(by: <)
-      .map({ VariableTemplate(variable: $0, context: self).render(in: context) })
-    return PartialFileContent(substructure: substructure, delimiter: "\n\n")
+      .map({ VariableTemplate(variable: $0, context: self).render() })
+      .joined(separator: "\n\n")
   }
   
-  func renderMethods(in context: RenderContext) -> PartialFileContent {
-    let substructure = mockableType.methods
+  func renderMethods() -> String {
+    return mockableType.methods
       .sorted(by: <)
       .filter({ method -> Bool in
         // Not possible to override overloaded methods where uniqueness is from generic constraints.
@@ -251,9 +244,9 @@ class MockableTypeTemplate: Renderable {
         guard !method.genericConstraints.isEmpty else { return true }
         return mockableType.methodsCount[Method.Reduced(from: method)] == 1
       })
-      .map({ methodTemplate(for: $0).render(in: context) })
+      .map({ methodTemplate(for: $0).render() })
       .filter({ !$0.isEmpty })
-    return PartialFileContent(substructure: substructure, delimiter: "\n\n")
+      .joined(separator: "\n\n")
   }
   
   @inlinable

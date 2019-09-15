@@ -13,7 +13,7 @@ class RenderMockableTypeOperation: BasicOperation {
   let moduleName: String
   
   class Result {
-    fileprivate(set) var renderedContents = PartialFileContent.empty
+    fileprivate(set) var renderedContents = ""
   }
   
   let result = Result()
@@ -26,10 +26,10 @@ class RenderMockableTypeOperation: BasicOperation {
   override func run() {
     let mockableTypeTemplate = MockableTypeTemplate(mockableType: mockableType)
     let substructure = [
-      mockableTypeTemplate.render(in: .topLevel),
+      mockableTypeTemplate.render(),
       MockableTypeInitializerTemplate(mockableTypeTemplate: mockableTypeTemplate,
-                                      containingTypeNames: []).render(in: .topLevel),
+                                      containingTypeNames: []).render(),
     ]
-    result.renderedContents = PartialFileContent(substructure: substructure, delimiter: "\n\n")
+    result.renderedContents = substructure.joined(separator: "\n\n")
   }
 }

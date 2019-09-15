@@ -56,7 +56,6 @@
 		493EA24F232D5CCD008BF44B /* ExceptionsStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493EA24E232D5CCD008BF44B /* ExceptionsStubbableTests.swift */; };
 		493EA251232D8A03008BF44B /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493EA250232D8A03008BF44B /* Renderable.swift */; };
 		493EA253232D8CD6008BF44B /* MockableTypeInitializerTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493EA252232D8CD6008BF44B /* MockableTypeInitializerTemplate.swift */; };
-		493EA259232DBA8C008BF44B /* MethodParameterTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493EA258232DBA8B008BF44B /* MethodParameterTemplate.swift */; };
 		49965D322321B7E2002F9CD5 /* TreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49965D312321B7E2002F9CD5 /* TreeTests.swift */; };
 		49965D352321B8D1002F9CD5 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49965D342321B8D1002F9CD5 /* Bird.swift */; };
 		49965D372321BA90002F9CD5 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49965D362321BA90002F9CD5 /* Tree.swift */; };
@@ -915,7 +914,6 @@
 		493EA24E232D5CCD008BF44B /* ExceptionsStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionsStubbableTests.swift; sourceTree = "<group>"; };
 		493EA250232D8A03008BF44B /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
 		493EA252232D8CD6008BF44B /* MockableTypeInitializerTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockableTypeInitializerTemplate.swift; sourceTree = "<group>"; };
-		493EA258232DBA8B008BF44B /* MethodParameterTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MethodParameterTemplate.swift; sourceTree = "<group>"; };
 		49965D312321B7E2002F9CD5 /* TreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeTests.swift; sourceTree = "<group>"; };
 		49965D342321B8D1002F9CD5 /* Bird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
 		49965D362321BA90002F9CD5 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
@@ -2566,7 +2564,6 @@
 			children = (
 				OBJ_58 /* FileGenerator.swift */,
 				OBJ_67 /* GenerateFileOperation.swift */,
-				493EA258232DBA8B008BF44B /* MethodParameterTemplate.swift */,
 				OBJ_60 /* MethodTemplate.swift */,
 				493EA252232D8CD6008BF44B /* MockableTypeInitializerTemplate.swift */,
 				OBJ_61 /* MockableTypeTemplate.swift */,
@@ -3583,7 +3580,6 @@
 				OBJ_709 /* GenerateFileOperation.swift in Sources */,
 				OBJ_710 /* GenericType.swift in Sources */,
 				OBJ_711 /* Method.swift in Sources */,
-				493EA259232DBA8C008BF44B /* MethodParameterTemplate.swift in Sources */,
 				OBJ_712 /* MockableType.swift in Sources */,
 				OBJ_713 /* ParseFilesOperation.swift in Sources */,
 				OBJ_714 /* ProcessTypesOperation.swift in Sources */,
