@@ -26,7 +26,7 @@ extension GenericType {
 }
 
 /// Renders a `MockableType` to a `PartialFileContent` object.
-class MockableTypeTemplate: Renderable {
+class MockableTypeTemplate: Template {
   let mockableType: MockableType
   private var methodTemplates = [Method: MethodTemplate]()
   init(mockableType: MockableType) {

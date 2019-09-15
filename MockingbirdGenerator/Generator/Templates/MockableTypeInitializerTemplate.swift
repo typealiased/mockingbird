@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MockableTypeInitializerTemplate: Renderable {
+struct MockableTypeInitializerTemplate: Template {
   let mockableTypeTemplate: MockableTypeTemplate
   let containingTypeNames: [String]
   init(mockableTypeTemplate: MockableTypeTemplate, containingTypeNames: [String]) {

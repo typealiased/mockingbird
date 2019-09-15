@@ -9,6 +9,7 @@
 import Foundation
 
 public extension OperationQueue {
+  @inlinable
   static func createForActiveProcessors() -> OperationQueue {
     let queue = OperationQueue()
     queue.maxConcurrentOperationCount = ProcessInfo.processInfo.activeProcessorCount

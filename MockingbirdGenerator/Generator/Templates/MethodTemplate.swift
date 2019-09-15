@@ -11,7 +11,7 @@
 import Foundation
 
 /// Renders a `Method` to a `PartialFileContent` object.
-class MethodTemplate: Renderable {
+class MethodTemplate: Template {
   let method: Method
   let context: MockableTypeTemplate
   init(method: Method, context: MockableTypeTemplate) {

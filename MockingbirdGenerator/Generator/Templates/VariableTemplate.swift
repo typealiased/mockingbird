@@ -11,7 +11,7 @@
 import Foundation
 
 /// Renders a `Variable` to a `PartialFileContent` object.
-class VariableTemplate: Renderable {
+class VariableTemplate: Template {
   let variable: Variable
   let context: MockableTypeTemplate
   init(variable: Variable, context: MockableTypeTemplate) {

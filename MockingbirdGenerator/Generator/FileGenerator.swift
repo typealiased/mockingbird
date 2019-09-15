@@ -80,7 +80,15 @@ class FileGenerator {
     guard !mockableTypes.isEmpty else { return PartialFileContent(contents: "") }
     let operations = mockableTypes
       .sorted(by: <)
-      .map({ RenderMockableTypeOperation(mockableType: $0, moduleName: moduleName) })
+      .flatMap({ mockableType -> [RenderTemplateOperation] in
+        let mockableTypeTemplate = MockableTypeTemplate(mockableType: mockableType)
+        let initializerTemplate = MockableTypeInitializerTemplate(
+          mockableTypeTemplate: mockableTypeTemplate,
+          containingTypeNames: []
+        )
+        return [RenderTemplateOperation(template: mockableTypeTemplate),
+                RenderTemplateOperation(template: initializerTemplate)]
+      })
     let queue = OperationQueue.createForActiveProcessors()
     queue.addOperations(operations, waitUntilFinished: true)
     let substructure = [PartialFileContent(contents: synchronizedClass),

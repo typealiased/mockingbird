@@ -54,7 +54,7 @@
 		493EA24B232D51BB008BF44B /* Exceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493EA24A232D51BB008BF44B /* Exceptions.swift */; };
 		493EA24D232D5C5D008BF44B /* ExceptionsMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493EA24C232D5C5D008BF44B /* ExceptionsMockableTests.swift */; };
 		493EA24F232D5CCD008BF44B /* ExceptionsStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493EA24E232D5CCD008BF44B /* ExceptionsStubbableTests.swift */; };
-		493EA251232D8A03008BF44B /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493EA250232D8A03008BF44B /* Renderable.swift */; };
+		493EA251232D8A03008BF44B /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493EA250232D8A03008BF44B /* Template.swift */; };
 		493EA253232D8CD6008BF44B /* MockableTypeInitializerTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493EA252232D8CD6008BF44B /* MockableTypeInitializerTemplate.swift */; };
 		49965D322321B7E2002F9CD5 /* TreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49965D312321B7E2002F9CD5 /* TreeTests.swift */; };
 		49965D352321B8D1002F9CD5 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49965D342321B8D1002F9CD5 /* Bird.swift */; };
@@ -306,7 +306,7 @@
 		OBJ_694 /* TestFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_54 /* TestFailure.swift */; };
 		OBJ_695 /* Verification.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_55 /* Verification.swift */; };
 		OBJ_701 /* FileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_58 /* FileGenerator.swift */; };
-		OBJ_702 /* RenderMockableTypeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_59 /* RenderMockableTypeOperation.swift */; };
+		OBJ_702 /* RenderTemplateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_59 /* RenderTemplateOperation.swift */; };
 		OBJ_703 /* MethodTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_60 /* MethodTemplate.swift */; };
 		OBJ_704 /* MockableTypeTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_61 /* MockableTypeTemplate.swift */; };
 		OBJ_705 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_62 /* String+Extensions.swift */; };
@@ -912,7 +912,7 @@
 		493EA24A232D51BB008BF44B /* Exceptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exceptions.swift; sourceTree = "<group>"; };
 		493EA24C232D5C5D008BF44B /* ExceptionsMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionsMockableTests.swift; sourceTree = "<group>"; };
 		493EA24E232D5CCD008BF44B /* ExceptionsStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionsStubbableTests.swift; sourceTree = "<group>"; };
-		493EA250232D8A03008BF44B /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
+		493EA250232D8A03008BF44B /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		493EA252232D8CD6008BF44B /* MockableTypeInitializerTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockableTypeInitializerTemplate.swift; sourceTree = "<group>"; };
 		49965D312321B7E2002F9CD5 /* TreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeTests.swift; sourceTree = "<group>"; };
 		49965D342321B8D1002F9CD5 /* Bird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
@@ -1273,7 +1273,7 @@
 		OBJ_54 /* TestFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFailure.swift; sourceTree = "<group>"; };
 		OBJ_55 /* Verification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verification.swift; sourceTree = "<group>"; };
 		OBJ_58 /* FileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileGenerator.swift; sourceTree = "<group>"; };
-		OBJ_59 /* RenderMockableTypeOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderMockableTypeOperation.swift; sourceTree = "<group>"; };
+		OBJ_59 /* RenderTemplateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderTemplateOperation.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_60 /* MethodTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodTemplate.swift; sourceTree = "<group>"; };
 		OBJ_61 /* MockableTypeTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockableTypeTemplate.swift; sourceTree = "<group>"; };
@@ -1561,7 +1561,7 @@
 				OBJ_60 /* MethodTemplate.swift */,
 				493EA252232D8CD6008BF44B /* MockableTypeInitializerTemplate.swift */,
 				OBJ_61 /* MockableTypeTemplate.swift */,
-				493EA250232D8A03008BF44B /* Renderable.swift */,
+				493EA250232D8A03008BF44B /* Template.swift */,
 				OBJ_63 /* VariableTemplate.swift */,
 			);
 			path = Templates;
@@ -1571,7 +1571,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_67 /* GenerateFileOperation.swift */,
-				OBJ_59 /* RenderMockableTypeOperation.swift */,
+				OBJ_59 /* RenderTemplateOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -3600,7 +3600,7 @@
 			files = (
 				49D7D4CB231F2E0300537655 /* Path+WriteUtf8Strings.swift in Sources */,
 				OBJ_701 /* FileGenerator.swift in Sources */,
-				OBJ_702 /* RenderMockableTypeOperation.swift in Sources */,
+				OBJ_702 /* RenderTemplateOperation.swift in Sources */,
 				OBJ_703 /* MethodTemplate.swift in Sources */,
 				493EA253232D8CD6008BF44B /* MockableTypeInitializerTemplate.swift in Sources */,
 				OBJ_704 /* MockableTypeTemplate.swift in Sources */,
@@ -3622,7 +3622,7 @@
 				OBJ_718 /* String+SourceryExtensions.swift in Sources */,
 				OBJ_719 /* TypeAttributes.swift in Sources */,
 				491CDF01231CF51C00C48C47 /* DeclaredType.swift in Sources */,
-				493EA251232D8A03008BF44B /* Renderable.swift in Sources */,
+				493EA251232D8A03008BF44B /* Template.swift in Sources */,
 				49F5E5252324968500EC87E4 /* SerializationRequest.swift in Sources */,
 				OBJ_720 /* Typealias.swift in Sources */,
 				OBJ_721 /* Variable.swift in Sources */,
