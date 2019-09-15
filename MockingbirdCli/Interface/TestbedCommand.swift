@@ -1,5 +1,5 @@
 //
-//  MetagenerateCommand.swift
+//  TestbedCommand.swift
 //  MockingbirdCli
 //
 //  Created by Andrew Chang on 9/7/19.
@@ -9,8 +9,8 @@ import Foundation
 import PathKit
 import SPMUtility
 
-struct MetagenerateCommand: Command {
-  let command = "metagenerate"
+struct TestbedCommand: Command {
+  let command = "testbed"
   let overview = "Generate source files for benchmarking Mockingbird."
   
   private let outputArgument: OptionArgument<PathArgument>

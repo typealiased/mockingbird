@@ -14,7 +14,7 @@ func main(arguments: [String]) {
                         commands: [GenerateCommand.self,
                                    InstallCommand.self,
                                    UninstallCommand.self,
-                                   MetagenerateCommand.self,
+                                   TestbedCommand.self,
                                    VersionCommand.self])
   program.run(with: arguments)
 }

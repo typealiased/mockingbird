@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Mockingbird::MockingbirdFramework"
-               BuildableName = "MockingbirdFramework.framework"
-               BlueprintName = "MockingbirdFramework"
+               BlueprintIdentifier = "Mockingbird::MockingbirdModuleTestsHost"
+               BuildableName = "MockingbirdModuleTestsHost.framework"
+               BlueprintName = "MockingbirdModuleTestsHost"
                ReferencedContainer = "container:Mockingbird.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "Mockingbird::MockingbirdFramework"
-            BuildableName = "MockingbirdFramework.framework"
-            BlueprintName = "MockingbirdFramework"
+            BlueprintIdentifier = "Mockingbird::MockingbirdModuleTestsHost"
+            BuildableName = "MockingbirdModuleTestsHost.framework"
+            BlueprintName = "MockingbirdModuleTestsHost"
             ReferencedContainer = "container:Mockingbird.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "Mockingbird::MockingbirdFramework"
-            BuildableName = "MockingbirdFramework.framework"
-            BlueprintName = "MockingbirdFramework"
+            BlueprintIdentifier = "Mockingbird::MockingbirdModuleTestsHost"
+            BuildableName = "MockingbirdModuleTestsHost.framework"
+            BlueprintName = "MockingbirdModuleTestsHost"
             ReferencedContainer = "container:Mockingbird.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

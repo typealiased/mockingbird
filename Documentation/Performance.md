@@ -1,6 +1,6 @@
 # Performance
 
-Last revised on September 12, 2019 for version `0.5.0`.
+Last revised on September 16, 2019 for version `0.5.0`.
 
 ## Methodology
 
@@ -12,7 +12,7 @@ up to 15 members. See [MetagenerateCommand.swift](/MockingbirdCli/Interface/Meta
 for the benchmarking source template.
 
 ```bash
-$ mockingbird metagenerate --output ./MockingbirdTestsHost/Generated --count 1000
+$ mockingbird testbed --output ./MockingbirdTestsHost/Performance --count 1000
 ```
 
 All results are from a MacBook Pro (15-inch, 2018), 2.9 GHz Intel Core i9, 32 GB 2400 MHz DDR4.
@@ -28,7 +28,7 @@ performance by eschewing [Sourcery](https://github.com/krzysztofzablocki/Sourcer
 and templating Swift sources, a more tailored approach allows for greater optimization.
 
 ```bash
-$ hyperfine --warmup 10 'mockingbird generate --project ./Mockingbird.xcodeproj --target MockingbirdTestsHost --output MockingbirdMocks.generated.swift'
+$ hyperfine --warmup 10 'mockingbird generate --project ./Mockingbird.xcodeproj --target MockingbirdPerformanceTestsHost --output MockingbirdMocks.generated.swift'
 ```
 
 | Mean (s) | Min (s) | Max (s) |
@@ -61,7 +61,7 @@ Mockingbird will be included here.
 ### Cuckoo
 
 ```bash
-$ hyperfine --warmup 10 'cuckoo generate --testable "MockingbirdTestsHost" --output CuckooMocks.generated.swift ./MockingbirdTestsHost/*.swift'
+$ hyperfine --warmup 10 'cuckoo generate --output CuckooMocks.generated.swift ./MockingbirdTestsHost/Performance/*.swift'
 ```
 
 | Mean (s) | Min (s) | Max (s) |

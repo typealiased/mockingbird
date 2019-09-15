@@ -12,7 +12,7 @@ mockingbirdCli.zip
 mockingbird
 
 ## Benchmarking
-MockingbirdTestsHost/Generated
+MockingbirdTestsHost/Performance/Generated/
 
 ## Various settings
 *.pbxuser

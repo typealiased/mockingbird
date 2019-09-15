@@ -17,7 +17,8 @@ let package = Package(
     .target(
       name: "MockingbirdFramework",
       dependencies: [],
-      path: "MockingbirdFramework"
+      path: "MockingbirdFramework",
+      linkerSettings: [.linkedFramework("XCTest")]
     ),
     .target(
       name: "MockingbirdGenerator",
@@ -39,7 +40,18 @@ let package = Package(
     .target(
       name: "MockingbirdTestsHost",
       dependencies: [],
-      path: "MockingbirdTestsHost"
+      path: "MockingbirdTestsHost",
+      exclude: ["Module", "Performance"]
+    ),
+    .target(
+      name: "MockingbirdModuleTestsHost",
+      dependencies: [],
+      path: "MockingbirdTestsHost/Module"
+    ),
+    .target(
+      name: "MockingbirdPerformanceTestsHost",
+      dependencies: [],
+      path: "MockingbirdTestsHost/Performance"
     ),
     .testTarget(
       name: "MockingbirdTests",
@@ -47,11 +59,9 @@ let package = Package(
         "MockingbirdFramework",
         "MockingbirdGenerator",
         "MockingbirdTestsHost",
+        "MockingbirdPerformanceTestsHost",
       ],
-      path: "MockingbirdTests",
-      exclude: [
-        "Resources",
-      ]
+      path: "MockingbirdTests"
     )
   ]
 )

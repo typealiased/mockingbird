@@ -1,0 +1,2 @@
+INFOPLIST_FILE = $(SRCROOT)/MockingbirdCli/Info.plist
+FRAMEWORK_SEARCH_PATHS = $(PLATFORM_DIR)/Developer/Library/Frameworks
