@@ -6795,7 +6795,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
   }
 
   // MARK: - Mocked SecondLevelType
-  
+
   public final class SecondLevelTypeMock: SecondLevelType, Mockingbird.Mock {
     static let staticMock = Mockingbird.StaticMock()
     public let mockingContext = Mockingbird.MockingContext()
@@ -6808,19 +6808,19 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         SecondLevelTypeMock.staticMock.stubbingContext.sourceLocation = newValue
       }
     }
-  
+
     public static func ==(lhs: SecondLevelTypeMock, rhs: SecondLevelTypeMock) -> Bool {
       return true
     }
-  
+
     fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
       super.init()
       Mockingbird.checkVersion(for: self)
       self.sourceLocation = sourceLocation
     }
-  
+
     // MARK: Mocked `secondLevelMethod(param1:param2:)`
-  
+
     public override func secondLevelMethod(param1: TopLevelType, param2: ThirdLevelType) -> Bool {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "secondLevelMethod(param1:param2:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
       mockingContext.didInvoke(invocation)
@@ -6831,15 +6831,15 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         return (implementation as! () -> Bool)()
       }
     }
-  
+
     public func secondLevelMethod(param1: @escaping @autoclosure () -> TopLevelType, param2: @escaping @autoclosure () -> ThirdLevelType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (TopLevelType, ThirdLevelType) -> Bool, Bool> {
       let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "secondLevelMethod(param1:param2:) -> Bool", arguments: arguments)
       return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (TopLevelType, ThirdLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
     }
-  
+
     // MARK: - Mocked ThirdLevelInheritingTopLevelType
-    
+
     public final class ThirdLevelInheritingTopLevelTypeMock: ThirdLevelInheritingTopLevelType, Mockingbird.Mock {
       static let staticMock = Mockingbird.StaticMock()
       public let mockingContext = Mockingbird.MockingContext()
@@ -6852,19 +6852,19 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           ThirdLevelInheritingTopLevelTypeMock.staticMock.stubbingContext.sourceLocation = newValue
         }
       }
-    
+
       public static func ==(lhs: ThirdLevelInheritingTopLevelTypeMock, rhs: ThirdLevelInheritingTopLevelTypeMock) -> Bool {
         return true
       }
-    
+
       fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
         super.init()
         Mockingbird.checkVersion(for: self)
         self.sourceLocation = sourceLocation
       }
-    
+
       // MARK: Mocked `thirdLevelInheritingMethod()`
-    
+
       public override func thirdLevelInheritingMethod() -> TopLevelType {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelInheritingMethod() -> TopLevelType", arguments: [])
         mockingContext.didInvoke(invocation)
@@ -6875,14 +6875,14 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           return (implementation as! () -> TopLevelType)()
         }
       }
-    
+
       public func thirdLevelInheritingMethod() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> TopLevelType, TopLevelType> {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelInheritingMethod() -> TopLevelType", arguments: [])
         return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> TopLevelType, TopLevelType>(mock: self, invocation: invocation)
       }
-    
+
       // MARK: Mocked `topLevelMethod(param1:param2:)`
-    
+
       public override func topLevelMethod(param1: SecondLevelType, param2: SecondLevelType.ThirdLevelType) -> Bool {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "topLevelMethod(param1:param2:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
         mockingContext.didInvoke(invocation)
@@ -6893,16 +6893,16 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           return (implementation as! () -> Bool)()
         }
       }
-    
+
       public func topLevelMethod(param1: @escaping @autoclosure () -> SecondLevelType, param2: @escaping @autoclosure () -> SecondLevelType.ThirdLevelType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SecondLevelType, SecondLevelType.ThirdLevelType) -> Bool, Bool> {
         let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "topLevelMethod(param1:param2:) -> Bool", arguments: arguments)
         return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SecondLevelType, SecondLevelType.ThirdLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
       }
     }
-  
+
     // MARK: - Mocked ThirdLevelInheritingThirdLevelType
-    
+
     public final class ThirdLevelInheritingThirdLevelTypeMock: ThirdLevelInheritingThirdLevelType, Mockingbird.Mock {
       static let staticMock = Mockingbird.StaticMock()
       public let mockingContext = Mockingbird.MockingContext()
@@ -6915,19 +6915,19 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           ThirdLevelInheritingThirdLevelTypeMock.staticMock.stubbingContext.sourceLocation = newValue
         }
       }
-    
+
       public static func ==(lhs: ThirdLevelInheritingThirdLevelTypeMock, rhs: ThirdLevelInheritingThirdLevelTypeMock) -> Bool {
         return true
       }
-    
+
       fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
         super.init()
         Mockingbird.checkVersion(for: self)
         self.sourceLocation = sourceLocation
       }
-    
+
       // MARK: Mocked `thirdLevelInheritingMethod()`
-    
+
       public override func thirdLevelInheritingMethod() -> ThirdLevelType {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelInheritingMethod() -> ThirdLevelType", arguments: [])
         mockingContext.didInvoke(invocation)
@@ -6938,14 +6938,14 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           return (implementation as! () -> ThirdLevelType)()
         }
       }
-    
+
       public func thirdLevelInheritingMethod() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ThirdLevelType, ThirdLevelType> {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelInheritingMethod() -> ThirdLevelType", arguments: [])
         return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ThirdLevelType, ThirdLevelType>(mock: self, invocation: invocation)
       }
-    
+
       // MARK: Mocked `thirdLevelMethod(param1:param2:)`
-    
+
       public override func thirdLevelMethod(param1: TopLevelType, param2: SecondLevelType) -> Bool {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
         mockingContext.didInvoke(invocation)
@@ -6956,16 +6956,16 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           return (implementation as! () -> Bool)()
         }
       }
-    
+
       public func thirdLevelMethod(param1: @escaping @autoclosure () -> TopLevelType, param2: @escaping @autoclosure () -> SecondLevelType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (TopLevelType, SecondLevelType) -> Bool, Bool> {
         let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
         return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (TopLevelType, SecondLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
       }
     }
-  
+
     // MARK: - Mocked ThirdLevelInheritingPartiallyQualifiedThirdLevelType
-    
+
     public final class ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock: ThirdLevelInheritingPartiallyQualifiedThirdLevelType, Mockingbird.Mock {
       static let staticMock = Mockingbird.StaticMock()
       public let mockingContext = Mockingbird.MockingContext()
@@ -6978,19 +6978,19 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock.staticMock.stubbingContext.sourceLocation = newValue
         }
       }
-    
+
       public static func ==(lhs: ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock, rhs: ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock) -> Bool {
         return true
       }
-    
+
       fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
         super.init()
         Mockingbird.checkVersion(for: self)
         self.sourceLocation = sourceLocation
       }
-    
+
       // MARK: Mocked `thirdLevelInheritingMethod()`
-    
+
       public override func thirdLevelInheritingMethod() -> ThirdLevelType {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelInheritingMethod() -> ThirdLevelType", arguments: [])
         mockingContext.didInvoke(invocation)
@@ -7001,14 +7001,14 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           return (implementation as! () -> ThirdLevelType)()
         }
       }
-    
+
       public func thirdLevelInheritingMethod() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ThirdLevelType, ThirdLevelType> {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelInheritingMethod() -> ThirdLevelType", arguments: [])
         return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ThirdLevelType, ThirdLevelType>(mock: self, invocation: invocation)
       }
-    
+
       // MARK: Mocked `thirdLevelMethod(param1:param2:)`
-    
+
       public override func thirdLevelMethod(param1: TopLevelType, param2: SecondLevelType) -> Bool {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
         mockingContext.didInvoke(invocation)
@@ -7019,16 +7019,16 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           return (implementation as! () -> Bool)()
         }
       }
-    
+
       public func thirdLevelMethod(param1: @escaping @autoclosure () -> TopLevelType, param2: @escaping @autoclosure () -> SecondLevelType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (TopLevelType, SecondLevelType) -> Bool, Bool> {
         let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
         return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (TopLevelType, SecondLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
       }
     }
-  
+
     // MARK: - Mocked ThirdLevelInheritingFullyQualifiedThirdLevelType
-    
+
     public final class ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock: ThirdLevelInheritingFullyQualifiedThirdLevelType, Mockingbird.Mock {
       static let staticMock = Mockingbird.StaticMock()
       public let mockingContext = Mockingbird.MockingContext()
@@ -7041,19 +7041,19 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock.staticMock.stubbingContext.sourceLocation = newValue
         }
       }
-    
+
       public static func ==(lhs: ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock, rhs: ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock) -> Bool {
         return true
       }
-    
+
       fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
         super.init()
         Mockingbird.checkVersion(for: self)
         self.sourceLocation = sourceLocation
       }
-    
+
       // MARK: Mocked `thirdLevelInheritingMethod()`
-    
+
       public override func thirdLevelInheritingMethod() -> ThirdLevelType {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelInheritingMethod() -> ThirdLevelType", arguments: [])
         mockingContext.didInvoke(invocation)
@@ -7064,14 +7064,14 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           return (implementation as! () -> ThirdLevelType)()
         }
       }
-    
+
       public func thirdLevelInheritingMethod() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ThirdLevelType, ThirdLevelType> {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelInheritingMethod() -> ThirdLevelType", arguments: [])
         return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ThirdLevelType, ThirdLevelType>(mock: self, invocation: invocation)
       }
-    
+
       // MARK: Mocked `thirdLevelMethod(param1:param2:)`
-    
+
       public override func thirdLevelMethod(param1: TopLevelType, param2: SecondLevelType) -> Bool {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
         mockingContext.didInvoke(invocation)
@@ -7082,16 +7082,16 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           return (implementation as! () -> Bool)()
         }
       }
-    
+
       public func thirdLevelMethod(param1: @escaping @autoclosure () -> TopLevelType, param2: @escaping @autoclosure () -> SecondLevelType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (TopLevelType, SecondLevelType) -> Bool, Bool> {
         let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
         return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (TopLevelType, SecondLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
       }
     }
-  
+
     // MARK: - Mocked ThirdLevelType
-    
+
     public final class ThirdLevelTypeMock: ThirdLevelType, Mockingbird.Mock {
       static let staticMock = Mockingbird.StaticMock()
       public let mockingContext = Mockingbird.MockingContext()
@@ -7104,19 +7104,19 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           ThirdLevelTypeMock.staticMock.stubbingContext.sourceLocation = newValue
         }
       }
-    
+
       public static func ==(lhs: ThirdLevelTypeMock, rhs: ThirdLevelTypeMock) -> Bool {
         return true
       }
-    
+
       fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
         super.init()
         Mockingbird.checkVersion(for: self)
         self.sourceLocation = sourceLocation
       }
-    
+
       // MARK: Mocked `thirdLevelMethod(param1:param2:)`
-    
+
       public override func thirdLevelMethod(param1: TopLevelType, param2: SecondLevelType) -> Bool {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
         mockingContext.didInvoke(invocation)
@@ -7127,7 +7127,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           return (implementation as! () -> Bool)()
         }
       }
-    
+
       public func thirdLevelMethod(param1: @escaping @autoclosure () -> TopLevelType, param2: @escaping @autoclosure () -> SecondLevelType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (TopLevelType, SecondLevelType) -> Bool, Bool> {
         let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1:param2:) -> Bool", arguments: arguments)
@@ -7246,7 +7246,7 @@ public final class TreeMock: MockingbirdTestsHost.Tree, Mockingbird.Mock {
   }
 
   // MARK: - Mocked Fruit
-  
+
   public final class FruitMock: Fruit, Mockingbird.Mock {
     static let staticMock = Mockingbird.StaticMock()
     public let mockingContext = Mockingbird.MockingContext()
@@ -7259,7 +7259,7 @@ public final class TreeMock: MockingbirdTestsHost.Tree, Mockingbird.Mock {
         FruitMock.staticMock.stubbingContext.sourceLocation = newValue
       }
     }
-  
+
     public enum InitializerProxy {
       public static func initialize(size: Int, __file: StaticString = #file, __line: UInt = #line) -> FruitMock {
         let mock: FruitMock = FruitMock(size: `size`)
@@ -7267,13 +7267,13 @@ public final class TreeMock: MockingbirdTestsHost.Tree, Mockingbird.Mock {
         return mock
       }
     }
-  
+
     public static func ==(lhs: FruitMock, rhs: FruitMock) -> Bool {
       return true
     }
-  
+
     // MARK: Mocked `init(size:)`
-  
+
     public required override init(size: Int) {
       super.init(size: `size`)
       Mockingbird.checkVersion(for: self)

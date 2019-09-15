@@ -20,7 +20,7 @@ public enum SignpostType {
   case parseFiles
   case collectImports
   case processTypes
-  case generateMocks
+  case renderMocks
   case writeFiles
   
   public var name: StaticString {
@@ -32,7 +32,7 @@ public enum SignpostType {
     case .parseFiles: return "Parse Files"
     case .collectImports: return "Collect Imports"
     case .processTypes: return "Process Types"
-    case .generateMocks: return "Generate Mocks"
+    case .renderMocks: return "Render Mocks"
     case .writeFiles: return "Write Files"
     }
   }

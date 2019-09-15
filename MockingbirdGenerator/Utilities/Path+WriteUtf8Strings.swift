@@ -35,18 +35,20 @@ private class FileManagerMoveDelegate: NSObject, FileManagerDelegate {
   static let shared = FileManagerMoveDelegate()
 }
 
-struct PartialFileContents {
+struct PartialFileContent {
   let contents: String?
-  let substructure: [PartialFileContents]
+  let substructure: [PartialFileContent]
   let delimiter: String?
   let footer: String?
   
   var isEmpty: Bool {
-    return contents?.isEmpty == true && substructure.isEmpty
+    return contents?.isEmpty != false && substructure.isEmpty
   }
   
+  static let empty = PartialFileContent()
+  
   init(contents: String? = nil,
-       substructure: [PartialFileContents] = [],
+       substructure: [PartialFileContent] = [],
        delimiter: String? = nil,
        footer: String? = nil) {
     self.contents = contents
@@ -67,7 +69,7 @@ extension Path {
   ///     current path, replacing any existing file.
   ///   - creatingIntermediaries: Whether to create intermediary directories that don't exist.
   /// - Throws: A `BufferedWriteFailure` if an error occurs.
-  func writeUtf8Strings(_ fileContents: PartialFileContents,
+  func writeUtf8Strings(_ fileContents: PartialFileContent,
                         atomically: Bool = true,
                         creatingIntermediaries: Bool = true) throws {
     if creatingIntermediaries { try parent().mkpath() }
@@ -91,7 +93,7 @@ extension Path {
       }
     }
     
-    var writePartial: ((PartialFileContents) throws -> Void)!
+    var writePartial: ((PartialFileContent) throws -> Void)!
     writePartial = { partial in
       if let contents = partial.contents { try write(contents) }
       var isFirstElement = true

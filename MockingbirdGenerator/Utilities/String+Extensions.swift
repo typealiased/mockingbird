@@ -8,20 +8,21 @@
 
 import Foundation
 
-extension Dictionary where Key == Character, Value == Character {
+public extension Dictionary where Key == Character, Value == Character {
   static var allGroups: [Character: Character] {
     return ["(": ")", "[": "]", "<": ">"]
   }
 }
 
-extension Set where Element == Character {
+public extension Set where Element == Character {
   static var whitespacesAndNewlines: Set<Character> {
     return ["\t", "\n", "\r", " "]
   }
 }
 
-extension String {
+public extension String {
   /// Capitalizes only the first character of the string.
+  @inlinable
   var capitalizedFirst: String {
     return prefix(1).uppercased() + dropFirst()
   }
@@ -32,6 +33,7 @@ extension String {
   ///
   /// - Parameter delimiter: A character to use to split the string.
   /// - Returns: An array of substrings.
+  @inlinable
   func substringComponents(separatedBy delimiter: Character) -> [Substring] {
     return self[...].substringComponents(separatedBy: delimiter)
   }
@@ -40,15 +42,20 @@ extension String {
   ///
   /// - Parameter offset: The number of times to indent the current string.
   /// - Returns: A new indented string instance.
+  @inlinable
   func indent(by offset: UInt) -> String {
-    guard offset > 0 else { return self }
+    guard offset > 0, !isEmpty else { return self }
     let lines = substringComponents(separatedBy: "\n")
     var indentation = "  "
     for _ in 0..<(offset-1) { indentation += "  " }
-    return lines.map({ indentation + $0 }).joined(separator: "\n")
+    return lines.map({
+      guard !$0.isEmpty else { return String($0) }
+      return indentation + $0
+    }).joined(separator: "\n")
   }
   
   /// Returns a new string created by removing implicitly unwrapped optionals.
+  @inlinable
   func removingImplicitlyUnwrappedOptionals() -> String {
     return replacingOccurrences(of: "!", with: "")
   }
@@ -73,6 +80,7 @@ extension String {
   }
   
   /// Returns a new string created by removing generic typing, e.g. `SomeType<T>` becomes `SomeType`
+  @inlinable
   func removingGenericTyping() -> String {
     guard firstIndex(of: "<") != nil else { return self }
     return self[...]
@@ -88,6 +96,7 @@ extension String {
   /// - Parameters:
   ///   - needle: The character to search for.
   ///   - groups: A map containing start group characters to end group characters.
+  @inlinable
   func contains(_ needle: Character, excluding groups: [Character: Character]) -> Bool {
     return self[...].contains(needle, excluding: groups)
   }
@@ -107,6 +116,7 @@ extension String {
   /// - Parameters:
   ///   - needle: The string to search for.
   ///   - groups: A map containing start group characters to end group characters.
+  @inlinable
   func contains(_ needle: String, excluding groups: [Character: Character]) -> Bool {
     return self[...].contains(needle, excluding: groups)
   }
@@ -117,6 +127,7 @@ extension String {
   ///   - needle: The string to search for.
   ///   - groups: A map containing start group characters to end group characters.
   /// - Returns: The first index if found, `nil` if `needle` does not exist.
+  @inlinable
   func firstIndex(of needle: String, excluding groups: [Character: Character]) -> String.Index? {
     return self[...].firstIndex(of: needle, excluding: groups)
   }
@@ -127,6 +138,7 @@ extension String {
   ///   - delimiter: A character to split the string by.
   ///   - groups: A map containing start group characters to end group characters.
   /// - Returns: Substring components from splitting the current string.
+  @inlinable
   func components(separatedBy delimiter: Character,
                   excluding groups: [Character: Character]) -> [Substring] {
     return self[...].components(separatedBy: delimiter, excluding: groups)
@@ -138,19 +150,21 @@ extension String {
   ///   - delimiters: A set of characters to split the string by.
   ///   - groups: A map containing start group characters to end group characters.
   /// - Returns: Substring components from splitting the current string.
+  @inlinable
   func components(separatedBy delimiters: Set<Character>,
                   excluding groups: [Character: Character]) -> [Substring] {
     return self[...].components(separatedBy: delimiters, excluding: groups)
   }
 }
 
-extension Substring {
+public extension Substring {
   /// Splits a substring into substrings given a character delimiter.
   ///
   /// - Note: This method is 2x faster than the built-in method on Release builds.
   ///
   /// - Parameter delimiter: A character to use to split the substring.
   /// - Returns: An array of substrings.
+  @inlinable
   func substringComponents(separatedBy delimiter: Character) -> [Substring] {
     var components = [Substring]()
     var currentSubstring = self[..<endIndex]
@@ -169,6 +183,7 @@ extension Substring {
   /// - Parameters:
   ///   - needle: The character to search for.
   ///   - groups: A map containing start group characters to end group characters.
+  @inlinable
   func contains(_ needle: Character, excluding groups: [Character: Character]) -> Bool {
     return firstIndex(of: needle, excluding: groups) != nil
   }
@@ -179,6 +194,7 @@ extension Substring {
   ///   - needle: The character to search for.
   ///   - groups: A map containing start group characters to end group characters.
   /// - Returns: The first index if found, `nil` if `needle` does not exist.
+  @inlinable
   func firstIndex(of needle: Character, excluding groups: [Character: Character]) -> String.Index? {
     var currentGroups = [Character]()
     for (i, scalarValue) in utf8.enumerated() {
@@ -203,6 +219,7 @@ extension Substring {
   /// - Parameters:
   ///   - needle: The string to search for.
   ///   - groups: A map containing start group characters to end group characters.
+  @inlinable
   func contains(_ needle: String, excluding groups: [Character: Character]) -> Bool {
     return firstIndex(of: needle, excluding: groups) != nil
   }
@@ -213,6 +230,7 @@ extension Substring {
   ///   - needle: The string to search for.
   ///   - groups: A map containing start group characters to end group characters.
   /// - Returns: The first index if found, `nil` if `needle` does not exist.
+  @inlinable
   func firstIndex(of needle: String, excluding groups: [Character: Character]) -> String.Index? {
     var currentGroups = [Character]()
     var stateMachineStartIndex: Int?
@@ -251,6 +269,7 @@ extension Substring {
   ///   - delimiter: A character to split the substring by.
   ///   - groups: A map containing start group characters to end group characters.
   /// - Returns: Substring components from splitting the current substring.
+  @inlinable
   func components(separatedBy delimiter: Character,
                   excluding groups: [Character: Character]) -> [Substring] {
     return components(separatedBy: [delimiter], excluding: groups)
@@ -262,6 +281,7 @@ extension Substring {
   ///   - delimiters: A set of characters to split the substring by.
   ///   - groups: A map containing start group characters to end group characters.
   /// - Returns: Substring components from splitting the current substring.
+  @inlinable
   func components(separatedBy delimiters: Set<Character>,
                   excluding groups: [Character: Character]) -> [Substring] {
     var currentGroups = [Character]()

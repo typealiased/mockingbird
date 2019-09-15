@@ -67,6 +67,28 @@ class StringExtensionsTests: XCTestCase {
     XCTAssertEqual(actual, expected)
   }
   
+  func testStringExtensions_indent_doesNotChangeEmptyStrings() {
+    XCTAssertEqual("".indent(by: 2), "")
+  }
+  
+  func testStringExtensions_indent_ignoresEmptyLines() {
+    let actual = """
+    line1
+    
+    line2
+
+    line3
+    """.indent(by: 2)
+    let expected = """
+        line1
+    
+        line2
+
+        line3
+    """
+    XCTAssertEqual(actual, expected)
+  }
+  
   // MARK: - Removing parameter attributes
   
   func testStringExtensions_removingParameterAttributes_removesFunctionAttributes() {

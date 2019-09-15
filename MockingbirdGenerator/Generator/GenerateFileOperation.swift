@@ -36,8 +36,8 @@ public class GenerateFileOperation: BasicOperation {
   }
   
   override func run() throws {
-    var contents: PartialFileContents!
-    time(.generateMocks) {
+    var contents: PartialFileContent!
+    time(.renderMocks) {
       let generator = FileGenerator(processTypesResult.mockableTypes,
                                     moduleName: moduleName,
                                     imports: processTypesResult.imports,

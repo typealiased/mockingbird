@@ -46,7 +46,7 @@ class FileGenerator {
     return outputPath.components.last ?? "MockingbirdMocks.generated.swift"
   }
   
-  private func generateFileHeader() -> PartialFileContents {
+  private func generateFileHeader() -> PartialFileContent {
     let swiftlintDirective = disableSwiftlint ? "\n// swiftlint:disable all\n": ""
     
     let preprocessorDirective: String
@@ -62,7 +62,7 @@ class FileGenerator {
       )
     ).sorted()
     
-    return PartialFileContents(contents: """
+    return PartialFileContent(contents: """
     //
     //  \(outputFilename)
     //  \(moduleName)
@@ -76,25 +76,26 @@ class FileGenerator {
     """)
   }
   
-  private func generateFileBody() -> PartialFileContents {
-    guard !mockableTypes.isEmpty else { return PartialFileContents(contents: "") }
+  private func generateFileBody() -> PartialFileContent {
+    guard !mockableTypes.isEmpty else { return PartialFileContent(contents: "") }
     let operations = mockableTypes
       .sorted(by: <)
-      .map({ GenerateMockableTypeOperation(mockableType: $0, moduleName: moduleName) })
+      .map({ RenderMockableTypeOperation(mockableType: $0, moduleName: moduleName) })
     let queue = OperationQueue.createForActiveProcessors()
     queue.addOperations(operations, waitUntilFinished: true)
-    let substructure = [PartialFileContents(contents: synchronizedClass),
-                        PartialFileContents(contents: genericTypesStaticMocks)]
-      + operations.map({ PartialFileContents(contents: $0.result.generatedContents) })
-    return PartialFileContents(substructure: substructure, delimiter: "\n\n")
+    let substructure = [PartialFileContent(contents: synchronizedClass),
+                        PartialFileContent(contents: genericTypesStaticMocks)]
+      + operations.map({ $0.result.renderedContents })
+    return PartialFileContent(substructure: substructure, delimiter: "\n\n")
   }
   
-  private func generateFileFooter() -> PartialFileContents {
-    return PartialFileContents(contents: (preprocessorExpression != nil ? "\n#endif" : ""))
+  private func generateFileFooter() -> PartialFileContent {
+    guard preprocessorExpression != nil else { return .empty }
+    return PartialFileContent(contents: "\n#endif")
   }
   
-  func generate() -> PartialFileContents {
-    return PartialFileContents(contents: nil,
+  func generate() -> PartialFileContent {
+    return PartialFileContent(contents: nil,
                                substructure: [generateFileHeader(),
                                               generateFileBody(),
                                               generateFileFooter()].filter({ !$0.isEmpty }),

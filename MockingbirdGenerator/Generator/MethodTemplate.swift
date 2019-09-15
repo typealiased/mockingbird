@@ -1,5 +1,5 @@
 //
-//  MethodGenerator.swift
+//  MethodTemplate.swift
 //  MockingbirdCli
 //
 //  Created by Andrew Chang on 8/6/19.
@@ -10,66 +10,37 @@
 
 import Foundation
 
-extension MethodParameter {
-  func mockableTypeName(in context: MockableType, forClosure: Bool) -> String {
-    let rawTypeName = context.specializeTypeName(self.typeName)
-    
-    // When the type names are used for invocations instead of declaring the method parameters.
-    guard forClosure else {
-      return "\(rawTypeName)"
-    }
-    
-    let typeName = rawTypeName.removingImplicitlyUnwrappedOptionals()
-    if attributes.contains(.variadic) {
-      return "[\(typeName.dropLast(3))]"
-    } else {
-      return "\(typeName)"
-    }
-  }
-  
-  var invocationName: String {
-    let inoutAttribute = attributes.contains(.inout) ? "&" : ""
-    let autoclosureForwarding = attributes.contains(.autoclosure) ? "()" : ""
-    return "\(inoutAttribute)`\(name)`\(autoclosureForwarding)"
-  }
-  
-  func matchableTypeName(in context: MockableType) -> String {
-    let typeName = context.specializeTypeName(self.typeName).removingParameterAttributes()
-    if attributes.contains(.variadic) {
-      return "[" + typeName + "]"
-    } else {
-      return typeName
-    }
-  }
-}
-
-extension Method {
-  func createGenerator(in context: MockableType) -> MethodGenerator {
-    return MethodGenerator(method: self, context: context)
-  }
-}
-
-class MethodGenerator {
+/// Renders a `Method` to a `PartialFileContent` object.
+class MethodTemplate: Renderable {
   let method: Method
-  let context: MockableType
-  init(method: Method, context: MockableType) {
+  let context: MockableTypeTemplate
+  private var parameterTemplates = [MethodParameter: MethodParameterTemplate]()
+  init(method: Method, context: MockableTypeTemplate) {
     self.method = method
     self.context = context
   }
   
-  func generate() -> String {
-    return [generatedMock,
-            generatedMockableHook]
-      .filter({ !$0.isEmpty })
-      .joined(separator: "\n\n")
+  @inlinable
+  func parameterTemplate(for parameter: MethodParameter) -> MethodParameterTemplate {
+    if let existing = parameterTemplates[parameter] { return existing }
+    let template = MethodParameterTemplate(methodParameter: parameter, context: self)
+    parameterTemplates[parameter] = template
+    return template
   }
   
-  func generateClassInitializerProxy() -> String {
-    guard method.isInitializer, context.kind == .class else { return "" }
+  func render(in context: RenderContext) -> PartialFileContent {
+    let substructure = [
+      PartialFileContent(contents: mockedDeclarations.indent(by: context.indentation)),
+      PartialFileContent(contents: frameworkDeclarations.indent(by: context.indentation)),
+    ].filter({ !$0.isEmpty })
+    return PartialFileContent(substructure: substructure, delimiter: "\n\n")
+  }
+  
+  var classInitializerProxy: String {
+    guard method.isInitializer, context.mockableType.kind == .class else { return "" }
     // We can't usually infer what concrete arguments to pass to the designated initializer.
     guard !method.attributes.contains(.convenience) else { return "" }
     let attributes = declarationAttributes.isEmpty ? "" : "  \(declarationAttributes)\n"
-    let genericConstraints = self.genericConstraints
     let failable = method.attributes.contains(.failable) ? "?" : ""
     let scopedName = context.createScopedName(with: [], suffix: "Mock")
     return """
@@ -81,14 +52,14 @@ class MethodGenerator {
     """
   }
   
-  lazy var generatedMock: String = {
+  var mockedDeclarations: String {
     let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
     if method.isInitializer {
       // We can't usually infer what concrete arguments to pass to the designated initializer.
       guard !method.attributes.contains(.convenience) else { return "" }
       
       let checkVersion: String
-      if context.kind == .class {
+      if context.mockableType.kind == .class {
         let trySuper = method.attributes.contains(.throws) ? "try " : ""
         checkVersion = """
             \(trySuper)super.init(\(superCallParameters))
@@ -118,9 +89,9 @@ class MethodGenerator {
         }
       """
     }
-  }()
+  }
   
-  lazy var generatedMockableHook: String = {
+  var frameworkDeclarations: String {
     guard !method.isInitializer else { return "" }
     let attributes = declarationAttributes.isEmpty ? "" : "  \(declarationAttributes)\n"
     let parameterTypes = methodParameterTypes
@@ -145,7 +116,7 @@ class MethodGenerator {
         return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
       }
     """
-  }()
+  }
 
   lazy var declarationAttributes: String = {
     return method.attributes.declarations.joined(separator: " ")
@@ -158,7 +129,7 @@ class MethodGenerator {
   func modifiers(allowOverride: Bool = true) -> String {
     let isRequired = method.attributes.contains(.required)
     let required = (isRequired || method.isInitializer ? "required " : "")
-    let override = (context.kind == .class && !isRequired && allowOverride ? "override " : "")
+    let override = (context.mockableType.kind == .class && !isRequired && allowOverride ? "override " : "")
     let `static` = (method.kind.typeScope == .static || method.kind.typeScope == .class ? "static " : "")
     return "\(required)\(override)\(`static`)"
   }
@@ -195,11 +166,12 @@ class MethodGenerator {
   }()
   func fullName(forMatching: Bool, useVariadics: Bool, forInitializerProxy: Bool) -> String {
     let parameterNames = method.parameters.map({ parameter -> String in
+      let parameterTemplate = self.parameterTemplate(for: parameter)
       let typeName: String
       if forMatching && (!useVariadics || !parameter.attributes.contains(.variadic)) {
-        typeName = "@escaping @autoclosure () -> \(parameter.matchableTypeName(in: context))"
+        typeName = "@escaping @autoclosure () -> \(parameterTemplate.matchableTypeName)"
       } else {
-        typeName = parameter.mockableTypeName(in: context, forClosure: false)
+        typeName = parameterTemplate.mockableTypeName(forClosure: false)
       }
       let argumentLabel = parameter.argumentLabel ?? "_"
       if argumentLabel != parameter.name {
@@ -310,8 +282,10 @@ class MethodGenerator {
   lazy var mockArgumentMatchers: String = {
     return method.parameters.map({ parameter -> String in
       // Can't save the argument in the invocation because it's a non-escaping parameter.
-      guard !parameter.attributes.contains(.closure) || parameter.attributes.contains(.escaping)
-        else { return "Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<\(parameter.matchableTypeName(in: context))>())" }
+      guard !parameter.attributes.contains(.closure) || parameter.attributes.contains(.escaping) else {
+        let parameterTemplate = self.parameterTemplate(for: parameter)
+        return "Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<\(parameterTemplate.matchableTypeName)>())"
+      }
       return "Mockingbird.ArgumentMatcher(`\(parameter.name)`)"
     }).joined(separator: ", ")
   }()
@@ -332,12 +306,18 @@ class MethodGenerator {
   
   lazy var methodParameterTypes: String = {
     return method.parameters
-      .map({ $0.mockableTypeName(in: context, forClosure: true) })
+      .map({ parameter -> String in
+        let parameterTemplate = self.parameterTemplate(for: parameter)
+        return parameterTemplate.mockableTypeName(forClosure: true)
+      })
       .joined(separator: ", ")
   }()
   
   lazy var methodParameterNamesForInvocation: String = {
-    return method.parameters.map({ $0.invocationName }).joined(separator: ", ")
+    return method.parameters.map({ parameter -> String in
+      let parameterTemplate = self.parameterTemplate(for: parameter)
+      return parameterTemplate.invocationName
+    }).joined(separator: ", ")
   }()
   
   lazy var isVariadicMethod: Bool = {
