@@ -8,8 +8,8 @@ Last revised on September 16, 2019 for version `0.5.0`.
 - [loc](https://github.com/cgag/loc) is used for file complexity benchmarking.
 
 The generator is run against 1,000 source files each containing 3 protocols with multiple levels of inheritance and 
-up to 15 members. See [MetagenerateCommand.swift](/MockingbirdCli/Interface/MetagenerateCommand.swift) 
-for the benchmarking source template.
+up to 15 members. See [TestbedCommand.swift](/MockingbirdCli/Interface/TestbedCommand.swift) for the
+benchmarking source template.
 
 ```bash
 $ mockingbird testbed --output ./MockingbirdTestsHost/Performance --count 1000
