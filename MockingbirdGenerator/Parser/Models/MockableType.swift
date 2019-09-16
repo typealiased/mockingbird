@@ -25,6 +25,7 @@ class MockableType: Hashable, Comparable {
   var containedTypes = [MockableType]()
   let isContainedType: Bool
   let subclassesExternalType: Bool
+  let hasOpaqueInheritedType: Bool
   
   private let sortableIdentifier: String
   static func < (lhs: MockableType, rhs: MockableType) -> Bool {
@@ -46,6 +47,7 @@ class MockableType: Hashable, Comparable {
   ///   - mockableTypes: All currently known `MockableType` objects used for inheritance flattening.
   init?(from rawTypes: [RawType],
         mockableTypes: [String: MockableType],
+        hasOpaqueInheritedType: Bool,
         moduleNames: [String],
         rawTypeRepository: RawTypeRepository,
         typealiasRepository: TypealiasRepository) {
@@ -67,6 +69,7 @@ class MockableType: Hashable, Comparable {
     self.moduleName = baseRawType.parsedFile.moduleName
     self.kind = baseRawType.kind
     self.isContainedType = !baseRawType.containingTypeNames.isEmpty
+    self.hasOpaqueInheritedType = hasOpaqueInheritedType
     
     // Parse top-level declared methods and variables.
     var (methods, variables) = MockableType

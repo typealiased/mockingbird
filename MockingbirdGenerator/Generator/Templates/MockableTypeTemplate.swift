@@ -11,10 +11,12 @@
 import Foundation
 
 private enum Constants {
-  /// A heuristic set of class prefixes used by system frameworks requiring NSObjectProtocol
-  /// conformance. In the future, we want to mock Obj-C classes and system frameworks instead.
-  static let objectProtocolPrefixes = Set(["NS", "CB", "UI"])
   static let mockProtocolName = "Mockingbird.Mock"
+  static let equatableConformanceTypes: Set<String> = [
+    "Equatable",
+    "Comparable",
+    "Hashable",
+  ]
 }
 
 extension GenericType {
@@ -142,12 +144,10 @@ class MockableTypeTemplate: Template {
   
   var subclass: String? {
     guard mockableType.kind != .class else { return fullyQualifiedName }
-    let prefix = String(mockableType.name.prefix(2))
-    if Constants.objectProtocolPrefixes.contains(prefix) {
-      return "NSObject"
-    } else {
-      return nil
-    }
+    guard mockableType.hasOpaqueInheritedType else { return nil }
+    // We default to subclassing `NSObject` in order to satisfy `NSObjectProtocol` conformance,
+    // since the inheritance is at least partially opaque.
+    return "Foundation.NSObject"
   }
   
   var inheritedProtocol: String? {
@@ -158,7 +158,6 @@ class MockableTypeTemplate: Template {
   func renderBody() -> String {
     return [renderInitializerProxy(),
             renderVariables(),
-            equatableConformance,
             codeableInitializer,
             defaultInitializer,
             renderMethods(),
@@ -194,18 +193,32 @@ class MockableTypeTemplate: Template {
     """
   }
   
-  var equatableConformance: String {
-    return """
-      public static func ==(lhs: \(mockableType.name)Mock, rhs: \(mockableType.name)Mock) -> Bool {
-        return true
-      }
-    """
+  var equatableConformance: Method? {
+    guard mockableType.kind == .protocol && (mockableType.hasOpaqueInheritedType
+      || mockableType.inheritedTypes.contains(where: {
+        Constants.equatableConformanceTypes.contains($0.name)
+      })) else { return nil }
+    return Method.createEquatableConformance(for: mockableType)
+  }
+  
+  var comparableConformance: Method? {
+    guard mockableType.kind == .protocol && (mockableType.hasOpaqueInheritedType
+      || mockableType.inheritedTypes.contains(where: { $0.name == "Comparable" }))
+      else { return nil }
+    return Method.createComparableConformance(for: mockableType)
+  }
+  
+  var hashableConformance: Method? {
+    guard mockableType.kind == .protocol
+      && mockableType.inheritedTypes.contains(where: { $0.name == "Hashable" })
+      else { return nil }
+    return Method.createHashableConformance()
   }
   
   var codeableInitializer: String {
-    guard mockableType.inheritedTypes.contains(where: { $0.name == "Codable" || $0.name == "Decodable" }) else {
-      return ""
-    }
+    guard mockableType.inheritedTypes.contains(where: {
+      $0.name == "Codable" || $0.name == "Decodable"
+    }) else { return "" }
     guard !mockableType.methods.contains(where: { $0.name == "init(from:)" }) else { return "" }
     return """
       public required init(from decoder: Decoder) throws {
@@ -220,7 +233,9 @@ class MockableTypeTemplate: Template {
     guard mockableType.kind == .protocol || !mockableType.methods.contains(where: {
       $0.isDesignatedInitializer
     }) else { return "" }
-    let superInit = (mockableType.kind == .class ? "super.init()\n    " : "")
+    let superInit = mockableType.kind == .class
+      || (mockableType.kind == .protocol && mockableType.hasOpaqueInheritedType)
+      ? "super.init()\n    " : ""
     return """
       fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
         \(superInit)Mockingbird.checkVersion(for: self)
@@ -237,7 +252,10 @@ class MockableTypeTemplate: Template {
   }
   
   func renderMethods() -> String {
-    return mockableType.methods
+    let inferredMethods = [equatableConformance,
+                           comparableConformance,
+                           hashableConformance].compactMap({ $0 })
+    return (inferredMethods + mockableType.methods
       .sorted(by: <)
       .filter({ method -> Bool in
         // Not possible to override overloaded methods where uniqueness is from generic constraints.
@@ -245,7 +263,7 @@ class MockableTypeTemplate: Template {
         guard mockableType.kind == .class else { return true }
         guard !method.whereClauses.isEmpty else { return true }
         return mockableType.methodsCount[Method.Reduced(from: method)] == 1
-      })
+      }))
       .map({ methodTemplate(for: $0).render() })
       .filter({ !$0.isEmpty })
       .joined(separator: "\n\n")

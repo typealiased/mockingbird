@@ -38,6 +38,9 @@ extension AssociatedTypeImplementerMock: MockableAssociatedTypeImplementer {}
 private protocol MockableAssociatedTypeGenericConstraintsProtocol: AssociatedTypeGenericConstraintsProtocol, Mock {}
 extension AssociatedTypeGenericConstraintsProtocolMock: MockableAssociatedTypeGenericConstraintsProtocol {}
 
+private protocol MockableAssociatedTypeGenericConformingConstraintsProtocol: AssociatedTypeGenericConformingConstraintsProtocol, Mock {}
+extension AssociatedTypeGenericConformingConstraintsProtocolMock: MockableAssociatedTypeGenericConformingConstraintsProtocol {}
+
 private protocol MockableAssociatedTypeSelfReferencingProtocol: AssociatedTypeSelfReferencingProtocol, Mock {}
 extension AssociatedTypeSelfReferencingProtocolMock: MockableAssociatedTypeSelfReferencingProtocol {}
 

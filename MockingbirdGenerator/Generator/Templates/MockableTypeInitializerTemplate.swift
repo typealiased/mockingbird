@@ -35,7 +35,8 @@ struct MockableTypeInitializerTemplate: Template {
     let fullyQualifiedScopedName = "\(mockableTypeTemplate.mockableType.moduleName).\(scopedName)"
     let genericMethodAttribute: String
     let metatype: String
-    if allGenericTypes.count > 0 {
+    if allGenericTypes.count > 0
+      || (mockableTypeTemplate.mockableType.hasOpaqueInheritedType && kind == .protocol) {
       let specializedGenericTypes = (["MockType: \(fullyQualifiedScopedName)"] +
         mockableTypeTemplate.allSpecializedGenericTypesList).joined(separator: ", ")
       genericMethodAttribute = "<" + specializedGenericTypes + ">"

@@ -9,54 +9,6 @@
 import Foundation
 import SourceKittenFramework
 
-struct MethodParameter: Hashable {
-  let name: String
-  let argumentLabel: String?
-  let typeName: String
-  let kind: SwiftDeclarationKind
-  let attributes: Attributes
-  
-  init?(from dictionary: StructureDictionary,
-        argumentLabel: String?,
-        parameterIndex: Int,
-        rawDeclaration: String?,
-        rawType: RawType,
-        moduleNames: [String],
-        rawTypeRepository: RawTypeRepository,
-        typealiasRepository: TypealiasRepository) {
-    guard let kind = SwiftDeclarationKind(from: dictionary), kind == .varParameter,
-      let rawTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String
-      else { return nil }
-    // It's possible for protocols to define parameters with only the argument label and no name.
-    self.name = dictionary[SwiftDocKey.name.rawValue] as? String ?? "param\(parameterIndex+1)"
-    self.kind = kind
-    self.argumentLabel = argumentLabel
-    
-    let declaredParameter = rawDeclaration ?? rawTypeName
-    let parameter = Function.Parameter(from: declaredParameter)
-    let serializationContext = SerializationRequest
-      .Context(moduleNames: moduleNames,
-               rawType: rawType,
-               rawTypeRepository: rawTypeRepository,
-               typealiasRepository: typealiasRepository)
-    let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
-                                                        context: serializationContext,
-                                                        options: .standard)
-    let actualTypeNameRequest = SerializationRequest(method: .actualTypeName,
-                                                     context: serializationContext,
-                                                     options: .standard)
-    let typeName = parameter.serialize(with: qualifiedTypeNameRequest)
-    let actualParameterName = parameter.serialize(with: actualTypeNameRequest)
-    let actualParameter = Function.Parameter(from: actualParameterName)
-    
-    // Final attributes can differ from those in `parameter` due to knowing the typealiased type.
-    var attributes = Attributes(from: dictionary).union(actualParameter.attributes)
-    if actualParameter.type.isFunction { attributes.insert(.closure) }
-    self.typeName = typeName
-    self.attributes = attributes
-  }
-}
-
 struct Method: Hashable, Comparable {
   let name: String
   let shortName: String
@@ -304,11 +256,83 @@ struct Method: Hashable, Comparable {
   }
 }
 
+extension Method {
+  @inlinable
+  static func createEquatableConformance(for type: MockableType) -> Method {
+    let parameters = [MethodParameter(name: "lhs",
+                                      argumentLabel: "lhs",
+                                      typeName: type.name + "Mock"),
+                      MethodParameter(name: "rhs",
+                                      argumentLabel: "rhs",
+                                      typeName: type.name + "Mock")]
+    return Method(name: "== (lhs:rhs:)",
+                  returnTypeName: "Bool",
+                  parameters: parameters,
+                  kind: .functionMethodStatic)
+  }
+  
+  @inlinable
+  static func createComparableConformance(for type: MockableType) -> Method {
+    let parameters = [MethodParameter(name: "lhs",
+                                      argumentLabel: "lhs",
+                                      typeName: type.name + "Mock"),
+                      MethodParameter(name: "rhs",
+                                      argumentLabel: "rhs",
+                                      typeName: type.name + "Mock")]
+    return Method(name: "< (lhs:rhs:)",
+                  returnTypeName: "Bool",
+                  parameters: parameters,
+                  kind: .functionMethodStatic)
+  }
+  
+  @inlinable
+  static func createHashableConformance() -> Method {
+    let parameters = [MethodParameter(name: "hasher",
+                                      argumentLabel: "into",
+                                      typeName: "inout Hasher",
+                                      attributes: [.inout])]
+    return Method(name: "hash(into:)", parameters: parameters)
+  }
+}
+
+fileprivate extension Method {
+  init(name: String,
+       returnTypeName: String = "Void",
+       parameters: [MethodParameter],
+       isInitializer: Bool = false,
+       isDesignatedInitializer: Bool = false,
+       accessLevel: AccessLevel = .public,
+       kind: SwiftDeclarationKind = .functionMethodInstance,
+       genericTypes: [GenericType] = [],
+       whereClauses: [WhereClause] = [],
+       attributes: Attributes = []) {
+    self.name = name
+    (self.shortName, _) = name.extractArgumentLabels()
+    self.returnTypeName = returnTypeName
+    self.isInitializer = isInitializer
+    self.isDesignatedInitializer = isDesignatedInitializer
+    self.accessLevel = accessLevel
+    self.kind = kind
+    self.genericTypes = genericTypes
+    self.whereClauses = whereClauses
+    self.parameters = parameters
+    self.attributes = attributes
+    
+    self.sortableIdentifier = [
+      self.name,
+      self.parameters
+        .map({ "\($0.argumentLabel ?? ""):\($0.name):\($0.typeName)" })
+        .joined(separator: ","),
+      self.returnTypeName,
+    ].joined(separator: "|")
+  }
+}
+
 private extension String {
-  func extractArgumentLabels() -> (String, [String?]) {
+  func extractArgumentLabels() -> (shortName: String, labels: [String?]) {
     guard let startIndex = firstIndex(of: "("),
       let stopIndex = firstIndex(of: ")") else { return (self, []) }
-    let shortName = String(self[..<startIndex])
+    let shortName = self[..<startIndex].trimmingCharacters(in: .whitespacesAndNewlines)
     let arguments = self[index(after: startIndex)..<stopIndex]
     let labels = arguments
       .substringComponents(separatedBy: ":")

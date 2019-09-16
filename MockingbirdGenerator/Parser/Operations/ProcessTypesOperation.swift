@@ -175,11 +175,12 @@ private class FlattenInheritanceOperation: BasicOperation {
     
     let rawTypeRepository = self.rawTypeRepository
     let typealiasRepository = self.typealiasRepository
-    let createMockableType: () -> MockableType? = {
+    let createMockableType: (Bool) -> MockableType? = { hasOpaqueInheritedType in
       // Flattening inherited types could have updated `memoizedMockableTypes`.
       var memoizedMockableTypes = FlattenInheritanceOperation.memoizedMockbleTypes.value
       let mockableType = MockableType(from: rawType,
                                       mockableTypes: memoizedMockableTypes,
+                                      hasOpaqueInheritedType: hasOpaqueInheritedType,
                                       moduleNames: moduleNames,
                                       rawTypeRepository: rawTypeRepository,
                                       typealiasRepository: typealiasRepository)
@@ -207,8 +208,9 @@ private class FlattenInheritanceOperation: BasicOperation {
     let inheritedTypes = rawType
       .compactMap({ $0.dictionary[SwiftDocKey.inheritedtypes.rawValue] as? [StructureDictionary] })
       .flatMap({ $0 })
-    guard !inheritedTypes.isEmpty else { return createMockableType() }
+    guard !inheritedTypes.isEmpty else { return createMockableType(false) }
     
+    var hasOpaqueInheritedType = false
     let rawInheritedTypes = inheritedTypes
       .compactMap({ $0[SwiftDocKey.name.rawValue] as? String }) // Get type name.
       .compactMap({ typeName -> [RawType]? in // Get stored raw type.
@@ -217,6 +219,10 @@ private class FlattenInheritanceOperation: BasicOperation {
                                 moduleNames: moduleNames,
                                 referencingModuleName: baseRawType.parsedFile.moduleName,
                                 containingTypeNames: baseRawType.containingTypeNames[...])
+        if nearest == nil {
+          fputs("Missing source for referenced type `\(typeName)` in \(baseRawType.parsedFile.path.absolute())\n", stderr)
+          hasOpaqueInheritedType = true
+        }
         return nearest
       })
       .flatMap({ $0 })
@@ -226,6 +232,6 @@ private class FlattenInheritanceOperation: BasicOperation {
       rawInheritedTypes.forEach({ _ = flattenInheritance(for: [$0], moduleNames: moduleNames) })
     }
     
-    return createMockableType()
+    return createMockableType(hasOpaqueInheritedType)
   }
 }

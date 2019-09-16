@@ -65,10 +65,6 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public static func ==(lhs: ArgumentMatchingProtocolMock, rhs: ArgumentMatchingProtocolMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
@@ -131,10 +127,6 @@ public final class ArrayCollectionMock: MockingbirdTestsHost.ArrayCollection, Mo
       stubbingContext.sourceLocation = newValue
       ArrayCollectionMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: ArrayCollectionMock, rhs: ArrayCollectionMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -300,10 +292,6 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.NSObject]> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.NSObject]>(mock: self, invocation: invocation)
-  }
-
-  public static func ==(lhs: ArrayTypesMock, rhs: ArrayTypesMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -535,6 +523,60 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return ArrayTypesMock(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked AssociatedTypeGenericConformingConstraintsProtocol
+
+public final class AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType: MockingbirdTestsHost.AssociatedTypeProtocol>: MockingbirdTestsHost.AssociatedTypeGenericConformingConstraintsProtocol, Mockingbird.Mock where ConformingType.EquatableType: MockingbirdTestsHost.EquatableConformingProtocol, ConformingType.HashableType: MockingbirdTestsHost.HashableConformingProtocol {
+  static var staticMock: Mockingbird.StaticMock {
+    let runtimeGenericTypeNames = ["\(ConformingType.self)"].joined(separator: ",")
+    let staticMockIdentifier = "AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType: MockingbirdTestsHost.AssociatedTypeProtocol>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
+      return staticMock
+    }
+    let staticMock = Mockingbird.StaticMock()
+    genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+    return staticMock
+  }
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.5.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      AssociatedTypeGenericConformingConstraintsProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `request(object:)`
+
+  public func request(object: ConformingType) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`object`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (ConformingType) -> Bool {
+      return concreteImplementation(`object`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func request(object: @escaping @autoclosure () -> ConformingType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ConformingType) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ConformingType) -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.AssociatedTypeGenericConformingConstraintsProtocol<ConformingType>` concrete protocol mock instance.
+public func mock<MockType: MockingbirdTestsHost.AssociatedTypeGenericConformingConstraintsProtocol, ConformingType: MockingbirdTestsHost.AssociatedTypeProtocol>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType> {
+  return AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType>(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked AssociatedTypeGenericConstraintsProtocol
 
 public final class AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol>: MockingbirdTestsHost.AssociatedTypeGenericConstraintsProtocol, Mockingbird.Mock where ConstrainedType.EquatableType == Int, ConstrainedType.HashableType == String {
@@ -557,10 +599,6 @@ public final class AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType:
       stubbingContext.sourceLocation = newValue
       AssociatedTypeGenericConstraintsProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: AssociatedTypeGenericConstraintsProtocolMock, rhs: AssociatedTypeGenericConstraintsProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -630,10 +668,6 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
   public func getEquatableTypeVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> EquatableType, EquatableType> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> EquatableType, EquatableType>(mock: self, invocation: invocation)
-  }
-
-  public static func ==(lhs: AssociatedTypeGenericImplementerMock, rhs: AssociatedTypeGenericImplementerMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -720,10 +754,6 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
     }
   }
 
-  public static func ==(lhs: AssociatedTypeImplementerProtocolMock, rhs: AssociatedTypeImplementerProtocolMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
@@ -805,10 +835,6 @@ public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.Associate
       stubbingContext.sourceLocation = newValue
       AssociatedTypeImplementerMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: AssociatedTypeImplementerMock, rhs: AssociatedTypeImplementerMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -894,10 +920,6 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
   public class func getEquatableTypeVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> EquatableType, EquatableType> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> EquatableType, EquatableType>(mock: staticMock, invocation: invocation)
-  }
-
-  public static func ==(lhs: AssociatedTypeProtocolMock, rhs: AssociatedTypeProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -1011,10 +1033,6 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
     }
   }
 
-  public static func ==(lhs: AssociatedTypeSelfReferencingProtocolMock, rhs: AssociatedTypeSelfReferencingProtocolMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
@@ -1111,10 +1129,6 @@ public final class BirdMock: MockingbirdTestsHost.Bird, Mockingbird.Mock {
   public func getCanFly() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "canFly.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public static func ==(lhs: BirdMock, rhs: BirdMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -1492,10 +1506,6 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.set", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: staticMock, invocation: invocation)
-  }
-
-  public static func ==(lhs: ChildProtocolMock, rhs: ChildProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -2019,10 +2029,6 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  public static func ==(lhs: ChildMock, rhs: ChildMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     super.init()
     Mockingbird.checkVersion(for: self)
@@ -2272,10 +2278,6 @@ public final class ClassTypeMock: MockingbirdTestsHost.ClassType, Mockingbird.Mo
     }
   }
 
-  public static func ==(lhs: ClassTypeMock, rhs: ClassTypeMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     super.init()
     Mockingbird.checkVersion(for: self)
@@ -2301,10 +2303,6 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
       stubbingContext.sourceLocation = newValue
       ClosureParametersProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: ClosureParametersProtocolMock, rhs: ClosureParametersProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -2569,10 +2567,6 @@ public final class ConvenienceInitializerClassMock: MockingbirdTestsHost.Conveni
     }
   }
 
-  public static func ==(lhs: ConvenienceInitializerClassMock, rhs: ConvenienceInitializerClassMock) -> Bool {
-    return true
-  }
-
   // MARK: Mocked `init(param1:param2:)`
 
   public required override init(param1: Bool, param2: Int) {
@@ -2618,10 +2612,6 @@ public final class DeclarationAttributesClassMock: MockingbirdTestsHost.Declarat
   public func getAvailableVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String>(mock: self, invocation: invocation)
-  }
-
-  public static func ==(lhs: DeclarationAttributesClassMock, rhs: DeclarationAttributesClassMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -2710,10 +2700,6 @@ public final class DeclarationAttributesProtocolMock: MockingbirdTestsHost.Decla
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String>(mock: self, invocation: invocation)
   }
 
-  public static func ==(lhs: DeclarationAttributesProtocolMock, rhs: DeclarationAttributesProtocolMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
@@ -2759,10 +2745,6 @@ public final class DefaultArgumentValuesClassMock: MockingbirdTestsHost.DefaultA
       stubbingContext.sourceLocation = newValue
       DefaultArgumentValuesClassMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: DefaultArgumentValuesClassMock, rhs: DefaultArgumentValuesClassMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -2811,10 +2793,6 @@ public final class DefaultArgumentValuesProtocolMock: MockingbirdTestsHost.Defau
     }
   }
 
-  public static func ==(lhs: DefaultArgumentValuesProtocolMock, rhs: DefaultArgumentValuesProtocolMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
@@ -2858,10 +2836,6 @@ public final class DictionaryCollectionMock: MockingbirdTestsHost.DictionaryColl
       stubbingContext.sourceLocation = newValue
       DictionaryCollectionMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: DictionaryCollectionMock, rhs: DictionaryCollectionMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -3027,10 +3001,6 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]>(mock: self, invocation: invocation)
-  }
-
-  public static func ==(lhs: DictionaryTypesMock, rhs: DictionaryTypesMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -3275,10 +3245,6 @@ public final class EmptyClassMock: MockingbirdTestsHost.EmptyClass, Mockingbird.
       stubbingContext.sourceLocation = newValue
       EmptyClassMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: EmptyClassMock, rhs: EmptyClassMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -3579,10 +3545,6 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
   public func getParentStoredPrivateSetterInstanceVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStoredPrivateSetterInstanceVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public static func ==(lhs: EmptyInheritingClassMock, rhs: EmptyInheritingClassMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -4110,10 +4072,6 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
-  public static func ==(lhs: EmptyInheritingProtocolMock, rhs: EmptyInheritingProtocolMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
@@ -4370,10 +4328,6 @@ public final class EmptyInitializerClassMock: MockingbirdTestsHost.EmptyInitiali
     }
   }
 
-  public static func ==(lhs: EmptyInitializerClassMock, rhs: EmptyInitializerClassMock) -> Bool {
-    return true
-  }
-
   // MARK: Mocked `init()`
 
   public required override init() {
@@ -4402,10 +4356,6 @@ public final class EmptyInitializerProtocolMock: MockingbirdTestsHost.EmptyIniti
       stubbingContext.sourceLocation = newValue
       EmptyInitializerProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: EmptyInitializerProtocolMock, rhs: EmptyInitializerProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -4442,10 +4392,6 @@ public final class EmptyProtocolMock: MockingbirdTestsHost.EmptyProtocol, Mockin
     }
   }
 
-  public static func ==(lhs: EmptyProtocolMock, rhs: EmptyProtocolMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
@@ -4455,6 +4401,71 @@ public final class EmptyProtocolMock: MockingbirdTestsHost.EmptyProtocol, Mockin
 /// Create a source-attributed `MockingbirdTestsHost.EmptyProtocol` concrete protocol mock instance.
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.EmptyProtocol.Protocol) -> EmptyProtocolMock {
   return EmptyProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked EquatableConformingProtocol
+
+public final class EquatableConformingProtocolMock: Foundation.NSObject, MockingbirdTestsHost.EquatableConformingProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.5.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      EquatableConformingProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `== (lhs:rhs:)`
+
+  public static func ==(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "== (lhs:rhs:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool {
+      return concreteImplementation(`lhs`, `rhs`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public static func _equalTo(lhs: @escaping @autoclosure () -> EquatableConformingProtocolMock, rhs: @escaping @autoclosure () -> EquatableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "== (lhs:rhs:) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+  }
+
+  // MARK: Mocked `< (lhs:rhs:)`
+
+  public static func <(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "< (lhs:rhs:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool {
+      return concreteImplementation(`lhs`, `rhs`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public static func _lessThan(lhs: @escaping @autoclosure () -> EquatableConformingProtocolMock, rhs: @escaping @autoclosure () -> EquatableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "< (lhs:rhs:) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.EquatableConformingProtocol` concrete protocol mock instance.
+public func mock<MockType: MockingbirdTestsHost.EquatableConformingProtocol>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> EquatableConformingProtocolMock {
+  return EquatableConformingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked ExtendableProtocol
@@ -4515,10 +4526,6 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   public func getExtendedVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public static func ==(lhs: ExtendableProtocolMock, rhs: ExtendableProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -4647,10 +4654,6 @@ public final class FailableEmptyInitializerClassMock: MockingbirdTestsHost.Faila
     }
   }
 
-  public static func ==(lhs: FailableEmptyInitializerClassMock, rhs: FailableEmptyInitializerClassMock) -> Bool {
-    return true
-  }
-
   // MARK: Mocked `init()`
 
   public required override init?() {
@@ -4679,10 +4682,6 @@ public final class FailableEmptyInitializerProtocolMock: MockingbirdTestsHost.Fa
       stubbingContext.sourceLocation = newValue
       FailableEmptyInitializerProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: FailableEmptyInitializerProtocolMock, rhs: FailableEmptyInitializerProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -4727,10 +4726,6 @@ public final class FailableParameterizedInitializerClassMock: MockingbirdTestsHo
     }
   }
 
-  public static func ==(lhs: FailableParameterizedInitializerClassMock, rhs: FailableParameterizedInitializerClassMock) -> Bool {
-    return true
-  }
-
   // MARK: Mocked `init(param1:param2:)`
 
   public required override init?(param1: Bool, param2: Int) {
@@ -4759,10 +4754,6 @@ public final class FailableParameterizedInitializerProtocolMock: MockingbirdTest
       stubbingContext.sourceLocation = newValue
       FailableParameterizedInitializerProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: FailableParameterizedInitializerProtocolMock, rhs: FailableParameterizedInitializerProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -4807,10 +4798,6 @@ public final class FailableUnwrappedEmptyInitializerClassMock: MockingbirdTestsH
     }
   }
 
-  public static func ==(lhs: FailableUnwrappedEmptyInitializerClassMock, rhs: FailableUnwrappedEmptyInitializerClassMock) -> Bool {
-    return true
-  }
-
   // MARK: Mocked `init()`
 
   public required override init!() {
@@ -4839,10 +4826,6 @@ public final class FailableUnwrappedEmptyInitializerProtocolMock: MockingbirdTes
       stubbingContext.sourceLocation = newValue
       FailableUnwrappedEmptyInitializerProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: FailableUnwrappedEmptyInitializerProtocolMock, rhs: FailableUnwrappedEmptyInitializerProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -4887,10 +4870,6 @@ public final class FailableUnwrappedParameterizedInitializerClassMock: Mockingbi
     }
   }
 
-  public static func ==(lhs: FailableUnwrappedParameterizedInitializerClassMock, rhs: FailableUnwrappedParameterizedInitializerClassMock) -> Bool {
-    return true
-  }
-
   // MARK: Mocked `init(param1:param2:)`
 
   public required override init!(param1: Bool, param2: Int) {
@@ -4919,10 +4898,6 @@ public final class FailableUnwrappedParameterizedInitializerProtocolMock: Mockin
       stubbingContext.sourceLocation = newValue
       FailableUnwrappedParameterizedInitializerProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: FailableUnwrappedParameterizedInitializerProtocolMock, rhs: FailableUnwrappedParameterizedInitializerProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -5049,10 +5024,6 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: staticMock, invocation: invocation)
-  }
-
-  public static func ==(lhs: GrandparentProtocolMock, rhs: GrandparentProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -5246,10 +5217,6 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  public static func ==(lhs: GrandparentMock, rhs: GrandparentMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     super.init()
     Mockingbird.checkVersion(for: self)
@@ -5336,6 +5303,71 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return GrandparentMock(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked HashableConformingProtocol
+
+public final class HashableConformingProtocolMock: Foundation.NSObject, MockingbirdTestsHost.HashableConformingProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.5.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      HashableConformingProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `== (lhs:rhs:)`
+
+  public static func ==(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "== (lhs:rhs:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool {
+      return concreteImplementation(`lhs`, `rhs`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public static func _equalTo(lhs: @escaping @autoclosure () -> HashableConformingProtocolMock, rhs: @escaping @autoclosure () -> HashableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "== (lhs:rhs:) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+  }
+
+  // MARK: Mocked `< (lhs:rhs:)`
+
+  public static func <(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "< (lhs:rhs:) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool {
+      return concreteImplementation(`lhs`, `rhs`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public static func _lessThan(lhs: @escaping @autoclosure () -> HashableConformingProtocolMock, rhs: @escaping @autoclosure () -> HashableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "< (lhs:rhs:) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.HashableConformingProtocol` concrete protocol mock instance.
+public func mock<MockType: MockingbirdTestsHost.HashableConformingProtocol>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> HashableConformingProtocolMock {
+  return HashableConformingProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked ImplementingExternalModuleScopedTypealiasedProtocol
 
 public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.ImplementingExternalModuleScopedTypealiasedProtocol, Mockingbird.Mock {
@@ -5349,10 +5381,6 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
       stubbingContext.sourceLocation = newValue
       ImplementingExternalModuleScopedTypealiasedProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: ImplementingExternalModuleScopedTypealiasedProtocolMock, rhs: ImplementingExternalModuleScopedTypealiasedProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -5597,10 +5625,6 @@ public final class ImplementingExternalModuleScopingMock: MockingbirdTestsHost.I
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (MockingbirdModuleTestsHost.TopLevelType) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  public static func ==(lhs: ImplementingExternalModuleScopingMock, rhs: ImplementingExternalModuleScopingMock) -> Bool {
-    return true
-  }
-
   // MARK: Mocked `init()`
 
   public required override init() {
@@ -5638,10 +5662,6 @@ public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: 
       stubbingContext.sourceLocation = newValue
       InheritedTypeQualificationProtocolGenericImplementerMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: InheritedTypeQualificationProtocolGenericImplementerMock, rhs: InheritedTypeQualificationProtocolGenericImplementerMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -5718,10 +5738,6 @@ public final class InheritedTypeQualificationProtocolMock<ScopedType>: Mockingbi
     }
   }
 
-  public static func ==(lhs: InheritedTypeQualificationProtocolMock, rhs: InheritedTypeQualificationProtocolMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
@@ -5793,10 +5809,6 @@ public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceT
       stubbingContext.sourceLocation = newValue
       InheritingAssociatedTypeSelfReferencingProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: InheritingAssociatedTypeSelfReferencingProtocolMock, rhs: InheritingAssociatedTypeSelfReferencingProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -5891,10 +5903,6 @@ public final class InheritingExternalModuleScopedAssociatedTypeProtocolMock<Elem
     }
   }
 
-  public static func ==(lhs: InheritingExternalModuleScopedAssociatedTypeProtocolMock, rhs: InheritingExternalModuleScopedAssociatedTypeProtocolMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
@@ -5921,32 +5929,9 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     }
   }
 
-  public static func ==(lhs: InheritingExternalModuleScopedTypealiasedProtocolMock, rhs: InheritingExternalModuleScopedTypealiasedProtocolMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
-  }
-
-  // MARK: Mocked `genericRequest(object:)`
-
-  public func genericRequest<T: MockingbirdModuleTestsHost.NSObjectProtocol>(object: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject? {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericRequest(object:) -> T?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
-    mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? (T?) -> T? {
-      return concreteImplementation(`object`)
-    } else {
-      return (implementation as! () -> T?)()
-    }
-  }
-
-  public func genericRequest<T: MockingbirdModuleTestsHost.NSObjectProtocol>(object: @escaping @autoclosure () -> T?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T?) -> T?, T?> where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject? {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericRequest(object:) -> T?", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T?) -> T?, T?>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `genericRequest(object:)`
@@ -5968,6 +5953,25 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
   }
 
+  // MARK: Mocked `genericRequest(object:)`
+
+  public func genericRequest<T: MockingbirdModuleTestsHost.NSObjectProtocol>(object: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject? {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericRequest(object:) -> T?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (T?) -> T? {
+      return concreteImplementation(`object`)
+    } else {
+      return (implementation as! () -> T?)()
+    }
+  }
+
+  public func genericRequest<T: MockingbirdModuleTestsHost.NSObjectProtocol>(object: @escaping @autoclosure () -> T?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T?) -> T?, T?> where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject? {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericRequest(object:) -> T?", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T?) -> T?, T?>(mock: self, invocation: invocation)
+  }
+
   // MARK: Mocked `request(object:)`
 
   public func request(object: Foundation.NSObject?) -> Foundation.NSObject? {
@@ -5985,25 +5989,6 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Foundation.NSObject?", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?>(mock: self, invocation: invocation)
-  }
-
-  // MARK: Mocked `request(object:)`
-
-  public func request(object: Foundation.NSObject) -> Foundation.NSObject {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
-    mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? (Foundation.NSObject) -> Foundation.NSObject {
-      return concreteImplementation(`object`)
-    } else {
-      return (implementation as! () -> Foundation.NSObject)()
-    }
-  }
-
-  public func request(object: @escaping @autoclosure () -> Foundation.NSObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Foundation.NSObject", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request(object:)`
@@ -6043,6 +6028,25 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> MockingbirdModuleTestsHost.NSObject", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject, MockingbirdModuleTestsHost.NSObject>(mock: self, invocation: invocation)
   }
+
+  // MARK: Mocked `request(object:)`
+
+  public func request(object: Foundation.NSObject) -> Foundation.NSObject {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (Foundation.NSObject) -> Foundation.NSObject {
+      return concreteImplementation(`object`)
+    } else {
+      return (implementation as! () -> Foundation.NSObject)()
+    }
+  }
+
+  public func request(object: @escaping @autoclosure () -> Foundation.NSObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Foundation.NSObject", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
+  }
 }
 
 /// Create a source-attributed `MockingbirdTestsHost.InheritingExternalModuleScopedTypealiasedProtocol` concrete protocol mock instance.
@@ -6072,10 +6076,6 @@ public final class InheritingModuleScopedAssociatedTypeProtocolMock<Element, Sub
       stubbingContext.sourceLocation = newValue
       InheritingModuleScopedAssociatedTypeProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: InheritingModuleScopedAssociatedTypeProtocolMock, rhs: InheritingModuleScopedAssociatedTypeProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -6140,10 +6140,6 @@ public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, 
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-  }
-
-  public static func ==(lhs: InitializerClassMock, rhs: InitializerClassMock) -> Bool {
-    return true
   }
 
   // MARK: Mocked `init()`
@@ -6235,10 +6231,6 @@ public final class InitializerOverridingSubclassMock: MockingbirdTestsHost.Initi
     }
   }
 
-  public static func ==(lhs: InitializerOverridingSubclassMock, rhs: InitializerOverridingSubclassMock) -> Bool {
-    return true
-  }
-
   // MARK: Mocked `init()`
 
   public required override init() {
@@ -6276,10 +6268,6 @@ public final class InitializerProtocolMock: MockingbirdTestsHost.InitializerProt
       stubbingContext.sourceLocation = newValue
       InitializerProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: InitializerProtocolMock, rhs: InitializerProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -6362,10 +6350,6 @@ public final class InitializerSubclassMock: MockingbirdTestsHost.InitializerSubc
     }
   }
 
-  public static func ==(lhs: InitializerSubclassMock, rhs: InitializerSubclassMock) -> Bool {
-    return true
-  }
-
   // MARK: Mocked `init(param99:)`
 
   public required override init(param99: Bool) {
@@ -6403,10 +6387,6 @@ public final class InoutClassMock: MockingbirdTestsHost.InoutClass, Mockingbird.
       stubbingContext.sourceLocation = newValue
       InoutClassMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: InoutClassMock, rhs: InoutClassMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -6453,10 +6433,6 @@ public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockin
       stubbingContext.sourceLocation = newValue
       InoutProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: InoutProtocolMock, rhs: InoutProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -6519,10 +6495,6 @@ public final class LocalPublicExternalProtocolMock: MockingbirdTestsHost.LocalPu
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  public static func ==(lhs: LocalPublicExternalProtocolMock, rhs: LocalPublicExternalProtocolMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
@@ -6576,10 +6548,6 @@ public final class ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, D
     }
   }
 
-  public static func ==(lhs: ModuleScopedAssociatedTypeProtocolMock, rhs: ModuleScopedAssociatedTypeProtocolMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
@@ -6604,10 +6572,6 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
       stubbingContext.sourceLocation = newValue
       ModuleScopedTypealiasedProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: ModuleScopedTypealiasedProtocolMock, rhs: ModuleScopedTypealiasedProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -6750,10 +6714,6 @@ public final class NoInitializerClassMock: MockingbirdTestsHost.NoInitializerCla
     }
   }
 
-  public static func ==(lhs: NoInitializerClassMock, rhs: NoInitializerClassMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     super.init()
     Mockingbird.checkVersion(for: self)
@@ -6779,10 +6739,6 @@ public final class NoInitializerProtocolMock: MockingbirdTestsHost.NoInitializer
       stubbingContext.sourceLocation = newValue
       NoInitializerProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: NoInitializerProtocolMock, rhs: NoInitializerProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -6824,10 +6780,6 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
   public func getBaseVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public static func ==(lhs: NonExtendableClassMock, rhs: NonExtendableClassMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -6918,10 +6870,6 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
   public func getUnwrappedOptionalVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "unwrappedOptionalVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public static func ==(lhs: OptionalsProtocolMock, rhs: OptionalsProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -7220,10 +7168,6 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
     }
   }
 
-  public static func ==(lhs: OverloadedMethodsClassMock, rhs: OverloadedMethodsClassMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     super.init()
     Mockingbird.checkVersion(for: self)
@@ -7323,10 +7267,6 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
       stubbingContext.sourceLocation = newValue
       OverloadedMethodsProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: OverloadedMethodsProtocolMock, rhs: OverloadedMethodsProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -7437,10 +7377,6 @@ public final class ParameterizedInitializerClassMock: MockingbirdTestsHost.Param
     }
   }
 
-  public static func ==(lhs: ParameterizedInitializerClassMock, rhs: ParameterizedInitializerClassMock) -> Bool {
-    return true
-  }
-
   // MARK: Mocked `init(param1:param2:)`
 
   public required override init(param1: Bool, param2: Int) {
@@ -7469,10 +7405,6 @@ public final class ParameterizedInitializerProtocolMock: MockingbirdTestsHost.Pa
       stubbingContext.sourceLocation = newValue
       ParameterizedInitializerProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: ParameterizedInitializerProtocolMock, rhs: ParameterizedInitializerProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -7691,10 +7623,6 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.set", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: staticMock, invocation: invocation)
-  }
-
-  public static func ==(lhs: ParentProtocolMock, rhs: ParentProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -8053,10 +7981,6 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  public static func ==(lhs: ParentMock, rhs: ParentMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     super.init()
     Mockingbird.checkVersion(for: self)
@@ -8240,10 +8164,6 @@ public final class RequiredInitializerClassMock: MockingbirdTestsHost.RequiredIn
     }
   }
 
-  public static func ==(lhs: RequiredInitializerClassMock, rhs: RequiredInitializerClassMock) -> Bool {
-    return true
-  }
-
   // MARK: Mocked `init(param1:param2:)`
 
   public required init(param1: Bool, param2: Int) {
@@ -8272,10 +8192,6 @@ public final class RethrowingProtocolMock: MockingbirdTestsHost.RethrowingProtoc
       stubbingContext.sourceLocation = newValue
       RethrowingProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: RethrowingProtocolMock, rhs: RethrowingProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -8355,10 +8271,6 @@ public final class ServiceRepositoryMock: MockingbirdTestsHost.ServiceRepository
   public func getTestManager() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.TestManager, MockingbirdTestsHost.TestManager> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "testManager.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.TestManager, MockingbirdTestsHost.TestManager>(mock: self, invocation: invocation)
-  }
-
-  public static func ==(lhs: ServiceRepositoryMock, rhs: ServiceRepositoryMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -8455,10 +8367,6 @@ public final class SubclassingExternalClassWithDesignatedIntializerMock: Mocking
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.set", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
-  }
-
-  public static func ==(lhs: SubclassingExternalClassWithDesignatedIntializerMock, rhs: SubclassingExternalClassWithDesignatedIntializerMock) -> Bool {
-    return true
   }
 
   // MARK: Mocked `init(param1:)`
@@ -8595,10 +8503,6 @@ public final class SubclassingExternalClassWithInheritedIntializerMock: Mockingb
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.set", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
-  }
-
-  public static func ==(lhs: SubclassingExternalClassWithInheritedIntializerMock, rhs: SubclassingExternalClassWithInheritedIntializerMock) -> Bool {
-    return true
   }
 
   // MARK: Mocked `init()`
@@ -8766,10 +8670,6 @@ public final class SubclassingExternalSubclassWithDesignatedInitializerMock: Moc
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.set", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
-  }
-
-  public static func ==(lhs: SubclassingExternalSubclassWithDesignatedInitializerMock, rhs: SubclassingExternalSubclassWithDesignatedInitializerMock) -> Bool {
-    return true
   }
 
   // MARK: Mocked `baseOpenMethod()`
@@ -8957,10 +8857,6 @@ public final class SubclassingExternalSubclassWithInheritedInitializerMock: Mock
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  public static func ==(lhs: SubclassingExternalSubclassWithInheritedInitializerMock, rhs: SubclassingExternalSubclassWithInheritedInitializerMock) -> Bool {
-    return true
-  }
-
   // MARK: Mocked `baseOpenMethod()`
 
   public override func baseOpenMethod() -> Void {
@@ -9084,10 +8980,6 @@ public final class SubclassingExternalTopLevelTypeMock: MockingbirdTestsHost.Sub
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (SecondLevelType) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  public static func ==(lhs: SubclassingExternalTopLevelTypeMock, rhs: SubclassingExternalTopLevelTypeMock) -> Bool {
-    return true
-  }
-
   // MARK: Mocked `init()`
 
   public required override init() {
@@ -9116,10 +9008,6 @@ public final class TestCaseMock: MockingbirdTestsHost.TestCase, Mockingbird.Mock
       stubbingContext.sourceLocation = newValue
       TestCaseMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: TestCaseMock, rhs: TestCaseMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -9182,10 +9070,6 @@ public final class TestManagerMock: MockingbirdTestsHost.TestManager, Mockingbir
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.Test, MockingbirdTestsHost.Test>(mock: self, invocation: invocation)
   }
 
-  public static func ==(lhs: TestManagerMock, rhs: TestManagerMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
@@ -9245,10 +9129,6 @@ public final class TestMock: MockingbirdTestsHost.Test, Mockingbird.Mock {
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.TestCase, MockingbirdTestsHost.TestCase>(mock: self, invocation: invocation)
   }
 
-  public static func ==(lhs: TestMock, rhs: TestMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
@@ -9292,10 +9172,6 @@ public final class ThrowingProtocolMock: MockingbirdTestsHost.ThrowingProtocol, 
       stubbingContext.sourceLocation = newValue
       ThrowingProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: ThrowingProtocolMock, rhs: ThrowingProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -9379,10 +9255,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
     }
   }
 
-  public static func ==(lhs: TopLevelTypeMock, rhs: TopLevelTypeMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     super.init()
     Mockingbird.checkVersion(for: self)
@@ -9423,10 +9295,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       }
     }
 
-    public static func ==(lhs: SecondLevelTypeMock, rhs: SecondLevelTypeMock) -> Bool {
-      return true
-    }
-
     fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
       super.init()
       Mockingbird.checkVersion(for: self)
@@ -9465,10 +9333,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           stubbingContext.sourceLocation = newValue
           ThirdLevelInheritingTopLevelTypeMock.staticMock.stubbingContext.sourceLocation = newValue
         }
-      }
-
-      public static func ==(lhs: ThirdLevelInheritingTopLevelTypeMock, rhs: ThirdLevelInheritingTopLevelTypeMock) -> Bool {
-        return true
       }
 
       fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -9530,10 +9394,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         }
       }
 
-      public static func ==(lhs: ThirdLevelInheritingThirdLevelTypeMock, rhs: ThirdLevelInheritingThirdLevelTypeMock) -> Bool {
-        return true
-      }
-
       fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
         super.init()
         Mockingbird.checkVersion(for: self)
@@ -9591,10 +9451,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           stubbingContext.sourceLocation = newValue
           ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock.staticMock.stubbingContext.sourceLocation = newValue
         }
-      }
-
-      public static func ==(lhs: ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock, rhs: ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock) -> Bool {
-        return true
       }
 
       fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -9656,10 +9512,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         }
       }
 
-      public static func ==(lhs: ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock, rhs: ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock) -> Bool {
-        return true
-      }
-
       fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
         super.init()
         Mockingbird.checkVersion(for: self)
@@ -9717,10 +9569,6 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
           stubbingContext.sourceLocation = newValue
           ThirdLevelTypeMock.staticMock.stubbingContext.sourceLocation = newValue
         }
-      }
-
-      public static func ==(lhs: ThirdLevelTypeMock, rhs: ThirdLevelTypeMock) -> Bool {
-        return true
       }
 
       fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -9809,10 +9657,6 @@ public final class TreeMock: MockingbirdTestsHost.Tree, Mockingbird.Mock {
     }
   }
 
-  public static func ==(lhs: TreeMock, rhs: TreeMock) -> Bool {
-    return true
-  }
-
   // MARK: Mocked `drop(_:)`
 
   public override func drop(_ fruit: MockingbirdTestsHost.Tree.Fruit) -> Void {
@@ -9880,10 +9724,6 @@ public final class TreeMock: MockingbirdTestsHost.Tree, Mockingbird.Mock {
         mock.sourceLocation = SourceLocation(__file, __line)
         return mock
       }
-    }
-
-    public static func ==(lhs: FruitMock, rhs: FruitMock) -> Bool {
-      return true
     }
 
     // MARK: Mocked `init(size:)`
@@ -10040,10 +9880,6 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)>(mock: self, invocation: invocation)
-  }
-
-  public static func ==(lhs: TupleTypesMock, rhs: TupleTypesMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -10290,10 +10126,6 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
     }
   }
 
-  public static func ==(lhs: TypealiasedClassMock, rhs: TypealiasedClassMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     super.init()
     Mockingbird.checkVersion(for: self)
@@ -10376,10 +10208,6 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
       stubbingContext.sourceLocation = newValue
       TypealiasedProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: TypealiasedProtocolMock, rhs: TypealiasedProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -10465,10 +10293,6 @@ public final class UndefinedArgumentLabelsMock: MockingbirdTestsHost.UndefinedAr
     }
   }
 
-  public static func ==(lhs: UndefinedArgumentLabelsMock, rhs: UndefinedArgumentLabelsMock) -> Bool {
-    return true
-  }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
@@ -10527,10 +10351,6 @@ public final class VariablesContainerProtocolMock: MockingbirdTestsHost.Variable
   public func getReadonlyVariableOverwrittenAsReadwrite() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "readonlyVariableOverwrittenAsReadwrite.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public static func ==(lhs: VariablesContainerProtocolMock, rhs: VariablesContainerProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -10799,10 +10619,6 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  public static func ==(lhs: VariablesContainerMock, rhs: VariablesContainerMock) -> Bool {
-    return true
-  }
-
   // MARK: Mocked `init()`
 
   public required override init() {
@@ -10831,10 +10647,6 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
       stubbingContext.sourceLocation = newValue
       VariadicClassMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: VariadicClassMock, rhs: VariadicClassMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -10958,10 +10770,6 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
       stubbingContext.sourceLocation = newValue
       VariadicProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
-  }
-
-  public static func ==(lhs: VariadicProtocolMock, rhs: VariadicProtocolMock) -> Bool {
-    return true
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {

@@ -55,6 +55,7 @@
 		493ECA39232ECEF1008BF44B /* ExternalModuleTypealiasing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA38232ECEF1008BF44B /* ExternalModuleTypealiasing.swift */; };
 		493ECA3B232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA3A232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift */; };
 		493ECA3D232ECF10008BF44B /* ExternalModuleTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA3C232ECF10008BF44B /* ExternalModuleTypes.swift */; };
+		49732AF0232F322B0090E1A9 /* MethodParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49732AEF232F322B0090E1A9 /* MethodParameter.swift */; };
 		OBJ_1002 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_380 /* SWXMLHash.swift */; };
 		OBJ_1003 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_381 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
 		OBJ_1004 /* shim.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_382 /* shim.swift */; };
@@ -943,6 +944,7 @@
 		493ECA38232ECEF1008BF44B /* ExternalModuleTypealiasing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleTypealiasing.swift; sourceTree = "<group>"; };
 		493ECA3A232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleClassScopedTypes.swift; sourceTree = "<group>"; };
 		493ECA3C232ECF10008BF44B /* ExternalModuleTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleTypes.swift; sourceTree = "<group>"; };
+		49732AEF232F322B0090E1A9 /* MethodParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodParameter.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2684,6 +2686,7 @@
 				OBJ_63 /* DeclaredType.swift */,
 				OBJ_64 /* GenericType.swift */,
 				OBJ_65 /* Method.swift */,
+				49732AEF232F322B0090E1A9 /* MethodParameter.swift */,
 				OBJ_66 /* MockableType.swift */,
 				OBJ_67 /* Primitives.swift */,
 				OBJ_68 /* RawType.swift */,
@@ -2795,8 +2798,8 @@
 				OBJ_112 /* Exceptions.swift */,
 				OBJ_113 /* Extensions.swift */,
 				493ECA3A232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift */,
-				493ECA3C232ECF10008BF44B /* ExternalModuleTypes.swift */,
 				493ECA38232ECEF1008BF44B /* ExternalModuleTypealiasing.swift */,
+				493ECA3C232ECF10008BF44B /* ExternalModuleTypes.swift */,
 				OBJ_114 /* Generics.swift */,
 				OBJ_115 /* Grandparent.swift */,
 				OBJ_116 /* GrandparentProtocol.swift */,
@@ -3821,6 +3824,7 @@
 				OBJ_737 /* DeclaredType.swift in Sources */,
 				OBJ_738 /* GenericType.swift in Sources */,
 				OBJ_739 /* Method.swift in Sources */,
+				49732AF0232F322B0090E1A9 /* MethodParameter.swift in Sources */,
 				OBJ_740 /* MockableType.swift in Sources */,
 				OBJ_741 /* Primitives.swift in Sources */,
 				OBJ_742 /* RawType.swift in Sources */,

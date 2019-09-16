@@ -26,6 +26,21 @@ class MethodTemplate: Template {
     ].filter({ !$0.isEmpty }).joined(separator: "\n\n")
   }
   
+  private enum Constants {
+    /// Certain methods have `Self` enforced parameter constraints.
+    static let reservedNamesMap: [String: String] = [
+      // Equatable
+      "==": "_equalTo",
+      "!=": "_notEqualTo",
+      
+      // Comparable
+      "<": "_lessThan",
+      "<=": "_lessThanOrEqualTo",
+      ">": "_greaterThan",
+      ">=": "_greaterThanOrEqualTo",
+    ]
+  }
+  
   var classInitializerProxy: String {
     guard method.isInitializer, context.mockableType.kind == .class else { return "" }
     // We can't usually infer what concrete arguments to pass to the designated initializer.
@@ -181,7 +196,14 @@ class MethodTemplate: Template {
     } else {
       failable = ""
     }
-    let shortName = forInitializerProxy ? "initialize" : self.shortName
+    let shortName: String
+    if forInitializerProxy {
+      shortName = "initialize"
+    } else if forMatching, let resolvedShortName = Constants.reservedNamesMap[self.shortName] {
+      shortName = resolvedShortName
+    } else {
+      shortName = self.shortName
+    }
     return "\(shortName)\(failable)(\(parameterNames.joined(separator: ", ")))"
   }
   
