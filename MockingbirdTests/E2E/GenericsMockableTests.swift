@@ -40,6 +40,9 @@ extension AssociatedTypeGenericConstraintsProtocolMock: MockableAssociatedTypeGe
 private protocol MockableAssociatedTypeSelfReferencingProtocol: AssociatedTypeSelfReferencingProtocol {}
 extension AssociatedTypeSelfReferencingProtocolMock: MockableAssociatedTypeSelfReferencingProtocol {}
 
+private protocol MockableInheritingAssociatedTypeSelfReferencingProtocol: AssociatedTypeSelfReferencingProtocol {}
+extension InheritingAssociatedTypeSelfReferencingProtocolMock: MockableInheritingAssociatedTypeSelfReferencingProtocol {}
+
 // MARK: Non-mockable declarations
 
 private extension AssociatedTypeImplementerMock {

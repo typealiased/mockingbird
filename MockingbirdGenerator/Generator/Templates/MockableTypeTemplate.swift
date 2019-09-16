@@ -105,8 +105,9 @@ class MockableTypeTemplate: Template {
   }()
   
   lazy var allGenericConstraints: String = {
-    guard !mockableType.genericConstraints.isEmpty else { return "" }
-    return " where " + mockableType.genericConstraints.joined(separator: ", ")
+    guard !mockableType.whereClauses.isEmpty else { return "" }
+    return " where " + mockableType.whereClauses
+      .map({ specializeTypeName("\($0)") }).joined(separator: ", ")
   }()
   
   var allInheritedTypes: String {
@@ -175,8 +176,9 @@ class MockableTypeTemplate: Template {
   
   func renderInitializerProxy() -> String {
     let isProxyable: (Method) -> Bool = {
-      // We can't usually infer what concrete arguments to pass to the designated initializer.
-      $0.isInitializer && !$0.attributes.contains(.convenience)
+      // This needs to be a designated initializer since if it's a convenience initializer, we can't
+      // always infer what concrete argument values to pass to the designated initializer.
+      $0.isDesignatedInitializer
     }
     guard mockableType.kind == .class, mockableType.methods.contains(where: isProxyable)
       else { return "" }
@@ -216,7 +218,7 @@ class MockableTypeTemplate: Template {
   /// unstubbed method invocations to show up in the testing code.
   var defaultInitializer: String {
     guard mockableType.kind == .protocol || !mockableType.methods.contains(where: {
-      $0.isInitializer && !$0.attributes.contains(.convenience)
+      $0.isDesignatedInitializer
     }) else { return "" }
     let superInit = (mockableType.kind == .class ? "super.init()\n    " : "")
     return """
@@ -241,7 +243,7 @@ class MockableTypeTemplate: Template {
         // Not possible to override overloaded methods where uniqueness is from generic constraints.
         // https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
         guard mockableType.kind == .class else { return true }
-        guard !method.genericConstraints.isEmpty else { return true }
+        guard !method.whereClauses.isEmpty else { return true }
         return mockableType.methodsCount[Method.Reduced(from: method)] == 1
       })
       .map({ methodTemplate(for: $0).render() })

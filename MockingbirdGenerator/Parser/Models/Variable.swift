@@ -65,7 +65,7 @@ struct Variable: Hashable, Comparable {
       .Context(moduleNames: moduleNames,
                rawType: rawType,
                rawTypeRepository: rawTypeRepository)
-    let qualifiedTypeNameRequest = SerializationRequest(method: .contextQualified,
+    let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
                                                         context: serializationContext,
                                                         options: .standard)
     self.typeName = declaredType.serialize(with: qualifiedTypeNameRequest)

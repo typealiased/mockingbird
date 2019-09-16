@@ -39,7 +39,9 @@ let package = Package(
     ),
     .target(
       name: "MockingbirdTestsHost",
-      dependencies: [],
+      dependencies: [
+        "MockingbirdModuleTestsHost",
+      ],
       path: "MockingbirdTestsHost",
       exclude: ["Module", "Performance"]
     ),

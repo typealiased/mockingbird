@@ -81,18 +81,19 @@ struct Attributes: OptionSet, Hashable {
   static let weak = Attributes(rawValue: 1 << 3)
   static let `rethrows` = Attributes(rawValue: 1 << 4)
   static let convenience = Attributes(rawValue: 1 << 5)
+  static let override = Attributes(rawValue: 1 << 6)
   
   // MARK: Inferred attributes
-  static let constant = Attributes(rawValue: 1 << 6)
-  static let readonly = Attributes(rawValue: 1 << 7)
-  static let `throws` = Attributes(rawValue: 1 << 8)
-  static let `inout` = Attributes(rawValue: 1 << 9)
-  static let variadic = Attributes(rawValue: 1 << 10)
-  static let failable = Attributes(rawValue: 1 << 11)
-  static let unwrappedFailable = Attributes(rawValue: 1 << 12)
-  static let closure = Attributes(rawValue: 1 << 13)
-  static let escaping = Attributes(rawValue: 1 << 14)
-  static let autoclosure = Attributes(rawValue: 1 << 15)
+  static let constant = Attributes(rawValue: 1 << 7)
+  static let readonly = Attributes(rawValue: 1 << 8)
+  static let `throws` = Attributes(rawValue: 1 << 9)
+  static let `inout` = Attributes(rawValue: 1 << 10)
+  static let variadic = Attributes(rawValue: 1 << 11)
+  static let failable = Attributes(rawValue: 1 << 12)
+  static let unwrappedFailable = Attributes(rawValue: 1 << 13)
+  static let closure = Attributes(rawValue: 1 << 14)
+  static let escaping = Attributes(rawValue: 1 << 15)
+  static let autoclosure = Attributes(rawValue: 1 << 16)
   
   static let attributesKey = "key.attributes"
   static let attributeKey = "key.attribute"
@@ -107,6 +108,7 @@ extension Attributes {
     case .weak: self = .weak
     case .rethrows: self = .rethrows
     case .convenience: self = .convenience
+    case .override: self = .override
     default: return nil
     }
   }

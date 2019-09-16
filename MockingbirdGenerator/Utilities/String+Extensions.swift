@@ -82,7 +82,8 @@ public extension String {
   /// Returns a new string created by removing generic typing, e.g. `SomeType<T>` becomes `SomeType`
   @inlinable
   func removingGenericTyping() -> String {
-    guard firstIndex(of: "<") != nil else { return self }
+    guard let genericTypeStartIndex = firstIndex(of: "<") else { return self }
+    guard contains(".") else { return String(self[..<genericTypeStartIndex]) }
     return self[...]
       .components(separatedBy: ".", excluding: .allGroups)
       .map({ component -> Substring in

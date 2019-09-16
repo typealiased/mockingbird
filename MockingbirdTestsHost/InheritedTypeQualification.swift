@@ -16,16 +16,16 @@ protocol InheritedTypeQualificationProtocol {
     -> MockingbirdTestsHost.UnscopedType?
 }
 
-class InheritedTypeQualificationProtocolImplementer: InheritedTypeQualificationProtocol {
-  typealias ScopedType = String
-  
-  // When the implementation method declaration uses a more qualified type than the inherited.
-  func moreQualifiedImplementation(param: InheritedTypeQualificationProtocolImplementer.ScopedType)
-    -> InheritedTypeQualificationProtocolImplementer.ScopedType? { return nil }
-  
-  // When the implementation method declaration uses a less qualified type than the inherited.
-  func lessQualifiedImplementation(param: UnscopedType) -> UnscopedType? { return nil }
-}
+//class InheritedTypeQualificationProtocolImplementer: InheritedTypeQualificationProtocol {
+//  typealias ScopedType = String
+//  
+//  // When the implementation method declaration uses a more qualified type than the inherited.
+//  func moreQualifiedImplementation(param: InheritedTypeQualificationProtocolImplementer.ScopedType)
+//    -> InheritedTypeQualificationProtocolImplementer.ScopedType? { return nil }
+//  
+//  // When the implementation method declaration uses a less qualified type than the inherited.
+//  func lessQualifiedImplementation(param: UnscopedType) -> UnscopedType? { return nil }
+//}
 
 class InheritedTypeQualificationProtocolGenericImplementer<T>: InheritedTypeQualificationProtocol {
   typealias ScopedType = T

@@ -26,3 +26,28 @@ class InitializerClass {
     try! self.init(param: "foo bar")
   }
 }
+
+class InitializerOverridingSubclass: InitializerClass {
+  override init() {
+    super.init()
+  }
+  
+  convenience override init(param: Bool) {
+    self.init()
+  }
+  
+  required init(param: String?) {
+    super.init()
+  }
+}
+
+class InitializerSubclass: InitializerClass {
+  init(param99: Bool) {
+    super.init()
+  }
+  
+  required init(param: String?) {
+    super.init()
+  }
+}
+

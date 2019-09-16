@@ -118,8 +118,10 @@ class MethodTemplate: Template {
   func modifiers(allowOverride: Bool = true) -> String {
     let isRequired = method.attributes.contains(.required)
     let required = (isRequired || method.isInitializer ? "required " : "")
-    let override = (context.mockableType.kind == .class && !isRequired && allowOverride ? "override " : "")
-    let `static` = (method.kind.typeScope == .static || method.kind.typeScope == .class ? "static " : "")
+    let shouldOverride = context.mockableType.kind == .class && !isRequired && allowOverride
+    let override = shouldOverride ? "override " : ""
+    let `static` = (method.kind.typeScope == .static
+      || method.kind.typeScope == .class ? "static " : "")
     return "\(required)\(override)\(`static`)"
   }
   
@@ -128,8 +130,9 @@ class MethodTemplate: Template {
   }()
   
   lazy var genericConstraints: String = {
-    guard !method.genericConstraints.isEmpty else { return "" }
-    return " where " + method.genericConstraints.joined(separator: ", ")
+    guard !method.whereClauses.isEmpty else { return "" }
+    return " where " + method.whereClauses
+      .map({ context.specializeTypeName("\($0)") }).joined(separator: ", ")
   }()
   
   lazy var shortName: String = {

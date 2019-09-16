@@ -27,3 +27,6 @@ extension TypealiasedClassMock: MockableTypealiasedClass {}
 
 private protocol MockableModuleScopedTypealiasedProtocol: ModuleScopedTypealiasedProtocol {}
 extension ModuleScopedTypealiasedProtocolMock: MockableModuleScopedTypealiasedProtocol {}
+
+private protocol MockableInheritingModuleScopedAssociatedTypeProtocol: ModuleScopedAssociatedTypeProtocol {}
+extension InheritingModuleScopedAssociatedTypeProtocolMock: MockableInheritingModuleScopedAssociatedTypeProtocol {}

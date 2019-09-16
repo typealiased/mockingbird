@@ -39,7 +39,7 @@ struct MethodParameter: Hashable {
                rawType: rawType,
                rawTypeRepository: rawTypeRepository,
                typealiasRepository: typealiasRepository)
-    let qualifiedTypeNameRequest = SerializationRequest(method: .contextQualified,
+    let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
                                                         context: serializationContext,
                                                         options: .standard)
     let actualTypeNameRequest = SerializationRequest(method: .actualTypeName,
@@ -62,10 +62,11 @@ struct Method: Hashable, Comparable {
   let shortName: String
   let returnTypeName: String
   let isInitializer: Bool
+  let isDesignatedInitializer: Bool
   let accessLevel: AccessLevel
   let kind: SwiftDeclarationKind
   let genericTypes: [GenericType]
-  let genericConstraints: [String]
+  let whereClauses: [WhereClause]
   let parameters: [MethodParameter]
   let attributes: Attributes
   
@@ -89,7 +90,7 @@ struct Method: Hashable, Comparable {
     hasher.combine(returnTypeName)
     hasher.combine(kind.typeScope == .instance)
     hasher.combine(genericTypes)
-    hasher.combine(genericConstraints)
+    hasher.combine(whereClauses)
     hasher.combine(parameters)
   }
   
@@ -115,20 +116,24 @@ struct Method: Hashable, Comparable {
       || (kind.typeScope == .static && rootKind == .protocol)
       else { return nil }
     
-    guard let name = dictionary[SwiftDocKey.name.rawValue] as? String, name != "deinit",
-      let accessLevel = AccessLevel(from: dictionary),
+    guard let name = dictionary[SwiftDocKey.name.rawValue] as? String, name != "deinit"
+      else { return nil }
+    self.name = name
+    let isInitializer = name.hasPrefix("init(")
+    self.isInitializer = isInitializer
+    
+    guard let accessLevel = AccessLevel(from: dictionary),
       accessLevel.isMockableMember(in: rootKind, withinSameModule: rawType.parsedFile.shouldMock)
+        || isInitializer && accessLevel.isMockable // Initializers cannot be `open`.
       else { return nil }
     self.accessLevel = accessLevel
     
     let source = rawType.parsedFile.data
     let attributes = Attributes(from: dictionary, source: source)
     guard !attributes.contains(.final) else { return nil }
+    self.isDesignatedInitializer = isInitializer && !attributes.contains(.convenience)
     
     let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary] ?? []
-    
-    self.name = name
-    self.isInitializer = name.hasPrefix("init(")
     self.kind = kind
     
     // Parse declared attributes and parameters.
@@ -146,12 +151,12 @@ struct Method: Hashable, Comparable {
                                                      rawTypeRepository: rawTypeRepository,
                                                      typealiasRepository: typealiasRepository)
     
-    // Parse generic types and constraints.
-    self.genericConstraints = Method.parseGenericConstraints(from: dictionary,
-                                                             source: source,
-                                                             rawType: rawType,
-                                                             moduleNames: moduleNames,
-                                                             rawTypeRepository: rawTypeRepository)
+    // Parse generic type constraints and where clauses.
+    self.whereClauses = Method.parseWhereClauses(from: dictionary,
+                                                 source: source,
+                                                 rawType: rawType,
+                                                 moduleNames: moduleNames,
+                                                 rawTypeRepository: rawTypeRepository)
     self.genericTypes = substructure.compactMap({ structure -> GenericType? in
       guard let genericType = GenericType(from: structure,
                                           rawType: rawType,
@@ -181,7 +186,7 @@ struct Method: Hashable, Comparable {
           .joined(separator: ","),
         self.returnTypeName,
         self.kind.typeScope.rawValue,
-        self.genericConstraints.joined(separator: ",")
+        self.whereClauses.map({ "\($0)" }).joined(separator: ",")
       ].joined(separator: "|")
     } else {
       self.sortableIdentifier = name
@@ -230,22 +235,22 @@ struct Method: Hashable, Comparable {
   }
   
   @inlinable
-  static func parseGenericConstraints(from dictionary: StructureDictionary,
-                                      source: Data?,
-                                      rawType: RawType,
-                                      moduleNames: [String],
-                                      rawTypeRepository: RawTypeRepository) -> [String] {
+  static func parseWhereClauses(from dictionary: StructureDictionary,
+                                source: Data?,
+                                rawType: RawType,
+                                moduleNames: [String],
+                                rawTypeRepository: RawTypeRepository) -> [WhereClause] {
     guard let nameSuffix = SourceSubstring.nameSuffixUpToBody.extract(from: dictionary,
                                                                       contents: source),
       let whereRange = nameSuffix.range(of: #"\bwhere\b"#, options: .regularExpression)
       else { return [] }
-    let rawGenericConstraints = nameSuffix[whereRange.upperBound..<nameSuffix.endIndex]
-      .substringComponents(separatedBy: ",")
-      .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
-    return GenericType.qualifyConstraintTypes(constraints: rawGenericConstraints,
-                                              containingType: rawType,
-                                              moduleNames: moduleNames,
-                                              rawTypeRepository: rawTypeRepository)
+    return nameSuffix[whereRange.upperBound..<nameSuffix.endIndex]
+      .components(separatedBy: ",", excluding: .allGroups)
+      .compactMap({ WhereClause(from: String($0)) })
+      .map({ GenericType.qualifyWhereClause($0,
+                                            containingType: rawType,
+                                            moduleNames: moduleNames,
+                                            rawTypeRepository: rawTypeRepository) })
   }
   
   @inlinable
@@ -263,7 +268,7 @@ struct Method: Hashable, Comparable {
                rawType: rawType,
                rawTypeRepository: rawTypeRepository,
                typealiasRepository: typealiasRepository)
-    let qualifiedTypeNameRequest = SerializationRequest(method: .contextQualified,
+    let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
                                                         context: serializationContext,
                                                         options: .standard)
     return declaredType.serialize(with: qualifiedTypeNameRequest)

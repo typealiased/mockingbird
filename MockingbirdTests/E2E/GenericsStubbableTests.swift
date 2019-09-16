@@ -79,3 +79,4 @@ private protocol StubbableAssociatedTypeSelfReferencingProtocol: AssociatedTypeS
   func request(object: @escaping @autoclosure () -> Self) -> Mockable<MethodDeclaration, (Self) -> Void, Void>
 }
 extension AssociatedTypeSelfReferencingProtocolMock: StubbableAssociatedTypeSelfReferencingProtocol {}
+extension InheritingAssociatedTypeSelfReferencingProtocolMock: StubbableAssociatedTypeSelfReferencingProtocol {}

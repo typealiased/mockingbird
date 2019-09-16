@@ -53,6 +53,13 @@ public class ProcessTypesOperation: BasicOperation {
       result.mockableTypes = flattenInheritanceOperations
         .compactMap({ $0.result.mockableType })
         .filter({ !$0.isContainedType })
+        .filter({ mockableType -> Bool in
+          guard mockableType.kind == .class, mockableType.subclassesExternalType
+            else { return true }
+          // Ignore any types that simply cannot be initialized because they subclass an externally-
+          // defined type without available initializers and don't locally declare any initializers.
+          return mockableType.methods.contains(where: { $0.isInitializer })
+        })
       result.imports = parseFilesResult.imports
     }
   }
@@ -84,14 +91,22 @@ private class ProcessStructuresOperation: BasicOperation {
                                           parsedFile: ParsedFile,
                                           containingTypeNames: [String]) -> [RawType] {
     let typeName = dictionary[SwiftDocKey.name.rawValue] as? String
+    
+    let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary] ?? []
+    let genericTypes = substructure.compactMap({ dictionary -> String? in
+      guard let kind = SwiftDeclarationKind(from: dictionary), kind == .genericTypeParam
+        else { return nil }
+      return dictionary[SwiftDocKey.name.rawValue] as? String
+    })
+    let allGenericTypes = genericTypes.isEmpty ? "" : "<\(genericTypes.joined(separator: ", "))>"
+    
     let attributedContainingTypeNames: [String] // Containing types plus the current type.
     if let name = typeName {
-      attributedContainingTypeNames = containingTypeNames + [name]
+      attributedContainingTypeNames = containingTypeNames + [name + allGenericTypes]
     } else {
       attributedContainingTypeNames = containingTypeNames
     }
     
-    let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary] ?? []
     let containedTypes = substructure.flatMap({
       processStructureDictionary($0,
                                  parsedFile: parsedFile,
@@ -168,7 +183,6 @@ private class FlattenInheritanceOperation: BasicOperation {
                                       moduleNames: moduleNames,
                                       rawTypeRepository: rawTypeRepository,
                                       typealiasRepository: typealiasRepository)
-      
       // Contained types can inherit from their containing types, so store store this potentially
       // preliminary result first.
       FlattenInheritanceOperation.memoizedMockbleTypes.update {

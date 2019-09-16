@@ -121,7 +121,7 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "metagenerate"
+            argument = "testbed"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument

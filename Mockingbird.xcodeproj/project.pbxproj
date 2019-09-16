@@ -43,6 +43,12 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		4904BDED232ED4B80031E071 /* EmptyTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4904BDEC232ED4B80031E071 /* EmptyTypes.swift */; };
+		493ECA34232ECC92008BF44B /* ClassScopedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA33232ECC92008BF44B /* ClassScopedTypes.swift */; };
+		493ECA36232ECD99008BF44B /* Typealiasing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA35232ECD99008BF44B /* Typealiasing.swift */; };
+		493ECA39232ECEF1008BF44B /* ExternalModuleTypealiasing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA38232ECEF1008BF44B /* ExternalModuleTypealiasing.swift */; };
+		493ECA3B232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA3A232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift */; };
+		493ECA3D232ECF10008BF44B /* ExternalModuleMockableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA3C232ECF10008BF44B /* ExternalModuleMockableTypes.swift */; };
 		OBJ_1002 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_380 /* SWXMLHash.swift */; };
 		OBJ_1003 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_381 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
 		OBJ_1004 /* shim.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_382 /* shim.swift */; };
@@ -363,7 +369,7 @@
 		OBJ_772 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SWXMLHash::SWXMLHash::Product" /* SWXMLHash.framework */; };
 		OBJ_773 /* SourceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SourceKitten::SourceKit::Product" /* SourceKit.framework */; };
 		OBJ_774 /* Clang_C.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SourceKitten::Clang_C::Product" /* Clang_C.framework */; };
-		OBJ_789 /* ExternalModuleTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_95 /* ExternalModuleTypes.swift */; };
+		OBJ_789 /* MockableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_95 /* MockableTypes.swift */; };
 		OBJ_796 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_808 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_97 /* Empty.swift */; };
 		OBJ_814 /* ChildMockMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_146 /* ChildMockMockableTests.swift */; };
@@ -501,6 +507,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4904BDEA232ED47E0031E071 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Mockingbird::MockingbirdModuleTestsHost";
+			remoteInfo = MockingbirdModuleTestsHost;
+		};
 		493EC9F6232EC78F008BF44B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
@@ -910,8 +923,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4904BDEC232ED4B80031E071 /* EmptyTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTypes.swift; sourceTree = "<group>"; };
 		493ECA31232EC7CD008BF44B /* MockingbirdFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdFramework.xcconfig; sourceTree = "<group>"; };
 		493ECA32232EC7CD008BF44B /* MockingbirdCli.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdCli.xcconfig; sourceTree = "<group>"; };
+		493ECA33232ECC92008BF44B /* ClassScopedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassScopedTypes.swift; sourceTree = "<group>"; };
+		493ECA35232ECD99008BF44B /* Typealiasing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiasing.swift; sourceTree = "<group>"; };
+		493ECA38232ECEF1008BF44B /* ExternalModuleTypealiasing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleTypealiasing.swift; sourceTree = "<group>"; };
+		493ECA3A232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleClassScopedTypes.swift; sourceTree = "<group>"; };
+		493ECA3C232ECF10008BF44B /* ExternalModuleMockableTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleMockableTypes.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1323,7 +1342,7 @@
 		OBJ_91 /* Synchronized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronized.swift; sourceTree = "<group>"; };
 		OBJ_92 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		OBJ_93 /* Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
-		OBJ_95 /* ExternalModuleTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleTypes.swift; sourceTree = "<group>"; };
+		OBJ_95 /* MockableTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockableTypes.swift; sourceTree = "<group>"; };
 		OBJ_97 /* Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
 		OBJ_99 /* ArgumentMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentMatching.swift; sourceTree = "<group>"; };
 		"PathKit::PathKit::Product" /* PathKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PathKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1547,6 +1566,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A3E4FEA8D2A60B993516C10 /* Generated Mocks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Generated Mocks";
+			sourceTree = "<group>";
+		};
 		493ECA30232EC7CD008BF44B /* XCConfigs */ = {
 			isa = PBXGroup;
 			children = (
@@ -2561,6 +2587,7 @@
 				OBJ_189 /* Dependencies */,
 				OBJ_503 /* Products */,
 				493ECA30232EC7CD008BF44B /* XCConfigs */,
+				2A3E4FEA8D2A60B993516C10 /* Generated Mocks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2715,7 +2742,9 @@
 		OBJ_94 /* MockingbirdModuleTestsHost */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_95 /* ExternalModuleTypes.swift */,
+				493ECA33232ECC92008BF44B /* ClassScopedTypes.swift */,
+				OBJ_95 /* MockableTypes.swift */,
+				493ECA35232ECD99008BF44B /* Typealiasing.swift */,
 			);
 			name = MockingbirdModuleTestsHost;
 			path = MockingbirdTestsHost/Module;
@@ -2743,9 +2772,13 @@
 				OBJ_106 /* CompoundTypes.swift */,
 				OBJ_107 /* DeclarationAttributes.swift */,
 				OBJ_108 /* DefaultArgumentValues.swift */,
+				4904BDEC232ED4B80031E071 /* EmptyTypes.swift */,
 				OBJ_109 /* Example */,
 				OBJ_112 /* Exceptions.swift */,
 				OBJ_113 /* Extensions.swift */,
+				493ECA3A232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift */,
+				493ECA3C232ECF10008BF44B /* ExternalModuleMockableTypes.swift */,
+				493ECA38232ECEF1008BF44B /* ExternalModuleTypealiasing.swift */,
 				OBJ_114 /* Generics.swift */,
 				OBJ_115 /* Grandparent.swift */,
 				OBJ_116 /* GrandparentProtocol.swift */,
@@ -2946,6 +2979,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_810 /* Build configuration list for PBXNativeTarget "MockingbirdTests" */;
 			buildPhases = (
+				02321D380F2F1A659EC139B7 /* Generate Mockingbird Mocks */,
 				OBJ_813 /* Sources */,
 				OBJ_854 /* Frameworks */,
 			);
@@ -2981,6 +3015,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4904BDEB232ED47E0031E071 /* PBXTargetDependency */,
 			);
 			name = MockingbirdTestsHost;
 			productName = MockingbirdTestsHost;
@@ -3371,6 +3406,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		02321D380F2F1A659EC139B7 /* Generate Mockingbird Mocks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Mockingbird Mocks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/Users/andrew/Library/Developer/Xcode/DerivedData/Mockingbird-agsjxwhkkkzllxguwkxolnnkjhqj/Build/Products/Debug/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs '/Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift'\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		OBJ_1001 /* Sources */ = {
@@ -3783,7 +3835,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_789 /* ExternalModuleTypes.swift in Sources */,
+				493ECA36232ECD99008BF44B /* Typealiasing.swift in Sources */,
+				493ECA34232ECC92008BF44B /* ClassScopedTypes.swift in Sources */,
+				OBJ_789 /* MockableTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3855,8 +3909,10 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_886 /* ArgumentMatching.swift in Sources */,
+				4904BDED232ED4B80031E071 /* EmptyTypes.swift in Sources */,
 				OBJ_887 /* Child.swift in Sources */,
 				OBJ_888 /* ChildProtocol.swift in Sources */,
+				493ECA39232ECEF1008BF44B /* ExternalModuleTypealiasing.swift in Sources */,
 				OBJ_889 /* ClassInitializers.swift in Sources */,
 				OBJ_890 /* ClassScopedTypes.swift in Sources */,
 				OBJ_891 /* ClosureParameters.swift in Sources */,
@@ -3870,12 +3926,14 @@
 				OBJ_899 /* Extensions.swift in Sources */,
 				OBJ_900 /* Generics.swift in Sources */,
 				OBJ_901 /* Grandparent.swift in Sources */,
+				493ECA3B232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift in Sources */,
 				OBJ_902 /* GrandparentProtocol.swift in Sources */,
 				OBJ_903 /* DirectoryIgnoredSource1.swift in Sources */,
 				OBJ_904 /* DirectoryIgnoredSource2.swift in Sources */,
 				OBJ_905 /* WildcardFileIgnoredSource.swift in Sources */,
 				OBJ_906 /* WildcardDirectoryIgnoredSource1.swift in Sources */,
 				OBJ_907 /* WildcardDirectoryIgnoredSource2.swift in Sources */,
+				493ECA3D232ECF10008BF44B /* ExternalModuleMockableTypes.swift in Sources */,
 				OBJ_908 /* SecondLevelFileIgnoredSource.swift in Sources */,
 				OBJ_909 /* InheritedTypeQualification.swift in Sources */,
 				OBJ_910 /* Initializers.swift in Sources */,
@@ -3967,6 +4025,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4904BDEB232ED47E0031E071 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Mockingbird::MockingbirdModuleTestsHost" /* MockingbirdModuleTestsHost */;
+			targetProxy = 4904BDEA232ED47E0031E071 /* PBXContainerItemProxy */;
+		};
 		OBJ_1071 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "Yams::Yams" /* Yams */;

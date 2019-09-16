@@ -37,7 +37,7 @@ class TypealiasedClass {
 
 // MARK: - Module-scoped typealiases
 
-typealias NSObject = TypealiasedProtocol
+typealias NSObject = TopLevelType.SecondLevelType
 typealias NSObjectProtocol = ModuleScopedAssociatedTypeProtocol
 
 protocol ModuleScopedAssociatedTypeProtocol {
@@ -45,6 +45,8 @@ protocol ModuleScopedAssociatedTypeProtocol {
   associatedtype Subelement
   associatedtype Data: ModuleScopedAssociatedTypeProtocol where Data.Element == NSObject
 }
+
+protocol InheritingModuleScopedAssociatedTypeProtocol: ModuleScopedAssociatedTypeProtocol {}
 
 protocol ModuleScopedTypealiasedProtocol {
   func request(object: NSObject) -> NSObject

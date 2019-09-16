@@ -20,7 +20,7 @@ struct RawType {
   let kind: SwiftDeclarationKind
   let parsedFile: ParsedFile
   
-  var isContainedType: Bool { return name != fullyQualifiedName }
+  var isContainedType: Bool { return !containingTypeNames.isEmpty }
   
   /// Fully qualified with respect to other modules.
   var fullyQualifiedModuleName: String { return parsedFile.moduleName + "." + fullyQualifiedName }

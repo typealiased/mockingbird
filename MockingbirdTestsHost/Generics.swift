@@ -79,3 +79,5 @@ public protocol AssociatedTypeSelfReferencingProtocol {
   
   func request(object: Self)
 }
+
+public protocol InheritingAssociatedTypeSelfReferencingProtocol: AssociatedTypeSelfReferencingProtocol {}
