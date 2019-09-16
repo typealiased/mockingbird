@@ -73,7 +73,7 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--src-targets MockingbirdTestsHost"
+            argument = "--targets MockingbirdTestsHost"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument

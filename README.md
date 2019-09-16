@@ -112,12 +112,13 @@ build process in many different ways.
 
 ### Automatic Integration
 
-Use the Mockingbird CLI to set up a destination (unit test) target. List all source targets that should generate mocks.
+Use the Mockingbird CLI to set up a destination (unit test) target. List all source targets that should generate 
+mocks.
 
 ```bash
 $ mockingbird install \
   --project Bird.xcodeproj \
-  --src-targets BirdModels BirdManagers \
+  --targets BirdModels BirdManagers \
   --destination UnitTestTarget
 ```
 
@@ -353,7 +354,7 @@ Set up a destination (unit test) target
 | Option | Default Value | Description |
 | --- | --- | --- |
 | `--project` | *(required)* | Your project’s `.xcodeproj` file. |
-| `--src-targets` | *(required)* | List of target names that should generate mocks. |
+| `--targets` | *(required)* | List of target names that should generate mocks. |
 | `--destination` | *(required)* | The target name where the Run Script Phase will be installed. |
 | `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |
 | `--outputs` | `$MOCKINGBIRD_SRCROOT` | List of mock output file paths for each target. |

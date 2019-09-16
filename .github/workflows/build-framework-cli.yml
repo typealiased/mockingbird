@@ -19,7 +19,7 @@ jobs:
       run: |
         mockingbird install \
           --project Mockingbird.xcodeproj \
-          --src-target MockingbirdTestsHost \
+          --target MockingbirdTestsHost \
           --destination MockingbirdTests \
           --output MockingbirdTests/Mocks.generated.swift
     - name: Test

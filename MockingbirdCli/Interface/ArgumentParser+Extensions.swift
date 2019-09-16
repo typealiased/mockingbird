@@ -42,15 +42,15 @@ extension ArgumentParser {
   }
   
   func addSourceTargets() -> OptionArgument<[String]> {
-    return add(option: "--src-targets",
+    return add(option: "--targets",
                kind: [String].self,
                usage: "List of target names that should generate mocks.",
                completion: .none)
   }
   
-  /// Convenience for `--src-targets`. Accepts multiple targets.
+  /// Convenience for source `--targets`. Accepts multiple targets.
   func addSourceTarget() -> OptionArgument<[String]> {
-    return add(option: "--src-target",
+    return add(option: "--target",
                kind: [String].self,
                usage: "A target name that should generate mocks.",
                completion: .none)
@@ -186,7 +186,7 @@ extension ArgumentParser.Result {
     if let targets = get(argument) ?? get(convenienceArgument) {
       return targets
     } else {
-      throw ArgumentParserError.expectedValue(option: "--src-targets <list of target names>")
+      throw ArgumentParserError.expectedValue(option: "--targets <list of target names>")
     }
   }
   
