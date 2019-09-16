@@ -35,7 +35,9 @@ Please provide a minimal example of your unit testing code, including any errors
 
 ## Environment
 
-* Mockingbird CLI version (run `swiftlint version`)?
-* Installation method used (CocoaPods, Carthage, from source, etc)?
-* Unit testing framework (XCTest, Quick + Nimble, etc)?
+* Mockingbird CLI version (`mockingbird version`)
+* Xcode and macOS version (are you running a beta?)
+* Swift version (`swift --version`)
+* Installation method (CocoaPods, Carthage, from source, etc)
+* Unit testing framework (XCTest, Quick + Nimble, etc)
 * Does your project use `.mockingbird-ignore`?
