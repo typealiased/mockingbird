@@ -56,6 +56,8 @@
 		493ECA3B232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA3A232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift */; };
 		493ECA3D232ECF10008BF44B /* ExternalModuleTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA3C232ECF10008BF44B /* ExternalModuleTypes.swift */; };
 		49732AF0232F322B0090E1A9 /* MethodParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49732AEF232F322B0090E1A9 /* MethodParameter.swift */; };
+		49F60A9D232F475100B51A7C /* ProcessStructuresOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60A9C232F475100B51A7C /* ProcessStructuresOperation.swift */; };
+		49F60A9F232F477100B51A7C /* FlattenInheritanceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60A9E232F477100B51A7C /* FlattenInheritanceOperation.swift */; };
 		OBJ_1002 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_380 /* SWXMLHash.swift */; };
 		OBJ_1003 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_381 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
 		OBJ_1004 /* shim.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_382 /* shim.swift */; };
@@ -945,6 +947,8 @@
 		493ECA3A232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleClassScopedTypes.swift; sourceTree = "<group>"; };
 		493ECA3C232ECF10008BF44B /* ExternalModuleTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleTypes.swift; sourceTree = "<group>"; };
 		49732AEF232F322B0090E1A9 /* MethodParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodParameter.swift; sourceTree = "<group>"; };
+		49F60A9C232F475100B51A7C /* ProcessStructuresOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessStructuresOperation.swift; sourceTree = "<group>"; };
+		49F60A9E232F477100B51A7C /* FlattenInheritanceOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlattenInheritanceOperation.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2716,7 +2720,9 @@
 			children = (
 				OBJ_74 /* BasicOperation.swift */,
 				OBJ_75 /* ExtractSourcesOperation.swift */,
+				49F60A9E232F477100B51A7C /* FlattenInheritanceOperation.swift */,
 				OBJ_76 /* ParseFilesOperation.swift */,
+				49F60A9C232F475100B51A7C /* ProcessStructuresOperation.swift */,
 				OBJ_77 /* ProcessTypesOperation.swift */,
 			);
 			path = Operations;
@@ -3823,10 +3829,12 @@
 				OBJ_736 /* VariableTemplate.swift in Sources */,
 				OBJ_737 /* DeclaredType.swift in Sources */,
 				OBJ_738 /* GenericType.swift in Sources */,
+				49F60A9D232F475100B51A7C /* ProcessStructuresOperation.swift in Sources */,
 				OBJ_739 /* Method.swift in Sources */,
 				49732AF0232F322B0090E1A9 /* MethodParameter.swift in Sources */,
 				OBJ_740 /* MockableType.swift in Sources */,
 				OBJ_741 /* Primitives.swift in Sources */,
+				49F60A9F232F477100B51A7C /* FlattenInheritanceOperation.swift in Sources */,
 				OBJ_742 /* RawType.swift in Sources */,
 				OBJ_743 /* SerializationRequest.swift in Sources */,
 				OBJ_744 /* TypeAttributes.swift in Sources */,
