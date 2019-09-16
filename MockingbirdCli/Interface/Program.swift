@@ -29,7 +29,8 @@ struct Program {
     self.commands = commands.map({ $0.init(parser: parser) })
   }
   
-  func run(with arguments: [String]) {
+  func run(with arguments: [String]) -> Int32 {
+    var statusCode: Int32 = 0
     time(.runProgram) {
       do {
         var parsedArguments: ArgumentParser.Result!
@@ -41,11 +42,14 @@ struct Program {
       }
       catch let error as ArgumentParserError {
         fputs(error.description + "\n", stderr)
+        statusCode = 1
       }
       catch let error {
         fputs(error.localizedDescription + "\n", stderr)
+        statusCode = 1
       }
     }
+    return statusCode
   }
   
   private func process(arguments: ArgumentParser.Result) throws {

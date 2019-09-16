@@ -8,7 +8,7 @@
 
 import Foundation
 
-func main(arguments: [String]) {
+func main(arguments: [String]) -> Int32 {
   let program = Program(usage: "<method>",
                         overview: "Mockingbird mock generator",
                         commands: [GenerateCommand.self,
@@ -16,7 +16,7 @@ func main(arguments: [String]) {
                                    UninstallCommand.self,
                                    TestbedCommand.self,
                                    VersionCommand.self])
-  program.run(with: arguments)
+  return program.run(with: arguments)
 }
 
-main(arguments: ProcessInfo.processInfo.arguments)
+exit(main(arguments: ProcessInfo.processInfo.arguments))
