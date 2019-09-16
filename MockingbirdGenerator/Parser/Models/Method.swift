@@ -50,7 +50,7 @@ struct Method: Hashable, Comparable {
     return lhs.hashValue == rhs.hashValue
   }
   
-  private let sortableIdentifier: String
+  private var sortableIdentifier: String
   static func < (lhs: Method, rhs: Method) -> Bool {
     return lhs.sortableIdentifier < rhs.sortableIdentifier
   }
@@ -129,20 +129,31 @@ struct Method: Hashable, Comparable {
                                              typealiasRepository: typealiasRepository)
     
     // Create a unique and sortable identifier for this method.
-    if rawType.parsedFile.shouldMock {
-      self.sortableIdentifier = [
-        self.name,
-        self.genericTypes.map({ "\($0.name):\($0.constraints)" }).joined(separator: ","),
-        self.parameters
-          .map({ "\($0.argumentLabel ?? ""):\($0.name):\($0.typeName)" })
-          .joined(separator: ","),
-        self.returnTypeName,
-        self.kind.typeScope.rawValue,
-        self.whereClauses.map({ "\($0)" }).joined(separator: ",")
-      ].joined(separator: "|")
-    } else {
-      self.sortableIdentifier = name
-    }
+    self.sortableIdentifier = Method.generateSortableIdentifier(name: name,
+                                                                genericTypes: genericTypes,
+                                                                parameters: parameters,
+                                                                returnTypeName: returnTypeName,
+                                                                kind: kind,
+                                                                whereClauses: whereClauses)
+  }
+  
+  @inlinable
+  static func generateSortableIdentifier(name: String,
+                                         genericTypes: [GenericType],
+                                         parameters: [MethodParameter],
+                                         returnTypeName: String,
+                                         kind: SwiftDeclarationKind,
+                                         whereClauses: [WhereClause]) -> String {
+    return [
+      name,
+      genericTypes.map({ "\($0.name):\($0.constraints)" }).joined(separator: ","),
+      parameters
+        .map({ "\($0.argumentLabel ?? ""):\($0.name):\($0.typeName)" })
+        .joined(separator: ","),
+      returnTypeName,
+      kind.typeScope.rawValue,
+      whereClauses.map({ "\($0)" }).joined(separator: ",")
+    ].joined(separator: "|")
   }
   
   @inlinable
@@ -317,14 +328,12 @@ fileprivate extension Method {
     self.whereClauses = whereClauses
     self.parameters = parameters
     self.attributes = attributes
-    
-    self.sortableIdentifier = [
-      self.name,
-      self.parameters
-        .map({ "\($0.argumentLabel ?? ""):\($0.name):\($0.typeName)" })
-        .joined(separator: ","),
-      self.returnTypeName,
-    ].joined(separator: "|")
+    self.sortableIdentifier = Method.generateSortableIdentifier(name: name,
+                                                                genericTypes: genericTypes,
+                                                                parameters: parameters,
+                                                                returnTypeName: returnTypeName,
+                                                                kind: kind,
+                                                                whereClauses: whereClauses)
   }
 }
 
