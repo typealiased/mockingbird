@@ -137,8 +137,7 @@ struct Method: Hashable, Comparable {
                                                                 whereClauses: whereClauses)
   }
   
-  @inlinable
-  static func generateSortableIdentifier(name: String,
+  fileprivate static func generateSortableIdentifier(name: String,
                                          genericTypes: [GenericType],
                                          parameters: [MethodParameter],
                                          returnTypeName: String,
@@ -156,8 +155,7 @@ struct Method: Hashable, Comparable {
     ].joined(separator: "|")
   }
   
-  @inlinable
-  static func parseDeclaration(from dictionary: StructureDictionary,
+  private static func parseDeclaration(from dictionary: StructureDictionary,
                                source: Data?,
                                isInitializer: Bool,
                                attributes: Attributes) -> (Attributes, Substring?) {
@@ -197,8 +195,7 @@ struct Method: Hashable, Comparable {
     return (fullAttributes, rawParametersDeclaration)
   }
   
-  @inlinable
-  static func parseWhereClauses(from dictionary: StructureDictionary,
+  private static func parseWhereClauses(from dictionary: StructureDictionary,
                                 source: Data?,
                                 rawType: RawType,
                                 moduleNames: [String],
@@ -216,8 +213,7 @@ struct Method: Hashable, Comparable {
                                             rawTypeRepository: rawTypeRepository) })
   }
   
-  @inlinable
-  static func parseReturnTypeName(from dictionary: StructureDictionary,
+  private static func parseReturnTypeName(from dictionary: StructureDictionary,
                                   rawType: RawType,
                                   moduleNames: [String],
                                   rawTypeRepository: RawTypeRepository,
@@ -237,8 +233,7 @@ struct Method: Hashable, Comparable {
     return declaredType.serialize(with: qualifiedTypeNameRequest)
   }
   
-  @inlinable
-  static func parseParameters(labels: [String?],
+  private static func parseParameters(labels: [String?],
                               substructure: [StructureDictionary],
                               rawParametersDeclaration: Substring?,
                               rawType: RawType,
@@ -268,7 +263,6 @@ struct Method: Hashable, Comparable {
 }
 
 extension Method {
-  @inlinable
   static func createEquatableConformance(for type: MockableType) -> Method {
     let parameters = [MethodParameter(name: "lhs",
                                       argumentLabel: "lhs",
@@ -282,7 +276,6 @@ extension Method {
                   kind: .functionMethodStatic)
   }
   
-  @inlinable
   static func createComparableConformance(for type: MockableType) -> Method {
     let parameters = [MethodParameter(name: "lhs",
                                       argumentLabel: "lhs",
@@ -296,7 +289,6 @@ extension Method {
                   kind: .functionMethodStatic)
   }
   
-  @inlinable
   static func createHashableConformance() -> Method {
     let parameters = [MethodParameter(name: "hasher",
                                       argumentLabel: "into",

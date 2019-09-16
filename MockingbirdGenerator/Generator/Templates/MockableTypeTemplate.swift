@@ -35,7 +35,6 @@ class MockableTypeTemplate: Template {
     self.mockableType = mockableType
   }
   
-  @inlinable
   func methodTemplate(for method: Method) -> MethodTemplate {
     if let existing = methodTemplates[method] { return existing }
     let template = MethodTemplate(method: method, context: self)
@@ -269,7 +268,6 @@ class MockableTypeTemplate: Template {
       .joined(separator: "\n\n")
   }
   
-  @inlinable
   func specializeTypeName(_ typeName: String) -> String {
     guard typeName.contains(SerializationRequest.Constants.selfTokenIndicator) else {
       return typeName // Checking prior to running `replacingOccurrences` is 4x faster.

@@ -139,8 +139,7 @@ class MockableType: Hashable, Comparable {
     }
   }
   
-  @inlinable
-  static func parseDeclaredTypes(rawTypes: [RawType],
+  private static func parseDeclaredTypes(rawTypes: [RawType],
                                  baseRawType: RawType,
                                  moduleNames: [String],
                                  rawTypeRepository: RawTypeRepository,
@@ -174,8 +173,7 @@ class MockableType: Hashable, Comparable {
       return (methods, variables)
   }
   
-  @inlinable
-  static func parseInheritedTypes(rawInheritedTypes: [StructureDictionary],
+  private static func parseInheritedTypes(rawInheritedTypes: [StructureDictionary],
                                   methods: inout Set<Method>,
                                   variables: inout Set<Variable>,
                                   genericTypes: inout [GenericType],

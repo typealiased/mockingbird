@@ -113,13 +113,11 @@ extension Attributes {
     }
   }
   
-  @inlinable
   mutating func insert(_ declaration: String) {
     declarations.append(declaration)
   }
   
   // DRAGON: Using the built-in `insert` method overwrites other members in the `OptionSet`.
-  @inlinable
   mutating func insert(_ newMember: Attributes) {
     rawValue |= newMember.rawValue
   }

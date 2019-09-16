@@ -99,8 +99,7 @@ struct GenericType: Hashable {
   }
   
   /// Qualify any generic type constraints, which SourceKit gives us as inherited types.
-  @inlinable
-  static func parseInheritedTypes(rawInheritedTypes: [StructureDictionary],
+  private static func parseInheritedTypes(rawInheritedTypes: [StructureDictionary],
                                   moduleNames: [String],
                                   rawType: RawType,
                                   rawTypeRepository: RawTypeRepository) -> Set<String> {
@@ -121,8 +120,7 @@ struct GenericType: Hashable {
   }
   
   /// Manually parse any constraints defined by associated types in protocols.
-  @inlinable
-  static func parseAssociatedTypes(constraints: inout Set<String>,
+  private static func parseAssociatedTypes(constraints: inout Set<String>,
                                    rawType: RawType,
                                    dictionary: StructureDictionary,
                                    moduleNames: [String],
@@ -168,11 +166,10 @@ struct GenericType: Hashable {
   }
   
   /// Type constraints for associated types can contain `Self` references which need to be resolved.
-  @inlinable
   static func qualifyWhereClause(_ whereClause: WhereClause,
-                                  containingType: RawType,
-                                  moduleNames: [String],
-                                  rawTypeRepository: RawTypeRepository) -> WhereClause {
+                                 containingType: RawType,
+                                 moduleNames: [String],
+                                 rawTypeRepository: RawTypeRepository) -> WhereClause {
     if whereClause.genericConstraint == "Self" {
       return WhereClause(constrainedTypeName: whereClause.constrainedTypeName,
                          genericConstraint: SerializationRequest.Constants.selfToken,

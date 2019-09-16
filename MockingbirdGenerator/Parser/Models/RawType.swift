@@ -86,17 +86,17 @@ class RawTypeRepository {
   private(set) var rawTypes = [String: [String: [RawType]]]() // typename => module name => rawtype
   
   /// Get raw type partials for a fully qualified name in a particular module.
-  @inlinable func rawType(named name: String, in moduleName: String) -> [RawType]? {
+  func rawType(named name: String, in moduleName: String) -> [RawType]? {
     return rawTypes[name]?[moduleName]
   }
   
   /// Get raw type partials for a fully qualified name in all modules.
-  @inlinable func rawTypes(named name: String) -> [String: [RawType]]? {
+  func rawTypes(named name: String) -> [String: [RawType]]? {
     return rawTypes[name]
   }
   
   /// Add a single raw type partial.
-  @inlinable func addRawType(_ rawType: RawType) {
+  func addRawType(_ rawType: RawType) {
     rawTypes[rawType.fullyQualifiedName, default: [:]][rawType.parsedFile.moduleName, default: []]
       .append(rawType)
   }

@@ -97,8 +97,8 @@ struct Variable: Hashable, Comparable {
     self.setterAccessLevel = setterAccessLevel ?? .internal
   }
   
-  @inlinable
-  static func parseRawTypeName(from dictionary: StructureDictionary, source: Data?) -> String? {
+  private static func parseRawTypeName(from dictionary: StructureDictionary,
+                                       source: Data?) -> String? {
     if let explicitTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String {
       return explicitTypeName // The type was explicitly declared, hooray!
     }
