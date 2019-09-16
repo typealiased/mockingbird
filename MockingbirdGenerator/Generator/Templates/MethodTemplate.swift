@@ -74,7 +74,7 @@ class MethodTemplate: Template {
         checkVersion = "    Mockingbird.checkVersion(for: self)"
       }
       return """
-        // MARK: Mocked `\(method.name)`
+        // MARK: Mocked `\(fullNameForMocking)`
       \(attributes)
         public \(overridableModifiers)\(uniqueDeclaration){
       \(checkVersion)
@@ -84,7 +84,7 @@ class MethodTemplate: Template {
       """
     } else {
       return """
-        // MARK: Mocked `\(method.name)`
+        // MARK: Mocked `\(fullNameForMocking)`
       \(attributes)
         public \(overridableModifiers)func \(uniqueDeclaration) {
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)])

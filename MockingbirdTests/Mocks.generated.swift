@@ -70,7 +70,7 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `method(optionalStructType:optionalClassType:optionalEnumType:optionalStringType:optionalBoolType:optionalMetaType:optionalAnyType:optionalAnyObjectType:)`
+  // MARK: Mocked `method(optionalStructType: MockingbirdTestsHost.StructType?, optionalClassType: MockingbirdTestsHost.ClassType?, optionalEnumType: MockingbirdTestsHost.EnumType?, optionalStringType: String?, optionalBoolType: Bool?, optionalMetaType: ClassType.Type?, optionalAnyType: Any?, optionalAnyObjectType: AnyObject?)`
 
   public func method(optionalStructType: MockingbirdTestsHost.StructType?, optionalClassType: MockingbirdTestsHost.ClassType?, optionalEnumType: MockingbirdTestsHost.EnumType?, optionalStringType: String?, optionalBoolType: Bool?, optionalMetaType: ClassType.Type?, optionalAnyType: Any?, optionalAnyObjectType: AnyObject?) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "method(optionalStructType: MockingbirdTestsHost.StructType?, optionalClassType: MockingbirdTestsHost.ClassType?, optionalEnumType: MockingbirdTestsHost.EnumType?, optionalStringType: String?, optionalBoolType: Bool?, optionalMetaType: ClassType.Type?, optionalAnyType: Any?, optionalAnyObjectType: AnyObject?) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`optionalStructType`), Mockingbird.ArgumentMatcher(`optionalClassType`), Mockingbird.ArgumentMatcher(`optionalEnumType`), Mockingbird.ArgumentMatcher(`optionalStringType`), Mockingbird.ArgumentMatcher(`optionalBoolType`), Mockingbird.ArgumentMatcher(`optionalMetaType`), Mockingbird.ArgumentMatcher(`optionalAnyType`), Mockingbird.ArgumentMatcher(`optionalAnyObjectType`)])
@@ -89,7 +89,7 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.StructType?, MockingbirdTestsHost.ClassType?, MockingbirdTestsHost.EnumType?, String?, Bool?, ClassType.Type?, Any?, AnyObject?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `method(structType:classType:enumType:stringType:boolType:metaType:anyType:anyObjectType:)`
+  // MARK: Mocked `method(structType: MockingbirdTestsHost.StructType, classType: MockingbirdTestsHost.ClassType, enumType: MockingbirdTestsHost.EnumType, stringType: String, boolType: Bool, metaType: ClassType.Type, anyType: Any, anyObjectType: AnyObject)`
 
   public func method(structType: MockingbirdTestsHost.StructType, classType: MockingbirdTestsHost.ClassType, enumType: MockingbirdTestsHost.EnumType, stringType: String, boolType: Bool, metaType: ClassType.Type, anyType: Any, anyObjectType: AnyObject) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "method(structType: MockingbirdTestsHost.StructType, classType: MockingbirdTestsHost.ClassType, enumType: MockingbirdTestsHost.EnumType, stringType: String, boolType: Bool, metaType: ClassType.Type, anyType: Any, anyObjectType: AnyObject) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`structType`), Mockingbird.ArgumentMatcher(`classType`), Mockingbird.ArgumentMatcher(`enumType`), Mockingbird.ArgumentMatcher(`stringType`), Mockingbird.ArgumentMatcher(`boolType`), Mockingbird.ArgumentMatcher(`metaType`), Mockingbird.ArgumentMatcher(`anyType`), Mockingbird.ArgumentMatcher(`anyObjectType`)])
@@ -134,7 +134,7 @@ public final class ArrayCollectionMock: MockingbirdTestsHost.ArrayCollection, Mo
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `method(objects:)`
+  // MARK: Mocked `method(objects: [String])`
 
   public func method(objects: [String]) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "method(objects: [String]) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`objects`)])
@@ -371,7 +371,7 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Array<MockingbirdTestsHost.NSObject>, Array<MockingbirdTestsHost.NSObject>>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `explicitMethod(param1:param2:)`
+  // MARK: Mocked `explicitMethod(param1: Array<MockingbirdTestsHost.NSObject>, param2: Array<Foundation.NSObject>)`
 
   public func explicitMethod(param1: Array<MockingbirdTestsHost.NSObject>, param2: Array<Foundation.NSObject>) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitMethod(param1: Array<MockingbirdTestsHost.NSObject>, param2: Array<Foundation.NSObject>) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -480,7 +480,7 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> [MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.NSObject]>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `method(param1:param2:)`
+  // MARK: Mocked `method(param1: [MockingbirdTestsHost.NSObject], param2: [Foundation.NSObject])`
 
   public func method(param1: [MockingbirdTestsHost.NSObject], param2: [Foundation.NSObject]) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "method(param1: [MockingbirdTestsHost.NSObject], param2: [Foundation.NSObject]) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -552,7 +552,7 @@ public final class AssociatedTypeGenericConformingConstraintsProtocolMock<Confor
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request(object: ConformingType)`
 
   public func request(object: ConformingType) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: ConformingType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -606,7 +606,7 @@ public final class AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType:
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request(object: ConstrainedType)`
 
   public func request(object: ConstrainedType) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: ConstrainedType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -676,7 +676,7 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `methodUsingEquatableType(equatable:)`
+  // MARK: Mocked `methodUsingEquatableType(equatable: EquatableType)`
 
   public override func methodUsingEquatableType(equatable: EquatableType) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableType(equatable: EquatableType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`equatable`)])
@@ -695,7 +695,7 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableType) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `methodUsingEquatableTypeWithReturn(equatable:)`
+  // MARK: Mocked `methodUsingEquatableTypeWithReturn(equatable: EquatableType)`
 
   public override func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType", arguments: [Mockingbird.ArgumentMatcher(`equatable`)])
@@ -714,7 +714,7 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableType) -> EquatableType, EquatableType>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `methodUsingHashableType(hashable:)`
+  // MARK: Mocked `methodUsingHashableType(hashable: HashableType)`
 
   public override func methodUsingHashableType(hashable: HashableType) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodUsingHashableType(hashable: HashableType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`hashable`)])
@@ -759,7 +759,7 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: T)`
 
   public func request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: T) -> T.HashableType where T.EquatableType == Bool, T.HashableType == String {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: T) -> T.HashableType where T.EquatableType == Bool, T.HashableType == String", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -778,7 +778,7 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T.HashableType, T.HashableType>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: T)`
 
   public func request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: T) -> T.HashableType where T.EquatableType == Int, T.HashableType == String {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: T) -> T.HashableType where T.EquatableType == Int, T.HashableType == String", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -797,7 +797,7 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T.HashableType, T.HashableType>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: T)`
 
   public func request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: T) -> Void where T.EquatableType == Int, T.HashableType == String {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: T) -> Void where T.EquatableType == Int, T.HashableType == String", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -843,7 +843,7 @@ public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.Associate
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: T)`
 
   public override func request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: T) -> Void where T.EquatableType == Int, T.HashableType == String {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: T) -> Void where T.EquatableType == Int, T.HashableType == String", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -927,7 +927,7 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `methodUsingEquatableType(equatable:)`
+  // MARK: Mocked `methodUsingEquatableType(equatable: EquatableType)`
 
   public func methodUsingEquatableType(equatable: EquatableType) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableType(equatable: EquatableType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`equatable`)])
@@ -946,7 +946,7 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableType) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `methodUsingEquatableTypeWithReturn(equatable:)`
+  // MARK: Mocked `methodUsingEquatableTypeWithReturn(equatable: EquatableType)`
 
   public func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType", arguments: [Mockingbird.ArgumentMatcher(`equatable`)])
@@ -965,7 +965,7 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableType) -> EquatableType, EquatableType>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `methodUsingEquatableTypeWithReturn(equatable:)`
+  // MARK: Mocked `methodUsingEquatableTypeWithReturn(equatable: EquatableType)`
 
   public static func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType", arguments: [Mockingbird.ArgumentMatcher(`equatable`)])
@@ -984,7 +984,7 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableType) -> EquatableType, EquatableType>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `methodUsingHashableType(hashable:)`
+  // MARK: Mocked `methodUsingHashableType(hashable: HashableType)`
 
   public func methodUsingHashableType(hashable: HashableType) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodUsingHashableType(hashable: HashableType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`hashable`)])
@@ -1038,7 +1038,7 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `request(array:)`
+  // MARK: Mocked `request<T: Sequence>(array: T)`
 
   public func request<T: Sequence>(array: T) -> Void where T.Element == AssociatedTypeSelfReferencingProtocolMock {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request<T: Sequence>(array: T) -> Void where T.Element == AssociatedTypeSelfReferencingProtocolMock", arguments: [Mockingbird.ArgumentMatcher(`array`)])
@@ -1057,7 +1057,7 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(array:)`
+  // MARK: Mocked `request(array: SequenceType)`
 
   public func request(array: SequenceType) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(array: SequenceType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`array`)])
@@ -1076,7 +1076,7 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SequenceType) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request(object: AssociatedTypeSelfReferencingProtocolMock)`
 
   public func request(object: AssociatedTypeSelfReferencingProtocolMock) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: AssociatedTypeSelfReferencingProtocolMock) -> Void", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -1136,7 +1136,7 @@ public final class BirdMock: MockingbirdTestsHost.Bird, Mockingbird.Mock {
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `canEat(_:)`
+  // MARK: Mocked `canEat<T>(_ object: T)`
 
   public func canEat<T>(_ object: T) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "canEat<T>(_ object: T) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -1155,7 +1155,7 @@ public final class BirdMock: MockingbirdTestsHost.Bird, Mockingbird.Mock {
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `chirp(volume:)`
+  // MARK: Mocked `chirp(volume: Int)`
 
   public func chirp(volume: Int) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "chirp(volume: Int) -> Void", arguments: [Mockingbird.ArgumentMatcher(`volume`)])
@@ -1174,7 +1174,7 @@ public final class BirdMock: MockingbirdTestsHost.Bird, Mockingbird.Mock {
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `eat(_:)`
+  // MARK: Mocked `eat<T>(_ object: T)`
 
   public func eat<T>(_ object: T) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "eat<T>(_ object: T) -> Void", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -1513,7 +1513,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `childParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `childParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public func childParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -1532,7 +1532,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `childParameterizedStaticMethod(param1:_:)`
+  // MARK: Mocked `childParameterizedStaticMethod(param1: Bool, _ param2: Int)`
 
   public static func childParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -1587,7 +1587,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `grandparentParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public func grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -1606,7 +1606,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `grandparentParameterizedStaticMethod(param1:_:)`
+  // MARK: Mocked `grandparentParameterizedStaticMethod(param1: Bool, _ param2: Int)`
 
   public static func grandparentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -1661,7 +1661,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `parentParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `parentParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public func parentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -1680,7 +1680,7 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `parentParameterizedStaticMethod(param1:_:)`
+  // MARK: Mocked `parentParameterizedStaticMethod(param1: Bool, _ param2: Int)`
 
   public static func parentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -2035,7 +2035,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `childParameterizedClassMethod(param1:_:)`
+  // MARK: Mocked `childParameterizedClassMethod(param1: Bool, _ param2: Int)`
 
   public override static func childParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -2054,7 +2054,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `childParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `childParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public override func childParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -2109,7 +2109,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `grandparentParameterizedClassMethod(param1:_:)`
+  // MARK: Mocked `grandparentParameterizedClassMethod(param1: Bool, _ param2: Int)`
 
   public override static func grandparentParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -2128,7 +2128,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `grandparentParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public override func grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -2183,7 +2183,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `parentParameterizedClassMethod(param1:_:)`
+  // MARK: Mocked `parentParameterizedClassMethod(param1: Bool, _ param2: Int)`
 
   public override static func parentParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -2202,7 +2202,7 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `parentParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `parentParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public override func parentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -2310,7 +2310,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `autoclosureTrivialClosure(block:)`
+  // MARK: Mocked `autoclosureTrivialClosure(block: @autoclosure () -> Void)`
 
   public func autoclosureTrivialClosure(block: @autoclosure () -> Void) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "autoclosureTrivialClosure(block: @autoclosure () -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() -> Void>())])
@@ -2329,7 +2329,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@autoclosure () -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `autoclosureTrivialReturningClosure(block:)`
+  // MARK: Mocked `autoclosureTrivialReturningClosure(block: @autoclosure () -> Bool)`
 
   public func autoclosureTrivialReturningClosure(block: @autoclosure () -> Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "autoclosureTrivialReturningClosure(block: @autoclosure () -> Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() -> Bool>())])
@@ -2348,7 +2348,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@autoclosure () -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `escapingAutoclosureTrivialClosure(block:)`
+  // MARK: Mocked `escapingAutoclosureTrivialClosure(block: @escaping @autoclosure () -> Void)`
 
   public func escapingAutoclosureTrivialClosure(block: @escaping @autoclosure () -> Void) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "escapingAutoclosureTrivialClosure(block: @escaping @autoclosure () -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
@@ -2367,7 +2367,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping @autoclosure () -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `escapingAutoclosureTrivialReturningClosure(block:)`
+  // MARK: Mocked `escapingAutoclosureTrivialReturningClosure(block: @escaping @autoclosure () -> Bool)`
 
   public func escapingAutoclosureTrivialReturningClosure(block: @escaping @autoclosure () -> Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "escapingAutoclosureTrivialReturningClosure(block: @escaping @autoclosure () -> Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
@@ -2386,7 +2386,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping @autoclosure () -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `escapingParameterizedClosure(block:)`
+  // MARK: Mocked `escapingParameterizedClosure(block: @escaping (Bool) -> Void)`
 
   public func escapingParameterizedClosure(block: @escaping (Bool) -> Void) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "escapingParameterizedClosure(block: @escaping (Bool) -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
@@ -2405,7 +2405,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping (Bool) -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `escapingParameterizedReturningClosure(block:)`
+  // MARK: Mocked `escapingParameterizedReturningClosure(block: @escaping (Bool) -> Bool)`
 
   public func escapingParameterizedReturningClosure(block: @escaping (Bool) -> Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "escapingParameterizedReturningClosure(block: @escaping (Bool) -> Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
@@ -2424,7 +2424,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping (Bool) -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `escapingTrivialClosure(block:)`
+  // MARK: Mocked `escapingTrivialClosure(block: @escaping () -> Void)`
 
   public func escapingTrivialClosure(block: @escaping () -> Void) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "escapingTrivialClosure(block: @escaping () -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
@@ -2443,7 +2443,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping () -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `escapingTrivialReturningVoidClosure(block:)`
+  // MARK: Mocked `escapingTrivialReturningVoidClosure(block: @escaping () -> Bool)`
 
   public func escapingTrivialReturningVoidClosure(block: @escaping () -> Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "escapingTrivialReturningVoidClosure(block: @escaping () -> Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
@@ -2462,7 +2462,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping () -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `parameterizedClosure(block:)`
+  // MARK: Mocked `parameterizedClosure(block: (Bool) -> Void)`
 
   public func parameterizedClosure(block: (Bool) -> Void) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parameterizedClosure(block: (Bool) -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<(Bool) -> Void>())])
@@ -2481,7 +2481,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `parameterizedReturningClosure(block:)`
+  // MARK: Mocked `parameterizedReturningClosure(block: (Bool) -> Bool)`
 
   public func parameterizedReturningClosure(block: (Bool) -> Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parameterizedReturningClosure(block: (Bool) -> Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<(Bool) -> Bool>())])
@@ -2500,7 +2500,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `trivialClosure(block:)`
+  // MARK: Mocked `trivialClosure(block: () -> Void)`
 
   public func trivialClosure(block: () -> Void) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "trivialClosure(block: () -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() -> Void>())])
@@ -2519,7 +2519,7 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `trivialReturningClosure(block:)`
+  // MARK: Mocked `trivialReturningClosure(block: () -> Bool)`
 
   public func trivialReturningClosure(block: () -> Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "trivialReturningClosure(block: () -> Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() -> Bool>())])
@@ -2567,7 +2567,7 @@ public final class ConvenienceInitializerClassMock: MockingbirdTestsHost.Conveni
     }
   }
 
-  // MARK: Mocked `init(param1:param2:)`
+  // MARK: Mocked `init(param1: Bool, param2: Int)`
 
   public required override init(param1: Bool, param2: Int) {
     super.init(param1: `param1`, param2: `param2`)
@@ -2620,7 +2620,7 @@ public final class DeclarationAttributesClassMock: MockingbirdTestsHost.Declarat
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `availableMethod(param:)`
+  // MARK: Mocked `availableMethod(param: String)`
 
   @available(iOSMac 10.10, *)
   public override func availableMethod(param: String) -> Bool {
@@ -2641,7 +2641,7 @@ public final class DeclarationAttributesClassMock: MockingbirdTestsHost.Declarat
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `multipleAttributesMethod(param:)`
+  // MARK: Mocked `multipleAttributesMethod(param: String)`
 
   @available(iOSMac 10.10, *)
   public override func multipleAttributesMethod(param: String) -> Bool {
@@ -2705,7 +2705,7 @@ public final class DeclarationAttributesProtocolMock: MockingbirdTestsHost.Decla
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `availableMethod(param:)`
+  // MARK: Mocked `availableMethod(param: String)`
 
   @available(iOSMac 10.10, *)
   public func availableMethod(param: String) -> Bool {
@@ -2753,7 +2753,7 @@ public final class DefaultArgumentValuesClassMock: MockingbirdTestsHost.DefaultA
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `method(param1:param2:)`
+  // MARK: Mocked `method(param1: String, param2: [MockingbirdTestsHost.NSObject])`
 
   public override func method(param1: String, param2: [MockingbirdTestsHost.NSObject]) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "method(param1: String, param2: [MockingbirdTestsHost.NSObject]) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -2798,7 +2798,7 @@ public final class DefaultArgumentValuesProtocolMock: MockingbirdTestsHost.Defau
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `method(param1:param2:)`
+  // MARK: Mocked `method(param1: String, param2: [MockingbirdTestsHost.NSObject])`
 
   public func method(param1: String, param2: [MockingbirdTestsHost.NSObject]) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "method(param1: String, param2: [MockingbirdTestsHost.NSObject]) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -2843,7 +2843,7 @@ public final class DictionaryCollectionMock: MockingbirdTestsHost.DictionaryColl
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `method(objects:)`
+  // MARK: Mocked `method(objects: [String: String])`
 
   public func method(objects: [String: String]) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "method(objects: [String: String]) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`objects`)])
@@ -3080,7 +3080,7 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `explicitMethod(param1:param2:)`
+  // MARK: Mocked `explicitMethod(param1: Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, param2: Dictionary<Foundation.URL, Foundation.NSObject>)`
 
   public func explicitMethod(param1: Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, param2: Dictionary<Foundation.URL, Foundation.NSObject>) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitMethod(param1: Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, param2: Dictionary<Foundation.URL, Foundation.NSObject>) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -3189,7 +3189,7 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `method(param1:param2:)`
+  // MARK: Mocked `method(param1: [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], param2: [Foundation.URL: Foundation.NSObject])`
 
   public func method(param1: [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], param2: [Foundation.URL: Foundation.NSObject]) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "method(param1: [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], param2: [Foundation.URL: Foundation.NSObject]) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -3553,7 +3553,7 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `childParameterizedClassMethod(param1:_:)`
+  // MARK: Mocked `childParameterizedClassMethod(param1: Bool, _ param2: Int)`
 
   public override static func childParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -3572,7 +3572,7 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `childParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `childParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public override func childParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -3627,7 +3627,7 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `grandparentParameterizedClassMethod(param1:_:)`
+  // MARK: Mocked `grandparentParameterizedClassMethod(param1: Bool, _ param2: Int)`
 
   public override static func grandparentParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -3646,7 +3646,7 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `grandparentParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public override func grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -3701,7 +3701,7 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `parentParameterizedClassMethod(param1:_:)`
+  // MARK: Mocked `parentParameterizedClassMethod(param1: Bool, _ param2: Int)`
 
   public override static func parentParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -3720,7 +3720,7 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `parentParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `parentParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public override func parentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -4077,7 +4077,7 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `childParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `childParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public func childParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -4096,7 +4096,7 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `childParameterizedStaticMethod(param1:_:)`
+  // MARK: Mocked `childParameterizedStaticMethod(param1: Bool, _ param2: Int)`
 
   public static func childParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -4151,7 +4151,7 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `grandparentParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public func grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -4170,7 +4170,7 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `grandparentParameterizedStaticMethod(param1:_:)`
+  // MARK: Mocked `grandparentParameterizedStaticMethod(param1: Bool, _ param2: Int)`
 
   public static func grandparentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -4225,7 +4225,7 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `parentParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `parentParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public func parentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -4244,7 +4244,7 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `parentParameterizedStaticMethod(param1:_:)`
+  // MARK: Mocked `parentParameterizedStaticMethod(param1: Bool, _ param2: Int)`
 
   public static func parentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -4424,7 +4424,7 @@ public final class EquatableConformingProtocolMock: Foundation.NSObject, Mocking
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `== (lhs:rhs:)`
+  // MARK: Mocked `==(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock)`
 
   public static func ==(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
@@ -4443,7 +4443,7 @@ public final class EquatableConformingProtocolMock: Foundation.NSObject, Mocking
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `< (lhs:rhs:)`
+  // MARK: Mocked `<(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock)`
 
   public static func <(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "<(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
@@ -4551,7 +4551,7 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `parameterizedExtendedMethod(param1:)`
+  // MARK: Mocked `parameterizedExtendedMethod(param1: Bool)`
 
   public func parameterizedExtendedMethod(param1: Bool) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parameterizedExtendedMethod(param1: Bool) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`)])
@@ -4570,7 +4570,7 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `parameterizedReturningExtendedMethod(param1:)`
+  // MARK: Mocked `parameterizedReturningExtendedMethod(param1: Bool)`
 
   public func parameterizedReturningExtendedMethod(param1: Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parameterizedReturningExtendedMethod(param1: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`)])
@@ -4654,7 +4654,7 @@ public final class FailableEmptyInitializerClassMock: MockingbirdTestsHost.Faila
     }
   }
 
-  // MARK: Mocked `init()`
+  // MARK: Mocked `init?()`
 
   public required override init?() {
     super.init()
@@ -4689,7 +4689,7 @@ public final class FailableEmptyInitializerProtocolMock: MockingbirdTestsHost.Fa
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `init()`
+  // MARK: Mocked `init?()`
 
   public required init?() {
     Mockingbird.checkVersion(for: self)
@@ -4726,7 +4726,7 @@ public final class FailableParameterizedInitializerClassMock: MockingbirdTestsHo
     }
   }
 
-  // MARK: Mocked `init(param1:param2:)`
+  // MARK: Mocked `init?(param1: Bool, param2: Int)`
 
   public required override init?(param1: Bool, param2: Int) {
     super.init(param1: `param1`, param2: `param2`)
@@ -4761,7 +4761,7 @@ public final class FailableParameterizedInitializerProtocolMock: MockingbirdTest
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `init(param1:param2:)`
+  // MARK: Mocked `init?(param1: Bool, param2: Int)`
 
   public required init?(param1: Bool, param2: Int) {
     Mockingbird.checkVersion(for: self)
@@ -4798,7 +4798,7 @@ public final class FailableUnwrappedEmptyInitializerClassMock: MockingbirdTestsH
     }
   }
 
-  // MARK: Mocked `init()`
+  // MARK: Mocked `init!()`
 
   public required override init!() {
     super.init()
@@ -4833,7 +4833,7 @@ public final class FailableUnwrappedEmptyInitializerProtocolMock: MockingbirdTes
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `init()`
+  // MARK: Mocked `init!()`
 
   public required init!() {
     Mockingbird.checkVersion(for: self)
@@ -4870,7 +4870,7 @@ public final class FailableUnwrappedParameterizedInitializerClassMock: Mockingbi
     }
   }
 
-  // MARK: Mocked `init(param1:param2:)`
+  // MARK: Mocked `init!(param1: Bool, param2: Int)`
 
   public required override init!(param1: Bool, param2: Int) {
     super.init(param1: `param1`, param2: `param2`)
@@ -4905,7 +4905,7 @@ public final class FailableUnwrappedParameterizedInitializerProtocolMock: Mockin
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `init(param1:param2:)`
+  // MARK: Mocked `init!(param1: Bool, param2: Int)`
 
   public required init!(param1: Bool, param2: Int) {
     Mockingbird.checkVersion(for: self)
@@ -5031,7 +5031,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `grandparentParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public func grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -5050,7 +5050,7 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `grandparentParameterizedStaticMethod(param1:_:)`
+  // MARK: Mocked `grandparentParameterizedStaticMethod(param1: Bool, _ param2: Int)`
 
   public static func grandparentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -5223,7 +5223,7 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `grandparentParameterizedClassMethod(param1:_:)`
+  // MARK: Mocked `grandparentParameterizedClassMethod(param1: Bool, _ param2: Int)`
 
   public override static func grandparentParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -5242,7 +5242,7 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `grandparentParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public override func grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -5324,7 +5324,7 @@ public final class HashableConformingProtocolMock: Foundation.NSObject, Mockingb
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `== (lhs:rhs:)`
+  // MARK: Mocked `==(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock)`
 
   public static func ==(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
@@ -5343,7 +5343,7 @@ public final class HashableConformingProtocolMock: Foundation.NSObject, Mockingb
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `< (lhs:rhs:)`
+  // MARK: Mocked `<(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock)`
 
   public static func <(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "<(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
@@ -5389,7 +5389,7 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `genericRequest(object:)`
+  // MARK: Mocked `genericRequest<T: MockingbirdModuleTestsHost.NSObjectProtocol>(object: T?)`
 
   public override func genericRequest<T: MockingbirdModuleTestsHost.NSObjectProtocol>(object: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericRequest<T: MockingbirdModuleTestsHost.NSObjectProtocol>(object: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -5408,7 +5408,7 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T?) -> T?, T?>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `genericRequest(object:)`
+  // MARK: Mocked `genericRequest<T: MockingbirdModuleTestsHost.NSObjectProtocol>(object: T)`
 
   public override func genericRequest<T: MockingbirdModuleTestsHost.NSObjectProtocol>(object: T) -> T where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdModuleTestsHost.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericRequest<T: MockingbirdModuleTestsHost.NSObjectProtocol>(object: T) -> T where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdModuleTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -5427,7 +5427,7 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request(object: Foundation.NSObject?)`
 
   public override func request(object: Foundation.NSObject?) -> Foundation.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: Foundation.NSObject?) -> Foundation.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -5446,7 +5446,7 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request(object: Foundation.NSObject)`
 
   public override func request(object: Foundation.NSObject) -> Foundation.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: Foundation.NSObject) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -5465,7 +5465,7 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request(object: MockingbirdModuleTestsHost.NSObject?)`
 
   public override func request(object: MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -5484,7 +5484,7 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?, MockingbirdModuleTestsHost.NSObject?>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request(object: MockingbirdModuleTestsHost.NSObject)`
 
   public override func request(object: MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -5670,7 +5670,7 @@ public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: 
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `lessQualifiedImplementation(param:)`
+  // MARK: Mocked `lessQualifiedImplementation(param: MockingbirdTestsHost.UnscopedType)`
 
   public override func lessQualifiedImplementation(param: MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "lessQualifiedImplementation(param: MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?", arguments: [Mockingbird.ArgumentMatcher(`param`)])
@@ -5689,7 +5689,7 @@ public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: 
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `moreQualifiedImplementation(param:)`
+  // MARK: Mocked `moreQualifiedImplementation(param: InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType)`
 
   public override func moreQualifiedImplementation(param: InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "moreQualifiedImplementation(param: InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?", arguments: [Mockingbird.ArgumentMatcher(`param`)])
@@ -5743,7 +5743,7 @@ public final class InheritedTypeQualificationProtocolMock<ScopedType>: Mockingbi
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `lessQualifiedImplementation(param:)`
+  // MARK: Mocked `lessQualifiedImplementation(param: MockingbirdTestsHost.UnscopedType)`
 
   public func lessQualifiedImplementation(param: MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "lessQualifiedImplementation(param: MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?", arguments: [Mockingbird.ArgumentMatcher(`param`)])
@@ -5762,7 +5762,7 @@ public final class InheritedTypeQualificationProtocolMock<ScopedType>: Mockingbi
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `moreQualifiedImplementation(param:)`
+  // MARK: Mocked `moreQualifiedImplementation(param: ScopedType)`
 
   public func moreQualifiedImplementation(param: ScopedType) -> ScopedType? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "moreQualifiedImplementation(param: ScopedType) -> ScopedType?", arguments: [Mockingbird.ArgumentMatcher(`param`)])
@@ -5816,7 +5816,7 @@ public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceT
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `request(array:)`
+  // MARK: Mocked `request<T: Sequence>(array: T)`
 
   public func request<T: Sequence>(array: T) -> Void where T.Element == InheritingAssociatedTypeSelfReferencingProtocolMock {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request<T: Sequence>(array: T) -> Void where T.Element == InheritingAssociatedTypeSelfReferencingProtocolMock", arguments: [Mockingbird.ArgumentMatcher(`array`)])
@@ -5835,7 +5835,7 @@ public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceT
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(array:)`
+  // MARK: Mocked `request(array: SequenceType)`
 
   public func request(array: SequenceType) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(array: SequenceType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`array`)])
@@ -5854,7 +5854,7 @@ public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceT
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SequenceType) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request(object: InheritingAssociatedTypeSelfReferencingProtocolMock)`
 
   public func request(object: InheritingAssociatedTypeSelfReferencingProtocolMock) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: InheritingAssociatedTypeSelfReferencingProtocolMock) -> Void", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -5934,7 +5934,7 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `genericRequest(object:)`
+  // MARK: Mocked `genericRequest<T: MockingbirdModuleTestsHost.NSObjectProtocol>(object: T?)`
 
   public func genericRequest<T: MockingbirdModuleTestsHost.NSObjectProtocol>(object: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericRequest<T: MockingbirdModuleTestsHost.NSObjectProtocol>(object: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -5953,7 +5953,7 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T?) -> T?, T?>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `genericRequest(object:)`
+  // MARK: Mocked `genericRequest<T: MockingbirdModuleTestsHost.NSObjectProtocol>(object: T)`
 
   public func genericRequest<T: MockingbirdModuleTestsHost.NSObjectProtocol>(object: T) -> T where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdModuleTestsHost.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericRequest<T: MockingbirdModuleTestsHost.NSObjectProtocol>(object: T) -> T where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdModuleTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -5972,7 +5972,7 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request(object: Foundation.NSObject?)`
 
   public func request(object: Foundation.NSObject?) -> Foundation.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: Foundation.NSObject?) -> Foundation.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -5991,7 +5991,7 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request(object: Foundation.NSObject)`
 
   public func request(object: Foundation.NSObject) -> Foundation.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: Foundation.NSObject) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -6010,7 +6010,7 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request(object: MockingbirdModuleTestsHost.NSObject?)`
 
   public func request(object: MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -6029,7 +6029,7 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?, MockingbirdModuleTestsHost.NSObject?>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request(object: MockingbirdModuleTestsHost.NSObject)`
 
   public func request(object: MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -6151,7 +6151,7 @@ public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, 
     mockingContext.didInvoke(invocation)
   }
 
-  // MARK: Mocked `init(param1:_:)`
+  // MARK: Mocked `init(param1: Bool, _ param2: Int)`
 
   public required override init(param1: Bool, _ param2: Int) {
     super.init(param1: `param1`, `param2`)
@@ -6160,7 +6160,7 @@ public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, 
     mockingContext.didInvoke(invocation)
   }
 
-  // MARK: Mocked `init(param:)`
+  // MARK: Mocked `init?(param: Bool)`
 
   public required override init?(param: Bool) {
     super.init(param: `param`)
@@ -6169,7 +6169,7 @@ public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, 
     mockingContext.didInvoke(invocation)
   }
 
-  // MARK: Mocked `init(param:)`
+  // MARK: Mocked `init!(param: Int)`
 
   public required override init!(param: Int) {
     super.init(param: `param`)
@@ -6178,7 +6178,7 @@ public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, 
     mockingContext.didInvoke(invocation)
   }
 
-  // MARK: Mocked `init(param:)`
+  // MARK: Mocked `init(param: String?)`
 
   public required init(param: String?) {
     super.init(param: `param`)
@@ -6187,7 +6187,7 @@ public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, 
     mockingContext.didInvoke(invocation)
   }
 
-  // MARK: Mocked `init(param:)`
+  // MARK: Mocked `init(param: String)`
 
   public required override init(param: String) throws {
     try super.init(param: `param`)
@@ -6240,7 +6240,7 @@ public final class InitializerOverridingSubclassMock: MockingbirdTestsHost.Initi
     mockingContext.didInvoke(invocation)
   }
 
-  // MARK: Mocked `init(param:)`
+  // MARK: Mocked `init(param: String?)`
 
   public required init(param: String?) {
     super.init(param: `param`)
@@ -6283,7 +6283,7 @@ public final class InitializerProtocolMock: MockingbirdTestsHost.InitializerProt
     mockingContext.didInvoke(invocation)
   }
 
-  // MARK: Mocked `init(param1:_:)`
+  // MARK: Mocked `init(param1: Bool, _ param2: Int)`
 
   public required init(param1: Bool, _ param2: Int) {
     Mockingbird.checkVersion(for: self)
@@ -6291,7 +6291,7 @@ public final class InitializerProtocolMock: MockingbirdTestsHost.InitializerProt
     mockingContext.didInvoke(invocation)
   }
 
-  // MARK: Mocked `init(param:)`
+  // MARK: Mocked `init?(param: Bool)`
 
   public required init?(param: Bool) {
     Mockingbird.checkVersion(for: self)
@@ -6299,7 +6299,7 @@ public final class InitializerProtocolMock: MockingbirdTestsHost.InitializerProt
     mockingContext.didInvoke(invocation)
   }
 
-  // MARK: Mocked `init(param:)`
+  // MARK: Mocked `init!(param: Int)`
 
   public required init!(param: Int) {
     Mockingbird.checkVersion(for: self)
@@ -6307,7 +6307,7 @@ public final class InitializerProtocolMock: MockingbirdTestsHost.InitializerProt
     mockingContext.didInvoke(invocation)
   }
 
-  // MARK: Mocked `init(param:)`
+  // MARK: Mocked `init(param: String)`
 
   public required init(param: String) throws {
     Mockingbird.checkVersion(for: self)
@@ -6350,7 +6350,7 @@ public final class InitializerSubclassMock: MockingbirdTestsHost.InitializerSubc
     }
   }
 
-  // MARK: Mocked `init(param99:)`
+  // MARK: Mocked `init(param99: Bool)`
 
   public required override init(param99: Bool) {
     super.init(param99: `param99`)
@@ -6359,7 +6359,7 @@ public final class InitializerSubclassMock: MockingbirdTestsHost.InitializerSubc
     mockingContext.didInvoke(invocation)
   }
 
-  // MARK: Mocked `init(param:)`
+  // MARK: Mocked `init(param: String?)`
 
   public required init(param: String?) {
     super.init(param: `param`)
@@ -6395,7 +6395,7 @@ public final class InoutClassMock: MockingbirdTestsHost.InoutClass, Mockingbird.
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `parameterizedMethod(object:)`
+  // MARK: Mocked `parameterizedMethod(object: inout String)`
 
   public override func parameterizedMethod(object: inout String) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parameterizedMethod(object: inout String) -> Void", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -6440,7 +6440,7 @@ public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockin
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `parameterizedMethod(object:)`
+  // MARK: Mocked `parameterizedMethod(object: inout String)`
 
   public func parameterizedMethod(object: inout String) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parameterizedMethod(object: inout String) -> Void", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -6579,7 +6579,7 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `genericRequest(object:)`
+  // MARK: Mocked `genericRequest<T: MockingbirdTestsHost.NSObjectProtocol>(object: T?)`
 
   public func genericRequest<T: MockingbirdTestsHost.NSObjectProtocol>(object: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdTestsHost.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericRequest<T: MockingbirdTestsHost.NSObjectProtocol>(object: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdTestsHost.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -6598,7 +6598,7 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T?) -> T?, T?>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `genericRequest(object:)`
+  // MARK: Mocked `genericRequest<T: MockingbirdTestsHost.NSObjectProtocol>(object: T)`
 
   public func genericRequest<T: MockingbirdTestsHost.NSObjectProtocol>(object: T) -> T where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdTestsHost.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericRequest<T: MockingbirdTestsHost.NSObjectProtocol>(object: T) -> T where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -6617,7 +6617,7 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request(object: Foundation.NSObject?)`
 
   public func request(object: Foundation.NSObject?) -> Foundation.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: Foundation.NSObject?) -> Foundation.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -6636,7 +6636,7 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request(object: Foundation.NSObject)`
 
   public func request(object: Foundation.NSObject) -> Foundation.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: Foundation.NSObject) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -6655,7 +6655,7 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request(object: MockingbirdTestsHost.NSObject?)`
 
   public func request(object: MockingbirdTestsHost.NSObject?) -> MockingbirdTestsHost.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: MockingbirdTestsHost.NSObject?) -> MockingbirdTestsHost.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -6674,7 +6674,7 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.NSObject?) -> MockingbirdTestsHost.NSObject?, MockingbirdTestsHost.NSObject?>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(object:)`
+  // MARK: Mocked `request(object: MockingbirdTestsHost.NSObject)`
 
   public func request(object: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
@@ -6877,7 +6877,7 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `methodWithMultiOptionalParameter(param:)`
+  // MARK: Mocked `methodWithMultiOptionalParameter(param: Bool???)`
 
   public func methodWithMultiOptionalParameter(param: Bool???) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiOptionalParameter(param: Bool???) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
@@ -6914,7 +6914,7 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool???, Bool???>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `methodWithMultiOptionalVariadicParameter(param:)`
+  // MARK: Mocked `methodWithMultiOptionalVariadicParameter(param: Bool???...)`
 
   public func methodWithMultiOptionalVariadicParameter(param: Bool???...) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiOptionalVariadicParameter(param: Bool???...) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
@@ -6938,7 +6938,7 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool???]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `methodWithMultiUnwrappedOptionalCompoundParameter(param:)`
+  // MARK: Mocked `methodWithMultiUnwrappedOptionalCompoundParameter(param: (Bool?, Int)???!)`
 
   public func methodWithMultiUnwrappedOptionalCompoundParameter(param: (Bool?, Int)???!) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiUnwrappedOptionalCompoundParameter(param: (Bool?, Int)???!) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
@@ -6975,7 +6975,7 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Bool?, Int)???, (Bool?, Int)???>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `methodWithMultiUnwrappedOptionalParameter(param:)`
+  // MARK: Mocked `methodWithMultiUnwrappedOptionalParameter(param: Bool???!)`
 
   public func methodWithMultiUnwrappedOptionalParameter(param: Bool???!) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithMultiUnwrappedOptionalParameter(param: Bool???!) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
@@ -7012,7 +7012,7 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool???, Bool???>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `methodWithOptionalParameter(param:)`
+  // MARK: Mocked `methodWithOptionalParameter(param: Bool?)`
 
   public func methodWithOptionalParameter(param: Bool?) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithOptionalParameter(param: Bool?) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
@@ -7049,7 +7049,7 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool?, Bool?>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `methodWithOptionalVariadicParameter(param:)`
+  // MARK: Mocked `methodWithOptionalVariadicParameter(param: Bool?...)`
 
   public func methodWithOptionalVariadicParameter(param: Bool?...) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithOptionalVariadicParameter(param: Bool?...) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
@@ -7073,7 +7073,7 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool?]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `methodWithUnwrappedCompoundParameter(param:)`
+  // MARK: Mocked `methodWithUnwrappedCompoundParameter(param: (Bool?, Int)!)`
 
   public func methodWithUnwrappedCompoundParameter(param: (Bool?, Int)!) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithUnwrappedCompoundParameter(param: (Bool?, Int)!) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
@@ -7110,7 +7110,7 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Bool?, Int), (Bool?, Int)>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `methodWithUnwrappedParameter(param:)`
+  // MARK: Mocked `methodWithUnwrappedParameter(param: Bool!)`
 
   public func methodWithUnwrappedParameter(param: Bool!) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodWithUnwrappedParameter(param: Bool!) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
@@ -7174,7 +7174,7 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `overloadedParameters(param1:param2:)`
+  // MARK: Mocked `overloadedParameters(param1: Bool, param2: Bool)`
 
   public override func overloadedParameters(param1: Bool, param2: Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1: Bool, param2: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -7193,7 +7193,7 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `overloadedParameters(param1:param2:)`
+  // MARK: Mocked `overloadedParameters(param1: Int, param2: Int)`
 
   public override func overloadedParameters(param1: Int, param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1: Int, param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -7274,7 +7274,7 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `overloadedParameters(param1:param2:)`
+  // MARK: Mocked `overloadedParameters(param1: Bool, param2: Bool)`
 
   public func overloadedParameters(param1: Bool, param2: Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1: Bool, param2: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -7293,7 +7293,7 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `overloadedParameters(param1:param2:)`
+  // MARK: Mocked `overloadedParameters(param1: Int, param2: Int)`
 
   public func overloadedParameters(param1: Int, param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "overloadedParameters(param1: Int, param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -7377,7 +7377,7 @@ public final class ParameterizedInitializerClassMock: MockingbirdTestsHost.Param
     }
   }
 
-  // MARK: Mocked `init(param1:param2:)`
+  // MARK: Mocked `init(param1: Bool, param2: Int)`
 
   public required override init(param1: Bool, param2: Int) {
     super.init(param1: `param1`, param2: `param2`)
@@ -7412,7 +7412,7 @@ public final class ParameterizedInitializerProtocolMock: MockingbirdTestsHost.Pa
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `init(param1:param2:)`
+  // MARK: Mocked `init(param1: Bool, param2: Int)`
 
   public required init(param1: Bool, param2: Int) {
     Mockingbird.checkVersion(for: self)
@@ -7630,7 +7630,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `grandparentParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public func grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -7649,7 +7649,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `grandparentParameterizedStaticMethod(param1:_:)`
+  // MARK: Mocked `grandparentParameterizedStaticMethod(param1: Bool, _ param2: Int)`
 
   public static func grandparentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -7704,7 +7704,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `parentParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `parentParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public func parentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -7723,7 +7723,7 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `parentParameterizedStaticMethod(param1:_:)`
+  // MARK: Mocked `parentParameterizedStaticMethod(param1: Bool, _ param2: Int)`
 
   public static func parentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -7987,7 +7987,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `grandparentParameterizedClassMethod(param1:_:)`
+  // MARK: Mocked `grandparentParameterizedClassMethod(param1: Bool, _ param2: Int)`
 
   public override static func grandparentParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -8006,7 +8006,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `grandparentParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public override func grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -8061,7 +8061,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `parentParameterizedClassMethod(param1:_:)`
+  // MARK: Mocked `parentParameterizedClassMethod(param1: Bool, _ param2: Int)`
 
   public override static func parentParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentParameterizedClassMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -8080,7 +8080,7 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `parentParameterizedInstanceMethod(param1:_:)`
+  // MARK: Mocked `parentParameterizedInstanceMethod(param1: Bool, _ param2: Int)`
 
   public override func parentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -8164,7 +8164,7 @@ public final class RequiredInitializerClassMock: MockingbirdTestsHost.RequiredIn
     }
   }
 
-  // MARK: Mocked `init(param1:param2:)`
+  // MARK: Mocked `init(param1: Bool, param2: Int)`
 
   public required init(param1: Bool, param2: Int) {
     super.init(param1: `param1`, param2: `param2`)
@@ -8199,7 +8199,7 @@ public final class RethrowingProtocolMock: MockingbirdTestsHost.RethrowingProtoc
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `rethrowingMethod(block:)`
+  // MARK: Mocked `rethrowingMethod(block: () throws -> Bool)`
 
   public func rethrowingMethod(block: () throws -> Bool) rethrows -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "rethrowingMethod(block: () throws -> Bool) rethrows -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() throws -> Bool>())])
@@ -8218,7 +8218,7 @@ public final class RethrowingProtocolMock: MockingbirdTestsHost.RethrowingProtoc
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() throws -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `rethrowingMethod(block:)`
+  // MARK: Mocked `rethrowingMethod(block: () throws -> Bool)`
 
   public func rethrowingMethod(block: () throws -> Bool) rethrows -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "rethrowingMethod(block: () throws -> Bool) rethrows -> Void", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() throws -> Bool>())])
@@ -8369,7 +8369,7 @@ public final class SubclassingExternalClassWithDesignatedIntializerMock: Mocking
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `init(param1:)`
+  // MARK: Mocked `init(param1: Bool)`
 
   public required override init(param1: Bool) {
     super.init(param1: `param1`)
@@ -8690,7 +8690,7 @@ public final class SubclassingExternalSubclassWithDesignatedInitializerMock: Moc
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `init(param1:)`
+  // MARK: Mocked `init(param1: Bool)`
 
   public required override init(param1: Bool) {
     super.init(param1: `param1`)
@@ -9015,7 +9015,7 @@ public final class TestCaseMock: MockingbirdTestsHost.TestCase, Mockingbird.Mock
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `run(description:)`
+  // MARK: Mocked `run(description: String)`
 
   public func run(description: String) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "run(description: String) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`description`)])
@@ -9134,7 +9134,7 @@ public final class TestMock: MockingbirdTestsHost.Test, Mockingbird.Mock {
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `add(testCase:)`
+  // MARK: Mocked `add(testCase: MockingbirdTestsHost.TestCase)`
 
   public func add(testCase: MockingbirdTestsHost.TestCase) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "add(testCase: MockingbirdTestsHost.TestCase) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`testCase`)])
@@ -9215,7 +9215,7 @@ public final class ThrowingProtocolMock: MockingbirdTestsHost.ThrowingProtocol, 
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () throws -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `throwingMethod(block:)`
+  // MARK: Mocked `throwingMethod(block: () throws -> Bool)`
 
   public func throwingMethod(block: () throws -> Bool) throws -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "throwingMethod(block: () throws -> Bool) throws -> Void", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() throws -> Bool>())])
@@ -9261,7 +9261,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `topLevelMethod(param1:param2:)`
+  // MARK: Mocked `topLevelMethod(param1: MockingbirdTestsHost.TopLevelType.SecondLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType)`
 
   public override func topLevelMethod(param1: MockingbirdTestsHost.TopLevelType.SecondLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "topLevelMethod(param1: MockingbirdTestsHost.TopLevelType.SecondLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -9301,7 +9301,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       self.sourceLocation = sourceLocation
     }
 
-    // MARK: Mocked `secondLevelMethod(param1:param2:)`
+    // MARK: Mocked `secondLevelMethod(param1: MockingbirdTestsHost.TopLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType)`
 
     public override func secondLevelMethod(param1: MockingbirdTestsHost.TopLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "secondLevelMethod(param1: MockingbirdTestsHost.TopLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -9359,7 +9359,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType>(mock: self, invocation: invocation)
       }
 
-      // MARK: Mocked `topLevelMethod(param1:param2:)`
+      // MARK: Mocked `topLevelMethod(param1: MockingbirdTestsHost.TopLevelType.SecondLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType)`
 
       public override func topLevelMethod(param1: MockingbirdTestsHost.TopLevelType.SecondLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "topLevelMethod(param1: MockingbirdTestsHost.TopLevelType.SecondLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -9418,7 +9418,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType>(mock: self, invocation: invocation)
       }
 
-      // MARK: Mocked `thirdLevelMethod(param1:param2:)`
+      // MARK: Mocked `thirdLevelMethod(param1: MockingbirdTestsHost.TopLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType)`
 
       public override func thirdLevelMethod(param1: MockingbirdTestsHost.TopLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1: MockingbirdTestsHost.TopLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -9477,7 +9477,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType>(mock: self, invocation: invocation)
       }
 
-      // MARK: Mocked `thirdLevelMethod(param1:param2:)`
+      // MARK: Mocked `thirdLevelMethod(param1: MockingbirdTestsHost.TopLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType)`
 
       public override func thirdLevelMethod(param1: MockingbirdTestsHost.TopLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1: MockingbirdTestsHost.TopLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -9536,7 +9536,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType>(mock: self, invocation: invocation)
       }
 
-      // MARK: Mocked `thirdLevelMethod(param1:param2:)`
+      // MARK: Mocked `thirdLevelMethod(param1: MockingbirdTestsHost.TopLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType)`
 
       public override func thirdLevelMethod(param1: MockingbirdTestsHost.TopLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1: MockingbirdTestsHost.TopLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -9577,7 +9577,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         self.sourceLocation = sourceLocation
       }
 
-      // MARK: Mocked `thirdLevelMethod(param1:param2:)`
+      // MARK: Mocked `thirdLevelMethod(param1: MockingbirdTestsHost.TopLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType)`
 
       public override func thirdLevelMethod(param1: MockingbirdTestsHost.TopLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelMethod(param1: MockingbirdTestsHost.TopLevelType, param2: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -9657,7 +9657,7 @@ public final class TreeMock: MockingbirdTestsHost.Tree, Mockingbird.Mock {
     }
   }
 
-  // MARK: Mocked `drop(_:)`
+  // MARK: Mocked `drop(_ fruit: MockingbirdTestsHost.Tree.Fruit)`
 
   public override func drop(_ fruit: MockingbirdTestsHost.Tree.Fruit) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "drop(_ fruit: MockingbirdTestsHost.Tree.Fruit) -> Void", arguments: [Mockingbird.ArgumentMatcher(`fruit`)])
@@ -9676,7 +9676,7 @@ public final class TreeMock: MockingbirdTestsHost.Tree, Mockingbird.Mock {
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.Tree.Fruit) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `init(with:)`
+  // MARK: Mocked `init(with bird: MockingbirdTestsHost.Bird)`
 
   public required override init(with bird: MockingbirdTestsHost.Bird) {
     super.init(with: `bird`)
@@ -9726,7 +9726,7 @@ public final class TreeMock: MockingbirdTestsHost.Tree, Mockingbird.Mock {
       }
     }
 
-    // MARK: Mocked `init(size:)`
+    // MARK: Mocked `init(size: Int)`
 
     public required override init(size: Int) {
       super.init(size: `size`)
@@ -9959,7 +9959,7 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `labeledMethod(param1:param2:)`
+  // MARK: Mocked `labeledMethod(param1: (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), param2: (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))`
 
   public func labeledMethod(param1: (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), param2: (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "labeledMethod(param1: (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), param2: (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -10068,7 +10068,7 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `method(param1:param2:)`
+  // MARK: Mocked `method(param1: (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), param2: (Foundation.URL, Foundation.NSObject))`
 
   public func method(param1: (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), param2: (Foundation.URL, Foundation.NSObject)) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "method(param1: (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), param2: (Foundation.URL, Foundation.NSObject)) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -10132,7 +10132,7 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `request(callback:)`
+  // MARK: Mocked `request(callback: MockingbirdTestsHost.TypealiasedClass.IndirectCallback)`
 
   public override func request(callback: MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Foundation.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(callback: MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<MockingbirdTestsHost.TypealiasedClass.IndirectCallback>())])
@@ -10151,7 +10151,7 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(callback:)`
+  // MARK: Mocked `request(callback: MockingbirdTestsHost.TypealiasedClass.IndirectCallback)`
 
   public override func request(callback: MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(callback: MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<MockingbirdTestsHost.TypealiasedClass.IndirectCallback>())])
@@ -10170,7 +10170,7 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult, MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(escapingCallback:)`
+  // MARK: Mocked `request(escapingCallback: @escaping MockingbirdTestsHost.TypealiasedClass.IndirectCallback)`
 
   public override func request(escapingCallback: @escaping MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(escapingCallback: @escaping MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult", arguments: [Mockingbird.ArgumentMatcher(`escapingCallback`)])
@@ -10215,7 +10215,7 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `request(callback:)`
+  // MARK: Mocked `request(callback: MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback)`
 
   public func request(callback: MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Foundation.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(callback: MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback>())])
@@ -10234,7 +10234,7 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(callback:)`
+  // MARK: Mocked `request(callback: MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback)`
 
   public func request(callback: MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(callback: MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback>())])
@@ -10253,7 +10253,7 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult, MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `request(escapingCallback:)`
+  // MARK: Mocked `request(escapingCallback: @escaping MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback)`
 
   public func request(escapingCallback: @escaping MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(escapingCallback: @escaping MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult", arguments: [Mockingbird.ArgumentMatcher(`escapingCallback`)])
@@ -10298,7 +10298,7 @@ public final class UndefinedArgumentLabelsMock: MockingbirdTestsHost.UndefinedAr
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `method(_:_:_:_:)`
+  // MARK: Mocked `method(_ param1: Bool, _ param2: String, _ someParam: Int, _ param4: Bool)`
 
   public func method(_ param1: Bool, _ param2: String, _ someParam: Int, _ param4: Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "method(_ param1: Bool, _ param2: String, _ someParam: Int, _ param4: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`), Mockingbird.ArgumentMatcher(`someParam`), Mockingbird.ArgumentMatcher(`param4`)])
@@ -10655,7 +10655,7 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `variadicMethod(objects:param2:)`
+  // MARK: Mocked `variadicMethod(objects: Bool..., param2: Int)`
 
   public override func variadicMethod(objects: Bool..., param2: Int) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects: Bool..., param2: Int) -> Void", arguments: [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -10679,7 +10679,7 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `variadicMethod(objects:param2:)`
+  // MARK: Mocked `variadicMethod(objects: String..., param2: Int)`
 
   public override func variadicMethod(objects: String..., param2: Int) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects: String..., param2: Int) -> Void", arguments: [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -10703,7 +10703,7 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([String], Int) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `variadicMethodAsFinalParam(param1:objects:)`
+  // MARK: Mocked `variadicMethodAsFinalParam(param1: Int, objects: String...)`
 
   public override func variadicMethodAsFinalParam(param1: Int, objects: String...) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variadicMethodAsFinalParam(param1: Int, objects: String...) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`objects`)])
@@ -10727,7 +10727,7 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int, [String]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `variadicReturningMethod(objects:param2:)`
+  // MARK: Mocked `variadicReturningMethod(objects: Bool..., param2: Int)`
 
   public override func variadicReturningMethod(objects: Bool..., param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variadicReturningMethod(objects: Bool..., param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -10777,7 +10777,7 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `variadicMethod(objects:param2:)`
+  // MARK: Mocked `variadicMethod(objects: Bool..., param2: Int)`
 
   public func variadicMethod(objects: Bool..., param2: Int) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects: Bool..., param2: Int) -> Void", arguments: [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -10801,7 +10801,7 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `variadicMethod(objects:param2:)`
+  // MARK: Mocked `variadicMethod(objects: String..., param2: Int)`
 
   public func variadicMethod(objects: String..., param2: Int) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variadicMethod(objects: String..., param2: Int) -> Void", arguments: [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.ArgumentMatcher(`param2`)])
@@ -10825,7 +10825,7 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([String], Int) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `variadicMethodAsFinalParam(param1:objects:)`
+  // MARK: Mocked `variadicMethodAsFinalParam(param1: Int, objects: String...)`
 
   public func variadicMethodAsFinalParam(param1: Int, objects: String...) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variadicMethodAsFinalParam(param1: Int, objects: String...) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`objects`)])
@@ -10849,7 +10849,7 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int, [String]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `variadicReturningMethod(objects:param2:)`
+  // MARK: Mocked `variadicReturningMethod(objects: Bool..., param2: Int)`
 
   public func variadicReturningMethod(objects: Bool..., param2: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variadicReturningMethod(objects: Bool..., param2: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.ArgumentMatcher(`param2`)])
