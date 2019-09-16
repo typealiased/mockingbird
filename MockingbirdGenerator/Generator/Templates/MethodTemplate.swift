@@ -73,13 +73,12 @@ class MethodTemplate: Template {
       } else {
         checkVersion = "    Mockingbird.checkVersion(for: self)"
       }
-      let genericConstraints = self.genericConstraints
       return """
         // MARK: Mocked `\(method.name)`
       \(attributes)
-        public \(overridableModifiers)\(fullNameForMocking)\(genericConstraints) \(returnTypeAttributesForMocking){
+        public \(overridableModifiers)\(uniqueDeclaration){
       \(checkVersion)
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: [\(mockArgumentMatchers)])
+          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
         }
       """
@@ -87,14 +86,22 @@ class MethodTemplate: Template {
       return """
         // MARK: Mocked `\(method.name)`
       \(attributes)
-        public \(overridableModifiers)func \(fullNameForMocking) \(returnTypeAttributesForMocking)-> \(specializedReturnTypeName)\(genericConstraints) {
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: [\(mockArgumentMatchers)])
+        public \(overridableModifiers)func \(uniqueDeclaration) {
+          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
       \(stubbedImplementationCall)
         }
       """
     }
   }
+  
+  lazy var uniqueDeclaration: String = {
+    if method.isInitializer {
+      return "\(fullNameForMocking)\(genericConstraints) \(returnTypeAttributesForMocking)"
+    } else {
+      return "\(fullNameForMocking) \(returnTypeAttributesForMocking)-> \(specializedReturnTypeName)\(genericConstraints)"
+    }
+  }()
   
   var frameworkDeclarations: String {
     guard !method.isInitializer else { return "" }
@@ -207,10 +214,6 @@ class MethodTemplate: Template {
     return "\(shortName)\(failable)(\(parameterNames.joined(separator: ", ")))"
   }
   
-  lazy var fullSelectorName: String = {
-    return "\(method.name) -> \(specializedReturnTypeName)"
-  }()
-  
   lazy var superCallParameters: String = {
     return method.parameters.map({ parameter -> String in
       guard let label = parameter.argumentLabel else { return "`\(parameter.name)`" }
@@ -239,19 +242,19 @@ class MethodTemplate: Template {
   lazy var matchableInvocation: String = {
     guard !method.parameters.isEmpty else {
       return """
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: [])
+          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [])
       """
     }
     return """
     \(resolvedArgumentMatchers)
-        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: arguments)
+        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: arguments)
     """
   }()
   
   lazy var matchableInvocationVariadics: String = {
     return """
     \(resolvedArgumentMatchersVariadics)
-        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(fullSelectorName)", arguments: arguments)
+        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: arguments)
     """
   }()
   

@@ -88,4 +88,34 @@ class OverloadedMethodTests: XCTestCase {
     verify(protocolMock.overloadedReturnType()).returning(Bool.self).wasCalled()
     verify(protocolMock.overloadedReturnType()).returning(Int.self).wasCalled()
   }
+  
+  func testOverloadedMethod_classMock_overloadedParameters_separateInvocationCounts() {
+    given(classMock.overloadedParameters(param1: any(Bool.self), param2: any())) ~> true
+    given(classMock.overloadedParameters(param1: any(Int.self), param2: any())) ~> false
+    XCTAssertTrue(callOverloadedParametersMethod(on: classMock, param1: true, param2: false))
+    verify(classMock.overloadedParameters(param1: any(Bool.self), param2: any())).wasCalled()
+    verify(classMock.overloadedParameters(param1: any(Int.self), param2: any())).wasNeverCalled()
+  }
+  func testOverloadedMethod_protocolMock_overloadedParameters_separateInvocationCounts() {
+    given(protocolMock.overloadedParameters(param1: any(Bool.self), param2: any())) ~> true
+    given(protocolMock.overloadedParameters(param1: any(Int.self), param2: any())) ~> false
+    XCTAssertTrue(callOverloadedParametersMethod(on: protocolMock, param1: true, param2: false))
+    verify(protocolMock.overloadedParameters(param1: any(Bool.self), param2: any())).wasCalled()
+    verify(protocolMock.overloadedParameters(param1: any(Int.self), param2: any())).wasNeverCalled()
+  }
+  
+  func testOverloadedMethod_classMock_overloadedReturnType_separateInvocationCounts() {
+    given(classMock.overloadedReturnType()) ~> true
+    given(classMock.overloadedReturnType()) ~> 1
+    XCTAssert(callOverloadedReturnTypeMethod(on: classMock) == true)
+    verify(classMock.overloadedReturnType()).returning(Bool.self).wasCalled()
+    verify(classMock.overloadedReturnType()).returning(Int.self).wasNeverCalled()
+  }
+  func testOverloadedMethod_protocolMock_overloadedReturnType_separateInvocationCounts() {
+    given(protocolMock.overloadedReturnType()) ~> true
+    given(protocolMock.overloadedReturnType()) ~> 1
+    XCTAssert(callOverloadedReturnTypeMethod(on: protocolMock) == true)
+    verify(protocolMock.overloadedReturnType()).returning(Bool.self).wasCalled()
+    verify(protocolMock.overloadedReturnType()).returning(Int.self).wasNeverCalled()
+  }
 }
