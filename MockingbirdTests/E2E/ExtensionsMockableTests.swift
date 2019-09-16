@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import Mockingbird
 import MockingbirdTestsHost
 
 // MARK: - Mockable declarations
 
-private protocol MockableExtendableProtocol {
+private protocol MockableExtendableProtocol: Mock {
   func trivialBaseMethod()
   var baseVariable: Bool { get }
   
@@ -25,7 +26,7 @@ private protocol MockableExtendableProtocol {
 }
 extension ExtendableProtocolMock: MockableExtendableProtocol {}
 
-private protocol MockableNonExtendableClass {
+private protocol MockableNonExtendableClass: Mock {
   func trivialBaseMethod()
   var baseVariable: Bool { get }
 }

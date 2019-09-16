@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Mockingbird
 @testable import MockingbirdTestsHost
 
 // MARK: - Mockable declarations
@@ -13,7 +14,7 @@ import Foundation
 private protocol MockableTypealiasedProtocol: TypealiasedProtocol {}
 extension TypealiasedProtocolMock: MockableTypealiasedProtocol {}
 
-private protocol MockableTypealiasedClass {
+private protocol MockableTypealiasedClass: Mock {
   typealias Callback = (Bool, Int) -> Void
   typealias IndirectCallback = Callback
   typealias RequestResult = Bool
@@ -25,8 +26,8 @@ private protocol MockableTypealiasedClass {
 }
 extension TypealiasedClassMock: MockableTypealiasedClass {}
 
-private protocol MockableModuleScopedTypealiasedProtocol: ModuleScopedTypealiasedProtocol {}
+private protocol MockableModuleScopedTypealiasedProtocol: ModuleScopedTypealiasedProtocol, Mock {}
 extension ModuleScopedTypealiasedProtocolMock: MockableModuleScopedTypealiasedProtocol {}
 
-private protocol MockableInheritingModuleScopedAssociatedTypeProtocol: ModuleScopedAssociatedTypeProtocol {}
+private protocol MockableInheritingModuleScopedAssociatedTypeProtocol: ModuleScopedAssociatedTypeProtocol, Mock {}
 extension InheritingModuleScopedAssociatedTypeProtocolMock: MockableInheritingModuleScopedAssociatedTypeProtocol {}

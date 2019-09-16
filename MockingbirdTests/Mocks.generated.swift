@@ -5970,25 +5970,6 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
 
   // MARK: Mocked `request(object:)`
 
-  public func request(object: Foundation.NSObject) -> Foundation.NSObject {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
-    mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? (Foundation.NSObject) -> Foundation.NSObject {
-      return concreteImplementation(`object`)
-    } else {
-      return (implementation as! () -> Foundation.NSObject)()
-    }
-  }
-
-  public func request(object: @escaping @autoclosure () -> Foundation.NSObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Foundation.NSObject", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
-  }
-
-  // MARK: Mocked `request(object:)`
-
   public func request(object: Foundation.NSObject?) -> Foundation.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Foundation.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
@@ -6008,21 +5989,21 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
 
   // MARK: Mocked `request(object:)`
 
-  public func request(object: MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> MockingbirdModuleTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
+  public func request(object: Foundation.NSObject) -> Foundation.NSObject {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject {
+    if let concreteImplementation = implementation as? (Foundation.NSObject) -> Foundation.NSObject {
       return concreteImplementation(`object`)
     } else {
-      return (implementation as! () -> MockingbirdModuleTestsHost.NSObject)()
+      return (implementation as! () -> Foundation.NSObject)()
     }
   }
 
-  public func request(object: @escaping @autoclosure () -> MockingbirdModuleTestsHost.NSObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject, MockingbirdModuleTestsHost.NSObject> {
+  public func request(object: @escaping @autoclosure () -> Foundation.NSObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> MockingbirdModuleTestsHost.NSObject", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject, MockingbirdModuleTestsHost.NSObject>(mock: self, invocation: invocation)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> Foundation.NSObject", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request(object:)`
@@ -6042,6 +6023,25 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> MockingbirdModuleTestsHost.NSObject?", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?, MockingbirdModuleTestsHost.NSObject?>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `request(object:)`
+
+  public func request(object: MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> MockingbirdModuleTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject {
+      return concreteImplementation(`object`)
+    } else {
+      return (implementation as! () -> MockingbirdModuleTestsHost.NSObject)()
+    }
+  }
+
+  public func request(object: @escaping @autoclosure () -> MockingbirdModuleTestsHost.NSObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject, MockingbirdModuleTestsHost.NSObject> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object:) -> MockingbirdModuleTestsHost.NSObject", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject, MockingbirdModuleTestsHost.NSObject>(mock: self, invocation: invocation)
   }
 }
 

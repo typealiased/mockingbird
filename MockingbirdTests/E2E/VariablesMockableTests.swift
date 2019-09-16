@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import Mockingbird
 @testable import MockingbirdTestsHost
 
 // MARK: - Mockable declarations
 
-private protocol MockableVariablesContainer {
+private protocol MockableVariablesContainer: Mock {
   var readonlyVariableOverwrittenAsReadwrite: Bool { get set }
   var uninitializedVariable: Bool { get set }
   

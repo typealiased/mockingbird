@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import Mockingbird
 
 // MARK: - Mockable declarations
 
-private protocol MockableChild {
+private protocol MockableChild: Mock {
   // MARK: Child
   var childStoredPrivateSetterInstanceVariable: Bool { get }
   var childStoredFileprivateSetterInstanceVariable: Bool { get }

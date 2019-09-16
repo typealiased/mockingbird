@@ -11,7 +11,7 @@ import Mockingbird
 
 // MARK: - Stubbable declarations
 
-private protocol StubbableThrowingProtocol {
+private protocol StubbableThrowingProtocol: Mock {
   func throwingMethod() throws -> Mockable<MethodDeclaration, () throws -> Void, Void>
   func throwingMethod() throws -> Mockable<MethodDeclaration, () throws -> Bool, Bool>
   func throwingMethod(block: @escaping @autoclosure () -> () throws -> Bool) throws
@@ -19,7 +19,7 @@ private protocol StubbableThrowingProtocol {
 }
 extension ThrowingProtocolMock: StubbableThrowingProtocol {}
 
-private protocol StubbableRethrowingProtocol: RethrowingProtocol {
+private protocol StubbableRethrowingProtocol: RethrowingProtocol, Mock {
   func rethrowingMethod(block: @escaping @autoclosure () -> () throws -> Bool)
     -> Mockable<MethodDeclaration, (() throws -> Bool) -> Void, Void>
   func rethrowingMethod(block: @escaping @autoclosure () -> () throws -> Bool)

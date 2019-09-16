@@ -7,7 +7,8 @@
 //
 
 import Foundation
+import Mockingbird
 @testable import MockingbirdTestsHost
 
-extension ChildProtocolMock: ParentProtocol {}
-extension ChildProtocolMock: GrandparentProtocol {}
+private protocol MockableChildProtocol: ParentProtocol, Mock {}
+extension ChildProtocolMock: MockableChildProtocol {}

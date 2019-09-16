@@ -6,23 +6,24 @@
 //
 
 import Foundation
+import Mockingbird
 @testable import MockingbirdTestsHost
 
 // MARK: - Mockable declarations
 
-private protocol MockableTopLevelType {
+private protocol MockableTopLevelType: Mock {
   func topLevelMethod(param1: TopLevelType.SecondLevelType,
                       param2: TopLevelType.SecondLevelType.ThirdLevelType) -> Bool
 }
 extension TopLevelTypeMock: MockableTopLevelType {}
 
-private protocol MockableSecondLevelType {
+private protocol MockableSecondLevelType: Mock {
   func secondLevelMethod(param1: TopLevelType,
                          param2: TopLevelType.SecondLevelType.ThirdLevelType) -> Bool
 }
 extension TopLevelTypeMock.SecondLevelTypeMock: MockableSecondLevelType {}
 
-private protocol MockableThirdLevelType {
+private protocol MockableThirdLevelType: Mock {
   func thirdLevelMethod(param1: TopLevelType,
                         param2: TopLevelType.SecondLevelType) -> Bool
 }
@@ -43,11 +44,11 @@ MockableThirdLevelInheritingThirdLevelType {}
 private protocol MockableThirdLevelInheritingPartiallyQualifiedThirdLevelType: MockableThirdLevelType {
   func thirdLevelInheritingMethod() -> TopLevelType.SecondLevelType.ThirdLevelType
 }
-extension TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingPartiallyQualifiedThirdLevelType:
+extension TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock:
 MockableThirdLevelInheritingPartiallyQualifiedThirdLevelType {}
 
 private protocol MockableThirdLevelInheritingFullyQualifiedThirdLevelType: MockableThirdLevelType {
   func thirdLevelInheritingMethod() -> TopLevelType.SecondLevelType.ThirdLevelType
 }
-extension TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingFullyQualifiedThirdLevelType:
+extension TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock:
 MockableThirdLevelInheritingFullyQualifiedThirdLevelType {}

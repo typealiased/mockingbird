@@ -1,5 +1,5 @@
 //
-//  ExternalModuleMockableTypes.swift
+//  ExternalModuleTypes.swift
 //  MockingbirdTestsHost
 //
 //  Created by Andrew Chang on 9/15/19.
@@ -23,7 +23,7 @@ class SubclassingExternalClassWithInheritedIntializer: ExternalClassWithInitiali
   func internalMethod() {}
 }
 
-open class SubclassingExternalSubclassWithInheritedInitializer: ExternalSubclassWithInitializer {
+class SubclassingExternalSubclassWithInheritedInitializer: ExternalSubclassWithInitializer {
   var internalVariable = true
   func internalMethod() {}
 }
