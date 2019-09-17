@@ -6,12 +6,17 @@
 //
 
 import Foundation
+import MockingbirdGenerator
 import PathKit
 import SPMUtility
 
-struct InstallCommand: Command {
-  let command = "install"
-  let overview = "Set up a destination (unit test) target."
+final class InstallCommand: BaseCommand {
+  private enum Constants {
+    static let name = "install"
+    static let overview = "Set up a destination (unit test) target."
+  }
+  override var name: String { return Constants.name }
+  override var overview: String { return Constants.overview }
   
   private let projectPathArgument: OptionArgument<PathArgument>
   private let sourceTargetsArgument: OptionArgument<[String]>
@@ -27,24 +32,28 @@ struct InstallCommand: Command {
   private let onlyMockProtocolsArgument: OptionArgument<Bool>
   private let disableSwiftlintArgument: OptionArgument<Bool>
   
-  init(parser: ArgumentParser) {
-    let subparser = parser.add(subparser: command, overview: overview)
+  required init(parser: ArgumentParser) {
+    let subparser = parser.add(subparser: Constants.name, overview: Constants.overview)
     
-    projectPathArgument = subparser.addProjectPath()
-    sourceTargetsArgument = subparser.addSourceTargets()
-    sourceTargetArgument = subparser.addSourceTarget()
-    destinationTargetArgument = subparser.addDestinationTarget()
-    sourceRootArgument = subparser.addSourceRoot()
-    outputsArgument = subparser.addOutputs()
-    outputArgument = subparser.addOutput()
-    preprocessorExpressionArgument = subparser.addPreprocessorExpression()
-    ignoreExistingRunScriptArgument = subparser.addIgnoreExistingRunScript()
-    asynchronousGenerationArgument = subparser.addAynchronousGeneration()
-    onlyMockProtocolsArgument = subparser.addOnlyProtocols()
-    disableSwiftlintArgument = subparser.addDisableSwiftlint()
+    self.projectPathArgument = subparser.addProjectPath()
+    self.sourceTargetsArgument = subparser.addSourceTargets()
+    self.sourceTargetArgument = subparser.addSourceTarget()
+    self.destinationTargetArgument = subparser.addDestinationTarget()
+    self.sourceRootArgument = subparser.addSourceRoot()
+    self.outputsArgument = subparser.addOutputs()
+    self.outputArgument = subparser.addOutput()
+    self.preprocessorExpressionArgument = subparser.addPreprocessorExpression()
+    self.ignoreExistingRunScriptArgument = subparser.addIgnoreExistingRunScript()
+    self.asynchronousGenerationArgument = subparser.addAynchronousGeneration()
+    self.onlyMockProtocolsArgument = subparser.addOnlyProtocols()
+    self.disableSwiftlintArgument = subparser.addDisableSwiftlint()
+    
+    super.init(parser: subparser)
   }
   
-  func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
+  override func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
+    try super.run(with: arguments, environment: environment)
+    
     let projectPath = try arguments.getProjectPath(using: projectPathArgument,
                                                    environment: environment)
     let sourceRoot = try arguments.getSourceRoot(using: sourceRootArgument,

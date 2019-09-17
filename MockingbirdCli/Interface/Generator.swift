@@ -78,7 +78,7 @@ class Generator {
     let targets = try config.inputTargetNames.map({ targetName throws -> PBXTarget in
       let targets = xcodeproj.pbxproj.targets(named: targetName)
       if targets.count > 1 {
-        fputs("Found multiple input targets named `\(targetName)`, using the first one\n", stderr)
+        logWarning("Found multiple input targets named `\(targetName)`, using the first one")
       }
       guard let target = targets.first else {
         throw Failure.malformedConfiguration(description: "Unable to find input target named `\(targetName)`")
@@ -111,7 +111,7 @@ class Generator {
     queue.waitUntilAllOperationsAreFinished()
     operationsCopy.forEach({
       guard let error = $0.error else { return }
-      fputs(error.localizedDescription + "\n", stderr)
+      log(error)
     })
   }
 }

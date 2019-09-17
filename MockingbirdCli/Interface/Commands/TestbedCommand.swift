@@ -6,26 +6,35 @@
 //
 
 import Foundation
+import MockingbirdGenerator
 import PathKit
 import SPMUtility
 
-struct TestbedCommand: Command {
-  let command = "testbed"
-  let overview = "Generate source files for benchmarking Mockingbird."
+final class TestbedCommand: BaseCommand {
+  private enum Constants {
+    static let name = "testbed"
+    static let overview = "Generate source files for benchmarking Mockingbird."
+  }
+  override var name: String { return Constants.name }
+  override var overview: String { return Constants.overview }
   
   private let outputArgument: OptionArgument<PathArgument>
   private let countArgument: OptionArgument<Int>
   
-  init(parser: ArgumentParser) {
-    let subparser = parser.add(subparser: command, overview: overview)
-    outputArgument = subparser.addMetagenerateOutput()
-    countArgument = subparser.addMetagenerateCount()
+  required init(parser: ArgumentParser) {
+    let subparser = parser.add(subparser: Constants.name, overview: Constants.overview)
+    self.outputArgument = subparser.addMetagenerateOutput()
+    self.countArgument = subparser.addMetagenerateCount()
+    super.init(parser: subparser)
   }
   
-  func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
+  override func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
+    try super.run(with: arguments, environment: environment)
+    
     let outputDirectory = try arguments.getOutputDirectory(using: outputArgument)
     let count = try arguments.getCount(using: countArgument) ?? 1000
     for i in 0..<count { try generateSourceFile(to: outputDirectory, index: i) }
+    
     print("Generated \(count) source file\(count > 1 ? "s" : "") to \(outputDirectory.absolute())")
   }
 

@@ -141,7 +141,7 @@ private class GlobSearchOperation: BasicOperation {
         guard !line.hasPrefix("/") else { return line }
         return "\(directory.absolute())/" + line
       }) else {
-        fputs("Unable to read \(Constants.mockingbirdIgnoreFileName) at \(ignoreFile.absolute())\n", stderr)
+        logWarning("Unable to read `\(Constants.mockingbirdIgnoreFileName)` at \(ignoreFile.absolute())")
         return (!matches(parentGlobs), parentGlobs)
     }
     let globs = parentGlobs.union(Set(lines))

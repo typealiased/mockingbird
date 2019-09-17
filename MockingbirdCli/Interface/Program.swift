@@ -12,10 +12,31 @@ import SPMUtility
 import os.log
 
 protocol Command {
-  var command: String { get }
+  var name: String { get }
   var overview: String { get }
+  var subparser: ArgumentParser { get }
   init(parser: ArgumentParser)
   func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws
+}
+
+class BaseCommand: Command {
+  var name: String { fatalError() }
+  var overview: String { fatalError() }
+  let subparser: ArgumentParser
+  
+  let verboseOption: OptionArgument<Bool>
+  let quietOption: OptionArgument<Bool>
+  
+  required init(parser subparser: ArgumentParser) {
+    self.subparser = subparser
+    self.verboseOption = subparser.addVerboseLogLevel()
+    self.quietOption = subparser.addQuietLogLevel()
+  }
+  
+  func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
+    let logLevel = try arguments.getLogLevel(verboseOption: verboseOption, quietOption: quietOption)
+    LogLevel.default.value = logLevel
+  }
 }
 
 /// Represents a CLI that can parse arguments and run the appropriate `Command`.
@@ -30,7 +51,7 @@ struct Program {
   }
   
   func run(with arguments: [String]) -> Int32 {
-    var statusCode: Int32 = 0
+    var exitStatus: Int32 = 0
     time(.runProgram) {
       do {
         var parsedArguments: ArgumentParser.Result!
@@ -40,21 +61,18 @@ struct Program {
         }
         try process(arguments: parsedArguments)
       }
-      catch let error as ArgumentParserError {
-        fputs(error.description + "\n", stderr)
-        statusCode = 1
-      }
       catch let error {
-        fputs(error.localizedDescription + "\n", stderr)
-        statusCode = 1
+        log(error)
+        exitStatus = 1
       }
     }
-    return statusCode
+    flushLogs()
+    return exitStatus
   }
   
   private func process(arguments: ArgumentParser.Result) throws {
     guard let subparser = arguments.subparser(parser),
-      let command = commands.last(where: { $0.command == subparser }) else {
+      let command = commands.last(where: { $0.name == subparser }) else {
         parser.printUsage(on: stdoutStream)
         return
     }

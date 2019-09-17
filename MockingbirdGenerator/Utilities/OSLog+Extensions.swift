@@ -18,7 +18,6 @@ public enum SignpostType {
   case parseXcodeProject
   case extractSources
   case parseFiles
-  case collectImports
   case processTypes
   case renderMocks
   case writeFiles
@@ -30,7 +29,6 @@ public enum SignpostType {
     case .parseXcodeProject: return "Parse Xcode Project"
     case .extractSources: return "Extract Sources"
     case .parseFiles: return "Parse Files"
-    case .collectImports: return "Collect Imports"
     case .processTypes: return "Process Types"
     case .renderMocks: return "Render Mocks"
     case .writeFiles: return "Write Files"

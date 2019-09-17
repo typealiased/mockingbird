@@ -58,6 +58,7 @@
 		49732AF0232F322B0090E1A9 /* MethodParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49732AEF232F322B0090E1A9 /* MethodParameter.swift */; };
 		49F60A9D232F475100B51A7C /* ProcessStructuresOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60A9C232F475100B51A7C /* ProcessStructuresOperation.swift */; };
 		49F60A9F232F477100B51A7C /* FlattenInheritanceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60A9E232F477100B51A7C /* FlattenInheritanceOperation.swift */; };
+		49F60AA123305F5A00B51A7C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60AA023305F5A00B51A7C /* Log.swift */; };
 		OBJ_1002 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_380 /* SWXMLHash.swift */; };
 		OBJ_1003 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_381 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
 		OBJ_1004 /* shim.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_382 /* shim.swift */; };
@@ -949,6 +950,7 @@
 		49732AEF232F322B0090E1A9 /* MethodParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodParameter.swift; sourceTree = "<group>"; };
 		49F60A9C232F475100B51A7C /* ProcessStructuresOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessStructuresOperation.swift; sourceTree = "<group>"; };
 		49F60A9E232F477100B51A7C /* FlattenInheritanceOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlattenInheritanceOperation.swift; sourceTree = "<group>"; };
+		49F60AA023305F5A00B51A7C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1601,18 +1603,26 @@
 			path = Xcode/XCConfigs;
 			sourceTree = "<group>";
 		};
+		4970D62523308E8F002EE154 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_12 /* GenerateCommand.swift */,
+				OBJ_14 /* InstallCommand.swift */,
+				OBJ_17 /* TestbedCommand.swift */,
+				OBJ_18 /* UninstallCommand.swift */,
+				OBJ_19 /* VersionCommand.swift */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
 		OBJ_10 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
 				OBJ_11 /* ArgumentParser+Extensions.swift */,
-				OBJ_12 /* GenerateCommand.swift */,
+				4970D62523308E8F002EE154 /* Commands */,
 				OBJ_13 /* Generator.swift */,
-				OBJ_14 /* InstallCommand.swift */,
 				OBJ_15 /* Installer.swift */,
 				OBJ_16 /* Program.swift */,
-				OBJ_17 /* TestbedCommand.swift */,
-				OBJ_18 /* UninstallCommand.swift */,
-				OBJ_19 /* VersionCommand.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -2754,8 +2764,9 @@
 				OBJ_83 /* Array+Extensions.swift */,
 				OBJ_84 /* CharacterSet+Extensions.swift */,
 				OBJ_85 /* DateFormatter+Extensions.swift */,
-				OBJ_86 /* OSLog+Extensions.swift */,
+				49F60AA023305F5A00B51A7C /* Log.swift */,
 				OBJ_87 /* OperationQueue+Extensions.swift */,
+				OBJ_86 /* OSLog+Extensions.swift */,
 				OBJ_88 /* Path+Fnmatch.swift */,
 				OBJ_89 /* Path+WriteUtf8Strings.swift */,
 				OBJ_90 /* String+Extensions.swift */,
@@ -3841,6 +3852,7 @@
 				OBJ_745 /* Typealias.swift in Sources */,
 				OBJ_746 /* Variable.swift in Sources */,
 				OBJ_747 /* BasicOperation.swift in Sources */,
+				49F60AA123305F5A00B51A7C /* Log.swift in Sources */,
 				OBJ_748 /* ExtractSourcesOperation.swift in Sources */,
 				OBJ_749 /* ParseFilesOperation.swift in Sources */,
 				OBJ_750 /* ProcessTypesOperation.swift in Sources */,

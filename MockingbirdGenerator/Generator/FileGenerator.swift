@@ -114,30 +114,30 @@ class FileGenerator {
   private var synchronizedClass: String {
     return """
     private class Synchronized<T> {
-      private var internalValue: T
+      private(set) fileprivate var unsafeValue: T
       fileprivate var value: T {
         get {
           lock.wait()
           defer { lock.signal() }
-          return internalValue
+          return unsafeValue
         }
     
         set {
           lock.wait()
           defer { lock.signal() }
-          internalValue = newValue
+          unsafeValue = newValue
         }
       }
       private let lock = DispatchSemaphore(value: 1)
     
       fileprivate init(_ value: T) {
-        self.internalValue = value
+        self.unsafeValue = value
       }
     
       fileprivate func update(_ block: (inout T) throws -> Void) rethrows {
         lock.wait()
         defer { lock.signal() }
-        try block(&internalValue)
+        try block(&unsafeValue)
       }
     }
     """

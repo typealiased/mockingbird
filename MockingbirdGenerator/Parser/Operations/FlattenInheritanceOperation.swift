@@ -103,7 +103,7 @@ class FlattenInheritanceOperation: BasicOperation {
                                 referencingModuleName: baseRawType.parsedFile.moduleName,
                                 containingTypeNames: baseRawType.containingTypeNames[...])
         if nearest == nil {
-          fputs("Missing source for referenced type `\(typeName)` in \(baseRawType.parsedFile.path.absolute())\n", stderr)
+          logWarning("Missing source for referenced type `\(typeName)` in \(baseRawType.parsedFile.path.absolute())")
           hasOpaqueInheritedType = true
         }
         return nearest

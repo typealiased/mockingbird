@@ -378,3 +378,10 @@ Remove Mockingbird from a (unit test) target.
 | `--project` | *(required)* | Your project’s `.xcodeproj` file. |
 | `--targets` | *(required)* | List of target names to uninstall the Run Script Phase. |
 | `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |
+
+### Global Options
+
+| Flag | Description |
+| --- | --- |
+| `--verbose` | Log all errors, warnings, and debug messages. |
+| `--quiet` | Only log error messages. |

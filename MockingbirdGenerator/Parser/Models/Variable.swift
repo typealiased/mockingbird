@@ -56,7 +56,7 @@ struct Variable: Hashable, Comparable {
     if let inferredTypeName = Variable.parseRawTypeName(from: dictionary, source: source) {
       rawTypeName = inferredTypeName
     } else {
-      fputs("Unable to infer type for variable `\(name)` in module `\(rawType.parsedFile.moduleName)`. You should explicitly declare the variable type in the source file \(rawType.parsedFile.path.absolute())\n", stderr)
+      logWarning("Unable to infer type for variable `\(name)` in module `\(rawType.parsedFile.moduleName)`. You should explicitly declare the variable type in the source file \(rawType.parsedFile.path.absolute())")
       // Use an editor placeholder to trigger a compiler error if this type is ever generated.
       rawTypeName = "<#__UnknownType__#>"
     }

@@ -9,8 +9,9 @@
 // swiftlint:disable leading_whitespace
 
 import Foundation
-import XcodeProj
+import MockingbirdGenerator
 import PathKit
+import XcodeProj
 
 class Installer {
   struct InstallConfiguration {
@@ -71,7 +72,7 @@ class Installer {
     let targetName = config.destinationTargetName
     let destinationTargets = xcodeproj.pbxproj.targets(named: targetName)
     if destinationTargets.count > 1 {
-      fputs("Found multiple destination targets named `\(targetName)`, using the first one\n", stderr)
+      logWarning("Found multiple destination targets named `\(targetName)`, using the first one")
     }
     guard let target = destinationTargets.first else {
       throw Failure.malformedConfiguration(

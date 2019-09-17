@@ -6,28 +6,37 @@
 //
 
 import Foundation
+import MockingbirdGenerator
 import PathKit
 import SPMUtility
 
-struct UninstallCommand: Command {
-  let command = "uninstall"
-  let overview = "Remove Mockingbird from a (unit test) target."
+final class UninstallCommand: BaseCommand {
+  private enum Constants {
+    static let name = "uninstall"
+    static let overview = "Remove Mockingbird from a (unit test) target."
+  }
+  override var name: String { return Constants.name }
+  override var overview: String { return Constants.overview }
   
   private let projectPathArgument: OptionArgument<PathArgument>
   private let targetsArgument: OptionArgument<[String]>
   private let targetArgument: OptionArgument<[String]>
   private let sourceRootArgument: OptionArgument<PathArgument>
   
-  init(parser: ArgumentParser) {
-    let subparser = parser.add(subparser: command, overview: overview)
+  required init(parser: ArgumentParser) {
+    let subparser = parser.add(subparser: Constants.name, overview: Constants.overview)
     
-    projectPathArgument = subparser.addProjectPath()
-    targetsArgument = subparser.addTargets()
-    targetArgument = subparser.addTarget()
-    sourceRootArgument = subparser.addSourceRoot()
+    self.projectPathArgument = subparser.addProjectPath()
+    self.targetsArgument = subparser.addTargets()
+    self.targetArgument = subparser.addTarget()
+    self.sourceRootArgument = subparser.addSourceRoot()
+    
+    super.init(parser: subparser)
   }
   
-  func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
+  override func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
+    try super.run(with: arguments, environment: environment)
+    
     let projectPath = try arguments.getProjectPath(using: projectPathArgument,
                                                    environment: environment)
     let sourceRoot = try arguments.getSourceRoot(using: sourceRootArgument,

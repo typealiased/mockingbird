@@ -6,11 +6,16 @@
 //
 
 import Foundation
+import MockingbirdGenerator
 import SPMUtility
 
-struct GenerateCommand: Command {
-  let command = "generate"
-  let overview = "Generate mocks for a set of targets in a project."
+final class GenerateCommand: BaseCommand {
+  private enum Constants {
+    static var name = "generate"
+    static var overview = "Generate mocks for a set of targets in a project."
+  }
+  override var name: String { return Constants.name }
+  override var overview: String { return Constants.overview }
   
   private let projectPathArgument: OptionArgument<PathArgument>
   private let targetsArgument: OptionArgument<[String]>
@@ -24,22 +29,26 @@ struct GenerateCommand: Command {
   private let onlyMockProtocolsArgument: OptionArgument<Bool>
   private let disableSwiftlintArgument: OptionArgument<Bool>
   
-  init(parser: ArgumentParser) {
-    let subparser = parser.add(subparser: command, overview: overview)
+  required init(parser: ArgumentParser) {
+    let subparser = parser.add(subparser: Constants.name, overview: Constants.overview)
     
-    projectPathArgument = subparser.addProjectPath()
-    targetsArgument = subparser.addTargets()
-    targetArgument = subparser.addTarget()
-    sourceRootArgument = subparser.addSourceRoot()
-    outputsArgument = subparser.addOutputs()
-    outputArgument = subparser.addOutput()
-    preprocessorExpressionArgument = subparser.addPreprocessorExpression()
-    disableModuleImportArgument = subparser.addDisableModuleImport()
-    onlyMockProtocolsArgument = subparser.addOnlyProtocols()
-    disableSwiftlintArgument = subparser.addDisableSwiftlint()
+    self.projectPathArgument = subparser.addProjectPath()
+    self.targetsArgument = subparser.addTargets()
+    self.targetArgument = subparser.addTarget()
+    self.sourceRootArgument = subparser.addSourceRoot()
+    self.outputsArgument = subparser.addOutputs()
+    self.outputArgument = subparser.addOutput()
+    self.preprocessorExpressionArgument = subparser.addPreprocessorExpression()
+    self.disableModuleImportArgument = subparser.addDisableModuleImport()
+    self.onlyMockProtocolsArgument = subparser.addOnlyProtocols()
+    self.disableSwiftlintArgument = subparser.addDisableSwiftlint()
+    
+    super.init(parser: subparser)
   }
   
-  func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
+  override func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
+    try super.run(with: arguments, environment: environment)
+    
     let projectPath = try arguments.getProjectPath(using: projectPathArgument,
                                                    environment: environment)
     let sourceRoot = try arguments.getSourceRoot(using: sourceRootArgument,

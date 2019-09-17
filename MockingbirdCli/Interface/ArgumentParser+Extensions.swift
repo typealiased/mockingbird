@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MockingbirdGenerator
 import PathKit
 import SPMUtility
 
@@ -29,38 +30,33 @@ extension ArgumentParser {
   func addTargets() -> OptionArgument<[String]> {
     return add(option: "--targets",
                kind: [String].self,
-               usage: "List of target names to generate mocks for.",
-               completion: .none)
+               usage: "List of target names to generate mocks for.")
   }
   
   /// Convenience for `--targets`. Accepts multiple targets.
   func addTarget() -> OptionArgument<[String]> {
     return add(option: "--target",
                kind: [String].self,
-               usage: "A target name to generate mocks for.",
-               completion: .none)
+               usage: "A target name to generate mocks for.")
   }
   
   func addSourceTargets() -> OptionArgument<[String]> {
     return add(option: "--targets",
                kind: [String].self,
-               usage: "List of target names that should generate mocks.",
-               completion: .none)
+               usage: "List of target names that should generate mocks.")
   }
   
   /// Convenience for source `--targets`. Accepts multiple targets.
   func addSourceTarget() -> OptionArgument<[String]> {
     return add(option: "--target",
                kind: [String].self,
-               usage: "A target name that should generate mocks.",
-               completion: .none)
+               usage: "A target name that should generate mocks.")
   }
   
   func addDestinationTarget() -> OptionArgument<String> {
     return add(option: "--destination",
                kind: String.self,
-               usage: "The target name where the Run Script Phase will be installed.",
-               completion: .none)
+               usage: "The target name where the Run Script Phase will be installed.")
   }
   
   func addOutputs() -> OptionArgument<[PathArgument]> {
@@ -98,8 +94,21 @@ extension ArgumentParser {
   func addMetagenerateCount() -> OptionArgument<Int> {
     return add(option: "--count",
                kind: Int.self,
-               usage: "Number of source files to generate.",
-               completion: .none)
+               usage: "Number of source files to generate.")
+  }
+  
+  // MARK: Global Options
+  
+  func addVerboseLogLevel() -> OptionArgument<Bool> {
+    return add(option: "--verbose",
+               kind: Bool.self,
+               usage: "Log all errors, warnings, and debug messages.")
+  }
+  
+  func addQuietLogLevel() -> OptionArgument<Bool> {
+    return add(option: "--quiet",
+               kind: Bool.self,
+               usage: "Only log error messages.")
   }
   
   // MARK: Flags
@@ -219,5 +228,22 @@ extension ArgumentParser.Result {
       return count
     }
     return nil
+  }
+  
+  func getLogLevel(verboseOption: OptionArgument<Bool>,
+                   quietOption: OptionArgument<Bool>) throws -> LogLevel {
+    let isVerbose = get(verboseOption) == true
+    let isQuiet = get(quietOption) == true
+    guard !isVerbose || !isQuiet else {
+      throw ArgumentParserError.invalidValue(argument: "--verbose --quiet",
+                                             error: .custom("Cannot specify both --verbose and --quiet"))
+    }
+    if isVerbose {
+      return .verbose
+    } else if isQuiet {
+      return .quiet
+    } else {
+      return .normal
+    }
   }
 }

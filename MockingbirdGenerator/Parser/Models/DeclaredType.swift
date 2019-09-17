@@ -377,7 +377,7 @@ struct Function: CustomStringConvertible, CustomDebugStringConvertible, Serializ
           } else if component == "@autoclosure" {
             attributes.insert(.autoclosure)
           } else if component.hasPrefix("@") { // Unknown parameter attribute.
-            fputs("Unknown parameter attribute `\(component)` in function type declaration `\(serialized)`.\n", stderr)
+            logWarning("Ignoring unknown parameter attribute `\(component)` in function type declaration `\(serialized)`")
           } else if component == "inout" {
             attributes.insert(.inout)
           } else if component == "..." {

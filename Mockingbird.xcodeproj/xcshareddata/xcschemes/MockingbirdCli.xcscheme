@@ -121,6 +121,10 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "--verbose"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "testbed"
             isEnabled = "NO">
          </CommandLineArgument>
