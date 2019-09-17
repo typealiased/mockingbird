@@ -41,6 +41,7 @@ public class ExtractSourcesOperation: BasicOperation {
         Set(allTargets(for: target, includeTarget: false).flatMap({ sourceFilePaths(for: $0) }))
           .subtracting(result.targetPaths)
     }
+    log("Found \(result.targetPaths.count) source file\(result.targetPaths.count != 1 ? "s" : "") and \(result.dependencyPaths.count) dependency source file\(result.dependencyPaths.count != 1 ? "s" : "") for target `\(target.name)`")
   }
   
   private static var memoizedSourceFilePaths = Synchronized<[PBXTarget: Set<SourcePath>]>([:])
@@ -109,6 +110,7 @@ private class GlobSearchOperation: BasicOperation {
   
   override func run() throws {
     guard shouldInclude(sourcePath: sourcePath.path, in: sourcePath.path.parent()).value else {
+      log("Ignoring source path at \(sourcePath.path.absolute())")
       return
     }
     result.sourcePath = sourcePath

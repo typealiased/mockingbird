@@ -61,6 +61,7 @@ public class ProcessTypesOperation: BasicOperation {
           return mockableType.methods.contains(where: { $0.isInitializer })
         })
       result.imports = parseFilesResult.imports
+      log("Created \(result.mockableTypes.count) mockable type\(result.mockableTypes.count != 1 ? "s" : "")")
     }
   }
 }

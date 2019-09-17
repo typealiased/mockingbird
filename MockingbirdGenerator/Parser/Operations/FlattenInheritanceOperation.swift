@@ -73,6 +73,12 @@ class FlattenInheritanceOperation: BasicOperation {
         $0[fullyQualifiedName] = mockableType
       }
       
+      if let mockableType = mockableType {
+        log("Created mockable type `\(mockableType.name)`")
+      } else {
+        log("Raw type `\(baseRawType.name)` is not mockable")
+      }
+      
       let containedTypes = rawType.flatMap({ $0.containedTypes })
       guard !containedTypes.isEmpty else { return mockableType } // No contained types, early out.
       
@@ -112,7 +118,10 @@ class FlattenInheritanceOperation: BasicOperation {
     
     // If there are inherited types that aren't processed, flatten them first.
     if rawInheritedTypes.filter({ memoizedMockableTypes[$0.fullyQualifiedModuleName] == nil }).count > 0 {
-      rawInheritedTypes.forEach({ _ = flattenInheritance(for: [$0], moduleNames: moduleNames) })
+      rawInheritedTypes.forEach({
+        log("Flattening inherited type `\($0.name)` for `\(baseRawType.name)`")
+        _ = flattenInheritance(for: [$0], moduleNames: moduleNames)
+      })
     }
     
     return createMockableType(hasOpaqueInheritedType)

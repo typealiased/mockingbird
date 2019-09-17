@@ -103,6 +103,12 @@ public class ParseFilesOperation: BasicOperation {
                                   shouldMock: shouldMock)
       ParseFilesOperation.SubOperation.memoizedParsedFiles.update { $0[sourcePath] = parsedFile }
       result.parsedFile = parsedFile
+      if shouldMock {
+        log("Parsed \(imports.count) import declaration\(imports.count != 1 ? "s" : "") in source file at \(sourcePath.path)")
+        log("Parsed source structure for module `\(sourcePath.moduleName)` at \(sourcePath.path)")
+      } else {
+        log("Parsed dependency source structure for module `\(sourcePath.moduleName)` at \(sourcePath.path)")
+      }
     }
   }
   
