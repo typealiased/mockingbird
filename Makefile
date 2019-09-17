@@ -25,12 +25,10 @@ OUTPUT_ZIP=MockingbirdCli.zip
 CLI_BUNDLE_PLIST=MockingbirdCli/Info.plist
 VERSION_STRING=$(shell /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$(CLI_BUNDLE_PLIST)")
 
-#GITHUB_REPO_URL=https://github.com/birdrides/mockingbird
-#ZIP_RELEASE_URL=$(GITHUB_REPO_URL)/releases/download/$(VERSION_STRING)/$(ZIP_FILENAME)
-S3_BUCKET_URL=https://bird-mockingbird.s3-us-west-1.amazonaws.com
-ZIP_PRERELEASE_URL=$(S3_BUCKET_URL)/$(VERSION_STRING)/$(ZIP_FILENAME)
+GITHUB_REPO_URL=https://github.com/birdrides/mockingbird
+ZIP_RELEASE_URL=$(GITHUB_REPO_URL)/releases/download/$(VERSION_STRING)/$(ZIP_FILENAME)
 SUCCESS_MSG=Verified the Mockingbird CLI binary
-ERROR_MSG=FATAL ERROR: The downloaded Mockingbird CLI binary does not have the expected code signature! See <Codesigning/README.md>.
+ERROR_MSG=[ERROR] The downloaded Mockingbird CLI binary does not have the expected code signature! See <Codesigning/README.md>.
 
 .PHONY: all \
 		clean \
@@ -73,7 +71,7 @@ test: clean-xcode
 	$(BUILD_TOOL) -scheme 'MockingbirdTests' $(XCODEBUILD_FLAGS) test
 
 download:
-	curl -Lo "$(ZIP_FILENAME)" "$(ZIP_PRERELEASE_URL)"
+	curl -Lo "$(ZIP_FILENAME)" "$(ZIP_RELEASE_URL)"
 	unzip -o "$(ZIP_FILENAME)" "$(CLI_FILENAME)"
 	@codesign -v -R "$(CLI_DESIGNATED_REQUIREMENT)" "$(CLI_FILENAME)" \
 		&& echo "$(SUCCESS_MSG)" \

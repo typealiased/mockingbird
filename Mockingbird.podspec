@@ -5,8 +5,7 @@ Pod::Spec.new do |s|
   s.homepage               = 'https://github.com/birdrides/mockingbird'
   s.license                = { :type => 'MIT', :file => 'LICENSE' }
   s.author                 = { 'Andrew Chang' => 'andrew.chang@bird.co' }
-  # s.source                 = { :git => s.homepage + '.git', :tag => s.version }
-  s.source                 = { :git => 'git@github.com:birdrides/mockingbird.git', :tag => s.version }
+  s.source                 = { :git => s.homepage + '.git', :tag => s.version }
   s.source_files           = 'MockingbirdFramework/**/*.swift'
   s.prepare_command        = 'make install-prebuilt'
   s.ios.deployment_target  = '8.0'
