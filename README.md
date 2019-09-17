@@ -33,7 +33,7 @@ Add the framework to a test target in your `Podfile`.
 
 ```ruby
 target 'ATestTarget' do
-  pod 'Mockingbird', '~> 0.6.0'
+  pod 'MockingbirdFramework', '~> 0.6.0'
 end
 ```
 
