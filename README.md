@@ -1,6 +1,6 @@
 # Mockingbird
 
-[![CocoaPods compatible](https://img.shields.io/cocoapods/v/Mockingbird.svg)](http://cocoapods.org/pods/Cuckoo)
+[![CocoaPods compatible](https://img.shields.io/cocoapods/v/MockingbirdFramework.svg)](http://cocoapods.org/pods/MockingbirdFramework)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/Carthage/Carthage)
 [![Swift Package Manager compatible](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/birdrides/mockingbird/blob/master/LICENSE)
