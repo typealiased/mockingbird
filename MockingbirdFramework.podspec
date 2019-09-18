@@ -1,5 +1,6 @@
 Pod::Spec.new do |s|
   s.name                   = 'MockingbirdFramework'
+  s.module_name            = 'Mockingbird'
   s.version                = `make get-version`
   s.summary                = 'A convenient mocking framework for Swift.'
   s.homepage               = 'https://github.com/birdrides/mockingbird'

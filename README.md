@@ -29,10 +29,11 @@ Mockingbird comes in two parts, both of which should be installed:
 
 ### CocoaPods
 
-Add the framework to a test target in your `Podfile`.
+Add the framework to a test target in your `Podfile`, making sure to include the `use_frameworks!` option.
 
 ```ruby
 target 'ATestTarget' do
+  use_frameworks!
   pod 'MockingbirdFramework', '~> 0.6.0'
 end
 ```
