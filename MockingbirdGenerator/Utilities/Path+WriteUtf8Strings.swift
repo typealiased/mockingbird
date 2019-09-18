@@ -78,7 +78,11 @@ extension Path {
     guard let outputStream = OutputStream(toFileAtPath: "\(tmpFilePath.absolute())", append: true)
       else { throw WriteUtf8StringFailure.streamCreationFailure(path: tmpFilePath) }
     outputStream.open()
-    defer { outputStream.close() }
+    defer {
+      if outputStream.streamStatus != .closed {
+        outputStream.close()
+      }
+    }
     
     let write: (String) throws -> Void = { contents in
       let rawData = contents.utf8CString
@@ -117,6 +121,7 @@ extension Path {
       if let footer = partial.footer { try write(footer) }
     }
     try writePartial(fileContents)
+    outputStream.close()
     
     guard atomically else { return }
     let tmpFileURL = URL(fileURLWithPath: "\(tmpFilePath.absolute())", isDirectory: false)
