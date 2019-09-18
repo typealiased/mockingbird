@@ -17,6 +17,11 @@ private enum Constants {
     "Comparable",
     "Hashable",
   ]
+  static let codableConformanceTypes: Set<String> = [
+    "Codable",
+    "Encodable",
+    "Decodable",
+  ]
 }
 
 extension GenericType {
@@ -157,7 +162,7 @@ class MockableTypeTemplate: Template {
   func renderBody() -> String {
     return [renderInitializerProxy(),
             renderVariables(),
-            codeableInitializer,
+            codableInitializer,
             defaultInitializer,
             renderMethods(),
             renderContainedTypes()]
@@ -178,13 +183,17 @@ class MockableTypeTemplate: Template {
       // always infer what concrete argument values to pass to the designated initializer.
       $0.isDesignatedInitializer
     }
-    guard mockableType.kind == .class, mockableType.methods.contains(where: isProxyable)
-      else { return "" }
+    guard !shouldGenerateDefaultInitializer else { return "" }
     let initializers = mockableType.methods
       .filter(isProxyable)
       .sorted()
       .map({ methodTemplate(for: $0).classInitializerProxy })
     
+    guard !initializers.isEmpty else {
+      return """
+        public enum InitializerProxy {}
+      """
+    }
     return """
       public enum InitializerProxy {
     \(initializers.joined(separator: "\n\n"))
@@ -214,24 +223,24 @@ class MockableTypeTemplate: Template {
     return Method.createHashableConformance()
   }
   
-  var codeableInitializer: String {
-    guard mockableType.inheritedTypes.contains(where: {
-      $0.name == "Codable" || $0.name == "Decodable"
+  var codableInitializer: String {
+    guard mockableType.hasOpaqueInheritedType || mockableType.inheritedTypes.contains(where: {
+      Constants.codableConformanceTypes.contains($0.name)
     }) else { return "" }
-    guard !mockableType.methods.contains(where: { $0.name == "init(from:)" }) else { return "" }
     return """
-      public required init(from decoder: Decoder) throws {
-        fatalError("init(from:) has not been implemented")
-      }
+      public required init(from decoder: Decoder) throws { fatalError() }
+      public required init?(coder: NSCoder) { fatalError() }
     """
   }
   
   /// Store the source location of where the mock was initialized. This allows XCTest errors from
   /// unstubbed method invocations to show up in the testing code.
+  var shouldGenerateDefaultInitializer: Bool {
+    return mockableType.kind == .protocol || (!mockableType.hasOpaqueInheritedType &&
+      !mockableType.methods.contains(where: { $0.isDesignatedInitializer }))
+  }
   var defaultInitializer: String {
-    guard mockableType.kind == .protocol || !mockableType.methods.contains(where: {
-      $0.isDesignatedInitializer
-    }) else { return "" }
+    guard shouldGenerateDefaultInitializer else { return "" }
     let superInit = mockableType.kind == .class
       || (mockableType.kind == .protocol && mockableType.hasOpaqueInheritedType)
       ? "super.init()\n    " : ""

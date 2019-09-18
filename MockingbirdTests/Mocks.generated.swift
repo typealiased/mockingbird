@@ -8,6 +8,7 @@
 
 @testable import Mockingbird
 @testable import MockingbirdTestsHost
+import AppKit
 import CoreAudio
 import CoreData
 import CoreFoundation
@@ -4418,6 +4419,9 @@ public final class EquatableConformingProtocolMock: Foundation.NSObject, Mocking
     }
   }
 
+  public required init(from decoder: Decoder) throws { fatalError() }
+  public required init?(coder: NSCoder) { fatalError() }
+
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     super.init()
     Mockingbird.checkVersion(for: self)
@@ -5317,6 +5321,9 @@ public final class HashableConformingProtocolMock: Foundation.NSObject, Mockingb
       HashableConformingProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
   }
+
+  public required init(from decoder: Decoder) throws { fatalError() }
+  public required init?(coder: NSCoder) { fatalError() }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     super.init()
@@ -6767,6 +6774,8 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
     }
   }
 
+  public enum InitializerProxy {}
+
   // MARK: Mocked `baseVariable`
 
   override public var baseVariable: Bool {
@@ -6782,11 +6791,8 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
-    super.init()
-    Mockingbird.checkVersion(for: self)
-    self.sourceLocation = sourceLocation
-  }
+  public required init(from decoder: Decoder) throws { fatalError() }
+  public required init?(coder: NSCoder) { fatalError() }
 
   // MARK: Mocked `trivialBaseMethod()`
 
@@ -6807,9 +6813,35 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
   }
 }
 
-/// Create a source-attributed `MockingbirdTestsHost.NonExtendableClass` concrete class mock instance.
-public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.NonExtendableClass.Type) -> NonExtendableClassMock {
-  return NonExtendableClassMock(sourceLocation: SourceLocation(file, line))
+/// Create a source-attributed `MockingbirdTestsHost.NonExtendableClass` class mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.NonExtendableClass.Type) -> NonExtendableClassMock.InitializerProxy.Type {
+  return NonExtendableClassMock.InitializerProxy.self
+}
+
+// MARK: - Mocked OpaqueViewController
+
+public final class OpaqueViewControllerMock: MockingbirdTestsHost.OpaqueViewController, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.6.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      OpaqueViewControllerMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public enum InitializerProxy {}
+
+  public required init(from decoder: Decoder) throws { fatalError() }
+  public required init?(coder: NSCoder) { fatalError() }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.OpaqueViewController` class mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.OpaqueViewController.Type) -> OpaqueViewControllerMock.InitializerProxy.Type {
+  return OpaqueViewControllerMock.InitializerProxy.self
 }
 
 // MARK: - Mocked OptionalsProtocol

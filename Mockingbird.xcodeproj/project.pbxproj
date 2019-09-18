@@ -55,6 +55,7 @@
 		493ECA39232ECEF1008BF44B /* ExternalModuleTypealiasing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA38232ECEF1008BF44B /* ExternalModuleTypealiasing.swift */; };
 		493ECA3B232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA3A232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift */; };
 		493ECA3D232ECF10008BF44B /* ExternalModuleTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA3C232ECF10008BF44B /* ExternalModuleTypes.swift */; };
+		4970D6782331E67C002EE154 /* OpaqueTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4970D6772331E67C002EE154 /* OpaqueTypes.swift */; };
 		49732AF0232F322B0090E1A9 /* MethodParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49732AEF232F322B0090E1A9 /* MethodParameter.swift */; };
 		49F60A9D232F475100B51A7C /* ProcessStructuresOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60A9C232F475100B51A7C /* ProcessStructuresOperation.swift */; };
 		49F60A9F232F477100B51A7C /* FlattenInheritanceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60A9E232F477100B51A7C /* FlattenInheritanceOperation.swift */; };
@@ -949,6 +950,7 @@
 		493ECA3C232ECF10008BF44B /* ExternalModuleTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleTypes.swift; sourceTree = "<group>"; };
 		4970D6472330ADB4002EE154 /* MockingbirdCli-Profile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "MockingbirdCli-Profile.xcconfig"; sourceTree = "<group>"; };
 		4970D6482330ADB4002EE154 /* MockingbirdGenerator-Profile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "MockingbirdGenerator-Profile.xcconfig"; sourceTree = "<group>"; };
+		4970D6772331E67C002EE154 /* OpaqueTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpaqueTypes.swift; sourceTree = "<group>"; };
 		49732AEF232F322B0090E1A9 /* MethodParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodParameter.swift; sourceTree = "<group>"; };
 		49F60A9C232F475100B51A7C /* ProcessStructuresOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessStructuresOperation.swift; sourceTree = "<group>"; };
 		49F60A9E232F477100B51A7C /* FlattenInheritanceOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlattenInheritanceOperation.swift; sourceTree = "<group>"; };
@@ -2830,6 +2832,7 @@
 				OBJ_130 /* InoutParameters.swift */,
 				OBJ_131 /* ModuleImportCases.swift */,
 				OBJ_132 /* NestedFields.swift */,
+				4970D6772331E67C002EE154 /* OpaqueTypes.swift */,
 				OBJ_133 /* Optionals.swift */,
 				OBJ_134 /* OverloadedMethods.swift */,
 				OBJ_135 /* Parent.swift */,
@@ -3978,6 +3981,7 @@
 				OBJ_899 /* Extensions.swift in Sources */,
 				OBJ_900 /* Generics.swift in Sources */,
 				OBJ_901 /* Grandparent.swift in Sources */,
+				4970D6782331E67C002EE154 /* OpaqueTypes.swift in Sources */,
 				493ECA3B232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift in Sources */,
 				OBJ_902 /* GrandparentProtocol.swift in Sources */,
 				OBJ_903 /* DirectoryIgnoredSource1.swift in Sources */,

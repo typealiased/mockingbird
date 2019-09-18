@@ -64,9 +64,6 @@ public class AssociatedTypeImplementer {
     where T.EquatableType == Bool, T.HashableType == String { return true }
 }
 
-public protocol EquatableConformingProtocol: Equatable {}
-public protocol HashableConformingProtocol: Hashable {}
-
 public protocol AssociatedTypeGenericConstraintsProtocol {
   associatedtype ConstrainedType: AssociatedTypeProtocol
     where ConstrainedType.EquatableType == Int, ConstrainedType.HashableType == String

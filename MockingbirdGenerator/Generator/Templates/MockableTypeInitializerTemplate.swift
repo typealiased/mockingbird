@@ -52,8 +52,7 @@ struct MockableTypeInitializerTemplate: Template {
     let returnTypeDescription: String
     let mockedScopedName = mockableTypeTemplate.createScopedName(with: containingTypeNames,
                                                                  suffix: "Mock")
-    if kind == .class &&
-      mockableTypeTemplate.mockableType.methods.contains(where: { $0.isInitializer }) {
+    if !mockableTypeTemplate.shouldGenerateDefaultInitializer {
       // Requires an initializer proxy to create the partial class mock.
       returnType = "\(mockedScopedName).InitializerProxy.Type"
       returnObject = "\(mockedScopedName).InitializerProxy.self"
