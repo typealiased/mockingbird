@@ -48,9 +48,12 @@ class MockableTypeTemplate: Template {
   }
   
   func render() -> String {
+    let (start, end) = compilationDirectiveDeclaration
+    let preprocessorStart = start.isEmpty ? "" : "\n\(start)\n"
+    let preprocessorEnd = end.isEmpty ? "" : "\n\n\(end)"
     return """
     // MARK: - Mocked \(mockableType.name)
-    
+    \(preprocessorStart)
     public final class \(mockableType.name)Mock\(allSpecializedGenericTypes): \(allInheritedTypes)\(allGenericConstraints) {
     \(staticMockingContext)
       public let mockingContext = Mockingbird.MockingContext()
@@ -65,9 +68,20 @@ class MockableTypeTemplate: Template {
       }
     
     \(renderBody())
-    }
+    }\(preprocessorEnd)
     """
   }
+  
+  lazy var compilationDirectiveDeclaration: (start: String, end: String) = {
+    guard !mockableType.compilationDirectives.isEmpty else { return ("", "") }
+    let start = mockableType.compilationDirectives
+      .map({ $0.declaration })
+      .joined(separator: "\n")
+    let end = mockableType.compilationDirectives
+      .map({ _ in "#endif" })
+      .joined(separator: "\n")
+    return (start, end)
+  }()
   
   /// The static mocking context allows static (or class) declared methods to be mocked.
   var staticMockingContext: String {

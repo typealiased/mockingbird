@@ -373,7 +373,7 @@ Generate mocks for a set of targets in a project.
 | `--targets` | `$TARGET_NAME` | List of target names to generate mocks for. |
 | `--srcroot` | `$SRCROOT` | The folder containing your project’s source files. |
 | `--outputs` | `$MOCKINGBIRD_SRCROOT` | List of mock output file paths for each target. |
-| `--preprocessor` | `nil` | Preprocessor expression to wrap all generated mocks in, e.g. `DEBUG`. |
+| `--condition` | `nil` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
 
 | Flag | Description |
 | --- | --- |
@@ -394,7 +394,7 @@ Set up a destination (unit test) target
 | `--destination` | *(required)* | The target name where the Run Script Phase will be installed. |
 | `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |
 | `--outputs` | `$MOCKINGBIRD_SRCROOT` | List of mock output file paths for each target. |
-| `--preprocessor` | `nil` | Preprocessor expression to wrap all generated mocks in, e.g. `DEBUG`. |
+| `--condition` | `nil` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
 
 | Flag | Description |
 | --- | --- |

@@ -21,6 +21,7 @@ struct Method: Hashable, Comparable {
   let whereClauses: [WhereClause]
   let parameters: [MethodParameter]
   let attributes: Attributes
+  let compilationDirectives: [CompilationDirective]
   
   /// A hashable version of Method that's unique according to Swift generics when subclassing.
   /// https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
@@ -128,6 +129,15 @@ struct Method: Hashable, Comparable {
                                              rawTypeRepository: rawTypeRepository,
                                              typealiasRepository: typealiasRepository)
     
+    // Parse any containing preprocessor macros.
+    if let offset = dictionary[SwiftDocKey.offset.rawValue] as? Int64 {
+      self.compilationDirectives = rawType.parsedFile.compilationDirectives.filter({
+        $0.range.contains(offset)
+      })
+    } else {
+      self.compilationDirectives = []
+    }
+    
     // Create a unique and sortable identifier for this method.
     self.sortableIdentifier = Method.generateSortableIdentifier(name: name,
                                                                 genericTypes: genericTypes,
@@ -138,11 +148,11 @@ struct Method: Hashable, Comparable {
   }
   
   fileprivate static func generateSortableIdentifier(name: String,
-                                         genericTypes: [GenericType],
-                                         parameters: [MethodParameter],
-                                         returnTypeName: String,
-                                         kind: SwiftDeclarationKind,
-                                         whereClauses: [WhereClause]) -> String {
+                                                     genericTypes: [GenericType],
+                                                     parameters: [MethodParameter],
+                                                     returnTypeName: String,
+                                                     kind: SwiftDeclarationKind,
+                                                     whereClauses: [WhereClause]) -> String {
     return [
       name,
       genericTypes.map({ "\($0.name):\($0.constraints)" }).joined(separator: ","),
@@ -156,9 +166,9 @@ struct Method: Hashable, Comparable {
   }
   
   private static func parseDeclaration(from dictionary: StructureDictionary,
-                               source: Data?,
-                               isInitializer: Bool,
-                               attributes: Attributes) -> (Attributes, Substring?) {
+                                       source: Data?,
+                                       isInitializer: Bool,
+                                       attributes: Attributes) -> (Attributes, Substring?) {
     guard let declaration = SourceSubstring.key.extract(from: dictionary, contents: source)
       else { return (attributes, nil) }
     
@@ -196,10 +206,10 @@ struct Method: Hashable, Comparable {
   }
   
   private static func parseWhereClauses(from dictionary: StructureDictionary,
-                                source: Data?,
-                                rawType: RawType,
-                                moduleNames: [String],
-                                rawTypeRepository: RawTypeRepository) -> [WhereClause] {
+                                        source: Data?,
+                                        rawType: RawType,
+                                        moduleNames: [String],
+                                        rawTypeRepository: RawTypeRepository) -> [WhereClause] {
     guard let nameSuffix = SourceSubstring.nameSuffixUpToBody.extract(from: dictionary,
                                                                       contents: source),
       let whereRange = nameSuffix.range(of: #"\bwhere\b"#, options: .regularExpression)
@@ -214,10 +224,10 @@ struct Method: Hashable, Comparable {
   }
   
   private static func parseReturnTypeName(from dictionary: StructureDictionary,
-                                  rawType: RawType,
-                                  moduleNames: [String],
-                                  rawTypeRepository: RawTypeRepository,
-                                  typealiasRepository: TypealiasRepository) -> String {
+                                          rawType: RawType,
+                                          moduleNames: [String],
+                                          rawTypeRepository: RawTypeRepository,
+                                          typealiasRepository: TypealiasRepository) -> String {
     guard let rawReturnTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String else {
       return "Void"
     }
@@ -234,12 +244,12 @@ struct Method: Hashable, Comparable {
   }
   
   private static func parseParameters(labels: [String?],
-                              substructure: [StructureDictionary],
-                              rawParametersDeclaration: Substring?,
-                              rawType: RawType,
-                              moduleNames: [String],
-                              rawTypeRepository: RawTypeRepository,
-                              typealiasRepository: TypealiasRepository) -> [MethodParameter] {
+                                      substructure: [StructureDictionary],
+                                      rawParametersDeclaration: Substring?,
+                                      rawType: RawType,
+                                      moduleNames: [String],
+                                      rawTypeRepository: RawTypeRepository,
+                                      typealiasRepository: TypealiasRepository) -> [MethodParameter] {
     guard !labels.isEmpty else { return [] }
     var parameterIndex = 0
     let rawDeclarations = rawParametersDeclaration?
@@ -320,6 +330,7 @@ fileprivate extension Method {
     self.whereClauses = whereClauses
     self.parameters = parameters
     self.attributes = attributes
+    self.compilationDirectives = []
     self.sortableIdentifier = Method.generateSortableIdentifier(name: name,
                                                                 genericTypes: genericTypes,
                                                                 parameters: parameters,

@@ -25,7 +25,13 @@ struct MockableTypeInitializerTemplate: Template {
         )
         return template.render()
       })
-    return initializers.joined(separator: "\n\n")
+    let allInitializers = initializers.joined(separator: "\n\n")
+    let (preprocessorStart, preprocessorEnd) = mockableTypeTemplate.compilationDirectiveDeclaration
+    guard !preprocessorStart.isEmpty else { return allInitializers }
+    return [preprocessorStart,
+            allInitializers,
+            preprocessorEnd]
+      .joined(separator: "\n\n")
   }
 
   private func renderInitializer(with containingTypeNames: [String]) -> String {

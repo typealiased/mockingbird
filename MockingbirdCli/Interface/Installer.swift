@@ -23,7 +23,7 @@ class Installer {
     let cliPath: Path
     let ignoreExisting: Bool
     let asynchronousGeneration: Bool
-    let preprocessorExpression: String?
+    let compilationCondition: String?
     let onlyMockProtocols: Bool
     let disableSwiftlint: Bool
   }
@@ -195,8 +195,8 @@ class Installer {
         "--targets \(targets)",
         "--outputs \(outputs)"
       ]
-      if let expression = config.preprocessorExpression {
-        options.append("--preprocessor '\(expression)'")
+      if let expression = config.compilationCondition {
+        options.append("--condition '\(expression)'")
       }
       if config.onlyMockProtocols {
         options.append("--only-protocols")

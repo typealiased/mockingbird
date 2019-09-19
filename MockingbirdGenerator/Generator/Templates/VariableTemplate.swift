@@ -20,7 +20,24 @@ class VariableTemplate: Template {
   }
   
   func render() -> String {
-    return [mockedDeclaration, frameworkDeclarations].joined(separator: "\n\n")
+    let (directiveStart, directiveEnd) = compilationDirectiveDeclaration
+    return [directiveStart,
+            mockedDeclaration,
+            frameworkDeclarations,
+            directiveEnd]
+      .filter({ !$0.isEmpty })
+      .joined(separator: "\n\n")
+  }
+  
+  var compilationDirectiveDeclaration: (start: String, end: String) {
+    guard !variable.compilationDirectives.isEmpty else { return ("", "") }
+    let start = variable.compilationDirectives
+      .map({ "  " + $0.declaration })
+      .joined(separator: "\n")
+    let end = variable.compilationDirectives
+      .map({ _ in "  #endif" })
+      .joined(separator: "\n")
+    return (start, end)
   }
   
   var mockedDeclaration: String {

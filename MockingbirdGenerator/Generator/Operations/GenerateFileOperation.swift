@@ -14,7 +14,7 @@ public class GenerateFileOperation: BasicOperation {
   private let processTypesResult: ProcessTypesOperation.Result
   private let moduleName: String
   private let outputPath: Path
-  private let preprocessorExpression: String?
+  private let compilationCondition: String?
   private let shouldImportModule: Bool
   private let onlyMockProtocols: Bool
   private let disableSwiftlint: Bool
@@ -22,7 +22,7 @@ public class GenerateFileOperation: BasicOperation {
   public init(processTypesResult: ProcessTypesOperation.Result,
               moduleName: String,
               outputPath: Path,
-              preprocessorExpression: String?,
+              compilationCondition: String?,
               shouldImportModule: Bool,
               onlyMockProtocols: Bool,
               disableSwiftlint: Bool) {
@@ -30,7 +30,7 @@ public class GenerateFileOperation: BasicOperation {
     self.moduleName = moduleName
     self.outputPath = outputPath
     self.shouldImportModule = shouldImportModule
-    self.preprocessorExpression = preprocessorExpression
+    self.compilationCondition = compilationCondition
     self.onlyMockProtocols = onlyMockProtocols
     self.disableSwiftlint = disableSwiftlint
   }
@@ -42,7 +42,7 @@ public class GenerateFileOperation: BasicOperation {
                                     moduleName: moduleName,
                                     imports: processTypesResult.imports,
                                     outputPath: outputPath,
-                                    preprocessorExpression: preprocessorExpression,
+                                    compilationCondition: compilationCondition,
                                     shouldImportModule: shouldImportModule,
                                     onlyMockProtocols: onlyMockProtocols,
                                     disableSwiftlint: disableSwiftlint)

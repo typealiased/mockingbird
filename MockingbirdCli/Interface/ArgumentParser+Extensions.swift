@@ -74,10 +74,10 @@ extension ArgumentParser {
                completion: .filename)
   }
   
-  func addPreprocessorExpression() -> OptionArgument<String> {
-    return add(option: "--preprocessor",
+  func addCompilationCondition() -> OptionArgument<String> {
+    return add(option: "--condition",
                kind: String.self,
-               usage: "Preprocessor expression to wrap all generated mocks in, e.g. `DEBUG`.",
+               usage: "Compilation condition to wrap all generated mocks in, e.g. `DEBUG`.",
                completion: .values([
                 (value: "DEBUG", description: "Debug build configuration"),
                 (value: "RELEASE", description: "Release build configuration"),

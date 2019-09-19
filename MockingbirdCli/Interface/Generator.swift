@@ -19,7 +19,7 @@ class Generator {
     let sourceRoot: Path
     let inputTargetNames: [String]
     let outputPaths: [Path]?
-    let preprocessorExpression: String?
+    let compilationCondition: String?
     let shouldImportModule: Bool
     let onlyMockProtocols: Bool
     let disableSwiftlint: Bool
@@ -55,7 +55,7 @@ class Generator {
       let generateFile = GenerateFileOperation(processTypesResult: processTypes.result,
                                                moduleName: moduleName,
                                                outputPath: outputPath,
-                                               preprocessorExpression: config.preprocessorExpression,
+                                               compilationCondition: config.compilationCondition,
                                                shouldImportModule: config.shouldImportModule,
                                                onlyMockProtocols: config.onlyMockProtocols,
                                                disableSwiftlint: config.disableSwiftlint)

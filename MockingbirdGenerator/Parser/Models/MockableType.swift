@@ -22,6 +22,7 @@ class MockableType: Hashable, Comparable {
   let whereClauses: [WhereClause]
   let shouldMock: Bool
   let attributes: Attributes
+  var compilationDirectives: [CompilationDirective]
   var containedTypes = [MockableType]()
   let isContainedType: Bool
   let subclassesExternalType: Bool
@@ -127,6 +128,15 @@ class MockableType: Hashable, Comparable {
     
     self.genericTypes = genericTypes
     self.whereClauses = whereClauses
+    
+    // Parse any containing preprocessor macros.
+    if let offset = baseRawType.dictionary[SwiftDocKey.offset.rawValue] as? Int64 {
+      self.compilationDirectives = baseRawType.parsedFile.compilationDirectives.filter({
+        $0.range.contains(offset)
+      })
+    } else {
+      self.compilationDirectives = []
+    }
     
     if baseRawType.parsedFile.shouldMock {
       self.sortableIdentifier = [

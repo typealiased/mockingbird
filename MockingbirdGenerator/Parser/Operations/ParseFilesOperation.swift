@@ -18,6 +18,7 @@ struct ParsedFile {
   let moduleName: String
   let imports: Set<String>
   let importedModuleNames: Set<String>
+  let compilationDirectives: [CompilationDirective]
   let structure: Structure
   let shouldMock: Bool
   
@@ -25,6 +26,7 @@ struct ParsedFile {
        path: Path,
        moduleName: String,
        imports: Set<String>,
+       compilationDirectives: [CompilationDirective],
        structure: Structure,
        shouldMock: Bool) {
     self.file = file
@@ -42,6 +44,7 @@ struct ParsedFile {
       return String(importDeclaration[..<moduleMemberIndex])
         .trimmingCharacters(in: .whitespacesAndNewlines)
     }))
+    self.compilationDirectives = compilationDirectives
     self.structure = structure
     self.shouldMock = shouldMock
   }
@@ -51,8 +54,22 @@ struct ParsedFile {
                       path: path,
                       moduleName: moduleName,
                       imports: imports,
+                      compilationDirectives: compilationDirectives,
                       structure: structure,
                       shouldMock: shouldMock)
+  }
+}
+
+struct CompilationDirective: Comparable {
+  let range: Range<Int64> // Byte offset bounds of the compilation directive declaration.
+  let declaration: String
+  var condition: String {
+    return declaration[declaration.index(declaration.startIndex, offsetBy: 3)...]
+      .trimmingCharacters(in: .whitespaces)
+  }
+  
+  static func < (lhs: CompilationDirective, rhs: CompilationDirective) -> Bool {
+    return lhs.range.lowerBound < rhs.range.lowerBound
   }
 }
 
@@ -94,11 +111,12 @@ public class ParseFilesOperation: BasicOperation {
       let file = try sourcePath.path.getFile()
       
       let structure = try Structure(file: file)
-      let imports = shouldMock ? file.parseImports() : []
+      let (imports, compilationDirectives) = shouldMock ? file.parse() : ([], [])
       let parsedFile = ParsedFile(file: file,
                                   path: sourcePath.path,
                                   moduleName: sourcePath.moduleName,
                                   imports: imports,
+                                  compilationDirectives: compilationDirectives,
                                   structure: structure,
                                   shouldMock: shouldMock)
       ParseFilesOperation.SubOperation.memoizedParsedFiles.update { $0[sourcePath] = parsedFile }
@@ -140,25 +158,89 @@ private extension Path {
 }
 
 private extension File {
-  /// Parses a file line-by-line looking for valid import declarations.
-  func parseImports() -> Set<String> {
-    return Set(contents
+  /// Parses a file line-by-line looking for valid import and compilation directive declarations.
+  func parse() -> (imports: Set<String>, compilationDirective: [CompilationDirective]) {
+    var imports = Set<String>()
+    var compilationDirectives = [CompilationDirective]()
+    var provisionalCompilationDirectives = [CompilationDirective]()
+
+    var currentOffset: Int64 = 0 // TODO: Defer offset calculation until a macro is actually found.
+    
+    contents
       .substringComponents(separatedBy: "\n")
-      .flatMap({ line -> [String] in
+      .forEach({ line in
+        let lineOffset = Int64(line.utf8.count) + (currentOffset > 0 ? 1 : 0)
+        defer { currentOffset += lineOffset }
+        
         let lineContents = line.trimmingCharacters(in: .whitespaces)
+        guard !lineContents.isEmpty else { return }
         
-        guard !lineContents.isEmpty && (
-          lineContents.hasPrefix("import ") ||
-          lineContents.hasPrefix("@testable import ") ||
-          lineContents.hasPrefix(";")
-          ) else { return [] }
+        imports.formUnion(parseImports(from: lineContents))
         
-        return lineContents.substringComponents(separatedBy: ";")
-          .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
-          .filter({ $0.hasPrefix("import ") || $0.hasPrefix("@testable import ") })
-          .map({String($0
-            .substringComponents(separatedBy: "/").first!
-            .trimmingCharacters(in: .whitespacesAndNewlines)) })
-      }))
+        let lineRange = currentOffset..<currentOffset+lineOffset
+        let (preprocessorMacro, provisionalMacro) =
+          parseCompilationDirective(from: lineContents,
+                                 range: lineRange,
+                                 provisionalDirective: provisionalCompilationDirectives.last)
+        if let preprocessorMacro = preprocessorMacro {
+          compilationDirectives.append(preprocessorMacro)
+          provisionalCompilationDirectives.removeLast()
+        }
+        if let provisionalMacro = provisionalMacro {
+          provisionalCompilationDirectives.append(provisionalMacro)
+        }
+      })
+    
+    return (imports, compilationDirectives.sorted())
+  }
+  
+  // MARK: Line processors
+  
+  private func parseImports(from lineContents: String) -> [String] {
+    guard lineContents.hasPrefix("import ") ||
+      lineContents.hasPrefix("@testable import ") ||
+      lineContents.hasPrefix(";")
+      else { return [] }
+    
+    return lineContents.substringComponents(separatedBy: ";")
+      .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
+      .filter({ $0.hasPrefix("import ") || $0.hasPrefix("@testable import ") })
+      .map({String($0
+        .substringComponents(separatedBy: "/").first!
+        .trimmingCharacters(in: .whitespacesAndNewlines)) })
+  }
+  
+  private func parseCompilationDirective(from lineContents: String,
+                                         range: Range<Int64>,
+                                         provisionalDirective: CompilationDirective?)
+    -> (directive: CompilationDirective?, provisionalDirective: CompilationDirective?) {
+      guard lineContents.hasPrefix("#") else { return (nil, nil) }
+      
+      if lineContents.hasPrefix("#if") {
+        return (nil, CompilationDirective(range: range, declaration: lineContents))
+      } else if lineContents.hasPrefix("#else") {
+        guard let provisionalDirective = provisionalDirective else {
+          logWarning("Unmatched compilation directive `#else` declaration")
+          return (nil, nil)
+        }
+        let directiveRange = provisionalDirective.range.lowerBound..<range.lowerBound
+        let directive = CompilationDirective(range: directiveRange,
+                                             declaration: provisionalDirective.declaration)
+        let provisional = CompilationDirective(range: range,
+                                               declaration: "#if !(\(provisionalDirective.condition))")
+        return (directive, provisional)
+      } else if lineContents.hasPrefix("#endif") {
+        guard let provisionalDirective = provisionalDirective else {
+          logWarning("Unmatched compilation directive `#endif` declaration")
+          return (nil, nil)
+        }
+        let directiveRange = provisionalDirective.range.lowerBound..<range.lowerBound
+        let directive = CompilationDirective(range: directiveRange,
+                                             declaration: provisionalDirective.declaration)
+        return (directive, nil)
+      } else {
+        logWarning("Invalid compilation directive `\(lineContents)`")
+        return (nil, nil)
+      }
   }
 }

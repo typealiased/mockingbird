@@ -26,7 +26,7 @@ final class InstallCommand: BaseCommand {
   private let outputsArgument: OptionArgument<[PathArgument]>
   private let outputArgument: OptionArgument<[PathArgument]>
   
-  private let preprocessorExpressionArgument: OptionArgument<String>
+  private let compilationConditionArgument: OptionArgument<String>
   private let ignoreExistingRunScriptArgument: OptionArgument<Bool>
   private let asynchronousGenerationArgument: OptionArgument<Bool>
   private let onlyMockProtocolsArgument: OptionArgument<Bool>
@@ -42,7 +42,7 @@ final class InstallCommand: BaseCommand {
     self.sourceRootArgument = subparser.addSourceRoot()
     self.outputsArgument = subparser.addOutputs()
     self.outputArgument = subparser.addOutput()
-    self.preprocessorExpressionArgument = subparser.addPreprocessorExpression()
+    self.compilationConditionArgument = subparser.addCompilationCondition()
     self.ignoreExistingRunScriptArgument = subparser.addIgnoreExistingRunScript()
     self.asynchronousGenerationArgument = subparser.addAynchronousGeneration()
     self.onlyMockProtocolsArgument = subparser.addOnlyProtocols()
@@ -74,7 +74,7 @@ final class InstallCommand: BaseCommand {
       cliPath: Path(CommandLine.arguments[0]),
       ignoreExisting: arguments.get(ignoreExistingRunScriptArgument) == true,
       asynchronousGeneration: arguments.get(asynchronousGenerationArgument) == true,
-      preprocessorExpression: arguments.get(preprocessorExpressionArgument),
+      compilationCondition: arguments.get(compilationConditionArgument),
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
       disableSwiftlint: arguments.get(disableSwiftlintArgument) == true
     )

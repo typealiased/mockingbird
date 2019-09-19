@@ -20,10 +20,13 @@ class MethodTemplate: Template {
   }
   
   func render() -> String {
-    return [
-      mockedDeclarations,
-      frameworkDeclarations,
-    ].filter({ !$0.isEmpty }).joined(separator: "\n\n")
+    let (preprocessorStart, preprocessorEnd) = compilationDirectiveDeclaration
+    return [preprocessorStart,
+            mockedDeclarations,
+            frameworkDeclarations,
+            preprocessorEnd]
+      .filter({ !$0.isEmpty })
+      .joined(separator: "\n\n")
   }
   
   private enum Constants {
@@ -39,6 +42,17 @@ class MethodTemplate: Template {
       ">": "_greaterThan",
       ">=": "_greaterThanOrEqualTo",
     ]
+  }
+  
+  var compilationDirectiveDeclaration: (start: String, end: String) {
+    guard !method.compilationDirectives.isEmpty else { return ("", "") }
+    let start = method.compilationDirectives
+      .map({ "  " + $0.declaration })
+      .joined(separator: "\n")
+    let end = method.compilationDirectives
+      .map({ _ in "  #endif" })
+      .joined(separator: "\n")
+    return (start, end)
   }
   
   var classInitializerProxy: String {

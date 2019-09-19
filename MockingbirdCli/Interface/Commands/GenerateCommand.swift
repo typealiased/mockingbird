@@ -24,7 +24,7 @@ final class GenerateCommand: BaseCommand {
   private let outputsArgument: OptionArgument<[PathArgument]>
   private let outputArgument: OptionArgument<[PathArgument]>
   
-  private let preprocessorExpressionArgument: OptionArgument<String>
+  private let compilationConditionArgument: OptionArgument<String>
   private let disableModuleImportArgument: OptionArgument<Bool>
   private let onlyMockProtocolsArgument: OptionArgument<Bool>
   private let disableSwiftlintArgument: OptionArgument<Bool>
@@ -38,7 +38,7 @@ final class GenerateCommand: BaseCommand {
     self.sourceRootArgument = subparser.addSourceRoot()
     self.outputsArgument = subparser.addOutputs()
     self.outputArgument = subparser.addOutput()
-    self.preprocessorExpressionArgument = subparser.addPreprocessorExpression()
+    self.compilationConditionArgument = subparser.addCompilationCondition()
     self.disableModuleImportArgument = subparser.addDisableModuleImport()
     self.onlyMockProtocolsArgument = subparser.addOnlyProtocols()
     self.disableSwiftlintArgument = subparser.addDisableSwiftlint()
@@ -65,7 +65,7 @@ final class GenerateCommand: BaseCommand {
       sourceRoot: sourceRoot,
       inputTargetNames: targets,
       outputPaths: outputs,
-      preprocessorExpression: arguments.get(preprocessorExpressionArgument),
+      compilationCondition: arguments.get(compilationConditionArgument),
       shouldImportModule: arguments.get(disableModuleImportArgument) != true,
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
       disableSwiftlint: arguments.get(disableSwiftlintArgument) == true
