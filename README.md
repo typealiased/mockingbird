@@ -148,7 +148,7 @@ and scopes ignore files to their enclosing directory.
 ## Usage
 
 An example demonstrating basic usage of Mockingbird can be found at 
-[TreeTests.swift](/MockingbirdTests/Example/TreeTests.swift). 
+[TreeTests.swift](/MockingbirdTests/Example/TreeTests.swift).
 
 ### Mocking
 
@@ -156,6 +156,14 @@ Mocking lets you create objects which can be passed in place of the original typ
 always suffixed with `Mock`.
 
 ```swift
+/* Bird.swift */
+protocol Bird {
+  var name: String { get set }
+  func canChirp(volume: Int) -> Bool
+  func fly()
+}
+
+/* Tests.swift */
 let bird = mock(Bird.self)  // Returns a `BirdMock`
 ```
 
@@ -163,7 +171,16 @@ You can also mock classes that have designated initializers. Keep in mind that c
 which has certain limitations, so consider using protocols whenever possible.
 
 ```swift
-let tree = mock(Tree.self).initialize(with: bird)  // Returns a `TreeMock`
+/* BirdClass.swift */
+class BirdClass {
+  let name: String
+  init(name: String) {
+    self.name = name
+  }
+}
+
+/* Tests.swift */
+let birdClass = mock(BirdClass.self).initialize(name: "Ryan")
 ```
 
 ### Stubbing
@@ -171,16 +188,16 @@ let tree = mock(Tree.self).initialize(with: bird)  // Returns a `TreeMock`
 Stubbing allows you to define a custom value to return when a mocked method is called.
 
 ```swift
-given(bird.createNest()) ~> Nest()
+given(bird.getName()) ~> "Ryan"
 ```
 
-You can use an [argument matcher](#argument-matching) to selectively return results. Stubs added later have 
-precedence over those added earlier, so stubs with more generic argument matchers should be added first.
+You can use an [argument matcher](#argument-matching) when stubbing methods with parameters. Stubs added 
+later have precedence over those added earlier, so stubs containing specific matchers should be added last.
 
 ```swift
-given(bird.chirp(volume: any())) ~> false    // Matches any volume
-given(bird.chirp(volume: notNil())) ~> true  // Matches any non-nil volume
-given(bird.chirp(volume: 10)) ~> false       // Matches volume = 10
+given(bird.canChirp(volume: any())) ~> false    // Matches any volume
+given(bird.canChirp(volume: notNil())) ~> true  // Matches any non-nil volume
+given(bird.canChirp(volume: 10)) ~> false       // Matches volume = 10
 ```
 
 Stub variables with their getter and setter methods.
@@ -212,32 +229,47 @@ given(
 Verification lets you assert that a mock received a particular invocation during its lifetime.
 
 ```swift
-verify(bird.chirp(volume: 50)).wasCalled()
+/* Tree.swift */
+class Tree {
+  let bird: Bird
+  init(with bird: Bird) {
+    self.bird = bird
+  }
+
+  func shake() {
+    bird.fly()
+  }
+}
+
+/* Tests.swift */
+let tree = Tree(with: bird)
+tree.shake()  // Shaking the tree should scare the bird away
+verify(bird.fly()).wasCalled()
 ```
 
 It’s possible to verify that an invocation was called a specific number of times with a count matcher.
 
 ```swift
-verify(bird.getName()).wasNeverCalled()            // n = 0
-verify(bird.getName()).wasCalled(exactly(10))      // n = 10
-verify(bird.getName()).wasCalled(atLeast(10))      // n ≥ 10
-verify(bird.getName()).wasCalled(atMost(10))       // n ≤ 10
-verify(bird.getName()).wasCalled(between(5...10))  // 5 ≤ n ≤ 10
+verify(bird.fly()).wasNeverCalled()            // n = 0
+verify(bird.fly()).wasCalled(exactly(10))      // n = 10
+verify(bird.fly()).wasCalled(atLeast(10))      // n ≥ 10
+verify(bird.fly()).wasCalled(atMost(10))       // n ≤ 10
+verify(bird.fly()).wasCalled(between(5...10))  // 5 ≤ n ≤ 10
 ```
 
 Count matchers also support chaining and negation using logical operators.
 
 ```swift
-verify(bird.getName()).wasCalled(not(exactly(10)))           // n ≠ 10
-verify(bird.getName()).wasCalled(exactly(10).or(atMost(5)))  // n = 10 || n ≤ 5
+verify(bird.fly()).wasCalled(not(exactly(10)))           // n ≠ 10
+verify(bird.fly()).wasCalled(exactly(10).or(atMost(5)))  // n = 10 || n ≤ 5
 ```
 
 Sometimes you need to perform custom checks on received parameters by using an argument captor.
 
 ```swift
-let locationCaptor = ArgumentCaptor<Location>()
-verify(bird.fly(to: locationCaptor.matcher)).wasCalled()
-assert(locationCaptor.value?.name == "Hawaii")
+let nameCaptor = ArgumentCaptor<String>()
+verify(bird.setName(nameCaptor.matcher)).wasCalled()
+assert(nameCaptor.value?.hasPrefix("R"))
 ```
 
 You can test asynchronous code by using an `eventually` block which returns an `XCTestExpectation`. 
@@ -248,7 +280,7 @@ DispatchQueue.main.async {
 }
 let expectation = eventually {
   verify(bird.fly()).wasCalled()
-  verify(bird.chirp(volume: 50)).wasCalled()
+  verify(bird.chirp()).wasCalled()
 }
 wait(for: [expectation], timeout: 1.0)
 ```
@@ -256,14 +288,21 @@ wait(for: [expectation], timeout: 1.0)
 Verifying doesn’t remove recorded invocations, so it’s safe to call verify multiple times (even if not recommended).
 
 ```swift
-verify(bird.getName()).wasCalled()  // If this succeeds...
-verify(bird.getName()).wasCalled()  // ...this also succeeds
+verify(bird.fly()).wasCalled()  // If this succeeds...
+verify(bird.fly()).wasCalled()  // ...this also succeeds
 ```
 
 For methods overloaded by return type, you should help the compiler by specifying the type returned.
 
 ```swift
-// Stubbing `getMessage<T>() -> T`
+/* Bird.swift */
+protocol Bird {
+  func getMessage<T>() -> T
+  func getMessage() -> String
+  func getMessage() -> StaticString
+}
+
+/* Tests.swift */
 verify(bird.getMessage()).returning(String.self).wasCalled()
 ```
 
@@ -307,16 +346,12 @@ any(count: atMost(42))    // Matches any collection with at most 42 elements
 notEmpty()                // Matches any non-empty collection
 ```
 
-If you provide a concrete instance instead of an argument matcher, comparisons will use equality and fall back to 
-comparing by reference if the parameter type doesn’t conform to `Equatable`.
+If you provide a concrete instance of an `Equatable` type, argument values will be compared using equality. 
+Types that don’t conform to `Equatable` will be compared by reference.
 
 ```swift
-bird.chirp(volume: 50)
-verify(bird.chirp(volume: 50)).wasCalled()   // Comparing by equality
-
-let bigBird = Bird()
-bird.parent = bigBird
-verify(bird.setParent(bigBird)).wasCalled()  // Comparing by reference
+// Many Swift stdlib types such as `String` conform to `Equatable`
+verify(bird.setName("Ryan")).wasCalled()
 ```
 
 ## Performance
