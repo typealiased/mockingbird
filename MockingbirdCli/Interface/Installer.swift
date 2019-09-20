@@ -213,16 +213,6 @@ class Installer {
     
     // Remove from target build phases.
     target.buildPhases.removeAll(where: { $0.name() == Constants.buildPhaseName })
-    
-    // Remove generated mocks file reference from project.
-    buildPhase.outputPaths.forEach({ rawOutputPath in
-      guard let fileReference = xcodeproj.pbxproj.fileReferences
-        .first(where: { reference -> Bool in
-          guard let path = reference.path, reference.sourceTree == .group else { return false }
-          return sourceRoot + Path(path) == Path(rawOutputPath)
-        }) else { return }
-      xcodeproj.pbxproj.delete(object: fileReference)
-    })
   }
   
   private static func uninstallCleanPhase(from xcodeproj: XcodeProj,
