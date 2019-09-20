@@ -39,9 +39,9 @@ final class UninstallCommand: BaseCommand {
     
     let projectPath = try arguments.getProjectPath(using: projectPathArgument,
                                                    environment: environment)
-    let sourceRoot = try arguments.getSourceRoot(using: sourceRootArgument,
-                                                 environment: environment,
-                                                 projectPath: projectPath)
+    let sourceRoot = arguments.getSourceRoot(using: sourceRootArgument,
+                                             environment: environment,
+                                             projectPath: projectPath)
     let targets = try arguments.getTargets(using: targetsArgument,
                                            convenienceArgument: targetArgument,
                                            environment: environment)

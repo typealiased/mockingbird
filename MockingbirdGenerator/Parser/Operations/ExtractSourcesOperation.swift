@@ -37,9 +37,9 @@ public class ExtractSourcesOperation: BasicOperation {
   override func run() throws {
     time(.extractSources) {
       result.targetPaths = sourceFilePaths(for: target)
-      result.dependencyPaths =
-        Set(allTargets(for: target, includeTarget: false).flatMap({ sourceFilePaths(for: $0) }))
-          .subtracting(result.targetPaths)
+      result.dependencyPaths = Set(allTargets(for: target, includeTarget: false)
+        .flatMap({ sourceFilePaths(for: $0) }))
+        .subtracting(result.targetPaths)
     }
     log("Found \(result.targetPaths.count) source file\(result.targetPaths.count != 1 ? "s" : "") and \(result.dependencyPaths.count) dependency source file\(result.dependencyPaths.count != 1 ? "s" : "") for target `\(target.name)`")
   }

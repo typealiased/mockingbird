@@ -56,14 +56,13 @@ final class InstallCommand: BaseCommand {
     
     let projectPath = try arguments.getProjectPath(using: projectPathArgument,
                                                    environment: environment)
-    let sourceRoot = try arguments.getSourceRoot(using: sourceRootArgument,
-                                                 environment: environment,
-                                                 projectPath: projectPath)
+    let sourceRoot = arguments.getSourceRoot(using: sourceRootArgument,
+                                             environment: environment,
+                                             projectPath: projectPath)
     let sourceTargets = try arguments.getSourceTargets(using: sourceTargetsArgument,
                                                        convenienceArgument: sourceTargetArgument)
     let destinationTarget = try arguments.getDestinationTarget(using: destinationTargetArgument)
-    let outputs = try arguments.getOutputs(using: outputsArgument,
-                                           convenienceArgument: outputArgument)
+    let outputs = arguments.getOutputs(using: outputsArgument, convenienceArgument: outputArgument)
     
     let config = Installer.InstallConfiguration(
       projectPath: projectPath,

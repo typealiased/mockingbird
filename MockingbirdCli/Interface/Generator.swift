@@ -66,7 +66,9 @@ class Generator {
   
   static func generate(using config: Configuration) throws {
     guard config.outputPaths == nil || config.inputTargetNames.count == config.outputPaths?.count else {
-      throw Failure.malformedConfiguration(description: "Number of input targets does not match the number of output file paths")
+      throw Failure.malformedConfiguration(
+        description: "Number of input targets does not match the number of output file paths"
+      )
     }
     
     var xcodeproj: XcodeProj!
@@ -75,7 +77,7 @@ class Generator {
     }
       
     // Resolve target names to concrete Xcode project targets.
-    let targets = try config.inputTargetNames.map({ targetName throws -> PBXTarget in
+    let targets = try config.inputTargetNames.compactMap({ targetName throws -> PBXTarget? in
       let targets = xcodeproj.pbxproj.targets(named: targetName)
       if targets.count > 1 {
         logWarning("Found multiple input targets named `\(targetName)`, using the first one")
@@ -83,14 +85,17 @@ class Generator {
       guard let target = targets.first else {
         throw Failure.malformedConfiguration(description: "Unable to find input target named `\(targetName)`")
       }
+      guard target.productType?.isTestBundle != true else {
+        logWarning("Ignoring unit test target `\(targetName)`")
+        return nil
+      }
       return target
     })
     
     // Resolve nil output paths to mocks source root and output suffix.
     let outputPaths = try config.outputPaths ?? targets.map({ target throws -> Path in
       try config.sourceRoot.mocksDirectory.mkpath()
-      let moduleName = target.productModuleName
-      return config.sourceRoot.mocksDirectory + "\(moduleName)\(Constants.generatedFileNameSuffix)"
+      return Generator.defaultOutputPath(for: target, sourceRoot: config.sourceRoot)
     })
     
     // Create abstract generation pipelines from targets and output paths.
@@ -114,10 +119,24 @@ class Generator {
       log(error)
     })
   }
+  
+  static func defaultOutputPath(for target: PBXTarget, sourceRoot: Path) -> Path {
+    let moduleName = target.productModuleName
+    return sourceRoot.mocksDirectory + "\(moduleName)\(Constants.generatedFileNameSuffix)"
+  }
 }
 
 extension Path {
   var mocksDirectory: Path {
-    return absolute() + Path("Mockingbird/Mocks/")
+    return absolute() + Path("MockingbirdMocks")
+  }
+}
+
+extension PBXProductType {
+  var isTestBundle: Bool {
+    switch self {
+    case .unitTestBundle, .uiTestBundle, .ocUnitTestBundle: return true
+    default: return false
+    }
   }
 }

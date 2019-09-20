@@ -113,15 +113,16 @@ build process in many different ways.
 
 ### Automatic Integration
 
-Use the Mockingbird CLI to set up a destination (unit test) target. List all source targets that should generate 
-mocks.
+Use the Mockingbird CLI to set up a destination unit test target. List all source targets that should generate mocks.
 
 ```bash
 $ mockingbird install \
   --project Bird.xcodeproj \
-  --targets BirdModels BirdManagers \
-  --destination UnitTestTarget
+  --targets Bird BirdManagers \
+  --destination BirdTests
 ```
+
+By default, Mockingbird will generate mocks for all dependencies  You can optionally list all source targets that should generate mocks.
 
 ### Manual Integration
 
@@ -131,7 +132,7 @@ Add a Run Script Phase to each target that should generate mocks.
 mockingbird generate
 ```
 
-By default, Mockingbird will generate target mocks into the `$(SRCROOT)/Mockingbird/Mocks` directory.
+By default, Mockingbird will generate target mocks into the `$(SRCROOT)/MockingbirdMocks` directory.
 You can specify a custom output location for each target using the
 [`outputs`](https://github.com/birdrides/mockingbird#generate) CLI option.
 
@@ -383,7 +384,7 @@ Generate mocks for a set of targets in a project.
 
 ### Install
 
-Set up a destination (unit test) target
+Set up a destination (unit test) target.
 
 `mockingbird install`
 

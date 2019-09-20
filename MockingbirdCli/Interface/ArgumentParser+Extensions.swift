@@ -74,6 +74,14 @@ extension ArgumentParser {
                completion: .filename)
   }
   
+  /// For installation, only accepts a single output.
+  func addInstallationOutput() -> OptionArgument<PathArgument> {
+    return add(option: "--output",
+               kind: PathArgument.self,
+               usage: "Mock output file path.",
+               completion: .filename)
+  }
+  
   func addCompilationCondition() -> OptionArgument<String> {
     return add(option: "--condition",
                kind: String.self,
@@ -162,7 +170,7 @@ extension ArgumentParser.Result {
   
   func getSourceRoot(using argument: OptionArgument<PathArgument>,
                      environment: [String: String],
-                     projectPath: Path) throws -> Path {
+                     projectPath: Path) -> Path {
     if let rawSourceRoot = get(argument)?.path.pathString ?? environment["SRCROOT"] {
       return Path(rawSourceRoot)
     } else {
@@ -183,7 +191,7 @@ extension ArgumentParser.Result {
   }
   
   func getOutputs(using argument: OptionArgument<[PathArgument]>,
-                  convenienceArgument: OptionArgument<[PathArgument]>) throws -> [Path]? {
+                  convenienceArgument: OptionArgument<[PathArgument]>) -> [Path]? {
     if let rawOutputs = (get(argument) ?? get(convenienceArgument))?.map({ $0.path.pathString }) {
       return rawOutputs.map({ Path($0) })
     }

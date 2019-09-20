@@ -51,14 +51,14 @@ final class GenerateCommand: BaseCommand {
     
     let projectPath = try arguments.getProjectPath(using: projectPathArgument,
                                                    environment: environment)
-    let sourceRoot = try arguments.getSourceRoot(using: sourceRootArgument,
-                                                 environment: environment,
-                                                 projectPath: projectPath)
+    let sourceRoot = arguments.getSourceRoot(using: sourceRootArgument,
+                                             environment: environment,
+                                             projectPath: projectPath)
     let targets = try arguments.getTargets(using: targetsArgument,
                                            convenienceArgument: targetArgument,
                                            environment: environment)
-    let outputs = try arguments.getOutputs(using: outputsArgument,
-                                           convenienceArgument: outputArgument)
+    let outputs = arguments.getOutputs(using: outputsArgument,
+                                       convenienceArgument: outputArgument)
     
     let config = Generator.Configuration(
       projectPath: projectPath,
