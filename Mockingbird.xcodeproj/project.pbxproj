@@ -62,6 +62,7 @@
 		49F60A9F232F477100B51A7C /* FlattenInheritanceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60A9E232F477100B51A7C /* FlattenInheritanceOperation.swift */; };
 		49F60AA123305F5A00B51A7C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60AA023305F5A00B51A7C /* Log.swift */; };
 		5D5FAC84DF438200D4E44D85 /* MockingbirdTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */; };
+		90A3B817365EDCF76745B500 /* MockingbirdTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */; };
 		OBJ_1002 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_380 /* SWXMLHash.swift */; };
 		OBJ_1003 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_381 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
 		OBJ_1004 /* shim.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_382 /* shim.swift */; };
@@ -957,7 +958,7 @@
 		49F60A9C232F475100B51A7C /* ProcessStructuresOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessStructuresOperation.swift; sourceTree = "<group>"; };
 		49F60A9E232F477100B51A7C /* FlattenInheritanceOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlattenInheritanceOperation.swift; sourceTree = "<group>"; };
 		49F60AA023305F5A00B51A7C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
-		93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
+		93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1595,6 +1596,7 @@
 		2A3E4FEA8D2A60B993516C10 /* Generated Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */,
 				93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */,
 			);
 			name = "Generated Mocks";
@@ -3027,6 +3029,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_810 /* Build configuration list for PBXNativeTarget "MockingbirdTests" */;
 			buildPhases = (
+				E0C37AF4D09E1A81AA94E903 /* Clean Mockingbird Mocks */,
 				02321D380F2F1A659EC139B7 /* Generate Mockingbird Mocks */,
 				OBJ_813 /* Sources */,
 				OBJ_854 /* Frameworks */,
@@ -3462,13 +3465,46 @@
 			files = (
 			);
 			inputPaths = (
+				"/tmp/Mockingbird-CEEF65C8-87A5-4A07-B938-52265478BBB3",
 			);
 			name = "Generate Mockingbird Mocks";
 			outputPaths = (
+				/Users/andrew/Mockingbird/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/Users/andrew/Library/Developer/Xcode/DerivedData/Mockingbird-agsjxwhkkkzllxguwkxolnnkjhqj/Build/Products/Debug/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost'\n";
+			shellScript = "/Users/andrew/Library/Developer/Xcode/DerivedData/Mockingbird-agsjxwhkkkzllxguwkxolnnkjhqj/Build/Products/Debug/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs '/Users/andrew/Mockingbird/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift'\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-CEEF65C8-87A5-4A07-B938-52265478BBB3'\n";
+		};
+		E0C37AF4D09E1A81AA94E903 /* Clean Mockingbird Mocks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Clean Mockingbird Mocks";
+			outputPaths = (
+				"/tmp/Mockingbird-CEEF65C8-87A5-4A07-B938-52265478BBB3",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo $RANDOM > '/tmp/Mockingbird-CEEF65C8-87A5-4A07-B938-52265478BBB3'\n";
+		};
+		E9C351C4AAE2A71C195562CC /* Generate Mockingbird Mocks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"/tmp/Mockingbird-719A98D3-F1D6-4BEC-A876-4CBF061C163C",
+			);
+			name = "Generate Mockingbird Mocks";
+			outputPaths = (
+				/Users/andrew/Mockingbird/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/Users/andrew/Library/Developer/Xcode/DerivedData/Mockingbird-agsjxwhkkkzllxguwkxolnnkjhqj/Build/Products/Debug/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs '/Users/andrew/Mockingbird/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift'\n\n# Force Xcode to generate mocks on each build prior to running\n# Compile Sources and without explicitly specifying input files\n# for this build phase (which would be brittle).\nrm -f '/tmp/Mockingbird-719A98D3-F1D6-4BEC-A876-4CBF061C163C'\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3959,6 +3995,7 @@
 				OBJ_852 /* StringExtensionsTests.swift in Sources */,
 				4904BDF7232F1E570031E071 /* ExternalModuleClassScopedTypesMockableTests.swift in Sources */,
 				5D5FAC84DF438200D4E44D85 /* MockingbirdTestsHostMocks.generated.swift in Sources */,
+				90A3B817365EDCF76745B500 /* MockingbirdTestsHostMocks.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11666,29 +11666,3 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.VariadicProtocol.Protocol) -> VariadicProtocolMock {
   return VariadicProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-// MARK: - Mocked wtfxcode14
-
-public final class wtfxcode14Mock: MockingbirdTestsHost.wtfxcode14, Mockingbird.Mock {
-  static let staticMock = Mockingbird.StaticMock()
-  public let mockingContext = Mockingbird.MockingContext()
-  public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.6.1", "module_name": "MockingbirdTestsHost"])
-  public var sourceLocation: Mockingbird.SourceLocation? {
-    get { return stubbingContext.sourceLocation }
-    set {
-      stubbingContext.sourceLocation = newValue
-      wtfxcode14Mock.staticMock.stubbingContext.sourceLocation = newValue
-    }
-  }
-
-  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
-    Mockingbird.checkVersion(for: self)
-    self.sourceLocation = sourceLocation
-  }
-}
-
-/// Create a source-attributed `MockingbirdTestsHost.wtfxcode14` concrete protocol mock instance.
-public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.wtfxcode14.Protocol) -> wtfxcode14Mock {
-  return wtfxcode14Mock(sourceLocation: SourceLocation(file, line))
-}

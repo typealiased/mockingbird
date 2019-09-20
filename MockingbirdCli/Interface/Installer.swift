@@ -49,8 +49,10 @@ class Installer {
   }
   
   private enum Constants {
-    /// The name of the build phase is also used for uninstalling previous phases the CLI installed.
+    /// The name of the build phase for generating mocks.
     static let buildPhaseName = "Generate Mockingbird Mocks"
+    /// The name of the build phase for forcing Xcode to generate mocks before each build.
+    static let cleanBuildPhaseName = "Clean Mockingbird Mocks"
     /// The name of the Xcode project file group containing all generated mock file references.
     static let sourceGroupName = "Generated Mocks"
   }
@@ -131,11 +133,17 @@ class Installer {
     })
     
     // Add build phase reference to project.
-    let buildPhase = createGenerateMocksBuildPhase(outputPaths: config.outputPaths, config: config)
+    let cacheBreakerPath = Path("/tmp/Mockingbird-\(UUID().uuidString)")
+    let buildPhase = createGenerateMocksBuildPhase(outputPaths: outputPaths,
+                                                   cacheBreakerPath: cacheBreakerPath,
+                                                   config: config)
+    let cleanBuildPhase = createCleanMocksBuildPhase(cacheBreakerPath: cacheBreakerPath)
     xcodeproj.pbxproj.add(object: buildPhase)
+    xcodeproj.pbxproj.add(object: cleanBuildPhase)
     
     // Add build phase to target before the first compile sources phase.
     target.buildPhases.insert(buildPhase, at: buildPhaseIndex)
+    target.buildPhases.insert(cleanBuildPhase, at: buildPhaseIndex)
     
     // Add the generated source target mock files to the destination target compile sources phase.
     for outputPath in outputPaths {
@@ -184,12 +192,21 @@ class Installer {
     try xcodeproj.writePBXProj(path: config.projectPath, outputSettings: PBXOutputSettings())
   }
   
-  private static func uninstall(from xcodeproj: XcodeProj, target: PBXTarget, sourceRoot: Path) throws {
+  private static func uninstall(from xcodeproj: XcodeProj,
+                                target: PBXTarget,
+                                sourceRoot: Path) throws {
+    try uninstallGeneratePhase(from: xcodeproj, target: target, sourceRoot: sourceRoot)
+    try uninstallCleanPhase(from: xcodeproj, target: target, sourceRoot: sourceRoot)
+  }
+  
+  private static func uninstallGeneratePhase(from xcodeproj: XcodeProj,
+                                             target: PBXTarget,
+                                             sourceRoot: Path) throws {
     guard let buildPhase = target.buildPhases
       .first(where: { $0.name() == Constants.buildPhaseName }) as? PBXShellScriptBuildPhase
       else { return }
     
-    log("Uninstalling existing Mockingbird build phase from target `\(target.name)`")
+    log("Uninstalling existing 'Generate Mockingbird Mocks' build phase from target `\(target.name)`")
     
     // Remove build phase reference from project.
     xcodeproj.pbxproj.delete(object: buildPhase)
@@ -198,30 +215,42 @@ class Installer {
     target.buildPhases.removeAll(where: { $0.name() == Constants.buildPhaseName })
     
     // Remove generated mocks file reference from project.
-    try buildPhase.outputPaths.forEach({ rawOutputPath in
+    buildPhase.outputPaths.forEach({ rawOutputPath in
       guard let fileReference = xcodeproj.pbxproj.fileReferences
         .first(where: { reference -> Bool in
           guard let path = reference.path, reference.sourceTree == .group else { return false }
           return sourceRoot + Path(path) == Path(rawOutputPath)
         }) else { return }
       xcodeproj.pbxproj.delete(object: fileReference)
-      
-      // And delete any existing generated mocks file.
-      let outputPath = Path(rawOutputPath)
-      guard outputPath.exists && outputPath.isDeletable else { return }
-      try outputPath.delete()
     })
   }
   
-  private static func createGenerateMocksBuildPhase(outputPaths: [Path]?,
+  private static func uninstallCleanPhase(from xcodeproj: XcodeProj,
+                                          target: PBXTarget,
+                                          sourceRoot: Path) throws {
+    guard let buildPhase = target.buildPhases
+      .first(where: { $0.name() == Constants.cleanBuildPhaseName }) as? PBXShellScriptBuildPhase
+      else { return }
+    
+    log("Uninstalling existing 'Clean Mockingbird Mocks' build phase from target `\(target.name)`")
+    
+    // Remove build phase reference from project.
+    xcodeproj.pbxproj.delete(object: buildPhase)
+    
+    // Remove from target build phases.
+    target.buildPhases.removeAll(where: { $0.name() == Constants.cleanBuildPhaseName })
+  }
+  
+  private static func createGenerateMocksBuildPhase(outputPaths: [Path],
+                                                    cacheBreakerPath: Path,
                                                     config: InstallConfiguration)
     -> PBXShellScriptBuildPhase {
       let targets = config.sourceTargetNames.map({ "'\($0)'" }).joined(separator: " ")
-      var options = ["--targets \(targets)"]
-      if let outputPaths = outputPaths {
-        let outputs = outputPaths.map({ "'\($0.absolute())'" }).joined(separator: " ")
-        options.append("--outputs \(outputs)")
-      }
+      let outputs = outputPaths.map({ "'\($0.absolute())'" }).joined(separator: " ")
+      var options = [
+        "--targets \(targets)",
+        "--outputs \(outputs)",
+      ]
       if let expression = config.compilationCondition {
         options.append("--condition '\(expression)'")
       }
@@ -238,8 +267,29 @@ class Installer {
       \(config.cliPath) generate \\
         \(options.joined(separator: " \\\n  "))
       
+      # Ensure mocks are generated prior to running Compile Sources
+      rm -f '\(cacheBreakerPath.absolute())'
+      
       """
-      // Specifying an output path without input paths causes Xcode to incorrectly cache mock files.
-      return PBXShellScriptBuildPhase(name: Constants.buildPhaseName, shellScript: shellScript)
+      return PBXShellScriptBuildPhase(name: Constants.buildPhaseName,
+                                      inputPaths: ["\(cacheBreakerPath.absolute())"],
+                                      outputPaths: outputPaths.map({ "\($0.absolute())" }),
+                                      shellScript: shellScript)
+  }
+  
+  /// Xcode constructs a dependency graph from the input and output file lists of build phases and
+  /// uses that to parallelize operations. The Generate Mocks phase lists each generated mock as an
+  /// output file in order to ensure that it runs prior to the Compile Source phase.
+  ///
+  /// However, Xcode also caches Run Script phase results based on the presence and modification of
+  /// input and output files. In order to not specify all input source files at installation time
+  /// (which would be brittle), it's necessary to use a secondary build phase as a trigger for the
+  /// primary Generate Mocks phase.
+  private static func createCleanMocksBuildPhase(cacheBreakerPath: Path)
+    -> PBXShellScriptBuildPhase {
+      let shellScript = "echo $RANDOM > '\(cacheBreakerPath.absolute())'\n"
+      return PBXShellScriptBuildPhase(name: Constants.cleanBuildPhaseName,
+                                      outputPaths: ["\(cacheBreakerPath.absolute())"],
+                                      shellScript: shellScript)
   }
 }

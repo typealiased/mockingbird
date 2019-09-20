@@ -32,6 +32,7 @@ ERROR_MSG=[ERROR] The downloaded Mockingbird CLI binary does not have the expect
 
 .PHONY: all \
 		clean \
+		clean-mocks \
 		clean-xcode \
 		boostrap-carthage \
 		build \
@@ -56,7 +57,10 @@ clean:
 	rm -f "$(OUTPUT_ZIP)"
 	swift package clean
 
-clean-xcode:
+clean-mocks:
+	rm MockingbirdMocks/*.swift
+
+clean-xcode: clean-mocks
 	$(BUILD_TOOL) -scheme 'MockingbirdFramework' $(XCODEBUILD_FLAGS) clean
 	$(BUILD_TOOL) -scheme 'MockingbirdTestsHost' $(XCODEBUILD_FLAGS) clean
 
