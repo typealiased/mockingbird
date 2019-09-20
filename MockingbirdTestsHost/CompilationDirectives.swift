@@ -23,14 +23,14 @@ protocol OnlyDebugCompilationDirectiveProtocol {
 }
 #endif
 
-#if !(RELEASE)
+#if !(!(DEBUG))
 extension OnlyDebugCompilationDirectiveProtocol {
   var extensionVariable: Bool { return true }
 }
 #endif
 
 #if DEBUG
-#if !(RELEASE)
+#if !(!(DEBUG))
 protocol NestedCompilationDirectiveProtocol {
   var variable: Bool { get }
 }
@@ -50,7 +50,7 @@ protocol CompilationDirectiveProtocol {
   #endif
   
   #if DEBUG
-  #if !(RELEASE)
+  #if !(!(DEBUG))
   var nestedVariable: Bool { get }
   #endif
   #endif
@@ -67,7 +67,7 @@ protocol CompilationDirectiveProtocol {
   #endif
   
   #if DEBUG
-  #if !(RELEASE)
+  #if !(!(DEBUG))
   func nestedMethod()
   #endif
   #endif
