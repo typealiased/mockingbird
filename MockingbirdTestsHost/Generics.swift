@@ -91,3 +91,14 @@ public protocol AssociatedTypeSelfReferencingProtocol {
 }
 
 public protocol InheritingAssociatedTypeSelfReferencingProtocol: AssociatedTypeSelfReferencingProtocol {}
+
+public class ReferencedGenericClass<T> {}
+public class ReferencedGenericClassWithConstraints<S: Sequence> where S.Element: Hashable {}
+
+public protocol GenericClassReferencer {
+  var genericClassVariable: ReferencedGenericClass<String> { get set }
+  var genericClassWithConstraintsVariable: ReferencedGenericClassWithConstraints<[String]> { get set }
+  
+  func genericClassMethod<Z>() -> ReferencedGenericClass<Z>
+  func genericClassWithConstraintsMethod<Z>() -> ReferencedGenericClassWithConstraints<Z>
+}

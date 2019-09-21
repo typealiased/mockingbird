@@ -87,18 +87,19 @@ class RawTypeRepository {
   
   /// Get raw type partials for a fully qualified name in a particular module.
   func rawType(named name: String, in moduleName: String) -> [RawType]? {
-    return rawTypes[name]?[moduleName]
+    return rawTypes[name.removingGenericTyping()]?[moduleName]
   }
   
   /// Get raw type partials for a fully qualified name in all modules.
   func rawTypes(named name: String) -> [String: [RawType]]? {
-    return rawTypes[name]
+    return rawTypes[name.removingGenericTyping()]
   }
   
   /// Add a single raw type partial.
   func addRawType(_ rawType: RawType) {
-    rawTypes[rawType.fullyQualifiedName, default: [:]][rawType.parsedFile.moduleName, default: []]
-      .append(rawType)
+    let name = rawType.fullyQualifiedName.removingGenericTyping()
+    let moduleName = rawType.parsedFile.moduleName
+    rawTypes[name, default: [:]][moduleName, default: []].append(rawType)
   }
   
   enum Constants {

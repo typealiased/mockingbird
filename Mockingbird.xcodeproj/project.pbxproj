@@ -50,6 +50,7 @@
 		4904BDF5232F1AB30031E071 /* EmptyTypesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4904BDF4232F1AB30031E071 /* EmptyTypesMockableTests.swift */; };
 		4904BDF7232F1E570031E071 /* ExternalModuleClassScopedTypesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4904BDF6232F1E570031E071 /* ExternalModuleClassScopedTypesMockableTests.swift */; };
 		4904BDF9232F1F750031E071 /* ExternalModuleClassScopedTypesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4904BDF8232F1F750031E071 /* ExternalModuleClassScopedTypesStubbableTests.swift */; };
+		491906392336CCCE00629F00 /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491906382336CCCE00629F00 /* Generics.swift */; };
 		493ECA34232ECC92008BF44B /* ClassScopedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA33232ECC92008BF44B /* ClassScopedTypes.swift */; };
 		493ECA36232ECD99008BF44B /* Typealiasing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA35232ECD99008BF44B /* Typealiasing.swift */; };
 		493ECA39232ECEF1008BF44B /* ExternalModuleTypealiasing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA38232ECEF1008BF44B /* ExternalModuleTypealiasing.swift */; };
@@ -942,6 +943,7 @@
 		4904BDF4232F1AB30031E071 /* EmptyTypesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTypesMockableTests.swift; sourceTree = "<group>"; };
 		4904BDF6232F1E570031E071 /* ExternalModuleClassScopedTypesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleClassScopedTypesMockableTests.swift; sourceTree = "<group>"; };
 		4904BDF8232F1F750031E071 /* ExternalModuleClassScopedTypesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleClassScopedTypesStubbableTests.swift; sourceTree = "<group>"; };
+		491906382336CCCE00629F00 /* Generics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generics.swift; sourceTree = "<group>"; };
 		493ECA31232EC7CD008BF44B /* MockingbirdFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdFramework.xcconfig; sourceTree = "<group>"; };
 		493ECA32232EC7CD008BF44B /* MockingbirdCli.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdCli.xcconfig; sourceTree = "<group>"; };
 		493ECA33232ECC92008BF44B /* ClassScopedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassScopedTypes.swift; sourceTree = "<group>"; };
@@ -2791,6 +2793,7 @@
 				493ECA33232ECC92008BF44B /* ClassScopedTypes.swift */,
 				OBJ_95 /* MockableTypes.swift */,
 				493ECA35232ECD99008BF44B /* Typealiasing.swift */,
+				491906382336CCCE00629F00 /* Generics.swift */,
 			);
 			name = MockingbirdModuleTestsHost;
 			path = MockingbirdTestsHost/Module;
@@ -3906,6 +3909,7 @@
 			buildActionMask = 0;
 			files = (
 				493ECA36232ECD99008BF44B /* Typealiasing.swift in Sources */,
+				491906392336CCCE00629F00 /* Generics.swift in Sources */,
 				493ECA34232ECC92008BF44B /* ClassScopedTypes.swift in Sources */,
 				OBJ_789 /* MockableTypes.swift in Sources */,
 			);

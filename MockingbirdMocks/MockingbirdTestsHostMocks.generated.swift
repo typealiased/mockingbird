@@ -715,23 +715,23 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableType) -> EquatableType, EquatableType>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `methodUsingHashableType(hashable: HashableType)`
+  // MARK: Mocked `methodUsingHashableType(hashable: MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType)`
 
-  public override func methodUsingHashableType(hashable: HashableType) -> Void {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodUsingHashableType(hashable: HashableType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`hashable`)])
+  public override func methodUsingHashableType(hashable: MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodUsingHashableType(hashable: MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`hashable`)])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: true)
-    if let concreteImplementation = implementation as? (HashableType) -> Void {
+    if let concreteImplementation = implementation as? (MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Void {
       concreteImplementation(`hashable`)
     } else {
       (implementation as? () -> Void)?()
     }
   }
 
-  public func methodUsingHashableType(hashable: @escaping @autoclosure () -> HashableType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (HashableType) -> Void, Void> {
+  public func methodUsingHashableType(hashable: @escaping @autoclosure () -> MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`hashable`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodUsingHashableType(hashable: HashableType) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (HashableType) -> Void, Void>(mock: self, invocation: invocation)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "methodUsingHashableType(hashable: MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -5218,45 +5218,107 @@ public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClass
     }
   }
 
+  // MARK: Mocked `genericClassVariable`
+
+  public var genericClassVariable: MockingbirdTestsHost.ReferencedGenericClass<String> {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> MockingbirdTestsHost.ReferencedGenericClass<String>)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (MockingbirdTestsHost.ReferencedGenericClass<String>) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getGenericClassVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClass<String>, MockingbirdTestsHost.ReferencedGenericClass<String>> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClass<String>, MockingbirdTestsHost.ReferencedGenericClass<String>>(mock: self, invocation: invocation)
+  }
+
+  public func setGenericClassVariable(_ newValue: @escaping @autoclosure () -> MockingbirdTestsHost.ReferencedGenericClass<String>) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (MockingbirdTestsHost.ReferencedGenericClass<String>) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (MockingbirdTestsHost.ReferencedGenericClass<String>) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `genericClassWithConstraintsVariable`
+
+  public var genericClassWithConstraintsVariable: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<[String]> {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassWithConstraintsVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<[String]>)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassWithConstraintsVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (MockingbirdTestsHost.ReferencedGenericClassWithConstraints<[String]>) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getGenericClassWithConstraintsVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<[String]>, MockingbirdTestsHost.ReferencedGenericClassWithConstraints<[String]>> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassWithConstraintsVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<[String]>, MockingbirdTestsHost.ReferencedGenericClassWithConstraints<[String]>>(mock: self, invocation: invocation)
+  }
+
+  public func setGenericClassWithConstraintsVariable(_ newValue: @escaping @autoclosure () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<[String]>) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (MockingbirdTestsHost.ReferencedGenericClassWithConstraints<[String]>) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassWithConstraintsVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (MockingbirdTestsHost.ReferencedGenericClassWithConstraints<[String]>) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `genericClassMethod<T>()`
+  // MARK: Mocked `genericClassMethod<Z>()`
 
-  public func genericClassMethod<T>() -> ReferencedGenericClass<T> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassMethod<T>() -> ReferencedGenericClass<T>", arguments: [])
+  public func genericClassMethod<Z>() -> MockingbirdTestsHost.ReferencedGenericClass<Z> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassMethod<Z>() -> MockingbirdTestsHost.ReferencedGenericClass<Z>", arguments: [])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? () -> ReferencedGenericClass<T> {
+    if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.ReferencedGenericClass<Z> {
       return concreteImplementation()
     } else {
-      return (implementation as! () -> ReferencedGenericClass<T>)()
+      return (implementation as! () -> MockingbirdTestsHost.ReferencedGenericClass<Z>)()
     }
   }
 
-  public func genericClassMethod<T>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ReferencedGenericClass<T>, ReferencedGenericClass<T>> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassMethod<T>() -> ReferencedGenericClass<T>", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ReferencedGenericClass<T>, ReferencedGenericClass<T>>(mock: self, invocation: invocation)
+  public func genericClassMethod<Z>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClass<Z>, MockingbirdTestsHost.ReferencedGenericClass<Z>> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassMethod<Z>() -> MockingbirdTestsHost.ReferencedGenericClass<Z>", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClass<Z>, MockingbirdTestsHost.ReferencedGenericClass<Z>>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `genericClassWithConstraintsMethod<S>()`
+  // MARK: Mocked `genericClassWithConstraintsMethod<Z>()`
 
-  public func genericClassWithConstraintsMethod<S>() -> ReferencedGenericClassWithConstraints<S> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassWithConstraintsMethod<S>() -> ReferencedGenericClassWithConstraints<S>", arguments: [])
+  public func genericClassWithConstraintsMethod<Z>() -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassWithConstraintsMethod<Z>() -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>", arguments: [])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? () -> ReferencedGenericClassWithConstraints<S> {
+    if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z> {
       return concreteImplementation()
     } else {
-      return (implementation as! () -> ReferencedGenericClassWithConstraints<S>)()
+      return (implementation as! () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>)()
     }
   }
 
-  public func genericClassWithConstraintsMethod<S>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ReferencedGenericClassWithConstraints<S>, ReferencedGenericClassWithConstraints<S>> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassWithConstraintsMethod<S>() -> ReferencedGenericClassWithConstraints<S>", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ReferencedGenericClassWithConstraints<S>, ReferencedGenericClassWithConstraints<S>>(mock: self, invocation: invocation)
+  public func genericClassWithConstraintsMethod<Z>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>, MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassWithConstraintsMethod<Z>() -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>, MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>>(mock: self, invocation: invocation)
   }
 }
 
@@ -6038,23 +6100,23 @@ public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: 
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `moreQualifiedImplementation(param: InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType)`
+  // MARK: Mocked `moreQualifiedImplementation(param: MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType)`
 
-  public override func moreQualifiedImplementation(param: InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType? {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "moreQualifiedImplementation(param: InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+  public override func moreQualifiedImplementation(param: MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType? {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "moreQualifiedImplementation(param: MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? (InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType? {
+    if let concreteImplementation = implementation as? (MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType? {
       return concreteImplementation(`param`)
     } else {
-      return (implementation as! () -> InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?)()
+      return (implementation as! () -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?)()
     }
   }
 
-  public func moreQualifiedImplementation(param: @escaping @autoclosure () -> InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?, InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?> {
+  public func moreQualifiedImplementation(param: @escaping @autoclosure () -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?, MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "moreQualifiedImplementation(param: InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?, InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?>(mock: self, invocation: invocation)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "moreQualifiedImplementation(param: MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?, MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?>(mock: self, invocation: invocation)
   }
 }
 
