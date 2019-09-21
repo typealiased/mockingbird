@@ -1012,7 +1012,7 @@ public func mock<MockType: MockingbirdTestsHost.AssociatedTypeProtocol, Equatabl
 
 // MARK: - Mocked AssociatedTypeSelfReferencingProtocol
 
-public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence>: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, Mockingbird.Mock where SequenceType.Element == AssociatedTypeSelfReferencingProtocolMock {
+public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence>: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(SequenceType.self)"].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence>," + runtimeGenericTypeNames
@@ -2880,7 +2880,7 @@ public final class DeclarationAttributesClassMock: MockingbirdTestsHost.Declarat
 
   // MARK: Mocked `availableVariable`
 
-  @available(iOSMac 10.10, *)
+  @available(iOS 10.0, *)
   override public var availableVariable: String {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableVariable.get", arguments: [])
@@ -2889,7 +2889,7 @@ public final class DeclarationAttributesClassMock: MockingbirdTestsHost.Declarat
     }
   }
 
-  @available(iOSMac 10.10, *)
+  @available(iOS 10.0, *)
   public func getAvailableVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String>(mock: self, invocation: invocation)
@@ -2903,7 +2903,7 @@ public final class DeclarationAttributesClassMock: MockingbirdTestsHost.Declarat
 
   // MARK: Mocked `availableMethod(param: String)`
 
-  @available(iOSMac 10.10, *)
+  @available(iOS 10.0, *)
   public override func availableMethod(param: String) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableMethod(param: String) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
@@ -2915,7 +2915,7 @@ public final class DeclarationAttributesClassMock: MockingbirdTestsHost.Declarat
     }
   }
 
-  @available(iOSMac 10.10, *)
+  @available(iOS 10.0, *)
   public func availableMethod(param: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableMethod(param: String) -> Bool", arguments: arguments)
@@ -2924,7 +2924,7 @@ public final class DeclarationAttributesClassMock: MockingbirdTestsHost.Declarat
 
   // MARK: Mocked `multipleAttributesMethod(param: String)`
 
-  @available(iOSMac 10.10, *)
+  @available(iOS 10.0, *)
   public override func multipleAttributesMethod(param: String) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "multipleAttributesMethod(param: String) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
@@ -2936,7 +2936,7 @@ public final class DeclarationAttributesClassMock: MockingbirdTestsHost.Declarat
     }
   }
 
-  @available(iOSMac 10.10, *)
+  @available(iOS 10.0, *)
   public func multipleAttributesMethod(param: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "multipleAttributesMethod(param: String) -> Bool", arguments: arguments)
@@ -2966,7 +2966,7 @@ public final class DeclarationAttributesProtocolMock: MockingbirdTestsHost.Decla
 
   // MARK: Mocked `availableVariable`
 
-  @available(iOSMac 10.10, *)
+  @available(iOS 10.0, *)
   public var availableVariable: String {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableVariable.get", arguments: [])
@@ -2975,7 +2975,7 @@ public final class DeclarationAttributesProtocolMock: MockingbirdTestsHost.Decla
     }
   }
 
-  @available(iOSMac 10.10, *)
+  @available(iOS 10.0, *)
   public func getAvailableVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String>(mock: self, invocation: invocation)
@@ -2988,7 +2988,7 @@ public final class DeclarationAttributesProtocolMock: MockingbirdTestsHost.Decla
 
   // MARK: Mocked `availableMethod(param: String)`
 
-  @available(iOSMac 10.10, *)
+  @available(iOS 10.0, *)
   public func availableMethod(param: String) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableMethod(param: String) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
@@ -3000,7 +3000,7 @@ public final class DeclarationAttributesProtocolMock: MockingbirdTestsHost.Decla
     }
   }
 
-  @available(iOSMac 10.10, *)
+  @available(iOS 10.0, *)
   public func availableMethod(param: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableMethod(param: String) -> Bool", arguments: arguments)
@@ -5203,6 +5203,68 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return FailableUnwrappedParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked GenericClassReferencer
+
+public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClassReferencer, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.6.1", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      GenericClassReferencerMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `genericClassMethod<T>()`
+
+  public func genericClassMethod<T>() -> ReferencedGenericClass<T> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassMethod<T>() -> ReferencedGenericClass<T>", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> ReferencedGenericClass<T> {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> ReferencedGenericClass<T>)()
+    }
+  }
+
+  public func genericClassMethod<T>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ReferencedGenericClass<T>, ReferencedGenericClass<T>> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassMethod<T>() -> ReferencedGenericClass<T>", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ReferencedGenericClass<T>, ReferencedGenericClass<T>>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `genericClassWithConstraintsMethod<S>()`
+
+  public func genericClassWithConstraintsMethod<S>() -> ReferencedGenericClassWithConstraints<S> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassWithConstraintsMethod<S>() -> ReferencedGenericClassWithConstraints<S>", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> ReferencedGenericClassWithConstraints<S> {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> ReferencedGenericClassWithConstraints<S>)()
+    }
+  }
+
+  public func genericClassWithConstraintsMethod<S>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ReferencedGenericClassWithConstraints<S>, ReferencedGenericClassWithConstraints<S>> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassWithConstraintsMethod<S>() -> ReferencedGenericClassWithConstraints<S>", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ReferencedGenericClassWithConstraints<S>, ReferencedGenericClassWithConstraints<S>>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.GenericClassReferencer` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.GenericClassReferencer.Protocol) -> GenericClassReferencerMock {
+  return GenericClassReferencerMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked GrandparentProtocol
 
 public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProtocol, Mockingbird.Mock {
@@ -6076,7 +6138,7 @@ public func mock<MockType: MockingbirdTestsHost.InheritedTypeQualificationProtoc
 
 // MARK: - Mocked InheritingAssociatedTypeSelfReferencingProtocol
 
-public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence>: MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol, Mockingbird.Mock where SequenceType.Element == InheritingAssociatedTypeSelfReferencingProtocolMock {
+public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence>: MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(SequenceType.self)"].joined(separator: ",")
     let staticMockIdentifier = "InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence>," + runtimeGenericTypeNames
@@ -8927,6 +8989,78 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
 /// Create a source-attributed `MockingbirdTestsHost.Parent` concrete class mock instance.
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.Parent.Type) -> ParentMock {
   return ParentMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked ReferencedGenericClassWithConstraints
+
+public final class ReferencedGenericClassWithConstraintsMock<S: Sequence>: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<S>, Mockingbird.Mock where S.Element: Hashable {
+  static var staticMock: Mockingbird.StaticMock {
+    let runtimeGenericTypeNames = ["\(S.self)"].joined(separator: ",")
+    let staticMockIdentifier = "ReferencedGenericClassWithConstraintsMock<S: Sequence>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
+      return staticMock
+    }
+    let staticMock = Mockingbird.StaticMock()
+    genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+    return staticMock
+  }
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.6.1", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ReferencedGenericClassWithConstraintsMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.ReferencedGenericClassWithConstraints<S><S>` concrete class mock instance.
+public func mock<MockType: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<S>, S: Sequence>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> ReferencedGenericClassWithConstraintsMock<S> {
+  return ReferencedGenericClassWithConstraintsMock<S>(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked ReferencedGenericClass
+
+public final class ReferencedGenericClassMock<T>: MockingbirdTestsHost.ReferencedGenericClass<T>, Mockingbird.Mock {
+  static var staticMock: Mockingbird.StaticMock {
+    let runtimeGenericTypeNames = ["\(T.self)"].joined(separator: ",")
+    let staticMockIdentifier = "ReferencedGenericClassMock<T>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
+      return staticMock
+    }
+    let staticMock = Mockingbird.StaticMock()
+    genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+    return staticMock
+  }
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.6.1", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ReferencedGenericClassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.ReferencedGenericClass<T><T>` concrete class mock instance.
+public func mock<MockType: MockingbirdTestsHost.ReferencedGenericClass<T>, T>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> ReferencedGenericClassMock<T> {
+  return ReferencedGenericClassMock<T>(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked RequiredInitializerClass
