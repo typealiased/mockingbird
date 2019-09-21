@@ -38,14 +38,14 @@ extension NonExtendableClassMock: StubbableNonExtendableClass {}
 
 extension ExtendableProtocolMock {
   func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
   func setExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
   func setAnotherExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
 }
 
 extension NonExtendableClassMock {
   func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
 }
