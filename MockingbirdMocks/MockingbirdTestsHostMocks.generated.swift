@@ -11613,6 +11613,37 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
+  // MARK: Mocked `weakVariable`
+
+  override public var weakVariable: MockingbirdTestsHost.VariablesContainer? {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "weakVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> MockingbirdTestsHost.VariablesContainer?)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "weakVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (MockingbirdTestsHost.VariablesContainer?) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getWeakVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.VariablesContainer?, MockingbirdTestsHost.VariablesContainer?> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "weakVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.VariablesContainer?, MockingbirdTestsHost.VariablesContainer?>(mock: self, invocation: invocation)
+  }
+
+  public func setWeakVariable(_ newValue: @escaping @autoclosure () -> MockingbirdTestsHost.VariablesContainer?) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (MockingbirdTestsHost.VariablesContainer?) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "weakVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (MockingbirdTestsHost.VariablesContainer?) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
   // MARK: Mocked `init()`
 
   public required override init() {

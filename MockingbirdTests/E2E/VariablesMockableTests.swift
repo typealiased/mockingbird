@@ -20,5 +20,14 @@ private protocol MockableVariablesContainer: Mock {
   
   var computedVariableWithDidSetObserver: Bool { get set }
   var computedVariableWithWillSetObserver: Bool { get set }
+  
+  var storedVariableWithImplicitType: Bool { get set }
+  var storedVariableWithExplicitType: Bool { get set }
+  
+  // Technically not mockable, but `VariablesContainer` should still conform.
+  var constantVariableWithImplicitType: Bool { get }
+  var constantVariableWithExplicitType: Bool { get }
+  
+  var weakVariable: VariablesContainer? { get set }
 }
 extension VariablesContainerMock: MockableVariablesContainer {}

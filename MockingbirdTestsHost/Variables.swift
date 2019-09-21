@@ -35,6 +35,8 @@ class VariablesContainer: VariablesContainerProtocol {
   let constantVariableWithImplicitType = true
   let constantVariableWithExplicitType: Bool = true
   
+  weak var weakVariable: VariablesContainer?
+  
   init() {
     self.readonlyVariableOverwrittenAsReadwrite = true
     self.uninitializedVariable = true
