@@ -102,5 +102,10 @@ private protocol StubbableGenericClassReferencer {
     -> Mockable<MethodDeclaration, () -> ReferencedGenericClass<Z>, ReferencedGenericClass<Z>>
   func genericClassWithConstraintsMethod<Z>()
     -> Mockable<MethodDeclaration, () -> ReferencedGenericClassWithConstraints<Z>, ReferencedGenericClassWithConstraints<Z>>
+  
+  func genericClassMethod<T, Z: ReferencedGenericClass<T>>(metatype: @escaping @autoclosure () -> Z.Type)
+    -> Mockable<MethodDeclaration, (Z.Type) -> Z.Type, Z.Type>
+  func genericClassWithConstraintsMethod<T, Z: ReferencedGenericClassWithConstraints<T>>(metatype: @escaping @autoclosure () -> Z.Type)
+    -> Mockable<MethodDeclaration, (Z.Type) -> Z.Type, Z.Type>
 }
 extension GenericClassReferencerMock: StubbableGenericClassReferencer {}

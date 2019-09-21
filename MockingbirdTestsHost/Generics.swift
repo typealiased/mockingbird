@@ -101,4 +101,8 @@ public protocol GenericClassReferencer {
   
   func genericClassMethod<Z>() -> ReferencedGenericClass<Z>
   func genericClassWithConstraintsMethod<Z>() -> ReferencedGenericClassWithConstraints<Z>
+  
+  func genericClassMethod<T, Z: ReferencedGenericClass<T>>(metatype: Z.Type) -> Z.Type
+  func genericClassWithConstraintsMethod<T, Z: ReferencedGenericClassWithConstraints<T>>(metatype: Z.Type)
+    -> Z.Type
 }

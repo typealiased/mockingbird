@@ -5275,6 +5275,25 @@ public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClass
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClass<Z>, MockingbirdTestsHost.ReferencedGenericClass<Z>>(mock: self, invocation: invocation)
   }
 
+  // MARK: Mocked `genericClassMethod<T, Z: MockingbirdTestsHost.ReferencedGenericClass<T>>(metatype: Z.Type)`
+
+  public func genericClassMethod<T, Z: MockingbirdTestsHost.ReferencedGenericClass<T>>(metatype: Z.Type) -> Z.Type {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassMethod<T, Z: MockingbirdTestsHost.ReferencedGenericClass<T>>(metatype: Z.Type) -> Z.Type", arguments: [Mockingbird.ArgumentMatcher(`metatype`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (Z.Type) -> Z.Type {
+      return concreteImplementation(`metatype`)
+    } else {
+      return (implementation as! () -> Z.Type)()
+    }
+  }
+
+  public func genericClassMethod<T, Z: MockingbirdTestsHost.ReferencedGenericClass<T>>(metatype: @escaping @autoclosure () -> Z.Type) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Z.Type) -> Z.Type, Z.Type> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`metatype`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassMethod<T, Z: MockingbirdTestsHost.ReferencedGenericClass<T>>(metatype: Z.Type) -> Z.Type", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Z.Type) -> Z.Type, Z.Type>(mock: self, invocation: invocation)
+  }
+
   // MARK: Mocked `genericClassWithConstraintsMethod<Z>()`
 
   public func genericClassWithConstraintsMethod<Z>() -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z> {
@@ -5291,6 +5310,25 @@ public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClass
   public func genericClassWithConstraintsMethod<Z>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>, MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassWithConstraintsMethod<Z>() -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>", arguments: [])
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>, MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `genericClassWithConstraintsMethod<T, Z: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<T>>(metatype: Z.Type)`
+
+  public func genericClassWithConstraintsMethod<T, Z: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<T>>(metatype: Z.Type) -> Z.Type {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassWithConstraintsMethod<T, Z: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<T>>(metatype: Z.Type) -> Z.Type", arguments: [Mockingbird.ArgumentMatcher(`metatype`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (Z.Type) -> Z.Type {
+      return concreteImplementation(`metatype`)
+    } else {
+      return (implementation as! () -> Z.Type)()
+    }
+  }
+
+  public func genericClassWithConstraintsMethod<T, Z: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<T>>(metatype: @escaping @autoclosure () -> Z.Type) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Z.Type) -> Z.Type, Z.Type> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`metatype`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassWithConstraintsMethod<T, Z: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<T>>(metatype: Z.Type) -> Z.Type", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Z.Type) -> Z.Type, Z.Type>(mock: self, invocation: invocation)
   }
 }
 
