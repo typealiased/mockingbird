@@ -8,9 +8,9 @@
 
 import Foundation
 
-public class Synchronized<T> {
-  private(set) public var unsafeValue: T
-  public var value: T {
+class Synchronized<T> {
+  private(set) var unsafeValue: T
+  var value: T {
     get {
       lock.wait()
       defer { lock.signal() }
@@ -25,11 +25,11 @@ public class Synchronized<T> {
   }
   private let lock = DispatchSemaphore(value: 1)
   
-  public init(_ value: T) {
+  init(_ value: T) {
     self.unsafeValue = value
   }
   
-  public func update(_ block: (inout T) throws -> Void) rethrows {
+  func update(_ block: (inout T) throws -> Void) rethrows {
     lock.wait()
     defer { lock.signal() }
     try block(&unsafeValue)

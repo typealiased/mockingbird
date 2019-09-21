@@ -21,35 +21,7 @@ import ObjectiveC
 import class CoreFoundation.CFArray
 import enum CoreText.CTFontUIFontType
 
-private class Synchronized<T> {
-  private(set) fileprivate var unsafeValue: T
-  fileprivate var value: T {
-    get {
-      lock.wait()
-      defer { lock.signal() }
-      return unsafeValue
-    }
-
-    set {
-      lock.wait()
-      defer { lock.signal() }
-      unsafeValue = newValue
-    }
-  }
-  private let lock = DispatchSemaphore(value: 1)
-
-  fileprivate init(_ value: T) {
-    self.unsafeValue = value
-  }
-
-  fileprivate func update(_ block: (inout T) throws -> Void) rethrows {
-    lock.wait()
-    defer { lock.signal() }
-    try block(&unsafeValue)
-  }
-}
-
-private var genericTypesStaticMocks = Synchronized<[String: Mockingbird.StaticMock]>([:])
+private var genericTypesStaticMocks = Mockingbird.Synchronized<[String: Mockingbird.StaticMock]>([:])
 
 // MARK: - Mocked ArgumentMatchingProtocol
 

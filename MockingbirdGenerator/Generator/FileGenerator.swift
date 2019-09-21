@@ -91,8 +91,7 @@ class FileGenerator {
       })
     let queue = OperationQueue.createForActiveProcessors()
     queue.addOperations(operations, waitUntilFinished: true)
-    let substructure = [PartialFileContent(contents: synchronizedClass),
-                        PartialFileContent(contents: genericTypesStaticMocks)]
+    let substructure = [PartialFileContent(contents: genericTypesStaticMocks)]
       + operations.map({ PartialFileContent(contents: $0.result.renderedContents) })
     return PartialFileContent(substructure: substructure, delimiter: "\n\n")
   }
@@ -111,39 +110,7 @@ class FileGenerator {
                                footer: "\n")
   }
   
-  private var synchronizedClass: String {
-    return """
-    private class Synchronized<T> {
-      private(set) fileprivate var unsafeValue: T
-      fileprivate var value: T {
-        get {
-          lock.wait()
-          defer { lock.signal() }
-          return unsafeValue
-        }
-    
-        set {
-          lock.wait()
-          defer { lock.signal() }
-          unsafeValue = newValue
-        }
-      }
-      private let lock = DispatchSemaphore(value: 1)
-    
-      fileprivate init(_ value: T) {
-        self.unsafeValue = value
-      }
-    
-      fileprivate func update(_ block: (inout T) throws -> Void) rethrows {
-        lock.wait()
-        defer { lock.signal() }
-        try block(&unsafeValue)
-      }
-    }
-    """
-  }
-  
   private var genericTypesStaticMocks: String {
-    return "private var genericTypesStaticMocks = Synchronized<[String: Mockingbird.StaticMock]>([:])"
+    return "private var genericTypesStaticMocks = Mockingbird.Synchronized<[String: Mockingbird.StaticMock]>([:])"
   }
 }
