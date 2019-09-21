@@ -7,6 +7,7 @@
 
 import Foundation
 import MockingbirdGenerator
+import PathKit
 import SPMUtility
 
 final class GenerateCommand: BaseCommand {
@@ -46,11 +47,14 @@ final class GenerateCommand: BaseCommand {
     super.init(parser: subparser)
   }
   
-  override func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
-    try super.run(with: arguments, environment: environment)
+  override func run(with arguments: ArgumentParser.Result,
+                    environment: [String: String],
+                    workingPath: Path) throws {
+    try super.run(with: arguments, environment: environment, workingPath: workingPath)
     
     let projectPath = try arguments.getProjectPath(using: projectPathArgument,
-                                                   environment: environment)
+                                                   environment: environment,
+                                                   workingPath: workingPath)
     let sourceRoot = arguments.getSourceRoot(using: sourceRootArgument,
                                              environment: environment,
                                              projectPath: projectPath)

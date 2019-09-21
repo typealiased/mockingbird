@@ -2580,7 +2580,7 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
   #endif
 
   #if DEBUG
-  #if !(RELEASE)
+  #if !(!(DEBUG))
 
   // MARK: Mocked `nestedVariable`
 
@@ -2699,7 +2699,7 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
   }
 
   #if DEBUG
-  #if !(RELEASE)
+  #if !(!(DEBUG))
 
   // MARK: Mocked `nestedMethod()`
 
@@ -6989,7 +6989,7 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
 // MARK: - Mocked NestedCompilationDirectiveProtocol
 
 #if DEBUG
-#if !(RELEASE)
+#if !(!(DEBUG))
 
 public final class NestedCompilationDirectiveProtocolMock: MockingbirdTestsHost.NestedCompilationDirectiveProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
@@ -7005,7 +7005,7 @@ public final class NestedCompilationDirectiveProtocolMock: MockingbirdTestsHost.
   }
 
   #if DEBUG
-  #if !(RELEASE)
+  #if !(!(DEBUG))
 
   // MARK: Mocked `variable`
 
@@ -7035,7 +7035,7 @@ public final class NestedCompilationDirectiveProtocolMock: MockingbirdTestsHost.
 #endif
 
 #if DEBUG
-#if !(RELEASE)
+#if !(!(DEBUG))
 
 /// Create a source-attributed `MockingbirdTestsHost.NestedCompilationDirectiveProtocol` concrete protocol mock instance.
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.NestedCompilationDirectiveProtocol.Protocol) -> NestedCompilationDirectiveProtocolMock {
@@ -7519,7 +7519,7 @@ public final class OnlyDebugCompilationDirectiveProtocolMock: MockingbirdTestsHo
     }
   }
 
-  #if !(RELEASE)
+  #if !(!(DEBUG))
 
   // MARK: Mocked `extensionVariable`
 

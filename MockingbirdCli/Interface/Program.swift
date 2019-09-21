@@ -8,6 +8,7 @@
 import Basic
 import Foundation
 import MockingbirdGenerator
+import PathKit
 import SPMUtility
 import os.log
 
@@ -16,7 +17,9 @@ protocol Command {
   var overview: String { get }
   var subparser: ArgumentParser { get }
   init(parser: ArgumentParser)
-  func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws
+  func run(with arguments: ArgumentParser.Result,
+           environment: [String: String],
+           workingPath: Path) throws
 }
 
 class BaseCommand: Command {
@@ -33,7 +36,9 @@ class BaseCommand: Command {
     self.quietOption = subparser.addQuietLogLevel()
   }
   
-  func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
+  func run(with arguments: ArgumentParser.Result,
+           environment: [String: String],
+           workingPath: Path) throws {
     let logLevel = try arguments.getLogLevel(verboseOption: verboseOption, quietOption: quietOption)
     LogLevel.default.value = logLevel
   }
@@ -43,11 +48,16 @@ class BaseCommand: Command {
 struct Program {
   private let parser: ArgumentParser
   private let commands: [Command]
+  private let fileManager: FileManager
   
-  init(usage: String, overview: String, commands: [Command.Type]) {
+  init(usage: String,
+       overview: String,
+       commands: [Command.Type],
+       fileManager: FileManager = FileManager.default) {
     let parser = ArgumentParser(usage: usage, overview: overview)
     self.parser = parser
     self.commands = commands.map({ $0.init(parser: parser) })
+    self.fileManager = fileManager
   }
   
   func run(with arguments: [String]) -> Int32 {
@@ -76,6 +86,9 @@ struct Program {
         parser.printUsage(on: stdoutStream)
         return
     }
-    try command.run(with: arguments, environment: ProcessInfo.processInfo.environment)
+    try command.run(with: arguments,
+                    environment: ProcessInfo.processInfo.environment,
+                    workingPath: Path(fileManager.currentDirectoryPath))
+
   }
 }

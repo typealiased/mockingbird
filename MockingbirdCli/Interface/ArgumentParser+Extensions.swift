@@ -154,12 +154,22 @@ extension ArgumentParser {
 
 extension ArgumentParser.Result {
   func getProjectPath(using argument: OptionArgument<PathArgument>,
-                      environment: [String: String]) throws -> Path {
+                      environment: [String: String],
+                      workingPath: Path) throws -> Path {
     let projectPath: Path
     if let rawProjectPath = get(argument)?.path.pathString ?? environment["PROJECT_FILE_PATH"] {
       projectPath = Path(rawProjectPath)
     } else {
-      throw ArgumentParserError.expectedValue(option: "--project <xcodeproj file path>")
+      let inferredXcodeProjects = try workingPath.containedXcodeProjects()
+      if let firstProject = inferredXcodeProjects.first, inferredXcodeProjects.count == 1 {
+        log("Using inferred Xcode project at \(firstProject.absolute())")
+        projectPath = firstProject
+      } else {
+        if inferredXcodeProjects.count > 1 {
+          logWarning("Unable to infer Xcode project because there are multiple `.xcodeproj` files in \(workingPath.absolute())")
+        }
+        throw ArgumentParserError.expectedValue(option: "--project <xcodeproj file path>")
+      }
     }
     guard projectPath.isDirectory, projectPath.extension == "xcodeproj" else {
       throw ArgumentParserError.invalidValue(argument: "--project \(projectPath.absolute())",
@@ -253,5 +263,11 @@ extension ArgumentParser.Result {
     } else {
       return .normal
     }
+  }
+}
+
+private extension Path {
+  func containedXcodeProjects() throws -> [Path] {
+    return try children().filter({ $0.isDirectory && $0.extension == "xcodeproj" })
   }
 }

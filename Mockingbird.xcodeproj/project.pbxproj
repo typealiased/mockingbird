@@ -3463,7 +3463,7 @@
 			files = (
 			);
 			inputPaths = (
-				"/tmp/Mockingbird-E4A7BBAE-B9A4-4AAD-8BFC-63386AEC3216",
+				"/tmp/Mockingbird-F4CD5279-5F60-46C7-B24B-FE43E99DB227",
 			);
 			name = "Generate Mockingbird Mocks";
 			outputPaths = (
@@ -3471,7 +3471,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/Users/andrew/Library/Developer/Xcode/DerivedData/Mockingbird-agsjxwhkkkzllxguwkxolnnkjhqj/Build/Products/Debug/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs '/Users/andrew/Mockingbird/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift'\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-E4A7BBAE-B9A4-4AAD-8BFC-63386AEC3216'\n";
+			shellScript = "/Users/andrew/Library/Developer/Xcode/DerivedData/Mockingbird-agsjxwhkkkzllxguwkxolnnkjhqj/Build/Products/Debug/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs '/Users/andrew/Mockingbird/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift'\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-F4CD5279-5F60-46C7-B24B-FE43E99DB227'\n";
 		};
 		E0C37AF4D09E1A81AA94E903 /* Clean Mockingbird Mocks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3482,11 +3482,11 @@
 			);
 			name = "Clean Mockingbird Mocks";
 			outputPaths = (
-				"/tmp/Mockingbird-E4A7BBAE-B9A4-4AAD-8BFC-63386AEC3216",
+				"/tmp/Mockingbird-F4CD5279-5F60-46C7-B24B-FE43E99DB227",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo $RANDOM > '/tmp/Mockingbird-E4A7BBAE-B9A4-4AAD-8BFC-63386AEC3216'\n";
+			shellScript = "echo $RANDOM > '/tmp/Mockingbird-F4CD5279-5F60-46C7-B24B-FE43E99DB227'\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
