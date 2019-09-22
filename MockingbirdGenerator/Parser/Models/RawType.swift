@@ -18,6 +18,7 @@ struct RawType {
   let containingTypeNames: [String]
   let containingScopes: [String] // Including the module name and any containing types.
   let selfConformanceTypes: Set<String> // Self conformances defined in generic where clauses.
+  let definedInExtension: Bool // Types can be defined and nested within extensions.
   let kind: SwiftDeclarationKind
   let parsedFile: ParsedFile
   
@@ -32,14 +33,21 @@ struct RawType {
   ///   - declaration: The actual string declaration of the `RawType`, containing full type info.
   ///   - context: The containing scope names of where the type was referenced from.
   /// - Returns: Module-qualified and context-qualified names for the type.
-  func qualifiedModuleNames(from declaration: String, context: ArraySlice<String>)
+  func qualifiedModuleNames(from declaration: String,
+                            context: ArraySlice<String>,
+                            definingModuleName: String?)
     -> (moduleQualified: String, contextQualified: String) {
       let trimmedDeclaration = declaration.removingParameterAttributes()
       let rawComponents = trimmedDeclaration
         .components(separatedBy: ".", excluding: .allGroups)
         .map({ String($0) })
       let specializedName = rawComponents[(rawComponents.count-1)...]
-      let qualifiers = [parsedFile.moduleName] + containingTypeNames + [name]
+      let qualifiers: [String]
+      if let definingModuleName = definingModuleName {
+        qualifiers = [definingModuleName] + containingTypeNames + [name]
+      } else {
+        qualifiers = containingTypeNames + [name]
+      }
       
       // Check if the referencing declaration is in the same scope as the type declaration.
       let lcaScopeIndex = zip(qualifiers, context)
@@ -61,6 +69,7 @@ struct RawType {
        containedTypes: [RawType],
        containingTypeNames: [String],
        selfConformanceTypes: Set<String>,
+       definedInExtension: Bool,
        kind: SwiftDeclarationKind,
        parsedFile: ParsedFile) {
     self.dictionary = dictionary
@@ -70,6 +79,7 @@ struct RawType {
     self.containingTypeNames = containingTypeNames
     self.containingScopes = [parsedFile.moduleName] + containingTypeNames
     self.selfConformanceTypes = selfConformanceTypes
+    self.definedInExtension = definedInExtension
     self.kind = kind
     self.parsedFile = parsedFile
   }
@@ -163,7 +173,11 @@ class RawTypeRepository {
       let moduleName = String(name[..<firstComponentIndex])
       guard attributedModuleNames.contains(moduleName) else { return nil }
       let dequalifiedName = name[name.index(after: firstComponentIndex)...]
-      return self.rawTypes(named: String(dequalifiedName))?[moduleName]
+      
+      guard let rawType = self.rawTypes(named: String(dequalifiedName))?[moduleName],
+        rawType.contains(where: { $0.kind != .extension })
+        else { return nil }
+      return rawType
     }
     
     let fullyQualifiedName = (containingTypeNames + [name]).joined(separator: ".")

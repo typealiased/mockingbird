@@ -113,8 +113,30 @@ extension SerializationRequest {
                             referencingModuleName: context.referencingModuleName,
                             containingTypeNames: context.containingTypeNames)?
       .findBaseRawType() else { return typeName }
-    let qualifiedTypeNames = baseRawType.qualifiedModuleNames(from: typeName,
-                                                              context: context.containingScopes)
+    
+    // The base raw type could be a (nested) enum or class defined within an extension.
+    var definingModuleName: String? {
+      if baseRawType.definedInExtension {
+        guard let extensionTypeName = baseRawType.containingTypeNames.first else { return nil }
+        guard let extensionRawType = rawTypeRepository
+          .nearestInheritedType(named: extensionTypeName,
+                                trimmedName: extensionTypeName.removingGenericTyping(),
+                                moduleNames: context.moduleNames,
+                                referencingModuleName: context.referencingModuleName,
+                                containingTypeNames: [])?
+          .findBaseRawType() else {
+            logWarning("The type `\(typeName)` was defined in an extension for `\(extensionTypeName)` whose source was missing")
+            return nil
+        }
+        return extensionRawType.parsedFile.moduleName
+      } else {
+        return baseRawType.parsedFile.moduleName
+      }
+    }
+    let qualifiedTypeNames = baseRawType
+      .qualifiedModuleNames(from: typeName,
+                            context: context.containingScopes,
+                            definingModuleName: definingModuleName)
     context.memoizedTypeNames[typeName]?[Method.contextQualified.rawValue] =
       qualifiedTypeNames.contextQualified
     context.memoizedTypeNames[typeName]?[Method.moduleQualified.rawValue] =

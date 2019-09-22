@@ -12119,3 +12119,153 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.VariadicProtocol.Protocol) -> VariadicProtocolMock {
   return VariadicProtocolMock(sourceLocation: SourceLocation(file, line))
 }
+
+// MARK: - Mocked ViewControllerExtensionReferencer
+
+public final class ViewControllerExtensionReferencerMock: MockingbirdTestsHost.ViewControllerExtensionReferencer, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.6.1", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ViewControllerExtensionReferencerMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mocked `extendedClassVariable`
+
+  public var extendedClassVariable: NSViewController.ExtendedClass {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedClassVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> NSViewController.ExtendedClass)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedClassVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (NSViewController.ExtendedClass) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getExtendedClassVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> NSViewController.ExtendedClass, NSViewController.ExtendedClass> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedClassVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> NSViewController.ExtendedClass, NSViewController.ExtendedClass>(mock: self, invocation: invocation)
+  }
+
+  public func setExtendedClassVariable(_ newValue: @escaping @autoclosure () -> NSViewController.ExtendedClass) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (NSViewController.ExtendedClass) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedClassVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (NSViewController.ExtendedClass) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `extendedEnumVariable`
+
+  public var extendedEnumVariable: NSViewController.ExtendedEnum {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedEnumVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> NSViewController.ExtendedEnum)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedEnumVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (NSViewController.ExtendedEnum) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getExtendedEnumVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> NSViewController.ExtendedEnum, NSViewController.ExtendedEnum> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedEnumVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> NSViewController.ExtendedEnum, NSViewController.ExtendedEnum>(mock: self, invocation: invocation)
+  }
+
+  public func setExtendedEnumVariable(_ newValue: @escaping @autoclosure () -> NSViewController.ExtendedEnum) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (NSViewController.ExtendedEnum) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedEnumVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (NSViewController.ExtendedEnum) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `extendedNestedClassVariable`
+
+  public var extendedNestedClassVariable: NSViewController.ExtendedEnum.NestedExtendedClass {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedNestedClassVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> NSViewController.ExtendedEnum.NestedExtendedClass)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedNestedClassVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (NSViewController.ExtendedEnum.NestedExtendedClass) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getExtendedNestedClassVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> NSViewController.ExtendedEnum.NestedExtendedClass, NSViewController.ExtendedEnum.NestedExtendedClass> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedNestedClassVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> NSViewController.ExtendedEnum.NestedExtendedClass, NSViewController.ExtendedEnum.NestedExtendedClass>(mock: self, invocation: invocation)
+  }
+
+  public func setExtendedNestedClassVariable(_ newValue: @escaping @autoclosure () -> NSViewController.ExtendedEnum.NestedExtendedClass) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (NSViewController.ExtendedEnum.NestedExtendedClass) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedNestedClassVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (NSViewController.ExtendedEnum.NestedExtendedClass) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `extendedNestedEnumVariable`
+
+  public var extendedNestedEnumVariable: NSViewController.ExtendedClass.NestedExtendedEnum {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedNestedEnumVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> NSViewController.ExtendedClass.NestedExtendedEnum)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedNestedEnumVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (NSViewController.ExtendedClass.NestedExtendedEnum) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getExtendedNestedEnumVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> NSViewController.ExtendedClass.NestedExtendedEnum, NSViewController.ExtendedClass.NestedExtendedEnum> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedNestedEnumVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> NSViewController.ExtendedClass.NestedExtendedEnum, NSViewController.ExtendedClass.NestedExtendedEnum>(mock: self, invocation: invocation)
+  }
+
+  public func setExtendedNestedEnumVariable(_ newValue: @escaping @autoclosure () -> NSViewController.ExtendedClass.NestedExtendedEnum) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (NSViewController.ExtendedClass.NestedExtendedEnum) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedNestedEnumVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (NSViewController.ExtendedClass.NestedExtendedEnum) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.ViewControllerExtensionReferencer` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ViewControllerExtensionReferencer.Protocol) -> ViewControllerExtensionReferencerMock {
+  return ViewControllerExtensionReferencerMock(sourceLocation: SourceLocation(file, line))
+}

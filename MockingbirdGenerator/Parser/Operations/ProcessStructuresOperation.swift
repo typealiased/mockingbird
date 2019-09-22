@@ -29,14 +29,16 @@ class ProcessStructuresOperation: BasicOperation {
   override func run() throws {
     result.rawTypes.append(contentsOf: processStructureDictionary(structureDictionary,
                                                                   parsedFile: parsedFile,
-                                                                  containingTypeNames: []))
+                                                                  containingTypeNames: [],
+                                                                  definedInExtension: false))
     log("Created \(result.rawTypes.count) raw type\(result.rawTypes.count != 1 ? "s" : "") from source file at \(parsedFile.path.absolute())")
   }
   
   /// Create a `RawType` object from a parsed file's `StructureDictionary`.
   private func processStructureDictionary(_ dictionary: StructureDictionary,
                                           parsedFile: ParsedFile,
-                                          containingTypeNames: [String]) -> [RawType] {
+                                          containingTypeNames: [String],
+                                          definedInExtension: Bool) -> [RawType] {
     let typeName = dictionary[SwiftDocKey.name.rawValue] as? String
     
     let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary] ?? []
@@ -54,17 +56,20 @@ class ProcessStructuresOperation: BasicOperation {
       attributedContainingTypeNames = containingTypeNames
     }
     
+    let optionalKind = SwiftDeclarationKind(from: dictionary)
+    let containedTypesInExtension = definedInExtension || optionalKind == .extension
     let containedTypes = substructure.flatMap({
       processStructureDictionary($0,
                                  parsedFile: parsedFile,
-                                 containingTypeNames: attributedContainingTypeNames)
+                                 containingTypeNames: attributedContainingTypeNames,
+                                 definedInExtension: containedTypesInExtension)
     })
     guard let name = typeName else { return containedTypes } // Base case where this isn't a type.
     
     // For inheritance, contained types are stored in the root namespace as fully qualified types.
     containedTypes.forEach({ result.rawTypes.append($0) })
     
-    guard let kind = SwiftDeclarationKind(from: dictionary), kind.isParsable,
+    guard let kind = optionalKind, kind.isParsable,
       let accessLevel = AccessLevel(from: dictionary), accessLevel.isMockable else { return [] }
     let fullyQualifiedName = attributedContainingTypeNames.joined(separator: ".")
     let selfConformanceTypes = kind == .protocol ? parseSelfConformanceTypes(from: dictionary) : []
@@ -74,6 +79,7 @@ class ProcessStructuresOperation: BasicOperation {
                     containedTypes: containedTypes,
                     containingTypeNames: containingTypeNames,
                     selfConformanceTypes: selfConformanceTypes,
+                    definedInExtension: definedInExtension,
                     kind: kind,
                     parsedFile: parsedFile)]
   }
