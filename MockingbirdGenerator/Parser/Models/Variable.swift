@@ -58,6 +58,12 @@ struct Variable: Hashable, Comparable {
       rawTypeName = inferredTypeName
     } else {
       logWarning("Unable to infer type for variable `\(name)` in module `\(rawType.parsedFile.moduleName)`. You should explicitly declare the variable type in the source file \(rawType.parsedFile.path.absolute())")
+      
+      if rootKind == .class { // Don't override types that couldn't be inferred.
+        return nil
+      }
+      
+      // Protocols should always have explicit types, so this should never actually be used.
       // Use an editor placeholder to trigger a compiler error if this type is ever generated.
       rawTypeName = "<#__UnknownType__#>"
     }

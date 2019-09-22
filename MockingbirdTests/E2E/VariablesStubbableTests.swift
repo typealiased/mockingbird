@@ -78,4 +78,9 @@ extension VariablesContainerMock {
   
   func getConstantVariableWithExplicitType()
     -> Mockable<VariableDeclaration, () -> Bool, Bool> { fatalError() }
+  
+  func getLazyVariableWithComplexImplicitType()
+    -> Mockable<VariableDeclaration, () -> Bool, Bool> { fatalError() }
+  func setLazyVariableWithComplexImplicitType(_ newValue: @escaping @autoclosure () -> Bool)
+  -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
 }

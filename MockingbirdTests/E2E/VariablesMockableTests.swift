@@ -24,10 +24,6 @@ private protocol MockableVariablesContainer: Mock {
   var storedVariableWithImplicitType: Bool { get set }
   var storedVariableWithExplicitType: Bool { get set }
   
-  // Technically not mockable, but `VariablesContainer` should still conform.
-  var constantVariableWithImplicitType: Bool { get }
-  var constantVariableWithExplicitType: Bool { get }
-  
   var weakVariable: VariablesContainer? { get set }
   
   var lazyVariableWithImplicitType: Bool { get set }
