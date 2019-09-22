@@ -85,6 +85,9 @@ extension Array where Element == RawType {
 class RawTypeRepository {
   private(set) var rawTypes = [String: [String: [RawType]]]() // typename => module name => rawtype
   
+  /// Used to check if a module name is shadowed by a type name.
+  private(set) var moduleTypes = [String: Set<String>]() // module name => set(typename)
+  
   /// Get raw type partials for a fully qualified name in a particular module.
   func rawType(named name: String, in moduleName: String) -> [RawType]? {
     return rawTypes[name.removingGenericTyping()]?[moduleName]
@@ -100,6 +103,7 @@ class RawTypeRepository {
     let name = rawType.fullyQualifiedName.removingGenericTyping()
     let moduleName = rawType.parsedFile.moduleName
     rawTypes[name, default: [:]][moduleName, default: []].append(rawType)
+    moduleTypes[moduleName, default: []].insert(name)
   }
   
   enum Constants {
@@ -168,5 +172,14 @@ class RawTypeRepository {
                                 moduleNames: attributedModuleNames,
                                 referencingModuleName: nil,
                                 containingTypeNames: typeNames)
+  }
+  
+  /// Returns whether a module name is shadowed by a type definition in any of the given modules.
+  /// - Parameter moduleName: A module name to check.
+  /// - Parameter moduleNames: A list of modules to check for type definitions.
+  func isModuleNameShadowed(moduleName: String, moduleNames: [String]) -> Bool {
+    return moduleNames.contains(where: {
+      moduleTypes[$0]?.contains(moduleName) == true
+    })
   }
 }

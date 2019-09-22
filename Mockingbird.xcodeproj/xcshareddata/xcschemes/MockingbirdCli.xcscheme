@@ -107,12 +107,24 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "--project /Users/andrew/api-ios/ios/Bird.xcodeproj"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--target BirdFoundation"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--output /Users/andrew/api-ios/ios/Modules/BirdFoundation/BirdFoundationTestHelpers/Mocks.generated.swift"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "--project ./Mockingbird.xcodeproj"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--target MockingbirdTestsHost"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--output ./MockingbirdTests/Mocks.generated.swift"
