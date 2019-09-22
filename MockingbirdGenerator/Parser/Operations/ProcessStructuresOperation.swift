@@ -67,12 +67,27 @@ class ProcessStructuresOperation: BasicOperation {
     guard let kind = SwiftDeclarationKind(from: dictionary), kind.isParsable,
       let accessLevel = AccessLevel(from: dictionary), accessLevel.isMockable else { return [] }
     let fullyQualifiedName = attributedContainingTypeNames.joined(separator: ".")
+    let selfConformanceTypes = kind == .protocol ? parseSelfConformanceTypes(from: dictionary) : []
     return [RawType(dictionary: dictionary,
                     name: name,
                     fullyQualifiedName: fullyQualifiedName,
                     containedTypes: containedTypes,
                     containingTypeNames: containingTypeNames,
+                    selfConformanceTypes: selfConformanceTypes,
                     kind: kind,
                     parsedFile: parsedFile)]
+  }
+  
+  func parseSelfConformanceTypes(from dictionary: StructureDictionary) -> Set<String> {
+    guard let nameSuffix = SourceSubstring.nameSuffixUpToBody.extract(from: dictionary,
+                                                                      contents: parsedFile.data),
+      let whereRange = nameSuffix.range(of: #"\bwhere\b"#, options: .regularExpression)
+      else { return [] }
+    
+    return Set(nameSuffix[whereRange.upperBound..<nameSuffix.endIndex]
+      .components(separatedBy: ",", excluding: .allGroups)
+      .compactMap({ WhereClause(from: String($0)) })
+      .filter({ $0.operator == .conforms && $0.constrainedTypeName == "Self" })
+      .map({ $0.genericConstraint }))
   }
 }

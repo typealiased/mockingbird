@@ -87,6 +87,16 @@ private protocol StubbableAssociatedTypeSelfReferencingProtocol: AssociatedTypeS
 extension AssociatedTypeSelfReferencingProtocolMock: StubbableAssociatedTypeSelfReferencingProtocol {}
 extension InheritingAssociatedTypeSelfReferencingProtocolMock: StubbableAssociatedTypeSelfReferencingProtocol {}
 
+private protocol StubbableSecondLevelSelfConstrainedAssociatedTypeProtocol:
+StubbableAssociatedTypeSelfReferencingProtocol {}
+extension SecondLevelSelfConstrainedAssociatedTypeProtocolMock:
+StubbableSecondLevelSelfConstrainedAssociatedTypeProtocol {}
+
+private protocol StubbableTopLevelSelfConstrainedAssociatedTypeProtocol:
+StubbableSecondLevelSelfConstrainedAssociatedTypeProtocol {}
+extension TopLevelSelfConstrainedAssociatedTypeProtocolMock:
+StubbableTopLevelSelfConstrainedAssociatedTypeProtocol {}
+
 private protocol StubbableGenericClassReferencer {
   func getGenericClassVariable()
     -> Mockable<VariableDeclaration, () -> ReferencedGenericClass<String>, ReferencedGenericClass<String>>

@@ -17,6 +17,7 @@ struct RawType {
   let containedTypes: [RawType]
   let containingTypeNames: [String]
   let containingScopes: [String] // Including the module name and any containing types.
+  let selfConformanceTypes: Set<String> // Self conformances defined in generic where clauses.
   let kind: SwiftDeclarationKind
   let parsedFile: ParsedFile
   
@@ -59,6 +60,7 @@ struct RawType {
        fullyQualifiedName: String,
        containedTypes: [RawType],
        containingTypeNames: [String],
+       selfConformanceTypes: Set<String>,
        kind: SwiftDeclarationKind,
        parsedFile: ParsedFile) {
     self.dictionary = dictionary
@@ -67,6 +69,7 @@ struct RawType {
     self.containedTypes = containedTypes
     self.containingTypeNames = containingTypeNames
     self.containingScopes = [parsedFile.moduleName] + containingTypeNames
+    self.selfConformanceTypes = selfConformanceTypes
     self.kind = kind
     self.parsedFile = parsedFile
   }

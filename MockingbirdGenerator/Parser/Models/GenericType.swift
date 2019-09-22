@@ -175,13 +175,6 @@ struct GenericType: Hashable {
                                  containingType: RawType,
                                  moduleNames: [String],
                                  rawTypeRepository: RawTypeRepository) -> WhereClause {
-    if whereClause.genericConstraint == "Self" {
-      return WhereClause(constrainedTypeName: whereClause.constrainedTypeName,
-                         genericConstraint: SerializationRequest.Constants.selfToken,
-                         operator: whereClause.operator)
-    }
-    
-    let declaredType = DeclaredType(from: whereClause.genericConstraint)
     let serializationContext = SerializationRequest
       .Context(moduleNames: moduleNames,
                rawType: containingType,
@@ -189,9 +182,26 @@ struct GenericType: Hashable {
     let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
                                                         context: serializationContext,
                                                         options: .standard)
-    let qualifiedTypeName = declaredType.serialize(with: qualifiedTypeNameRequest)
-    return WhereClause(constrainedTypeName: whereClause.constrainedTypeName,
-                       genericConstraint: qualifiedTypeName,
+    
+    let declaredConstrainedType = DeclaredType(from: whereClause.constrainedTypeName)
+    var qualifiedConstrainedTypeName = declaredConstrainedType
+      .serialize(with: qualifiedTypeNameRequest)
+    
+    let declaredConstraintType = DeclaredType(from: whereClause.genericConstraint)
+    var qualifiedConstraintTypeName = declaredConstraintType
+      .serialize(with: qualifiedTypeNameRequest)
+    
+    // De-qualify `Self` constraints.
+    if qualifiedConstrainedTypeName.hasPrefix("Self.") {
+      qualifiedConstrainedTypeName.removeFirst(5)
+    }
+    
+    if qualifiedConstraintTypeName.hasPrefix("Self.") {
+      qualifiedConstraintTypeName.removeFirst(5)
+    }
+    
+    return WhereClause(constrainedTypeName: qualifiedConstrainedTypeName,
+                       genericConstraint: qualifiedConstraintTypeName,
                        operator: whereClause.operator)
   }
 }

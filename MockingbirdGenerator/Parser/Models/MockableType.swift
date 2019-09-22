@@ -9,7 +9,7 @@
 import Foundation
 import SourceKittenFramework
 
-/// Methods, variables, extensions
+/// Classes, protocols, and extensions on either.
 class MockableType: Hashable, Comparable {
   let name: String
   let moduleName: String
@@ -18,6 +18,7 @@ class MockableType: Hashable, Comparable {
   let methodsCount: [Method.Reduced: UInt] // For de-duping generic methods.
   let variables: Set<Variable>
   let inheritedTypes: Set<MockableType>
+  let selfConformanceTypes: Set<MockableType>
   let genericTypes: [GenericType]
   let whereClauses: [WhereClause]
   let shouldMock: Bool
@@ -89,24 +90,34 @@ class MockableType: Hashable, Comparable {
       return genericType
     })
     var whereClauses = genericTypes.flatMap({ $0.whereClauses })
-    if baseRawType.kind == .class {
-      let source = baseRawType.parsedFile.data
-      if let nameSuffix = SourceSubstring.nameSuffixUpToBody.extract(from: baseRawType.dictionary,
-                                                                     contents: source),
-        let whereRange = nameSuffix.range(of: #"\bwhere\b"#, options: .regularExpression) {
-        let topLevelClauses = nameSuffix[whereRange.upperBound..<nameSuffix.endIndex]
-          .components(separatedBy: ",")
-          .compactMap({ WhereClause(from: $0) })
-        whereClauses.append(contentsOf: topLevelClauses)
-      }
+
+    let source = baseRawType.parsedFile.data
+    if let nameSuffix = SourceSubstring.nameSuffixUpToBody.extract(from: baseRawType.dictionary,
+                                                                   contents: source),
+      let whereRange = nameSuffix.range(of: #"\bwhere\b"#, options: .regularExpression) {
+      let topLevelClauses = nameSuffix[whereRange.upperBound..<nameSuffix.endIndex]
+        .components(separatedBy: ",", excluding: .allGroups)
+        .compactMap({ WhereClause(from: String($0)) })
+        .map({ GenericType.qualifyWhereClause($0,
+                                              containingType: baseRawType,
+                                              moduleNames: moduleNames,
+                                              rawTypeRepository: rawTypeRepository) })
+        .filter({
+          // Superclass `Self` conformance must be done through the inheritance syntax.
+          $0.constrainedTypeName
+            .contains(SerializationRequest.Constants.selfTokenIndicator) == false
+        })
+      whereClauses.append(contentsOf: topLevelClauses)
     }
     
     // Parse inherited members and generics.
-    let rawInheritedTypes = rawTypes
+    let rawInheritedTypeNames = rawTypes
       .compactMap({ $0.dictionary[SwiftDocKey.inheritedtypes.rawValue] as? [StructureDictionary] })
       .flatMap({ $0 })
+      .compactMap({ $0[SwiftDocKey.name.rawValue] as? String })
     let (inheritedTypes, subclassesExternalType) = MockableType
-      .parseInheritedTypes(rawInheritedTypes: rawInheritedTypes,
+      .parseInheritedTypes(rawInheritedTypeNames: Set(rawInheritedTypeNames),
+                           forConformance: false,
                            methods: &methods,
                            variables: &variables,
                            genericTypes: &genericTypes,
@@ -116,7 +127,21 @@ class MockableType: Hashable, Comparable {
                            baseRawType: baseRawType,
                            rawTypeRepository: rawTypeRepository)
     self.inheritedTypes = inheritedTypes
-    self.subclassesExternalType = subclassesExternalType
+    
+    let (selfConformanceTypes, conformsToExternalType) = MockableType
+      .parseInheritedTypes(rawInheritedTypeNames: baseRawType.selfConformanceTypes,
+                           forConformance: true,
+                           methods: &methods,
+                           variables: &variables,
+                           genericTypes: &genericTypes,
+                           whereClauses: &whereClauses,
+                           mockableTypes: mockableTypes,
+                           moduleNames: moduleNames,
+                           baseRawType: baseRawType,
+                           rawTypeRepository: rawTypeRepository)
+    self.selfConformanceTypes = selfConformanceTypes
+    
+    self.subclassesExternalType = subclassesExternalType || conformsToExternalType
     self.methods = methods
     self.variables = variables
     
@@ -150,10 +175,10 @@ class MockableType: Hashable, Comparable {
   }
   
   private static func parseDeclaredTypes(rawTypes: [RawType],
-                                 baseRawType: RawType,
-                                 moduleNames: [String],
-                                 rawTypeRepository: RawTypeRepository,
-                                 typealiasRepository: TypealiasRepository)
+                                         baseRawType: RawType,
+                                         moduleNames: [String],
+                                         rawTypeRepository: RawTypeRepository,
+                                         typealiasRepository: TypealiasRepository)
     -> (methods: Set<Method>, variables: Set<Variable>) {
       var methods = Set<Method>()
       var variables = Set<Variable>()
@@ -183,22 +208,22 @@ class MockableType: Hashable, Comparable {
       return (methods, variables)
   }
   
-  private static func parseInheritedTypes(rawInheritedTypes: [StructureDictionary],
-                                  methods: inout Set<Method>,
-                                  variables: inout Set<Variable>,
-                                  genericTypes: inout [GenericType],
-                                  whereClauses: inout [WhereClause],
-                                  mockableTypes: [String: MockableType],
-                                  moduleNames: [String],
-                                  baseRawType: RawType,
-                                  rawTypeRepository: RawTypeRepository)
+  private static func parseInheritedTypes(rawInheritedTypeNames: Set<String>,
+                                          forConformance: Bool,
+                                          methods: inout Set<Method>,
+                                          variables: inout Set<Variable>,
+                                          genericTypes: inout [GenericType],
+                                          whereClauses: inout [WhereClause],
+                                          mockableTypes: [String: MockableType],
+                                          moduleNames: [String],
+                                          baseRawType: RawType,
+                                          rawTypeRepository: RawTypeRepository)
     -> (inheritedTypes: Set<MockableType>, subclassesExternalType: Bool) {
       var inheritedTypes = Set<MockableType>()
       var subclassesExternalType = false
       let definesDesignatedInitializer = methods.contains(where: { $0.isDesignatedInitializer })
-      for type in rawInheritedTypes {
-        guard let typeName = type[SwiftDocKey.name.rawValue] as? String,
-          let nearestRawType = rawTypeRepository
+      for typeName in rawInheritedTypeNames {
+        guard let nearestRawType = rawTypeRepository
             .nearestInheritedType(named: typeName,
                                   trimmedName: typeName.removingGenericTyping(),
                                   moduleNames: moduleNames,
@@ -224,7 +249,8 @@ class MockableType: Hashable, Comparable {
         variables = variables.union(mockableType.variables.filter({
           $0.kind.typeScope.isMockable(in: baseRawType.kind)
         }))
-        inheritedTypes = inheritedTypes.union([mockableType] + mockableType.inheritedTypes)
+        inheritedTypes = inheritedTypes.union([mockableType]
+          + (forConformance ? mockableType.selfConformanceTypes : mockableType.inheritedTypes))
         
         genericTypes.append(contentsOf: mockableType.genericTypes)
         whereClauses.append(contentsOf: mockableType.whereClauses)

@@ -93,15 +93,17 @@ class FlattenInheritanceOperation: BasicOperation {
       return mockableType
     }
     
-    // Base case where the type doesn't inherit from anything.
-    let inheritedTypes = rawType
+    let inheritedTypeNames = rawType
       .compactMap({ $0.dictionary[SwiftDocKey.inheritedtypes.rawValue] as? [StructureDictionary] })
       .flatMap({ $0 })
-    guard !inheritedTypes.isEmpty else { return createMockableType(false) }
+      .compactMap({ $0[SwiftDocKey.name.rawValue] as? String })
+      + baseRawType.selfConformanceTypes
+    
+    // Check the base case where the type doesn't inherit from anything.
+    guard !inheritedTypeNames.isEmpty else { return createMockableType(false) }
     
     var hasOpaqueInheritedType = false
-    let rawInheritedTypes = inheritedTypes
-      .compactMap({ $0[SwiftDocKey.name.rawValue] as? String }) // Get type name.
+    let rawInheritedTypes = inheritedTypeNames
       .compactMap({ typeName -> [RawType]? in // Get stored raw type.
         let nearest = rawTypeRepository
           .nearestInheritedType(named: typeName,

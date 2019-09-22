@@ -27,7 +27,7 @@ private enum Constants {
 extension GenericType {
   var flattenedDeclaration: String {
     guard !constraints.isEmpty else { return name }
-    let flattenedInheritedTypes = Array(constraints).joined(separator: " & ")
+    let flattenedInheritedTypes = constraints.sorted().joined(separator: " & ")
     return "\(name): \(flattenedInheritedTypes)"
   }
 }
@@ -93,9 +93,7 @@ class MockableTypeTemplate: Template {
       static var staticMock: Mockingbird.StaticMock {
         let runtimeGenericTypeNames = \(runtimeGenericTypeNames)
         let staticMockIdentifier = "\(mockableType.name)Mock\(allSpecializedGenericTypes)," + runtimeGenericTypeNames
-        if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
-          return staticMock
-        }
+        if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
         let staticMock = Mockingbird.StaticMock()
         genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
         return staticMock
@@ -131,11 +129,7 @@ class MockableTypeTemplate: Template {
   }()
   
   var allInheritedTypes: String {
-    return [subclass,
-            inheritedProtocol,
-            Constants.mockProtocolName]
-      .compactMap({ $0 })
-      .joined(separator: ", ")
+    return (inheritedTypes + [Constants.mockProtocolName]).joined(separator: ", ")
   }
   
   /// For scoped types referenced within their containing type.
@@ -160,17 +154,17 @@ class MockableTypeTemplate: Template {
     return "\(containingTypeNames)\(mockableType.name)\(suffix)\(allGenericTypes)"
   }
   
-  var subclass: String? {
-    guard mockableType.kind != .class else { return fullyQualifiedName }
-    guard mockableType.hasOpaqueInheritedType else { return nil }
-    // We default to subclassing `NSObject` in order to satisfy `NSObjectProtocol` conformance,
-    // since the inheritance is at least partially opaque.
-    return "Foundation.NSObject"
-  }
-  
-  var inheritedProtocol: String? {
-    guard mockableType.kind == .protocol else { return nil }
-    return fullyQualifiedName
+  var inheritedTypes: [String] {
+    var types = [fullyQualifiedName]
+    if mockableType.kind != .class && mockableType.hasOpaqueInheritedType {
+      // Default to subclassing `NSObject` in order to satisfy what could be an `NSObjectProtocol`
+      // conformance (since the inheritance is at least partially opaque).
+      types.insert("Foundation.NSObject", at: 0)
+    }
+    let conformanceTypes = mockableType.selfConformanceTypes
+      .map({ $0.moduleName + "." + $0.name })
+      .sorted()
+    return types + conformanceTypes
   }
   
   func renderBody() -> String {

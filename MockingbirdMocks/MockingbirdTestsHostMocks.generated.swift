@@ -502,9 +502,7 @@ public final class AssociatedTypeGenericConformingConstraintsProtocolMock<Confor
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(ConformingType.self)"].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType: MockingbirdTestsHost.AssociatedTypeProtocol>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
-      return staticMock
-    }
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -556,9 +554,7 @@ public final class AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType:
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(ConstrainedType.self)"].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
-      return staticMock
-    }
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -610,9 +606,7 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Equatable
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(EquatableType.self)", "\(S.self)"].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeGenericImplementerMock<EquatableType: Equatable, S: Sequence>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
-      return staticMock
-    }
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -847,9 +841,7 @@ public final class AssociatedTypeProtocolMock<EquatableType: Equatable, Hashable
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(EquatableType.self)", "\(HashableType.self)"].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeProtocolMock<EquatableType: Equatable, HashableType: Hashable>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
-      return staticMock
-    }
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -984,13 +976,11 @@ public func mock<MockType: MockingbirdTestsHost.AssociatedTypeProtocol, Equatabl
 
 // MARK: - Mocked AssociatedTypeSelfReferencingProtocol
 
-public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Hashable>: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
+public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Hashable & Sequence>: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(SequenceType.self)"].joined(separator: ",")
-    let staticMockIdentifier = "AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Hashable>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
-      return staticMock
-    }
+    let staticMockIdentifier = "AssociatedTypeSelfReferencingProtocolMock<SequenceType: Hashable & Sequence>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -1070,7 +1060,7 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
 }
 
 /// Create a source-attributed `MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol<SequenceType>` concrete protocol mock instance.
-public func mock<MockType: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, SequenceType: Sequence & Hashable>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> AssociatedTypeSelfReferencingProtocolMock<SequenceType> {
+public func mock<MockType: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, SequenceType: Hashable & Sequence>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> AssociatedTypeSelfReferencingProtocolMock<SequenceType> {
   return AssociatedTypeSelfReferencingProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line))
 }
 
@@ -6067,9 +6057,7 @@ public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: 
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(T.self)"].joined(separator: ",")
     let staticMockIdentifier = "InheritedTypeQualificationProtocolGenericImplementerMock<T>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
-      return staticMock
-    }
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -6141,9 +6129,7 @@ public final class InheritedTypeQualificationProtocolMock<ScopedType>: Mockingbi
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(ScopedType.self)"].joined(separator: ",")
     let staticMockIdentifier = "InheritedTypeQualificationProtocolMock<ScopedType>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
-      return staticMock
-    }
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -6210,13 +6196,11 @@ public func mock<MockType: MockingbirdTestsHost.InheritedTypeQualificationProtoc
 
 // MARK: - Mocked InheritingAssociatedTypeSelfReferencingProtocol
 
-public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Hashable>: MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
+public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Hashable & Sequence>: MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(SequenceType.self)"].joined(separator: ",")
-    let staticMockIdentifier = "InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Hashable>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
-      return staticMock
-    }
+    let staticMockIdentifier = "InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Hashable & Sequence>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -6296,7 +6280,7 @@ public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceT
 }
 
 /// Create a source-attributed `MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol<SequenceType>` concrete protocol mock instance.
-public func mock<MockType: MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol, SequenceType: Sequence & Hashable>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType> {
+public func mock<MockType: MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol, SequenceType: Hashable & Sequence>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType> {
   return InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line))
 }
 
@@ -6306,9 +6290,7 @@ public final class InheritingExternalModuleScopedAssociatedTypeProtocolMock<Elem
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(Element.self)", "\(Subelement.self)", "\(Data.self)"].joined(separator: ",")
     let staticMockIdentifier = "InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
-      return staticMock
-    }
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -6481,9 +6463,7 @@ public final class InheritingModuleScopedAssociatedTypeProtocolMock<Element, Sub
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(Element.self)", "\(Subelement.self)", "\(Data.self)"].joined(separator: ",")
     let staticMockIdentifier = "InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
-      return staticMock
-    }
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -6951,9 +6931,7 @@ public final class ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, D
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(Element.self)", "\(Subelement.self)", "\(Data.self)"].joined(separator: ",")
     let staticMockIdentifier = "ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
-      return staticMock
-    }
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -9069,9 +9047,7 @@ public final class ReferencedGenericClassWithConstraintsMock<S: Sequence>: Mocki
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(S.self)"].joined(separator: ",")
     let staticMockIdentifier = "ReferencedGenericClassWithConstraintsMock<S: Sequence>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
-      return staticMock
-    }
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -9105,9 +9081,7 @@ public final class ReferencedGenericClassMock<T>: MockingbirdTestsHost.Reference
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(T.self)"].joined(separator: ",")
     let staticMockIdentifier = "ReferencedGenericClassMock<T>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
-      return staticMock
-    }
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -9235,6 +9209,96 @@ public final class RethrowingProtocolMock: MockingbirdTestsHost.RethrowingProtoc
 /// Create a source-attributed `MockingbirdTestsHost.RethrowingProtocol` concrete protocol mock instance.
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.RethrowingProtocol.Protocol) -> RethrowingProtocolMock {
   return RethrowingProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked SecondLevelSelfConstrainedAssociatedTypeProtocol
+
+public final class SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType: Hashable & Sequence>: MockingbirdTestsHost.SecondLevelSelfConstrainedAssociatedTypeProtocol, MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
+  static var staticMock: Mockingbird.StaticMock {
+    let runtimeGenericTypeNames = ["\(SequenceType.self)"].joined(separator: ",")
+    let staticMockIdentifier = "SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType: Hashable & Sequence>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    let staticMock = Mockingbird.StaticMock()
+    genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+    return staticMock
+  }
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.6.1", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      SecondLevelSelfConstrainedAssociatedTypeProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `request<T: Sequence>(array: T)`
+
+  public func request<T: Sequence>(array: T) -> Void where T.Element == SecondLevelSelfConstrainedAssociatedTypeProtocolMock {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request<T: Sequence>(array: T) -> Void where T.Element == SecondLevelSelfConstrainedAssociatedTypeProtocolMock", arguments: [Mockingbird.ArgumentMatcher(`array`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (T) -> Void {
+      concreteImplementation(`array`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func request<T: Sequence>(array: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void> where T.Element == SecondLevelSelfConstrainedAssociatedTypeProtocolMock {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`array`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request<T: Sequence>(array: T) -> Void where T.Element == SecondLevelSelfConstrainedAssociatedTypeProtocolMock", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `request(array: SequenceType)`
+
+  public func request(array: SequenceType) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(array: SequenceType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`array`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (SequenceType) -> Void {
+      concreteImplementation(`array`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func request(array: @escaping @autoclosure () -> SequenceType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SequenceType) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`array`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(array: SequenceType) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SequenceType) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `request(object: SecondLevelSelfConstrainedAssociatedTypeProtocolMock)`
+
+  public func request(object: SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void", arguments: [Mockingbird.ArgumentMatcher(`object`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void {
+      concreteImplementation(`object`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func request(object: @escaping @autoclosure () -> SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void, Void>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.SecondLevelSelfConstrainedAssociatedTypeProtocol<SequenceType>` concrete protocol mock instance.
+public func mock<MockType: MockingbirdTestsHost.SecondLevelSelfConstrainedAssociatedTypeProtocol, SequenceType: Hashable & Sequence>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType> {
+  return SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked ServiceRepository
@@ -10232,6 +10296,96 @@ public final class ThrowingProtocolMock: MockingbirdTestsHost.ThrowingProtocol, 
 /// Create a source-attributed `MockingbirdTestsHost.ThrowingProtocol` concrete protocol mock instance.
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ThrowingProtocol.Protocol) -> ThrowingProtocolMock {
   return ThrowingProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked TopLevelSelfConstrainedAssociatedTypeProtocol
+
+public final class TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType: Hashable & Sequence>: MockingbirdTestsHost.TopLevelSelfConstrainedAssociatedTypeProtocol, MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, MockingbirdTestsHost.SecondLevelSelfConstrainedAssociatedTypeProtocol, Mockingbird.Mock where Element: Hashable {
+  static var staticMock: Mockingbird.StaticMock {
+    let runtimeGenericTypeNames = ["\(Element.self)", "\(SequenceType.self)"].joined(separator: ",")
+    let staticMockIdentifier = "TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType: Hashable & Sequence>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    let staticMock = Mockingbird.StaticMock()
+    genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+    return staticMock
+  }
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.6.1", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      TopLevelSelfConstrainedAssociatedTypeProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `request<T: Sequence>(array: T)`
+
+  public func request<T: Sequence>(array: T) -> Void where T.Element == TopLevelSelfConstrainedAssociatedTypeProtocolMock {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request<T: Sequence>(array: T) -> Void where T.Element == TopLevelSelfConstrainedAssociatedTypeProtocolMock", arguments: [Mockingbird.ArgumentMatcher(`array`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (T) -> Void {
+      concreteImplementation(`array`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func request<T: Sequence>(array: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void> where T.Element == TopLevelSelfConstrainedAssociatedTypeProtocolMock {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`array`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request<T: Sequence>(array: T) -> Void where T.Element == TopLevelSelfConstrainedAssociatedTypeProtocolMock", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `request(array: SequenceType)`
+
+  public func request(array: SequenceType) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(array: SequenceType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`array`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (SequenceType) -> Void {
+      concreteImplementation(`array`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func request(array: @escaping @autoclosure () -> SequenceType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SequenceType) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`array`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(array: SequenceType) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SequenceType) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `request(object: TopLevelSelfConstrainedAssociatedTypeProtocolMock)`
+
+  public func request(object: TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void", arguments: [Mockingbird.ArgumentMatcher(`object`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void {
+      concreteImplementation(`object`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func request(object: @escaping @autoclosure () -> TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "request(object: TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void, Void>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.TopLevelSelfConstrainedAssociatedTypeProtocol<Element, SequenceType>` concrete protocol mock instance.
+public func mock<MockType: MockingbirdTestsHost.TopLevelSelfConstrainedAssociatedTypeProtocol, Element, SequenceType: Hashable & Sequence>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType> {
+  return TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType>(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked TopLevelType
