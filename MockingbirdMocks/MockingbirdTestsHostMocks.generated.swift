@@ -984,10 +984,10 @@ public func mock<MockType: MockingbirdTestsHost.AssociatedTypeProtocol, Equatabl
 
 // MARK: - Mocked AssociatedTypeSelfReferencingProtocol
 
-public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence>: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
+public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Hashable>: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(SequenceType.self)"].joined(separator: ",")
-    let staticMockIdentifier = "AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence>," + runtimeGenericTypeNames
+    let staticMockIdentifier = "AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Hashable>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
       return staticMock
     }
@@ -1070,7 +1070,7 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
 }
 
 /// Create a source-attributed `MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol<SequenceType>` concrete protocol mock instance.
-public func mock<MockType: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, SequenceType: Sequence>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> AssociatedTypeSelfReferencingProtocolMock<SequenceType> {
+public func mock<MockType: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, SequenceType: Sequence & Hashable>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> AssociatedTypeSelfReferencingProtocolMock<SequenceType> {
   return AssociatedTypeSelfReferencingProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line))
 }
 
@@ -6210,10 +6210,10 @@ public func mock<MockType: MockingbirdTestsHost.InheritedTypeQualificationProtoc
 
 // MARK: - Mocked InheritingAssociatedTypeSelfReferencingProtocol
 
-public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence>: MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
+public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Hashable>: MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(SequenceType.self)"].joined(separator: ",")
-    let staticMockIdentifier = "InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence>," + runtimeGenericTypeNames
+    let staticMockIdentifier = "InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Hashable>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
       return staticMock
     }
@@ -6296,7 +6296,7 @@ public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceT
 }
 
 /// Create a source-attributed `MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol<SequenceType>` concrete protocol mock instance.
-public func mock<MockType: MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol, SequenceType: Sequence>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType> {
+public func mock<MockType: MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol, SequenceType: Sequence & Hashable>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType> {
   return InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line))
 }
 

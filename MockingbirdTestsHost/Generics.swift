@@ -82,7 +82,7 @@ public protocol AssociatedTypeGenericConformingConstraintsProtocol {
 public protocol AssociatedTypeSelfReferencingProtocol {
   // Swift 5.1 has regressions on self-referencing where clauses in type declarations.
   // https://bugs.swift.org/browse/SR-11503
-  associatedtype SequenceType: Sequence// where SequenceType.Element == Self
+  associatedtype SequenceType: Sequence, Hashable// where SequenceType.Element == Self
   
   func request(array: SequenceType)
   func request<T: Sequence>(array: T) where T.Element == Self
