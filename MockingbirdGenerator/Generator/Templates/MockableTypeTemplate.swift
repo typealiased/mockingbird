@@ -170,7 +170,6 @@ class MockableTypeTemplate: Template {
   func renderBody() -> String {
     return [renderInitializerProxy(),
             renderVariables(),
-            codableInitializer,
             defaultInitializer,
             renderMethods(),
             renderContainedTypes()]
@@ -231,14 +230,28 @@ class MockableTypeTemplate: Template {
     return Method.createHashableConformance()
   }
   
-  var codableInitializer: String {
-    guard mockableType.hasOpaqueInheritedType || mockableType.inheritedTypes.contains(where: {
-      Constants.codableConformanceTypes.contains($0.name)
-    }) else { return "" }
-    return """
-      public required init(from decoder: Decoder) throws { fatalError() }
-      public required init?(coder: NSCoder) { fatalError() }
-    """
+  var encodableConformance: Method? {
+    guard mockableType.kind == .protocol && (mockableType.hasOpaqueInheritedType ||
+      mockableType.inheritedTypes.contains(where: {
+        $0.name == "Encodable" || $0.name == "Codable"
+      }))
+      else { return nil }
+    return Method.createEncodableConformance()
+  }
+  
+  var decodableConformance: Method? {
+    guard mockableType.kind == .protocol && (mockableType.hasOpaqueInheritedType ||
+      mockableType.inheritedTypes.contains(where: {
+        $0.name == "Decodable" || $0.name == "Codable"
+      }))
+      else { return nil }
+    return Method.createDecodableConformance()
+  }
+  
+  /// For automatic UIView conformance.
+  var codableViewConformance: Method? {
+    guard mockableType.kind == .protocol && mockableType.hasOpaqueInheritedType else { return nil }
+    return Method.createCodableViewConformance()
   }
   
   /// Store the source location of where the mock was initialized. This allows XCTest errors from
@@ -270,8 +283,11 @@ class MockableTypeTemplate: Template {
   func renderMethods() -> String {
     let inferredMethods = [equatableConformance,
                            comparableConformance,
-                           hashableConformance].compactMap({ $0 })
-    return (inferredMethods + mockableType.methods
+                           hashableConformance,
+                           encodableConformance,
+                           decodableConformance,
+                           codableViewConformance].compactMap({ $0 })
+    return Set(inferredMethods + mockableType.methods)
       .sorted(by: <)
       .filter({ method -> Bool in
         // Not possible to override overloaded methods where uniqueness is from generic constraints.
@@ -279,7 +295,7 @@ class MockableTypeTemplate: Template {
         guard mockableType.kind == .class else { return true }
         guard !method.whereClauses.isEmpty else { return true }
         return mockableType.methodsCount[Method.Reduced(from: method)] == 1
-      }))
+      })
       .map({ methodTemplate(for: $0).render() })
       .filter({ !$0.isEmpty })
       .joined(separator: "\n\n")

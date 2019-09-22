@@ -22,6 +22,7 @@ struct Method: Hashable, Comparable {
   let parameters: [MethodParameter]
   let attributes: Attributes
   let compilationDirectives: [CompilationDirective]
+  let generatedForConformance: Bool
   
   /// A hashable version of Method that's unique according to Swift generics when subclassing.
   /// https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
@@ -137,6 +138,8 @@ struct Method: Hashable, Comparable {
     } else {
       self.compilationDirectives = []
     }
+    
+    self.generatedForConformance = false
     
     // Create a unique and sortable identifier for this method.
     self.sortableIdentifier = Method.generateSortableIdentifier(name: name,
@@ -306,6 +309,36 @@ extension Method {
                                       attributes: [.inout])]
     return Method(name: "hash(into:)", parameters: parameters)
   }
+  
+  static func createEncodableConformance() -> Method {
+    let parameters = [MethodParameter(name: "encoder",
+                                      argumentLabel: "to",
+                                      typeName: "Encoder",
+                                      attributes: [.throws])]
+    return Method(name: "encode(to:)", parameters: parameters)
+  }
+  
+  static func createDecodableConformance() -> Method {
+    let parameters = [MethodParameter(name: "decoder",
+                                      argumentLabel: "from",
+                                      typeName: "Decoder",
+                                      attributes: [.throws])]
+    return Method(name: "init(from:)",
+                  parameters: parameters,
+                  isInitializer: true,
+                  isDesignatedInitializer: true)
+  }
+  
+  static func createCodableViewConformance() -> Method {
+    let parameters = [MethodParameter(name: "coder",
+                                      argumentLabel: "coder",
+                                      typeName: "NSCoder",
+                                      attributes: [.failable, .required])]
+    return Method(name: "init(coder:)",
+                  parameters: parameters,
+                  isInitializer: true,
+                  isDesignatedInitializer: true)
+  }
 }
 
 fileprivate extension Method {
@@ -318,7 +351,8 @@ fileprivate extension Method {
        kind: SwiftDeclarationKind = .functionMethodInstance,
        genericTypes: [GenericType] = [],
        whereClauses: [WhereClause] = [],
-       attributes: Attributes = []) {
+       attributes: Attributes = [],
+       generatedForConformance: Bool = true) {
     self.name = name
     (self.shortName, _) = name.extractArgumentLabels()
     self.returnTypeName = returnTypeName
@@ -331,6 +365,7 @@ fileprivate extension Method {
     self.parameters = parameters
     self.attributes = attributes
     self.compilationDirectives = []
+    self.generatedForConformance = generatedForConformance
     self.sortableIdentifier = Method.generateSortableIdentifier(name: name,
                                                                 genericTypes: genericTypes,
                                                                 parameters: parameters,

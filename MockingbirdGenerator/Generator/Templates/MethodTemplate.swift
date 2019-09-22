@@ -77,6 +77,16 @@ class MethodTemplate: Template {
       // We can't usually infer what concrete arguments to pass to the designated initializer.
       guard !method.attributes.contains(.convenience) else { return "" }
       
+      let functionDeclaration = "public \(overridableModifiers)\(uniqueDeclaration)"
+      guard !method.generatedForConformance else {
+        // Generated conformance initializers might not override an actual superclass definition.
+        return """
+          // MARK: Mocked `\(fullNameForMocking)`
+        \(attributes)
+          \(functionDeclaration){ fatalError() }
+        """
+      }
+      
       let checkVersion: String
       if context.mockableType.kind == .class {
         let trySuper = method.attributes.contains(.throws) ? "try " : ""
@@ -90,7 +100,7 @@ class MethodTemplate: Template {
       return """
         // MARK: Mocked `\(fullNameForMocking)`
       \(attributes)
-        public \(overridableModifiers)\(uniqueDeclaration){
+        \(functionDeclaration){
       \(checkVersion)
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)])
           \(contextPrefix)mockingContext.didInvoke(invocation)

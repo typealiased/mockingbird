@@ -2507,6 +2507,98 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return ClosureParametersProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked CodableConformingProtocol
+
+public final class CodableConformingProtocolMock: Foundation.NSObject, MockingbirdTestsHost.CodableConformingProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.6.1", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      CodableConformingProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `<(lhs: CodableConformingProtocolMock, rhs: CodableConformingProtocolMock)`
+
+  public static func <(lhs: CodableConformingProtocolMock, rhs: CodableConformingProtocolMock) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "<(lhs: CodableConformingProtocolMock, rhs: CodableConformingProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (CodableConformingProtocolMock, CodableConformingProtocolMock) -> Bool {
+      return concreteImplementation(`lhs`, `rhs`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public static func _lessThan(lhs: @escaping @autoclosure () -> CodableConformingProtocolMock, rhs: @escaping @autoclosure () -> CodableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (CodableConformingProtocolMock, CodableConformingProtocolMock) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "<(lhs: CodableConformingProtocolMock, rhs: CodableConformingProtocolMock) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (CodableConformingProtocolMock, CodableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+  }
+
+  // MARK: Mocked `==(lhs: CodableConformingProtocolMock, rhs: CodableConformingProtocolMock)`
+
+  public static func ==(lhs: CodableConformingProtocolMock, rhs: CodableConformingProtocolMock) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(lhs: CodableConformingProtocolMock, rhs: CodableConformingProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (CodableConformingProtocolMock, CodableConformingProtocolMock) -> Bool {
+      return concreteImplementation(`lhs`, `rhs`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public static func _equalTo(lhs: @escaping @autoclosure () -> CodableConformingProtocolMock, rhs: @escaping @autoclosure () -> CodableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (CodableConformingProtocolMock, CodableConformingProtocolMock) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(lhs: CodableConformingProtocolMock, rhs: CodableConformingProtocolMock) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (CodableConformingProtocolMock, CodableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+  }
+
+  // MARK: Mocked `encode(to encoder: Encoder)`
+
+  public func encode(to encoder: Encoder) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "encode(to encoder: Encoder) -> Void", arguments: [Mockingbird.ArgumentMatcher(`encoder`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Encoder) -> Void {
+      concreteImplementation(`encoder`)
+    } else {
+      (implementation as? () -> Void)?()
+    }
+  }
+
+  public func encode(to encoder: @escaping @autoclosure () -> Encoder) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Encoder) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`encoder`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "encode(to encoder: Encoder) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Encoder) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `init(coder: NSCoder)`
+
+  public required init(coder: NSCoder) { fatalError() }
+
+  // MARK: Mocked `init(from decoder: Decoder)`
+
+  public required init(from decoder: Decoder) { fatalError() }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.CodableConformingProtocol` concrete protocol mock instance.
+public func mock<MockType: MockingbirdTestsHost.CodableConformingProtocol>(file: StaticString = #file, line: UInt = #line, _ type: MockType.Type) -> CodableConformingProtocolMock {
+  return CodableConformingProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked CompilationDirectiveProtocol
 
 public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.CompilationDirectiveProtocol, Mockingbird.Mock {
@@ -4661,13 +4753,29 @@ public final class EquatableConformingProtocolMock: Foundation.NSObject, Mocking
     }
   }
 
-  public required init(from decoder: Decoder) throws { fatalError() }
-  public required init?(coder: NSCoder) { fatalError() }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     super.init()
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `<(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock)`
+
+  public static func <(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "<(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool {
+      return concreteImplementation(`lhs`, `rhs`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public static func _lessThan(lhs: @escaping @autoclosure () -> EquatableConformingProtocolMock, rhs: @escaping @autoclosure () -> EquatableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "<(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `==(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock)`
@@ -4689,24 +4797,32 @@ public final class EquatableConformingProtocolMock: Foundation.NSObject, Mocking
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `<(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock)`
+  // MARK: Mocked `encode(to encoder: Encoder)`
 
-  public static func <(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock) -> Bool {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "<(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
-    staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool {
-      return concreteImplementation(`lhs`, `rhs`)
+  public func encode(to encoder: Encoder) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "encode(to encoder: Encoder) -> Void", arguments: [Mockingbird.ArgumentMatcher(`encoder`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Encoder) -> Void {
+      concreteImplementation(`encoder`)
     } else {
-      return (implementation as! () -> Bool)()
+      (implementation as? () -> Void)?()
     }
   }
 
-  public static func _lessThan(lhs: @escaping @autoclosure () -> EquatableConformingProtocolMock, rhs: @escaping @autoclosure () -> EquatableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool, Bool> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "<(lhs: EquatableConformingProtocolMock, rhs: EquatableConformingProtocolMock) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+  public func encode(to encoder: @escaping @autoclosure () -> Encoder) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Encoder) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`encoder`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "encode(to encoder: Encoder) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Encoder) -> Void, Void>(mock: self, invocation: invocation)
   }
+
+  // MARK: Mocked `init(coder: NSCoder)`
+
+  public required init(coder: NSCoder) { fatalError() }
+
+  // MARK: Mocked `init(from decoder: Decoder)`
+
+  public required init(from decoder: Decoder) { fatalError() }
 }
 
 /// Create a source-attributed `MockingbirdTestsHost.EquatableConformingProtocol` concrete protocol mock instance.
@@ -5726,13 +5842,29 @@ public final class HashableConformingProtocolMock: Foundation.NSObject, Mockingb
     }
   }
 
-  public required init(from decoder: Decoder) throws { fatalError() }
-  public required init?(coder: NSCoder) { fatalError() }
-
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     super.init()
     Mockingbird.checkVersion(for: self)
     self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `<(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock)`
+
+  public static func <(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "<(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool {
+      return concreteImplementation(`lhs`, `rhs`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public static func _lessThan(lhs: @escaping @autoclosure () -> HashableConformingProtocolMock, rhs: @escaping @autoclosure () -> HashableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "<(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `==(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock)`
@@ -5754,24 +5886,32 @@ public final class HashableConformingProtocolMock: Foundation.NSObject, Mockingb
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
-  // MARK: Mocked `<(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock)`
+  // MARK: Mocked `encode(to encoder: Encoder)`
 
-  public static func <(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock) -> Bool {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "<(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
-    staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool {
-      return concreteImplementation(`lhs`, `rhs`)
+  public func encode(to encoder: Encoder) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "encode(to encoder: Encoder) -> Void", arguments: [Mockingbird.ArgumentMatcher(`encoder`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Encoder) -> Void {
+      concreteImplementation(`encoder`)
     } else {
-      return (implementation as! () -> Bool)()
+      (implementation as? () -> Void)?()
     }
   }
 
-  public static func _lessThan(lhs: @escaping @autoclosure () -> HashableConformingProtocolMock, rhs: @escaping @autoclosure () -> HashableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool, Bool> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "<(lhs: HashableConformingProtocolMock, rhs: HashableConformingProtocolMock) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+  public func encode(to encoder: @escaping @autoclosure () -> Encoder) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Encoder) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`encoder`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "encode(to encoder: Encoder) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Encoder) -> Void, Void>(mock: self, invocation: invocation)
   }
+
+  // MARK: Mocked `init(coder: NSCoder)`
+
+  public required init(coder: NSCoder) { fatalError() }
+
+  // MARK: Mocked `init(from decoder: Decoder)`
+
+  public required init(from decoder: Decoder) { fatalError() }
 }
 
 /// Create a source-attributed `MockingbirdTestsHost.HashableConformingProtocol` concrete protocol mock instance.
@@ -7242,9 +7382,6 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  public required init(from decoder: Decoder) throws { fatalError() }
-  public required init?(coder: NSCoder) { fatalError() }
-
   // MARK: Mocked `trivialBaseMethod()`
 
   public override func trivialBaseMethod() -> Void {
@@ -7400,9 +7537,6 @@ public final class ObjectiveCClassMock: MockingbirdTestsHost.ObjectiveCClass, Mo
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
-
-  public required init(from decoder: Decoder) throws { fatalError() }
-  public required init?(coder: NSCoder) { fatalError() }
 
   // MARK: Mocked `method()`
 
@@ -7702,9 +7836,6 @@ public final class OpaqueViewControllerMock: MockingbirdTestsHost.OpaqueViewCont
   }
 
   public enum InitializerProxy {}
-
-  public required init(from decoder: Decoder) throws { fatalError() }
-  public required init?(coder: NSCoder) { fatalError() }
 }
 
 /// Create a source-attributed `MockingbirdTestsHost.OpaqueViewController` class mock metatype.
