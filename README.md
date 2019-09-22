@@ -137,8 +137,6 @@ You can specify a custom output location for each target using the
 
 Once generated, you must include each `.generated.swift` mock file as part of your unit test target sources.
 
-![Build Phases → Compile Sources](Documentation/Assets/test-target-compile-sources.png)
-
 ### Excluding Files
 
 You can exclude unwanted or problematic sources from being mocked by adding a `.mockingbird-ignore` file. 
