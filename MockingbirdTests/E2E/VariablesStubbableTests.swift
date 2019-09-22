@@ -54,6 +54,16 @@ private protocol StubbableVariablesContainer {
     -> Mockable<VariableDeclaration, () -> VariablesContainer?, VariablesContainer?>
   func setWeakVariable(_ newValue: @escaping @autoclosure () -> VariablesContainer?)
     -> Mockable<VariableDeclaration, (VariablesContainer?) -> Void, Void>
+  
+  func getLazyVariableWithImplicitType()
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func setLazyVariableWithImplicitType(_ newValue: @escaping @autoclosure () -> Bool)
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
+  
+  func getLazyVariableWithExplicitType()
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func setLazyVariableWithExplicitType(_ newValue: @escaping @autoclosure () -> Bool)
+  -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
 }
 extension VariablesContainerMock: StubbableVariablesContainer {}
 

@@ -29,5 +29,8 @@ private protocol MockableVariablesContainer: Mock {
   var constantVariableWithExplicitType: Bool { get }
   
   var weakVariable: VariablesContainer? { get set }
+  
+  var lazyVariableWithImplicitType: Bool { get set }
+  var lazyVariableWithExplicitType: Bool { get set }
 }
 extension VariablesContainerMock: MockableVariablesContainer {}

@@ -37,6 +37,9 @@ class VariablesContainer: VariablesContainerProtocol {
   
   weak var weakVariable: VariablesContainer?
   
+  lazy var lazyVariableWithImplicitType = true
+  lazy var lazyVariableWithExplicitType: Bool = { return true }()
+  
   init() {
     self.readonlyVariableOverwrittenAsReadwrite = true
     self.uninitializedVariable = true
