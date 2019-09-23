@@ -13,6 +13,13 @@ import SPMUtility
 extension ArgumentParser {
   // MARK: Options
   
+  func addWalkthroughOption() -> OptionArgument<[String]> {
+    return add(option: "--walkthrough",
+               shortName: "-w",
+               kind: [String].self,
+               usage: "Path to your project’s `.xcodeproj` file.")
+  }
+    
   func addProjectPath() -> OptionArgument<PathArgument> {
     return add(option: "--project",
                kind: PathArgument.self,
@@ -72,6 +79,13 @@ extension ArgumentParser {
                kind: [PathArgument].self,
                usage: "Mock output file path.",
                completion: .filename)
+  }
+    
+  func addWalkthrough() -> OptionArgument<Bool> {
+    return add(option: "--walkthrough",
+               shortName: "-w",
+               kind: Bool.self,
+               usage: "The guided version of the install command.")
   }
   
   func addPreprocessorExpression() -> OptionArgument<String> {
@@ -145,6 +159,38 @@ extension ArgumentParser {
 }
 
 extension ArgumentParser.Result {
+  func hasWalkthroughOption(using argument: OptionArgument<Bool>) -> Bool {
+    return get(argument) != nil
+  }
+    
+    func getWalkthroughResult(environment: [String: String]) throws -> (project: Path, sources: [String], destination: String) {
+        
+        // Getting project path
+        print("Enter an Xcode project.")
+        guard let project = readLine() ?? environment["PROJECT_FILE_PATH"] else {
+            throw ArgumentParserError.expectedValue(option: "<xcodeproj file path>")
+        }
+        let projectPath = Path(project).absolute()
+        guard projectPath.isDirectory, projectPath.extension == "xcodeproj" else {
+            throw ArgumentParserError.expectedValue(option: "--project <xcodeproj file path>")
+        }
+        
+        // Getting targets
+        print("\nWhich target(s) contain the protocols you want to mock?")
+        guard let sourcesInput = readLine() ?? environment["TARGET_NAME"] else {
+            throw ArgumentParserError.expectedValue(option: "<list of target names>")
+        }
+        let sources = sourcesInput.components(separatedBy: " ")
+
+        // Getting destination
+        print("\nWhich test target will use the mocked protocols?")
+        guard let destination = readLine() else {
+            throw ArgumentParserError.expectedValue(option: "<target name>")
+        }
+        
+        return (projectPath, sources, destination)
+    }
+    
   func getProjectPath(using argument: OptionArgument<PathArgument>,
                       environment: [String: String]) throws -> Path {
     let projectPath: Path
@@ -217,6 +263,14 @@ extension ArgumentParser.Result {
       return path
     }
     throw ArgumentParserError.expectedValue(option: "--output <list of output file paths>")
+  }
+    
+  func getWalkthrough(using argument: OptionArgument<String>) throws -> String {
+    if let target = get(argument) {
+      return target
+    } else {
+      throw ArgumentParserError.expectedValue(option: "--walkthrough")
+    }
   }
   
   func getCount(using argument: OptionArgument<Int>) throws -> Int? {

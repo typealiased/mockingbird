@@ -60,6 +60,7 @@
 		49F60A9D232F475100B51A7C /* ProcessStructuresOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60A9C232F475100B51A7C /* ProcessStructuresOperation.swift */; };
 		49F60A9F232F477100B51A7C /* FlattenInheritanceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60A9E232F477100B51A7C /* FlattenInheritanceOperation.swift */; };
 		49F60AA123305F5A00B51A7C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60AA023305F5A00B51A7C /* Log.swift */; };
+		5D5FAC84DF438200D4E44D85 /* MockingbirdTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */; };
 		OBJ_1002 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_380 /* SWXMLHash.swift */; };
 		OBJ_1003 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_381 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
 		OBJ_1004 /* shim.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_382 /* shim.swift */; };
@@ -955,7 +956,8 @@
 		49F60A9C232F475100B51A7C /* ProcessStructuresOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessStructuresOperation.swift; sourceTree = "<group>"; };
 		49F60A9E232F477100B51A7C /* FlattenInheritanceOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlattenInheritanceOperation.swift; sourceTree = "<group>"; };
 		49F60AA023305F5A00B51A7C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
-		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = Mockingbird/Mocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
+		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1593,6 +1595,7 @@
 		2A3E4FEA8D2A60B993516C10 /* Generated Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */,
 			);
 			name = "Generated Mocks";
 			sourceTree = "<group>";
@@ -3402,6 +3405,11 @@
 			attributes = {
 				LastSwiftMigration = 9999;
 				LastUpgradeCheck = 9999;
+				TargetAttributes = {
+					"AEXML::AEXML" = {
+						DevelopmentTeam = 5K99777NES;
+					};
+				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "Mockingbird" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -3465,7 +3473,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/Users/andrew/Library/Developer/Xcode/DerivedData/Mockingbird-agsjxwhkkkzllxguwkxolnnkjhqj/Build/Products/Debug/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs '/Users/andrew/Mockingbird/MockingbirdTests/Mocks.generated.swift'\n";
+			shellScript = "/Users/kylelee/Library/Developer/Xcode/DerivedData/Mockingbird-awzpedfbtpreuigjwnszcockiebj/Build/Products/Debug/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs '/Users/kylelee/Documents/Work/Bird/mockingbird/Mockingbird/Mocks/MockingbirdTestsHostMocks.generated.swift'\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3956,6 +3964,7 @@
 				OBJ_852 /* StringExtensionsTests.swift in Sources */,
 				OBJ_853 /* Mocks.generated.swift in Sources */,
 				4904BDF7232F1E570031E071 /* ExternalModuleClassScopedTypesMockableTests.swift in Sources */,
+				5D5FAC84DF438200D4E44D85 /* MockingbirdTestsHostMocks.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4406,6 +4415,8 @@
 		4970D6272330AC27002EE154 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				DEVELOPMENT_TEAM = 5K99777NES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5562,6 +5573,8 @@
 		OBJ_542 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				DEVELOPMENT_TEAM = 5K99777NES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5590,6 +5603,8 @@
 		OBJ_543 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				DEVELOPMENT_TEAM = 5K99777NES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

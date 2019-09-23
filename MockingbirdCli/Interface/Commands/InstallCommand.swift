@@ -18,6 +18,7 @@ final class InstallCommand: BaseCommand {
   override var name: String { return Constants.name }
   override var overview: String { return Constants.overview }
   
+  private let walkthroughOption: OptionArgument<Bool>
   private let projectPathArgument: OptionArgument<PathArgument>
   private let sourceTargetsArgument: OptionArgument<[String]>
   private let sourceTargetArgument: OptionArgument<[String]>
@@ -35,6 +36,7 @@ final class InstallCommand: BaseCommand {
   required init(parser: ArgumentParser) {
     let subparser = parser.add(subparser: Constants.name, overview: Constants.overview)
     
+    self.walkthroughOption = subparser.addWalkthrough()
     self.projectPathArgument = subparser.addProjectPath()
     self.sourceTargetsArgument = subparser.addSourceTargets()
     self.sourceTargetArgument = subparser.addSourceTarget()
@@ -47,21 +49,34 @@ final class InstallCommand: BaseCommand {
     self.asynchronousGenerationArgument = subparser.addAynchronousGeneration()
     self.onlyMockProtocolsArgument = subparser.addOnlyProtocols()
     self.disableSwiftlintArgument = subparser.addDisableSwiftlint()
-    
     super.init(parser: subparser)
   }
   
   override func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
     try super.run(with: arguments, environment: environment)
     
-    let projectPath = try arguments.getProjectPath(using: projectPathArgument,
+    var projectPath: Path
+    var sourceTargets: [String]
+    var destinationTarget: String
+    
+    if arguments.hasWalkthroughOption(using: walkthroughOption) {
+        let result = try arguments.getWalkthroughResult(environment: environment)
+        projectPath = result.project
+        sourceTargets = result.sources
+        destinationTarget = result.destination
+        
+    } else {
+        projectPath = try arguments.getProjectPath(using: projectPathArgument,
                                                    environment: environment)
+        sourceTargets = try arguments.getSourceTargets(using: sourceTargetsArgument,
+                                                       convenienceArgument: sourceTargetArgument)
+        destinationTarget = try arguments.getDestinationTarget(using: destinationTargetArgument)
+    }
+    
     let sourceRoot = try arguments.getSourceRoot(using: sourceRootArgument,
                                                  environment: environment,
                                                  projectPath: projectPath)
-    let sourceTargets = try arguments.getSourceTargets(using: sourceTargetsArgument,
-                                                       convenienceArgument: sourceTargetArgument)
-    let destinationTarget = try arguments.getDestinationTarget(using: destinationTargetArgument)
+    
     let outputs = try arguments.getOutputs(using: outputsArgument,
                                            convenienceArgument: outputArgument)
     

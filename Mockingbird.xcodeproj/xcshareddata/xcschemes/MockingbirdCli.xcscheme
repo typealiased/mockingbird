@@ -39,8 +39,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -66,10 +64,18 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "install"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--walkthrough"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--project ./Mockingbird.xcodeproj"
+            argument = "-w"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--project Mockingbird.xcodeproj"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
@@ -106,19 +112,19 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "generate"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--project ./Mockingbird.xcodeproj"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--target MockingbirdTestsHost"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--output ./MockingbirdTests/Mocks.generated.swift"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--verbose"
@@ -141,8 +147,6 @@
             isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Profile"
