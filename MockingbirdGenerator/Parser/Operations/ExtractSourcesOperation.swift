@@ -20,6 +20,7 @@ struct SourcePath: Hashable, Equatable {
 public class ExtractSourcesOperation: BasicOperation {
   let target: PBXTarget
   let sourceRoot: Path
+  let supportPath: Path?
   
   public class Result {
     fileprivate(set) var targetPaths = Set<SourcePath>()
@@ -29,16 +30,26 @@ public class ExtractSourcesOperation: BasicOperation {
   
   public let result = Result()
   
-  public init(with target: PBXTarget, sourceRoot: Path) {
+  public init(with target: PBXTarget, sourceRoot: Path, supportPath: Path?) {
     self.target = target
     self.sourceRoot = sourceRoot
+    self.supportPath = supportPath
   }
   
   override func run() throws {
-    time(.extractSources) {
+    try time(.extractSources) {
       result.targetPaths = sourceFilePaths(for: target)
+      
+      let supportSourcePaths: Set<SourcePath>
+      if let supportPath = supportPath {
+        supportSourcePaths = try findSupportSourcePaths(at: supportPath)
+      } else {
+        supportSourcePaths = []
+      }
+      
       result.dependencyPaths = Set(allTargets(for: target, includeTarget: false)
         .flatMap({ sourceFilePaths(for: $0) }))
+        .union(supportSourcePaths)
         .subtracting(result.targetPaths)
     }
     log("Found \(result.targetPaths.count) source file\(result.targetPaths.count != 1 ? "s" : "") and \(result.dependencyPaths.count) dependency source file\(result.dependencyPaths.count != 1 ? "s" : "") for target `\(target.name)`")
@@ -77,6 +88,29 @@ public class ExtractSourcesOperation: BasicOperation {
     result.moduleDependencies[target.productModuleName] = Set(targets.map({ $0.productModuleName }))
     ExtractSourcesOperation.memoizedAllTargets.update { $0[target] = targets }
     return targets
+  }
+  
+  /// Recursively find support module sources, taking each directory as the module name. Nested
+  /// directories are treated as submodules and can be accessed as a source from each parent module.
+  private func findSupportSourcePaths(at root: Path,
+                                      isTopLevel: Bool = true) throws -> Set<SourcePath> {
+    guard root.isDirectory else { return [] }
+    let moduleName = root.lastComponent
+    
+    return try Set(root.children().flatMap({ path throws -> [SourcePath] in
+      if path.isDirectory {
+        let childSourcePaths = try findSupportSourcePaths(at: path, isTopLevel: false)
+        // Parent modules inherit all submodule source paths.
+        let inheritedSourcePaths = isTopLevel ? [] : childSourcePaths.map({
+          SourcePath(path: $0.path, moduleName: moduleName)
+        })
+        return childSourcePaths + inheritedSourcePaths
+      } else if path.isFile, path.extension == "swift" {
+        return [SourcePath(path: path, moduleName: moduleName)]
+      } else {
+        return []
+      }
+    }))
   }
   
   /// Only returns non-ignored source file paths based on `.mockingbird-ignored` glob declarations.

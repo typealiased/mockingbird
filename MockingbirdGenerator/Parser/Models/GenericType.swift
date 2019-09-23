@@ -25,8 +25,10 @@ struct WhereClause: Equatable, Hashable, CustomStringConvertible {
   let constrainedTypeName: String
   let genericConstraint: String
   let `operator`: Operator
+  let hasSelfConstraint: Bool
   
   init?(from declaration: String) {
+    self.hasSelfConstraint = false // Hydrated when qualified.
     if let conformsIndex = declaration.firstIndex(of: Operator.conforms.rawValue.first!) {
       self.operator = .conforms
       self.constrainedTypeName = declaration[..<conformsIndex]
@@ -48,6 +50,9 @@ struct WhereClause: Equatable, Hashable, CustomStringConvertible {
     self.constrainedTypeName = constrainedTypeName
     self.genericConstraint = genericConstraint
     self.operator = `operator`
+    self.hasSelfConstraint =
+      constrainedTypeName.contains(SerializationRequest.Constants.selfTokenIndicator)
+      || genericConstraint.contains(SerializationRequest.Constants.selfTokenIndicator)
   }
 }
 
@@ -55,6 +60,7 @@ struct GenericType: Hashable {
   let name: String
   let constraints: Set<String> // A set of type names
   let whereClauses: [WhereClause]
+  let hasSelfConstraint: Bool
   
   struct Reduced: Hashable {
     let name: String
@@ -91,8 +97,10 @@ struct GenericType: Hashable {
                                                       dictionary: dictionary,
                                                       moduleNames: moduleNames,
                                                       rawTypeRepository: rawTypeRepository)
+      self.hasSelfConstraint = whereClauses.contains(where: { $0.hasSelfConstraint })
     } else {
       whereClauses = []
+      self.hasSelfConstraint = false
     }
     self.whereClauses = whereClauses
     self.constraints = constraints

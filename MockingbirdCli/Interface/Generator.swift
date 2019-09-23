@@ -19,6 +19,7 @@ class Generator {
     let sourceRoot: Path
     let inputTargetNames: [String]
     let outputPaths: [Path]?
+    let supportPath: Path?
     let compilationCondition: String?
     let shouldImportModule: Bool
     let onlyMockProtocols: Bool
@@ -46,7 +47,8 @@ class Generator {
     
     func createOperations(with config: Configuration) -> [BasicOperation] {
       let extractSources = ExtractSourcesOperation(with: inputTarget,
-                                                   sourceRoot: config.sourceRoot)
+                                                   sourceRoot: config.sourceRoot,
+                                                   supportPath: config.supportPath)
       let parseFiles = ParseFilesOperation(extractSourcesResult: extractSources.result)
       parseFiles.addDependency(extractSources)
       let processTypes = ProcessTypesOperation(parseFilesResult: parseFiles.result)

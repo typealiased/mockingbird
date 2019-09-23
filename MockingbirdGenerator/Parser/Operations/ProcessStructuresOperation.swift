@@ -72,19 +72,23 @@ class ProcessStructuresOperation: BasicOperation {
     guard let kind = optionalKind, kind.isParsable,
       let accessLevel = AccessLevel(from: dictionary), accessLevel.isMockable else { return [] }
     let fullyQualifiedName = attributedContainingTypeNames.joined(separator: ".")
-    let selfConformanceTypes = kind == .protocol ? parseSelfConformanceTypes(from: dictionary) : []
+    let selfConformanceTypeNames = kind == .protocol
+      ? parseSelfConformanceTypeNames(from: dictionary) : []
+    let aliasedTypeNames = kind == .typealias
+      ? parseAliasedTypeNames(from: dictionary): []
     return [RawType(dictionary: dictionary,
                     name: name,
                     fullyQualifiedName: fullyQualifiedName,
                     containedTypes: containedTypes,
                     containingTypeNames: containingTypeNames,
-                    selfConformanceTypes: selfConformanceTypes,
+                    selfConformanceTypeNames: selfConformanceTypeNames,
+                    aliasedTypeNames: aliasedTypeNames,
                     definedInExtension: definedInExtension,
                     kind: kind,
                     parsedFile: parsedFile)]
   }
   
-  func parseSelfConformanceTypes(from dictionary: StructureDictionary) -> Set<String> {
+  private func parseSelfConformanceTypeNames(from dictionary: StructureDictionary) -> Set<String> {
     guard let nameSuffix = SourceSubstring.nameSuffixUpToBody.extract(from: dictionary,
                                                                       contents: parsedFile.data),
       let whereRange = nameSuffix.range(of: #"\bwhere\b"#, options: .regularExpression)
@@ -95,5 +99,12 @@ class ProcessStructuresOperation: BasicOperation {
       .compactMap({ WhereClause(from: String($0)) })
       .filter({ $0.operator == .conforms && $0.constrainedTypeName == "Self" })
       .map({ $0.genericConstraint }))
+  }
+  
+  private func parseAliasedTypeNames(from dictionary: StructureDictionary) -> Set<String> {
+    guard let typeNames = Typealias.parseTypeNames(from: dictionary, parsedFile: parsedFile) else {
+      return []
+    }
+    return Set(typeNames)
   }
 }

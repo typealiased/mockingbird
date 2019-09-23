@@ -41,12 +41,15 @@ struct MockableTypeInitializerTemplate: Template {
     let fullyQualifiedScopedName = "\(mockableTypeTemplate.mockableType.moduleName).\(scopedName)"
     let genericMethodAttribute: String
     let metatype: String
-    if allGenericTypes.count > 0
-      || (mockableTypeTemplate.mockableType.hasOpaqueInheritedType && kind == .protocol) {
-      let specializedGenericTypes = (["MockType: \(fullyQualifiedScopedName)"] +
-        mockableTypeTemplate.allSpecializedGenericTypesList).joined(separator: ", ")
-      genericMethodAttribute = "<" + specializedGenericTypes + ">"
-      metatype = "MockType.Type"
+    let isSelfConstrainedProtocol = kind == .protocol
+      && mockableTypeTemplate.mockableType.hasSelfConstraint
+    
+    if allGenericTypes.count > 0 || isSelfConstrainedProtocol {
+      genericMethodAttribute = mockableTypeTemplate.allSpecializedGenericTypesList.isEmpty
+        ? "" : ("<\(mockableTypeTemplate.allSpecializedGenericTypesList.joined(separator: ", "))>")
+      let mockName = mockableTypeTemplate.createScopedName(with: containingTypeNames,
+                                                           suffix: "Mock")
+      metatype = "\(mockName).Type"
     } else {
       genericMethodAttribute = ""
       let metatypeKeyword = (kind == .class ? "Type" : "Protocol")
@@ -58,6 +61,9 @@ struct MockableTypeInitializerTemplate: Template {
     let returnTypeDescription: String
     let mockedScopedName = mockableTypeTemplate.createScopedName(with: containingTypeNames,
                                                                  suffix: "Mock")
+    if mockableTypeTemplate.mockableType.name == "EquatableConformingProtocol" {
+      print("Wtf")
+    }
     if !mockableTypeTemplate.shouldGenerateDefaultInitializer {
       // Requires an initializer proxy to create the partial class mock.
       returnType = "\(mockedScopedName).InitializerProxy.Type"

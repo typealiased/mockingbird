@@ -24,6 +24,7 @@ final class GenerateCommand: BaseCommand {
   private let sourceRootArgument: OptionArgument<PathArgument>
   private let outputsArgument: OptionArgument<[PathArgument]>
   private let outputArgument: OptionArgument<[PathArgument]>
+  private let supportPathArgument: OptionArgument<PathArgument>
   
   private let compilationConditionArgument: OptionArgument<String>
   private let disableModuleImportArgument: OptionArgument<Bool>
@@ -39,6 +40,7 @@ final class GenerateCommand: BaseCommand {
     self.sourceRootArgument = subparser.addSourceRoot()
     self.outputsArgument = subparser.addOutputs()
     self.outputArgument = subparser.addOutput()
+    self.supportPathArgument = subparser.addSupportPath()
     self.compilationConditionArgument = subparser.addCompilationCondition()
     self.disableModuleImportArgument = subparser.addDisableModuleImport()
     self.onlyMockProtocolsArgument = subparser.addOnlyProtocols()
@@ -63,12 +65,15 @@ final class GenerateCommand: BaseCommand {
                                            environment: environment)
     let outputs = arguments.getOutputs(using: outputsArgument,
                                        convenienceArgument: outputArgument)
+    let supportPath = try arguments.getSupportPath(using: supportPathArgument,
+                                                   sourceRoot: sourceRoot)
     
     let config = Generator.Configuration(
       projectPath: projectPath,
       sourceRoot: sourceRoot,
       inputTargetNames: targets,
       outputPaths: outputs,
+      supportPath: supportPath,
       compilationCondition: arguments.get(compilationConditionArgument),
       shouldImportModule: arguments.get(disableModuleImportArgument) != true,
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,

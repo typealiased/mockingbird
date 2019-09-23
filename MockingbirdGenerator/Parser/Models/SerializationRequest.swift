@@ -157,14 +157,15 @@ extension SerializationRequest {
       }
     case .actualTypeName:
       guard let typealiasRepository = context.typealiasRepository else { return typeName }
-      let actualTypeName = typealiasRepository
-        .actualTypeName(for: qualifiedTypeNames.moduleQualified,
-                        rawTypeRepository: rawTypeRepository,
-                        moduleNames: context.moduleNames,
-                        referencingModuleName: referencingModuleName,
-                        containingTypeNames: context.containingTypeNames)
-      context.memoizedTypeNames[typeName]?[Method.actualTypeName.rawValue] = actualTypeName
-      return actualTypeName
+      let actualTypeNames = typealiasRepository
+        .actualTypeNames(for: qualifiedTypeNames.moduleQualified,
+                         rawTypeRepository: rawTypeRepository,
+                         moduleNames: context.moduleNames,
+                         referencingModuleName: referencingModuleName,
+                         containingTypeNames: context.containingTypeNames)
+      let flattenedTypeNames = actualTypeNames.joined(separator: " & ")
+      context.memoizedTypeNames[typeName]?[Method.actualTypeName.rawValue] = flattenedTypeNames
+      return flattenedTypeNames
     case .notQualified: return typeName
     }
   }

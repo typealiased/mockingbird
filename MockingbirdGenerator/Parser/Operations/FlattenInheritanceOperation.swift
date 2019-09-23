@@ -97,7 +97,8 @@ class FlattenInheritanceOperation: BasicOperation {
       .compactMap({ $0.dictionary[SwiftDocKey.inheritedtypes.rawValue] as? [StructureDictionary] })
       .flatMap({ $0 })
       .compactMap({ $0[SwiftDocKey.name.rawValue] as? String })
-      + baseRawType.selfConformanceTypes
+      + baseRawType.selfConformanceTypeNames
+      + baseRawType.aliasedTypeNames
     
     // Check the base case where the type doesn't inherit from anything.
     guard !inheritedTypeNames.isEmpty else { return createMockableType(false) }

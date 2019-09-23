@@ -12,15 +12,10 @@ import Foundation
 
 private enum Constants {
   static let mockProtocolName = "Mockingbird.Mock"
-  static let equatableConformanceTypes: Set<String> = [
-    "Equatable",
-    "Comparable",
-    "Hashable",
-  ]
-  static let codableConformanceTypes: Set<String> = [
-    "Codable",
-    "Encodable",
-    "Decodable",
+  
+  /// Mapping from protocol to concrete subclass conformance, mainly used for `NSObjectProtocol`.
+  static let automaticConformanceMap: [String: String] = [
+    "Foundation.NSObjectProtocol": "Foundation.NSObject"
   ]
 }
 
@@ -154,15 +149,43 @@ class MockableTypeTemplate: Template {
     return "\(containingTypeNames)\(mockableType.name)\(suffix)\(allGenericTypes)"
   }
   
-  var inheritedTypes: [String] {
-    var types = [fullyQualifiedName]
-    if mockableType.kind != .class && mockableType.hasOpaqueInheritedType {
-      // Default to subclassing `NSObject` in order to satisfy what could be an `NSObjectProtocol`
-      // conformance (since the inheritance is at least partially opaque).
-      types.insert("Foundation.NSObject", at: 0)
+  lazy var protocolClassConformance: String? = {
+    guard mockableType.kind == .protocol else { return nil }
+    
+    if let classConformance = mockableType.selfConformanceTypes.sorted()
+      .first(where: { $0.kind == .class }) {
+      // Handle class conformance constraints from where clauses.
+      return classConformance.fullyQualifiedModuleName
+      
+    } else if let classInheritance = mockableType.inheritedTypes.sorted()
+      .first(where: { $0.kind == .class }) {
+      // Handle potential class conformance constraints from inheritance syntax.
+      return classInheritance.fullyQualifiedModuleName
+      
+    } else if let autoConformance = mockableType.allInheritedTypeNames
+      .compactMap({ Constants.automaticConformanceMap[$0] }).first {
+      // Automatically conform unmockable protocols like `NSObjectProtocol` to `NSObject`.
+      return autoConformance
+      
     }
-    let conformanceTypes = mockableType.selfConformanceTypes
-      .map({ $0.moduleName + "." + $0.name })
+    
+    return nil
+  }()
+  
+  var inheritedTypes: [String] {
+    var types = [String]()
+    
+    if let protocolClassConformance = self.protocolClassConformance {
+      types.append(protocolClassConformance)
+    }
+    
+    types.append(fullyQualifiedName)
+    
+    let classConformanceTypeNames = Set(mockableType.selfConformanceTypes
+      .filter({ $0.kind == .class })
+      .map({ $0.fullyQualifiedModuleName }))
+    let conformanceTypes = Set(mockableType.allSelfConformanceTypeNames)
+      .subtracting(classConformanceTypeNames)
       .sorted()
     return types + conformanceTypes
   }
@@ -195,6 +218,7 @@ class MockableTypeTemplate: Template {
       .filter(isProxyable)
       .sorted()
       .map({ methodTemplate(for: $0).classInitializerProxy })
+      .filter({ !$0.isEmpty })
     
     guard !initializers.isEmpty else {
       return """
@@ -208,62 +232,20 @@ class MockableTypeTemplate: Template {
     """
   }
   
-  var equatableConformance: Method? {
-    guard mockableType.kind == .protocol && (mockableType.hasOpaqueInheritedType
-      || mockableType.inheritedTypes.contains(where: {
-        Constants.equatableConformanceTypes.contains($0.name)
-      })) else { return nil }
-    return Method.createEquatableConformance(for: mockableType)
-  }
-  
-  var comparableConformance: Method? {
-    guard mockableType.kind == .protocol && (mockableType.hasOpaqueInheritedType
-      || mockableType.inheritedTypes.contains(where: { $0.name == "Comparable" }))
-      else { return nil }
-    return Method.createComparableConformance(for: mockableType)
-  }
-  
-  var hashableConformance: Method? {
-    guard mockableType.kind == .protocol
-      && mockableType.inheritedTypes.contains(where: { $0.name == "Hashable" })
-      else { return nil }
-    return Method.createHashableConformance()
-  }
-  
-  var encodableConformance: Method? {
-    guard mockableType.kind == .protocol && (mockableType.hasOpaqueInheritedType ||
-      mockableType.inheritedTypes.contains(where: {
-        $0.name == "Encodable" || $0.name == "Codable"
-      }))
-      else { return nil }
-    return Method.createEncodableConformance()
-  }
-  
-  var decodableConformance: Method? {
-    guard mockableType.kind == .protocol && (mockableType.hasOpaqueInheritedType ||
-      mockableType.inheritedTypes.contains(where: {
-        $0.name == "Decodable" || $0.name == "Codable"
-      }))
-      else { return nil }
-    return Method.createDecodableConformance()
-  }
-  
-  /// For automatic UIView conformance.
-  var codableViewConformance: Method? {
-    guard mockableType.kind == .protocol && mockableType.hasOpaqueInheritedType else { return nil }
-    return Method.createCodableViewConformance()
-  }
-  
-  /// Store the source location of where the mock was initialized. This allows XCTest errors from
+  /// Store the source location of where the mock was initialized. This allows `XCTest` errors from
   /// unstubbed method invocations to show up in the testing code.
   var shouldGenerateDefaultInitializer: Bool {
-    return mockableType.kind == .protocol || (!mockableType.hasOpaqueInheritedType &&
-      !mockableType.methods.contains(where: { $0.isDesignatedInitializer }))
+    let isInitializableProtocol = mockableType.kind == .protocol
+      && protocolClassConformance == nil
+      && !mockableType.hasOpaqueInheritedType
+    let isInitializableInstance = !mockableType.hasOpaqueInheritedType
+      && !mockableType.methods.contains(where: { $0.isDesignatedInitializer })
+    return isInitializableProtocol
+      || ((isInitializableProtocol || mockableType.kind == .class) && isInitializableInstance)
   }
   var defaultInitializer: String {
     guard shouldGenerateDefaultInitializer else { return "" }
-    let superInit = mockableType.kind == .class
-      || (mockableType.kind == .protocol && mockableType.hasOpaqueInheritedType)
+    let superInit = mockableType.kind == .class || protocolClassConformance != nil
       ? "super.init()\n    " : ""
     return """
       fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -281,13 +263,7 @@ class MockableTypeTemplate: Template {
   }
   
   func renderMethods() -> String {
-    let inferredMethods = [equatableConformance,
-                           comparableConformance,
-                           hashableConformance,
-                           encodableConformance,
-                           decodableConformance,
-                           codableViewConformance].compactMap({ $0 })
-    return Set(inferredMethods + mockableType.methods)
+    return Set(mockableType.methods)
       .sorted(by: <)
       .filter({ method -> Bool in
         // Not possible to override overloaded methods where uniqueness is from generic constraints.

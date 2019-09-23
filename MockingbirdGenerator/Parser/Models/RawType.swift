@@ -17,7 +17,8 @@ struct RawType {
   let containedTypes: [RawType]
   let containingTypeNames: [String]
   let containingScopes: [String] // Including the module name and any containing types.
-  let selfConformanceTypes: Set<String> // Self conformances defined in generic where clauses.
+  let selfConformanceTypeNames: Set<String> // Self conformances defined in generic where clauses.
+  let aliasedTypeNames: Set<String>
   let definedInExtension: Bool // Types can be defined and nested within extensions.
   let kind: SwiftDeclarationKind
   let parsedFile: ParsedFile
@@ -68,7 +69,8 @@ struct RawType {
        fullyQualifiedName: String,
        containedTypes: [RawType],
        containingTypeNames: [String],
-       selfConformanceTypes: Set<String>,
+       selfConformanceTypeNames: Set<String>,
+       aliasedTypeNames: Set<String>,
        definedInExtension: Bool,
        kind: SwiftDeclarationKind,
        parsedFile: ParsedFile) {
@@ -78,7 +80,8 @@ struct RawType {
     self.containedTypes = containedTypes
     self.containingTypeNames = containingTypeNames
     self.containingScopes = [parsedFile.moduleName] + containingTypeNames
-    self.selfConformanceTypes = selfConformanceTypes
+    self.selfConformanceTypeNames = selfConformanceTypeNames
+    self.aliasedTypeNames = aliasedTypeNames
     self.definedInExtension = definedInExtension
     self.kind = kind
     self.parsedFile = parsedFile

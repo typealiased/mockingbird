@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AppKit
 
 public protocol AssociatedTypeProtocol {
   associatedtype EquatableType: Equatable
@@ -99,6 +100,12 @@ public protocol TopLevelSelfConstrainedAssociatedTypeProtocol
 where Self: SecondLevelSelfConstrainedAssociatedTypeProtocol, Self.Element: Hashable {
   associatedtype Element
 }
+
+public protocol OpaqueClassSelfConstrainedAssociatedTypeProtocol
+where Self: NSViewController {}
+
+public protocol OpaqueProtocolSelfConstrainedAssociatedTypeProtocol
+where Self: Hashable {}
 
 public class ReferencedGenericClass<T> {}
 public class ReferencedGenericClassWithConstraints<S: Sequence> where S.Element: Hashable {}

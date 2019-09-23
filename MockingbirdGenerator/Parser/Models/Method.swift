@@ -22,7 +22,8 @@ struct Method: Hashable, Comparable {
   let parameters: [MethodParameter]
   let attributes: Attributes
   let compilationDirectives: [CompilationDirective]
-  let generatedForConformance: Bool
+  let isOverridable: Bool
+  let hasSelfConstraint: Bool
   
   /// A hashable version of Method that's unique according to Swift generics when subclassing.
   /// https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
@@ -89,6 +90,7 @@ struct Method: Hashable, Comparable {
     
     let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary] ?? []
     self.kind = kind
+    self.isOverridable = rootKind == .class
     
     // Parse declared attributes and parameters.
     let rawParametersDeclaration: Substring?
@@ -99,11 +101,12 @@ struct Method: Hashable, Comparable {
                                                          attributes: attributes)
     
     // Parse return type.
-    self.returnTypeName = Method.parseReturnTypeName(from: dictionary,
-                                                     rawType: rawType,
-                                                     moduleNames: moduleNames,
-                                                     rawTypeRepository: rawTypeRepository,
-                                                     typealiasRepository: typealiasRepository)
+    let returnTypeName = Method.parseReturnTypeName(from: dictionary,
+                                                    rawType: rawType,
+                                                    moduleNames: moduleNames,
+                                                    rawTypeRepository: rawTypeRepository,
+                                                    typealiasRepository: typealiasRepository)
+    self.returnTypeName = returnTypeName
     
     // Parse generic type constraints and where clauses.
     self.whereClauses = Method.parseWhereClauses(from: dictionary,
@@ -122,13 +125,14 @@ struct Method: Hashable, Comparable {
     // Parse parameters.
     let (shortName, labels) = name.extractArgumentLabels()
     self.shortName = shortName
-    self.parameters = Method.parseParameters(labels: labels,
-                                             substructure: substructure,
-                                             rawParametersDeclaration: rawParametersDeclaration,
-                                             rawType: rawType,
-                                             moduleNames: moduleNames,
-                                             rawTypeRepository: rawTypeRepository,
-                                             typealiasRepository: typealiasRepository)
+    let parameters = Method.parseParameters(labels: labels,
+                                            substructure: substructure,
+                                            rawParametersDeclaration: rawParametersDeclaration,
+                                            rawType: rawType,
+                                            moduleNames: moduleNames,
+                                            rawTypeRepository: rawTypeRepository,
+                                            typealiasRepository: typealiasRepository)
+    self.parameters = parameters
     
     // Parse any containing preprocessor macros.
     if let offset = dictionary[SwiftDocKey.offset.rawValue] as? Int64 {
@@ -139,7 +143,10 @@ struct Method: Hashable, Comparable {
       self.compilationDirectives = []
     }
     
-    self.generatedForConformance = false
+    // Check whether this method has any `Self` type constraints.
+    self.hasSelfConstraint =
+      returnTypeName.contains(SerializationRequest.Constants.selfTokenIndicator)
+      || parameters.contains(where: { $0.hasSelfConstraints })
     
     // Create a unique and sortable identifier for this method.
     self.sortableIdentifier = Method.generateSortableIdentifier(name: name,
@@ -150,12 +157,12 @@ struct Method: Hashable, Comparable {
                                                                 whereClauses: whereClauses)
   }
   
-  fileprivate static func generateSortableIdentifier(name: String,
-                                                     genericTypes: [GenericType],
-                                                     parameters: [MethodParameter],
-                                                     returnTypeName: String,
-                                                     kind: SwiftDeclarationKind,
-                                                     whereClauses: [WhereClause]) -> String {
+  private static func generateSortableIdentifier(name: String,
+                                                 genericTypes: [GenericType],
+                                                 parameters: [MethodParameter],
+                                                 returnTypeName: String,
+                                                 kind: SwiftDeclarationKind,
+                                                 whereClauses: [WhereClause]) -> String {
     return [
       name,
       genericTypes.map({ "\($0.name):\($0.constraints)" }).joined(separator: ","),
@@ -272,106 +279,6 @@ struct Method: Hashable, Comparable {
       parameterIndex += 1
       return parameter
     })
-  }
-}
-
-extension Method {
-  static func createEquatableConformance(for type: MockableType) -> Method {
-    let parameters = [MethodParameter(name: "lhs",
-                                      argumentLabel: "lhs",
-                                      typeName: type.name + "Mock"),
-                      MethodParameter(name: "rhs",
-                                      argumentLabel: "rhs",
-                                      typeName: type.name + "Mock")]
-    return Method(name: "== (lhs:rhs:)",
-                  returnTypeName: "Bool",
-                  parameters: parameters,
-                  kind: .functionMethodStatic)
-  }
-  
-  static func createComparableConformance(for type: MockableType) -> Method {
-    let parameters = [MethodParameter(name: "lhs",
-                                      argumentLabel: "lhs",
-                                      typeName: type.name + "Mock"),
-                      MethodParameter(name: "rhs",
-                                      argumentLabel: "rhs",
-                                      typeName: type.name + "Mock")]
-    return Method(name: "< (lhs:rhs:)",
-                  returnTypeName: "Bool",
-                  parameters: parameters,
-                  kind: .functionMethodStatic)
-  }
-  
-  static func createHashableConformance() -> Method {
-    let parameters = [MethodParameter(name: "hasher",
-                                      argumentLabel: "into",
-                                      typeName: "inout Hasher",
-                                      attributes: [.inout])]
-    return Method(name: "hash(into:)", parameters: parameters)
-  }
-  
-  static func createEncodableConformance() -> Method {
-    let parameters = [MethodParameter(name: "encoder",
-                                      argumentLabel: "to",
-                                      typeName: "Encoder",
-                                      attributes: [.throws])]
-    return Method(name: "encode(to:)", parameters: parameters)
-  }
-  
-  static func createDecodableConformance() -> Method {
-    let parameters = [MethodParameter(name: "decoder",
-                                      argumentLabel: "from",
-                                      typeName: "Decoder",
-                                      attributes: [.throws])]
-    return Method(name: "init(from:)",
-                  parameters: parameters,
-                  isInitializer: true,
-                  isDesignatedInitializer: true)
-  }
-  
-  static func createCodableViewConformance() -> Method {
-    let parameters = [MethodParameter(name: "coder",
-                                      argumentLabel: "coder",
-                                      typeName: "NSCoder",
-                                      attributes: [.failable, .required])]
-    return Method(name: "init(coder:)",
-                  parameters: parameters,
-                  isInitializer: true,
-                  isDesignatedInitializer: true)
-  }
-}
-
-fileprivate extension Method {
-  init(name: String,
-       returnTypeName: String = "Void",
-       parameters: [MethodParameter],
-       isInitializer: Bool = false,
-       isDesignatedInitializer: Bool = false,
-       accessLevel: AccessLevel = .public,
-       kind: SwiftDeclarationKind = .functionMethodInstance,
-       genericTypes: [GenericType] = [],
-       whereClauses: [WhereClause] = [],
-       attributes: Attributes = [],
-       generatedForConformance: Bool = true) {
-    self.name = name
-    (self.shortName, _) = name.extractArgumentLabels()
-    self.returnTypeName = returnTypeName
-    self.isInitializer = isInitializer
-    self.isDesignatedInitializer = isDesignatedInitializer
-    self.accessLevel = accessLevel
-    self.kind = kind
-    self.genericTypes = genericTypes
-    self.whereClauses = whereClauses
-    self.parameters = parameters
-    self.attributes = attributes
-    self.compilationDirectives = []
-    self.generatedForConformance = generatedForConformance
-    self.sortableIdentifier = Method.generateSortableIdentifier(name: name,
-                                                                genericTypes: genericTypes,
-                                                                parameters: parameters,
-                                                                returnTypeName: returnTypeName,
-                                                                kind: kind,
-                                                                whereClauses: whereClauses)
   }
 }
 

@@ -42,7 +42,7 @@ class VariableTemplate: Template {
   
   var mockedDeclaration: String {
     let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
-    let override = context.mockableType.kind == .class ? "override " : ""
+    let override = variable.isOverridable ? "override " : ""
     let setter = shouldGenerateSetter ? """
 
         set {
@@ -57,9 +57,9 @@ class VariableTemplate: Template {
         }
     """ : ""
     return """
-      // MARK: Mocked `\(variable.name)`
+      // MARK: Mocked \(variable.name)
     \(attributes)
-      \(override)public \(modifiers)var \(variable.name): \(specializedTypeName) {
+      \(override)public \(modifiers)var `\(variable.name)`: \(specializedTypeName) {
         get {
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
           \(contextPrefix)mockingContext.didInvoke(invocation)

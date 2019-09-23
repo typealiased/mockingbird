@@ -13,12 +13,15 @@ import SourceKittenFramework
 class MockableType: Hashable, Comparable {
   let name: String
   let moduleName: String
+  let fullyQualifiedModuleName: String
   let kind: SwiftDeclarationKind
   let methods: Set<Method>
   let methodsCount: [Method.Reduced: UInt] // For de-duping generic methods.
   let variables: Set<Variable>
   let inheritedTypes: Set<MockableType>
+  let allInheritedTypeNames: [String] // Includes opaque inherited types, in declaration order.
   let selfConformanceTypes: Set<MockableType>
+  let allSelfConformanceTypeNames: [String] // Includes opaque conformance type names.
   let genericTypes: [GenericType]
   let whereClauses: [WhereClause]
   let shouldMock: Bool
@@ -28,6 +31,7 @@ class MockableType: Hashable, Comparable {
   let isContainedType: Bool
   let subclassesExternalType: Bool
   let hasOpaqueInheritedType: Bool
+  let hasSelfConstraint: Bool
   
   private let sortableIdentifier: String
   static func < (lhs: MockableType, rhs: MockableType) -> Bool {
@@ -69,6 +73,7 @@ class MockableType: Hashable, Comparable {
     
     self.name = baseRawType.name
     self.moduleName = baseRawType.parsedFile.moduleName
+    self.fullyQualifiedModuleName = baseRawType.fullyQualifiedModuleName
     self.kind = baseRawType.kind
     self.isContainedType = !baseRawType.containingTypeNames.isEmpty
     self.hasOpaqueInheritedType = hasOpaqueInheritedType
@@ -115,31 +120,39 @@ class MockableType: Hashable, Comparable {
       .compactMap({ $0.dictionary[SwiftDocKey.inheritedtypes.rawValue] as? [StructureDictionary] })
       .flatMap({ $0 })
       .compactMap({ $0[SwiftDocKey.name.rawValue] as? String })
-    let (inheritedTypes, subclassesExternalType) = MockableType
-      .parseInheritedTypes(rawInheritedTypeNames: Set(rawInheritedTypeNames),
-                           forConformance: false,
-                           methods: &methods,
-                           variables: &variables,
-                           genericTypes: &genericTypes,
-                           whereClauses: &whereClauses,
-                           mockableTypes: mockableTypes,
-                           moduleNames: moduleNames,
-                           baseRawType: baseRawType,
-                           rawTypeRepository: rawTypeRepository)
+    let (inheritedTypes, _, allInheritedTypeNames, subclassesExternalType) =
+      MockableType
+        .parseInheritedTypes(rawInheritedTypeNames: rawInheritedTypeNames,
+                             forConformance: false,
+                             methods: &methods,
+                             variables: &variables,
+                             genericTypes: &genericTypes,
+                             whereClauses: &whereClauses,
+                             mockableTypes: mockableTypes,
+                             moduleNames: moduleNames,
+                             baseRawType: baseRawType,
+                             rawTypeRepository: rawTypeRepository,
+                             typealiasRepository: typealiasRepository)
     self.inheritedTypes = inheritedTypes
+    self.allInheritedTypeNames = allInheritedTypeNames
     
-    let (selfConformanceTypes, conformsToExternalType) = MockableType
-      .parseInheritedTypes(rawInheritedTypeNames: baseRawType.selfConformanceTypes,
-                           forConformance: true,
-                           methods: &methods,
-                           variables: &variables,
-                           genericTypes: &genericTypes,
-                           whereClauses: &whereClauses,
-                           mockableTypes: mockableTypes,
-                           moduleNames: moduleNames,
-                           baseRawType: baseRawType,
-                           rawTypeRepository: rawTypeRepository)
-    self.selfConformanceTypes = selfConformanceTypes
+    let rawConformanceTypeNames = baseRawType.selfConformanceTypeNames
+      .union(Set(inheritedTypes.flatMap({ $0.allSelfConformanceTypeNames })))
+    let (_, allSelfConformanceTypes, allSelfConformanceTypeNames, conformsToExternalType) =
+      MockableType
+        .parseInheritedTypes(rawInheritedTypeNames: Array(rawConformanceTypeNames),
+                             forConformance: true,
+                             methods: &methods,
+                             variables: &variables,
+                             genericTypes: &genericTypes,
+                             whereClauses: &whereClauses,
+                             mockableTypes: mockableTypes,
+                             moduleNames: moduleNames,
+                             baseRawType: baseRawType,
+                             rawTypeRepository: rawTypeRepository,
+                             typealiasRepository: typealiasRepository)
+    self.selfConformanceTypes = allSelfConformanceTypes
+    self.allSelfConformanceTypeNames = allSelfConformanceTypeNames
     
     self.subclassesExternalType = subclassesExternalType || conformsToExternalType
     self.methods = methods
@@ -162,6 +175,12 @@ class MockableType: Hashable, Comparable {
     } else {
       self.compilationDirectives = []
     }
+    
+    // Check if any of the members have `Self` constraints.
+    self.hasSelfConstraint = whereClauses.contains(where: { $0.hasSelfConstraint })
+      || methods.contains(where: { $0.hasSelfConstraint })
+      || variables.contains(where: { $0.hasSelfConstraint })
+      || genericTypes.contains(where: { $0.hasSelfConstraint })
     
     if baseRawType.parsedFile.shouldMock {
       self.sortableIdentifier = [
@@ -208,7 +227,8 @@ class MockableType: Hashable, Comparable {
       return (methods, variables)
   }
   
-  private static func parseInheritedTypes(rawInheritedTypeNames: Set<String>,
+  // TODO: Supporting protocol `Self` conformance has bloated this function. Needs a refactor soon.
+  private static func parseInheritedTypes(rawInheritedTypeNames: [String],
                                           forConformance: Bool,
                                           methods: inout Set<Method>,
                                           variables: inout Set<Variable>,
@@ -217,22 +237,66 @@ class MockableType: Hashable, Comparable {
                                           mockableTypes: [String: MockableType],
                                           moduleNames: [String],
                                           baseRawType: RawType,
-                                          rawTypeRepository: RawTypeRepository)
-    -> (inheritedTypes: Set<MockableType>, subclassesExternalType: Bool) {
+                                          rawTypeRepository: RawTypeRepository,
+                                          typealiasRepository: TypealiasRepository)
+    
+    -> (inheritedTypes: Set<MockableType>, // Directly inherited types
+    allInheritedTypes: Set<MockableType>, // Includes ancestor inheritance
+    allInheritedTypeNames: [String], // Includes ancestor inheritance and opaque type names
+    subclassesExternalType: Bool) {
+      
       var inheritedTypes = Set<MockableType>()
+      var allInheritedTypes = Set<MockableType>()
+      var allInheritedTypeNames = [String]()
       var subclassesExternalType = false
       let definesDesignatedInitializer = methods.contains(where: { $0.isDesignatedInitializer })
-      for typeName in rawInheritedTypeNames {
+      
+      // Find the correct `MockableType` instances for inheritance based on type name.
+      let parsedInheritedTypes = rawInheritedTypeNames.flatMap({ typeName -> [MockableType] in
         guard let nearestRawType = rawTypeRepository
-            .nearestInheritedType(named: typeName,
-                                  trimmedName: typeName.removingGenericTyping(),
+          .nearestInheritedType(named: typeName,
+                                trimmedName: typeName.removingGenericTyping(),
+                                moduleNames: moduleNames,
+                                referencingModuleName: baseRawType.parsedFile.moduleName,
+                                containingTypeNames: baseRawType.containingTypeNames[...])?
+          .findBaseRawType() else {
+            allInheritedTypeNames.append(typeName)
+            return []
+        }
+        
+        allInheritedTypeNames.append(nearestRawType.fullyQualifiedModuleName)
+        
+        // Inherited types could be typealiased, which would hide conformance.
+        guard nearestRawType.kind == .typealias else {
+          guard let mockableType = mockableTypes[nearestRawType.fullyQualifiedModuleName] else {
+            return []
+          }
+          return [mockableType]
+        }
+        
+        // Resolve typealias to fully qualified root type name.
+        let actualTypeNames = typealiasRepository
+          .actualTypeNames(for: nearestRawType.fullyQualifiedModuleName,
+                           rawTypeRepository: rawTypeRepository,
+                           moduleNames: moduleNames,
+                           referencingModuleName: baseRawType.parsedFile.moduleName,
+                           containingTypeNames: baseRawType.containingTypeNames[...])
+        
+        // Resolve fully qualified root type name to raw type.
+        return actualTypeNames.compactMap({
+          guard let nearestRawType = rawTypeRepository
+            .nearestInheritedType(named: $0,
+                                  trimmedName: $0.removingGenericTyping(),
                                   moduleNames: moduleNames,
                                   referencingModuleName: baseRawType.parsedFile.moduleName,
                                   containingTypeNames: baseRawType.containingTypeNames[...])?
-            .findBaseRawType(),
-          let mockableType = mockableTypes[nearestRawType.fullyQualifiedModuleName]
-          else { continue }
-        
+            .findBaseRawType() else { return nil }
+          return mockableTypes[nearestRawType.fullyQualifiedModuleName]
+        })
+      })
+
+      // Merge all inheritable members from the `MockableType` instances.
+      for mockableType in parsedInheritedTypes {
         if baseRawType.kind == .class
           && mockableType.kind == .class
           && mockableType.moduleName != baseRawType.parsedFile.moduleName {
@@ -240,7 +304,7 @@ class MockableType: Hashable, Comparable {
         }
         
         // Classes must already implement members in protocols they conform to.
-        guard baseRawType.kind != .class || nearestRawType.kind != .protocol else { continue }
+        guard baseRawType.kind != .class || mockableType.kind != .protocol else { continue }
         
         methods = methods.union(mockableType.methods.filter({
           $0.kind.typeScope.isMockable(in: baseRawType.kind) &&
@@ -249,12 +313,16 @@ class MockableType: Hashable, Comparable {
         variables = variables.union(mockableType.variables.filter({
           $0.kind.typeScope.isMockable(in: baseRawType.kind)
         }))
-        inheritedTypes = inheritedTypes.union([mockableType]
-          + (forConformance ? mockableType.selfConformanceTypes : mockableType.inheritedTypes))
+        
+        let inherited = forConformance
+          ? mockableType.selfConformanceTypes : mockableType.inheritedTypes
+        inheritedTypes.insert(mockableType)
+        allInheritedTypes.formUnion([mockableType] + inherited)
+        allInheritedTypeNames.append(contentsOf: inherited.map({ $0.fullyQualifiedModuleName }))
         
         genericTypes.append(contentsOf: mockableType.genericTypes)
         whereClauses.append(contentsOf: mockableType.whereClauses)
       }
-      return (inheritedTypes, subclassesExternalType)
+      return (inheritedTypes, allInheritedTypes, allInheritedTypeNames, subclassesExternalType)
   }
 }

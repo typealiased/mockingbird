@@ -160,7 +160,8 @@ private extension Path {
 private extension File {
   /// Parses a file line-by-line looking for valid import and compilation directive declarations.
   func parse() -> (imports: Set<String>, compilationDirective: [CompilationDirective]) {
-    var imports = Set<String>()
+    // All Swift files implicitly import the Swift stdlib core.
+    var imports: Set<String> = ["import Swift"]
     var compilationDirectives = [CompilationDirective]()
     var provisionalCompilationDirectives = [CompilationDirective]()
 

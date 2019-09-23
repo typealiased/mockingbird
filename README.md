@@ -370,7 +370,8 @@ Generate mocks for a set of targets in a project.
 | `--project` | `$PROJECT_FILE_PATH` | Path to your project’s `.xcodeproj` file. |
 | `--targets` | `$TARGET_NAME` | List of target names to generate mocks for. |
 | `--srcroot` | `$SRCROOT` | The folder containing your project’s source files. |
-| `--outputs` | [`(default path)`](#default-outputs-path) | List of mock output file paths for each target. |
+| `--outputs` | [`(default path)`](#outputs) | List of mock output file paths for each target. |
+| `--support` | [`(default path)`](#support) | The folder containing [supporting source files](#). |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
 
 | Flag | Description |
@@ -391,7 +392,7 @@ Set up a destination (unit test) target.
 | `--destination` | *(required)* | The target name where the Run Script Phase will be installed. |
 | `--project` | `(inferred)` | Your project’s `.xcodeproj` file. |
 | `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |
-| `--outputs` | [`(default path)`](#default-outputs-path) | List of mock output file paths for each target. |
+| `--outputs` | [`(default path)`](#outputs) | List of mock output file paths for each target. |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
 
 | Flag | Description |
@@ -420,7 +421,14 @@ Remove Mockingbird from a (unit test) target.
 | `--verbose` | Log all errors, warnings, and debug messages. |
 | `--quiet` | Only log error messages. |
 
-### Default Outputs Path
+### Default Paths
 
-By default, Mockingbird will generate target mocks into the `$(SRCROOT)/MockingbirdMocks` directory with the 
-file name `$(PRODUCT_MODULE_NAME)Mocks.generated.swift`.
+#### Outputs
+
+Mockingbird will generate target mocks into the `$(SRCROOT)/MockingbirdMocks` directory with the file name
+`$(PRODUCT_MODULE_NAME)Mocks.generated.swift`.
+
+#### Support
+
+Mockingbird will recursively look for [supporting source files](#) starting from the
+`$(SRCROOT)/MockingbirdSupport` directory.

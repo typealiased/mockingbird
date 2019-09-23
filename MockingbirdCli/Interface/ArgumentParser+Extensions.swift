@@ -82,6 +82,13 @@ extension ArgumentParser {
                completion: .filename)
   }
   
+  func addSupportPath() -> OptionArgument<PathArgument> {
+    return add(option: "--support",
+               kind: PathArgument.self,
+               usage: "The folder containing supporting source files.",
+               completion: .filename)
+  }
+  
   func addCompilationCondition() -> OptionArgument<String> {
     return add(option: "--condition",
                kind: String.self,
@@ -206,6 +213,21 @@ extension ArgumentParser.Result {
       return rawOutputs.map({ Path($0) })
     }
     return nil
+  }
+  
+  func getSupportPath(using argument: OptionArgument<PathArgument>,
+                      sourceRoot: Path) throws -> Path? {
+    guard let rawSupportPath = get(argument)?.path.pathString else {
+      let defaultSupportPath = sourceRoot + "MockingbirdSupport"
+      guard defaultSupportPath.isDirectory else { return nil }
+      return defaultSupportPath
+    }
+    let supportPath = Path(rawSupportPath)
+    guard supportPath.isDirectory else {
+      throw ArgumentParserError.invalidValue(argument: "--support \(supportPath.absolute())",
+                                             error: .custom("Not a valid directory"))
+    }
+    return supportPath
   }
   
   func getSourceTargets(using argument: OptionArgument<[String]>,

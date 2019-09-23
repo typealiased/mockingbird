@@ -78,17 +78,17 @@ class MethodTemplate: Template {
       guard !method.attributes.contains(.convenience) else { return "" }
       
       let functionDeclaration = "public \(overridableModifiers)\(uniqueDeclaration)"
-      guard !method.generatedForConformance else {
-        // Generated conformance initializers might not override an actual superclass definition.
-        return """
-          // MARK: Mocked `\(fullNameForMocking)`
-        \(attributes)
-          \(functionDeclaration){ fatalError() }
-        """
-      }
+//      guard !method.generatedForConformance else {
+//        // Generated conformance initializers might not override an actual superclass definition.
+//        return """
+//          // MARK: Mocked `\(fullNameForMocking)`
+//        \(attributes)
+//          \(functionDeclaration){ fatalError() }
+//        """
+//      }
       
       let checkVersion: String
-      if context.mockableType.kind == .class {
+      if context.mockableType.kind == .class || context.protocolClassConformance != nil {
         let trySuper = method.attributes.contains(.throws) ? "try " : ""
         checkVersion = """
             \(trySuper)super.init(\(superCallParameters))
@@ -98,7 +98,7 @@ class MethodTemplate: Template {
         checkVersion = "    Mockingbird.checkVersion(for: self)"
       }
       return """
-        // MARK: Mocked `\(fullNameForMocking)`
+        // MARK: Mocked \(fullNameForMocking)
       \(attributes)
         \(functionDeclaration){
       \(checkVersion)
@@ -108,7 +108,7 @@ class MethodTemplate: Template {
       """
     } else {
       return """
-        // MARK: Mocked `\(fullNameForMocking)`
+        // MARK: Mocked \(fullNameForMocking)
       \(attributes)
         public \(overridableModifiers)func \(uniqueDeclaration) {
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)])
@@ -164,10 +164,10 @@ class MethodTemplate: Template {
   func modifiers(allowOverride: Bool = true) -> String {
     let isRequired = method.attributes.contains(.required)
     let required = (isRequired || method.isInitializer ? "required " : "")
-    let shouldOverride = context.mockableType.kind == .class && !isRequired && allowOverride
+    let shouldOverride = method.isOverridable && !isRequired && allowOverride
     let override = shouldOverride ? "override " : ""
-    let `static` = (method.kind.typeScope == .static
-      || method.kind.typeScope == .class ? "static " : "")
+    let `static` = (method.kind.typeScope == .static || method.kind.typeScope == .class)
+      ? "static " : ""
     return "\(required)\(override)\(`static`)"
   }
   
@@ -182,7 +182,12 @@ class MethodTemplate: Template {
   }()
   
   lazy var shortName: String = {
-    let shortName = method.shortName
+    let tick = method.isInitializer
+      || (method.shortName.first?.isLetter != true
+        && method.shortName.first?.isNumber != true
+        && method.shortName.first != "_")
+      ? "" : "`"
+    let shortName = tick + method.shortName + tick
     let genericTypes = self.genericTypes
     return genericTypes.isEmpty ? "\(shortName)" : "\(shortName)<\(genericTypes)>"
   }()

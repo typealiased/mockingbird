@@ -17,6 +17,8 @@ struct Variable: Hashable, Comparable {
   let setterAccessLevel: AccessLevel
   let attributes: Attributes
   let compilationDirectives: [CompilationDirective]
+  let isOverridable: Bool
+  let hasSelfConstraint: Bool
   
   func hash(into hasher: inout Hasher) {
     hasher.combine(name)
@@ -75,10 +77,14 @@ struct Variable: Hashable, Comparable {
     let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
                                                         context: serializationContext,
                                                         options: .standard)
-    self.typeName = declaredType.serialize(with: qualifiedTypeNameRequest)
+    let qualifiedTypeName = declaredType.serialize(with: qualifiedTypeNameRequest)
+    self.typeName = qualifiedTypeName
+    self.hasSelfConstraint =
+      qualifiedTypeName.contains(SerializationRequest.Constants.selfTokenIndicator)
     
     self.name = name
     self.kind = kind
+    self.isOverridable = rootKind == .class
     let setterAccessLevel = AccessLevel(setter: dictionary)
     
     // Determine if the variable type is computed, stored, or constant.
