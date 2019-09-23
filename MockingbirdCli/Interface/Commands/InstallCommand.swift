@@ -25,6 +25,7 @@ final class InstallCommand: BaseCommand {
   private let sourceRootArgument: OptionArgument<PathArgument>
   private let outputsArgument: OptionArgument<[PathArgument]>
   private let outputArgument: OptionArgument<[PathArgument]>
+  private let supportPathArgument: OptionArgument<PathArgument>
   
   private let compilationConditionArgument: OptionArgument<String>
   private let ignoreExistingRunScriptArgument: OptionArgument<Bool>
@@ -42,6 +43,7 @@ final class InstallCommand: BaseCommand {
     self.sourceRootArgument = subparser.addSourceRoot()
     self.outputsArgument = subparser.addOutputs()
     self.outputArgument = subparser.addOutput()
+    self.supportPathArgument = subparser.addSupportPath()
     self.compilationConditionArgument = subparser.addCompilationCondition()
     self.ignoreExistingRunScriptArgument = subparser.addIgnoreExistingRunScript()
     self.asynchronousGenerationArgument = subparser.addAynchronousGeneration()
@@ -66,6 +68,8 @@ final class InstallCommand: BaseCommand {
                                                        convenienceArgument: sourceTargetArgument)
     let destinationTarget = try arguments.getDestinationTarget(using: destinationTargetArgument)
     let outputs = arguments.getOutputs(using: outputsArgument, convenienceArgument: outputArgument)
+    let supportPath = try arguments.getSupportPath(using: supportPathArgument,
+                                                   sourceRoot: sourceRoot)
     
     let config = Installer.InstallConfiguration(
       projectPath: projectPath,
@@ -73,6 +77,7 @@ final class InstallCommand: BaseCommand {
       sourceTargetNames: sourceTargets,
       destinationTargetName: destinationTarget,
       outputPaths: outputs,
+      supportPath: supportPath,
       cliPath: Path(CommandLine.arguments[0]),
       ignoreExisting: arguments.get(ignoreExistingRunScriptArgument) == true,
       asynchronousGeneration: arguments.get(asynchronousGenerationArgument) == true,

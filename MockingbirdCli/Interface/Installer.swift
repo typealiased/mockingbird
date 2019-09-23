@@ -20,6 +20,7 @@ class Installer {
     let sourceTargetNames: [String]
     let destinationTargetName: String
     let outputPaths: [Path]?
+    let supportPath: Path?
     let cliPath: Path
     let ignoreExisting: Bool
     let asynchronousGeneration: Bool
@@ -241,6 +242,9 @@ class Installer {
         "--targets \(targets)",
         "--outputs \(outputs)",
       ]
+      if let supportPath = config.supportPath {
+        options.append("--support '\(supportPath)'")
+      }
       if let expression = config.compilationCondition {
         options.append("--condition '\(expression)'")
       }

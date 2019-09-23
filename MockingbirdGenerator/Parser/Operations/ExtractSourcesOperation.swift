@@ -105,7 +105,7 @@ public class ExtractSourcesOperation: BasicOperation {
           SourcePath(path: $0.path, moduleName: moduleName)
         })
         return childSourcePaths + inheritedSourcePaths
-      } else if path.isFile, path.extension == "swift" {
+      } else if !isTopLevel, path.isFile, path.extension == "swift" {
         return [SourcePath(path: path, moduleName: moduleName)]
       } else {
         return []

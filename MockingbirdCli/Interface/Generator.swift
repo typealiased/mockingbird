@@ -73,6 +73,10 @@ class Generator {
       )
     }
     
+    if config.supportPath == nil {
+      logWarning("No supporting source files specified. Running the generator without supporting source files can result in malformed mocks. Please see 'Supporting Source Files' in the README.")
+    }
+    
     var xcodeproj: XcodeProj!
     try time(.parseXcodeProject) {
       xcodeproj = try XcodeProj(path: config.projectPath)

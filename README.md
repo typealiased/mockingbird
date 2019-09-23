@@ -352,6 +352,50 @@ Types that don’t conform to `Equatable` will be compared by reference.
 verify(bird.setName("Ryan")).wasCalled()
 ```
 
+## Supporting Source Files
+
+Add supporting source files to mock inherited types defined outside of your project. You should always provide 
+supporting source files when working with system frameworks like `UIKit` or precompiled external dependencies.
+
+```swift
+/* MyEquatableProtocol.swift */
+protocol MyEquatableProtocol: Equatable {
+  // ...
+}
+
+/* MockingbirdSupport/Swift/Equatable.swift */
+public protocol Equatable {
+  static func == (lhs: Self, rhs: Self) -> Bool
+}
+```
+
+### Setup
+
+Mockingbird includes supporting source files for `Foundation`, `UIKit`, and other common system frameworks.
+For automatic integration, simply copy the `MockingbirdSupport` folder into your project’s source root. 
+
+If you share supporting source files between projects, you can specify a custom `--support` directory when 
+running the CLI installer or generator.
+
+### Structure
+
+Supporting source files should be contained in a directory that matches the module name. You can define 
+submodules and transitive dependencies by nesting directories.
+
+```
+MockingbirdSupport/
+├── Foundation/
+│   └── ObjectiveC/
+│       └── NSObject.swift
+└── Swift/
+    └── Codable.swift
+    └── Comparable.swift
+    └── Equatable.swift
+    └── Hashable.swift
+```
+
+With the above file structure, `NSObject` can be imported from both the `Foundation` and `ObjectiveC` modules.
+
 ## Performance
 
 Mockingbird was built to be fast. Its current baseline is under 1 ms per generated mock. See 
@@ -367,11 +411,11 @@ Generate mocks for a set of targets in a project.
 
 | Option | Default Value | Description | 
 | --- | --- | --- |
-| `--project` | `$PROJECT_FILE_PATH` | Path to your project’s `.xcodeproj` file. |
+| `--project` | [`(inferred)`](#--project) | Path to your project’s `.xcodeproj` file. |
 | `--targets` | `$TARGET_NAME` | List of target names to generate mocks for. |
 | `--srcroot` | `$SRCROOT` | The folder containing your project’s source files. |
-| `--outputs` | [`(default path)`](#outputs) | List of mock output file paths for each target. |
-| `--support` | [`(default path)`](#support) | The folder containing [supporting source files](#). |
+| `--outputs` | [`(inferred)`](#--outputs) | List of mock output file paths for each target. |
+| `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](#). |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
 
 | Flag | Description |
@@ -390,9 +434,10 @@ Set up a destination (unit test) target.
 | --- | --- | --- |
 | `--targets` | *(required)* | List of target names that should generate mocks. |
 | `--destination` | *(required)* | The target name where the Run Script Phase will be installed. |
-| `--project` | `(inferred)` | Your project’s `.xcodeproj` file. |
+| `--project` | [`(inferred)`](#--project) | Your project’s `.xcodeproj` file. |
 | `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |
-| `--outputs` | [`(default path)`](#outputs) | List of mock output file paths for each target. |
+| `--outputs` | [`(inferred)`](#--outputs) | List of mock output file paths for each target. |
+| `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](#). |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
 
 | Flag | Description |
@@ -411,7 +456,7 @@ Remove Mockingbird from a (unit test) target.
 | Option | Default Value | Description |
 | --- | --- | --- |
 | `--targets` | *(required)* | List of target names to uninstall the Run Script Phase. |
-| `--project` | `(inferred)` | Your project’s `.xcodeproj` file. |
+| `--project` | [`(inferred)`](#--project) | Your project’s `.xcodeproj` file. |
 | `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |
 
 ### Global Options
@@ -421,14 +466,20 @@ Remove Mockingbird from a (unit test) target.
 | `--verbose` | Log all errors, warnings, and debug messages. |
 | `--quiet` | Only log error messages. |
 
-### Default Paths
+### Inferred Paths
 
-#### Outputs
+#### `--project`
 
-Mockingbird will generate target mocks into the `$(SRCROOT)/MockingbirdMocks` directory with the file name
+Mockingbird will first check if the environment variable `$PROJECT_FILE_PATH` was set (usually by an Xcode build 
+context). It will then perform a shallow search of the current working directory for an `.xcodeproj` file. If multiple
+`.xcodeproj` files exist then you must explicitly provide a project file path.
+
+#### `--outputs`
+
+By default Mockingbird will generate mocks into the `$(SRCROOT)/MockingbirdMocks` directory with the file name 
 `$(PRODUCT_MODULE_NAME)Mocks.generated.swift`.
 
-#### Support
+#### `--support`
 
-Mockingbird will recursively look for [supporting source files](#) starting from the
+Mockingbird will recursively look for [supporting source files](#supporting-source-files) in the
 `$(SRCROOT)/MockingbirdSupport` directory.
