@@ -166,7 +166,7 @@ extension ArgumentParser.Result {
     func getWalkthroughResult(environment: [String: String]) throws -> (project: Path, sources: [String], destination: String) {
         
         // Getting project path
-        print("Enter an Xcode project.")
+        print("\nEnter an Xcode project.")
         guard let project = readLine() ?? environment["PROJECT_FILE_PATH"] else {
             throw ArgumentParserError.expectedValue(option: "<xcodeproj file path>")
         }

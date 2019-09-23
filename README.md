@@ -123,6 +123,21 @@ $ mockingbird install \
   --destination UnitTestTarget
 ```
 
+Alternatively, you can use the `--walkthrough` or `-w` option to be guided through the install command.
+
+```bash
+$ mockingbird install --walkthrough
+
+Enter an Xcode project.
+Bird.xcodeproj
+
+Which target(s) contain the protocols you want to mock?
+BirdModels BirdManagers
+
+Which test target will use the mocked protocols?
+UnitTestTarget
+```
+
 ### Manual Integration
 
 Add a Run Script Phase to each target that should generate mocks.
@@ -360,6 +375,7 @@ Set up a destination (unit test) target
 | `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |
 | `--outputs` | `$MOCKINGBIRD_SRCROOT` | List of mock output file paths for each target. |
 | `--preprocessor` | `nil` | Preprocessor expression to wrap all generated mocks in, e.g. `DEBUG`. |
+| `--walkthrough` | `nil` | Guides the user through the install process by capturing the `project`, `targets`, and `destination`. |
 
 | Flag | Description |
 | --- | --- |
