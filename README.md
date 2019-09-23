@@ -114,14 +114,13 @@ build process in many different ways.
 ### Automatic Integration
 
 Use the Mockingbird CLI to set up a destination unit test target. List all source targets that should generate mocks.
+Below, Mockingbird will mock types in `Bird` and `BirdManagers` which can then be used in `BirdTests`.
 
 ```bash
 $ mockingbird install \
   --targets Bird BirdManagers \
   --destination BirdTests
 ```
-
-By default, Mockingbird will generate mocks for all dependencies  You can optionally list all source targets that should generate mocks.
 
 ### Manual Integration
 
