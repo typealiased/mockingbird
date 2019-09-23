@@ -7,6 +7,7 @@
 
 import Foundation
 import MockingbirdGenerator
+import PathKit
 import SPMUtility
 
 final class GenerateCommand: BaseCommand {
@@ -23,8 +24,9 @@ final class GenerateCommand: BaseCommand {
   private let sourceRootArgument: OptionArgument<PathArgument>
   private let outputsArgument: OptionArgument<[PathArgument]>
   private let outputArgument: OptionArgument<[PathArgument]>
+  private let supportPathArgument: OptionArgument<PathArgument>
   
-  private let preprocessorExpressionArgument: OptionArgument<String>
+  private let compilationConditionArgument: OptionArgument<String>
   private let disableModuleImportArgument: OptionArgument<Bool>
   private let onlyMockProtocolsArgument: OptionArgument<Bool>
   private let disableSwiftlintArgument: OptionArgument<Bool>
@@ -38,7 +40,8 @@ final class GenerateCommand: BaseCommand {
     self.sourceRootArgument = subparser.addSourceRoot()
     self.outputsArgument = subparser.addOutputs()
     self.outputArgument = subparser.addOutput()
-    self.preprocessorExpressionArgument = subparser.addPreprocessorExpression()
+    self.supportPathArgument = subparser.addSupportPath()
+    self.compilationConditionArgument = subparser.addCompilationCondition()
     self.disableModuleImportArgument = subparser.addDisableModuleImport()
     self.onlyMockProtocolsArgument = subparser.addOnlyProtocols()
     self.disableSwiftlintArgument = subparser.addDisableSwiftlint()
@@ -46,26 +49,32 @@ final class GenerateCommand: BaseCommand {
     super.init(parser: subparser)
   }
   
-  override func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
-    try super.run(with: arguments, environment: environment)
+  override func run(with arguments: ArgumentParser.Result,
+                    environment: [String: String],
+                    workingPath: Path) throws {
+    try super.run(with: arguments, environment: environment, workingPath: workingPath)
     
     let projectPath = try arguments.getProjectPath(using: projectPathArgument,
-                                                   environment: environment)
-    let sourceRoot = try arguments.getSourceRoot(using: sourceRootArgument,
-                                                 environment: environment,
-                                                 projectPath: projectPath)
+                                                   environment: environment,
+                                                   workingPath: workingPath)
+    let sourceRoot = arguments.getSourceRoot(using: sourceRootArgument,
+                                             environment: environment,
+                                             projectPath: projectPath)
     let targets = try arguments.getTargets(using: targetsArgument,
                                            convenienceArgument: targetArgument,
                                            environment: environment)
-    let outputs = try arguments.getOutputs(using: outputsArgument,
-                                           convenienceArgument: outputArgument)
+    let outputs = arguments.getOutputs(using: outputsArgument,
+                                       convenienceArgument: outputArgument)
+    let supportPath = try arguments.getSupportPath(using: supportPathArgument,
+                                                   sourceRoot: sourceRoot)
     
     let config = Generator.Configuration(
       projectPath: projectPath,
       sourceRoot: sourceRoot,
       inputTargetNames: targets,
       outputPaths: outputs,
-      preprocessorExpression: arguments.get(preprocessorExpressionArgument),
+      supportPath: supportPath,
+      compilationCondition: arguments.get(compilationConditionArgument),
       shouldImportModule: arguments.get(disableModuleImportArgument) != true,
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
       disableSwiftlint: arguments.get(disableSwiftlintArgument) == true

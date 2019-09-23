@@ -26,8 +26,9 @@ final class InstallCommand: BaseCommand {
   private let sourceRootArgument: OptionArgument<PathArgument>
   private let outputsArgument: OptionArgument<[PathArgument]>
   private let outputArgument: OptionArgument<[PathArgument]>
+  private let supportPathArgument: OptionArgument<PathArgument>
   
-  private let preprocessorExpressionArgument: OptionArgument<String>
+  private let compilationConditionArgument: OptionArgument<String>
   private let ignoreExistingRunScriptArgument: OptionArgument<Bool>
   private let asynchronousGenerationArgument: OptionArgument<Bool>
   private let onlyMockProtocolsArgument: OptionArgument<Bool>
@@ -44,7 +45,8 @@ final class InstallCommand: BaseCommand {
     self.sourceRootArgument = subparser.addSourceRoot()
     self.outputsArgument = subparser.addOutputs()
     self.outputArgument = subparser.addOutput()
-    self.preprocessorExpressionArgument = subparser.addPreprocessorExpression()
+    self.supportPathArgument = subparser.addSupportPath()
+    self.compilationConditionArgument = subparser.addCompilationCondition()
     self.ignoreExistingRunScriptArgument = subparser.addIgnoreExistingRunScript()
     self.asynchronousGenerationArgument = subparser.addAynchronousGeneration()
     self.onlyMockProtocolsArgument = subparser.addOnlyProtocols()
@@ -52,8 +54,10 @@ final class InstallCommand: BaseCommand {
     super.init(parser: subparser)
   }
   
-  override func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
-    try super.run(with: arguments, environment: environment)
+  override func run(with arguments: ArgumentParser.Result,
+                    environment: [String: String],
+                    workingPath: Path) throws {
+    try super.run(with: arguments, environment: environment, workingPath: workingPath)
     
     var projectPath: Path
     var sourceTargets: [String]
@@ -67,18 +71,21 @@ final class InstallCommand: BaseCommand {
         
     } else {
         projectPath = try arguments.getProjectPath(using: projectPathArgument,
-                                                   environment: environment)
+                                                   environment: environment,
+                                                   workingPath: workingPath)
         sourceTargets = try arguments.getSourceTargets(using: sourceTargetsArgument,
                                                        convenienceArgument: sourceTargetArgument)
         destinationTarget = try arguments.getDestinationTarget(using: destinationTargetArgument)
     }
     
-    let sourceRoot = try arguments.getSourceRoot(using: sourceRootArgument,
-                                                 environment: environment,
-                                                 projectPath: projectPath)
+    let sourceRoot = arguments.getSourceRoot(using: sourceRootArgument,
+                                             environment: environment,
+                                             projectPath: projectPath)
     
-    let outputs = try arguments.getOutputs(using: outputsArgument,
-                                           convenienceArgument: outputArgument)
+    let outputs = arguments.getOutputs(using: outputsArgument, convenienceArgument: outputArgument)
+    
+    let supportPath = try arguments.getSupportPath(using: supportPathArgument,
+                                                   sourceRoot: sourceRoot)
     
     let config = Installer.InstallConfiguration(
       projectPath: projectPath,
@@ -86,10 +93,11 @@ final class InstallCommand: BaseCommand {
       sourceTargetNames: sourceTargets,
       destinationTargetName: destinationTarget,
       outputPaths: outputs,
+      supportPath: supportPath,
       cliPath: Path(CommandLine.arguments[0]),
       ignoreExisting: arguments.get(ignoreExistingRunScriptArgument) == true,
       asynchronousGeneration: arguments.get(asynchronousGenerationArgument) == true,
-      preprocessorExpression: arguments.get(preprocessorExpressionArgument),
+      compilationCondition: arguments.get(compilationConditionArgument),
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
       disableSwiftlint: arguments.get(disableSwiftlintArgument) == true
     )

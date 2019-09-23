@@ -10,7 +10,7 @@ import SourceKittenFramework
 
 struct Typealias {
   let name: String
-  let typeName: String // Possible that this references another typealias.
+  let typeNames: [String] // Possible that this references another typealias or multiple types.
   let rawType: RawType
   
   init?(from rawType: RawType) {
@@ -20,12 +20,22 @@ struct Typealias {
     self.name = name
     self.rawType = rawType
     
-    let source = rawType.parsedFile.data
-    guard let typeName = SourceSubstring.nameSuffix.extract(from: rawType.dictionary,
-                                                            contents: source),
-      let declarationIndex = typeName.firstIndex(of: "=") else { return nil }
-    let declaration = typeName[typeName.index(after: declarationIndex)...]
-    self.typeName = declaration.trimmingCharacters(in: .whitespacesAndNewlines)
+    guard let typeNames = Typealias.parseTypeNames(from: rawType.dictionary,
+                                                   parsedFile: rawType.parsedFile)
+      else { return nil }
+    self.typeNames = typeNames
+  }
+  
+  static func parseTypeNames(from dictionary: StructureDictionary,
+                             parsedFile: ParsedFile) -> [String]? {
+    let source = parsedFile.data
+    guard let rawDeclaration = SourceSubstring.nameSuffix.extract(from: dictionary,
+                                                                  contents: source),
+      let declarationIndex = rawDeclaration.firstIndex(of: "=") else { return nil }
+    let declaration = rawDeclaration[rawDeclaration.index(after: declarationIndex)...]
+    return declaration.substringComponents(separatedBy: "&").map({
+      $0.trimmingCharacters(in: .whitespacesAndNewlines)
+    })
   }
 }
 
@@ -33,7 +43,7 @@ class TypealiasRepository {
   /// Fully qualified (module) typealias name => `Typealias`
   private(set) var typealiases = [String: Typealias]()
   /// Fully qualified (module) typealias name => actual fully qualified (module) type name
-  private var unwrappedTypealiases = Synchronized<[String: String]>([:])
+  private var unwrappedTypealiases = Synchronized<[String: [String]]>([:])
   
   /// Start tracking a typealias.
   func addTypealias(_ typeAlias: Typealias) {
@@ -41,55 +51,58 @@ class TypealiasRepository {
   }
   
   /// Returns the actual fully qualified type name for a given fully qualified (module) type name.
-  func actualTypeName(for typeName: String,
-                      rawTypeRepository: RawTypeRepository,
-                      moduleNames: [String],
-                      referencingModuleName: String,
-                      containingTypeNames: ArraySlice<String>) -> String {
-    guard let typeAlias = typealiases[typeName] else { return typeName }
-    return actualTypeName(for: typeAlias,
-                          rawTypeRepository: rawTypeRepository,
-                          moduleNames: moduleNames,
-                          referencingModuleName: referencingModuleName,
-                          containingTypeNames: containingTypeNames) ?? typeName
+  func actualTypeNames(for typeName: String,
+                       rawTypeRepository: RawTypeRepository,
+                       moduleNames: [String],
+                       referencingModuleName: String,
+                       containingTypeNames: ArraySlice<String>) -> [String] {
+    guard let typeAlias = typealiases[typeName] else { return [typeName] }
+    return actualTypeNames(for: typeAlias,
+                           rawTypeRepository: rawTypeRepository,
+                           moduleNames: moduleNames,
+                           referencingModuleName: referencingModuleName,
+                           containingTypeNames: containingTypeNames)
   }
   
   /// Returns the actual type name for a given `Typealias`, if one exists.
-  func actualTypeName(for typeAlias: Typealias,
-                      rawTypeRepository: RawTypeRepository,
-                      moduleNames: [String],
-                      referencingModuleName: String,
-                      containingTypeNames: ArraySlice<String>) -> String? {
+  func actualTypeNames(for typeAlias: Typealias,
+                       rawTypeRepository: RawTypeRepository,
+                       moduleNames: [String],
+                       referencingModuleName: String,
+                       containingTypeNames: ArraySlice<String>) -> [String] {
     let unwrappedTypealiases = self.unwrappedTypealiases.value
     
     // This typealias is already resolved.
-    if let actualTypeName = unwrappedTypealiases[typeAlias.rawType.fullyQualifiedModuleName] {
-      return actualTypeName
+    if let actualTypeNames = unwrappedTypealiases[typeAlias.rawType.fullyQualifiedModuleName] {
+      return actualTypeNames
     }
     
     // Get the fully qualified name of the referenced type.
-    guard let aliasedRawTypeName = rawTypeRepository
-      .nearestInheritedType(named: typeAlias.typeName,
-                            moduleNames: moduleNames,
-                            referencingModuleName: referencingModuleName,
-                            containingTypeNames: containingTypeNames)?
-      .findBaseRawType()?.fullyQualifiedModuleName else {
-        self.unwrappedTypealiases.update {
-          $0[typeAlias.rawType.fullyQualifiedModuleName] = typeAlias.typeName
-        }
-        return typeAlias.typeName
-    }
+    let aliasedRawTypeNames = typeAlias.typeNames.map({ typeName -> String in
+      guard let qualifiedTypeName = rawTypeRepository
+        .nearestInheritedType(named: typeName,
+                              moduleNames: moduleNames,
+                              referencingModuleName: referencingModuleName,
+                              containingTypeNames: containingTypeNames)?
+        .findBaseRawType()?.fullyQualifiedModuleName
+        else { return typeName }
+      return qualifiedTypeName
+    })
     
     // Check if the typealias references another typealias.
-    guard let aliasedTypealias = typealiases[aliasedRawTypeName] else { return aliasedRawTypeName }
-    let typeName = actualTypeName(for: aliasedTypealias,
-                                  rawTypeRepository: rawTypeRepository,
-                                  moduleNames: moduleNames,
-                                  referencingModuleName: aliasedTypealias.rawType.parsedFile.moduleName,
-                                  containingTypeNames: aliasedTypealias.rawType.containingTypeNames[...])
+    let unwrappedNames = aliasedRawTypeNames.flatMap({ aliasedRawTypeName -> [String] in
+      guard let aliasedTypealias = typealiases[aliasedRawTypeName] else {
+        return [aliasedRawTypeName]
+      }
+      return actualTypeNames(for: aliasedTypealias,
+                             rawTypeRepository: rawTypeRepository,
+                             moduleNames: moduleNames,
+                             referencingModuleName: aliasedTypealias.rawType.parsedFile.moduleName,
+                             containingTypeNames: aliasedTypealias.rawType.containingTypeNames[...])
+    })
     self.unwrappedTypealiases.update {
-      $0[typeAlias.rawType.fullyQualifiedModuleName] = typeName
+      $0[typeAlias.rawType.fullyQualifiedModuleName] = unwrappedNames
     }
-    return typeName
+    return unwrappedNames
   }
 }

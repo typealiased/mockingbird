@@ -86,3 +86,36 @@ private protocol StubbableAssociatedTypeSelfReferencingProtocol: AssociatedTypeS
 }
 extension AssociatedTypeSelfReferencingProtocolMock: StubbableAssociatedTypeSelfReferencingProtocol {}
 extension InheritingAssociatedTypeSelfReferencingProtocolMock: StubbableAssociatedTypeSelfReferencingProtocol {}
+
+private protocol StubbableSecondLevelSelfConstrainedAssociatedTypeProtocol:
+StubbableAssociatedTypeSelfReferencingProtocol {}
+extension SecondLevelSelfConstrainedAssociatedTypeProtocolMock:
+StubbableSecondLevelSelfConstrainedAssociatedTypeProtocol {}
+
+private protocol StubbableTopLevelSelfConstrainedAssociatedTypeProtocol:
+StubbableSecondLevelSelfConstrainedAssociatedTypeProtocol {}
+extension TopLevelSelfConstrainedAssociatedTypeProtocolMock:
+StubbableTopLevelSelfConstrainedAssociatedTypeProtocol {}
+
+private protocol StubbableGenericClassReferencer {
+  func getGenericClassVariable()
+    -> Mockable<VariableDeclaration, () -> ReferencedGenericClass<String>, ReferencedGenericClass<String>>
+  func setGenericClassVariable(_ newValue: @escaping @autoclosure () -> ReferencedGenericClass<String>)
+    -> Mockable<VariableDeclaration, (ReferencedGenericClass<String>) -> Void, Void>
+  
+  func getGenericClassWithConstraintsVariable()
+    -> Mockable<VariableDeclaration, () -> ReferencedGenericClassWithConstraints<[String]>, ReferencedGenericClassWithConstraints<[String]>>
+  func setGenericClassWithConstraintsVariable(_ newValue: @escaping @autoclosure () -> ReferencedGenericClassWithConstraints<[String]>)
+    -> Mockable<VariableDeclaration, (ReferencedGenericClassWithConstraints<[String]>) -> Void, Void>
+
+  func genericClassMethod<Z>()
+    -> Mockable<MethodDeclaration, () -> ReferencedGenericClass<Z>, ReferencedGenericClass<Z>>
+  func genericClassWithConstraintsMethod<Z>()
+    -> Mockable<MethodDeclaration, () -> ReferencedGenericClassWithConstraints<Z>, ReferencedGenericClassWithConstraints<Z>>
+  
+  func genericClassMethod<T, Z: ReferencedGenericClass<T>>(metatype: @escaping @autoclosure () -> Z.Type)
+    -> Mockable<MethodDeclaration, (Z.Type) -> Z.Type, Z.Type>
+  func genericClassWithConstraintsMethod<T, Z: ReferencedGenericClassWithConstraints<T>>(metatype: @escaping @autoclosure () -> Z.Type)
+    -> Mockable<MethodDeclaration, (Z.Type) -> Z.Type, Z.Type>
+}
+extension GenericClassReferencerMock: StubbableGenericClassReferencer {}

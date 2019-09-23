@@ -34,14 +34,17 @@ final class UninstallCommand: BaseCommand {
     super.init(parser: subparser)
   }
   
-  override func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
-    try super.run(with: arguments, environment: environment)
+  override func run(with arguments: ArgumentParser.Result,
+                    environment: [String: String],
+                    workingPath: Path) throws {
+    try super.run(with: arguments, environment: environment, workingPath: workingPath)
     
     let projectPath = try arguments.getProjectPath(using: projectPathArgument,
-                                                   environment: environment)
-    let sourceRoot = try arguments.getSourceRoot(using: sourceRootArgument,
-                                                 environment: environment,
-                                                 projectPath: projectPath)
+                                                   environment: environment,
+                                                   workingPath: workingPath)
+    let sourceRoot = arguments.getSourceRoot(using: sourceRootArgument,
+                                             environment: environment,
+                                             projectPath: projectPath)
     let targets = try arguments.getTargets(using: targetsArgument,
                                            convenienceArgument: targetArgument,
                                            environment: environment)

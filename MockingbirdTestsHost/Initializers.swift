@@ -15,6 +15,10 @@ protocol InitializerProtocol {
   init(param: String) throws
 }
 
+protocol InitializerOverridingProtocol: InitializerProtocol {
+  init(param123: Bool)
+}
+
 class InitializerClass {
   init() {}
   init?(param: Bool) {}

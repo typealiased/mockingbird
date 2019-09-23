@@ -61,17 +61,17 @@ extension ChildMock: StubbableChild {}
 
 extension ChildMock {
   func setChildComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
   static func setChildClassVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
   
   func setParentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
   static func setParentClassVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
   
   func setGrandparentComputedInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
   static func setGrandparentClassVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
 }

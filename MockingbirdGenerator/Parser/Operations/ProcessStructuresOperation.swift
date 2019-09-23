@@ -29,14 +29,16 @@ class ProcessStructuresOperation: BasicOperation {
   override func run() throws {
     result.rawTypes.append(contentsOf: processStructureDictionary(structureDictionary,
                                                                   parsedFile: parsedFile,
-                                                                  containingTypeNames: []))
+                                                                  containingTypeNames: [],
+                                                                  definedInExtension: false))
     log("Created \(result.rawTypes.count) raw type\(result.rawTypes.count != 1 ? "s" : "") from source file at \(parsedFile.path.absolute())")
   }
   
   /// Create a `RawType` object from a parsed file's `StructureDictionary`.
   private func processStructureDictionary(_ dictionary: StructureDictionary,
                                           parsedFile: ParsedFile,
-                                          containingTypeNames: [String]) -> [RawType] {
+                                          containingTypeNames: [String],
+                                          definedInExtension: Bool) -> [RawType] {
     let typeName = dictionary[SwiftDocKey.name.rawValue] as? String
     
     let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary] ?? []
@@ -54,25 +56,55 @@ class ProcessStructuresOperation: BasicOperation {
       attributedContainingTypeNames = containingTypeNames
     }
     
+    let optionalKind = SwiftDeclarationKind(from: dictionary)
+    let containedTypesInExtension = definedInExtension || optionalKind == .extension
     let containedTypes = substructure.flatMap({
       processStructureDictionary($0,
                                  parsedFile: parsedFile,
-                                 containingTypeNames: attributedContainingTypeNames)
+                                 containingTypeNames: attributedContainingTypeNames,
+                                 definedInExtension: containedTypesInExtension)
     })
     guard let name = typeName else { return containedTypes } // Base case where this isn't a type.
     
     // For inheritance, contained types are stored in the root namespace as fully qualified types.
     containedTypes.forEach({ result.rawTypes.append($0) })
     
-    guard let kind = SwiftDeclarationKind(from: dictionary), kind.isParsable,
+    guard let kind = optionalKind, kind.isParsable,
       let accessLevel = AccessLevel(from: dictionary), accessLevel.isMockable else { return [] }
     let fullyQualifiedName = attributedContainingTypeNames.joined(separator: ".")
+    let selfConformanceTypeNames = kind == .protocol
+      ? parseSelfConformanceTypeNames(from: dictionary) : []
+    let aliasedTypeNames = kind == .typealias
+      ? parseAliasedTypeNames(from: dictionary): []
     return [RawType(dictionary: dictionary,
                     name: name,
                     fullyQualifiedName: fullyQualifiedName,
                     containedTypes: containedTypes,
                     containingTypeNames: containingTypeNames,
+                    selfConformanceTypeNames: selfConformanceTypeNames,
+                    aliasedTypeNames: aliasedTypeNames,
+                    definedInExtension: definedInExtension,
                     kind: kind,
                     parsedFile: parsedFile)]
+  }
+  
+  private func parseSelfConformanceTypeNames(from dictionary: StructureDictionary) -> Set<String> {
+    guard let nameSuffix = SourceSubstring.nameSuffixUpToBody.extract(from: dictionary,
+                                                                      contents: parsedFile.data),
+      let whereRange = nameSuffix.range(of: #"\bwhere\b"#, options: .regularExpression)
+      else { return [] }
+    
+    return Set(nameSuffix[whereRange.upperBound..<nameSuffix.endIndex]
+      .components(separatedBy: ",", excluding: .allGroups)
+      .compactMap({ WhereClause(from: String($0)) })
+      .filter({ $0.operator == .conforms && $0.constrainedTypeName == "Self" })
+      .map({ $0.genericConstraint }))
+  }
+  
+  private func parseAliasedTypeNames(from dictionary: StructureDictionary) -> Set<String> {
+    guard let typeNames = Typealias.parseTypeNames(from: dictionary, parsedFile: parsedFile) else {
+      return []
+    }
+    return Set(typeNames)
   }
 }

@@ -16,6 +16,9 @@ struct Variable: Hashable, Comparable {
   let accessLevel: AccessLevel
   let setterAccessLevel: AccessLevel
   let attributes: Attributes
+  let compilationDirectives: [CompilationDirective]
+  let isOverridable: Bool
+  let hasSelfConstraint: Bool
   
   func hash(into hasher: inout Hasher) {
     hasher.combine(name)
@@ -57,6 +60,12 @@ struct Variable: Hashable, Comparable {
       rawTypeName = inferredTypeName
     } else {
       logWarning("Unable to infer type for variable `\(name)` in module `\(rawType.parsedFile.moduleName)`. You should explicitly declare the variable type in the source file \(rawType.parsedFile.path.absolute())")
+      
+      if rootKind == .class { // Don't override types that couldn't be inferred.
+        return nil
+      }
+      
+      // Protocols should always have explicit types, so this should never actually be used.
       // Use an editor placeholder to trigger a compiler error if this type is ever generated.
       rawTypeName = "<#__UnknownType__#>"
     }
@@ -68,10 +77,14 @@ struct Variable: Hashable, Comparable {
     let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
                                                         context: serializationContext,
                                                         options: .standard)
-    self.typeName = declaredType.serialize(with: qualifiedTypeNameRequest)
+    let qualifiedTypeName = declaredType.serialize(with: qualifiedTypeNameRequest)
+    self.typeName = qualifiedTypeName
+    self.hasSelfConstraint =
+      qualifiedTypeName.contains(SerializationRequest.Constants.selfTokenIndicator)
     
     self.name = name
     self.kind = kind
+    self.isOverridable = rootKind == .class
     let setterAccessLevel = AccessLevel(setter: dictionary)
     
     // Determine if the variable type is computed, stored, or constant.
@@ -95,6 +108,15 @@ struct Variable: Hashable, Comparable {
     }
     self.attributes = attributes
     self.setterAccessLevel = setterAccessLevel ?? .internal
+    
+    // Parse any containing preprocessor macros.
+    if let offset = dictionary[SwiftDocKey.offset.rawValue] as? Int64 {
+      self.compilationDirectives = rawType.parsedFile.compilationDirectives.filter({
+        $0.range.contains(offset)
+      })
+    } else {
+      self.compilationDirectives = []
+    }
   }
   
   private static func parseRawTypeName(from dictionary: StructureDictionary,

@@ -20,12 +20,29 @@ class VariableTemplate: Template {
   }
   
   func render() -> String {
-    return [mockedDeclaration, frameworkDeclarations].joined(separator: "\n\n")
+    let (directiveStart, directiveEnd) = compilationDirectiveDeclaration
+    return [directiveStart,
+            mockedDeclaration,
+            frameworkDeclarations,
+            directiveEnd]
+      .filter({ !$0.isEmpty })
+      .joined(separator: "\n\n")
+  }
+  
+  var compilationDirectiveDeclaration: (start: String, end: String) {
+    guard !variable.compilationDirectives.isEmpty else { return ("", "") }
+    let start = variable.compilationDirectives
+      .map({ "  " + $0.declaration })
+      .joined(separator: "\n")
+    let end = variable.compilationDirectives
+      .map({ _ in "  #endif" })
+      .joined(separator: "\n")
+    return (start, end)
   }
   
   var mockedDeclaration: String {
     let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
-    let override = context.mockableType.kind == .class ? "override " : ""
+    let override = variable.isOverridable ? "override " : ""
     let setter = shouldGenerateSetter ? """
 
         set {
@@ -40,9 +57,9 @@ class VariableTemplate: Template {
         }
     """ : ""
     return """
-      // MARK: Mocked `\(variable.name)`
+      // MARK: Mocked \(variable.name)
     \(attributes)
-      \(override)public \(modifiers)var \(variable.name): \(specializedTypeName) {
+      \(override)public \(modifiers)var `\(variable.name)`: \(specializedTypeName) {
         get {
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
           \(contextPrefix)mockingContext.didInvoke(invocation)

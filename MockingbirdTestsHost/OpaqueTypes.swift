@@ -12,3 +12,7 @@ class OpaqueViewController: NSViewController {}
 
 public protocol EquatableConformingProtocol: Equatable {}
 public protocol HashableConformingProtocol: Hashable {}
+public protocol CodableConformingProtocol: Codable {}
+public protocol NSObjectProtocolConformingProtocol: Foundation.NSObjectProtocol {}
+public protocol NSViewInheritingProtocol: NSView {}
+public protocol EquatableCodableConformingProtocol: Equatable, Codable {}

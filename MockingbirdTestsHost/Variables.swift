@@ -35,6 +35,13 @@ class VariablesContainer: VariablesContainerProtocol {
   let constantVariableWithImplicitType = true
   let constantVariableWithExplicitType: Bool = true
   
+  weak var weakVariable: VariablesContainer?
+  
+  lazy var lazyVariableWithImplicitType = true
+  lazy var lazyVariableWithExplicitType: Bool = { return true }()
+  
+  lazy var lazyVariableWithComplexImplicitType = weakVariable.map { $0 === self }
+  
   init() {
     self.readonlyVariableOverwrittenAsReadwrite = true
     self.uninitializedVariable = true

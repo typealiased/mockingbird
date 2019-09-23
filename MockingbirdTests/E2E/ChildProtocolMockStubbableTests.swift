@@ -102,17 +102,17 @@ extension ChildProtocolMock: StubbableChildProtocol {}
 
 extension ChildProtocolMock {
   func setChildPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
   static func setChildPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
   
   func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
   static func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
   
   func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
   static func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
 }

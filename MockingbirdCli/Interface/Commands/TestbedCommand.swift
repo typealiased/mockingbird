@@ -28,8 +28,10 @@ final class TestbedCommand: BaseCommand {
     super.init(parser: subparser)
   }
   
-  override func run(with arguments: ArgumentParser.Result, environment: [String: String]) throws {
-    try super.run(with: arguments, environment: environment)
+  override func run(with arguments: ArgumentParser.Result,
+                    environment: [String: String],
+                    workingPath: Path) throws {
+    try super.run(with: arguments, environment: environment, workingPath: workingPath)
     
     let outputDirectory = try arguments.getOutputDirectory(using: outputArgument)
     let count = try arguments.getCount(using: countArgument) ?? 1000

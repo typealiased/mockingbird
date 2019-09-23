@@ -21,6 +21,9 @@ struct Method: Hashable, Comparable {
   let whereClauses: [WhereClause]
   let parameters: [MethodParameter]
   let attributes: Attributes
+  let compilationDirectives: [CompilationDirective]
+  let isOverridable: Bool
+  let hasSelfConstraint: Bool
   
   /// A hashable version of Method that's unique according to Swift generics when subclassing.
   /// https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
@@ -87,6 +90,7 @@ struct Method: Hashable, Comparable {
     
     let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary] ?? []
     self.kind = kind
+    self.isOverridable = rootKind == .class
     
     // Parse declared attributes and parameters.
     let rawParametersDeclaration: Substring?
@@ -97,11 +101,12 @@ struct Method: Hashable, Comparable {
                                                          attributes: attributes)
     
     // Parse return type.
-    self.returnTypeName = Method.parseReturnTypeName(from: dictionary,
-                                                     rawType: rawType,
-                                                     moduleNames: moduleNames,
-                                                     rawTypeRepository: rawTypeRepository,
-                                                     typealiasRepository: typealiasRepository)
+    let returnTypeName = Method.parseReturnTypeName(from: dictionary,
+                                                    rawType: rawType,
+                                                    moduleNames: moduleNames,
+                                                    rawTypeRepository: rawTypeRepository,
+                                                    typealiasRepository: typealiasRepository)
+    self.returnTypeName = returnTypeName
     
     // Parse generic type constraints and where clauses.
     self.whereClauses = Method.parseWhereClauses(from: dictionary,
@@ -120,13 +125,28 @@ struct Method: Hashable, Comparable {
     // Parse parameters.
     let (shortName, labels) = name.extractArgumentLabels()
     self.shortName = shortName
-    self.parameters = Method.parseParameters(labels: labels,
-                                             substructure: substructure,
-                                             rawParametersDeclaration: rawParametersDeclaration,
-                                             rawType: rawType,
-                                             moduleNames: moduleNames,
-                                             rawTypeRepository: rawTypeRepository,
-                                             typealiasRepository: typealiasRepository)
+    let parameters = Method.parseParameters(labels: labels,
+                                            substructure: substructure,
+                                            rawParametersDeclaration: rawParametersDeclaration,
+                                            rawType: rawType,
+                                            moduleNames: moduleNames,
+                                            rawTypeRepository: rawTypeRepository,
+                                            typealiasRepository: typealiasRepository)
+    self.parameters = parameters
+    
+    // Parse any containing preprocessor macros.
+    if let offset = dictionary[SwiftDocKey.offset.rawValue] as? Int64 {
+      self.compilationDirectives = rawType.parsedFile.compilationDirectives.filter({
+        $0.range.contains(offset)
+      })
+    } else {
+      self.compilationDirectives = []
+    }
+    
+    // Check whether this method has any `Self` type constraints.
+    self.hasSelfConstraint =
+      returnTypeName.contains(SerializationRequest.Constants.selfTokenIndicator)
+      || parameters.contains(where: { $0.hasSelfConstraints })
     
     // Create a unique and sortable identifier for this method.
     self.sortableIdentifier = Method.generateSortableIdentifier(name: name,
@@ -137,12 +157,12 @@ struct Method: Hashable, Comparable {
                                                                 whereClauses: whereClauses)
   }
   
-  fileprivate static func generateSortableIdentifier(name: String,
-                                         genericTypes: [GenericType],
-                                         parameters: [MethodParameter],
-                                         returnTypeName: String,
-                                         kind: SwiftDeclarationKind,
-                                         whereClauses: [WhereClause]) -> String {
+  private static func generateSortableIdentifier(name: String,
+                                                 genericTypes: [GenericType],
+                                                 parameters: [MethodParameter],
+                                                 returnTypeName: String,
+                                                 kind: SwiftDeclarationKind,
+                                                 whereClauses: [WhereClause]) -> String {
     return [
       name,
       genericTypes.map({ "\($0.name):\($0.constraints)" }).joined(separator: ","),
@@ -156,9 +176,9 @@ struct Method: Hashable, Comparable {
   }
   
   private static func parseDeclaration(from dictionary: StructureDictionary,
-                               source: Data?,
-                               isInitializer: Bool,
-                               attributes: Attributes) -> (Attributes, Substring?) {
+                                       source: Data?,
+                                       isInitializer: Bool,
+                                       attributes: Attributes) -> (Attributes, Substring?) {
     guard let declaration = SourceSubstring.key.extract(from: dictionary, contents: source)
       else { return (attributes, nil) }
     
@@ -196,10 +216,10 @@ struct Method: Hashable, Comparable {
   }
   
   private static func parseWhereClauses(from dictionary: StructureDictionary,
-                                source: Data?,
-                                rawType: RawType,
-                                moduleNames: [String],
-                                rawTypeRepository: RawTypeRepository) -> [WhereClause] {
+                                        source: Data?,
+                                        rawType: RawType,
+                                        moduleNames: [String],
+                                        rawTypeRepository: RawTypeRepository) -> [WhereClause] {
     guard let nameSuffix = SourceSubstring.nameSuffixUpToBody.extract(from: dictionary,
                                                                       contents: source),
       let whereRange = nameSuffix.range(of: #"\bwhere\b"#, options: .regularExpression)
@@ -214,10 +234,10 @@ struct Method: Hashable, Comparable {
   }
   
   private static func parseReturnTypeName(from dictionary: StructureDictionary,
-                                  rawType: RawType,
-                                  moduleNames: [String],
-                                  rawTypeRepository: RawTypeRepository,
-                                  typealiasRepository: TypealiasRepository) -> String {
+                                          rawType: RawType,
+                                          moduleNames: [String],
+                                          rawTypeRepository: RawTypeRepository,
+                                          typealiasRepository: TypealiasRepository) -> String {
     guard let rawReturnTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String else {
       return "Void"
     }
@@ -234,12 +254,12 @@ struct Method: Hashable, Comparable {
   }
   
   private static func parseParameters(labels: [String?],
-                              substructure: [StructureDictionary],
-                              rawParametersDeclaration: Substring?,
-                              rawType: RawType,
-                              moduleNames: [String],
-                              rawTypeRepository: RawTypeRepository,
-                              typealiasRepository: TypealiasRepository) -> [MethodParameter] {
+                                      substructure: [StructureDictionary],
+                                      rawParametersDeclaration: Substring?,
+                                      rawType: RawType,
+                                      moduleNames: [String],
+                                      rawTypeRepository: RawTypeRepository,
+                                      typealiasRepository: TypealiasRepository) -> [MethodParameter] {
     guard !labels.isEmpty else { return [] }
     var parameterIndex = 0
     let rawDeclarations = rawParametersDeclaration?
@@ -259,73 +279,6 @@ struct Method: Hashable, Comparable {
       parameterIndex += 1
       return parameter
     })
-  }
-}
-
-extension Method {
-  static func createEquatableConformance(for type: MockableType) -> Method {
-    let parameters = [MethodParameter(name: "lhs",
-                                      argumentLabel: "lhs",
-                                      typeName: type.name + "Mock"),
-                      MethodParameter(name: "rhs",
-                                      argumentLabel: "rhs",
-                                      typeName: type.name + "Mock")]
-    return Method(name: "== (lhs:rhs:)",
-                  returnTypeName: "Bool",
-                  parameters: parameters,
-                  kind: .functionMethodStatic)
-  }
-  
-  static func createComparableConformance(for type: MockableType) -> Method {
-    let parameters = [MethodParameter(name: "lhs",
-                                      argumentLabel: "lhs",
-                                      typeName: type.name + "Mock"),
-                      MethodParameter(name: "rhs",
-                                      argumentLabel: "rhs",
-                                      typeName: type.name + "Mock")]
-    return Method(name: "< (lhs:rhs:)",
-                  returnTypeName: "Bool",
-                  parameters: parameters,
-                  kind: .functionMethodStatic)
-  }
-  
-  static func createHashableConformance() -> Method {
-    let parameters = [MethodParameter(name: "hasher",
-                                      argumentLabel: "into",
-                                      typeName: "inout Hasher",
-                                      attributes: [.inout])]
-    return Method(name: "hash(into:)", parameters: parameters)
-  }
-}
-
-fileprivate extension Method {
-  init(name: String,
-       returnTypeName: String = "Void",
-       parameters: [MethodParameter],
-       isInitializer: Bool = false,
-       isDesignatedInitializer: Bool = false,
-       accessLevel: AccessLevel = .public,
-       kind: SwiftDeclarationKind = .functionMethodInstance,
-       genericTypes: [GenericType] = [],
-       whereClauses: [WhereClause] = [],
-       attributes: Attributes = []) {
-    self.name = name
-    (self.shortName, _) = name.extractArgumentLabels()
-    self.returnTypeName = returnTypeName
-    self.isInitializer = isInitializer
-    self.isDesignatedInitializer = isDesignatedInitializer
-    self.accessLevel = accessLevel
-    self.kind = kind
-    self.genericTypes = genericTypes
-    self.whereClauses = whereClauses
-    self.parameters = parameters
-    self.attributes = attributes
-    self.sortableIdentifier = Method.generateSortableIdentifier(name: name,
-                                                                genericTypes: genericTypes,
-                                                                parameters: parameters,
-                                                                returnTypeName: returnTypeName,
-                                                                kind: kind,
-                                                                whereClauses: whereClauses)
   }
 }
 

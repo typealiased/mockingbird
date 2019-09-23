@@ -14,6 +14,7 @@ struct MethodParameter: Hashable {
   let typeName: String
   let kind: SwiftDeclarationKind
   let attributes: Attributes
+  let hasSelfConstraints: Bool
   
   init?(from dictionary: StructureDictionary,
         argumentLabel: String?,
@@ -53,19 +54,6 @@ struct MethodParameter: Hashable {
     if actualParameter.type.isFunction { attributes.insert(.closure) }
     self.typeName = typeName
     self.attributes = attributes
-  }
-}
-
-extension MethodParameter {
-  init(name: String,
-       argumentLabel: String?,
-       typeName: String,
-       kind: SwiftDeclarationKind = .varParameter,
-       attributes: Attributes = []) {
-    self.name = name
-    self.argumentLabel = argumentLabel
-    self.typeName = typeName
-    self.kind = kind
-    self.attributes = attributes
+    self.hasSelfConstraints = typeName.contains(SerializationRequest.Constants.selfTokenIndicator)
   }
 }

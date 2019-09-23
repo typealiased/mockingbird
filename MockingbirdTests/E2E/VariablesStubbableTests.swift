@@ -39,12 +39,48 @@ private protocol StubbableVariablesContainer {
     -> Mockable<VariableDeclaration, () -> Bool, Bool>
   func setComputedVariableWithWillSetObserver(_ newValue: @escaping @autoclosure () -> Bool)
     -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
+  
+  func getStoredVariableWithImplicitType()
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func setStoredVariableWithImplicitType(_ newValue: @escaping @autoclosure () -> Bool)
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
+  
+  func getStoredVariableWithExplicitType()
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func setStoredVariableWithExplicitType(_ newValue: @escaping @autoclosure () -> Bool)
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
+  
+  func getWeakVariable()
+    -> Mockable<VariableDeclaration, () -> VariablesContainer?, VariablesContainer?>
+  func setWeakVariable(_ newValue: @escaping @autoclosure () -> VariablesContainer?)
+    -> Mockable<VariableDeclaration, (VariablesContainer?) -> Void, Void>
+  
+  func getLazyVariableWithImplicitType()
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func setLazyVariableWithImplicitType(_ newValue: @escaping @autoclosure () -> Bool)
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
+  
+  func getLazyVariableWithExplicitType()
+    -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func setLazyVariableWithExplicitType(_ newValue: @escaping @autoclosure () -> Bool)
+  -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
 }
 extension VariablesContainerMock: StubbableVariablesContainer {}
 
-// MARK: Non-mockable declarations
+// MARK: Non-stubbable declarations
 
 extension VariablesContainerMock {
   func setComputedVariable(_ newValue: @escaping @autoclosure () -> Bool)
     -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { return any() }
+  
+  func getConstantVariableWithImplicitType()
+    -> Mockable<VariableDeclaration, () -> Bool, Bool> { fatalError() }
+  
+  func getConstantVariableWithExplicitType()
+    -> Mockable<VariableDeclaration, () -> Bool, Bool> { fatalError() }
+  
+  func getLazyVariableWithComplexImplicitType()
+    -> Mockable<VariableDeclaration, () -> Bool, Bool> { fatalError() }
+  func setLazyVariableWithComplexImplicitType(_ newValue: @escaping @autoclosure () -> Bool)
+  -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
 }

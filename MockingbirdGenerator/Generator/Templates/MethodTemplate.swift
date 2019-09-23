@@ -20,10 +20,13 @@ class MethodTemplate: Template {
   }
   
   func render() -> String {
-    return [
-      mockedDeclarations,
-      frameworkDeclarations,
-    ].filter({ !$0.isEmpty }).joined(separator: "\n\n")
+    let (preprocessorStart, preprocessorEnd) = compilationDirectiveDeclaration
+    return [preprocessorStart,
+            mockedDeclarations,
+            frameworkDeclarations,
+            preprocessorEnd]
+      .filter({ !$0.isEmpty })
+      .joined(separator: "\n\n")
   }
   
   private enum Constants {
@@ -39,6 +42,17 @@ class MethodTemplate: Template {
       ">": "_greaterThan",
       ">=": "_greaterThanOrEqualTo",
     ]
+  }
+  
+  var compilationDirectiveDeclaration: (start: String, end: String) {
+    guard !method.compilationDirectives.isEmpty else { return ("", "") }
+    let start = method.compilationDirectives
+      .map({ "  " + $0.declaration })
+      .joined(separator: "\n")
+    let end = method.compilationDirectives
+      .map({ _ in "  #endif" })
+      .joined(separator: "\n")
+    return (start, end)
   }
   
   var classInitializerProxy: String {
@@ -63,8 +77,18 @@ class MethodTemplate: Template {
       // We can't usually infer what concrete arguments to pass to the designated initializer.
       guard !method.attributes.contains(.convenience) else { return "" }
       
+      let functionDeclaration = "public \(overridableModifiers)\(uniqueDeclaration)"
+//      guard !method.generatedForConformance else {
+//        // Generated conformance initializers might not override an actual superclass definition.
+//        return """
+//          // MARK: Mocked `\(fullNameForMocking)`
+//        \(attributes)
+//          \(functionDeclaration){ fatalError() }
+//        """
+//      }
+      
       let checkVersion: String
-      if context.mockableType.kind == .class {
+      if context.mockableType.kind == .class || context.protocolClassConformance != nil {
         let trySuper = method.attributes.contains(.throws) ? "try " : ""
         checkVersion = """
             \(trySuper)super.init(\(superCallParameters))
@@ -74,9 +98,9 @@ class MethodTemplate: Template {
         checkVersion = "    Mockingbird.checkVersion(for: self)"
       }
       return """
-        // MARK: Mocked `\(fullNameForMocking)`
+        // MARK: Mocked \(fullNameForMocking)
       \(attributes)
-        public \(overridableModifiers)\(uniqueDeclaration){
+        \(functionDeclaration){
       \(checkVersion)
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
@@ -84,7 +108,7 @@ class MethodTemplate: Template {
       """
     } else {
       return """
-        // MARK: Mocked `\(fullNameForMocking)`
+        // MARK: Mocked \(fullNameForMocking)
       \(attributes)
         public \(overridableModifiers)func \(uniqueDeclaration) {
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)])
@@ -140,10 +164,10 @@ class MethodTemplate: Template {
   func modifiers(allowOverride: Bool = true) -> String {
     let isRequired = method.attributes.contains(.required)
     let required = (isRequired || method.isInitializer ? "required " : "")
-    let shouldOverride = context.mockableType.kind == .class && !isRequired && allowOverride
+    let shouldOverride = method.isOverridable && !isRequired && allowOverride
     let override = shouldOverride ? "override " : ""
-    let `static` = (method.kind.typeScope == .static
-      || method.kind.typeScope == .class ? "static " : "")
+    let `static` = (method.kind.typeScope == .static || method.kind.typeScope == .class)
+      ? "static " : ""
     return "\(required)\(override)\(`static`)"
   }
   
@@ -158,7 +182,12 @@ class MethodTemplate: Template {
   }()
   
   lazy var shortName: String = {
-    let shortName = method.shortName
+    let tick = method.isInitializer
+      || (method.shortName.first?.isLetter != true
+        && method.shortName.first?.isNumber != true
+        && method.shortName.first != "_")
+      ? "" : "`"
+    let shortName = tick + method.shortName + tick
     let genericTypes = self.genericTypes
     return genericTypes.isEmpty ? "\(shortName)" : "\(shortName)<\(genericTypes)>"
   }()

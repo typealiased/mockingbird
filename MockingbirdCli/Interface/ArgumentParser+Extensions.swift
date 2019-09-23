@@ -88,10 +88,25 @@ extension ArgumentParser {
                usage: "The guided version of the install command.")
   }
   
-  func addPreprocessorExpression() -> OptionArgument<String> {
-    return add(option: "--preprocessor",
+  /// For installation, only accepts a single output.
+  func addInstallationOutput() -> OptionArgument<PathArgument> {
+    return add(option: "--output",
+               kind: PathArgument.self,
+               usage: "Mock output file path.",
+               completion: .filename)
+  }
+  
+  func addSupportPath() -> OptionArgument<PathArgument> {
+    return add(option: "--support",
+               kind: PathArgument.self,
+               usage: "The folder containing supporting source files.",
+               completion: .filename)
+  }
+  
+  func addCompilationCondition() -> OptionArgument<String> {
+    return add(option: "--condition",
                kind: String.self,
-               usage: "Preprocessor expression to wrap all generated mocks in, e.g. `DEBUG`.",
+               usage: "Compilation condition to wrap all generated mocks in, e.g. `DEBUG`.",
                completion: .values([
                 (value: "DEBUG", description: "Debug build configuration"),
                 (value: "RELEASE", description: "Release build configuration"),
@@ -192,12 +207,22 @@ extension ArgumentParser.Result {
     }
     
   func getProjectPath(using argument: OptionArgument<PathArgument>,
-                      environment: [String: String]) throws -> Path {
+                      environment: [String: String],
+                      workingPath: Path) throws -> Path {
     let projectPath: Path
     if let rawProjectPath = get(argument)?.path.pathString ?? environment["PROJECT_FILE_PATH"] {
       projectPath = Path(rawProjectPath)
     } else {
-      throw ArgumentParserError.expectedValue(option: "--project <xcodeproj file path>")
+      let inferredXcodeProjects = try workingPath.containedXcodeProjects()
+      if let firstProject = inferredXcodeProjects.first, inferredXcodeProjects.count == 1 {
+        log("Using inferred Xcode project at \(firstProject.absolute())")
+        projectPath = firstProject
+      } else {
+        if inferredXcodeProjects.count > 1 {
+          logWarning("Unable to infer Xcode project because there are multiple `.xcodeproj` files in \(workingPath.absolute())")
+        }
+        throw ArgumentParserError.expectedValue(option: "--project <xcodeproj file path>")
+      }
     }
     guard projectPath.isDirectory, projectPath.extension == "xcodeproj" else {
       throw ArgumentParserError.invalidValue(argument: "--project \(projectPath.absolute())",
@@ -208,7 +233,7 @@ extension ArgumentParser.Result {
   
   func getSourceRoot(using argument: OptionArgument<PathArgument>,
                      environment: [String: String],
-                     projectPath: Path) throws -> Path {
+                     projectPath: Path) -> Path {
     if let rawSourceRoot = get(argument)?.path.pathString ?? environment["SRCROOT"] {
       return Path(rawSourceRoot)
     } else {
@@ -229,11 +254,26 @@ extension ArgumentParser.Result {
   }
   
   func getOutputs(using argument: OptionArgument<[PathArgument]>,
-                  convenienceArgument: OptionArgument<[PathArgument]>) throws -> [Path]? {
+                  convenienceArgument: OptionArgument<[PathArgument]>) -> [Path]? {
     if let rawOutputs = (get(argument) ?? get(convenienceArgument))?.map({ $0.path.pathString }) {
       return rawOutputs.map({ Path($0) })
     }
     return nil
+  }
+  
+  func getSupportPath(using argument: OptionArgument<PathArgument>,
+                      sourceRoot: Path) throws -> Path? {
+    guard let rawSupportPath = get(argument)?.path.pathString else {
+      let defaultSupportPath = sourceRoot + "MockingbirdSupport"
+      guard defaultSupportPath.isDirectory else { return nil }
+      return defaultSupportPath
+    }
+    let supportPath = Path(rawSupportPath)
+    guard supportPath.isDirectory else {
+      throw ArgumentParserError.invalidValue(argument: "--support \(supportPath.absolute())",
+                                             error: .custom("Not a valid directory"))
+    }
+    return supportPath
   }
   
   func getSourceTargets(using argument: OptionArgument<[String]>,
@@ -299,5 +339,11 @@ extension ArgumentParser.Result {
     } else {
       return .normal
     }
+  }
+}
+
+private extension Path {
+  func containedXcodeProjects() throws -> [Path] {
+    return try children().filter({ $0.isDirectory && $0.extension == "xcodeproj" })
   }
 }

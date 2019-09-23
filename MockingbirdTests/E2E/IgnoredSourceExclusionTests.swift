@@ -12,29 +12,29 @@ import Mockingbird
 // MARK: - Excluded declarations
 
 extension TopLevelFileIgnoredSource {
-  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { return any() }
+  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { fatalError() }
 }
 
 extension SecondLevelFileIgnoredSource {
-  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { return any() }
+  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { fatalError() }
 }
 
 extension DirectoryIgnoredSource1 {
-  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { return any() }
+  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { fatalError() }
 }
 
 extension DirectoryIgnoredSource2 {
-  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { return any() }
+  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { fatalError() }
 }
 
 extension WildcardFileIgnoredSource {
-  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { return any() }
+  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { fatalError() }
 }
 
 extension WildcardDirectoryIgnoredSource1 {
-  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { return any() }
+  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { fatalError() }
 }
 
 extension WildcardDirectoryIgnoredSource2 {
-  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { return any() }
+  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { fatalError() }
 }

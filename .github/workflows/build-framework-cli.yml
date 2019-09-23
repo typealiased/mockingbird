@@ -18,9 +18,8 @@ jobs:
     - name: Set Up
       run: |
         mockingbird install \
-          --project Mockingbird.xcodeproj \
           --target MockingbirdTestsHost \
           --destination MockingbirdTests \
-          --output MockingbirdTests/Mocks.generated.swift
+          --verbose
     - name: Test
       run: make test

@@ -106,32 +106,66 @@ extension SerializationRequest {
       return memoized
     }
     
-    guard let qualifiedTypeNames = rawTypeRepository
+    guard let baseRawType = rawTypeRepository
       .nearestInheritedType(named: typeName,
                             trimmedName: typeName.removingGenericTyping(),
                             moduleNames: context.moduleNames,
                             referencingModuleName: context.referencingModuleName,
                             containingTypeNames: context.containingTypeNames)?
-      .findBaseRawType()?
-      .qualifiedModuleNames(from: typeName, context: context.containingScopes)
-      else { return typeName }
+      .findBaseRawType() else { return typeName }
+    
+    // The base raw type could be a (nested) enum or class defined within an extension.
+    var definingModuleName: String? {
+      if baseRawType.definedInExtension {
+        guard let extensionTypeName = baseRawType.containingTypeNames.first else { return nil }
+        guard let extensionRawType = rawTypeRepository
+          .nearestInheritedType(named: extensionTypeName,
+                                trimmedName: extensionTypeName.removingGenericTyping(),
+                                moduleNames: context.moduleNames,
+                                referencingModuleName: context.referencingModuleName,
+                                containingTypeNames: [])?
+          .findBaseRawType() else {
+            logWarning("The type `\(typeName)` was defined in an extension for `\(extensionTypeName)` whose source was missing")
+            return nil
+        }
+        return extensionRawType.parsedFile.moduleName
+      } else {
+        return baseRawType.parsedFile.moduleName
+      }
+    }
+    let qualifiedTypeNames = baseRawType
+      .qualifiedModuleNames(from: typeName,
+                            context: context.containingScopes,
+                            definingModuleName: definingModuleName)
     context.memoizedTypeNames[typeName]?[Method.contextQualified.rawValue] =
       qualifiedTypeNames.contextQualified
     context.memoizedTypeNames[typeName]?[Method.moduleQualified.rawValue] =
       qualifiedTypeNames.moduleQualified
     switch method {
     case .contextQualified: return qualifiedTypeNames.contextQualified
-    case .moduleQualified: return qualifiedTypeNames.moduleQualified
+    case .moduleQualified:
+      // Exclude the module name if it's is shadowed by a type in one of the imported modules. This
+      // will break if the shadowed module also contains type names that conflict with another
+      // module. However, name conflicts are much less likely to occur than module name shadowing.
+      if rawTypeRepository.isModuleNameShadowed(moduleName: baseRawType.parsedFile.moduleName,
+                                                moduleNames: context.moduleNames) {
+        return qualifiedTypeNames.moduleQualified
+          .substringComponents(separatedBy: ".")[1...]
+          .joined(separator: ".")
+      } else {
+        return qualifiedTypeNames.moduleQualified
+      }
     case .actualTypeName:
       guard let typealiasRepository = context.typealiasRepository else { return typeName }
-      let actualTypeName = typealiasRepository
-        .actualTypeName(for: qualifiedTypeNames.moduleQualified,
-                        rawTypeRepository: rawTypeRepository,
-                        moduleNames: context.moduleNames,
-                        referencingModuleName: referencingModuleName,
-                        containingTypeNames: context.containingTypeNames)
-      context.memoizedTypeNames[typeName]?[Method.actualTypeName.rawValue] = actualTypeName
-      return actualTypeName
+      let actualTypeNames = typealiasRepository
+        .actualTypeNames(for: qualifiedTypeNames.moduleQualified,
+                         rawTypeRepository: rawTypeRepository,
+                         moduleNames: context.moduleNames,
+                         referencingModuleName: referencingModuleName,
+                         containingTypeNames: context.containingTypeNames)
+      let flattenedTypeNames = actualTypeNames.joined(separator: " & ")
+      context.memoizedTypeNames[typeName]?[Method.actualTypeName.rawValue] = flattenedTypeNames
+      return flattenedTypeNames
     case .notQualified: return typeName
     }
   }

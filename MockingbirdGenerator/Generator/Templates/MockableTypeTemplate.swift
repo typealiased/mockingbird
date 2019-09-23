@@ -12,22 +12,17 @@ import Foundation
 
 private enum Constants {
   static let mockProtocolName = "Mockingbird.Mock"
-  static let equatableConformanceTypes: Set<String> = [
-    "Equatable",
-    "Comparable",
-    "Hashable",
-  ]
-  static let codableConformanceTypes: Set<String> = [
-    "Codable",
-    "Encodable",
-    "Decodable",
+  
+  /// Mapping from protocol to concrete subclass conformance, mainly used for `NSObjectProtocol`.
+  static let automaticConformanceMap: [String: String] = [
+    "Foundation.NSObjectProtocol": "Foundation.NSObject"
   ]
 }
 
 extension GenericType {
   var flattenedDeclaration: String {
     guard !constraints.isEmpty else { return name }
-    let flattenedInheritedTypes = Array(constraints).joined(separator: " & ")
+    let flattenedInheritedTypes = constraints.sorted().joined(separator: " & ")
     return "\(name): \(flattenedInheritedTypes)"
   }
 }
@@ -48,9 +43,12 @@ class MockableTypeTemplate: Template {
   }
   
   func render() -> String {
+    let (start, end) = compilationDirectiveDeclaration
+    let preprocessorStart = start.isEmpty ? "" : "\n\(start)\n"
+    let preprocessorEnd = end.isEmpty ? "" : "\n\n\(end)"
     return """
     // MARK: - Mocked \(mockableType.name)
-    
+    \(preprocessorStart)
     public final class \(mockableType.name)Mock\(allSpecializedGenericTypes): \(allInheritedTypes)\(allGenericConstraints) {
     \(staticMockingContext)
       public let mockingContext = Mockingbird.MockingContext()
@@ -65,9 +63,20 @@ class MockableTypeTemplate: Template {
       }
     
     \(renderBody())
-    }
+    }\(preprocessorEnd)
     """
   }
+  
+  lazy var compilationDirectiveDeclaration: (start: String, end: String) = {
+    guard !mockableType.compilationDirectives.isEmpty else { return ("", "") }
+    let start = mockableType.compilationDirectives
+      .map({ $0.declaration })
+      .joined(separator: "\n")
+    let end = mockableType.compilationDirectives
+      .map({ _ in "#endif" })
+      .joined(separator: "\n")
+    return (start, end)
+  }()
   
   /// The static mocking context allows static (or class) declared methods to be mocked.
   var staticMockingContext: String {
@@ -79,9 +88,7 @@ class MockableTypeTemplate: Template {
       static var staticMock: Mockingbird.StaticMock {
         let runtimeGenericTypeNames = \(runtimeGenericTypeNames)
         let staticMockIdentifier = "\(mockableType.name)Mock\(allSpecializedGenericTypes)," + runtimeGenericTypeNames
-        if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] {
-          return staticMock
-        }
+        if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
         let staticMock = Mockingbird.StaticMock()
         genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
         return staticMock
@@ -117,11 +124,7 @@ class MockableTypeTemplate: Template {
   }()
   
   var allInheritedTypes: String {
-    return [subclass,
-            inheritedProtocol,
-            Constants.mockProtocolName]
-      .compactMap({ $0 })
-      .joined(separator: ", ")
+    return (inheritedTypes + [Constants.mockProtocolName]).joined(separator: ", ")
   }
   
   /// For scoped types referenced within their containing type.
@@ -146,23 +149,50 @@ class MockableTypeTemplate: Template {
     return "\(containingTypeNames)\(mockableType.name)\(suffix)\(allGenericTypes)"
   }
   
-  var subclass: String? {
-    guard mockableType.kind != .class else { return fullyQualifiedName }
-    guard mockableType.hasOpaqueInheritedType else { return nil }
-    // We default to subclassing `NSObject` in order to satisfy `NSObjectProtocol` conformance,
-    // since the inheritance is at least partially opaque.
-    return "Foundation.NSObject"
-  }
-  
-  var inheritedProtocol: String? {
+  lazy var protocolClassConformance: String? = {
     guard mockableType.kind == .protocol else { return nil }
-    return fullyQualifiedName
+    
+    if let classConformance = mockableType.selfConformanceTypes.sorted()
+      .first(where: { $0.kind == .class }) {
+      // Handle class conformance constraints from where clauses.
+      return classConformance.fullyQualifiedModuleName
+      
+    } else if let classInheritance = mockableType.inheritedTypes.sorted()
+      .first(where: { $0.kind == .class }) {
+      // Handle potential class conformance constraints from inheritance syntax.
+      return classInheritance.fullyQualifiedModuleName
+      
+    } else if let autoConformance = mockableType.allInheritedTypeNames
+      .compactMap({ Constants.automaticConformanceMap[$0] }).first {
+      // Automatically conform unmockable protocols like `NSObjectProtocol` to `NSObject`.
+      return autoConformance
+      
+    }
+    
+    return nil
+  }()
+  
+  var inheritedTypes: [String] {
+    var types = [String]()
+    
+    if let protocolClassConformance = self.protocolClassConformance {
+      types.append(protocolClassConformance)
+    }
+    
+    types.append(fullyQualifiedName)
+    
+    let classConformanceTypeNames = Set(mockableType.selfConformanceTypes
+      .filter({ $0.kind == .class })
+      .map({ $0.fullyQualifiedModuleName }))
+    let conformanceTypes = Set(mockableType.allSelfConformanceTypeNames)
+      .subtracting(classConformanceTypeNames)
+      .sorted()
+    return types + conformanceTypes
   }
   
   func renderBody() -> String {
     return [renderInitializerProxy(),
             renderVariables(),
-            codableInitializer,
             defaultInitializer,
             renderMethods(),
             renderContainedTypes()]
@@ -188,6 +218,7 @@ class MockableTypeTemplate: Template {
       .filter(isProxyable)
       .sorted()
       .map({ methodTemplate(for: $0).classInitializerProxy })
+      .filter({ !$0.isEmpty })
     
     guard !initializers.isEmpty else {
       return """
@@ -201,48 +232,20 @@ class MockableTypeTemplate: Template {
     """
   }
   
-  var equatableConformance: Method? {
-    guard mockableType.kind == .protocol && (mockableType.hasOpaqueInheritedType
-      || mockableType.inheritedTypes.contains(where: {
-        Constants.equatableConformanceTypes.contains($0.name)
-      })) else { return nil }
-    return Method.createEquatableConformance(for: mockableType)
-  }
-  
-  var comparableConformance: Method? {
-    guard mockableType.kind == .protocol && (mockableType.hasOpaqueInheritedType
-      || mockableType.inheritedTypes.contains(where: { $0.name == "Comparable" }))
-      else { return nil }
-    return Method.createComparableConformance(for: mockableType)
-  }
-  
-  var hashableConformance: Method? {
-    guard mockableType.kind == .protocol
-      && mockableType.inheritedTypes.contains(where: { $0.name == "Hashable" })
-      else { return nil }
-    return Method.createHashableConformance()
-  }
-  
-  var codableInitializer: String {
-    guard mockableType.hasOpaqueInheritedType || mockableType.inheritedTypes.contains(where: {
-      Constants.codableConformanceTypes.contains($0.name)
-    }) else { return "" }
-    return """
-      public required init(from decoder: Decoder) throws { fatalError() }
-      public required init?(coder: NSCoder) { fatalError() }
-    """
-  }
-  
-  /// Store the source location of where the mock was initialized. This allows XCTest errors from
+  /// Store the source location of where the mock was initialized. This allows `XCTest` errors from
   /// unstubbed method invocations to show up in the testing code.
   var shouldGenerateDefaultInitializer: Bool {
-    return mockableType.kind == .protocol || (!mockableType.hasOpaqueInheritedType &&
-      !mockableType.methods.contains(where: { $0.isDesignatedInitializer }))
+    let isInitializableProtocol = mockableType.kind == .protocol
+      && protocolClassConformance == nil
+      && !mockableType.hasOpaqueInheritedType
+    let isInitializableInstance = !mockableType.hasOpaqueInheritedType
+      && !mockableType.methods.contains(where: { $0.isDesignatedInitializer })
+    return isInitializableProtocol
+      || ((isInitializableProtocol || mockableType.kind == .class) && isInitializableInstance)
   }
   var defaultInitializer: String {
     guard shouldGenerateDefaultInitializer else { return "" }
-    let superInit = mockableType.kind == .class
-      || (mockableType.kind == .protocol && mockableType.hasOpaqueInheritedType)
+    let superInit = mockableType.kind == .class || protocolClassConformance != nil
       ? "super.init()\n    " : ""
     return """
       fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -260,10 +263,7 @@ class MockableTypeTemplate: Template {
   }
   
   func renderMethods() -> String {
-    let inferredMethods = [equatableConformance,
-                           comparableConformance,
-                           hashableConformance].compactMap({ $0 })
-    return (inferredMethods + mockableType.methods
+    return Set(mockableType.methods)
       .sorted(by: <)
       .filter({ method -> Bool in
         // Not possible to override overloaded methods where uniqueness is from generic constraints.
@@ -271,7 +271,7 @@ class MockableTypeTemplate: Template {
         guard mockableType.kind == .class else { return true }
         guard !method.whereClauses.isEmpty else { return true }
         return mockableType.methodsCount[Method.Reduced(from: method)] == 1
-      }))
+      })
       .map({ methodTemplate(for: $0).render() })
       .filter({ !$0.isEmpty })
       .joined(separator: "\n\n")

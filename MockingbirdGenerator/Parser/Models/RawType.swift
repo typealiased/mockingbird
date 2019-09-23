@@ -17,6 +17,9 @@ struct RawType {
   let containedTypes: [RawType]
   let containingTypeNames: [String]
   let containingScopes: [String] // Including the module name and any containing types.
+  let selfConformanceTypeNames: Set<String> // Self conformances defined in generic where clauses.
+  let aliasedTypeNames: Set<String>
+  let definedInExtension: Bool // Types can be defined and nested within extensions.
   let kind: SwiftDeclarationKind
   let parsedFile: ParsedFile
   
@@ -31,14 +34,21 @@ struct RawType {
   ///   - declaration: The actual string declaration of the `RawType`, containing full type info.
   ///   - context: The containing scope names of where the type was referenced from.
   /// - Returns: Module-qualified and context-qualified names for the type.
-  func qualifiedModuleNames(from declaration: String, context: ArraySlice<String>)
+  func qualifiedModuleNames(from declaration: String,
+                            context: ArraySlice<String>,
+                            definingModuleName: String?)
     -> (moduleQualified: String, contextQualified: String) {
       let trimmedDeclaration = declaration.removingParameterAttributes()
       let rawComponents = trimmedDeclaration
         .components(separatedBy: ".", excluding: .allGroups)
         .map({ String($0) })
       let specializedName = rawComponents[(rawComponents.count-1)...]
-      let qualifiers = [parsedFile.moduleName] + containingTypeNames + [name]
+      let qualifiers: [String]
+      if let definingModuleName = definingModuleName {
+        qualifiers = [definingModuleName] + containingTypeNames + [name]
+      } else {
+        qualifiers = containingTypeNames + [name]
+      }
       
       // Check if the referencing declaration is in the same scope as the type declaration.
       let lcaScopeIndex = zip(qualifiers, context)
@@ -59,6 +69,9 @@ struct RawType {
        fullyQualifiedName: String,
        containedTypes: [RawType],
        containingTypeNames: [String],
+       selfConformanceTypeNames: Set<String>,
+       aliasedTypeNames: Set<String>,
+       definedInExtension: Bool,
        kind: SwiftDeclarationKind,
        parsedFile: ParsedFile) {
     self.dictionary = dictionary
@@ -67,6 +80,9 @@ struct RawType {
     self.containedTypes = containedTypes
     self.containingTypeNames = containingTypeNames
     self.containingScopes = [parsedFile.moduleName] + containingTypeNames
+    self.selfConformanceTypeNames = selfConformanceTypeNames
+    self.aliasedTypeNames = aliasedTypeNames
+    self.definedInExtension = definedInExtension
     self.kind = kind
     self.parsedFile = parsedFile
   }
@@ -85,20 +101,25 @@ extension Array where Element == RawType {
 class RawTypeRepository {
   private(set) var rawTypes = [String: [String: [RawType]]]() // typename => module name => rawtype
   
+  /// Used to check if a module name is shadowed by a type name.
+  private(set) var moduleTypes = [String: Set<String>]() // module name => set(typename)
+  
   /// Get raw type partials for a fully qualified name in a particular module.
   func rawType(named name: String, in moduleName: String) -> [RawType]? {
-    return rawTypes[name]?[moduleName]
+    return rawTypes[name.removingGenericTyping()]?[moduleName]
   }
   
   /// Get raw type partials for a fully qualified name in all modules.
   func rawTypes(named name: String) -> [String: [RawType]]? {
-    return rawTypes[name]
+    return rawTypes[name.removingGenericTyping()]
   }
   
   /// Add a single raw type partial.
   func addRawType(_ rawType: RawType) {
-    rawTypes[rawType.fullyQualifiedName, default: [:]][rawType.parsedFile.moduleName, default: []]
-      .append(rawType)
+    let name = rawType.fullyQualifiedName.removingGenericTyping()
+    let moduleName = rawType.parsedFile.moduleName
+    rawTypes[name, default: [:]][moduleName, default: []].append(rawType)
+    moduleTypes[moduleName, default: []].insert(name)
   }
   
   enum Constants {
@@ -155,7 +176,11 @@ class RawTypeRepository {
       let moduleName = String(name[..<firstComponentIndex])
       guard attributedModuleNames.contains(moduleName) else { return nil }
       let dequalifiedName = name[name.index(after: firstComponentIndex)...]
-      return self.rawTypes(named: String(dequalifiedName))?[moduleName]
+      
+      guard let rawType = self.rawTypes(named: String(dequalifiedName))?[moduleName],
+        rawType.contains(where: { $0.kind != .extension })
+        else { return nil }
+      return rawType
     }
     
     let fullyQualifiedName = (containingTypeNames + [name]).joined(separator: ".")
@@ -167,5 +192,14 @@ class RawTypeRepository {
                                 moduleNames: attributedModuleNames,
                                 referencingModuleName: nil,
                                 containingTypeNames: typeNames)
+  }
+  
+  /// Returns whether a module name is shadowed by a type definition in any of the given modules.
+  /// - Parameter moduleName: A module name to check.
+  /// - Parameter moduleNames: A list of modules to check for type definitions.
+  func isModuleNameShadowed(moduleName: String, moduleNames: [String]) -> Bool {
+    return moduleNames.contains(where: {
+      moduleTypes[$0]?.contains(moduleName) == true
+    })
   }
 }

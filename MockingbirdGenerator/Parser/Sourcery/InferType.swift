@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Modified type inference from SourceryFramework/Sources/Parsing/FileParser.swift
 func inferType(from string: String) -> String? {
   let string = string.trimmingCharacters(in: .whitespaces)
   // probably lazy property or default value with closure,
@@ -99,23 +100,28 @@ func inferType(from string: String) -> String? {
     // Contained types, i.e. `Foo.Bar()` should be inferred to `Foo.Bar`
     // But rarely enum cases can also start with capital letters, so we still may wrongly infer them as a type
     func possibleEnumType(_ string: String) -> String? {
-      let components = string.components(separatedBy: ".", excludingDelimiterBetween: ("<[(", ")]>"))
-      if components.count > 1, let lastComponentFirstLetter = components.last?.first.map(String.init) {
-        if lastComponentFirstLetter.lowercased() == lastComponentFirstLetter {
-          return components.dropLast().joined(separator: ".")
-        }
+      let components = string.components(separatedBy: ".", excluding: .allGroups)
+      if components.count > 1, components.first != "self",
+        let lastComponentFirstLetter = components.last?.first.map(String.init),
+        lastComponentFirstLetter.lowercased() == lastComponentFirstLetter {
+        return components.dropLast().joined(separator: ".")
       }
       return nil
     }
     
     // get everything before `(`
-    let components = string.components(separatedBy: "(", excludingDelimiterBetween: ("<[(", ")]>"))
-    if components.count > 1 {
+    let components = string.components(separatedBy: "(", excluding: .allGroups)
+    let lastCharacter = string.last
+    if components.count > 1 && lastCharacter == ")" {
       //initializer without `init`
-      inferredType = components[0]
+      inferredType = String(components[0])
       return possibleEnumType(inferredType) ?? inferredType
-    } else {
+    } else if lastCharacter?.isLetter == true
+      || lastCharacter?.isNumber == true
+      || lastCharacter == "_" {
       return possibleEnumType(string)
+    } else {
+      return nil
     }
   }
 }

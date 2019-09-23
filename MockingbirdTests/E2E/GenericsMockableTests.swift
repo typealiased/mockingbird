@@ -47,6 +47,15 @@ extension AssociatedTypeSelfReferencingProtocolMock: MockableAssociatedTypeSelfR
 private protocol MockableInheritingAssociatedTypeSelfReferencingProtocol: AssociatedTypeSelfReferencingProtocol, Mock {}
 extension InheritingAssociatedTypeSelfReferencingProtocolMock: MockableInheritingAssociatedTypeSelfReferencingProtocol {}
 
+private protocol MockableSecondLevelSelfConstrainedAssociatedTypeProtocol: AssociatedTypeSelfReferencingProtocol {}
+extension SecondLevelSelfConstrainedAssociatedTypeProtocolMock: MockableSecondLevelSelfConstrainedAssociatedTypeProtocol {}
+
+private protocol MockableTopLevelSelfConstrainedAssociatedTypeProtocol: MockableSecondLevelSelfConstrainedAssociatedTypeProtocol {}
+extension TopLevelSelfConstrainedAssociatedTypeProtocolMock: MockableTopLevelSelfConstrainedAssociatedTypeProtocol {}
+
+private protocol MockableGenericClassReferencer: GenericClassReferencer {}
+extension GenericClassReferencerMock: MockableGenericClassReferencer {}
+
 // MARK: Non-mockable declarations
 
 private extension AssociatedTypeImplementerMock {

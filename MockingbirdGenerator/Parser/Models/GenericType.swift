@@ -25,8 +25,10 @@ struct WhereClause: Equatable, Hashable, CustomStringConvertible {
   let constrainedTypeName: String
   let genericConstraint: String
   let `operator`: Operator
+  let hasSelfConstraint: Bool
   
   init?(from declaration: String) {
+    self.hasSelfConstraint = false // Hydrated when qualified.
     if let conformsIndex = declaration.firstIndex(of: Operator.conforms.rawValue.first!) {
       self.operator = .conforms
       self.constrainedTypeName = declaration[..<conformsIndex]
@@ -48,6 +50,9 @@ struct WhereClause: Equatable, Hashable, CustomStringConvertible {
     self.constrainedTypeName = constrainedTypeName
     self.genericConstraint = genericConstraint
     self.operator = `operator`
+    self.hasSelfConstraint =
+      constrainedTypeName.contains(SerializationRequest.Constants.selfTokenIndicator)
+      || genericConstraint.contains(SerializationRequest.Constants.selfTokenIndicator)
   }
 }
 
@@ -55,6 +60,7 @@ struct GenericType: Hashable {
   let name: String
   let constraints: Set<String> // A set of type names
   let whereClauses: [WhereClause]
+  let hasSelfConstraint: Bool
   
   struct Reduced: Hashable {
     let name: String
@@ -91,8 +97,10 @@ struct GenericType: Hashable {
                                                       dictionary: dictionary,
                                                       moduleNames: moduleNames,
                                                       rawTypeRepository: rawTypeRepository)
+      self.hasSelfConstraint = whereClauses.contains(where: { $0.hasSelfConstraint })
     } else {
       whereClauses = []
+      self.hasSelfConstraint = false
     }
     self.whereClauses = whereClauses
     self.constraints = constraints
@@ -100,9 +108,9 @@ struct GenericType: Hashable {
   
   /// Qualify any generic type constraints, which SourceKit gives us as inherited types.
   private static func parseInheritedTypes(rawInheritedTypes: [StructureDictionary],
-                                  moduleNames: [String],
-                                  rawType: RawType,
-                                  rawTypeRepository: RawTypeRepository) -> Set<String> {
+                                          moduleNames: [String],
+                                          rawType: RawType,
+                                          rawTypeRepository: RawTypeRepository) -> Set<String> {
     var constraints = Set<String>()
     for rawInheritedType in rawInheritedTypes {
       guard let name = rawInheritedType[SwiftDocKey.name.rawValue] as? String else { continue }
@@ -121,10 +129,10 @@ struct GenericType: Hashable {
   
   /// Manually parse any constraints defined by associated types in protocols.
   private static func parseAssociatedTypes(constraints: inout Set<String>,
-                                   rawType: RawType,
-                                   dictionary: StructureDictionary,
-                                   moduleNames: [String],
-                                   rawTypeRepository: RawTypeRepository) -> [WhereClause] {
+                                           rawType: RawType,
+                                           dictionary: StructureDictionary,
+                                           moduleNames: [String],
+                                           rawTypeRepository: RawTypeRepository) -> [WhereClause] {
     var whereClauses = [WhereClause]()
     let source = rawType.parsedFile.data
     guard let declaration = SourceSubstring.key.extract(from: dictionary, contents: source),
@@ -135,10 +143,10 @@ struct GenericType: Hashable {
     let typeDeclaration = declaration[inferredTypeStartIndex...]
     
     // Associated types can also have generic type constraints using a generic `where` clause.
-    let inferredType: String
+    let allInferredTypes: String
     if let whereRange = typeDeclaration.range(of: #"\bwhere\b"#, options: .regularExpression) {
       let rawInferredType = typeDeclaration[..<whereRange.lowerBound]
-      inferredType = String(rawInferredType.trimmingCharacters(in: .whitespacesAndNewlines))
+      allInferredTypes = rawInferredType.trimmingCharacters(in: .whitespacesAndNewlines)
       
       whereClauses = typeDeclaration[whereRange.upperBound...]
         .components(separatedBy: ",", excluding: .allGroups)
@@ -148,19 +156,24 @@ struct GenericType: Hashable {
                                               moduleNames: moduleNames,
                                               rawTypeRepository: rawTypeRepository) })
     } else { // No `where` generic type constraints.
-      inferredType = String(typeDeclaration.trimmingCharacters(in: .whitespacesAndNewlines))
+      allInferredTypes = typeDeclaration.trimmingCharacters(in: .whitespacesAndNewlines)
     }
+    let inferredTypes = allInferredTypes
+      .substringComponents(separatedBy: ",")
+      .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
     
     // Qualify all generic constraint types.
-    let declaredType = DeclaredType(from: inferredType)
-    let serializationContext = SerializationRequest
-      .Context(moduleNames: moduleNames,
-               rawType: rawType,
-               rawTypeRepository: rawTypeRepository)
-    let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
-                                                        context: serializationContext,
-                                                        options: .standard)
-    constraints.insert(declaredType.serialize(with: qualifiedTypeNameRequest))
+    for inferredType in inferredTypes {
+      let declaredType = DeclaredType(from: inferredType)
+      let serializationContext = SerializationRequest
+        .Context(moduleNames: moduleNames,
+                 rawType: rawType,
+                 rawTypeRepository: rawTypeRepository)
+      let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
+                                                          context: serializationContext,
+                                                          options: .standard)
+      constraints.insert(declaredType.serialize(with: qualifiedTypeNameRequest))
+    }
     
     return whereClauses
   }
@@ -170,13 +183,6 @@ struct GenericType: Hashable {
                                  containingType: RawType,
                                  moduleNames: [String],
                                  rawTypeRepository: RawTypeRepository) -> WhereClause {
-    if whereClause.genericConstraint == "Self" {
-      return WhereClause(constrainedTypeName: whereClause.constrainedTypeName,
-                         genericConstraint: SerializationRequest.Constants.selfToken,
-                         operator: whereClause.operator)
-    }
-    
-    let declaredType = DeclaredType(from: whereClause.genericConstraint)
     let serializationContext = SerializationRequest
       .Context(moduleNames: moduleNames,
                rawType: containingType,
@@ -184,9 +190,26 @@ struct GenericType: Hashable {
     let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
                                                         context: serializationContext,
                                                         options: .standard)
-    let qualifiedTypeName = declaredType.serialize(with: qualifiedTypeNameRequest)
-    return WhereClause(constrainedTypeName: whereClause.constrainedTypeName,
-                       genericConstraint: qualifiedTypeName,
+    
+    let declaredConstrainedType = DeclaredType(from: whereClause.constrainedTypeName)
+    var qualifiedConstrainedTypeName = declaredConstrainedType
+      .serialize(with: qualifiedTypeNameRequest)
+    
+    let declaredConstraintType = DeclaredType(from: whereClause.genericConstraint)
+    var qualifiedConstraintTypeName = declaredConstraintType
+      .serialize(with: qualifiedTypeNameRequest)
+    
+    // De-qualify `Self` constraints.
+    if qualifiedConstrainedTypeName.hasPrefix("Self.") {
+      qualifiedConstrainedTypeName.removeFirst(5)
+    }
+    
+    if qualifiedConstraintTypeName.hasPrefix("Self.") {
+      qualifiedConstraintTypeName.removeFirst(5)
+    }
+    
+    return WhereClause(constrainedTypeName: qualifiedConstrainedTypeName,
+                       genericConstraint: qualifiedConstraintTypeName,
                        operator: whereClause.operator)
   }
 }
