@@ -308,7 +308,9 @@ class MockableType: Hashable, Comparable {
         
         methods = methods.union(mockableType.methods.filter({
           $0.kind.typeScope.isMockable(in: baseRawType.kind) &&
-            (!definesDesignatedInitializer || !$0.isInitializer)
+            // Mocking a subclass with designated initializers shouldn't inherit the superclass'
+            // initializers.
+            (baseRawType.kind == .protocol || !definesDesignatedInitializer || !$0.isInitializer)
         }))
         variables = variables.union(mockableType.variables.filter({
           $0.kind.typeScope.isMockable(in: baseRawType.kind)

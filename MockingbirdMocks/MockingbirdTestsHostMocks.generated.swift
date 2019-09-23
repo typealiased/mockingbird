@@ -4700,6 +4700,78 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return EmptyProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked EquatableCodableConformingProtocol
+
+public final class EquatableCodableConformingProtocolMock: MockingbirdTestsHost.EquatableCodableConformingProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.6.1", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      EquatableCodableConformingProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked ==(_ lhs: EquatableCodableConformingProtocolMock, _ rhs: EquatableCodableConformingProtocolMock)
+
+  public static func ==(_ lhs: EquatableCodableConformingProtocolMock, _ rhs: EquatableCodableConformingProtocolMock) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ lhs: EquatableCodableConformingProtocolMock, _ rhs: EquatableCodableConformingProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (EquatableCodableConformingProtocolMock, EquatableCodableConformingProtocolMock) -> Bool {
+      return concreteImplementation(`lhs`, `rhs`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public static func _equalTo(_ lhs: @escaping @autoclosure () -> EquatableCodableConformingProtocolMock, _ rhs: @escaping @autoclosure () -> EquatableCodableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableCodableConformingProtocolMock, EquatableCodableConformingProtocolMock) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ lhs: EquatableCodableConformingProtocolMock, _ rhs: EquatableCodableConformingProtocolMock) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableCodableConformingProtocolMock, EquatableCodableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+  }
+
+  // MARK: Mocked `encode`(to encoder: Encoder)
+
+  public func `encode`(to encoder: Encoder) throws -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`encode`(to encoder: Encoder) throws -> Void", arguments: [Mockingbird.ArgumentMatcher(`encoder`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    if let concreteImplementation = implementation as? (Encoder) throws -> Void {
+      try concreteImplementation(`encoder`)
+    } else {
+      try (implementation as? () throws -> Void)?()
+    }
+  }
+
+  public func `encode`(to encoder: @escaping @autoclosure () -> Encoder) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Encoder) throws -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`encoder`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`encode`(to encoder: Encoder) throws -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Encoder) throws -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked init(from decoder: Decoder)
+
+  public required init(from decoder: Decoder) throws {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(from decoder: Decoder) throws ", arguments: [Mockingbird.ArgumentMatcher(`decoder`)])
+    mockingContext.didInvoke(invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.EquatableCodableConformingProtocol` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: EquatableCodableConformingProtocolMock.Type) -> EquatableCodableConformingProtocolMock {
+  return EquatableCodableConformingProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked EquatableConformingProtocol
 
 public final class EquatableConformingProtocolMock: MockingbirdTestsHost.EquatableConformingProtocol, Mockingbird.Mock {
@@ -6643,6 +6715,80 @@ public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, 
 /// Create a source-attributed `MockingbirdTestsHost.InitializerClass` class mock metatype.
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.InitializerClass.Type) -> InitializerClassMock.InitializerProxy.Type {
   return InitializerClassMock.InitializerProxy.self
+}
+
+// MARK: - Mocked InitializerOverridingProtocol
+
+public final class InitializerOverridingProtocolMock: MockingbirdTestsHost.InitializerOverridingProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.6.1", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      InitializerOverridingProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked init()
+
+  public required init() {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init() ", arguments: [])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init(param123: Bool)
+
+  public required init(param123: Bool) {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(param123: Bool) ", arguments: [Mockingbird.ArgumentMatcher(`param123`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init(param1: Bool, _ param2: Int)
+
+  public required init(param1: Bool, _ param2: Int) {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(param1: Bool, _ param2: Int) ", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init?(param: Bool)
+
+  public required init?(param: Bool) {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init?(param: Bool) ", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init!(param: Int)
+
+  public required init!(param: Int) {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init!(param: Int) ", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init(param: String)
+
+  public required init(param: String) throws {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(param: String) throws ", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.InitializerOverridingProtocol` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.InitializerOverridingProtocol.Protocol) -> InitializerOverridingProtocolMock {
+  return InitializerOverridingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked InitializerOverridingSubclass

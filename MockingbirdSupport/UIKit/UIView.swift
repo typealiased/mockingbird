@@ -5,5 +5,5 @@ import _SwiftUIKitOverlayShims
 @available(iOS 2.0, *)
 open class UIView : NSCoding {
   public init(frame: CGRect)
-  public init?(coder: NSCoder)
+  public required init?(coder: NSCoder)
 }
