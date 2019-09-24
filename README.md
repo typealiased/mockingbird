@@ -1,9 +1,8 @@
 # Mockingbird
 
-[![CocoaPods compatible](https://img.shields.io/cocoapods/v/MockingbirdFramework.svg)](http://cocoapods.org/pods/MockingbirdFramework)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/Carthage/Carthage)
-[![Swift Package Manager compatible](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/birdrides/mockingbird/blob/master/LICENSE)
+[![Package managers](https://img.shields.io/badge/package-cocoapods%20|%20carthage%20|%20spm-4BC51D.svg)](#installation)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+[![Slack](https://img.shields.io/badge/slack-join%20channel-A417A6.svg)](https://slofile.com/slack/birdopensource)
 
 Mockingbird is a convenient mocking framework for Swift.
 
