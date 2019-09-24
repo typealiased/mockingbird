@@ -481,3 +481,9 @@ By default Mockingbird will generate mocks into the `$(SRCROOT)/MockingbirdMocks
 
 Mockingbird will recursively look for [supporting source files](#supporting-source-files) in the
 `$(SRCROOT)/MockingbirdSupport` directory.
+
+## Resources
+
+- [Slack channel](https://slofile.com/slack/birdopensource)
+- [Example unit test](/MockingbirdTests/Example/TreeTests.swift)
+- [CocoaPods tutorial + example project](https://github.com/andrewchang-bird/MockingbirdCocoaPodsExample)
