@@ -61,9 +61,7 @@ struct MockableTypeInitializerTemplate: Template {
     let returnTypeDescription: String
     let mockedScopedName = mockableTypeTemplate.createScopedName(with: containingTypeNames,
                                                                  suffix: "Mock")
-    if mockableTypeTemplate.mockableType.name == "EquatableConformingProtocol" {
-      print("Wtf")
-    }
+    
     if !mockableTypeTemplate.shouldGenerateDefaultInitializer {
       // Requires an initializer proxy to create the partial class mock.
       returnType = "\(mockedScopedName).InitializerProxy.Type"
