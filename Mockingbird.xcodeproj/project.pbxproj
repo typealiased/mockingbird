@@ -63,7 +63,6 @@
 		49F60A9F232F477100B51A7C /* FlattenInheritanceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60A9E232F477100B51A7C /* FlattenInheritanceOperation.swift */; };
 		49F60AA123305F5A00B51A7C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60AA023305F5A00B51A7C /* Log.swift */; };
 		5D5FAC84DF438200D4E44D85 /* MockingbirdTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */; };
-		D6FB624C58D6641B84AAA33D /* MockingbirdTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */; };
 		OBJ_1002 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_380 /* SWXMLHash.swift */; };
 		OBJ_1003 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_381 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
 		OBJ_1004 /* shim.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_382 /* shim.swift */; };
@@ -1006,7 +1005,7 @@
 		OBJ_137 /* ProtocolInitializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolInitializers.swift; sourceTree = "<group>"; };
 		OBJ_138 /* TopLevelFileIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopLevelFileIgnoredSource.swift; sourceTree = "<group>"; };
 		OBJ_139 /* Typealiasing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiasing.swift; sourceTree = "<group>"; };
-		OBJ_14 /* InstallCommand.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = InstallCommand.swift; sourceTree = "<group>"; tabWidth = 2; };
+		OBJ_14 /* InstallCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallCommand.swift; sourceTree = "<group>"; };
 		OBJ_140 /* UndefinedArgumentLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndefinedArgumentLabels.swift; sourceTree = "<group>"; };
 		OBJ_141 /* Variables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Variables.swift; sourceTree = "<group>"; };
 		OBJ_142 /* VariadicParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariadicParameters.swift; sourceTree = "<group>"; };
@@ -2634,9 +2633,7 @@
 				493ECA30232EC7CD008BF44B /* XCConfigs */,
 				2A3E4FEA8D2A60B993516C10 /* Generated Mocks */,
 			);
-			indentWidth = 2;
 			sourceTree = "<group>";
-			tabWidth = 2;
 		};
 		OBJ_50 /* Generator */ = {
 			isa = PBXGroup;
@@ -3064,8 +3061,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_882 /* Build configuration list for PBXNativeTarget "MockingbirdTestsHost" */;
 			buildPhases = (
-				EFFD27B52D7D957C9DAD1213 /* Clean Mockingbird Mocks */,
-				C3945E0AE1751B5B5D457E18 /* Generate Mockingbird Mocks */,
 				OBJ_885 /* Sources */,
 				OBJ_924 /* Frameworks */,
 			);
@@ -3414,11 +3409,6 @@
 			attributes = {
 				LastSwiftMigration = 9999;
 				LastUpgradeCheck = 1100;
-				TargetAttributes = {
-					"AEXML::AEXML" = {
-						DevelopmentTeam = 5K99777NES;
-					};
-				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "Mockingbird" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -3476,31 +3466,15 @@
 			files = (
 			);
 			inputPaths = (
-				"/tmp/Mockingbird-67E276EB-A5DD-40C8-B3EF-ECC0981883E4",
+				"/tmp/Mockingbird-F4CD5279-5F60-46C7-B24B-FE43E99DB227",
 			);
 			name = "Generate Mockingbird Mocks";
 			outputPaths = (
-				/Users/kylelee/Documents/Work/Bird/mockingbird/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift,
+				/Users/andrew/Mockingbird/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/Users/kylelee/Library/Developer/Xcode/DerivedData/Mockingbird-awzpedfbtpreuigjwnszcockiebj/Build/Products/Debug/MockingbirdCli generate \\\n--targets 'MockingbirdTestsHost' \\\n  --outputs '/Users/kylelee/Documents/Work/Bird/mockingbird/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift' \\\n  --support '/Users/kylelee/Documents/Work/Bird/mockingbird/MockingbirdSupport'\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-67E276EB-A5DD-40C8-B3EF-ECC0981883E4'\n";
-		};
-		C3945E0AE1751B5B5D457E18 /* Generate Mockingbird Mocks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"/tmp/Mockingbird-C9E4DAC0-CC8F-4321-84DA-C07EF6D73AFB",
-			);
-			name = "Generate Mockingbird Mocks";
-			outputPaths = (
-				/Users/kylelee/Documents/Work/Bird/mockingbird/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/Users/kylelee/Library/Developer/Xcode/DerivedData/Mockingbird-awzpedfbtpreuigjwnszcockiebj/Build/Products/Debug/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs '/Users/kylelee/Documents/Work/Bird/mockingbird/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift' \\\n  --support '/Users/kylelee/Documents/Work/Bird/mockingbird/MockingbirdSupport'\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-C9E4DAC0-CC8F-4321-84DA-C07EF6D73AFB'\n";
+			shellScript = "/Users/andrew/Library/Developer/Xcode/DerivedData/Mockingbird-agsjxwhkkkzllxguwkxolnnkjhqj/Build/Products/Debug/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs '/Users/andrew/Mockingbird/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift'\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-F4CD5279-5F60-46C7-B24B-FE43E99DB227'\n";
 		};
 		E0C37AF4D09E1A81AA94E903 /* Clean Mockingbird Mocks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3511,26 +3485,11 @@
 			);
 			name = "Clean Mockingbird Mocks";
 			outputPaths = (
-				"/tmp/Mockingbird-67E276EB-A5DD-40C8-B3EF-ECC0981883E4",
+				"/tmp/Mockingbird-F4CD5279-5F60-46C7-B24B-FE43E99DB227",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo $RANDOM > '/tmp/Mockingbird-67E276EB-A5DD-40C8-B3EF-ECC0981883E4'\n";
-		};
-		EFFD27B52D7D957C9DAD1213 /* Clean Mockingbird Mocks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Clean Mockingbird Mocks";
-			outputPaths = (
-				"/tmp/Mockingbird-C9E4DAC0-CC8F-4321-84DA-C07EF6D73AFB",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo $RANDOM > '/tmp/Mockingbird-C9E4DAC0-CC8F-4321-84DA-C07EF6D73AFB'\n";
+			shellScript = "echo $RANDOM > '/tmp/Mockingbird-F4CD5279-5F60-46C7-B24B-FE43E99DB227'\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -4073,7 +4032,6 @@
 				OBJ_921 /* UndefinedArgumentLabels.swift in Sources */,
 				OBJ_922 /* Variables.swift in Sources */,
 				OBJ_923 /* VariadicParameters.swift in Sources */,
-				D6FB624C58D6641B84AAA33D /* MockingbirdTestsHostMocks.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4500,8 +4458,6 @@
 		4970D6272330AC27002EE154 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				DEVELOPMENT_TEAM = 5K99777NES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5656,8 +5612,6 @@
 		OBJ_542 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				DEVELOPMENT_TEAM = 5K99777NES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5682,8 +5636,6 @@
 		OBJ_543 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				DEVELOPMENT_TEAM = 5K99777NES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
