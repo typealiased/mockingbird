@@ -259,7 +259,7 @@ class Installer {
       }
       let shellScript = """
       \(config.cliPath) generate \\
-        \(options.joined(separator: " \\\n  "))
+      \(options.joined(separator: " \\\n  "))
       
       # Ensure mocks are generated prior to running Compile Sources
       rm -f '\(cacheBreakerPath.absolute())'

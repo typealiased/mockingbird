@@ -67,11 +67,11 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--walkthrough"
+            argument = "--interactive"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-w"
+            argument = "-i"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

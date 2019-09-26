@@ -121,15 +121,12 @@ $ mockingbird install \
   --destination BirdTests
 ```
 
-Alternatively, you can use the `--walkthrough` or `-w` option to be guided through the install command.
+Alternatively, you can use the `--interactive` or `-i` option to be guided through the install command.
 
 ```bash
-$ mockingbird install --walkthrough
+$ mockingbird install --interactive
 
-Enter an Xcode project.
-Bird.xcodeproj
-
-Which target(s) contain the protocols you want to mock?
+Which target(s) contain the objects you want to mock?
 BirdModels BirdManagers
 
 Which test target will use the mocked protocols?
@@ -454,7 +451,7 @@ Set up a destination (unit test) target.
 | `--outputs` | [`(inferred)`](#--outputs) | List of mock output file paths for each target. |
 | `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](#). |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
-| `--walkthrough` | `(none)` | Guides the user through the install process by capturing the `project`, `targets`, and `destination`. |
+| `--interactive` | `(none)` | Guides the user through the install process by capturing the `project`, `targets`, and `destination`. |
 
 | Flag | Description |
 | --- | --- |
