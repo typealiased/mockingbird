@@ -121,6 +121,20 @@ $ mockingbird install \
   --destination BirdTests
 ```
 
+Alternatively, you can use the `--interactive` or `-i` option to be guided through the install command.
+
+```bash
+$ mockingbird install --interactive
+
+Which target(s) contain the objects you want to mock?
+BirdModels BirdManagers
+
+Which test target will use the mocked protocols?
+UnitTestTarget
+```
+
+By default, Mockingbird will generate mocks for all dependencies  You can optionally list all source targets that should generate mocks.
+
 ### Manual Integration
 
 Add a Run Script Phase to each target that should generate mocks.
@@ -437,6 +451,7 @@ Set up a destination (unit test) target.
 | `--outputs` | [`(inferred)`](#--outputs) | List of mock output file paths for each target. |
 | `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](#). |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
+| `--interactive` | `(none)` | Guides the user through the install process by capturing the `project`, `targets`, and `destination`. |
 
 | Flag | Description |
 | --- | --- |

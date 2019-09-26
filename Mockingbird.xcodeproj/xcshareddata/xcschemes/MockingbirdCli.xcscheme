@@ -64,10 +64,18 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "install"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--interactive"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--project ./Mockingbird.xcodeproj"
+            argument = "-i"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--project Mockingbird.xcodeproj"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
@@ -104,7 +112,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "generate"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--project /Users/andrew/api-ios/ios/Bird.xcodeproj"
@@ -124,7 +132,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--target MockingbirdTestsHost"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--output ./MockingbirdTests/Mocks.generated.swift"

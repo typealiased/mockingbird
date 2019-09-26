@@ -74,6 +74,13 @@ extension ArgumentParser {
                completion: .filename)
   }
   
+  func addInteravtiveOption() -> OptionArgument<Bool> {
+    return add(option: "--interactive",
+               shortName: "-i",
+               kind: Bool.self,
+               usage: "The guided version of the install command.")
+  }
+  
   /// For installation, only accepts a single output.
   func addInstallationOutput() -> OptionArgument<PathArgument> {
     return add(option: "--output",
@@ -160,6 +167,66 @@ extension ArgumentParser {
 }
 
 extension ArgumentParser.Result {
+  func hasInteractiveOption(using argument: OptionArgument<Bool>) -> Bool {
+    return get(argument) == true
+  }
+  
+  private func getInferredProject(from projects: [Path]) -> Path? {
+    guard let firstProject = projects.first, projects.count == 1 else { return nil }
+    
+    log("Using inferred Xcode project at \(firstProject.absolute())")
+    return firstProject
+  }
+  
+  private func promptForProjectPath(using environment: [String: String]) -> Path {
+    print("\nEnter an Xcode project path.")
+    guard let projectInput = readLine() ?? environment["PROJECT_FILE_PATH"] else {
+      print("Expect <xcodeproj file path>")
+      return promptForProjectPath(using: environment)
+    }
+    let projectPath = Path(projectInput).absolute()
+    guard projectPath.isDirectory, projectPath.extension == "xcodeproj" else {
+      print("Expect <xcodeproj file path>")
+      return promptForProjectPath(using: environment)
+    }
+    return projectPath
+  }
+  
+  private func promptForTargets(using environment: [String: String]) -> [String] {
+    print("\nWhich target(s) contain the objects you want to mock?")
+    guard let sourcesInput = readLine() ?? environment["TARGET_NAME"], !sourcesInput.isEmpty else {
+      print("Expected <list of target names>")
+      return promptForTargets(using: environment)
+    }
+    let sources = sourcesInput.components(separatedBy: " ")
+    return sources
+  }
+  
+  private func promptForDestination() -> String {
+    print("\nWhich test target will use the mocked protocols?")
+    guard let destination = readLine(), !destination.isEmpty else {
+      print("Expected <target name>")
+      return promptForDestination()
+    }
+    return destination
+  }
+  
+  func getInteractiveResult(using environment: [String: String],
+                            workingPath: Path) throws -> (project: Path, sources: [String], destination: String) {
+    
+    var projectPath: Path
+    if let projects = try? workingPath.containedXcodeProjects(),
+      let inferredProject = getInferredProject(from: projects) {
+      projectPath = inferredProject
+    } else {
+      projectPath = promptForProjectPath(using: environment)
+    }
+    
+    let sources = promptForTargets(using: environment)
+    let destination = promptForDestination()
+    return (projectPath, sources, destination)
+  }
+  
   func getProjectPath(using argument: OptionArgument<PathArgument>,
                       environment: [String: String],
                       workingPath: Path) throws -> Path {
@@ -167,17 +234,18 @@ extension ArgumentParser.Result {
     if let rawProjectPath = get(argument)?.path.pathString ?? environment["PROJECT_FILE_PATH"] {
       projectPath = Path(rawProjectPath)
     } else {
-      let inferredXcodeProjects = try workingPath.containedXcodeProjects()
-      if let firstProject = inferredXcodeProjects.first, inferredXcodeProjects.count == 1 {
-        log("Using inferred Xcode project at \(firstProject.absolute())")
-        projectPath = firstProject
+      let xcodeProjects = try workingPath.containedXcodeProjects()
+      if let inferredProject = getInferredProject(from: xcodeProjects) {
+        projectPath = inferredProject
+        
       } else {
-        if inferredXcodeProjects.count > 1 {
+        if xcodeProjects.count > 1 {
           logWarning("Unable to infer Xcode project because there are multiple `.xcodeproj` files in \(workingPath.absolute())")
         }
         throw ArgumentParserError.expectedValue(option: "--project <xcodeproj file path>")
       }
     }
+    
     guard projectPath.isDirectory, projectPath.extension == "xcodeproj" else {
       throw ArgumentParserError.invalidValue(argument: "--project \(projectPath.absolute())",
                                              error: .custom("Not a valid `.xcodeproj` path"))
@@ -257,6 +325,14 @@ extension ArgumentParser.Result {
       return path
     }
     throw ArgumentParserError.expectedValue(option: "--output <list of output file paths>")
+  }
+  
+  func getInteractiveOption(using argument: OptionArgument<String>) throws -> String {
+    if let option = get(argument) {
+      return option
+    } else {
+      throw ArgumentParserError.expectedValue(option: "--interactive")
+    }
   }
   
   func getCount(using argument: OptionArgument<Int>) throws -> Int? {
