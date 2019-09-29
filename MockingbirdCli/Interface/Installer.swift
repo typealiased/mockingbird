@@ -85,7 +85,13 @@ class Installer {
     
     // Validate source targets.
     let sourceTargets = try config.sourceTargetNames.map({ targetName throws -> PBXTarget in
-      let sourceTargets = xcodeproj.pbxproj.targets(named: targetName)
+      let sourceTargets = xcodeproj.pbxproj.targets(named: targetName).filter({ target in
+        guard target.productType?.isTestBundle != true else {
+          logWarning("Ignoring unit test source target `\(targetName)`")
+          return false
+        }
+        return true
+      })
       if sourceTargets.count > 1 {
         logWarning("Found multiple source targets named `\(targetName)`, using the first one")
       }

@@ -24,6 +24,7 @@ class Generator {
     let shouldImportModule: Bool
     let onlyMockProtocols: Bool
     let disableSwiftlint: Bool
+    let disableCache: Bool
   }
   
   enum Failure: LocalizedError {
@@ -84,16 +85,18 @@ class Generator {
       
     // Resolve target names to concrete Xcode project targets.
     let targets = try config.inputTargetNames.compactMap({ targetName throws -> PBXTarget? in
-      let targets = xcodeproj.pbxproj.targets(named: targetName)
+      let targets = xcodeproj.pbxproj.targets(named: targetName).filter({ target in
+        guard target.productType?.isTestBundle != true else {
+          logWarning("Ignoring unit test target `\(targetName)`")
+          return false
+        }
+        return true
+      })
       if targets.count > 1 {
         logWarning("Found multiple input targets named `\(targetName)`, using the first one")
       }
       guard let target = targets.first else {
         throw Failure.malformedConfiguration(description: "Unable to find input target named `\(targetName)`")
-      }
-      guard target.productType?.isTestBundle != true else {
-        logWarning("Ignoring unit test target `\(targetName)`")
-        return nil
       }
       return target
     })
