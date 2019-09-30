@@ -27,13 +27,16 @@ class Generator {
     let disableCache: Bool
   }
   
-  enum Failure: LocalizedError {
+  enum Failure: Error {
     case malformedConfiguration(description: String)
+    case internalError(description: String)
     
     var errorDescription: String? {
       switch self {
       case .malformedConfiguration(let description):
         return "Malformed configuration - \(description)"
+      case .internalError(let description):
+        return "Internal error - \(description)"
       }
     }
   }
@@ -45,30 +48,58 @@ class Generator {
   struct Pipeline {
     let inputTarget: AbstractTarget
     let outputPath: Path
+    let operations: [BasicOperation]
+    var usedCache: Bool {
+      return operations.contains(where: {
+        guard let operation = $0 as? CheckCacheOperation else { return false }
+        return operation.result.isCached
+      })
+    }
     
-    func createOperations(with config: Configuration) -> [BasicOperation] {
+    init(inputTarget: AbstractTarget, outputPath: Path, config: Configuration) throws {
+      self.inputTarget = inputTarget
+      self.outputPath = outputPath
+      self.operations = try Pipeline.createOperations(for: inputTarget,
+                                                      outputPath: outputPath,
+                                                      config: config)
+    }
+    
+    private static func createOperations(for inputTarget: AbstractTarget,
+                                         outputPath: Path,
+                                         config: Configuration) throws -> [BasicOperation] {
       let extractSources: ExtractSourcesAbstractOperation
+      let checkCache: CheckCacheOperation?
       
       if let inputTarget = inputTarget as? CodableTarget {
         extractSources = ExtractSourcesOperation(with: inputTarget,
                                                  sourceRoot: config.sourceRoot,
                                                  supportPath: config.supportPath)
+        checkCache = CheckCacheOperation(extractSourcesResult: extractSources.result,
+                                         codableTarget: inputTarget,
+                                         outputFilePath: outputPath)
+        checkCache?.addDependency(extractSources)
       } else if let inputTarget = inputTarget as? PBXTarget {
         extractSources = ExtractSourcesOperation(with: inputTarget,
                                                  sourceRoot: config.sourceRoot,
                                                  supportPath: config.supportPath)
+        checkCache = nil
       } else {
-        fatalError("Malformed input target in pipeline")
+        throw Failure.internalError(
+          description: "Unsupported pipeline input target `\(inputTarget.productModuleName)`"
+        )
       }
         
-      let parseFiles = ParseFilesOperation(extractSourcesResult: extractSources.result)
+      let parseFiles = ParseFilesOperation(extractSourcesResult: extractSources.result,
+                                           checkCacheResult: checkCache?.result)
       parseFiles.addDependency(extractSources)
       
-      let processTypes = ProcessTypesOperation(parseFilesResult: parseFiles.result)
+      let processTypes = ProcessTypesOperation(parseFilesResult: parseFiles.result,
+                                               checkCacheResult: checkCache?.result)
       processTypes.addDependency(parseFiles)
       
       let moduleName = inputTarget.productModuleName
       let generateFile = GenerateFileOperation(processTypesResult: processTypes.result,
+                                               checkCacheResult: checkCache?.result,
                                                moduleName: moduleName,
                                                outputPath: outputPath,
                                                compilationCondition: config.compilationCondition,
@@ -77,7 +108,12 @@ class Generator {
                                                disableSwiftlint: config.disableSwiftlint)
       generateFile.addDependency(processTypes)
       
-      return [extractSources, parseFiles, processTypes, generateFile]
+      if let checkCache = checkCache {
+        parseFiles.addDependency(checkCache)
+        return [extractSources, checkCache, parseFiles, processTypes, generateFile]
+      } else {
+        return [extractSources, parseFiles, processTypes, generateFile]
+      }
     }
   }
   
@@ -134,7 +170,9 @@ class Generator {
         logWarning("Found multiple input targets named `\(targetName)`, using the first one")
       }
       guard let target = targets.first else {
-        throw Failure.malformedConfiguration(description: "Unable to find input target named `\(targetName)`")
+        throw Failure.malformedConfiguration(
+          description: "Unable to find input target named `\(targetName)`"
+        )
       }
       return target
     })
@@ -151,29 +189,27 @@ class Generator {
       guard !outputPath.isDirectory else {
         throw Failure.malformedConfiguration(description: "Output file path points to a directory: \(outputPath)")
       }
-      pipelines.append(Pipeline(inputTarget: target, outputPath: outputPath))
+      try pipelines.append(Pipeline(inputTarget: target, outputPath: outputPath, config: config))
     }
     
     // Create concrete generation operation graphs from pipelines.
     let queue = OperationQueue.createForActiveProcessors()
-    pipelines.forEach({
-      queue.addOperations($0.createOperations(with: config), waitUntilFinished: false)
-    })
+    pipelines.forEach({ queue.addOperations($0.operations, waitUntilFinished: false) })
     let operationsCopy = queue.operations.compactMap({ $0 as? BasicOperation })
     queue.waitUntilAllOperationsAreFinished()
     operationsCopy.compactMap({ $0.error }).forEach({ log($0) })
     
     // Write intermediary module cache info into project cache directory.
     if let projectHash = pbxprojHash {
-      try cacheDirectory.mkpath()
-      try operationsCopy.compactMap({ $0 as? ExtractSourcesOperation<PBXTarget> }).forEach({
-        let target = CodableTarget(from: $0.target,
-                                   sourceRoot: config.sourceRoot,
-                                   projectHash: projectHash)
-        let data = try JSONEncoder().encode(target)
-        let filePath = targetLockFilePath(for: target.name, cacheDirectory: cacheDirectory)
-        try filePath.write(data)
-      })
+      try time(.cacheMocks) {
+        try cacheDirectory.mkpath()
+        try pipelines.forEach({
+          try cachePipeline($0,
+                            projectHash: projectHash,
+                            sourceRoot: config.sourceRoot,
+                            cacheDirectory: cacheDirectory)
+        })
+      }
     }
   }
   
@@ -206,6 +242,38 @@ class Generator {
     
     log("Found cached source file information for target `\(targetName)` at \(filePath.absolute())")
     return target
+  }
+  
+  static func cachePipeline(_ pipeline: Pipeline,
+                            projectHash: String,
+                            sourceRoot: Path,
+                            cacheDirectory: Path) throws {
+    guard !pipeline.usedCache,
+      let extractSourceResult = pipeline.operations
+        .compactMap({ $0 as? ExtractSourcesAbstractOperation }).first?.result else { return }
+    
+    let target: CodableTarget
+    if let pipelineTarget = pipeline.inputTarget as? CodableTarget {
+      target = try CodableTarget(from: pipelineTarget,
+                                 sourceRoot: sourceRoot,
+                                 supportPaths: extractSourceResult.supportPaths.map({ $0.path }),
+                                 projectHash: projectHash,
+                                 outputHash: pipeline.outputPath.read().generateSha1Hash())
+    } else if let pipelineTarget = pipeline.inputTarget as? PBXTarget {
+      target = try CodableTarget(from: pipelineTarget,
+                                 sourceRoot: sourceRoot,
+                                 supportPaths: extractSourceResult.supportPaths.map({ $0.path }),
+                                 projectHash: projectHash,
+                                 outputHash: pipeline.outputPath.read().generateSha1Hash())
+    } else {
+      throw Failure.internalError(
+        description: "Unsupported pipeline input target `\(pipeline.inputTarget.productModuleName)`"
+      )
+    }
+    let data = try JSONEncoder().encode(target)
+    let filePath = targetLockFilePath(for: target.name, cacheDirectory: cacheDirectory)
+    try filePath.write(data)
+    log("Cached pipeline input target `\(pipeline.inputTarget.productModuleName)` to \(filePath.absolute())")
   }
 }
 

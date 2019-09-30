@@ -13,7 +13,6 @@ import XcodeProj
 
 public protocol TargetDependency: Hashable {
   associatedtype T where T: Target
-  
   var target: T? { get }
 }
 
@@ -35,32 +34,53 @@ public protocol Target: AbstractTarget, Hashable {
 public struct CodableTargetDependency: TargetDependency, Codable {
   public let target: CodableTarget?
   
-  public init?(from dependency: PBXTargetDependency, sourceRoot: Path) {
+  init?<D: TargetDependency>(from dependency: D, sourceRoot: Path) throws {
     guard let target = dependency.target else { return nil }
-    self.target = CodableTarget(from: target, sourceRoot: sourceRoot, projectHash: nil)
+    self.target = try CodableTarget(from: target,
+                                    sourceRoot: sourceRoot,
+                                    supportPaths: [],
+                                    projectHash: nil,
+                                    outputHash: nil)
   }
+}
+
+public struct SourceFile: Codable, Hashable {
+  public let path: String
+  public let hash: String?
 }
 
 public struct CodableTarget: Target, Codable {
   public let name: String
   public let productModuleName: String
   public let dependencies: [CodableTargetDependency]
-  public let sourceFilePaths: [String]
+  
+  public let sourceFilePaths: [SourceFile]
+  public let supportingFilePaths: [SourceFile]
   public let sourceRoot: String
-  
   public let projectHash: String?
+  public let outputHash: String?
   
-  public init(from target: PBXTarget, sourceRoot: Path, projectHash: String?) {
+  public init<T: Target>(from target: T,
+                         sourceRoot: Path,
+                         supportPaths: [Path],
+                         projectHash: String?,
+                         outputHash: String?) throws {
     self.name = target.name
     self.productModuleName = target.productModuleName
-    self.dependencies = target.dependencies.compactMap({
-      CodableTargetDependency(from: $0, sourceRoot: sourceRoot)
+    self.dependencies = try target.dependencies.compactMap({
+      try CodableTargetDependency(from: $0, sourceRoot: sourceRoot)
     })
-    self.sourceFilePaths = target.findSourceFilePaths(sourceRoot: sourceRoot)
-      .map({ "\($0.absolute())" })
+    self.sourceFilePaths = try target.findSourceFilePaths(sourceRoot: sourceRoot)
+      .map({ $0.absolute() })
       .sorted()
+      .map({ try SourceFile(path: "\($0)", hash: $0.read().generateSha1Hash()) })
+    self.supportingFilePaths = try supportPaths
+      .map({ $0.absolute() })
+      .sorted()
+      .map({ try SourceFile(path: "\($0)", hash: $0.read().generateSha1Hash()) })
     self.sourceRoot = "\(sourceRoot.absolute())"
     self.projectHash = projectHash
+    self.outputHash = outputHash
   }
   
   public func findSourceFilePaths(sourceRoot: Path) -> [Path] {
@@ -68,7 +88,7 @@ public struct CodableTarget: Target, Codable {
       logWarning("Cached source root does not match the input source root") // Should never happen
       return []
     }
-    return sourceFilePaths.map({ Path($0) })
+    return sourceFilePaths.map({ Path($0.path) })
   }
 }
 

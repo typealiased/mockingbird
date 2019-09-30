@@ -11,15 +11,16 @@ import PathKit
 import XcodeProj
 import os.log
 
-struct SourcePath: Hashable, Equatable {
-  let path: Path
-  let moduleName: String
+public struct SourcePath: Hashable, Equatable {
+  public let path: Path
+  public let moduleName: String
 }
 
 public class ExtractSourcesOperationResult {
-  fileprivate(set) var targetPaths = Set<SourcePath>()
-  fileprivate(set) var dependencyPaths = Set<SourcePath>()
-  fileprivate(set) var moduleDependencies = [String: Set<String>]()
+  fileprivate(set) public var targetPaths = Set<SourcePath>()
+  fileprivate(set) public var dependencyPaths = Set<SourcePath>()
+  fileprivate(set) public var supportPaths = Set<SourcePath>() // Mainly used for caching.
+  fileprivate(set) public var moduleDependencies = [String: Set<String>]()
 }
 
 public protocol ExtractSourcesAbstractOperation: BasicOperation {
@@ -51,6 +52,7 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
         supportSourcePaths = []
       }
       
+      result.supportPaths = supportSourcePaths
       result.dependencyPaths = Set(allTargets(for: target, includeTarget: false)
         .flatMap({ sourceFilePaths(for: $0) }))
         .union(supportSourcePaths)

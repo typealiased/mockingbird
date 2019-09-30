@@ -12,6 +12,7 @@ import os.log
 
 public class ProcessTypesOperation: BasicOperation {
   let parseFilesResult: ParseFilesOperation.Result
+  let checkCacheResult: CheckCacheOperation.Result?
   
   public class Result {
     fileprivate(set) var mockableTypes = [MockableType]()
@@ -22,11 +23,14 @@ public class ProcessTypesOperation: BasicOperation {
   let rawTypeRepository = RawTypeRepository()
   let typealiasRepository = TypealiasRepository()
   
-  public init(parseFilesResult: ParseFilesOperation.Result) {
+  public init(parseFilesResult: ParseFilesOperation.Result,
+              checkCacheResult: CheckCacheOperation.Result?) {
     self.parseFilesResult = parseFilesResult
+    self.checkCacheResult = checkCacheResult
   }
   
   override func run() {
+    guard checkCacheResult?.isCached != true else { return }
     time(.processTypes) {
       let queue = OperationQueue.createForActiveProcessors()
       let processStructuresOperations = parseFilesResult.parsedFiles.map({

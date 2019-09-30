@@ -11,15 +11,18 @@ import PathKit
 import os.log
 
 public class GenerateFileOperation: BasicOperation {
-  private let processTypesResult: ProcessTypesOperation.Result
-  private let moduleName: String
-  private let outputPath: Path
-  private let compilationCondition: String?
-  private let shouldImportModule: Bool
-  private let onlyMockProtocols: Bool
-  private let disableSwiftlint: Bool
+  let processTypesResult: ProcessTypesOperation.Result
+  let checkCacheResult: CheckCacheOperation.Result?
+  
+  let moduleName: String
+  let outputPath: Path
+  let compilationCondition: String?
+  let shouldImportModule: Bool
+  let onlyMockProtocols: Bool
+  let disableSwiftlint: Bool
   
   public init(processTypesResult: ProcessTypesOperation.Result,
+              checkCacheResult: CheckCacheOperation.Result?,
               moduleName: String,
               outputPath: Path,
               compilationCondition: String?,
@@ -27,6 +30,7 @@ public class GenerateFileOperation: BasicOperation {
               onlyMockProtocols: Bool,
               disableSwiftlint: Bool) {
     self.processTypesResult = processTypesResult
+    self.checkCacheResult = checkCacheResult
     self.moduleName = moduleName
     self.outputPath = outputPath
     self.shouldImportModule = shouldImportModule
@@ -36,6 +40,7 @@ public class GenerateFileOperation: BasicOperation {
   }
   
   override func run() throws {
+    guard checkCacheResult?.isCached != true else { return }
     var contents: PartialFileContent!
     time(.renderMocks) {
       let generator = FileGenerator(processTypesResult.mockableTypes,

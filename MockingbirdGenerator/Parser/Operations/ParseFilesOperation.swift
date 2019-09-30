@@ -75,6 +75,7 @@ struct CompilationDirective: Comparable {
 
 public class ParseFilesOperation: BasicOperation {
   let extractSourcesResult: ExtractSourcesOperationResult
+  let checkCacheResult: CheckCacheOperation.Result?
   
   public class Result {
     fileprivate(set) var parsedFiles = [ParsedFile]()
@@ -130,11 +131,14 @@ public class ParseFilesOperation: BasicOperation {
     }
   }
   
-  public init(extractSourcesResult: ExtractSourcesOperationResult) {
+  public init(extractSourcesResult: ExtractSourcesOperationResult,
+              checkCacheResult: CheckCacheOperation.Result?) {
     self.extractSourcesResult = extractSourcesResult
+    self.checkCacheResult = checkCacheResult
   }
   
   override func run() {
+    guard checkCacheResult?.isCached != true else { return }
     time(.parseFiles) {
       let operations = extractSourcesResult.targetPaths.map({
         SubOperation(sourcePath: $0, shouldMock: true)

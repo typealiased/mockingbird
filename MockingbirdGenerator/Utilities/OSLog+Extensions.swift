@@ -17,10 +17,12 @@ public enum SignpostType {
   case parseArguments
   case parseXcodeProject
   case extractSources
+  case checkCache
   case parseFiles
   case processTypes
   case renderMocks
   case writeFiles
+  case cacheMocks
   
   public var name: StaticString {
     switch self {
@@ -28,10 +30,12 @@ public enum SignpostType {
     case .parseArguments: return "Parse Arguments"
     case .parseXcodeProject: return "Parse Xcode Project"
     case .extractSources: return "Extract Sources"
+    case .checkCache: return "Check Cache"
     case .parseFiles: return "Parse Files"
     case .processTypes: return "Process Types"
     case .renderMocks: return "Render Mocks"
     case .writeFiles: return "Write Files"
+    case .cacheMocks: return "Cache Mocks"
     }
   }
 }

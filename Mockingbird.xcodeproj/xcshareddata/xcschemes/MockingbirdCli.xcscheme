@@ -131,6 +131,10 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "--disable-cache"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "testbed"
             isEnabled = "NO">
          </CommandLineArgument>
