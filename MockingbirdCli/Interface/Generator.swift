@@ -249,22 +249,26 @@ class Generator {
                             sourceRoot: Path,
                             cacheDirectory: Path) throws {
     guard !pipeline.usedCache,
-      let extractSourceResult = pipeline.operations
+      let result = pipeline.operations
         .compactMap({ $0 as? ExtractSourcesAbstractOperation }).first?.result else { return }
     
     let target: CodableTarget
     if let pipelineTarget = pipeline.inputTarget as? CodableTarget {
       target = try CodableTarget(from: pipelineTarget,
                                  sourceRoot: sourceRoot,
-                                 supportPaths: extractSourceResult.supportPaths.map({ $0.path }),
+                                 supportPaths: result.supportPaths.map({ $0.path }),
                                  projectHash: projectHash,
-                                 outputHash: pipeline.outputPath.read().generateSha1Hash())
+                                 outputHash: pipeline.outputPath.read().generateSha1Hash(),
+                                 targetPathsHash: result.generateTargetPathsHash(),
+                                 dependencyPathsHash: result.generateDependencyPathsHash())
     } else if let pipelineTarget = pipeline.inputTarget as? PBXTarget {
       target = try CodableTarget(from: pipelineTarget,
                                  sourceRoot: sourceRoot,
-                                 supportPaths: extractSourceResult.supportPaths.map({ $0.path }),
+                                 supportPaths: result.supportPaths.map({ $0.path }),
                                  projectHash: projectHash,
-                                 outputHash: pipeline.outputPath.read().generateSha1Hash())
+                                 outputHash: pipeline.outputPath.read().generateSha1Hash(),
+                                 targetPathsHash: result.generateTargetPathsHash(),
+                                 dependencyPathsHash: result.generateDependencyPathsHash())
     } else {
       throw Failure.internalError(
         description: "Unsupported pipeline input target `\(pipeline.inputTarget.productModuleName)`"

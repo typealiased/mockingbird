@@ -36,11 +36,7 @@ public struct CodableTargetDependency: TargetDependency, Codable {
   
   init?<D: TargetDependency>(from dependency: D, sourceRoot: Path) throws {
     guard let target = dependency.target else { return nil }
-    self.target = try CodableTarget(from: target,
-                                    sourceRoot: sourceRoot,
-                                    supportPaths: [],
-                                    projectHash: nil,
-                                    outputHash: nil)
+    self.target = try CodableTarget(from: target, sourceRoot: sourceRoot)
   }
 }
 
@@ -55,16 +51,20 @@ public struct CodableTarget: Target, Codable {
   public let dependencies: [CodableTargetDependency]
   
   public let sourceFilePaths: [SourceFile]
-  public let supportingFilePaths: [SourceFile]
+  public let supportingFilePaths: [SourceFile]?
   public let sourceRoot: String
   public let projectHash: String?
   public let outputHash: String?
+  public let targetPathsHash: String?
+  public let dependencyPathsHash: String?
   
   public init<T: Target>(from target: T,
                          sourceRoot: Path,
-                         supportPaths: [Path],
-                         projectHash: String?,
-                         outputHash: String?) throws {
+                         supportPaths: [Path]? = nil,
+                         projectHash: String? = nil,
+                         outputHash: String? = nil,
+                         targetPathsHash: String? = nil,
+                         dependencyPathsHash: String? = nil) throws {
     self.name = target.name
     self.productModuleName = target.productModuleName
     self.dependencies = try target.dependencies.compactMap({
@@ -74,10 +74,12 @@ public struct CodableTarget: Target, Codable {
       .map({ $0.absolute() })
       .sorted()
       .map({ try SourceFile(path: "\($0)", hash: $0.read().generateSha1Hash()) })
-    self.supportingFilePaths = try supportPaths
+    self.supportingFilePaths = try supportPaths?
       .map({ $0.absolute() })
       .sorted()
       .map({ try SourceFile(path: "\($0)", hash: $0.read().generateSha1Hash()) })
+    self.targetPathsHash = targetPathsHash
+    self.dependencyPathsHash = dependencyPathsHash
     self.sourceRoot = "\(sourceRoot.absolute())"
     self.projectHash = projectHash
     self.outputHash = outputHash
