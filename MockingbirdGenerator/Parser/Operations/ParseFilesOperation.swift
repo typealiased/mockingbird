@@ -74,7 +74,7 @@ struct CompilationDirective: Comparable {
 }
 
 public class ParseFilesOperation: BasicOperation {
-  let extractSourcesResult: ExtractSourcesOperation.Result
+  let extractSourcesResult: ExtractSourcesOperationResult
   
   public class Result {
     fileprivate(set) var parsedFiles = [ParsedFile]()
@@ -130,7 +130,7 @@ public class ParseFilesOperation: BasicOperation {
     }
   }
   
-  public init(extractSourcesResult: ExtractSourcesOperation.Result) {
+  public init(extractSourcesResult: ExtractSourcesOperationResult) {
     self.extractSourcesResult = extractSourcesResult
   }
   

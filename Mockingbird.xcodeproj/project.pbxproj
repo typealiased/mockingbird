@@ -59,6 +59,8 @@
 		4970D6782331E67C002EE154 /* OpaqueTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4970D6772331E67C002EE154 /* OpaqueTypes.swift */; };
 		4970D6AA23335ABE002EE154 /* CompilationDirectives.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4970D6A923335ABD002EE154 /* CompilationDirectives.swift */; };
 		49732AF0232F322B0090E1A9 /* MethodParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49732AEF232F322B0090E1A9 /* MethodParameter.swift */; };
+		49BA452A23415F6A002BD9B5 /* String+SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BA452923415F6A002BD9B5 /* String+SHA1.swift */; };
+		49BA452F234189F4002BD9B5 /* CodableTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BA452E234189F4002BD9B5 /* CodableTarget.swift */; };
 		49F60A9D232F475100B51A7C /* ProcessStructuresOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60A9C232F475100B51A7C /* ProcessStructuresOperation.swift */; };
 		49F60A9F232F477100B51A7C /* FlattenInheritanceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60A9E232F477100B51A7C /* FlattenInheritanceOperation.swift */; };
 		49F60AA123305F5A00B51A7C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60AA023305F5A00B51A7C /* Log.swift */; };
@@ -956,6 +958,8 @@
 		4970D6772331E67C002EE154 /* OpaqueTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpaqueTypes.swift; sourceTree = "<group>"; };
 		4970D6A923335ABD002EE154 /* CompilationDirectives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationDirectives.swift; sourceTree = "<group>"; };
 		49732AEF232F322B0090E1A9 /* MethodParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodParameter.swift; sourceTree = "<group>"; };
+		49BA452923415F6A002BD9B5 /* String+SHA1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SHA1.swift"; sourceTree = "<group>"; };
+		49BA452E234189F4002BD9B5 /* CodableTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableTarget.swift; sourceTree = "<group>"; };
 		49F60A9C232F475100B51A7C /* ProcessStructuresOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessStructuresOperation.swift; sourceTree = "<group>"; };
 		49F60A9E232F477100B51A7C /* FlattenInheritanceOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlattenInheritanceOperation.swift; sourceTree = "<group>"; };
 		49F60AA023305F5A00B51A7C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
@@ -1624,6 +1628,14 @@
 				OBJ_19 /* VersionCommand.swift */,
 			);
 			path = Commands;
+			sourceTree = "<group>";
+		};
+		49BA452D234189CE002BD9B5 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				49BA452E234189F4002BD9B5 /* CodableTarget.swift */,
+			);
+			path = Cache;
 			sourceTree = "<group>";
 		};
 		OBJ_10 /* Interface */ = {
@@ -2697,6 +2709,7 @@
 		OBJ_61 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
+				49BA452D234189CE002BD9B5 /* Cache */,
 				OBJ_62 /* Models */,
 				OBJ_73 /* Operations */,
 				OBJ_78 /* Sourcery */,
@@ -2780,6 +2793,7 @@
 				OBJ_88 /* Path+Fnmatch.swift */,
 				OBJ_89 /* Path+WriteUtf8Strings.swift */,
 				OBJ_90 /* String+Extensions.swift */,
+				49BA452923415F6A002BD9B5 /* String+SHA1.swift */,
 				OBJ_91 /* Synchronized.swift */,
 				OBJ_92 /* Utilities.swift */,
 				OBJ_93 /* Version.swift */,
@@ -3864,6 +3878,7 @@
 				OBJ_729 /* FileGenerator.swift in Sources */,
 				OBJ_730 /* GenerateFileOperation.swift in Sources */,
 				OBJ_731 /* RenderTemplateOperation.swift in Sources */,
+				49BA452F234189F4002BD9B5 /* CodableTarget.swift in Sources */,
 				OBJ_732 /* MethodTemplate.swift in Sources */,
 				OBJ_733 /* MockableTypeInitializerTemplate.swift in Sources */,
 				OBJ_734 /* MockableTypeTemplate.swift in Sources */,
@@ -3883,6 +3898,7 @@
 				OBJ_745 /* Typealias.swift in Sources */,
 				OBJ_746 /* Variable.swift in Sources */,
 				OBJ_747 /* BasicOperation.swift in Sources */,
+				49BA452A23415F6A002BD9B5 /* String+SHA1.swift in Sources */,
 				49F60AA123305F5A00B51A7C /* Log.swift in Sources */,
 				OBJ_748 /* ExtractSourcesOperation.swift in Sources */,
 				OBJ_749 /* ParseFilesOperation.swift in Sources */,

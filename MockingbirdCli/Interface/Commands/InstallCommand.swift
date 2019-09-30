@@ -32,6 +32,7 @@ final class InstallCommand: BaseCommand {
   private let asynchronousGenerationArgument: OptionArgument<Bool>
   private let onlyMockProtocolsArgument: OptionArgument<Bool>
   private let disableSwiftlintArgument: OptionArgument<Bool>
+  private let disableCacheArgument: OptionArgument<Bool>
   
   required init(parser: ArgumentParser) {
     let subparser = parser.add(subparser: Constants.name, overview: Constants.overview)
@@ -49,6 +50,7 @@ final class InstallCommand: BaseCommand {
     self.asynchronousGenerationArgument = subparser.addAynchronousGeneration()
     self.onlyMockProtocolsArgument = subparser.addOnlyProtocols()
     self.disableSwiftlintArgument = subparser.addDisableSwiftlint()
+    self.disableCacheArgument = subparser.addDisableCache()
     
     super.init(parser: subparser)
   }
@@ -83,7 +85,8 @@ final class InstallCommand: BaseCommand {
       asynchronousGeneration: arguments.get(asynchronousGenerationArgument) == true,
       compilationCondition: arguments.get(compilationConditionArgument),
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
-      disableSwiftlint: arguments.get(disableSwiftlintArgument) == true
+      disableSwiftlint: arguments.get(disableSwiftlintArgument) == true,
+      disableCache: arguments.get(disableCacheArgument) == true
     )
     try Installer.install(using: config)
     print("Installed Mockingbird to `\(destinationTarget)` in \(projectPath)")

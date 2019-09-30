@@ -421,6 +421,7 @@ Generate mocks for a set of targets in a project.
 | `--disable-module-import` | Omit `@testable import <module>` from generated mocks. |
 | `--only-protocols` | Only generate mocks for protocols. |
 | `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
+| `--disable-cache` | Ignore cached mock information stored on disk. |
 
 ### Install
 
@@ -444,6 +445,7 @@ Set up a destination (unit test) target.
 | `--asynchronous` | Generate mocks asynchronously in the background when building. |
 | `--only-protocols` | Only generate mocks for protocols. |
 | `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
+| `--disable-cache` | Ignore cached mock information stored on disk. |
 
 ### Uninstall
 

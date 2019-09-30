@@ -11,6 +11,9 @@ MockingbirdCli.pkg
 mockingbirdCli.zip
 mockingbird
 
+## Caches
+*.xcodeproj/MockingbirdCache/*.lock
+
 ## Various settings
 *.pbxuser
 !default.pbxuser

@@ -27,6 +27,7 @@ class Installer {
     let compilationCondition: String?
     let onlyMockProtocols: Bool
     let disableSwiftlint: Bool
+    let disableCache: Bool
   }
   
   struct UninstallConfiguration {
@@ -259,6 +260,9 @@ class Installer {
       }
       if config.disableSwiftlint {
         options.append("--disable-swiftlint")
+      }
+      if config.disableCache {
+        options.append("--disable-cache")
       }
       if config.asynchronousGeneration {
         options.append("&")

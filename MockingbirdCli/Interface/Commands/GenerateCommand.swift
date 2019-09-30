@@ -30,6 +30,7 @@ final class GenerateCommand: BaseCommand {
   private let disableModuleImportArgument: OptionArgument<Bool>
   private let onlyMockProtocolsArgument: OptionArgument<Bool>
   private let disableSwiftlintArgument: OptionArgument<Bool>
+  private let disableCacheArgument: OptionArgument<Bool>
   
   required init(parser: ArgumentParser) {
     let subparser = parser.add(subparser: Constants.name, overview: Constants.overview)
@@ -45,6 +46,7 @@ final class GenerateCommand: BaseCommand {
     self.disableModuleImportArgument = subparser.addDisableModuleImport()
     self.onlyMockProtocolsArgument = subparser.addOnlyProtocols()
     self.disableSwiftlintArgument = subparser.addDisableSwiftlint()
+    self.disableCacheArgument = subparser.addDisableCache()
     
     super.init(parser: subparser)
   }
@@ -77,7 +79,8 @@ final class GenerateCommand: BaseCommand {
       compilationCondition: arguments.get(compilationConditionArgument),
       shouldImportModule: arguments.get(disableModuleImportArgument) != true,
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
-      disableSwiftlint: arguments.get(disableSwiftlintArgument) == true
+      disableSwiftlint: arguments.get(disableSwiftlintArgument) == true,
+      disableCache: arguments.get(disableCacheArgument) == true
     )
     try Generator.generate(using: config)
   }
