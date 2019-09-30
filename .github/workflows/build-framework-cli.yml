@@ -22,4 +22,6 @@ jobs:
           --destination MockingbirdTests \
           --verbose
     - name: Test
+      run: make clean-test
+    - name: Cached Test
       run: make test

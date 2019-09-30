@@ -37,6 +37,7 @@ ERROR_MSG=[ERROR] The downloaded Mockingbird CLI binary does not have the expect
 		boostrap-carthage \
 		build \
 		test \
+		clean-test \
 		carthage-update \
 		install \
 		uninstall \
@@ -71,7 +72,10 @@ boostrap-carthage:
 build:
 	swift build $(SWIFT_BUILD_FLAGS)
 
-test: clean-xcode
+test:
+	$(BUILD_TOOL) -scheme 'MockingbirdTests' $(XCODEBUILD_FLAGS) test
+
+clean-test: clean-xcode
 	$(BUILD_TOOL) -scheme 'MockingbirdTests' $(XCODEBUILD_FLAGS) test
 
 download:
