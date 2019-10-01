@@ -45,24 +45,24 @@ public func flushLogs() {
 }
 
 /// Log a message to `stdout` or `stderr` depending on the message severity.
-public func log(_ message: String,
+public func log(_ message: @autoclosure () -> String,
                 type: LogType = .debug,
                 level: LogLevel = LogLevel.default.unsafeValue,
                 output: UnsafeMutablePointer<FILE>? = nil,
                 file: StaticString = #file,
                 line: UInt = #line) {
   guard level.shouldLog(type) else { return }
-  let logMessage = "[\(type)] " + message + "\n"
+  let logMessage = "[\(type)] " + message() + "\n"
   loggingQueue.async { fputs(logMessage, output ?? type.output) }
 }
 
 /// Convenience for logging a `.warn` message type
-public func logWarning(_ message: String,
+public func logWarning(_ message: @autoclosure () -> String,
                        level: LogLevel = LogLevel.default.unsafeValue,
                        output: UnsafeMutablePointer<FILE>? = nil,
                        file: StaticString = #file,
                        line: UInt = #line) {
-  log(message, type: .warn, level: level, output: output, file: file, line: line)
+  log(message(), type: .warn, level: level, output: output, file: file, line: line)
 }
 
 /// Convenience for logging an `.error` message type.
