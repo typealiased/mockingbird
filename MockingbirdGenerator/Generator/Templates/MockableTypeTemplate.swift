@@ -213,9 +213,11 @@ class MockableTypeTemplate: Template {
       // always infer what concrete argument values to pass to the designated initializer.
       $0.isDesignatedInitializer
     }
+    
     guard !shouldGenerateDefaultInitializer else { return "" }
     let initializers = mockableType.methods
       .filter(isProxyable)
+      .filter(isOverridable)
       .sorted()
       .map({ methodTemplate(for: $0).classInitializerProxy })
       .filter({ !$0.isEmpty })
@@ -262,16 +264,18 @@ class MockableTypeTemplate: Template {
       .joined(separator: "\n\n")
   }
   
+  func isOverridable(method: Method) -> Bool {
+    // Not possible to override overloaded methods where uniqueness is from generic constraints.
+    // https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
+    guard mockableType.kind == .class else { return true }
+    guard !method.whereClauses.isEmpty || !method.genericTypes.isEmpty else { return true }
+    return mockableType.methodsCount[Method.Reduced(from: method)] == 1
+  }
+  
   func renderMethods() -> String {
     return Set(mockableType.methods)
+      .filter(isOverridable)
       .sorted(by: <)
-      .filter({ method -> Bool in
-        // Not possible to override overloaded methods where uniqueness is from generic constraints.
-        // https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
-        guard mockableType.kind == .class else { return true }
-        guard !method.whereClauses.isEmpty else { return true }
-        return mockableType.methodsCount[Method.Reduced(from: method)] == 1
-      })
       .map({ methodTemplate(for: $0).render() })
       .filter({ !$0.isEmpty })
       .joined(separator: "\n\n")

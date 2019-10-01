@@ -6626,8 +6626,26 @@ public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, 
       return mock
     }
 
+    public static func initialize<T>(param1: T, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
+      let mock: InitializerClassMock = InitializerClassMock(param1: `param1`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+
+    public static func initialize<T>(param1: T, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock where T: MockingbirdTestsHost.AssociatedTypeProtocol {
+      let mock: InitializerClassMock = InitializerClassMock(param1: `param1`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+
     public static func initialize(param1: Bool, _ param2: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
       let mock: InitializerClassMock = InitializerClassMock(param1: `param1`, `param2`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+
+    public static func initialize<T>(param2: T, __file: StaticString = #file, __line: UInt = #line) throws -> InitializerClassMock where T: MockingbirdTestsHost.AssociatedTypeProtocol {
+      let mock: InitializerClassMock = try InitializerClassMock(param2: `param2`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
@@ -6666,12 +6684,39 @@ public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, 
     mockingContext.didInvoke(invocation)
   }
 
+  // MARK: Mocked init!<T>(param1: T)
+
+  public required override init!<T>(param1: T) {
+    super.init(param1: `param1`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init!<T>(param1: T) ", arguments: [Mockingbird.ArgumentMatcher(`param1`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init<T>(param1: T)
+
+  public required override init<T>(param1: T) where T: MockingbirdTestsHost.AssociatedTypeProtocol {
+    super.init(param1: `param1`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init<T>(param1: T) where T: MockingbirdTestsHost.AssociatedTypeProtocol ", arguments: [Mockingbird.ArgumentMatcher(`param1`)])
+    mockingContext.didInvoke(invocation)
+  }
+
   // MARK: Mocked init(param1: Bool, _ param2: Int)
 
   public required override init(param1: Bool, _ param2: Int) {
     super.init(param1: `param1`, `param2`)
     Mockingbird.checkVersion(for: self)
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(param1: Bool, _ param2: Int) ", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init<T>(param2: T)
+
+  public required override init<T>(param2: T) throws where T: MockingbirdTestsHost.AssociatedTypeProtocol {
+    try super.init(param2: `param2`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init<T>(param2: T) throws where T: MockingbirdTestsHost.AssociatedTypeProtocol ", arguments: [Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
   }
 
@@ -6753,11 +6798,51 @@ public final class InitializerOverridingProtocolMock: MockingbirdTestsHost.Initi
     mockingContext.didInvoke(invocation)
   }
 
+  // MARK: Mocked init!<T>(param1: T)
+
+  public required init!<T>(param1: T) {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init!<T>(param1: T) ", arguments: [Mockingbird.ArgumentMatcher(`param1`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init<T>(param1: T)
+
+  public required init<T>(param1: T) where T: MockingbirdTestsHost.AssociatedTypeProtocol {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init<T>(param1: T) where T: MockingbirdTestsHost.AssociatedTypeProtocol ", arguments: [Mockingbird.ArgumentMatcher(`param1`)])
+    mockingContext.didInvoke(invocation)
+  }
+
   // MARK: Mocked init(param1: Bool, _ param2: Int)
 
   public required init(param1: Bool, _ param2: Int) {
     Mockingbird.checkVersion(for: self)
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(param1: Bool, _ param2: Int) ", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init<T>(param2: T)
+
+  public required init<T>(param2: T) throws where T: MockingbirdTestsHost.AssociatedTypeProtocol {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init<T>(param2: T) throws where T: MockingbirdTestsHost.AssociatedTypeProtocol ", arguments: [Mockingbird.ArgumentMatcher(`param2`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init<T: MockingbirdTestsHost.AssociatedTypeProtocol>(param: T)
+
+  public required init<T: MockingbirdTestsHost.AssociatedTypeProtocol>(param: T) {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init<T: MockingbirdTestsHost.AssociatedTypeProtocol>(param: T) ", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init?<T>(param: T)
+
+  public required init?<T>(param: T) {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init?<T>(param: T) ", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
   }
 
@@ -6872,11 +6957,51 @@ public final class InitializerProtocolMock: MockingbirdTestsHost.InitializerProt
     mockingContext.didInvoke(invocation)
   }
 
+  // MARK: Mocked init!<T>(param1: T)
+
+  public required init!<T>(param1: T) {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init!<T>(param1: T) ", arguments: [Mockingbird.ArgumentMatcher(`param1`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init<T>(param1: T)
+
+  public required init<T>(param1: T) where T: MockingbirdTestsHost.AssociatedTypeProtocol {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init<T>(param1: T) where T: MockingbirdTestsHost.AssociatedTypeProtocol ", arguments: [Mockingbird.ArgumentMatcher(`param1`)])
+    mockingContext.didInvoke(invocation)
+  }
+
   // MARK: Mocked init(param1: Bool, _ param2: Int)
 
   public required init(param1: Bool, _ param2: Int) {
     Mockingbird.checkVersion(for: self)
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(param1: Bool, _ param2: Int) ", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init<T>(param2: T)
+
+  public required init<T>(param2: T) throws where T: MockingbirdTestsHost.AssociatedTypeProtocol {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init<T>(param2: T) throws where T: MockingbirdTestsHost.AssociatedTypeProtocol ", arguments: [Mockingbird.ArgumentMatcher(`param2`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init<T: MockingbirdTestsHost.AssociatedTypeProtocol>(param: T)
+
+  public required init<T: MockingbirdTestsHost.AssociatedTypeProtocol>(param: T) {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init<T: MockingbirdTestsHost.AssociatedTypeProtocol>(param: T) ", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init?<T>(param: T)
+
+  public required init?<T>(param: T) {
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init?<T>(param: T) ", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
   }
 
@@ -8350,6 +8475,25 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
     self.sourceLocation = sourceLocation
   }
 
+  // MARK: Mocked `overloadedParameters`<T>(param1: T, param2: T)
+
+  public override func `overloadedParameters`<T>(param1: T, param2: T) -> T {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`<T>(param1: T, param2: T) -> T", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (T, T) -> T {
+      return concreteImplementation(`param1`, `param2`)
+    } else {
+      return (implementation as! () -> T)()
+    }
+  }
+
+  public func `overloadedParameters`<T>(param1: @escaping @autoclosure () -> T, param2: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T, T) -> T, T> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`<T>(param1: T, param2: T) -> T", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T, T) -> T, T>(mock: self, invocation: invocation)
+  }
+
   // MARK: Mocked `overloadedParameters`(param1: Bool, param2: Bool)
 
   public override func `overloadedParameters`(param1: Bool, param2: Bool) -> Bool {
@@ -8386,6 +8530,24 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`(param1: Int, param2: Int) -> Bool", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `overloadedReturnType`<T>()
+
+  public override func `overloadedReturnType`<T>() -> T {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedReturnType`<T>() -> T", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> T {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> T)()
+    }
+  }
+
+  public func `overloadedReturnType`<T>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> T, T> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedReturnType`<T>() -> T", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> T, T>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `overloadedReturnType`()
@@ -8450,6 +8612,25 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
     self.sourceLocation = sourceLocation
   }
 
+  // MARK: Mocked `overloadedParameters`<T>(param1: T, param2: T)
+
+  public func `overloadedParameters`<T>(param1: T, param2: T) -> T {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`<T>(param1: T, param2: T) -> T", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (T, T) -> T {
+      return concreteImplementation(`param1`, `param2`)
+    } else {
+      return (implementation as! () -> T)()
+    }
+  }
+
+  public func `overloadedParameters`<T>(param1: @escaping @autoclosure () -> T, param2: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T, T) -> T, T> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`<T>(param1: T, param2: T) -> T", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T, T) -> T, T>(mock: self, invocation: invocation)
+  }
+
   // MARK: Mocked `overloadedParameters`(param1: Bool, param2: Bool)
 
   public func `overloadedParameters`(param1: Bool, param2: Bool) -> Bool {
@@ -8486,6 +8667,24 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`(param1: Int, param2: Int) -> Bool", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `overloadedReturnType`<T>()
+
+  public func `overloadedReturnType`<T>() -> T {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedReturnType`<T>() -> T", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> T {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> T)()
+    }
+  }
+
+  public func `overloadedReturnType`<T>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> T, T> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedReturnType`<T>() -> T", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> T, T>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `overloadedReturnType`()

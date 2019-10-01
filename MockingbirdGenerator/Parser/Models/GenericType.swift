@@ -62,13 +62,6 @@ struct GenericType: Hashable {
   let whereClauses: [WhereClause]
   let hasSelfConstraint: Bool
   
-  struct Reduced: Hashable {
-    let name: String
-    init(from genericType: GenericType) {
-      self.name = genericType.name
-    }
-  }
-  
   init?(from dictionary: StructureDictionary,
         rawType: RawType,
         moduleNames: [String],

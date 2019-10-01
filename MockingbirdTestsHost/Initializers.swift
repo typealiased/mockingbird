@@ -13,6 +13,12 @@ protocol InitializerProtocol {
   init!(param: Int)
   init(param1: Bool, _ param2: Int)
   init(param: String) throws
+  
+  init<T: AssociatedTypeProtocol>(param: T)
+  init<T>(param1: T) where T: AssociatedTypeProtocol
+  init<T>(param2: T) throws where T: AssociatedTypeProtocol
+  init?<T>(param: T) // Equivalent function signature to `init<T>(param: T)`
+  init!<T>(param1: T)
 }
 
 protocol InitializerOverridingProtocol: InitializerProtocol {
@@ -25,6 +31,11 @@ class InitializerClass {
   init!(param: Int) {}
   init(param1: Bool, _ param2: Int) {}
   init(param: String) throws {}
+  init<T: AssociatedTypeProtocol>(param: T) {}
+  init<T>(param1: T) where T: AssociatedTypeProtocol {}
+  init<T>(param2: T) throws where T: AssociatedTypeProtocol {}
+  init?<T>(param: T) {} // Equivalent function signature to `init<T>(param: T)`
+  init!<T>(param1: T) {}
   required init(param: String?) {}
   convenience init(param: Double?) {
     try! self.init(param: "foo bar")

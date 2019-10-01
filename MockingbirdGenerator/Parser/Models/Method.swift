@@ -30,13 +30,18 @@ struct Method: Hashable, Comparable {
   struct Reduced: Hashable {
     let name: String
     let returnTypeName: String
-    let genericTypes: [GenericType.Reduced]
     let parameters: [MethodParameter]
+    let attributes: Attributes
     init(from method: Method) {
       self.name = method.name
       self.returnTypeName = method.returnTypeName
-      self.genericTypes = method.genericTypes.map({ GenericType.Reduced(from: $0) })
       self.parameters = method.parameters
+      
+      var reducedAttributes = Attributes()
+      if method.attributes.contains(.unwrappedFailable) {
+        reducedAttributes.insert(.unwrappedFailable)
+      }
+      self.attributes = reducedAttributes
     }
   }
   
@@ -97,7 +102,7 @@ struct Method: Hashable, Comparable {
     (self.attributes,
      rawParametersDeclaration) = Method.parseDeclaration(from: dictionary,
                                                          source: source,
-                                                         isInitializer: self.isInitializer,
+                                                         isInitializer: isInitializer,
                                                          attributes: attributes)
     
     // Parse return type.
@@ -194,7 +199,8 @@ struct Method: Hashable, Comparable {
       rawParametersDeclaration = declaration[declaration.index(after: startIndex)..<endIndex]
       
       if isInitializer { // Parse failable initializers.
-        let failable = declaration[declaration.index(before: startIndex)..<startIndex]
+        let genericsStart = declaration[..<startIndex].firstIndex(of: "<") ?? startIndex
+        let failable = declaration[declaration.index(before: genericsStart)..<genericsStart]
         if failable == "?" {
           fullAttributes.insert(.failable)
         } else if failable == "!" {

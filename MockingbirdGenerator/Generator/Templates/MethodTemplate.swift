@@ -63,7 +63,7 @@ class MethodTemplate: Template {
     let failable = method.attributes.contains(.failable) ? "?" : ""
     let scopedName = context.createScopedName(with: [], suffix: "Mock")
     return """
-    \(attributes)    public static func \(fullNameForInitializerProxy)\(genericConstraints) \(returnTypeAttributesForMocking)-> \(scopedName)\(failable) {
+    \(attributes)    public static func \(fullNameForInitializerProxy)\(returnTypeAttributesForMocking) -> \(scopedName)\(failable)\(genericConstraints) {
           let mock: \(scopedName)\(failable) = \(tryInvocation)\(scopedName)(\(superCallParameters))
           mock\(failable).sourceLocation = SourceLocation(__file, __line)
           return mock
@@ -78,15 +78,6 @@ class MethodTemplate: Template {
       guard !method.attributes.contains(.convenience) else { return "" }
       
       let functionDeclaration = "public \(overridableModifiers)\(uniqueDeclaration)"
-//      guard !method.generatedForConformance else {
-//        // Generated conformance initializers might not override an actual superclass definition.
-//        return """
-//          // MARK: Mocked `\(fullNameForMocking)`
-//        \(attributes)
-//          \(functionDeclaration){ fatalError() }
-//        """
-//      }
-      
       let checkVersion: String
       if context.mockableType.kind == .class || context.protocolClassConformance != nil {
         let trySuper = method.attributes.contains(.throws) ? "try " : ""
@@ -121,9 +112,9 @@ class MethodTemplate: Template {
   
   lazy var uniqueDeclaration: String = {
     if method.isInitializer {
-      return "\(fullNameForMocking)\(genericConstraints) \(returnTypeAttributesForMocking)"
+      return "\(fullNameForMocking)\(returnTypeAttributesForMocking)\(genericConstraints) "
     } else {
-      return "\(fullNameForMocking) \(returnTypeAttributesForMocking)-> \(specializedReturnTypeName)\(genericConstraints)"
+      return "\(fullNameForMocking)\(returnTypeAttributesForMocking) -> \(specializedReturnTypeName)\(genericConstraints)"
     }
   }()
   
@@ -181,16 +172,29 @@ class MethodTemplate: Template {
       .map({ context.specializeTypeName("\($0)") }).joined(separator: ", ")
   }()
   
-  lazy var shortName: String = {
+  func shortName(forInitializerProxy: Bool) -> String {
+    let failable: String
+    if forInitializerProxy {
+      failable = ""
+    } else if method.attributes.contains(.failable) {
+      failable = "?"
+    } else if method.attributes.contains(.unwrappedFailable) {
+      failable = "!"
+    } else {
+      failable = ""
+    }
+    
     let tick = method.isInitializer
       || (method.shortName.first?.isLetter != true
         && method.shortName.first?.isNumber != true
         && method.shortName.first != "_")
       ? "" : "`"
-    let shortName = tick + method.shortName + tick
+    let shortName = forInitializerProxy ? "initialize" : (tick + method.shortName + tick)
     let genericTypes = self.genericTypes
-    return genericTypes.isEmpty ? "\(shortName)" : "\(shortName)<\(genericTypes)>"
-  }()
+    
+    return genericTypes.isEmpty ?
+      "\(shortName)\(failable)" : "\(shortName)\(failable)<\(genericTypes)>"
+  }
   
   lazy var fullNameForMocking: String = {
     return fullName(forMatching: false, useVariadics: false, forInitializerProxy: false)
@@ -222,25 +226,16 @@ class MethodTemplate: Template {
         return "\(parameter.name): \(typeName)"
       }
     }) + (!forInitializerProxy ? [] : ["__file: StaticString = #file", "__line: UInt = #line"])
-    let failable: String
-    if forInitializerProxy {
-      failable = ""
-    } else if method.attributes.contains(.failable) {
-      failable = "?"
-    } else if method.attributes.contains(.unwrappedFailable) {
-      failable = "!"
-    } else {
-      failable = ""
-    }
+    
+    let actualShortName = self.shortName(forInitializerProxy: forInitializerProxy)
     let shortName: String
-    if forInitializerProxy {
-      shortName = "initialize"
-    } else if forMatching, let resolvedShortName = Constants.reservedNamesMap[self.shortName] {
+    if forMatching, let resolvedShortName = Constants.reservedNamesMap[actualShortName] {
       shortName = resolvedShortName
     } else {
-      shortName = self.shortName
+      shortName = actualShortName
     }
-    return "\(shortName)\(failable)(\(parameterNames.joined(separator: ", ")))"
+    
+    return "\(shortName)(\(parameterNames.joined(separator: ", ")))"
   }
   
   lazy var superCallParameters: String = {
@@ -311,8 +306,8 @@ class MethodTemplate: Template {
   }()
   
   lazy var returnTypeAttributesForMocking: String = {
-    if method.attributes.contains(.rethrows) { return "rethrows " }
-    if method.attributes.contains(.throws) { return "throws " }
+    if method.attributes.contains(.rethrows) { return " rethrows" }
+    if method.attributes.contains(.throws) { return " throws" }
     return ""
   }()
   
