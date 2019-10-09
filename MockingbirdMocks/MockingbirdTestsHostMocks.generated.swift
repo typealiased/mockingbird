@@ -13820,37 +13820,6 @@ public final class ViewControllerExtensionReferencerMock: MockingbirdTestsHost.V
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (AppKit.NSViewController.ExtendedEnum) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked extendedNestedClassVariable
-
-  public var `extendedNestedClassVariable`: AppKit.NSViewController.ExtendedEnum.NestedExtendedClass {
-    get {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedNestedClassVariable.get", arguments: [])
-      mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> AppKit.NSViewController.ExtendedEnum.NestedExtendedClass)()
-    }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedNestedClassVariable.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
-      if let concreteImplementation = implementation as? (AppKit.NSViewController.ExtendedEnum.NestedExtendedClass) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
-  }
-
-  public func getExtendedNestedClassVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> AppKit.NSViewController.ExtendedEnum.NestedExtendedClass, AppKit.NSViewController.ExtendedEnum.NestedExtendedClass> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedNestedClassVariable.get", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> AppKit.NSViewController.ExtendedEnum.NestedExtendedClass, AppKit.NSViewController.ExtendedEnum.NestedExtendedClass>(mock: self, invocation: invocation)
-  }
-
-  public func setExtendedNestedClassVariable(_ newValue: @escaping @autoclosure () -> AppKit.NSViewController.ExtendedEnum.NestedExtendedClass) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (AppKit.NSViewController.ExtendedEnum.NestedExtendedClass) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedNestedClassVariable.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (AppKit.NSViewController.ExtendedEnum.NestedExtendedClass) -> Void, Void>(mock: self, invocation: invocation)
-  }
-
   // MARK: Mocked extendedNestedEnumVariable
 
   public var `extendedNestedEnumVariable`: AppKit.NSViewController.ExtendedClass.NestedExtendedEnum {

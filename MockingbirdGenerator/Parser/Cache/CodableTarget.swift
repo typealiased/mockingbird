@@ -31,12 +31,24 @@ public protocol Target: AbstractTarget, Hashable {
 
 // MARK: - Codable
 
-public struct CodableTargetDependency: TargetDependency, Codable {
+public class CodableTargetDependency: TargetDependency, Codable {
   public let target: CodableTarget?
   
-  init?<D: TargetDependency>(from dependency: D, sourceRoot: Path) throws {
+  init?<D: TargetDependency>(from dependency: D,
+                             sourceRoot: Path,
+                             ignoredDependencies: inout Set<String>) throws {
     guard let target = dependency.target else { return nil }
-    self.target = try CodableTarget(from: target, sourceRoot: sourceRoot)
+    self.target = try CodableTarget(from: target,
+                                    sourceRoot: sourceRoot,
+                                    ignoredDependencies: &ignoredDependencies)
+  }
+  
+  public static func == (lhs: CodableTargetDependency, rhs: CodableTargetDependency) -> Bool {
+    return lhs.target == rhs.target
+  }
+  
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(target)
   }
 }
 
@@ -45,7 +57,7 @@ public struct SourceFile: Codable, Hashable {
   public let hash: String?
 }
 
-public struct CodableTarget: Target, Codable {
+public class CodableTarget: Target, Codable {
   public let name: String
   public let productModuleName: String
   public let dependencies: [CodableTargetDependency]
@@ -64,12 +76,16 @@ public struct CodableTarget: Target, Codable {
                          projectHash: String? = nil,
                          outputHash: String? = nil,
                          targetPathsHash: String? = nil,
-                         dependencyPathsHash: String? = nil) throws {
+                         dependencyPathsHash: String? = nil,
+                         ignoredDependencies: inout Set<String>) throws {
     self.name = target.name
     self.productModuleName = target.productModuleName
-    self.dependencies = try target.dependencies.compactMap({
-      try CodableTargetDependency(from: $0, sourceRoot: sourceRoot)
-    })
+    self.dependencies = try target.dependencies
+      .filter({ !ignoredDependencies.contains($0.target?.productModuleName ?? "") })
+      .compactMap({ try CodableTargetDependency(from: $0,
+                                                sourceRoot: sourceRoot,
+                                                ignoredDependencies: &ignoredDependencies) })
+    ignoredDependencies.formUnion(self.dependencies.map({ $0.target?.productModuleName ?? "" }))
     self.sourceFilePaths = try target.findSourceFilePaths(sourceRoot: sourceRoot)
       .map({ $0.absolute() })
       .sorted()
@@ -91,6 +107,14 @@ public struct CodableTarget: Target, Codable {
       return []
     }
     return sourceFilePaths.map({ Path($0.path) })
+  }
+  
+  public static func == (lhs: CodableTarget, rhs: CodableTarget) -> Bool {
+    return lhs.productModuleName == rhs.productModuleName
+  }
+  
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(productModuleName)
   }
 }
 

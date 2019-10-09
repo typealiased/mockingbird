@@ -62,19 +62,25 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
   }
   
   /// Returns the compiled source file paths for a single given target.
+  private var memoizedSourceFilePaths = [T: Set<SourcePath>]()
   private func sourceFilePaths(for target: T) -> Set<SourcePath> {
+    if let memoized = memoizedSourceFilePaths[target] { return memoized }
     let paths = target.findSourceFilePaths(sourceRoot: sourceRoot)
       .map({ SourcePath(path: $0, moduleName: target.productModuleName) })
     let includedPaths = includedSourcePaths(for: Set(paths))
+    memoizedSourceFilePaths[target] = includedPaths
     return includedPaths
   }
   
   /// Recursively find all targets and its dependency targets.
+  private var memoizedTargets = [T: Set<T>]()
   private func allTargets(for target: T, includeTarget: Bool = true) -> Set<T> {
+    if let memoized = memoizedTargets[target] { return memoized }
     let targets = Set([target]).union(target.dependencies
       .compactMap({ $0.target as? T })
       .flatMap({ allTargets(for: $0) }))
     result.moduleDependencies[target.productModuleName] = Set(targets.map({ $0.productModuleName }))
+    memoizedTargets[target] = targets
     return targets
   }
   

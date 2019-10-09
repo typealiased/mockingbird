@@ -40,16 +40,16 @@ extension NonExtendableClass: Encodable {
 
 extension NSViewController {
   enum ExtendedEnum {
-    case foo
-    class NestedExtendedClass {}
+//    case foo
+//    class NestedExtendedClass {}
   }
   class ExtendedClass {
-    enum NestedExtendedEnum { case bar }
+    enum NestedExtendedEnum {  } // case bar
   }
 }
 protocol ViewControllerExtensionReferencer {
   var extendedEnumVariable: NSViewController.ExtendedEnum { get set }
   var extendedNestedEnumVariable: NSViewController.ExtendedClass.NestedExtendedEnum { get set }
   var extendedClassVariable: NSViewController.ExtendedClass { get set }
-  var extendedNestedClassVariable: NSViewController.ExtendedEnum.NestedExtendedClass { get set }
+//  var extendedNestedClassVariable: NSViewController.ExtendedEnum.NestedExtendedClass { get set }
 }

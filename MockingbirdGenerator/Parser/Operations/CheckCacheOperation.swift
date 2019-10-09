@@ -56,12 +56,29 @@ public class CheckCacheOperation: BasicOperation {
 
 extension CodableTarget {
   func flattenedSourceHashes() -> [String: String] {
+    var moduleSourceHashes = [String: [String: String]]()
+    flattenModuleSourceHashes(&moduleSourceHashes)
+    
+    // Merge each module's flattened source hashes, de-duping by path.
+    var sourceHashes = [String: String]()
+    moduleSourceHashes.forEach({
+      sourceHashes.merge($0.value) { (current, new) in return new }
+    })
+    
+    return sourceHashes
+  }
+  
+  /// Flattens each module's sources and dependency sources (with memoization).
+  /// Module name => [Path => SHA-1]
+  func flattenModuleSourceHashes(_ current: inout [String: [String: String]]) {
+    guard current[productModuleName] == nil else { return }
+    
     var sourceHashes = [String: String]()
     (sourceFilePaths + (supportingFilePaths ?? [])).forEach({ sourceHashes[$0.path] = $0.hash })
-    dependencies.compactMap({ $0.target }).map({ $0.flattenedSourceHashes() }).forEach({
-      sourceHashes.merge($0) { (current, new) in return new }
-    })
-    return sourceHashes
+    
+    // Traverse module dependencies.
+    dependencies.compactMap({ $0.target }).forEach({ $0.flattenModuleSourceHashes(&current) })
+    current[productModuleName] = sourceHashes
   }
 }
 

@@ -227,9 +227,10 @@ class Generator {
                            cacheDirectory: Path,
                            sourceRoot: Path) -> CodableTarget? {
     let filePath = targetLockFilePath(for: targetName, cacheDirectory: cacheDirectory)
-    guard let target = try? JSONDecoder().decode(CodableTarget.self, from: filePath.read()) else {
-      logWarning("Unable to decode the cached target data at \(filePath.absolute())")
-      return nil
+    guard filePath.exists,
+      let target = try? JSONDecoder().decode(CodableTarget.self, from: filePath.read()) else {
+        logWarning("Unable to decode the cached target data at \(filePath.absolute())")
+        return nil
     }
     guard target.projectHash == projectHash else {
       log("Current project hash invalidates the cached target data at \(filePath.absolute())")
@@ -252,6 +253,7 @@ class Generator {
       let result = pipeline.operations
         .compactMap({ $0 as? ExtractSourcesAbstractOperation }).first?.result else { return }
     
+    var ignoredDependencies = Set<String>()
     let target: CodableTarget
     if let pipelineTarget = pipeline.inputTarget as? CodableTarget {
       target = try CodableTarget(from: pipelineTarget,
@@ -260,7 +262,8 @@ class Generator {
                                  projectHash: projectHash,
                                  outputHash: pipeline.outputPath.read().generateSha1Hash(),
                                  targetPathsHash: result.generateTargetPathsHash(),
-                                 dependencyPathsHash: result.generateDependencyPathsHash())
+                                 dependencyPathsHash: result.generateDependencyPathsHash(),
+                                 ignoredDependencies: &ignoredDependencies)
     } else if let pipelineTarget = pipeline.inputTarget as? PBXTarget {
       target = try CodableTarget(from: pipelineTarget,
                                  sourceRoot: sourceRoot,
@@ -268,7 +271,8 @@ class Generator {
                                  projectHash: projectHash,
                                  outputHash: pipeline.outputPath.read().generateSha1Hash(),
                                  targetPathsHash: result.generateTargetPathsHash(),
-                                 dependencyPathsHash: result.generateDependencyPathsHash())
+                                 dependencyPathsHash: result.generateDependencyPathsHash(),
+                                 ignoredDependencies: &ignoredDependencies)
     } else {
       throw Failure.internalError(
         description: "Unsupported pipeline input target `\(pipeline.inputTarget.productModuleName)`"
