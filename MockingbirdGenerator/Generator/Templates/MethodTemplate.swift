@@ -59,7 +59,7 @@ class MethodTemplate: Template {
     guard method.isInitializer, context.mockableType.kind == .class else { return "" }
     // We can't usually infer what concrete arguments to pass to the designated initializer.
     guard !method.attributes.contains(.convenience) else { return "" }
-    let attributes = declarationAttributes.isEmpty ? "" : "  \(declarationAttributes)\n"
+    let attributes = declarationAttributes.isEmpty ? "" : "    \(declarationAttributes)\n"
     let failable = method.attributes.contains(.failable) ? "?" : ""
     let scopedName = context.createScopedName(with: [], suffix: "Mock")
     return """
@@ -163,7 +163,10 @@ class MethodTemplate: Template {
   }
   
   lazy var genericTypes: String = {
-    return method.genericTypes.map({ $0.flattenedDeclaration }).joined(separator: ", ")
+    return method.genericTypes.values
+      .sorted(by: { $0.name < $1.name })
+      .map({ $0.flattenedDeclaration })
+      .joined(separator: ", ")
   }()
   
   lazy var genericConstraints: String = {

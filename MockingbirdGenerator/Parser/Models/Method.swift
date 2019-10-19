@@ -17,7 +17,7 @@ struct Method: Hashable, Comparable {
   let isDesignatedInitializer: Bool
   let accessLevel: AccessLevel
   let kind: SwiftDeclarationKind
-  let genericTypes: [GenericType]
+  let genericTypes: [String: GenericType]
   let whereClauses: [WhereClause]
   let parameters: [MethodParameter]
   let attributes: Attributes
@@ -119,13 +119,17 @@ struct Method: Hashable, Comparable {
                                                  rawType: rawType,
                                                  moduleNames: moduleNames,
                                                  rawTypeRepository: rawTypeRepository)
-    self.genericTypes = substructure.compactMap({ structure -> GenericType? in
-      guard let genericType = GenericType(from: structure,
-                                          rawType: rawType,
-                                          moduleNames: moduleNames,
-                                          rawTypeRepository: rawTypeRepository) else { return nil }
-      return genericType
-    })
+    self.genericTypes = Dictionary<String, GenericType>(uniqueKeysWithValues: substructure
+      .compactMap({ structure -> GenericType? in
+        guard let genericType = GenericType(from: structure,
+                                            rawType: rawType,
+                                            moduleNames: moduleNames,
+                                            rawTypeRepository: rawTypeRepository)
+          else { return nil }
+        return genericType
+      })
+      .map({ (key: $0.name, value: $0) })
+    )
     
     // Parse parameters.
     let (shortName, labels) = name.extractArgumentLabels()
@@ -163,14 +167,14 @@ struct Method: Hashable, Comparable {
   }
   
   private static func generateSortableIdentifier(name: String,
-                                                 genericTypes: [GenericType],
+                                                 genericTypes: [String: GenericType],
                                                  parameters: [MethodParameter],
                                                  returnTypeName: String,
                                                  kind: SwiftDeclarationKind,
                                                  whereClauses: [WhereClause]) -> String {
     return [
       name,
-      genericTypes.map({ "\($0.name):\($0.constraints)" }).joined(separator: ","),
+      genericTypes.values.map({ "\($0.name):\($0.constraints)" }).joined(separator: ","),
       parameters
         .map({ "\($0.argumentLabel ?? ""):\($0.name):\($0.typeName)" })
         .joined(separator: ","),

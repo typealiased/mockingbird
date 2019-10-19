@@ -22,7 +22,7 @@ class MockableType: Hashable, Comparable {
   let allInheritedTypeNames: [String] // Includes opaque inherited types, in declaration order.
   let selfConformanceTypes: Set<MockableType>
   let allSelfConformanceTypeNames: [String] // Includes opaque conformance type names.
-  let genericTypes: [GenericType]
+  let genericTypes: [String: GenericType]
   let whereClauses: [WhereClause]
   let shouldMock: Bool
   let attributes: Attributes
@@ -87,14 +87,16 @@ class MockableType: Hashable, Comparable {
                           typealiasRepository: typealiasRepository)
     
     // Parse top-level declared generics.
-    var genericTypes = substructure.compactMap({ structure -> GenericType? in
-      guard let genericType = GenericType(from: structure,
-                                          rawType: baseRawType,
-                                          moduleNames: moduleNames,
-                                          rawTypeRepository: rawTypeRepository) else { return nil }
-      return genericType
-    })
-    var whereClauses = genericTypes.flatMap({ $0.whereClauses })
+    var genericTypes = Dictionary<String, GenericType>(uniqueKeysWithValues: substructure
+      .compactMap({ structure -> GenericType? in
+        guard let genericType = GenericType(from: structure,
+                                            rawType: baseRawType,
+                                            moduleNames: moduleNames,
+                                            rawTypeRepository: rawTypeRepository) else { return nil }
+        return genericType
+      })
+      .map({ (key: $0.name, value: $0) }))
+    var whereClauses = genericTypes.values.flatMap({ $0.whereClauses })
 
     let source = baseRawType.parsedFile.data
     if let nameSuffix = SourceSubstring.nameSuffixUpToBody.extract(from: baseRawType.dictionary,
@@ -180,12 +182,12 @@ class MockableType: Hashable, Comparable {
     self.hasSelfConstraint = whereClauses.contains(where: { $0.hasSelfConstraint })
       || methods.contains(where: { $0.hasSelfConstraint })
       || variables.contains(where: { $0.hasSelfConstraint })
-      || genericTypes.contains(where: { $0.hasSelfConstraint })
+      || genericTypes.values.contains(where: { $0.hasSelfConstraint })
     
     if baseRawType.parsedFile.shouldMock {
       self.sortableIdentifier = [
         self.name,
-        self.genericTypes.map({ "\($0.name):\($0.constraints)" }).joined(separator: ","),
+        self.genericTypes.values.map({ "\($0.name):\($0.constraints)" }).joined(separator: ","),
         self.whereClauses.map({ "\($0)" }).joined(separator: ",")
       ].joined(separator: "|")
     } else {
@@ -232,7 +234,7 @@ class MockableType: Hashable, Comparable {
                                           forConformance: Bool,
                                           methods: inout Set<Method>,
                                           variables: inout Set<Variable>,
-                                          genericTypes: inout [GenericType],
+                                          genericTypes: inout [String: GenericType],
                                           whereClauses: inout [WhereClause],
                                           mockableTypes: [String: MockableType],
                                           moduleNames: [String],
@@ -322,7 +324,7 @@ class MockableType: Hashable, Comparable {
         allInheritedTypes.formUnion([mockableType] + inherited)
         allInheritedTypeNames.append(contentsOf: inherited.map({ $0.fullyQualifiedModuleName }))
         
-        genericTypes.append(contentsOf: mockableType.genericTypes)
+        genericTypes.merge(mockableType.genericTypes) { (old, new) -> GenericType in return new }
         whereClauses.append(contentsOf: mockableType.whereClauses)
       }
       return (inheritedTypes, allInheritedTypes, allInheritedTypeNames, subclassesExternalType)
