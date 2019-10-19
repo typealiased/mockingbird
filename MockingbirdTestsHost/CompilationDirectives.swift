@@ -72,3 +72,19 @@ protocol CompilationDirectiveProtocol {
   #endif
   #endif
 }
+
+/*
+ #if !(DEBUG)
+ */
+protocol CommentBlockNotDebugCompilationDirectiveProtocol {
+  var variable: Bool { get }
+}
+/*
+ #endif
+ */
+
+// #if !(DEBUG)
+protocol LineCommentNotDebugCompilationDirectiveProtocol {
+  var variable: Bool { get }
+}
+// #endif

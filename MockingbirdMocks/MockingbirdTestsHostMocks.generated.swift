@@ -10,17 +10,11 @@
 @testable import MockingbirdTestsHost
 import AppKit
 import CoreAudio
-import CoreData
-import CoreFoundation
-import CoreImage
-import CoreML
 import CoreText
 import Foundation
 import MockingbirdModuleTestsHost
 import ObjectiveC
 import Swift
-import class CoreFoundation.CFArray
-import enum CoreText.CTFontUIFontType
 
 private var genericTypesStaticMocks = Mockingbird.Synchronized<[String: Mockingbird.StaticMock]>([:])
 
@@ -3133,6 +3127,47 @@ public final class CodableConformingProtocolMock: MockingbirdTestsHost.CodableCo
 /// Create a source-attributed `MockingbirdTestsHost.CodableConformingProtocol` concrete protocol mock instance.
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.CodableConformingProtocol.Protocol) -> CodableConformingProtocolMock {
   return CodableConformingProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked CommentBlockNotDebugCompilationDirectiveProtocol
+
+public final class CommentBlockNotDebugCompilationDirectiveProtocolMock: MockingbirdTestsHost.CommentBlockNotDebugCompilationDirectiveProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.7.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      CommentBlockNotDebugCompilationDirectiveProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mocked variable
+
+  public var `variable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+  }
+
+  public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.CommentBlockNotDebugCompilationDirectiveProtocol` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.CommentBlockNotDebugCompilationDirectiveProtocol.Protocol) -> CommentBlockNotDebugCompilationDirectiveProtocolMock {
+  return CommentBlockNotDebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked CompilationDirectiveProtocol
@@ -8325,6 +8360,47 @@ public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockin
 /// Create a source-attributed `MockingbirdTestsHost.InoutProtocol` concrete protocol mock instance.
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.InoutProtocol.Protocol) -> InoutProtocolMock {
   return InoutProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked LineCommentNotDebugCompilationDirectiveProtocol
+
+public final class LineCommentNotDebugCompilationDirectiveProtocolMock: MockingbirdTestsHost.LineCommentNotDebugCompilationDirectiveProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.7.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      LineCommentNotDebugCompilationDirectiveProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mocked variable
+
+  public var `variable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+  }
+
+  public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.LineCommentNotDebugCompilationDirectiveProtocol` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.LineCommentNotDebugCompilationDirectiveProtocol.Protocol) -> LineCommentNotDebugCompilationDirectiveProtocolMock {
+  return LineCommentNotDebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked LocalPublicExternalProtocol

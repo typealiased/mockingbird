@@ -25,3 +25,22 @@ import CoreFoundation ; import CoreImage
 
 import class CoreFoundation.CFArray
 import enum CoreText.CTFontUIFontType
+
+/*
+ @testable import testable commented out import
+ import commented out import
+ */
+
+struct ModuleImportCases2 {
+  static let multiLineImports = """
+  @testable import testable multiline string import
+  import multiline string import
+  """
+  static let singleLineImport = "import singleline string import"
+} /* start
+ @testable import testable trailing commented out import
+ import trailing commented out import
+ end */
+
+// @testable import testable single line commented out import
+// import single line commented out import

@@ -168,8 +168,14 @@ private extension File {
     var imports: Set<String> = ["import Swift"]
     var compilationDirectives = [CompilationDirective]()
     var provisionalCompilationDirectives = [CompilationDirective]()
-
-    var currentOffset: Int64 = 0 // TODO: Defer offset calculation until a macro is actually found.
+    
+    var currentOffset: Int64 = 0
+    
+    // TODO: Look into using a proper tokenizer for Swift grammar here...
+    enum ExclusionType {
+      case commentBlock, multiLineStringLiteral
+    }
+    var currentExclusionType: ExclusionType?
     
     contents
       .substringComponents(separatedBy: "\n")
@@ -179,6 +185,26 @@ private extension File {
         
         let lineContents = line.trimmingCharacters(in: .whitespaces)
         guard !lineContents.isEmpty else { return }
+        
+        if let exclusionType = currentExclusionType {
+          switch exclusionType {
+          case .commentBlock:
+            guard lineContents.contains("*/") else { break }
+            currentExclusionType = nil
+          case .multiLineStringLiteral:
+            guard lineContents.hasPrefix("\"\"\"") else { break }
+            currentExclusionType = nil
+          }
+          return
+        }
+        
+        if lineContents.contains("/*") {
+          currentExclusionType = .commentBlock
+        } else if lineContents.contains("\"\"\"") {
+          currentExclusionType = .multiLineStringLiteral
+        }
+        
+        guard !lineContents.hasPrefix("//") else { return }
         
         imports.formUnion(parseImports(from: lineContents))
         
@@ -210,7 +236,7 @@ private extension File {
     return lineContents.substringComponents(separatedBy: ";")
       .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
       .filter({ $0.hasPrefix("import ") || $0.hasPrefix("@testable import ") })
-      .map({String($0
+      .map({ String($0
         .substringComponents(separatedBy: "/").first!
         .trimmingCharacters(in: .whitespacesAndNewlines)) })
   }
