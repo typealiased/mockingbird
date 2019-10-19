@@ -193,12 +193,13 @@ struct GenericType: Hashable {
       .serialize(with: qualifiedTypeNameRequest)
     
     // De-qualify `Self` constraints.
-    if qualifiedConstrainedTypeName.hasPrefix("Self.") {
-      qualifiedConstrainedTypeName.removeFirst(5)
+    let selfPrefix = "\(SerializationRequest.Constants.selfToken)."
+    if qualifiedConstrainedTypeName.hasPrefix(selfPrefix) {
+      qualifiedConstrainedTypeName.removeFirst(selfPrefix.count)
     }
     
-    if qualifiedConstraintTypeName.hasPrefix("Self.") {
-      qualifiedConstraintTypeName.removeFirst(5)
+    if qualifiedConstraintTypeName.hasPrefix(selfPrefix) {
+      qualifiedConstraintTypeName.removeFirst(selfPrefix.count)
     }
     
     return WhereClause(constrainedTypeName: qualifiedConstrainedTypeName,

@@ -96,6 +96,12 @@ extension SerializationRequest {
       return (options.contains(.shouldTokenizeSelf) ? Constants.selfToken : typeName)
     }
     
+    guard !typeName.hasPrefix("Self.") else {
+      return options.contains(.shouldTokenizeSelf)
+        ? Constants.selfToken + typeName[typeName.index(typeName.startIndex, offsetBy: 4)...]
+        : typeName
+    }
+    
     guard method != .notQualified,
       let rawTypeRepository = context.rawTypeRepository,
       let referencingModuleName = context.referencingModuleName else {
