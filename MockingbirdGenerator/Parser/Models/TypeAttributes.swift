@@ -82,18 +82,22 @@ struct Attributes: OptionSet, Hashable {
   static let `rethrows` = Attributes(rawValue: 1 << 4)
   static let convenience = Attributes(rawValue: 1 << 5)
   static let override = Attributes(rawValue: 1 << 6)
+  static let objcName = Attributes(rawValue: 1 << 7)
   
   // MARK: Inferred attributes
-  static let constant = Attributes(rawValue: 1 << 7)
-  static let readonly = Attributes(rawValue: 1 << 8)
-  static let `throws` = Attributes(rawValue: 1 << 9)
-  static let `inout` = Attributes(rawValue: 1 << 10)
-  static let variadic = Attributes(rawValue: 1 << 11)
-  static let failable = Attributes(rawValue: 1 << 12)
-  static let unwrappedFailable = Attributes(rawValue: 1 << 13)
-  static let closure = Attributes(rawValue: 1 << 14)
-  static let escaping = Attributes(rawValue: 1 << 15)
-  static let autoclosure = Attributes(rawValue: 1 << 16)
+  static let constant = Attributes(rawValue: 1 << 8)
+  static let readonly = Attributes(rawValue: 1 << 9)
+  static let `throws` = Attributes(rawValue: 1 << 10)
+  static let `inout` = Attributes(rawValue: 1 << 11)
+  static let variadic = Attributes(rawValue: 1 << 12)
+  static let failable = Attributes(rawValue: 1 << 13)
+  static let unwrappedFailable = Attributes(rawValue: 1 << 14)
+  static let closure = Attributes(rawValue: 1 << 15)
+  static let escaping = Attributes(rawValue: 1 << 16)
+  static let autoclosure = Attributes(rawValue: 1 << 17)
+  
+  // MARK: Custom attributes
+  static let implicit = Attributes(rawValue: 1 << 18)
   
   static let attributesKey = "key.attributes"
   static let attributeKey = "key.attribute"
@@ -109,7 +113,20 @@ extension Attributes {
     case .rethrows: self = .rethrows
     case .convenience: self = .convenience
     case .override: self = .override
+    case .objcName: self = .objcName
     default: return nil
+    }
+  }
+  
+  /// It's necessary to abuse named attributes, e.g. `@objc(anything)` as custom attributes on older
+  /// Swift versions results in an error rather than returning `source.decl.attribute._custom`.
+  enum CustomAttributeDeclaration: String {
+    case implicit = "@objc(mkb_implicit)"
+  }
+  
+  init?(from declaration: CustomAttributeDeclaration) {
+    switch declaration {
+    case .implicit: self = .implicit
     }
   }
   
@@ -135,7 +152,12 @@ extension Attributes {
       if attribute.shouldExtractDeclaration, let source = source,
         let declaration = SourceSubstring.key.extract(from: rawAttributeDictionary,
                                                       contents: source) {
-        attributes.insert(declaration)
+        if let customAttributeDeclaration = CustomAttributeDeclaration(rawValue: declaration),
+          let customAttribute = Attributes(from: customAttributeDeclaration) {
+          attributes.insert(customAttribute)
+        } else { // Don't include raw custom attribute declarations, because it won't compile.
+          attributes.insert(declaration)
+        }
       }
       attributes.insert(attribute)
     }
@@ -144,7 +166,7 @@ extension Attributes {
   
   var shouldExtractDeclaration: Bool {
     switch self {
-    case .available: return true
+    case .available, .objcName: return true
     default: return false
     }
   }

@@ -58,8 +58,8 @@ clean:
 	rm -f "$(OUTPUT_ZIP)"
 	swift package clean
 
-clean-mocks:
-	rm MockingbirdMocks/*.swift
+clean-mocks: clean
+	rm -f MockingbirdMocks/*.swift
 
 clean-xcode: clean-mocks
 	$(BUILD_TOOL) -scheme 'MockingbirdFramework' $(XCODEBUILD_FLAGS) clean

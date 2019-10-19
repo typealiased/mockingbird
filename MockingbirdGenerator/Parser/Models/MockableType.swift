@@ -305,18 +305,22 @@ class MockableType: Hashable, Comparable {
           subclassesExternalType = true
         }
         
-        // Classes must already implement members in protocols they conform to.
-        guard baseRawType.kind != .class || mockableType.kind != .protocol else { continue }
+        let shouldInheritFromType = baseRawType.kind != .class || mockableType.kind != .protocol
         
         methods = methods.union(mockableType.methods.filter({
-          $0.kind.typeScope.isMockable(in: baseRawType.kind) &&
+          guard shouldInheritFromType || $0.attributes.contains(.implicit) else { return false }
+          return $0.kind.typeScope.isMockable(in: baseRawType.kind) &&
             // Mocking a subclass with designated initializers shouldn't inherit the superclass'
             // initializers.
             (baseRawType.kind == .protocol || !definesDesignatedInitializer || !$0.isInitializer)
         }))
         variables = variables.union(mockableType.variables.filter({
-          $0.kind.typeScope.isMockable(in: baseRawType.kind)
+          guard shouldInheritFromType || $0.attributes.contains(.implicit) else { return false }
+          return $0.kind.typeScope.isMockable(in: baseRawType.kind)
         }))
+        
+        // Classes must already implement generic constraints from protocols they conform to.
+        guard shouldInheritFromType else { continue }
         
         let inherited = forConformance
           ? mockableType.selfConformanceTypes : mockableType.inheritedTypes
