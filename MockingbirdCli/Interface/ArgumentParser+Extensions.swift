@@ -99,6 +99,12 @@ extension ArgumentParser {
                 (value: "TEST", description: "Test build configuration")]))
   }
   
+  func addInstallerLogLevel() -> OptionArgument<String> {
+    return add(option: "--loglevel",
+               kind: String.self,
+               usage: "The log level to use when generating mocks, `quiet` or `verbose`")
+  }
+  
   func addMetagenerateOutput() -> OptionArgument<PathArgument> {
     return add(option: "--output",
                kind: PathArgument.self,
@@ -225,7 +231,11 @@ extension ArgumentParser.Result {
                       sourceRoot: Path) throws -> Path? {
     guard let rawSupportPath = get(argument)?.path.pathString else {
       let defaultSupportPath = sourceRoot + "MockingbirdSupport"
-      guard defaultSupportPath.isDirectory else { return nil }
+      guard defaultSupportPath.isDirectory else {
+        logWarning("Unable to infer support path because no directory exists at \(defaultSupportPath)")
+        return nil
+      }
+      log("Using inferred support path at \(defaultSupportPath)")
       return defaultSupportPath
     }
     let supportPath = Path(rawSupportPath)
@@ -274,6 +284,15 @@ extension ArgumentParser.Result {
       return count
     }
     return nil
+  }
+  
+  func getInstallerLogLevel(logLevelOption: OptionArgument<String>) throws -> LogLevel? {
+    guard let rawLogLevel = get(logLevelOption) else { return nil }
+    guard let logLevel = LogLevel(rawValue: rawLogLevel) else {
+      throw ArgumentParserError.invalidValue(argument: "--loglevel \(rawLogLevel)",
+                                             error: .custom("Not a valid log level"))
+    }
+    return logLevel
   }
   
   func getLogLevel(verboseOption: OptionArgument<Bool>,

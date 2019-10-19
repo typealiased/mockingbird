@@ -26,8 +26,9 @@ final class InstallCommand: BaseCommand {
   private let outputsArgument: OptionArgument<[PathArgument]>
   private let outputArgument: OptionArgument<[PathArgument]>
   private let supportPathArgument: OptionArgument<PathArgument>
-  
   private let compilationConditionArgument: OptionArgument<String>
+  private let logLevelArgument: OptionArgument<String>
+  
   private let ignoreExistingRunScriptArgument: OptionArgument<Bool>
   private let asynchronousGenerationArgument: OptionArgument<Bool>
   private let onlyMockProtocolsArgument: OptionArgument<Bool>
@@ -46,6 +47,8 @@ final class InstallCommand: BaseCommand {
     self.outputArgument = subparser.addOutput()
     self.supportPathArgument = subparser.addSupportPath()
     self.compilationConditionArgument = subparser.addCompilationCondition()
+    self.logLevelArgument = subparser.addInstallerLogLevel()
+    
     self.ignoreExistingRunScriptArgument = subparser.addIgnoreExistingRunScript()
     self.asynchronousGenerationArgument = subparser.addAynchronousGeneration()
     self.onlyMockProtocolsArgument = subparser.addOnlyProtocols()
@@ -72,6 +75,7 @@ final class InstallCommand: BaseCommand {
     let outputs = arguments.getOutputs(using: outputsArgument, convenienceArgument: outputArgument)
     let supportPath = try arguments.getSupportPath(using: supportPathArgument,
                                                    sourceRoot: sourceRoot)
+    let logLevel = try arguments.getInstallerLogLevel(logLevelOption: logLevelArgument)
     
     let config = Installer.InstallConfiguration(
       projectPath: projectPath,
@@ -81,9 +85,10 @@ final class InstallCommand: BaseCommand {
       outputPaths: outputs,
       supportPath: supportPath,
       cliPath: Path(CommandLine.arguments[0]),
+      compilationCondition: arguments.get(compilationConditionArgument),
+      logLevel: logLevel,
       ignoreExisting: arguments.get(ignoreExistingRunScriptArgument) == true,
       asynchronousGeneration: arguments.get(asynchronousGenerationArgument) == true,
-      compilationCondition: arguments.get(compilationConditionArgument),
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
       disableSwiftlint: arguments.get(disableSwiftlintArgument) == true,
       disableCache: arguments.get(disableCacheArgument) == true

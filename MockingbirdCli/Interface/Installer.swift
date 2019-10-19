@@ -22,9 +22,10 @@ class Installer {
     let outputPaths: [Path]?
     let supportPath: Path?
     let cliPath: Path
+    let compilationCondition: String?
+    let logLevel: LogLevel?
     let ignoreExisting: Bool
     let asynchronousGeneration: Bool
-    let compilationCondition: String?
     let onlyMockProtocols: Bool
     let disableSwiftlint: Bool
     let disableCache: Bool
@@ -263,6 +264,13 @@ class Installer {
       }
       if config.disableCache {
         options.append("--disable-cache")
+      }
+      if let logLevel = config.logLevel {
+        switch logLevel {
+        case .quiet: options.append("--quiet")
+        case .normal: break
+        case .verbose: options.append("--verbose")
+        }
       }
       if config.asynchronousGeneration {
         options.append("&")

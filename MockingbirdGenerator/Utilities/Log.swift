@@ -26,8 +26,11 @@ public enum LogType: Int, CustomStringConvertible {
   }
 }
 
-public enum LogLevel {
-  case normal, quiet, verbose
+public enum LogLevel: String, RawRepresentable {
+  case normal = "normal"
+  case quiet = "quiet"
+  case verbose = "verbose"
+  
   func shouldLog(_ type: LogType) -> Bool {
     switch self {
     case .normal: return type.rawValue >= LogType.warn.rawValue

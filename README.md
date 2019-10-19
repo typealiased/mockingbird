@@ -438,6 +438,7 @@ Set up a destination (unit test) target.
 | `--outputs` | [`(inferred)`](#--outputs) | List of mock output file paths for each target. |
 | `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](#). |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
+| `--loglevel` |  `(none)` | The log level to use when generating mocks, `quiet` or `verbose` |
 
 | Flag | Description |
 | --- | --- |
