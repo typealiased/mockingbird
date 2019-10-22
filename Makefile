@@ -34,7 +34,7 @@ ERROR_MSG=[ERROR] The downloaded Mockingbird CLI binary does not have the expect
 		clean \
 		clean-mocks \
 		clean-xcode \
-		boostrap-carthage \
+		bootstrap-carthage \
 		build \
 		test \
 		carthage-update \
@@ -64,9 +64,8 @@ clean-xcode: clean-mocks
 	$(BUILD_TOOL) -scheme 'MockingbirdFramework' $(XCODEBUILD_FLAGS) clean
 	$(BUILD_TOOL) -scheme 'MockingbirdTestsHost' $(XCODEBUILD_FLAGS) clean
 
-boostrap-carthage:
-	(cd Mockingbird.xcodeproj/xcshareddata/xcschemes; \
-		find . ! -name "MockingbirdFramework.xcscheme" ! -name "MockingbirdShared.xcscheme" -delete)
+bootstrap-carthage:
+	(cd Mockingbird.xcodeproj/xcshareddata/xcschemes && find . ! -name "MockingbirdFramework.xcscheme" ! -name "MockingbirdShared.xcscheme" -delete)
 
 build:
 	swift build $(SWIFT_BUILD_FLAGS)

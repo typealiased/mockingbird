@@ -4,3 +4,5 @@ PRODUCT_MODULE_NAME = Mockingbird
 PRODUCT_NAME = Mockingbird
 FRAMEWORK_SEARCH_PATHS = $(PLATFORM_DIR)/Developer/Library/Frameworks
 TARGET_NAME = Mockingbird
+ENABLE_BITCODE = NO
+SUPPORTED_PLATFORMS = macosx iphoneos iphonesimulator appletvos appletvsimulator
