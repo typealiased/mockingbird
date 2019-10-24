@@ -4,9 +4,11 @@ import PackageDescription
 let package = Package(
   name: "Mockingbird",
   products: [
-    .library(name: "Mockingbird", targets: ["MockingbirdFramework"]),
-    .library(name: "MockingbirdGenerator", targets: ["MockingbirdGenerator"]),
+    .library(name: "Mockingbird", targets: ["Mockingbird"]),
     .executable(name: "mockingbird", targets: ["MockingbirdCli"]),
+    
+    // For local dev only. Uncomment before running `$ swift package generate-xcodeproj`.
+    //.library(name: "MockingbirdGenerator", targets: ["MockingbirdGenerator"]),
   ],
   dependencies: [
     .package(url: "https://github.com/tuist/XcodeProj.git", from: "7.0.0"),
@@ -15,7 +17,7 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "MockingbirdFramework",
+      name: "Mockingbird",
       dependencies: [],
       path: "MockingbirdFramework",
       linkerSettings: [.linkedFramework("XCTest")]
@@ -58,7 +60,7 @@ let package = Package(
     .testTarget(
       name: "MockingbirdTests",
       dependencies: [
-        "MockingbirdFramework",
+        "Mockingbird",
         "MockingbirdGenerator",
         "MockingbirdTestsHost",
         "MockingbirdPerformanceTestsHost",
