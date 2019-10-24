@@ -68,29 +68,10 @@ $ make install-prebuilt
 
 ### Swift Package Manager
 
-Add the framework as a package and test target dependency in your `Package.swift` file.
+Add `https://github.com/birdrides/mockingbird` as a dependency and link it to your unit test target.
 
-```swift
-dependencies: [
-  .package(url: "https://github.com/birdrides/mockingbird.git", .upToNextMajor(from: "0.7.0"))
-],
-targets: [
-  .testTarget(
-    name: "ATestTarget",
-    dependencies: [
-      "Mockingbird"
-    ]
-  )
-]
-```
-
-Then download and install the CLI.
-
-```bash
-$ swift package update
-$ cd .build/checkouts/Mockingbird
-$ make install-prebuilt
-```
+Then download and install the CLI by selecting `MockingbirdCLI.pkg` from
+[Releases](https://github.com/birdrides/mockingbird/releases).
 
 ### From Source
 
