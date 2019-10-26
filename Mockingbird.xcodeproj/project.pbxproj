@@ -43,6 +43,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		3B7716CE2364AE3500B339EB /* PBXTargetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7716CD2364AE3500B339EB /* PBXTargetTests.swift */; };
 		4904BDED232ED4B80031E071 /* EmptyTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4904BDEC232ED4B80031E071 /* EmptyTypes.swift */; };
 		4904BDEF232F15510031E071 /* ExternalModuleTypesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4904BDEE232F15510031E071 /* ExternalModuleTypesMockableTests.swift */; };
 		4904BDF1232F168D0031E071 /* ExternalModuleTypesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4904BDF0232F168D0031E071 /* ExternalModuleTypesStubbableTests.swift */; };
@@ -940,6 +941,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B7716CD2364AE3500B339EB /* PBXTargetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXTargetTests.swift; sourceTree = "<group>"; };
 		4904BDEC232ED4B80031E071 /* EmptyTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTypes.swift; sourceTree = "<group>"; };
 		4904BDEE232F15510031E071 /* ExternalModuleTypesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleTypesMockableTests.swift; sourceTree = "<group>"; };
 		4904BDF0232F168D0031E071 /* ExternalModuleTypesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleTypesStubbableTests.swift; sourceTree = "<group>"; };
@@ -1794,6 +1796,7 @@
 		OBJ_185 /* Generator */ = {
 			isa = PBXGroup;
 			children = (
+				3B7716CD2364AE3500B339EB /* PBXTargetTests.swift */,
 				OBJ_186 /* DeclaredTypeTests.swift */,
 				OBJ_187 /* StringExtensionsTests.swift */,
 			);
@@ -3987,6 +3990,7 @@
 				4904BDF3232F18A10031E071 /* InitializersMockableTests.swift in Sources */,
 				OBJ_839 /* VariadicParametersMockableTests.swift in Sources */,
 				4904BDF1232F168D0031E071 /* ExternalModuleTypesStubbableTests.swift in Sources */,
+				3B7716CE2364AE3500B339EB /* PBXTargetTests.swift in Sources */,
 				OBJ_840 /* VariadicParametersStubbableTests.swift in Sources */,
 				OBJ_841 /* TreeTests.swift in Sources */,
 				OBJ_842 /* ArgumentCaptorTests.swift in Sources */,
