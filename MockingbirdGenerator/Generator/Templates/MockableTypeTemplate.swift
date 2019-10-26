@@ -243,13 +243,15 @@ class MockableTypeTemplate: Template {
   /// Store the source location of where the mock was initialized. This allows `XCTest` errors from
   /// unstubbed method invocations to show up in the testing code.
   var shouldGenerateDefaultInitializer: Bool {
+    let hasDesignatedInitializer =
+      mockableType.methods.contains(where: { $0.isDesignatedInitializer })
+    
     let isInitializableProtocol = mockableType.kind == .protocol
-      && protocolClassConformance == nil
-      && !mockableType.hasOpaqueInheritedType
-    let isInitializableInstance = !mockableType.hasOpaqueInheritedType
-      && !mockableType.methods.contains(where: { $0.isDesignatedInitializer })
-    return isInitializableProtocol
-      || ((isInitializableProtocol || mockableType.kind == .class) && isInitializableInstance)
+      && (protocolClassConformance == nil || !hasDesignatedInitializer)
+    let isInitializableClass = mockableType.kind == .class
+      && !hasDesignatedInitializer
+    
+    return (isInitializableProtocol || isInitializableClass) && !mockableType.hasOpaqueInheritedType
   }
   var defaultInitializer: String {
     guard shouldGenerateDefaultInitializer else { return "" }

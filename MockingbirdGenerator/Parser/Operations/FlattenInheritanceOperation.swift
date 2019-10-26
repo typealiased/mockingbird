@@ -127,6 +127,12 @@ class FlattenInheritanceOperation: BasicOperation {
       })
     }
     
+    // It's possible that a known inherited type indirectly references an opaque type.
+    hasOpaqueInheritedType = hasOpaqueInheritedType || rawInheritedTypes.contains(where: {
+      $0.hasOpaqueInheritedType
+    })
+    baseRawType.hasOpaqueInheritedType = hasOpaqueInheritedType
+    
     return createMockableType(hasOpaqueInheritedType)
   }
 }
