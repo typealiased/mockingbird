@@ -63,6 +63,7 @@ $ ./carthage-update.sh
 Then download and install the CLI.
 
 ```bash
+$ cd Carthage/Checkouts/mockingbird
 $ make install-prebuilt
 ```
 
