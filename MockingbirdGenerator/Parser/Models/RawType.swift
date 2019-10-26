@@ -9,7 +9,7 @@ import Foundation
 import SourceKittenFramework
 
 /// A light wrapper around a SourceKit structure, used for the mocked module and its dependencies.
-struct RawType {
+class RawType {
   let dictionary: StructureDictionary
   let name: String
   /// Fully qualified with respect to the current module (not with respect to other modules)
@@ -22,6 +22,8 @@ struct RawType {
   let definedInExtension: Bool // Types can be defined and nested within extensions.
   let kind: SwiftDeclarationKind
   let parsedFile: ParsedFile
+  
+  var hasOpaqueInheritedType = false
   
   var isContainedType: Bool { return !containingTypeNames.isEmpty }
   

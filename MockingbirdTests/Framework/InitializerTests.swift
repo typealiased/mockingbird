@@ -11,6 +11,8 @@ import Mockingbird
 
 class InitializerTests: XCTestCase {
   
+  // MARK: Standard initialization
+  
   var initializerClass: InitializerClassMock!
   var initializerProtocol: InitializerProtocolMock!
   
@@ -24,6 +26,42 @@ class InitializerTests: XCTestCase {
   
   func testInitializerProtocol() {
     initializerProtocol = mock(InitializerProtocol.self)
+  }
+  
+  
+  // MARK: Empty type initialization
+  
+  var emptyProtocol: EmptyProtocolMock!
+  var emptyClass: EmptyClassMock!
+  var emptyInheritingProtocol: EmptyInheritingProtocolMock!
+  var emptyInheritingClass: EmptyInheritingClassMock!
+  
+  func testEmptyTypeInitialization() {
+    emptyProtocol = mock(EmptyProtocol.self)
+    emptyClass = mock(EmptyClass.self)
+  }
+  
+  func testEmptyInheritingTypeInitialization() {
+    emptyInheritingProtocol = mock(EmptyInheritingProtocol.self)
+    emptyInheritingClass = mock(EmptyInheritingClass.self)
+  }
+  
+  
+  // MARK: Class only protocol initialization
+  
+  var deprecatedClassOnlyProtocol: DeprecatedClassOnlyProtocolMock!
+  var deprecatedClassOnlyProtocolWithInheritance: DeprecatedClassOnlyProtocolWithInheritanceMock!
+  var classOnlyProtocol: ClassOnlyProtocolMock!
+  var classOnlyProtocolWithInheritance: ClassOnlyProtocolWithInheritanceMock!
+  
+  func testDeprecatedClassOnlyProtocolInitialization() {
+    deprecatedClassOnlyProtocol = mock(DeprecatedClassOnlyProtocol.self)
+    deprecatedClassOnlyProtocolWithInheritance = mock(DeprecatedClassOnlyProtocolWithInheritance.self)
+  }
+  
+  func testClassOnlyProtocolInitialization() {
+    classOnlyProtocol = mock(ClassOnlyProtocol.self)
+    classOnlyProtocolWithInheritance = mock(ClassOnlyProtocolWithInheritance.self)
   }
 }
 
