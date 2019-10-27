@@ -27,11 +27,11 @@ class Generator {
     let disableCache: Bool
   }
   
-  enum Failure: Error {
+  enum Failure: Error, CustomStringConvertible {
     case malformedConfiguration(description: String)
     case internalError(description: String)
     
-    var errorDescription: String? {
+    var description: String {
       switch self {
       case .malformedConfiguration(let description):
         return "Malformed configuration - \(description)"
