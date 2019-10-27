@@ -124,12 +124,14 @@ extension PBXTarget: AbstractTarget {}
 
 extension PBXTarget: Target {
   public var productModuleName: String {
-    guard let inferredDebugConfig = buildConfigurationList?.buildConfigurations
-      .first(where: { $0.name.lowercased() == "debug" })
-      ?? buildConfigurationList?.buildConfigurations.first,
+    guard
+      let inferredDebugConfig = buildConfigurationList?.buildConfigurations
+        .first(where: { $0.name.lowercased() == "debug" }) ?? buildConfigurationList?.buildConfigurations.first,
       let moduleName = inferredDebugConfig.buildSettings["PRODUCT_MODULE_NAME"] as? String,
       !moduleName.hasPrefix("$(") // TODO: Parse environment vars in build configurations.
-      else { return productName ?? name }
+    else {
+      return (productName ?? name).replacingInvalidCharacters()
+    }
     return moduleName
   }
 
@@ -142,3 +144,14 @@ extension PBXTarget: Target {
 }
 
 extension PBXTargetDependency: TargetDependency {}
+
+private extension String {
+  func replacingInvalidCharacters() -> String {
+    let replaced = replacingOccurrences(of: "\\W", with: "_", options: .regularExpression)
+    if String(replaced[startIndex]).range(of: "\\d", options: .regularExpression) != nil {
+      return replaced.replacingCharacters(in: ...startIndex, with: "_")
+    } else {
+      return replaced
+    }
+  }
+}
