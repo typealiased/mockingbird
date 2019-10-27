@@ -44,6 +44,7 @@
 
 /* Begin PBXBuildFile section */
 		3B7716CE2364AE3500B339EB /* PBXTargetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7716CD2364AE3500B339EB /* PBXTargetTests.swift */; };
+		3B7716D623664AFB00B339EB /* LocalizedError+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7716D523664AFB00B339EB /* LocalizedError+Extensions.swift */; };
 		4904BDED232ED4B80031E071 /* EmptyTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4904BDEC232ED4B80031E071 /* EmptyTypes.swift */; };
 		4904BDEF232F15510031E071 /* ExternalModuleTypesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4904BDEE232F15510031E071 /* ExternalModuleTypesMockableTests.swift */; };
 		4904BDF1232F168D0031E071 /* ExternalModuleTypesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4904BDF0232F168D0031E071 /* ExternalModuleTypesStubbableTests.swift */; };
@@ -942,6 +943,7 @@
 
 /* Begin PBXFileReference section */
 		3B7716CD2364AE3500B339EB /* PBXTargetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXTargetTests.swift; sourceTree = "<group>"; };
+		3B7716D523664AFB00B339EB /* LocalizedError+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalizedError+Extensions.swift"; sourceTree = "<group>"; };
 		4904BDEC232ED4B80031E071 /* EmptyTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTypes.swift; sourceTree = "<group>"; };
 		4904BDEE232F15510031E071 /* ExternalModuleTypesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleTypesMockableTests.swift; sourceTree = "<group>"; };
 		4904BDF0232F168D0031E071 /* ExternalModuleTypesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleTypesStubbableTests.swift; sourceTree = "<group>"; };
@@ -1651,6 +1653,7 @@
 				4970D62523308E8F002EE154 /* Commands */,
 				OBJ_13 /* Generator.swift */,
 				OBJ_15 /* Installer.swift */,
+				3B7716D523664AFB00B339EB /* LocalizedError+Extensions.swift */,
 				OBJ_16 /* Program.swift */,
 			);
 			path = Interface;
@@ -3849,6 +3852,7 @@
 				OBJ_657 /* Program.swift in Sources */,
 				OBJ_658 /* TestbedCommand.swift in Sources */,
 				OBJ_659 /* UninstallCommand.swift in Sources */,
+				3B7716D623664AFB00B339EB /* LocalizedError+Extensions.swift in Sources */,
 				OBJ_660 /* VersionCommand.swift in Sources */,
 				OBJ_661 /* main.swift in Sources */,
 			);
