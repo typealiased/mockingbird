@@ -97,7 +97,7 @@ class MockableTypeTemplate: Template {
   }
   
   lazy var runtimeGenericTypeNames: String = {
-    let genericTypeSelfNames = mockableType.genericTypes.values
+    let genericTypeSelfNames = mockableType.genericTypes
       .sorted(by: { $0.name < $1.name })
       .map({ "\"\\(\($0.name).self)\"" })
       .joined(separator: ", ")
@@ -105,9 +105,7 @@ class MockableTypeTemplate: Template {
   }()
   
   lazy var allSpecializedGenericTypesList: [String] = {
-    return mockableType.genericTypes.values
-      .sorted(by: { $0.name < $1.name })
-      .map({ $0.flattenedDeclaration })
+    return mockableType.genericTypes.map({ $0.flattenedDeclaration })
   }()
   
   lazy var allSpecializedGenericTypes: String = {
@@ -117,10 +115,7 @@ class MockableTypeTemplate: Template {
   
   lazy var allGenericTypes: String = {
     guard !mockableType.genericTypes.isEmpty else { return "" }
-    return "<" + mockableType.genericTypes.values
-      .sorted(by: { $0.name < $1.name })
-      .map({ $0.name })
-      .joined(separator: ", ") + ">"
+    return "<" + mockableType.genericTypes.map({ $0.name }).joined(separator: ", ") + ">"
   }()
   
   lazy var allGenericConstraints: String = {

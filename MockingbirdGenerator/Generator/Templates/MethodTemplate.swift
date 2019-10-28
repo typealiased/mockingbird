@@ -163,10 +163,7 @@ class MethodTemplate: Template {
   }
   
   lazy var genericTypes: String = {
-    return method.genericTypes.values
-      .sorted(by: { $0.name < $1.name })
-      .map({ $0.flattenedDeclaration })
-      .joined(separator: ", ")
+    return method.genericTypes.map({ $0.flattenedDeclaration }).joined(separator: ", ")
   }()
   
   lazy var genericConstraints: String = {
