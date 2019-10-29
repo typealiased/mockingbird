@@ -30,11 +30,11 @@ where S.Element == EquatableType {
   public func methodUsingEquatableType(equatable: EquatableType) {}
   public func methodUsingHashableType(hashable: HashableType) {}
   public func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType {
-    return 1 as! EquatableType
+    fatalError()
   }
 
   public static func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType {
-    return 1 as! EquatableType
+    fatalError()
   }
 
   public var equatableTypeVariable: EquatableType { return 1 as! EquatableType }
@@ -120,4 +120,9 @@ public protocol GenericClassReferencer {
   func genericClassMethod<T, Z: ReferencedGenericClass<T>>(metatype: Z.Type) -> Z.Type
   func genericClassWithConstraintsMethod<T, Z: ReferencedGenericClassWithConstraints<T>>(metatype: Z.Type)
     -> Z.Type
+}
+
+public class UnalphabetizedGenericClass<C, B, A> {
+  func genericReferencingMethod(a: A, b: B, c: C) -> (A, B, C) { fatalError() }
+  func genericMethod<Z, Y, X>(x: X, y: Y, z: Z) -> (X, Y, Z) { fatalError() }
 }

@@ -17,7 +17,7 @@ struct Method: Hashable, Comparable {
   let isDesignatedInitializer: Bool
   let accessLevel: AccessLevel
   let kind: SwiftDeclarationKind
-  let genericTypes: [String: GenericType]
+  let genericTypes: [GenericType]
   let whereClauses: [WhereClause]
   let parameters: [MethodParameter]
   let attributes: Attributes
@@ -119,7 +119,7 @@ struct Method: Hashable, Comparable {
                                                  rawType: rawType,
                                                  moduleNames: moduleNames,
                                                  rawTypeRepository: rawTypeRepository)
-    self.genericTypes = Dictionary<String, GenericType>(uniqueKeysWithValues: substructure
+    self.genericTypes = substructure
       .compactMap({ structure -> GenericType? in
         guard let genericType = GenericType(from: structure,
                                             rawType: rawType,
@@ -128,8 +128,6 @@ struct Method: Hashable, Comparable {
           else { return nil }
         return genericType
       })
-      .map({ (key: $0.name, value: $0) })
-    )
     
     // Parse parameters.
     let (shortName, labels) = name.extractArgumentLabels()
@@ -167,14 +165,14 @@ struct Method: Hashable, Comparable {
   }
   
   private static func generateSortableIdentifier(name: String,
-                                                 genericTypes: [String: GenericType],
+                                                 genericTypes: [GenericType],
                                                  parameters: [MethodParameter],
                                                  returnTypeName: String,
                                                  kind: SwiftDeclarationKind,
                                                  whereClauses: [WhereClause]) -> String {
     return [
       name,
-      genericTypes.values.map({ "\($0.name):\($0.constraints)" }).joined(separator: ","),
+      genericTypes.map({ "\($0.name):\($0.constraints)" }).joined(separator: ","),
       parameters
         .map({ "\($0.argumentLabel ?? ""):\($0.name):\($0.typeName)" })
         .joined(separator: ","),
