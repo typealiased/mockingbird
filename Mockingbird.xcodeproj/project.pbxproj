@@ -61,6 +61,7 @@
 		4970D6782331E67C002EE154 /* OpaqueTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4970D6772331E67C002EE154 /* OpaqueTypes.swift */; };
 		4970D6AA23335ABE002EE154 /* CompilationDirectives.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4970D6A923335ABD002EE154 /* CompilationDirectives.swift */; };
 		49732AF0232F322B0090E1A9 /* MethodParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49732AEF232F322B0090E1A9 /* MethodParameter.swift */; };
+		499854542368AD0A0022D413 /* PathFnmatchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499854532368AD0A0022D413 /* PathFnmatchTests.swift */; };
 		49BA452A23415F6A002BD9B5 /* String+SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BA452923415F6A002BD9B5 /* String+SHA1.swift */; };
 		49BA452F234189F4002BD9B5 /* CodableTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BA452E234189F4002BD9B5 /* CodableTarget.swift */; };
 		49BA45312341E97D002BD9B5 /* CheckCacheOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BA45302341E97D002BD9B5 /* CheckCacheOperation.swift */; };
@@ -964,6 +965,7 @@
 		4970D6772331E67C002EE154 /* OpaqueTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpaqueTypes.swift; sourceTree = "<group>"; };
 		4970D6A923335ABD002EE154 /* CompilationDirectives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationDirectives.swift; sourceTree = "<group>"; };
 		49732AEF232F322B0090E1A9 /* MethodParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodParameter.swift; sourceTree = "<group>"; };
+		499854532368AD0A0022D413 /* PathFnmatchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathFnmatchTests.swift; sourceTree = "<group>"; };
 		49BA452923415F6A002BD9B5 /* String+SHA1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SHA1.swift"; sourceTree = "<group>"; };
 		49BA452E234189F4002BD9B5 /* CodableTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableTarget.swift; sourceTree = "<group>"; };
 		49BA45302341E97D002BD9B5 /* CheckCacheOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCacheOperation.swift; sourceTree = "<group>"; };
@@ -1800,6 +1802,7 @@
 			isa = PBXGroup;
 			children = (
 				3B7716CD2364AE3500B339EB /* PBXTargetTests.swift */,
+				499854532368AD0A0022D413 /* PathFnmatchTests.swift */,
 				OBJ_186 /* DeclaredTypeTests.swift */,
 				OBJ_187 /* StringExtensionsTests.swift */,
 			);
@@ -3999,6 +4002,7 @@
 				OBJ_841 /* TreeTests.swift in Sources */,
 				OBJ_842 /* ArgumentCaptorTests.swift in Sources */,
 				OBJ_843 /* ArgumentMatchingTests.swift in Sources */,
+				499854542368AD0A0022D413 /* PathFnmatchTests.swift in Sources */,
 				OBJ_844 /* AsyncVerificationTests.swift in Sources */,
 				OBJ_845 /* CollectionArgumentMatchingTests.swift in Sources */,
 				OBJ_846 /* InitializerTests.swift in Sources */,
