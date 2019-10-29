@@ -7706,10 +7706,10 @@ public func mock<SequenceType: Sequence & Swift.Hashable>(file: StaticString = #
 
 // MARK: - Mocked InheritingExternalModuleScopedAssociatedTypeProtocol
 
-public final class InheritingExternalModuleScopedAssociatedTypeProtocolMock<Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol, Element, Subelement>: MockingbirdTestsHost.InheritingExternalModuleScopedAssociatedTypeProtocol, Mockingbird.Mock where Data.Element == MockingbirdModuleTestsHost.NSObject {
+public final class InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol>: MockingbirdTestsHost.InheritingExternalModuleScopedAssociatedTypeProtocol, Mockingbird.Mock where Data.Element == MockingbirdModuleTestsHost.NSObject {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(Data.self)", "\(Element.self)", "\(Subelement.self)"].joined(separator: ",")
-    let staticMockIdentifier = "InheritingExternalModuleScopedAssociatedTypeProtocolMock<Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol, Element, Subelement>," + runtimeGenericTypeNames
+    let staticMockIdentifier = "InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
@@ -7732,9 +7732,9 @@ public final class InheritingExternalModuleScopedAssociatedTypeProtocolMock<Data
   }
 }
 
-/// Create a source-attributed `MockingbirdTestsHost.InheritingExternalModuleScopedAssociatedTypeProtocol<Data, Element, Subelement>` concrete protocol mock instance.
-public func mock<Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol, Element, Subelement>(file: StaticString = #file, line: UInt = #line, _ type: InheritingExternalModuleScopedAssociatedTypeProtocolMock<Data, Element, Subelement>.Type) -> InheritingExternalModuleScopedAssociatedTypeProtocolMock<Data, Element, Subelement> {
-  return InheritingExternalModuleScopedAssociatedTypeProtocolMock<Data, Element, Subelement>(sourceLocation: SourceLocation(file, line))
+/// Create a source-attributed `MockingbirdTestsHost.InheritingExternalModuleScopedAssociatedTypeProtocol<Element, Subelement, Data>` concrete protocol mock instance.
+public func mock<Element, Subelement, Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol>(file: StaticString = #file, line: UInt = #line, _ type: InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type) -> InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data> {
+  return InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked InheritingExternalModuleScopedTypealiasedProtocol
@@ -7879,10 +7879,10 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
 
 // MARK: - Mocked InheritingModuleScopedAssociatedTypeProtocol
 
-public final class InheritingModuleScopedAssociatedTypeProtocolMock<Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, Element, Subelement>: MockingbirdTestsHost.InheritingModuleScopedAssociatedTypeProtocol, Mockingbird.Mock where Data.Element == MockingbirdTestsHost.NSObject {
+public final class InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>: MockingbirdTestsHost.InheritingModuleScopedAssociatedTypeProtocol, Mockingbird.Mock where Data.Element == MockingbirdTestsHost.NSObject {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(Data.self)", "\(Element.self)", "\(Subelement.self)"].joined(separator: ",")
-    let staticMockIdentifier = "InheritingModuleScopedAssociatedTypeProtocolMock<Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, Element, Subelement>," + runtimeGenericTypeNames
+    let staticMockIdentifier = "InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
@@ -7905,9 +7905,9 @@ public final class InheritingModuleScopedAssociatedTypeProtocolMock<Data: Mockin
   }
 }
 
-/// Create a source-attributed `MockingbirdTestsHost.InheritingModuleScopedAssociatedTypeProtocol<Data, Element, Subelement>` concrete protocol mock instance.
-public func mock<Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, Element, Subelement>(file: StaticString = #file, line: UInt = #line, _ type: InheritingModuleScopedAssociatedTypeProtocolMock<Data, Element, Subelement>.Type) -> InheritingModuleScopedAssociatedTypeProtocolMock<Data, Element, Subelement> {
-  return InheritingModuleScopedAssociatedTypeProtocolMock<Data, Element, Subelement>(sourceLocation: SourceLocation(file, line))
+/// Create a source-attributed `MockingbirdTestsHost.InheritingModuleScopedAssociatedTypeProtocol<Element, Subelement, Data>` concrete protocol mock instance.
+public func mock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>(file: StaticString = #file, line: UInt = #line, _ type: InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type) -> InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data> {
+  return InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked InitializerClass
@@ -8587,10 +8587,10 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
 
 // MARK: - Mocked ModuleScopedAssociatedTypeProtocol
 
-public final class ModuleScopedAssociatedTypeProtocolMock<Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, Element, Subelement>: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, Mockingbird.Mock where Data.Element == MockingbirdTestsHost.NSObject {
+public final class ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, Mockingbird.Mock where Data.Element == MockingbirdTestsHost.NSObject {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(Data.self)", "\(Element.self)", "\(Subelement.self)"].joined(separator: ",")
-    let staticMockIdentifier = "ModuleScopedAssociatedTypeProtocolMock<Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, Element, Subelement>," + runtimeGenericTypeNames
+    let staticMockIdentifier = "ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
@@ -8613,9 +8613,9 @@ public final class ModuleScopedAssociatedTypeProtocolMock<Data: MockingbirdTests
   }
 }
 
-/// Create a source-attributed `MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol<Data, Element, Subelement>` concrete protocol mock instance.
-public func mock<Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, Element, Subelement>(file: StaticString = #file, line: UInt = #line, _ type: ModuleScopedAssociatedTypeProtocolMock<Data, Element, Subelement>.Type) -> ModuleScopedAssociatedTypeProtocolMock<Data, Element, Subelement> {
-  return ModuleScopedAssociatedTypeProtocolMock<Data, Element, Subelement>(sourceLocation: SourceLocation(file, line))
+/// Create a source-attributed `MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol<Element, Subelement, Data>` concrete protocol mock instance.
+public func mock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>(file: StaticString = #file, line: UInt = #line, _ type: ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type) -> ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data> {
+  return ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked ModuleScopedTypealiasedProtocol
@@ -13250,6 +13250,78 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
 /// Create a source-attributed `MockingbirdTestsHost.TypealiasedProtocol` concrete protocol mock instance.
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.TypealiasedProtocol.Protocol) -> TypealiasedProtocolMock {
   return TypealiasedProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked UnalphabetizedGenericClass
+
+public final class UnalphabetizedGenericClassMock<C, B, A>: MockingbirdTestsHost.UnalphabetizedGenericClass<C, B, A>, Mockingbird.Mock {
+  static var staticMock: Mockingbird.StaticMock {
+    let runtimeGenericTypeNames = ["\(A.self)", "\(B.self)", "\(C.self)"].joined(separator: ",")
+    let staticMockIdentifier = "UnalphabetizedGenericClassMock<C, B, A>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    let staticMock = Mockingbird.StaticMock()
+    genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+    return staticMock
+  }
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.7.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      UnalphabetizedGenericClassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `genericMethod`<Z, Y, X>(x: X, y: Y, z: Z)
+
+  public override func `genericMethod`<Z, Y, X>(x: X, y: Y, z: Z) -> (X, Y, Z) {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericMethod`<Z, Y, X>(x: X, y: Y, z: Z) -> (X, Y, Z)", arguments: [Mockingbird.ArgumentMatcher(`x`), Mockingbird.ArgumentMatcher(`y`), Mockingbird.ArgumentMatcher(`z`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (X, Y, Z) -> (X, Y, Z) {
+      return concreteImplementation(`x`, `y`, `z`)
+    } else {
+      return (implementation as! () -> (X, Y, Z))()
+    }
+  }
+
+  public func `genericMethod`<Z, Y, X>(x: @escaping @autoclosure () -> X, y: @escaping @autoclosure () -> Y, z: @escaping @autoclosure () -> Z) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (X, Y, Z) -> (X, Y, Z), (X, Y, Z)> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`x`), Mockingbird.resolve(`y`), Mockingbird.resolve(`z`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericMethod`<Z, Y, X>(x: X, y: Y, z: Z) -> (X, Y, Z)", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (X, Y, Z) -> (X, Y, Z), (X, Y, Z)>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `genericReferencingMethod`(a: A, b: B, c: C)
+
+  public override func `genericReferencingMethod`(a: A, b: B, c: C) -> (A, B, C) {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericReferencingMethod`(a: A, b: B, c: C) -> (A, B, C)", arguments: [Mockingbird.ArgumentMatcher(`a`), Mockingbird.ArgumentMatcher(`b`), Mockingbird.ArgumentMatcher(`c`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (A, B, C) -> (A, B, C) {
+      return concreteImplementation(`a`, `b`, `c`)
+    } else {
+      return (implementation as! () -> (A, B, C))()
+    }
+  }
+
+  public func `genericReferencingMethod`(a: @escaping @autoclosure () -> A, b: @escaping @autoclosure () -> B, c: @escaping @autoclosure () -> C) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (A, B, C) -> (A, B, C), (A, B, C)> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`a`), Mockingbird.resolve(`b`), Mockingbird.resolve(`c`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericReferencingMethod`(a: A, b: B, c: C) -> (A, B, C)", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (A, B, C) -> (A, B, C), (A, B, C)>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.UnalphabetizedGenericClass<C, B, A><C, B, A>` concrete class mock instance.
+public func mock<C, B, A>(file: StaticString = #file, line: UInt = #line, _ type: UnalphabetizedGenericClassMock<C, B, A>.Type) -> UnalphabetizedGenericClassMock<C, B, A> {
+  return UnalphabetizedGenericClassMock<C, B, A>(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked UndefinedArgumentLabels
