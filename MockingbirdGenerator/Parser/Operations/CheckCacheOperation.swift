@@ -39,6 +39,7 @@ public class CheckCacheOperation: BasicOperation {
         })
       
       guard changedFiles.isEmpty,
+        codableTarget.cliVersion == "\(mockingbirdVersion)",
         let targetPathsHash = codableTarget.targetPathsHash,
         let dependencyPathsHash = codableTarget.dependencyPathsHash,
         let outputHash = codableTarget.outputHash,
@@ -48,7 +49,7 @@ public class CheckCacheOperation: BasicOperation {
           log("Detected \(changedFiles.count) changed source file\(changedFiles.count != 1 ? "s" : "") for target `\(codableTarget.name)` - \(changedFiles.map({ "\($0.path.absolute())" }))")
           return
       }
-      log("Ignoring target `\(codableTarget.name)` because no source files were changed and the generated mock file matches the expected SHA-1 hash of `\(outputHash)`")
+      log("Ignoring target `\(codableTarget.name)` because no source files were changed, the CLI version matches `\(mockingbirdVersion)`, and the generated mock file matches the expected SHA-1 hash of `\(outputHash)`")
       result.isCached = true
     }
   }
