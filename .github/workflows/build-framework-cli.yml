@@ -26,27 +26,3 @@ jobs:
       run: make clean-test
     - name: Cached Test
       run: make test
-
-  build-mojave:
-    name: Run on macOS Mojave
-    runs-on: macOS-10.14
-    
-    steps:
-    - uses: actions/checkout@v1
-    - name: Clean
-      run: make clean
-    - name: Build
-      run: make build
-    - name: Install
-      run: make install
-    - name: Set Up
-      run: |
-        mockingbird install \
-          --target MockingbirdTestsHost \
-          --destination MockingbirdTests \
-          --loglevel verbose \
-          --verbose
-    - name: Test
-      run: make clean-test
-    - name: Cached Test
-      run: make test
