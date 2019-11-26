@@ -37,7 +37,18 @@ target 'ATestTarget' do
 end
 ```
 
-This will download and install the CLI during the next `pod install`.
+Then initialize the pod.
+
+```bash
+$ pod install
+```
+
+And install the CLI.
+
+```bash
+$ cd Pods/MockingbirdFramework
+$ make install-prebuilt
+```
 
 ### Carthage
 
