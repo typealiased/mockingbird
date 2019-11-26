@@ -69,6 +69,7 @@ public class CodableTarget: Target, Codable {
   public let outputHash: String?
   public let targetPathsHash: String?
   public let dependencyPathsHash: String?
+  public let cliVersion: String?
   
   public init<T: Target>(from target: T,
                          sourceRoot: Path,
@@ -77,6 +78,7 @@ public class CodableTarget: Target, Codable {
                          outputHash: String? = nil,
                          targetPathsHash: String? = nil,
                          dependencyPathsHash: String? = nil,
+                         cliVersion: String? = nil,
                          ignoredDependencies: inout Set<String>) throws {
     self.name = target.name
     self.productModuleName = target.productModuleName
@@ -99,6 +101,7 @@ public class CodableTarget: Target, Codable {
     self.sourceRoot = "\(sourceRoot.absolute())"
     self.projectHash = projectHash
     self.outputHash = outputHash
+    self.cliVersion = cliVersion
   }
   
   public func findSourceFilePaths(sourceRoot: Path) -> [Path] {

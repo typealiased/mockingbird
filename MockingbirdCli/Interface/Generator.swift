@@ -206,6 +206,7 @@ class Generator {
         try pipelines.forEach({
           try cachePipeline($0,
                             projectHash: projectHash,
+                            cliVersion: "\(mockingbirdVersion)",
                             sourceRoot: config.sourceRoot,
                             cacheDirectory: cacheDirectory)
         })
@@ -247,6 +248,7 @@ class Generator {
   
   static func cachePipeline(_ pipeline: Pipeline,
                             projectHash: String,
+                            cliVersion: String,
                             sourceRoot: Path,
                             cacheDirectory: Path) throws {
     guard !pipeline.usedCache,
@@ -263,6 +265,7 @@ class Generator {
                                  outputHash: pipeline.outputPath.read().generateSha1Hash(),
                                  targetPathsHash: result.generateTargetPathsHash(),
                                  dependencyPathsHash: result.generateDependencyPathsHash(),
+                                 cliVersion: cliVersion,
                                  ignoredDependencies: &ignoredDependencies)
     } else if let pipelineTarget = pipeline.inputTarget as? PBXTarget {
       target = try CodableTarget(from: pipelineTarget,
@@ -272,6 +275,7 @@ class Generator {
                                  outputHash: pipeline.outputPath.read().generateSha1Hash(),
                                  targetPathsHash: result.generateTargetPathsHash(),
                                  dependencyPathsHash: result.generateDependencyPathsHash(),
+                                 cliVersion: cliVersion,
                                  ignoredDependencies: &ignoredDependencies)
     } else {
       throw Failure.internalError(
