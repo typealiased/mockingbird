@@ -24,6 +24,11 @@ extension ExtendableProtocol {
   var anotherExtendedVariable: Bool { return true }
 }
 
+protocol InheritsExtendableProtocol: ExtendableProtocol {
+  func trivialChildMethod()
+  var childVariable: Bool { get }
+}
+
 class NonExtendableClass {
   func trivialBaseMethod() {}
   var baseVariable: Bool { return true }

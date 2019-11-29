@@ -28,6 +28,12 @@ private protocol StubbableExtendableProtocol {
 }
 extension ExtendableProtocolMock: StubbableExtendableProtocol {}
 
+private protocol StubbableInheritsExtendableProtocol: StubbableExtendableProtocol {
+  func trivialChildMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  func getChildVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
+}
+extension InheritsExtendableProtocolMock: StubbableInheritsExtendableProtocol {}
+
 private protocol StubbableNonExtendableClass {
   func trivialBaseMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
   func getBaseVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
