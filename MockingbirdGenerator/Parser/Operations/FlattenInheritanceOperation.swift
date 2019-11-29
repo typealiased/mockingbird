@@ -37,18 +37,20 @@ class FlattenInheritanceOperation: BasicOperation {
   }
   
   override func run() throws {
-    // Module names are put into an array and sorted so that looking up types is deterministic.
-    let moduleNames = Array(Set(rawType.flatMap({
-      $0.parsedFile.importedModuleNames.flatMap({ moduleDependencies[$0] ?? [$0] })
-        + [$0.parsedFile.moduleName]
-    }))).sorted()
-    result.mockableType = flattenInheritance(for: rawType, moduleNames: moduleNames)
+    result.mockableType = flattenInheritance(for: rawType)
   }
   
   /// Recursively traverse the inheritance graph from bottom up (children to parents). Note that
   /// `rawType` is actually an unmerged set of all `RawType` declarations found eg in extensions.
   private static var memoizedMockbleTypes = Synchronized<[String: MockableType]>([:])
-  private func flattenInheritance(for rawType: [RawType], moduleNames: [String]) -> MockableType? {
+
+  private func flattenInheritance(for rawType: [RawType]) -> MockableType? {
+    // Module names are put into an array and sorted so that looking up types is deterministic.
+    let moduleNames = Array(Set(rawType.flatMap({
+      $0.parsedFile.importedModuleNames.flatMap({ moduleDependencies[$0] ?? [$0] })
+        + [$0.parsedFile.moduleName]
+    }))).sorted()
+
     // Create a copy of `memoizedMockableTypes` to reduce lock contention.
     let memoizedMockableTypes = FlattenInheritanceOperation.memoizedMockbleTypes.value
     guard let baseRawType = rawType.findBaseRawType() else { return nil }
@@ -85,7 +87,7 @@ class FlattenInheritanceOperation: BasicOperation {
       // For each contained type, flatten it before adding it to `mockableType`.
       memoizedMockableTypes[fullyQualifiedName] = mockableType
       mockableType?.containedTypes = containedTypes.compactMap({
-        self.flattenInheritance(for: [$0], moduleNames: moduleNames)
+        self.flattenInheritance(for: [$0])
       })
       FlattenInheritanceOperation.memoizedMockbleTypes.update {
         $0[fullyQualifiedName] = mockableType
@@ -123,7 +125,7 @@ class FlattenInheritanceOperation: BasicOperation {
     if rawInheritedTypes.filter({ memoizedMockableTypes[$0.fullyQualifiedModuleName] == nil }).count > 0 {
       rawInheritedTypes.forEach({
         log("Flattening inherited type `\($0.name)` for `\(baseRawType.name)`")
-        _ = flattenInheritance(for: [$0], moduleNames: moduleNames)
+        _ = flattenInheritance(for: [$0])
       })
     }
     
