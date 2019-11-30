@@ -90,7 +90,7 @@ public func any<T>(_ type: T.Type = T.self) -> T {
   let base: T? = nil
   let description = "any<\(T.self)>()"
   let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
-    return rhs is T
+    return rhs is T || rhs is NonEscapingClosureProtocol
   }
   return createTypeFacade(matcher)
 }
@@ -146,7 +146,7 @@ public func notNil<T>(_ type: T.Type = T.self) -> T {
   let base: T? = nil
   let description = "notNil<\(T.self)>()"
   let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
-    return rhs is T && rhs != nil
+    return (rhs is T || rhs is NonEscapingClosureProtocol) && rhs != nil
   }
   return createTypeFacade(matcher)
 }

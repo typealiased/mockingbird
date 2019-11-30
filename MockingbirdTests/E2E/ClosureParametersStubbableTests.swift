@@ -23,12 +23,21 @@ private protocol StubbableClosureParametersProtocol {
   
   func escapingTrivialClosure(block: @escaping @autoclosure () -> () -> Void)
     -> Mockable<MethodDeclaration, (@escaping () -> Void) -> Bool, Bool>
-  func escapingTrivialReturningVoidClosure(block: @escaping @autoclosure () -> () -> Bool)
+  func escapingTrivialReturningClosure(block: @escaping @autoclosure () -> () -> Bool)
     -> Mockable<MethodDeclaration, (@escaping () -> Bool) -> Bool, Bool>
   func escapingParameterizedClosure(block: @escaping @autoclosure () -> (Bool) -> Void)
     -> Mockable<MethodDeclaration, (@escaping (Bool) -> Void) -> Bool, Bool>
   func escapingParameterizedReturningClosure(block: @escaping @autoclosure () -> (Bool) -> Bool)
     -> Mockable<MethodDeclaration, (@escaping (Bool) -> Bool) -> Bool, Bool>
+  
+  func implicitEscapingTrivialClosure(block: @escaping @autoclosure () -> (() -> Void)?)
+    -> Mockable<MethodDeclaration, ((() -> Void)?) -> Bool, Bool>
+  func implicitEscapingTrivialReturningClosure(block: @escaping @autoclosure () -> (() -> Bool)?)
+    -> Mockable<MethodDeclaration, ((() -> Bool)?) -> Bool, Bool>
+  func implicitEscapingParameterizedClosure(block: @escaping @autoclosure () -> ((Bool) -> Void)?)
+    -> Mockable<MethodDeclaration, (((Bool) -> Void)?) -> Bool, Bool>
+  func implicitEscapingParameterizedReturningClosure(block: @escaping @autoclosure () -> ((Bool) -> Bool)?)
+    -> Mockable<MethodDeclaration, (((Bool) -> Bool)?) -> Bool, Bool>
   
   func autoclosureTrivialClosure(block: @escaping @autoclosure () -> () -> Void)
     -> Mockable<MethodDeclaration, (@autoclosure () -> Void) -> Bool, Bool>

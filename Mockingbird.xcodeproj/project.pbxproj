@@ -52,6 +52,7 @@
 		4904BDF5232F1AB30031E071 /* EmptyTypesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4904BDF4232F1AB30031E071 /* EmptyTypesMockableTests.swift */; };
 		4904BDF7232F1E570031E071 /* ExternalModuleClassScopedTypesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4904BDF6232F1E570031E071 /* ExternalModuleClassScopedTypesMockableTests.swift */; };
 		4904BDF9232F1F750031E071 /* ExternalModuleClassScopedTypesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4904BDF8232F1F750031E071 /* ExternalModuleClassScopedTypesStubbableTests.swift */; };
+		491047AE2391FC0B00E837AE /* ClosureParameterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491047AD2391FC0B00E837AE /* ClosureParameterTests.swift */; };
 		491906392336CCCE00629F00 /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491906382336CCCE00629F00 /* Generics.swift */; };
 		493ECA34232ECC92008BF44B /* ClassScopedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA33232ECC92008BF44B /* ClassScopedTypes.swift */; };
 		493ECA36232ECD99008BF44B /* Typealiasing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493ECA35232ECD99008BF44B /* Typealiasing.swift */; };
@@ -952,6 +953,7 @@
 		4904BDF4232F1AB30031E071 /* EmptyTypesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTypesMockableTests.swift; sourceTree = "<group>"; };
 		4904BDF6232F1E570031E071 /* ExternalModuleClassScopedTypesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleClassScopedTypesMockableTests.swift; sourceTree = "<group>"; };
 		4904BDF8232F1F750031E071 /* ExternalModuleClassScopedTypesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleClassScopedTypesStubbableTests.swift; sourceTree = "<group>"; };
+		491047AD2391FC0B00E837AE /* ClosureParameterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureParameterTests.swift; sourceTree = "<group>"; };
 		491906382336CCCE00629F00 /* Generics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generics.swift; sourceTree = "<group>"; };
 		493ECA31232EC7CD008BF44B /* MockingbirdFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdFramework.xcconfig; sourceTree = "<group>"; };
 		493ECA32232EC7CD008BF44B /* MockingbirdCli.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdCli.xcconfig; sourceTree = "<group>"; };
@@ -1788,6 +1790,7 @@
 				OBJ_176 /* ArgumentCaptorTests.swift */,
 				OBJ_177 /* ArgumentMatchingTests.swift */,
 				OBJ_178 /* AsyncVerificationTests.swift */,
+				491047AD2391FC0B00E837AE /* ClosureParameterTests.swift */,
 				OBJ_179 /* CollectionArgumentMatchingTests.swift */,
 				OBJ_180 /* InitializerTests.swift */,
 				OBJ_181 /* LastSetValueStubTests.swift */,
@@ -3985,6 +3988,7 @@
 				OBJ_827 /* ExtensionsStubbableTests.swift in Sources */,
 				OBJ_828 /* GenericsMockableTests.swift in Sources */,
 				OBJ_829 /* GenericsStubbableTests.swift in Sources */,
+				491047AE2391FC0B00E837AE /* ClosureParameterTests.swift in Sources */,
 				OBJ_830 /* IgnoredSourceExclusionTests.swift in Sources */,
 				OBJ_831 /* InoutParametersMockableTests.swift in Sources */,
 				OBJ_832 /* InoutParametersStubbableTests.swift in Sources */,
