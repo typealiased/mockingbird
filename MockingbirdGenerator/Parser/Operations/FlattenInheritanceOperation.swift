@@ -105,7 +105,7 @@ class FlattenInheritanceOperation: BasicOperation {
     // Check the base case where the type doesn't inherit from anything.
     guard !inheritedTypeNames.isEmpty else { return createMockableType(false) }
     
-    var hasOpaqueInheritedType = false
+    var inheritsOpaqueType = false
     let rawInheritedTypes = inheritedTypeNames
       .compactMap({ typeName -> [RawType]? in // Get stored raw type.
         let nearest = rawTypeRepository
@@ -115,24 +115,27 @@ class FlattenInheritanceOperation: BasicOperation {
                                 containingTypeNames: baseRawType.containingTypeNames[...])
         if nearest == nil {
           logWarning("Missing source for referenced type `\(typeName)` in \(baseRawType.parsedFile.path.absolute())")
-          hasOpaqueInheritedType = true
+          inheritsOpaqueType = true
         }
         return nearest
       })
-      .flatMap({ $0 })
     
     // If there are inherited types that aren't processed, flatten them first.
-    if rawInheritedTypes.filter({ memoizedMockableTypes[$0.fullyQualifiedModuleName] == nil }).count > 0 {
-      rawInheritedTypes.forEach({
-        log("Flattening inherited type `\($0.name)` for `\(baseRawType.name)`")
-        _ = flattenInheritance(for: [$0])
+    rawInheritedTypes
+      .filter({
+        guard let baseRawInheritedType = $0.findBaseRawType() ?? $0.first else { return false }
+        return memoizedMockableTypes[baseRawInheritedType.fullyQualifiedModuleName] == nil
       })
-    }
+      .forEach({
+        guard let rawInheritedType = $0.first else { return }
+        log("Flattening inherited type `\(rawInheritedType.name)` for `\(baseRawType.name)`")
+        _ = flattenInheritance(for: $0)
+      })
     
     // It's possible that a known inherited type indirectly references an opaque type.
-    hasOpaqueInheritedType = hasOpaqueInheritedType || rawInheritedTypes.contains(where: {
-      $0.hasOpaqueInheritedType
-    })
+    let indirectlyInheritsOpaqueType = rawInheritedTypes.flatMap({ $0 })
+      .contains(where: { $0.hasOpaqueInheritedType })
+    let hasOpaqueInheritedType = inheritsOpaqueType || indirectlyInheritsOpaqueType
     baseRawType.hasOpaqueInheritedType = hasOpaqueInheritedType
     
     return createMockableType(hasOpaqueInheritedType)
