@@ -26,6 +26,12 @@ private protocol MockableExtendableProtocol: Mock {
 }
 extension ExtendableProtocolMock: MockableExtendableProtocol {}
 
+private protocol MockableInheritsExtendableProtocol: MockableExtendableProtocol {
+  func trivialChildMethod()
+  var childVariable: Bool { get }
+}
+extension InheritsExtendableProtocolMock: MockableInheritsExtendableProtocol {}
+
 private protocol MockableNonExtendableClass: Mock {
   func trivialBaseMethod()
   var baseVariable: Bool { get }
