@@ -54,4 +54,5 @@ struct Invocation: Equatable, CustomStringConvertible {
 
 /// Method parameters that are non-escaping closure types cannot be stored in an `Invocation`. An
 /// instance of a `NonEscapingClosure<T>` is stored instead, where `T` is the closure type.
-public struct NonEscapingClosure<T> {}
+protocol NonEscapingClosureProtocol {}
+public class NonEscapingClosure<T>: NonEscapingClosureProtocol {}

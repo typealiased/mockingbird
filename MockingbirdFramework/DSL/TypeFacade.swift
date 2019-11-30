@@ -15,7 +15,7 @@ import Foundation
 ///
 /// It goes without saying that this should probably never be done in production.
 class TypeFacade {
-  static let shared = TypeFacade()
+  static let sharedBuffer = UnsafeMutableRawPointer.allocate(byteCount: 512000, alignment: 0)
   
   class StoredValue {
     var value: Any? {
@@ -41,10 +41,7 @@ func createTypeFacade<T>(_ value: Any?) -> T {
   
   // Trivial case where `T` is a non-nominal type such as `Any` or `AnyObject`.
   if let concreteType = AnyObjectFake() as? T { return concreteType }
-  return Unmanaged.passUnretained(TypeFacade.shared)
-    .toOpaque()
-    .bindMemory(to: T.self, capacity: 1)
-    .pointee
+  return TypeFacade.sharedBuffer.bindMemory(to: T.self, capacity: 1).pointee
 }
 
 /// Resolve `parameter` when `T` is _not_ known to be `Equatable`.
