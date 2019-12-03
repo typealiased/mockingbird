@@ -33,7 +33,7 @@ Add the framework to a test target in your `Podfile`, making sure to include the
 ```ruby
 target 'ATestTarget' do
   use_frameworks!
-  pod 'MockingbirdFramework', '~> 0.8.0'
+  pod 'MockingbirdFramework', '~> 0.9.0'
 end
 ```
 
@@ -55,7 +55,7 @@ $ make install-prebuilt
 Add the framework to your `Cartfile`.
 
 ```
-github "birdrides/mockingbird" ~> 0.8.0
+github "birdrides/mockingbird" ~> 0.9.0
 ```
 
 And copy the Carthage script into your project root.
