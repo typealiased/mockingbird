@@ -63,7 +63,7 @@ class MethodTemplate: Template {
     let failable = method.attributes.contains(.failable) ? "?" : ""
     let scopedName = context.createScopedName(with: [], suffix: "Mock")
     return """
-    \(attributes)    public static func \(fullNameForInitializerProxy)\(returnTypeAttributesForMocking) -> \(scopedName)\(failable)\(genericConstraints) {
+    \(attributes)    \(accessLevel) static func \(fullNameForInitializerProxy)\(returnTypeAttributesForMocking) -> \(scopedName)\(failable)\(genericConstraints) {
           let mock: \(scopedName)\(failable) = \(tryInvocation)\(scopedName)(\(superCallParameters))
           mock\(failable).sourceLocation = SourceLocation(__file, __line)
           return mock
@@ -77,7 +77,7 @@ class MethodTemplate: Template {
       // We can't usually infer what concrete arguments to pass to the designated initializer.
       guard !method.attributes.contains(.convenience) else { return "" }
       
-      let functionDeclaration = "public \(overridableModifiers)\(uniqueDeclaration)"
+      let functionDeclaration = "\(accessLevel) \(overridableModifiers)\(uniqueDeclaration)"
       let checkVersion: String
       if context.mockableType.kind == .class || context.protocolClassConformance != nil {
         let trySuper = method.attributes.contains(.throws) ? "try " : ""
@@ -101,7 +101,7 @@ class MethodTemplate: Template {
       return """
         // MARK: Mocked \(fullNameForMocking)
       \(attributes)
-        public \(overridableModifiers)func \(uniqueDeclaration) {
+        \(accessLevel) \(overridableModifiers)func \(uniqueDeclaration) {
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
       \(stubbedImplementationCall)
@@ -127,7 +127,7 @@ class MethodTemplate: Template {
                                  invocationType,
                                  returnTypeName].joined(separator: ", ")
     let mockable = """
-    \(attributes)  public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) {
+    \(attributes)  \(accessLevel) \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) {
     \(matchableInvocation)
         return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
       }
@@ -137,7 +137,7 @@ class MethodTemplate: Template {
     // Allow methods with a variadic parameter to use variadics when stubbing.
     return """
     \(mockable)
-    \(attributes)  public \(regularModifiers)func \(fullNameForMatchingVariadics) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) {
+    \(attributes)  \(accessLevel) \(regularModifiers)func \(fullNameForMatchingVariadics) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) {
     \(matchableInvocationVariadics)
         return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
       }
@@ -355,6 +355,10 @@ class MethodTemplate: Template {
   
   lazy var isVariadicMethod: Bool = {
     return method.parameters.contains(where: { $0.attributes.contains(.variadic) })
+  }()
+
+  lazy var accessLevel: String = {
+    return method.accessLevel == .public ? "public" : "internal"
   }()
 }
 

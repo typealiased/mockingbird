@@ -46,10 +46,11 @@ class MockableTypeTemplate: Template {
     let (start, end) = compilationDirectiveDeclaration
     let preprocessorStart = start.isEmpty ? "" : "\n\(start)\n"
     let preprocessorEnd = end.isEmpty ? "" : "\n\n\(end)"
+    let accessLevel = mockableType.accessLevel == .public ? "public" : "internal"
     return """
     // MARK: - Mocked \(mockableType.name)
     \(preprocessorStart)
-    public final class \(mockableType.name)Mock\(allSpecializedGenericTypes): \(allInheritedTypes)\(allGenericConstraints) {
+    \(accessLevel) final class \(mockableType.name)Mock\(allSpecializedGenericTypes): \(allInheritedTypes)\(allGenericConstraints) {
     \(staticMockingContext)
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()

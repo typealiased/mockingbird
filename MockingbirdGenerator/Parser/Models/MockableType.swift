@@ -14,6 +14,7 @@ class MockableType: Hashable, Comparable {
   let name: String
   let moduleName: String
   let fullyQualifiedModuleName: String
+  let accessLevel: AccessLevel?
   let kind: SwiftDeclarationKind
   let methods: Set<Method>
   let methodsCount: [Method.Reduced: UInt] // For de-duping generic methods.
@@ -74,6 +75,7 @@ class MockableType: Hashable, Comparable {
     self.name = baseRawType.name
     self.moduleName = baseRawType.parsedFile.moduleName
     self.fullyQualifiedModuleName = baseRawType.fullyQualifiedModuleName
+    self.accessLevel = baseRawType.accessLevel
     self.kind = baseRawType.kind
     self.isContainedType = !baseRawType.containingTypeNames.isEmpty
     self.hasOpaqueInheritedType = hasOpaqueInheritedType

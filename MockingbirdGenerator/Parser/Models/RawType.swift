@@ -30,6 +30,8 @@ class RawType {
   /// Fully qualified with respect to other modules.
   var fullyQualifiedModuleName: String { return parsedFile.moduleName + "." + fullyQualifiedName }
   
+  var accessLevel: AccessLevel? { AccessLevel(from: dictionary) }
+
   /// Returns a set of qualified and optional/generic type preserving names.
   ///
   /// - Parameters:

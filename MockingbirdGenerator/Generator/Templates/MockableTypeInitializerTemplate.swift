@@ -76,10 +76,11 @@ struct MockableTypeInitializerTemplate: Template {
       returnObject = "\(mockedScopedName)(sourceLocation: SourceLocation(file, line))"
       returnTypeDescription = "concrete protocol mock instance"
     }
+    let accessLevel = mockableTypeTemplate.mockableType.accessLevel == .public ? "public" : "internal"
     
     return """
     /// Create a source-attributed `\(mockableTypeTemplate.fullyQualifiedName)\(allGenericTypes)` \(returnTypeDescription).
-    public func mock\(genericMethodAttribute)(file: StaticString = #file, line: UInt = #line, _ type: \(metatype)) -> \(returnType) {
+    \(accessLevel) func mock\(genericMethodAttribute)(file: StaticString = #file, line: UInt = #line, _ type: \(metatype)) -> \(returnType) {
       return \(returnObject)
     }
     """
