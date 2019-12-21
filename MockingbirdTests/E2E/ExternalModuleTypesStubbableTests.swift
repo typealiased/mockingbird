@@ -24,7 +24,42 @@ private protocol StubbableSubclassingExternalClassWithInheritedIntializer {
   func getOpenVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>
   func openMethod() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>
 }
-extension SubclassingExternalClassWithInheritedIntializerMock: StubbableSubclassingExternalClassWithInheritedIntializer {}
-extension SubclassingExternalSubclassWithInheritedInitializerMock: StubbableSubclassingExternalClassWithInheritedIntializer {}
-extension SubclassingExternalClassWithDesignatedIntializerMock: StubbableSubclassingExternalClassWithInheritedIntializer {}
-extension SubclassingExternalSubclassWithDesignatedInitializerMock: StubbableSubclassingExternalClassWithInheritedIntializer {}
+extension SubclassingExternalClassWithInheritedIntializerMock:
+StubbableSubclassingExternalClassWithInheritedIntializer {}
+extension SubclassingExternalSubclassWithInheritedInitializerMock:
+StubbableSubclassingExternalClassWithInheritedIntializer {}
+extension SubclassingExternalClassWithDesignatedIntializerMock:
+StubbableSubclassingExternalClassWithInheritedIntializer {}
+extension SubclassingExternalSubclassWithDesignatedInitializerMock:
+StubbableSubclassingExternalClassWithInheritedIntializer {}
+
+private protocol StubbableConformingInitializableOpenClassConstrainedProtocol {
+  func getOpenVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func setOpenVariable(_ newValue: @escaping @autoclosure () -> Bool)
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
+}
+extension ConformingInitializableOpenClassConstrainedProtocolMock:
+StubbableConformingInitializableOpenClassConstrainedProtocol {}
+
+private protocol StubbableConformingUninitializableOpenClassConstrainedProtocol {
+  func getOpenVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func setOpenVariable(_ newValue: @escaping @autoclosure () -> Bool)
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
+}
+extension ConformingUninitializableOpenClassConstrainedProtocolMock:
+StubbableConformingUninitializableOpenClassConstrainedProtocol {}
+
+
+// MARK: - Non-stubbable declarations
+
+extension ConformingInitializableOpenClassConstrainedProtocolMock {
+  func getPublicVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool> { fatalError() }
+  func setPublicVariable(_ newValue: @escaping @autoclosure () -> Bool)
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
+}
+
+extension ConformingUninitializableOpenClassConstrainedProtocolMock {
+  func getPublicVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool> { fatalError() }
+  func setPublicVariable(_ newValue: @escaping @autoclosure () -> Bool)
+    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
+}

@@ -3536,6 +3536,182 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return CompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked ConformingExternalClassConstrainedProtocol
+
+public final class ConformingExternalClassConstrainedProtocolMock: AppKit.NSViewController, MockingbirdTestsHost.ConformingExternalClassConstrainedProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.9.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ConformingExternalClassConstrainedProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public enum InitializerProxy {
+    public static func initialize(coder: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> ConformingExternalClassConstrainedProtocolMock? {
+      let mock: ConformingExternalClassConstrainedProtocolMock? = ConformingExternalClassConstrainedProtocolMock(coder: `coder`)
+      mock?.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+
+    public static func initialize(nibName nibNameOrNil: NSNib.Name?, bundle nibBundleOrNil: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> ConformingExternalClassConstrainedProtocolMock {
+      let mock: ConformingExternalClassConstrainedProtocolMock = ConformingExternalClassConstrainedProtocolMock(nibName: `nibNameOrNil`, bundle: `nibBundleOrNil`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+  }
+
+  // MARK: Mocked init?(coder: NSCoder)
+
+  public required init?(coder: NSCoder) {
+    super.init(coder: `coder`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init?(coder: NSCoder) ", arguments: [Mockingbird.ArgumentMatcher(`coder`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init(nibName nibNameOrNil: NSNib.Name?, bundle nibBundleOrNil: Bundle?)
+
+  public required override init(nibName nibNameOrNil: NSNib.Name?, bundle nibBundleOrNil: Bundle?) {
+    super.init(nibName: `nibNameOrNil`, bundle: `nibBundleOrNil`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(nibName nibNameOrNil: NSNib.Name?, bundle nibBundleOrNil: Bundle?) ", arguments: [Mockingbird.ArgumentMatcher(`nibNameOrNil`), Mockingbird.ArgumentMatcher(`nibBundleOrNil`)])
+    mockingContext.didInvoke(invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.ConformingExternalClassConstrainedProtocol` class mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ConformingExternalClassConstrainedProtocol.Protocol) -> ConformingExternalClassConstrainedProtocolMock.InitializerProxy.Type {
+  return ConformingExternalClassConstrainedProtocolMock.InitializerProxy.self
+}
+
+// MARK: - Mocked ConformingInitializableOpenClassConstrainedProtocol
+
+public final class ConformingInitializableOpenClassConstrainedProtocolMock: MockingbirdModuleTestsHost.InitializableOpenClass, MockingbirdTestsHost.ConformingInitializableOpenClassConstrainedProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.9.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ConformingInitializableOpenClassConstrainedProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public enum InitializerProxy {
+    public static func initialize(__file: StaticString = #file, __line: UInt = #line) -> ConformingInitializableOpenClassConstrainedProtocolMock {
+      let mock: ConformingInitializableOpenClassConstrainedProtocolMock = ConformingInitializableOpenClassConstrainedProtocolMock()
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+  }
+
+  // MARK: Mocked openVariable
+
+  override public var `openVariable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getOpenVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setOpenVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked init()
+
+  public required override init() {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init() ", arguments: [])
+    mockingContext.didInvoke(invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.ConformingInitializableOpenClassConstrainedProtocol` class mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ConformingInitializableOpenClassConstrainedProtocol.Protocol) -> ConformingInitializableOpenClassConstrainedProtocolMock.InitializerProxy.Type {
+  return ConformingInitializableOpenClassConstrainedProtocolMock.InitializerProxy.self
+}
+
+// MARK: - Mocked ConformingUninitializableOpenClassConstrainedProtocol
+
+public final class ConformingUninitializableOpenClassConstrainedProtocolMock: MockingbirdModuleTestsHost.OpenClass, MockingbirdTestsHost.ConformingUninitializableOpenClassConstrainedProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.9.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ConformingUninitializableOpenClassConstrainedProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public enum InitializerProxy {}
+
+  // MARK: Mocked openVariable
+
+  override public var `openVariable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getOpenVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setOpenVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.ConformingUninitializableOpenClassConstrainedProtocol` class mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ConformingUninitializableOpenClassConstrainedProtocol.Protocol) -> ConformingUninitializableOpenClassConstrainedProtocolMock.InitializerProxy.Type {
+  return ConformingUninitializableOpenClassConstrainedProtocolMock.InitializerProxy.self
+}
+
 // MARK: - Mocked ConvenienceInitializerClass
 
 public final class ConvenienceInitializerClassMock: MockingbirdTestsHost.ConvenienceInitializerClass, Mockingbird.Mock {
@@ -9091,7 +9267,19 @@ public final class NSViewInheritingProtocolMock: AppKit.NSView, MockingbirdTests
     }
   }
 
-  public enum InitializerProxy {}
+  public enum InitializerProxy {
+    public static func initialize(coder: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> NSViewInheritingProtocolMock? {
+      let mock: NSViewInheritingProtocolMock? = NSViewInheritingProtocolMock(coder: `coder`)
+      mock?.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+
+    public static func initialize(frame frameRect: NSRect, __file: StaticString = #file, __line: UInt = #line) -> NSViewInheritingProtocolMock {
+      let mock: NSViewInheritingProtocolMock = NSViewInheritingProtocolMock(frame: `frameRect`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+  }
 
   // MARK: Mocked init?(coder: NSCoder)
 
@@ -9597,7 +9785,19 @@ public final class OpaqueClassSelfConstrainedAssociatedTypeProtocolMock: AppKit.
     }
   }
 
-  public enum InitializerProxy {}
+  public enum InitializerProxy {
+    public static func initialize(coder: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> OpaqueClassSelfConstrainedAssociatedTypeProtocolMock? {
+      let mock: OpaqueClassSelfConstrainedAssociatedTypeProtocolMock? = OpaqueClassSelfConstrainedAssociatedTypeProtocolMock(coder: `coder`)
+      mock?.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+
+    public static func initialize(nibName nibNameOrNil: NSNib.Name?, bundle nibBundleOrNil: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> OpaqueClassSelfConstrainedAssociatedTypeProtocolMock {
+      let mock: OpaqueClassSelfConstrainedAssociatedTypeProtocolMock = OpaqueClassSelfConstrainedAssociatedTypeProtocolMock(nibName: `nibNameOrNil`, bundle: `nibBundleOrNil`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+  }
 
   // MARK: Mocked init?(coder: NSCoder)
 

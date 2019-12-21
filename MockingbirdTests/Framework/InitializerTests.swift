@@ -53,6 +53,8 @@ class InitializerTests: XCTestCase {
   var deprecatedClassOnlyProtocolWithInheritance: DeprecatedClassOnlyProtocolWithInheritanceMock!
   var classOnlyProtocol: ClassOnlyProtocolMock!
   var classOnlyProtocolWithInheritance: ClassOnlyProtocolWithInheritanceMock!
+  var openClassConstrainedProtocolMock: ConformingInitializableOpenClassConstrainedProtocolMock!
+  var nsObjectProtocolConformingProtocol: NSObjectProtocolConformingProtocolMock!
   
   func testDeprecatedClassOnlyProtocolInitialization() {
     deprecatedClassOnlyProtocol = mock(DeprecatedClassOnlyProtocol.self)
@@ -62,6 +64,9 @@ class InitializerTests: XCTestCase {
   func testClassOnlyProtocolInitialization() {
     classOnlyProtocol = mock(ClassOnlyProtocol.self)
     classOnlyProtocolWithInheritance = mock(ClassOnlyProtocolWithInheritance.self)
+    openClassConstrainedProtocolMock =
+      mock(ConformingInitializableOpenClassConstrainedProtocol.self).initialize()
+    nsObjectProtocolConformingProtocol = mock(NSObjectProtocolConformingProtocol.self)
   }
 }
 

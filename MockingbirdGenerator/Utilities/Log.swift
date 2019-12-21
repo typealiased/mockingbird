@@ -56,7 +56,10 @@ public func log(_ message: @autoclosure () -> String,
                 line: UInt = #line) {
   guard level.shouldLog(type) else { return }
   let logMessage = "[\(type)] " + message() + "\n"
-  loggingQueue.async { fputs(logMessage, output ?? type.output) }
+  loggingQueue.async {
+    fputs(logMessage, output ?? type.output)
+    fflush(output ?? type.output)
+  }
 }
 
 /// Convenience for logging a `.warn` message type

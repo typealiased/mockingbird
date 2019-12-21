@@ -121,7 +121,7 @@ class MockableTypeTemplate: Template {
   lazy var allGenericConstraints: String = {
     guard !mockableType.whereClauses.isEmpty else { return "" }
     return " where " + mockableType.whereClauses
-      .map({ specializeTypeName("\($0)") }).joined(separator: ", ")
+      .sorted().map({ specializeTypeName("\($0)") }).joined(separator: ", ")
   }()
   
   var allInheritedTypes: String {
@@ -150,18 +150,16 @@ class MockableTypeTemplate: Template {
     return "\(containingTypeNames)\(mockableType.name)\(suffix)\(allGenericTypes)"
   }
   
+  lazy var primarySelfConformanceType: MockableType? = {
+    return mockableType.selfConformanceTypes.sorted().first(where: { $0.kind == .class })
+  }()
+  
   lazy var protocolClassConformance: String? = {
     guard mockableType.kind == .protocol else { return nil }
     
-    if let classConformance = mockableType.selfConformanceTypes.sorted()
-      .first(where: { $0.kind == .class }) {
+    if let classConformance = primarySelfConformanceType {
       // Handle class conformance constraints from where clauses.
       return classConformance.fullyQualifiedModuleName
-      
-    } else if let classInheritance = mockableType.inheritedTypes.sorted()
-      .first(where: { $0.kind == .class }) {
-      // Handle potential class conformance constraints from inheritance syntax.
-      return classInheritance.fullyQualifiedModuleName
       
     } else if let autoConformance = mockableType.allInheritedTypeNames
       .compactMap({ Constants.automaticConformanceMap[$0] }).first {
@@ -175,11 +173,9 @@ class MockableTypeTemplate: Template {
   
   var inheritedTypes: [String] {
     var types = [String]()
-    
     if let protocolClassConformance = self.protocolClassConformance {
       types.append(protocolClassConformance)
     }
-    
     types.append(fullyQualifiedName)
     
     let classConformanceTypeNames = Set(mockableType.selfConformanceTypes
@@ -238,15 +234,36 @@ class MockableTypeTemplate: Template {
   /// Store the source location of where the mock was initialized. This allows `XCTest` errors from
   /// unstubbed method invocations to show up in the testing code.
   var shouldGenerateDefaultInitializer: Bool {
+    // Opaque types can have designated initializers we don't know about, so it's best to ignore.
+    guard !mockableType.hasOpaqueInheritedType else {
+      logWarning("Skipping default initializer generation for `\(mockableType.name)` because it has an opaque inherited type")
+      return false
+    }
+    
     let hasDesignatedInitializer =
       mockableType.methods.contains(where: { $0.isDesignatedInitializer })
     
-    let isInitializableProtocol = mockableType.kind == .protocol
-      && (protocolClassConformance == nil || !hasDesignatedInitializer)
-    let isInitializableClass = mockableType.kind == .class
-      && !hasDesignatedInitializer
+    guard mockableType.kind == .protocol else { // Handle classes.
+      if hasDesignatedInitializer {
+        log("Skipping default initializer generation for `\(mockableType.name)` because it is a class with a designated initializer")
+      }
+      return !hasDesignatedInitializer
+    }
     
-    return (isInitializableProtocol || isInitializableClass) && !mockableType.hasOpaqueInheritedType
+    // We can always generate a default initializer for protocols without class conformance.
+    guard protocolClassConformance != nil else { return true }
+    
+    // Ignore protocols conforming to a class with a designated initializer.
+    guard !hasDesignatedInitializer else {
+      log("Skipping default initializer generation for `\(mockableType.name)` because it is a protocol conforming to a class with a designated initializer")
+      return false
+    }
+    
+    let isMockableClassConformance = primarySelfConformanceType?.shouldMock ?? true
+    if !isMockableClassConformance {
+      logWarning("The type `\(mockableType.name)` is uninitializable because it is a protocol conforming to a class without public initializers")
+    }
+    return isMockableClassConformance
   }
   var defaultInitializer: String {
     guard shouldGenerateDefaultInitializer else { return "" }
@@ -270,7 +287,7 @@ class MockableTypeTemplate: Template {
   func isOverridable(method: Method) -> Bool {
     // Not possible to override overloaded methods where uniqueness is from generic constraints.
     // https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
-    guard mockableType.kind == .class else { return true }
+    guard mockableType.kind == .class || primarySelfConformanceType != nil else { return true }
     guard !method.whereClauses.isEmpty || !method.genericTypes.isEmpty else { return true }
     return mockableType.methodsCount[Method.Reduced(from: method)] == 1
   }
