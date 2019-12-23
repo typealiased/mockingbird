@@ -9,7 +9,7 @@
 import Foundation
 import SourceKittenFramework
 
-struct WhereClause: Equatable, Hashable, CustomStringConvertible {
+struct WhereClause: Equatable, Hashable, Comparable, CustomStringConvertible {
   enum Operator: String {
     case conforms = ":"
     case equals = "=="
@@ -20,6 +20,10 @@ struct WhereClause: Equatable, Hashable, CustomStringConvertible {
     case .conforms: return "\(constrainedTypeName)\(self.operator.rawValue) \(genericConstraint)"
     case .equals: return "\(constrainedTypeName) \(self.operator.rawValue) \(genericConstraint)"
     }
+  }
+  
+  static func < (lhs: WhereClause, rhs: WhereClause) -> Bool {
+    return "\(lhs)" < "\(rhs)"
   }
   
   let constrainedTypeName: String

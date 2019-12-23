@@ -40,6 +40,25 @@ private protocol MockableSubclassingExternalSubclassWithDesignatedInitializer: E
 }
 extension SubclassingExternalSubclassWithDesignatedInitializerMock: MockableSubclassingExternalSubclassWithDesignatedInitializer {}
 
+private protocol MockableConformingExternalClassConstrainedProtocol:
+ConformingExternalClassConstrainedProtocol {}
+extension ConformingExternalClassConstrainedProtocolMock:
+MockableConformingExternalClassConstrainedProtocol {}
+
+private protocol MockableConformingInitializableOpenClassConstrainedProtocol:
+ConformingInitializableOpenClassConstrainedProtocol {
+  var openVariable: Bool { get set }
+}
+extension ConformingInitializableOpenClassConstrainedProtocolMock:
+MockableConformingInitializableOpenClassConstrainedProtocol {}
+
+private protocol MockableConformingUninitializableOpenClassConstrainedProtocol:
+ConformingUninitializableOpenClassConstrainedProtocol {
+  var openVariable: Bool { get set }
+}
+extension ConformingUninitializableOpenClassConstrainedProtocolMock:
+MockableConformingUninitializableOpenClassConstrainedProtocol {}
+
 // MARK: - Non-mockable declarations
 
 class SubclassingExternalClass: ExternalClass {}

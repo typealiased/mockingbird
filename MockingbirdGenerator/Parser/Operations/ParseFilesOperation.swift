@@ -112,7 +112,7 @@ public class ParseFilesOperation: BasicOperation {
       let file = try sourcePath.path.getFile()
       
       let structure = try Structure(file: file)
-      let (imports, compilationDirectives) = shouldMock ? file.parse() : ([], [])
+      let (imports, compilationDirectives) = file.parse()
       let parsedFile = ParsedFile(file: file,
                                   path: sourcePath.path,
                                   moduleName: sourcePath.moduleName,
@@ -122,8 +122,8 @@ public class ParseFilesOperation: BasicOperation {
                                   shouldMock: shouldMock)
       ParseFilesOperation.SubOperation.memoizedParsedFiles.update { $0[sourcePath] = parsedFile }
       result.parsedFile = parsedFile
+      log("Parsed \(imports.count) import declaration\(imports.count != 1 ? "s" : "") in source file at \(sourcePath.path)")
       if shouldMock {
-        log("Parsed \(imports.count) import declaration\(imports.count != 1 ? "s" : "") in source file at \(sourcePath.path)")
         log("Parsed source structure for module `\(sourcePath.moduleName)` at \(sourcePath.path)")
       } else {
         log("Parsed dependency source structure for module `\(sourcePath.moduleName)` at \(sourcePath.path)")
@@ -149,7 +149,7 @@ public class ParseFilesOperation: BasicOperation {
       queue.addOperations(operations, waitUntilFinished: true)
       result.parsedFiles = operations.compactMap({ $0.result.parsedFile })
     }
-    result.imports = Set(result.parsedFiles.flatMap({ $0.imports }))
+    result.imports = Set(result.parsedFiles.filter({ $0.shouldMock }).flatMap({ $0.imports }))
     result.moduleDependencies = extractSourcesResult.moduleDependencies
   }
 }

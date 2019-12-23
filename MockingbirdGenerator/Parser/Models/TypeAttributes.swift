@@ -224,4 +224,13 @@ enum AccessLevel: String, CustomStringConvertible {
     case .fileprivate, .private: return false
     }
   }
+  
+  func isInheritableType(withinSameModule: Bool) -> Bool {
+    switch self {
+    case .open: return true
+    case .public: return withinSameModule
+    case .internal: return withinSameModule
+    case .fileprivate, .private: return false
+    }
+  }
 }

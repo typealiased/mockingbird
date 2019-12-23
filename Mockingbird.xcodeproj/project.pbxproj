@@ -3506,7 +3506,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/Users/andrew/Library/Developer/Xcode/DerivedData/Mockingbird-agsjxwhkkkzllxguwkxolnnkjhqj/Build/Products/Debug/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs '/Users/andrew/Mockingbird/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift'\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-F4CD5279-5F60-46C7-B24B-FE43E99DB227'\n";
+			shellScript = "/Users/andrew/Library/Developer/Xcode/DerivedData/Mockingbird-agsjxwhkkkzllxguwkxolnnkjhqj/Build/Products/Debug/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs '/Users/andrew/Mockingbird/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift' \\\n  --disable-cache \\\n  --verbose\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-F4CD5279-5F60-46C7-B24B-FE43E99DB227'\n";
 		};
 		E0C37AF4D09E1A81AA94E903 /* Clean Mockingbird Mocks */ = {
 			isa = PBXShellScriptBuildPhase;
