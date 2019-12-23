@@ -120,6 +120,7 @@ class RawTypeRepository {
   func addRawType(_ rawType: RawType) {
     let name = rawType.fullyQualifiedName.removingGenericTyping()
     let moduleName = rawType.parsedFile.moduleName
+    log("Added raw type: `\(name)`, moduleName: `\(moduleName)`")
     rawTypes[name, default: [:]][moduleName, default: []].append(rawType)
     moduleTypes[moduleName, default: []].insert(name)
   }

@@ -47,3 +47,10 @@ class SubclassingExternalSubclassWithDesignatedInitializer: ExternalSubclassWith
     super.init()
   }
 }
+
+// MARK: - Class constrained protocols
+
+protocol ConformingExternalClassConstrainedProtocol: ExternalClassConstrainedProtocol {}
+protocol ConformingInitializableOpenClassConstrainedProtocol: InitializableOpenClassConstrainedProtocol {}
+protocol ConformingUninitializableOpenClassConstrainedProtocol: UninitializableOpenClassConstrainedProtocol {}
+protocol ConformingUnmockablePublicClassConstrainedProtocol: UnmockablePublicClassConstrainedProtocol {}

@@ -56,7 +56,7 @@ class MethodTemplate: Template {
   }
   
   var classInitializerProxy: String {
-    guard method.isInitializer, context.mockableType.kind == .class else { return "" }
+    guard method.isInitializer else { return "" }
     // We can't usually infer what concrete arguments to pass to the designated initializer.
     guard !method.attributes.contains(.convenience) else { return "" }
     let attributes = declarationAttributes.isEmpty ? "" : "    \(declarationAttributes)\n"
