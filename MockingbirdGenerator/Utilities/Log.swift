@@ -56,9 +56,10 @@ public func log(_ message: @autoclosure () -> String,
                 line: UInt = #line) {
   guard level.shouldLog(type) else { return }
   let logMessage = "[\(type)] " + message() + "\n"
+  let output = output ?? type.output
   loggingQueue.async {
-    fputs(logMessage, output ?? type.output)
-    fflush(output ?? type.output)
+    fputs(logMessage, output)
+    fflush(output) // fputs doesn't seem to auto-flush on line breaks.
   }
 }
 
