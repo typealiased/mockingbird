@@ -10,7 +10,7 @@ XCODEBUILD_FLAGS=-project 'Mockingbird.xcodeproj' \
 EXECUTABLE_PATH=$(shell swift build $(SWIFT_BUILD_FLAGS) --show-bin-path)/mockingbird
 
 FRAMEWORKS_FOLDER=/Library/Frameworks
-BINARIES_FOLDER=/usr/local/bin
+BINARIES_FOLDER=$(PREFIX)/bin
 LICENSE_PATH="$(shell pwd)/LICENSE"
 PKG_BUNDLE_IDENTIFIER=co.bird.mockingbird
 PKG_IDENTITY_NAME=3rd Party Mac Developer Installer: Bird Rides, Inc. (P2T4T6R4SL)
