@@ -17,20 +17,22 @@ class ArgumentCaptorTests: XCTestCase {
     concreteMock = mock(ArgumentMatchingProtocol.self)
   }
   
-  func callMethod(on object: ArgumentMatchingProtocol,
-                  structType: StructType = StructType(),
-                  classType: ClassType = ClassType(),
-                  enumType: EnumType = .success,
-                  stringType: String = "foo-bar",
-                  boolType: Bool = true,
-                  metaType: ClassType.Type = ClassType.self,
-                  anyType: Any = true,
-                  anyObjectType: AnyObject = ClassType()) -> Bool {
+  func callMethod<P: BaseProtocol>(on object: ArgumentMatchingProtocol,
+                                   structType: StructType = StructType(),
+                                   classType: ClassType = ClassType(),
+                                   enumType: EnumType = .success,
+                                   stringType: String = "foo-bar",
+                                   boolType: Bool = true,
+                                   protocolType: P,
+                                   metaType: ClassType.Type = ClassType.self,
+                                   anyType: Any = true,
+                                   anyObjectType: AnyObject = ClassType()) -> Bool {
     return object.method(structType: structType,
                          classType: classType,
                          enumType: enumType,
                          stringType: stringType,
                          boolType: boolType,
+                         protocolType: protocolType,
                          metaType: metaType,
                          anyType: anyType,
                          anyObjectType: anyObjectType)
@@ -43,10 +45,13 @@ class ArgumentCaptorTests: XCTestCase {
                               enumType: any(),
                               stringType: any(),
                               boolType: any(),
+                              protocolType: any(ClassType.self),
                               metaType: any(),
                               anyType: any(),
                               anyObjectType: any())) ~> true
-    XCTAssertTrue(callMethod(on: concreteMock, structType: StructType(value: 99)))
+    XCTAssertTrue(callMethod(on: concreteMock,
+                             structType: StructType(value: 99),
+                             protocolType: ClassType()))
     XCTAssert(structTypeCaptor.value?.value == 99)
   }
   
@@ -57,11 +62,16 @@ class ArgumentCaptorTests: XCTestCase {
                               enumType: any(),
                               stringType: any(),
                               boolType: any(),
+                              protocolType: any(ClassType.self),
                               metaType: any(),
                               anyType: any(),
                               anyObjectType: any())) ~> true
-    XCTAssertTrue(callMethod(on: concreteMock, structType: StructType(value: 99)))
-    XCTAssertTrue(callMethod(on: concreteMock, structType: StructType(value: 42)))
+    XCTAssertTrue(callMethod(on: concreteMock,
+                             structType: StructType(value: 99),
+                             protocolType: ClassType()))
+    XCTAssertTrue(callMethod(on: concreteMock,
+                             structType: StructType(value: 42),
+                             protocolType: ClassType()))
     XCTAssert(structTypeCaptor.value?.value == 42)
   }
   
@@ -72,11 +82,16 @@ class ArgumentCaptorTests: XCTestCase {
                               enumType: any(),
                               stringType: any(),
                               boolType: any(),
+                              protocolType: any(ClassType.self),
                               metaType: any(),
                               anyType: any(),
                               anyObjectType: any())) ~> true
-    XCTAssertTrue(callMethod(on: concreteMock, structType: StructType(value: 99)))
-    XCTAssertTrue(callMethod(on: concreteMock, structType: StructType(value: 42)))
+    XCTAssertTrue(callMethod(on: concreteMock,
+                             structType: StructType(value: 99),
+                             protocolType: ClassType()))
+    XCTAssertTrue(callMethod(on: concreteMock,
+                             structType: StructType(value: 42),
+                             protocolType: ClassType()))
     XCTAssert(structTypeCaptor.allValues.map({ $0.value }) == [99, 42])
   }
 }

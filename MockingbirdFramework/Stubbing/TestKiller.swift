@@ -13,7 +13,11 @@ import XCTest
 class TestKiller: NSObject, XCTestObservation {
   override init() {
     super.init()
-    XCTestObservationCenter.shared.addTestObserver(self)
+    if Thread.isMainThread {
+      XCTestObservationCenter.shared.addTestObserver(self)
+    } else {
+      DispatchQueue.main.sync { XCTestObservationCenter.shared.addTestObserver(self) }
+    }
   }
   
   private var testCase: XCTestCase?
@@ -21,6 +25,8 @@ class TestKiller: NSObject, XCTestObservation {
                 didFailWithDescription description: String,
                 inFile filePath: String?,
                 atLine lineNumber: Int) {
+    // TODO: This doesn't synchronously stop the current test case on failure if the invocation
+    // happens from outside of the main thread. Dispatching to main doesn't solve the issue.
     testCase.continueAfterFailure = false
     self.testCase = testCase
   }

@@ -38,42 +38,42 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `method`(optionalStructType: MockingbirdTestsHost.StructType?, optionalClassType: MockingbirdTestsHost.ClassType?, optionalEnumType: MockingbirdTestsHost.EnumType?, optionalStringType: String?, optionalBoolType: Bool?, optionalMetaType: ClassType.Type?, optionalAnyType: Any?, optionalAnyObjectType: Swift.AnyObject?)
+  // MARK: Mocked `method`<P: MockingbirdTestsHost.BaseProtocol>(optionalStructType: MockingbirdTestsHost.StructType?, optionalClassType: MockingbirdTestsHost.ClassType?, optionalEnumType: MockingbirdTestsHost.EnumType?, optionalStringType: String?, optionalBoolType: Bool?, optionalProtocolType: P?, optionalMetaType: ClassType.Type?, optionalAnyType: Any?, optionalAnyObjectType: Swift.AnyObject?)
 
-  public func `method`(optionalStructType: MockingbirdTestsHost.StructType?, optionalClassType: MockingbirdTestsHost.ClassType?, optionalEnumType: MockingbirdTestsHost.EnumType?, optionalStringType: String?, optionalBoolType: Bool?, optionalMetaType: ClassType.Type?, optionalAnyType: Any?, optionalAnyObjectType: Swift.AnyObject?) -> Bool {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(optionalStructType: MockingbirdTestsHost.StructType?, optionalClassType: MockingbirdTestsHost.ClassType?, optionalEnumType: MockingbirdTestsHost.EnumType?, optionalStringType: String?, optionalBoolType: Bool?, optionalMetaType: ClassType.Type?, optionalAnyType: Any?, optionalAnyObjectType: Swift.AnyObject?) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`optionalStructType`), Mockingbird.ArgumentMatcher(`optionalClassType`), Mockingbird.ArgumentMatcher(`optionalEnumType`), Mockingbird.ArgumentMatcher(`optionalStringType`), Mockingbird.ArgumentMatcher(`optionalBoolType`), Mockingbird.ArgumentMatcher(`optionalMetaType`), Mockingbird.ArgumentMatcher(`optionalAnyType`), Mockingbird.ArgumentMatcher(`optionalAnyObjectType`)])
+  public func `method`<P: MockingbirdTestsHost.BaseProtocol>(optionalStructType: MockingbirdTestsHost.StructType?, optionalClassType: MockingbirdTestsHost.ClassType?, optionalEnumType: MockingbirdTestsHost.EnumType?, optionalStringType: String?, optionalBoolType: Bool?, optionalProtocolType: P?, optionalMetaType: ClassType.Type?, optionalAnyType: Any?, optionalAnyObjectType: Swift.AnyObject?) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`<P: MockingbirdTestsHost.BaseProtocol>(optionalStructType: MockingbirdTestsHost.StructType?, optionalClassType: MockingbirdTestsHost.ClassType?, optionalEnumType: MockingbirdTestsHost.EnumType?, optionalStringType: String?, optionalBoolType: Bool?, optionalProtocolType: P?, optionalMetaType: ClassType.Type?, optionalAnyType: Any?, optionalAnyObjectType: Swift.AnyObject?) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`optionalStructType`), Mockingbird.ArgumentMatcher(`optionalClassType`), Mockingbird.ArgumentMatcher(`optionalEnumType`), Mockingbird.ArgumentMatcher(`optionalStringType`), Mockingbird.ArgumentMatcher(`optionalBoolType`), Mockingbird.ArgumentMatcher(`optionalProtocolType`), Mockingbird.ArgumentMatcher(`optionalMetaType`), Mockingbird.ArgumentMatcher(`optionalAnyType`), Mockingbird.ArgumentMatcher(`optionalAnyObjectType`)])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? (MockingbirdTestsHost.StructType?, MockingbirdTestsHost.ClassType?, MockingbirdTestsHost.EnumType?, String?, Bool?, ClassType.Type?, Any?, Swift.AnyObject?) -> Bool {
-      return concreteImplementation(`optionalStructType`, `optionalClassType`, `optionalEnumType`, `optionalStringType`, `optionalBoolType`, `optionalMetaType`, `optionalAnyType`, `optionalAnyObjectType`)
+    if let concreteImplementation = implementation as? (MockingbirdTestsHost.StructType?, MockingbirdTestsHost.ClassType?, MockingbirdTestsHost.EnumType?, String?, Bool?, P?, ClassType.Type?, Any?, Swift.AnyObject?) -> Bool {
+      return concreteImplementation(`optionalStructType`, `optionalClassType`, `optionalEnumType`, `optionalStringType`, `optionalBoolType`, `optionalProtocolType`, `optionalMetaType`, `optionalAnyType`, `optionalAnyObjectType`)
     } else {
       return (implementation as! () -> Bool)()
     }
   }
 
-  public func `method`(optionalStructType: @escaping @autoclosure () -> MockingbirdTestsHost.StructType?, optionalClassType: @escaping @autoclosure () -> MockingbirdTestsHost.ClassType?, optionalEnumType: @escaping @autoclosure () -> MockingbirdTestsHost.EnumType?, optionalStringType: @escaping @autoclosure () -> String?, optionalBoolType: @escaping @autoclosure () -> Bool?, optionalMetaType: @escaping @autoclosure () -> ClassType.Type?, optionalAnyType: @escaping @autoclosure () -> Any?, optionalAnyObjectType: @escaping @autoclosure () -> Swift.AnyObject?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.StructType?, MockingbirdTestsHost.ClassType?, MockingbirdTestsHost.EnumType?, String?, Bool?, ClassType.Type?, Any?, Swift.AnyObject?) -> Bool, Bool> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`optionalStructType`), Mockingbird.resolve(`optionalClassType`), Mockingbird.resolve(`optionalEnumType`), Mockingbird.resolve(`optionalStringType`), Mockingbird.resolve(`optionalBoolType`), Mockingbird.resolve(`optionalMetaType`), Mockingbird.resolve(`optionalAnyType`), Mockingbird.resolve(`optionalAnyObjectType`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(optionalStructType: MockingbirdTestsHost.StructType?, optionalClassType: MockingbirdTestsHost.ClassType?, optionalEnumType: MockingbirdTestsHost.EnumType?, optionalStringType: String?, optionalBoolType: Bool?, optionalMetaType: ClassType.Type?, optionalAnyType: Any?, optionalAnyObjectType: Swift.AnyObject?) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.StructType?, MockingbirdTestsHost.ClassType?, MockingbirdTestsHost.EnumType?, String?, Bool?, ClassType.Type?, Any?, Swift.AnyObject?) -> Bool, Bool>(mock: self, invocation: invocation)
+  public func `method`<P: MockingbirdTestsHost.BaseProtocol>(optionalStructType: @escaping @autoclosure () -> MockingbirdTestsHost.StructType?, optionalClassType: @escaping @autoclosure () -> MockingbirdTestsHost.ClassType?, optionalEnumType: @escaping @autoclosure () -> MockingbirdTestsHost.EnumType?, optionalStringType: @escaping @autoclosure () -> String?, optionalBoolType: @escaping @autoclosure () -> Bool?, optionalProtocolType: @escaping @autoclosure () -> P?, optionalMetaType: @escaping @autoclosure () -> ClassType.Type?, optionalAnyType: @escaping @autoclosure () -> Any?, optionalAnyObjectType: @escaping @autoclosure () -> Swift.AnyObject?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.StructType?, MockingbirdTestsHost.ClassType?, MockingbirdTestsHost.EnumType?, String?, Bool?, P?, ClassType.Type?, Any?, Swift.AnyObject?) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`optionalStructType`), Mockingbird.resolve(`optionalClassType`), Mockingbird.resolve(`optionalEnumType`), Mockingbird.resolve(`optionalStringType`), Mockingbird.resolve(`optionalBoolType`), Mockingbird.resolve(`optionalProtocolType`), Mockingbird.resolve(`optionalMetaType`), Mockingbird.resolve(`optionalAnyType`), Mockingbird.resolve(`optionalAnyObjectType`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`<P: MockingbirdTestsHost.BaseProtocol>(optionalStructType: MockingbirdTestsHost.StructType?, optionalClassType: MockingbirdTestsHost.ClassType?, optionalEnumType: MockingbirdTestsHost.EnumType?, optionalStringType: String?, optionalBoolType: Bool?, optionalProtocolType: P?, optionalMetaType: ClassType.Type?, optionalAnyType: Any?, optionalAnyObjectType: Swift.AnyObject?) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.StructType?, MockingbirdTestsHost.ClassType?, MockingbirdTestsHost.EnumType?, String?, Bool?, P?, ClassType.Type?, Any?, Swift.AnyObject?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `method`(structType: MockingbirdTestsHost.StructType, classType: MockingbirdTestsHost.ClassType, enumType: MockingbirdTestsHost.EnumType, stringType: String, boolType: Bool, metaType: ClassType.Type, anyType: Any, anyObjectType: Swift.AnyObject)
+  // MARK: Mocked `method`<P: MockingbirdTestsHost.BaseProtocol>(structType: MockingbirdTestsHost.StructType, classType: MockingbirdTestsHost.ClassType, enumType: MockingbirdTestsHost.EnumType, stringType: String, boolType: Bool, protocolType: P, metaType: ClassType.Type, anyType: Any, anyObjectType: Swift.AnyObject)
 
-  public func `method`(structType: MockingbirdTestsHost.StructType, classType: MockingbirdTestsHost.ClassType, enumType: MockingbirdTestsHost.EnumType, stringType: String, boolType: Bool, metaType: ClassType.Type, anyType: Any, anyObjectType: Swift.AnyObject) -> Bool {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(structType: MockingbirdTestsHost.StructType, classType: MockingbirdTestsHost.ClassType, enumType: MockingbirdTestsHost.EnumType, stringType: String, boolType: Bool, metaType: ClassType.Type, anyType: Any, anyObjectType: Swift.AnyObject) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`structType`), Mockingbird.ArgumentMatcher(`classType`), Mockingbird.ArgumentMatcher(`enumType`), Mockingbird.ArgumentMatcher(`stringType`), Mockingbird.ArgumentMatcher(`boolType`), Mockingbird.ArgumentMatcher(`metaType`), Mockingbird.ArgumentMatcher(`anyType`), Mockingbird.ArgumentMatcher(`anyObjectType`)])
+  public func `method`<P: MockingbirdTestsHost.BaseProtocol>(structType: MockingbirdTestsHost.StructType, classType: MockingbirdTestsHost.ClassType, enumType: MockingbirdTestsHost.EnumType, stringType: String, boolType: Bool, protocolType: P, metaType: ClassType.Type, anyType: Any, anyObjectType: Swift.AnyObject) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`<P: MockingbirdTestsHost.BaseProtocol>(structType: MockingbirdTestsHost.StructType, classType: MockingbirdTestsHost.ClassType, enumType: MockingbirdTestsHost.EnumType, stringType: String, boolType: Bool, protocolType: P, metaType: ClassType.Type, anyType: Any, anyObjectType: Swift.AnyObject) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`structType`), Mockingbird.ArgumentMatcher(`classType`), Mockingbird.ArgumentMatcher(`enumType`), Mockingbird.ArgumentMatcher(`stringType`), Mockingbird.ArgumentMatcher(`boolType`), Mockingbird.ArgumentMatcher(`protocolType`), Mockingbird.ArgumentMatcher(`metaType`), Mockingbird.ArgumentMatcher(`anyType`), Mockingbird.ArgumentMatcher(`anyObjectType`)])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? (MockingbirdTestsHost.StructType, MockingbirdTestsHost.ClassType, MockingbirdTestsHost.EnumType, String, Bool, ClassType.Type, Any, Swift.AnyObject) -> Bool {
-      return concreteImplementation(`structType`, `classType`, `enumType`, `stringType`, `boolType`, `metaType`, `anyType`, `anyObjectType`)
+    if let concreteImplementation = implementation as? (MockingbirdTestsHost.StructType, MockingbirdTestsHost.ClassType, MockingbirdTestsHost.EnumType, String, Bool, P, ClassType.Type, Any, Swift.AnyObject) -> Bool {
+      return concreteImplementation(`structType`, `classType`, `enumType`, `stringType`, `boolType`, `protocolType`, `metaType`, `anyType`, `anyObjectType`)
     } else {
       return (implementation as! () -> Bool)()
     }
   }
 
-  public func `method`(structType: @escaping @autoclosure () -> MockingbirdTestsHost.StructType, classType: @escaping @autoclosure () -> MockingbirdTestsHost.ClassType, enumType: @escaping @autoclosure () -> MockingbirdTestsHost.EnumType, stringType: @escaping @autoclosure () -> String, boolType: @escaping @autoclosure () -> Bool, metaType: @escaping @autoclosure () -> ClassType.Type, anyType: @escaping @autoclosure () -> Any, anyObjectType: @escaping @autoclosure () -> Swift.AnyObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.StructType, MockingbirdTestsHost.ClassType, MockingbirdTestsHost.EnumType, String, Bool, ClassType.Type, Any, Swift.AnyObject) -> Bool, Bool> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`structType`), Mockingbird.resolve(`classType`), Mockingbird.resolve(`enumType`), Mockingbird.resolve(`stringType`), Mockingbird.resolve(`boolType`), Mockingbird.resolve(`metaType`), Mockingbird.resolve(`anyType`), Mockingbird.resolve(`anyObjectType`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(structType: MockingbirdTestsHost.StructType, classType: MockingbirdTestsHost.ClassType, enumType: MockingbirdTestsHost.EnumType, stringType: String, boolType: Bool, metaType: ClassType.Type, anyType: Any, anyObjectType: Swift.AnyObject) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.StructType, MockingbirdTestsHost.ClassType, MockingbirdTestsHost.EnumType, String, Bool, ClassType.Type, Any, Swift.AnyObject) -> Bool, Bool>(mock: self, invocation: invocation)
+  public func `method`<P: MockingbirdTestsHost.BaseProtocol>(structType: @escaping @autoclosure () -> MockingbirdTestsHost.StructType, classType: @escaping @autoclosure () -> MockingbirdTestsHost.ClassType, enumType: @escaping @autoclosure () -> MockingbirdTestsHost.EnumType, stringType: @escaping @autoclosure () -> String, boolType: @escaping @autoclosure () -> Bool, protocolType: @escaping @autoclosure () -> P, metaType: @escaping @autoclosure () -> ClassType.Type, anyType: @escaping @autoclosure () -> Any, anyObjectType: @escaping @autoclosure () -> Swift.AnyObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.StructType, MockingbirdTestsHost.ClassType, MockingbirdTestsHost.EnumType, String, Bool, P, ClassType.Type, Any, Swift.AnyObject) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`structType`), Mockingbird.resolve(`classType`), Mockingbird.resolve(`enumType`), Mockingbird.resolve(`stringType`), Mockingbird.resolve(`boolType`), Mockingbird.resolve(`protocolType`), Mockingbird.resolve(`metaType`), Mockingbird.resolve(`anyType`), Mockingbird.resolve(`anyObjectType`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`<P: MockingbirdTestsHost.BaseProtocol>(structType: MockingbirdTestsHost.StructType, classType: MockingbirdTestsHost.ClassType, enumType: MockingbirdTestsHost.EnumType, stringType: String, boolType: Bool, protocolType: P, metaType: ClassType.Type, anyType: Any, anyObjectType: Swift.AnyObject) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.StructType, MockingbirdTestsHost.ClassType, MockingbirdTestsHost.EnumType, String, Bool, P, ClassType.Type, Any, Swift.AnyObject) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -1057,6 +1057,51 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
 /// Create a source-attributed `MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol<SequenceType>` concrete protocol mock instance.
 public func mock<SequenceType: Sequence & Swift.Hashable>(file: StaticString = #file, line: UInt = #line, _ type: AssociatedTypeSelfReferencingProtocolMock<SequenceType>.Type) -> AssociatedTypeSelfReferencingProtocolMock<SequenceType> {
   return AssociatedTypeSelfReferencingProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked BaseProtocol
+
+public final class BaseProtocolMock: MockingbirdTestsHost.BaseProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.9.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      BaseProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked ==(_ lhs: BaseProtocolMock, _ rhs: BaseProtocolMock)
+
+  public static func ==(_ lhs: BaseProtocolMock, _ rhs: BaseProtocolMock) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ lhs: BaseProtocolMock, _ rhs: BaseProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
+    staticMock.mockingContext.didInvoke(invocation)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (BaseProtocolMock, BaseProtocolMock) -> Bool {
+      return concreteImplementation(`lhs`, `rhs`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public static func _equalTo(_ lhs: @escaping @autoclosure () -> BaseProtocolMock, _ rhs: @escaping @autoclosure () -> BaseProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (BaseProtocolMock, BaseProtocolMock) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ lhs: BaseProtocolMock, _ rhs: BaseProtocolMock) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (BaseProtocolMock, BaseProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.BaseProtocol` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: BaseProtocolMock.Type) -> BaseProtocolMock {
+  return BaseProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked Bird

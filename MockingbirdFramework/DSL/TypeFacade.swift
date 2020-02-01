@@ -9,83 +9,77 @@ import Foundation
 
 /// This is a hack to get strongly-typed stubbing/verification parameters. The goal is to have
 /// `ArgumentMatcher` "conform" to any reference or value type so that it's possible to pass both
-/// an actual concrete instance of a type OR a matcher. The method provides stronger compile-time
-/// guarantees and better autocomplete compared to simply conforming parameter types to a common
-/// protocol such as `Matchable`.
+/// an actual concrete instance of a type OR a matcher. This provides better compile-time
+/// guarantees and autocompletion compared to conforming all parameter types to a common protocol.
 ///
 /// It goes without saying that this should probably never be done in production.
-class TypeFacade {
-  static let sharedBuffer = UnsafeMutableRawPointer.allocate(byteCount: 512000, alignment: 0)
+
+private enum Constants {
+  static let resultKey = "result"
+  static let semaphoreKey = "semaphore"
+}
+
+private class ResolutionResult {
+  var value: Any?
+}
+
+private class ResolutionContext<T>: Thread {
+  private let typeFacade: () -> T
+  private let result: ResolutionResult
+  private let semaphore: DispatchSemaphore
   
-  class StoredValue {
-    var value: Any? {
-      didSet { isSet = true }
-    }
-    private(set) var isSet = false
+  init(typeFacade: @escaping () -> T, result: ResolutionResult, semaphore: DispatchSemaphore) {
+    self.typeFacade = typeFacade
+    self.result = result
+    self.semaphore = semaphore
   }
-  static let storedValueKey = DispatchSpecificKey<StoredValue>()
+  
+  override func main() {
+    // Set the thread's context dictionary.
+    let context = Thread.current.threadDictionary
+    context[Constants.resultKey] = self.result
+    context[Constants.semaphoreKey] = self.semaphore
+    
+    // Resolve type facade by executing closure.
+    result.value = typeFacade()
+    semaphore.signal()
+  }
 }
 
-struct AnyObjectFake {}
-
-extension DispatchQueue {
-  class var storedValue: TypeFacade.StoredValue? {
-    return DispatchQueue.getSpecific(key: TypeFacade.storedValueKey)
-  }
-}
-
-/// Wraps a value into any type `T`.
+/// Wraps a value into any type `T` when resolved inside of a `ResolutionContext<T>`.
 func createTypeFacade<T>(_ value: Any?) -> T {
-  // We can't return `value` directly, so we return it using the KV store on `DispatchQueue`.
-  if let storedValue = DispatchQueue.storedValue { storedValue.value = value }
+  let context = Thread.current.threadDictionary
+  guard
+    let result = context[Constants.resultKey] as? ResolutionResult,
+    let semaphore = context[Constants.semaphoreKey] as? DispatchSemaphore
+    else { preconditionFailure("Invalid resolution thread context state") }
   
-  // Trivial case where `T` is a non-nominal type such as `Any` or `AnyObject`.
-  if let concreteType = AnyObjectFake() as? T { return concreteType }
-  return TypeFacade.sharedBuffer.bindMemory(to: T.self, capacity: 1).pointee
+  result.value = value
+  semaphore.signal()
+  Thread.exit() // Stop the current thread's execution.
+  fatalError() // This will never run.
 }
 
 /// Resolve `parameter` when `T` is _not_ known to be `Equatable`.
 func resolve<T>(_ parameter: @escaping () -> T) -> ArgumentMatcher {
-  let storedValue = TypeFacade.StoredValue()
-  let queue = DispatchQueue(label: "co.bird.mockingbird.typefacade")
-  queue.setSpecific(key: TypeFacade.storedValueKey, value: storedValue)
-  var resolvedMatcher: ArgumentMatcher!
-  queue.sync {
-    let realValue = parameter() // It's only safe to store this on the stack.
-    guard storedValue.isSet else { // The closure contained a concrete `T` instance.
-      if let matcher = realValue as? ArgumentMatcher {
-        resolvedMatcher = matcher // `realValue` is already an `ArgumentMatcher`.
-      } else {
-        resolvedMatcher = ArgumentMatcher(realValue)
-      }
-      return
-    }
-    // Use the wrapped value returned by resolving the type facade closure.
-    resolvedMatcher = storedValue.value as? ArgumentMatcher
-  }
-  return resolvedMatcher
+  let result = ResolutionResult()
+  let semaphore = DispatchSemaphore(value: 0)
+  let context = ResolutionContext(typeFacade: parameter, result: result, semaphore: semaphore)
+  context.start()
+  semaphore.wait()
+  if let matcher = result.value as? ArgumentMatcher { return matcher }
+  return ArgumentMatcher(result.value)
 }
 
 /// Resolve `parameter` when `T` is known to be `Equatable`.
 func resolve<T: Equatable>(_ parameter: @escaping () -> T) -> ArgumentMatcher {
-  let storedValue = TypeFacade.StoredValue()
-  let queue = DispatchQueue(label: "co.bird.mockingbird.typefacade")
-  queue.setSpecific(key: TypeFacade.storedValueKey, value: storedValue)
-  var resolvedMatcher: ArgumentMatcher!
-  queue.sync {
-    let realValue = parameter() // It's only safe to store this on the stack.
-    guard storedValue.isSet else { // The closure contained a concrete `T` instance.
-      if let matcher = realValue as? ArgumentMatcher {
-        resolvedMatcher = matcher // `realValue` is already an `ArgumentMatcher`.
-      } else {
-        resolvedMatcher = ArgumentMatcher(realValue)
-      }
-      return
-    }
-    // Use the wrapped value returned by resolving the type facade closure.
-    resolvedMatcher = storedValue.value as? ArgumentMatcher
-  }
-  return resolvedMatcher
+  let result = ResolutionResult()
+  let semaphore = DispatchSemaphore(value: 0)
+  let context = ResolutionContext(typeFacade: parameter, result: result, semaphore: semaphore)
+  context.start()
+  semaphore.wait()
+  if let matcher = result.value as? ArgumentMatcher { return matcher }
+  return ArgumentMatcher(result.value)
 }
 
 /// Resolve `parameter` when the closure returns an `ArgumentMatcher`.
