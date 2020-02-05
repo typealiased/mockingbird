@@ -941,6 +941,13 @@
 			remoteGlobalIDString = "Mockingbird::MockingbirdCli";
 			remoteInfo = MockingbirdCli;
 		};
+		C46D186723E4686D00E131D3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Mockingbird::MockingbirdCli";
+			remoteInfo = MockingbirdCli;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -3070,6 +3077,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C46D186823E4686D00E131D3 /* PBXTargetDependency */,
 				OBJ_868 /* PBXTargetDependency */,
 				OBJ_869 /* PBXTargetDependency */,
 				OBJ_871 /* PBXTargetDependency */,
@@ -3502,11 +3510,11 @@
 			);
 			name = "Generate Mockingbird Mocks";
 			outputPaths = (
-				/Users/andrew/Mockingbird/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift,
+				"${SRCROOT}/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/Users/andrew/Library/Developer/Xcode/DerivedData/Mockingbird-agsjxwhkkkzllxguwkxolnnkjhqj/Build/Products/Debug/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs '/Users/andrew/Mockingbird/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift' \\\n  --disable-cache \\\n  --verbose\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-F4CD5279-5F60-46C7-B24B-FE43E99DB227'\n";
+			shellScript = "\"${BUILT_PRODUCTS_DIR}/MockingbirdCli\" generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs \"${SRCROOT}/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift\" \\\n  --disable-cache \\\n  --verbose\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-F4CD5279-5F60-46C7-B24B-FE43E99DB227'\n";
 		};
 		E0C37AF4D09E1A81AA94E903 /* Clean Mockingbird Mocks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4151,6 +4159,11 @@
 			isa = PBXTargetDependency;
 			target = "Mockingbird::MockingbirdModuleTestsHost" /* MockingbirdModuleTestsHost */;
 			targetProxy = 4904BDEA232ED47E0031E071 /* PBXContainerItemProxy */;
+		};
+		C46D186823E4686D00E131D3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Mockingbird::MockingbirdCli" /* MockingbirdCli */;
+			targetProxy = C46D186723E4686D00E131D3 /* PBXContainerItemProxy */;
 		};
 		OBJ_1071 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
