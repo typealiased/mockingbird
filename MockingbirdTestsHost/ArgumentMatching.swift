@@ -8,15 +8,17 @@
 
 import Foundation
 
-struct StructType: Equatable {
-  let identifier: String = "foo-bar"
+protocol BaseProtocol: Equatable {}
+
+struct StructType: BaseProtocol {
   let value: Int
   init(value: Int = 42) {
     self.value = value
   }
 }
 
-class ClassType {
+class ClassType: BaseProtocol {
+  static func == (lhs: ClassType, rhs: ClassType) -> Bool { return true }
   let identifier: String = "foo-bar"
   let value: Int = 42
 }
@@ -26,20 +28,22 @@ enum EnumType {
 }
 
 protocol ArgumentMatchingProtocol {
-  func method(structType: StructType,
+  func method<P: BaseProtocol>(structType: StructType,
               classType: ClassType,
               enumType: EnumType,
               stringType: String,
               boolType: Bool,
+              protocolType: P,
               metaType: ClassType.Type,
               anyType: Any,
               anyObjectType: AnyObject) -> Bool
   
-  func method(optionalStructType: StructType?,
+  func method<P: BaseProtocol>(optionalStructType: StructType?,
               optionalClassType: ClassType?,
               optionalEnumType: EnumType?,
               optionalStringType: String?,
               optionalBoolType: Bool?,
+              optionalProtocolType: P?,
               optionalMetaType: ClassType.Type?,
               optionalAnyType: Any?,
               optionalAnyObjectType: AnyObject?) -> Bool

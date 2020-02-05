@@ -30,6 +30,7 @@ public class StubbingContext {
         if !optional {
           TestKiller().failTest(.missingStubbedImplementation(invocation: invocation),
                                 at: sourceLocation)
+          fatalError("Missing stubbed implementation, but unable to force XCTest case to fail")
         }
         return nil
       }
