@@ -51,9 +51,26 @@ struct MethodParameter: Hashable {
     
     // Final attributes can differ from those in `parameter` due to knowing the typealiased type.
     var attributes = Attributes(from: dictionary).union(actualParameter.attributes)
-    if actualParameter.type.isFunction { attributes.insert(.closure) }
+    if actualParameter.type.isFunction || actualParameter.type.isWrappedClosure {
+      attributes.insert(.closure)
+    }
     self.typeName = typeName
     self.attributes = attributes
     self.hasSelfConstraints = typeName.contains(SerializationRequest.Constants.selfTokenIndicator)
+  }
+}
+
+private extension DeclaredType {
+  /// Whether the type is a non-escaping closure wrapped in a single (non-optional) element tuple.
+  var isWrappedClosure: Bool {
+    switch self {
+    case .single: return false
+    case .tuple(let tuple, _):
+      guard
+        !isOptional, // Closures in optionals are implicitly escaping.
+        tuple.elements.count == 1 // Closures in multiple element tuples are implicitly escaping.
+        else { return false }
+      return tuple.elements.first?.type.isFunction == true
+    }
   }
 }

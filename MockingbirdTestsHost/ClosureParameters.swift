@@ -49,4 +49,12 @@ protocol ClosureParametersProtocol {
   
   func escapingAutoclosureTrivialClosure(block: @escaping @autoclosure () -> Void) -> Bool
   func escapingAutoclosureTrivialReturningClosure(block: @escaping @autoclosure () -> Bool) -> Bool
+  
+  func trivialTupleClosure(block: (() -> Void)) -> Bool
+  func trivialReturningTupleClosure(block: (() -> Void)) -> Bool
+  func parameterizedTupleClosure(block: ((Bool) -> Void)) -> Bool
+  func parameterizedReturningTupleClosure(block: ((Bool) -> Bool)) -> Bool
+  
+  func implicitEscapingMultipleTupleClosure(block: (() -> Void, (Bool) -> Bool)) -> Bool
+  func implicitEscapingMultipleLabeledTupleClosure(block: (a: () -> Void, b: (Bool) -> Bool)) -> Bool
 }

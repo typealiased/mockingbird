@@ -117,6 +117,52 @@ class ClosureParameterTests: XCTestCase {
     verify(concreteMock.wrappedClosureParameter(block: any())).wasCalled()
   }
   
+  // MARK: Tuple wrapped non-escaping
+  
+  func testTrivialTupleClosure_anyWildcardMatching() {
+    given(concreteMock.trivialTupleClosure(block: any())) ~> true
+    XCTAssertTrue((concreteMock as ClosureParametersProtocol)
+      .trivialTupleClosure(block: {}))
+    verify(concreteMock.trivialTupleClosure(block: any())).wasCalled()
+  }
+  
+  func testTrivialReturningTupleClosure_anyWildcardMatching() {
+    given(concreteMock.trivialReturningTupleClosure(block: any())) ~> true
+    XCTAssertTrue((concreteMock as ClosureParametersProtocol)
+      .trivialReturningTupleClosure(block: { fatalError() }))
+    verify(concreteMock.trivialReturningTupleClosure(block: any())).wasCalled()
+  }
+  
+  func testParameterizedTupleClosure_anyWildcardMatching() {
+    given(concreteMock.parameterizedTupleClosure(block: any())) ~> true
+    XCTAssertTrue((concreteMock as ClosureParametersProtocol)
+      .parameterizedTupleClosure(block: { _ in }))
+    verify(concreteMock.parameterizedTupleClosure(block: any())).wasCalled()
+  }
+  
+  func testParameterizedReturningTupleClosure_anyWildcardMatching() {
+    given(concreteMock.parameterizedReturningTupleClosure(block: any())) ~> true
+    XCTAssertTrue((concreteMock as ClosureParametersProtocol)
+      .parameterizedReturningTupleClosure(block: { _ in fatalError() }))
+    verify(concreteMock.parameterizedReturningTupleClosure(block: any())).wasCalled()
+  }
+  
+  // MARK: Tuple wrapped escaping
+  
+  func testImplicitEscapingMultipleTupleClosure_anyWildcardMatching() {
+    given(concreteMock.implicitEscapingMultipleTupleClosure(block: any())) ~> true
+    XCTAssertTrue((concreteMock as ClosureParametersProtocol)
+      .implicitEscapingMultipleTupleClosure(block: ({}, { _ in fatalError() })))
+    verify(concreteMock.implicitEscapingMultipleTupleClosure(block: any())).wasCalled()
+  }
+  
+  func testImplicitEscapingMultipleLabeledTupleClosure_anyWildcardMatching() {
+    given(concreteMock.implicitEscapingMultipleLabeledTupleClosure(block: any())) ~> true
+    XCTAssertTrue((concreteMock as ClosureParametersProtocol)
+      .implicitEscapingMultipleLabeledTupleClosure(block: (a: {}, b: { _ in fatalError() })))
+    verify(concreteMock.implicitEscapingMultipleLabeledTupleClosure(block: any())).wasCalled()
+  }
+  
   
   // MARK: - notNil()
   
