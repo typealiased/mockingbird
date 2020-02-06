@@ -3159,6 +3159,44 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((() -> Bool)?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
+  // MARK: Mocked `nestedOptionalTrivialParenthesizedClosure`(block: (() -> Void)??)
+
+  public func `nestedOptionalTrivialParenthesizedClosure`(block: (() -> Void)??) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedOptionalTrivialParenthesizedClosure`(block: (() -> Void)??) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? ((() -> Void)??) -> Bool {
+      return concreteImplementation(`block`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func `nestedOptionalTrivialParenthesizedClosure`(block: @escaping @autoclosure () -> (() -> Void)??) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((() -> Void)??) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedOptionalTrivialParenthesizedClosure`(block: (() -> Void)??) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((() -> Void)??) -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `nestedParameterizedReturningParenthesizedClosure`(block: (Bool) -> Bool)
+
+  public func `nestedParameterizedReturningParenthesizedClosure`(block: (Bool) -> Bool) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedParameterizedReturningParenthesizedClosure`(block: (Bool) -> Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<(Bool) -> Bool>())])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? ((Bool) -> Bool) -> Bool {
+      return concreteImplementation(`block`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func `nestedParameterizedReturningParenthesizedClosure`(block: @escaping @autoclosure () -> (Bool) -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Bool) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedParameterizedReturningParenthesizedClosure`(block: (Bool) -> Bool) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
   // MARK: Mocked `parameterizedClosure`(block: (Bool) -> Void)
 
   public func `parameterizedClosure`(block: (Bool) -> Void) -> Bool {
@@ -3175,6 +3213,25 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `parameterizedClosure`(block: @escaping @autoclosure () -> (Bool) -> Void) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Void) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedClosure`(block: (Bool) -> Void) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `parameterizedParenthesizedClosure`(block: (Bool) -> Void)
+
+  public func `parameterizedParenthesizedClosure`(block: (Bool) -> Void) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedParenthesizedClosure`(block: (Bool) -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<(Bool) -> Void>())])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? ((Bool) -> Void) -> Bool {
+      return concreteImplementation(`block`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func `parameterizedParenthesizedClosure`(block: @escaping @autoclosure () -> (Bool) -> Void) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Void) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedParenthesizedClosure`(block: (Bool) -> Void) -> Bool", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
@@ -3197,42 +3254,23 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `parameterizedReturningTupleClosure`(block: ((Bool) -> Bool))
+  // MARK: Mocked `parameterizedReturningParenthesizedClosure`(block: (Bool) -> Bool)
 
-  public func `parameterizedReturningTupleClosure`(block: ((Bool) -> Bool)) -> Bool {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedReturningTupleClosure`(block: ((Bool) -> Bool)) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<((Bool) -> Bool)>())])
+  public func `parameterizedReturningParenthesizedClosure`(block: (Bool) -> Bool) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedReturningParenthesizedClosure`(block: (Bool) -> Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<(Bool) -> Bool>())])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? (((Bool) -> Bool)) -> Bool {
+    if let concreteImplementation = implementation as? ((Bool) -> Bool) -> Bool {
       return concreteImplementation(`block`)
     } else {
       return (implementation as! () -> Bool)()
     }
   }
 
-  public func `parameterizedReturningTupleClosure`(block: @escaping @autoclosure () -> ((Bool) -> Bool)) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (((Bool) -> Bool)) -> Bool, Bool> {
+  public func `parameterizedReturningParenthesizedClosure`(block: @escaping @autoclosure () -> (Bool) -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedReturningTupleClosure`(block: ((Bool) -> Bool)) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (((Bool) -> Bool)) -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  // MARK: Mocked `parameterizedTupleClosure`(block: ((Bool) -> Void))
-
-  public func `parameterizedTupleClosure`(block: ((Bool) -> Void)) -> Bool {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedTupleClosure`(block: ((Bool) -> Void)) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<((Bool) -> Void)>())])
-    mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? (((Bool) -> Void)) -> Bool {
-      return concreteImplementation(`block`)
-    } else {
-      return (implementation as! () -> Bool)()
-    }
-  }
-
-  public func `parameterizedTupleClosure`(block: @escaping @autoclosure () -> ((Bool) -> Void)) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (((Bool) -> Void)) -> Bool, Bool> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedTupleClosure`(block: ((Bool) -> Void)) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (((Bool) -> Void)) -> Bool, Bool>(mock: self, invocation: invocation)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedReturningParenthesizedClosure`(block: (Bool) -> Bool) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `trivialClosure`(block: () -> Void)
@@ -3251,6 +3289,25 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `trivialClosure`(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() -> Void) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialClosure`(block: () -> Void) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `trivialParenthesizedClosure`(block: () -> Void)
+
+  public func `trivialParenthesizedClosure`(block: () -> Void) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialParenthesizedClosure`(block: () -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() -> Void>())])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (() -> Void) -> Bool {
+      return concreteImplementation(`block`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func `trivialParenthesizedClosure`(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() -> Void) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialParenthesizedClosure`(block: () -> Void) -> Bool", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
@@ -3273,42 +3330,23 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `trivialReturningTupleClosure`(block: (() -> Void))
+  // MARK: Mocked `trivialReturningParenthesizedClosure`(block: () -> Void)
 
-  public func `trivialReturningTupleClosure`(block: (() -> Void)) -> Bool {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialReturningTupleClosure`(block: (() -> Void)) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<(() -> Void)>())])
+  public func `trivialReturningParenthesizedClosure`(block: () -> Void) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialReturningParenthesizedClosure`(block: () -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() -> Void>())])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? ((() -> Void)) -> Bool {
+    if let concreteImplementation = implementation as? (() -> Void) -> Bool {
       return concreteImplementation(`block`)
     } else {
       return (implementation as! () -> Bool)()
     }
   }
 
-  public func `trivialReturningTupleClosure`(block: @escaping @autoclosure () -> (() -> Void)) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((() -> Void)) -> Bool, Bool> {
+  public func `trivialReturningParenthesizedClosure`(block: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() -> Void) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialReturningTupleClosure`(block: (() -> Void)) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((() -> Void)) -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  // MARK: Mocked `trivialTupleClosure`(block: (() -> Void))
-
-  public func `trivialTupleClosure`(block: (() -> Void)) -> Bool {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialTupleClosure`(block: (() -> Void)) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<(() -> Void)>())])
-    mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? ((() -> Void)) -> Bool {
-      return concreteImplementation(`block`)
-    } else {
-      return (implementation as! () -> Bool)()
-    }
-  }
-
-  public func `trivialTupleClosure`(block: @escaping @autoclosure () -> (() -> Void)) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((() -> Void)) -> Bool, Bool> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialTupleClosure`(block: (() -> Void)) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((() -> Void)) -> Bool, Bool>(mock: self, invocation: invocation)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialReturningParenthesizedClosure`(block: () -> Void) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `wrappedClosureParameter`(block: MockingbirdTestsHost.ClosureWrapper)

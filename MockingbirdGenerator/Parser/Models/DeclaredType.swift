@@ -41,7 +41,12 @@ enum DeclaredType: CustomStringConvertible, CustomDebugStringConvertible, Serial
   
   var description: String {
     switch self {
-    case let .single(single, optionals): return "\(single)\(optionals)"
+    case let .single(single, optionals):
+      if isOptional && isFunction {
+        return "(\(single))\(optionals)"
+      } else {
+        return "\(single)\(optionals)"
+      }
     case let .tuple(tuple, optionals): return "\(tuple)\(optionals)"
     }
   }
@@ -49,7 +54,12 @@ enum DeclaredType: CustomStringConvertible, CustomDebugStringConvertible, Serial
   var debugDescription: String {
     var description: String {
       switch self {
-      case let .single(single, optionals): return "\(String(reflecting: single))\(optionals)"
+      case let .single(single, optionals):
+        if isOptional && isFunction {
+          return "(\(String(reflecting: single)))\(optionals)"
+        } else {
+          return "\(String(reflecting: single))\(optionals)"
+        }
       case let .tuple(tuple, optionals): return "\(String(reflecting: tuple))\(optionals)"
       }
     }
@@ -64,7 +74,11 @@ enum DeclaredType: CustomStringConvertible, CustomDebugStringConvertible, Serial
     }
     switch self {
     case let .single(single, optionals):
-      return single.serialize(with: request) + processOptionals(optionals)
+      if isOptional && isFunction {
+        return "(" + single.serialize(with: request) + ")" + processOptionals(optionals)
+      } else  {
+        return single.serialize(with: request) + processOptionals(optionals)
+      }
     case let .tuple(tuple, optionals):
       return tuple.serialize(with: request) + processOptionals(optionals)
     }
@@ -87,9 +101,21 @@ extension DeclaredType {
     let firstOptionalIndex = trimmed.firstIndex(of: "?", excluding: .allGroups)
       ?? trimmed.firstIndex(of: "!", excluding: .allGroups)
       ?? trimmed.endIndex
-    let optionals = String(trimmed[firstOptionalIndex...])
-    let unwrappedType = trimmed[..<firstOptionalIndex]
+    var optionals = String(trimmed[firstOptionalIndex...])
+    var unwrappedType = trimmed[..<firstOptionalIndex]
     guard let tuple = Tuple(from: unwrappedType) else {
+      while unwrappedType.hasPrefix("(")
+        && unwrappedType.hasSuffix(")")
+        && !unwrappedType.contains("->", excluding: .allGroups) {
+          unwrappedType = unwrappedType.dropFirst().dropLast()
+          
+          // Coalesce unwrapped optionals.
+          let firstOptionalIndex = unwrappedType.firstIndex(of: "?", excluding: .allGroups)
+            ?? unwrappedType.firstIndex(of: "!", excluding: .allGroups)
+            ?? unwrappedType.endIndex
+          optionals = String(unwrappedType[firstOptionalIndex...]) + optionals
+          unwrappedType = unwrappedType[..<firstOptionalIndex]
+      }
       self = .single(Single(from: unwrappedType, ignoreCache: ignoreCache), optionals: optionals)
       return
     }
@@ -281,6 +307,9 @@ struct Tuple: CustomStringConvertible, CustomDebugStringConvertible, Serializabl
       }
       labeledElements.append((label: label, type: DeclaredType(from: declaration)))
     }
+    
+    // Check if this is a parenthesized expression instead of a tuple.
+    guard labeledElements.count != 1 else { return nil }
     self.elements = labeledElements
   }
 }

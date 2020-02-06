@@ -28,13 +28,13 @@ class DeclaredTypeTests: XCTestCase {
   }
   
   func testDeclaredType_parsesNestedUnlabeledTuples() {
-    let actual = DeclaredType(from: "((Int), (Bool))")
-    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Tuple((DeclaredType(Tuple((DeclaredType(Single(Int))))), DeclaredType(Tuple((DeclaredType(Single(Bool))))))))")
+    let actual = DeclaredType(from: "((Int, Int), (Bool, Bool))")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Tuple((DeclaredType(Tuple((DeclaredType(Single(Int)), DeclaredType(Single(Int))))), DeclaredType(Tuple((DeclaredType(Single(Bool)), DeclaredType(Single(Bool))))))))")
   }
   
   func testDeclaredType_parsesNestedLabeledTuples() {
-    let actual = DeclaredType(from: "(a: (a: Int), b: (b: Bool))")
-    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Tuple((a: DeclaredType(Tuple((a: DeclaredType(Single(Int))))), b: DeclaredType(Tuple((b: DeclaredType(Single(Bool))))))))")
+    let actual = DeclaredType(from: "(a: (a: Int, b: Int), b: (a: Bool, b: Bool))")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Tuple((a: DeclaredType(Tuple((a: DeclaredType(Single(Int)), b: DeclaredType(Single(Int))))), b: DeclaredType(Tuple((a: DeclaredType(Single(Bool)), b: DeclaredType(Single(Bool))))))))")
   }
   
   func testDeclaredType_parsesNestedPartiallyLabeledTuples() {
@@ -55,6 +55,33 @@ class DeclaredTypeTests: XCTestCase {
   func testDeclaredType_parsesNestedEmptyLabledTuples() {
     let actual = DeclaredType(from: "(a: (), b: ())")
     XCTAssertEqual(String(reflecting: actual), "DeclaredType(Tuple((a: DeclaredType(Tuple(())), b: DeclaredType(Tuple(())))))")
+  }
+  
+  // MARK: - Parenthesized Expressions
+  
+  func testDeclaredType_parsesParenthesizedPrimitive() {
+    let actual = DeclaredType(from: "(Bool)")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Bool))")
+  }
+  
+  func testDeclaredType_parsesNestedParenthesizedPrimitive() {
+    let actual = DeclaredType(from: "(((Bool)))")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Bool))")
+  }
+  
+  func testDeclaredType_parsesOptionalParenthesizedPrimitive() {
+    let actual = DeclaredType(from: "(Bool)?")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Bool)?)")
+  }
+  
+  func testDeclaredType_parsesSingleNestedOptionalParenthesizedPrimitive() {
+    let actual = DeclaredType(from: "(((Bool)?))")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Bool)?)")
+  }
+  
+  func testDeclaredType_parsesMultipleNestedOptionalParenthesizedPrimitive() {
+    let actual = DeclaredType(from: "(((Bool)?))??!")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Bool)???!)")
   }
   
   // MARK: - Functions
@@ -79,7 +106,7 @@ class DeclaredTypeTests: XCTestCase {
   
   func testDeclaredType_parsesChainedTupleFunctionTypes() {
     let actual = DeclaredType(from: "(Int) -> ((Bool) -> Void)")
-    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(Int)))) -> DeclaredType(Tuple((DeclaredType(Single(Function((Parameter(DeclaredType(Single(Bool)))) -> DeclaredType(Single(Void)))))))))))")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(Int)))) -> DeclaredType(Single(Function((Parameter(DeclaredType(Single(Bool)))) -> DeclaredType(Single(Void))))))))")
     XCTAssert(actual.isFunction)
   }
   
@@ -143,6 +170,24 @@ class DeclaredTypeTests: XCTestCase {
     XCTAssert(actual.isFunction)
   }
   
+  func testDeclaredType_parsesParenthesizedFunction() {
+    let actual = DeclaredType(from: "((Bool) -> Bool)")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(Bool)))) -> DeclaredType(Single(Bool)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesNestedParenthesizedFunction() {
+    let actual = DeclaredType(from: "((((Bool) -> Bool)))")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(Bool)))) -> DeclaredType(Single(Bool)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesOptionalParenthesizedFunction() {
+    let actual = DeclaredType(from: "((Bool) -> Bool)?")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType((Single(Function((Parameter(DeclaredType(Single(Bool)))) -> DeclaredType(Single(Bool)))))?)")
+    XCTAssert(actual.isFunction)
+  }
+  
   // MARK: - Generics
   
   func testDeclaredType_parsesGenericType() {
@@ -158,7 +203,7 @@ class DeclaredTypeTests: XCTestCase {
   
   func testDeclaredType_parsesGenericFunctionReturnType() {
     let actual = DeclaredType(from: "() -> (SignalProducer<String, Bool>)")
-    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function(() -> DeclaredType(Tuple((DeclaredType(Single(SignalProducer<DeclaredType(Single(String)), DeclaredType(Single(Bool))>))))))))")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function(() -> DeclaredType(Single(SignalProducer<DeclaredType(Single(String)), DeclaredType(Single(Bool))>)))))")
     XCTAssert(actual.isFunction)
   }
   
@@ -217,8 +262,8 @@ class DeclaredTypeTests: XCTestCase {
   
   func testDeclaredType_parsesOptionalFunctionTuple() {
     let actual = DeclaredType(from: "((Int) -> Void)?")
-    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Tuple((DeclaredType(Single(Function((Parameter(DeclaredType(Single(Int)))) -> DeclaredType(Single(Void)))))))?)")
-    XCTAssertTrue(actual.isTuple)
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType((Single(Function((Parameter(DeclaredType(Single(Int)))) -> DeclaredType(Single(Void)))))?)")
+    XCTAssertTrue(actual.isFunction)
     XCTAssertTrue(actual.isOptional)
   }
   
