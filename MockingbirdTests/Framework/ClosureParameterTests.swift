@@ -117,34 +117,48 @@ class ClosureParameterTests: XCTestCase {
     verify(concreteMock.wrappedClosureParameter(block: any())).wasCalled()
   }
   
-  // MARK: Tuple wrapped non-escaping
+  // MARK: Parenthesized non-escaping
   
-  func testTrivialTupleClosure_anyWildcardMatching() {
-    given(concreteMock.trivialTupleClosure(block: any())) ~> true
+  func testTrivialParenthesizedClosure_anyWildcardMatching() {
+    given(concreteMock.trivialParenthesizedClosure(block: any())) ~> true
     XCTAssertTrue((concreteMock as ClosureParametersProtocol)
-      .trivialTupleClosure(block: {}))
-    verify(concreteMock.trivialTupleClosure(block: any())).wasCalled()
+      .trivialParenthesizedClosure(block: {}))
+    verify(concreteMock.trivialParenthesizedClosure(block: any())).wasCalled()
   }
   
-  func testTrivialReturningTupleClosure_anyWildcardMatching() {
-    given(concreteMock.trivialReturningTupleClosure(block: any())) ~> true
+  func testTrivialReturningParenthesizedClosure_anyWildcardMatching() {
+    given(concreteMock.trivialReturningParenthesizedClosure(block: any())) ~> true
     XCTAssertTrue((concreteMock as ClosureParametersProtocol)
-      .trivialReturningTupleClosure(block: { fatalError() }))
-    verify(concreteMock.trivialReturningTupleClosure(block: any())).wasCalled()
+      .trivialReturningParenthesizedClosure(block: { fatalError() }))
+    verify(concreteMock.trivialReturningParenthesizedClosure(block: any())).wasCalled()
   }
   
-  func testParameterizedTupleClosure_anyWildcardMatching() {
-    given(concreteMock.parameterizedTupleClosure(block: any())) ~> true
+  func testParameterizedParenthesizedClosure_anyWildcardMatching() {
+    given(concreteMock.parameterizedParenthesizedClosure(block: any())) ~> true
     XCTAssertTrue((concreteMock as ClosureParametersProtocol)
-      .parameterizedTupleClosure(block: { _ in }))
-    verify(concreteMock.parameterizedTupleClosure(block: any())).wasCalled()
+      .parameterizedParenthesizedClosure(block: { _ in }))
+    verify(concreteMock.parameterizedParenthesizedClosure(block: any())).wasCalled()
   }
   
-  func testParameterizedReturningTupleClosure_anyWildcardMatching() {
-    given(concreteMock.parameterizedReturningTupleClosure(block: any())) ~> true
+  func testParameterizedReturningParenthesizedClosure_anyWildcardMatching() {
+    given(concreteMock.parameterizedReturningParenthesizedClosure(block: any())) ~> true
     XCTAssertTrue((concreteMock as ClosureParametersProtocol)
-      .parameterizedReturningTupleClosure(block: { _ in fatalError() }))
-    verify(concreteMock.parameterizedReturningTupleClosure(block: any())).wasCalled()
+      .parameterizedReturningParenthesizedClosure(block: { _ in fatalError() }))
+    verify(concreteMock.parameterizedReturningParenthesizedClosure(block: any())).wasCalled()
+  }
+  
+  func testNestedParameterizedReturningParenthesizedClosure_anyWildcardMatching() {
+    given(concreteMock.nestedParameterizedReturningParenthesizedClosure(block: any())) ~> true
+    XCTAssertTrue((concreteMock as ClosureParametersProtocol)
+      .nestedParameterizedReturningParenthesizedClosure(block: { _ in fatalError() }))
+    verify(concreteMock.nestedParameterizedReturningParenthesizedClosure(block: any())).wasCalled()
+  }
+  
+  func testNestedOptionalTrivialParenthesizedClosure_anyWildcardMatching() {
+    given(concreteMock.nestedOptionalTrivialParenthesizedClosure(block: any())) ~> true
+    XCTAssertTrue((concreteMock as ClosureParametersProtocol)
+      .nestedOptionalTrivialParenthesizedClosure(block: {}))
+    verify(concreteMock.nestedOptionalTrivialParenthesizedClosure(block: any())).wasCalled()
   }
   
   // MARK: Tuple wrapped escaping
@@ -230,3 +244,4 @@ class ClosureParameterTests: XCTestCase {
     verify(concreteMock.implicitEscapingParameterizedReturningClosure(block: notNil())).wasNeverCalled()
   }
 }
+
