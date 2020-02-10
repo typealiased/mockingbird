@@ -19,6 +19,12 @@ class StringExtensionsTests: XCTestCase {
   func testStringExtensions_capitalizedFirst_handlesFirstUppercaseCharacter() {
     XCTAssertEqual("Hello world!".capitalizedFirst, "Hello world!")
   }
+
+  // MARK: Backtick Wrapped
+
+  func testStringExtensions_backtickWrapped_wrapsStringWithBackticks() {
+    XCTAssertEqual("test string".backtickWrapped, "`test string`")
+  }
   
   // MARK: - Substring components
   

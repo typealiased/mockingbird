@@ -25,6 +25,11 @@ public extension String {
   var capitalizedFirst: String {
     return prefix(1).uppercased() + dropFirst()
   }
+
+  /// Wraps the string with backticks, e.g. for escaping keywords
+  var backtickWrapped: String {
+    return "`\(self)`"
+  }
   
   /// Splits a string into substrings given a character delimiter.
   ///
