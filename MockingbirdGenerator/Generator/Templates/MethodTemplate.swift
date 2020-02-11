@@ -220,11 +220,11 @@ class MethodTemplate: Template {
         typeName = parameter.mockableTypeName(in: self, forClosure: false)
       }
       let argumentLabel = parameter.argumentLabel?.backtickWrapped ?? "_"
-      let paramName = parameter.name.backtickWrapped
-      if argumentLabel != paramName {
-        return "\(argumentLabel) \(paramName): \(typeName)"
+      let parameterName = parameter.name.backtickWrapped
+      if argumentLabel != parameterName {
+        return "\(argumentLabel) \(parameterName): \(typeName)"
       } else {
-        return "\(paramName): \(typeName)"
+        return "\(parameterName): \(typeName)"
       }
     }) + (!forInitializerProxy ? [] : ["__file: StaticString = #file", "__line: UInt = #line"])
     
