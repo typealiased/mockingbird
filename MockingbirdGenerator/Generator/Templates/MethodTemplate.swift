@@ -219,11 +219,12 @@ class MethodTemplate: Template {
       } else {
         typeName = parameter.mockableTypeName(in: self, forClosure: false)
       }
-      let argumentLabel = parameter.argumentLabel ?? "_"
-      if argumentLabel != parameter.name {
-        return "\(argumentLabel) \(parameter.name): \(typeName)"
+      let argumentLabel = parameter.argumentLabel?.backtickWrapped ?? "_"
+      let parameterName = parameter.name.backtickWrapped
+      if argumentLabel != parameterName {
+        return "\(argumentLabel) \(parameterName): \(typeName)"
       } else {
-        return "\(parameter.name): \(typeName)"
+        return "\(parameterName): \(typeName)"
       }
     }) + (!forInitializerProxy ? [] : ["__file: StaticString = #file", "__line: UInt = #line"])
     
@@ -240,8 +241,8 @@ class MethodTemplate: Template {
   
   lazy var superCallParameters: String = {
     return method.parameters.map({ parameter -> String in
-      guard let label = parameter.argumentLabel else { return "`\(parameter.name)`" }
-      return "\(label): `\(parameter.name)`"
+      guard let label = parameter.argumentLabel else { return parameter.name.backtickWrapped }
+      return "\(label): \(parameter.name.backtickWrapped)"
     }).joined(separator: ", ")
   }()
   
@@ -284,7 +285,7 @@ class MethodTemplate: Template {
   
   lazy var resolvedArgumentMatchers: String = {
     let resolved = method.parameters.map({
-      return "Mockingbird.resolve(`\($0.name)`)"
+      return "Mockingbird.resolve(\($0.name.backtickWrapped))"
     }).joined(separator: ", ")
     return "    let arguments: [Mockingbird.ArgumentMatcher] = [\(resolved)]"
   }()
@@ -292,9 +293,9 @@ class MethodTemplate: Template {
   /// Variadic parameters cannot be resolved indirectly using `resolve()`.
   lazy var resolvedArgumentMatchersVariadics: String = {
     let resolved = method.parameters.map({
-      guard $0.attributes.contains(.variadic) else { return "Mockingbird.resolve(`\($0.name)`)" }
+      guard $0.attributes.contains(.variadic) else { return "Mockingbird.resolve(\($0.name.backtickWrapped))" }
       // Directly create an ArgumentMatcher if this parameter is variadic.
-      return "Mockingbird.ArgumentMatcher(`\($0.name)`)"
+      return "Mockingbird.ArgumentMatcher(\($0.name.backtickWrapped))"
     }).joined(separator: ", ")
     return "    let arguments: [Mockingbird.ArgumentMatcher] = [\(resolved)]"
   }()
@@ -325,7 +326,7 @@ class MethodTemplate: Template {
       guard !parameter.attributes.contains(.closure) || parameter.attributes.contains(.escaping) else {
         return "Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<\(parameter.matchableTypeName(in: self))>())"
       }
-      return "Mockingbird.ArgumentMatcher(`\(parameter.name)`)"
+      return "Mockingbird.ArgumentMatcher(\(parameter.name.backtickWrapped))"
     }).joined(separator: ", ")
   }()
   
@@ -378,7 +379,7 @@ private extension MethodParameter {
   var invocationName: String {
     let inoutAttribute = attributes.contains(.inout) ? "&" : ""
     let autoclosureForwarding = attributes.contains(.autoclosure) ? "()" : ""
-    return "\(inoutAttribute)`\(name)`\(autoclosureForwarding)"
+    return "\(inoutAttribute)\(name.backtickWrapped)\(autoclosureForwarding)"
   }
   
   func matchableTypeName(in context: MethodTemplate) -> String {
