@@ -93,4 +93,9 @@ class PathFnmatchTests: XCTestCase {
     XCTAssertTrue(filePath.matches(pattern: "/foo/**", isDirectory: false))
     XCTAssertTrue(directoryPath.matches(pattern: "/foo/**", isDirectory: true))
   }
+  
+  func testFnmatch_matchesDotFile_withWildcardFileName() {
+    let filePath = Path(".foo")
+    XCTAssertTrue(filePath.matches(pattern: "*foo", isDirectory: false))
+  }
 }
