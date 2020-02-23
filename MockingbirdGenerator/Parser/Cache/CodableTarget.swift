@@ -126,16 +126,30 @@ public class CodableTarget: Target, Codable {
 extension PBXTarget: AbstractTarget {}
 
 extension PBXTarget: Target {
+  /// Get the build configuration for testing, which is almost always `debug`.
+  // TODO: Allow overriding for special cases via CLI argument.
+  var testingBuildConfiguration: XCBuildConfiguration? {
+    guard let inferredBuildConfiguration = buildConfigurationList?.buildConfigurations
+      .first(where: { $0.name.lowercased() == "debug" }) else {
+        logWarning("No debug build configuration found for target `\(name)`")
+        return buildConfigurationList?.buildConfigurations.first
+    }
+    return inferredBuildConfiguration
+  }
+  
   public var productModuleName: String {
     guard
-      let inferredDebugConfig = buildConfigurationList?.buildConfigurations
-        .first(where: { $0.name.lowercased() == "debug" }) ?? buildConfigurationList?.buildConfigurations.first,
-      let moduleName = inferredDebugConfig.buildSettings["PRODUCT_MODULE_NAME"] as? String,
-      !moduleName.hasPrefix("$(") // TODO: Parse environment vars in build configurations.
+      let buildConfiguration = testingBuildConfiguration,
+      let buildSetting =
+        buildConfiguration.buildSettings["PRODUCT_MODULE_NAME"] as? String ??
+        buildConfiguration.buildSettings["PRODUCT_NAME"] as? String,
+      let moduleName = buildConfiguration.resolve(buildSetting)
     else {
-      return (productName ?? name).replacingInvalidCharacters()
+      let fallbackModuleName = (productName ?? name).replacingInvalidCharacters()
+      logWarning("Unable to resolve module name for target `\(name)`, falling back to `\(fallbackModuleName)`")
+      return fallbackModuleName
     }
-    return moduleName
+    return moduleName.replacingInvalidCharacters()
   }
 
   public func findSourceFilePaths(sourceRoot: Path) -> [Path] {
@@ -143,6 +157,23 @@ extension PBXTarget: Target {
     return phase.files?
       .compactMap({ try? $0.file?.fullPath(sourceRoot: sourceRoot) })
       .filter({ $0.extension == "swift" }) ?? []
+  }
+}
+
+extension XCBuildConfiguration {
+  /// Recursively resolves build settings, e.g. `$(TARGET_NAME:c99exidentifier)`
+  func resolve(_ buildSetting: String?) -> String? {
+    guard let buildSetting = buildSetting else { return nil }
+    
+    let trimmedBuildSetting = buildSetting.trimmingCharacters(in: .whitespacesAndNewlines)
+    guard trimmedBuildSetting.hasPrefix("$("), trimmedBuildSetting.hasSuffix(")") else { return buildSetting }
+    
+    guard let endIndex = trimmedBuildSetting.firstIndex(of: ":") else {
+      return resolve(buildSettings[trimmedBuildSetting.drop(first: 2, last: 1)] as? String)
+    }
+    let startIndex = trimmedBuildSetting.index(trimmedBuildSetting.startIndex, offsetBy: 2)
+    let buildSettingName = String(trimmedBuildSetting[startIndex..<endIndex])
+    return resolve(buildSettings[buildSettingName] as? String)
   }
 }
 
