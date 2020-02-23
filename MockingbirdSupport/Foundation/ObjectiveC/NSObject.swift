@@ -2,7 +2,9 @@ import ObjectiveC
 
 public protocol NSObjectProtocol {}
 
-open class NSObject : NSObjectProtocol {}
+open class NSObject : NSObjectProtocol {
+  public init() {}
+}
 
 public protocol NSCopying {
   func copy(with zone: NSZone?) -> Any
