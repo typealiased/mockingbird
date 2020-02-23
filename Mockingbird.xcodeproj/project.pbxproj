@@ -74,6 +74,7 @@
 		9491824C23F0CE3A00429146 /* KeywordArgumentNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491824B23F0CE3A00429146 /* KeywordArgumentNames.swift */; };
 		9491824E23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491824D23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift */; };
 		9491825023F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491824F23F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift */; };
+		D3F076DA240214AD002461E7 /* Attributes+Sanitize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F076D9240214AD002461E7 /* Attributes+Sanitize.swift */; };
 		OBJ_1002 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_380 /* SWXMLHash.swift */; };
 		OBJ_1003 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_381 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
 		OBJ_1004 /* shim.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_382 /* shim.swift */; };
@@ -990,6 +991,7 @@
 		9491824D23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordArgumentNamesMockableTests.swift; sourceTree = "<group>"; };
 		9491824F23F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordArgumentNamesStubbableTests.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3F076D9240214AD002461E7 /* Attributes+Sanitize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attributes+Sanitize.swift"; sourceTree = "<group>"; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1661,6 +1663,14 @@
 				49BA452E234189F4002BD9B5 /* CodableTarget.swift */,
 			);
 			path = Cache;
+			sourceTree = "<group>";
+		};
+		D3F076DB24021536002461E7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D3F076D9240214AD002461E7 /* Attributes+Sanitize.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		OBJ_10 /* Interface */ = {
@@ -2682,6 +2692,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_51 /* FileGenerator.swift */,
+				D3F076DB24021536002461E7 /* Extensions */,
 				OBJ_52 /* Operations */,
 				OBJ_55 /* Templates */,
 			);
@@ -3920,6 +3931,7 @@
 				OBJ_733 /* MockableTypeInitializerTemplate.swift in Sources */,
 				OBJ_734 /* MockableTypeTemplate.swift in Sources */,
 				OBJ_735 /* Template.swift in Sources */,
+				D3F076DA240214AD002461E7 /* Attributes+Sanitize.swift in Sources */,
 				OBJ_736 /* VariableTemplate.swift in Sources */,
 				OBJ_737 /* DeclaredType.swift in Sources */,
 				OBJ_738 /* GenericType.swift in Sources */,

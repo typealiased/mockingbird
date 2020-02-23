@@ -145,7 +145,7 @@ class MethodTemplate: Template {
   }
 
   lazy var declarationAttributes: String = {
-    return method.attributes.declarations.joined(separator: " ")
+    return method.attributes.safeDeclarations.joined(separator: " ")
   }()
   
   /// Modifiers specifically for stubbing and verification methods.

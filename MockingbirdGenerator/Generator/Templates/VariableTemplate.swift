@@ -99,7 +99,7 @@ class VariableTemplate: Template {
   }
   
   lazy var declarationAttributes: String = {
-    return variable.attributes.declarations.joined(separator: " ")
+    return variable.attributes.safeDeclarations.joined(separator: " ")
   }()
   
   lazy var modifiers: String = {
