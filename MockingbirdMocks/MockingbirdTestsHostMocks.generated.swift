@@ -9932,6 +9932,206 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
 
 #endif
 
+// MARK: - Mocked ObjectiveCClass
+
+public final class ObjectiveCClassMock: MockingbirdTestsHost.ObjectiveCClass, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.9.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ObjectiveCClassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public enum InitializerProxy {
+    public static func initialize(__file: StaticString = #file, __line: UInt = #line) -> ObjectiveCClassMock {
+      let mock: ObjectiveCClassMock = ObjectiveCClassMock()
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+  }
+
+  // MARK: Mocked nominalObjcVariable
+
+  override public var `nominalObjcVariable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nominalObjcVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nominalObjcVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getNominalObjcVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nominalObjcVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setNominalObjcVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nominalObjcVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked objcComputedVariable
+
+  override public var `objcComputedVariable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "objcComputedVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+  }
+
+  public func getObjcComputedVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "objcComputedVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked objcVariable
+
+  override public var `objcVariable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "objcVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "objcVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getObjcVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "objcVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setObjcVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "objcVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked variable
+
+  override public var `variable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked init()
+
+  public required override init() {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init() ", arguments: [])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked `method`()
+
+  public override func `method`() -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> Bool", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> Bool", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `nominalObjcMethod`()
+
+  public override func `nominalObjcMethod`() -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nominalObjcMethod`() -> Bool", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func `nominalObjcMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nominalObjcMethod`() -> Bool", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `objcMethod`()
+
+  public override func `objcMethod`() -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`objcMethod`() -> Bool", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func `objcMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`objcMethod`() -> Bool", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.ObjectiveCClass` class mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ObjectiveCClass.Type) -> ObjectiveCClassMock.InitializerProxy.Type {
+  return ObjectiveCClassMock.InitializerProxy.self
+}
+
 // MARK: - Mocked ObjectiveCProtocolImplementer
 
 public final class ObjectiveCProtocolImplementerMock: MockingbirdTestsHost.ObjectiveCProtocolImplementer, Mockingbird.Mock {
@@ -9945,6 +10145,68 @@ public final class ObjectiveCProtocolImplementerMock: MockingbirdTestsHost.Objec
       stubbingContext.sourceLocation = newValue
       ObjectiveCProtocolImplementerMock.staticMock.stubbingContext.sourceLocation = newValue
     }
+  }
+
+  // MARK: Mocked nominalObjcVariable
+
+  override public var `nominalObjcVariable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nominalObjcVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nominalObjcVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getNominalObjcVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nominalObjcVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setNominalObjcVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nominalObjcVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked objcVariable
+
+  override public var `objcVariable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "objcVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "objcVariable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getObjcVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "objcVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setObjcVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "objcVariable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked variable
@@ -10001,6 +10263,42 @@ public final class ObjectiveCProtocolImplementerMock: MockingbirdTestsHost.Objec
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> Bool", arguments: [])
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
+
+  // MARK: Mocked `nominalObjcMethod`()
+
+  public override func `nominalObjcMethod`() -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nominalObjcMethod`() -> Bool", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func `nominalObjcMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nominalObjcMethod`() -> Bool", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `objcMethod`()
+
+  public override func `objcMethod`() -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`objcMethod`() -> Bool", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func `objcMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`objcMethod`() -> Bool", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
 }
 
 /// Create a source-attributed `MockingbirdTestsHost.ObjectiveCProtocolImplementer` concrete class mock instance.
@@ -10021,6 +10319,21 @@ public final class ObjectiveCProtocolMock: MockingbirdTestsHost.ObjectiveCProtoc
       stubbingContext.sourceLocation = newValue
       ObjectiveCProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
+  }
+
+  // MARK: Mocked nominalObjcVariable
+
+  public var `nominalObjcVariable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nominalObjcVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+  }
+
+  public func getNominalObjcVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nominalObjcVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked objcVariable
@@ -10073,6 +10386,24 @@ public final class ObjectiveCProtocolMock: MockingbirdTestsHost.ObjectiveCProtoc
 
   public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> Bool", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `nominalObjcMethod`()
+
+  public func `nominalObjcMethod`() -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nominalObjcMethod`() -> Bool", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func `nominalObjcMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nominalObjcMethod`() -> Bool", arguments: [])
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
