@@ -58,11 +58,13 @@ public class ProcessTypesOperation: BasicOperation {
         .compactMap({ $0.result.mockableType })
         .filter({ !$0.isContainedType })
         .filter({ mockableType -> Bool in
-          guard mockableType.kind == .class, mockableType.subclassesExternalType
-            else { return true }
-          // Ignore any types that simply cannot be initialized because they subclass an externally-
-          // defined type without available initializers and don't locally declare any initializers.
-          return mockableType.methods.contains(where: { $0.isInitializer })
+          guard mockableType.kind == .class, mockableType.subclassesExternalType else { return true }
+          // Ignore any types that simply cannot be initialized.
+          guard mockableType.methods.contains(where: { $0.isInitializer }) else {
+            logWarning("Ignoring `\(mockableType.name)` because it subclasses an externally-defined type without available initializers and does not locally declare any initializers")
+            return false
+          }
+          return true
         })
       result.imports = parseFilesResult.imports
       log("Created \(result.mockableTypes.count) mockable type\(result.mockableTypes.count != 1 ? "s" : "")")

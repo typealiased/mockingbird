@@ -26,23 +26,35 @@ class DeclarationAttributesClass {
   func multipleAttributesMethod(param: String) -> Bool { return true }
 }
 
-@objc protocol ObjectiveCProtocol {
-  @objc optional var objcVariable: Bool { get }
+@objc(MKBObjectiveCProtocol) protocol ObjectiveCProtocol {
+  @objc var objcVariable: Bool { get }
+  @objc(isNominalObjcVariable) var nominalObjcVariable: Bool { get }
   var variable: Bool { get }
   
-  @objc optional func objcMethod() -> Bool
+  @objc func objcMethod() -> Bool
+  @objc(isNominalObjcMethod) func nominalObjcMethod() -> Bool
   func method() -> Bool
 }
 
 class ObjectiveCProtocolImplementer: ObjectiveCProtocol {
+  var objcVariable: Bool = true
+  var nominalObjcVariable: Bool = true
   var variable: Bool = true
+  
+  func objcMethod() -> Bool { return true }
+  func nominalObjcMethod() -> Bool { return true }
   func method() -> Bool { return true }
 }
 
-@objc class ObjectiveCClass: Foundation.NSObject {
+@objc(MKBObjectiveCClass) class ObjectiveCClass: Foundation.NSObject {
   @objc var objcVariable = true
+  @objc(isNominalObjcVariable) var nominalObjcVariable = true
+  @objc var objcComputedVariable: Bool {
+    @objc(getIsObjcComputedVariable) get { return true }
+  }
   var variable: Bool = true
   
   @objc func objcMethod() -> Bool { return true }
+  @objc(isNominalObjcMethod) func nominalObjcMethod() -> Bool { return true }
   func method() -> Bool { return true }
 }
