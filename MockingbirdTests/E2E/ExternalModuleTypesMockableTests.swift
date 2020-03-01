@@ -59,6 +59,11 @@ ConformingUninitializableOpenClassConstrainedProtocol {
 extension ConformingUninitializableOpenClassConstrainedProtocolMock:
 MockableConformingUninitializableOpenClassConstrainedProtocol {}
 
+private protocol MockableImplicitlyImportedExternalObjectiveCType:
+ExternalObjectiveCProtocol {}
+extension ImplicitlyImportedExternalObjectiveCTypeMock:
+MockableImplicitlyImportedExternalObjectiveCType {}
+
 // MARK: - Non-mockable declarations
 
 class SubclassingExternalClass: ExternalClass {}

@@ -25,6 +25,7 @@ class Generator {
     let onlyMockProtocols: Bool
     let disableSwiftlint: Bool
     let disableCache: Bool
+    let disableRelaxedLinking: Bool
   }
   
   enum Failure: Error, CustomStringConvertible {
@@ -94,7 +95,8 @@ class Generator {
       parseFiles.addDependency(extractSources)
       
       let processTypes = ProcessTypesOperation(parseFilesResult: parseFiles.result,
-                                               checkCacheResult: checkCache?.result)
+                                               checkCacheResult: checkCache?.result,
+                                               useRelaxedLinking: !config.disableRelaxedLinking)
       processTypes.addDependency(parseFiles)
       
       let moduleName = inputTarget.productModuleName

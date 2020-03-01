@@ -49,6 +49,12 @@ private protocol StubbableConformingUninitializableOpenClassConstrainedProtocol 
 extension ConformingUninitializableOpenClassConstrainedProtocolMock:
 StubbableConformingUninitializableOpenClassConstrainedProtocol {}
 
+private protocol StubbableImplicitlyImportedExternalObjectiveCType {
+  func getVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
+}
+extension ImplicitlyImportedExternalObjectiveCTypeMock:
+StubbableImplicitlyImportedExternalObjectiveCType {}
+
 
 // MARK: - Non-stubbable declarations
 

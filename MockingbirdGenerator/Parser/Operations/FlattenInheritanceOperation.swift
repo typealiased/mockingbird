@@ -18,6 +18,7 @@ class FlattenInheritanceOperation: BasicOperation {
   let moduleDependencies: [String: Set<String>]
   let rawTypeRepository: RawTypeRepository
   let typealiasRepository: TypealiasRepository
+  let useRelaxedLinking: Bool
   
   class Result {
     fileprivate(set) var mockableType: MockableType?
@@ -28,12 +29,14 @@ class FlattenInheritanceOperation: BasicOperation {
   init(rawType: [RawType],
        moduleDependencies: [String: Set<String>],
        rawTypeRepository: RawTypeRepository,
-       typealiasRepository: TypealiasRepository) {
+       typealiasRepository: TypealiasRepository,
+       useRelaxedLinking: Bool) {
     precondition(!rawType.isEmpty)
     self.rawType = rawType
     self.moduleDependencies = moduleDependencies
     self.rawTypeRepository = rawTypeRepository
     self.typealiasRepository = typealiasRepository
+    self.useRelaxedLinking = useRelaxedLinking
   }
   
   override func run() throws {
@@ -45,11 +48,25 @@ class FlattenInheritanceOperation: BasicOperation {
   private static var memoizedMockbleTypes = Synchronized<[String: MockableType]>([:])
 
   private func flattenInheritance(for rawType: [RawType]) -> MockableType? {
-    // Module names are put into an array and sorted so that looking up types is deterministic.
-    let moduleNames = Array(Set(rawType.flatMap({
+    // All module names that were explicitly referenced from an import declaration.
+    let importedModuleNames = Set(rawType.flatMap({
       $0.parsedFile.importedModuleNames.flatMap({ moduleDependencies[$0] ?? [$0] })
         + [$0.parsedFile.moduleName]
-    }))).sorted()
+    }))
+    // Module names are put into an array and sorted so that looking up types is deterministic.
+    let moduleNames: [String]
+    if useRelaxedLinking {
+      // Relaxed linking aims to fix mixed source (ObjC + Swift) targets that implicitly import modules using the
+      // bridging header. The type system checks explicitly imported modules first, then falls back to any modules
+      // listed as a direct dependency for each raw type partial.
+      let implicitModuleNames = Set(rawType.flatMap({
+        Array(moduleDependencies[$0.parsedFile.moduleName] ?? [])
+      }))
+      moduleNames = Array(importedModuleNames).sorted()
+        + Array(implicitModuleNames.subtracting(importedModuleNames)).sorted()
+    } else {
+      moduleNames = Array(importedModuleNames).sorted()
+    }
 
     // Create a copy of `memoizedMockableTypes` to reduce lock contention.
     let memoizedMockableTypes = FlattenInheritanceOperation.memoizedMockbleTypes.value

@@ -13,6 +13,7 @@ import os.log
 public class ProcessTypesOperation: BasicOperation {
   let parseFilesResult: ParseFilesOperation.Result
   let checkCacheResult: CheckCacheOperation.Result?
+  let useRelaxedLinking: Bool
   
   public class Result {
     fileprivate(set) var mockableTypes = [MockableType]()
@@ -24,9 +25,11 @@ public class ProcessTypesOperation: BasicOperation {
   let typealiasRepository = TypealiasRepository()
   
   public init(parseFilesResult: ParseFilesOperation.Result,
-              checkCacheResult: CheckCacheOperation.Result?) {
+              checkCacheResult: CheckCacheOperation.Result?,
+              useRelaxedLinking: Bool) {
     self.parseFilesResult = parseFilesResult
     self.checkCacheResult = checkCacheResult
+    self.useRelaxedLinking = useRelaxedLinking
   }
   
   override func run() {
@@ -52,7 +55,8 @@ public class ProcessTypesOperation: BasicOperation {
         .map({ FlattenInheritanceOperation(rawType: $0,
                                            moduleDependencies: parseFilesResult.moduleDependencies,
                                            rawTypeRepository: rawTypeRepository,
-                                           typealiasRepository: typealiasRepository) })
+                                           typealiasRepository: typealiasRepository,
+                                           useRelaxedLinking: useRelaxedLinking) })
       queue.addOperations(flattenInheritanceOperations, waitUntilFinished: true)
       result.mockableTypes = flattenInheritanceOperations
         .compactMap({ $0.result.mockableType })

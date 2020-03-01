@@ -8086,6 +8086,47 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return ImplementingExternalModuleScopingMock.InitializerProxy.self
 }
 
+// MARK: - Mocked ImplicitlyImportedExternalObjectiveCType
+
+public final class ImplicitlyImportedExternalObjectiveCTypeMock: MockingbirdTestsHost.ImplicitlyImportedExternalObjectiveCType, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ImplicitlyImportedExternalObjectiveCTypeMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mocked variable
+
+  public var `variable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+  }
+
+  public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.ImplicitlyImportedExternalObjectiveCType` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ImplicitlyImportedExternalObjectiveCType.Protocol) -> ImplicitlyImportedExternalObjectiveCTypeMock {
+  return ImplicitlyImportedExternalObjectiveCTypeMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked InheritedTypeQualificationProtocolGenericImplementer
 
 public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>, Mockingbird.Mock {
