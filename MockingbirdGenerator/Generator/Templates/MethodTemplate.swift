@@ -56,7 +56,9 @@ class MethodTemplate: Template {
   }
   
   var classInitializerProxy: String {
-    guard method.isInitializer else { return "" }
+    guard method.isInitializer,
+      isClassBound || !context.containsOverridableDesignatedInitializer
+      else { return "" }
     // We can't usually infer what concrete arguments to pass to the designated initializer.
     guard !method.attributes.contains(.convenience) else { return "" }
     let attributes = declarationAttributes.isEmpty ? "" : "    \(declarationAttributes)\n"
@@ -76,27 +78,46 @@ class MethodTemplate: Template {
     if method.isInitializer {
       // We can't usually infer what concrete arguments to pass to the designated initializer.
       guard !method.attributes.contains(.convenience) else { return "" }
-      
       let functionDeclaration = "public \(overridableModifiers)\(uniqueDeclaration)"
-      let checkVersion: String
-      if context.mockableType.kind == .class || context.protocolClassConformance != nil {
+      
+      if isClassBound {
+        // Class-defined initializer, called from an `InitializerProxy`.
         let trySuper = method.attributes.contains(.throws) ? "try " : ""
-        checkVersion = """
+        return """
+          // MARK: Mocked \(fullNameForMocking)
+        \(attributes)
+          \(functionDeclaration){
             \(trySuper)super.init(\(superCallParameters))
             Mockingbird.checkVersion(for: self)
+            let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)])
+            \(contextPrefix)mockingContext.didInvoke(invocation)
+          }
+        """
+      } else if !context.containsOverridableDesignatedInitializer {
+        // Pure protocol or class-only protocol with no class-defined initializers.
+        let superCall = context.protocolClassConformance != nil ? "\n    super.init()" : ""
+        return """
+          // MARK: Mocked \(fullNameForMocking)
+        \(attributes)
+          \(functionDeclaration){\(superCall)
+            Mockingbird.checkVersion(for: self)
+            let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)])
+            \(contextPrefix)mockingContext.didInvoke(invocation)
+          }
         """
       } else {
-        checkVersion = "    Mockingbird.checkVersion(for: self)"
+        // Unavailable class-only protocol-defined initializer, should not be used directly.
+        let initializerSuffix = context.protocolClassConformance != nil ? ".initialize(...)" : ""
+        let errorMessage = "Please use 'mock(\(context.mockableType.name).self)\(initializerSuffix)' to initialize a concrete mock instance"
+        return """
+          // MARK: Mocked \(fullNameForMocking)
+        \(attributes)
+          @available(*, deprecated, message: "\(errorMessage)")
+          \(functionDeclaration){
+            fatalError("\(errorMessage)")
+          }
+        """
       }
-      return """
-        // MARK: Mocked \(fullNameForMocking)
-      \(attributes)
-        \(functionDeclaration){
-      \(checkVersion)
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)])
-          \(contextPrefix)mockingContext.didInvoke(invocation)
-        }
-      """
     } else {
       return """
         // MARK: Mocked \(fullNameForMocking)
@@ -109,6 +130,13 @@ class MethodTemplate: Template {
       """
     }
   }
+  
+  /// Declared in a class, or a class that the protocol conforms to.
+  lazy var isClassBound: Bool = {
+    let isClassDefinedProtocolConformance = context.protocolClassConformance != nil
+      && method.isOverridable
+    return context.mockableType.kind == .class || isClassDefinedProtocolConformance
+  }()
   
   lazy var uniqueDeclaration: String = {
     if method.isInitializer {

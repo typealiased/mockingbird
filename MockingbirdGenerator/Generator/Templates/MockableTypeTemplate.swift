@@ -277,6 +277,10 @@ class MockableTypeTemplate: Template {
     """
   }
   
+  lazy var containsOverridableDesignatedInitializer: Bool = {
+    return mockableType.methods.contains(where: { $0.isOverridable && $0.isDesignatedInitializer })
+  }()
+  
   func renderVariables() -> String {
     return mockableType.variables
       .sorted(by: <)
