@@ -17,10 +17,16 @@ struct Invocation: Equatable, CustomStringConvertible {
     self.selectorName = selectorName
     self.arguments = arguments
   }
+  
+  /// Selector name without tickmark escaping.
+  var unwrappedSelectorName: String {
+    return selectorName.replacingOccurrences(of: "`", with: "")
+  }
 
   var description: String {
+    guard !arguments.isEmpty else { return "'\(unwrappedSelectorName)'" }
     let matchers = arguments.map({ String(describing: $0) }).joined(separator: ", ")
-    return "`\(selectorName)` matching (\(matchers))"
+    return "'\(unwrappedSelectorName)' with arguments [\(matchers)]"
   }
 
   static func == (lhs: Invocation, rhs: Invocation) -> Bool {
