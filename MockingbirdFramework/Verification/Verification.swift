@@ -139,14 +139,14 @@ func expect(_ mockingContext: MockingContext,
     return
   }
   
-  let allInvocations =
-    mockingContext.invocations(for: invocation.selectorName).filter({ $0 == invocation })
-  let actualCallCount = UInt(allInvocations.count)
+  let allInvocations = mockingContext.invocations(for: invocation.selectorName)
+  let allInvocationsMatchingArguments = allInvocations.filter({ $0 == invocation })
+  let actualCallCount = UInt(allInvocationsMatchingArguments.count)
   guard !expectation.countMatcher.matches(actualCallCount) else { return }
-  let description = expectation.countMatcher.describe(invocation: invocation,
-                                                      count: actualCallCount)
-  let failure = TestFailure.incorrectInvocationCount(invocation: invocation,
-                                                     description: description)
+  let failure = TestFailure.incorrectInvocationCount(invocationCount: actualCallCount,
+                                                     invocation: invocation,
+                                                     countMatcher: expectation.countMatcher,
+                                                     allInvocations: allInvocations)
   XCTFail(String(describing: failure),
           file: expectation.sourceLocation.file,
           line: expectation.sourceLocation.line)

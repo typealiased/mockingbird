@@ -246,17 +246,17 @@ public let twice: UInt = 2
 
 /// Matches an exact count.
 public func exactly(_ times: UInt) -> CountMatcher {
-  return CountMatcher({ $0 == times }, describedBy: { "`\($1)` \($2 ? "≠" : "=") \(times)" })
+  return CountMatcher({ $0 == times }, describedBy: { "n \($2 ? "≠" : "=") \(times)" })
 }
 
 /// Matches greater than or equal to some count.
 public func atLeast(_ times: UInt) -> CountMatcher {
-  return CountMatcher({ $0 >= times }, describedBy: { "`\($1)` \($2 ? "<" : "≥") \(times)" })
+  return CountMatcher({ $0 >= times }, describedBy: { "n \($2 ? "<" : "≥") \(times)" })
 }
 
 /// Matches less than or equal to some count.
 public func atMost(_ times: UInt) -> CountMatcher {
-  return CountMatcher({ $0 <= times }, describedBy: { "`\($1)` \($2 ? ">" : "≤") \(times)" })
+  return CountMatcher({ $0 <= times }, describedBy: { "n \($2 ? ">" : "≤") \(times)" })
 }
 
 /// Matches counts that fall within a certain inclusive range.
