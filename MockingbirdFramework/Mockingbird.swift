@@ -231,18 +231,23 @@ public func notEmpty<T: Collection>(_ type: T.Type = T.self) -> T {
   return any(count: atLeast(1))
 }
 
+// MARK: - Nominal count matchers
+
+/// A count of zero.
+public let never: UInt = 0
+
+/// A count of one.
+public let once: UInt = 1
+
+/// A count of two.
+public let twice: UInt = 2
+
 // MARK: - Standard count matchers
 
 /// Matches an exact count.
 public func exactly(_ times: UInt) -> CountMatcher {
   return CountMatcher({ $0 == times }, describedBy: { "n \($2 ? "≠" : "=") \(times)" })
 }
-
-/// Matches a single count.
-public var once: CountMatcher { return exactly(1) }
-
-/// Matches a count of zero.
-public var never: CountMatcher { return exactly(0) }
 
 /// Matches greater than or equal to some count.
 public func atLeast(_ times: UInt) -> CountMatcher {
