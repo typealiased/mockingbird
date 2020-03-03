@@ -74,6 +74,7 @@
 		9491824C23F0CE3A00429146 /* KeywordArgumentNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491824B23F0CE3A00429146 /* KeywordArgumentNames.swift */; };
 		9491824E23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491824D23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift */; };
 		9491825023F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491824F23F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift */; };
+		D3E4CFDB240DB1B40047BBEC /* CountMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFDA240DB1B40047BBEC /* CountMatcherTests.swift */; };
 		D3F076DA240214AD002461E7 /* Attributes+Sanitize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F076D9240214AD002461E7 /* Attributes+Sanitize.swift */; };
 		OBJ_1002 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_380 /* SWXMLHash.swift */; };
 		OBJ_1003 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_381 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
@@ -991,6 +992,7 @@
 		9491824D23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordArgumentNamesMockableTests.swift; sourceTree = "<group>"; };
 		9491824F23F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordArgumentNamesStubbableTests.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3E4CFDA240DB1B40047BBEC /* CountMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountMatcherTests.swift; sourceTree = "<group>"; };
 		D3F076D9240214AD002461E7 /* Attributes+Sanitize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attributes+Sanitize.swift"; sourceTree = "<group>"; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1817,6 +1819,7 @@
 				OBJ_178 /* AsyncVerificationTests.swift */,
 				491047AD2391FC0B00E837AE /* ClosureParameterTests.swift */,
 				OBJ_179 /* CollectionArgumentMatchingTests.swift */,
+				D3E4CFDA240DB1B40047BBEC /* CountMatcherTests.swift */,
 				OBJ_180 /* InitializerTests.swift */,
 				OBJ_181 /* LastSetValueStubTests.swift */,
 				OBJ_182 /* OverloadedMethodTests.swift */,
@@ -4018,6 +4021,7 @@
 				OBJ_828 /* GenericsMockableTests.swift in Sources */,
 				OBJ_829 /* GenericsStubbableTests.swift in Sources */,
 				491047AE2391FC0B00E837AE /* ClosureParameterTests.swift in Sources */,
+				D3E4CFDB240DB1B40047BBEC /* CountMatcherTests.swift in Sources */,
 				OBJ_830 /* IgnoredSourceExclusionTests.swift in Sources */,
 				OBJ_831 /* InoutParametersMockableTests.swift in Sources */,
 				OBJ_832 /* InoutParametersStubbableTests.swift in Sources */,
