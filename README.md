@@ -340,6 +340,13 @@ any(count: atMost(42))    // Matches any collection with at most 42 elements
 notEmpty()                // Matches any non-empty collection
 ```
 
+Operations on floating point numbers cause unexpected behavior, so consider using `around` to fuzzily match floating
+point arguments with some tolerance.
+
+```swift
+around(10.0, tolerance: 0.01)
+```
+
 If you provide a concrete instance of an `Equatable` type, argument values will be compared using equality. 
 Types that don’t conform to `Equatable` will be compared by reference.
 

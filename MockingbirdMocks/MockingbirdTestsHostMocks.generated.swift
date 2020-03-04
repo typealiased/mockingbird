@@ -57,6 +57,25 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.StructType?, MockingbirdTestsHost.ClassType?, MockingbirdTestsHost.EnumType?, String?, Bool?, P?, ClassType.Type?, Any?, Swift.AnyObject?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
+  // MARK: Mocked `method`<T: FloatingPoint>(`param`: T)
+
+  public func `method`<T: FloatingPoint>(`param`: T) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`<T: FloatingPoint>(`param`: T) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (T) -> Bool {
+      return concreteImplementation(`param`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func `method`<T: FloatingPoint>(`param`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`<T: FloatingPoint>(`param`: T) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
   // MARK: Mocked `method`<P: MockingbirdTestsHost.BaseProtocol>(`structType`: MockingbirdTestsHost.StructType, `classType`: MockingbirdTestsHost.ClassType, `enumType`: MockingbirdTestsHost.EnumType, `stringType`: String, `boolType`: Bool, `protocolType`: P, `metaType`: ClassType.Type, `anyType`: Any, `anyObjectType`: Swift.AnyObject)
 
   public func `method`<P: MockingbirdTestsHost.BaseProtocol>(`structType`: MockingbirdTestsHost.StructType, `classType`: MockingbirdTestsHost.ClassType, `enumType`: MockingbirdTestsHost.EnumType, `stringType`: String, `boolType`: Bool, `protocolType`: P, `metaType`: ClassType.Type, `anyType`: Any, `anyObjectType`: Swift.AnyObject) -> Bool {
@@ -11348,7 +11367,7 @@ public final class ParameterizedInitializerProtocolMock: MockingbirdTestsHost.Pa
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.9.0", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
   public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -15126,7 +15145,7 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.9.0", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
   public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {
@@ -15248,7 +15267,7 @@ public final class ViewControllerExtensionReferencerMock: MockingbirdTestsHost.V
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.9.0", "module_name": "MockingbirdTestsHost"])
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
   public var sourceLocation: Mockingbird.SourceLocation? {
     get { return stubbingContext.sourceLocation }
     set {

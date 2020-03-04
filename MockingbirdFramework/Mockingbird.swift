@@ -231,6 +231,22 @@ public func notEmpty<T: Collection>(_ type: T.Type = T.self) -> T {
   return any(count: atLeast(1))
 }
 
+// MARK: Floating point matchers
+
+/// Matches floating point arguments within some tolerance.
+///
+/// - Parameters:
+///   - value: The expected value.
+///   - tolerance: Only matches if the absolute difference is strictly less than this value.
+public func around<T: FloatingPoint>(_ value: T, tolerance: T) -> T {
+  let description = "around<\(T.self)>()"
+  let matcher = ArgumentMatcher(value, description: description, priority: .high) { (lhs, rhs) in
+    guard let base = lhs as? T, let other = rhs as? T else { return false }
+    return abs(other - base) < tolerance
+  }
+  return createTypeFacade(matcher)
+}
+
 // MARK: - Nominal count matchers
 
 /// A count of zero.
