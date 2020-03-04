@@ -86,8 +86,11 @@ class FileGenerator {
           mockableTypeTemplate: mockableTypeTemplate,
           containingTypeNames: []
         )
-        return [RenderTemplateOperation(template: mockableTypeTemplate),
-                RenderTemplateOperation(template: initializerTemplate)]
+        let generateMockableTypeOperation = RenderTemplateOperation(template: mockableTypeTemplate)
+        let generateInitializerOperation = RenderTemplateOperation(template: initializerTemplate)
+        // The initializer accesses lazy vars from `mockableTypeTemplate` which is not thread-safe.
+        generateInitializerOperation.addDependency(generateMockableTypeOperation)
+        return [generateMockableTypeOperation, generateInitializerOperation]
       })
     let queue = OperationQueue.createForActiveProcessors()
     queue.addOperations(operations, waitUntilFinished: true)
