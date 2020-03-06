@@ -30,16 +30,23 @@ public struct Verification<I, R> {
     self.sourceLocation = sourceLocation
   }
 
-  /// Verify that the mock received the invocation some number of times.
+  /// Verify that the mock received the invocation some number of times using a count matcher.
   ///
   /// - Parameter countMathcer: A count matcher defining the number of invocations to verify.
-  public func wasCalled(_ countMatcher: CountMatcher = once) {
+  public func wasCalled(_ countMatcher: CountMatcher) {
     verify(using: countMatcher, for: sourceLocation)
+  }
+  
+  /// Verify that the mock received the invocation an exact number of times.
+  ///
+  /// - Parameter times: The exact number of invocations expected.
+  public func wasCalled(_ times: UInt = once) {
+    verify(using: exactly(times), for: sourceLocation)
   }
 
   /// Verify that the mock never received the invocation.
   public func wasNeverCalled() {
-    verify(using: never, for: sourceLocation)
+    verify(using: exactly(never), for: sourceLocation)
   }
   
   /// Disambiguate methods overloaded by return type.
@@ -132,14 +139,14 @@ func expect(_ mockingContext: MockingContext,
     return
   }
   
-  let allInvocations =
-    mockingContext.invocations(for: invocation.selectorName).filter({ $0 == invocation })
-  let actualCallCount = UInt(allInvocations.count)
+  let allInvocations = mockingContext.invocations(for: invocation.selectorName)
+  let allInvocationsMatchingArguments = allInvocations.filter({ $0 == invocation })
+  let actualCallCount = UInt(allInvocationsMatchingArguments.count)
   guard !expectation.countMatcher.matches(actualCallCount) else { return }
-  let description = expectation.countMatcher.describe(invocation: invocation,
-                                                      count: actualCallCount)
-  let failure = TestFailure.incorrectInvocationCount(invocation: invocation,
-                                                     description: description)
+  let failure = TestFailure.incorrectInvocationCount(invocationCount: actualCallCount,
+                                                     invocation: invocation,
+                                                     countMatcher: expectation.countMatcher,
+                                                     allInvocations: allInvocations)
   XCTFail(String(describing: failure),
           file: expectation.sourceLocation.file,
           line: expectation.sourceLocation.line)
