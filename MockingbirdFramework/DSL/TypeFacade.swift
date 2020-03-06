@@ -68,6 +68,7 @@ func resolve<T>(_ parameter: @escaping () -> T) -> ArgumentMatcher {
   context.start()
   semaphore.wait()
   if let matcher = result.value as? ArgumentMatcher { return matcher }
+  if let typedValue = result.value as? T { return ArgumentMatcher(typedValue) }
   return ArgumentMatcher(result.value)
 }
 
@@ -79,6 +80,7 @@ func resolve<T: Equatable>(_ parameter: @escaping () -> T) -> ArgumentMatcher {
   context.start()
   semaphore.wait()
   if let matcher = result.value as? ArgumentMatcher { return matcher }
+  if let typedValue = result.value as? T { return ArgumentMatcher(typedValue) }
   return ArgumentMatcher(result.value)
 }
 
