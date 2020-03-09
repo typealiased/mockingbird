@@ -69,7 +69,7 @@ bootstrap-carthage:
 	(cd Mockingbird.xcodeproj/xcshareddata/xcschemes && find . ! -name "MockingbirdFramework.xcscheme" ! -name "MockingbirdShared.xcscheme" -delete)
 
 build:
-	swift build $(SWIFT_BUILD_FLAGS)
+	swift build $(SWIFT_BUILD_FLAGS) --product mockingbird
 
 test:
 	$(BUILD_TOOL) -scheme 'MockingbirdTests' $(XCODEBUILD_FLAGS) test

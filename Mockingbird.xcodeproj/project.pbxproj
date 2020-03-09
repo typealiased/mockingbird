@@ -76,6 +76,10 @@
 		9491825023F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491824F23F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift */; };
 		D3E4CFDB240DB1B40047BBEC /* CountMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFDA240DB1B40047BBEC /* CountMatcherTests.swift */; };
 		D3E4CFDD240F3D970047BBEC /* FloatingPointMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFDC240F3D970047BBEC /* FloatingPointMatcherTests.swift */; };
+		D3E4CFCB240B424E0047BBEC /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFCA240B424E0047BBEC /* ObjectiveC.swift */; };
+		D3E4CFD0240B48F30047BBEC /* MockingbirdModuleTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdModuleTestsHost::Product" /* MockingbirdModuleTestsHost.framework */; };
+		D3E4CFD2240B49390047BBEC /* MockingbirdTestsHost.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E4CFC7240B3FCD0047BBEC /* MockingbirdTestsHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3E4CFD7240B4CE10047BBEC /* ExternalModuleImplicitlyImportedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFD6240B4CE10047BBEC /* ExternalModuleImplicitlyImportedTypes.swift */; };
 		D3F076DA240214AD002461E7 /* Attributes+Sanitize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F076D9240214AD002461E7 /* Attributes+Sanitize.swift */; };
 		OBJ_1002 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_380 /* SWXMLHash.swift */; };
 		OBJ_1003 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_381 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
@@ -995,6 +999,9 @@
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3E4CFDA240DB1B40047BBEC /* CountMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountMatcherTests.swift; sourceTree = "<group>"; };
 		D3E4CFDC240F3D970047BBEC /* FloatingPointMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPointMatcherTests.swift; sourceTree = "<group>"; };
+		D3E4CFC7240B3FCD0047BBEC /* MockingbirdTestsHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MockingbirdTestsHost.h; sourceTree = "<group>"; };
+		D3E4CFCA240B424E0047BBEC /* ObjectiveC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
+		D3E4CFD6240B4CE10047BBEC /* ExternalModuleImplicitlyImportedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleImplicitlyImportedTypes.swift; sourceTree = "<group>"; };
 		D3F076D9240214AD002461E7 /* Attributes+Sanitize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attributes+Sanitize.swift"; sourceTree = "<group>"; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1588,6 +1595,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
+				D3E4CFD0240B48F30047BBEC /* MockingbirdModuleTestsHost.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1667,6 +1675,13 @@
 				49BA452E234189F4002BD9B5 /* CodableTarget.swift */,
 			);
 			path = Cache;
+			sourceTree = "<group>";
+		};
+		D3E4CFCF240B48F30047BBEC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D3F076DB24021536002461E7 /* Extensions */ = {
@@ -2691,6 +2706,7 @@
 				OBJ_503 /* Products */,
 				493ECA30232EC7CD008BF44B /* XCConfigs */,
 				2A3E4FEA8D2A60B993516C10 /* Generated Mocks */,
+				D3E4CFCF240B48F30047BBEC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2857,6 +2873,7 @@
 				OBJ_95 /* MockableTypes.swift */,
 				493ECA35232ECD99008BF44B /* Typealiasing.swift */,
 				491906382336CCCE00629F00 /* Generics.swift */,
+				D3E4CFCA240B424E0047BBEC /* ObjectiveC.swift */,
 			);
 			name = MockingbirdModuleTestsHost;
 			path = MockingbirdTestsHost/Module;
@@ -2891,6 +2908,7 @@
 				OBJ_112 /* Exceptions.swift */,
 				OBJ_113 /* Extensions.swift */,
 				493ECA3A232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift */,
+				D3E4CFD6240B4CE10047BBEC /* ExternalModuleImplicitlyImportedTypes.swift */,
 				493ECA38232ECEF1008BF44B /* ExternalModuleTypealiasing.swift */,
 				493ECA3C232ECF10008BF44B /* ExternalModuleTypes.swift */,
 				OBJ_114 /* Generics.swift */,
@@ -2901,6 +2919,7 @@
 				OBJ_129 /* Initializers.swift */,
 				OBJ_130 /* InoutParameters.swift */,
 				9491824B23F0CE3A00429146 /* KeywordArgumentNames.swift */,
+				D3E4CFC7240B3FCD0047BBEC /* MockingbirdTestsHost.h */,
 				OBJ_131 /* ModuleImportCases.swift */,
 				OBJ_132 /* NestedFields.swift */,
 				4970D6772331E67C002EE154 /* OpaqueTypes.swift */,
@@ -2921,6 +2940,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		D3E4CFD1240B49250047BBEC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3E4CFD2240B49390047BBEC /* MockingbirdTestsHost.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		OBJ_1017 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 0;
@@ -3127,6 +3154,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_882 /* Build configuration list for PBXNativeTarget "MockingbirdTestsHost" */;
 			buildPhases = (
+				D3E4CFD1240B49250047BBEC /* Headers */,
 				OBJ_885 /* Sources */,
 				OBJ_924 /* Frameworks */,
 			);
@@ -3475,6 +3503,11 @@
 			attributes = {
 				LastSwiftMigration = 9999;
 				LastUpgradeCheck = 1100;
+				TargetAttributes = {
+					"Mockingbird::MockingbirdTestsHost" = {
+						LastSwiftMigration = 1130;
+					};
+				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "Mockingbird" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -3982,6 +4015,7 @@
 				493ECA36232ECD99008BF44B /* Typealiasing.swift in Sources */,
 				491906392336CCCE00629F00 /* Generics.swift in Sources */,
 				493ECA34232ECC92008BF44B /* ClassScopedTypes.swift in Sources */,
+				D3E4CFCB240B424E0047BBEC /* ObjectiveC.swift in Sources */,
 				OBJ_789 /* MockableTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4072,6 +4106,7 @@
 				OBJ_887 /* Child.swift in Sources */,
 				OBJ_888 /* ChildProtocol.swift in Sources */,
 				493ECA39232ECEF1008BF44B /* ExternalModuleTypealiasing.swift in Sources */,
+				D3E4CFD7240B4CE10047BBEC /* ExternalModuleImplicitlyImportedTypes.swift in Sources */,
 				OBJ_889 /* ClassInitializers.swift in Sources */,
 				OBJ_890 /* ClassScopedTypes.swift in Sources */,
 				4970D6AA23335ABE002EE154 /* CompilationDirectives.swift in Sources */,
@@ -4760,6 +4795,7 @@
 		4970D6302330AC27002EE154 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4849,6 +4885,8 @@
 		4970D6352330AC27002EE154 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6122,6 +6160,7 @@
 		OBJ_786 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6146,6 +6185,7 @@
 		OBJ_787 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6300,6 +6340,8 @@
 		OBJ_883 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6317,6 +6359,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = MockingbirdTestsHost;
 			};
@@ -6325,6 +6368,8 @@
 		OBJ_884 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -169,6 +169,12 @@ extension ArgumentParser {
                kind: Bool.self,
                usage: "Ignore cached mock information stored on disk.")
   }
+  
+  func addDisableRelaxedLinking() -> OptionArgument<Bool> {
+    return add(option: "--disable-relaxed-linking",
+               kind: Bool.self,
+               usage: "Only search explicitly imported modules.")
+  }
 }
 
 extension ArgumentParser.Result {

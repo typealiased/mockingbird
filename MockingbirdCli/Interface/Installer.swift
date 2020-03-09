@@ -29,6 +29,7 @@ class Installer {
     let onlyMockProtocols: Bool
     let disableSwiftlint: Bool
     let disableCache: Bool
+    let disableRelaxedLinking: Bool
   }
   
   struct UninstallConfiguration {
@@ -264,6 +265,9 @@ class Installer {
       }
       if config.disableCache {
         options.append("--disable-cache")
+      }
+      if config.disableRelaxedLinking {
+        options.append("--disable-relaxed-linking")
       }
       if let logLevel = config.logLevel {
         switch logLevel {

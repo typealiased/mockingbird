@@ -391,9 +391,9 @@ MockingbirdSupport/
 │   └── ObjectiveC/
 │       └── NSObject.swift
 └── Swift/
-    └── Codable.swift
-    └── Comparable.swift
-    └── Equatable.swift
+    ├── Codable.swift
+    ├── Comparable.swift
+    ├── Equatable.swift
     └── Hashable.swift
 ```
 
@@ -427,6 +427,7 @@ Generate mocks for a set of targets in a project.
 | `--only-protocols` | Only generate mocks for protocols. |
 | `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
 | `--disable-cache` | Ignore cached mock information stored on disk. |
+| `--disable-relaxed-linking` | Only search explicitly imported modules. |
 
 ### Install
 
@@ -452,6 +453,7 @@ Set up a destination (unit test) target.
 | `--only-protocols` | Only generate mocks for protocols. |
 | `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
 | `--disable-cache` | Ignore cached mock information stored on disk. |
+| `--disable-relaxed-linking` | Only search explicitly imported modules. |
 
 ### Uninstall
 
