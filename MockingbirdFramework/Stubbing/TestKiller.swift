@@ -37,9 +37,9 @@ class TestKiller: NSObject, XCTestObservation {
   
   func failTest(_ message: String, at sourceLocation: SourceLocation? = nil) {
     if let sourceLocation = sourceLocation {
-      XCTFail(message, file: sourceLocation.file, line: sourceLocation.line)
+      MKBFail(message, file: sourceLocation.file, line: sourceLocation.line)
     } else {
-      XCTFail(message)
+      MKBFail(message)
     }
     
     // `XCTest` execution should already be "gracefully" stopped by this point, EXCEPT that

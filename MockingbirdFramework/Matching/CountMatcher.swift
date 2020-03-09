@@ -12,17 +12,17 @@ public struct CountMatcher {
   let matcher: (UInt) -> Bool
 
   /// Creates a printable description of the expected call count.
-  let descriptionCreator: (Invocation, UInt, Bool) -> String
+  let descriptionCreator: (Invocation, Bool) -> String
 
   init(_ matcher: @escaping (UInt) -> Bool,
-       describedBy descriptionCreator: @escaping (Invocation, UInt, Bool) -> String) {
+       describedBy descriptionCreator: @escaping (Invocation, Bool) -> String) {
     self.matcher = matcher
     self.descriptionCreator = descriptionCreator
   }
 
   func matches(_ count: UInt) -> Bool { return matcher(count) }
 
-  func describe(invocation: Invocation, count: UInt, negated: Bool = false) -> String {
-    return descriptionCreator(invocation, count, negated)
+  func describe(invocation: Invocation, negated: Bool = false) -> String {
+    return descriptionCreator(invocation, negated)
   }
 }
