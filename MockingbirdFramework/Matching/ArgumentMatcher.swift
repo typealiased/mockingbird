@@ -62,7 +62,14 @@ public class ArgumentMatcher: CustomStringConvertible {
     self.baseType = type(of: base)
     self.priority = priority
     self.comparator = comparator ?? { $0 as AnyObject === $1 as AnyObject }
-    let annotation = comparator == nil && base != nil ? " (by reference)" : ""
+    
+    let annotation: String
+    if comparator == nil && base != nil {
+      let memoryAddress = Unmanaged.passUnretained(base as AnyObject).toOpaque()
+      annotation = " (\(memoryAddress))"
+    } else {
+      annotation = ""
+    }
     self.description = description ?? "\(String.describe(base))\(annotation)"
   }
   

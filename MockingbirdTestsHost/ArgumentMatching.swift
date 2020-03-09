@@ -29,22 +29,24 @@ enum EnumType {
 
 protocol ArgumentMatchingProtocol {
   func method<P: BaseProtocol>(structType: StructType,
-              classType: ClassType,
-              enumType: EnumType,
-              stringType: String,
-              boolType: Bool,
-              protocolType: P,
-              metaType: ClassType.Type,
-              anyType: Any,
-              anyObjectType: AnyObject) -> Bool
+                               classType: ClassType,
+                               enumType: EnumType,
+                               stringType: String,
+                               boolType: Bool,
+                               protocolType: P,
+                               metaType: ClassType.Type,
+                               anyType: Any,
+                               anyObjectType: AnyObject) -> Bool
   
   func method<P: BaseProtocol>(optionalStructType: StructType?,
-              optionalClassType: ClassType?,
-              optionalEnumType: EnumType?,
-              optionalStringType: String?,
-              optionalBoolType: Bool?,
-              optionalProtocolType: P?,
-              optionalMetaType: ClassType.Type?,
-              optionalAnyType: Any?,
-              optionalAnyObjectType: AnyObject?) -> Bool
+                               optionalClassType: ClassType?,
+                               optionalEnumType: EnumType?,
+                               optionalStringType: String?,
+                               optionalBoolType: Bool?,
+                               optionalProtocolType: P?,
+                               optionalMetaType: ClassType.Type?,
+                               optionalAnyType: Any?,
+                               optionalAnyObjectType: AnyObject?) -> Bool
+  
+  func method<T: FloatingPoint>(param: T) -> Bool
 }
