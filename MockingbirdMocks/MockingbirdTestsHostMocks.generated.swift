@@ -2892,6 +2892,134 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return ClassTypeMock(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked ClassWithDesignatedInitializer
+
+public final class ClassWithDesignatedInitializerMock: MockingbirdTestsHost.ClassWithDesignatedInitializer, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ClassWithDesignatedInitializerMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public enum InitializerProxy {
+    @available(*, deprecated, message: "This class initializer is deprecated")
+    public static func initialize(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> ClassWithDesignatedInitializerMock {
+      let mock: ClassWithDesignatedInitializerMock = ClassWithDesignatedInitializerMock(param1: `param1`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+
+    public static func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> ClassWithDesignatedInitializerMock {
+      let mock: ClassWithDesignatedInitializerMock = ClassWithDesignatedInitializerMock(param: `param`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+
+    public static func initialize(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> ClassWithDesignatedInitializerMock {
+      let mock: ClassWithDesignatedInitializerMock = ClassWithDesignatedInitializerMock(param: `param`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+  }
+
+  // MARK: Mocked init(`param1`: Bool)
+
+  @available(*, deprecated, message: "This class initializer is deprecated")
+  public required override init(`param1`: Bool) {
+    super.init(param1: `param1`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(`param1`: Bool) ", arguments: [Mockingbird.ArgumentMatcher(`param1`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init(`param`: Bool)
+
+  public required init(`param`: Bool) {
+    super.init(param: `param`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(`param`: Bool) ", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init(`param`: Int)
+
+  public required override init(`param`: Int) {
+    super.init(param: `param`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(`param`: Int) ", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.ClassWithDesignatedInitializer` class mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ClassWithDesignatedInitializer.Type) -> ClassWithDesignatedInitializerMock.InitializerProxy.Type {
+  return ClassWithDesignatedInitializerMock.InitializerProxy.self
+}
+
+// MARK: - Mocked ClassWithoutDesignatedInitializer
+
+public final class ClassWithoutDesignatedInitializerMock: MockingbirdTestsHost.ClassWithoutDesignatedInitializer, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ClassWithoutDesignatedInitializerMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mocked variable
+
+  override public var `variable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.ClassWithoutDesignatedInitializer` concrete class mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ClassWithoutDesignatedInitializer.Type) -> ClassWithoutDesignatedInitializerMock {
+  return ClassWithoutDesignatedInitializerMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked ClosureParametersProtocol
 
 public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosureParametersProtocol, Mockingbird.Mock {
@@ -8591,6 +8719,167 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
 /// Create a source-attributed `MockingbirdTestsHost.InheritsExtendableProtocol` concrete protocol mock instance.
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.InheritsExtendableProtocol.Protocol) -> InheritsExtendableProtocolMock {
   return InheritsExtendableProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked InitializableClassOnlyProtocolWithInheritedInitializer
+
+public final class InitializableClassOnlyProtocolWithInheritedInitializerMock: MockingbirdTestsHost.ClassWithDesignatedInitializer, MockingbirdTestsHost.InitializableClassOnlyProtocolWithInheritedInitializer, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      InitializableClassOnlyProtocolWithInheritedInitializerMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public enum InitializerProxy {
+    @available(*, deprecated, message: "This class initializer is deprecated")
+    public static func initialize(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializableClassOnlyProtocolWithInheritedInitializerMock {
+      let mock: InitializableClassOnlyProtocolWithInheritedInitializerMock = InitializableClassOnlyProtocolWithInheritedInitializerMock(param1: `param1`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+
+    public static func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializableClassOnlyProtocolWithInheritedInitializerMock {
+      let mock: InitializableClassOnlyProtocolWithInheritedInitializerMock = InitializableClassOnlyProtocolWithInheritedInitializerMock(param: `param`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+
+    public static func initialize(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializableClassOnlyProtocolWithInheritedInitializerMock {
+      let mock: InitializableClassOnlyProtocolWithInheritedInitializerMock = InitializableClassOnlyProtocolWithInheritedInitializerMock(param: `param`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+  }
+
+  // MARK: Mocked init(`param1`: Bool)
+
+  @available(*, deprecated, message: "This class initializer is deprecated")
+  public required override init(`param1`: Bool) {
+    super.init(param1: `param1`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(`param1`: Bool) ", arguments: [Mockingbird.ArgumentMatcher(`param1`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init(`param1`: Bool, `param2`: Int)
+
+  @available(*, deprecated, message: "Please use 'mock(InitializableClassOnlyProtocolWithInheritedInitializer.self).initialize(...)' to initialize a concrete mock instance")
+  public required init(`param1`: Bool, `param2`: Int) {
+    fatalError("Please use 'mock(InitializableClassOnlyProtocolWithInheritedInitializer.self).initialize(...)' to initialize a concrete mock instance")
+  }
+
+  // MARK: Mocked init(`param1`: Bool, `param2`: Int, `param3`: String)
+
+  @available(*, deprecated, message: "Please use 'mock(InitializableClassOnlyProtocolWithInheritedInitializer.self).initialize(...)' to initialize a concrete mock instance")
+  public required init(`param1`: Bool, `param2`: Int, `param3`: String) {
+    fatalError("Please use 'mock(InitializableClassOnlyProtocolWithInheritedInitializer.self).initialize(...)' to initialize a concrete mock instance")
+  }
+
+  // MARK: Mocked init(`param2`: Bool, `param3`: Int)
+
+  @available(*, deprecated, message: "This protocol initializer is deprecated")
+  @available(*, deprecated, message: "Please use 'mock(InitializableClassOnlyProtocolWithInheritedInitializer.self).initialize(...)' to initialize a concrete mock instance")
+  public required init(`param2`: Bool, `param3`: Int) {
+    fatalError("Please use 'mock(InitializableClassOnlyProtocolWithInheritedInitializer.self).initialize(...)' to initialize a concrete mock instance")
+  }
+
+  // MARK: Mocked init(`param`: Bool)
+
+  public required init(`param`: Bool) {
+    super.init(param: `param`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(`param`: Bool) ", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init(`param`: Int)
+
+  public required override init(`param`: Int) {
+    super.init(param: `param`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(`param`: Int) ", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.InitializableClassOnlyProtocolWithInheritedInitializer` class mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.InitializableClassOnlyProtocolWithInheritedInitializer.Protocol) -> InitializableClassOnlyProtocolWithInheritedInitializerMock.InitializerProxy.Type {
+  return InitializableClassOnlyProtocolWithInheritedInitializerMock.InitializerProxy.self
+}
+
+// MARK: - Mocked InitializableClassOnlyProtocol
+
+public final class InitializableClassOnlyProtocolMock: MockingbirdTestsHost.ClassWithoutDesignatedInitializer, MockingbirdTestsHost.InitializableClassOnlyProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      InitializableClassOnlyProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public enum InitializerProxy {
+    public static func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializableClassOnlyProtocolMock {
+      let mock: InitializableClassOnlyProtocolMock = InitializableClassOnlyProtocolMock(param1: `param1`, param2: `param2`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+  }
+
+  // MARK: Mocked variable
+
+  override public var `variable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setVariable(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked init(`param1`: Bool, `param2`: Int)
+
+  public required init(`param1`: Bool, `param2`: Int) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(`param1`: Bool, `param2`: Int) ", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
+    mockingContext.didInvoke(invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.InitializableClassOnlyProtocol` class mock metatype.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.InitializableClassOnlyProtocol.Protocol) -> InitializableClassOnlyProtocolMock.InitializerProxy.Type {
+  return InitializableClassOnlyProtocolMock.InitializerProxy.self
 }
 
 // MARK: - Mocked InitializerClass
