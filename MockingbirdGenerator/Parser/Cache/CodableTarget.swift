@@ -143,9 +143,9 @@ extension PBXTarget: Target {
       let buildSetting =
         buildConfiguration.buildSettings["PRODUCT_MODULE_NAME"] as? String ??
         buildConfiguration.buildSettings["PRODUCT_NAME"] as? String,
-      let moduleName = buildConfiguration.resolve(buildSetting)
+      let moduleName = buildConfiguration.resolve(buildSetting, for: self)
     else {
-      let fallbackModuleName = (productName ?? name).replacingInvalidCharacters()
+      let fallbackModuleName = name.replacingInvalidCharacters()
       logWarning("Unable to resolve module name for target `\(name)`, falling back to `\(fallbackModuleName)`")
       return fallbackModuleName
     }
@@ -161,19 +161,30 @@ extension PBXTarget: Target {
 }
 
 extension XCBuildConfiguration {
-  /// Recursively resolves build settings, e.g. `$(TARGET_NAME:c99exidentifier)`
-  func resolve(_ buildSetting: String?) -> String? {
+  /// Certain build settings are implicitly applied, such as `TARGET_NAME`.
+  func getBuildSetting(named key: String, for target: PBXTarget) -> String? {
+    let implicitBuildSettings: [String: String] = [
+      "TARGET_NAME": target.name
+    ]
+    return buildSettings[key] as? String ?? implicitBuildSettings[key]
+  }
+  
+  /// Recursively resolves build settings.
+  func resolve(_ buildSetting: String?, for target: PBXTarget) -> String? {
     guard let buildSetting = buildSetting else { return nil }
     
     let trimmedBuildSetting = buildSetting.trimmingCharacters(in: .whitespacesAndNewlines)
     guard trimmedBuildSetting.hasPrefix("$("), trimmedBuildSetting.hasSuffix(")") else { return buildSetting }
     
-    guard let endIndex = trimmedBuildSetting.firstIndex(of: ":") else {
-      return resolve(buildSettings[trimmedBuildSetting.drop(first: 2, last: 1)] as? String)
+    let buildSettingName: String
+    if let endIndex = trimmedBuildSetting.firstIndex(of: ":") { // e.g. `$(TARGET_NAME:c99exidentifier)`
+      let startIndex = trimmedBuildSetting.index(trimmedBuildSetting.startIndex, offsetBy: 2)
+      buildSettingName = String(trimmedBuildSetting[startIndex..<endIndex])
+    } else { // e.g. `$(TARGET_NAME)`
+      buildSettingName = trimmedBuildSetting.drop(first: 2, last: 1)
     }
-    let startIndex = trimmedBuildSetting.index(trimmedBuildSetting.startIndex, offsetBy: 2)
-    let buildSettingName = String(trimmedBuildSetting[startIndex..<endIndex])
-    return resolve(buildSettings[buildSettingName] as? String)
+    
+    return resolve(getBuildSetting(named: buildSettingName, for: target), for: target)
   }
 }
 

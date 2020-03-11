@@ -74,12 +74,12 @@
 		9491824C23F0CE3A00429146 /* KeywordArgumentNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491824B23F0CE3A00429146 /* KeywordArgumentNames.swift */; };
 		9491824E23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491824D23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift */; };
 		9491825023F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491824F23F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift */; };
-		D3E4CFDB240DB1B40047BBEC /* CountMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFDA240DB1B40047BBEC /* CountMatcherTests.swift */; };
-		D3E4CFDD240F3D970047BBEC /* FloatingPointMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFDC240F3D970047BBEC /* FloatingPointMatcherTests.swift */; };
 		D3E4CFCB240B424E0047BBEC /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFCA240B424E0047BBEC /* ObjectiveC.swift */; };
 		D3E4CFD0240B48F30047BBEC /* MockingbirdModuleTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdModuleTestsHost::Product" /* MockingbirdModuleTestsHost.framework */; };
 		D3E4CFD2240B49390047BBEC /* MockingbirdTestsHost.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E4CFC7240B3FCD0047BBEC /* MockingbirdTestsHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3E4CFD7240B4CE10047BBEC /* ExternalModuleImplicitlyImportedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFD6240B4CE10047BBEC /* ExternalModuleImplicitlyImportedTypes.swift */; };
+		D3E4CFDB240DB1B40047BBEC /* CountMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFDA240DB1B40047BBEC /* CountMatcherTests.swift */; };
+		D3E4CFDD240F3D970047BBEC /* FloatingPointMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFDC240F3D970047BBEC /* FloatingPointMatcherTests.swift */; };
 		D3F076DA240214AD002461E7 /* Attributes+Sanitize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F076D9240214AD002461E7 /* Attributes+Sanitize.swift */; };
 		OBJ_1002 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_380 /* SWXMLHash.swift */; };
 		OBJ_1003 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_381 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
@@ -997,11 +997,11 @@
 		9491824D23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordArgumentNamesMockableTests.swift; sourceTree = "<group>"; };
 		9491824F23F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordArgumentNamesStubbableTests.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3E4CFDA240DB1B40047BBEC /* CountMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountMatcherTests.swift; sourceTree = "<group>"; };
-		D3E4CFDC240F3D970047BBEC /* FloatingPointMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPointMatcherTests.swift; sourceTree = "<group>"; };
 		D3E4CFC7240B3FCD0047BBEC /* MockingbirdTestsHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MockingbirdTestsHost.h; sourceTree = "<group>"; };
 		D3E4CFCA240B424E0047BBEC /* ObjectiveC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
 		D3E4CFD6240B4CE10047BBEC /* ExternalModuleImplicitlyImportedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleImplicitlyImportedTypes.swift; sourceTree = "<group>"; };
+		D3E4CFDA240DB1B40047BBEC /* CountMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountMatcherTests.swift; sourceTree = "<group>"; };
+		D3E4CFDC240F3D970047BBEC /* FloatingPointMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPointMatcherTests.swift; sourceTree = "<group>"; };
 		D3F076D9240214AD002461E7 /* Attributes+Sanitize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attributes+Sanitize.swift"; sourceTree = "<group>"; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -4813,7 +4813,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGET_NAME = MockingbirdModuleTestsHost;
 			};
 			name = Profile;
 		};
@@ -6178,7 +6177,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGET_NAME = MockingbirdModuleTestsHost;
 			};
 			name = Debug;
 		};
@@ -6203,7 +6201,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGET_NAME = MockingbirdModuleTestsHost;
 			};
 			name = Release;
 		};
