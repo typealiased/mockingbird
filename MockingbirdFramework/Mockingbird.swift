@@ -293,6 +293,8 @@ extension CountMatcher {
         return "(\(matcherDescription)) \(operand) (\(otherMatcherDescription))"
     })
   }
+  
+  public func or(_ times: UInt) -> CountMatcher { return or(exactly(times)) }
 
   public func and(_ countMatcher: CountMatcher) -> CountMatcher {
     let matcherCopy = self
@@ -305,6 +307,8 @@ extension CountMatcher {
         return "(\(matcherDescription)) \(operand) (\(otherMatcherDescription))"
     })
   }
+  
+  public func and(_ times: UInt) -> CountMatcher { return and(exactly(times)) }
 
   public func xor(_ countMatcher: CountMatcher) -> CountMatcher {
     let matcherCopy = self
@@ -317,6 +321,8 @@ extension CountMatcher {
         return "(\(matcherDescription)) \(operand) (\(otherMatcherDescription))"
     })
   }
+  
+  public func xor(_ times: UInt) -> CountMatcher { return xor(exactly(times)) }
 }
 
 public func not(_ countMatcher: CountMatcher) -> CountMatcher {
@@ -327,3 +333,5 @@ public func not(_ countMatcher: CountMatcher) -> CountMatcher {
       return "\(matcherDescription)"
   })
 }
+
+public func not(_ times: UInt) -> CountMatcher { return not(exactly(times)) }
