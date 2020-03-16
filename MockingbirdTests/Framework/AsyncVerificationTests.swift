@@ -13,9 +13,11 @@ import Mockingbird
 class AsyncVerificationTests: XCTestCase {
   
   var child: ChildMock!
+  var queue: DispatchQueue!
   
   override func setUp() {
     child = mock(Child.self)
+    queue = DispatchQueue(label: "co.bird.mockingbird.tests")
   }
   
   enum Constants {
@@ -30,11 +32,10 @@ class AsyncVerificationTests: XCTestCase {
     for _ in 0..<times { _ = child.childParameterizedInstanceMethod(param1: true, 1) }
   }
   
-  func testAsyncVerification_receivesTriviaInvocationOnce() {
+  func testAsyncVerification_receivesTrivialInvocationOnce() {
     let expectation = eventually("childTrivialInstanceMethod() is called") {
-      verify(self.child.childTrivialInstanceMethod()).wasCalled()
+      verify(child.childTrivialInstanceMethod()).wasCalled()
     }
-    let queue = DispatchQueue(label: "co.bird.mockingbird.tests")
     queue.async {
       self.callTrivialInstanceMethod(on: self.child)
     }
@@ -43,9 +44,8 @@ class AsyncVerificationTests: XCTestCase {
   
   func testAsyncVerification_receivesTrivialInvocationTwice() {
     let expectation = eventually("childTrivialInstanceMethod() is called twice") {
-      verify(self.child.childTrivialInstanceMethod()).wasCalled(exactly(2))
+      verify(child.childTrivialInstanceMethod()).wasCalled(exactly(2))
     }
-    let queue = DispatchQueue(label: "co.bird.mockingbird.tests")
     queue.async {
       self.callTrivialInstanceMethod(on: self.child, times: 2)
     }
@@ -55,9 +55,8 @@ class AsyncVerificationTests: XCTestCase {
   func testAsyncVerification_receivesParameterizedInvocationOnce() {
     given(child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     let expectation = eventually("childParameterizedInstanceMethod(param1:_:) is called once") {
-      verify(self.child.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
+      verify(child.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
     }
-    let queue = DispatchQueue(label: "co.bird.mockingbird.tests")
     queue.async {
       self.callParameterizedInstanceMethod(on: self.child)
     }
@@ -67,10 +66,9 @@ class AsyncVerificationTests: XCTestCase {
   func testAsyncVerification_receivesParameterizedInvocationTwice() {
     given(child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     let expectation = eventually("childParameterizedInstanceMethod(param1:_:) is called twice") {
-      verify(self.child.childParameterizedInstanceMethod(param1: any(), any()))
+      verify(child.childParameterizedInstanceMethod(param1: any(), any()))
         .wasCalled(exactly(2))
     }
-    let queue = DispatchQueue(label: "co.bird.mockingbird.tests")
     queue.async {
       self.callParameterizedInstanceMethod(on: self.child, times: 2)
     }
@@ -80,7 +78,7 @@ class AsyncVerificationTests: XCTestCase {
   func testAsyncVerification_withSynchronousInvocations() {
     given(child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     let expectation = eventually("childParameterizedInstanceMethod(param1:_:) is called twice") {
-      verify(self.child.childParameterizedInstanceMethod(param1: any(), any()))
+      verify(child.childParameterizedInstanceMethod(param1: any(), any()))
         .wasCalled(exactly(2))
     }
     callParameterizedInstanceMethod(on: self.child, times: 2)
@@ -91,9 +89,62 @@ class AsyncVerificationTests: XCTestCase {
     given(child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     callParameterizedInstanceMethod(on: self.child, times: 2)
     let expectation = eventually("childParameterizedInstanceMethod(param1:_:) is called twice") {
-      verify(self.child.childParameterizedInstanceMethod(param1: any(), any()))
+      verify(child.childParameterizedInstanceMethod(param1: any(), any()))
         .wasCalled(exactly(2))
     }
+    wait(for: [expectation], timeout: Constants.asyncTestTimeout)
+  }
+  
+  
+  // MARK: - Ordered verification compatibility
+  
+  func testAsyncVerification_handlesNestedInOrderVerifications() {
+    let expectation = eventually {
+      inOrder {
+        verify(child.childTrivialInstanceMethod()).wasCalled()
+        verify(child.parentTrivialInstanceMethod()).wasCalled()
+        verify(child.grandparentTrivialInstanceMethod()).wasCalled()
+      }
+    }
+    
+    queue.async {
+      (self.child as Child).childTrivialInstanceMethod()
+      (self.child as Child).parentTrivialInstanceMethod()
+      (self.child as Child).grandparentTrivialInstanceMethod()
+    }
+    
+    wait(for: [expectation], timeout: Constants.asyncTestTimeout)
+  }
+  
+  func testAsyncVerification_handlesNestedInOrderVerifications_withSynchronousInvocations() {
+    let expectation = eventually {
+      inOrder {
+        verify(child.childTrivialInstanceMethod()).wasCalled()
+        verify(child.parentTrivialInstanceMethod()).wasCalled()
+        verify(child.grandparentTrivialInstanceMethod()).wasCalled()
+      }
+    }
+    
+    (self.child as Child).childTrivialInstanceMethod()
+    (self.child as Child).parentTrivialInstanceMethod()
+    (self.child as Child).grandparentTrivialInstanceMethod()
+    
+    wait(for: [expectation], timeout: Constants.asyncTestTimeout)
+  }
+  
+  func testAsyncVerification_handlesNestedInOrderVerifications_receivesPastInvocations() {
+    (self.child as Child).childTrivialInstanceMethod()
+    (self.child as Child).parentTrivialInstanceMethod()
+    (self.child as Child).grandparentTrivialInstanceMethod()
+    
+    let expectation = eventually {
+      inOrder {
+        verify(child.childTrivialInstanceMethod()).wasCalled()
+        verify(child.parentTrivialInstanceMethod()).wasCalled()
+        verify(child.grandparentTrivialInstanceMethod()).wasCalled()
+      }
+    }
+
     wait(for: [expectation], timeout: Constants.asyncTestTimeout)
   }
 }

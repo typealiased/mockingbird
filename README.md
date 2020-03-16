@@ -266,6 +266,16 @@ verify(bird.setName(nameCaptor.matcher)).wasCalled()
 assert(nameCaptor.value?.hasPrefix("R"))
 ```
 
+To enforce the relative order of invocations, use an `inOrder` block.
+
+```swift
+// Check that `fly` was called before `chirp`
+inOrder {
+  verify(bird.fly()).wasCalled()
+  verify(bird.chirp()).wasCalled()
+}
+```
+
 You can test asynchronous code by using an `eventually` block which returns an `XCTestExpectation`. 
 
 ```swift

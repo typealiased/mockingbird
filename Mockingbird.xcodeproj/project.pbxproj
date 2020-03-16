@@ -74,6 +74,13 @@
 		9491824C23F0CE3A00429146 /* KeywordArgumentNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491824B23F0CE3A00429146 /* KeywordArgumentNames.swift */; };
 		9491824E23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491824D23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift */; };
 		9491825023F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491824F23F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift */; };
+		D30C880E2415F40000AB4E46 /* AsyncVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30C880D2415F40000AB4E46 /* AsyncVerification.swift */; };
+		D30C88102415F41100AB4E46 /* OrderedVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30C880F2415F41100AB4E46 /* OrderedVerification.swift */; };
+		D320BA832416225800B1F8CC /* OrderedVerificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D320BA822416225800B1F8CC /* OrderedVerificationTests.swift */; };
+		D320BA85241A0BC300B1F8CC /* XCTFailSwizzler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D320BA84241A0BC300B1F8CC /* XCTFailSwizzler.swift */; };
+		D320BA87241A0F1700B1F8CC /* XFailTestFailer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D320BA86241A0F1700B1F8CC /* XFailTestFailer.swift */; };
+		D320BA8A241A129300B1F8CC /* XFailBaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D320BA89241A129300B1F8CC /* XFailBaseTestCase.swift */; };
+		D344E0F8241B1AFC00E3E7E1 /* XFailOrderedVerificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D344E0F7241B1AFC00E3E7E1 /* XFailOrderedVerificationTests.swift */; };
 		D3E4CFCB240B424E0047BBEC /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFCA240B424E0047BBEC /* ObjectiveC.swift */; };
 		D3E4CFD0240B48F30047BBEC /* MockingbirdModuleTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdModuleTestsHost::Product" /* MockingbirdModuleTestsHost.framework */; };
 		D3E4CFD2240B49390047BBEC /* MockingbirdTestsHost.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E4CFC7240B3FCD0047BBEC /* MockingbirdTestsHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -997,6 +1004,13 @@
 		9491824D23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordArgumentNamesMockableTests.swift; sourceTree = "<group>"; };
 		9491824F23F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordArgumentNamesStubbableTests.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D30C880D2415F40000AB4E46 /* AsyncVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncVerification.swift; sourceTree = "<group>"; };
+		D30C880F2415F41100AB4E46 /* OrderedVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedVerification.swift; sourceTree = "<group>"; };
+		D320BA822416225800B1F8CC /* OrderedVerificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedVerificationTests.swift; sourceTree = "<group>"; };
+		D320BA84241A0BC300B1F8CC /* XCTFailSwizzler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTFailSwizzler.swift; sourceTree = "<group>"; };
+		D320BA86241A0F1700B1F8CC /* XFailTestFailer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XFailTestFailer.swift; sourceTree = "<group>"; };
+		D320BA89241A129300B1F8CC /* XFailBaseTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XFailBaseTestCase.swift; sourceTree = "<group>"; };
+		D344E0F7241B1AFC00E3E7E1 /* XFailOrderedVerificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XFailOrderedVerificationTests.swift; sourceTree = "<group>"; };
 		D3E4CFC7240B3FCD0047BBEC /* MockingbirdTestsHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MockingbirdTestsHost.h; sourceTree = "<group>"; };
 		D3E4CFCA240B424E0047BBEC /* ObjectiveC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
 		D3E4CFD6240B4CE10047BBEC /* ExternalModuleImplicitlyImportedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleImplicitlyImportedTypes.swift; sourceTree = "<group>"; };
@@ -1677,6 +1691,15 @@
 			path = Cache;
 			sourceTree = "<group>";
 		};
+		D320BA88241A127E00B1F8CC /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D320BA86241A0F1700B1F8CC /* XFailTestFailer.swift */,
+				D320BA89241A129300B1F8CC /* XFailBaseTestCase.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		D3E4CFCF240B48F30047BBEC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1840,9 +1863,12 @@
 				D3E4CFDC240F3D970047BBEC /* FloatingPointMatcherTests.swift */,
 				OBJ_180 /* InitializerTests.swift */,
 				OBJ_181 /* LastSetValueStubTests.swift */,
+				D320BA822416225800B1F8CC /* OrderedVerificationTests.swift */,
 				OBJ_182 /* OverloadedMethodTests.swift */,
 				OBJ_183 /* StubbingTests.swift */,
+				D320BA88241A127E00B1F8CC /* Utilities */,
 				OBJ_184 /* VariadicParametersTests.swift */,
+				D344E0F7241B1AFC00E3E7E1 /* XFailOrderedVerificationTests.swift */,
 			);
 			path = Framework;
 			sourceTree = "<group>";
@@ -2571,9 +2597,12 @@
 		OBJ_44 /* Verification */ = {
 			isa = PBXGroup;
 			children = (
+				D30C880D2415F40000AB4E46 /* AsyncVerification.swift */,
 				OBJ_45 /* Invocation.swift */,
+				D30C880F2415F41100AB4E46 /* OrderedVerification.swift */,
 				OBJ_46 /* TestFailure.swift */,
 				OBJ_47 /* Verification.swift */,
+				D320BA84241A0BC300B1F8CC /* XCTFailSwizzler.swift */,
 			);
 			path = Verification;
 			sourceTree = "<group>";
@@ -3946,13 +3975,16 @@
 				OBJ_713 /* StubbingContext.swift in Sources */,
 				OBJ_714 /* TestKiller.swift in Sources */,
 				OBJ_715 /* Array+Extensions.swift in Sources */,
+				D30C880E2415F40000AB4E46 /* AsyncVerification.swift in Sources */,
 				OBJ_716 /* DateFormatter+Extensions.swift in Sources */,
 				OBJ_717 /* String+Extensions.swift in Sources */,
 				OBJ_718 /* Synchronized.swift in Sources */,
 				OBJ_719 /* Version.swift in Sources */,
 				OBJ_720 /* VersionControl.swift in Sources */,
 				OBJ_721 /* Invocation.swift in Sources */,
+				D320BA85241A0BC300B1F8CC /* XCTFailSwizzler.swift in Sources */,
 				OBJ_722 /* TestFailure.swift in Sources */,
+				D30C88102415F41100AB4E46 /* OrderedVerification.swift in Sources */,
 				OBJ_723 /* Verification.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4065,8 +4097,11 @@
 				OBJ_833 /* TypealiasingMockableTests.swift in Sources */,
 				OBJ_834 /* TypealiasingStubbableTests.swift in Sources */,
 				OBJ_835 /* UndefinedArgumentLabelsMockableTests.swift in Sources */,
+				D320BA832416225800B1F8CC /* OrderedVerificationTests.swift in Sources */,
+				D320BA87241A0F1700B1F8CC /* XFailTestFailer.swift in Sources */,
 				OBJ_836 /* UndefinedArgumentLabelsStubbableTests.swift in Sources */,
 				OBJ_837 /* VariablesMockableTests.swift in Sources */,
+				D320BA8A241A129300B1F8CC /* XFailBaseTestCase.swift in Sources */,
 				OBJ_838 /* VariablesStubbableTests.swift in Sources */,
 				4904BDF3232F18A10031E071 /* InitializersMockableTests.swift in Sources */,
 				9491825023F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift in Sources */,
@@ -4089,6 +4124,7 @@
 				OBJ_851 /* DeclaredTypeTests.swift in Sources */,
 				4904BDF5232F1AB30031E071 /* EmptyTypesMockableTests.swift in Sources */,
 				4904BDF9232F1F750031E071 /* ExternalModuleClassScopedTypesStubbableTests.swift in Sources */,
+				D344E0F8241B1AFC00E3E7E1 /* XFailOrderedVerificationTests.swift in Sources */,
 				D3E4CFDD240F3D970047BBEC /* FloatingPointMatcherTests.swift in Sources */,
 				OBJ_852 /* StringExtensionsTests.swift in Sources */,
 				4904BDF7232F1E570031E071 /* ExternalModuleClassScopedTypesMockableTests.swift in Sources */,

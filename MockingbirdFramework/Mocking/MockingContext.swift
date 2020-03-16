@@ -9,8 +9,18 @@ import Foundation
 
 /// Logs invocations observed by generated mocks.
 public class MockingContext {
+  private(set) var allInvocations = Synchronized<[Invocation]>([])
   private(set) var invocations = Synchronized<[String: [Invocation]]>([:])
+  let identifier = UUID()
+  
+  convenience init(from other: MockingContext) {
+    self.init()
+    self.allInvocations = other.allInvocations
+    self.invocations = other.invocations
+  }
+  
   func didInvoke(_ invocation: Invocation) {
+    allInvocations.value.append(invocation)
     invocations.value[invocation.selectorName, default: []].append(invocation)
     
     let observersCopy = observers.value[invocation.selectorName]
@@ -18,9 +28,15 @@ public class MockingContext {
       guard observer.handle(invocation, mockingContext: self) else { return }
       observers.update { $0[invocation.selectorName]?.remove(observer) }
     })
+    
+    wildcardObservers.update { observers in
+      observers = observers.filter({ observer in
+        !observer.handle(invocation, mockingContext: self)
+      })
+    }
   }
 
-  func invocations(for selectorName: String) -> [Invocation] {
+  func invocations(with selectorName: String) -> [Invocation] {
     return invocations.value[selectorName] ?? []
   }
 
@@ -28,15 +44,41 @@ public class MockingContext {
     invocations.update { $0.removeAll() }
   }
   
+  func removeInvocations(before invocation: Invocation, inclusive: Bool = false) {
+    allInvocations.update { allInvocations in
+      invocations.update { invocations in
+        guard let baseIndex = allInvocations
+          .lastIndex(where: { $0 <= invocation })?
+          .advanced(by: inclusive ? 1 : 0)
+          else { return }
+        allInvocations.removeFirst(baseIndex)
+        invocations = allInvocations.reduce(into: [:]) { (result, invocation) in
+          result[invocation.selectorName, default: []].append(invocation)
+        }
+      }
+    }
+  }
+  
+  /// Observers are removed once they successfully handle the invocation.
   private(set) var observers = Synchronized<[String: Set<InvocationObserver>]>([:])
+  private(set) var wildcardObservers = Synchronized<[InvocationObserver]>([])
+  
   func addObserver(_ observer: InvocationObserver, for selectorName: String) {
     // New observers receive all past invocations for the given `selectorName`.
     if let invocations = invocations.value[selectorName] {
       for invocation in invocations {
-        if observer.handle(invocation, mockingContext: self) { return } // Don't add this observer.
+        // If it can handle the invocation now, don't let it receive future updates.
+        if observer.handle(invocation, mockingContext: self) { return }
       }
     }
     observers.update { $0[selectorName, default: []].insert(observer) }
+  }
+  
+  func addObserver(_ observer: InvocationObserver) {
+    for invocation in allInvocations.value {
+      if observer.handle(invocation, mockingContext: self) { return }
+    }
+    wildcardObservers.update { $0.append(observer) }
   }
 }
 

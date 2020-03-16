@@ -44,6 +44,17 @@ public func verify<T, I, R>(file: StaticString = #file, line: UInt = #line,
   return Verification(with: mockable, at: SourceLocation(file, line))
 }
 
+/// Enforce the relative order of invocations verified within the scope of `block`.
+///
+/// - Parameters:
+///   - options: Options to use when verifying invocations.
+///   - block: A block containing ordered verification calls.
+public func inOrder(file: StaticString = #file, line: UInt = #line,
+                    with options: OrderedVerificationOptions = [],
+                    _ block: () -> Void) {
+  createOrderedContext(at: SourceLocation(file, line), options: options, block: block)
+}
+
 /// Create a deferrable test expectation from a block containing verification calls.
 ///
 /// - Parameters:
@@ -51,8 +62,8 @@ public func verify<T, I, R>(file: StaticString = #file, line: UInt = #line,
 ///   - block: A block containing verification calls.
 /// - Returns: An XCTestExpectation that fulfilles once all verifications in the block are met.
 public func eventually(_ description: String? = nil,
-                       _ block: @escaping () -> Void) -> XCTestExpectation {
-  return createTestExpectation(with: block, description: description)
+                       _ block: () -> Void) -> XCTestExpectation {
+  return createAsyncContext(description: description, block: block)
 }
 
 // MARK: - Expectation resetting
@@ -262,17 +273,17 @@ public let twice: UInt = 2
 
 /// Matches an exact count.
 public func exactly(_ times: UInt) -> CountMatcher {
-  return CountMatcher({ $0 == times }, describedBy: { "n \($2 ? "≠" : "=") \(times)" })
+  return CountMatcher({ $0 == times }, describedBy: { "n \($1 ? "≠" : "=") \(times)" })
 }
 
 /// Matches greater than or equal to some count.
 public func atLeast(_ times: UInt) -> CountMatcher {
-  return CountMatcher({ $0 >= times }, describedBy: { "n \($2 ? "<" : "≥") \(times)" })
+  return CountMatcher({ $0 >= times }, describedBy: { "n \($1 ? "<" : "≥") \(times)" })
 }
 
 /// Matches less than or equal to some count.
 public func atMost(_ times: UInt) -> CountMatcher {
-  return CountMatcher({ $0 <= times }, describedBy: { "n \($2 ? ">" : "≤") \(times)" })
+  return CountMatcher({ $0 <= times }, describedBy: { "n \($1 ? ">" : "≤") \(times)" })
 }
 
 /// Matches counts that fall within a certain inclusive range.
@@ -287,9 +298,9 @@ extension CountMatcher {
     let otherMatcherCopy = countMatcher
     return CountMatcher({ matcherCopy.matcher($0) || otherMatcherCopy.matcher($0) },
       describedBy: {
-        let matcherDescription = matcherCopy.describe(invocation: $0, count: $1, negated: $2)
-        let otherMatcherDescription = otherMatcherCopy.describe(invocation: $0, count: $1, negated: $2)
-        let operand = $2 ? "&&" : "||"
+        let matcherDescription = matcherCopy.describe(invocation: $0, negated: $1)
+        let otherMatcherDescription = otherMatcherCopy.describe(invocation: $0, negated: $1)
+        let operand = $1 ? "&&" : "||"
         return "(\(matcherDescription)) \(operand) (\(otherMatcherDescription))"
     })
   }
@@ -301,9 +312,9 @@ extension CountMatcher {
     let otherMatcherCopy = countMatcher
     return CountMatcher({ matcherCopy.matcher($0) && otherMatcherCopy.matcher($0) },
       describedBy: {
-        let matcherDescription = matcherCopy.describe(invocation: $0, count: $1, negated: $2)
-        let otherMatcherDescription = otherMatcherCopy.describe(invocation: $0, count: $1, negated: $2)
-        let operand = $2 ? "||" : "&&"
+        let matcherDescription = matcherCopy.describe(invocation: $0, negated: $1)
+        let otherMatcherDescription = otherMatcherCopy.describe(invocation: $0, negated: $1)
+        let operand = $1 ? "||" : "&&"
         return "(\(matcherDescription)) \(operand) (\(otherMatcherDescription))"
     })
   }
@@ -315,9 +326,9 @@ extension CountMatcher {
     let otherMatcherCopy = countMatcher
     return CountMatcher({ matcherCopy.matcher($0) != otherMatcherCopy.matcher($0) },
       describedBy: {
-        let matcherDescription = matcherCopy.describe(invocation: $0, count: $1, negated: $2)
-        let otherMatcherDescription = otherMatcherCopy.describe(invocation: $0, count: $1, negated: $2)
-        let operand = $2 ? "≠" : "="
+        let matcherDescription = matcherCopy.describe(invocation: $0, negated: $1)
+        let otherMatcherDescription = otherMatcherCopy.describe(invocation: $0, negated: $1)
+        let operand = $1 ? "≠" : "="
         return "(\(matcherDescription)) \(operand) (\(otherMatcherDescription))"
     })
   }
@@ -329,7 +340,7 @@ public func not(_ countMatcher: CountMatcher) -> CountMatcher {
   let matcherCopy = countMatcher
   return CountMatcher({ !matcherCopy.matcher($0) },
     describedBy: {
-      let matcherDescription = matcherCopy.describe(invocation: $0, count: $1, negated: !$2)
+      let matcherDescription = matcherCopy.describe(invocation: $0, negated: !$1)
       return "\(matcherDescription)"
   })
 }
