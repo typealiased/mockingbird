@@ -81,6 +81,8 @@
 		D320BA87241A0F1700B1F8CC /* XFailTestFailer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D320BA86241A0F1700B1F8CC /* XFailTestFailer.swift */; };
 		D320BA8A241A129300B1F8CC /* XFailBaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D320BA89241A129300B1F8CC /* XFailBaseTestCase.swift */; };
 		D344E0F8241B1AFC00E3E7E1 /* XFailOrderedVerificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D344E0F7241B1AFC00E3E7E1 /* XFailOrderedVerificationTests.swift */; };
+		D35B2BE6242AEDCC001AC612 /* Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35B2BE5242AEDCC001AC612 /* Single.swift */; };
+		D35B2BE8242AEDDE001AC612 /* Tuple.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35B2BE7242AEDDE001AC612 /* Tuple.swift */; };
 		D3E4CFCB240B424E0047BBEC /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFCA240B424E0047BBEC /* ObjectiveC.swift */; };
 		D3E4CFD0240B48F30047BBEC /* MockingbirdModuleTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdModuleTestsHost::Product" /* MockingbirdModuleTestsHost.framework */; };
 		D3E4CFD2240B49390047BBEC /* MockingbirdTestsHost.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E4CFC7240B3FCD0047BBEC /* MockingbirdTestsHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1011,6 +1013,8 @@
 		D320BA86241A0F1700B1F8CC /* XFailTestFailer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XFailTestFailer.swift; sourceTree = "<group>"; };
 		D320BA89241A129300B1F8CC /* XFailBaseTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XFailBaseTestCase.swift; sourceTree = "<group>"; };
 		D344E0F7241B1AFC00E3E7E1 /* XFailOrderedVerificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XFailOrderedVerificationTests.swift; sourceTree = "<group>"; };
+		D35B2BE5242AEDCC001AC612 /* Single.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Single.swift; sourceTree = "<group>"; };
+		D35B2BE7242AEDDE001AC612 /* Tuple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tuple.swift; sourceTree = "<group>"; };
 		D3E4CFC7240B3FCD0047BBEC /* MockingbirdTestsHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MockingbirdTestsHost.h; sourceTree = "<group>"; };
 		D3E4CFCA240B424E0047BBEC /* ObjectiveC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
 		D3E4CFD6240B4CE10047BBEC /* ExternalModuleImplicitlyImportedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleImplicitlyImportedTypes.swift; sourceTree = "<group>"; };
@@ -1698,6 +1702,16 @@
 				D320BA89241A129300B1F8CC /* XFailBaseTestCase.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		D35B2BE4242AED9D001AC612 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_63 /* DeclaredType.swift */,
+				D35B2BE5242AEDCC001AC612 /* Single.swift */,
+				D35B2BE7242AEDDE001AC612 /* Tuple.swift */,
+			);
+			path = Parser;
 			sourceTree = "<group>";
 		};
 		D3E4CFCF240B48F30047BBEC /* Frameworks */ = {
@@ -2813,7 +2827,7 @@
 		OBJ_62 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_63 /* DeclaredType.swift */,
+				D35B2BE4242AED9D001AC612 /* Parser */,
 				OBJ_64 /* GenericType.swift */,
 				OBJ_65 /* Method.swift */,
 				49732AEF232F322B0090E1A9 /* MethodParameter.swift */,
@@ -3993,6 +4007,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				D35B2BE6242AEDCC001AC612 /* Single.swift in Sources */,
 				OBJ_729 /* FileGenerator.swift in Sources */,
 				49BA45312341E97D002BD9B5 /* CheckCacheOperation.swift in Sources */,
 				OBJ_730 /* GenerateFileOperation.swift in Sources */,
@@ -4010,6 +4025,7 @@
 				OBJ_739 /* Method.swift in Sources */,
 				49732AF0232F322B0090E1A9 /* MethodParameter.swift in Sources */,
 				OBJ_740 /* MockableType.swift in Sources */,
+				D35B2BE8242AEDDE001AC612 /* Tuple.swift in Sources */,
 				OBJ_741 /* Primitives.swift in Sources */,
 				49F60A9F232F477100B51A7C /* FlattenInheritanceOperation.swift in Sources */,
 				OBJ_742 /* RawType.swift in Sources */,
