@@ -267,6 +267,27 @@ class DeclaredTypeTests: XCTestCase {
     XCTAssertTrue(actual.isOptional)
   }
   
+  func testDeclaredType_parsesFunctionWithOptionalReturnType() {
+    let actual = DeclaredType(from: "(Int) -> Bool?")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(Int)))) -> DeclaredType(Single(Bool)?))))")
+    XCTAssertTrue(actual.isFunction)
+    XCTAssertFalse(actual.isOptional)
+  }
+  
+  func testDeclaredType_parsesOptionalFunctionWithOptionalReturnType() {
+    let actual = DeclaredType(from: "((Int) -> Bool?)?")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType((Single(Function((Parameter(DeclaredType(Single(Int)))) -> DeclaredType(Single(Bool)?))))?)")
+    XCTAssertTrue(actual.isFunction)
+    XCTAssertTrue(actual.isOptional)
+  }
+  
+  func testDeclaredType_parsesOptionalFunctionWithOptionalTupleReturnType() {
+    let actual = DeclaredType(from: "((Int) -> (Bool, Int)?)?")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType((Single(Function((Parameter(DeclaredType(Single(Int)))) -> DeclaredType(Tuple((DeclaredType(Single(Bool)), DeclaredType(Single(Int))))?))))?)")
+    XCTAssertTrue(actual.isFunction)
+    XCTAssertTrue(actual.isOptional)
+  }
+  
   // MARK: - Qualified types
   
   func testDeclaredType_parsesFullyQualifiedType() {
