@@ -23,6 +23,7 @@ class MockableType: Hashable, Comparable {
   let allInheritedTypeNames: [String] // Includes opaque inherited types, in declaration order.
   let selfConformanceTypes: Set<MockableType> // Types for `Self` constrained protocols.
   let allSelfConformanceTypeNames: [String] // Includes opaque conformance type names.
+  let genericTypeContext: [[String]] // Generic type names defined by containing types.
   let genericTypes: [GenericType] // Generic type declarations are ordered.
   let whereClauses: Set<WhereClause>
   let shouldMock: Bool
@@ -30,6 +31,7 @@ class MockableType: Hashable, Comparable {
   var compilationDirectives: [CompilationDirective]
   var containedTypes = [MockableType]()
   let isContainedType: Bool
+  let isInGenericContainingType: Bool
   let subclassesExternalType: Bool
   let hasOpaqueInheritedType: Bool
   let hasSelfConstraint: Bool
@@ -80,6 +82,8 @@ class MockableType: Hashable, Comparable {
     self.isContainedType = !baseRawType.containingTypeNames.isEmpty
     self.hasOpaqueInheritedType = hasOpaqueInheritedType
     self.shouldMock = baseRawType.parsedFile.shouldMock
+    self.genericTypeContext = baseRawType.genericTypeContext
+    self.isInGenericContainingType = baseRawType.genericTypeContext.contains(where: { !$0.isEmpty })
     
     // Parse top-level declared methods and variables.
     var (methods, variables) = MockableType

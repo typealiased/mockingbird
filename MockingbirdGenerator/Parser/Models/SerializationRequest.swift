@@ -41,18 +41,21 @@ struct SerializationRequest {
     let containingScopes: ArraySlice<String>
     let rawTypeRepository: RawTypeRepository?
     let typealiasRepository: TypealiasRepository?
+    let genericTypeContext: [[String]]
     init(moduleNames: [String],
          referencingModuleName: String?,
          containingTypeNames: ArraySlice<String>,
          containingScopes: ArraySlice<String>,
          rawTypeRepository: RawTypeRepository?,
-         typealiasRepository: TypealiasRepository? = nil) {
+         typealiasRepository: TypealiasRepository? = nil,
+         genericTypeContext: [[String]]) {
       self.moduleNames = moduleNames
       self.referencingModuleName = referencingModuleName
       self.containingTypeNames = containingTypeNames
       self.containingScopes = containingScopes
       self.rawTypeRepository = rawTypeRepository
       self.typealiasRepository = typealiasRepository
+      self.genericTypeContext = genericTypeContext
     }
     
     convenience init(moduleNames: [String],
@@ -64,7 +67,8 @@ struct SerializationRequest {
                 containingTypeNames: rawType.containingTypeNames[...] + [rawType.name],
                 containingScopes: rawType.containingScopes[...] + [rawType.name],
                 rawTypeRepository: rawTypeRepository,
-                typealiasRepository: typealiasRepository)
+                typealiasRepository: typealiasRepository,
+                genericTypeContext: rawType.genericTypeContext + [rawType.genericTypes])
     }
     
     convenience init() {
@@ -73,7 +77,8 @@ struct SerializationRequest {
                 containingTypeNames: [],
                 containingScopes: [],
                 rawTypeRepository: nil,
-                typealiasRepository: nil)
+                typealiasRepository: nil,
+                genericTypeContext: [])
     }
     
     /// typeName => method => serialized
@@ -110,6 +115,11 @@ extension SerializationRequest {
     
     if let memoized = context.memoizedTypeNames[typeName]?[method.rawValue] {
       return memoized
+    }
+    
+    // Don't qualify generic types which could be shadowing types defined at the module level.
+    guard !context.genericTypeContext.contains(where: { $0.contains(typeName) }) else {
+      return typeName
     }
     
     guard let baseRawType = rawTypeRepository

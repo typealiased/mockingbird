@@ -80,7 +80,8 @@ class MockableTypeTemplate: Template {
   
   /// The static mocking context allows static (or class) declared methods to be mocked.
   var staticMockingContext: String {
-    guard !mockableType.genericTypes.isEmpty else { return "  static let staticMock = Mockingbird.StaticMock()" }
+    guard !mockableType.genericTypes.isEmpty || mockableType.isInGenericContainingType
+      else { return "  static let staticMock = Mockingbird.StaticMock()" }
     // Since class-level generic types don't support static variables, we instead use a global
     // variable `genericTypesStaticMocks` that maps a runtime generated `staticMockIdentifier` to a
     // `StaticMock` instance.
@@ -138,14 +139,27 @@ class MockableTypeTemplate: Template {
   }()
   
   /// For scoped types referenced at the top level but in the same module.
-  func createScopedName(with containingTypeNames: [String], suffix: String = "") -> String {
+  func createScopedName(with containingTypeNames: [String],
+                        genericTypeContext: [[String]],
+                        suffix: String = "") -> String {
     guard mockableType.kind == .class else { // Protocols can't be nested
       return mockableType.name + suffix + (!suffix.isEmpty ? allGenericTypes : "")
     }
     guard mockableType.isContainedType else {
       return "\(mockableType.name)\(suffix)\(allGenericTypes)"
     }
-    let containingTypeNames = containingTypeNames.map({ $0 + suffix }).joined(separator: ".")
+    let containingTypeNames = containingTypeNames.enumerated()
+      .map({ (index, typeName) in
+        guard let genericTypeNames = genericTypeContext.get(index), !genericTypeNames.isEmpty
+          else { return typeName + suffix }
+        
+        // Disambiguate generic types that shadow those defined by a containing type.
+        let allGenericTypeNames = genericTypeNames
+          .map({ typeName + "_" + $0 })
+          .joined(separator: ", ")
+        return typeName + suffix + "<" + allGenericTypeNames + ">"
+      })
+      .joined(separator: ".")
       + (containingTypeNames.isEmpty ? "" : ".")
     return "\(containingTypeNames)\(mockableType.name)\(suffix)\(allGenericTypes)"
   }

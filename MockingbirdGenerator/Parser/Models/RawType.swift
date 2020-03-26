@@ -17,8 +17,10 @@ class RawType {
   let containedTypes: [RawType]
   let containingTypeNames: [String]
   let containingScopes: [String] // Including the module name and any containing types.
+  let genericTypes: [String] // Ordered generic type parameters.
+  let genericTypeContext: [[String]] // Generic type parameters in each containing type.
   let selfConformanceTypeNames: Set<String> // Self conformances defined in generic where clauses.
-  let aliasedTypeNames: Set<String>
+  let aliasedTypeNames: Set<String> // For typealias definitions only.
   let definedInExtension: Bool // Types can be defined and nested within extensions.
   let kind: SwiftDeclarationKind
   let parsedFile: ParsedFile
@@ -71,6 +73,8 @@ class RawType {
        fullyQualifiedName: String,
        containedTypes: [RawType],
        containingTypeNames: [String],
+       genericTypes: [String],
+       genericTypeContext: [[String]],
        selfConformanceTypeNames: Set<String>,
        aliasedTypeNames: Set<String>,
        definedInExtension: Bool,
@@ -82,6 +86,8 @@ class RawType {
     self.containedTypes = containedTypes
     self.containingTypeNames = containingTypeNames
     self.containingScopes = [parsedFile.moduleName] + containingTypeNames
+    self.genericTypes = genericTypes
+    self.genericTypeContext = genericTypeContext
     self.selfConformanceTypeNames = selfConformanceTypeNames
     self.aliasedTypeNames = aliasedTypeNames
     self.definedInExtension = definedInExtension
