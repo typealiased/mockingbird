@@ -30,6 +30,7 @@ class ProcessStructuresOperation: BasicOperation {
     result.rawTypes.append(contentsOf: processStructureDictionary(structureDictionary,
                                                                   parsedFile: parsedFile,
                                                                   containingTypeNames: [],
+                                                                  genericTypeContext: [],
                                                                   definedInExtension: false))
     log("Created \(result.rawTypes.count) raw type\(result.rawTypes.count != 1 ? "s" : "") from source file at \(parsedFile.path.absolute())")
   }
@@ -38,6 +39,7 @@ class ProcessStructuresOperation: BasicOperation {
   private func processStructureDictionary(_ dictionary: StructureDictionary,
                                           parsedFile: ParsedFile,
                                           containingTypeNames: [String],
+                                          genericTypeContext: [[String]],
                                           definedInExtension: Bool) -> [RawType] {
     let typeName = dictionary[SwiftDocKey.name.rawValue] as? String
     
@@ -50,10 +52,13 @@ class ProcessStructuresOperation: BasicOperation {
     let allGenericTypes = genericTypes.isEmpty ? "" : "<\(genericTypes.joined(separator: ", "))>"
     
     let attributedContainingTypeNames: [String] // Containing types plus the current type.
-    if let name = typeName {
+    let attributedGenericTypeContext: [[String]] // Generic context plus the current generic types.
+    if let name = typeName { // Handle the top level of the structure dictionary.
       attributedContainingTypeNames = containingTypeNames + [name + allGenericTypes]
+      attributedGenericTypeContext = genericTypeContext + [genericTypes]
     } else {
       attributedContainingTypeNames = containingTypeNames
+      attributedGenericTypeContext = genericTypeContext
     }
     
     let optionalKind = SwiftDeclarationKind(from: dictionary)
@@ -62,6 +67,7 @@ class ProcessStructuresOperation: BasicOperation {
       processStructureDictionary($0,
                                  parsedFile: parsedFile,
                                  containingTypeNames: attributedContainingTypeNames,
+                                 genericTypeContext: attributedGenericTypeContext,
                                  definedInExtension: containedTypesInExtension)
     })
     guard let name = typeName else { return containedTypes } // Base case where this isn't a type.
@@ -81,6 +87,8 @@ class ProcessStructuresOperation: BasicOperation {
                     fullyQualifiedName: fullyQualifiedName,
                     containedTypes: containedTypes,
                     containingTypeNames: containingTypeNames,
+                    genericTypes: genericTypes,
+                    genericTypeContext: genericTypeContext,
                     selfConformanceTypeNames: selfConformanceTypeNames,
                     aliasedTypeNames: aliasedTypeNames,
                     definedInExtension: definedInExtension,

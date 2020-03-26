@@ -63,7 +63,7 @@ class MethodTemplate: Template {
     guard !method.attributes.contains(.convenience) else { return "" }
     let attributes = declarationAttributes.isEmpty ? "" : "    \(declarationAttributes)\n"
     let failable = method.attributes.contains(.failable) ? "?" : ""
-    let scopedName = context.createScopedName(with: [], suffix: "Mock")
+    let scopedName = context.createScopedName(with: [], genericTypeContext: [], suffix: "Mock")
     return """
     \(attributes)    public static func \(fullNameForInitializerProxy)\(returnTypeAttributesForMocking) -> \(scopedName)\(failable)\(genericConstraints) {
           let mock: \(scopedName)\(failable) = \(tryInvocation)\(scopedName)(\(superCallParameters))

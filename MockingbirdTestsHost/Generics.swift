@@ -126,3 +126,25 @@ public class UnalphabetizedGenericClass<C, B, A> {
   func genericReferencingMethod(a: A, b: B, c: C) -> (A, B, C) { fatalError() }
   func genericMethod<Z, Y, X>(x: X, y: Y, z: Z) -> (X, Y, Z) { fatalError() }
 }
+
+public class GenericBaseClass<T> {
+  func baseMethod(param: T) -> T { fatalError() }
+}
+
+public struct ShadowedType {}
+
+public class ShadowedGenericType<ShadowedType> {
+  func shadowedClassScope() -> ShadowedType { fatalError() }
+  func shadowedFunctionScope<ShadowedType>() -> ShadowedType { fatalError() }
+  
+  public class NestedShadowedGenericType {
+    func shadowedClassScope() -> ShadowedType { fatalError() }
+    func shadowedFunctionScope<ShadowedType>() -> ShadowedType { fatalError() }
+  }
+  
+  public class NestedDoublyShadowedGenericType<ShadowedType> {
+    func shadowedClassScope() -> ShadowedType { fatalError() }
+    func shadowedFunctionScope<ShadowedType>() -> ShadowedType { fatalError() }
+  }
+}
+
