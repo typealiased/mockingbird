@@ -9,7 +9,7 @@
 import Foundation
 import SourceKittenFramework
 
-struct Method: Hashable, Comparable {
+struct Method {
   let name: String
   let shortName: String
   let returnTypeName: String
@@ -25,43 +25,8 @@ struct Method: Hashable, Comparable {
   let isOverridable: Bool
   let hasSelfConstraint: Bool
   
-  /// A hashable version of Method that's unique according to Swift generics when subclassing.
-  /// https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
-  struct Reduced: Hashable {
-    let name: String
-    let returnTypeName: String
-    let parameters: [MethodParameter]
-    let attributes: Attributes
-    init(from method: Method) {
-      self.name = method.name
-      self.returnTypeName = method.returnTypeName
-      self.parameters = method.parameters
-      
-      var reducedAttributes = Attributes()
-      if method.attributes.contains(.unwrappedFailable) {
-        reducedAttributes.insert(.unwrappedFailable)
-      }
-      self.attributes = reducedAttributes
-    }
-  }
-  
-  func hash(into hasher: inout Hasher) {
-    hasher.combine(name)
-    hasher.combine(returnTypeName)
-    hasher.combine(kind.typeScope == .instance)
-    hasher.combine(genericTypes)
-    hasher.combine(whereClauses)
-    hasher.combine(parameters)
-  }
-  
-  static func ==(lhs: Method, rhs: Method) -> Bool {
-    return lhs.hashValue == rhs.hashValue
-  }
-  
-  private var sortableIdentifier: String
-  static func < (lhs: Method, rhs: Method) -> Bool {
-    return lhs.sortableIdentifier < rhs.sortableIdentifier
-  }
+  private let rawType: RawType
+  private let sortableIdentifier: String
   
   init?(from dictionary: StructureDictionary,
         rootKind: SwiftDeclarationKind,
@@ -96,6 +61,7 @@ struct Method: Hashable, Comparable {
     let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [StructureDictionary] ?? []
     self.kind = kind
     self.isOverridable = rootKind == .class
+    self.rawType = rawType
     
     // Parse declared attributes and parameters.
     let rawParametersDeclaration: Substring?
@@ -287,6 +253,119 @@ struct Method: Hashable, Comparable {
       parameterIndex += 1
       return parameter
     })
+  }
+}
+
+extension Method: Hashable {
+  /// A hashable version of Method that's unique according to Swift generics when subclassing.
+  /// https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
+  struct Reduced: Hashable {
+    let name: String
+    let returnTypeName: String
+    let parameters: [MethodParameter]
+    let attributes: Attributes
+    init(from method: Method) {
+      self.name = method.name
+      self.returnTypeName = method.returnTypeName
+      self.parameters = method.parameters
+      
+      var reducedAttributes = Attributes()
+      if method.attributes.contains(.unwrappedFailable) {
+        reducedAttributes.insert(.unwrappedFailable)
+      }
+      self.attributes = reducedAttributes
+    }
+  }
+  
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(name)
+    hasher.combine(returnTypeName)
+    hasher.combine(kind.typeScope == .instance)
+    hasher.combine(genericTypes)
+    hasher.combine(whereClauses)
+    hasher.combine(parameters)
+  }
+}
+
+extension Method: Comparable {
+  static func ==(lhs: Method, rhs: Method) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+  }
+  
+  static func < (lhs: Method, rhs: Method) -> Bool {
+    return lhs.sortableIdentifier < rhs.sortableIdentifier
+  }
+}
+
+extension Method: Specializable {
+  private init(from method: Method, returnTypeName: String, parameters: [MethodParameter]) {
+    self.name = method.name
+    self.shortName = method.shortName
+    self.returnTypeName = returnTypeName
+    self.isInitializer = method.isInitializer
+    self.isDesignatedInitializer = method.isDesignatedInitializer
+    self.accessLevel = method.accessLevel
+    self.kind = method.kind
+    self.genericTypes = method.genericTypes
+    self.whereClauses = method.whereClauses
+    self.parameters = parameters
+    self.attributes = method.attributes
+    self.compilationDirectives = method.compilationDirectives
+    self.isOverridable = method.isOverridable
+    self.hasSelfConstraint = method.hasSelfConstraint
+    self.rawType = method.rawType
+    self.sortableIdentifier = Method.generateSortableIdentifier(name: name,
+                                                                genericTypes: genericTypes,
+                                                                parameters: parameters,
+                                                                returnTypeName: returnTypeName,
+                                                                kind: kind,
+                                                                whereClauses: whereClauses)
+  }
+  
+  func specialize(using context: SpecializationContext,
+                  moduleNames: [String],
+                  genericTypeContext: [[String]],
+                  excludedGenericTypeNames: Set<String>,
+                  rawTypeRepository: RawTypeRepository,
+                  typealiasRepository: TypealiasRepository) -> Method {
+    guard !context.specializations.isEmpty else { return self }
+    
+    // Function-level generic types can shadow class-level generics and shouldn't be specialized.
+    let excludedGenericTypeNames = excludedGenericTypeNames.union(genericTypes.map({ $0.name }))
+    
+    // Specialize return type.
+    let specializedReturnTypeName: String
+    if let specialization = context.specializations[returnTypeName],
+      !excludedGenericTypeNames.contains(returnTypeName) {
+      let serializationContext = SerializationRequest
+        .Context(moduleNames: moduleNames,
+                 rawType: rawType,
+                 rawTypeRepository: rawTypeRepository,
+                 typealiasRepository: typealiasRepository)
+      let attributedSerializationContext = SerializationRequest
+        .Context(from: serializationContext,
+                 genericTypeContext: genericTypeContext + serializationContext.genericTypeContext)
+      let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
+                                                          context: attributedSerializationContext,
+                                                          options: .standard)
+      specializedReturnTypeName = specialization.serialize(with: qualifiedTypeNameRequest)
+    } else {
+      specializedReturnTypeName = returnTypeName
+    }
+    
+    // Specialize parameters.
+    let specializedParameters = parameters.map({
+      $0.specialize(using: context,
+                    moduleNames: moduleNames,
+                    genericTypeContext: genericTypeContext,
+                    excludedGenericTypeNames: excludedGenericTypeNames,
+                    rawTypeRepository: rawTypeRepository,
+                    typealiasRepository: typealiasRepository)
+    })
+    
+    return Method(from: self,
+                  returnTypeName: specializedReturnTypeName,
+                  parameters: specializedParameters)
   }
 }
 

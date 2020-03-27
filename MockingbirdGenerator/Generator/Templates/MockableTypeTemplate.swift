@@ -164,16 +164,12 @@ class MockableTypeTemplate: Template {
     return "\(containingTypeNames)\(mockableType.name)\(suffix)\(allGenericTypes)"
   }
   
-  lazy var primarySelfConformanceType: MockableType? = {
-    return mockableType.selfConformanceTypes.sorted().first(where: { $0.kind == .class })
-  }()
-  
   lazy var protocolClassConformance: String? = {
     guard mockableType.kind == .protocol else { return nil }
     
-    if let classConformance = primarySelfConformanceType {
+    if let classConformance = mockableType.primarySelfConformanceTypeName {
       // Handle class conformance constraints from where clauses.
-      return classConformance.fullyQualifiedModuleName
+      return classConformance
       
     } else if let autoConformance = mockableType.allInheritedTypeNames
       .compactMap({ Constants.automaticConformanceMap[$0] }).first {
@@ -273,7 +269,7 @@ class MockableTypeTemplate: Template {
       return false
     }
     
-    let isMockableClassConformance = primarySelfConformanceType?.shouldMock ?? true
+    let isMockableClassConformance = mockableType.primarySelfConformanceType?.shouldMock ?? true
     if !isMockableClassConformance {
       logWarning("The type `\(mockableType.name)` is uninitializable because it is a protocol conforming to a class without public initializers")
     }
@@ -305,7 +301,8 @@ class MockableTypeTemplate: Template {
   func isOverridable(method: Method) -> Bool {
     // Not possible to override overloaded methods where uniqueness is from generic constraints.
     // https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
-    guard mockableType.kind == .class || primarySelfConformanceType != nil else { return true }
+    guard mockableType.kind == .class || mockableType.primarySelfConformanceType != nil
+      else { return true }
     guard !method.whereClauses.isEmpty || !method.genericTypes.isEmpty else { return true }
     return mockableType.methodsCount[Method.Reduced(from: method)] == 1
   }

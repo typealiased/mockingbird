@@ -75,43 +75,6 @@ class FlattenInheritanceOperation: BasicOperation {
     let fullyQualifiedName = baseRawType.fullyQualifiedModuleName
     if let memoized = memoizedMockableTypes[fullyQualifiedName] { return memoized }
     
-    let rawTypeRepository = self.rawTypeRepository
-    let typealiasRepository = self.typealiasRepository
-    let createMockableType: (Bool) -> MockableType? = { hasOpaqueInheritedType in
-      // Flattening inherited types could have updated `memoizedMockableTypes`.
-      var memoizedMockableTypes = FlattenInheritanceOperation.memoizedMockbleTypes.value
-      let mockableType = MockableType(from: rawType,
-                                      mockableTypes: memoizedMockableTypes,
-                                      hasOpaqueInheritedType: hasOpaqueInheritedType,
-                                      moduleNames: moduleNames,
-                                      rawTypeRepository: rawTypeRepository,
-                                      typealiasRepository: typealiasRepository)
-      // Contained types can inherit from their containing types, so store store this potentially
-      // preliminary result first.
-      FlattenInheritanceOperation.memoizedMockbleTypes.update {
-        $0[fullyQualifiedName] = mockableType
-      }
-      
-      if let mockableType = mockableType {
-        log("Created mockable type `\(mockableType.name)`")
-      } else {
-        log("Raw type `\(baseRawType.name)` is not mockable")
-      }
-      
-      let containedTypes = rawType.flatMap({ $0.containedTypes })
-      guard !containedTypes.isEmpty else { return mockableType } // No contained types, early out.
-      
-      // For each contained type, flatten it before adding it to `mockableType`.
-      memoizedMockableTypes[fullyQualifiedName] = mockableType
-      mockableType?.containedTypes = containedTypes.compactMap({
-        self.flattenInheritance(for: [$0])
-      })
-      FlattenInheritanceOperation.memoizedMockbleTypes.update {
-        $0[fullyQualifiedName] = mockableType
-      }
-      return mockableType
-    }
-    
     let inheritedTypeNames = rawType
       .compactMap({ $0.dictionary[SwiftDocKey.inheritedtypes.rawValue] as? [StructureDictionary] })
       .flatMap({ $0 })
@@ -120,21 +83,35 @@ class FlattenInheritanceOperation: BasicOperation {
       + baseRawType.aliasedTypeNames
     
     // Check the base case where the type doesn't inherit from anything.
-    guard !inheritedTypeNames.isEmpty else { return createMockableType(false) }
+    guard !inheritedTypeNames.isEmpty else {
+      return createMockableType(for: rawType,
+                                moduleNames: moduleNames,
+                                specializationContexts: [:],
+                                hasOpaqueInheritedType: false)
+    }
     
     var inheritsOpaqueType = false
-    let rawInheritedTypes = inheritedTypeNames
-      .compactMap({ typeName -> [RawType]? in // Get stored raw type.
-        let nearest = rawTypeRepository
+    let (rawInheritedTypes, specializationContexts) = inheritedTypeNames
+      .reduce(into: ([[RawType]](), [String: SpecializationContext]()), { (result, typeName) in
+        // Get stored raw type and specialization contexts.
+        guard let nearest = self.rawTypeRepository
           .nearestInheritedType(named: typeName,
                                 moduleNames: moduleNames,
                                 referencingModuleName: baseRawType.parsedFile.moduleName,
                                 containingTypeNames: baseRawType.containingTypeNames[...])
-        if nearest == nil {
-          logWarning("Missing source for referenced type `\(typeName)` in \(baseRawType.parsedFile.path.absolute())")
-          inheritsOpaqueType = true
+          else {
+            logWarning("Missing source for referenced type `\(typeName)` in \(baseRawType.parsedFile.path.absolute())")
+            inheritsOpaqueType = true
+            return
         }
-        return nearest
+        result.0.append(nearest)
+        
+        // Handle specialization of inherited type.
+        guard let baseInheritedRawType = nearest.findBaseRawType(),
+          !baseInheritedRawType.genericTypes.isEmpty else { return }
+        
+        result.1[baseInheritedRawType.fullyQualifiedModuleName] =
+          parseSpecializationContext(typeName: typeName, baseRawType: baseInheritedRawType)
       })
     
     // If there are inherited types that aren't processed, flatten them first.
@@ -155,6 +132,72 @@ class FlattenInheritanceOperation: BasicOperation {
     let hasOpaqueInheritedType = inheritsOpaqueType || indirectlyInheritsOpaqueType
     baseRawType.hasOpaqueInheritedType = hasOpaqueInheritedType
     
-    return createMockableType(hasOpaqueInheritedType)
+    return createMockableType(for: rawType,
+                              moduleNames: moduleNames,
+                              specializationContexts: specializationContexts,
+                              hasOpaqueInheritedType: hasOpaqueInheritedType)
+  }
+  
+  private func parseSpecializationContext(typeName: String,
+                                          baseRawType: RawType) -> SpecializationContext? {
+    let declaredType = DeclaredType(from: typeName)
+    var parsedGenericTypes: [DeclaredType]? {
+      switch declaredType {
+      case .single(let single, _): return single.genericTypes
+      case .tuple: return nil
+      }
+    }
+    guard let remappedGenericTypes = parsedGenericTypes else { return nil }
+    
+    var specializations = [String: DeclaredType]()
+    var typeList = [DeclaredType]()
+    for (i, genericType) in baseRawType.genericTypes.enumerated() {
+      guard let remappedGenericType = remappedGenericTypes.get(i) else { break }
+      specializations[genericType] = remappedGenericType
+      typeList.append(remappedGenericType)
+    }
+    return SpecializationContext(specializations: specializations, typeList: typeList)
+  }
+  
+  private func createMockableType(for rawType: [RawType],
+                                  moduleNames: [String],
+                                  specializationContexts: [String: SpecializationContext],
+                                  hasOpaqueInheritedType: Bool) -> MockableType? {
+    guard let baseRawType = rawType.findBaseRawType() else { return nil }
+    let fullyQualifiedName = baseRawType.fullyQualifiedModuleName
+    
+    // Flattening inherited types could have updated `memoizedMockableTypes`.
+    var memoizedMockableTypes = FlattenInheritanceOperation.memoizedMockbleTypes.value
+    let mockableType = MockableType(from: rawType,
+                                    mockableTypes: memoizedMockableTypes,
+                                    hasOpaqueInheritedType: hasOpaqueInheritedType,
+                                    moduleNames: moduleNames,
+                                    specializationContexts: specializationContexts,
+                                    rawTypeRepository: self.rawTypeRepository,
+                                    typealiasRepository: self.typealiasRepository)
+    // Contained types can inherit from their containing types, so store store this potentially
+    // preliminary result first.
+    FlattenInheritanceOperation.memoizedMockbleTypes.update {
+      $0[fullyQualifiedName] = mockableType
+    }
+    
+    if let mockableType = mockableType {
+      log("Created mockable type `\(mockableType.name)`")
+    } else {
+      log("Raw type `\(baseRawType.name)` is not mockable")
+    }
+    
+    let containedTypes = rawType.flatMap({ $0.containedTypes })
+    guard !containedTypes.isEmpty else { return mockableType } // No contained types, early out.
+    
+    // For each contained type, flatten it before adding it to `mockableType`.
+    memoizedMockableTypes[fullyQualifiedName] = mockableType
+    mockableType?.containedTypes = containedTypes.compactMap({
+      self.flattenInheritance(for: [$0])
+    })
+    FlattenInheritanceOperation.memoizedMockbleTypes.update {
+      $0[fullyQualifiedName] = mockableType
+    }
+    return mockableType
   }
 }

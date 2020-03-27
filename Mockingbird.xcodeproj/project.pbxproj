@@ -90,6 +90,7 @@
 		D3E4CFDB240DB1B40047BBEC /* CountMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFDA240DB1B40047BBEC /* CountMatcherTests.swift */; };
 		D3E4CFDD240F3D970047BBEC /* FloatingPointMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFDC240F3D970047BBEC /* FloatingPointMatcherTests.swift */; };
 		D3F076DA240214AD002461E7 /* Attributes+Sanitize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F076D9240214AD002461E7 /* Attributes+Sanitize.swift */; };
+		D3F2F45B242CB5CB000F3ECA /* Specializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F45A242CB5CB000F3ECA /* Specializable.swift */; };
 		OBJ_1002 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_380 /* SWXMLHash.swift */; };
 		OBJ_1003 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_381 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
 		OBJ_1004 /* shim.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_382 /* shim.swift */; };
@@ -1021,6 +1022,7 @@
 		D3E4CFDA240DB1B40047BBEC /* CountMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountMatcherTests.swift; sourceTree = "<group>"; };
 		D3E4CFDC240F3D970047BBEC /* FloatingPointMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPointMatcherTests.swift; sourceTree = "<group>"; };
 		D3F076D9240214AD002461E7 /* Attributes+Sanitize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attributes+Sanitize.swift"; sourceTree = "<group>"; };
+		D3F2F45A242CB5CB000F3ECA /* Specializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Specializable.swift; sourceTree = "<group>"; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2830,6 +2832,7 @@
 				D35B2BE4242AED9D001AC612 /* Parser */,
 				OBJ_64 /* GenericType.swift */,
 				OBJ_65 /* Method.swift */,
+				D3F2F45A242CB5CB000F3ECA /* Specializable.swift */,
 				49732AEF232F322B0090E1A9 /* MethodParameter.swift */,
 				OBJ_66 /* MockableType.swift */,
 				OBJ_67 /* Primitives.swift */,
@@ -4037,6 +4040,7 @@
 				49BA452A23415F6A002BD9B5 /* String+SHA1.swift in Sources */,
 				49F60AA123305F5A00B51A7C /* Log.swift in Sources */,
 				OBJ_748 /* ExtractSourcesOperation.swift in Sources */,
+				D3F2F45B242CB5CB000F3ECA /* Specializable.swift in Sources */,
 				OBJ_749 /* ParseFilesOperation.swift in Sources */,
 				OBJ_750 /* ProcessTypesOperation.swift in Sources */,
 				OBJ_751 /* InferType.swift in Sources */,

@@ -42,6 +42,7 @@ struct SerializationRequest {
     let rawTypeRepository: RawTypeRepository?
     let typealiasRepository: TypealiasRepository?
     let genericTypeContext: [[String]]
+    
     init(moduleNames: [String],
          referencingModuleName: String?,
          containingTypeNames: ArraySlice<String>,
@@ -69,6 +70,23 @@ struct SerializationRequest {
                 rawTypeRepository: rawTypeRepository,
                 typealiasRepository: typealiasRepository,
                 genericTypeContext: rawType.genericTypeContext + [rawType.genericTypes])
+    }
+    
+    convenience init(from context: Context,
+                     moduleNames: [String]? = nil,
+                     referencingModuleName: String? = nil,
+                     containingTypeNames: ArraySlice<String>? = nil,
+                     containingScopes: ArraySlice<String>? = nil,
+                     rawTypeRepository: RawTypeRepository? = nil,
+                     typealiasRepository: TypealiasRepository? = nil,
+                     genericTypeContext: [[String]]? = nil) {
+      self.init(moduleNames: moduleNames ?? context.moduleNames,
+                referencingModuleName: referencingModuleName ?? context.referencingModuleName,
+                containingTypeNames: containingTypeNames ?? context.containingTypeNames,
+                containingScopes: containingScopes ?? context.containingScopes,
+                rawTypeRepository: rawTypeRepository ?? context.rawTypeRepository,
+                typealiasRepository: typealiasRepository ?? context.typealiasRepository,
+                genericTypeContext: genericTypeContext ?? context.genericTypeContext)
     }
     
     convenience init() {

@@ -31,6 +31,13 @@ indirect enum Single: CustomStringConvertible, CustomDebugStringConvertible, Ser
     }
   }
   
+  var genericTypes: [DeclaredType] {
+    switch self {
+    case .generic(_, _, let genericTypes): return genericTypes
+    case .list, .map, .function: return []
+    }
+  }
+  
   var description: String {
     switch self {
     case let .generic(typeName, qualification, genericTypes):

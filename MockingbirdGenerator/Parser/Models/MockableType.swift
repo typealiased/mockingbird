@@ -23,6 +23,8 @@ class MockableType: Hashable, Comparable {
   let allInheritedTypeNames: [String] // Includes opaque inherited types, in declaration order.
   let selfConformanceTypes: Set<MockableType> // Types for `Self` constrained protocols.
   let allSelfConformanceTypeNames: [String] // Includes opaque conformance type names.
+  let primarySelfConformanceType: MockableType? // Guaranteed to be a class conformance.
+  let primarySelfConformanceTypeName: String? // Specialized based on declared inheritance.
   let genericTypeContext: [[String]] // Generic type names defined by containing types.
   let genericTypes: [GenericType] // Generic type declarations are ordered.
   let whereClauses: Set<WhereClause>
@@ -58,6 +60,7 @@ class MockableType: Hashable, Comparable {
         mockableTypes: [String: MockableType],
         hasOpaqueInheritedType: Bool,
         moduleNames: [String],
+        specializationContexts: [String: SpecializationContext],
         rawTypeRepository: RawTypeRepository,
         typealiasRepository: TypealiasRepository) {
     guard let baseRawType = rawTypes.findBaseRawType(),
@@ -140,6 +143,8 @@ class MockableType: Hashable, Comparable {
                              selfConstraintClauses: selfConstraintClauses,
                              mockableTypes: mockableTypes,
                              moduleNames: moduleNames,
+                             genericTypeContext: genericTypeContext,
+                             specializationContexts: specializationContexts,
                              baseRawType: baseRawType,
                              rawTypeRepository: rawTypeRepository,
                              typealiasRepository: typealiasRepository)
@@ -169,11 +174,20 @@ class MockableType: Hashable, Comparable {
                              selfConstraintClauses: selfConstraintClauses,
                              mockableTypes: mockableTypes,
                              moduleNames: moduleNames,
+                             genericTypeContext: genericTypeContext,
+                             specializationContexts: specializationContexts,
                              baseRawType: baseRawType,
                              rawTypeRepository: rawTypeRepository,
                              typealiasRepository: typealiasRepository)
     self.selfConformanceTypes = allSelfConformanceTypes
     self.allSelfConformanceTypeNames = allSelfConformanceTypeNames
+    (self.primarySelfConformanceType, self.primarySelfConformanceTypeName) = MockableType
+      .parsePrimarySelfConformanceTypeName(selfConformanceTypes: allSelfConformanceTypes,
+                                           specializationContexts: specializationContexts,
+                                           moduleNames: moduleNames,
+                                           baseRawType: baseRawType,
+                                           rawTypeRepository: rawTypeRepository,
+                                           typealiasRepository: typealiasRepository)
     if baseRawType.parsedFile.shouldMock,
       let nonInheritableType = selfConformanceTypes.first(where: {
         $0.kind == .class && !$0.accessLevel.isInheritableType(withinSameModule: $0.shouldMock)
@@ -263,6 +277,8 @@ class MockableType: Hashable, Comparable {
                                           selfConstraintClauses: [WhereClause],
                                           mockableTypes: [String: MockableType],
                                           moduleNames: [String],
+                                          genericTypeContext: [[String]],
+                                          specializationContexts: [String: SpecializationContext],
                                           baseRawType: RawType,
                                           rawTypeRepository: RawTypeRepository,
                                           typealiasRepository: TypealiasRepository)
@@ -330,18 +346,45 @@ class MockableType: Hashable, Comparable {
         }
         
         let shouldInheritFromType = baseRawType.kind != .class || mockableType.kind != .protocol
+        let specializationContext = specializationContexts[mockableType.fullyQualifiedModuleName]
         
-        methods = methods.union(mockableType.methods.filter({
-          guard shouldInheritFromType || $0.attributes.contains(.implicit) else { return false }
-          return $0.kind.typeScope.isMockable(in: baseRawType.kind) &&
-            // Mocking a subclass with designated initializers shouldn't inherit the superclass'
-            // initializers.
-            (baseRawType.kind == .protocol || !definesDesignatedInitializer || !$0.isInitializer)
-        }))
-        variables = variables.union(mockableType.variables.filter({
-          guard shouldInheritFromType || $0.attributes.contains(.implicit) else { return false }
-          return $0.kind.typeScope.isMockable(in: baseRawType.kind)
-        }))
+        methods = methods.union(mockableType.methods
+          .filter({ method in
+            guard shouldInheritFromType || method.attributes.contains(.implicit)
+              else { return false }
+            return method.kind.typeScope.isMockable(in: baseRawType.kind) &&
+              // Mocking a subclass with designated initializers shouldn't inherit the superclass'
+              // initializers.
+              (baseRawType.kind == .protocol
+                || !definesDesignatedInitializer
+                || !method.isInitializer)
+          })
+          .map({ method in // Specialize methods from generic types.
+            guard let context = specializationContext else { return method }
+            return method.specialize(using: context,
+                                     moduleNames: moduleNames,
+                                     genericTypeContext: genericTypeContext,
+                                     excludedGenericTypeNames: [],
+                                     rawTypeRepository: rawTypeRepository,
+                                     typealiasRepository: typealiasRepository)
+          })
+        )
+        variables = variables.union(mockableType.variables
+          .filter({ variable in
+            guard shouldInheritFromType || variable.attributes.contains(.implicit)
+              else { return false }
+            return variable.kind.typeScope.isMockable(in: baseRawType.kind)
+          })
+          .map({ variable in // Specialize variables from generic types.
+            guard let context = specializationContext else { return variable }
+            return variable.specialize(using: context,
+                                       moduleNames: moduleNames,
+                                       genericTypeContext: genericTypeContext,
+                                       excludedGenericTypeNames: [],
+                                       rawTypeRepository: rawTypeRepository,
+                                       typealiasRepository: typealiasRepository)
+          })
+        )
         
         // Classes must already implement generic constraints from protocols they conform to.
         guard shouldInheritFromType else { continue }
@@ -363,13 +406,47 @@ class MockableType: Hashable, Comparable {
           allInheritedTypes.insert(mockableType)
           allInheritedTypeNames.append(mockableType.fullyQualifiedModuleName)
         }
-        
-        let uniqueGenericTypes = Set<String>(genericTypes.map({ $0.name }))
-        genericTypes.append(contentsOf: mockableType.genericTypes.filter({
-          !uniqueGenericTypes.contains($0.name)
-        }))
-        whereClauses.append(contentsOf: mockableType.whereClauses)
+
+        // Only bubble-up generics for protocols from inherited protocols.
+        if baseRawType.kind == .protocol && mockableType.kind == .protocol {
+          let uniqueGenericTypes = Set<String>(genericTypes.map({ $0.name }))
+          genericTypes.append(contentsOf: mockableType.genericTypes.filter({
+            !uniqueGenericTypes.contains($0.name)
+          }))
+          whereClauses.append(contentsOf: mockableType.whereClauses)
+        }
       }
       return (inheritedTypes, allInheritedTypes, allInheritedTypeNames, subclassesExternalType)
+  }
+  
+  private static func parsePrimarySelfConformanceTypeName(
+    selfConformanceTypes: Set<MockableType>,
+    specializationContexts: [String: SpecializationContext],
+    moduleNames: [String],
+    baseRawType: RawType,
+    rawTypeRepository: RawTypeRepository,
+    typealiasRepository: TypealiasRepository
+  ) -> (MockableType?, String?) {
+    guard let primaryType = selfConformanceTypes.sorted().first(where: { $0.kind == .class })
+      else { return (nil, nil) }
+    guard !primaryType.genericTypes.isEmpty, !specializationContexts.isEmpty,
+      let context = specializationContexts[primaryType.fullyQualifiedModuleName]
+      else { return (primaryType, primaryType.fullyQualifiedModuleName) }
+    
+    let specializedGenericTypes = context.typeList.map({ specialization -> String in
+      let serializationContext = SerializationRequest
+        .Context(moduleNames: moduleNames,
+                 rawType: baseRawType,
+                 rawTypeRepository: rawTypeRepository,
+                 typealiasRepository: typealiasRepository)
+      let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
+                                                          context: serializationContext,
+                                                          options: .standard)
+      return specialization.serialize(with: qualifiedTypeNameRequest)
+    })
+    
+    let specializedTypeName = primaryType.fullyQualifiedModuleName.removingGenericTyping() +
+      "<" + specializedGenericTypes.joined(separator: ", ") + ">"
+    return (primaryType, specializedTypeName)
   }
 }
