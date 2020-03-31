@@ -96,6 +96,16 @@ class RawType {
   }
 }
 
+extension RawType: Hashable {
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(fullyQualifiedModuleName)
+  }
+  
+  static func == (lhs: RawType, rhs: RawType) -> Bool {
+    return lhs.fullyQualifiedModuleName == rhs.fullyQualifiedModuleName
+  }
+}
+
 extension Array where Element == RawType {
   /// Given an array of partial `RawType` objects, return the root declaration (not an extension).
   func findBaseRawType() -> RawType? {

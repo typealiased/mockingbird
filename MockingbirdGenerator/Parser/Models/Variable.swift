@@ -20,6 +20,8 @@ struct Variable: Hashable, Comparable {
   let isOverridable: Bool
   let hasSelfConstraint: Bool
   
+  private let rawType: RawType
+  
   func hash(into hasher: inout Hasher) {
     hasher.combine(name)
     hasher.combine(typeName)
@@ -85,6 +87,7 @@ struct Variable: Hashable, Comparable {
     self.name = name
     self.kind = kind
     self.isOverridable = rootKind == .class
+    self.rawType = rawType
     let setterAccessLevel = AccessLevel(setter: dictionary)
     
     // Determine if the variable type is computed, stored, or constant.
@@ -139,5 +142,50 @@ struct Variable: Hashable, Comparable {
     
     // Use a slightly modified version of Sourcery's type inference system.
     return inferType(from: cleanedDeclaration)
+  }
+}
+
+extension Variable: Specializable {
+  private init(from variable: Variable, typeName: String) {
+    self.name = variable.name
+    self.typeName = typeName
+    self.kind = variable.kind
+    self.accessLevel = variable.accessLevel
+    self.setterAccessLevel = variable.setterAccessLevel
+    self.attributes = variable.attributes
+    self.compilationDirectives = variable.compilationDirectives
+    self.isOverridable = variable.isOverridable
+    self.hasSelfConstraint = variable.hasSelfConstraint
+    self.rawType = variable.rawType
+  }
+  
+  func specialize(using context: SpecializationContext,
+                  moduleNames: [String],
+                  genericTypeContext: [[String]],
+                  excludedGenericTypeNames: Set<String>,
+                  rawTypeRepository: RawTypeRepository,
+                  typealiasRepository: TypealiasRepository) -> Variable {
+    guard !context.specializations.isEmpty else { return self }
+      
+    let specializedTypeName: String
+    if let specialization = context.specializations[typeName],
+      !excludedGenericTypeNames.contains(typeName) {
+      let serializationContext = SerializationRequest
+        .Context(moduleNames: moduleNames,
+                 rawType: rawType,
+                 rawTypeRepository: rawTypeRepository,
+                 typealiasRepository: typealiasRepository)
+      let attributedSerializationContext = SerializationRequest
+        .Context(from: serializationContext,
+                 genericTypeContext: genericTypeContext + serializationContext.genericTypeContext)
+      let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
+                                                          context: attributedSerializationContext,
+                                                          options: .standard)
+      specializedTypeName = specialization.serialize(with: qualifiedTypeNameRequest)
+    } else {
+      specializedTypeName = typeName
+    }
+    
+    return Variable(from: self, typeName: specializedTypeName)
   }
 }

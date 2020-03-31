@@ -128,23 +128,38 @@ public class UnalphabetizedGenericClass<C, B, A> {
 }
 
 public class GenericBaseClass<T> {
+  var baseVariable: T { fatalError() }
   func baseMethod(param: T) -> T { fatalError() }
 }
 
 public struct ShadowedType {}
 
 public class ShadowedGenericType<ShadowedType> {
-  func shadowedClassScope() -> ShadowedType { fatalError() }
-  func shadowedFunctionScope<ShadowedType>() -> ShadowedType { fatalError() }
+  func shadowedClassScope(param: ShadowedType) -> ShadowedType { fatalError() }
+  func shadowedFunctionScope<ShadowedType>(param: ShadowedType) -> ShadowedType { fatalError() }
   
   public class NestedShadowedGenericType {
-    func shadowedClassScope() -> ShadowedType { fatalError() }
-    func shadowedFunctionScope<ShadowedType>() -> ShadowedType { fatalError() }
+    func shadowedClassScope(param: ShadowedType) -> ShadowedType { fatalError() }
+    func shadowedFunctionScope<ShadowedType>(param: ShadowedType) -> ShadowedType { fatalError() }
   }
   
   public class NestedDoublyShadowedGenericType<ShadowedType> {
-    func shadowedClassScope() -> ShadowedType { fatalError() }
-    func shadowedFunctionScope<ShadowedType>() -> ShadowedType { fatalError() }
+    func shadowedClassScope(param: ShadowedType) -> ShadowedType { fatalError() }
+    func shadowedFunctionScope<ShadowedType>(param: ShadowedType) -> ShadowedType { fatalError() }
   }
 }
 
+class SpecializedGenericSubclass: GenericBaseClass<Bool> {}
+protocol SpecializedGenericProtocol: GenericBaseClass<Bool> {}
+protocol AbstractSpecializedGenericProtocol: GenericBaseClass<Bool> {
+  associatedtype EquatableType: Equatable
+}
+
+class SpecializedShadowedGenericSubclass: ShadowedGenericType<NSObject> {}
+protocol SpecializedShadowedGenericProtocol: ShadowedGenericType<NSObject> {}
+
+class UnspecializedGenericSubclass<T>: GenericBaseClass<T> {}
+
+class ConstrainedUnspecializedGenericSubclass<T: Equatable>: GenericBaseClass<T> {}
+
+class UnspecializedMultipleGenericSubclass<T, R>: GenericBaseClass<T> {}

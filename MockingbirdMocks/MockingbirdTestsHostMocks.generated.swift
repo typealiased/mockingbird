@@ -18,6 +18,74 @@ import Swift
 
 private var genericTypesStaticMocks = Mockingbird.Synchronized<[String: Mockingbird.StaticMock]>([:])
 
+// MARK: - Mocked AbstractSpecializedGenericProtocol
+
+public final class AbstractSpecializedGenericProtocolMock<EquatableType: Swift.Equatable>: MockingbirdTestsHost.GenericBaseClass<Bool>, MockingbirdTestsHost.AbstractSpecializedGenericProtocol, Mockingbird.Mock {
+  static var staticMock: Mockingbird.StaticMock {
+    let runtimeGenericTypeNames = ["\(EquatableType.self)"].joined(separator: ",")
+    let staticMockIdentifier = "AbstractSpecializedGenericProtocolMock<EquatableType: Swift.Equatable>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    let staticMock = Mockingbird.StaticMock()
+    genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+    return staticMock
+  }
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      AbstractSpecializedGenericProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mocked baseVariable
+
+  override public var `baseVariable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+  }
+
+  public func getBaseVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `baseMethod`(`param`: Bool)
+
+  public override func `baseMethod`(`param`: Bool) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (Bool) -> Bool {
+      return concreteImplementation(`param`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func `baseMethod`(`param`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: Bool) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.AbstractSpecializedGenericProtocol` concrete protocol mock instance.
+public func mock<EquatableType: Swift.Equatable>(file: StaticString = #file, line: UInt = #line, _ type: AbstractSpecializedGenericProtocolMock<EquatableType>.Type) -> AbstractSpecializedGenericProtocolMock<EquatableType> {
+  return AbstractSpecializedGenericProtocolMock<EquatableType>(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked ArgumentMatchingProtocol
 
 public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMatchingProtocol, Mockingbird.Mock {
@@ -4056,6 +4124,74 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return ConformingUninitializableOpenClassConstrainedProtocolMock.InitializerProxy.self
 }
 
+// MARK: - Mocked ConstrainedUnspecializedGenericSubclass
+
+public final class ConstrainedUnspecializedGenericSubclassMock<T: Swift.Equatable>: MockingbirdTestsHost.ConstrainedUnspecializedGenericSubclass<T>, Mockingbird.Mock {
+  static var staticMock: Mockingbird.StaticMock {
+    let runtimeGenericTypeNames = ["\(T.self)"].joined(separator: ",")
+    let staticMockIdentifier = "ConstrainedUnspecializedGenericSubclassMock<T: Swift.Equatable>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    let staticMock = Mockingbird.StaticMock()
+    genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+    return staticMock
+  }
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ConstrainedUnspecializedGenericSubclassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mocked baseVariable
+
+  override public var `baseVariable`: T {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> T)()
+    }
+  }
+
+  public func getBaseVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> T, T> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> T, T>(mock: self, invocation: invocation)
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `baseMethod`(`param`: T)
+
+  public override func `baseMethod`(`param`: T) -> T {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: T) -> T", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (T) -> T {
+      return concreteImplementation(`param`)
+    } else {
+      return (implementation as! () -> T)()
+    }
+  }
+
+  public func `baseMethod`(`param`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: T) -> T", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.ConstrainedUnspecializedGenericSubclass<T>` concrete class mock instance.
+public func mock<T: Swift.Equatable>(file: StaticString = #file, line: UInt = #line, _ type: ConstrainedUnspecializedGenericSubclassMock<T>.Type) -> ConstrainedUnspecializedGenericSubclassMock<T> {
+  return ConstrainedUnspecializedGenericSubclassMock<T>(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked ConvenienceInitializerClass
 
 public final class ConvenienceInitializerClassMock: MockingbirdTestsHost.ConvenienceInitializerClass, Mockingbird.Mock {
@@ -7163,6 +7299,21 @@ public final class GenericBaseClassMock<T>: MockingbirdTestsHost.GenericBaseClas
       stubbingContext.sourceLocation = newValue
       GenericBaseClassMock.staticMock.stubbingContext.sourceLocation = newValue
     }
+  }
+
+  // MARK: Mocked baseVariable
+
+  override public var `baseVariable`: T {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> T)()
+    }
+  }
+
+  public func getBaseVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> T, T> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> T, T>(mock: self, invocation: invocation)
   }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
@@ -12822,40 +12973,42 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `shadowedClassScope`()
+  // MARK: Mocked `shadowedClassScope`(`param`: ShadowedType)
 
-  public override func `shadowedClassScope`() -> ShadowedType {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`() -> ShadowedType", arguments: [])
+  public override func `shadowedClassScope`(`param`: ShadowedType) -> ShadowedType {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: ShadowedType) -> ShadowedType", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? () -> ShadowedType {
-      return concreteImplementation()
+    if let concreteImplementation = implementation as? (ShadowedType) -> ShadowedType {
+      return concreteImplementation(`param`)
     } else {
       return (implementation as! () -> ShadowedType)()
     }
   }
 
-  public func `shadowedClassScope`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ShadowedType, ShadowedType> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`() -> ShadowedType", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
+  public func `shadowedClassScope`(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: ShadowedType) -> ShadowedType", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked `shadowedFunctionScope`<ShadowedType>()
+  // MARK: Mocked `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType)
 
-  public override func `shadowedFunctionScope`<ShadowedType>() -> ShadowedType {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>() -> ShadowedType", arguments: [])
+  public override func `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
     let implementation = stubbingContext.implementation(for: invocation, optional: false)
-    if let concreteImplementation = implementation as? () -> ShadowedType {
-      return concreteImplementation()
+    if let concreteImplementation = implementation as? (ShadowedType) -> ShadowedType {
+      return concreteImplementation(`param`)
     } else {
       return (implementation as! () -> ShadowedType)()
     }
   }
 
-  public func `shadowedFunctionScope`<ShadowedType>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ShadowedType, ShadowedType> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>() -> ShadowedType", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
+  public func `shadowedFunctionScope`<ShadowedType>(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
   }
 
   // MARK: - Mocked NestedShadowedGenericType
@@ -12886,40 +13039,42 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
       self.sourceLocation = sourceLocation
     }
 
-    // MARK: Mocked `shadowedClassScope`()
+    // MARK: Mocked `shadowedClassScope`(`param`: ShadowedType)
 
-    public override func `shadowedClassScope`() -> ShadowedType {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`() -> ShadowedType", arguments: [])
+    public override func `shadowedClassScope`(`param`: ShadowedType) -> ShadowedType {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: ShadowedType) -> ShadowedType", arguments: [Mockingbird.ArgumentMatcher(`param`)])
       mockingContext.didInvoke(invocation)
       let implementation = stubbingContext.implementation(for: invocation, optional: false)
-      if let concreteImplementation = implementation as? () -> ShadowedType {
-        return concreteImplementation()
+      if let concreteImplementation = implementation as? (ShadowedType) -> ShadowedType {
+        return concreteImplementation(`param`)
       } else {
         return (implementation as! () -> ShadowedType)()
       }
     }
 
-    public func `shadowedClassScope`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ShadowedType, ShadowedType> {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`() -> ShadowedType", arguments: [])
-      return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
+    public func `shadowedClassScope`(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
+      let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: ShadowedType) -> ShadowedType", arguments: arguments)
+      return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
     }
 
-    // MARK: Mocked `shadowedFunctionScope`<ShadowedType>()
+    // MARK: Mocked `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType)
 
-    public override func `shadowedFunctionScope`<ShadowedType>() -> ShadowedType {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>() -> ShadowedType", arguments: [])
+    public override func `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: [Mockingbird.ArgumentMatcher(`param`)])
       mockingContext.didInvoke(invocation)
       let implementation = stubbingContext.implementation(for: invocation, optional: false)
-      if let concreteImplementation = implementation as? () -> ShadowedType {
-        return concreteImplementation()
+      if let concreteImplementation = implementation as? (ShadowedType) -> ShadowedType {
+        return concreteImplementation(`param`)
       } else {
         return (implementation as! () -> ShadowedType)()
       }
     }
 
-    public func `shadowedFunctionScope`<ShadowedType>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ShadowedType, ShadowedType> {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>() -> ShadowedType", arguments: [])
-      return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
+    public func `shadowedFunctionScope`<ShadowedType>(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
+      let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: arguments)
+      return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
     }
   }
 
@@ -12951,40 +13106,42 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
       self.sourceLocation = sourceLocation
     }
 
-    // MARK: Mocked `shadowedClassScope`()
+    // MARK: Mocked `shadowedClassScope`(`param`: ShadowedType)
 
-    public override func `shadowedClassScope`() -> ShadowedType {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`() -> ShadowedType", arguments: [])
+    public override func `shadowedClassScope`(`param`: ShadowedType) -> ShadowedType {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: ShadowedType) -> ShadowedType", arguments: [Mockingbird.ArgumentMatcher(`param`)])
       mockingContext.didInvoke(invocation)
       let implementation = stubbingContext.implementation(for: invocation, optional: false)
-      if let concreteImplementation = implementation as? () -> ShadowedType {
-        return concreteImplementation()
+      if let concreteImplementation = implementation as? (ShadowedType) -> ShadowedType {
+        return concreteImplementation(`param`)
       } else {
         return (implementation as! () -> ShadowedType)()
       }
     }
 
-    public func `shadowedClassScope`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ShadowedType, ShadowedType> {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`() -> ShadowedType", arguments: [])
-      return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
+    public func `shadowedClassScope`(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
+      let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: ShadowedType) -> ShadowedType", arguments: arguments)
+      return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
     }
 
-    // MARK: Mocked `shadowedFunctionScope`<ShadowedType>()
+    // MARK: Mocked `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType)
 
-    public override func `shadowedFunctionScope`<ShadowedType>() -> ShadowedType {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>() -> ShadowedType", arguments: [])
+    public override func `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: [Mockingbird.ArgumentMatcher(`param`)])
       mockingContext.didInvoke(invocation)
       let implementation = stubbingContext.implementation(for: invocation, optional: false)
-      if let concreteImplementation = implementation as? () -> ShadowedType {
-        return concreteImplementation()
+      if let concreteImplementation = implementation as? (ShadowedType) -> ShadowedType {
+        return concreteImplementation(`param`)
       } else {
         return (implementation as! () -> ShadowedType)()
       }
     }
 
-    public func `shadowedFunctionScope`<ShadowedType>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ShadowedType, ShadowedType> {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>() -> ShadowedType", arguments: [])
-      return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
+    public func `shadowedFunctionScope`<ShadowedType>(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
+      let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: arguments)
+      return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
     }
   }
 }
@@ -13002,6 +13159,258 @@ public func mock<ShadowedGenericType_ShadowedType>(file: StaticString = #file, l
 /// Create a source-attributed `NestedDoublyShadowedGenericType<ShadowedType>` concrete class mock instance.
 public func mock<ShadowedGenericType_ShadowedType, ShadowedType>(file: StaticString = #file, line: UInt = #line, _ type: ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedDoublyShadowedGenericTypeMock<ShadowedType>.Type) -> ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedDoublyShadowedGenericTypeMock<ShadowedType> {
   return ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedDoublyShadowedGenericTypeMock<ShadowedType>(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked SpecializedGenericProtocol
+
+public final class SpecializedGenericProtocolMock: MockingbirdTestsHost.GenericBaseClass<Bool>, MockingbirdTestsHost.SpecializedGenericProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      SpecializedGenericProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mocked baseVariable
+
+  override public var `baseVariable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+  }
+
+  public func getBaseVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `baseMethod`(`param`: Bool)
+
+  public override func `baseMethod`(`param`: Bool) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (Bool) -> Bool {
+      return concreteImplementation(`param`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func `baseMethod`(`param`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: Bool) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.SpecializedGenericProtocol` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.SpecializedGenericProtocol.Protocol) -> SpecializedGenericProtocolMock {
+  return SpecializedGenericProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked SpecializedGenericSubclass
+
+public final class SpecializedGenericSubclassMock: MockingbirdTestsHost.SpecializedGenericSubclass, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      SpecializedGenericSubclassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mocked baseVariable
+
+  override public var `baseVariable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+    }
+  }
+
+  public func getBaseVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `baseMethod`(`param`: Bool)
+
+  public override func `baseMethod`(`param`: Bool) -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (Bool) -> Bool {
+      return concreteImplementation(`param`)
+    } else {
+      return (implementation as! () -> Bool)()
+    }
+  }
+
+  public func `baseMethod`(`param`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: Bool) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.SpecializedGenericSubclass` concrete class mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.SpecializedGenericSubclass.Type) -> SpecializedGenericSubclassMock {
+  return SpecializedGenericSubclassMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked SpecializedShadowedGenericProtocol
+
+public final class SpecializedShadowedGenericProtocolMock: MockingbirdTestsHost.ShadowedGenericType<MockingbirdTestsHost.NSObject>, MockingbirdTestsHost.SpecializedShadowedGenericProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      SpecializedShadowedGenericProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `shadowedClassScope`(`param`: MockingbirdTestsHost.NSObject)
+
+  public override func `shadowedClassScope`(`param`: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject {
+      return concreteImplementation(`param`)
+    } else {
+      return (implementation as! () -> MockingbirdTestsHost.NSObject)()
+    }
+  }
+
+  public func `shadowedClassScope`(`param`: @escaping @autoclosure () -> MockingbirdTestsHost.NSObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType)
+
+  public override func `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (ShadowedType) -> ShadowedType {
+      return concreteImplementation(`param`)
+    } else {
+      return (implementation as! () -> ShadowedType)()
+    }
+  }
+
+  public func `shadowedFunctionScope`<ShadowedType>(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.SpecializedShadowedGenericProtocol` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.SpecializedShadowedGenericProtocol.Protocol) -> SpecializedShadowedGenericProtocolMock {
+  return SpecializedShadowedGenericProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked SpecializedShadowedGenericSubclass
+
+public final class SpecializedShadowedGenericSubclassMock: MockingbirdTestsHost.SpecializedShadowedGenericSubclass, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      SpecializedShadowedGenericSubclassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `shadowedClassScope`(`param`: MockingbirdTestsHost.NSObject)
+
+  public override func `shadowedClassScope`(`param`: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject {
+      return concreteImplementation(`param`)
+    } else {
+      return (implementation as! () -> MockingbirdTestsHost.NSObject)()
+    }
+  }
+
+  public func `shadowedClassScope`(`param`: @escaping @autoclosure () -> MockingbirdTestsHost.NSObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType)
+
+  public override func `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (ShadowedType) -> ShadowedType {
+      return concreteImplementation(`param`)
+    } else {
+      return (implementation as! () -> ShadowedType)()
+    }
+  }
+
+  public func `shadowedFunctionScope`<ShadowedType>(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.SpecializedShadowedGenericSubclass` concrete class mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.SpecializedShadowedGenericSubclass.Type) -> SpecializedShadowedGenericSubclassMock {
+  return SpecializedShadowedGenericSubclassMock(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked SubclassingExternalClassWithDesignatedIntializer
@@ -15203,6 +15612,142 @@ public final class UndefinedArgumentLabelsMock: MockingbirdTestsHost.UndefinedAr
 /// Create a source-attributed `MockingbirdTestsHost.UndefinedArgumentLabels` concrete protocol mock instance.
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.UndefinedArgumentLabels.Protocol) -> UndefinedArgumentLabelsMock {
   return UndefinedArgumentLabelsMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked UnspecializedGenericSubclass
+
+public final class UnspecializedGenericSubclassMock<T>: MockingbirdTestsHost.UnspecializedGenericSubclass<T>, Mockingbird.Mock {
+  static var staticMock: Mockingbird.StaticMock {
+    let runtimeGenericTypeNames = ["\(T.self)"].joined(separator: ",")
+    let staticMockIdentifier = "UnspecializedGenericSubclassMock<T>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    let staticMock = Mockingbird.StaticMock()
+    genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+    return staticMock
+  }
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      UnspecializedGenericSubclassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mocked baseVariable
+
+  override public var `baseVariable`: T {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> T)()
+    }
+  }
+
+  public func getBaseVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> T, T> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> T, T>(mock: self, invocation: invocation)
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `baseMethod`(`param`: T)
+
+  public override func `baseMethod`(`param`: T) -> T {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: T) -> T", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (T) -> T {
+      return concreteImplementation(`param`)
+    } else {
+      return (implementation as! () -> T)()
+    }
+  }
+
+  public func `baseMethod`(`param`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: T) -> T", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.UnspecializedGenericSubclass<T>` concrete class mock instance.
+public func mock<T>(file: StaticString = #file, line: UInt = #line, _ type: UnspecializedGenericSubclassMock<T>.Type) -> UnspecializedGenericSubclassMock<T> {
+  return UnspecializedGenericSubclassMock<T>(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked UnspecializedMultipleGenericSubclass
+
+public final class UnspecializedMultipleGenericSubclassMock<T, R>: MockingbirdTestsHost.UnspecializedMultipleGenericSubclass<T, R>, Mockingbird.Mock {
+  static var staticMock: Mockingbird.StaticMock {
+    let runtimeGenericTypeNames = ["\(R.self)", "\(T.self)"].joined(separator: ",")
+    let staticMockIdentifier = "UnspecializedMultipleGenericSubclassMock<T, R>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    let staticMock = Mockingbird.StaticMock()
+    genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+    return staticMock
+  }
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      UnspecializedMultipleGenericSubclassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mocked baseVariable
+
+  override public var `baseVariable`: T {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+      mockingContext.didInvoke(invocation)
+      return (stubbingContext.implementation(for: invocation) as! () -> T)()
+    }
+  }
+
+  public func getBaseVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> T, T> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> T, T>(mock: self, invocation: invocation)
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `baseMethod`(`param`: T)
+
+  public override func `baseMethod`(`param`: T) -> T {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: T) -> T", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    if let concreteImplementation = implementation as? (T) -> T {
+      return concreteImplementation(`param`)
+    } else {
+      return (implementation as! () -> T)()
+    }
+  }
+
+  public func `baseMethod`(`param`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: T) -> T", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.UnspecializedMultipleGenericSubclass<T, R>` concrete class mock instance.
+public func mock<T, R>(file: StaticString = #file, line: UInt = #line, _ type: UnspecializedMultipleGenericSubclassMock<T, R>.Type) -> UnspecializedMultipleGenericSubclassMock<T, R> {
+  return UnspecializedMultipleGenericSubclassMock<T, R>(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked VariablesContainerProtocol

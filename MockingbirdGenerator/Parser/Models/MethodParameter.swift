@@ -16,6 +16,8 @@ struct MethodParameter: Hashable {
   let attributes: Attributes
   let hasSelfConstraints: Bool
   
+  private let rawType: RawType
+  
   init?(from dictionary: StructureDictionary,
         argumentLabel: String?,
         parameterIndex: Int,
@@ -57,5 +59,48 @@ struct MethodParameter: Hashable {
     self.typeName = typeName
     self.attributes = attributes
     self.hasSelfConstraints = typeName.contains(SerializationRequest.Constants.selfTokenIndicator)
+    self.rawType = rawType
+  }
+}
+
+extension MethodParameter: Specializable {
+  private init(from parameter: MethodParameter, typeName: String) {
+    self.name = parameter.name
+    self.argumentLabel = parameter.argumentLabel
+    self.typeName = typeName
+    self.kind = parameter.kind
+    self.attributes = parameter.attributes
+    self.hasSelfConstraints = parameter.hasSelfConstraints
+    self.rawType = parameter.rawType
+  }
+  
+  func specialize(using context: SpecializationContext,
+                  moduleNames: [String],
+                  genericTypeContext: [[String]],
+                  excludedGenericTypeNames: Set<String>,
+                  rawTypeRepository: RawTypeRepository,
+                  typealiasRepository: TypealiasRepository) -> MethodParameter {
+    guard !context.specializations.isEmpty else { return self }
+    
+    let specializedTypeName: String
+    if let specialization = context.specializations[typeName],
+      !excludedGenericTypeNames.contains(typeName) {
+      let serializationContext = SerializationRequest
+        .Context(moduleNames: moduleNames,
+                 rawType: rawType,
+                 rawTypeRepository: rawTypeRepository,
+                 typealiasRepository: typealiasRepository)
+      let attributedSerializationContext = SerializationRequest
+        .Context(from: serializationContext,
+                 genericTypeContext: genericTypeContext + serializationContext.genericTypeContext)
+      let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
+                                                          context: attributedSerializationContext,
+                                                          options: .standard)
+      specializedTypeName = specialization.serialize(with: qualifiedTypeNameRequest)
+    } else {
+      specializedTypeName = typeName
+    }
+    
+    return MethodParameter(from: self, typeName: specializedTypeName)
   }
 }
