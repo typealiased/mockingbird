@@ -91,6 +91,20 @@
 		D3E4CFDD240F3D970047BBEC /* FloatingPointMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFDC240F3D970047BBEC /* FloatingPointMatcherTests.swift */; };
 		D3F076DA240214AD002461E7 /* Attributes+Sanitize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F076D9240214AD002461E7 /* Attributes+Sanitize.swift */; };
 		D3F2F45B242CB5CB000F3ECA /* Specializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F45A242CB5CB000F3ECA /* Specializable.swift */; };
+		D3F2F45D24371132000F3ECA /* NonRelativeSecondLevelFileIgnoredSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F45C24371132000F3ECA /* NonRelativeSecondLevelFileIgnoredSource.swift */; };
+		D3F2F45F243718F7000F3ECA /* OverriddenIncludedSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F45E243718F7000F3ECA /* OverriddenIncludedSource.swift */; };
+		D3F2F4612437192D000F3ECA /* TrivialIncludedSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F4602437192D000F3ECA /* TrivialIncludedSource.swift */; };
+		D3F2F46324371960000F3ECA /* IgnoredSourceInclusionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F46224371960000F3ECA /* IgnoredSourceInclusionTests.swift */; };
+		D3F2F46824371BAC000F3ECA /* DirectoryNonRelativeIgnoredSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F46724371BAC000F3ECA /* DirectoryNonRelativeIgnoredSource.swift */; };
+		D3F2F46B24371C80000F3ECA /* WildcardFileNonRelativeIgnoredSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F46A24371C80000F3ECA /* WildcardFileNonRelativeIgnoredSource.swift */; };
+		D3F2F46D2437211B000F3ECA /* EnclosingDirectoryOverriddenIncludedSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F46C2437211B000F3ECA /* EnclosingDirectoryOverriddenIncludedSource.swift */; };
+		D3F2F46E243722CE000F3ECA /* EnclosingDirectoryOverriddenIgnoredSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F46424371A79000F3ECA /* EnclosingDirectoryOverriddenIgnoredSource.swift */; };
+		D3F2F47024372549000F3ECA /* CascadingIncludedSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F46F24372549000F3ECA /* CascadingIncludedSource.swift */; };
+		D3F2F47224372599000F3ECA /* CascadingExcludedSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F47124372599000F3ECA /* CascadingExcludedSource.swift */; };
+		D3F2F474243749FB000F3ECA /* !EscapedNegationPrefixIgnoredSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F473243749FB000F3ECA /* !EscapedNegationPrefixIgnoredSource.swift */; };
+		D3F2F4762437A44E000F3ECA /* RelativeTopLevelFileIgnoredSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F4752437A44E000F3ECA /* RelativeTopLevelFileIgnoredSource.swift */; };
+		D3F2F4782437A48B000F3ECA /* RelativeSecondLevelFileIncludedSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F4772437A48B000F3ECA /* RelativeSecondLevelFileIncludedSource.swift */; };
+		D3F2F47B2437BA75000F3ECA /* #EscapedCommentPrefixIgnoredSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F47A2437BA75000F3ECA /* #EscapedCommentPrefixIgnoredSource.swift */; };
 		OBJ_1002 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_380 /* SWXMLHash.swift */; };
 		OBJ_1003 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_381 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
 		OBJ_1004 /* shim.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_382 /* shim.swift */; };
@@ -483,11 +497,9 @@
 		OBJ_900 /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_114 /* Generics.swift */; };
 		OBJ_901 /* Grandparent.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_115 /* Grandparent.swift */; };
 		OBJ_902 /* GrandparentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_116 /* GrandparentProtocol.swift */; };
-		OBJ_903 /* DirectoryIgnoredSource1.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_119 /* DirectoryIgnoredSource1.swift */; };
-		OBJ_904 /* DirectoryIgnoredSource2.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_120 /* DirectoryIgnoredSource2.swift */; };
+		OBJ_903 /* DirectoryIgnoredSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_119 /* DirectoryIgnoredSource.swift */; };
 		OBJ_905 /* WildcardFileIgnoredSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_122 /* WildcardFileIgnoredSource.swift */; };
-		OBJ_906 /* WildcardDirectoryIgnoredSource1.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_125 /* WildcardDirectoryIgnoredSource1.swift */; };
-		OBJ_907 /* WildcardDirectoryIgnoredSource2.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_126 /* WildcardDirectoryIgnoredSource2.swift */; };
+		OBJ_906 /* WildcardDirectoryIgnoredSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_125 /* WildcardDirectoryIgnoredSource.swift */; };
 		OBJ_908 /* SecondLevelFileIgnoredSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_127 /* SecondLevelFileIgnoredSource.swift */; };
 		OBJ_909 /* InheritedTypeQualification.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_128 /* InheritedTypeQualification.swift */; };
 		OBJ_910 /* Initializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_129 /* Initializers.swift */; };
@@ -1023,6 +1035,20 @@
 		D3E4CFDC240F3D970047BBEC /* FloatingPointMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPointMatcherTests.swift; sourceTree = "<group>"; };
 		D3F076D9240214AD002461E7 /* Attributes+Sanitize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attributes+Sanitize.swift"; sourceTree = "<group>"; };
 		D3F2F45A242CB5CB000F3ECA /* Specializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Specializable.swift; sourceTree = "<group>"; };
+		D3F2F45C24371132000F3ECA /* NonRelativeSecondLevelFileIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonRelativeSecondLevelFileIgnoredSource.swift; sourceTree = "<group>"; };
+		D3F2F45E243718F7000F3ECA /* OverriddenIncludedSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverriddenIncludedSource.swift; sourceTree = "<group>"; };
+		D3F2F4602437192D000F3ECA /* TrivialIncludedSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrivialIncludedSource.swift; sourceTree = "<group>"; };
+		D3F2F46224371960000F3ECA /* IgnoredSourceInclusionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IgnoredSourceInclusionTests.swift; sourceTree = "<group>"; };
+		D3F2F46424371A79000F3ECA /* EnclosingDirectoryOverriddenIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnclosingDirectoryOverriddenIgnoredSource.swift; sourceTree = "<group>"; };
+		D3F2F46724371BAC000F3ECA /* DirectoryNonRelativeIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryNonRelativeIgnoredSource.swift; sourceTree = "<group>"; };
+		D3F2F46A24371C80000F3ECA /* WildcardFileNonRelativeIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildcardFileNonRelativeIgnoredSource.swift; sourceTree = "<group>"; };
+		D3F2F46C2437211B000F3ECA /* EnclosingDirectoryOverriddenIncludedSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnclosingDirectoryOverriddenIncludedSource.swift; sourceTree = "<group>"; };
+		D3F2F46F24372549000F3ECA /* CascadingIncludedSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CascadingIncludedSource.swift; sourceTree = "<group>"; };
+		D3F2F47124372599000F3ECA /* CascadingExcludedSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CascadingExcludedSource.swift; sourceTree = "<group>"; };
+		D3F2F473243749FB000F3ECA /* !EscapedNegationPrefixIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "!EscapedNegationPrefixIgnoredSource.swift"; sourceTree = "<group>"; };
+		D3F2F4752437A44E000F3ECA /* RelativeTopLevelFileIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeTopLevelFileIgnoredSource.swift; sourceTree = "<group>"; };
+		D3F2F4772437A48B000F3ECA /* RelativeSecondLevelFileIncludedSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeSecondLevelFileIncludedSource.swift; sourceTree = "<group>"; };
+		D3F2F47A2437BA75000F3ECA /* #EscapedCommentPrefixIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "#EscapedCommentPrefixIgnoredSource.swift"; sourceTree = "<group>"; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1047,12 +1073,10 @@
 		OBJ_114 /* Generics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generics.swift; sourceTree = "<group>"; };
 		OBJ_115 /* Grandparent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grandparent.swift; sourceTree = "<group>"; };
 		OBJ_116 /* GrandparentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrandparentProtocol.swift; sourceTree = "<group>"; };
-		OBJ_119 /* DirectoryIgnoredSource1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryIgnoredSource1.swift; sourceTree = "<group>"; };
+		OBJ_119 /* DirectoryIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryIgnoredSource.swift; sourceTree = "<group>"; };
 		OBJ_12 /* GenerateCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateCommand.swift; sourceTree = "<group>"; };
-		OBJ_120 /* DirectoryIgnoredSource2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryIgnoredSource2.swift; sourceTree = "<group>"; };
 		OBJ_122 /* WildcardFileIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildcardFileIgnoredSource.swift; sourceTree = "<group>"; };
-		OBJ_125 /* WildcardDirectoryIgnoredSource1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildcardDirectoryIgnoredSource1.swift; sourceTree = "<group>"; };
-		OBJ_126 /* WildcardDirectoryIgnoredSource2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildcardDirectoryIgnoredSource2.swift; sourceTree = "<group>"; };
+		OBJ_125 /* WildcardDirectoryIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildcardDirectoryIgnoredSource.swift; sourceTree = "<group>"; };
 		OBJ_127 /* SecondLevelFileIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondLevelFileIgnoredSource.swift; sourceTree = "<group>"; };
 		OBJ_128 /* InheritedTypeQualification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InheritedTypeQualification.swift; sourceTree = "<group>"; };
 		OBJ_129 /* Initializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initializers.swift; sourceTree = "<group>"; };
@@ -1731,6 +1755,37 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		D3F2F46624371B8F000F3ECA /* Group4 */ = {
+			isa = PBXGroup;
+			children = (
+				D3F2F46724371BAC000F3ECA /* DirectoryNonRelativeIgnoredSource.swift */,
+			);
+			path = Group4;
+			sourceTree = "<group>";
+		};
+		D3F2F46924371C6D000F3ECA /* Group5 */ = {
+			isa = PBXGroup;
+			children = (
+				D3F2F46A24371C80000F3ECA /* WildcardFileNonRelativeIgnoredSource.swift */,
+			);
+			path = Group5;
+			sourceTree = "<group>";
+		};
+		D3F2F4792437A95A000F3ECA /* SecondLevel */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_118 /* Group1 */,
+				OBJ_121 /* Group2 */,
+				OBJ_123 /* Group3 */,
+				D3F2F46624371B8F000F3ECA /* Group4 */,
+				D3F2F46924371C6D000F3ECA /* Group5 */,
+				D3F2F45C24371132000F3ECA /* NonRelativeSecondLevelFileIgnoredSource.swift */,
+				D3F2F4772437A48B000F3ECA /* RelativeSecondLevelFileIncludedSource.swift */,
+				OBJ_127 /* SecondLevelFileIgnoredSource.swift */,
+			);
+			path = SecondLevel;
+			sourceTree = "<group>";
+		};
 		OBJ_10 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
@@ -1753,22 +1808,25 @@
 			path = Example;
 			sourceTree = "<group>";
 		};
-		OBJ_117 /* Ignored */ = {
+		OBJ_117 /* MockingbirdIgnore */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_118 /* Group1 */,
-				OBJ_121 /* Group2 */,
-				OBJ_123 /* Group3 */,
-				OBJ_127 /* SecondLevelFileIgnoredSource.swift */,
+				D3F2F473243749FB000F3ECA /* !EscapedNegationPrefixIgnoredSource.swift */,
+				D3F2F47A2437BA75000F3ECA /* #EscapedCommentPrefixIgnoredSource.swift */,
+				D3F2F47124372599000F3ECA /* CascadingExcludedSource.swift */,
+				D3F2F46F24372549000F3ECA /* CascadingIncludedSource.swift */,
+				D3F2F4752437A44E000F3ECA /* RelativeTopLevelFileIgnoredSource.swift */,
+				D3F2F4792437A95A000F3ECA /* SecondLevel */,
+				OBJ_138 /* TopLevelFileIgnoredSource.swift */,
+				D3F2F4602437192D000F3ECA /* TrivialIncludedSource.swift */,
 			);
-			path = Ignored;
+			path = MockingbirdIgnore;
 			sourceTree = "<group>";
 		};
 		OBJ_118 /* Group1 */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_119 /* DirectoryIgnoredSource1.swift */,
-				OBJ_120 /* DirectoryIgnoredSource2.swift */,
+				OBJ_119 /* DirectoryIgnoredSource.swift */,
 			);
 			path = Group1;
 			sourceTree = "<group>";
@@ -1777,6 +1835,8 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_122 /* WildcardFileIgnoredSource.swift */,
+				D3F2F45E243718F7000F3ECA /* OverriddenIncludedSource.swift */,
+				D3F2F46424371A79000F3ECA /* EnclosingDirectoryOverriddenIgnoredSource.swift */,
 			);
 			path = Group2;
 			sourceTree = "<group>";
@@ -1792,8 +1852,8 @@
 		OBJ_124 /* Group */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_125 /* WildcardDirectoryIgnoredSource1.swift */,
-				OBJ_126 /* WildcardDirectoryIgnoredSource2.swift */,
+				OBJ_125 /* WildcardDirectoryIgnoredSource.swift */,
+				D3F2F46C2437211B000F3ECA /* EnclosingDirectoryOverriddenIncludedSource.swift */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -1842,6 +1902,7 @@
 				OBJ_160 /* GenericsMockableTests.swift */,
 				OBJ_161 /* GenericsStubbableTests.swift */,
 				OBJ_162 /* IgnoredSourceExclusionTests.swift */,
+				D3F2F46224371960000F3ECA /* IgnoredSourceInclusionTests.swift */,
 				4904BDF2232F18A10031E071 /* InitializersMockableTests.swift */,
 				OBJ_163 /* InoutParametersMockableTests.swift */,
 				OBJ_164 /* InoutParametersStubbableTests.swift */,
@@ -2960,7 +3021,7 @@
 				OBJ_114 /* Generics.swift */,
 				OBJ_115 /* Grandparent.swift */,
 				OBJ_116 /* GrandparentProtocol.swift */,
-				OBJ_117 /* Ignored */,
+				OBJ_117 /* MockingbirdIgnore */,
 				OBJ_128 /* InheritedTypeQualification.swift */,
 				OBJ_129 /* Initializers.swift */,
 				OBJ_130 /* InoutParameters.swift */,
@@ -2974,7 +3035,6 @@
 				OBJ_135 /* Parent.swift */,
 				OBJ_136 /* ParentProtocol.swift */,
 				OBJ_137 /* ProtocolInitializers.swift */,
-				OBJ_138 /* TopLevelFileIgnoredSource.swift */,
 				OBJ_139 /* Typealiasing.swift */,
 				OBJ_140 /* UndefinedArgumentLabels.swift */,
 				OBJ_141 /* Variables.swift */,
@@ -4112,6 +4172,7 @@
 				491047AE2391FC0B00E837AE /* ClosureParameterTests.swift in Sources */,
 				D3E4CFDB240DB1B40047BBEC /* CountMatcherTests.swift in Sources */,
 				OBJ_830 /* IgnoredSourceExclusionTests.swift in Sources */,
+				D3F2F46324371960000F3ECA /* IgnoredSourceInclusionTests.swift in Sources */,
 				OBJ_831 /* InoutParametersMockableTests.swift in Sources */,
 				OBJ_832 /* InoutParametersStubbableTests.swift in Sources */,
 				OBJ_833 /* TypealiasingMockableTests.swift in Sources */,
@@ -4157,20 +4218,27 @@
 			buildActionMask = 0;
 			files = (
 				49BA45332343BB7F002BD9B5 /* ClassOnlyProtocols.swift in Sources */,
+				D3F2F47B2437BA75000F3ECA /* #EscapedCommentPrefixIgnoredSource.swift in Sources */,
 				OBJ_886 /* ArgumentMatching.swift in Sources */,
 				4904BDED232ED4B80031E071 /* EmptyTypes.swift in Sources */,
 				OBJ_887 /* Child.swift in Sources */,
+				D3F2F4782437A48B000F3ECA /* RelativeSecondLevelFileIncludedSource.swift in Sources */,
 				OBJ_888 /* ChildProtocol.swift in Sources */,
 				493ECA39232ECEF1008BF44B /* ExternalModuleTypealiasing.swift in Sources */,
+				D3F2F45D24371132000F3ECA /* NonRelativeSecondLevelFileIgnoredSource.swift in Sources */,
 				D3E4CFD7240B4CE10047BBEC /* ExternalModuleImplicitlyImportedTypes.swift in Sources */,
 				OBJ_889 /* ClassInitializers.swift in Sources */,
 				OBJ_890 /* ClassScopedTypes.swift in Sources */,
+				D3F2F46824371BAC000F3ECA /* DirectoryNonRelativeIgnoredSource.swift in Sources */,
 				4970D6AA23335ABE002EE154 /* CompilationDirectives.swift in Sources */,
 				OBJ_891 /* ClosureParameters.swift in Sources */,
 				OBJ_892 /* Collections.swift in Sources */,
 				OBJ_893 /* CompoundTypes.swift in Sources */,
 				OBJ_894 /* DeclarationAttributes.swift in Sources */,
 				9491824C23F0CE3A00429146 /* KeywordArgumentNames.swift in Sources */,
+				D3F2F46D2437211B000F3ECA /* EnclosingDirectoryOverriddenIncludedSource.swift in Sources */,
+				D3F2F46B24371C80000F3ECA /* WildcardFileNonRelativeIgnoredSource.swift in Sources */,
+				D3F2F46E243722CE000F3ECA /* EnclosingDirectoryOverriddenIgnoredSource.swift in Sources */,
 				OBJ_895 /* DefaultArgumentValues.swift in Sources */,
 				OBJ_896 /* Bird.swift in Sources */,
 				OBJ_897 /* Tree.swift in Sources */,
@@ -4181,12 +4249,12 @@
 				4970D6782331E67C002EE154 /* OpaqueTypes.swift in Sources */,
 				493ECA3B232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift in Sources */,
 				OBJ_902 /* GrandparentProtocol.swift in Sources */,
-				OBJ_903 /* DirectoryIgnoredSource1.swift in Sources */,
-				OBJ_904 /* DirectoryIgnoredSource2.swift in Sources */,
+				OBJ_903 /* DirectoryIgnoredSource.swift in Sources */,
 				OBJ_905 /* WildcardFileIgnoredSource.swift in Sources */,
-				OBJ_906 /* WildcardDirectoryIgnoredSource1.swift in Sources */,
-				OBJ_907 /* WildcardDirectoryIgnoredSource2.swift in Sources */,
+				OBJ_906 /* WildcardDirectoryIgnoredSource.swift in Sources */,
 				493ECA3D232ECF10008BF44B /* ExternalModuleTypes.swift in Sources */,
+				D3F2F47224372599000F3ECA /* CascadingExcludedSource.swift in Sources */,
+				D3F2F4612437192D000F3ECA /* TrivialIncludedSource.swift in Sources */,
 				OBJ_908 /* SecondLevelFileIgnoredSource.swift in Sources */,
 				OBJ_909 /* InheritedTypeQualification.swift in Sources */,
 				OBJ_910 /* Initializers.swift in Sources */,
@@ -4197,12 +4265,16 @@
 				OBJ_915 /* OverloadedMethods.swift in Sources */,
 				OBJ_916 /* Parent.swift in Sources */,
 				OBJ_917 /* ParentProtocol.swift in Sources */,
+				D3F2F474243749FB000F3ECA /* !EscapedNegationPrefixIgnoredSource.swift in Sources */,
 				OBJ_918 /* ProtocolInitializers.swift in Sources */,
 				OBJ_919 /* TopLevelFileIgnoredSource.swift in Sources */,
 				OBJ_920 /* Typealiasing.swift in Sources */,
+				D3F2F4762437A44E000F3ECA /* RelativeTopLevelFileIgnoredSource.swift in Sources */,
 				OBJ_921 /* UndefinedArgumentLabels.swift in Sources */,
+				D3F2F45F243718F7000F3ECA /* OverriddenIncludedSource.swift in Sources */,
 				OBJ_922 /* Variables.swift in Sources */,
 				OBJ_923 /* VariadicParameters.swift in Sources */,
+				D3F2F47024372549000F3ECA /* CascadingIncludedSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

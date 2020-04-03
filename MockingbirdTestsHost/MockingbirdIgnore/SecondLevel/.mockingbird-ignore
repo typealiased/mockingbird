@@ -1,0 +1,9 @@
+# Outside scope, should not exclude
+TopLevelFileIgnoredSource.swift
+
+Group1/
+
+Group2/*.swift
+!Group2/OverriddenIncludedSource.swift
+
+!Group3/Group/EnclosingDirectoryOverriddenIncludedSource.swift

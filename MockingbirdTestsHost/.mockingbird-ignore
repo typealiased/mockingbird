@@ -1,6 +1,0 @@
-# Comments and empty lines should be ignored
-# *.swift
-
-TopLevelFileIgnoredSource.swift
-Ignored/SecondLevelFileIgnoredSource.swift
-Ignored/Group3/**/*.swift

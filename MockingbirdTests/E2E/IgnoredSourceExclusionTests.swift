@@ -6,35 +6,32 @@
 //
 
 import Foundation
-import Mockingbird
 @testable import MockingbirdTestsHost
 
-// MARK: - Excluded declarations
+// MARK: - Excluded top-level types
 
-extension TopLevelFileIgnoredSource {
-  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { fatalError() }
-}
+class TopLevelFileIgnoredSourceMock {}
 
-extension SecondLevelFileIgnoredSource {
-  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { fatalError() }
-}
+class RelativeTopLevelFileIgnoredSourceMock {}
 
-extension DirectoryIgnoredSource1 {
-  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { fatalError() }
-}
+class SecondLevelFileIgnoredSourceMock {}
 
-extension DirectoryIgnoredSource2 {
-  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { fatalError() }
-}
+class CascadingExcludedSourceMock {}
 
-extension WildcardFileIgnoredSource {
-  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { fatalError() }
-}
+class EscapedNegationPrefixIgnoredSourceMock {}
 
-extension WildcardDirectoryIgnoredSource1 {
-  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { fatalError() }
-}
+class EscapedCommentPrefixIgnoredSourceMock {}
 
-extension WildcardDirectoryIgnoredSource2 {
-  func canary() -> Mockable<MethodDeclaration, () -> Void, Void> { fatalError() }
-}
+class NonRelativeSecondLevelFileIgnoredSourceMock {}
+
+class DirectoryIgnoredSourceMock {}
+
+class WildcardFileIgnoredSourceMock {}
+
+class WildcardDirectoryIgnoredSourceMock {}
+
+class EnclosingDirectoryOverriddenIgnoredSourceMock {}
+
+class NonRelativeDirectoryIgnoredSourceMock {}
+
+class NonRelativeWildcardFileIgnoredSourceMock {}
