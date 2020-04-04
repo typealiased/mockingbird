@@ -146,7 +146,7 @@ extension PBXTarget: Target {
       let moduleName = buildConfiguration.resolve(buildSetting, for: self)
     else {
       let fallbackModuleName = name.replacingInvalidCharacters()
-      logWarning("Unable to resolve module name for target `\(name)`, falling back to `\(fallbackModuleName)`")
+      log("No explicit module name set for target `\(name)`, falling back to `\(fallbackModuleName)`")
       return fallbackModuleName
     }
     return moduleName.replacingInvalidCharacters()

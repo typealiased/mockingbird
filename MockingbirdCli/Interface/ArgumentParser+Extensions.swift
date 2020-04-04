@@ -41,22 +41,22 @@ extension ArgumentParser {
   }
   
   func addSourceTargets() -> OptionArgument<[String]> {
-    return add(option: "--targets",
+    return add(option: "--sources",
                kind: [String].self,
-               usage: "List of target names that should generate mocks.")
+               usage: "List of target names to generate mocks for.")
   }
   
   /// Convenience for source `--targets`. Accepts multiple targets.
   func addSourceTarget() -> OptionArgument<[String]> {
-    return add(option: "--target",
+    return add(option: "--source",
                kind: [String].self,
-               usage: "A target name that should generate mocks.")
+               usage: "A target name to generate mocks for.")
   }
   
   func addDestinationTarget() -> OptionArgument<String> {
-    return add(option: "--destination",
+    return add(option: "--target",
                kind: String.self,
-               usage: "The target name where the Run Script Phase will be installed.")
+               usage: "The target name where Mockingbird will be installed.")
   }
   
   func addOutputs() -> OptionArgument<[PathArgument]> {
@@ -143,13 +143,13 @@ extension ArgumentParser {
   func addDisableModuleImport() -> OptionArgument<Bool> {
     return add(option: "--disable-module-import",
                kind: Bool.self,
-               usage: "Omit `@testable import <module>` from generated mocks.")
+               usage: "Omit '@testable import <module>' from generated mocks.")
   }
   
   func addIgnoreExistingRunScript() -> OptionArgument<Bool> {
-    return add(option: "--ignore-existing",
+    return add(option: "--preserve-existing",
                kind: Bool.self,
-               usage: "Don’t overwrite existing Run Scripts created by Mockingbird CLI.")
+               usage: "Don’t overwrite previously installed configurations.")
   }
   
   func addAynchronousGeneration() -> OptionArgument<Bool> {

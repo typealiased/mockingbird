@@ -245,14 +245,17 @@ class Installer {
                                                     cacheBreakerPath: Path,
                                                     config: InstallConfiguration)
     -> PBXShellScriptBuildPhase {
-      let targets = config.sourceTargetNames.map({ "'\($0)'" }).joined(separator: " ")
-      let outputs = outputPaths.map({ "'\($0.absolute())'" }).joined(separator: " ")
+      let targets = config.sourceTargetNames.map({ $0.singleQuoted }).joined(separator: " ")
+      let outputs = outputPaths.map({
+        $0.getRelativePath(to: config.sourceRoot, style: .bash).doubleQuoted
+      }).joined(separator: " ")
       var options = [
         "--targets \(targets)",
         "--outputs \(outputs)",
       ]
       if let supportPath = config.supportPath {
-        options.append("--support '\(supportPath)'")
+        let relativeSupportPath = supportPath.getRelativePath(to: config.sourceRoot, style: .bash)
+        options.append("--support \(relativeSupportPath.doubleQuoted)")
       }
       if let expression = config.compilationCondition {
         options.append("--condition '\(expression)'")
@@ -279,8 +282,11 @@ class Installer {
       if config.asynchronousGeneration {
         options.append("&")
       }
+      let cliPath = config.cliPath.getRelativePath(to: config.sourceRoot,
+                                                   style: .bash,
+                                                   shouldNormalize: false)
       let shellScript = """
-      \(config.cliPath) generate \\
+      \(cliPath) generate \\
         \(options.joined(separator: " \\\n  "))
       
       # Ensure mocks are generated prior to running Compile Sources
@@ -289,7 +295,9 @@ class Installer {
       """
       return PBXShellScriptBuildPhase(name: Constants.buildPhaseName,
                                       inputPaths: ["\(cacheBreakerPath.absolute())"],
-                                      outputPaths: outputPaths.map({ "\($0.absolute())" }),
+                                      outputPaths: outputPaths.map({
+                                        $0.getRelativePath(to: config.sourceRoot, style: .xcode)
+                                      }),
                                       shellScript: shellScript)
   }
   
@@ -307,5 +315,26 @@ class Installer {
       return PBXShellScriptBuildPhase(name: Constants.cleanBuildPhaseName,
                                       outputPaths: ["\(cacheBreakerPath.absolute())"],
                                       shellScript: shellScript)
+  }
+}
+
+extension Path {
+  enum SubstitutionStyle {
+    case xcode, bash
+    func wrap(_ value: String) -> String {
+      switch self {
+      case .xcode: return "$(\(value))"
+      case .bash: return "${\(value)}"
+      }
+    }
+  }
+  
+  func getRelativePath(to sourceRoot: Path,
+                       style: SubstitutionStyle,
+                       shouldNormalize: Bool = true) -> String {
+    let sourceRootPath = "\(sourceRoot.absolute())"
+    let absolutePath = shouldNormalize ? "\(absolute())" : "\(self)"
+    guard absolutePath.hasPrefix(sourceRootPath) else { return absolutePath }
+    return style.wrap("SRCROOT") + absolutePath.dropFirst(sourceRootPath.count)
   }
 }

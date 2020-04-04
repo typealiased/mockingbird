@@ -18,8 +18,8 @@ jobs:
     - name: Set Up
       run: |
         mockingbird install \
-          --target MockingbirdTestsHost \
-          --destination MockingbirdTests \
+          --target MockingbirdTests \
+          --source MockingbirdTestsHost \
           --loglevel verbose \
           --verbose
     - name: Test
