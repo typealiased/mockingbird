@@ -6,7 +6,7 @@ jobs:
   build-latest:
     name: Run on latest macOS
     runs-on: macOS-latest
-    
+
     steps:
     - uses: actions/checkout@v1
     - name: Clean
@@ -14,10 +14,10 @@ jobs:
     - name: Build
       run: make build
     - name: Install
-      run: make install
+      run: 'export PREFIX=$(pwd) && make install'
     - name: Set Up
       run: |
-        mockingbird install \
+        ./bin/mockingbird install \
           --target MockingbirdTests \
           --source MockingbirdTestsHost \
           --loglevel verbose \

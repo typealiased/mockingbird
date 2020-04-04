@@ -1,15 +1,16 @@
 //
 //  Tree.swift
-//  MockingbirdTestsHost
+//  iOSMockingbirdExample
 //
 //  Created by Andrew Chang on 9/5/19.
 //
 
 import Foundation
 
-// In this universe, trees own birds and can make them fly, chirp, and eat at will.
+/// In this universe, trees own birds and can make them fly, chirp, and eat at will.
 class Tree {
   let bird: Bird
+  
   init(with bird: Bird) {
     self.bird = bird
   }
@@ -19,11 +20,15 @@ class Tree {
     bird.fly()
     bird.chirp(volume: 42)
   }
-  
-  class Fruit {
+}
+
+// MARK: - Fruit
+
+extension Tree {
+  struct Fruit: Equatable {
     let size: Int
-    init(size: Int) { self.size = size }
   }
+  
   func drop(_ fruit: Fruit) {
     guard bird.canEat(fruit) else { return }
     bird.eat(fruit)
