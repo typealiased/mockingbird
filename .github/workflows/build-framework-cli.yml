@@ -11,11 +11,13 @@ jobs:
     - uses: actions/checkout@v1
     - name: Clean
       run: make clean
+    - name: Set Up Project
+      run: make setup-project
     - name: Build
       run: make build
     - name: Install
       run: 'export PREFIX=$(pwd) && make install'
-    - name: Set Up
+    - name: Set Up Target
       run: |
         ./bin/mockingbird install \
           --target MockingbirdTests \
