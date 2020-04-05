@@ -42,6 +42,8 @@ class MethodTemplate: Template {
       ">": "_greaterThan",
       ">=": "_greaterThanOrEqualTo",
     ]
+    
+    static let genericMockTypeName = "__ReturnType"
   }
   
   var compilationDirectiveDeclaration: (start: String, end: String) {
@@ -55,22 +57,89 @@ class MethodTemplate: Template {
     return (start, end)
   }
   
-  var classInitializerProxy: String {
+  enum InitializationStyle {
+    case implicit, explicit, dummy, unavailable
+  }
+  
+  struct Initializer: Hashable {
+    let definition: String
+    let body: String
+    let style: InitializationStyle
+    
+    func hash(into hasher: inout Hasher) {
+      hasher.combine(definition)
+    }
+  }
+  
+  var classInitializerProxy: [Initializer] {
     guard method.isInitializer,
       isClassBound || !context.containsOverridableDesignatedInitializer
-      else { return "" }
+      else { return [] }
     // We can't usually infer what concrete arguments to pass to the designated initializer.
-    guard !method.attributes.contains(.convenience) else { return "" }
-    let attributes = declarationAttributes.isEmpty ? "" : "    \(declarationAttributes)\n"
+    guard !method.attributes.contains(.convenience) else { return [] }
+    let attributes = declarationAttributes.isEmpty ? "" : "\(declarationAttributes)\n"
     let failable = method.attributes.contains(.failable) ? "?" : ""
     let scopedName = context.createScopedName(with: [], genericTypeContext: [], suffix: "Mock")
-    return """
-    \(attributes)    public static func \(fullNameForInitializerProxy)\(returnTypeAttributesForMocking) -> \(scopedName)\(failable)\(genericConstraints) {
-          let mock: \(scopedName)\(failable) = \(tryInvocation)\(scopedName)(\(superCallParameters))
-          mock\(failable).sourceLocation = SourceLocation(__file, __line)
-          return mock
-        }
+    
+    let initializationLogic = """
+      let mock: \(scopedName)\(failable) = \(tryInvocation)\(scopedName)(\(superCallParameters))
+      mock\(failable).sourceLocation = SourceLocation(__file, __line)
     """
+    
+    // Implicit mock type declarations, e.g. `let mock = mock(Bird.self).initialize(...)`
+    let implicitMockTypeCreatorDefinition = """
+    \(fullNameForImplicitInitializerProxy)\(returnTypeAttributesForMocking) -> \(context.abstractMockProtocolName)\(failable)\(genericConstraints)
+    """
+    let implicitMockTypeCreator = """
+    \(attributes)public func \(implicitMockTypeCreatorDefinition) {
+    \(initializationLogic)
+      return mock
+    }
+    """
+    
+    // Explicit mock type declarations, e.g. `let mock: BirdMock = mock(Bird.self).initialize(...)`
+    let explicitMockTypeCreatorDefinition = """
+    \(fullNameForExplicitInitializerProxy)\(returnTypeAttributesForMocking) -> \(Constants.genericMockTypeName)\(failable)\(genericConstraints)
+    """
+    let explicitMockTypeCreator = """
+    \(attributes)public func \(explicitMockTypeCreatorDefinition) {
+    \(initializationLogic)
+      return (mock as! \(Constants.genericMockTypeName))
+    }
+    """
+    
+    // Dummy object type declarations, e.g. `let dummy: Bird = dummy(Bird.self).initialize(...)`
+    let dummyObjectTypeCreatorDefinition = """
+    \(fullNameForDummyInitializerProxy)\(returnTypeAttributesForMocking) -> \(scopedName)\(failable)\(genericConstraints)
+    """
+    let dummyObjectTypeCreator = """
+    \(attributes)public func \(dummyObjectTypeCreatorDefinition) {
+    \(initializationLogic)
+      return mock
+    }
+    """
+    
+    // Coerced mock type declarations, e.g. `let mock: Bird = mock(Bird.self).initialize(...)`
+    let coercedMockTypeCreatorDefinition = """
+    \(fullNameForUnavailableInitializerProxy)\(returnTypeAttributesForMocking) -> \(Constants.genericMockTypeName)\(failable)\(genericConstraints)
+    """
+    let coercedMockTypeCreator = """
+    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type '\(scopedName)' or use 'dummy(\(scopedName)\(genericConstraints).self).initialize(...)' to create a non-mockable dummy object")
+    \(attributes)public func \(coercedMockTypeCreatorDefinition) { fatalError() }
+    """
+    
+    return [Initializer(definition: implicitMockTypeCreatorDefinition,
+                        body: implicitMockTypeCreator,
+                        style: .implicit),
+            Initializer(definition: explicitMockTypeCreatorDefinition,
+                        body: explicitMockTypeCreator,
+                        style: .explicit),
+            Initializer(definition: dummyObjectTypeCreatorDefinition,
+                        body: dummyObjectTypeCreator,
+                        style: .dummy),
+            Initializer(definition: coercedMockTypeCreatorDefinition,
+                        body: coercedMockTypeCreator,
+                        style: .unavailable)]
   }
   
   var mockedDeclarations: String {
@@ -190,8 +259,12 @@ class MethodTemplate: Template {
     return "\(required)\(override)\(`static`)"
   }
   
+  lazy var genericTypesList: [String] = {
+    return method.genericTypes.map({ $0.flattenedDeclaration })
+  }()
+  
   lazy var genericTypes: String = {
-    return method.genericTypes.map({ $0.flattenedDeclaration }).joined(separator: ", ")
+    return genericTypesList.joined(separator: ", ")
   }()
   
   lazy var genericConstraints: String = {
@@ -200,9 +273,36 @@ class MethodTemplate: Template {
       .map({ context.specializeTypeName("\($0)") }).joined(separator: ", ")
   }()
   
-  func shortName(forInitializerProxy: Bool) -> String {
+  enum FullNameMode {
+    case mocking
+    case matching(useVariadics: Bool)
+    case initializerProxy(style: InitializationStyle)
+    
+    var isMatching: Bool {
+      switch self {
+      case .matching: return true
+      case .mocking, .initializerProxy: return false
+      }
+    }
+    
+    var useVariadics: Bool {
+      switch self {
+      case .matching(let useVariadics): return useVariadics
+      case .mocking, .initializerProxy: return false
+      }
+    }
+    
+    var initializationStyle: InitializationStyle? {
+      switch self {
+      case .mocking, .matching: return nil
+      case .initializerProxy(let style): return style
+      }
+    }
+  }
+  
+  func shortName(for mode: FullNameMode) -> String {
     let failable: String
-    if forInitializerProxy {
+    if mode.initializationStyle != nil {
       failable = ""
     } else if method.attributes.contains(.failable) {
       failable = "?"
@@ -217,32 +317,52 @@ class MethodTemplate: Template {
         && method.shortName.first?.isNumber != true
         && method.shortName.first != "_")
       ? "" : "`"
-    let shortName = forInitializerProxy ? "initialize" : (tick + method.shortName + tick)
-    let genericTypes = self.genericTypes
+    let shortName = mode.initializationStyle != nil ? "initialize" :
+      (tick + method.shortName + tick)
+    
+    var genericTypes = self.genericTypesList
+    if let style = mode.initializationStyle {
+      switch style {
+      case .implicit:
+        break
+      case .explicit:
+        genericTypes.append(Constants.genericMockTypeName + ": " + context.abstractMockProtocolName)
+      case .dummy:
+        break
+      case .unavailable:
+        genericTypes.append(Constants.genericMockTypeName)
+      }
+    }
+    let allGenericTypes = genericTypes.joined(separator: ", ")
     
     return genericTypes.isEmpty ?
-      "\(shortName)\(failable)" : "\(shortName)\(failable)<\(genericTypes)>"
+      "\(shortName)\(failable)" : "\(shortName)\(failable)<\(allGenericTypes)>"
   }
   
-  lazy var fullNameForMocking: String = {
-    return fullName(forMatching: false, useVariadics: false, forInitializerProxy: false)
-  }()
-  lazy var fullNameForMatching: String = {
-    return fullName(forMatching: true, useVariadics: false, forInitializerProxy: false)
-  }()
+  lazy var fullNameForMocking: String = { fullName(for: .mocking) }()
+  lazy var fullNameForMatching: String = { fullName(for: .matching(useVariadics: false)) }()
   /// It's not possible to have an autoclosure with variadics. However, since a method can only have
   /// one variadic parameter, we can generate one method for wildcard matching using an argument
   /// matcher, and another for specific matching using variadics.
-  lazy var fullNameForMatchingVariadics: String = {
-    return fullName(forMatching: true, useVariadics: true, forInitializerProxy: false)
+  lazy var fullNameForMatchingVariadics: String = { fullName(for: .matching(useVariadics: true)) }()
+  lazy var fullNameForImplicitInitializerProxy: String = {
+    return fullName(for: .initializerProxy(style: .implicit))
   }()
-  lazy var fullNameForInitializerProxy: String = {
-    return fullName(forMatching: false, useVariadics: false, forInitializerProxy: true)
+  lazy var fullNameForExplicitInitializerProxy: String = {
+    return fullName(for: .initializerProxy(style: .explicit))
   }()
-  func fullName(forMatching: Bool, useVariadics: Bool, forInitializerProxy: Bool) -> String {
+  lazy var fullNameForDummyInitializerProxy: String = {
+    return fullName(for: .initializerProxy(style: .dummy))
+  }()
+  lazy var fullNameForUnavailableInitializerProxy: String = {
+    return fullName(for: .initializerProxy(style: .unavailable))
+  }()
+  func fullName(for mode: FullNameMode) -> String {
+    let additionalParameters = mode.initializationStyle == nil ? [] :
+      ["__file: StaticString = #file", "__line: UInt = #line"]
     let parameterNames = method.parameters.map({ parameter -> String in
       let typeName: String
-      if forMatching && (!useVariadics || !parameter.attributes.contains(.variadic)) {
+      if mode.isMatching && (!mode.useVariadics || !parameter.attributes.contains(.variadic)) {
         typeName = "@escaping @autoclosure () -> \(parameter.matchableTypeName(in: self))"
       } else {
         typeName = parameter.mockableTypeName(in: self, forClosure: false)
@@ -254,11 +374,11 @@ class MethodTemplate: Template {
       } else {
         return "\(parameterName): \(typeName)"
       }
-    }) + (!forInitializerProxy ? [] : ["__file: StaticString = #file", "__line: UInt = #line"])
+    }) + additionalParameters
     
-    let actualShortName = self.shortName(forInitializerProxy: forInitializerProxy)
+    let actualShortName = self.shortName(for: mode)
     let shortName: String
-    if forMatching, let resolvedShortName = Constants.reservedNamesMap[actualShortName] {
+    if mode.isMatching, let resolvedShortName = Constants.reservedNamesMap[actualShortName] {
       shortName = resolvedShortName
     } else {
       shortName = actualShortName

@@ -196,10 +196,11 @@ types into their supertype, as this breaks stubbing and verification.
 
 #### Protocol Mocks
 
-Note that the mock is stored as `BirdMock` instead of `Bird`.
+Note that the initialized mock type is `BirdMock` instead of `Bird`.
 
 ```swift
-let bird: BirdMock = mock(Bird.self)
+let bird: BirdMock = mock(Bird.self)  // The concrete type is `BirdMock`
+let inferredBird = mock(Bird.self)    // but type inference also works
 ```
 
 #### Class Mocks
@@ -208,8 +209,25 @@ Initialize concrete class mocks using the `initialize` method. Keep in mind that
 which has certain limitations, so consider using protocol mocks whenever possible.
 
 ```swift
-let birdClass: BirdClassMock = mock(BirdClass.self).initialize(name: "Ryan")
+class Bird {
+  let name: String
+  init(named name: String) { self.name = name }
+}
+let bird = mock(Bird.self).initialize(named: "Ryan")
 ```
+
+<details><summary>Upcoming changes in Mockingbird 0.11.0</summary>
+
+#### Dummy Objects
+
+Occasionally it’s desirable to initialize objects that are passed around as arguments but never used as mocks or
+stubs.
+
+```swift
+let tree = Tree(with: dummy(Bird.self))
+```
+
+</details>
 
 ### Stubbing
 

@@ -32,7 +32,17 @@ class TopLevelType {
     
     func secondLevelMethod(param1: TopLevelType, param2: ThirdLevelType) -> Bool { return true }
   }
+  class InitializableSecondLevelType {
+    init(param: Bool) {}
+  }
   func topLevelMethod(param1: SecondLevelType, param2: SecondLevelType.ThirdLevelType) -> Bool {
     return true
+  }
+}
+
+class AnotherTopLevelType {
+  class SecondLevelType {}
+  class InitializableSecondLevelType {
+    init(param: Bool) {}
   }
 }
