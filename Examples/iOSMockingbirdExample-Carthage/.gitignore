@@ -1,0 +1,3 @@
+Carthage/Checkouts
+Carthage/Build
+*.generated.swift
