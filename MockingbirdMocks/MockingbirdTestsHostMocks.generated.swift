@@ -1307,6 +1307,32 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return BirdMock(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked CascadingIncludedSource
+
+public final class CascadingIncludedSourceMock: MockingbirdTestsHost.CascadingIncludedSource, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      CascadingIncludedSourceMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.CascadingIncludedSource` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.CascadingIncludedSource.Protocol) -> CascadingIncludedSourceMock {
+  return CascadingIncludedSourceMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked ChildProtocol
 
 public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockingbird.Mock {
@@ -5513,6 +5539,32 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return DictionaryTypesMock(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked DirectoryNonRelativeIgnoredSource
+
+public final class DirectoryNonRelativeIgnoredSourceMock: MockingbirdTestsHost.DirectoryNonRelativeIgnoredSource, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      DirectoryNonRelativeIgnoredSourceMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.DirectoryNonRelativeIgnoredSource` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.DirectoryNonRelativeIgnoredSource.Protocol) -> DirectoryNonRelativeIgnoredSourceMock {
+  return DirectoryNonRelativeIgnoredSourceMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked EmptyClass
 
 public final class EmptyClassMock: MockingbirdTestsHost.EmptyClass, Mockingbird.Mock {
@@ -6682,6 +6734,32 @@ public final class EmptyProtocolMock: MockingbirdTestsHost.EmptyProtocol, Mockin
 /// Create a source-attributed `MockingbirdTestsHost.EmptyProtocol` concrete protocol mock instance.
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.EmptyProtocol.Protocol) -> EmptyProtocolMock {
   return EmptyProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked EnclosingDirectoryOverriddenIncludedSource
+
+public final class EnclosingDirectoryOverriddenIncludedSourceMock: MockingbirdTestsHost.EnclosingDirectoryOverriddenIncludedSource, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      EnclosingDirectoryOverriddenIncludedSourceMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.EnclosingDirectoryOverriddenIncludedSource` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.EnclosingDirectoryOverriddenIncludedSource.Protocol) -> EnclosingDirectoryOverriddenIncludedSourceMock {
+  return EnclosingDirectoryOverriddenIncludedSourceMock(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked EquatableCodableConformingProtocol
@@ -11857,6 +11935,32 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return OverloadedMethodsProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked OverriddenIncludedSource
+
+public final class OverriddenIncludedSourceMock: MockingbirdTestsHost.OverriddenIncludedSource, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      OverriddenIncludedSourceMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.OverriddenIncludedSource` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.OverriddenIncludedSource.Protocol) -> OverriddenIncludedSourceMock {
+  return OverriddenIncludedSourceMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked ParameterizedInitializerClass
 
 public final class ParameterizedInitializerClassMock: MockingbirdTestsHost.ParameterizedInitializerClass, Mockingbird.Mock {
@@ -12710,6 +12814,32 @@ public final class ReferencedGenericClassMock<T>: MockingbirdTestsHost.Reference
 /// Create a source-attributed `MockingbirdTestsHost.ReferencedGenericClass<T>` concrete class mock instance.
 public func mock<T>(file: StaticString = #file, line: UInt = #line, _ type: ReferencedGenericClassMock<T>.Type) -> ReferencedGenericClassMock<T> {
   return ReferencedGenericClassMock<T>(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked RelativeSecondLevelFileIncludedSource
+
+public final class RelativeSecondLevelFileIncludedSourceMock: MockingbirdTestsHost.RelativeSecondLevelFileIncludedSource, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      RelativeSecondLevelFileIncludedSourceMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.RelativeSecondLevelFileIncludedSource` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.RelativeSecondLevelFileIncludedSource.Protocol) -> RelativeSecondLevelFileIncludedSourceMock {
+  return RelativeSecondLevelFileIncludedSourceMock(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked RequiredInitializerClass
@@ -14966,6 +15096,32 @@ public func mock(file: StaticString = #file, line: UInt = #line, _ type: Mocking
   return TreeMock.FruitMock.InitializerProxy.self
 }
 
+// MARK: - Mocked TrivialIncludedSource
+
+public final class TrivialIncludedSourceMock: MockingbirdTestsHost.TrivialIncludedSource, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      TrivialIncludedSourceMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.TrivialIncludedSource` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.TrivialIncludedSource.Protocol) -> TrivialIncludedSourceMock {
+  return TrivialIncludedSourceMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked TupleTypes
 
 public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.Mock {
@@ -16547,4 +16703,30 @@ public final class ViewControllerExtensionReferencerMock: MockingbirdTestsHost.V
 /// Create a source-attributed `MockingbirdTestsHost.ViewControllerExtensionReferencer` concrete protocol mock instance.
 public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.ViewControllerExtensionReferencer.Protocol) -> ViewControllerExtensionReferencerMock {
   return ViewControllerExtensionReferencerMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked WildcardFileNonRelativeIgnoredSource
+
+public final class WildcardFileNonRelativeIgnoredSourceMock: MockingbirdTestsHost.WildcardFileNonRelativeIgnoredSource, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.10.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      WildcardFileNonRelativeIgnoredSourceMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Create a source-attributed `MockingbirdTestsHost.WildcardFileNonRelativeIgnoredSource` concrete protocol mock instance.
+public func mock(file: StaticString = #file, line: UInt = #line, _ type: MockingbirdTestsHost.WildcardFileNonRelativeIgnoredSource.Protocol) -> WildcardFileNonRelativeIgnoredSourceMock {
+  return WildcardFileNonRelativeIgnoredSourceMock(sourceLocation: SourceLocation(file, line))
 }
