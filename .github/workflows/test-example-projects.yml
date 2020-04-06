@@ -1,0 +1,29 @@
+name: Test Example Projects
+
+on:
+ push:
+  paths:
+  - 'Examples/**'
+  - '.github/workflows/**'
+  - 'Makefile'
+ pull_request:
+  paths:
+  - 'Examples/**'
+  - '.github/workflows/**'
+  - 'Makefile'
+
+jobs:
+  test-cocoapods:
+    name: Check CocoaPods integration
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Clean
+      run: make clean-cocoapods
+    - name: Set Up
+      run: 'export PREFIX=$(pwd) && make setup-cocoapods'
+    - name: Test
+      run: 'export PATH=$(pwd)/bin:$PATH && make test-cocoapods'
+    - name: Cached Test
+      run: make test-cocoapods

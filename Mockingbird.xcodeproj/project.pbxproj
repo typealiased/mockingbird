@@ -455,7 +455,6 @@
 		OBJ_838 /* VariablesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_170 /* VariablesStubbableTests.swift */; };
 		OBJ_839 /* VariadicParametersMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_171 /* VariadicParametersMockableTests.swift */; };
 		OBJ_840 /* VariadicParametersStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_172 /* VariadicParametersStubbableTests.swift */; };
-		OBJ_841 /* TreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_174 /* TreeTests.swift */; };
 		OBJ_842 /* ArgumentCaptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_176 /* ArgumentCaptorTests.swift */; };
 		OBJ_843 /* ArgumentMatchingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_177 /* ArgumentMatchingTests.swift */; };
 		OBJ_844 /* AsyncVerificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_178 /* AsyncVerificationTests.swift */; };
@@ -490,8 +489,6 @@
 		OBJ_893 /* CompoundTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_106 /* CompoundTypes.swift */; };
 		OBJ_894 /* DeclarationAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_107 /* DeclarationAttributes.swift */; };
 		OBJ_895 /* DefaultArgumentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_108 /* DefaultArgumentValues.swift */; };
-		OBJ_896 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_110 /* Bird.swift */; };
-		OBJ_897 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_111 /* Tree.swift */; };
 		OBJ_898 /* Exceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_112 /* Exceptions.swift */; };
 		OBJ_899 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_113 /* Extensions.swift */; };
 		OBJ_900 /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_114 /* Generics.swift */; };
@@ -1066,8 +1063,6 @@
 		OBJ_107 /* DeclarationAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclarationAttributes.swift; sourceTree = "<group>"; };
 		OBJ_108 /* DefaultArgumentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultArgumentValues.swift; sourceTree = "<group>"; };
 		OBJ_11 /* ArgumentParser+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArgumentParser+Extensions.swift"; sourceTree = "<group>"; };
-		OBJ_110 /* Bird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
-		OBJ_111 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 		OBJ_112 /* Exceptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exceptions.swift; sourceTree = "<group>"; };
 		OBJ_113 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		OBJ_114 /* Generics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generics.swift; sourceTree = "<group>"; };
@@ -1125,7 +1120,6 @@
 		OBJ_170 /* VariablesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariablesStubbableTests.swift; sourceTree = "<group>"; };
 		OBJ_171 /* VariadicParametersMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariadicParametersMockableTests.swift; sourceTree = "<group>"; };
 		OBJ_172 /* VariadicParametersStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariadicParametersStubbableTests.swift; sourceTree = "<group>"; };
-		OBJ_174 /* TreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeTests.swift; sourceTree = "<group>"; };
 		OBJ_176 /* ArgumentCaptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentCaptorTests.swift; sourceTree = "<group>"; };
 		OBJ_177 /* ArgumentMatchingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentMatchingTests.swift; sourceTree = "<group>"; };
 		OBJ_178 /* AsyncVerificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncVerificationTests.swift; sourceTree = "<group>"; };
@@ -1799,15 +1793,6 @@
 			path = Interface;
 			sourceTree = "<group>";
 		};
-		OBJ_109 /* Example */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_110 /* Bird.swift */,
-				OBJ_111 /* Tree.swift */,
-			);
-			path = Example;
-			sourceTree = "<group>";
-		};
 		OBJ_117 /* MockingbirdIgnore */ = {
 			isa = PBXGroup;
 			children = (
@@ -1870,7 +1855,6 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_145 /* E2E */,
-				OBJ_173 /* Example */,
 				OBJ_175 /* Framework */,
 				OBJ_185 /* Generator */,
 			);
@@ -1918,14 +1902,6 @@
 				OBJ_172 /* VariadicParametersStubbableTests.swift */,
 			);
 			path = E2E;
-			sourceTree = "<group>";
-		};
-		OBJ_173 /* Example */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_174 /* TreeTests.swift */,
-			);
-			path = Example;
 			sourceTree = "<group>";
 		};
 		OBJ_175 /* Framework */ = {
@@ -3011,7 +2987,6 @@
 				OBJ_107 /* DeclarationAttributes.swift */,
 				OBJ_108 /* DefaultArgumentValues.swift */,
 				4904BDEC232ED4B80031E071 /* EmptyTypes.swift */,
-				OBJ_109 /* Example */,
 				OBJ_112 /* Exceptions.swift */,
 				OBJ_113 /* Extensions.swift */,
 				493ECA3A232ECF03008BF44B /* ExternalModuleClassScopedTypes.swift */,
@@ -4190,7 +4165,6 @@
 				4904BDF1232F168D0031E071 /* ExternalModuleTypesStubbableTests.swift in Sources */,
 				3B7716CE2364AE3500B339EB /* PBXTargetTests.swift in Sources */,
 				OBJ_840 /* VariadicParametersStubbableTests.swift in Sources */,
-				OBJ_841 /* TreeTests.swift in Sources */,
 				OBJ_842 /* ArgumentCaptorTests.swift in Sources */,
 				OBJ_843 /* ArgumentMatchingTests.swift in Sources */,
 				9491824E23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift in Sources */,
@@ -4240,8 +4214,6 @@
 				D3F2F46B24371C80000F3ECA /* WildcardFileNonRelativeIgnoredSource.swift in Sources */,
 				D3F2F46E243722CE000F3ECA /* EnclosingDirectoryOverriddenIgnoredSource.swift in Sources */,
 				OBJ_895 /* DefaultArgumentValues.swift in Sources */,
-				OBJ_896 /* Bird.swift in Sources */,
-				OBJ_897 /* Tree.swift in Sources */,
 				OBJ_898 /* Exceptions.swift in Sources */,
 				OBJ_899 /* Extensions.swift in Sources */,
 				OBJ_900 /* Generics.swift in Sources */,

@@ -1,6 +1,6 @@
 //
 //  Bird.swift
-//  MockingbirdTestsHost
+//  iOSMockingbirdExample
 //
 //  Created by Andrew Chang on 9/5/19.
 //
@@ -14,6 +14,7 @@ public protocol Bird {
   func chirp(volume: Int)
 
   // MARK: Generics
-  func canEat<T>(_ object: T) -> Bool // Whether the `Bird` can successfully eat the object.
-  func eat<T>(_ object: T)
+  
+  func canEat<T: Equatable>(_ object: T) -> Bool
+  func eat<T: Equatable>(_ object: T)
 }

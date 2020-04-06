@@ -1,0 +1,10 @@
+target 'iOSMockingbirdExample-CocoaPods' do
+  use_frameworks!
+  platform :ios, '9.0'
+
+  target 'iOSMockingbirdExample-CocoaPodsTests' do
+    inherit! :search_paths
+    pod 'MockingbirdFramework', '~> 0.10.0'
+  end
+
+end

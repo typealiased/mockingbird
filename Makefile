@@ -2,10 +2,19 @@ TEMPORARY_FOLDER?=/tmp/Mockingbird.make.dst
 PREFIX?=/usr/local
 BUILD_TOOL?=xcodebuild
 
+SIMULATOR_NAME='iphone11-mockingbird'
+SIMULATOR_DEVICE_TYPE='com.apple.CoreSimulator.SimDeviceType.iPhone-11'
+SIMULATOR_RUNTIME='com.apple.CoreSimulator.SimRuntime.iOS-13-3'
+
 SWIFT_BUILD_FLAGS=--configuration release
 XCODEBUILD_FLAGS=-project 'Mockingbird.xcodeproj' \
 	-destination 'platform=OS X' \
 	DSTROOT=$(TEMPORARY_FOLDER)
+
+EXAMPLE_XCODEBUILD_FLAGS=DSTROOT=$(TEMPORARY_FOLDER)
+EXAMPLE_COCOAPODS_XCODEBUILD_FLAGS=$(EXAMPLE_XCODEBUILD_FLAGS) \
+	-workspace 'Examples/iOSMockingbirdExample-CocoaPods/iOSMockingbirdExample-CocoaPods.xcworkspace' \
+	-scheme 'iOSMockingbirdExample-CocoaPods'
 
 EXECUTABLE_PATH=$(shell swift build $(SWIFT_BUILD_FLAGS) --show-bin-path)/mockingbird
 
@@ -36,9 +45,13 @@ ERROR_MSG=[ERROR] The downloaded Mockingbird CLI binary does not have the expect
 		clean-xcode \
 		bootstrap-carthage \
 		build \
+		setup-cocoapods \
+		test-cocoapods \
+		test-examples \
+		clean-cocoapods \
+		clean-test-examples \
 		test \
 		clean-test \
-		carthage-update \
 		install \
 		uninstall \
 		package \
@@ -59,7 +72,7 @@ clean:
 	swift package clean
 
 clean-mocks: clean
-	rm -f MockingbirdMocks/*.swift
+	rm -f MockingbirdMocks/*.generated.swift
 
 clean-xcode: clean-mocks
 	$(BUILD_TOOL) -scheme 'MockingbirdFramework' $(XCODEBUILD_FLAGS) clean
@@ -71,11 +84,28 @@ bootstrap-carthage:
 build:
 	swift build $(SWIFT_BUILD_FLAGS) --product mockingbird
 
+setup-cocoapods:
+	(cd Examples/iOSMockingbirdExample-CocoaPods && pod install)
+	(cd Examples/iOSMockingbirdExample-CocoaPods/Pods/MockingbirdFramework && make install-prebuilt)
+
+test-cocoapods:
+	$(eval DEVICE_UUID = $(shell xcrun simctl create $(SIMULATOR_NAME) $(SIMULATOR_DEVICE_TYPE) $(SIMULATOR_RUNTIME)))
+	$(BUILD_TOOL) -destination "platform=iOS Simulator,id=$(DEVICE_UUID)" $(EXAMPLE_COCOAPODS_XCODEBUILD_FLAGS) test
+	xcrun simctl delete $(DEVICE_UUID)
+
+test-examples: test-cocoapods
+
+clean-cocoapods:
+	rm -f Examples/iOSMockingbirdExample-CocoaPods/MockingbirdMocks/*.generated.swift
+	rm -f Examples/iOSMockingbirdExample-CocoaPods/Podfile.lock
+	$(BUILD_TOOL) $(EXAMPLE_COCOAPODS_XCODEBUILD_FLAGS) clean
+
+clean-test-examples: clean-cocoapods test-examples
+
 test:
 	$(BUILD_TOOL) -scheme 'MockingbirdTests' $(XCODEBUILD_FLAGS) test
 
-clean-test: clean-xcode
-	$(BUILD_TOOL) -scheme 'MockingbirdTests' $(XCODEBUILD_FLAGS) test
+clean-test: clean-xcode test
 
 download:
 	curl -Lo "$(ZIP_FILENAME)" "$(ZIP_RELEASE_URL)"

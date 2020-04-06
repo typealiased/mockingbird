@@ -619,5 +619,4 @@ To increase the log verbosity, specify `--verbose` in the
 ## Additional Resources
 
 - [Slack channel](https://slofile.com/slack/birdopensource)
-- [Example unit test](/MockingbirdTests/Example/TreeTests.swift)
-- [CocoaPods tutorial + example project](https://github.com/andrewchang-bird/MockingbirdCocoaPodsExample)
+- [CocoaPods tutorial + example project](/Examples/iOSMockingbirdExample-CocoaPods)
