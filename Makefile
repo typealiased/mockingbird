@@ -15,6 +15,9 @@ EXAMPLE_XCODEBUILD_FLAGS=DSTROOT=$(TEMPORARY_FOLDER)
 EXAMPLE_COCOAPODS_XCODEBUILD_FLAGS=$(EXAMPLE_XCODEBUILD_FLAGS) \
 	-workspace 'Examples/iOSMockingbirdExample-CocoaPods/iOSMockingbirdExample-CocoaPods.xcworkspace' \
 	-scheme 'iOSMockingbirdExample-CocoaPods'
+EXAMPLE_CARTHAGE_XCODEBUILD_FLAGS=$(EXAMPLE_XCODEBUILD_FLAGS) \
+	-project 'Examples/iOSMockingbirdExample-Carthage/iOSMockingbirdExample-Carthage.xcodeproj' \
+	-scheme 'iOSMockingbirdExample-Carthage'
 
 EXECUTABLE_PATH=$(shell swift build $(SWIFT_BUILD_FLAGS) --show-bin-path)/mockingbird
 
@@ -48,8 +51,10 @@ ERROR_MSG=[ERROR] The downloaded Mockingbird CLI binary does not have the expect
 		build \
 		setup-cocoapods \
 		test-cocoapods \
+		test-carthage \
 		test-examples \
 		clean-cocoapods \
+		clean-carthage \
 		clean-test-examples \
 		test \
 		clean-test \
@@ -93,19 +98,33 @@ setup-cocoapods:
 	(cd Examples/iOSMockingbirdExample-CocoaPods && pod install)
 	(cd Examples/iOSMockingbirdExample-CocoaPods/Pods/MockingbirdFramework && make install-prebuilt)
 
+setup-carthage:
+	(cd Examples/iOSMockingbirdExample-Carthage && carthage update --platform ios)
+	(cd Examples/iOSMockingbirdExample-Carthage/Carthage/Checkouts/mockingbird && make install-prebuilt)
+
 test-cocoapods:
 	$(eval DEVICE_UUID = $(shell xcrun simctl create $(SIMULATOR_NAME) $(SIMULATOR_DEVICE_TYPE) $(SIMULATOR_RUNTIME)))
 	$(BUILD_TOOL) -destination "platform=iOS Simulator,id=$(DEVICE_UUID)" $(EXAMPLE_COCOAPODS_XCODEBUILD_FLAGS) test
 	xcrun simctl delete $(DEVICE_UUID)
 
-test-examples: test-cocoapods
+test-carthage:
+	$(eval DEVICE_UUID = $(shell xcrun simctl create $(SIMULATOR_NAME) $(SIMULATOR_DEVICE_TYPE) $(SIMULATOR_RUNTIME)))
+	$(BUILD_TOOL) -destination "platform=iOS Simulator,id=$(DEVICE_UUID)" $(EXAMPLE_CARTHAGE_XCODEBUILD_FLAGS) test
+	xcrun simctl delete $(DEVICE_UUID)
+
+test-examples: test-cocoapods test-carthage
 
 clean-cocoapods:
 	rm -f Examples/iOSMockingbirdExample-CocoaPods/MockingbirdMocks/*.generated.swift
 	rm -f Examples/iOSMockingbirdExample-CocoaPods/Podfile.lock
 	$(BUILD_TOOL) $(EXAMPLE_COCOAPODS_XCODEBUILD_FLAGS) clean
 
-clean-test-examples: clean-cocoapods test-examples
+clean-carthage:
+	rm -f Examples/iOSMockingbirdExample-Carthage/MockingbirdMocks/*.generated.swift
+	rm -f Examples/iOSMockingbirdExample-Carthage/Cartfile.resolved
+	$(BUILD_TOOL) $(EXAMPLE_CARTHAGE_XCODEBUILD_FLAGS) clean
+
+clean-test-examples: clean-cocoapods clean-carthage test-examples
 
 test:
 	$(BUILD_TOOL) -scheme 'MockingbirdTests' $(XCODEBUILD_FLAGS) test

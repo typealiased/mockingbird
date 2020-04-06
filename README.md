@@ -624,3 +624,4 @@ To increase the log verbosity, specify `--verbose` in the
 
 - [Slack channel](https://slofile.com/slack/birdopensource)
 - [CocoaPods tutorial + example project](/Examples/iOSMockingbirdExample-CocoaPods)
+- [Carthage tutorial + example project](/Examples/iOSMockingbirdExample-Carthage)

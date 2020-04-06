@@ -27,3 +27,18 @@ jobs:
       run: 'export PATH=$(pwd)/bin:$PATH && make test-cocoapods'
     - name: Cached Test
       run: make test-cocoapods
+
+  test-carthage:
+    name: Check Carthage integration
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Clean
+      run: make clean-carthage
+    - name: Set Up
+      run: 'export PREFIX=$(pwd) && make setup-carthage'
+    - name: Test
+      run: 'export PATH=$(pwd)/bin:$PATH && make test-carthage'
+    - name: Cached Test
+      run: make test-carthage

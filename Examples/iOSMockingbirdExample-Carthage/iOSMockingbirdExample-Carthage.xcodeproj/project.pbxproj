@@ -1,0 +1,557 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8DD9E2198A351B0C771316A7 /* iOSMockingbirdExample_CarthageMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992B0274D09757C6B9BEEDDA /* iOSMockingbirdExample_CarthageMocks.generated.swift */; };
+		D3482061243980B700C6DC75 /* Mockingbird.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3482060243980B700C6DC75 /* Mockingbird.framework */; };
+		D3482065243981D200C6DC75 /* TreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3482064243981D200C6DC75 /* TreeTests.swift */; };
+		D3482068243981E700C6DC75 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3482066243981E700C6DC75 /* Tree.swift */; };
+		D3482069243981E700C6DC75 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3482067243981E700C6DC75 /* Bird.swift */; };
+		D348206C243983CE00C6DC75 /* Mockingbird.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D3482060243980B700C6DC75 /* Mockingbird.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D3FF917D24395EA1008B48CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF917C24395EA1008B48CF /* AppDelegate.swift */; };
+		D3FF917F24395EA1008B48CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF917E24395EA1008B48CF /* SceneDelegate.swift */; };
+		D3FF918124395EA1008B48CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF918024395EA1008B48CF /* ViewController.swift */; };
+		D3FF918424395EA2008B48CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3FF918224395EA2008B48CF /* Main.storyboard */; };
+		D3FF918624395EA2008B48CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3FF918524395EA2008B48CF /* Assets.xcassets */; };
+		D3FF918924395EA2008B48CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3FF918724395EA2008B48CF /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D3FF919024395EA3008B48CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3FF917124395EA1008B48CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D3FF917824395EA1008B48CF;
+			remoteInfo = "iOSMockingbirdExample-Carthage";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D348206B243983B800C6DC75 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D348206C243983CE00C6DC75 /* Mockingbird.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		992B0274D09757C6B9BEEDDA /* iOSMockingbirdExample_CarthageMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = iOSMockingbirdExample_CarthageMocks.generated.swift; path = MockingbirdMocks/iOSMockingbirdExample_CarthageMocks.generated.swift; sourceTree = "<group>"; };
+		D348205E24397E0B00C6DC75 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D3482060243980B700C6DC75 /* Mockingbird.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mockingbird.framework; path = Carthage/Build/iOS/Mockingbird.framework; sourceTree = "<group>"; };
+		D3482064243981D200C6DC75 /* TreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeTests.swift; sourceTree = "<group>"; };
+		D3482066243981E700C6DC75 /* Tree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
+		D3482067243981E700C6DC75 /* Bird.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
+		D348206A2439820000C6DC75 /* .mockingbird-ignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".mockingbird-ignore"; sourceTree = "<group>"; };
+		D3FF917924395EA1008B48CF /* iOSMockingbirdExample-Carthage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOSMockingbirdExample-Carthage.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3FF917C24395EA1008B48CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D3FF917E24395EA1008B48CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		D3FF918024395EA1008B48CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D3FF918324395EA2008B48CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D3FF918524395EA2008B48CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D3FF918824395EA2008B48CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D3FF918A24395EA2008B48CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3FF918F24395EA3008B48CF /* iOSMockingbirdExample-CarthageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOSMockingbirdExample-CarthageTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3FF919524395EA3008B48CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D3FF917624395EA1008B48CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3FF918C24395EA3008B48CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3482061243980B700C6DC75 /* Mockingbird.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0539F7044F8666CCD525E33A /* Generated Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				992B0274D09757C6B9BEEDDA /* iOSMockingbirdExample_CarthageMocks.generated.swift */,
+			);
+			name = "Generated Mocks";
+			sourceTree = "<group>";
+		};
+		D348205F243980B700C6DC75 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D3482060243980B700C6DC75 /* Mockingbird.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D3FF917024395EA1008B48CF = {
+			isa = PBXGroup;
+			children = (
+				D348205E24397E0B00C6DC75 /* README.md */,
+				D3FF917B24395EA1008B48CF /* iOSMockingbirdExample-Carthage */,
+				D3FF919224395EA3008B48CF /* iOSMockingbirdExample-CarthageTests */,
+				D3FF917A24395EA1008B48CF /* Products */,
+				0539F7044F8666CCD525E33A /* Generated Mocks */,
+				D348205F243980B700C6DC75 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D3FF917A24395EA1008B48CF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3FF917924395EA1008B48CF /* iOSMockingbirdExample-Carthage.app */,
+				D3FF918F24395EA3008B48CF /* iOSMockingbirdExample-CarthageTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D3FF917B24395EA1008B48CF /* iOSMockingbirdExample-Carthage */ = {
+			isa = PBXGroup;
+			children = (
+				D348206A2439820000C6DC75 /* .mockingbird-ignore */,
+				D3482067243981E700C6DC75 /* Bird.swift */,
+				D3482066243981E700C6DC75 /* Tree.swift */,
+				D3FF917C24395EA1008B48CF /* AppDelegate.swift */,
+				D3FF917E24395EA1008B48CF /* SceneDelegate.swift */,
+				D3FF918024395EA1008B48CF /* ViewController.swift */,
+				D3FF918224395EA2008B48CF /* Main.storyboard */,
+				D3FF918524395EA2008B48CF /* Assets.xcassets */,
+				D3FF918724395EA2008B48CF /* LaunchScreen.storyboard */,
+				D3FF918A24395EA2008B48CF /* Info.plist */,
+			);
+			path = "iOSMockingbirdExample-Carthage";
+			sourceTree = "<group>";
+		};
+		D3FF919224395EA3008B48CF /* iOSMockingbirdExample-CarthageTests */ = {
+			isa = PBXGroup;
+			children = (
+				D3482064243981D200C6DC75 /* TreeTests.swift */,
+				D3FF919524395EA3008B48CF /* Info.plist */,
+			);
+			path = "iOSMockingbirdExample-CarthageTests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D3FF917824395EA1008B48CF /* iOSMockingbirdExample-Carthage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3FF919824395EA3008B48CF /* Build configuration list for PBXNativeTarget "iOSMockingbirdExample-Carthage" */;
+			buildPhases = (
+				D3FF917524395EA1008B48CF /* Sources */,
+				D3FF917624395EA1008B48CF /* Frameworks */,
+				D3FF917724395EA1008B48CF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "iOSMockingbirdExample-Carthage";
+			productName = "iOSMockingbirdExample-Carthage";
+			productReference = D3FF917924395EA1008B48CF /* iOSMockingbirdExample-Carthage.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D3FF918E24395EA3008B48CF /* iOSMockingbirdExample-CarthageTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3FF919B24395EA3008B48CF /* Build configuration list for PBXNativeTarget "iOSMockingbirdExample-CarthageTests" */;
+			buildPhases = (
+				E0D6FD26E2FFDF2BDB777D3B /* Clean Mockingbird Mocks */,
+				31CCD289A2AD89E0C2228CF1 /* Generate Mockingbird Mocks */,
+				D3FF918B24395EA3008B48CF /* Sources */,
+				D3FF918C24395EA3008B48CF /* Frameworks */,
+				D348206B243983B800C6DC75 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D3FF919124395EA3008B48CF /* PBXTargetDependency */,
+			);
+			name = "iOSMockingbirdExample-CarthageTests";
+			productName = "iOSMockingbirdExample-CarthageTests";
+			productReference = D3FF918F24395EA3008B48CF /* iOSMockingbirdExample-CarthageTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D3FF917124395EA1008B48CF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "Bird Rides, Inc.";
+				TargetAttributes = {
+					D3FF917824395EA1008B48CF = {
+						CreatedOnToolsVersion = 11.3;
+					};
+					D3FF918E24395EA3008B48CF = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = D3FF917824395EA1008B48CF;
+					};
+				};
+			};
+			buildConfigurationList = D3FF917424395EA1008B48CF /* Build configuration list for PBXProject "iOSMockingbirdExample-Carthage" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D3FF917024395EA1008B48CF;
+			productRefGroup = D3FF917A24395EA1008B48CF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D3FF917824395EA1008B48CF /* iOSMockingbirdExample-Carthage */,
+				D3FF918E24395EA3008B48CF /* iOSMockingbirdExample-CarthageTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D3FF917724395EA1008B48CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3FF918924395EA2008B48CF /* LaunchScreen.storyboard in Resources */,
+				D3FF918624395EA2008B48CF /* Assets.xcassets in Resources */,
+				D3FF918424395EA2008B48CF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		31CCD289A2AD89E0C2228CF1 /* Generate Mockingbird Mocks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"/tmp/Mockingbird-B5F58C47-B04A-4CC4-AD7F-B8A9420D8A72",
+			);
+			name = "Generate Mockingbird Mocks";
+			outputPaths = (
+				"$(SRCROOT)/MockingbirdMocks/iOSMockingbirdExample_CarthageMocks.generated.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mockingbird generate \\\n  --targets 'iOSMockingbirdExample-Carthage' \\\n  --outputs \"${SRCROOT}/MockingbirdMocks/iOSMockingbirdExample_CarthageMocks.generated.swift\" \\\n  --support \"${SRCROOT}/MockingbirdSupport\"\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-B5F58C47-B04A-4CC4-AD7F-B8A9420D8A72'\n";
+		};
+		E0D6FD26E2FFDF2BDB777D3B /* Clean Mockingbird Mocks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Clean Mockingbird Mocks";
+			outputPaths = (
+				"/tmp/Mockingbird-B5F58C47-B04A-4CC4-AD7F-B8A9420D8A72",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo $RANDOM > '/tmp/Mockingbird-B5F58C47-B04A-4CC4-AD7F-B8A9420D8A72'\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D3FF917524395EA1008B48CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3FF918124395EA1008B48CF /* ViewController.swift in Sources */,
+				D3482069243981E700C6DC75 /* Bird.swift in Sources */,
+				D3482068243981E700C6DC75 /* Tree.swift in Sources */,
+				D3FF917D24395EA1008B48CF /* AppDelegate.swift in Sources */,
+				D3FF917F24395EA1008B48CF /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3FF918B24395EA3008B48CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DD9E2198A351B0C771316A7 /* iOSMockingbirdExample_CarthageMocks.generated.swift in Sources */,
+				D3482065243981D200C6DC75 /* TreeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D3FF919124395EA3008B48CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D3FF917824395EA1008B48CF /* iOSMockingbirdExample-Carthage */;
+			targetProxy = D3FF919024395EA3008B48CF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D3FF918224395EA2008B48CF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3FF918324395EA2008B48CF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D3FF918724395EA2008B48CF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3FF918824395EA2008B48CF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D3FF919624395EA3008B48CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D3FF919724395EA3008B48CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D3FF919924395EA3008B48CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "iOSMockingbirdExample-Carthage/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "co.bird.iOSMockingbirdExample-Carthage";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D3FF919A24395EA3008B48CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "iOSMockingbirdExample-Carthage/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "co.bird.iOSMockingbirdExample-Carthage";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D3FF919C24395EA3008B48CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = "iOSMockingbirdExample-CarthageTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "co.bird.iOSMockingbirdExample-CarthageTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOSMockingbirdExample-Carthage.app/iOSMockingbirdExample-Carthage";
+			};
+			name = Debug;
+		};
+		D3FF919D24395EA3008B48CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = "iOSMockingbirdExample-CarthageTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "co.bird.iOSMockingbirdExample-CarthageTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOSMockingbirdExample-Carthage.app/iOSMockingbirdExample-Carthage";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D3FF917424395EA1008B48CF /* Build configuration list for PBXProject "iOSMockingbirdExample-Carthage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3FF919624395EA3008B48CF /* Debug */,
+				D3FF919724395EA3008B48CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3FF919824395EA3008B48CF /* Build configuration list for PBXNativeTarget "iOSMockingbirdExample-Carthage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3FF919924395EA3008B48CF /* Debug */,
+				D3FF919A24395EA3008B48CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3FF919B24395EA3008B48CF /* Build configuration list for PBXNativeTarget "iOSMockingbirdExample-CarthageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3FF919C24395EA3008B48CF /* Debug */,
+				D3FF919D24395EA3008B48CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D3FF917124395EA1008B48CF /* Project object */;
+}
