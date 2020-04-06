@@ -31,6 +31,16 @@ public extension String {
     return "`\(self)`"
   }
   
+  /// Wraps the string in single quotes.
+  var singleQuoted: String {
+    return "'\(self)'"
+  }
+  
+  /// Wraps the string in double quotes.
+  var doubleQuoted: String {
+    return "\"\(self)\""
+  }
+  
   /// Splits a string into substrings given a character delimiter.
   ///
   /// - Note: This method is 2x faster than the built-in method on Release builds.

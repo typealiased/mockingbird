@@ -115,9 +115,19 @@ Below, Mockingbird will mock types in `Bird` and `BirdManagers` which can then b
 
 ```bash
 $ mockingbird install \
-  --targets Bird BirdManagers \
-  --destination BirdTests
+  --destination BirdTests \
+  --targets Bird BirdManagers
 ```
+
+<details><summary>Upcoming changes in Mockingbird 0.11.0</summary>
+
+```bash
+$ mockingbird install \
+  --target BirdTests \
+  --sources Bird BirdManagers
+```
+
+</details>
 
 ### Manual Integration
 
@@ -447,8 +457,8 @@ Set up a destination (unit test) target.
 
 | Option | Default Value | Description |
 | --- | --- | --- |
-| `--targets` | *(required)* | List of target names that should generate mocks. |
-| `--destination` | *(required)* | The target name where the Run Script Phase will be installed. |
+| `--target` | *(required)* | The target name where Mockingbird will be installed. |
+| `--sources` | *(required)* | List of target names to generate mocks for. |
 | `--project` | [`(inferred)`](#--project) | Your project’s `.xcodeproj` file. |
 | `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |
 | `--outputs` | [`(inferred)`](#--outputs) | List of mock output file paths for each target. |
@@ -458,7 +468,7 @@ Set up a destination (unit test) target.
 
 | Flag | Description |
 | --- | --- |
-| `--ignore-existing` | Don’t overwrite existing Run Scripts created by Mockingbird CLI. |
+| `--preserve-existing` | Don’t overwrite previously installed configurations. |
 | `--asynchronous` | Generate mocks asynchronously in the background when building. |
 | `--only-protocols` | Only generate mocks for protocols. |
 | `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
