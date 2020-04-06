@@ -76,13 +76,13 @@ target 'MyTestTarget' do
 end
 ```
 
-Then initialize the pod.
+Initialize the pod.
 
 ```bash
 $ pod install
 ```
 
-And install the CLI.
+Then install the CLI.
 
 ```bash
 $ cd Pods/MockingbirdFramework
@@ -97,20 +97,24 @@ Add the framework to your `Cartfile`.
 github "birdrides/mockingbird" ~> 0.10.0
 ```
 
-And copy the Carthage script into your project root.
+Build the framework using Carthage and [link it to your test target](Documentation/LinkingTestTargets.md), making
+sure to add the framework to a Copy Files build phase with the destination set to `Frameworks`.
 
 ```bash
 $ carthage update --no-build
 $ cp Carthage/Checkouts/mockingbird/Scripts/carthage-update.sh ./
-```
-
-Use the script to checkout and build Carthage dependencies instead of `carthage update`.
-
-```bash
 $ ./carthage-update.sh
 ```
 
-Then download and install the CLI.
+<details><summary>Upcoming changes in Mockingbird 0.11.0</summary>
+
+```bash
+$ carthage update
+```
+
+</details>
+
+Then install the CLI.
 
 ```bash
 $ cd Carthage/Checkouts/mockingbird

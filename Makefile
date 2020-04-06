@@ -43,7 +43,8 @@ ERROR_MSG=[ERROR] The downloaded Mockingbird CLI binary does not have the expect
 		clean \
 		clean-mocks \
 		clean-xcode \
-		bootstrap-carthage \
+		setup-project \
+		save-xcschemes \
 		build \
 		setup-cocoapods \
 		test-cocoapods \
@@ -78,8 +79,12 @@ clean-xcode: clean-mocks
 	$(BUILD_TOOL) -scheme 'MockingbirdFramework' $(XCODEBUILD_FLAGS) clean
 	$(BUILD_TOOL) -scheme 'MockingbirdTestsHost' $(XCODEBUILD_FLAGS) clean
 
-bootstrap-carthage:
-	(cd Mockingbird.xcodeproj/xcshareddata/xcschemes && find . ! -name "MockingbirdFramework.xcscheme" ! -name "MockingbirdShared.xcscheme" -delete)
+setup-project:
+	swift package resolve
+	cp -rf Xcode/XCSchemes/*.xcscheme Mockingbird.xcodeproj/xcshareddata/xcschemes
+
+save-xcschemes:
+	cp -rf Mockingbird.xcodeproj/xcshareddata/xcschemes/*.xcscheme Xcode/XCSchemes
 
 build:
 	swift build $(SWIFT_BUILD_FLAGS) --product mockingbird

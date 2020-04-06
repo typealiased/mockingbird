@@ -1046,6 +1046,7 @@
 		D3F2F4752437A44E000F3ECA /* RelativeTopLevelFileIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeTopLevelFileIgnoredSource.swift; sourceTree = "<group>"; };
 		D3F2F4772437A48B000F3ECA /* RelativeSecondLevelFileIncludedSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeSecondLevelFileIncludedSource.swift; sourceTree = "<group>"; };
 		D3F2F47A2437BA75000F3ECA /* #EscapedCommentPrefixIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "#EscapedCommentPrefixIgnoredSource.swift"; sourceTree = "<group>"; };
+		D3FF919E24396476008B48CF /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2781,6 +2782,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_539 /* README.md */,
+				D3FF919E24396476008B48CF /* CONTRIBUTING.md */,
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
 				OBJ_143 /* Tests */,

@@ -1,6 +1,4 @@
 # Xcode
-#
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## Build generated
 build/
@@ -25,24 +23,24 @@ mockingbird
 !default.perspectivev3
 xcuserdata
 
+## Scheme exclusion for Carthage
+Mockingbird.xcodeproj/xcshareddata/xcschemes/*.xcscheme
+!Mockingbird.xcodeproj/xcshareddata/xcschemes/MockingbirdFramework.xcscheme
+
 ## Other
 *.xccheckout
 *.moved-aside
 *.xcuserstate
 *.xcscmblueprint
 
-# Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
+## Carthage
 Carthage/Checkouts
 Carthage/Build
 
-# Swift Package Manager
-#
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
+## Swift Package Manager
 Packages/
 .build/
 .swiftpm/
 
-# macOS
+## macOS
 .DS_Store
