@@ -1,0 +1,35 @@
+# Comments and empty lines should be ignored
+# *.swift
+
+##### Excluded #####
+
+# Relative
+/RelativeTopLevelFileIgnoredSource.swift
+SecondLevel/SecondLevelFileIgnoredSource.swift
+SecondLevel/Group3/**/*.swift
+
+# Relative and shouldn't match
+/TrivialIncludedSource.swift
+
+# Non-relative
+TopLevelFileIgnoredSource.swift
+\!EscapedNegationPrefixIgnoredSource.swift
+\#EscapedCommentPrefixIgnoredSource.swift
+NonRelativeSecondLevelFileIgnoredSource.swift
+Group4/
+NonRelativeWildcardFileIgnoredSource.*
+
+# Cascading excluded
+!CascadingExcludedSource.swift
+CascadingExcludedSource.swift
+
+##### Included #####
+
+!TrivialIncludedSource.swift
+!SecondLevel/Group2/EnclosingDirectoryOverriddenIgnoredSource.swift
+
+# Cascading included
+CascadingIncludedSource.swift
+!CascadingIncludedSource.swift
+
+
