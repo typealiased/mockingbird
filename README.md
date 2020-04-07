@@ -186,8 +186,10 @@ and scopes ignore files to their enclosing directory.
 
 ## Usage
 
-An example demonstrating basic usage of Mockingbird can be found at 
-[TreeTests.swift](/MockingbirdTests/Example/TreeTests.swift).
+Example projects demonstrating basic usage of Mockingbird:
+
+- [CocoaPods tutorial + example project](/Examples/iOSMockingbirdExample-CocoaPods)
+- [Carthage tutorial + example project](/Examples/iOSMockingbirdExample-Carthage)
 
 ### Mocking
 
