@@ -18,3 +18,10 @@ extension Array {
     return self.get(Int(index), default: `default`)
   }
 }
+
+public extension Array where Element: Hashable {
+  func uniqued() -> [Element] {
+    var seen = Set<Element>()
+    return self.filter({ seen.insert($0).inserted })
+  }
+}

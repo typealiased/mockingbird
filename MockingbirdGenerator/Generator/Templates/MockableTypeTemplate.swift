@@ -12,6 +12,8 @@ import Foundation
 
 private enum Constants {
   static let mockProtocolName = "Mockingbird.Mock"
+  static let abstractMockSuffix = "AbstractMockType"
+  static let abstractMockPrefixSeparator = "_"
   
   /// Mapping from protocol to concrete subclass conformance, mainly used for `NSObjectProtocol`.
   static let automaticConformanceMap: [String: String] = [
@@ -30,9 +32,11 @@ extension GenericType {
 /// Renders a `MockableType` to a `PartialFileContent` object.
 class MockableTypeTemplate: Template {
   let mockableType: MockableType
+  let abstractTypeNamePrefix: String
   private var methodTemplates = [Method: MethodTemplate]()
-  init(mockableType: MockableType) {
+  init(mockableType: MockableType, abstractTypeNamePrefix: String) {
     self.mockableType = mockableType
+    self.abstractTypeNamePrefix = abstractTypeNamePrefix
   }
   
   func methodTemplate(for method: Method) -> MethodTemplate {
@@ -126,7 +130,9 @@ class MockableTypeTemplate: Template {
   }()
   
   var allInheritedTypes: String {
-    return (inheritedTypes + [Constants.mockProtocolName]).joined(separator: ", ")
+    let additionalInheritedTypes = [Constants.mockProtocolName,
+                                    abstractMockProtocolName]
+    return (inheritedTypes + additionalInheritedTypes).joined(separator: ", ")
   }
   
   /// For scoped types referenced within their containing type.
@@ -136,6 +142,12 @@ class MockableTypeTemplate: Template {
     }
     guard !mockableType.isContainedType else { return "\(mockableType.name)\(allGenericTypes)" }
     return "\(mockableType.moduleName).\(mockableType.name)\(allGenericTypes)"
+  }()
+  
+  lazy var abstractMockProtocolName: String = {
+    return [abstractTypeNamePrefix, mockableType.name + Constants.abstractMockSuffix]
+      .filter({ !$0.isEmpty })
+      .joined(separator: Constants.abstractMockPrefixSeparator)
   }()
   
   /// For scoped types referenced at the top level but in the same module.
@@ -210,7 +222,11 @@ class MockableTypeTemplate: Template {
   func renderContainedTypes() -> String {
     guard !mockableType.containedTypes.isEmpty else { return "" }
     let containedTypesSubstructure = mockableType.containedTypes
-      .map({ MockableTypeTemplate(mockableType: $0).render().indent() })
+      .map({
+        MockableTypeTemplate(mockableType: $0, abstractTypeNamePrefix: abstractMockProtocolName)
+          .render()
+          .indent()
+      })
     return containedTypesSubstructure.joined(separator: "\n\n")
   }
   
@@ -222,20 +238,37 @@ class MockableTypeTemplate: Template {
     }
     
     guard !shouldGenerateDefaultInitializer else { return "" }
-    let initializers = mockableType.methods
+    let (initializers, dummyInitializers) = mockableType.methods
       .filter(isProxyable)
       .filter(isOverridable)
       .sorted()
-      .map({ methodTemplate(for: $0).classInitializerProxy })
-      .filter({ !$0.isEmpty })
+      .flatMap({ methodTemplate(for: $0).classInitializerProxy })
+      .uniqued()
+      .reduce(into: ([String](), [String]())) {
+        (result, initializer) in
+        switch initializer.style {
+        case .implicit, .explicit, .unavailable:
+          result.0.append(initializer.body.indent(by: 2))
+        case .dummy:
+          result.1.append(initializer.body.indent(by: 3))
+        }
+      }
     
-    guard !initializers.isEmpty else {
+    guard !initializers.isEmpty || !dummyInitializers.isEmpty else {
       return """
-        public enum InitializerProxy {}
+        public class InitializerProxy: Mockingbird.Initializable {
+          public class Dummy: Mockingbird.Initializable {}
+        }
       """
     }
     return """
-      public enum InitializerProxy {
+      public class InitializerProxy: Mockingbird.Initializable {
+        fileprivate init() {}
+    
+        public class Dummy: Mockingbird.Initializable {
+    \(dummyInitializers.joined(separator: "\n\n"))
+        }
+    
     \(initializers.joined(separator: "\n\n"))
       }
     """

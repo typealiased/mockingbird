@@ -15,6 +15,9 @@ public protocol Mock {
   var sourceLocation: SourceLocation? { get set }
 }
 
+/// All class initializer proxies conform to this protocol. Do not use this in your tests!
+public protocol Initializable {}
+
 /// Used to store invocations on static or class scoped methods.
 public class StaticMock: Mock {
   public let mockingContext = MockingContext()
