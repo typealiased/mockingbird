@@ -72,7 +72,7 @@ Add the framework to a test target in your `Podfile`, making sure to include the
 ```ruby
 target 'MyTestTarget' do
   use_frameworks!
-  pod 'MockingbirdFramework', '~> 0.10.0'
+  pod 'MockingbirdFramework', '~> 0.11.0'
 end
 ```
 
@@ -94,7 +94,7 @@ $ make install-prebuilt
 Add the framework to your `Cartfile`.
 
 ```
-github "birdrides/mockingbird" ~> 0.10.0
+github "birdrides/mockingbird" ~> 0.11.0
 ```
 
 Build the framework using Carthage and [link it to your test target](Documentation/LinkingTestTargets.md), making
@@ -126,7 +126,7 @@ $ make install-prebuilt
 Add `https://github.com/birdrides/mockingbird` as a dependency and link it to your test target.
 
 Then download and install the
-[latest CLI from Releases](https://github.com/birdrides/mockingbird/releases/download/0.10.0/MockingbirdCli.pkg).
+[latest CLI from Releases](https://github.com/birdrides/mockingbird/releases/download/0.11.0/MockingbirdCli.pkg).
 
 ### From Source
 
@@ -154,26 +154,16 @@ used in `BirdTests`.
 
 ```bash
 $ mockingbird install \
-  --destination BirdTests \
-  --targets Bird BirdManagers
-```
-
-<details><summary>Upcoming changes in Mockingbird 0.11.0</summary>
-
-```bash
-$ mockingbird install \
   --target BirdTests \
   --sources Bird BirdManagers
 ```
-
-</details>
 
 Need to [set up your project manually](Documentation/ManualSetup.md)?
 
 ### System Framework Compatibility
 
 Download the latest
-[starter supporting source files](https://github.com/birdrides/mockingbird/releases/download/0.10.0/MockingbirdSupport.zip)
+[starter supporting source files](https://github.com/birdrides/mockingbird/releases/download/0.11.0/MockingbirdSupport.zip)
 and place the `MockingbirdSupport` folder in the root directory of your project. This provides basic compatibility
 with system frameworks such as `UIKit`. See [Supporting Source Files](#supporting-source-files) for more
 information.
@@ -218,8 +208,6 @@ class Bird {
 let bird = mock(Bird.self).initialize(named: "Ryan")
 ```
 
-<details><summary>Upcoming changes in Mockingbird 0.11.0</summary>
-
 #### Dummy Objects
 
 Occasionally it’s desirable to initialize objects that are passed around as arguments but never used as mocks or
@@ -228,8 +216,6 @@ stubs.
 ```swift
 let tree = Tree(with: dummy(Bird.self))
 ```
-
-</details>
 
 ### Stubbing
 
@@ -458,7 +444,7 @@ public typealias Codable = Decodable & Encodable
 
 Mockingbird includes starter supporting source files for `Foundation`, `UIKit`, and other common system
 frameworks. Download the latest
-[starter supporting source files](https://github.com/birdrides/mockingbird/releases/download/0.10.0/MockingbirdSupport.zip)
+[starter supporting source files](https://github.com/birdrides/mockingbird/releases/download/0.11.0/MockingbirdSupport.zip)
 and place the `MockingbirdSupport` folder in the root directory of your project.
 
 If you share supporting source files between projects, you can specify a custom `--support` directory when 
