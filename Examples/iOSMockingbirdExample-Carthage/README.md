@@ -25,7 +25,7 @@ $ touch Cartfile
 Add Mockingbird as a dependency in the Cartfile.
 
 ```ruby
-$ echo 'github "birdrides/mockingbird" ~> 0.10.0' >> Cartfile
+$ echo 'github "birdrides/mockingbird" ~> 0.11.0' >> Cartfile
 ```
 
 ### Install Mockingbird
@@ -33,20 +33,9 @@ $ echo 'github "birdrides/mockingbird" ~> 0.10.0' >> Cartfile
 Build the framework using Carthage.
 
 ```bash
-$ carthage update --no-build
-$ cp Carthage/Checkouts/mockingbird/Scripts/carthage-update.sh ./
-$ ./carthage-update.sh
-$ open Carthage/Build/iOS
-```
-
-<details><summary>Upcoming changes in Mockingbird 0.11.0</summary>
-
-```bash
 $ carthage update --platform ios
 $ open Carthage/Build/iOS
 ```
-
-</details>
 
 Link the built `Mockingbird.framework` to the test target, making sure to add the framework to a new Copy Files
 build phase with the destination set to `Frameworks`.
@@ -64,26 +53,16 @@ Configure the test target by using the CLI.
 
 ```bash
 $ mockingbird install \
-  --destination iOSMockingbirdExample-CarthageTests \
-  --target iOSMockingbirdExample-Carthage
-```
-
-<details><summary>Upcoming changes in Mockingbird 0.11.0</summary>
-
-```bash
-$ mockingbird install \
   --target iOSMockingbirdExample-CarthageTests \
   --source iOSMockingbirdExample-Carthage
 ```
-
-</details>
 
 Finally, download the starter supporting source files into your project root.
 
 ```bash
 $ curl -Lo \
   'MockingbirdSupport.zip' \
-  'https://github.com/birdrides/mockingbird/releases/download/0.10.0/MockingbirdSupport.zip'
+  'https://github.com/birdrides/mockingbird/releases/download/0.11.0/MockingbirdSupport.zip'
 $ unzip -o 'MockingbirdSupport.zip'
 $ rm -f 'MockingbirdSupport.zip'
 ```
