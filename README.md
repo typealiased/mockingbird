@@ -101,18 +101,8 @@ Build the framework using Carthage and [link it to your test target](Documentati
 sure to add the framework to a Copy Files build phase with the destination set to `Frameworks`.
 
 ```bash
-$ carthage update --no-build
-$ cp Carthage/Checkouts/mockingbird/Scripts/carthage-update.sh ./
-$ ./carthage-update.sh
-```
-
-<details><summary>Upcoming changes in Mockingbird 0.11.0</summary>
-
-```bash
 $ carthage update
 ```
-
-</details>
 
 Then install the CLI.
 
@@ -162,11 +152,11 @@ Need to [set up your project manually](Documentation/ManualSetup.md)?
 
 ### System Framework Compatibility
 
-Download the latest
+For basic compatibility with the Swift standard library and other system frameworks, download the latest
 [starter supporting source files](https://github.com/birdrides/mockingbird/releases/download/0.11.0/MockingbirdSupport.zip)
-and place the `MockingbirdSupport` folder in the root directory of your project. This provides basic compatibility
-with system frameworks such as `UIKit`. See [Supporting Source Files](#supporting-source-files) for more
-information.
+and place the `MockingbirdSupport` folder in the root directory of your project. Note that supporting source files
+should not be imported into Xcode or added to any targets. See [Supporting Source Files](#supporting-source-files)
+for more information.
 
 ### Excluding Files
 
@@ -414,8 +404,10 @@ around(10.0, tolerance: 0.01)
 
 ## Supporting Source Files
 
-Add supporting source files to mock inherited types defined outside of your project. You should always provide 
-supporting source files when working with system frameworks like `UIKit` or precompiled external dependencies.
+Add supporting source files whenever inheriting or conforming to types defined outside of your project. For example
+`protocol BirdBrain: Codable {}` inherits from the Swift standard library type `Codable`. In order to generate
+the methods `encode(to:)` and `init(from:)` for `BirdBrain`, the definition for `Codable`  needs to exist in the
+supporting source files like so:
 
 ```swift
 /* MockingbirdSupport/Swift/Codable.swift */
@@ -431,12 +423,17 @@ public protocol Decodable {
 public typealias Codable = Decodable & Encodable
 ```
 
+Supporting source files do not allow you to generate mocks for external types such as those defined in third-party
+libraries or frameworks. Please see [Mocking External Types](/Documentation/MockingExternalTypes.md) for
+details and best practices.
+
 ### Starter Pack
 
-Mockingbird includes starter supporting source files for `Foundation`, `UIKit`, and other common system
-frameworks. Download the latest
+Mockingbird includes starter supporting source files for the Swift standard library and common system frameworks
+such as `Foundation`. Download the latest
 [starter supporting source files](https://github.com/birdrides/mockingbird/releases/download/0.11.0/MockingbirdSupport.zip)
-and place the `MockingbirdSupport` folder in the root directory of your project.
+and place the `MockingbirdSupport` folder in the root directory of your project. Note that supporting source files
+should not be imported into Xcode or added to any targets.
 
 If you share supporting source files between projects, you can specify a custom `--support` directory when 
 running the CLI installer or generator.
@@ -574,6 +571,15 @@ source file with definitions for the inherited type.
 If the issue is unrelated to inheritance, you may have found a [generator bug](#debugging-the-generator). If all else
 fails, [exclude the problematic source file](#excluding-files) and
 [file an issue](https://github.com/birdrides/mockingbird/issues/new/choose).
+
+### Supporting source files do not compile
+
+Supporting source files should not be imported into Xcode. If you want to use Xcode to add or modify supporting
+source files, make sure they are not added as sources to any targets.
+
+### Mocks are not generated for external types in third-party frameworks or libraries
+
+Please see [Mocking External Types](/Documentation/MockingExternalTypes.md) for details and best practices.
 
 ### Editor placeholder in source file warning
 
