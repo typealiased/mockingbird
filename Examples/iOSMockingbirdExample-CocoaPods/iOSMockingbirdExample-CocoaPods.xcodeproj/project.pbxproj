@@ -291,20 +291,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-iOSMockingbirdExample-CocoaPodsTests/Pods-iOSMockingbirdExample-CocoaPodsTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/MockingbirdFramework/Mockingbird.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-iOSMockingbirdExample-CocoaPodsTests/Pods-iOSMockingbirdExample-CocoaPodsTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mockingbird.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-iOSMockingbirdExample-CocoaPodsTests/Pods-iOSMockingbirdExample-CocoaPodsTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOSMockingbirdExample-CocoaPodsTests/Pods-iOSMockingbirdExample-CocoaPodsTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iOSMockingbirdExample-CocoaPodsTests/Pods-iOSMockingbirdExample-CocoaPodsTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9F88CCD349B123147D51381A /* [CP] Check Pods Manifest.lock */ = {

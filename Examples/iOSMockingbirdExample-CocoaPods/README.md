@@ -27,7 +27,7 @@ Add Mockingbird as a dependency to the test target in the Podfile.
 ```ruby
 target 'iOSMockingbirdExample-CocoaPodsTests' do
   use_frameworks!
-  pod 'MockingbirdFramework', '~> 0.10.0'
+  pod 'MockingbirdFramework', '~> 0.11.0'
 end
 ```
 
@@ -45,26 +45,16 @@ Then configure the test target by using the CLI.
 
 ```bash
 $ mockingbird install \
-  --destination iOSMockingbirdExample-CocoaPodsTests \
-  --target iOSMockingbirdExample-CocoaPods
-```
-
-<details><summary>Upcoming changes in Mockingbird 0.11.0</summary>
-
-```bash
-$ mockingbird install \
   --target iOSMockingbirdExample-CocoaPodsTests \
   --source iOSMockingbirdExample-CocoaPods
 ```
-
-</details>
 
 Finally, download the starter supporting source files into your project root.
 
 ```bash
 $ curl -Lo \
   'MockingbirdSupport.zip' \
-  'https://github.com/birdrides/mockingbird/releases/download/0.10.0/MockingbirdSupport.zip'
+  'https://github.com/birdrides/mockingbird/releases/download/0.11.0/MockingbirdSupport.zip'
 $ unzip -o 'MockingbirdSupport.zip'
 $ rm -f 'MockingbirdSupport.zip'
 ```
