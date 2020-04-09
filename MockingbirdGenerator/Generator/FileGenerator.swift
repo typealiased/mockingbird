@@ -81,8 +81,7 @@ class FileGenerator {
     let operations = mockableTypes
       .sorted(by: <)
       .flatMap({ mockableType -> [RenderTemplateOperation] in
-        let mockableTypeTemplate = MockableTypeTemplate(mockableType: mockableType,
-                                                        abstractTypeNamePrefix: "")
+        let mockableTypeTemplate = MockableTypeTemplate(mockableType: mockableType)
         let initializerTemplate = MockableTypeInitializerTemplate(
           mockableTypeTemplate: mockableTypeTemplate,
           containingTypeNames: []

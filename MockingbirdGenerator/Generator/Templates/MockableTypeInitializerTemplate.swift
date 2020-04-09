@@ -20,10 +20,8 @@ struct MockableTypeInitializerTemplate: Template {
     let nestedContainingTypeNames = containingTypeNames + [mockableTypeTemplate.mockableType.name]
     let initializers = [renderInitializer(with: containingTypeNames)] +
       mockableTypeTemplate.mockableType.containedTypes.map({ type -> String in
-        let typeNamePrefix = mockableTypeTemplate.abstractMockProtocolName
         let template = MockableTypeInitializerTemplate(
-          mockableTypeTemplate: MockableTypeTemplate(mockableType: type,
-                                                     abstractTypeNamePrefix: typeNamePrefix),
+          mockableTypeTemplate: MockableTypeTemplate(mockableType: type),
           containingTypeNames: nestedContainingTypeNames
         )
         return template.render()
@@ -35,11 +33,6 @@ struct MockableTypeInitializerTemplate: Template {
             allInitializers,
             preprocessorEnd]
       .joined(separator: "\n\n")
-  }
-  
-  private enum Constants {
-    static let genericMockTypeName = "__ReturnType"
-    static let anyInitializerProxyTypeName = "Mockingbird.Initializable"
   }
   
   private var requiresGenericInitializer: Bool {
@@ -91,12 +84,6 @@ struct MockableTypeInitializerTemplate: Template {
     let returnType: String
     let returnExpression: String
     let returnTypeDescription: String
-    let implicitReturnType: String
-    let dummyReturnType: String
-    let dummyReturnExpression: String
-    
-    let implicitMockTypeCreatorAttributes: String
-    let coercedMockTypeCreatorAttributes: String
     
     let mockTypeScopedName =
       mockableTypeTemplate.createScopedName(with: containingTypeNames,
@@ -105,92 +92,24 @@ struct MockableTypeInitializerTemplate: Template {
     
     if !mockableTypeTemplate.shouldGenerateDefaultInitializer {
       // Requires an initializer proxy to create the partial class mock.
-      returnType = "\(mockTypeScopedName).InitializerProxy"
-      returnExpression = "\(returnType)()"
+      returnType = "\(mockTypeScopedName).InitializerProxy.Type"
+      returnExpression = "\(mockTypeScopedName).InitializerProxy.self"
       returnTypeDescription = "an initializable class mock"
-      dummyReturnType = "\(mockTypeScopedName).InitializerProxy.Dummy"
-      dummyReturnExpression = "\(dummyReturnType)()"
-      implicitReturnType = Constants.anyInitializerProxyTypeName
-      
-      let unavailableMessage = """
-      Initialize this class mock using 'mock(\(mockTypeScopedName).self).initialize(...)'
-      """
-      coercedMockTypeCreatorAttributes = """
-      @available(swift, obsoleted: 3.0, message: "\(unavailableMessage)")
-      """
-      implicitMockTypeCreatorAttributes = """
-      @available(*, deprecated, message: "\(unavailableMessage)")
-      """
     } else {
       // Does not require an initializer proxy.
-      returnType = mockableTypeTemplate.abstractMockProtocolName
+      returnType = mockTypeScopedName
       returnExpression = "\(mockTypeScopedName)(sourceLocation: SourceLocation(file, line))"
       returnTypeDescription = "a " + (kind == .class ? "class" : "protocol") + " mock"
-      dummyReturnType = mockTypeScopedName
-      dummyReturnExpression = returnExpression
-      implicitReturnType = returnType
-      
-      let mockedTypeScopedName =
-        mockableTypeTemplate.createScopedName(with: containingTypeNames,
-                                              genericTypeContext: genericTypeContext)
-      coercedMockTypeCreatorAttributes = """
-      @available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type '\(mockTypeScopedName)' or use 'dummy(\(mockedTypeScopedName).self)' to create a non-mockable dummy object")
-      """
-      implicitMockTypeCreatorAttributes = ""
     }
     
     let allGenericTypes = genericTypeConstraints.isEmpty ? "" :
       "<\(genericTypeConstraints.joined(separator: ", "))>"
-    let allGenericTypesWithSpecificReturnType = "<" + (
-      genericTypeConstraints + [Constants.genericMockTypeName + ": " + returnType]
-    ).joined(separator: ", ") + ">"
-    let allGenericTypesWithWildcardReturnType = "<" + (
-      genericTypeConstraints + [Constants.genericMockTypeName]
-    ).joined(separator: ", ") + ">"
     
-    let abstractMockType = """
-    public protocol \(mockableTypeTemplate.abstractMockProtocolName) {}
-    """
-    
-    let creatorDocumentation = """
+    return """
     /// Initialize \(returnTypeDescription) of `\(mockableTypeTemplate.fullyQualifiedName)`.
-    """
-    
-    // Implicit mock type declarations, e.g. `let mock = mock(Bird.self)`
-    let implicitMockTypeCreator = """
-    \(creatorDocumentation)\(implicitMockTypeCreatorAttributes.isEmpty ? "" : "\n")\( implicitMockTypeCreatorAttributes)
-    public func mock\(allGenericTypes)(_ type: \(metatype), file: StaticString = #file, line: UInt = #line) -> \(implicitReturnType) {
+    public func mock\(allGenericTypes)(_ type: \(metatype), file: StaticString = #file, line: UInt = #line) -> \(returnType) {
       return \(returnExpression)
     }
     """
-    
-    // Explicit mock type declarations, e.g. `let mock: BirdMock = mock(Bird.self)`
-    let explicitMockTypeCreator = """
-    \(creatorDocumentation)
-    public func mock\(allGenericTypesWithSpecificReturnType)(_ type: \(metatype), file: StaticString = #file, line: UInt = #line) -> \(Constants.genericMockTypeName) {
-      return \(returnExpression) as! \(Constants.genericMockTypeName)
-    }
-    """
-    
-    // Dummy object type declarations, e.g. `let dummy: Bird = dummy(Bird.self)`
-    let dummyObjectTypeCreator = """
-    /// Create a dummy object of `\(mockableTypeTemplate.fullyQualifiedName)`.
-    public func dummy\(allGenericTypes)(_ type: \(metatype), file: StaticString = #file, line: UInt = #line) -> \(dummyReturnType) {
-      return \(dummyReturnExpression)
-    }
-    """
-    
-    // Coerced mock type declarations, e.g. `let mock: Bird = mock(Bird.self)`
-    let coercedMockTypeCreator = """
-    \(creatorDocumentation)
-    \(coercedMockTypeCreatorAttributes)
-    public func mock\(allGenericTypesWithWildcardReturnType)(_ type: \(metatype)) -> \(Constants.genericMockTypeName) { fatalError() }
-    """
-    
-    return [abstractMockType,
-            implicitMockTypeCreator,
-            explicitMockTypeCreator,
-            dummyObjectTypeCreator,
-            coercedMockTypeCreator].joined(separator: "\n\n")
   }
 }

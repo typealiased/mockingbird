@@ -76,5 +76,27 @@ class InitializerTests: XCTestCase {
     initializableClassOnlyProtocolWithInheritedInitializer =
       mock(InitializableClassOnlyProtocolWithInheritedInitializer.self).initialize(param: 42)
   }
+  
+  
+  // MARK: - Inferred mock type initialization
+  
+  func testInferredClassMockTypeInitialization() {
+    let child = mock(Child.self)
+    (child as Child).childTrivialInstanceMethod()
+    verify(child.childTrivialInstanceMethod()).wasCalled()
+  }
+  
+  func testInferredProtocolMockTypeInitialization() {
+    let child = mock(ChildProtocol.self)
+    (child as ChildProtocol).childTrivialInstanceMethod()
+    verify(child.childTrivialInstanceMethod()).wasCalled()
+  }
+  
+  func testInferredClassOnlyProtocolMockTypeInitialization() {
+    let classOnlyProtocol = mock(ClassOnlyProtocol.self)
+    given(classOnlyProtocol.getVariable()) ~> true
+    XCTAssertTrue((classOnlyProtocol as ClassOnlyProtocol).variable)
+    verify(classOnlyProtocol.getVariable()).wasCalled()
+  }
 }
 
