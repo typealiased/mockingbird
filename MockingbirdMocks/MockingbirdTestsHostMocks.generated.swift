@@ -20,7 +20,7 @@ private var genericTypesStaticMocks = Mockingbird.Synchronized<[String: Mockingb
 
 // MARK: - Mocked AbstractSpecializedGenericProtocol
 
-public final class AbstractSpecializedGenericProtocolMock<EquatableType: Swift.Equatable>: MockingbirdTestsHost.GenericBaseClass<Bool>, MockingbirdTestsHost.AbstractSpecializedGenericProtocol, Mockingbird.Mock, AbstractSpecializedGenericProtocolAbstractMockType {
+public final class AbstractSpecializedGenericProtocolMock<EquatableType: Swift.Equatable>: MockingbirdTestsHost.GenericBaseClass<Bool>, MockingbirdTestsHost.AbstractSpecializedGenericProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(EquatableType.self)"].joined(separator: ",")
     let staticMockIdentifier = "AbstractSpecializedGenericProtocolMock<EquatableType: Swift.Equatable>," + runtimeGenericTypeNames
@@ -81,30 +81,14 @@ public final class AbstractSpecializedGenericProtocolMock<EquatableType: Swift.E
   }
 }
 
-public protocol AbstractSpecializedGenericProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.AbstractSpecializedGenericProtocol`.
-public func mock<EquatableType: Swift.Equatable>(_ type: AbstractSpecializedGenericProtocolMock<EquatableType>.Type, file: StaticString = #file, line: UInt = #line) -> AbstractSpecializedGenericProtocolAbstractMockType {
+public func mock<EquatableType: Swift.Equatable>(_ type: AbstractSpecializedGenericProtocolMock<EquatableType>.Type, file: StaticString = #file, line: UInt = #line) -> AbstractSpecializedGenericProtocolMock<EquatableType> {
   return AbstractSpecializedGenericProtocolMock<EquatableType>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.AbstractSpecializedGenericProtocol`.
-public func mock<EquatableType: Swift.Equatable, __ReturnType: AbstractSpecializedGenericProtocolAbstractMockType>(_ type: AbstractSpecializedGenericProtocolMock<EquatableType>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return AbstractSpecializedGenericProtocolMock<EquatableType>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.AbstractSpecializedGenericProtocol`.
-public func dummy<EquatableType: Swift.Equatable>(_ type: AbstractSpecializedGenericProtocolMock<EquatableType>.Type, file: StaticString = #file, line: UInt = #line) -> AbstractSpecializedGenericProtocolMock<EquatableType> {
-  return AbstractSpecializedGenericProtocolMock<EquatableType>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.AbstractSpecializedGenericProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'AbstractSpecializedGenericProtocolMock<EquatableType>' or use 'dummy(AbstractSpecializedGenericProtocol.self)' to create a non-mockable dummy object")
-public func mock<EquatableType: Swift.Equatable, __ReturnType>(_ type: AbstractSpecializedGenericProtocolMock<EquatableType>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked AnotherTopLevelType
 
-public final class AnotherTopLevelTypeMock: MockingbirdTestsHost.AnotherTopLevelType, Mockingbird.Mock, AnotherTopLevelTypeAbstractMockType {
+public final class AnotherTopLevelTypeMock: MockingbirdTestsHost.AnotherTopLevelType, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -125,7 +109,7 @@ public final class AnotherTopLevelTypeMock: MockingbirdTestsHost.AnotherTopLevel
 
   // MARK: - Mocked SecondLevelType
 
-  public final class SecondLevelTypeMock: SecondLevelType, Mockingbird.Mock, AnotherTopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType {
+  public final class SecondLevelTypeMock: SecondLevelType, Mockingbird.Mock {
     static let staticMock = Mockingbird.StaticMock()
     public let mockingContext = Mockingbird.MockingContext()
     public let stubbingContext = Mockingbird.StubbingContext()
@@ -147,7 +131,7 @@ public final class AnotherTopLevelTypeMock: MockingbirdTestsHost.AnotherTopLevel
 
   // MARK: - Mocked InitializableSecondLevelType
 
-  public final class InitializableSecondLevelTypeMock: InitializableSecondLevelType, Mockingbird.Mock, AnotherTopLevelTypeAbstractMockType_InitializableSecondLevelTypeAbstractMockType {
+  public final class InitializableSecondLevelTypeMock: InitializableSecondLevelType, Mockingbird.Mock {
     static let staticMock = Mockingbird.StaticMock()
     public let mockingContext = Mockingbird.MockingContext()
     public let stubbingContext = Mockingbird.StubbingContext()
@@ -160,31 +144,12 @@ public final class AnotherTopLevelTypeMock: MockingbirdTestsHost.AnotherTopLevel
       }
     }
 
-    public class InitializerProxy: Mockingbird.Initializable {
-      fileprivate init() {}
-
-      public class Dummy: Mockingbird.Initializable {
-        public func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializableSecondLevelTypeMock {
-          let mock: InitializableSecondLevelTypeMock = InitializableSecondLevelTypeMock(param: `param`)
-          mock.sourceLocation = SourceLocation(__file, __line)
-          return mock
-        }
-      }
-
-      public func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> AnotherTopLevelTypeAbstractMockType_InitializableSecondLevelTypeAbstractMockType {
+    public enum InitializerProxy {
+      public static func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializableSecondLevelTypeMock {
         let mock: InitializableSecondLevelTypeMock = InitializableSecondLevelTypeMock(param: `param`)
         mock.sourceLocation = SourceLocation(__file, __line)
         return mock
       }
-
-      public func initialize<__ReturnType: AnotherTopLevelTypeAbstractMockType_InitializableSecondLevelTypeAbstractMockType>(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-        let mock: InitializableSecondLevelTypeMock = InitializableSecondLevelTypeMock(param: `param`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return (mock as! __ReturnType)
-      }
-
-      @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializableSecondLevelTypeMock' or use 'dummy(InitializableSecondLevelTypeMock.self).initialize(...)' to create a non-mockable dummy object")
-      public func initialize<__ReturnType>(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
     }
 
     // MARK: Mocked init(`param`: Bool)
@@ -198,73 +163,24 @@ public final class AnotherTopLevelTypeMock: MockingbirdTestsHost.AnotherTopLevel
   }
 }
 
-public protocol AnotherTopLevelTypeAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.AnotherTopLevelType`.
-public func mock(_ type: MockingbirdTestsHost.AnotherTopLevelType.Type, file: StaticString = #file, line: UInt = #line) -> AnotherTopLevelTypeAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.AnotherTopLevelType.Type, file: StaticString = #file, line: UInt = #line) -> AnotherTopLevelTypeMock {
   return AnotherTopLevelTypeMock(sourceLocation: SourceLocation(file, line))
 }
 
-/// Initialize a class mock of `MockingbirdTestsHost.AnotherTopLevelType`.
-public func mock<__ReturnType: AnotherTopLevelTypeAbstractMockType>(_ type: MockingbirdTestsHost.AnotherTopLevelType.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return AnotherTopLevelTypeMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.AnotherTopLevelType`.
-public func dummy(_ type: MockingbirdTestsHost.AnotherTopLevelType.Type, file: StaticString = #file, line: UInt = #line) -> AnotherTopLevelTypeMock {
-  return AnotherTopLevelTypeMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.AnotherTopLevelType`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'AnotherTopLevelTypeMock' or use 'dummy(AnotherTopLevelType.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.AnotherTopLevelType.Type) -> __ReturnType { fatalError() }
-
-public protocol AnotherTopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType {}
-
 /// Initialize a class mock of `SecondLevelType`.
-public func mock(_ type: MockingbirdTestsHost.AnotherTopLevelType.SecondLevelType.Type, file: StaticString = #file, line: UInt = #line) -> AnotherTopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.AnotherTopLevelType.SecondLevelType.Type, file: StaticString = #file, line: UInt = #line) -> AnotherTopLevelTypeMock.SecondLevelTypeMock {
   return AnotherTopLevelTypeMock.SecondLevelTypeMock(sourceLocation: SourceLocation(file, line))
 }
 
-/// Initialize a class mock of `SecondLevelType`.
-public func mock<__ReturnType: AnotherTopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType>(_ type: MockingbirdTestsHost.AnotherTopLevelType.SecondLevelType.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return AnotherTopLevelTypeMock.SecondLevelTypeMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `SecondLevelType`.
-public func dummy(_ type: MockingbirdTestsHost.AnotherTopLevelType.SecondLevelType.Type, file: StaticString = #file, line: UInt = #line) -> AnotherTopLevelTypeMock.SecondLevelTypeMock {
-  return AnotherTopLevelTypeMock.SecondLevelTypeMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `SecondLevelType`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'AnotherTopLevelTypeMock.SecondLevelTypeMock' or use 'dummy(AnotherTopLevelType.SecondLevelType.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.AnotherTopLevelType.SecondLevelType.Type) -> __ReturnType { fatalError() }
-
-public protocol AnotherTopLevelTypeAbstractMockType_InitializableSecondLevelTypeAbstractMockType {}
-
 /// Initialize an initializable class mock of `InitializableSecondLevelType`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(AnotherTopLevelTypeMock.InitializableSecondLevelTypeMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.AnotherTopLevelType.InitializableSecondLevelType.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return AnotherTopLevelTypeMock.InitializableSecondLevelTypeMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.AnotherTopLevelType.InitializableSecondLevelType.Type, file: StaticString = #file, line: UInt = #line) -> AnotherTopLevelTypeMock.InitializableSecondLevelTypeMock.InitializerProxy.Type {
+  return AnotherTopLevelTypeMock.InitializableSecondLevelTypeMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `InitializableSecondLevelType`.
-public func mock<__ReturnType: AnotherTopLevelTypeMock.InitializableSecondLevelTypeMock.InitializerProxy>(_ type: MockingbirdTestsHost.AnotherTopLevelType.InitializableSecondLevelType.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return AnotherTopLevelTypeMock.InitializableSecondLevelTypeMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `InitializableSecondLevelType`.
-public func dummy(_ type: MockingbirdTestsHost.AnotherTopLevelType.InitializableSecondLevelType.Type, file: StaticString = #file, line: UInt = #line) -> AnotherTopLevelTypeMock.InitializableSecondLevelTypeMock.InitializerProxy.Dummy {
-  return AnotherTopLevelTypeMock.InitializableSecondLevelTypeMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `InitializableSecondLevelType`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(AnotherTopLevelTypeMock.InitializableSecondLevelTypeMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.AnotherTopLevelType.InitializableSecondLevelType.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ArgumentMatchingProtocol
 
-public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMatchingProtocol, Mockingbird.Mock, ArgumentMatchingProtocolAbstractMockType {
+public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMatchingProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -340,30 +256,14 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
   }
 }
 
-public protocol ArgumentMatchingProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ArgumentMatchingProtocol`.
-public func mock(_ type: MockingbirdTestsHost.ArgumentMatchingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ArgumentMatchingProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ArgumentMatchingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ArgumentMatchingProtocolMock {
   return ArgumentMatchingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ArgumentMatchingProtocol`.
-public func mock<__ReturnType: ArgumentMatchingProtocolAbstractMockType>(_ type: MockingbirdTestsHost.ArgumentMatchingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ArgumentMatchingProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ArgumentMatchingProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.ArgumentMatchingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ArgumentMatchingProtocolMock {
-  return ArgumentMatchingProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ArgumentMatchingProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ArgumentMatchingProtocolMock' or use 'dummy(ArgumentMatchingProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ArgumentMatchingProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ArrayCollection
 
-public final class ArrayCollectionMock: MockingbirdTestsHost.ArrayCollection, Mockingbird.Mock, ArrayCollectionAbstractMockType {
+public final class ArrayCollectionMock: MockingbirdTestsHost.ArrayCollection, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -401,30 +301,14 @@ public final class ArrayCollectionMock: MockingbirdTestsHost.ArrayCollection, Mo
   }
 }
 
-public protocol ArrayCollectionAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ArrayCollection`.
-public func mock(_ type: MockingbirdTestsHost.ArrayCollection.Protocol, file: StaticString = #file, line: UInt = #line) -> ArrayCollectionAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ArrayCollection.Protocol, file: StaticString = #file, line: UInt = #line) -> ArrayCollectionMock {
   return ArrayCollectionMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ArrayCollection`.
-public func mock<__ReturnType: ArrayCollectionAbstractMockType>(_ type: MockingbirdTestsHost.ArrayCollection.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ArrayCollectionMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ArrayCollection`.
-public func dummy(_ type: MockingbirdTestsHost.ArrayCollection.Protocol, file: StaticString = #file, line: UInt = #line) -> ArrayCollectionMock {
-  return ArrayCollectionMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ArrayCollection`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ArrayCollectionMock' or use 'dummy(ArrayCollection.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ArrayCollection.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ArrayTypes
 
-public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.Mock, ArrayTypesAbstractMockType {
+public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -781,30 +665,14 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   }
 }
 
-public protocol ArrayTypesAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ArrayTypes`.
-public func mock(_ type: MockingbirdTestsHost.ArrayTypes.Protocol, file: StaticString = #file, line: UInt = #line) -> ArrayTypesAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ArrayTypes.Protocol, file: StaticString = #file, line: UInt = #line) -> ArrayTypesMock {
   return ArrayTypesMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ArrayTypes`.
-public func mock<__ReturnType: ArrayTypesAbstractMockType>(_ type: MockingbirdTestsHost.ArrayTypes.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ArrayTypesMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ArrayTypes`.
-public func dummy(_ type: MockingbirdTestsHost.ArrayTypes.Protocol, file: StaticString = #file, line: UInt = #line) -> ArrayTypesMock {
-  return ArrayTypesMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ArrayTypes`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ArrayTypesMock' or use 'dummy(ArrayTypes.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ArrayTypes.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked AssociatedTypeGenericConformingConstraintsProtocol
 
-public final class AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType: MockingbirdTestsHost.AssociatedTypeProtocol>: MockingbirdTestsHost.AssociatedTypeGenericConformingConstraintsProtocol, Mockingbird.Mock, AssociatedTypeGenericConformingConstraintsProtocolAbstractMockType where ConformingType.EquatableType: MockingbirdTestsHost.EquatableConformingProtocol, ConformingType.HashableType: MockingbirdTestsHost.HashableConformingProtocol {
+public final class AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType: MockingbirdTestsHost.AssociatedTypeProtocol>: MockingbirdTestsHost.AssociatedTypeGenericConformingConstraintsProtocol, Mockingbird.Mock where ConformingType.EquatableType: MockingbirdTestsHost.EquatableConformingProtocol, ConformingType.HashableType: MockingbirdTestsHost.HashableConformingProtocol {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(ConformingType.self)"].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType: MockingbirdTestsHost.AssociatedTypeProtocol>," + runtimeGenericTypeNames
@@ -849,30 +717,14 @@ public final class AssociatedTypeGenericConformingConstraintsProtocolMock<Confor
   }
 }
 
-public protocol AssociatedTypeGenericConformingConstraintsProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.AssociatedTypeGenericConformingConstraintsProtocol`.
-public func mock<ConformingType: MockingbirdTestsHost.AssociatedTypeProtocol>(_ type: AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType>.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeGenericConformingConstraintsProtocolAbstractMockType {
+public func mock<ConformingType: MockingbirdTestsHost.AssociatedTypeProtocol>(_ type: AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType>.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType> {
   return AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.AssociatedTypeGenericConformingConstraintsProtocol`.
-public func mock<ConformingType: MockingbirdTestsHost.AssociatedTypeProtocol, __ReturnType: AssociatedTypeGenericConformingConstraintsProtocolAbstractMockType>(_ type: AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.AssociatedTypeGenericConformingConstraintsProtocol`.
-public func dummy<ConformingType: MockingbirdTestsHost.AssociatedTypeProtocol>(_ type: AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType>.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType> {
-  return AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.AssociatedTypeGenericConformingConstraintsProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType>' or use 'dummy(AssociatedTypeGenericConformingConstraintsProtocol.self)' to create a non-mockable dummy object")
-public func mock<ConformingType: MockingbirdTestsHost.AssociatedTypeProtocol, __ReturnType>(_ type: AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked AssociatedTypeGenericConstraintsProtocol
 
-public final class AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol>: MockingbirdTestsHost.AssociatedTypeGenericConstraintsProtocol, Mockingbird.Mock, AssociatedTypeGenericConstraintsProtocolAbstractMockType where ConstrainedType.EquatableType == Int, ConstrainedType.HashableType == String {
+public final class AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol>: MockingbirdTestsHost.AssociatedTypeGenericConstraintsProtocol, Mockingbird.Mock where ConstrainedType.EquatableType == Int, ConstrainedType.HashableType == String {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(ConstrainedType.self)"].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol>," + runtimeGenericTypeNames
@@ -917,30 +769,14 @@ public final class AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType:
   }
 }
 
-public protocol AssociatedTypeGenericConstraintsProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.AssociatedTypeGenericConstraintsProtocol`.
-public func mock<ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol>(_ type: AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeGenericConstraintsProtocolAbstractMockType {
+public func mock<ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol>(_ type: AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType> {
   return AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.AssociatedTypeGenericConstraintsProtocol`.
-public func mock<ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol, __ReturnType: AssociatedTypeGenericConstraintsProtocolAbstractMockType>(_ type: AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.AssociatedTypeGenericConstraintsProtocol`.
-public func dummy<ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol>(_ type: AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType> {
-  return AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.AssociatedTypeGenericConstraintsProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>' or use 'dummy(AssociatedTypeGenericConstraintsProtocol.self)' to create a non-mockable dummy object")
-public func mock<ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol, __ReturnType>(_ type: AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked AssociatedTypeGenericImplementer
 
-public final class AssociatedTypeGenericImplementerMock<EquatableType: Swift.Equatable, S: Sequence>: MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>, Mockingbird.Mock, AssociatedTypeGenericImplementerAbstractMockType where S.Element == EquatableType {
+public final class AssociatedTypeGenericImplementerMock<EquatableType: Swift.Equatable, S: Sequence>: MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>, Mockingbird.Mock where S.Element == EquatableType {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(EquatableType.self)", "\(S.self)"].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeGenericImplementerMock<EquatableType: Swift.Equatable, S: Sequence>," + runtimeGenericTypeNames
@@ -1039,30 +875,14 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Swift.Equ
   }
 }
 
-public protocol AssociatedTypeGenericImplementerAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>`.
-public func mock<EquatableType: Swift.Equatable, S: Sequence>(_ type: AssociatedTypeGenericImplementerMock<EquatableType, S>.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeGenericImplementerAbstractMockType {
+public func mock<EquatableType: Swift.Equatable, S: Sequence>(_ type: AssociatedTypeGenericImplementerMock<EquatableType, S>.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeGenericImplementerMock<EquatableType, S> {
   return AssociatedTypeGenericImplementerMock<EquatableType, S>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>`.
-public func mock<EquatableType: Swift.Equatable, S: Sequence, __ReturnType: AssociatedTypeGenericImplementerAbstractMockType>(_ type: AssociatedTypeGenericImplementerMock<EquatableType, S>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return AssociatedTypeGenericImplementerMock<EquatableType, S>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>`.
-public func dummy<EquatableType: Swift.Equatable, S: Sequence>(_ type: AssociatedTypeGenericImplementerMock<EquatableType, S>.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeGenericImplementerMock<EquatableType, S> {
-  return AssociatedTypeGenericImplementerMock<EquatableType, S>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'AssociatedTypeGenericImplementerMock<EquatableType, S>' or use 'dummy(AssociatedTypeGenericImplementer<EquatableType, S>.self)' to create a non-mockable dummy object")
-public func mock<EquatableType: Swift.Equatable, S: Sequence, __ReturnType>(_ type: AssociatedTypeGenericImplementerMock<EquatableType, S>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked AssociatedTypeImplementerProtocol
 
-public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.AssociatedTypeImplementerProtocol, Mockingbird.Mock, AssociatedTypeImplementerProtocolAbstractMockType {
+public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.AssociatedTypeImplementerProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -1138,30 +958,14 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
   }
 }
 
-public protocol AssociatedTypeImplementerProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.AssociatedTypeImplementerProtocol`.
-public func mock(_ type: MockingbirdTestsHost.AssociatedTypeImplementerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeImplementerProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.AssociatedTypeImplementerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeImplementerProtocolMock {
   return AssociatedTypeImplementerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.AssociatedTypeImplementerProtocol`.
-public func mock<__ReturnType: AssociatedTypeImplementerProtocolAbstractMockType>(_ type: MockingbirdTestsHost.AssociatedTypeImplementerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return AssociatedTypeImplementerProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.AssociatedTypeImplementerProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.AssociatedTypeImplementerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeImplementerProtocolMock {
-  return AssociatedTypeImplementerProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.AssociatedTypeImplementerProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'AssociatedTypeImplementerProtocolMock' or use 'dummy(AssociatedTypeImplementerProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.AssociatedTypeImplementerProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked AssociatedTypeImplementer
 
-public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.AssociatedTypeImplementer, Mockingbird.Mock, AssociatedTypeImplementerAbstractMockType {
+public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.AssociatedTypeImplementer, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -1200,30 +1004,14 @@ public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.Associate
   }
 }
 
-public protocol AssociatedTypeImplementerAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.AssociatedTypeImplementer`.
-public func mock(_ type: MockingbirdTestsHost.AssociatedTypeImplementer.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeImplementerAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.AssociatedTypeImplementer.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeImplementerMock {
   return AssociatedTypeImplementerMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.AssociatedTypeImplementer`.
-public func mock<__ReturnType: AssociatedTypeImplementerAbstractMockType>(_ type: MockingbirdTestsHost.AssociatedTypeImplementer.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return AssociatedTypeImplementerMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.AssociatedTypeImplementer`.
-public func dummy(_ type: MockingbirdTestsHost.AssociatedTypeImplementer.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeImplementerMock {
-  return AssociatedTypeImplementerMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.AssociatedTypeImplementer`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'AssociatedTypeImplementerMock' or use 'dummy(AssociatedTypeImplementer.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.AssociatedTypeImplementer.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked AssociatedTypeProtocol
 
-public final class AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, HashableType: Swift.Hashable>: MockingbirdTestsHost.AssociatedTypeProtocol, Mockingbird.Mock, AssociatedTypeProtocolAbstractMockType {
+public final class AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, HashableType: Swift.Hashable>: MockingbirdTestsHost.AssociatedTypeProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(EquatableType.self)", "\(HashableType.self)"].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, HashableType: Swift.Hashable>," + runtimeGenericTypeNames
@@ -1355,30 +1143,14 @@ public final class AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, Ha
   }
 }
 
-public protocol AssociatedTypeProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.AssociatedTypeProtocol`.
-public func mock<EquatableType: Swift.Equatable, HashableType: Swift.Hashable>(_ type: AssociatedTypeProtocolMock<EquatableType, HashableType>.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeProtocolAbstractMockType {
+public func mock<EquatableType: Swift.Equatable, HashableType: Swift.Hashable>(_ type: AssociatedTypeProtocolMock<EquatableType, HashableType>.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeProtocolMock<EquatableType, HashableType> {
   return AssociatedTypeProtocolMock<EquatableType, HashableType>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.AssociatedTypeProtocol`.
-public func mock<EquatableType: Swift.Equatable, HashableType: Swift.Hashable, __ReturnType: AssociatedTypeProtocolAbstractMockType>(_ type: AssociatedTypeProtocolMock<EquatableType, HashableType>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return AssociatedTypeProtocolMock<EquatableType, HashableType>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.AssociatedTypeProtocol`.
-public func dummy<EquatableType: Swift.Equatable, HashableType: Swift.Hashable>(_ type: AssociatedTypeProtocolMock<EquatableType, HashableType>.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeProtocolMock<EquatableType, HashableType> {
-  return AssociatedTypeProtocolMock<EquatableType, HashableType>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.AssociatedTypeProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'AssociatedTypeProtocolMock<EquatableType, HashableType>' or use 'dummy(AssociatedTypeProtocol.self)' to create a non-mockable dummy object")
-public func mock<EquatableType: Swift.Equatable, HashableType: Swift.Hashable, __ReturnType>(_ type: AssociatedTypeProtocolMock<EquatableType, HashableType>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked AssociatedTypeSelfReferencingProtocol
 
-public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Swift.Hashable>: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, Mockingbird.Mock, AssociatedTypeSelfReferencingProtocolAbstractMockType {
+public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Swift.Hashable>: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(SequenceType.self)"].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Swift.Hashable>," + runtimeGenericTypeNames
@@ -1461,30 +1233,14 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
   }
 }
 
-public protocol AssociatedTypeSelfReferencingProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol`.
-public func mock<SequenceType: Sequence & Swift.Hashable>(_ type: AssociatedTypeSelfReferencingProtocolMock<SequenceType>.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeSelfReferencingProtocolAbstractMockType {
+public func mock<SequenceType: Sequence & Swift.Hashable>(_ type: AssociatedTypeSelfReferencingProtocolMock<SequenceType>.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeSelfReferencingProtocolMock<SequenceType> {
   return AssociatedTypeSelfReferencingProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol`.
-public func mock<SequenceType: Sequence & Swift.Hashable, __ReturnType: AssociatedTypeSelfReferencingProtocolAbstractMockType>(_ type: AssociatedTypeSelfReferencingProtocolMock<SequenceType>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return AssociatedTypeSelfReferencingProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol`.
-public func dummy<SequenceType: Sequence & Swift.Hashable>(_ type: AssociatedTypeSelfReferencingProtocolMock<SequenceType>.Type, file: StaticString = #file, line: UInt = #line) -> AssociatedTypeSelfReferencingProtocolMock<SequenceType> {
-  return AssociatedTypeSelfReferencingProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'AssociatedTypeSelfReferencingProtocolMock<SequenceType>' or use 'dummy(AssociatedTypeSelfReferencingProtocol.self)' to create a non-mockable dummy object")
-public func mock<SequenceType: Sequence & Swift.Hashable, __ReturnType>(_ type: AssociatedTypeSelfReferencingProtocolMock<SequenceType>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked BaseProtocol
 
-public final class BaseProtocolMock: MockingbirdTestsHost.BaseProtocol, Mockingbird.Mock, BaseProtocolAbstractMockType {
+public final class BaseProtocolMock: MockingbirdTestsHost.BaseProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -1522,30 +1278,14 @@ public final class BaseProtocolMock: MockingbirdTestsHost.BaseProtocol, Mockingb
   }
 }
 
-public protocol BaseProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.BaseProtocol`.
-public func mock(_ type: BaseProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> BaseProtocolAbstractMockType {
+public func mock(_ type: BaseProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> BaseProtocolMock {
   return BaseProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.BaseProtocol`.
-public func mock<__ReturnType: BaseProtocolAbstractMockType>(_ type: BaseProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return BaseProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.BaseProtocol`.
-public func dummy(_ type: BaseProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> BaseProtocolMock {
-  return BaseProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.BaseProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'BaseProtocolMock' or use 'dummy(BaseProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: BaseProtocolMock.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked CascadingIncludedSource
 
-public final class CascadingIncludedSourceMock: MockingbirdTestsHost.CascadingIncludedSource, Mockingbird.Mock, CascadingIncludedSourceAbstractMockType {
+public final class CascadingIncludedSourceMock: MockingbirdTestsHost.CascadingIncludedSource, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -1564,30 +1304,14 @@ public final class CascadingIncludedSourceMock: MockingbirdTestsHost.CascadingIn
   }
 }
 
-public protocol CascadingIncludedSourceAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.CascadingIncludedSource`.
-public func mock(_ type: MockingbirdTestsHost.CascadingIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> CascadingIncludedSourceAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.CascadingIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> CascadingIncludedSourceMock {
   return CascadingIncludedSourceMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.CascadingIncludedSource`.
-public func mock<__ReturnType: CascadingIncludedSourceAbstractMockType>(_ type: MockingbirdTestsHost.CascadingIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return CascadingIncludedSourceMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.CascadingIncludedSource`.
-public func dummy(_ type: MockingbirdTestsHost.CascadingIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> CascadingIncludedSourceMock {
-  return CascadingIncludedSourceMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.CascadingIncludedSource`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'CascadingIncludedSourceMock' or use 'dummy(CascadingIncludedSource.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.CascadingIncludedSource.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ChildProtocol
 
-public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockingbird.Mock, ChildProtocolAbstractMockType {
+public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -2104,30 +1828,14 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   }
 }
 
-public protocol ChildProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ChildProtocol`.
-public func mock(_ type: MockingbirdTestsHost.ChildProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ChildProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ChildProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ChildProtocolMock {
   return ChildProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ChildProtocol`.
-public func mock<__ReturnType: ChildProtocolAbstractMockType>(_ type: MockingbirdTestsHost.ChildProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ChildProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ChildProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.ChildProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ChildProtocolMock {
-  return ChildProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ChildProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ChildProtocolMock' or use 'dummy(ChildProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ChildProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked Child
 
-public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock, ChildAbstractMockType {
+public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -2642,30 +2350,14 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock, Chil
   }
 }
 
-public protocol ChildAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.Child`.
-public func mock(_ type: MockingbirdTestsHost.Child.Type, file: StaticString = #file, line: UInt = #line) -> ChildAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.Child.Type, file: StaticString = #file, line: UInt = #line) -> ChildMock {
   return ChildMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.Child`.
-public func mock<__ReturnType: ChildAbstractMockType>(_ type: MockingbirdTestsHost.Child.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ChildMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.Child`.
-public func dummy(_ type: MockingbirdTestsHost.Child.Type, file: StaticString = #file, line: UInt = #line) -> ChildMock {
-  return ChildMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.Child`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ChildMock' or use 'dummy(Child.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.Child.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ClassOnlyProtocolWithInheritance
 
-public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.ClassOnlyProtocolWithInheritance, Mockingbird.Mock, ClassOnlyProtocolWithInheritanceAbstractMockType {
+public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.ClassOnlyProtocolWithInheritance, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -3197,30 +2889,14 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
   }
 }
 
-public protocol ClassOnlyProtocolWithInheritanceAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ClassOnlyProtocolWithInheritance`.
-public func mock(_ type: MockingbirdTestsHost.ClassOnlyProtocolWithInheritance.Protocol, file: StaticString = #file, line: UInt = #line) -> ClassOnlyProtocolWithInheritanceAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ClassOnlyProtocolWithInheritance.Protocol, file: StaticString = #file, line: UInt = #line) -> ClassOnlyProtocolWithInheritanceMock {
   return ClassOnlyProtocolWithInheritanceMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ClassOnlyProtocolWithInheritance`.
-public func mock<__ReturnType: ClassOnlyProtocolWithInheritanceAbstractMockType>(_ type: MockingbirdTestsHost.ClassOnlyProtocolWithInheritance.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ClassOnlyProtocolWithInheritanceMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ClassOnlyProtocolWithInheritance`.
-public func dummy(_ type: MockingbirdTestsHost.ClassOnlyProtocolWithInheritance.Protocol, file: StaticString = #file, line: UInt = #line) -> ClassOnlyProtocolWithInheritanceMock {
-  return ClassOnlyProtocolWithInheritanceMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ClassOnlyProtocolWithInheritance`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ClassOnlyProtocolWithInheritanceMock' or use 'dummy(ClassOnlyProtocolWithInheritance.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ClassOnlyProtocolWithInheritance.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ClassOnlyProtocol
 
-public final class ClassOnlyProtocolMock: MockingbirdTestsHost.ClassOnlyProtocol, Mockingbird.Mock, ClassOnlyProtocolAbstractMockType {
+public final class ClassOnlyProtocolMock: MockingbirdTestsHost.ClassOnlyProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -3254,30 +2930,14 @@ public final class ClassOnlyProtocolMock: MockingbirdTestsHost.ClassOnlyProtocol
   }
 }
 
-public protocol ClassOnlyProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ClassOnlyProtocol`.
-public func mock(_ type: MockingbirdTestsHost.ClassOnlyProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ClassOnlyProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ClassOnlyProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ClassOnlyProtocolMock {
   return ClassOnlyProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ClassOnlyProtocol`.
-public func mock<__ReturnType: ClassOnlyProtocolAbstractMockType>(_ type: MockingbirdTestsHost.ClassOnlyProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ClassOnlyProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ClassOnlyProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.ClassOnlyProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ClassOnlyProtocolMock {
-  return ClassOnlyProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ClassOnlyProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ClassOnlyProtocolMock' or use 'dummy(ClassOnlyProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ClassOnlyProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ClassType
 
-public final class ClassTypeMock: MockingbirdTestsHost.ClassType, Mockingbird.Mock, ClassTypeAbstractMockType {
+public final class ClassTypeMock: MockingbirdTestsHost.ClassType, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -3297,30 +2957,14 @@ public final class ClassTypeMock: MockingbirdTestsHost.ClassType, Mockingbird.Mo
   }
 }
 
-public protocol ClassTypeAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.ClassType`.
-public func mock(_ type: MockingbirdTestsHost.ClassType.Type, file: StaticString = #file, line: UInt = #line) -> ClassTypeAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ClassType.Type, file: StaticString = #file, line: UInt = #line) -> ClassTypeMock {
   return ClassTypeMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.ClassType`.
-public func mock<__ReturnType: ClassTypeAbstractMockType>(_ type: MockingbirdTestsHost.ClassType.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ClassTypeMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ClassType`.
-public func dummy(_ type: MockingbirdTestsHost.ClassType.Type, file: StaticString = #file, line: UInt = #line) -> ClassTypeMock {
-  return ClassTypeMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.ClassType`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ClassTypeMock' or use 'dummy(ClassType.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ClassType.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ClassWithDesignatedInitializer
 
-public final class ClassWithDesignatedInitializerMock: MockingbirdTestsHost.ClassWithDesignatedInitializer, Mockingbird.Mock, ClassWithDesignatedInitializerAbstractMockType {
+public final class ClassWithDesignatedInitializerMock: MockingbirdTestsHost.ClassWithDesignatedInitializer, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -3333,77 +2977,25 @@ public final class ClassWithDesignatedInitializerMock: MockingbirdTestsHost.Clas
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      @available(*, deprecated, message: "This class initializer is deprecated")
-      public func initialize(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> ClassWithDesignatedInitializerMock {
-        let mock: ClassWithDesignatedInitializerMock = ClassWithDesignatedInitializerMock(param1: `param1`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> ClassWithDesignatedInitializerMock {
-        let mock: ClassWithDesignatedInitializerMock = ClassWithDesignatedInitializerMock(param: `param`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> ClassWithDesignatedInitializerMock {
-        let mock: ClassWithDesignatedInitializerMock = ClassWithDesignatedInitializerMock(param: `param`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
+  public enum InitializerProxy {
     @available(*, deprecated, message: "This class initializer is deprecated")
-    public func initialize(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> ClassWithDesignatedInitializerAbstractMockType {
+    public static func initialize(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> ClassWithDesignatedInitializerMock {
       let mock: ClassWithDesignatedInitializerMock = ClassWithDesignatedInitializerMock(param1: `param1`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    @available(*, deprecated, message: "This class initializer is deprecated")
-    public func initialize<__ReturnType: ClassWithDesignatedInitializerAbstractMockType>(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: ClassWithDesignatedInitializerMock = ClassWithDesignatedInitializerMock(param1: `param1`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'ClassWithDesignatedInitializerMock' or use 'dummy(ClassWithDesignatedInitializerMock.self).initialize(...)' to create a non-mockable dummy object")
-    @available(*, deprecated, message: "This class initializer is deprecated")
-    public func initialize<__ReturnType>(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
-
-    public func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> ClassWithDesignatedInitializerAbstractMockType {
+    public static func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> ClassWithDesignatedInitializerMock {
       let mock: ClassWithDesignatedInitializerMock = ClassWithDesignatedInitializerMock(param: `param`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    public func initialize<__ReturnType: ClassWithDesignatedInitializerAbstractMockType>(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: ClassWithDesignatedInitializerMock = ClassWithDesignatedInitializerMock(param: `param`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'ClassWithDesignatedInitializerMock' or use 'dummy(ClassWithDesignatedInitializerMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
-
-    public func initialize(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> ClassWithDesignatedInitializerAbstractMockType {
+    public static func initialize(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> ClassWithDesignatedInitializerMock {
       let mock: ClassWithDesignatedInitializerMock = ClassWithDesignatedInitializerMock(param: `param`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: ClassWithDesignatedInitializerAbstractMockType>(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: ClassWithDesignatedInitializerMock = ClassWithDesignatedInitializerMock(param: `param`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'ClassWithDesignatedInitializerMock' or use 'dummy(ClassWithDesignatedInitializerMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked init(`param1`: Bool)
@@ -3435,31 +3027,14 @@ public final class ClassWithDesignatedInitializerMock: MockingbirdTestsHost.Clas
   }
 }
 
-public protocol ClassWithDesignatedInitializerAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.ClassWithDesignatedInitializer`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(ClassWithDesignatedInitializerMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.ClassWithDesignatedInitializer.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return ClassWithDesignatedInitializerMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.ClassWithDesignatedInitializer.Type, file: StaticString = #file, line: UInt = #line) -> ClassWithDesignatedInitializerMock.InitializerProxy.Type {
+  return ClassWithDesignatedInitializerMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.ClassWithDesignatedInitializer`.
-public func mock<__ReturnType: ClassWithDesignatedInitializerMock.InitializerProxy>(_ type: MockingbirdTestsHost.ClassWithDesignatedInitializer.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ClassWithDesignatedInitializerMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ClassWithDesignatedInitializer`.
-public func dummy(_ type: MockingbirdTestsHost.ClassWithDesignatedInitializer.Type, file: StaticString = #file, line: UInt = #line) -> ClassWithDesignatedInitializerMock.InitializerProxy.Dummy {
-  return ClassWithDesignatedInitializerMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.ClassWithDesignatedInitializer`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(ClassWithDesignatedInitializerMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ClassWithDesignatedInitializer.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ClassWithoutDesignatedInitializer
 
-public final class ClassWithoutDesignatedInitializerMock: MockingbirdTestsHost.ClassWithoutDesignatedInitializer, Mockingbird.Mock, ClassWithoutDesignatedInitializerAbstractMockType {
+public final class ClassWithoutDesignatedInitializerMock: MockingbirdTestsHost.ClassWithoutDesignatedInitializer, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -3510,30 +3085,14 @@ public final class ClassWithoutDesignatedInitializerMock: MockingbirdTestsHost.C
   }
 }
 
-public protocol ClassWithoutDesignatedInitializerAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.ClassWithoutDesignatedInitializer`.
-public func mock(_ type: MockingbirdTestsHost.ClassWithoutDesignatedInitializer.Type, file: StaticString = #file, line: UInt = #line) -> ClassWithoutDesignatedInitializerAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ClassWithoutDesignatedInitializer.Type, file: StaticString = #file, line: UInt = #line) -> ClassWithoutDesignatedInitializerMock {
   return ClassWithoutDesignatedInitializerMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.ClassWithoutDesignatedInitializer`.
-public func mock<__ReturnType: ClassWithoutDesignatedInitializerAbstractMockType>(_ type: MockingbirdTestsHost.ClassWithoutDesignatedInitializer.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ClassWithoutDesignatedInitializerMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ClassWithoutDesignatedInitializer`.
-public func dummy(_ type: MockingbirdTestsHost.ClassWithoutDesignatedInitializer.Type, file: StaticString = #file, line: UInt = #line) -> ClassWithoutDesignatedInitializerMock {
-  return ClassWithoutDesignatedInitializerMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.ClassWithoutDesignatedInitializer`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ClassWithoutDesignatedInitializerMock' or use 'dummy(ClassWithoutDesignatedInitializer.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ClassWithoutDesignatedInitializer.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ClosureParametersProtocol
 
-public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosureParametersProtocol, Mockingbird.Mock, ClosureParametersProtocolAbstractMockType {
+public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosureParametersProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -4027,30 +3586,14 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   }
 }
 
-public protocol ClosureParametersProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ClosureParametersProtocol`.
-public func mock(_ type: MockingbirdTestsHost.ClosureParametersProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ClosureParametersProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ClosureParametersProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ClosureParametersProtocolMock {
   return ClosureParametersProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ClosureParametersProtocol`.
-public func mock<__ReturnType: ClosureParametersProtocolAbstractMockType>(_ type: MockingbirdTestsHost.ClosureParametersProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ClosureParametersProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ClosureParametersProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.ClosureParametersProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ClosureParametersProtocolMock {
-  return ClosureParametersProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ClosureParametersProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ClosureParametersProtocolMock' or use 'dummy(ClosureParametersProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ClosureParametersProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked CodableConformingClass
 
-public final class CodableConformingClassMock: MockingbirdTestsHost.CodableConformingClass, Mockingbird.Mock, CodableConformingClassAbstractMockType {
+public final class CodableConformingClassMock: MockingbirdTestsHost.CodableConformingClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -4063,31 +3606,12 @@ public final class CodableConformingClassMock: MockingbirdTestsHost.CodableConfo
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(`from` `decoder`: Decoder, __file: StaticString = #file, __line: UInt = #line) throws -> CodableConformingClassMock {
-        let mock: CodableConformingClassMock = try CodableConformingClassMock(from: `decoder`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(`from` `decoder`: Decoder, __file: StaticString = #file, __line: UInt = #line) throws -> CodableConformingClassAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(`from` `decoder`: Decoder, __file: StaticString = #file, __line: UInt = #line) throws -> CodableConformingClassMock {
       let mock: CodableConformingClassMock = try CodableConformingClassMock(from: `decoder`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: CodableConformingClassAbstractMockType>(`from` `decoder`: Decoder, __file: StaticString = #file, __line: UInt = #line) throws -> __ReturnType {
-      let mock: CodableConformingClassMock = try CodableConformingClassMock(from: `decoder`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'CodableConformingClassMock' or use 'dummy(CodableConformingClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`from` `decoder`: Decoder, __file: StaticString = #file, __line: UInt = #line) throws -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked init(`from` `decoder`: Decoder)
@@ -4100,31 +3624,14 @@ public final class CodableConformingClassMock: MockingbirdTestsHost.CodableConfo
   }
 }
 
-public protocol CodableConformingClassAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.CodableConformingClass`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(CodableConformingClassMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.CodableConformingClass.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return CodableConformingClassMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.CodableConformingClass.Type, file: StaticString = #file, line: UInt = #line) -> CodableConformingClassMock.InitializerProxy.Type {
+  return CodableConformingClassMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.CodableConformingClass`.
-public func mock<__ReturnType: CodableConformingClassMock.InitializerProxy>(_ type: MockingbirdTestsHost.CodableConformingClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return CodableConformingClassMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.CodableConformingClass`.
-public func dummy(_ type: MockingbirdTestsHost.CodableConformingClass.Type, file: StaticString = #file, line: UInt = #line) -> CodableConformingClassMock.InitializerProxy.Dummy {
-  return CodableConformingClassMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.CodableConformingClass`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(CodableConformingClassMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.CodableConformingClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked CodableConformingProtocol
 
-public final class CodableConformingProtocolMock: MockingbirdTestsHost.CodableConformingProtocol, Mockingbird.Mock, CodableConformingProtocolAbstractMockType {
+public final class CodableConformingProtocolMock: MockingbirdTestsHost.CodableConformingProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -4170,30 +3677,14 @@ public final class CodableConformingProtocolMock: MockingbirdTestsHost.CodableCo
   }
 }
 
-public protocol CodableConformingProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.CodableConformingProtocol`.
-public func mock(_ type: MockingbirdTestsHost.CodableConformingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> CodableConformingProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.CodableConformingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> CodableConformingProtocolMock {
   return CodableConformingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.CodableConformingProtocol`.
-public func mock<__ReturnType: CodableConformingProtocolAbstractMockType>(_ type: MockingbirdTestsHost.CodableConformingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return CodableConformingProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.CodableConformingProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.CodableConformingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> CodableConformingProtocolMock {
-  return CodableConformingProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.CodableConformingProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'CodableConformingProtocolMock' or use 'dummy(CodableConformingProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.CodableConformingProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked CommentBlockNotDebugCompilationDirectiveProtocol
 
-public final class CommentBlockNotDebugCompilationDirectiveProtocolMock: MockingbirdTestsHost.CommentBlockNotDebugCompilationDirectiveProtocol, Mockingbird.Mock, CommentBlockNotDebugCompilationDirectiveProtocolAbstractMockType {
+public final class CommentBlockNotDebugCompilationDirectiveProtocolMock: MockingbirdTestsHost.CommentBlockNotDebugCompilationDirectiveProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -4227,30 +3718,14 @@ public final class CommentBlockNotDebugCompilationDirectiveProtocolMock: Mocking
   }
 }
 
-public protocol CommentBlockNotDebugCompilationDirectiveProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.CommentBlockNotDebugCompilationDirectiveProtocol`.
-public func mock(_ type: MockingbirdTestsHost.CommentBlockNotDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> CommentBlockNotDebugCompilationDirectiveProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.CommentBlockNotDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> CommentBlockNotDebugCompilationDirectiveProtocolMock {
   return CommentBlockNotDebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.CommentBlockNotDebugCompilationDirectiveProtocol`.
-public func mock<__ReturnType: CommentBlockNotDebugCompilationDirectiveProtocolAbstractMockType>(_ type: MockingbirdTestsHost.CommentBlockNotDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return CommentBlockNotDebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.CommentBlockNotDebugCompilationDirectiveProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.CommentBlockNotDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> CommentBlockNotDebugCompilationDirectiveProtocolMock {
-  return CommentBlockNotDebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.CommentBlockNotDebugCompilationDirectiveProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'CommentBlockNotDebugCompilationDirectiveProtocolMock' or use 'dummy(CommentBlockNotDebugCompilationDirectiveProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.CommentBlockNotDebugCompilationDirectiveProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked CompilationDirectiveProtocol
 
-public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.CompilationDirectiveProtocol, Mockingbird.Mock, CompilationDirectiveProtocolAbstractMockType {
+public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.CompilationDirectiveProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -4470,30 +3945,14 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
   #endif
 }
 
-public protocol CompilationDirectiveProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.CompilationDirectiveProtocol`.
-public func mock(_ type: MockingbirdTestsHost.CompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> CompilationDirectiveProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.CompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> CompilationDirectiveProtocolMock {
   return CompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.CompilationDirectiveProtocol`.
-public func mock<__ReturnType: CompilationDirectiveProtocolAbstractMockType>(_ type: MockingbirdTestsHost.CompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return CompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.CompilationDirectiveProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.CompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> CompilationDirectiveProtocolMock {
-  return CompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.CompilationDirectiveProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'CompilationDirectiveProtocolMock' or use 'dummy(CompilationDirectiveProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.CompilationDirectiveProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ConformingExternalClassConstrainedProtocol
 
-public final class ConformingExternalClassConstrainedProtocolMock: AppKit.NSViewController, MockingbirdTestsHost.ConformingExternalClassConstrainedProtocol, Mockingbird.Mock, ConformingExternalClassConstrainedProtocolAbstractMockType {
+public final class ConformingExternalClassConstrainedProtocolMock: AppKit.NSViewController, MockingbirdTestsHost.ConformingExternalClassConstrainedProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -4506,52 +3965,18 @@ public final class ConformingExternalClassConstrainedProtocolMock: AppKit.NSView
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> ConformingExternalClassConstrainedProtocolMock? {
-        let mock: ConformingExternalClassConstrainedProtocolMock? = ConformingExternalClassConstrainedProtocolMock(coder: `coder`)
-        mock?.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize(`nibName` `nibNameOrNil`: NSNib.Name?, `bundle` `nibBundleOrNil`: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> ConformingExternalClassConstrainedProtocolMock {
-        let mock: ConformingExternalClassConstrainedProtocolMock = ConformingExternalClassConstrainedProtocolMock(nibName: `nibNameOrNil`, bundle: `nibBundleOrNil`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> ConformingExternalClassConstrainedProtocolAbstractMockType? {
+  public enum InitializerProxy {
+    public static func initialize(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> ConformingExternalClassConstrainedProtocolMock? {
       let mock: ConformingExternalClassConstrainedProtocolMock? = ConformingExternalClassConstrainedProtocolMock(coder: `coder`)
       mock?.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    public func initialize<__ReturnType: ConformingExternalClassConstrainedProtocolAbstractMockType>(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType? {
-      let mock: ConformingExternalClassConstrainedProtocolMock? = ConformingExternalClassConstrainedProtocolMock(coder: `coder`)
-      mock?.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'ConformingExternalClassConstrainedProtocolMock' or use 'dummy(ConformingExternalClassConstrainedProtocolMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType? { fatalError() }
-
-    public func initialize(`nibName` `nibNameOrNil`: NSNib.Name?, `bundle` `nibBundleOrNil`: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> ConformingExternalClassConstrainedProtocolAbstractMockType {
+    public static func initialize(`nibName` `nibNameOrNil`: NSNib.Name?, `bundle` `nibBundleOrNil`: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> ConformingExternalClassConstrainedProtocolMock {
       let mock: ConformingExternalClassConstrainedProtocolMock = ConformingExternalClassConstrainedProtocolMock(nibName: `nibNameOrNil`, bundle: `nibBundleOrNil`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: ConformingExternalClassConstrainedProtocolAbstractMockType>(`nibName` `nibNameOrNil`: NSNib.Name?, `bundle` `nibBundleOrNil`: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: ConformingExternalClassConstrainedProtocolMock = ConformingExternalClassConstrainedProtocolMock(nibName: `nibNameOrNil`, bundle: `nibBundleOrNil`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'ConformingExternalClassConstrainedProtocolMock' or use 'dummy(ConformingExternalClassConstrainedProtocolMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`nibName` `nibNameOrNil`: NSNib.Name?, `bundle` `nibBundleOrNil`: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked init?(`coder`: NSCoder)
@@ -4573,31 +3998,14 @@ public final class ConformingExternalClassConstrainedProtocolMock: AppKit.NSView
   }
 }
 
-public protocol ConformingExternalClassConstrainedProtocolAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.ConformingExternalClassConstrainedProtocol`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(ConformingExternalClassConstrainedProtocolMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.ConformingExternalClassConstrainedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return ConformingExternalClassConstrainedProtocolMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.ConformingExternalClassConstrainedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ConformingExternalClassConstrainedProtocolMock.InitializerProxy.Type {
+  return ConformingExternalClassConstrainedProtocolMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.ConformingExternalClassConstrainedProtocol`.
-public func mock<__ReturnType: ConformingExternalClassConstrainedProtocolMock.InitializerProxy>(_ type: MockingbirdTestsHost.ConformingExternalClassConstrainedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ConformingExternalClassConstrainedProtocolMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ConformingExternalClassConstrainedProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.ConformingExternalClassConstrainedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ConformingExternalClassConstrainedProtocolMock.InitializerProxy.Dummy {
-  return ConformingExternalClassConstrainedProtocolMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.ConformingExternalClassConstrainedProtocol`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(ConformingExternalClassConstrainedProtocolMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ConformingExternalClassConstrainedProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ConformingInitializableOpenClassConstrainedProtocol
 
-public final class ConformingInitializableOpenClassConstrainedProtocolMock: MockingbirdModuleTestsHost.InitializableOpenClass, MockingbirdTestsHost.ConformingInitializableOpenClassConstrainedProtocol, Mockingbird.Mock, ConformingInitializableOpenClassConstrainedProtocolAbstractMockType {
+public final class ConformingInitializableOpenClassConstrainedProtocolMock: MockingbirdModuleTestsHost.InitializableOpenClass, MockingbirdTestsHost.ConformingInitializableOpenClassConstrainedProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -4610,31 +4018,12 @@ public final class ConformingInitializableOpenClassConstrainedProtocolMock: Mock
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(__file: StaticString = #file, __line: UInt = #line) -> ConformingInitializableOpenClassConstrainedProtocolMock {
-        let mock: ConformingInitializableOpenClassConstrainedProtocolMock = ConformingInitializableOpenClassConstrainedProtocolMock()
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(__file: StaticString = #file, __line: UInt = #line) -> ConformingInitializableOpenClassConstrainedProtocolAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(__file: StaticString = #file, __line: UInt = #line) -> ConformingInitializableOpenClassConstrainedProtocolMock {
       let mock: ConformingInitializableOpenClassConstrainedProtocolMock = ConformingInitializableOpenClassConstrainedProtocolMock()
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: ConformingInitializableOpenClassConstrainedProtocolAbstractMockType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: ConformingInitializableOpenClassConstrainedProtocolMock = ConformingInitializableOpenClassConstrainedProtocolMock()
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'ConformingInitializableOpenClassConstrainedProtocolMock' or use 'dummy(ConformingInitializableOpenClassConstrainedProtocolMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked openVariable
@@ -4678,31 +4067,14 @@ public final class ConformingInitializableOpenClassConstrainedProtocolMock: Mock
   }
 }
 
-public protocol ConformingInitializableOpenClassConstrainedProtocolAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.ConformingInitializableOpenClassConstrainedProtocol`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(ConformingInitializableOpenClassConstrainedProtocolMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.ConformingInitializableOpenClassConstrainedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return ConformingInitializableOpenClassConstrainedProtocolMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.ConformingInitializableOpenClassConstrainedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ConformingInitializableOpenClassConstrainedProtocolMock.InitializerProxy.Type {
+  return ConformingInitializableOpenClassConstrainedProtocolMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.ConformingInitializableOpenClassConstrainedProtocol`.
-public func mock<__ReturnType: ConformingInitializableOpenClassConstrainedProtocolMock.InitializerProxy>(_ type: MockingbirdTestsHost.ConformingInitializableOpenClassConstrainedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ConformingInitializableOpenClassConstrainedProtocolMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ConformingInitializableOpenClassConstrainedProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.ConformingInitializableOpenClassConstrainedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ConformingInitializableOpenClassConstrainedProtocolMock.InitializerProxy.Dummy {
-  return ConformingInitializableOpenClassConstrainedProtocolMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.ConformingInitializableOpenClassConstrainedProtocol`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(ConformingInitializableOpenClassConstrainedProtocolMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ConformingInitializableOpenClassConstrainedProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ConformingUninitializableOpenClassConstrainedProtocol
 
-public final class ConformingUninitializableOpenClassConstrainedProtocolMock: MockingbirdModuleTestsHost.OpenClass, MockingbirdTestsHost.ConformingUninitializableOpenClassConstrainedProtocol, Mockingbird.Mock, ConformingUninitializableOpenClassConstrainedProtocolAbstractMockType {
+public final class ConformingUninitializableOpenClassConstrainedProtocolMock: MockingbirdModuleTestsHost.OpenClass, MockingbirdTestsHost.ConformingUninitializableOpenClassConstrainedProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -4715,9 +4087,7 @@ public final class ConformingUninitializableOpenClassConstrainedProtocolMock: Mo
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    public class Dummy: Mockingbird.Initializable {}
-  }
+  public enum InitializerProxy {}
 
   // MARK: Mocked openVariable
 
@@ -4751,31 +4121,14 @@ public final class ConformingUninitializableOpenClassConstrainedProtocolMock: Mo
   }
 }
 
-public protocol ConformingUninitializableOpenClassConstrainedProtocolAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.ConformingUninitializableOpenClassConstrainedProtocol`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(ConformingUninitializableOpenClassConstrainedProtocolMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.ConformingUninitializableOpenClassConstrainedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return ConformingUninitializableOpenClassConstrainedProtocolMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.ConformingUninitializableOpenClassConstrainedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ConformingUninitializableOpenClassConstrainedProtocolMock.InitializerProxy.Type {
+  return ConformingUninitializableOpenClassConstrainedProtocolMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.ConformingUninitializableOpenClassConstrainedProtocol`.
-public func mock<__ReturnType: ConformingUninitializableOpenClassConstrainedProtocolMock.InitializerProxy>(_ type: MockingbirdTestsHost.ConformingUninitializableOpenClassConstrainedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ConformingUninitializableOpenClassConstrainedProtocolMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ConformingUninitializableOpenClassConstrainedProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.ConformingUninitializableOpenClassConstrainedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ConformingUninitializableOpenClassConstrainedProtocolMock.InitializerProxy.Dummy {
-  return ConformingUninitializableOpenClassConstrainedProtocolMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.ConformingUninitializableOpenClassConstrainedProtocol`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(ConformingUninitializableOpenClassConstrainedProtocolMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ConformingUninitializableOpenClassConstrainedProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ConstrainedUnspecializedGenericSubclass
 
-public final class ConstrainedUnspecializedGenericSubclassMock<T: Swift.Equatable>: MockingbirdTestsHost.ConstrainedUnspecializedGenericSubclass<T>, Mockingbird.Mock, ConstrainedUnspecializedGenericSubclassAbstractMockType {
+public final class ConstrainedUnspecializedGenericSubclassMock<T: Swift.Equatable>: MockingbirdTestsHost.ConstrainedUnspecializedGenericSubclass<T>, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(T.self)"].joined(separator: ",")
     let staticMockIdentifier = "ConstrainedUnspecializedGenericSubclassMock<T: Swift.Equatable>," + runtimeGenericTypeNames
@@ -4836,30 +4189,14 @@ public final class ConstrainedUnspecializedGenericSubclassMock<T: Swift.Equatabl
   }
 }
 
-public protocol ConstrainedUnspecializedGenericSubclassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.ConstrainedUnspecializedGenericSubclass<T>`.
-public func mock<T: Swift.Equatable>(_ type: ConstrainedUnspecializedGenericSubclassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> ConstrainedUnspecializedGenericSubclassAbstractMockType {
+public func mock<T: Swift.Equatable>(_ type: ConstrainedUnspecializedGenericSubclassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> ConstrainedUnspecializedGenericSubclassMock<T> {
   return ConstrainedUnspecializedGenericSubclassMock<T>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.ConstrainedUnspecializedGenericSubclass<T>`.
-public func mock<T: Swift.Equatable, __ReturnType: ConstrainedUnspecializedGenericSubclassAbstractMockType>(_ type: ConstrainedUnspecializedGenericSubclassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ConstrainedUnspecializedGenericSubclassMock<T>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ConstrainedUnspecializedGenericSubclass<T>`.
-public func dummy<T: Swift.Equatable>(_ type: ConstrainedUnspecializedGenericSubclassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> ConstrainedUnspecializedGenericSubclassMock<T> {
-  return ConstrainedUnspecializedGenericSubclassMock<T>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.ConstrainedUnspecializedGenericSubclass<T>`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ConstrainedUnspecializedGenericSubclassMock<T>' or use 'dummy(ConstrainedUnspecializedGenericSubclass<T>.self)' to create a non-mockable dummy object")
-public func mock<T: Swift.Equatable, __ReturnType>(_ type: ConstrainedUnspecializedGenericSubclassMock<T>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ConvenienceInitializerClass
 
-public final class ConvenienceInitializerClassMock: MockingbirdTestsHost.ConvenienceInitializerClass, Mockingbird.Mock, ConvenienceInitializerClassAbstractMockType {
+public final class ConvenienceInitializerClassMock: MockingbirdTestsHost.ConvenienceInitializerClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -4872,31 +4209,12 @@ public final class ConvenienceInitializerClassMock: MockingbirdTestsHost.Conveni
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> ConvenienceInitializerClassMock {
-        let mock: ConvenienceInitializerClassMock = ConvenienceInitializerClassMock(param1: `param1`, param2: `param2`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> ConvenienceInitializerClassAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> ConvenienceInitializerClassMock {
       let mock: ConvenienceInitializerClassMock = ConvenienceInitializerClassMock(param1: `param1`, param2: `param2`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: ConvenienceInitializerClassAbstractMockType>(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: ConvenienceInitializerClassMock = ConvenienceInitializerClassMock(param1: `param1`, param2: `param2`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'ConvenienceInitializerClassMock' or use 'dummy(ConvenienceInitializerClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked init(`param1`: Bool, `param2`: Int)
@@ -4909,33 +4227,16 @@ public final class ConvenienceInitializerClassMock: MockingbirdTestsHost.Conveni
   }
 }
 
-public protocol ConvenienceInitializerClassAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.ConvenienceInitializerClass`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(ConvenienceInitializerClassMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.ConvenienceInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return ConvenienceInitializerClassMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.ConvenienceInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> ConvenienceInitializerClassMock.InitializerProxy.Type {
+  return ConvenienceInitializerClassMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.ConvenienceInitializerClass`.
-public func mock<__ReturnType: ConvenienceInitializerClassMock.InitializerProxy>(_ type: MockingbirdTestsHost.ConvenienceInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ConvenienceInitializerClassMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ConvenienceInitializerClass`.
-public func dummy(_ type: MockingbirdTestsHost.ConvenienceInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> ConvenienceInitializerClassMock.InitializerProxy.Dummy {
-  return ConvenienceInitializerClassMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.ConvenienceInitializerClass`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(ConvenienceInitializerClassMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ConvenienceInitializerClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked DebugCompilationDirectiveProtocol
 
 #if DEBUG
 
-public final class DebugCompilationDirectiveProtocolMock: MockingbirdTestsHost.DebugCompilationDirectiveProtocol, Mockingbird.Mock, DebugCompilationDirectiveProtocolAbstractMockType {
+public final class DebugCompilationDirectiveProtocolMock: MockingbirdTestsHost.DebugCompilationDirectiveProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -4977,32 +4278,16 @@ public final class DebugCompilationDirectiveProtocolMock: MockingbirdTestsHost.D
 
 #if DEBUG
 
-public protocol DebugCompilationDirectiveProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.DebugCompilationDirectiveProtocol`.
-public func mock(_ type: MockingbirdTestsHost.DebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> DebugCompilationDirectiveProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.DebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> DebugCompilationDirectiveProtocolMock {
   return DebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.DebugCompilationDirectiveProtocol`.
-public func mock<__ReturnType: DebugCompilationDirectiveProtocolAbstractMockType>(_ type: MockingbirdTestsHost.DebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return DebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.DebugCompilationDirectiveProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.DebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> DebugCompilationDirectiveProtocolMock {
-  return DebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.DebugCompilationDirectiveProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'DebugCompilationDirectiveProtocolMock' or use 'dummy(DebugCompilationDirectiveProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.DebugCompilationDirectiveProtocol.Protocol) -> __ReturnType { fatalError() }
 
 #endif
 
 // MARK: - Mocked DeclarationAttributesClass
 
-public final class DeclarationAttributesClassMock: MockingbirdTestsHost.DeclarationAttributesClass, Mockingbird.Mock, DeclarationAttributesClassAbstractMockType {
+public final class DeclarationAttributesClassMock: MockingbirdTestsHost.DeclarationAttributesClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -5081,30 +4366,14 @@ public final class DeclarationAttributesClassMock: MockingbirdTestsHost.Declarat
   }
 }
 
-public protocol DeclarationAttributesClassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.DeclarationAttributesClass`.
-public func mock(_ type: MockingbirdTestsHost.DeclarationAttributesClass.Type, file: StaticString = #file, line: UInt = #line) -> DeclarationAttributesClassAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.DeclarationAttributesClass.Type, file: StaticString = #file, line: UInt = #line) -> DeclarationAttributesClassMock {
   return DeclarationAttributesClassMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.DeclarationAttributesClass`.
-public func mock<__ReturnType: DeclarationAttributesClassAbstractMockType>(_ type: MockingbirdTestsHost.DeclarationAttributesClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return DeclarationAttributesClassMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.DeclarationAttributesClass`.
-public func dummy(_ type: MockingbirdTestsHost.DeclarationAttributesClass.Type, file: StaticString = #file, line: UInt = #line) -> DeclarationAttributesClassMock {
-  return DeclarationAttributesClassMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.DeclarationAttributesClass`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'DeclarationAttributesClassMock' or use 'dummy(DeclarationAttributesClass.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.DeclarationAttributesClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked DeclarationAttributesProtocol
 
-public final class DeclarationAttributesProtocolMock: MockingbirdTestsHost.DeclarationAttributesProtocol, Mockingbird.Mock, DeclarationAttributesProtocolAbstractMockType {
+public final class DeclarationAttributesProtocolMock: MockingbirdTestsHost.DeclarationAttributesProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -5161,30 +4430,14 @@ public final class DeclarationAttributesProtocolMock: MockingbirdTestsHost.Decla
   }
 }
 
-public protocol DeclarationAttributesProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.DeclarationAttributesProtocol`.
-public func mock(_ type: MockingbirdTestsHost.DeclarationAttributesProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> DeclarationAttributesProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.DeclarationAttributesProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> DeclarationAttributesProtocolMock {
   return DeclarationAttributesProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.DeclarationAttributesProtocol`.
-public func mock<__ReturnType: DeclarationAttributesProtocolAbstractMockType>(_ type: MockingbirdTestsHost.DeclarationAttributesProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return DeclarationAttributesProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.DeclarationAttributesProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.DeclarationAttributesProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> DeclarationAttributesProtocolMock {
-  return DeclarationAttributesProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.DeclarationAttributesProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'DeclarationAttributesProtocolMock' or use 'dummy(DeclarationAttributesProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.DeclarationAttributesProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked DefaultArgumentValuesClass
 
-public final class DefaultArgumentValuesClassMock: MockingbirdTestsHost.DefaultArgumentValuesClass, Mockingbird.Mock, DefaultArgumentValuesClassAbstractMockType {
+public final class DefaultArgumentValuesClassMock: MockingbirdTestsHost.DefaultArgumentValuesClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -5223,30 +4476,14 @@ public final class DefaultArgumentValuesClassMock: MockingbirdTestsHost.DefaultA
   }
 }
 
-public protocol DefaultArgumentValuesClassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.DefaultArgumentValuesClass`.
-public func mock(_ type: MockingbirdTestsHost.DefaultArgumentValuesClass.Type, file: StaticString = #file, line: UInt = #line) -> DefaultArgumentValuesClassAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.DefaultArgumentValuesClass.Type, file: StaticString = #file, line: UInt = #line) -> DefaultArgumentValuesClassMock {
   return DefaultArgumentValuesClassMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.DefaultArgumentValuesClass`.
-public func mock<__ReturnType: DefaultArgumentValuesClassAbstractMockType>(_ type: MockingbirdTestsHost.DefaultArgumentValuesClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return DefaultArgumentValuesClassMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.DefaultArgumentValuesClass`.
-public func dummy(_ type: MockingbirdTestsHost.DefaultArgumentValuesClass.Type, file: StaticString = #file, line: UInt = #line) -> DefaultArgumentValuesClassMock {
-  return DefaultArgumentValuesClassMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.DefaultArgumentValuesClass`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'DefaultArgumentValuesClassMock' or use 'dummy(DefaultArgumentValuesClass.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.DefaultArgumentValuesClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked DefaultArgumentValuesProtocol
 
-public final class DefaultArgumentValuesProtocolMock: MockingbirdTestsHost.DefaultArgumentValuesProtocol, Mockingbird.Mock, DefaultArgumentValuesProtocolAbstractMockType {
+public final class DefaultArgumentValuesProtocolMock: MockingbirdTestsHost.DefaultArgumentValuesProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -5284,30 +4521,14 @@ public final class DefaultArgumentValuesProtocolMock: MockingbirdTestsHost.Defau
   }
 }
 
-public protocol DefaultArgumentValuesProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.DefaultArgumentValuesProtocol`.
-public func mock(_ type: MockingbirdTestsHost.DefaultArgumentValuesProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> DefaultArgumentValuesProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.DefaultArgumentValuesProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> DefaultArgumentValuesProtocolMock {
   return DefaultArgumentValuesProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.DefaultArgumentValuesProtocol`.
-public func mock<__ReturnType: DefaultArgumentValuesProtocolAbstractMockType>(_ type: MockingbirdTestsHost.DefaultArgumentValuesProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return DefaultArgumentValuesProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.DefaultArgumentValuesProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.DefaultArgumentValuesProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> DefaultArgumentValuesProtocolMock {
-  return DefaultArgumentValuesProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.DefaultArgumentValuesProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'DefaultArgumentValuesProtocolMock' or use 'dummy(DefaultArgumentValuesProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.DefaultArgumentValuesProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked DeprecatedClassOnlyProtocolWithInheritance
 
-public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.DeprecatedClassOnlyProtocolWithInheritance, Mockingbird.Mock, DeprecatedClassOnlyProtocolWithInheritanceAbstractMockType {
+public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.DeprecatedClassOnlyProtocolWithInheritance, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -5839,30 +5060,14 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
   }
 }
 
-public protocol DeprecatedClassOnlyProtocolWithInheritanceAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.DeprecatedClassOnlyProtocolWithInheritance`.
-public func mock(_ type: MockingbirdTestsHost.DeprecatedClassOnlyProtocolWithInheritance.Protocol, file: StaticString = #file, line: UInt = #line) -> DeprecatedClassOnlyProtocolWithInheritanceAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.DeprecatedClassOnlyProtocolWithInheritance.Protocol, file: StaticString = #file, line: UInt = #line) -> DeprecatedClassOnlyProtocolWithInheritanceMock {
   return DeprecatedClassOnlyProtocolWithInheritanceMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.DeprecatedClassOnlyProtocolWithInheritance`.
-public func mock<__ReturnType: DeprecatedClassOnlyProtocolWithInheritanceAbstractMockType>(_ type: MockingbirdTestsHost.DeprecatedClassOnlyProtocolWithInheritance.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return DeprecatedClassOnlyProtocolWithInheritanceMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.DeprecatedClassOnlyProtocolWithInheritance`.
-public func dummy(_ type: MockingbirdTestsHost.DeprecatedClassOnlyProtocolWithInheritance.Protocol, file: StaticString = #file, line: UInt = #line) -> DeprecatedClassOnlyProtocolWithInheritanceMock {
-  return DeprecatedClassOnlyProtocolWithInheritanceMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.DeprecatedClassOnlyProtocolWithInheritance`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'DeprecatedClassOnlyProtocolWithInheritanceMock' or use 'dummy(DeprecatedClassOnlyProtocolWithInheritance.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.DeprecatedClassOnlyProtocolWithInheritance.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked DeprecatedClassOnlyProtocol
 
-public final class DeprecatedClassOnlyProtocolMock: MockingbirdTestsHost.DeprecatedClassOnlyProtocol, Mockingbird.Mock, DeprecatedClassOnlyProtocolAbstractMockType {
+public final class DeprecatedClassOnlyProtocolMock: MockingbirdTestsHost.DeprecatedClassOnlyProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -5896,30 +5101,14 @@ public final class DeprecatedClassOnlyProtocolMock: MockingbirdTestsHost.Depreca
   }
 }
 
-public protocol DeprecatedClassOnlyProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.DeprecatedClassOnlyProtocol`.
-public func mock(_ type: MockingbirdTestsHost.DeprecatedClassOnlyProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> DeprecatedClassOnlyProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.DeprecatedClassOnlyProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> DeprecatedClassOnlyProtocolMock {
   return DeprecatedClassOnlyProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.DeprecatedClassOnlyProtocol`.
-public func mock<__ReturnType: DeprecatedClassOnlyProtocolAbstractMockType>(_ type: MockingbirdTestsHost.DeprecatedClassOnlyProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return DeprecatedClassOnlyProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.DeprecatedClassOnlyProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.DeprecatedClassOnlyProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> DeprecatedClassOnlyProtocolMock {
-  return DeprecatedClassOnlyProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.DeprecatedClassOnlyProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'DeprecatedClassOnlyProtocolMock' or use 'dummy(DeprecatedClassOnlyProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.DeprecatedClassOnlyProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked DictionaryCollection
 
-public final class DictionaryCollectionMock: MockingbirdTestsHost.DictionaryCollection, Mockingbird.Mock, DictionaryCollectionAbstractMockType {
+public final class DictionaryCollectionMock: MockingbirdTestsHost.DictionaryCollection, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -5957,30 +5146,14 @@ public final class DictionaryCollectionMock: MockingbirdTestsHost.DictionaryColl
   }
 }
 
-public protocol DictionaryCollectionAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.DictionaryCollection`.
-public func mock(_ type: MockingbirdTestsHost.DictionaryCollection.Protocol, file: StaticString = #file, line: UInt = #line) -> DictionaryCollectionAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.DictionaryCollection.Protocol, file: StaticString = #file, line: UInt = #line) -> DictionaryCollectionMock {
   return DictionaryCollectionMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.DictionaryCollection`.
-public func mock<__ReturnType: DictionaryCollectionAbstractMockType>(_ type: MockingbirdTestsHost.DictionaryCollection.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return DictionaryCollectionMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.DictionaryCollection`.
-public func dummy(_ type: MockingbirdTestsHost.DictionaryCollection.Protocol, file: StaticString = #file, line: UInt = #line) -> DictionaryCollectionMock {
-  return DictionaryCollectionMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.DictionaryCollection`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'DictionaryCollectionMock' or use 'dummy(DictionaryCollection.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.DictionaryCollection.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked DictionaryTypes
 
-public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mockingbird.Mock, DictionaryTypesAbstractMockType {
+public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -6337,30 +5510,14 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   }
 }
 
-public protocol DictionaryTypesAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.DictionaryTypes`.
-public func mock(_ type: MockingbirdTestsHost.DictionaryTypes.Protocol, file: StaticString = #file, line: UInt = #line) -> DictionaryTypesAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.DictionaryTypes.Protocol, file: StaticString = #file, line: UInt = #line) -> DictionaryTypesMock {
   return DictionaryTypesMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.DictionaryTypes`.
-public func mock<__ReturnType: DictionaryTypesAbstractMockType>(_ type: MockingbirdTestsHost.DictionaryTypes.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return DictionaryTypesMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.DictionaryTypes`.
-public func dummy(_ type: MockingbirdTestsHost.DictionaryTypes.Protocol, file: StaticString = #file, line: UInt = #line) -> DictionaryTypesMock {
-  return DictionaryTypesMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.DictionaryTypes`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'DictionaryTypesMock' or use 'dummy(DictionaryTypes.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.DictionaryTypes.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked DirectoryNonRelativeIgnoredSource
 
-public final class DirectoryNonRelativeIgnoredSourceMock: MockingbirdTestsHost.DirectoryNonRelativeIgnoredSource, Mockingbird.Mock, DirectoryNonRelativeIgnoredSourceAbstractMockType {
+public final class DirectoryNonRelativeIgnoredSourceMock: MockingbirdTestsHost.DirectoryNonRelativeIgnoredSource, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -6379,30 +5536,14 @@ public final class DirectoryNonRelativeIgnoredSourceMock: MockingbirdTestsHost.D
   }
 }
 
-public protocol DirectoryNonRelativeIgnoredSourceAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.DirectoryNonRelativeIgnoredSource`.
-public func mock(_ type: MockingbirdTestsHost.DirectoryNonRelativeIgnoredSource.Protocol, file: StaticString = #file, line: UInt = #line) -> DirectoryNonRelativeIgnoredSourceAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.DirectoryNonRelativeIgnoredSource.Protocol, file: StaticString = #file, line: UInt = #line) -> DirectoryNonRelativeIgnoredSourceMock {
   return DirectoryNonRelativeIgnoredSourceMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.DirectoryNonRelativeIgnoredSource`.
-public func mock<__ReturnType: DirectoryNonRelativeIgnoredSourceAbstractMockType>(_ type: MockingbirdTestsHost.DirectoryNonRelativeIgnoredSource.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return DirectoryNonRelativeIgnoredSourceMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.DirectoryNonRelativeIgnoredSource`.
-public func dummy(_ type: MockingbirdTestsHost.DirectoryNonRelativeIgnoredSource.Protocol, file: StaticString = #file, line: UInt = #line) -> DirectoryNonRelativeIgnoredSourceMock {
-  return DirectoryNonRelativeIgnoredSourceMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.DirectoryNonRelativeIgnoredSource`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'DirectoryNonRelativeIgnoredSourceMock' or use 'dummy(DirectoryNonRelativeIgnoredSource.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.DirectoryNonRelativeIgnoredSource.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked EmptyClass
 
-public final class EmptyClassMock: MockingbirdTestsHost.EmptyClass, Mockingbird.Mock, EmptyClassAbstractMockType {
+public final class EmptyClassMock: MockingbirdTestsHost.EmptyClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -6422,30 +5563,14 @@ public final class EmptyClassMock: MockingbirdTestsHost.EmptyClass, Mockingbird.
   }
 }
 
-public protocol EmptyClassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.EmptyClass`.
-public func mock(_ type: MockingbirdTestsHost.EmptyClass.Type, file: StaticString = #file, line: UInt = #line) -> EmptyClassAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.EmptyClass.Type, file: StaticString = #file, line: UInt = #line) -> EmptyClassMock {
   return EmptyClassMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.EmptyClass`.
-public func mock<__ReturnType: EmptyClassAbstractMockType>(_ type: MockingbirdTestsHost.EmptyClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return EmptyClassMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.EmptyClass`.
-public func dummy(_ type: MockingbirdTestsHost.EmptyClass.Type, file: StaticString = #file, line: UInt = #line) -> EmptyClassMock {
-  return EmptyClassMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.EmptyClass`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'EmptyClassMock' or use 'dummy(EmptyClass.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.EmptyClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked EmptyInheritingClass
 
-public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritingClass, Mockingbird.Mock, EmptyInheritingClassAbstractMockType {
+public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritingClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -6960,30 +6085,14 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
   }
 }
 
-public protocol EmptyInheritingClassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.EmptyInheritingClass`.
-public func mock(_ type: MockingbirdTestsHost.EmptyInheritingClass.Type, file: StaticString = #file, line: UInt = #line) -> EmptyInheritingClassAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.EmptyInheritingClass.Type, file: StaticString = #file, line: UInt = #line) -> EmptyInheritingClassMock {
   return EmptyInheritingClassMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.EmptyInheritingClass`.
-public func mock<__ReturnType: EmptyInheritingClassAbstractMockType>(_ type: MockingbirdTestsHost.EmptyInheritingClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return EmptyInheritingClassMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.EmptyInheritingClass`.
-public func dummy(_ type: MockingbirdTestsHost.EmptyInheritingClass.Type, file: StaticString = #file, line: UInt = #line) -> EmptyInheritingClassMock {
-  return EmptyInheritingClassMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.EmptyInheritingClass`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'EmptyInheritingClassMock' or use 'dummy(EmptyInheritingClass.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.EmptyInheritingClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked EmptyInheritingProtocol
 
-public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheritingProtocol, Mockingbird.Mock, EmptyInheritingProtocolAbstractMockType {
+public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheritingProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -7500,30 +6609,14 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
   }
 }
 
-public protocol EmptyInheritingProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.EmptyInheritingProtocol`.
-public func mock(_ type: MockingbirdTestsHost.EmptyInheritingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> EmptyInheritingProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.EmptyInheritingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> EmptyInheritingProtocolMock {
   return EmptyInheritingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.EmptyInheritingProtocol`.
-public func mock<__ReturnType: EmptyInheritingProtocolAbstractMockType>(_ type: MockingbirdTestsHost.EmptyInheritingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return EmptyInheritingProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.EmptyInheritingProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.EmptyInheritingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> EmptyInheritingProtocolMock {
-  return EmptyInheritingProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.EmptyInheritingProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'EmptyInheritingProtocolMock' or use 'dummy(EmptyInheritingProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.EmptyInheritingProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked EmptyInitializerClass
 
-public final class EmptyInitializerClassMock: MockingbirdTestsHost.EmptyInitializerClass, Mockingbird.Mock, EmptyInitializerClassAbstractMockType {
+public final class EmptyInitializerClassMock: MockingbirdTestsHost.EmptyInitializerClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -7536,31 +6629,12 @@ public final class EmptyInitializerClassMock: MockingbirdTestsHost.EmptyInitiali
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(__file: StaticString = #file, __line: UInt = #line) -> EmptyInitializerClassMock {
-        let mock: EmptyInitializerClassMock = EmptyInitializerClassMock()
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(__file: StaticString = #file, __line: UInt = #line) -> EmptyInitializerClassAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(__file: StaticString = #file, __line: UInt = #line) -> EmptyInitializerClassMock {
       let mock: EmptyInitializerClassMock = EmptyInitializerClassMock()
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: EmptyInitializerClassAbstractMockType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: EmptyInitializerClassMock = EmptyInitializerClassMock()
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'EmptyInitializerClassMock' or use 'dummy(EmptyInitializerClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked init()
@@ -7573,31 +6647,14 @@ public final class EmptyInitializerClassMock: MockingbirdTestsHost.EmptyInitiali
   }
 }
 
-public protocol EmptyInitializerClassAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.EmptyInitializerClass`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(EmptyInitializerClassMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.EmptyInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return EmptyInitializerClassMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.EmptyInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> EmptyInitializerClassMock.InitializerProxy.Type {
+  return EmptyInitializerClassMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.EmptyInitializerClass`.
-public func mock<__ReturnType: EmptyInitializerClassMock.InitializerProxy>(_ type: MockingbirdTestsHost.EmptyInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return EmptyInitializerClassMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.EmptyInitializerClass`.
-public func dummy(_ type: MockingbirdTestsHost.EmptyInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> EmptyInitializerClassMock.InitializerProxy.Dummy {
-  return EmptyInitializerClassMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.EmptyInitializerClass`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(EmptyInitializerClassMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.EmptyInitializerClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked EmptyInitializerProtocol
 
-public final class EmptyInitializerProtocolMock: MockingbirdTestsHost.EmptyInitializerProtocol, Mockingbird.Mock, EmptyInitializerProtocolAbstractMockType {
+public final class EmptyInitializerProtocolMock: MockingbirdTestsHost.EmptyInitializerProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -7624,30 +6681,14 @@ public final class EmptyInitializerProtocolMock: MockingbirdTestsHost.EmptyIniti
   }
 }
 
-public protocol EmptyInitializerProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.EmptyInitializerProtocol`.
-public func mock(_ type: MockingbirdTestsHost.EmptyInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> EmptyInitializerProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.EmptyInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> EmptyInitializerProtocolMock {
   return EmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.EmptyInitializerProtocol`.
-public func mock<__ReturnType: EmptyInitializerProtocolAbstractMockType>(_ type: MockingbirdTestsHost.EmptyInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return EmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.EmptyInitializerProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.EmptyInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> EmptyInitializerProtocolMock {
-  return EmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.EmptyInitializerProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'EmptyInitializerProtocolMock' or use 'dummy(EmptyInitializerProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.EmptyInitializerProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked EmptyProtocol
 
-public final class EmptyProtocolMock: MockingbirdTestsHost.EmptyProtocol, Mockingbird.Mock, EmptyProtocolAbstractMockType {
+public final class EmptyProtocolMock: MockingbirdTestsHost.EmptyProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -7666,30 +6707,14 @@ public final class EmptyProtocolMock: MockingbirdTestsHost.EmptyProtocol, Mockin
   }
 }
 
-public protocol EmptyProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.EmptyProtocol`.
-public func mock(_ type: MockingbirdTestsHost.EmptyProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> EmptyProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.EmptyProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> EmptyProtocolMock {
   return EmptyProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.EmptyProtocol`.
-public func mock<__ReturnType: EmptyProtocolAbstractMockType>(_ type: MockingbirdTestsHost.EmptyProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return EmptyProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.EmptyProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.EmptyProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> EmptyProtocolMock {
-  return EmptyProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.EmptyProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'EmptyProtocolMock' or use 'dummy(EmptyProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.EmptyProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked EnclosingDirectoryOverriddenIncludedSource
 
-public final class EnclosingDirectoryOverriddenIncludedSourceMock: MockingbirdTestsHost.EnclosingDirectoryOverriddenIncludedSource, Mockingbird.Mock, EnclosingDirectoryOverriddenIncludedSourceAbstractMockType {
+public final class EnclosingDirectoryOverriddenIncludedSourceMock: MockingbirdTestsHost.EnclosingDirectoryOverriddenIncludedSource, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -7708,30 +6733,14 @@ public final class EnclosingDirectoryOverriddenIncludedSourceMock: MockingbirdTe
   }
 }
 
-public protocol EnclosingDirectoryOverriddenIncludedSourceAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.EnclosingDirectoryOverriddenIncludedSource`.
-public func mock(_ type: MockingbirdTestsHost.EnclosingDirectoryOverriddenIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> EnclosingDirectoryOverriddenIncludedSourceAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.EnclosingDirectoryOverriddenIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> EnclosingDirectoryOverriddenIncludedSourceMock {
   return EnclosingDirectoryOverriddenIncludedSourceMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.EnclosingDirectoryOverriddenIncludedSource`.
-public func mock<__ReturnType: EnclosingDirectoryOverriddenIncludedSourceAbstractMockType>(_ type: MockingbirdTestsHost.EnclosingDirectoryOverriddenIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return EnclosingDirectoryOverriddenIncludedSourceMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.EnclosingDirectoryOverriddenIncludedSource`.
-public func dummy(_ type: MockingbirdTestsHost.EnclosingDirectoryOverriddenIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> EnclosingDirectoryOverriddenIncludedSourceMock {
-  return EnclosingDirectoryOverriddenIncludedSourceMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.EnclosingDirectoryOverriddenIncludedSource`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'EnclosingDirectoryOverriddenIncludedSourceMock' or use 'dummy(EnclosingDirectoryOverriddenIncludedSource.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.EnclosingDirectoryOverriddenIncludedSource.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked EquatableCodableConformingProtocol
 
-public final class EquatableCodableConformingProtocolMock: MockingbirdTestsHost.EquatableCodableConformingProtocol, Mockingbird.Mock, EquatableCodableConformingProtocolAbstractMockType {
+public final class EquatableCodableConformingProtocolMock: MockingbirdTestsHost.EquatableCodableConformingProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -7796,30 +6805,14 @@ public final class EquatableCodableConformingProtocolMock: MockingbirdTestsHost.
   }
 }
 
-public protocol EquatableCodableConformingProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.EquatableCodableConformingProtocol`.
-public func mock(_ type: EquatableCodableConformingProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> EquatableCodableConformingProtocolAbstractMockType {
+public func mock(_ type: EquatableCodableConformingProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> EquatableCodableConformingProtocolMock {
   return EquatableCodableConformingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.EquatableCodableConformingProtocol`.
-public func mock<__ReturnType: EquatableCodableConformingProtocolAbstractMockType>(_ type: EquatableCodableConformingProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return EquatableCodableConformingProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.EquatableCodableConformingProtocol`.
-public func dummy(_ type: EquatableCodableConformingProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> EquatableCodableConformingProtocolMock {
-  return EquatableCodableConformingProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.EquatableCodableConformingProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'EquatableCodableConformingProtocolMock' or use 'dummy(EquatableCodableConformingProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: EquatableCodableConformingProtocolMock.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked EquatableConformingClass
 
-public final class EquatableConformingClassMock: MockingbirdTestsHost.EquatableConformingClass, Mockingbird.Mock, EquatableConformingClassAbstractMockType {
+public final class EquatableConformingClassMock: MockingbirdTestsHost.EquatableConformingClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -7839,30 +6832,14 @@ public final class EquatableConformingClassMock: MockingbirdTestsHost.EquatableC
   }
 }
 
-public protocol EquatableConformingClassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.EquatableConformingClass`.
-public func mock(_ type: MockingbirdTestsHost.EquatableConformingClass.Type, file: StaticString = #file, line: UInt = #line) -> EquatableConformingClassAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.EquatableConformingClass.Type, file: StaticString = #file, line: UInt = #line) -> EquatableConformingClassMock {
   return EquatableConformingClassMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.EquatableConformingClass`.
-public func mock<__ReturnType: EquatableConformingClassAbstractMockType>(_ type: MockingbirdTestsHost.EquatableConformingClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return EquatableConformingClassMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.EquatableConformingClass`.
-public func dummy(_ type: MockingbirdTestsHost.EquatableConformingClass.Type, file: StaticString = #file, line: UInt = #line) -> EquatableConformingClassMock {
-  return EquatableConformingClassMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.EquatableConformingClass`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'EquatableConformingClassMock' or use 'dummy(EquatableConformingClass.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.EquatableConformingClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked EquatableConformingProtocol
 
-public final class EquatableConformingProtocolMock: MockingbirdTestsHost.EquatableConformingProtocol, Mockingbird.Mock, EquatableConformingProtocolAbstractMockType {
+public final class EquatableConformingProtocolMock: MockingbirdTestsHost.EquatableConformingProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -7900,30 +6877,14 @@ public final class EquatableConformingProtocolMock: MockingbirdTestsHost.Equatab
   }
 }
 
-public protocol EquatableConformingProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.EquatableConformingProtocol`.
-public func mock(_ type: EquatableConformingProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> EquatableConformingProtocolAbstractMockType {
+public func mock(_ type: EquatableConformingProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> EquatableConformingProtocolMock {
   return EquatableConformingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.EquatableConformingProtocol`.
-public func mock<__ReturnType: EquatableConformingProtocolAbstractMockType>(_ type: EquatableConformingProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return EquatableConformingProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.EquatableConformingProtocol`.
-public func dummy(_ type: EquatableConformingProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> EquatableConformingProtocolMock {
-  return EquatableConformingProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.EquatableConformingProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'EquatableConformingProtocolMock' or use 'dummy(EquatableConformingProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: EquatableConformingProtocolMock.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ExtendableProtocol
 
-public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtocol, Mockingbird.Mock, ExtendableProtocolAbstractMockType {
+public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -8079,30 +7040,14 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   }
 }
 
-public protocol ExtendableProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ExtendableProtocol`.
-public func mock(_ type: MockingbirdTestsHost.ExtendableProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ExtendableProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ExtendableProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ExtendableProtocolMock {
   return ExtendableProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ExtendableProtocol`.
-public func mock<__ReturnType: ExtendableProtocolAbstractMockType>(_ type: MockingbirdTestsHost.ExtendableProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ExtendableProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ExtendableProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.ExtendableProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ExtendableProtocolMock {
-  return ExtendableProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ExtendableProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ExtendableProtocolMock' or use 'dummy(ExtendableProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ExtendableProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked FailableEmptyInitializerClass
 
-public final class FailableEmptyInitializerClassMock: MockingbirdTestsHost.FailableEmptyInitializerClass, Mockingbird.Mock, FailableEmptyInitializerClassAbstractMockType {
+public final class FailableEmptyInitializerClassMock: MockingbirdTestsHost.FailableEmptyInitializerClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -8115,31 +7060,12 @@ public final class FailableEmptyInitializerClassMock: MockingbirdTestsHost.Faila
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(__file: StaticString = #file, __line: UInt = #line) -> FailableEmptyInitializerClassMock? {
-        let mock: FailableEmptyInitializerClassMock? = FailableEmptyInitializerClassMock()
-        mock?.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(__file: StaticString = #file, __line: UInt = #line) -> FailableEmptyInitializerClassAbstractMockType? {
+  public enum InitializerProxy {
+    public static func initialize(__file: StaticString = #file, __line: UInt = #line) -> FailableEmptyInitializerClassMock? {
       let mock: FailableEmptyInitializerClassMock? = FailableEmptyInitializerClassMock()
       mock?.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: FailableEmptyInitializerClassAbstractMockType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType? {
-      let mock: FailableEmptyInitializerClassMock? = FailableEmptyInitializerClassMock()
-      mock?.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'FailableEmptyInitializerClassMock' or use 'dummy(FailableEmptyInitializerClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType? { fatalError() }
   }
 
   // MARK: Mocked init?()
@@ -8152,31 +7078,14 @@ public final class FailableEmptyInitializerClassMock: MockingbirdTestsHost.Faila
   }
 }
 
-public protocol FailableEmptyInitializerClassAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.FailableEmptyInitializerClass`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(FailableEmptyInitializerClassMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.FailableEmptyInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return FailableEmptyInitializerClassMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.FailableEmptyInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> FailableEmptyInitializerClassMock.InitializerProxy.Type {
+  return FailableEmptyInitializerClassMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.FailableEmptyInitializerClass`.
-public func mock<__ReturnType: FailableEmptyInitializerClassMock.InitializerProxy>(_ type: MockingbirdTestsHost.FailableEmptyInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return FailableEmptyInitializerClassMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.FailableEmptyInitializerClass`.
-public func dummy(_ type: MockingbirdTestsHost.FailableEmptyInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> FailableEmptyInitializerClassMock.InitializerProxy.Dummy {
-  return FailableEmptyInitializerClassMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.FailableEmptyInitializerClass`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(FailableEmptyInitializerClassMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.FailableEmptyInitializerClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked FailableEmptyInitializerProtocol
 
-public final class FailableEmptyInitializerProtocolMock: MockingbirdTestsHost.FailableEmptyInitializerProtocol, Mockingbird.Mock, FailableEmptyInitializerProtocolAbstractMockType {
+public final class FailableEmptyInitializerProtocolMock: MockingbirdTestsHost.FailableEmptyInitializerProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -8203,30 +7112,14 @@ public final class FailableEmptyInitializerProtocolMock: MockingbirdTestsHost.Fa
   }
 }
 
-public protocol FailableEmptyInitializerProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.FailableEmptyInitializerProtocol`.
-public func mock(_ type: MockingbirdTestsHost.FailableEmptyInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> FailableEmptyInitializerProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.FailableEmptyInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> FailableEmptyInitializerProtocolMock {
   return FailableEmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.FailableEmptyInitializerProtocol`.
-public func mock<__ReturnType: FailableEmptyInitializerProtocolAbstractMockType>(_ type: MockingbirdTestsHost.FailableEmptyInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return FailableEmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.FailableEmptyInitializerProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.FailableEmptyInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> FailableEmptyInitializerProtocolMock {
-  return FailableEmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.FailableEmptyInitializerProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'FailableEmptyInitializerProtocolMock' or use 'dummy(FailableEmptyInitializerProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.FailableEmptyInitializerProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked FailableParameterizedInitializerClass
 
-public final class FailableParameterizedInitializerClassMock: MockingbirdTestsHost.FailableParameterizedInitializerClass, Mockingbird.Mock, FailableParameterizedInitializerClassAbstractMockType {
+public final class FailableParameterizedInitializerClassMock: MockingbirdTestsHost.FailableParameterizedInitializerClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -8239,31 +7132,12 @@ public final class FailableParameterizedInitializerClassMock: MockingbirdTestsHo
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> FailableParameterizedInitializerClassMock? {
-        let mock: FailableParameterizedInitializerClassMock? = FailableParameterizedInitializerClassMock(param1: `param1`, param2: `param2`)
-        mock?.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> FailableParameterizedInitializerClassAbstractMockType? {
+  public enum InitializerProxy {
+    public static func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> FailableParameterizedInitializerClassMock? {
       let mock: FailableParameterizedInitializerClassMock? = FailableParameterizedInitializerClassMock(param1: `param1`, param2: `param2`)
       mock?.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: FailableParameterizedInitializerClassAbstractMockType>(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType? {
-      let mock: FailableParameterizedInitializerClassMock? = FailableParameterizedInitializerClassMock(param1: `param1`, param2: `param2`)
-      mock?.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'FailableParameterizedInitializerClassMock' or use 'dummy(FailableParameterizedInitializerClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType? { fatalError() }
   }
 
   // MARK: Mocked init?(`param1`: Bool, `param2`: Int)
@@ -8276,31 +7150,14 @@ public final class FailableParameterizedInitializerClassMock: MockingbirdTestsHo
   }
 }
 
-public protocol FailableParameterizedInitializerClassAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.FailableParameterizedInitializerClass`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(FailableParameterizedInitializerClassMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.FailableParameterizedInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return FailableParameterizedInitializerClassMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.FailableParameterizedInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> FailableParameterizedInitializerClassMock.InitializerProxy.Type {
+  return FailableParameterizedInitializerClassMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.FailableParameterizedInitializerClass`.
-public func mock<__ReturnType: FailableParameterizedInitializerClassMock.InitializerProxy>(_ type: MockingbirdTestsHost.FailableParameterizedInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return FailableParameterizedInitializerClassMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.FailableParameterizedInitializerClass`.
-public func dummy(_ type: MockingbirdTestsHost.FailableParameterizedInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> FailableParameterizedInitializerClassMock.InitializerProxy.Dummy {
-  return FailableParameterizedInitializerClassMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.FailableParameterizedInitializerClass`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(FailableParameterizedInitializerClassMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.FailableParameterizedInitializerClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked FailableParameterizedInitializerProtocol
 
-public final class FailableParameterizedInitializerProtocolMock: MockingbirdTestsHost.FailableParameterizedInitializerProtocol, Mockingbird.Mock, FailableParameterizedInitializerProtocolAbstractMockType {
+public final class FailableParameterizedInitializerProtocolMock: MockingbirdTestsHost.FailableParameterizedInitializerProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -8327,30 +7184,14 @@ public final class FailableParameterizedInitializerProtocolMock: MockingbirdTest
   }
 }
 
-public protocol FailableParameterizedInitializerProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.FailableParameterizedInitializerProtocol`.
-public func mock(_ type: MockingbirdTestsHost.FailableParameterizedInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> FailableParameterizedInitializerProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.FailableParameterizedInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> FailableParameterizedInitializerProtocolMock {
   return FailableParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.FailableParameterizedInitializerProtocol`.
-public func mock<__ReturnType: FailableParameterizedInitializerProtocolAbstractMockType>(_ type: MockingbirdTestsHost.FailableParameterizedInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return FailableParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.FailableParameterizedInitializerProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.FailableParameterizedInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> FailableParameterizedInitializerProtocolMock {
-  return FailableParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.FailableParameterizedInitializerProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'FailableParameterizedInitializerProtocolMock' or use 'dummy(FailableParameterizedInitializerProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.FailableParameterizedInitializerProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked FailableUnwrappedEmptyInitializerClass
 
-public final class FailableUnwrappedEmptyInitializerClassMock: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerClass, Mockingbird.Mock, FailableUnwrappedEmptyInitializerClassAbstractMockType {
+public final class FailableUnwrappedEmptyInitializerClassMock: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -8363,31 +7204,12 @@ public final class FailableUnwrappedEmptyInitializerClassMock: MockingbirdTestsH
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(__file: StaticString = #file, __line: UInt = #line) -> FailableUnwrappedEmptyInitializerClassMock {
-        let mock: FailableUnwrappedEmptyInitializerClassMock = FailableUnwrappedEmptyInitializerClassMock()
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(__file: StaticString = #file, __line: UInt = #line) -> FailableUnwrappedEmptyInitializerClassAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(__file: StaticString = #file, __line: UInt = #line) -> FailableUnwrappedEmptyInitializerClassMock {
       let mock: FailableUnwrappedEmptyInitializerClassMock = FailableUnwrappedEmptyInitializerClassMock()
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: FailableUnwrappedEmptyInitializerClassAbstractMockType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: FailableUnwrappedEmptyInitializerClassMock = FailableUnwrappedEmptyInitializerClassMock()
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'FailableUnwrappedEmptyInitializerClassMock' or use 'dummy(FailableUnwrappedEmptyInitializerClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked init!()
@@ -8400,31 +7222,14 @@ public final class FailableUnwrappedEmptyInitializerClassMock: MockingbirdTestsH
   }
 }
 
-public protocol FailableUnwrappedEmptyInitializerClassAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.FailableUnwrappedEmptyInitializerClass`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(FailableUnwrappedEmptyInitializerClassMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return FailableUnwrappedEmptyInitializerClassMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> FailableUnwrappedEmptyInitializerClassMock.InitializerProxy.Type {
+  return FailableUnwrappedEmptyInitializerClassMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.FailableUnwrappedEmptyInitializerClass`.
-public func mock<__ReturnType: FailableUnwrappedEmptyInitializerClassMock.InitializerProxy>(_ type: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return FailableUnwrappedEmptyInitializerClassMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.FailableUnwrappedEmptyInitializerClass`.
-public func dummy(_ type: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> FailableUnwrappedEmptyInitializerClassMock.InitializerProxy.Dummy {
-  return FailableUnwrappedEmptyInitializerClassMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.FailableUnwrappedEmptyInitializerClass`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(FailableUnwrappedEmptyInitializerClassMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked FailableUnwrappedEmptyInitializerProtocol
 
-public final class FailableUnwrappedEmptyInitializerProtocolMock: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerProtocol, Mockingbird.Mock, FailableUnwrappedEmptyInitializerProtocolAbstractMockType {
+public final class FailableUnwrappedEmptyInitializerProtocolMock: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -8451,30 +7256,14 @@ public final class FailableUnwrappedEmptyInitializerProtocolMock: MockingbirdTes
   }
 }
 
-public protocol FailableUnwrappedEmptyInitializerProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.FailableUnwrappedEmptyInitializerProtocol`.
-public func mock(_ type: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> FailableUnwrappedEmptyInitializerProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> FailableUnwrappedEmptyInitializerProtocolMock {
   return FailableUnwrappedEmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.FailableUnwrappedEmptyInitializerProtocol`.
-public func mock<__ReturnType: FailableUnwrappedEmptyInitializerProtocolAbstractMockType>(_ type: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return FailableUnwrappedEmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.FailableUnwrappedEmptyInitializerProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> FailableUnwrappedEmptyInitializerProtocolMock {
-  return FailableUnwrappedEmptyInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.FailableUnwrappedEmptyInitializerProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'FailableUnwrappedEmptyInitializerProtocolMock' or use 'dummy(FailableUnwrappedEmptyInitializerProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.FailableUnwrappedEmptyInitializerProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked FailableUnwrappedParameterizedInitializerClass
 
-public final class FailableUnwrappedParameterizedInitializerClassMock: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerClass, Mockingbird.Mock, FailableUnwrappedParameterizedInitializerClassAbstractMockType {
+public final class FailableUnwrappedParameterizedInitializerClassMock: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -8487,31 +7276,12 @@ public final class FailableUnwrappedParameterizedInitializerClassMock: Mockingbi
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> FailableUnwrappedParameterizedInitializerClassMock {
-        let mock: FailableUnwrappedParameterizedInitializerClassMock = FailableUnwrappedParameterizedInitializerClassMock(param1: `param1`, param2: `param2`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> FailableUnwrappedParameterizedInitializerClassAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> FailableUnwrappedParameterizedInitializerClassMock {
       let mock: FailableUnwrappedParameterizedInitializerClassMock = FailableUnwrappedParameterizedInitializerClassMock(param1: `param1`, param2: `param2`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: FailableUnwrappedParameterizedInitializerClassAbstractMockType>(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: FailableUnwrappedParameterizedInitializerClassMock = FailableUnwrappedParameterizedInitializerClassMock(param1: `param1`, param2: `param2`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'FailableUnwrappedParameterizedInitializerClassMock' or use 'dummy(FailableUnwrappedParameterizedInitializerClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked init!(`param1`: Bool, `param2`: Int)
@@ -8524,31 +7294,14 @@ public final class FailableUnwrappedParameterizedInitializerClassMock: Mockingbi
   }
 }
 
-public protocol FailableUnwrappedParameterizedInitializerClassAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerClass`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(FailableUnwrappedParameterizedInitializerClassMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return FailableUnwrappedParameterizedInitializerClassMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> FailableUnwrappedParameterizedInitializerClassMock.InitializerProxy.Type {
+  return FailableUnwrappedParameterizedInitializerClassMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerClass`.
-public func mock<__ReturnType: FailableUnwrappedParameterizedInitializerClassMock.InitializerProxy>(_ type: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return FailableUnwrappedParameterizedInitializerClassMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerClass`.
-public func dummy(_ type: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> FailableUnwrappedParameterizedInitializerClassMock.InitializerProxy.Dummy {
-  return FailableUnwrappedParameterizedInitializerClassMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerClass`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(FailableUnwrappedParameterizedInitializerClassMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked FailableUnwrappedParameterizedInitializerProtocol
 
-public final class FailableUnwrappedParameterizedInitializerProtocolMock: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerProtocol, Mockingbird.Mock, FailableUnwrappedParameterizedInitializerProtocolAbstractMockType {
+public final class FailableUnwrappedParameterizedInitializerProtocolMock: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -8575,30 +7328,14 @@ public final class FailableUnwrappedParameterizedInitializerProtocolMock: Mockin
   }
 }
 
-public protocol FailableUnwrappedParameterizedInitializerProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerProtocol`.
-public func mock(_ type: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> FailableUnwrappedParameterizedInitializerProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> FailableUnwrappedParameterizedInitializerProtocolMock {
   return FailableUnwrappedParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerProtocol`.
-public func mock<__ReturnType: FailableUnwrappedParameterizedInitializerProtocolAbstractMockType>(_ type: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return FailableUnwrappedParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> FailableUnwrappedParameterizedInitializerProtocolMock {
-  return FailableUnwrappedParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'FailableUnwrappedParameterizedInitializerProtocolMock' or use 'dummy(FailableUnwrappedParameterizedInitializerProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.FailableUnwrappedParameterizedInitializerProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked GenericBaseClass
 
-public final class GenericBaseClassMock<T>: MockingbirdTestsHost.GenericBaseClass<T>, Mockingbird.Mock, GenericBaseClassAbstractMockType {
+public final class GenericBaseClassMock<T>: MockingbirdTestsHost.GenericBaseClass<T>, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(T.self)"].joined(separator: ",")
     let staticMockIdentifier = "GenericBaseClassMock<T>," + runtimeGenericTypeNames
@@ -8659,30 +7396,14 @@ public final class GenericBaseClassMock<T>: MockingbirdTestsHost.GenericBaseClas
   }
 }
 
-public protocol GenericBaseClassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.GenericBaseClass<T>`.
-public func mock<T>(_ type: GenericBaseClassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> GenericBaseClassAbstractMockType {
+public func mock<T>(_ type: GenericBaseClassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> GenericBaseClassMock<T> {
   return GenericBaseClassMock<T>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.GenericBaseClass<T>`.
-public func mock<T, __ReturnType: GenericBaseClassAbstractMockType>(_ type: GenericBaseClassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return GenericBaseClassMock<T>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.GenericBaseClass<T>`.
-public func dummy<T>(_ type: GenericBaseClassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> GenericBaseClassMock<T> {
-  return GenericBaseClassMock<T>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.GenericBaseClass<T>`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'GenericBaseClassMock<T>' or use 'dummy(GenericBaseClass<T>.self)' to create a non-mockable dummy object")
-public func mock<T, __ReturnType>(_ type: GenericBaseClassMock<T>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked GenericClassReferencer
 
-public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClassReferencer, Mockingbird.Mock, GenericClassReferencerAbstractMockType {
+public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClassReferencer, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -8837,30 +7558,14 @@ public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClass
   }
 }
 
-public protocol GenericClassReferencerAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.GenericClassReferencer`.
-public func mock(_ type: MockingbirdTestsHost.GenericClassReferencer.Protocol, file: StaticString = #file, line: UInt = #line) -> GenericClassReferencerAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.GenericClassReferencer.Protocol, file: StaticString = #file, line: UInt = #line) -> GenericClassReferencerMock {
   return GenericClassReferencerMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.GenericClassReferencer`.
-public func mock<__ReturnType: GenericClassReferencerAbstractMockType>(_ type: MockingbirdTestsHost.GenericClassReferencer.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return GenericClassReferencerMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.GenericClassReferencer`.
-public func dummy(_ type: MockingbirdTestsHost.GenericClassReferencer.Protocol, file: StaticString = #file, line: UInt = #line) -> GenericClassReferencerMock {
-  return GenericClassReferencerMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.GenericClassReferencer`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'GenericClassReferencerMock' or use 'dummy(GenericClassReferencer.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.GenericClassReferencer.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked GrandparentProtocol
 
-public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProtocol, Mockingbird.Mock, GrandparentProtocolAbstractMockType {
+public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -9045,30 +7750,14 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   }
 }
 
-public protocol GrandparentProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.GrandparentProtocol`.
-public func mock(_ type: MockingbirdTestsHost.GrandparentProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> GrandparentProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.GrandparentProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> GrandparentProtocolMock {
   return GrandparentProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.GrandparentProtocol`.
-public func mock<__ReturnType: GrandparentProtocolAbstractMockType>(_ type: MockingbirdTestsHost.GrandparentProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return GrandparentProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.GrandparentProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.GrandparentProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> GrandparentProtocolMock {
-  return GrandparentProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.GrandparentProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'GrandparentProtocolMock' or use 'dummy(GrandparentProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.GrandparentProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked Grandparent
 
-public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbird.Mock, GrandparentAbstractMockType {
+public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -9253,30 +7942,14 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   }
 }
 
-public protocol GrandparentAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.Grandparent`.
-public func mock(_ type: MockingbirdTestsHost.Grandparent.Type, file: StaticString = #file, line: UInt = #line) -> GrandparentAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.Grandparent.Type, file: StaticString = #file, line: UInt = #line) -> GrandparentMock {
   return GrandparentMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.Grandparent`.
-public func mock<__ReturnType: GrandparentAbstractMockType>(_ type: MockingbirdTestsHost.Grandparent.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return GrandparentMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.Grandparent`.
-public func dummy(_ type: MockingbirdTestsHost.Grandparent.Type, file: StaticString = #file, line: UInt = #line) -> GrandparentMock {
-  return GrandparentMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.Grandparent`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'GrandparentMock' or use 'dummy(Grandparent.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.Grandparent.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked HashableConformingClass
 
-public final class HashableConformingClassMock: MockingbirdTestsHost.HashableConformingClass, Mockingbird.Mock, HashableConformingClassAbstractMockType {
+public final class HashableConformingClassMock: MockingbirdTestsHost.HashableConformingClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -9315,30 +7988,14 @@ public final class HashableConformingClassMock: MockingbirdTestsHost.HashableCon
   }
 }
 
-public protocol HashableConformingClassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.HashableConformingClass`.
-public func mock(_ type: MockingbirdTestsHost.HashableConformingClass.Type, file: StaticString = #file, line: UInt = #line) -> HashableConformingClassAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.HashableConformingClass.Type, file: StaticString = #file, line: UInt = #line) -> HashableConformingClassMock {
   return HashableConformingClassMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.HashableConformingClass`.
-public func mock<__ReturnType: HashableConformingClassAbstractMockType>(_ type: MockingbirdTestsHost.HashableConformingClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return HashableConformingClassMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.HashableConformingClass`.
-public func dummy(_ type: MockingbirdTestsHost.HashableConformingClass.Type, file: StaticString = #file, line: UInt = #line) -> HashableConformingClassMock {
-  return HashableConformingClassMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.HashableConformingClass`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'HashableConformingClassMock' or use 'dummy(HashableConformingClass.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.HashableConformingClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked HashableConformingProtocol
 
-public final class HashableConformingProtocolMock: MockingbirdTestsHost.HashableConformingProtocol, Mockingbird.Mock, HashableConformingProtocolAbstractMockType {
+public final class HashableConformingProtocolMock: MockingbirdTestsHost.HashableConformingProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -9410,30 +8067,14 @@ public final class HashableConformingProtocolMock: MockingbirdTestsHost.Hashable
   }
 }
 
-public protocol HashableConformingProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.HashableConformingProtocol`.
-public func mock(_ type: HashableConformingProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> HashableConformingProtocolAbstractMockType {
+public func mock(_ type: HashableConformingProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> HashableConformingProtocolMock {
   return HashableConformingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.HashableConformingProtocol`.
-public func mock<__ReturnType: HashableConformingProtocolAbstractMockType>(_ type: HashableConformingProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return HashableConformingProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.HashableConformingProtocol`.
-public func dummy(_ type: HashableConformingProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> HashableConformingProtocolMock {
-  return HashableConformingProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.HashableConformingProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'HashableConformingProtocolMock' or use 'dummy(HashableConformingProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: HashableConformingProtocolMock.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ImplementingExternalModuleScopedTypealiasedProtocol
 
-public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.ImplementingExternalModuleScopedTypealiasedProtocol, Mockingbird.Mock, ImplementingExternalModuleScopedTypealiasedProtocolAbstractMockType {
+public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.ImplementingExternalModuleScopedTypealiasedProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -9567,30 +8208,14 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
   }
 }
 
-public protocol ImplementingExternalModuleScopedTypealiasedProtocolAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.ImplementingExternalModuleScopedTypealiasedProtocol`.
-public func mock(_ type: MockingbirdTestsHost.ImplementingExternalModuleScopedTypealiasedProtocol.Type, file: StaticString = #file, line: UInt = #line) -> ImplementingExternalModuleScopedTypealiasedProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ImplementingExternalModuleScopedTypealiasedProtocol.Type, file: StaticString = #file, line: UInt = #line) -> ImplementingExternalModuleScopedTypealiasedProtocolMock {
   return ImplementingExternalModuleScopedTypealiasedProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.ImplementingExternalModuleScopedTypealiasedProtocol`.
-public func mock<__ReturnType: ImplementingExternalModuleScopedTypealiasedProtocolAbstractMockType>(_ type: MockingbirdTestsHost.ImplementingExternalModuleScopedTypealiasedProtocol.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ImplementingExternalModuleScopedTypealiasedProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ImplementingExternalModuleScopedTypealiasedProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.ImplementingExternalModuleScopedTypealiasedProtocol.Type, file: StaticString = #file, line: UInt = #line) -> ImplementingExternalModuleScopedTypealiasedProtocolMock {
-  return ImplementingExternalModuleScopedTypealiasedProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.ImplementingExternalModuleScopedTypealiasedProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ImplementingExternalModuleScopedTypealiasedProtocolMock' or use 'dummy(ImplementingExternalModuleScopedTypealiasedProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ImplementingExternalModuleScopedTypealiasedProtocol.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ImplementingExternalModuleScoping
 
-public final class ImplementingExternalModuleScopingMock: MockingbirdTestsHost.ImplementingExternalModuleScoping, Mockingbird.Mock, ImplementingExternalModuleScopingAbstractMockType {
+public final class ImplementingExternalModuleScopingMock: MockingbirdTestsHost.ImplementingExternalModuleScoping, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -9603,31 +8228,12 @@ public final class ImplementingExternalModuleScopingMock: MockingbirdTestsHost.I
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(__file: StaticString = #file, __line: UInt = #line) -> ImplementingExternalModuleScopingMock {
-        let mock: ImplementingExternalModuleScopingMock = ImplementingExternalModuleScopingMock()
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(__file: StaticString = #file, __line: UInt = #line) -> ImplementingExternalModuleScopingAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(__file: StaticString = #file, __line: UInt = #line) -> ImplementingExternalModuleScopingMock {
       let mock: ImplementingExternalModuleScopingMock = ImplementingExternalModuleScopingMock()
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: ImplementingExternalModuleScopingAbstractMockType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: ImplementingExternalModuleScopingMock = ImplementingExternalModuleScopingMock()
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'ImplementingExternalModuleScopingMock' or use 'dummy(ImplementingExternalModuleScopingMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked secondLevelType
@@ -9733,31 +8339,14 @@ public final class ImplementingExternalModuleScopingMock: MockingbirdTestsHost.I
   }
 }
 
-public protocol ImplementingExternalModuleScopingAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.ImplementingExternalModuleScoping`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(ImplementingExternalModuleScopingMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.ImplementingExternalModuleScoping.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return ImplementingExternalModuleScopingMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.ImplementingExternalModuleScoping.Type, file: StaticString = #file, line: UInt = #line) -> ImplementingExternalModuleScopingMock.InitializerProxy.Type {
+  return ImplementingExternalModuleScopingMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.ImplementingExternalModuleScoping`.
-public func mock<__ReturnType: ImplementingExternalModuleScopingMock.InitializerProxy>(_ type: MockingbirdTestsHost.ImplementingExternalModuleScoping.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ImplementingExternalModuleScopingMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ImplementingExternalModuleScoping`.
-public func dummy(_ type: MockingbirdTestsHost.ImplementingExternalModuleScoping.Type, file: StaticString = #file, line: UInt = #line) -> ImplementingExternalModuleScopingMock.InitializerProxy.Dummy {
-  return ImplementingExternalModuleScopingMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.ImplementingExternalModuleScoping`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(ImplementingExternalModuleScopingMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ImplementingExternalModuleScoping.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ImplicitlyImportedExternalObjectiveCType
 
-public final class ImplicitlyImportedExternalObjectiveCTypeMock: MockingbirdTestsHost.ImplicitlyImportedExternalObjectiveCType, Mockingbird.Mock, ImplicitlyImportedExternalObjectiveCTypeAbstractMockType {
+public final class ImplicitlyImportedExternalObjectiveCTypeMock: MockingbirdTestsHost.ImplicitlyImportedExternalObjectiveCType, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -9791,30 +8380,14 @@ public final class ImplicitlyImportedExternalObjectiveCTypeMock: MockingbirdTest
   }
 }
 
-public protocol ImplicitlyImportedExternalObjectiveCTypeAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ImplicitlyImportedExternalObjectiveCType`.
-public func mock(_ type: MockingbirdTestsHost.ImplicitlyImportedExternalObjectiveCType.Protocol, file: StaticString = #file, line: UInt = #line) -> ImplicitlyImportedExternalObjectiveCTypeAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ImplicitlyImportedExternalObjectiveCType.Protocol, file: StaticString = #file, line: UInt = #line) -> ImplicitlyImportedExternalObjectiveCTypeMock {
   return ImplicitlyImportedExternalObjectiveCTypeMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ImplicitlyImportedExternalObjectiveCType`.
-public func mock<__ReturnType: ImplicitlyImportedExternalObjectiveCTypeAbstractMockType>(_ type: MockingbirdTestsHost.ImplicitlyImportedExternalObjectiveCType.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ImplicitlyImportedExternalObjectiveCTypeMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ImplicitlyImportedExternalObjectiveCType`.
-public func dummy(_ type: MockingbirdTestsHost.ImplicitlyImportedExternalObjectiveCType.Protocol, file: StaticString = #file, line: UInt = #line) -> ImplicitlyImportedExternalObjectiveCTypeMock {
-  return ImplicitlyImportedExternalObjectiveCTypeMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ImplicitlyImportedExternalObjectiveCType`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ImplicitlyImportedExternalObjectiveCTypeMock' or use 'dummy(ImplicitlyImportedExternalObjectiveCType.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ImplicitlyImportedExternalObjectiveCType.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked InheritedTypeQualificationProtocolGenericImplementer
 
-public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>, Mockingbird.Mock, InheritedTypeQualificationProtocolGenericImplementerAbstractMockType {
+public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(T.self)"].joined(separator: ",")
     let staticMockIdentifier = "InheritedTypeQualificationProtocolGenericImplementerMock<T>," + runtimeGenericTypeNames
@@ -9879,30 +8452,14 @@ public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: 
   }
 }
 
-public protocol InheritedTypeQualificationProtocolGenericImplementerAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>`.
-public func mock<T>(_ type: InheritedTypeQualificationProtocolGenericImplementerMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> InheritedTypeQualificationProtocolGenericImplementerAbstractMockType {
+public func mock<T>(_ type: InheritedTypeQualificationProtocolGenericImplementerMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> InheritedTypeQualificationProtocolGenericImplementerMock<T> {
   return InheritedTypeQualificationProtocolGenericImplementerMock<T>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>`.
-public func mock<T, __ReturnType: InheritedTypeQualificationProtocolGenericImplementerAbstractMockType>(_ type: InheritedTypeQualificationProtocolGenericImplementerMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return InheritedTypeQualificationProtocolGenericImplementerMock<T>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>`.
-public func dummy<T>(_ type: InheritedTypeQualificationProtocolGenericImplementerMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> InheritedTypeQualificationProtocolGenericImplementerMock<T> {
-  return InheritedTypeQualificationProtocolGenericImplementerMock<T>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'InheritedTypeQualificationProtocolGenericImplementerMock<T>' or use 'dummy(InheritedTypeQualificationProtocolGenericImplementer<T>.self)' to create a non-mockable dummy object")
-public func mock<T, __ReturnType>(_ type: InheritedTypeQualificationProtocolGenericImplementerMock<T>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked InheritedTypeQualificationProtocol
 
-public final class InheritedTypeQualificationProtocolMock<ScopedType>: MockingbirdTestsHost.InheritedTypeQualificationProtocol, Mockingbird.Mock, InheritedTypeQualificationProtocolAbstractMockType {
+public final class InheritedTypeQualificationProtocolMock<ScopedType>: MockingbirdTestsHost.InheritedTypeQualificationProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(ScopedType.self)"].joined(separator: ",")
     let staticMockIdentifier = "InheritedTypeQualificationProtocolMock<ScopedType>," + runtimeGenericTypeNames
@@ -9966,30 +8523,14 @@ public final class InheritedTypeQualificationProtocolMock<ScopedType>: Mockingbi
   }
 }
 
-public protocol InheritedTypeQualificationProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.InheritedTypeQualificationProtocol`.
-public func mock<ScopedType>(_ type: InheritedTypeQualificationProtocolMock<ScopedType>.Type, file: StaticString = #file, line: UInt = #line) -> InheritedTypeQualificationProtocolAbstractMockType {
+public func mock<ScopedType>(_ type: InheritedTypeQualificationProtocolMock<ScopedType>.Type, file: StaticString = #file, line: UInt = #line) -> InheritedTypeQualificationProtocolMock<ScopedType> {
   return InheritedTypeQualificationProtocolMock<ScopedType>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InheritedTypeQualificationProtocol`.
-public func mock<ScopedType, __ReturnType: InheritedTypeQualificationProtocolAbstractMockType>(_ type: InheritedTypeQualificationProtocolMock<ScopedType>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return InheritedTypeQualificationProtocolMock<ScopedType>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.InheritedTypeQualificationProtocol`.
-public func dummy<ScopedType>(_ type: InheritedTypeQualificationProtocolMock<ScopedType>.Type, file: StaticString = #file, line: UInt = #line) -> InheritedTypeQualificationProtocolMock<ScopedType> {
-  return InheritedTypeQualificationProtocolMock<ScopedType>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InheritedTypeQualificationProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'InheritedTypeQualificationProtocolMock<ScopedType>' or use 'dummy(InheritedTypeQualificationProtocol.self)' to create a non-mockable dummy object")
-public func mock<ScopedType, __ReturnType>(_ type: InheritedTypeQualificationProtocolMock<ScopedType>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked InheritingAssociatedTypeSelfReferencingProtocol
 
-public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Swift.Hashable>: MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol, Mockingbird.Mock, InheritingAssociatedTypeSelfReferencingProtocolAbstractMockType {
+public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Swift.Hashable>: MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(SequenceType.self)"].joined(separator: ",")
     let staticMockIdentifier = "InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Swift.Hashable>," + runtimeGenericTypeNames
@@ -10072,30 +8613,14 @@ public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceT
   }
 }
 
-public protocol InheritingAssociatedTypeSelfReferencingProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol`.
-public func mock<SequenceType: Sequence & Swift.Hashable>(_ type: InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType>.Type, file: StaticString = #file, line: UInt = #line) -> InheritingAssociatedTypeSelfReferencingProtocolAbstractMockType {
+public func mock<SequenceType: Sequence & Swift.Hashable>(_ type: InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType>.Type, file: StaticString = #file, line: UInt = #line) -> InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType> {
   return InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol`.
-public func mock<SequenceType: Sequence & Swift.Hashable, __ReturnType: InheritingAssociatedTypeSelfReferencingProtocolAbstractMockType>(_ type: InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol`.
-public func dummy<SequenceType: Sequence & Swift.Hashable>(_ type: InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType>.Type, file: StaticString = #file, line: UInt = #line) -> InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType> {
-  return InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType>' or use 'dummy(InheritingAssociatedTypeSelfReferencingProtocol.self)' to create a non-mockable dummy object")
-public func mock<SequenceType: Sequence & Swift.Hashable, __ReturnType>(_ type: InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked InheritingExternalModuleScopedAssociatedTypeProtocol
 
-public final class InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol>: MockingbirdTestsHost.InheritingExternalModuleScopedAssociatedTypeProtocol, Mockingbird.Mock, InheritingExternalModuleScopedAssociatedTypeProtocolAbstractMockType where Data.Element == MockingbirdModuleTestsHost.NSObject {
+public final class InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol>: MockingbirdTestsHost.InheritingExternalModuleScopedAssociatedTypeProtocol, Mockingbird.Mock where Data.Element == MockingbirdModuleTestsHost.NSObject {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(Data.self)", "\(Element.self)", "\(Subelement.self)"].joined(separator: ",")
     let staticMockIdentifier = "InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol>," + runtimeGenericTypeNames
@@ -10121,30 +8646,14 @@ public final class InheritingExternalModuleScopedAssociatedTypeProtocolMock<Elem
   }
 }
 
-public protocol InheritingExternalModuleScopedAssociatedTypeProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.InheritingExternalModuleScopedAssociatedTypeProtocol`.
-public func mock<Element, Subelement, Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol>(_ type: InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type, file: StaticString = #file, line: UInt = #line) -> InheritingExternalModuleScopedAssociatedTypeProtocolAbstractMockType {
+public func mock<Element, Subelement, Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol>(_ type: InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type, file: StaticString = #file, line: UInt = #line) -> InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data> {
   return InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InheritingExternalModuleScopedAssociatedTypeProtocol`.
-public func mock<Element, Subelement, Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol, __ReturnType: InheritingExternalModuleScopedAssociatedTypeProtocolAbstractMockType>(_ type: InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.InheritingExternalModuleScopedAssociatedTypeProtocol`.
-public func dummy<Element, Subelement, Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol>(_ type: InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type, file: StaticString = #file, line: UInt = #line) -> InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data> {
-  return InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InheritingExternalModuleScopedAssociatedTypeProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>' or use 'dummy(InheritingExternalModuleScopedAssociatedTypeProtocol.self)' to create a non-mockable dummy object")
-public func mock<Element, Subelement, Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol, __ReturnType>(_ type: InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked InheritingExternalModuleScopedTypealiasedProtocol
 
-public final class InheritingExternalModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.InheritingExternalModuleScopedTypealiasedProtocol, Mockingbird.Mock, InheritingExternalModuleScopedTypealiasedProtocolAbstractMockType {
+public final class InheritingExternalModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.InheritingExternalModuleScopedTypealiasedProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -10277,30 +8786,14 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
   }
 }
 
-public protocol InheritingExternalModuleScopedTypealiasedProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.InheritingExternalModuleScopedTypealiasedProtocol`.
-public func mock(_ type: MockingbirdTestsHost.InheritingExternalModuleScopedTypealiasedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InheritingExternalModuleScopedTypealiasedProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.InheritingExternalModuleScopedTypealiasedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InheritingExternalModuleScopedTypealiasedProtocolMock {
   return InheritingExternalModuleScopedTypealiasedProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InheritingExternalModuleScopedTypealiasedProtocol`.
-public func mock<__ReturnType: InheritingExternalModuleScopedTypealiasedProtocolAbstractMockType>(_ type: MockingbirdTestsHost.InheritingExternalModuleScopedTypealiasedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return InheritingExternalModuleScopedTypealiasedProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.InheritingExternalModuleScopedTypealiasedProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.InheritingExternalModuleScopedTypealiasedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InheritingExternalModuleScopedTypealiasedProtocolMock {
-  return InheritingExternalModuleScopedTypealiasedProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InheritingExternalModuleScopedTypealiasedProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'InheritingExternalModuleScopedTypealiasedProtocolMock' or use 'dummy(InheritingExternalModuleScopedTypealiasedProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.InheritingExternalModuleScopedTypealiasedProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked InheritingModuleScopedAssociatedTypeProtocol
 
-public final class InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>: MockingbirdTestsHost.InheritingModuleScopedAssociatedTypeProtocol, Mockingbird.Mock, InheritingModuleScopedAssociatedTypeProtocolAbstractMockType where Data.Element == MockingbirdTestsHost.NSObject {
+public final class InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>: MockingbirdTestsHost.InheritingModuleScopedAssociatedTypeProtocol, Mockingbird.Mock where Data.Element == MockingbirdTestsHost.NSObject {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(Data.self)", "\(Element.self)", "\(Subelement.self)"].joined(separator: ",")
     let staticMockIdentifier = "InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>," + runtimeGenericTypeNames
@@ -10326,30 +8819,14 @@ public final class InheritingModuleScopedAssociatedTypeProtocolMock<Element, Sub
   }
 }
 
-public protocol InheritingModuleScopedAssociatedTypeProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.InheritingModuleScopedAssociatedTypeProtocol`.
-public func mock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>(_ type: InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type, file: StaticString = #file, line: UInt = #line) -> InheritingModuleScopedAssociatedTypeProtocolAbstractMockType {
+public func mock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>(_ type: InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type, file: StaticString = #file, line: UInt = #line) -> InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data> {
   return InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InheritingModuleScopedAssociatedTypeProtocol`.
-public func mock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, __ReturnType: InheritingModuleScopedAssociatedTypeProtocolAbstractMockType>(_ type: InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.InheritingModuleScopedAssociatedTypeProtocol`.
-public func dummy<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>(_ type: InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type, file: StaticString = #file, line: UInt = #line) -> InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data> {
-  return InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InheritingModuleScopedAssociatedTypeProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>' or use 'dummy(InheritingModuleScopedAssociatedTypeProtocol.self)' to create a non-mockable dummy object")
-public func mock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, __ReturnType>(_ type: InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked InheritsExtendableProtocol
 
-public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.InheritsExtendableProtocol, Mockingbird.Mock, InheritsExtendableProtocolAbstractMockType {
+public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.InheritsExtendableProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -10538,30 +9015,14 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
   }
 }
 
-public protocol InheritsExtendableProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.InheritsExtendableProtocol`.
-public func mock(_ type: MockingbirdTestsHost.InheritsExtendableProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InheritsExtendableProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.InheritsExtendableProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InheritsExtendableProtocolMock {
   return InheritsExtendableProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InheritsExtendableProtocol`.
-public func mock<__ReturnType: InheritsExtendableProtocolAbstractMockType>(_ type: MockingbirdTestsHost.InheritsExtendableProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return InheritsExtendableProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.InheritsExtendableProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.InheritsExtendableProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InheritsExtendableProtocolMock {
-  return InheritsExtendableProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InheritsExtendableProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'InheritsExtendableProtocolMock' or use 'dummy(InheritsExtendableProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.InheritsExtendableProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked InitializableClassOnlyProtocolWithInheritedInitializer
 
-public final class InitializableClassOnlyProtocolWithInheritedInitializerMock: MockingbirdTestsHost.ClassWithDesignatedInitializer, MockingbirdTestsHost.InitializableClassOnlyProtocolWithInheritedInitializer, Mockingbird.Mock, InitializableClassOnlyProtocolWithInheritedInitializerAbstractMockType {
+public final class InitializableClassOnlyProtocolWithInheritedInitializerMock: MockingbirdTestsHost.ClassWithDesignatedInitializer, MockingbirdTestsHost.InitializableClassOnlyProtocolWithInheritedInitializer, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -10574,77 +9035,25 @@ public final class InitializableClassOnlyProtocolWithInheritedInitializerMock: M
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      @available(*, deprecated, message: "This class initializer is deprecated")
-      public func initialize(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializableClassOnlyProtocolWithInheritedInitializerMock {
-        let mock: InitializableClassOnlyProtocolWithInheritedInitializerMock = InitializableClassOnlyProtocolWithInheritedInitializerMock(param1: `param1`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializableClassOnlyProtocolWithInheritedInitializerMock {
-        let mock: InitializableClassOnlyProtocolWithInheritedInitializerMock = InitializableClassOnlyProtocolWithInheritedInitializerMock(param: `param`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializableClassOnlyProtocolWithInheritedInitializerMock {
-        let mock: InitializableClassOnlyProtocolWithInheritedInitializerMock = InitializableClassOnlyProtocolWithInheritedInitializerMock(param: `param`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
+  public enum InitializerProxy {
     @available(*, deprecated, message: "This class initializer is deprecated")
-    public func initialize(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializableClassOnlyProtocolWithInheritedInitializerAbstractMockType {
+    public static func initialize(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializableClassOnlyProtocolWithInheritedInitializerMock {
       let mock: InitializableClassOnlyProtocolWithInheritedInitializerMock = InitializableClassOnlyProtocolWithInheritedInitializerMock(param1: `param1`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    @available(*, deprecated, message: "This class initializer is deprecated")
-    public func initialize<__ReturnType: InitializableClassOnlyProtocolWithInheritedInitializerAbstractMockType>(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: InitializableClassOnlyProtocolWithInheritedInitializerMock = InitializableClassOnlyProtocolWithInheritedInitializerMock(param1: `param1`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializableClassOnlyProtocolWithInheritedInitializerMock' or use 'dummy(InitializableClassOnlyProtocolWithInheritedInitializerMock.self).initialize(...)' to create a non-mockable dummy object")
-    @available(*, deprecated, message: "This class initializer is deprecated")
-    public func initialize<__ReturnType>(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
-
-    public func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializableClassOnlyProtocolWithInheritedInitializerAbstractMockType {
+    public static func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializableClassOnlyProtocolWithInheritedInitializerMock {
       let mock: InitializableClassOnlyProtocolWithInheritedInitializerMock = InitializableClassOnlyProtocolWithInheritedInitializerMock(param: `param`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    public func initialize<__ReturnType: InitializableClassOnlyProtocolWithInheritedInitializerAbstractMockType>(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: InitializableClassOnlyProtocolWithInheritedInitializerMock = InitializableClassOnlyProtocolWithInheritedInitializerMock(param: `param`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializableClassOnlyProtocolWithInheritedInitializerMock' or use 'dummy(InitializableClassOnlyProtocolWithInheritedInitializerMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
-
-    public func initialize(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializableClassOnlyProtocolWithInheritedInitializerAbstractMockType {
+    public static func initialize(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializableClassOnlyProtocolWithInheritedInitializerMock {
       let mock: InitializableClassOnlyProtocolWithInheritedInitializerMock = InitializableClassOnlyProtocolWithInheritedInitializerMock(param: `param`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: InitializableClassOnlyProtocolWithInheritedInitializerAbstractMockType>(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: InitializableClassOnlyProtocolWithInheritedInitializerMock = InitializableClassOnlyProtocolWithInheritedInitializerMock(param: `param`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializableClassOnlyProtocolWithInheritedInitializerMock' or use 'dummy(InitializableClassOnlyProtocolWithInheritedInitializerMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked init(`param1`: Bool)
@@ -10698,31 +9107,14 @@ public final class InitializableClassOnlyProtocolWithInheritedInitializerMock: M
   }
 }
 
-public protocol InitializableClassOnlyProtocolWithInheritedInitializerAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.InitializableClassOnlyProtocolWithInheritedInitializer`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(InitializableClassOnlyProtocolWithInheritedInitializerMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.InitializableClassOnlyProtocolWithInheritedInitializer.Protocol, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return InitializableClassOnlyProtocolWithInheritedInitializerMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.InitializableClassOnlyProtocolWithInheritedInitializer.Protocol, file: StaticString = #file, line: UInt = #line) -> InitializableClassOnlyProtocolWithInheritedInitializerMock.InitializerProxy.Type {
+  return InitializableClassOnlyProtocolWithInheritedInitializerMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.InitializableClassOnlyProtocolWithInheritedInitializer`.
-public func mock<__ReturnType: InitializableClassOnlyProtocolWithInheritedInitializerMock.InitializerProxy>(_ type: MockingbirdTestsHost.InitializableClassOnlyProtocolWithInheritedInitializer.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return InitializableClassOnlyProtocolWithInheritedInitializerMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.InitializableClassOnlyProtocolWithInheritedInitializer`.
-public func dummy(_ type: MockingbirdTestsHost.InitializableClassOnlyProtocolWithInheritedInitializer.Protocol, file: StaticString = #file, line: UInt = #line) -> InitializableClassOnlyProtocolWithInheritedInitializerMock.InitializerProxy.Dummy {
-  return InitializableClassOnlyProtocolWithInheritedInitializerMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.InitializableClassOnlyProtocolWithInheritedInitializer`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(InitializableClassOnlyProtocolWithInheritedInitializerMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.InitializableClassOnlyProtocolWithInheritedInitializer.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked InitializableClassOnlyProtocol
 
-public final class InitializableClassOnlyProtocolMock: MockingbirdTestsHost.ClassWithoutDesignatedInitializer, MockingbirdTestsHost.InitializableClassOnlyProtocol, Mockingbird.Mock, InitializableClassOnlyProtocolAbstractMockType {
+public final class InitializableClassOnlyProtocolMock: MockingbirdTestsHost.ClassWithoutDesignatedInitializer, MockingbirdTestsHost.InitializableClassOnlyProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -10735,31 +9127,12 @@ public final class InitializableClassOnlyProtocolMock: MockingbirdTestsHost.Clas
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializableClassOnlyProtocolMock {
-        let mock: InitializableClassOnlyProtocolMock = InitializableClassOnlyProtocolMock(param1: `param1`, param2: `param2`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializableClassOnlyProtocolAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializableClassOnlyProtocolMock {
       let mock: InitializableClassOnlyProtocolMock = InitializableClassOnlyProtocolMock(param1: `param1`, param2: `param2`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: InitializableClassOnlyProtocolAbstractMockType>(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: InitializableClassOnlyProtocolMock = InitializableClassOnlyProtocolMock(param1: `param1`, param2: `param2`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializableClassOnlyProtocolMock' or use 'dummy(InitializableClassOnlyProtocolMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked variable
@@ -10803,31 +9176,14 @@ public final class InitializableClassOnlyProtocolMock: MockingbirdTestsHost.Clas
   }
 }
 
-public protocol InitializableClassOnlyProtocolAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.InitializableClassOnlyProtocol`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(InitializableClassOnlyProtocolMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.InitializableClassOnlyProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return InitializableClassOnlyProtocolMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.InitializableClassOnlyProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InitializableClassOnlyProtocolMock.InitializerProxy.Type {
+  return InitializableClassOnlyProtocolMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.InitializableClassOnlyProtocol`.
-public func mock<__ReturnType: InitializableClassOnlyProtocolMock.InitializerProxy>(_ type: MockingbirdTestsHost.InitializableClassOnlyProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return InitializableClassOnlyProtocolMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.InitializableClassOnlyProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.InitializableClassOnlyProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InitializableClassOnlyProtocolMock.InitializerProxy.Dummy {
-  return InitializableClassOnlyProtocolMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.InitializableClassOnlyProtocol`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(InitializableClassOnlyProtocolMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.InitializableClassOnlyProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked InitializerClass
 
-public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, Mockingbird.Mock, InitializerClassAbstractMockType {
+public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -10840,199 +9196,60 @@ public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, 
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(__file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
-        let mock: InitializerClassMock = InitializerClassMock()
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize<T>(`param1`: T, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
-        let mock: InitializerClassMock = InitializerClassMock(param1: `param1`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize<T>(`param1`: T, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock where T: MockingbirdTestsHost.AssociatedTypeProtocol {
-        let mock: InitializerClassMock = InitializerClassMock(param1: `param1`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize(`param1`: Bool, _ `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
-        let mock: InitializerClassMock = InitializerClassMock(param1: `param1`, `param2`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize<T>(`param2`: T, __file: StaticString = #file, __line: UInt = #line) throws -> InitializerClassMock where T: MockingbirdTestsHost.AssociatedTypeProtocol {
-        let mock: InitializerClassMock = try InitializerClassMock(param2: `param2`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock? {
-        let mock: InitializerClassMock? = InitializerClassMock(param: `param`)
-        mock?.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
-        let mock: InitializerClassMock = InitializerClassMock(param: `param`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize(`param`: String?, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
-        let mock: InitializerClassMock = InitializerClassMock(param: `param`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize(`param`: String, __file: StaticString = #file, __line: UInt = #line) throws -> InitializerClassMock {
-        let mock: InitializerClassMock = try InitializerClassMock(param: `param`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(__file: StaticString = #file, __line: UInt = #line) -> InitializerClassAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(__file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
       let mock: InitializerClassMock = InitializerClassMock()
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    public func initialize<__ReturnType: InitializerClassAbstractMockType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: InitializerClassMock = InitializerClassMock()
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializerClassMock' or use 'dummy(InitializerClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
-
-    public func initialize<T>(`param1`: T, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassAbstractMockType {
+    public static func initialize<T>(`param1`: T, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
       let mock: InitializerClassMock = InitializerClassMock(param1: `param1`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    public func initialize<T, __ReturnType: InitializerClassAbstractMockType>(`param1`: T, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: InitializerClassMock = InitializerClassMock(param1: `param1`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializerClassMock' or use 'dummy(InitializerClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<T, __ReturnType>(`param1`: T, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
-
-    public func initialize<T>(`param1`: T, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassAbstractMockType where T: MockingbirdTestsHost.AssociatedTypeProtocol {
+    public static func initialize<T>(`param1`: T, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock where T: MockingbirdTestsHost.AssociatedTypeProtocol {
       let mock: InitializerClassMock = InitializerClassMock(param1: `param1`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    public func initialize<T, __ReturnType: InitializerClassAbstractMockType>(`param1`: T, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType where T: MockingbirdTestsHost.AssociatedTypeProtocol {
-      let mock: InitializerClassMock = InitializerClassMock(param1: `param1`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializerClassMock' or use 'dummy(InitializerClassMock where T: MockingbirdTestsHost.AssociatedTypeProtocol.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<T, __ReturnType>(`param1`: T, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType where T: MockingbirdTestsHost.AssociatedTypeProtocol { fatalError() }
-
-    public func initialize(`param1`: Bool, _ `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassAbstractMockType {
+    public static func initialize(`param1`: Bool, _ `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
       let mock: InitializerClassMock = InitializerClassMock(param1: `param1`, `param2`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    public func initialize<__ReturnType: InitializerClassAbstractMockType>(`param1`: Bool, _ `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: InitializerClassMock = InitializerClassMock(param1: `param1`, `param2`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializerClassMock' or use 'dummy(InitializerClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param1`: Bool, _ `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
-
-    public func initialize<T>(`param2`: T, __file: StaticString = #file, __line: UInt = #line) throws -> InitializerClassAbstractMockType where T: MockingbirdTestsHost.AssociatedTypeProtocol {
+    public static func initialize<T>(`param2`: T, __file: StaticString = #file, __line: UInt = #line) throws -> InitializerClassMock where T: MockingbirdTestsHost.AssociatedTypeProtocol {
       let mock: InitializerClassMock = try InitializerClassMock(param2: `param2`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    public func initialize<T, __ReturnType: InitializerClassAbstractMockType>(`param2`: T, __file: StaticString = #file, __line: UInt = #line) throws -> __ReturnType where T: MockingbirdTestsHost.AssociatedTypeProtocol {
-      let mock: InitializerClassMock = try InitializerClassMock(param2: `param2`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializerClassMock' or use 'dummy(InitializerClassMock where T: MockingbirdTestsHost.AssociatedTypeProtocol.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<T, __ReturnType>(`param2`: T, __file: StaticString = #file, __line: UInt = #line) throws -> __ReturnType where T: MockingbirdTestsHost.AssociatedTypeProtocol { fatalError() }
-
-    public func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassAbstractMockType? {
+    public static func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock? {
       let mock: InitializerClassMock? = InitializerClassMock(param: `param`)
       mock?.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    public func initialize<__ReturnType: InitializerClassAbstractMockType>(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType? {
-      let mock: InitializerClassMock? = InitializerClassMock(param: `param`)
-      mock?.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializerClassMock' or use 'dummy(InitializerClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType? { fatalError() }
-
-    public func initialize(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassAbstractMockType {
+    public static func initialize(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
       let mock: InitializerClassMock = InitializerClassMock(param: `param`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    public func initialize<__ReturnType: InitializerClassAbstractMockType>(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: InitializerClassMock = InitializerClassMock(param: `param`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializerClassMock' or use 'dummy(InitializerClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
-
-    public func initialize(`param`: String?, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassAbstractMockType {
+    public static func initialize(`param`: String?, __file: StaticString = #file, __line: UInt = #line) -> InitializerClassMock {
       let mock: InitializerClassMock = InitializerClassMock(param: `param`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    public func initialize<__ReturnType: InitializerClassAbstractMockType>(`param`: String?, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: InitializerClassMock = InitializerClassMock(param: `param`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializerClassMock' or use 'dummy(InitializerClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param`: String?, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
-
-    public func initialize(`param`: String, __file: StaticString = #file, __line: UInt = #line) throws -> InitializerClassAbstractMockType {
+    public static func initialize(`param`: String, __file: StaticString = #file, __line: UInt = #line) throws -> InitializerClassMock {
       let mock: InitializerClassMock = try InitializerClassMock(param: `param`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: InitializerClassAbstractMockType>(`param`: String, __file: StaticString = #file, __line: UInt = #line) throws -> __ReturnType {
-      let mock: InitializerClassMock = try InitializerClassMock(param: `param`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializerClassMock' or use 'dummy(InitializerClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param`: String, __file: StaticString = #file, __line: UInt = #line) throws -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked init()
@@ -11117,31 +9334,14 @@ public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, 
   }
 }
 
-public protocol InitializerClassAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.InitializerClass`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(InitializerClassMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.InitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return InitializerClassMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.InitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> InitializerClassMock.InitializerProxy.Type {
+  return InitializerClassMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.InitializerClass`.
-public func mock<__ReturnType: InitializerClassMock.InitializerProxy>(_ type: MockingbirdTestsHost.InitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return InitializerClassMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.InitializerClass`.
-public func dummy(_ type: MockingbirdTestsHost.InitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> InitializerClassMock.InitializerProxy.Dummy {
-  return InitializerClassMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.InitializerClass`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(InitializerClassMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.InitializerClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked InitializerOverridingProtocol
 
-public final class InitializerOverridingProtocolMock: MockingbirdTestsHost.InitializerOverridingProtocol, Mockingbird.Mock, InitializerOverridingProtocolAbstractMockType {
+public final class InitializerOverridingProtocolMock: MockingbirdTestsHost.InitializerOverridingProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -11248,30 +9448,14 @@ public final class InitializerOverridingProtocolMock: MockingbirdTestsHost.Initi
   }
 }
 
-public protocol InitializerOverridingProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.InitializerOverridingProtocol`.
-public func mock(_ type: MockingbirdTestsHost.InitializerOverridingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InitializerOverridingProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.InitializerOverridingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InitializerOverridingProtocolMock {
   return InitializerOverridingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InitializerOverridingProtocol`.
-public func mock<__ReturnType: InitializerOverridingProtocolAbstractMockType>(_ type: MockingbirdTestsHost.InitializerOverridingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return InitializerOverridingProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.InitializerOverridingProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.InitializerOverridingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InitializerOverridingProtocolMock {
-  return InitializerOverridingProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InitializerOverridingProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'InitializerOverridingProtocolMock' or use 'dummy(InitializerOverridingProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.InitializerOverridingProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked InitializerOverridingSubclass
 
-public final class InitializerOverridingSubclassMock: MockingbirdTestsHost.InitializerOverridingSubclass, Mockingbird.Mock, InitializerOverridingSubclassAbstractMockType {
+public final class InitializerOverridingSubclassMock: MockingbirdTestsHost.InitializerOverridingSubclass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -11284,52 +9468,18 @@ public final class InitializerOverridingSubclassMock: MockingbirdTestsHost.Initi
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(__file: StaticString = #file, __line: UInt = #line) -> InitializerOverridingSubclassMock {
-        let mock: InitializerOverridingSubclassMock = InitializerOverridingSubclassMock()
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize(`param`: String?, __file: StaticString = #file, __line: UInt = #line) -> InitializerOverridingSubclassMock {
-        let mock: InitializerOverridingSubclassMock = InitializerOverridingSubclassMock(param: `param`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(__file: StaticString = #file, __line: UInt = #line) -> InitializerOverridingSubclassAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(__file: StaticString = #file, __line: UInt = #line) -> InitializerOverridingSubclassMock {
       let mock: InitializerOverridingSubclassMock = InitializerOverridingSubclassMock()
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    public func initialize<__ReturnType: InitializerOverridingSubclassAbstractMockType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: InitializerOverridingSubclassMock = InitializerOverridingSubclassMock()
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializerOverridingSubclassMock' or use 'dummy(InitializerOverridingSubclassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
-
-    public func initialize(`param`: String?, __file: StaticString = #file, __line: UInt = #line) -> InitializerOverridingSubclassAbstractMockType {
+    public static func initialize(`param`: String?, __file: StaticString = #file, __line: UInt = #line) -> InitializerOverridingSubclassMock {
       let mock: InitializerOverridingSubclassMock = InitializerOverridingSubclassMock(param: `param`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: InitializerOverridingSubclassAbstractMockType>(`param`: String?, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: InitializerOverridingSubclassMock = InitializerOverridingSubclassMock(param: `param`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializerOverridingSubclassMock' or use 'dummy(InitializerOverridingSubclassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param`: String?, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked init()
@@ -11351,31 +9501,14 @@ public final class InitializerOverridingSubclassMock: MockingbirdTestsHost.Initi
   }
 }
 
-public protocol InitializerOverridingSubclassAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.InitializerOverridingSubclass`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(InitializerOverridingSubclassMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.InitializerOverridingSubclass.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return InitializerOverridingSubclassMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.InitializerOverridingSubclass.Type, file: StaticString = #file, line: UInt = #line) -> InitializerOverridingSubclassMock.InitializerProxy.Type {
+  return InitializerOverridingSubclassMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.InitializerOverridingSubclass`.
-public func mock<__ReturnType: InitializerOverridingSubclassMock.InitializerProxy>(_ type: MockingbirdTestsHost.InitializerOverridingSubclass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return InitializerOverridingSubclassMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.InitializerOverridingSubclass`.
-public func dummy(_ type: MockingbirdTestsHost.InitializerOverridingSubclass.Type, file: StaticString = #file, line: UInt = #line) -> InitializerOverridingSubclassMock.InitializerProxy.Dummy {
-  return InitializerOverridingSubclassMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.InitializerOverridingSubclass`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(InitializerOverridingSubclassMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.InitializerOverridingSubclass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked InitializerProtocol
 
-public final class InitializerProtocolMock: MockingbirdTestsHost.InitializerProtocol, Mockingbird.Mock, InitializerProtocolAbstractMockType {
+public final class InitializerProtocolMock: MockingbirdTestsHost.InitializerProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -11474,30 +9607,14 @@ public final class InitializerProtocolMock: MockingbirdTestsHost.InitializerProt
   }
 }
 
-public protocol InitializerProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.InitializerProtocol`.
-public func mock(_ type: MockingbirdTestsHost.InitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InitializerProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.InitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InitializerProtocolMock {
   return InitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InitializerProtocol`.
-public func mock<__ReturnType: InitializerProtocolAbstractMockType>(_ type: MockingbirdTestsHost.InitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return InitializerProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.InitializerProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.InitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InitializerProtocolMock {
-  return InitializerProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InitializerProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'InitializerProtocolMock' or use 'dummy(InitializerProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.InitializerProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked InitializerSubclass
 
-public final class InitializerSubclassMock: MockingbirdTestsHost.InitializerSubclass, Mockingbird.Mock, InitializerSubclassAbstractMockType {
+public final class InitializerSubclassMock: MockingbirdTestsHost.InitializerSubclass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -11510,52 +9627,18 @@ public final class InitializerSubclassMock: MockingbirdTestsHost.InitializerSubc
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(`param99`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializerSubclassMock {
-        let mock: InitializerSubclassMock = InitializerSubclassMock(param99: `param99`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize(`param`: String?, __file: StaticString = #file, __line: UInt = #line) -> InitializerSubclassMock {
-        let mock: InitializerSubclassMock = InitializerSubclassMock(param: `param`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(`param99`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializerSubclassAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(`param99`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializerSubclassMock {
       let mock: InitializerSubclassMock = InitializerSubclassMock(param99: `param99`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    public func initialize<__ReturnType: InitializerSubclassAbstractMockType>(`param99`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: InitializerSubclassMock = InitializerSubclassMock(param99: `param99`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializerSubclassMock' or use 'dummy(InitializerSubclassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param99`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
-
-    public func initialize(`param`: String?, __file: StaticString = #file, __line: UInt = #line) -> InitializerSubclassAbstractMockType {
+    public static func initialize(`param`: String?, __file: StaticString = #file, __line: UInt = #line) -> InitializerSubclassMock {
       let mock: InitializerSubclassMock = InitializerSubclassMock(param: `param`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: InitializerSubclassAbstractMockType>(`param`: String?, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: InitializerSubclassMock = InitializerSubclassMock(param: `param`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializerSubclassMock' or use 'dummy(InitializerSubclassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param`: String?, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked init(`param99`: Bool)
@@ -11577,31 +9660,14 @@ public final class InitializerSubclassMock: MockingbirdTestsHost.InitializerSubc
   }
 }
 
-public protocol InitializerSubclassAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.InitializerSubclass`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(InitializerSubclassMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.InitializerSubclass.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return InitializerSubclassMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.InitializerSubclass.Type, file: StaticString = #file, line: UInt = #line) -> InitializerSubclassMock.InitializerProxy.Type {
+  return InitializerSubclassMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.InitializerSubclass`.
-public func mock<__ReturnType: InitializerSubclassMock.InitializerProxy>(_ type: MockingbirdTestsHost.InitializerSubclass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return InitializerSubclassMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.InitializerSubclass`.
-public func dummy(_ type: MockingbirdTestsHost.InitializerSubclass.Type, file: StaticString = #file, line: UInt = #line) -> InitializerSubclassMock.InitializerProxy.Dummy {
-  return InitializerSubclassMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.InitializerSubclass`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(InitializerSubclassMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.InitializerSubclass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked InoutClass
 
-public final class InoutClassMock: MockingbirdTestsHost.InoutClass, Mockingbird.Mock, InoutClassAbstractMockType {
+public final class InoutClassMock: MockingbirdTestsHost.InoutClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -11640,30 +9706,14 @@ public final class InoutClassMock: MockingbirdTestsHost.InoutClass, Mockingbird.
   }
 }
 
-public protocol InoutClassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.InoutClass`.
-public func mock(_ type: MockingbirdTestsHost.InoutClass.Type, file: StaticString = #file, line: UInt = #line) -> InoutClassAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.InoutClass.Type, file: StaticString = #file, line: UInt = #line) -> InoutClassMock {
   return InoutClassMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.InoutClass`.
-public func mock<__ReturnType: InoutClassAbstractMockType>(_ type: MockingbirdTestsHost.InoutClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return InoutClassMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.InoutClass`.
-public func dummy(_ type: MockingbirdTestsHost.InoutClass.Type, file: StaticString = #file, line: UInt = #line) -> InoutClassMock {
-  return InoutClassMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.InoutClass`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'InoutClassMock' or use 'dummy(InoutClass.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.InoutClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked InoutProtocol
 
-public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockingbird.Mock, InoutProtocolAbstractMockType {
+public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -11701,30 +9751,14 @@ public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockin
   }
 }
 
-public protocol InoutProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.InoutProtocol`.
-public func mock(_ type: MockingbirdTestsHost.InoutProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InoutProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.InoutProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InoutProtocolMock {
   return InoutProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InoutProtocol`.
-public func mock<__ReturnType: InoutProtocolAbstractMockType>(_ type: MockingbirdTestsHost.InoutProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return InoutProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.InoutProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.InoutProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> InoutProtocolMock {
-  return InoutProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.InoutProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'InoutProtocolMock' or use 'dummy(InoutProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.InoutProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked KeywordArgNamesClass
 
-public final class KeywordArgNamesClassMock: MockingbirdTestsHost.KeywordArgNamesClass, Mockingbird.Mock, KeywordArgNamesClassAbstractMockType {
+public final class KeywordArgNamesClassMock: MockingbirdTestsHost.KeywordArgNamesClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -11820,30 +9854,14 @@ public final class KeywordArgNamesClassMock: MockingbirdTestsHost.KeywordArgName
   }
 }
 
-public protocol KeywordArgNamesClassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.KeywordArgNamesClass`.
-public func mock(_ type: MockingbirdTestsHost.KeywordArgNamesClass.Type, file: StaticString = #file, line: UInt = #line) -> KeywordArgNamesClassAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.KeywordArgNamesClass.Type, file: StaticString = #file, line: UInt = #line) -> KeywordArgNamesClassMock {
   return KeywordArgNamesClassMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.KeywordArgNamesClass`.
-public func mock<__ReturnType: KeywordArgNamesClassAbstractMockType>(_ type: MockingbirdTestsHost.KeywordArgNamesClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return KeywordArgNamesClassMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.KeywordArgNamesClass`.
-public func dummy(_ type: MockingbirdTestsHost.KeywordArgNamesClass.Type, file: StaticString = #file, line: UInt = #line) -> KeywordArgNamesClassMock {
-  return KeywordArgNamesClassMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.KeywordArgNamesClass`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'KeywordArgNamesClassMock' or use 'dummy(KeywordArgNamesClass.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.KeywordArgNamesClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked KeywordArgNamesProtocol
 
-public final class KeywordArgNamesProtocolMock: MockingbirdTestsHost.KeywordArgNamesProtocol, Mockingbird.Mock, KeywordArgNamesProtocolAbstractMockType {
+public final class KeywordArgNamesProtocolMock: MockingbirdTestsHost.KeywordArgNamesProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -11938,30 +9956,14 @@ public final class KeywordArgNamesProtocolMock: MockingbirdTestsHost.KeywordArgN
   }
 }
 
-public protocol KeywordArgNamesProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.KeywordArgNamesProtocol`.
-public func mock(_ type: MockingbirdTestsHost.KeywordArgNamesProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> KeywordArgNamesProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.KeywordArgNamesProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> KeywordArgNamesProtocolMock {
   return KeywordArgNamesProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.KeywordArgNamesProtocol`.
-public func mock<__ReturnType: KeywordArgNamesProtocolAbstractMockType>(_ type: MockingbirdTestsHost.KeywordArgNamesProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return KeywordArgNamesProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.KeywordArgNamesProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.KeywordArgNamesProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> KeywordArgNamesProtocolMock {
-  return KeywordArgNamesProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.KeywordArgNamesProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'KeywordArgNamesProtocolMock' or use 'dummy(KeywordArgNamesProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.KeywordArgNamesProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked LineCommentNotDebugCompilationDirectiveProtocol
 
-public final class LineCommentNotDebugCompilationDirectiveProtocolMock: MockingbirdTestsHost.LineCommentNotDebugCompilationDirectiveProtocol, Mockingbird.Mock, LineCommentNotDebugCompilationDirectiveProtocolAbstractMockType {
+public final class LineCommentNotDebugCompilationDirectiveProtocolMock: MockingbirdTestsHost.LineCommentNotDebugCompilationDirectiveProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -11995,30 +9997,14 @@ public final class LineCommentNotDebugCompilationDirectiveProtocolMock: Mockingb
   }
 }
 
-public protocol LineCommentNotDebugCompilationDirectiveProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.LineCommentNotDebugCompilationDirectiveProtocol`.
-public func mock(_ type: MockingbirdTestsHost.LineCommentNotDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> LineCommentNotDebugCompilationDirectiveProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.LineCommentNotDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> LineCommentNotDebugCompilationDirectiveProtocolMock {
   return LineCommentNotDebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.LineCommentNotDebugCompilationDirectiveProtocol`.
-public func mock<__ReturnType: LineCommentNotDebugCompilationDirectiveProtocolAbstractMockType>(_ type: MockingbirdTestsHost.LineCommentNotDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return LineCommentNotDebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.LineCommentNotDebugCompilationDirectiveProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.LineCommentNotDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> LineCommentNotDebugCompilationDirectiveProtocolMock {
-  return LineCommentNotDebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.LineCommentNotDebugCompilationDirectiveProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'LineCommentNotDebugCompilationDirectiveProtocolMock' or use 'dummy(LineCommentNotDebugCompilationDirectiveProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.LineCommentNotDebugCompilationDirectiveProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked LocalPublicExternalProtocol
 
-public final class LocalPublicExternalProtocolMock: MockingbirdTestsHost.LocalPublicExternalProtocol, Mockingbird.Mock, LocalPublicExternalProtocolAbstractMockType {
+public final class LocalPublicExternalProtocolMock: MockingbirdTestsHost.LocalPublicExternalProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -12070,30 +10056,14 @@ public final class LocalPublicExternalProtocolMock: MockingbirdTestsHost.LocalPu
   }
 }
 
-public protocol LocalPublicExternalProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.LocalPublicExternalProtocol`.
-public func mock(_ type: MockingbirdTestsHost.LocalPublicExternalProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> LocalPublicExternalProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.LocalPublicExternalProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> LocalPublicExternalProtocolMock {
   return LocalPublicExternalProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.LocalPublicExternalProtocol`.
-public func mock<__ReturnType: LocalPublicExternalProtocolAbstractMockType>(_ type: MockingbirdTestsHost.LocalPublicExternalProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return LocalPublicExternalProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.LocalPublicExternalProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.LocalPublicExternalProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> LocalPublicExternalProtocolMock {
-  return LocalPublicExternalProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.LocalPublicExternalProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'LocalPublicExternalProtocolMock' or use 'dummy(LocalPublicExternalProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.LocalPublicExternalProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ModuleScopedAssociatedTypeProtocol
 
-public final class ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, Mockingbird.Mock, ModuleScopedAssociatedTypeProtocolAbstractMockType where Data.Element == MockingbirdTestsHost.NSObject {
+public final class ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, Mockingbird.Mock where Data.Element == MockingbirdTestsHost.NSObject {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(Data.self)", "\(Element.self)", "\(Subelement.self)"].joined(separator: ",")
     let staticMockIdentifier = "ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>," + runtimeGenericTypeNames
@@ -12119,30 +10089,14 @@ public final class ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, D
   }
 }
 
-public protocol ModuleScopedAssociatedTypeProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol`.
-public func mock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>(_ type: ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type, file: StaticString = #file, line: UInt = #line) -> ModuleScopedAssociatedTypeProtocolAbstractMockType {
+public func mock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>(_ type: ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type, file: StaticString = #file, line: UInt = #line) -> ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data> {
   return ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol`.
-public func mock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, __ReturnType: ModuleScopedAssociatedTypeProtocolAbstractMockType>(_ type: ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol`.
-public func dummy<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>(_ type: ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type, file: StaticString = #file, line: UInt = #line) -> ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data> {
-  return ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>' or use 'dummy(ModuleScopedAssociatedTypeProtocol.self)' to create a non-mockable dummy object")
-public func mock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, __ReturnType>(_ type: ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ModuleScopedTypealiasedProtocol
 
-public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.ModuleScopedTypealiasedProtocol, Mockingbird.Mock, ModuleScopedTypealiasedProtocolAbstractMockType {
+public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.ModuleScopedTypealiasedProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -12275,30 +10229,14 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
   }
 }
 
-public protocol ModuleScopedTypealiasedProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ModuleScopedTypealiasedProtocol`.
-public func mock(_ type: MockingbirdTestsHost.ModuleScopedTypealiasedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ModuleScopedTypealiasedProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ModuleScopedTypealiasedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ModuleScopedTypealiasedProtocolMock {
   return ModuleScopedTypealiasedProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ModuleScopedTypealiasedProtocol`.
-public func mock<__ReturnType: ModuleScopedTypealiasedProtocolAbstractMockType>(_ type: MockingbirdTestsHost.ModuleScopedTypealiasedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ModuleScopedTypealiasedProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ModuleScopedTypealiasedProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.ModuleScopedTypealiasedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ModuleScopedTypealiasedProtocolMock {
-  return ModuleScopedTypealiasedProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ModuleScopedTypealiasedProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ModuleScopedTypealiasedProtocolMock' or use 'dummy(ModuleScopedTypealiasedProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ModuleScopedTypealiasedProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked NSObjectProtocolConformingProtocol
 
-public final class NSObjectProtocolConformingProtocolMock: Foundation.NSObject, MockingbirdTestsHost.NSObjectProtocolConformingProtocol, Mockingbird.Mock, NSObjectProtocolConformingProtocolAbstractMockType {
+public final class NSObjectProtocolConformingProtocolMock: Foundation.NSObject, MockingbirdTestsHost.NSObjectProtocolConformingProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -12318,30 +10256,14 @@ public final class NSObjectProtocolConformingProtocolMock: Foundation.NSObject, 
   }
 }
 
-public protocol NSObjectProtocolConformingProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.NSObjectProtocolConformingProtocol`.
-public func mock(_ type: MockingbirdTestsHost.NSObjectProtocolConformingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NSObjectProtocolConformingProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.NSObjectProtocolConformingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NSObjectProtocolConformingProtocolMock {
   return NSObjectProtocolConformingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.NSObjectProtocolConformingProtocol`.
-public func mock<__ReturnType: NSObjectProtocolConformingProtocolAbstractMockType>(_ type: MockingbirdTestsHost.NSObjectProtocolConformingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return NSObjectProtocolConformingProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.NSObjectProtocolConformingProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.NSObjectProtocolConformingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NSObjectProtocolConformingProtocolMock {
-  return NSObjectProtocolConformingProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.NSObjectProtocolConformingProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'NSObjectProtocolConformingProtocolMock' or use 'dummy(NSObjectProtocolConformingProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.NSObjectProtocolConformingProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked NSViewInheritingProtocol
 
-public final class NSViewInheritingProtocolMock: AppKit.NSView, MockingbirdTestsHost.NSViewInheritingProtocol, Mockingbird.Mock, NSViewInheritingProtocolAbstractMockType {
+public final class NSViewInheritingProtocolMock: AppKit.NSView, MockingbirdTestsHost.NSViewInheritingProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -12354,52 +10276,18 @@ public final class NSViewInheritingProtocolMock: AppKit.NSView, MockingbirdTests
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> NSViewInheritingProtocolMock? {
-        let mock: NSViewInheritingProtocolMock? = NSViewInheritingProtocolMock(coder: `coder`)
-        mock?.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize(`frame` `frameRect`: NSRect, __file: StaticString = #file, __line: UInt = #line) -> NSViewInheritingProtocolMock {
-        let mock: NSViewInheritingProtocolMock = NSViewInheritingProtocolMock(frame: `frameRect`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> NSViewInheritingProtocolAbstractMockType? {
+  public enum InitializerProxy {
+    public static func initialize(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> NSViewInheritingProtocolMock? {
       let mock: NSViewInheritingProtocolMock? = NSViewInheritingProtocolMock(coder: `coder`)
       mock?.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    public func initialize<__ReturnType: NSViewInheritingProtocolAbstractMockType>(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType? {
-      let mock: NSViewInheritingProtocolMock? = NSViewInheritingProtocolMock(coder: `coder`)
-      mock?.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'NSViewInheritingProtocolMock' or use 'dummy(NSViewInheritingProtocolMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType? { fatalError() }
-
-    public func initialize(`frame` `frameRect`: NSRect, __file: StaticString = #file, __line: UInt = #line) -> NSViewInheritingProtocolAbstractMockType {
+    public static func initialize(`frame` `frameRect`: NSRect, __file: StaticString = #file, __line: UInt = #line) -> NSViewInheritingProtocolMock {
       let mock: NSViewInheritingProtocolMock = NSViewInheritingProtocolMock(frame: `frameRect`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: NSViewInheritingProtocolAbstractMockType>(`frame` `frameRect`: NSRect, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: NSViewInheritingProtocolMock = NSViewInheritingProtocolMock(frame: `frameRect`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'NSViewInheritingProtocolMock' or use 'dummy(NSViewInheritingProtocolMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`frame` `frameRect`: NSRect, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked init?(`coder`: NSCoder)
@@ -12421,34 +10309,17 @@ public final class NSViewInheritingProtocolMock: AppKit.NSView, MockingbirdTests
   }
 }
 
-public protocol NSViewInheritingProtocolAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.NSViewInheritingProtocol`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(NSViewInheritingProtocolMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.NSViewInheritingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return NSViewInheritingProtocolMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.NSViewInheritingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NSViewInheritingProtocolMock.InitializerProxy.Type {
+  return NSViewInheritingProtocolMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.NSViewInheritingProtocol`.
-public func mock<__ReturnType: NSViewInheritingProtocolMock.InitializerProxy>(_ type: MockingbirdTestsHost.NSViewInheritingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return NSViewInheritingProtocolMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.NSViewInheritingProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.NSViewInheritingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NSViewInheritingProtocolMock.InitializerProxy.Dummy {
-  return NSViewInheritingProtocolMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.NSViewInheritingProtocol`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(NSViewInheritingProtocolMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.NSViewInheritingProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked NestedCompilationDirectiveProtocol
 
 #if DEBUG
 #if !(!(DEBUG))
 
-public final class NestedCompilationDirectiveProtocolMock: MockingbirdTestsHost.NestedCompilationDirectiveProtocol, Mockingbird.Mock, NestedCompilationDirectiveProtocolAbstractMockType {
+public final class NestedCompilationDirectiveProtocolMock: MockingbirdTestsHost.NestedCompilationDirectiveProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -12494,33 +10365,17 @@ public final class NestedCompilationDirectiveProtocolMock: MockingbirdTestsHost.
 #if DEBUG
 #if !(!(DEBUG))
 
-public protocol NestedCompilationDirectiveProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.NestedCompilationDirectiveProtocol`.
-public func mock(_ type: MockingbirdTestsHost.NestedCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NestedCompilationDirectiveProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.NestedCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NestedCompilationDirectiveProtocolMock {
   return NestedCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.NestedCompilationDirectiveProtocol`.
-public func mock<__ReturnType: NestedCompilationDirectiveProtocolAbstractMockType>(_ type: MockingbirdTestsHost.NestedCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return NestedCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.NestedCompilationDirectiveProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.NestedCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NestedCompilationDirectiveProtocolMock {
-  return NestedCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.NestedCompilationDirectiveProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'NestedCompilationDirectiveProtocolMock' or use 'dummy(NestedCompilationDirectiveProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.NestedCompilationDirectiveProtocol.Protocol) -> __ReturnType { fatalError() }
 
 #endif
 #endif
 
 // MARK: - Mocked NoInitializerClass
 
-public final class NoInitializerClassMock: MockingbirdTestsHost.NoInitializerClass, Mockingbird.Mock, NoInitializerClassAbstractMockType {
+public final class NoInitializerClassMock: MockingbirdTestsHost.NoInitializerClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -12540,30 +10395,14 @@ public final class NoInitializerClassMock: MockingbirdTestsHost.NoInitializerCla
   }
 }
 
-public protocol NoInitializerClassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.NoInitializerClass`.
-public func mock(_ type: MockingbirdTestsHost.NoInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> NoInitializerClassAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.NoInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> NoInitializerClassMock {
   return NoInitializerClassMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.NoInitializerClass`.
-public func mock<__ReturnType: NoInitializerClassAbstractMockType>(_ type: MockingbirdTestsHost.NoInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return NoInitializerClassMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.NoInitializerClass`.
-public func dummy(_ type: MockingbirdTestsHost.NoInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> NoInitializerClassMock {
-  return NoInitializerClassMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.NoInitializerClass`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'NoInitializerClassMock' or use 'dummy(NoInitializerClass.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.NoInitializerClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked NoInitializerProtocol
 
-public final class NoInitializerProtocolMock: MockingbirdTestsHost.NoInitializerProtocol, Mockingbird.Mock, NoInitializerProtocolAbstractMockType {
+public final class NoInitializerProtocolMock: MockingbirdTestsHost.NoInitializerProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -12582,30 +10421,14 @@ public final class NoInitializerProtocolMock: MockingbirdTestsHost.NoInitializer
   }
 }
 
-public protocol NoInitializerProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.NoInitializerProtocol`.
-public func mock(_ type: MockingbirdTestsHost.NoInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NoInitializerProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.NoInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NoInitializerProtocolMock {
   return NoInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.NoInitializerProtocol`.
-public func mock<__ReturnType: NoInitializerProtocolAbstractMockType>(_ type: MockingbirdTestsHost.NoInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return NoInitializerProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.NoInitializerProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.NoInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NoInitializerProtocolMock {
-  return NoInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.NoInitializerProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'NoInitializerProtocolMock' or use 'dummy(NoInitializerProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.NoInitializerProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked NonExtendableClass
 
-public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableClass, Mockingbird.Mock, NonExtendableClassAbstractMockType {
+public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -12658,32 +10481,16 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
   }
 }
 
-public protocol NonExtendableClassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.NonExtendableClass`.
-public func mock(_ type: MockingbirdTestsHost.NonExtendableClass.Type, file: StaticString = #file, line: UInt = #line) -> NonExtendableClassAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.NonExtendableClass.Type, file: StaticString = #file, line: UInt = #line) -> NonExtendableClassMock {
   return NonExtendableClassMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.NonExtendableClass`.
-public func mock<__ReturnType: NonExtendableClassAbstractMockType>(_ type: MockingbirdTestsHost.NonExtendableClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return NonExtendableClassMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.NonExtendableClass`.
-public func dummy(_ type: MockingbirdTestsHost.NonExtendableClass.Type, file: StaticString = #file, line: UInt = #line) -> NonExtendableClassMock {
-  return NonExtendableClassMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.NonExtendableClass`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'NonExtendableClassMock' or use 'dummy(NonExtendableClass.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.NonExtendableClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked NotDebugCompilationDirectiveProtocol
 
 #if !(DEBUG)
 
-public final class NotDebugCompilationDirectiveProtocolMock: MockingbirdTestsHost.NotDebugCompilationDirectiveProtocol, Mockingbird.Mock, NotDebugCompilationDirectiveProtocolAbstractMockType {
+public final class NotDebugCompilationDirectiveProtocolMock: MockingbirdTestsHost.NotDebugCompilationDirectiveProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -12725,32 +10532,16 @@ public final class NotDebugCompilationDirectiveProtocolMock: MockingbirdTestsHos
 
 #if !(DEBUG)
 
-public protocol NotDebugCompilationDirectiveProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.NotDebugCompilationDirectiveProtocol`.
-public func mock(_ type: MockingbirdTestsHost.NotDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NotDebugCompilationDirectiveProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.NotDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NotDebugCompilationDirectiveProtocolMock {
   return NotDebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.NotDebugCompilationDirectiveProtocol`.
-public func mock<__ReturnType: NotDebugCompilationDirectiveProtocolAbstractMockType>(_ type: MockingbirdTestsHost.NotDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return NotDebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.NotDebugCompilationDirectiveProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.NotDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NotDebugCompilationDirectiveProtocolMock {
-  return NotDebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.NotDebugCompilationDirectiveProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'NotDebugCompilationDirectiveProtocolMock' or use 'dummy(NotDebugCompilationDirectiveProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.NotDebugCompilationDirectiveProtocol.Protocol) -> __ReturnType { fatalError() }
 
 #endif
 
 // MARK: - Mocked ObjectiveCClass
 
-public final class ObjectiveCClassMock: MockingbirdTestsHost.ObjectiveCClass, Mockingbird.Mock, ObjectiveCClassAbstractMockType {
+public final class ObjectiveCClassMock: MockingbirdTestsHost.ObjectiveCClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -12763,31 +10554,12 @@ public final class ObjectiveCClassMock: MockingbirdTestsHost.ObjectiveCClass, Mo
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(__file: StaticString = #file, __line: UInt = #line) -> ObjectiveCClassMock {
-        let mock: ObjectiveCClassMock = ObjectiveCClassMock()
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(__file: StaticString = #file, __line: UInt = #line) -> ObjectiveCClassAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(__file: StaticString = #file, __line: UInt = #line) -> ObjectiveCClassMock {
       let mock: ObjectiveCClassMock = ObjectiveCClassMock()
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: ObjectiveCClassAbstractMockType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: ObjectiveCClassMock = ObjectiveCClassMock()
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'ObjectiveCClassMock' or use 'dummy(ObjectiveCClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked nominalObjcVariable
@@ -12962,31 +10734,14 @@ public final class ObjectiveCClassMock: MockingbirdTestsHost.ObjectiveCClass, Mo
   }
 }
 
-public protocol ObjectiveCClassAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.ObjectiveCClass`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(ObjectiveCClassMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.ObjectiveCClass.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return ObjectiveCClassMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.ObjectiveCClass.Type, file: StaticString = #file, line: UInt = #line) -> ObjectiveCClassMock.InitializerProxy.Type {
+  return ObjectiveCClassMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.ObjectiveCClass`.
-public func mock<__ReturnType: ObjectiveCClassMock.InitializerProxy>(_ type: MockingbirdTestsHost.ObjectiveCClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ObjectiveCClassMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ObjectiveCClass`.
-public func dummy(_ type: MockingbirdTestsHost.ObjectiveCClass.Type, file: StaticString = #file, line: UInt = #line) -> ObjectiveCClassMock.InitializerProxy.Dummy {
-  return ObjectiveCClassMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.ObjectiveCClass`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(ObjectiveCClassMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ObjectiveCClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ObjectiveCProtocolImplementer
 
-public final class ObjectiveCProtocolImplementerMock: MockingbirdTestsHost.ObjectiveCProtocolImplementer, Mockingbird.Mock, ObjectiveCProtocolImplementerAbstractMockType {
+public final class ObjectiveCProtocolImplementerMock: MockingbirdTestsHost.ObjectiveCProtocolImplementer, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -13153,30 +10908,14 @@ public final class ObjectiveCProtocolImplementerMock: MockingbirdTestsHost.Objec
   }
 }
 
-public protocol ObjectiveCProtocolImplementerAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.ObjectiveCProtocolImplementer`.
-public func mock(_ type: MockingbirdTestsHost.ObjectiveCProtocolImplementer.Type, file: StaticString = #file, line: UInt = #line) -> ObjectiveCProtocolImplementerAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ObjectiveCProtocolImplementer.Type, file: StaticString = #file, line: UInt = #line) -> ObjectiveCProtocolImplementerMock {
   return ObjectiveCProtocolImplementerMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.ObjectiveCProtocolImplementer`.
-public func mock<__ReturnType: ObjectiveCProtocolImplementerAbstractMockType>(_ type: MockingbirdTestsHost.ObjectiveCProtocolImplementer.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ObjectiveCProtocolImplementerMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ObjectiveCProtocolImplementer`.
-public func dummy(_ type: MockingbirdTestsHost.ObjectiveCProtocolImplementer.Type, file: StaticString = #file, line: UInt = #line) -> ObjectiveCProtocolImplementerMock {
-  return ObjectiveCProtocolImplementerMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.ObjectiveCProtocolImplementer`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ObjectiveCProtocolImplementerMock' or use 'dummy(ObjectiveCProtocolImplementer.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ObjectiveCProtocolImplementer.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ObjectiveCProtocol
 
-public final class ObjectiveCProtocolMock: MockingbirdTestsHost.ObjectiveCProtocol, Mockingbird.Mock, ObjectiveCProtocolAbstractMockType {
+public final class ObjectiveCProtocolMock: MockingbirdTestsHost.ObjectiveCProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -13294,32 +11033,16 @@ public final class ObjectiveCProtocolMock: MockingbirdTestsHost.ObjectiveCProtoc
   }
 }
 
-public protocol ObjectiveCProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ObjectiveCProtocol`.
-public func mock(_ type: MockingbirdTestsHost.ObjectiveCProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ObjectiveCProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ObjectiveCProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ObjectiveCProtocolMock {
   return ObjectiveCProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ObjectiveCProtocol`.
-public func mock<__ReturnType: ObjectiveCProtocolAbstractMockType>(_ type: MockingbirdTestsHost.ObjectiveCProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ObjectiveCProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ObjectiveCProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.ObjectiveCProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ObjectiveCProtocolMock {
-  return ObjectiveCProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ObjectiveCProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ObjectiveCProtocolMock' or use 'dummy(ObjectiveCProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ObjectiveCProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked OnlyDebugCompilationDirectiveProtocol
 
 #if DEBUG
 
-public final class OnlyDebugCompilationDirectiveProtocolMock: MockingbirdTestsHost.OnlyDebugCompilationDirectiveProtocol, Mockingbird.Mock, OnlyDebugCompilationDirectiveProtocolAbstractMockType {
+public final class OnlyDebugCompilationDirectiveProtocolMock: MockingbirdTestsHost.OnlyDebugCompilationDirectiveProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -13380,32 +11103,16 @@ public final class OnlyDebugCompilationDirectiveProtocolMock: MockingbirdTestsHo
 
 #if DEBUG
 
-public protocol OnlyDebugCompilationDirectiveProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.OnlyDebugCompilationDirectiveProtocol`.
-public func mock(_ type: MockingbirdTestsHost.OnlyDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> OnlyDebugCompilationDirectiveProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.OnlyDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> OnlyDebugCompilationDirectiveProtocolMock {
   return OnlyDebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.OnlyDebugCompilationDirectiveProtocol`.
-public func mock<__ReturnType: OnlyDebugCompilationDirectiveProtocolAbstractMockType>(_ type: MockingbirdTestsHost.OnlyDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return OnlyDebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.OnlyDebugCompilationDirectiveProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.OnlyDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> OnlyDebugCompilationDirectiveProtocolMock {
-  return OnlyDebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.OnlyDebugCompilationDirectiveProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'OnlyDebugCompilationDirectiveProtocolMock' or use 'dummy(OnlyDebugCompilationDirectiveProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.OnlyDebugCompilationDirectiveProtocol.Protocol) -> __ReturnType { fatalError() }
 
 #endif
 
 // MARK: - Mocked OpaqueClassSelfConstrainedAssociatedTypeProtocol
 
-public final class OpaqueClassSelfConstrainedAssociatedTypeProtocolMock: AppKit.NSViewController, MockingbirdTestsHost.OpaqueClassSelfConstrainedAssociatedTypeProtocol, Mockingbird.Mock, OpaqueClassSelfConstrainedAssociatedTypeProtocolAbstractMockType {
+public final class OpaqueClassSelfConstrainedAssociatedTypeProtocolMock: AppKit.NSViewController, MockingbirdTestsHost.OpaqueClassSelfConstrainedAssociatedTypeProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -13418,52 +11125,18 @@ public final class OpaqueClassSelfConstrainedAssociatedTypeProtocolMock: AppKit.
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> OpaqueClassSelfConstrainedAssociatedTypeProtocolMock? {
-        let mock: OpaqueClassSelfConstrainedAssociatedTypeProtocolMock? = OpaqueClassSelfConstrainedAssociatedTypeProtocolMock(coder: `coder`)
-        mock?.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize(`nibName` `nibNameOrNil`: NSNib.Name?, `bundle` `nibBundleOrNil`: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> OpaqueClassSelfConstrainedAssociatedTypeProtocolMock {
-        let mock: OpaqueClassSelfConstrainedAssociatedTypeProtocolMock = OpaqueClassSelfConstrainedAssociatedTypeProtocolMock(nibName: `nibNameOrNil`, bundle: `nibBundleOrNil`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> OpaqueClassSelfConstrainedAssociatedTypeProtocolAbstractMockType? {
+  public enum InitializerProxy {
+    public static func initialize(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> OpaqueClassSelfConstrainedAssociatedTypeProtocolMock? {
       let mock: OpaqueClassSelfConstrainedAssociatedTypeProtocolMock? = OpaqueClassSelfConstrainedAssociatedTypeProtocolMock(coder: `coder`)
       mock?.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    public func initialize<__ReturnType: OpaqueClassSelfConstrainedAssociatedTypeProtocolAbstractMockType>(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType? {
-      let mock: OpaqueClassSelfConstrainedAssociatedTypeProtocolMock? = OpaqueClassSelfConstrainedAssociatedTypeProtocolMock(coder: `coder`)
-      mock?.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'OpaqueClassSelfConstrainedAssociatedTypeProtocolMock' or use 'dummy(OpaqueClassSelfConstrainedAssociatedTypeProtocolMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType? { fatalError() }
-
-    public func initialize(`nibName` `nibNameOrNil`: NSNib.Name?, `bundle` `nibBundleOrNil`: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> OpaqueClassSelfConstrainedAssociatedTypeProtocolAbstractMockType {
+    public static func initialize(`nibName` `nibNameOrNil`: NSNib.Name?, `bundle` `nibBundleOrNil`: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> OpaqueClassSelfConstrainedAssociatedTypeProtocolMock {
       let mock: OpaqueClassSelfConstrainedAssociatedTypeProtocolMock = OpaqueClassSelfConstrainedAssociatedTypeProtocolMock(nibName: `nibNameOrNil`, bundle: `nibBundleOrNil`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: OpaqueClassSelfConstrainedAssociatedTypeProtocolAbstractMockType>(`nibName` `nibNameOrNil`: NSNib.Name?, `bundle` `nibBundleOrNil`: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: OpaqueClassSelfConstrainedAssociatedTypeProtocolMock = OpaqueClassSelfConstrainedAssociatedTypeProtocolMock(nibName: `nibNameOrNil`, bundle: `nibBundleOrNil`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'OpaqueClassSelfConstrainedAssociatedTypeProtocolMock' or use 'dummy(OpaqueClassSelfConstrainedAssociatedTypeProtocolMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`nibName` `nibNameOrNil`: NSNib.Name?, `bundle` `nibBundleOrNil`: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked init?(`coder`: NSCoder)
@@ -13485,31 +11158,14 @@ public final class OpaqueClassSelfConstrainedAssociatedTypeProtocolMock: AppKit.
   }
 }
 
-public protocol OpaqueClassSelfConstrainedAssociatedTypeProtocolAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.OpaqueClassSelfConstrainedAssociatedTypeProtocol`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(OpaqueClassSelfConstrainedAssociatedTypeProtocolMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.OpaqueClassSelfConstrainedAssociatedTypeProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return OpaqueClassSelfConstrainedAssociatedTypeProtocolMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.OpaqueClassSelfConstrainedAssociatedTypeProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> OpaqueClassSelfConstrainedAssociatedTypeProtocolMock.InitializerProxy.Type {
+  return OpaqueClassSelfConstrainedAssociatedTypeProtocolMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.OpaqueClassSelfConstrainedAssociatedTypeProtocol`.
-public func mock<__ReturnType: OpaqueClassSelfConstrainedAssociatedTypeProtocolMock.InitializerProxy>(_ type: MockingbirdTestsHost.OpaqueClassSelfConstrainedAssociatedTypeProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return OpaqueClassSelfConstrainedAssociatedTypeProtocolMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.OpaqueClassSelfConstrainedAssociatedTypeProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.OpaqueClassSelfConstrainedAssociatedTypeProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> OpaqueClassSelfConstrainedAssociatedTypeProtocolMock.InitializerProxy.Dummy {
-  return OpaqueClassSelfConstrainedAssociatedTypeProtocolMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.OpaqueClassSelfConstrainedAssociatedTypeProtocol`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(OpaqueClassSelfConstrainedAssociatedTypeProtocolMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.OpaqueClassSelfConstrainedAssociatedTypeProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked OpaqueProtocolSelfConstrainedAssociatedTypeProtocol
 
-public final class OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock: MockingbirdTestsHost.OpaqueProtocolSelfConstrainedAssociatedTypeProtocol, Swift.Hashable, Mockingbird.Mock, OpaqueProtocolSelfConstrainedAssociatedTypeProtocolAbstractMockType {
+public final class OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock: MockingbirdTestsHost.OpaqueProtocolSelfConstrainedAssociatedTypeProtocol, Swift.Hashable, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -13581,30 +11237,14 @@ public final class OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock: Mock
   }
 }
 
-public protocol OpaqueProtocolSelfConstrainedAssociatedTypeProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.OpaqueProtocolSelfConstrainedAssociatedTypeProtocol`.
-public func mock(_ type: OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> OpaqueProtocolSelfConstrainedAssociatedTypeProtocolAbstractMockType {
+public func mock(_ type: OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock {
   return OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.OpaqueProtocolSelfConstrainedAssociatedTypeProtocol`.
-public func mock<__ReturnType: OpaqueProtocolSelfConstrainedAssociatedTypeProtocolAbstractMockType>(_ type: OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.OpaqueProtocolSelfConstrainedAssociatedTypeProtocol`.
-public func dummy(_ type: OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock.Type, file: StaticString = #file, line: UInt = #line) -> OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock {
-  return OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.OpaqueProtocolSelfConstrainedAssociatedTypeProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock' or use 'dummy(OpaqueProtocolSelfConstrainedAssociatedTypeProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked OpaqueViewController
 
-public final class OpaqueViewControllerMock: MockingbirdTestsHost.OpaqueViewController, Mockingbird.Mock, OpaqueViewControllerAbstractMockType {
+public final class OpaqueViewControllerMock: MockingbirdTestsHost.OpaqueViewController, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -13617,52 +11257,18 @@ public final class OpaqueViewControllerMock: MockingbirdTestsHost.OpaqueViewCont
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> OpaqueViewControllerMock? {
-        let mock: OpaqueViewControllerMock? = OpaqueViewControllerMock(coder: `coder`)
-        mock?.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-
-      public func initialize(`nibName` `nibNameOrNil`: NSNib.Name?, `bundle` `nibBundleOrNil`: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> OpaqueViewControllerMock {
-        let mock: OpaqueViewControllerMock = OpaqueViewControllerMock(nibName: `nibNameOrNil`, bundle: `nibBundleOrNil`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> OpaqueViewControllerAbstractMockType? {
+  public enum InitializerProxy {
+    public static func initialize(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> OpaqueViewControllerMock? {
       let mock: OpaqueViewControllerMock? = OpaqueViewControllerMock(coder: `coder`)
       mock?.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
 
-    public func initialize<__ReturnType: OpaqueViewControllerAbstractMockType>(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType? {
-      let mock: OpaqueViewControllerMock? = OpaqueViewControllerMock(coder: `coder`)
-      mock?.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'OpaqueViewControllerMock' or use 'dummy(OpaqueViewControllerMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`coder`: NSCoder, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType? { fatalError() }
-
-    public func initialize(`nibName` `nibNameOrNil`: NSNib.Name?, `bundle` `nibBundleOrNil`: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> OpaqueViewControllerAbstractMockType {
+    public static func initialize(`nibName` `nibNameOrNil`: NSNib.Name?, `bundle` `nibBundleOrNil`: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> OpaqueViewControllerMock {
       let mock: OpaqueViewControllerMock = OpaqueViewControllerMock(nibName: `nibNameOrNil`, bundle: `nibBundleOrNil`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: OpaqueViewControllerAbstractMockType>(`nibName` `nibNameOrNil`: NSNib.Name?, `bundle` `nibBundleOrNil`: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: OpaqueViewControllerMock = OpaqueViewControllerMock(nibName: `nibNameOrNil`, bundle: `nibBundleOrNil`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'OpaqueViewControllerMock' or use 'dummy(OpaqueViewControllerMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`nibName` `nibNameOrNil`: NSNib.Name?, `bundle` `nibBundleOrNil`: Bundle?, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked init?(`coder`: NSCoder)
@@ -13684,31 +11290,14 @@ public final class OpaqueViewControllerMock: MockingbirdTestsHost.OpaqueViewCont
   }
 }
 
-public protocol OpaqueViewControllerAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.OpaqueViewController`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(OpaqueViewControllerMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.OpaqueViewController.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return OpaqueViewControllerMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.OpaqueViewController.Type, file: StaticString = #file, line: UInt = #line) -> OpaqueViewControllerMock.InitializerProxy.Type {
+  return OpaqueViewControllerMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.OpaqueViewController`.
-public func mock<__ReturnType: OpaqueViewControllerMock.InitializerProxy>(_ type: MockingbirdTestsHost.OpaqueViewController.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return OpaqueViewControllerMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.OpaqueViewController`.
-public func dummy(_ type: MockingbirdTestsHost.OpaqueViewController.Type, file: StaticString = #file, line: UInt = #line) -> OpaqueViewControllerMock.InitializerProxy.Dummy {
-  return OpaqueViewControllerMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.OpaqueViewController`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(OpaqueViewControllerMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.OpaqueViewController.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked OptionalsProtocol
 
-public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol, Mockingbird.Mock, OptionalsProtocolAbstractMockType {
+public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -14042,30 +11631,14 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
   }
 }
 
-public protocol OptionalsProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.OptionalsProtocol`.
-public func mock(_ type: MockingbirdTestsHost.OptionalsProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> OptionalsProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.OptionalsProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> OptionalsProtocolMock {
   return OptionalsProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.OptionalsProtocol`.
-public func mock<__ReturnType: OptionalsProtocolAbstractMockType>(_ type: MockingbirdTestsHost.OptionalsProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return OptionalsProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.OptionalsProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.OptionalsProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> OptionalsProtocolMock {
-  return OptionalsProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.OptionalsProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'OptionalsProtocolMock' or use 'dummy(OptionalsProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.OptionalsProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked OverloadedMethodsClass
 
-public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMethodsClass, Mockingbird.Mock, OverloadedMethodsClassAbstractMockType {
+public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMethodsClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -14196,30 +11769,14 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
   }
 }
 
-public protocol OverloadedMethodsClassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.OverloadedMethodsClass`.
-public func mock(_ type: MockingbirdTestsHost.OverloadedMethodsClass.Type, file: StaticString = #file, line: UInt = #line) -> OverloadedMethodsClassAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.OverloadedMethodsClass.Type, file: StaticString = #file, line: UInt = #line) -> OverloadedMethodsClassMock {
   return OverloadedMethodsClassMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.OverloadedMethodsClass`.
-public func mock<__ReturnType: OverloadedMethodsClassAbstractMockType>(_ type: MockingbirdTestsHost.OverloadedMethodsClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return OverloadedMethodsClassMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.OverloadedMethodsClass`.
-public func dummy(_ type: MockingbirdTestsHost.OverloadedMethodsClass.Type, file: StaticString = #file, line: UInt = #line) -> OverloadedMethodsClassMock {
-  return OverloadedMethodsClassMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.OverloadedMethodsClass`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'OverloadedMethodsClassMock' or use 'dummy(OverloadedMethodsClass.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.OverloadedMethodsClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked OverloadedMethodsProtocol
 
-public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.OverloadedMethodsProtocol, Mockingbird.Mock, OverloadedMethodsProtocolAbstractMockType {
+public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.OverloadedMethodsProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -14349,30 +11906,14 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
   }
 }
 
-public protocol OverloadedMethodsProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.OverloadedMethodsProtocol`.
-public func mock(_ type: MockingbirdTestsHost.OverloadedMethodsProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> OverloadedMethodsProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.OverloadedMethodsProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> OverloadedMethodsProtocolMock {
   return OverloadedMethodsProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.OverloadedMethodsProtocol`.
-public func mock<__ReturnType: OverloadedMethodsProtocolAbstractMockType>(_ type: MockingbirdTestsHost.OverloadedMethodsProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return OverloadedMethodsProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.OverloadedMethodsProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.OverloadedMethodsProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> OverloadedMethodsProtocolMock {
-  return OverloadedMethodsProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.OverloadedMethodsProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'OverloadedMethodsProtocolMock' or use 'dummy(OverloadedMethodsProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.OverloadedMethodsProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked OverriddenIncludedSource
 
-public final class OverriddenIncludedSourceMock: MockingbirdTestsHost.OverriddenIncludedSource, Mockingbird.Mock, OverriddenIncludedSourceAbstractMockType {
+public final class OverriddenIncludedSourceMock: MockingbirdTestsHost.OverriddenIncludedSource, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -14391,30 +11932,14 @@ public final class OverriddenIncludedSourceMock: MockingbirdTestsHost.Overridden
   }
 }
 
-public protocol OverriddenIncludedSourceAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.OverriddenIncludedSource`.
-public func mock(_ type: MockingbirdTestsHost.OverriddenIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> OverriddenIncludedSourceAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.OverriddenIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> OverriddenIncludedSourceMock {
   return OverriddenIncludedSourceMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.OverriddenIncludedSource`.
-public func mock<__ReturnType: OverriddenIncludedSourceAbstractMockType>(_ type: MockingbirdTestsHost.OverriddenIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return OverriddenIncludedSourceMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.OverriddenIncludedSource`.
-public func dummy(_ type: MockingbirdTestsHost.OverriddenIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> OverriddenIncludedSourceMock {
-  return OverriddenIncludedSourceMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.OverriddenIncludedSource`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'OverriddenIncludedSourceMock' or use 'dummy(OverriddenIncludedSource.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.OverriddenIncludedSource.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ParameterizedInitializerClass
 
-public final class ParameterizedInitializerClassMock: MockingbirdTestsHost.ParameterizedInitializerClass, Mockingbird.Mock, ParameterizedInitializerClassAbstractMockType {
+public final class ParameterizedInitializerClassMock: MockingbirdTestsHost.ParameterizedInitializerClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -14427,31 +11952,12 @@ public final class ParameterizedInitializerClassMock: MockingbirdTestsHost.Param
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> ParameterizedInitializerClassMock {
-        let mock: ParameterizedInitializerClassMock = ParameterizedInitializerClassMock(param1: `param1`, param2: `param2`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> ParameterizedInitializerClassAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> ParameterizedInitializerClassMock {
       let mock: ParameterizedInitializerClassMock = ParameterizedInitializerClassMock(param1: `param1`, param2: `param2`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: ParameterizedInitializerClassAbstractMockType>(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: ParameterizedInitializerClassMock = ParameterizedInitializerClassMock(param1: `param1`, param2: `param2`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'ParameterizedInitializerClassMock' or use 'dummy(ParameterizedInitializerClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked init(`param1`: Bool, `param2`: Int)
@@ -14464,31 +11970,14 @@ public final class ParameterizedInitializerClassMock: MockingbirdTestsHost.Param
   }
 }
 
-public protocol ParameterizedInitializerClassAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.ParameterizedInitializerClass`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(ParameterizedInitializerClassMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.ParameterizedInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return ParameterizedInitializerClassMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.ParameterizedInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> ParameterizedInitializerClassMock.InitializerProxy.Type {
+  return ParameterizedInitializerClassMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.ParameterizedInitializerClass`.
-public func mock<__ReturnType: ParameterizedInitializerClassMock.InitializerProxy>(_ type: MockingbirdTestsHost.ParameterizedInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ParameterizedInitializerClassMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ParameterizedInitializerClass`.
-public func dummy(_ type: MockingbirdTestsHost.ParameterizedInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> ParameterizedInitializerClassMock.InitializerProxy.Dummy {
-  return ParameterizedInitializerClassMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.ParameterizedInitializerClass`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(ParameterizedInitializerClassMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ParameterizedInitializerClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ParameterizedInitializerProtocol
 
-public final class ParameterizedInitializerProtocolMock: MockingbirdTestsHost.ParameterizedInitializerProtocol, Mockingbird.Mock, ParameterizedInitializerProtocolAbstractMockType {
+public final class ParameterizedInitializerProtocolMock: MockingbirdTestsHost.ParameterizedInitializerProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -14515,30 +12004,14 @@ public final class ParameterizedInitializerProtocolMock: MockingbirdTestsHost.Pa
   }
 }
 
-public protocol ParameterizedInitializerProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ParameterizedInitializerProtocol`.
-public func mock(_ type: MockingbirdTestsHost.ParameterizedInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ParameterizedInitializerProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ParameterizedInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ParameterizedInitializerProtocolMock {
   return ParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ParameterizedInitializerProtocol`.
-public func mock<__ReturnType: ParameterizedInitializerProtocolAbstractMockType>(_ type: MockingbirdTestsHost.ParameterizedInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ParameterizedInitializerProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.ParameterizedInitializerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ParameterizedInitializerProtocolMock {
-  return ParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ParameterizedInitializerProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ParameterizedInitializerProtocolMock' or use 'dummy(ParameterizedInitializerProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ParameterizedInitializerProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ParentProtocol
 
-public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mockingbird.Mock, ParentProtocolAbstractMockType {
+public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -14889,30 +12362,14 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   }
 }
 
-public protocol ParentProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ParentProtocol`.
-public func mock(_ type: MockingbirdTestsHost.ParentProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ParentProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ParentProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ParentProtocolMock {
   return ParentProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ParentProtocol`.
-public func mock<__ReturnType: ParentProtocolAbstractMockType>(_ type: MockingbirdTestsHost.ParentProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ParentProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ParentProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.ParentProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ParentProtocolMock {
-  return ParentProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ParentProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ParentProtocolMock' or use 'dummy(ParentProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ParentProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked Parent
 
-public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock, ParentAbstractMockType {
+public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -15262,30 +12719,14 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock, Pa
   }
 }
 
-public protocol ParentAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.Parent`.
-public func mock(_ type: MockingbirdTestsHost.Parent.Type, file: StaticString = #file, line: UInt = #line) -> ParentAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.Parent.Type, file: StaticString = #file, line: UInt = #line) -> ParentMock {
   return ParentMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.Parent`.
-public func mock<__ReturnType: ParentAbstractMockType>(_ type: MockingbirdTestsHost.Parent.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ParentMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.Parent`.
-public func dummy(_ type: MockingbirdTestsHost.Parent.Type, file: StaticString = #file, line: UInt = #line) -> ParentMock {
-  return ParentMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.Parent`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ParentMock' or use 'dummy(Parent.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.Parent.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ReferencedGenericClassWithConstraints
 
-public final class ReferencedGenericClassWithConstraintsMock<S: Sequence>: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<S>, Mockingbird.Mock, ReferencedGenericClassWithConstraintsAbstractMockType where S.Element: Swift.Hashable {
+public final class ReferencedGenericClassWithConstraintsMock<S: Sequence>: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<S>, Mockingbird.Mock where S.Element: Swift.Hashable {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(S.self)"].joined(separator: ",")
     let staticMockIdentifier = "ReferencedGenericClassWithConstraintsMock<S: Sequence>," + runtimeGenericTypeNames
@@ -15312,30 +12753,14 @@ public final class ReferencedGenericClassWithConstraintsMock<S: Sequence>: Mocki
   }
 }
 
-public protocol ReferencedGenericClassWithConstraintsAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.ReferencedGenericClassWithConstraints<S>`.
-public func mock<S: Sequence>(_ type: ReferencedGenericClassWithConstraintsMock<S>.Type, file: StaticString = #file, line: UInt = #line) -> ReferencedGenericClassWithConstraintsAbstractMockType {
+public func mock<S: Sequence>(_ type: ReferencedGenericClassWithConstraintsMock<S>.Type, file: StaticString = #file, line: UInt = #line) -> ReferencedGenericClassWithConstraintsMock<S> {
   return ReferencedGenericClassWithConstraintsMock<S>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.ReferencedGenericClassWithConstraints<S>`.
-public func mock<S: Sequence, __ReturnType: ReferencedGenericClassWithConstraintsAbstractMockType>(_ type: ReferencedGenericClassWithConstraintsMock<S>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ReferencedGenericClassWithConstraintsMock<S>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ReferencedGenericClassWithConstraints<S>`.
-public func dummy<S: Sequence>(_ type: ReferencedGenericClassWithConstraintsMock<S>.Type, file: StaticString = #file, line: UInt = #line) -> ReferencedGenericClassWithConstraintsMock<S> {
-  return ReferencedGenericClassWithConstraintsMock<S>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.ReferencedGenericClassWithConstraints<S>`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ReferencedGenericClassWithConstraintsMock<S>' or use 'dummy(ReferencedGenericClassWithConstraints<S>.self)' to create a non-mockable dummy object")
-public func mock<S: Sequence, __ReturnType>(_ type: ReferencedGenericClassWithConstraintsMock<S>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ReferencedGenericClass
 
-public final class ReferencedGenericClassMock<T>: MockingbirdTestsHost.ReferencedGenericClass<T>, Mockingbird.Mock, ReferencedGenericClassAbstractMockType {
+public final class ReferencedGenericClassMock<T>: MockingbirdTestsHost.ReferencedGenericClass<T>, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(T.self)"].joined(separator: ",")
     let staticMockIdentifier = "ReferencedGenericClassMock<T>," + runtimeGenericTypeNames
@@ -15362,30 +12787,14 @@ public final class ReferencedGenericClassMock<T>: MockingbirdTestsHost.Reference
   }
 }
 
-public protocol ReferencedGenericClassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.ReferencedGenericClass<T>`.
-public func mock<T>(_ type: ReferencedGenericClassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> ReferencedGenericClassAbstractMockType {
+public func mock<T>(_ type: ReferencedGenericClassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> ReferencedGenericClassMock<T> {
   return ReferencedGenericClassMock<T>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.ReferencedGenericClass<T>`.
-public func mock<T, __ReturnType: ReferencedGenericClassAbstractMockType>(_ type: ReferencedGenericClassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ReferencedGenericClassMock<T>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ReferencedGenericClass<T>`.
-public func dummy<T>(_ type: ReferencedGenericClassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> ReferencedGenericClassMock<T> {
-  return ReferencedGenericClassMock<T>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.ReferencedGenericClass<T>`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ReferencedGenericClassMock<T>' or use 'dummy(ReferencedGenericClass<T>.self)' to create a non-mockable dummy object")
-public func mock<T, __ReturnType>(_ type: ReferencedGenericClassMock<T>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked RelativeSecondLevelFileIncludedSource
 
-public final class RelativeSecondLevelFileIncludedSourceMock: MockingbirdTestsHost.RelativeSecondLevelFileIncludedSource, Mockingbird.Mock, RelativeSecondLevelFileIncludedSourceAbstractMockType {
+public final class RelativeSecondLevelFileIncludedSourceMock: MockingbirdTestsHost.RelativeSecondLevelFileIncludedSource, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -15404,30 +12813,14 @@ public final class RelativeSecondLevelFileIncludedSourceMock: MockingbirdTestsHo
   }
 }
 
-public protocol RelativeSecondLevelFileIncludedSourceAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.RelativeSecondLevelFileIncludedSource`.
-public func mock(_ type: MockingbirdTestsHost.RelativeSecondLevelFileIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> RelativeSecondLevelFileIncludedSourceAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.RelativeSecondLevelFileIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> RelativeSecondLevelFileIncludedSourceMock {
   return RelativeSecondLevelFileIncludedSourceMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.RelativeSecondLevelFileIncludedSource`.
-public func mock<__ReturnType: RelativeSecondLevelFileIncludedSourceAbstractMockType>(_ type: MockingbirdTestsHost.RelativeSecondLevelFileIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return RelativeSecondLevelFileIncludedSourceMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.RelativeSecondLevelFileIncludedSource`.
-public func dummy(_ type: MockingbirdTestsHost.RelativeSecondLevelFileIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> RelativeSecondLevelFileIncludedSourceMock {
-  return RelativeSecondLevelFileIncludedSourceMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.RelativeSecondLevelFileIncludedSource`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'RelativeSecondLevelFileIncludedSourceMock' or use 'dummy(RelativeSecondLevelFileIncludedSource.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.RelativeSecondLevelFileIncludedSource.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked RequiredInitializerClass
 
-public final class RequiredInitializerClassMock: MockingbirdTestsHost.RequiredInitializerClass, Mockingbird.Mock, RequiredInitializerClassAbstractMockType {
+public final class RequiredInitializerClassMock: MockingbirdTestsHost.RequiredInitializerClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -15440,31 +12833,12 @@ public final class RequiredInitializerClassMock: MockingbirdTestsHost.RequiredIn
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> RequiredInitializerClassMock {
-        let mock: RequiredInitializerClassMock = RequiredInitializerClassMock(param1: `param1`, param2: `param2`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> RequiredInitializerClassAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> RequiredInitializerClassMock {
       let mock: RequiredInitializerClassMock = RequiredInitializerClassMock(param1: `param1`, param2: `param2`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: RequiredInitializerClassAbstractMockType>(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: RequiredInitializerClassMock = RequiredInitializerClassMock(param1: `param1`, param2: `param2`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'RequiredInitializerClassMock' or use 'dummy(RequiredInitializerClassMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param1`: Bool, `param2`: Int, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked init(`param1`: Bool, `param2`: Int)
@@ -15477,31 +12851,14 @@ public final class RequiredInitializerClassMock: MockingbirdTestsHost.RequiredIn
   }
 }
 
-public protocol RequiredInitializerClassAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.RequiredInitializerClass`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(RequiredInitializerClassMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.RequiredInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return RequiredInitializerClassMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.RequiredInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> RequiredInitializerClassMock.InitializerProxy.Type {
+  return RequiredInitializerClassMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.RequiredInitializerClass`.
-public func mock<__ReturnType: RequiredInitializerClassMock.InitializerProxy>(_ type: MockingbirdTestsHost.RequiredInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return RequiredInitializerClassMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.RequiredInitializerClass`.
-public func dummy(_ type: MockingbirdTestsHost.RequiredInitializerClass.Type, file: StaticString = #file, line: UInt = #line) -> RequiredInitializerClassMock.InitializerProxy.Dummy {
-  return RequiredInitializerClassMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.RequiredInitializerClass`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(RequiredInitializerClassMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.RequiredInitializerClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked RethrowingProtocol
 
-public final class RethrowingProtocolMock: MockingbirdTestsHost.RethrowingProtocol, Mockingbird.Mock, RethrowingProtocolAbstractMockType {
+public final class RethrowingProtocolMock: MockingbirdTestsHost.RethrowingProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -15558,30 +12915,14 @@ public final class RethrowingProtocolMock: MockingbirdTestsHost.RethrowingProtoc
   }
 }
 
-public protocol RethrowingProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.RethrowingProtocol`.
-public func mock(_ type: MockingbirdTestsHost.RethrowingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> RethrowingProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.RethrowingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> RethrowingProtocolMock {
   return RethrowingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.RethrowingProtocol`.
-public func mock<__ReturnType: RethrowingProtocolAbstractMockType>(_ type: MockingbirdTestsHost.RethrowingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return RethrowingProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.RethrowingProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.RethrowingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> RethrowingProtocolMock {
-  return RethrowingProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.RethrowingProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'RethrowingProtocolMock' or use 'dummy(RethrowingProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.RethrowingProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked SecondLevelSelfConstrainedAssociatedTypeProtocol
 
-public final class SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType: Sequence & Swift.Hashable>: MockingbirdTestsHost.SecondLevelSelfConstrainedAssociatedTypeProtocol, MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, Mockingbird.Mock, SecondLevelSelfConstrainedAssociatedTypeProtocolAbstractMockType {
+public final class SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType: Sequence & Swift.Hashable>: MockingbirdTestsHost.SecondLevelSelfConstrainedAssociatedTypeProtocol, MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(SequenceType.self)"].joined(separator: ",")
     let staticMockIdentifier = "SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType: Sequence & Swift.Hashable>," + runtimeGenericTypeNames
@@ -15664,30 +13005,14 @@ public final class SecondLevelSelfConstrainedAssociatedTypeProtocolMock<Sequence
   }
 }
 
-public protocol SecondLevelSelfConstrainedAssociatedTypeProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.SecondLevelSelfConstrainedAssociatedTypeProtocol`.
-public func mock<SequenceType: Sequence & Swift.Hashable>(_ type: SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType>.Type, file: StaticString = #file, line: UInt = #line) -> SecondLevelSelfConstrainedAssociatedTypeProtocolAbstractMockType {
+public func mock<SequenceType: Sequence & Swift.Hashable>(_ type: SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType>.Type, file: StaticString = #file, line: UInt = #line) -> SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType> {
   return SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.SecondLevelSelfConstrainedAssociatedTypeProtocol`.
-public func mock<SequenceType: Sequence & Swift.Hashable, __ReturnType: SecondLevelSelfConstrainedAssociatedTypeProtocolAbstractMockType>(_ type: SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.SecondLevelSelfConstrainedAssociatedTypeProtocol`.
-public func dummy<SequenceType: Sequence & Swift.Hashable>(_ type: SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType>.Type, file: StaticString = #file, line: UInt = #line) -> SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType> {
-  return SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.SecondLevelSelfConstrainedAssociatedTypeProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType>' or use 'dummy(SecondLevelSelfConstrainedAssociatedTypeProtocol.self)' to create a non-mockable dummy object")
-public func mock<SequenceType: Sequence & Swift.Hashable, __ReturnType>(_ type: SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ServiceRepository
 
-public final class ServiceRepositoryMock: MockingbirdTestsHost.ServiceRepository, Mockingbird.Mock, ServiceRepositoryAbstractMockType {
+public final class ServiceRepositoryMock: MockingbirdTestsHost.ServiceRepository, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -15721,30 +13046,14 @@ public final class ServiceRepositoryMock: MockingbirdTestsHost.ServiceRepository
   }
 }
 
-public protocol ServiceRepositoryAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ServiceRepository`.
-public func mock(_ type: MockingbirdTestsHost.ServiceRepository.Protocol, file: StaticString = #file, line: UInt = #line) -> ServiceRepositoryAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ServiceRepository.Protocol, file: StaticString = #file, line: UInt = #line) -> ServiceRepositoryMock {
   return ServiceRepositoryMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ServiceRepository`.
-public func mock<__ReturnType: ServiceRepositoryAbstractMockType>(_ type: MockingbirdTestsHost.ServiceRepository.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ServiceRepositoryMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ServiceRepository`.
-public func dummy(_ type: MockingbirdTestsHost.ServiceRepository.Protocol, file: StaticString = #file, line: UInt = #line) -> ServiceRepositoryMock {
-  return ServiceRepositoryMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ServiceRepository`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ServiceRepositoryMock' or use 'dummy(ServiceRepository.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ServiceRepository.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ShadowedGenericType
 
-public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.ShadowedGenericType<ShadowedType>, Mockingbird.Mock, ShadowedGenericTypeAbstractMockType {
+public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.ShadowedGenericType<ShadowedType>, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(ShadowedType.self)"].joined(separator: ",")
     let staticMockIdentifier = "ShadowedGenericTypeMock<ShadowedType>," + runtimeGenericTypeNames
@@ -15810,7 +13119,7 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
 
   // MARK: - Mocked NestedShadowedGenericType
 
-  public final class NestedShadowedGenericTypeMock: NestedShadowedGenericType, Mockingbird.Mock, ShadowedGenericTypeAbstractMockType_NestedShadowedGenericTypeAbstractMockType {
+  public final class NestedShadowedGenericTypeMock: NestedShadowedGenericType, Mockingbird.Mock {
     static var staticMock: Mockingbird.StaticMock {
       let runtimeGenericTypeNames = [].joined(separator: ",")
       let staticMockIdentifier = "NestedShadowedGenericTypeMock," + runtimeGenericTypeNames
@@ -15877,7 +13186,7 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
 
   // MARK: - Mocked NestedDoublyShadowedGenericType
 
-  public final class NestedDoublyShadowedGenericTypeMock<ShadowedType>: NestedDoublyShadowedGenericType<ShadowedType>, Mockingbird.Mock, ShadowedGenericTypeAbstractMockType_NestedDoublyShadowedGenericTypeAbstractMockType {
+  public final class NestedDoublyShadowedGenericTypeMock<ShadowedType>: NestedDoublyShadowedGenericType<ShadowedType>, Mockingbird.Mock {
     static var staticMock: Mockingbird.StaticMock {
       let runtimeGenericTypeNames = ["\(ShadowedType.self)"].joined(separator: ",")
       let staticMockIdentifier = "NestedDoublyShadowedGenericTypeMock<ShadowedType>," + runtimeGenericTypeNames
@@ -15943,72 +13252,24 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
   }
 }
 
-public protocol ShadowedGenericTypeAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.ShadowedGenericType<ShadowedType>`.
-public func mock<ShadowedType>(_ type: ShadowedGenericTypeMock<ShadowedType>.Type, file: StaticString = #file, line: UInt = #line) -> ShadowedGenericTypeAbstractMockType {
+public func mock<ShadowedType>(_ type: ShadowedGenericTypeMock<ShadowedType>.Type, file: StaticString = #file, line: UInt = #line) -> ShadowedGenericTypeMock<ShadowedType> {
   return ShadowedGenericTypeMock<ShadowedType>(sourceLocation: SourceLocation(file, line))
 }
 
-/// Initialize a class mock of `MockingbirdTestsHost.ShadowedGenericType<ShadowedType>`.
-public func mock<ShadowedType, __ReturnType: ShadowedGenericTypeAbstractMockType>(_ type: ShadowedGenericTypeMock<ShadowedType>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ShadowedGenericTypeMock<ShadowedType>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ShadowedGenericType<ShadowedType>`.
-public func dummy<ShadowedType>(_ type: ShadowedGenericTypeMock<ShadowedType>.Type, file: StaticString = #file, line: UInt = #line) -> ShadowedGenericTypeMock<ShadowedType> {
-  return ShadowedGenericTypeMock<ShadowedType>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.ShadowedGenericType<ShadowedType>`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ShadowedGenericTypeMock<ShadowedType>' or use 'dummy(ShadowedGenericType<ShadowedType>.self)' to create a non-mockable dummy object")
-public func mock<ShadowedType, __ReturnType>(_ type: ShadowedGenericTypeMock<ShadowedType>.Type) -> __ReturnType { fatalError() }
-
-public protocol ShadowedGenericTypeAbstractMockType_NestedShadowedGenericTypeAbstractMockType {}
-
 /// Initialize a class mock of `NestedShadowedGenericType`.
-public func mock<ShadowedGenericType_ShadowedType>(_ type: ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedShadowedGenericTypeMock.Type, file: StaticString = #file, line: UInt = #line) -> ShadowedGenericTypeAbstractMockType_NestedShadowedGenericTypeAbstractMockType {
+public func mock<ShadowedGenericType_ShadowedType>(_ type: ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedShadowedGenericTypeMock.Type, file: StaticString = #file, line: UInt = #line) -> ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedShadowedGenericTypeMock {
   return ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedShadowedGenericTypeMock(sourceLocation: SourceLocation(file, line))
 }
 
-/// Initialize a class mock of `NestedShadowedGenericType`.
-public func mock<ShadowedGenericType_ShadowedType, __ReturnType: ShadowedGenericTypeAbstractMockType_NestedShadowedGenericTypeAbstractMockType>(_ type: ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedShadowedGenericTypeMock.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedShadowedGenericTypeMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `NestedShadowedGenericType`.
-public func dummy<ShadowedGenericType_ShadowedType>(_ type: ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedShadowedGenericTypeMock.Type, file: StaticString = #file, line: UInt = #line) -> ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedShadowedGenericTypeMock {
-  return ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedShadowedGenericTypeMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `NestedShadowedGenericType`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedShadowedGenericTypeMock' or use 'dummy(ShadowedGenericType<ShadowedGenericType_ShadowedType>.NestedShadowedGenericType.self)' to create a non-mockable dummy object")
-public func mock<ShadowedGenericType_ShadowedType, __ReturnType>(_ type: ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedShadowedGenericTypeMock.Type) -> __ReturnType { fatalError() }
-
-public protocol ShadowedGenericTypeAbstractMockType_NestedDoublyShadowedGenericTypeAbstractMockType {}
-
 /// Initialize a class mock of `NestedDoublyShadowedGenericType<ShadowedType>`.
-public func mock<ShadowedGenericType_ShadowedType, ShadowedType>(_ type: ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedDoublyShadowedGenericTypeMock<ShadowedType>.Type, file: StaticString = #file, line: UInt = #line) -> ShadowedGenericTypeAbstractMockType_NestedDoublyShadowedGenericTypeAbstractMockType {
+public func mock<ShadowedGenericType_ShadowedType, ShadowedType>(_ type: ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedDoublyShadowedGenericTypeMock<ShadowedType>.Type, file: StaticString = #file, line: UInt = #line) -> ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedDoublyShadowedGenericTypeMock<ShadowedType> {
   return ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedDoublyShadowedGenericTypeMock<ShadowedType>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `NestedDoublyShadowedGenericType<ShadowedType>`.
-public func mock<ShadowedGenericType_ShadowedType, ShadowedType, __ReturnType: ShadowedGenericTypeAbstractMockType_NestedDoublyShadowedGenericTypeAbstractMockType>(_ type: ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedDoublyShadowedGenericTypeMock<ShadowedType>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedDoublyShadowedGenericTypeMock<ShadowedType>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `NestedDoublyShadowedGenericType<ShadowedType>`.
-public func dummy<ShadowedGenericType_ShadowedType, ShadowedType>(_ type: ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedDoublyShadowedGenericTypeMock<ShadowedType>.Type, file: StaticString = #file, line: UInt = #line) -> ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedDoublyShadowedGenericTypeMock<ShadowedType> {
-  return ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedDoublyShadowedGenericTypeMock<ShadowedType>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `NestedDoublyShadowedGenericType<ShadowedType>`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedDoublyShadowedGenericTypeMock<ShadowedType>' or use 'dummy(ShadowedGenericType<ShadowedGenericType_ShadowedType>.NestedDoublyShadowedGenericType<ShadowedType>.self)' to create a non-mockable dummy object")
-public func mock<ShadowedGenericType_ShadowedType, ShadowedType, __ReturnType>(_ type: ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedDoublyShadowedGenericTypeMock<ShadowedType>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked SpecializedGenericProtocol
 
-public final class SpecializedGenericProtocolMock: MockingbirdTestsHost.GenericBaseClass<Bool>, MockingbirdTestsHost.SpecializedGenericProtocol, Mockingbird.Mock, SpecializedGenericProtocolAbstractMockType {
+public final class SpecializedGenericProtocolMock: MockingbirdTestsHost.GenericBaseClass<Bool>, MockingbirdTestsHost.SpecializedGenericProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -16062,30 +13323,14 @@ public final class SpecializedGenericProtocolMock: MockingbirdTestsHost.GenericB
   }
 }
 
-public protocol SpecializedGenericProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.SpecializedGenericProtocol`.
-public func mock(_ type: MockingbirdTestsHost.SpecializedGenericProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> SpecializedGenericProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.SpecializedGenericProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> SpecializedGenericProtocolMock {
   return SpecializedGenericProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.SpecializedGenericProtocol`.
-public func mock<__ReturnType: SpecializedGenericProtocolAbstractMockType>(_ type: MockingbirdTestsHost.SpecializedGenericProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return SpecializedGenericProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.SpecializedGenericProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.SpecializedGenericProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> SpecializedGenericProtocolMock {
-  return SpecializedGenericProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.SpecializedGenericProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'SpecializedGenericProtocolMock' or use 'dummy(SpecializedGenericProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.SpecializedGenericProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked SpecializedGenericSubclass
 
-public final class SpecializedGenericSubclassMock: MockingbirdTestsHost.SpecializedGenericSubclass, Mockingbird.Mock, SpecializedGenericSubclassAbstractMockType {
+public final class SpecializedGenericSubclassMock: MockingbirdTestsHost.SpecializedGenericSubclass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -16139,30 +13384,14 @@ public final class SpecializedGenericSubclassMock: MockingbirdTestsHost.Speciali
   }
 }
 
-public protocol SpecializedGenericSubclassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.SpecializedGenericSubclass`.
-public func mock(_ type: MockingbirdTestsHost.SpecializedGenericSubclass.Type, file: StaticString = #file, line: UInt = #line) -> SpecializedGenericSubclassAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.SpecializedGenericSubclass.Type, file: StaticString = #file, line: UInt = #line) -> SpecializedGenericSubclassMock {
   return SpecializedGenericSubclassMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.SpecializedGenericSubclass`.
-public func mock<__ReturnType: SpecializedGenericSubclassAbstractMockType>(_ type: MockingbirdTestsHost.SpecializedGenericSubclass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return SpecializedGenericSubclassMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.SpecializedGenericSubclass`.
-public func dummy(_ type: MockingbirdTestsHost.SpecializedGenericSubclass.Type, file: StaticString = #file, line: UInt = #line) -> SpecializedGenericSubclassMock {
-  return SpecializedGenericSubclassMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.SpecializedGenericSubclass`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'SpecializedGenericSubclassMock' or use 'dummy(SpecializedGenericSubclass.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.SpecializedGenericSubclass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked SpecializedShadowedGenericProtocol
 
-public final class SpecializedShadowedGenericProtocolMock: MockingbirdTestsHost.ShadowedGenericType<MockingbirdTestsHost.NSObject>, MockingbirdTestsHost.SpecializedShadowedGenericProtocol, Mockingbird.Mock, SpecializedShadowedGenericProtocolAbstractMockType {
+public final class SpecializedShadowedGenericProtocolMock: MockingbirdTestsHost.ShadowedGenericType<MockingbirdTestsHost.NSObject>, MockingbirdTestsHost.SpecializedShadowedGenericProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -16220,30 +13449,14 @@ public final class SpecializedShadowedGenericProtocolMock: MockingbirdTestsHost.
   }
 }
 
-public protocol SpecializedShadowedGenericProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.SpecializedShadowedGenericProtocol`.
-public func mock(_ type: MockingbirdTestsHost.SpecializedShadowedGenericProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> SpecializedShadowedGenericProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.SpecializedShadowedGenericProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> SpecializedShadowedGenericProtocolMock {
   return SpecializedShadowedGenericProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.SpecializedShadowedGenericProtocol`.
-public func mock<__ReturnType: SpecializedShadowedGenericProtocolAbstractMockType>(_ type: MockingbirdTestsHost.SpecializedShadowedGenericProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return SpecializedShadowedGenericProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.SpecializedShadowedGenericProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.SpecializedShadowedGenericProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> SpecializedShadowedGenericProtocolMock {
-  return SpecializedShadowedGenericProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.SpecializedShadowedGenericProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'SpecializedShadowedGenericProtocolMock' or use 'dummy(SpecializedShadowedGenericProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.SpecializedShadowedGenericProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked SpecializedShadowedGenericSubclass
 
-public final class SpecializedShadowedGenericSubclassMock: MockingbirdTestsHost.SpecializedShadowedGenericSubclass, Mockingbird.Mock, SpecializedShadowedGenericSubclassAbstractMockType {
+public final class SpecializedShadowedGenericSubclassMock: MockingbirdTestsHost.SpecializedShadowedGenericSubclass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -16301,30 +13514,14 @@ public final class SpecializedShadowedGenericSubclassMock: MockingbirdTestsHost.
   }
 }
 
-public protocol SpecializedShadowedGenericSubclassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.SpecializedShadowedGenericSubclass`.
-public func mock(_ type: MockingbirdTestsHost.SpecializedShadowedGenericSubclass.Type, file: StaticString = #file, line: UInt = #line) -> SpecializedShadowedGenericSubclassAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.SpecializedShadowedGenericSubclass.Type, file: StaticString = #file, line: UInt = #line) -> SpecializedShadowedGenericSubclassMock {
   return SpecializedShadowedGenericSubclassMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.SpecializedShadowedGenericSubclass`.
-public func mock<__ReturnType: SpecializedShadowedGenericSubclassAbstractMockType>(_ type: MockingbirdTestsHost.SpecializedShadowedGenericSubclass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return SpecializedShadowedGenericSubclassMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.SpecializedShadowedGenericSubclass`.
-public func dummy(_ type: MockingbirdTestsHost.SpecializedShadowedGenericSubclass.Type, file: StaticString = #file, line: UInt = #line) -> SpecializedShadowedGenericSubclassMock {
-  return SpecializedShadowedGenericSubclassMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.SpecializedShadowedGenericSubclass`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'SpecializedShadowedGenericSubclassMock' or use 'dummy(SpecializedShadowedGenericSubclass.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.SpecializedShadowedGenericSubclass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked SubclassingExternalClassWithDesignatedIntializer
 
-public final class SubclassingExternalClassWithDesignatedIntializerMock: MockingbirdTestsHost.SubclassingExternalClassWithDesignatedIntializer, Mockingbird.Mock, SubclassingExternalClassWithDesignatedIntializerAbstractMockType {
+public final class SubclassingExternalClassWithDesignatedIntializerMock: MockingbirdTestsHost.SubclassingExternalClassWithDesignatedIntializer, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -16337,31 +13534,12 @@ public final class SubclassingExternalClassWithDesignatedIntializerMock: Mocking
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> SubclassingExternalClassWithDesignatedIntializerMock {
-        let mock: SubclassingExternalClassWithDesignatedIntializerMock = SubclassingExternalClassWithDesignatedIntializerMock(param1: `param1`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> SubclassingExternalClassWithDesignatedIntializerAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> SubclassingExternalClassWithDesignatedIntializerMock {
       let mock: SubclassingExternalClassWithDesignatedIntializerMock = SubclassingExternalClassWithDesignatedIntializerMock(param1: `param1`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: SubclassingExternalClassWithDesignatedIntializerAbstractMockType>(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: SubclassingExternalClassWithDesignatedIntializerMock = SubclassingExternalClassWithDesignatedIntializerMock(param1: `param1`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'SubclassingExternalClassWithDesignatedIntializerMock' or use 'dummy(SubclassingExternalClassWithDesignatedIntializerMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked internalVariable
@@ -16472,31 +13650,14 @@ public final class SubclassingExternalClassWithDesignatedIntializerMock: Mocking
   }
 }
 
-public protocol SubclassingExternalClassWithDesignatedIntializerAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.SubclassingExternalClassWithDesignatedIntializer`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(SubclassingExternalClassWithDesignatedIntializerMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.SubclassingExternalClassWithDesignatedIntializer.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return SubclassingExternalClassWithDesignatedIntializerMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.SubclassingExternalClassWithDesignatedIntializer.Type, file: StaticString = #file, line: UInt = #line) -> SubclassingExternalClassWithDesignatedIntializerMock.InitializerProxy.Type {
+  return SubclassingExternalClassWithDesignatedIntializerMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.SubclassingExternalClassWithDesignatedIntializer`.
-public func mock<__ReturnType: SubclassingExternalClassWithDesignatedIntializerMock.InitializerProxy>(_ type: MockingbirdTestsHost.SubclassingExternalClassWithDesignatedIntializer.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return SubclassingExternalClassWithDesignatedIntializerMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.SubclassingExternalClassWithDesignatedIntializer`.
-public func dummy(_ type: MockingbirdTestsHost.SubclassingExternalClassWithDesignatedIntializer.Type, file: StaticString = #file, line: UInt = #line) -> SubclassingExternalClassWithDesignatedIntializerMock.InitializerProxy.Dummy {
-  return SubclassingExternalClassWithDesignatedIntializerMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.SubclassingExternalClassWithDesignatedIntializer`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(SubclassingExternalClassWithDesignatedIntializerMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.SubclassingExternalClassWithDesignatedIntializer.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked SubclassingExternalClassWithInheritedIntializer
 
-public final class SubclassingExternalClassWithInheritedIntializerMock: MockingbirdTestsHost.SubclassingExternalClassWithInheritedIntializer, Mockingbird.Mock, SubclassingExternalClassWithInheritedIntializerAbstractMockType {
+public final class SubclassingExternalClassWithInheritedIntializerMock: MockingbirdTestsHost.SubclassingExternalClassWithInheritedIntializer, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -16509,31 +13670,12 @@ public final class SubclassingExternalClassWithInheritedIntializerMock: Mockingb
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(__file: StaticString = #file, __line: UInt = #line) -> SubclassingExternalClassWithInheritedIntializerMock {
-        let mock: SubclassingExternalClassWithInheritedIntializerMock = SubclassingExternalClassWithInheritedIntializerMock()
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(__file: StaticString = #file, __line: UInt = #line) -> SubclassingExternalClassWithInheritedIntializerAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(__file: StaticString = #file, __line: UInt = #line) -> SubclassingExternalClassWithInheritedIntializerMock {
       let mock: SubclassingExternalClassWithInheritedIntializerMock = SubclassingExternalClassWithInheritedIntializerMock()
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: SubclassingExternalClassWithInheritedIntializerAbstractMockType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: SubclassingExternalClassWithInheritedIntializerMock = SubclassingExternalClassWithInheritedIntializerMock()
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'SubclassingExternalClassWithInheritedIntializerMock' or use 'dummy(SubclassingExternalClassWithInheritedIntializerMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked internalVariable
@@ -16644,31 +13786,14 @@ public final class SubclassingExternalClassWithInheritedIntializerMock: Mockingb
   }
 }
 
-public protocol SubclassingExternalClassWithInheritedIntializerAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.SubclassingExternalClassWithInheritedIntializer`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(SubclassingExternalClassWithInheritedIntializerMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.SubclassingExternalClassWithInheritedIntializer.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return SubclassingExternalClassWithInheritedIntializerMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.SubclassingExternalClassWithInheritedIntializer.Type, file: StaticString = #file, line: UInt = #line) -> SubclassingExternalClassWithInheritedIntializerMock.InitializerProxy.Type {
+  return SubclassingExternalClassWithInheritedIntializerMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.SubclassingExternalClassWithInheritedIntializer`.
-public func mock<__ReturnType: SubclassingExternalClassWithInheritedIntializerMock.InitializerProxy>(_ type: MockingbirdTestsHost.SubclassingExternalClassWithInheritedIntializer.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return SubclassingExternalClassWithInheritedIntializerMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.SubclassingExternalClassWithInheritedIntializer`.
-public func dummy(_ type: MockingbirdTestsHost.SubclassingExternalClassWithInheritedIntializer.Type, file: StaticString = #file, line: UInt = #line) -> SubclassingExternalClassWithInheritedIntializerMock.InitializerProxy.Dummy {
-  return SubclassingExternalClassWithInheritedIntializerMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.SubclassingExternalClassWithInheritedIntializer`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(SubclassingExternalClassWithInheritedIntializerMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.SubclassingExternalClassWithInheritedIntializer.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked SubclassingExternalSubclassWithDesignatedInitializer
 
-public final class SubclassingExternalSubclassWithDesignatedInitializerMock: MockingbirdTestsHost.SubclassingExternalSubclassWithDesignatedInitializer, Mockingbird.Mock, SubclassingExternalSubclassWithDesignatedInitializerAbstractMockType {
+public final class SubclassingExternalSubclassWithDesignatedInitializerMock: MockingbirdTestsHost.SubclassingExternalSubclassWithDesignatedInitializer, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -16681,31 +13806,12 @@ public final class SubclassingExternalSubclassWithDesignatedInitializerMock: Moc
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> SubclassingExternalSubclassWithDesignatedInitializerMock {
-        let mock: SubclassingExternalSubclassWithDesignatedInitializerMock = SubclassingExternalSubclassWithDesignatedInitializerMock(param1: `param1`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> SubclassingExternalSubclassWithDesignatedInitializerAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> SubclassingExternalSubclassWithDesignatedInitializerMock {
       let mock: SubclassingExternalSubclassWithDesignatedInitializerMock = SubclassingExternalSubclassWithDesignatedInitializerMock(param1: `param1`)
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: SubclassingExternalSubclassWithDesignatedInitializerAbstractMockType>(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: SubclassingExternalSubclassWithDesignatedInitializerMock = SubclassingExternalSubclassWithDesignatedInitializerMock(param1: `param1`)
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'SubclassingExternalSubclassWithDesignatedInitializerMock' or use 'dummy(SubclassingExternalSubclassWithDesignatedInitializerMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(`param1`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked baseOpenVariable
@@ -16865,31 +13971,14 @@ public final class SubclassingExternalSubclassWithDesignatedInitializerMock: Moc
   }
 }
 
-public protocol SubclassingExternalSubclassWithDesignatedInitializerAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.SubclassingExternalSubclassWithDesignatedInitializer`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(SubclassingExternalSubclassWithDesignatedInitializerMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.SubclassingExternalSubclassWithDesignatedInitializer.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return SubclassingExternalSubclassWithDesignatedInitializerMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.SubclassingExternalSubclassWithDesignatedInitializer.Type, file: StaticString = #file, line: UInt = #line) -> SubclassingExternalSubclassWithDesignatedInitializerMock.InitializerProxy.Type {
+  return SubclassingExternalSubclassWithDesignatedInitializerMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.SubclassingExternalSubclassWithDesignatedInitializer`.
-public func mock<__ReturnType: SubclassingExternalSubclassWithDesignatedInitializerMock.InitializerProxy>(_ type: MockingbirdTestsHost.SubclassingExternalSubclassWithDesignatedInitializer.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return SubclassingExternalSubclassWithDesignatedInitializerMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.SubclassingExternalSubclassWithDesignatedInitializer`.
-public func dummy(_ type: MockingbirdTestsHost.SubclassingExternalSubclassWithDesignatedInitializer.Type, file: StaticString = #file, line: UInt = #line) -> SubclassingExternalSubclassWithDesignatedInitializerMock.InitializerProxy.Dummy {
-  return SubclassingExternalSubclassWithDesignatedInitializerMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.SubclassingExternalSubclassWithDesignatedInitializer`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(SubclassingExternalSubclassWithDesignatedInitializerMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.SubclassingExternalSubclassWithDesignatedInitializer.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked SubclassingExternalSubclassWithInheritedInitializer
 
-public final class SubclassingExternalSubclassWithInheritedInitializerMock: MockingbirdTestsHost.SubclassingExternalSubclassWithInheritedInitializer, Mockingbird.Mock, SubclassingExternalSubclassWithInheritedInitializerAbstractMockType {
+public final class SubclassingExternalSubclassWithInheritedInitializerMock: MockingbirdTestsHost.SubclassingExternalSubclassWithInheritedInitializer, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -16902,31 +13991,12 @@ public final class SubclassingExternalSubclassWithInheritedInitializerMock: Mock
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(__file: StaticString = #file, __line: UInt = #line) -> SubclassingExternalSubclassWithInheritedInitializerMock {
-        let mock: SubclassingExternalSubclassWithInheritedInitializerMock = SubclassingExternalSubclassWithInheritedInitializerMock()
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(__file: StaticString = #file, __line: UInt = #line) -> SubclassingExternalSubclassWithInheritedInitializerAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(__file: StaticString = #file, __line: UInt = #line) -> SubclassingExternalSubclassWithInheritedInitializerMock {
       let mock: SubclassingExternalSubclassWithInheritedInitializerMock = SubclassingExternalSubclassWithInheritedInitializerMock()
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: SubclassingExternalSubclassWithInheritedInitializerAbstractMockType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: SubclassingExternalSubclassWithInheritedInitializerMock = SubclassingExternalSubclassWithInheritedInitializerMock()
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'SubclassingExternalSubclassWithInheritedInitializerMock' or use 'dummy(SubclassingExternalSubclassWithInheritedInitializerMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked baseOpenVariable
@@ -17086,31 +14156,14 @@ public final class SubclassingExternalSubclassWithInheritedInitializerMock: Mock
   }
 }
 
-public protocol SubclassingExternalSubclassWithInheritedInitializerAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.SubclassingExternalSubclassWithInheritedInitializer`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(SubclassingExternalSubclassWithInheritedInitializerMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.SubclassingExternalSubclassWithInheritedInitializer.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return SubclassingExternalSubclassWithInheritedInitializerMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.SubclassingExternalSubclassWithInheritedInitializer.Type, file: StaticString = #file, line: UInt = #line) -> SubclassingExternalSubclassWithInheritedInitializerMock.InitializerProxy.Type {
+  return SubclassingExternalSubclassWithInheritedInitializerMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.SubclassingExternalSubclassWithInheritedInitializer`.
-public func mock<__ReturnType: SubclassingExternalSubclassWithInheritedInitializerMock.InitializerProxy>(_ type: MockingbirdTestsHost.SubclassingExternalSubclassWithInheritedInitializer.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return SubclassingExternalSubclassWithInheritedInitializerMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.SubclassingExternalSubclassWithInheritedInitializer`.
-public func dummy(_ type: MockingbirdTestsHost.SubclassingExternalSubclassWithInheritedInitializer.Type, file: StaticString = #file, line: UInt = #line) -> SubclassingExternalSubclassWithInheritedInitializerMock.InitializerProxy.Dummy {
-  return SubclassingExternalSubclassWithInheritedInitializerMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.SubclassingExternalSubclassWithInheritedInitializer`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(SubclassingExternalSubclassWithInheritedInitializerMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.SubclassingExternalSubclassWithInheritedInitializer.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked SubclassingExternalTopLevelType
 
-public final class SubclassingExternalTopLevelTypeMock: MockingbirdTestsHost.SubclassingExternalTopLevelType, Mockingbird.Mock, SubclassingExternalTopLevelTypeAbstractMockType {
+public final class SubclassingExternalTopLevelTypeMock: MockingbirdTestsHost.SubclassingExternalTopLevelType, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -17123,31 +14176,12 @@ public final class SubclassingExternalTopLevelTypeMock: MockingbirdTestsHost.Sub
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(__file: StaticString = #file, __line: UInt = #line) -> SubclassingExternalTopLevelTypeMock {
-        let mock: SubclassingExternalTopLevelTypeMock = SubclassingExternalTopLevelTypeMock()
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(__file: StaticString = #file, __line: UInt = #line) -> SubclassingExternalTopLevelTypeAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(__file: StaticString = #file, __line: UInt = #line) -> SubclassingExternalTopLevelTypeMock {
       let mock: SubclassingExternalTopLevelTypeMock = SubclassingExternalTopLevelTypeMock()
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: SubclassingExternalTopLevelTypeAbstractMockType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: SubclassingExternalTopLevelTypeMock = SubclassingExternalTopLevelTypeMock()
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'SubclassingExternalTopLevelTypeMock' or use 'dummy(SubclassingExternalTopLevelTypeMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked secondLevelType
@@ -17191,31 +14225,14 @@ public final class SubclassingExternalTopLevelTypeMock: MockingbirdTestsHost.Sub
   }
 }
 
-public protocol SubclassingExternalTopLevelTypeAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.SubclassingExternalTopLevelType`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(SubclassingExternalTopLevelTypeMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.SubclassingExternalTopLevelType.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return SubclassingExternalTopLevelTypeMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.SubclassingExternalTopLevelType.Type, file: StaticString = #file, line: UInt = #line) -> SubclassingExternalTopLevelTypeMock.InitializerProxy.Type {
+  return SubclassingExternalTopLevelTypeMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.SubclassingExternalTopLevelType`.
-public func mock<__ReturnType: SubclassingExternalTopLevelTypeMock.InitializerProxy>(_ type: MockingbirdTestsHost.SubclassingExternalTopLevelType.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return SubclassingExternalTopLevelTypeMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.SubclassingExternalTopLevelType`.
-public func dummy(_ type: MockingbirdTestsHost.SubclassingExternalTopLevelType.Type, file: StaticString = #file, line: UInt = #line) -> SubclassingExternalTopLevelTypeMock.InitializerProxy.Dummy {
-  return SubclassingExternalTopLevelTypeMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.SubclassingExternalTopLevelType`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(SubclassingExternalTopLevelTypeMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.SubclassingExternalTopLevelType.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked TestCase
 
-public final class TestCaseMock: MockingbirdTestsHost.TestCase, Mockingbird.Mock, TestCaseAbstractMockType {
+public final class TestCaseMock: MockingbirdTestsHost.TestCase, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -17253,30 +14270,14 @@ public final class TestCaseMock: MockingbirdTestsHost.TestCase, Mockingbird.Mock
   }
 }
 
-public protocol TestCaseAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.TestCase`.
-public func mock(_ type: MockingbirdTestsHost.TestCase.Protocol, file: StaticString = #file, line: UInt = #line) -> TestCaseAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.TestCase.Protocol, file: StaticString = #file, line: UInt = #line) -> TestCaseMock {
   return TestCaseMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.TestCase`.
-public func mock<__ReturnType: TestCaseAbstractMockType>(_ type: MockingbirdTestsHost.TestCase.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return TestCaseMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.TestCase`.
-public func dummy(_ type: MockingbirdTestsHost.TestCase.Protocol, file: StaticString = #file, line: UInt = #line) -> TestCaseMock {
-  return TestCaseMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.TestCase`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'TestCaseMock' or use 'dummy(TestCase.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.TestCase.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked TestManager
 
-public final class TestManagerMock: MockingbirdTestsHost.TestManager, Mockingbird.Mock, TestManagerAbstractMockType {
+public final class TestManagerMock: MockingbirdTestsHost.TestManager, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -17328,30 +14329,14 @@ public final class TestManagerMock: MockingbirdTestsHost.TestManager, Mockingbir
   }
 }
 
-public protocol TestManagerAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.TestManager`.
-public func mock(_ type: MockingbirdTestsHost.TestManager.Protocol, file: StaticString = #file, line: UInt = #line) -> TestManagerAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.TestManager.Protocol, file: StaticString = #file, line: UInt = #line) -> TestManagerMock {
   return TestManagerMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.TestManager`.
-public func mock<__ReturnType: TestManagerAbstractMockType>(_ type: MockingbirdTestsHost.TestManager.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return TestManagerMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.TestManager`.
-public func dummy(_ type: MockingbirdTestsHost.TestManager.Protocol, file: StaticString = #file, line: UInt = #line) -> TestManagerMock {
-  return TestManagerMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.TestManager`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'TestManagerMock' or use 'dummy(TestManager.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.TestManager.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked Test
 
-public final class TestMock: MockingbirdTestsHost.Test, Mockingbird.Mock, TestAbstractMockType {
+public final class TestMock: MockingbirdTestsHost.Test, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -17404,30 +14389,14 @@ public final class TestMock: MockingbirdTestsHost.Test, Mockingbird.Mock, TestAb
   }
 }
 
-public protocol TestAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.Test`.
-public func mock(_ type: MockingbirdTestsHost.Test.Protocol, file: StaticString = #file, line: UInt = #line) -> TestAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.Test.Protocol, file: StaticString = #file, line: UInt = #line) -> TestMock {
   return TestMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.Test`.
-public func mock<__ReturnType: TestAbstractMockType>(_ type: MockingbirdTestsHost.Test.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return TestMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.Test`.
-public func dummy(_ type: MockingbirdTestsHost.Test.Protocol, file: StaticString = #file, line: UInt = #line) -> TestMock {
-  return TestMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.Test`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'TestMock' or use 'dummy(Test.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.Test.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ThrowingProtocol
 
-public final class ThrowingProtocolMock: MockingbirdTestsHost.ThrowingProtocol, Mockingbird.Mock, ThrowingProtocolAbstractMockType {
+public final class ThrowingProtocolMock: MockingbirdTestsHost.ThrowingProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -17501,30 +14470,14 @@ public final class ThrowingProtocolMock: MockingbirdTestsHost.ThrowingProtocol, 
   }
 }
 
-public protocol ThrowingProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ThrowingProtocol`.
-public func mock(_ type: MockingbirdTestsHost.ThrowingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ThrowingProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ThrowingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ThrowingProtocolMock {
   return ThrowingProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ThrowingProtocol`.
-public func mock<__ReturnType: ThrowingProtocolAbstractMockType>(_ type: MockingbirdTestsHost.ThrowingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ThrowingProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ThrowingProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.ThrowingProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ThrowingProtocolMock {
-  return ThrowingProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ThrowingProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ThrowingProtocolMock' or use 'dummy(ThrowingProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ThrowingProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked TopLevelSelfConstrainedAssociatedTypeProtocol
 
-public final class TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType: Sequence & Swift.Hashable>: MockingbirdTestsHost.TopLevelSelfConstrainedAssociatedTypeProtocol, MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, MockingbirdTestsHost.SecondLevelSelfConstrainedAssociatedTypeProtocol, Mockingbird.Mock, TopLevelSelfConstrainedAssociatedTypeProtocolAbstractMockType where Element: Swift.Hashable {
+public final class TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType: Sequence & Swift.Hashable>: MockingbirdTestsHost.TopLevelSelfConstrainedAssociatedTypeProtocol, MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, MockingbirdTestsHost.SecondLevelSelfConstrainedAssociatedTypeProtocol, Mockingbird.Mock where Element: Swift.Hashable {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(Element.self)", "\(SequenceType.self)"].joined(separator: ",")
     let staticMockIdentifier = "TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType: Sequence & Swift.Hashable>," + runtimeGenericTypeNames
@@ -17607,30 +14560,14 @@ public final class TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, Se
   }
 }
 
-public protocol TopLevelSelfConstrainedAssociatedTypeProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.TopLevelSelfConstrainedAssociatedTypeProtocol`.
-public func mock<Element, SequenceType: Sequence & Swift.Hashable>(_ type: TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType>.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelSelfConstrainedAssociatedTypeProtocolAbstractMockType {
+public func mock<Element, SequenceType: Sequence & Swift.Hashable>(_ type: TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType>.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType> {
   return TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.TopLevelSelfConstrainedAssociatedTypeProtocol`.
-public func mock<Element, SequenceType: Sequence & Swift.Hashable, __ReturnType: TopLevelSelfConstrainedAssociatedTypeProtocolAbstractMockType>(_ type: TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.TopLevelSelfConstrainedAssociatedTypeProtocol`.
-public func dummy<Element, SequenceType: Sequence & Swift.Hashable>(_ type: TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType>.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType> {
-  return TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.TopLevelSelfConstrainedAssociatedTypeProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType>' or use 'dummy(TopLevelSelfConstrainedAssociatedTypeProtocol.self)' to create a non-mockable dummy object")
-public func mock<Element, SequenceType: Sequence & Swift.Hashable, __ReturnType>(_ type: TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked TopLevelType
 
-public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingbird.Mock, TopLevelTypeAbstractMockType {
+public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -17670,7 +14607,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
 
   // MARK: - Mocked SecondLevelType
 
-  public final class SecondLevelTypeMock: SecondLevelType, Mockingbird.Mock, TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType {
+  public final class SecondLevelTypeMock: SecondLevelType, Mockingbird.Mock {
     static let staticMock = Mockingbird.StaticMock()
     public let mockingContext = Mockingbird.MockingContext()
     public let stubbingContext = Mockingbird.StubbingContext()
@@ -17710,7 +14647,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
 
     // MARK: - Mocked ThirdLevelInheritingTopLevelType
 
-    public final class ThirdLevelInheritingTopLevelTypeMock: ThirdLevelInheritingTopLevelType, Mockingbird.Mock, TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelInheritingTopLevelTypeAbstractMockType {
+    public final class ThirdLevelInheritingTopLevelTypeMock: ThirdLevelInheritingTopLevelType, Mockingbird.Mock {
       static let staticMock = Mockingbird.StaticMock()
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()
@@ -17769,7 +14706,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
 
     // MARK: - Mocked ThirdLevelInheritingThirdLevelType
 
-    public final class ThirdLevelInheritingThirdLevelTypeMock: ThirdLevelInheritingThirdLevelType, Mockingbird.Mock, TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelInheritingThirdLevelTypeAbstractMockType {
+    public final class ThirdLevelInheritingThirdLevelTypeMock: ThirdLevelInheritingThirdLevelType, Mockingbird.Mock {
       static let staticMock = Mockingbird.StaticMock()
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()
@@ -17828,7 +14765,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
 
     // MARK: - Mocked ThirdLevelInheritingPartiallyQualifiedThirdLevelType
 
-    public final class ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock: ThirdLevelInheritingPartiallyQualifiedThirdLevelType, Mockingbird.Mock, TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeAbstractMockType {
+    public final class ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock: ThirdLevelInheritingPartiallyQualifiedThirdLevelType, Mockingbird.Mock {
       static let staticMock = Mockingbird.StaticMock()
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()
@@ -17887,7 +14824,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
 
     // MARK: - Mocked ThirdLevelInheritingFullyQualifiedThirdLevelType
 
-    public final class ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock: ThirdLevelInheritingFullyQualifiedThirdLevelType, Mockingbird.Mock, TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelInheritingFullyQualifiedThirdLevelTypeAbstractMockType {
+    public final class ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock: ThirdLevelInheritingFullyQualifiedThirdLevelType, Mockingbird.Mock {
       static let staticMock = Mockingbird.StaticMock()
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()
@@ -17946,7 +14883,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
 
     // MARK: - Mocked ThirdLevelType
 
-    public final class ThirdLevelTypeMock: ThirdLevelType, Mockingbird.Mock, TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelTypeAbstractMockType {
+    public final class ThirdLevelTypeMock: ThirdLevelType, Mockingbird.Mock {
       static let staticMock = Mockingbird.StaticMock()
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()
@@ -17988,7 +14925,7 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
 
   // MARK: - Mocked InitializableSecondLevelType
 
-  public final class InitializableSecondLevelTypeMock: InitializableSecondLevelType, Mockingbird.Mock, TopLevelTypeAbstractMockType_InitializableSecondLevelTypeAbstractMockType {
+  public final class InitializableSecondLevelTypeMock: InitializableSecondLevelType, Mockingbird.Mock {
     static let staticMock = Mockingbird.StaticMock()
     public let mockingContext = Mockingbird.MockingContext()
     public let stubbingContext = Mockingbird.StubbingContext()
@@ -18001,31 +14938,12 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       }
     }
 
-    public class InitializerProxy: Mockingbird.Initializable {
-      fileprivate init() {}
-
-      public class Dummy: Mockingbird.Initializable {
-        public func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializableSecondLevelTypeMock {
-          let mock: InitializableSecondLevelTypeMock = InitializableSecondLevelTypeMock(param: `param`)
-          mock.sourceLocation = SourceLocation(__file, __line)
-          return mock
-        }
-      }
-
-      public func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> TopLevelTypeAbstractMockType_InitializableSecondLevelTypeAbstractMockType {
+    public enum InitializerProxy {
+      public static func initialize(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> InitializableSecondLevelTypeMock {
         let mock: InitializableSecondLevelTypeMock = InitializableSecondLevelTypeMock(param: `param`)
         mock.sourceLocation = SourceLocation(__file, __line)
         return mock
       }
-
-      public func initialize<__ReturnType: TopLevelTypeAbstractMockType_InitializableSecondLevelTypeAbstractMockType>(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-        let mock: InitializableSecondLevelTypeMock = InitializableSecondLevelTypeMock(param: `param`)
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return (mock as! __ReturnType)
-      }
-
-      @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'InitializableSecondLevelTypeMock' or use 'dummy(InitializableSecondLevelTypeMock.self).initialize(...)' to create a non-mockable dummy object")
-      public func initialize<__ReturnType>(`param`: Bool, __file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
     }
 
     // MARK: Mocked init(`param`: Bool)
@@ -18039,178 +14957,49 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
   }
 }
 
-public protocol TopLevelTypeAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.TopLevelType`.
-public func mock(_ type: MockingbirdTestsHost.TopLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.TopLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeMock {
   return TopLevelTypeMock(sourceLocation: SourceLocation(file, line))
 }
 
-/// Initialize a class mock of `MockingbirdTestsHost.TopLevelType`.
-public func mock<__ReturnType: TopLevelTypeAbstractMockType>(_ type: MockingbirdTestsHost.TopLevelType.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return TopLevelTypeMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.TopLevelType`.
-public func dummy(_ type: MockingbirdTestsHost.TopLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeMock {
-  return TopLevelTypeMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.TopLevelType`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'TopLevelTypeMock' or use 'dummy(TopLevelType.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.TopLevelType.Type) -> __ReturnType { fatalError() }
-
-public protocol TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType {}
-
 /// Initialize a class mock of `SecondLevelType`.
-public func mock(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeMock.SecondLevelTypeMock {
   return TopLevelTypeMock.SecondLevelTypeMock(sourceLocation: SourceLocation(file, line))
 }
 
-/// Initialize a class mock of `SecondLevelType`.
-public func mock<__ReturnType: TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType>(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return TopLevelTypeMock.SecondLevelTypeMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `SecondLevelType`.
-public func dummy(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeMock.SecondLevelTypeMock {
-  return TopLevelTypeMock.SecondLevelTypeMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `SecondLevelType`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'TopLevelTypeMock.SecondLevelTypeMock' or use 'dummy(TopLevelType.SecondLevelType.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.Type) -> __ReturnType { fatalError() }
-
-public protocol TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelInheritingTopLevelTypeAbstractMockType {}
-
 /// Initialize a class mock of `ThirdLevelInheritingTopLevelType`.
-public func mock(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingTopLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelInheritingTopLevelTypeAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingTopLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingTopLevelTypeMock {
   return TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingTopLevelTypeMock(sourceLocation: SourceLocation(file, line))
 }
 
-/// Initialize a class mock of `ThirdLevelInheritingTopLevelType`.
-public func mock<__ReturnType: TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelInheritingTopLevelTypeAbstractMockType>(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingTopLevelType.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingTopLevelTypeMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `ThirdLevelInheritingTopLevelType`.
-public func dummy(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingTopLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingTopLevelTypeMock {
-  return TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingTopLevelTypeMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `ThirdLevelInheritingTopLevelType`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingTopLevelTypeMock' or use 'dummy(TopLevelType.SecondLevelType.ThirdLevelInheritingTopLevelType.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingTopLevelType.Type) -> __ReturnType { fatalError() }
-
-public protocol TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelInheritingThirdLevelTypeAbstractMockType {}
-
 /// Initialize a class mock of `ThirdLevelInheritingThirdLevelType`.
-public func mock(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingThirdLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelInheritingThirdLevelTypeAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingThirdLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingThirdLevelTypeMock {
   return TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingThirdLevelTypeMock(sourceLocation: SourceLocation(file, line))
 }
 
-/// Initialize a class mock of `ThirdLevelInheritingThirdLevelType`.
-public func mock<__ReturnType: TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelInheritingThirdLevelTypeAbstractMockType>(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingThirdLevelType.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingThirdLevelTypeMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `ThirdLevelInheritingThirdLevelType`.
-public func dummy(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingThirdLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingThirdLevelTypeMock {
-  return TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingThirdLevelTypeMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `ThirdLevelInheritingThirdLevelType`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingThirdLevelTypeMock' or use 'dummy(TopLevelType.SecondLevelType.ThirdLevelInheritingThirdLevelType.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingThirdLevelType.Type) -> __ReturnType { fatalError() }
-
-public protocol TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeAbstractMockType {}
-
 /// Initialize a class mock of `ThirdLevelInheritingPartiallyQualifiedThirdLevelType`.
-public func mock(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingPartiallyQualifiedThirdLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingPartiallyQualifiedThirdLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock {
   return TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock(sourceLocation: SourceLocation(file, line))
 }
 
-/// Initialize a class mock of `ThirdLevelInheritingPartiallyQualifiedThirdLevelType`.
-public func mock<__ReturnType: TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeAbstractMockType>(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingPartiallyQualifiedThirdLevelType.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `ThirdLevelInheritingPartiallyQualifiedThirdLevelType`.
-public func dummy(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingPartiallyQualifiedThirdLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock {
-  return TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `ThirdLevelInheritingPartiallyQualifiedThirdLevelType`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingPartiallyQualifiedThirdLevelTypeMock' or use 'dummy(TopLevelType.SecondLevelType.ThirdLevelInheritingPartiallyQualifiedThirdLevelType.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingPartiallyQualifiedThirdLevelType.Type) -> __ReturnType { fatalError() }
-
-public protocol TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelInheritingFullyQualifiedThirdLevelTypeAbstractMockType {}
-
 /// Initialize a class mock of `ThirdLevelInheritingFullyQualifiedThirdLevelType`.
-public func mock(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingFullyQualifiedThirdLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelInheritingFullyQualifiedThirdLevelTypeAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingFullyQualifiedThirdLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock {
   return TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock(sourceLocation: SourceLocation(file, line))
 }
 
-/// Initialize a class mock of `ThirdLevelInheritingFullyQualifiedThirdLevelType`.
-public func mock<__ReturnType: TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelInheritingFullyQualifiedThirdLevelTypeAbstractMockType>(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingFullyQualifiedThirdLevelType.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `ThirdLevelInheritingFullyQualifiedThirdLevelType`.
-public func dummy(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingFullyQualifiedThirdLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock {
-  return TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `ThirdLevelInheritingFullyQualifiedThirdLevelType`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelInheritingFullyQualifiedThirdLevelTypeMock' or use 'dummy(TopLevelType.SecondLevelType.ThirdLevelInheritingFullyQualifiedThirdLevelType.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelInheritingFullyQualifiedThirdLevelType.Type) -> __ReturnType { fatalError() }
-
-public protocol TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelTypeAbstractMockType {}
-
 /// Initialize a class mock of `ThirdLevelType`.
-public func mock(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelTypeAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelTypeMock {
   return TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelTypeMock(sourceLocation: SourceLocation(file, line))
 }
 
-/// Initialize a class mock of `ThirdLevelType`.
-public func mock<__ReturnType: TopLevelTypeAbstractMockType_SecondLevelTypeAbstractMockType_ThirdLevelTypeAbstractMockType>(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelTypeMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `ThirdLevelType`.
-public func dummy(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelTypeMock {
-  return TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelTypeMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `ThirdLevelType`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelTypeMock' or use 'dummy(TopLevelType.SecondLevelType.ThirdLevelType.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType.Type) -> __ReturnType { fatalError() }
-
-public protocol TopLevelTypeAbstractMockType_InitializableSecondLevelTypeAbstractMockType {}
-
 /// Initialize an initializable class mock of `InitializableSecondLevelType`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(TopLevelTypeMock.InitializableSecondLevelTypeMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.TopLevelType.InitializableSecondLevelType.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return TopLevelTypeMock.InitializableSecondLevelTypeMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.TopLevelType.InitializableSecondLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeMock.InitializableSecondLevelTypeMock.InitializerProxy.Type {
+  return TopLevelTypeMock.InitializableSecondLevelTypeMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `InitializableSecondLevelType`.
-public func mock<__ReturnType: TopLevelTypeMock.InitializableSecondLevelTypeMock.InitializerProxy>(_ type: MockingbirdTestsHost.TopLevelType.InitializableSecondLevelType.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return TopLevelTypeMock.InitializableSecondLevelTypeMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `InitializableSecondLevelType`.
-public func dummy(_ type: MockingbirdTestsHost.TopLevelType.InitializableSecondLevelType.Type, file: StaticString = #file, line: UInt = #line) -> TopLevelTypeMock.InitializableSecondLevelTypeMock.InitializerProxy.Dummy {
-  return TopLevelTypeMock.InitializableSecondLevelTypeMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `InitializableSecondLevelType`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(TopLevelTypeMock.InitializableSecondLevelTypeMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.TopLevelType.InitializableSecondLevelType.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked TrivialIncludedSource
 
-public final class TrivialIncludedSourceMock: MockingbirdTestsHost.TrivialIncludedSource, Mockingbird.Mock, TrivialIncludedSourceAbstractMockType {
+public final class TrivialIncludedSourceMock: MockingbirdTestsHost.TrivialIncludedSource, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -18229,30 +15018,14 @@ public final class TrivialIncludedSourceMock: MockingbirdTestsHost.TrivialInclud
   }
 }
 
-public protocol TrivialIncludedSourceAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.TrivialIncludedSource`.
-public func mock(_ type: MockingbirdTestsHost.TrivialIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> TrivialIncludedSourceAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.TrivialIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> TrivialIncludedSourceMock {
   return TrivialIncludedSourceMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.TrivialIncludedSource`.
-public func mock<__ReturnType: TrivialIncludedSourceAbstractMockType>(_ type: MockingbirdTestsHost.TrivialIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return TrivialIncludedSourceMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.TrivialIncludedSource`.
-public func dummy(_ type: MockingbirdTestsHost.TrivialIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> TrivialIncludedSourceMock {
-  return TrivialIncludedSourceMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.TrivialIncludedSource`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'TrivialIncludedSourceMock' or use 'dummy(TrivialIncludedSource.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.TrivialIncludedSource.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked TupleTypes
 
-public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.Mock, TupleTypesAbstractMockType {
+public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -18609,30 +15382,14 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   }
 }
 
-public protocol TupleTypesAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.TupleTypes`.
-public func mock(_ type: MockingbirdTestsHost.TupleTypes.Protocol, file: StaticString = #file, line: UInt = #line) -> TupleTypesAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.TupleTypes.Protocol, file: StaticString = #file, line: UInt = #line) -> TupleTypesMock {
   return TupleTypesMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.TupleTypes`.
-public func mock<__ReturnType: TupleTypesAbstractMockType>(_ type: MockingbirdTestsHost.TupleTypes.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return TupleTypesMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.TupleTypes`.
-public func dummy(_ type: MockingbirdTestsHost.TupleTypes.Protocol, file: StaticString = #file, line: UInt = #line) -> TupleTypesMock {
-  return TupleTypesMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.TupleTypes`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'TupleTypesMock' or use 'dummy(TupleTypes.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.TupleTypes.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked TypealiasedClass
 
-public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, Mockingbird.Mock, TypealiasedClassAbstractMockType {
+public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -18709,30 +15466,14 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
   }
 }
 
-public protocol TypealiasedClassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.TypealiasedClass`.
-public func mock(_ type: MockingbirdTestsHost.TypealiasedClass.Type, file: StaticString = #file, line: UInt = #line) -> TypealiasedClassAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.TypealiasedClass.Type, file: StaticString = #file, line: UInt = #line) -> TypealiasedClassMock {
   return TypealiasedClassMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.TypealiasedClass`.
-public func mock<__ReturnType: TypealiasedClassAbstractMockType>(_ type: MockingbirdTestsHost.TypealiasedClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return TypealiasedClassMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.TypealiasedClass`.
-public func dummy(_ type: MockingbirdTestsHost.TypealiasedClass.Type, file: StaticString = #file, line: UInt = #line) -> TypealiasedClassMock {
-  return TypealiasedClassMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.TypealiasedClass`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'TypealiasedClassMock' or use 'dummy(TypealiasedClass.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.TypealiasedClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked TypealiasedProtocol
 
-public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProtocol, Mockingbird.Mock, TypealiasedProtocolAbstractMockType {
+public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -18808,30 +15549,14 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
   }
 }
 
-public protocol TypealiasedProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.TypealiasedProtocol`.
-public func mock(_ type: MockingbirdTestsHost.TypealiasedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> TypealiasedProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.TypealiasedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> TypealiasedProtocolMock {
   return TypealiasedProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.TypealiasedProtocol`.
-public func mock<__ReturnType: TypealiasedProtocolAbstractMockType>(_ type: MockingbirdTestsHost.TypealiasedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return TypealiasedProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.TypealiasedProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.TypealiasedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> TypealiasedProtocolMock {
-  return TypealiasedProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.TypealiasedProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'TypealiasedProtocolMock' or use 'dummy(TypealiasedProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.TypealiasedProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked UnalphabetizedGenericClass
 
-public final class UnalphabetizedGenericClassMock<C, B, A>: MockingbirdTestsHost.UnalphabetizedGenericClass<C, B, A>, Mockingbird.Mock, UnalphabetizedGenericClassAbstractMockType {
+public final class UnalphabetizedGenericClassMock<C, B, A>: MockingbirdTestsHost.UnalphabetizedGenericClass<C, B, A>, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(A.self)", "\(B.self)", "\(C.self)"].joined(separator: ",")
     let staticMockIdentifier = "UnalphabetizedGenericClassMock<C, B, A>," + runtimeGenericTypeNames
@@ -18896,30 +15621,14 @@ public final class UnalphabetizedGenericClassMock<C, B, A>: MockingbirdTestsHost
   }
 }
 
-public protocol UnalphabetizedGenericClassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.UnalphabetizedGenericClass<C, B, A>`.
-public func mock<C, B, A>(_ type: UnalphabetizedGenericClassMock<C, B, A>.Type, file: StaticString = #file, line: UInt = #line) -> UnalphabetizedGenericClassAbstractMockType {
+public func mock<C, B, A>(_ type: UnalphabetizedGenericClassMock<C, B, A>.Type, file: StaticString = #file, line: UInt = #line) -> UnalphabetizedGenericClassMock<C, B, A> {
   return UnalphabetizedGenericClassMock<C, B, A>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.UnalphabetizedGenericClass<C, B, A>`.
-public func mock<C, B, A, __ReturnType: UnalphabetizedGenericClassAbstractMockType>(_ type: UnalphabetizedGenericClassMock<C, B, A>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return UnalphabetizedGenericClassMock<C, B, A>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.UnalphabetizedGenericClass<C, B, A>`.
-public func dummy<C, B, A>(_ type: UnalphabetizedGenericClassMock<C, B, A>.Type, file: StaticString = #file, line: UInt = #line) -> UnalphabetizedGenericClassMock<C, B, A> {
-  return UnalphabetizedGenericClassMock<C, B, A>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.UnalphabetizedGenericClass<C, B, A>`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'UnalphabetizedGenericClassMock<C, B, A>' or use 'dummy(UnalphabetizedGenericClass<C, B, A>.self)' to create a non-mockable dummy object")
-public func mock<C, B, A, __ReturnType>(_ type: UnalphabetizedGenericClassMock<C, B, A>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked UndefinedArgumentLabels
 
-public final class UndefinedArgumentLabelsMock: MockingbirdTestsHost.UndefinedArgumentLabels, Mockingbird.Mock, UndefinedArgumentLabelsAbstractMockType {
+public final class UndefinedArgumentLabelsMock: MockingbirdTestsHost.UndefinedArgumentLabels, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -18957,30 +15666,14 @@ public final class UndefinedArgumentLabelsMock: MockingbirdTestsHost.UndefinedAr
   }
 }
 
-public protocol UndefinedArgumentLabelsAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.UndefinedArgumentLabels`.
-public func mock(_ type: MockingbirdTestsHost.UndefinedArgumentLabels.Protocol, file: StaticString = #file, line: UInt = #line) -> UndefinedArgumentLabelsAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.UndefinedArgumentLabels.Protocol, file: StaticString = #file, line: UInt = #line) -> UndefinedArgumentLabelsMock {
   return UndefinedArgumentLabelsMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.UndefinedArgumentLabels`.
-public func mock<__ReturnType: UndefinedArgumentLabelsAbstractMockType>(_ type: MockingbirdTestsHost.UndefinedArgumentLabels.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return UndefinedArgumentLabelsMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.UndefinedArgumentLabels`.
-public func dummy(_ type: MockingbirdTestsHost.UndefinedArgumentLabels.Protocol, file: StaticString = #file, line: UInt = #line) -> UndefinedArgumentLabelsMock {
-  return UndefinedArgumentLabelsMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.UndefinedArgumentLabels`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'UndefinedArgumentLabelsMock' or use 'dummy(UndefinedArgumentLabels.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.UndefinedArgumentLabels.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked UnspecializedGenericSubclass
 
-public final class UnspecializedGenericSubclassMock<T>: MockingbirdTestsHost.UnspecializedGenericSubclass<T>, Mockingbird.Mock, UnspecializedGenericSubclassAbstractMockType {
+public final class UnspecializedGenericSubclassMock<T>: MockingbirdTestsHost.UnspecializedGenericSubclass<T>, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(T.self)"].joined(separator: ",")
     let staticMockIdentifier = "UnspecializedGenericSubclassMock<T>," + runtimeGenericTypeNames
@@ -19041,30 +15734,14 @@ public final class UnspecializedGenericSubclassMock<T>: MockingbirdTestsHost.Uns
   }
 }
 
-public protocol UnspecializedGenericSubclassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.UnspecializedGenericSubclass<T>`.
-public func mock<T>(_ type: UnspecializedGenericSubclassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> UnspecializedGenericSubclassAbstractMockType {
+public func mock<T>(_ type: UnspecializedGenericSubclassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> UnspecializedGenericSubclassMock<T> {
   return UnspecializedGenericSubclassMock<T>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.UnspecializedGenericSubclass<T>`.
-public func mock<T, __ReturnType: UnspecializedGenericSubclassAbstractMockType>(_ type: UnspecializedGenericSubclassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return UnspecializedGenericSubclassMock<T>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.UnspecializedGenericSubclass<T>`.
-public func dummy<T>(_ type: UnspecializedGenericSubclassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> UnspecializedGenericSubclassMock<T> {
-  return UnspecializedGenericSubclassMock<T>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.UnspecializedGenericSubclass<T>`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'UnspecializedGenericSubclassMock<T>' or use 'dummy(UnspecializedGenericSubclass<T>.self)' to create a non-mockable dummy object")
-public func mock<T, __ReturnType>(_ type: UnspecializedGenericSubclassMock<T>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked UnspecializedMultipleGenericSubclass
 
-public final class UnspecializedMultipleGenericSubclassMock<T, R>: MockingbirdTestsHost.UnspecializedMultipleGenericSubclass<T, R>, Mockingbird.Mock, UnspecializedMultipleGenericSubclassAbstractMockType {
+public final class UnspecializedMultipleGenericSubclassMock<T, R>: MockingbirdTestsHost.UnspecializedMultipleGenericSubclass<T, R>, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = ["\(R.self)", "\(T.self)"].joined(separator: ",")
     let staticMockIdentifier = "UnspecializedMultipleGenericSubclassMock<T, R>," + runtimeGenericTypeNames
@@ -19125,30 +15802,14 @@ public final class UnspecializedMultipleGenericSubclassMock<T, R>: MockingbirdTe
   }
 }
 
-public protocol UnspecializedMultipleGenericSubclassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.UnspecializedMultipleGenericSubclass<T, R>`.
-public func mock<T, R>(_ type: UnspecializedMultipleGenericSubclassMock<T, R>.Type, file: StaticString = #file, line: UInt = #line) -> UnspecializedMultipleGenericSubclassAbstractMockType {
+public func mock<T, R>(_ type: UnspecializedMultipleGenericSubclassMock<T, R>.Type, file: StaticString = #file, line: UInt = #line) -> UnspecializedMultipleGenericSubclassMock<T, R> {
   return UnspecializedMultipleGenericSubclassMock<T, R>(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.UnspecializedMultipleGenericSubclass<T, R>`.
-public func mock<T, R, __ReturnType: UnspecializedMultipleGenericSubclassAbstractMockType>(_ type: UnspecializedMultipleGenericSubclassMock<T, R>.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return UnspecializedMultipleGenericSubclassMock<T, R>(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.UnspecializedMultipleGenericSubclass<T, R>`.
-public func dummy<T, R>(_ type: UnspecializedMultipleGenericSubclassMock<T, R>.Type, file: StaticString = #file, line: UInt = #line) -> UnspecializedMultipleGenericSubclassMock<T, R> {
-  return UnspecializedMultipleGenericSubclassMock<T, R>(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.UnspecializedMultipleGenericSubclass<T, R>`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'UnspecializedMultipleGenericSubclassMock<T, R>' or use 'dummy(UnspecializedMultipleGenericSubclass<T, R>.self)' to create a non-mockable dummy object")
-public func mock<T, R, __ReturnType>(_ type: UnspecializedMultipleGenericSubclassMock<T, R>.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked VariablesContainerProtocol
 
-public final class VariablesContainerProtocolMock: MockingbirdTestsHost.VariablesContainerProtocol, Mockingbird.Mock, VariablesContainerProtocolAbstractMockType {
+public final class VariablesContainerProtocolMock: MockingbirdTestsHost.VariablesContainerProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -19182,30 +15843,14 @@ public final class VariablesContainerProtocolMock: MockingbirdTestsHost.Variable
   }
 }
 
-public protocol VariablesContainerProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.VariablesContainerProtocol`.
-public func mock(_ type: MockingbirdTestsHost.VariablesContainerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> VariablesContainerProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.VariablesContainerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> VariablesContainerProtocolMock {
   return VariablesContainerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.VariablesContainerProtocol`.
-public func mock<__ReturnType: VariablesContainerProtocolAbstractMockType>(_ type: MockingbirdTestsHost.VariablesContainerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return VariablesContainerProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.VariablesContainerProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.VariablesContainerProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> VariablesContainerProtocolMock {
-  return VariablesContainerProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.VariablesContainerProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'VariablesContainerProtocolMock' or use 'dummy(VariablesContainerProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.VariablesContainerProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked VariablesContainer
 
-public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContainer, Mockingbird.Mock, VariablesContainerAbstractMockType {
+public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContainer, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -19218,31 +15863,12 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     }
   }
 
-  public class InitializerProxy: Mockingbird.Initializable {
-    fileprivate init() {}
-
-    public class Dummy: Mockingbird.Initializable {
-      public func initialize(__file: StaticString = #file, __line: UInt = #line) -> VariablesContainerMock {
-        let mock: VariablesContainerMock = VariablesContainerMock()
-        mock.sourceLocation = SourceLocation(__file, __line)
-        return mock
-      }
-    }
-
-    public func initialize(__file: StaticString = #file, __line: UInt = #line) -> VariablesContainerAbstractMockType {
+  public enum InitializerProxy {
+    public static func initialize(__file: StaticString = #file, __line: UInt = #line) -> VariablesContainerMock {
       let mock: VariablesContainerMock = VariablesContainerMock()
       mock.sourceLocation = SourceLocation(__file, __line)
       return mock
     }
-
-    public func initialize<__ReturnType: VariablesContainerAbstractMockType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType {
-      let mock: VariablesContainerMock = VariablesContainerMock()
-      mock.sourceLocation = SourceLocation(__file, __line)
-      return (mock as! __ReturnType)
-    }
-
-    @available(swift, obsoleted: 3.0, message: "Store the mock in a variable of type 'VariablesContainerMock' or use 'dummy(VariablesContainerMock.self).initialize(...)' to create a non-mockable dummy object")
-    public func initialize<__ReturnType>(__file: StaticString = #file, __line: UInt = #line) -> __ReturnType { fatalError() }
   }
 
   // MARK: Mocked computedMutableVariable
@@ -19580,31 +16206,14 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
   }
 }
 
-public protocol VariablesContainerAbstractMockType {}
-
 /// Initialize an initializable class mock of `MockingbirdTestsHost.VariablesContainer`.
-@available(*, deprecated, message: "Initialize this class mock using 'mock(VariablesContainerMock.self).initialize(...)'")
-public func mock(_ type: MockingbirdTestsHost.VariablesContainer.Type, file: StaticString = #file, line: UInt = #line) -> Mockingbird.Initializable {
-  return VariablesContainerMock.InitializerProxy()
+public func mock(_ type: MockingbirdTestsHost.VariablesContainer.Type, file: StaticString = #file, line: UInt = #line) -> VariablesContainerMock.InitializerProxy.Type {
+  return VariablesContainerMock.InitializerProxy.self
 }
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.VariablesContainer`.
-public func mock<__ReturnType: VariablesContainerMock.InitializerProxy>(_ type: MockingbirdTestsHost.VariablesContainer.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return VariablesContainerMock.InitializerProxy() as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.VariablesContainer`.
-public func dummy(_ type: MockingbirdTestsHost.VariablesContainer.Type, file: StaticString = #file, line: UInt = #line) -> VariablesContainerMock.InitializerProxy.Dummy {
-  return VariablesContainerMock.InitializerProxy.Dummy()
-}
-
-/// Initialize an initializable class mock of `MockingbirdTestsHost.VariablesContainer`.
-@available(swift, obsoleted: 3.0, message: "Initialize this class mock using 'mock(VariablesContainerMock.self).initialize(...)'")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.VariablesContainer.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked VariadicClass
 
-public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockingbird.Mock, VariadicClassAbstractMockType {
+public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -19720,30 +16329,14 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
   }
 }
 
-public protocol VariadicClassAbstractMockType {}
-
 /// Initialize a class mock of `MockingbirdTestsHost.VariadicClass`.
-public func mock(_ type: MockingbirdTestsHost.VariadicClass.Type, file: StaticString = #file, line: UInt = #line) -> VariadicClassAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.VariadicClass.Type, file: StaticString = #file, line: UInt = #line) -> VariadicClassMock {
   return VariadicClassMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a class mock of `MockingbirdTestsHost.VariadicClass`.
-public func mock<__ReturnType: VariadicClassAbstractMockType>(_ type: MockingbirdTestsHost.VariadicClass.Type, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return VariadicClassMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.VariadicClass`.
-public func dummy(_ type: MockingbirdTestsHost.VariadicClass.Type, file: StaticString = #file, line: UInt = #line) -> VariadicClassMock {
-  return VariadicClassMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a class mock of `MockingbirdTestsHost.VariadicClass`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'VariadicClassMock' or use 'dummy(VariadicClass.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.VariadicClass.Type) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked VariadicProtocol
 
-public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, Mockingbird.Mock, VariadicProtocolAbstractMockType {
+public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -19858,30 +16451,14 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   }
 }
 
-public protocol VariadicProtocolAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.VariadicProtocol`.
-public func mock(_ type: MockingbirdTestsHost.VariadicProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> VariadicProtocolAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.VariadicProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> VariadicProtocolMock {
   return VariadicProtocolMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.VariadicProtocol`.
-public func mock<__ReturnType: VariadicProtocolAbstractMockType>(_ type: MockingbirdTestsHost.VariadicProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return VariadicProtocolMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.VariadicProtocol`.
-public func dummy(_ type: MockingbirdTestsHost.VariadicProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> VariadicProtocolMock {
-  return VariadicProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.VariadicProtocol`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'VariadicProtocolMock' or use 'dummy(VariadicProtocol.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.VariadicProtocol.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked ViewControllerExtensionReferencer
 
-public final class ViewControllerExtensionReferencerMock: MockingbirdTestsHost.ViewControllerExtensionReferencer, Mockingbird.Mock, ViewControllerExtensionReferencerAbstractMockType {
+public final class ViewControllerExtensionReferencerMock: MockingbirdTestsHost.ViewControllerExtensionReferencer, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -20024,30 +16601,14 @@ public final class ViewControllerExtensionReferencerMock: MockingbirdTestsHost.V
   }
 }
 
-public protocol ViewControllerExtensionReferencerAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.ViewControllerExtensionReferencer`.
-public func mock(_ type: MockingbirdTestsHost.ViewControllerExtensionReferencer.Protocol, file: StaticString = #file, line: UInt = #line) -> ViewControllerExtensionReferencerAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.ViewControllerExtensionReferencer.Protocol, file: StaticString = #file, line: UInt = #line) -> ViewControllerExtensionReferencerMock {
   return ViewControllerExtensionReferencerMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ViewControllerExtensionReferencer`.
-public func mock<__ReturnType: ViewControllerExtensionReferencerAbstractMockType>(_ type: MockingbirdTestsHost.ViewControllerExtensionReferencer.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return ViewControllerExtensionReferencerMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.ViewControllerExtensionReferencer`.
-public func dummy(_ type: MockingbirdTestsHost.ViewControllerExtensionReferencer.Protocol, file: StaticString = #file, line: UInt = #line) -> ViewControllerExtensionReferencerMock {
-  return ViewControllerExtensionReferencerMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.ViewControllerExtensionReferencer`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'ViewControllerExtensionReferencerMock' or use 'dummy(ViewControllerExtensionReferencer.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.ViewControllerExtensionReferencer.Protocol) -> __ReturnType { fatalError() }
 
 // MARK: - Mocked WildcardFileNonRelativeIgnoredSource
 
-public final class WildcardFileNonRelativeIgnoredSourceMock: MockingbirdTestsHost.WildcardFileNonRelativeIgnoredSource, Mockingbird.Mock, WildcardFileNonRelativeIgnoredSourceAbstractMockType {
+public final class WildcardFileNonRelativeIgnoredSourceMock: MockingbirdTestsHost.WildcardFileNonRelativeIgnoredSource, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -20066,23 +16627,7 @@ public final class WildcardFileNonRelativeIgnoredSourceMock: MockingbirdTestsHos
   }
 }
 
-public protocol WildcardFileNonRelativeIgnoredSourceAbstractMockType {}
-
 /// Initialize a protocol mock of `MockingbirdTestsHost.WildcardFileNonRelativeIgnoredSource`.
-public func mock(_ type: MockingbirdTestsHost.WildcardFileNonRelativeIgnoredSource.Protocol, file: StaticString = #file, line: UInt = #line) -> WildcardFileNonRelativeIgnoredSourceAbstractMockType {
+public func mock(_ type: MockingbirdTestsHost.WildcardFileNonRelativeIgnoredSource.Protocol, file: StaticString = #file, line: UInt = #line) -> WildcardFileNonRelativeIgnoredSourceMock {
   return WildcardFileNonRelativeIgnoredSourceMock(sourceLocation: SourceLocation(file, line))
 }
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.WildcardFileNonRelativeIgnoredSource`.
-public func mock<__ReturnType: WildcardFileNonRelativeIgnoredSourceAbstractMockType>(_ type: MockingbirdTestsHost.WildcardFileNonRelativeIgnoredSource.Protocol, file: StaticString = #file, line: UInt = #line) -> __ReturnType {
-  return WildcardFileNonRelativeIgnoredSourceMock(sourceLocation: SourceLocation(file, line)) as! __ReturnType
-}
-
-/// Create a dummy object of `MockingbirdTestsHost.WildcardFileNonRelativeIgnoredSource`.
-public func dummy(_ type: MockingbirdTestsHost.WildcardFileNonRelativeIgnoredSource.Protocol, file: StaticString = #file, line: UInt = #line) -> WildcardFileNonRelativeIgnoredSourceMock {
-  return WildcardFileNonRelativeIgnoredSourceMock(sourceLocation: SourceLocation(file, line))
-}
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.WildcardFileNonRelativeIgnoredSource`.
-@available(swift, obsoleted: 3.0, renamed: "dummy", message: "Store the mock in a variable of type 'WildcardFileNonRelativeIgnoredSourceMock' or use 'dummy(WildcardFileNonRelativeIgnoredSource.self)' to create a non-mockable dummy object")
-public func mock<__ReturnType>(_ type: MockingbirdTestsHost.WildcardFileNonRelativeIgnoredSource.Protocol) -> __ReturnType { fatalError() }
