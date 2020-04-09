@@ -27,30 +27,16 @@ extension ImplementingExternalModuleScopingMock: MockableImplementingExternalMod
 
 // MARK: - Initializer proxy
 
-private protocol InitializableSubclassingExternalTopLevelType: Initializable {
-  func initialize(__file: StaticString, __line: UInt)
-    -> SubclassingExternalTopLevelTypeAbstractMockType
+private protocol InitializableSubclassingExternalTopLevelType {
+  static func initialize(__file: StaticString, __line: UInt)
+    -> SubclassingExternalTopLevelTypeMock
 }
 extension SubclassingExternalTopLevelTypeMock.InitializerProxy:
 InitializableSubclassingExternalTopLevelType {}
 
-private protocol InitializableImplementingExternalModuleScoping: Initializable {
-  func initialize(__file: StaticString, __line: UInt)
-    -> ImplementingExternalModuleScopingAbstractMockType
+private protocol InitializableImplementingExternalModuleScoping {
+  static func initialize(__file: StaticString, __line: UInt)
+    -> ImplementingExternalModuleScopingMock
 }
 extension ImplementingExternalModuleScopingMock.InitializerProxy:
 InitializableImplementingExternalModuleScoping {}
-
-private protocol DummyInitializableSubclassingExternalTopLevelType: Initializable {
-  func initialize(__file: StaticString, __line: UInt) -> SubclassingExternalTopLevelTypeMock
-}
-extension SubclassingExternalTopLevelTypeMock.InitializerProxy.Dummy:
-DummyInitializableSubclassingExternalTopLevelType {}
-
-private protocol DummyInitializableImplementingExternalModuleScoping: Initializable {
-  func initialize(__file: StaticString, __line: UInt)
-    -> ImplementingExternalModuleScopingMock
-}
-extension ImplementingExternalModuleScopingMock.InitializerProxy.Dummy:
-DummyInitializableImplementingExternalModuleScoping {}
-

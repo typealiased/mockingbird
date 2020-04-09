@@ -208,15 +208,6 @@ class Bird {
 let bird = mock(Bird.self).initialize(named: "Ryan")
 ```
 
-#### Dummy Objects
-
-Occasionally it’s desirable to initialize objects that are passed around as arguments but never used as mocks or
-stubs.
-
-```swift
-let tree = Tree(with: dummy(Bird.self))
-```
-
 ### Stubbing
 
 Stubbing allows you to define a custom value to return when a mocked method is called.
