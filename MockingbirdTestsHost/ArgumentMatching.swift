@@ -28,25 +28,25 @@ enum EnumType {
 }
 
 protocol ArgumentMatchingProtocol {
-  func method<P: BaseProtocol>(structType: StructType,
-                               classType: ClassType,
-                               enumType: EnumType,
-                               stringType: String,
-                               boolType: Bool,
-                               protocolType: P,
-                               metaType: ClassType.Type,
-                               anyType: Any,
-                               anyObjectType: AnyObject) -> Bool
+  func method(structType: StructType) -> Bool
+  func method(classType: ClassType) -> Bool
+  func method(enumType: EnumType) -> Bool
+  func method(stringType: String) -> Bool
+  func method(boolType: Bool) -> Bool
+  func method<P: BaseProtocol>(protocolType: P) -> Bool
+  func method(metaType: ClassType.Type) -> Bool
+  func method(anyType: Any) -> Bool
+  func method(anyObjectType: AnyObject) -> Bool
   
-  func method<P: BaseProtocol>(optionalStructType: StructType?,
-                               optionalClassType: ClassType?,
-                               optionalEnumType: EnumType?,
-                               optionalStringType: String?,
-                               optionalBoolType: Bool?,
-                               optionalProtocolType: P?,
-                               optionalMetaType: ClassType.Type?,
-                               optionalAnyType: Any?,
-                               optionalAnyObjectType: AnyObject?) -> Bool
+  func method(optionalStructType: StructType?) -> Bool
+  func method(optionalClassType: ClassType?) -> Bool
+  func method(optionalEnumType: EnumType?) -> Bool
+  func method(optionalStringType: String?) -> Bool
+  func method(optionalBoolType: Bool?) -> Bool
+  func method<P: BaseProtocol>(optionalProtocolType: P?) -> Bool
+  func method(optionalMetaType: ClassType.Type?) -> Bool
+  func method(optionalAnyType: Any?) -> Bool
+  func method(optionalAnyObjectType: AnyObject?) -> Bool
   
-  func method<T: FloatingPoint>(param: T) -> Bool
+  func method<T: FloatingPoint>(floatingPoint: T) -> Bool
 }
