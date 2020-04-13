@@ -48,7 +48,7 @@ class VariableTemplate: Template {
         set {
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: [ArgumentMatcher(newValue)])
           \(contextPrefix)mockingContext.didInvoke(invocation)
-          let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation, optional: true)
+          let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation)
           if let concreteImplementation = implementation as? (\(unwrappedSpecializedTypeName)) -> Void {
             concreteImplementation(newValue)
           } else {
@@ -63,7 +63,14 @@ class VariableTemplate: Template {
         get {
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
           \(contextPrefix)mockingContext.didInvoke(invocation)
-          return (\(contextPrefix)stubbingContext.implementation(for: invocation) as! () -> \(unwrappedSpecializedTypeName))()
+          let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation)
+          if let concreteImplementation = implementation as? () -> \(unwrappedSpecializedTypeName) {
+            return concreteImplementation()
+          } else if let defaultValue = \(contextPrefix)stubbingContext.defaultValueProvider.provideValue(for: (\(unwrappedSpecializedTypeName)).self) {
+            return defaultValue
+          } else {
+            fatalError(\(contextPrefix)stubbingContext.failTest(for: invocation))
+          }
         }\(setter)
       }
     """

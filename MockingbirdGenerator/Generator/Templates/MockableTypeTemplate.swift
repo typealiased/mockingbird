@@ -101,7 +101,7 @@ class MockableTypeTemplate: Template {
   lazy var runtimeGenericTypeNames: String = {
     let genericTypeSelfNames = mockableType.genericTypes
       .sorted(by: { $0.name < $1.name })
-      .map({ "\"\\(\($0.name).self)\"" })
+      .map({ "ObjectIdentifier(\($0.name).self).debugDescription" })
       .joined(separator: ", ")
     return "[\(genericTypeSelfNames)].joined(separator: \",\")"
   }()

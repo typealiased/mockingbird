@@ -311,18 +311,28 @@ class MethodTemplate: Template {
   lazy var stubbedImplementationCall: String = {
     let returnTypeName = specializedReturnTypeName.removingImplicitlyUnwrappedOptionals()
     let shouldReturn = !method.isInitializer && returnTypeName != "Void"
-    let returnStatement = shouldReturn ? "return " : ""
+    let returnStatement = !shouldReturn ? "" : "return "
+    let returnExpression = !shouldReturn ? "" : """
+     else if let defaultValue = \(contextPrefix)stubbingContext.defaultValueProvider.provideValue(for: (\(returnTypeName)).self) {
+          \(returnStatement)defaultValue
+        } else {
+          fatalError(\(contextPrefix)stubbingContext.failTest(for: invocation))
+        }
+    """
+    
     let implementationType = "(\(methodParameterTypes)) \(returnTypeAttributesForMatching)-> \(returnTypeName)"
-    let optionalImplementation = shouldReturn ? "false" : "true"
-    let typeCaster = shouldReturn ? "as!" : "as?"
-    let invocationOptional = shouldReturn ? "" : "?"
+    let noArgsImplementationType = "() \(returnTypeAttributesForMatching)-> \(returnTypeName)"
+    
+    // 1. Stubbed implementation with args
+    // 2. Stubbed implementation without args
+    // 3. Fakeable default value fallback
     return """
-        let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation, optional: \(optionalImplementation))
+        let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation)
         if let concreteImplementation = implementation as? \(implementationType) {
           \(returnStatement)\(tryInvocation)concreteImplementation(\(methodParameterNamesForInvocation))
-        } else {
-          \(returnStatement)\(tryInvocation)(implementation \(typeCaster) () \(returnTypeAttributesForMatching)-> \(returnTypeName))\(invocationOptional)()
-        }
+        } else if let concreteImplementation = implementation as? \(noArgsImplementationType) {
+          \(returnStatement)\(tryInvocation)concreteImplementation()
+        }\(returnExpression)
     """
   }()
   
