@@ -19,6 +19,20 @@ public class MockingContext {
     self.invocations = other.invocations
   }
   
+  // Ensures that the stubbed return expression was evaluated prior to recording the invocation.
+  func didInvoke<T>(_ invocation: Invocation, returning expression: () throws -> T) rethrows -> T {
+    let evaluatedExpression = try expression()
+    didInvoke(invocation)
+    return evaluatedExpression
+  }
+  
+  // Ensures that the stubbed return expression was evaluated prior to recording the invocation.
+  func didInvoke<T>(_ invocation: Invocation, returning expression: () -> T) -> T {
+    let evaluatedExpression = expression()
+    didInvoke(invocation)
+    return evaluatedExpression
+  }
+    
   func didInvoke(_ invocation: Invocation) {
     allInvocations.value.append(invocation)
     invocations.value[invocation.selectorName, default: []].append(invocation)

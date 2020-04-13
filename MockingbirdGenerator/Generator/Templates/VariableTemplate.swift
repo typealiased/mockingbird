@@ -62,14 +62,15 @@ class VariableTemplate: Template {
       \(override)public \(modifiers)var `\(variable.name)`: \(specializedTypeName) {
         get {
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [])
-          \(contextPrefix)mockingContext.didInvoke(invocation)
-          let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation)
-          if let concreteImplementation = implementation as? () -> \(unwrappedSpecializedTypeName) {
-            return concreteImplementation()
-          } else if let defaultValue = \(contextPrefix)stubbingContext.defaultValueProvider.provideValue(for: (\(unwrappedSpecializedTypeName)).self) {
-            return defaultValue
-          } else {
-            fatalError(\(contextPrefix)stubbingContext.failTest(for: invocation))
+          return \(contextPrefix)mockingContext.didInvoke(invocation) { () -> \(unwrappedSpecializedTypeName) in
+            let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation)
+            if let concreteImplementation = implementation as? () -> \(unwrappedSpecializedTypeName) {
+              return concreteImplementation()
+            } else if let defaultValue = \(contextPrefix)stubbingContext.defaultValueProvider.provideValue(for: (\(unwrappedSpecializedTypeName)).self) {
+              return defaultValue
+            } else {
+              fatalError(\(contextPrefix)stubbingContext.failTest(for: invocation))
+            }
           }
         }\(setter)
       }

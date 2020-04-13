@@ -9,7 +9,7 @@ import XCTest
 import Mockingbird
 @testable import MockingbirdTestsHost
 
-class DefaultValueProviderTests: XCTestCase {
+class DefaultValueProviderTests: BaseTestCase {
   
   var concreteMock: FakeableTypeReferencerMock!
   var concreteInstance: FakeableTypeReferencer { return concreteMock }
@@ -91,6 +91,17 @@ class DefaultValueProviderTests: XCTestCase {
     verify(concreteMock.fakeableInt()).wasCalled()
   }
   
+  // MARK: - Resetting
+  
+  func testClearDefaultValues() {
+    shouldFail {
+      let valueProvider = ValueProvider().register(42, for: Int.self)
+      useDefaultValues(from: valueProvider, on: self.concreteMock)
+      clearDefaultValues(on: self.concreteMock)
+      _ = self.concreteInstance.fakeableInt()
+    }
+  }
+  
   // MARK: - Multiple registration
 
   func testChainedFakeableRegistration() {
@@ -119,6 +130,16 @@ class DefaultValueProviderTests: XCTestCase {
     verify(concreteMock.fakeableInt()).wasCalled()
   }
   
+  func testRemovePreviousFakeableRegistration() {
+    shouldFail {
+      let valueProvider = ValueProvider()
+        .register(42, for: Int.self)
+        .removeValue(for: Int.self)
+      useDefaultValues(from: valueProvider, on: self.concreteMock)
+      _ = self.concreteInstance.fakeableInt()
+    }
+  }
+
   func testApplyValueProviderToMultipleMocks() {
     let valueProvider = ValueProvider()
       .register(42, for: Int.self)
@@ -150,6 +171,26 @@ class DefaultValueProviderTests: XCTestCase {
     XCTAssertEqual(concreteInstance.fakeableInt(), Int())
     verify(concreteMock.fakeableArray()).wasCalled()
     verify(concreteMock.fakeableInt()).wasCalled()
+  }
+  
+  func testRemoveSubprovider() {
+    shouldFail {
+      let valueProvider = ValueProvider()
+        .addSubprovider(.collectionsProvider)
+        .removeSubprovider(.collectionsProvider)
+      useDefaultValues(from: valueProvider, on: self.concreteMock)
+      _ = self.concreteInstance.fakeableArray()
+    }
+  }
+  
+  func testRemoveAndReaddSubprovider() {
+    let valueProvider = ValueProvider()
+      .addSubprovider(.collectionsProvider)
+      .removeSubprovider(.collectionsProvider)
+      .addSubprovider(.collectionsProvider)
+    useDefaultValues(from: valueProvider, on: concreteMock)
+    XCTAssertEqual(concreteInstance.fakeableArray(), [])
+    verify(concreteMock.fakeableArray()).wasCalled()
   }
   
   // MARK: - Precedence
@@ -251,5 +292,42 @@ class DefaultValueProviderTests: XCTestCase {
     XCTAssertEqual(tuple.3, Double())
     XCTAssertEqual(tuple.4, Float())
     XCTAssertEqual(tuple.5, UInt())
+  }
+  
+  // MARK: - Only explicit inclusion
+  
+  func testPrimitivesTypeGroup_excludesStringTypes() {
+    shouldFail {
+      useDefaultValues(from: .primitivesProvider, on: self.concreteMock)
+      _ = self.concreteInstance.fakeableString()
+    }
+  }
+  
+  func testPrimitivesTypeGroup_excludesCollectionTypes() {
+    shouldFail {
+      useDefaultValues(from: .primitivesProvider, on: self.concreteMock)
+      _ = self.concreteInstance.fakeableArray()
+    }
+  }
+  
+  func testStringsTypeGroup_excludesCollectionTypes() {
+    shouldFail {
+      useDefaultValues(from: .stringsProvider, on: self.concreteMock)
+      _ = self.concreteInstance.fakeableArray()
+    }
+  }
+  
+  func testCollectionsTypeGroup_excludesPrimitiveTypes() {
+    shouldFail {
+      useDefaultValues(from: .collectionsProvider, on: self.concreteMock)
+      _ = self.concreteInstance.fakeableBool()
+    }
+  }
+  
+  func testCommonTypeGroup_excludesCustomClassType() {
+    shouldFail {
+      useDefaultValues(from: .standardProvider, on: self.concreteMock)
+      _ = self.concreteInstance.fakeableClass()
+    }
   }
 }

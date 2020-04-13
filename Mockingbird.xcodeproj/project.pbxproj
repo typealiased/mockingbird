@@ -79,7 +79,7 @@
 		D320BA832416225800B1F8CC /* OrderedVerificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D320BA822416225800B1F8CC /* OrderedVerificationTests.swift */; };
 		D320BA85241A0BC300B1F8CC /* XCTFailSwizzler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D320BA84241A0BC300B1F8CC /* XCTFailSwizzler.swift */; };
 		D320BA87241A0F1700B1F8CC /* XFailTestFailer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D320BA86241A0F1700B1F8CC /* XFailTestFailer.swift */; };
-		D320BA8A241A129300B1F8CC /* XFailBaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D320BA89241A129300B1F8CC /* XFailBaseTestCase.swift */; };
+		D320BA8A241A129300B1F8CC /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D320BA89241A129300B1F8CC /* BaseTestCase.swift */; };
 		D344E0F8241B1AFC00E3E7E1 /* XFailOrderedVerificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D344E0F7241B1AFC00E3E7E1 /* XFailOrderedVerificationTests.swift */; };
 		D35B2BE6242AEDCC001AC612 /* Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35B2BE5242AEDCC001AC612 /* Single.swift */; };
 		D35B2BE8242AEDDE001AC612 /* Tuple.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35B2BE7242AEDDE001AC612 /* Tuple.swift */; };
@@ -1031,7 +1031,7 @@
 		D320BA822416225800B1F8CC /* OrderedVerificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedVerificationTests.swift; sourceTree = "<group>"; };
 		D320BA84241A0BC300B1F8CC /* XCTFailSwizzler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTFailSwizzler.swift; sourceTree = "<group>"; };
 		D320BA86241A0F1700B1F8CC /* XFailTestFailer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XFailTestFailer.swift; sourceTree = "<group>"; };
-		D320BA89241A129300B1F8CC /* XFailBaseTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XFailBaseTestCase.swift; sourceTree = "<group>"; };
+		D320BA89241A129300B1F8CC /* BaseTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
 		D344E0F7241B1AFC00E3E7E1 /* XFailOrderedVerificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XFailOrderedVerificationTests.swift; sourceTree = "<group>"; };
 		D35B2BE5242AEDCC001AC612 /* Single.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Single.swift; sourceTree = "<group>"; };
 		D35B2BE7242AEDDE001AC612 /* Tuple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tuple.swift; sourceTree = "<group>"; };
@@ -1743,7 +1743,7 @@
 			isa = PBXGroup;
 			children = (
 				D320BA86241A0F1700B1F8CC /* XFailTestFailer.swift */,
-				D320BA89241A129300B1F8CC /* XFailBaseTestCase.swift */,
+				D320BA89241A129300B1F8CC /* BaseTestCase.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -4189,7 +4189,7 @@
 				OBJ_836 /* UndefinedArgumentLabelsStubbableTests.swift in Sources */,
 				OBJ_837 /* VariablesMockableTests.swift in Sources */,
 				D388BD7D2447DB9600EBAB2E /* SubstitutionStyleTests.swift in Sources */,
-				D320BA8A241A129300B1F8CC /* XFailBaseTestCase.swift in Sources */,
+				D320BA8A241A129300B1F8CC /* BaseTestCase.swift in Sources */,
 				OBJ_838 /* VariablesStubbableTests.swift in Sources */,
 				4904BDF3232F18A10031E071 /* InitializersMockableTests.swift in Sources */,
 				9491825023F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift in Sources */,

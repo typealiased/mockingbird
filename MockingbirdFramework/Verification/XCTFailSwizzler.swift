@@ -9,7 +9,7 @@ import Foundation
 import XCTest
 
 public protocol TestFailer {
-  func fail(message: String, file: StaticString, line: UInt)
+  func fail(message: String, isFatal: Bool, file: StaticString, line: UInt)
 }
 
 public func swizzleTestFailer(_ newTestFailer: TestFailer) {
@@ -20,15 +20,21 @@ public func swizzleTestFailer(_ newTestFailer: TestFailer) {
   }
 }
 
-public func MKBFail(_ message: String, file: StaticString = #file, line: UInt = #line) {
-  testFailer.fail(message: message, file: file, line: line)
+public func MKBFail(_ message: String, isFatal: Bool = false,
+                    file: StaticString = #file, line: UInt = #line) {
+  testFailer.fail(message: message, isFatal: isFatal, file: file, line: line)
 }
 
 // MARK: - Internal
 
 private class StandardTestFailer: TestFailer {
-  func fail(message: String, file: StaticString, line: UInt) {
-    XCTFail(message, file: file, line: line)
+  func fail(message: String, isFatal: Bool, file: StaticString, line: UInt) {
+    _ = isFatal ? TestKiller() : nil
+    if Thread.current.isMainThread {
+      XCTFail(message, file: file, line: line)
+    } else {
+      DispatchQueue.main.sync { XCTFail(message, file: file, line: line) }
+    }
   }
 }
 
