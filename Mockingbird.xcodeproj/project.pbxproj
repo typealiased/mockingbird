@@ -93,6 +93,7 @@
 		D388BD792447D6F700EBAB2E /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388BD782447D6F700EBAB2E /* Target.swift */; };
 		D388BD7B2447D7F700EBAB2E /* PBXTarget+TargetConformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388BD7A2447D7F700EBAB2E /* PBXTarget+TargetConformance.swift */; };
 		D388BD7D2447DB9600EBAB2E /* SubstitutionStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388BD7C2447DB9600EBAB2E /* SubstitutionStyleTests.swift */; };
+		D388BD472446F00200EBAB2E /* SequentialValueStubbingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388BD452446EFB000EBAB2E /* SequentialValueStubbingTests.swift */; };
 		D3E4CFCB240B424E0047BBEC /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4CFCA240B424E0047BBEC /* ObjectiveC.swift */; };
 		D3E4CFD0240B48F30047BBEC /* MockingbirdModuleTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdModuleTestsHost::Product" /* MockingbirdModuleTestsHost.framework */; };
 		D3E4CFD2240B49390047BBEC /* MockingbirdTestsHost.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E4CFC7240B3FCD0047BBEC /* MockingbirdTestsHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1045,6 +1046,7 @@
 		D388BD782447D6F700EBAB2E /* Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
 		D388BD7A2447D7F700EBAB2E /* PBXTarget+TargetConformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBXTarget+TargetConformance.swift"; sourceTree = "<group>"; };
 		D388BD7C2447DB9600EBAB2E /* SubstitutionStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstitutionStyleTests.swift; sourceTree = "<group>"; };
+		D388BD452446EFB000EBAB2E /* SequentialValueStubbingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequentialValueStubbingTests.swift; sourceTree = "<group>"; };
 		D3E4CFC7240B3FCD0047BBEC /* MockingbirdTestsHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MockingbirdTestsHost.h; sourceTree = "<group>"; };
 		D3E4CFCA240B424E0047BBEC /* ObjectiveC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
 		D3E4CFD6240B4CE10047BBEC /* ExternalModuleImplicitlyImportedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleImplicitlyImportedTypes.swift; sourceTree = "<group>"; };
@@ -1943,6 +1945,7 @@
 				OBJ_181 /* LastSetValueStubTests.swift */,
 				D320BA822416225800B1F8CC /* OrderedVerificationTests.swift */,
 				OBJ_182 /* OverloadedMethodTests.swift */,
+				D388BD452446EFB000EBAB2E /* SequentialValueStubbingTests.swift */,
 				OBJ_183 /* StubbingTests.swift */,
 				D320BA88241A127E00B1F8CC /* Utilities */,
 				OBJ_184 /* VariadicParametersTests.swift */,
@@ -4190,6 +4193,7 @@
 				OBJ_837 /* VariablesMockableTests.swift in Sources */,
 				D388BD7D2447DB9600EBAB2E /* SubstitutionStyleTests.swift in Sources */,
 				D320BA8A241A129300B1F8CC /* BaseTestCase.swift in Sources */,
+				D388BD472446F00200EBAB2E /* SequentialValueStubbingTests.swift in Sources */,
 				OBJ_838 /* VariablesStubbableTests.swift in Sources */,
 				4904BDF3232F18A10031E071 /* InitializersMockableTests.swift in Sources */,
 				9491825023F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift in Sources */,

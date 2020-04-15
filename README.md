@@ -243,7 +243,7 @@ Getters can be stubbed to automatically save and return values.
 ```swift
 given(bird.getName()) ~> lastSetValue(initial: "Ryan")
 bird.name = "Sterling"
-print(bird.name)  // Prints "Sterling""
+print(bird.name)  // Prints "Sterling"
 ```
 
 #### Complex Stubs and Throwing Errors
@@ -307,6 +307,18 @@ Mockingbird provides several preset value providers which are guaranteed to be b
 let bird = mock(Bird.self)
 useDefaultValues(from: .standardProvider, on: bird)
 print(bird.name)  // Prints ""
+```
+
+#### Sequence of Values (0.12.0)
+
+Methods that return a different value each time can be stubbed with a sequence of values. The last value will be used
+for all subsequent invocations.
+
+```swift
+given(bird.getName()) ~> sequence(of: "Ryan", "Sterling")
+print(bird.name)  // Prints "Ryan"
+print(bird.name)  // Prints "Sterling"
+print(bird.name)  // Prints "Sterling"
 ```
 
 ### Verification

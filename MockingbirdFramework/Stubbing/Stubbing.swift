@@ -23,10 +23,11 @@ public struct Stub<I, R> {
   }
 }
 
-/// Used to add side effects to stubbing, such as stubbing a setter when stubbing a getter.
+/// Used for creating wrapped stub implementations that can also add side effects to stubbing, such
+/// as stubbing a setter when stubbing a getter.
 public struct StubImplementation<I, R> {
-  let handler: I
-  let callback: (StubbingContext.Stub, StubbingContext) -> Void
+  let handler: Any
+  let callback: ((StubbingContext.Stub, StubbingContext) -> Void)?
 }
 
 /// Convenience method for ignoring all parameters while stubbing.
