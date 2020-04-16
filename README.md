@@ -583,13 +583,13 @@ Generate mocks for a set of targets in a project.
 
 ### Install
 
-Set up a destination (unit test) target.
+Set up a destination test target.
 
 `mockingbird install`
 
 | Option | Default Value | Description |
 | --- | --- | --- |
-| `--target` | *(required)* | The target name where Mockingbird will be installed. |
+| `--target` | *(required)* | The name of a test target to configure. |
 | `--sources` | *(required)* | List of target names to generate mocks for. |
 | `--project` | [`(inferred)`](#--project) | Your project’s `.xcodeproj` file. |
 | `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |

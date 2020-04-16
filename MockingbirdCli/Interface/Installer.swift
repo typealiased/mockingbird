@@ -296,7 +296,7 @@ class Installer {
       return PBXShellScriptBuildPhase(name: Constants.buildPhaseName,
                                       inputPaths: ["\(cacheBreakerPath.absolute())"],
                                       outputPaths: outputPaths.map({
-                                        $0.getRelativePath(to: config.sourceRoot, style: .xcode)
+                                        $0.getRelativePath(to: config.sourceRoot, style: .make)
                                       }),
                                       shellScript: shellScript)
   }
@@ -319,16 +319,6 @@ class Installer {
 }
 
 extension Path {
-  enum SubstitutionStyle {
-    case xcode, bash
-    func wrap(_ value: String) -> String {
-      switch self {
-      case .xcode: return "$(\(value))"
-      case .bash: return "${\(value)}"
-      }
-    }
-  }
-  
   func getRelativePath(to sourceRoot: Path,
                        style: SubstitutionStyle,
                        shouldNormalize: Bool = true) -> String {
