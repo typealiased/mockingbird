@@ -1,10 +1,12 @@
-# Mockingbird
+<p align="center">
+  <img src="/Images/mockingbird-hero-image.png" alt="Mockingbird - Swift Mocking Framework" width="350">
+</p>
 
-[![Package managers](https://img.shields.io/badge/package-cocoapods%20|%20carthage%20|%20spm-4BC51D.svg)](#installation)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-[![Slack](https://img.shields.io/badge/slack-join%20channel-A417A6.svg)](https://slofile.com/slack/birdopensource)
-
-Mockingbird is a convenient mocking framework for Swift.
+<p align="center">
+  <a href="#installation"><img src="https://img.shields.io/badge/package-cocoapods%20%7C%20carthage%20%7C%20spm-4BC51D.svg" alt="Package managers"></a>
+  <a href="/andrewchang-bird/mockingbird/blob/add-readme-logo/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+  <a href="https://slofile.com/slack/birdopensource" rel="nofollow"><img src="https://img.shields.io/badge/slack-join%20channel-A417A6.svg" alt="Slack"></a>
+</p>
 
 ```swift
 // Mocking
@@ -17,18 +19,28 @@ given(bird.getName()) ~> "Ryan"
 verify(bird.fly()).wasCalled()
 ```
 
----
+## What is Mockingbird?
 
-## Overview
+Mockingbird is a Swift mocking framework that lets you throw away your hand-written mocks and write clean,
+readable tests.
 
-Mockingbird uses code generation to create overridable mocks and stubs with similar semantics to [Mockito](https://site.mockito.org).
+- **Expansive coverage of Swift language features**
+  - Mock classes and protocols in a single line of code
+  - Support for generics, inheritance, static members, nested classes, type aliasing, etc.
+- **Seamless integration with Xcode projects**
+  - Automatic discovery of source and dependency files
+  - Handling of external types from third-party libraries
+- **Convenient testing API**
+  - Clear stubbing and verification error messages
+  - Support for asynchronous code, in order verification, default return value stubbing, etc.
 
-At a high level, Mockingbird consists of two main components: the generator and the testing framework. Before each
-test bundle compilation, the generator creates an intermediary layer that implements protocols and subclasses
-classes. The testing framework provides hooks into the intermediary layer for mocking, stubbing, and verification
-during test runs.
+### Under the Hood
 
-Let’s start with a simple example!
+Mockingbird consists of two main components: the _generator_ and the _testing framework_. Before each test bundle
+compilation, configurable mock objects are created by implementing protocols and subclassing classes. The testing
+framework hooks into the generated code and provides APIs for mocking, stubbing, and verification.
+
+### A Simple Example
 
 ```swift
 protocol Bird {
@@ -50,16 +62,16 @@ class Tree {
 }
 
 func testShakingTreeCausesBirdToFly() {
-  // Given
+  // Given a tree with a bird that can fly
   let bird = mock(Bird.self)
-  let tree = Tree(with: bird) // a tree with a bird
-  given(bird.getCanFly()) ~> true // that can fly
+  let tree = Tree(with: bird)
+  given(bird.getCanFly()) ~> true
   
-  // When
-  tree.shake() // the tree is shaken
+  // When the tree is shaken
+  tree.shake()
   
-  // Then
-  verify(bird.fly()).wasCalled() // the bird flies away
+  // Then the bird flies away
+  verify(bird.fly()).wasCalled()
 }
 ```
 
@@ -97,7 +109,7 @@ Add the framework to your `Cartfile`.
 github "birdrides/mockingbird" ~> 0.11.0
 ```
 
-Build the framework using Carthage and [link it to your test target](Documentation/LinkingTestTargets.md), making
+Build the framework using Carthage and [link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets), making
 sure to add the framework to a Copy Files build phase with the destination set to `Frameworks`.
 
 ```bash
@@ -122,7 +134,7 @@ Then download and install the
 
 Clone the repository and build the `MockingbirdFramework` scheme for the desired platform. Drag the built 
 `Mockingbird.framework` product into your project and 
-[link it to your test target](Documentation/LinkingTestTargets.md).
+[link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets).
 
 ```bash
 $ git clone https://github.com/birdrides/mockingbird.git
@@ -148,7 +160,7 @@ $ mockingbird install \
   --sources Bird BirdManagers
 ```
 
-Need to [set up your project manually](Documentation/ManualSetup.md)?
+Need to [set up your project manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup)?
 
 ### System Framework Compatibility
 
@@ -229,9 +241,9 @@ given(bird.setName(any())) ~> { print($0) }
 Getters can be stubbed to automatically save and return values.
 
 ```swift
-given(bird.getName()) ~> lastSetValue(initial: "One")
-bird.name = "Two"
-assert(bird.name == "Two")
+given(bird.getName()) ~> lastSetValue(initial: "Ryan")
+bird.name = "Sterling"
+print(bird.name)  // Prints "Sterling""
 ```
 
 #### Complex Stubs and Throwing Errors
@@ -511,7 +523,7 @@ public typealias Codable = Decodable & Encodable
 ```
 
 Supporting source files do not allow you to generate mocks for external types such as those defined in third-party
-libraries or frameworks. Please see [Mocking External Types](/Documentation/MockingExternalTypes.md) for
+libraries or frameworks. Please see [Mocking External Types](https://github.com/birdrides/mockingbird/wiki/Mocking-External-Types) for
 details and best practices.
 
 ### Starter Pack
@@ -632,86 +644,10 @@ By default Mockingbird will generate mocks into the `$(SRCROOT)/MockingbirdMocks
 Mockingbird will recursively look for [supporting source files](#supporting-source-files) in the
 `$(SRCROOT)/MockingbirdSupport` directory.
 
-## Troubleshooting
-
-### Mocks don’t exist or are out of date 
-
-Mocks are generated when the test target is built and run. Run tests once and check that generated mock files
-appear in `$(SRCROOT)/MockingbirdMocks` and are not empty. If nothing is generated or the files contain no
-mocks then something is wrong with the installation.
-
-- [Check the configured build phase](#debugging-a-configured-build-phase)
-- [Check the generator logs](#debugging-the-generator)
-
-### Generated mock does not compile
-
-Ensure that the project has [supporting source files](#supporting-source-files). Common compiler errors from not
-having supporting source files:
-
-- `MyTypeMock` does not conform to protocol `NSObjectProtocol`
-- Superclass must appear first in the inheritance clause
-- `Type` can only be used as a generic constraint because it has `Self` or associated type requirements
-
-If there are supporting source files and the error is related to inheritance, you may need to add a new supporting
-source file with definitions for the inherited type.
-
-If the issue is unrelated to inheritance, you may have found a [generator bug](#debugging-the-generator). If all else
-fails, [exclude the problematic source file](#excluding-files) and
-[file an issue](https://github.com/birdrides/mockingbird/issues/new/choose).
-
-### Supporting source files do not compile
-
-Supporting source files should not be imported into Xcode. If you want to use Xcode to add or modify supporting
-source files, make sure they are not added as sources to any targets.
-
-### Mocks are not generated for external types in third-party frameworks or libraries
-
-Please see [Mocking External Types](/Documentation/MockingExternalTypes.md) for details and best practices.
-
-### Editor placeholder in source file warning
-
-Generated mocks will contain the editor placeholder `__UnknownType__` for types that could not be inferred.
-Help the generator by adding
-[explicit type annotations](https://docs.swift.org/swift-book/ReferenceManual/Types.html#ID446) to the definition.
-
-### Cannot call stubbing or verification functions
-
-Ensure that Mockingbird is imported at the top of the test file.
-
-### Expression type is ambiguous without more context error
-
-This usually happens when trying to stub or verify a mock that was explicitly coerced into its supertype. Make sure
-the variable storing the mock has the concrete mock type, e.g. `MyTypeMock` instead of `MyType`.
-
-### Tests crash with an unable to load framework, image not found error
-
-Link Mockingbird and ensure that it’s included in the test bundle by
-[adding it to the Copy Files build phase](Documentation/LinkingTestTargets.md).
-
-### Unable to stub or verify methods with arguments
-
-Ensure that all parameter types explicitly conform to `Equatable` or work when compared by reference. Note that
-`struct` types that implicitly conform to `Equatable` have undefined behavior. Use a wildcard
-[argument matcher](#argument-matching) such as `any()` or `any(where:)` to match non-equatable or implicitly
-equatable types.
-
-### Debugging a configured build phase
-
-Open the test target
-[build phase](https://developer.apple.com/library/archive/documentation/ToolsLanguages/Conceptual/Xcode_Overview/WorkingwithTargets.html)
-and expand the build phase named `Generate Mockingbird Mocks`. If no phase exists or the listed targets seem incorrect, [set up](#setup) the test target again.
-
-### Debugging the generator
-
-Open the
-[Xcode report navigator](https://developer.apple.com/library/archive/documentation/ToolsLanguages/Conceptual/Xcode_Overview/NavigatingYourWorkspace.html)
-and select the Build entry for the most recent test run. Find the log message for
-`Run custom shell script 'Generate Mockingbird Mocks'` and check for any relevant warnings or errors.
-To increase the log verbosity, specify `--verbose` in the
-[configured build phase](#debugging-a-configured-build-phase).
-
 ## Additional Resources
 
+- [Troubleshooting](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
 - [Slack channel](https://slofile.com/slack/birdopensource)
+- [Mockingbird wiki](https://github.com/birdrides/mockingbird/wiki/)
 - [CocoaPods tutorial + example project](/Examples/iOSMockingbirdExample-CocoaPods)
 - [Carthage tutorial + example project](/Examples/iOSMockingbirdExample-Carthage)

@@ -75,11 +75,11 @@ Open the Xcode project.
 $ open iOSMockingbirdExample-Carthage.xcodeproj
 ```
 
-Take a peek at the example test and sources and then run the tests (⌘+U).:
+Take a peek at the example test and sources and then run the tests (⌘+U):
 
 - [`TreeTests.swift`](iOSMockingbirdExample-CarthageTests/TreeTests.swift)
 - [`Tree.swift`](iOSMockingbirdExample-Carthage/Tree.swift)
 - [`Bird.swift`](iOSMockingbirdExample-Carthage/Bird.swift)
 
 Bonus: look at the contents of 
-[`.mockingbird-ignore`](iOSMockingbirdExample-CarthageTests/.mockingbird-ignore). 
+[`.mockingbird-ignore`](iOSMockingbirdExample-Carthage/.mockingbird-ignore). 
