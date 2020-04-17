@@ -206,6 +206,8 @@ Stubbing allows you to define a custom value to return when a mocked method is c
 given(bird.getName()) ~> "Ryan"
 ```
 
+#### Methods with Parameters
+
 You can use an [argument matcher](#argument-matching) when stubbing methods with parameters. Stubs added 
 later have precedence over those added earlier, so stubs containing specific matchers should be added last.
 
@@ -214,6 +216,8 @@ given(bird.canChirp(volume: any())) ~> false    // Matches any volume
 given(bird.canChirp(volume: notNil())) ~> true  // Matches any non-nil volume
 given(bird.canChirp(volume: 10)) ~> false       // Matches volume = 10
 ```
+
+#### Variables
 
 Stub variables with their getter and setter methods.
 
@@ -230,6 +234,8 @@ bird.name = "Two"
 assert(bird.name == "Two")
 ```
 
+#### Complex Stubs and Throwing Errors
+
 Use a closure to implement complex stubs that contain logic or that interact with arguments. 
 
 ```swift
@@ -238,7 +244,7 @@ given(bird.chirp(volume: any(), callback: any())) ~> { volume, callback in
 }
 ```
 
-Closures also allow for stubbing methods that can throw.
+Closures also allow for stubbing methods that can throw errors.
 
 ```swift
 given(bird.chirp(volume: any())) ~> { volume in
@@ -248,13 +254,47 @@ given(bird.chirp(volume: any())) ~> { volume in
 }
 ```
 
-It’s possible to stub multiple methods with the same return type in a single call.
+#### Relaxed Stubbing with Default Values (0.12.0)
+
+Mocks are strict by default, meaning that calls to unstubbed methods will trigger a test failure. Methods returning
+`Void` do not need to be stubbed in strict mode.
 
 ```swift
-given(
-  birdOne.getName(),
-  birdTwo.getName()
-) ~> "Ryan"
+let bird = mock(Bird.self)
+print(bird.name)  // Fails because `bird.getName()` is not stubbed
+bird.fly()        // Okay because `fly()` has a `Void` return type
+```
+
+To return default values for unstubbed methods, use a `ValueProvider` with the initialized mock. Default values
+have a lower precedence than values returned from concrete stubs.
+
+```swift
+let valueProvider = ValueProvider().register("Ryan", for: String.self)
+let bird = mock(Bird.self)
+useDefaultValues(from: valueProvider, on: bird)
+print(bird.name)  // Prints "Ryan"
+
+// Values from concrete stubs have a higher precedence 
+given(bird.getName()) ~> "Sterling"
+print(bird.name)  // Prints "Sterling"
+```
+
+Mockingbird provides several preset value providers which are guaranteed to be backwards compatible.
+
+```
+.standardProvider
+├── .collectionsProvider
+├── .primitivesProvider
+├── .basicsProvider
+├── .geometryProvider
+├── .stringsProvider
+└── .datesProvider
+```
+
+```swift
+let bird = mock(Bird.self)
+useDefaultValues(from: .standardProvider, on: bird)
+print(bird.name)  // Prints ""
 ```
 
 ### Verification
@@ -264,6 +304,34 @@ Verification lets you assert that a mock received a particular invocation during
 ```swift
 verify(bird.fly()).wasCalled()
 ```
+
+Verifying doesn’t remove recorded invocations, so it’s safe to call verify multiple times (even if not recommended).
+
+```swift
+verify(bird.fly()).wasCalled()  // If this succeeds...
+verify(bird.fly()).wasCalled()  // ...this also succeeds
+```
+
+#### Methods with Parameters
+
+[Argument matching](#argument-matching) for verification follows the same syntax as stubbing.
+
+```swift
+verify(bird.canChirp(volume: any())).wasCalled()     // Called with any volume
+verify(bird.canChirp(volume: notNil())).wasCalled()  // Called with any non-nil volume
+verify(bird.canChirp(volume: 10)).wasCalled()        // Called with volume = 10
+```
+
+#### Variables
+
+Verify variable invocations using their getter and setter methods.
+
+```swift
+verify(bird.getName()).wasCalled()
+verify(bird.setName(any())).wasCalled()
+```
+
+#### Specific Number of Invocations
 
 It’s possible to verify that an invocation was called a specific number of times with a count matcher.
 
@@ -282,7 +350,9 @@ verify(bird.fly()).wasCalled(not(exactly(10)))           // n ≠ 10
 verify(bird.fly()).wasCalled(exactly(10).or(atMost(5)))  // n = 10 || n ≤ 5
 ```
 
-Sometimes you need to perform custom checks on received parameters by using an argument captor.
+#### Argument Capturing
+
+Sometimes you need to perform custom checks on argument values by using an argument captor.
 
 ```swift
 let nameCaptor = ArgumentCaptor<String>()
@@ -290,15 +360,28 @@ verify(bird.setName(nameCaptor.matcher)).wasCalled()
 assert(nameCaptor.value?.hasPrefix("R"))
 ```
 
+#### Ordered Invocations
+
 To enforce the relative order of invocations, use an `inOrder` block.
 
 ```swift
-// Check that `fly` was called before `chirp`
+// Verify that `fly` was called before `chirp`
 inOrder {
   verify(bird.fly()).wasCalled()
   verify(bird.chirp()).wasCalled()
 }
 ```
+
+Pass options to ordered verification blocks for stricter checks with additional invariants.
+
+```swift
+inOrder(with: .noInvocationsAfter) {
+  verify(bird.fly()).wasCalled()
+  verify(bird.chirp()).wasCalled()
+}
+```
+
+#### Asynchronous Verification
 
 You can test asynchronous code by using an `eventually` block which returns an `XCTestExpectation`. 
 
@@ -313,12 +396,7 @@ let expectation = eventually {
 wait(for: [expectation], timeout: 1.0)
 ```
 
-Verifying doesn’t remove recorded invocations, so it’s safe to call verify multiple times (even if not recommended).
-
-```swift
-verify(bird.fly()).wasCalled()  // If this succeeds...
-verify(bird.fly()).wasCalled()  // ...this also succeeds
-```
+#### Disambiguating Overloaded Return Types
 
 For methods overloaded by return type, you should help the compiler by specifying the type returned.
 
@@ -337,15 +415,20 @@ verify(bird.getMessage()).returning(String.self).wasCalled()
 Occasionally it’s necessary to remove stubs or clear recorded invocations.
 
 ```swift
-reset(bird)                 // Removes all stubs and recorded invocations
-clearStubs(on: bird)        // Only removes stubs
-clearInvocations(on: bird)  // Only removes recorded invocations
+reset(bird)                    // Removes all stubs, values, and invocations
+clearStubs(on: bird)           // Only removes stubs
+clearDefaultValues(on: bird)   // Only removes default values
+clearInvocations(on: bird)     // Only removes recorded invocations
 ```
 
 ### Argument Matching
 
-Match arguments received by mocks for stubbing and verification. The parameter type must explicitly conform to
-`Equatable` or the arguments will be compared by reference.
+Argument matching allows you to handle parameterized methods for stubbing or verification.
+
+#### Exact Value
+
+Match specific values by passing a concrete instance. The parameter type must explicitly conform to `Equatable` or
+the arguments will be compared by reference.
 
 ```swift
 // Many Swift standard library types such as `String` conform to `Equatable`
@@ -367,7 +450,9 @@ let tree = Tree(with: bird)
 verify(bird.setHome(tree)).wasCalled()
 ```
 
-Argument matchers allow wildcard and custom matching of arguments.
+#### Wildcard and Non-Equatable Matching
+
+Argument matchers allow wildcard and custom matching of arguments that don’t conform to `Equatable`.
 
 ```swift
 any()                    // Matches any value
@@ -394,6 +479,8 @@ any(keys: "a", "b", "c")  // Matches any dictionary with keys {"a", "b", "c"}
 any(count: atMost(42))    // Matches any collection with at most 42 elements
 notEmpty()                // Matches any non-empty collection
 ```
+
+#### Floating Point Values
 
 Mathematical operations on floating point numbers can cause unexpected behavior, so consider using `around` to
 fuzzily match floating point arguments with some tolerance.

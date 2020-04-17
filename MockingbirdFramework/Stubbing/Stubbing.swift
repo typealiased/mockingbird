@@ -12,9 +12,6 @@ import XCTest
 /// The `~>` infix operator is also defined by Swift `stdlib/public/core/Policy.swift`.
 infix operator ~>
 
-/// Used for chained stubbing which doesn't work with `~>` because of the default precedence group.
-infix operator ~: AdditionPrecedence
-
 /// Intermediate stubbing object.
 public struct Stub<I, R> {
   let requests: [(stubbingContext: StubbingContext, invocation: Invocation)]

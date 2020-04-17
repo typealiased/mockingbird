@@ -15,6 +15,7 @@ public class StubbingContext {
     let implementation: Any?
   }
   var stubs = Synchronized<[String: [Stub]]>([:])
+  let defaultValueProvider = ValueProvider()
   var sourceLocation: SourceLocation?
   
   func swizzle(_ invocation: Invocation, with implementation: Any?) -> Stub {
@@ -22,19 +23,16 @@ public class StubbingContext {
     stubs.update { $0[invocation.selectorName, default: []].append(stub) }
     return stub
   }
+  
+  func failTest(for invocation: Invocation) -> String {
+    TestKiller().failTest(.missingStubbedImplementation(invocation: invocation), at: sourceLocation)
+    fatalError("Missing stubbed implementation for \(invocation), but unable to force XCTest case to fail")
+  }
 
-  func implementation(for invocation: Invocation, optional: Bool = false) -> Any? {
-    guard let stub = stubs.value[invocation.selectorName]?
-      .last(where: { $0.invocation == invocation })
-      else {
-        if !optional {
-          TestKiller().failTest(.missingStubbedImplementation(invocation: invocation),
-                                at: sourceLocation)
-          fatalError("Missing stubbed implementation, but unable to force XCTest case to fail")
-        }
-        return nil
-      }
-    return stub.implementation
+  func implementation(for invocation: Invocation) -> Any? {
+    return stubs.value[invocation.selectorName]?
+      .last(where: { $0.invocation == invocation })?
+      .implementation
   }
 
   func clearStubs() {
