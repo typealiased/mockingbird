@@ -16,7 +16,7 @@ class StubbingTests: XCTestCase {
   var childProtocol: ChildProtocolMock!
   
   override func setUp() {
-    child = mock(ChildMock.self)
+    child = mock(Child.self)
     childProtocol = mock(ChildProtocol.self)
   }
   
@@ -135,5 +135,23 @@ class StubbingTests: XCTestCase {
     given(childProtocol.childParameterizedInstanceMethod(param1: any(), any()))
       ~> { $0 && $1 == 1 }
     XCTAssertTrue(callParameterizedInstanceMethod(on: childProtocol))
+  }
+  
+  func testStubTrivialMethod_onClassMock_withExplicitClosure() {
+    given(child.childTrivialInstanceMethod()) ~> {}
+    callTrivialInstanceMethod(on: child)
+  }
+  func testStubTrivialMethod_onProtocolMock_withExplicitClosure() {
+    given(childProtocol.childTrivialInstanceMethod()) ~> {}
+    callTrivialInstanceMethod(on: childProtocol)
+  }
+  
+  func testStubNonParameterizedReturningMethod_onClassMock_withExplicitClosure() {
+    given(child.getChildComputedInstanceVariable()) ~> {true}
+    callTrivialInstanceMethod(on: child)
+  }
+  func testStubNonParameterizedReturningMethod_onProtocolMock_withExplicitClosure() {
+    given(childProtocol.getChildInstanceVariable()) ~> {true}
+    callTrivialInstanceMethod(on: childProtocol)
   }
 }

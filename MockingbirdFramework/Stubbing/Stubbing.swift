@@ -42,16 +42,6 @@ public func ~> <I, R>(stub: Stub<I, R>,
   addStub(stub, implementation: implementation)
 }
 
-/// Convenience method for ignoring all parameters while stubbing.
-///
-/// - Parameters:
-///   - stubbingScope: An internal stubbing scope.
-///   - implementation: The non-throwing implementation stub.
-public func ~> <I, R>(stub: Stub<I, R>,
-                      implementation: @escaping () -> R) {
-  addStub(stub, implementation: implementation)
-}
-
 /// Stub invocations to a mock taking into account the invocation (and its parameters).
 ///
 /// - Parameters:
