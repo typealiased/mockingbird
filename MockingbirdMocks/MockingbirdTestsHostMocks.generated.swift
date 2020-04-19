@@ -107,6 +107,201 @@ public func mock<EquatableType: Swift.Equatable>(_ type: AbstractSpecializedGene
   return AbstractSpecializedGenericProtocolMock<EquatableType>(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked AmbiguousSynthesizedMembers
+
+public final class AmbiguousSynthesizedMembersMock: MockingbirdTestsHost.AmbiguousSynthesizedMembers, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      AmbiguousSynthesizedMembersMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mocked property
+
+  public var `property`: String {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "property.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> String in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> String {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "property.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (String) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getProperty() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "property.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String>(mock: self, invocation: invocation)
+  }
+
+  public func setProperty(_ newValue: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (String) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "property.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `getProperty`()
+
+  public func `getProperty`() -> String {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`getProperty`() -> String", arguments: [])
+    return mockingContext.didInvoke(invocation) { () -> String in
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> String {
+        return concreteImplementation()
+      } else if let concreteImplementation = implementation as? () -> String {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
+    }
+  }
+
+  public func `getProperty`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> String, String> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`getProperty`() -> String", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> String, String>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `getSubscript`(_ `index`: String)
+
+  public func `getSubscript`(_ `index`: String) -> String {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`getSubscript`(_ `index`: String) -> String", arguments: [Mockingbird.ArgumentMatcher(`index`)])
+    return mockingContext.didInvoke(invocation) { () -> String in
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (String) -> String {
+        return concreteImplementation(`index`)
+      } else if let concreteImplementation = implementation as? () -> String {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
+    }
+  }
+
+  public func `getSubscript`(_ `index`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> String, String> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`getSubscript`(_ `index`: String) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> String, String>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `setProperty`(_ `newValue`: String)
+
+  public func `setProperty`(_ `newValue`: String) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`setProperty`(_ `newValue`: String) -> Void", arguments: [Mockingbird.ArgumentMatcher(`newValue`)])
+    mockingContext.didInvoke(invocation) { () -> Void in
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (String) -> Void {
+        concreteImplementation(`newValue`)
+      } else if let concreteImplementation = implementation as? () -> Void {
+        concreteImplementation()
+      }
+    }
+  }
+
+  public func `setProperty`(_ `newValue`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`setProperty`(_ `newValue`: String) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `setSubscript`(_ `index`: String, `newValue`: String)
+
+  public func `setSubscript`(_ `index`: String, `newValue`: String) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`setSubscript`(_ `index`: String, `newValue`: String) -> Void", arguments: [Mockingbird.ArgumentMatcher(`index`), Mockingbird.ArgumentMatcher(`newValue`)])
+    mockingContext.didInvoke(invocation) { () -> Void in
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (String, String) -> Void {
+        concreteImplementation(`index`, `newValue`)
+      } else if let concreteImplementation = implementation as? () -> Void {
+        concreteImplementation()
+      }
+    }
+  }
+
+  public func `setSubscript`(_ `index`: @escaping @autoclosure () -> String, `newValue`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String, String) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`setSubscript`(_ `index`: String, `newValue`: String) -> Void", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String, String) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked subscript(_ `index`: String)
+
+  public subscript(_ `index`: String) -> String {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: String) -> String", arguments: [Mockingbird.ArgumentMatcher(`index`)])
+      return mockingContext.didInvoke(invocation) { () -> String in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (String) -> String {
+          return concreteImplementation(`index`)
+        } else if let concreteImplementation = implementation as? () -> String {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: String, `newValue`: String) -> String", arguments: [Mockingbird.ArgumentMatcher(`index`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (String, String) -> Void {
+          concreteImplementation(`index`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript(_ `index`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String) -> String, String> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: String) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String) -> String, String>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript(_ `index`: @escaping @autoclosure () -> String, `newValue`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String, String) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: String, `newValue`: String) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String, String) -> Void, Void>(mock: self, invocation: invocation)
+  }
+}
+
+/// Initialize a protocol mock of `MockingbirdTestsHost.AmbiguousSynthesizedMembers`.
+public func mock(_ type: MockingbirdTestsHost.AmbiguousSynthesizedMembers.Protocol, file: StaticString = #file, line: UInt = #line) -> AmbiguousSynthesizedMembersMock {
+  return AmbiguousSynthesizedMembersMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked AnotherTopLevelType
 
 public final class AnotherTopLevelTypeMock: MockingbirdTestsHost.AnotherTopLevelType, Mockingbird.Mock {

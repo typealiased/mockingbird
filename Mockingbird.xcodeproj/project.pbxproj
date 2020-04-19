@@ -55,6 +55,8 @@
 		D372A46A2454E92B0000E80A /* SubscriptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A4692454E92B0000E80A /* SubscriptTests.swift */; };
 		D372A46C2454E9810000E80A /* SubscriptMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A46B2454E9810000E80A /* SubscriptMockableTests.swift */; };
 		D372A46E2454EB520000E80A /* SubscriptStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A46D2454EB520000E80A /* SubscriptStubbableTests.swift */; };
+		D372A4702454EF4D0000E80A /* AmbiguousSynthesizedMembers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A46F2454EF4D0000E80A /* AmbiguousSynthesizedMembers.swift */; };
+		D372A4722454EF690000E80A /* AmbiguousSynthesizedMembersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A4712454EF690000E80A /* AmbiguousSynthesizedMembersTests.swift */; };
 		D3D936F22450F61400078751 /* MockingbirdTestsHost.h in Headers */ = {isa = PBXBuildFile; fileRef = OBJ_130 /* MockingbirdTestsHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3D936F62450F85100078751 /* ParsedFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D936F52450F85100078751 /* ParsedFile.swift */; };
 		D3D936F82451606000078751 /* ParseSingleFileOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D936F72451606000078751 /* ParseSingleFileOperation.swift */; };
@@ -1126,6 +1128,8 @@
 		D372A4692454E92B0000E80A /* SubscriptTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptTests.swift; sourceTree = "<group>"; };
 		D372A46B2454E9810000E80A /* SubscriptMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptMockableTests.swift; sourceTree = "<group>"; };
 		D372A46D2454EB520000E80A /* SubscriptStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptStubbableTests.swift; sourceTree = "<group>"; };
+		D372A46F2454EF4D0000E80A /* AmbiguousSynthesizedMembers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmbiguousSynthesizedMembers.swift; sourceTree = "<group>"; };
+		D372A4712454EF690000E80A /* AmbiguousSynthesizedMembersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmbiguousSynthesizedMembersTests.swift; sourceTree = "<group>"; };
 		D3A53F412450C59F00A1DB4B /* MockingbirdTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdTests.xcconfig; sourceTree = "<group>"; };
 		D3A53F422450C59F00A1DB4B /* MockingbirdModuleTestsHost.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdModuleTestsHost.xcconfig; sourceTree = "<group>"; };
 		D3A53F432450C59F00A1DB4B /* MockingbirdFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdFramework.xcconfig; sourceTree = "<group>"; };
@@ -2044,6 +2048,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_130 /* MockingbirdTestsHost.h */,
+				D372A46F2454EF4D0000E80A /* AmbiguousSynthesizedMembers.swift */,
 				OBJ_131 /* ArgumentMatching.swift */,
 				OBJ_132 /* Child.swift */,
 				OBJ_133 /* ChildProtocol.swift */,
@@ -2250,6 +2255,7 @@
 		OBJ_235 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				D372A4712454EF690000E80A /* AmbiguousSynthesizedMembersTests.swift */,
 				OBJ_236 /* ArgumentCaptorTests.swift */,
 				OBJ_237 /* ArgumentMatchingTests.swift */,
 				OBJ_238 /* AsyncVerificationTests.swift */,
@@ -4175,6 +4181,7 @@
 				OBJ_1092 /* Exceptions.swift in Sources */,
 				OBJ_1093 /* Extensions.swift in Sources */,
 				OBJ_1094 /* ExternalModuleClassScopedTypes.swift in Sources */,
+				D372A4702454EF4D0000E80A /* AmbiguousSynthesizedMembers.swift in Sources */,
 				OBJ_1095 /* ExternalModuleImplicitlyImportedTypes.swift in Sources */,
 				OBJ_1096 /* ExternalModuleTypealiasing.swift in Sources */,
 				OBJ_1097 /* ExternalModuleTypes.swift in Sources */,
@@ -4859,6 +4866,7 @@
 				OBJ_1016 /* VariablesStubbableTests.swift in Sources */,
 				OBJ_1017 /* VariadicParametersMockableTests.swift in Sources */,
 				OBJ_1018 /* VariadicParametersStubbableTests.swift in Sources */,
+				D372A4722454EF690000E80A /* AmbiguousSynthesizedMembersTests.swift in Sources */,
 				OBJ_1019 /* ArgumentCaptorTests.swift in Sources */,
 				OBJ_1020 /* ArgumentMatchingTests.swift in Sources */,
 				OBJ_1021 /* AsyncVerificationTests.swift in Sources */,

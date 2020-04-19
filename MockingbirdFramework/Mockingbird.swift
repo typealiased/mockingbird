@@ -10,11 +10,40 @@ import XCTest
 
 // MARK: - Stubbing
 
-/// Stub mock objects with the same function signature to return a value or perform an operation.
+/// Stub a method, property, or subscript on one or more mock objects to return a value or perform
+/// an operation.
 ///
-/// - Parameter stubbable: A set of stubbable invocations.
+/// - Parameter stubbable: A set of stubbable method, property, or subscript invocations.
 public func given<T, I, R>(_ stubbable: Mockable<T, I, R>...) -> Stub<I, R> {
   return Stub<I, R>(from: stubbable)
+}
+
+/// Stub a method on one or more mock objects to return a value or perform an operation.
+///
+/// Use this function to disambiguate stubbing a method from a property or subscript.
+///
+/// - Parameter stubbable: A set of stubbable method invocations.
+public func givenMethod<I, R>(_ stubbable: Mockable<FunctionDeclaration, I, R>...) -> Stub<I, R> {
+  return Stub<I, R>(from: stubbable)
+}
+
+/// Stub a property on one or more mock objects to return a value or perform an operation.
+///
+/// Use this function to disambiguate stubbing a property from a method or subscript.
+///
+/// - Parameter stubbable: A set of stubbable property getter or setter invocations.
+public func givenProperty<I, R>(_ stubbable: Mockable<VariableDeclaration, I, R>...) -> Stub<I, R> {
+  return Stub<I, R>(from: stubbable)
+}
+
+/// Stub a subscript on one or more mock objects to return a value or perform an operation.
+///
+/// Use this function to disambiguate stubbing a subscript from a method or property.
+///
+/// - Parameter stubbable: A set of stubbable subscript getter or setter invocations.
+public func givenSubscript<I, R>(_ stubbable: Mockable<SubscriptDeclaration, I, R>...)
+  -> Stub<I, R> {
+    return Stub<I, R>(from: stubbable)
 }
 
 /// Stub a sequence of values, returning each value sequentially. The last value will be used if the
@@ -88,13 +117,46 @@ public func useDefaultValues(from valueProvider: ValueProvider, on mock: Mock) {
 
 // MARK: - Verification
 
-/// Verify that a mock recieved a specific invocation some number of times.
+/// Verify that a mock recieved a specific method, property, or subscript invocation some number of
+/// times.
 ///
-/// - Parameters:
-///   - mock: A mockable invocation to verify.
+/// - Parameter mock: A mockable method, property, or subscript invocation to verify.
 public func verify<T, I, R>(file: StaticString = #file, line: UInt = #line,
                             _ mockable: Mockable<T, I, R>) -> Verification<I, R> {
   return Verification(with: mockable, at: SourceLocation(file, line))
+}
+
+/// Verify that a mock received a specific method invocation some number of times.
+///
+/// Use this function to disambiguate verifying a method from a property or subscript.
+///
+/// - Parameter mock: A mockable method invocation to verify.
+public func verifyMethod<I, R>(file: StaticString = #file, line: UInt = #line,
+                               _ mockable: Mockable<FunctionDeclaration, I, R>)
+  -> Verification<I, R> {
+    return Verification(with: mockable, at: SourceLocation(file, line))
+}
+
+/// Verify that a mock received a specific property invocation some number of times.
+///
+/// Use this function to disambiguate verifying a property from a method or subscript.
+///
+/// - Parameter mock: A mockable property getter or setter invocation to verify.
+public func verifyProperty<I, R>(file: StaticString = #file, line: UInt = #line,
+                                 _ mockable: Mockable<VariableDeclaration, I, R>)
+  -> Verification<I, R> {
+    return Verification(with: mockable, at: SourceLocation(file, line))
+}
+
+/// Verify that a mock received a specific subscript invocation some number of times.
+///
+/// Use this function to disambiguate verifying a subscript from a method or property.
+///
+/// - Parameter mock: A mockable subscript getter or setter invocation to verify.
+public func verifySubscript<I, R>(file: StaticString = #file, line: UInt = #line,
+                                  _ mockable: Mockable<SubscriptDeclaration, I, R>)
+  -> Verification<I, R> {
+    return Verification(with: mockable, at: SourceLocation(file, line))
 }
 
 /// Enforce the relative order of invocations verified within the scope of `block`.
