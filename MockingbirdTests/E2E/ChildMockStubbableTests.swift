@@ -16,44 +16,44 @@ private protocol StubbableChild {
   // MARK: Child
   func getChildComputedInstanceVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
   
-  func childTrivialInstanceMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  func childTrivialInstanceMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
   func childParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                         _ param2: @escaping @autoclosure () -> Int)
-    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
+    -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
   
   static func getChildClassVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
-  static func childTrivialClassMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  static func childTrivialClassMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
   static func childParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool,
                                             _ param2: @escaping @autoclosure () -> Int)
-    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
+    -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
   
   // MARK: Parent
   func getParentComputedInstanceVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
   
-  func parentTrivialInstanceMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  func parentTrivialInstanceMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
   func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                          _ param2: @escaping @autoclosure () -> Int)
-    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
+    -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
   
   static func getParentClassVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
-  static func parentTrivialClassMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  static func parentTrivialClassMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
   static func parentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool,
                                              _ param2: @escaping @autoclosure () -> Int)
-    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
+    -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
   
   // MARK: Grandparent
   func getGrandparentComputedInstanceVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
   
-  func grandparentTrivialInstanceMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  func grandparentTrivialInstanceMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
   func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                               _ param2: @escaping @autoclosure () -> Int)
-    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
+    -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
   
   static func getGrandparentClassVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
-  static func grandparentTrivialClassMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  static func grandparentTrivialClassMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
   static func grandparentParameterizedClassMethod(param1: @escaping @autoclosure () -> Bool,
                                                   _ param2: @escaping @autoclosure () -> Int)
-    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
+    -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
 }
 extension ChildMock: StubbableChild {}
 

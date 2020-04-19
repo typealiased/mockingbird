@@ -95,10 +95,10 @@ public final class AbstractSpecializedGenericProtocolMock<EquatableType: Swift.E
     }
   }
 
-  public func `baseMethod`(`param`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool> {
+  public func `baseMethod`(`param`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -237,10 +237,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`(`anyObjectType`: @escaping @autoclosure () -> Swift.AnyObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Swift.AnyObject) -> Bool, Bool> {
+  public func `method`(`anyObjectType`: @escaping @autoclosure () -> Swift.AnyObject) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Swift.AnyObject) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`anyObjectType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`anyObjectType`: Swift.AnyObject) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Swift.AnyObject) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Swift.AnyObject) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`anyType`: Any)
@@ -261,10 +261,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`(`anyType`: @escaping @autoclosure () -> Any) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Any) -> Bool, Bool> {
+  public func `method`(`anyType`: @escaping @autoclosure () -> Any) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Any) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`anyType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`anyType`: Any) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Any) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Any) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`boolType`: Bool)
@@ -285,10 +285,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`(`boolType`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool> {
+  public func `method`(`boolType`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`boolType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`boolType`: Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`classType`: MockingbirdTestsHost.ClassType)
@@ -309,10 +309,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`(`classType`: @escaping @autoclosure () -> MockingbirdTestsHost.ClassType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.ClassType) -> Bool, Bool> {
+  public func `method`(`classType`: @escaping @autoclosure () -> MockingbirdTestsHost.ClassType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.ClassType) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`classType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`classType`: MockingbirdTestsHost.ClassType) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.ClassType) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.ClassType) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`enumType`: MockingbirdTestsHost.EnumType)
@@ -333,10 +333,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`(`enumType`: @escaping @autoclosure () -> MockingbirdTestsHost.EnumType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.EnumType) -> Bool, Bool> {
+  public func `method`(`enumType`: @escaping @autoclosure () -> MockingbirdTestsHost.EnumType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.EnumType) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`enumType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`enumType`: MockingbirdTestsHost.EnumType) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.EnumType) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.EnumType) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`<T: FloatingPoint>(`floatingPoint`: T)
@@ -357,10 +357,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`<T: FloatingPoint>(`floatingPoint`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Bool, Bool> {
+  public func `method`<T: FloatingPoint>(`floatingPoint`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`floatingPoint`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`<T: FloatingPoint>(`floatingPoint`: T) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`metaType`: ClassType.Type)
@@ -381,10 +381,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`(`metaType`: @escaping @autoclosure () -> ClassType.Type) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ClassType.Type) -> Bool, Bool> {
+  public func `method`(`metaType`: @escaping @autoclosure () -> ClassType.Type) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ClassType.Type) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`metaType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`metaType`: ClassType.Type) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ClassType.Type) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ClassType.Type) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`optionalAnyObjectType`: Swift.AnyObject?)
@@ -405,10 +405,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`(`optionalAnyObjectType`: @escaping @autoclosure () -> Swift.AnyObject?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Swift.AnyObject?) -> Bool, Bool> {
+  public func `method`(`optionalAnyObjectType`: @escaping @autoclosure () -> Swift.AnyObject?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Swift.AnyObject?) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`optionalAnyObjectType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`optionalAnyObjectType`: Swift.AnyObject?) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Swift.AnyObject?) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Swift.AnyObject?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`optionalAnyType`: Any?)
@@ -429,10 +429,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`(`optionalAnyType`: @escaping @autoclosure () -> Any?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Any?) -> Bool, Bool> {
+  public func `method`(`optionalAnyType`: @escaping @autoclosure () -> Any?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Any?) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`optionalAnyType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`optionalAnyType`: Any?) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Any?) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Any?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`optionalBoolType`: Bool?)
@@ -453,10 +453,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`(`optionalBoolType`: @escaping @autoclosure () -> Bool?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool?) -> Bool, Bool> {
+  public func `method`(`optionalBoolType`: @escaping @autoclosure () -> Bool?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool?) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`optionalBoolType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`optionalBoolType`: Bool?) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool?) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`optionalClassType`: MockingbirdTestsHost.ClassType?)
@@ -477,10 +477,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`(`optionalClassType`: @escaping @autoclosure () -> MockingbirdTestsHost.ClassType?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.ClassType?) -> Bool, Bool> {
+  public func `method`(`optionalClassType`: @escaping @autoclosure () -> MockingbirdTestsHost.ClassType?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.ClassType?) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`optionalClassType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`optionalClassType`: MockingbirdTestsHost.ClassType?) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.ClassType?) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.ClassType?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`optionalEnumType`: MockingbirdTestsHost.EnumType?)
@@ -501,10 +501,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`(`optionalEnumType`: @escaping @autoclosure () -> MockingbirdTestsHost.EnumType?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.EnumType?) -> Bool, Bool> {
+  public func `method`(`optionalEnumType`: @escaping @autoclosure () -> MockingbirdTestsHost.EnumType?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.EnumType?) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`optionalEnumType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`optionalEnumType`: MockingbirdTestsHost.EnumType?) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.EnumType?) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.EnumType?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`optionalMetaType`: ClassType.Type?)
@@ -525,10 +525,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`(`optionalMetaType`: @escaping @autoclosure () -> ClassType.Type?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ClassType.Type?) -> Bool, Bool> {
+  public func `method`(`optionalMetaType`: @escaping @autoclosure () -> ClassType.Type?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ClassType.Type?) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`optionalMetaType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`optionalMetaType`: ClassType.Type?) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ClassType.Type?) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ClassType.Type?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`<P: MockingbirdTestsHost.BaseProtocol>(`optionalProtocolType`: P?)
@@ -549,10 +549,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`<P: MockingbirdTestsHost.BaseProtocol>(`optionalProtocolType`: @escaping @autoclosure () -> P?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (P?) -> Bool, Bool> {
+  public func `method`<P: MockingbirdTestsHost.BaseProtocol>(`optionalProtocolType`: @escaping @autoclosure () -> P?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (P?) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`optionalProtocolType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`<P: MockingbirdTestsHost.BaseProtocol>(`optionalProtocolType`: P?) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (P?) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (P?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`optionalStringType`: String?)
@@ -573,10 +573,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`(`optionalStringType`: @escaping @autoclosure () -> String?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String?) -> Bool, Bool> {
+  public func `method`(`optionalStringType`: @escaping @autoclosure () -> String?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String?) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`optionalStringType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`optionalStringType`: String?) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String?) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`optionalStructType`: MockingbirdTestsHost.StructType?)
@@ -597,10 +597,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`(`optionalStructType`: @escaping @autoclosure () -> MockingbirdTestsHost.StructType?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.StructType?) -> Bool, Bool> {
+  public func `method`(`optionalStructType`: @escaping @autoclosure () -> MockingbirdTestsHost.StructType?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.StructType?) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`optionalStructType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`optionalStructType`: MockingbirdTestsHost.StructType?) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.StructType?) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.StructType?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`<P: MockingbirdTestsHost.BaseProtocol>(`protocolType`: P)
@@ -621,10 +621,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`<P: MockingbirdTestsHost.BaseProtocol>(`protocolType`: @escaping @autoclosure () -> P) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (P) -> Bool, Bool> {
+  public func `method`<P: MockingbirdTestsHost.BaseProtocol>(`protocolType`: @escaping @autoclosure () -> P) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (P) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`protocolType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`<P: MockingbirdTestsHost.BaseProtocol>(`protocolType`: P) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (P) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (P) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`stringType`: String)
@@ -645,10 +645,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`(`stringType`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Bool, Bool> {
+  public func `method`(`stringType`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`stringType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`stringType`: String) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`structType`: MockingbirdTestsHost.StructType)
@@ -669,10 +669,10 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
     }
   }
 
-  public func `method`(`structType`: @escaping @autoclosure () -> MockingbirdTestsHost.StructType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.StructType) -> Bool, Bool> {
+  public func `method`(`structType`: @escaping @autoclosure () -> MockingbirdTestsHost.StructType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.StructType) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`structType`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`structType`: MockingbirdTestsHost.StructType) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.StructType) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.StructType) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -719,10 +719,10 @@ public final class ArrayCollectionMock: MockingbirdTestsHost.ArrayCollection, Mo
     }
   }
 
-  public func `method`(`objects`: @escaping @autoclosure () -> [String]) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([String]) -> Bool, Bool> {
+  public func `method`(`objects`: @escaping @autoclosure () -> [String]) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([String]) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`objects`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`objects`: [String]) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([String]) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([String]) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -953,9 +953,9 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     }
   }
 
-  public func `explicitMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)> {
+  public func `explicitMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `explicitMethod`()
@@ -976,9 +976,9 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     }
   }
 
-  public func `explicitMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)> {
+  public func `explicitMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `explicitMethod`()
@@ -999,9 +999,9 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     }
   }
 
-  public func `explicitMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Array<Foundation.NSObject>, Array<Foundation.NSObject>> {
+  public func `explicitMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Array<Foundation.NSObject>, Array<Foundation.NSObject>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`() -> Array<Foundation.NSObject>", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Array<Foundation.NSObject>, Array<Foundation.NSObject>>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Array<Foundation.NSObject>, Array<Foundation.NSObject>>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `explicitMethod`()
@@ -1022,9 +1022,9 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     }
   }
 
-  public func `explicitMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Array<MockingbirdTestsHost.NSObject>, Array<MockingbirdTestsHost.NSObject>> {
+  public func `explicitMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Array<MockingbirdTestsHost.NSObject>, Array<MockingbirdTestsHost.NSObject>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`() -> Array<MockingbirdTestsHost.NSObject>", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Array<MockingbirdTestsHost.NSObject>, Array<MockingbirdTestsHost.NSObject>>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Array<MockingbirdTestsHost.NSObject>, Array<MockingbirdTestsHost.NSObject>>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `explicitMethod`(`param1`: Array<MockingbirdTestsHost.NSObject>, `param2`: Array<Foundation.NSObject>)
@@ -1041,10 +1041,10 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     }
   }
 
-  public func `explicitMethod`(`param1`: @escaping @autoclosure () -> Array<MockingbirdTestsHost.NSObject>, `param2`: @escaping @autoclosure () -> Array<Foundation.NSObject>) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> Void, Void> {
+  public func `explicitMethod`(`param1`: @escaping @autoclosure () -> Array<MockingbirdTestsHost.NSObject>, `param2`: @escaping @autoclosure () -> Array<Foundation.NSObject>) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`(`param1`: Array<MockingbirdTestsHost.NSObject>, `param2`: Array<Foundation.NSObject>) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `explicitMethodWithParameterLabels`()
@@ -1065,9 +1065,9 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     }
   }
 
-  public func `explicitMethodWithParameterLabels`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)> {
+  public func `explicitMethodWithParameterLabels`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethodWithParameterLabels`() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>), (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`()
@@ -1088,9 +1088,9 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`()
@@ -1111,9 +1111,9 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`()
@@ -1134,9 +1134,9 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> [Foundation.NSObject], [Foundation.NSObject]> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> [Foundation.NSObject], [Foundation.NSObject]> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> [Foundation.NSObject]", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> [Foundation.NSObject], [Foundation.NSObject]>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> [Foundation.NSObject], [Foundation.NSObject]>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`()
@@ -1157,9 +1157,9 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> [MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.NSObject]> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> [MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.NSObject]> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> [MockingbirdTestsHost.NSObject]", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> [MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.NSObject]>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> [MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.NSObject]>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`param1`: [MockingbirdTestsHost.NSObject], `param2`: [Foundation.NSObject])
@@ -1176,10 +1176,10 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     }
   }
 
-  public func `method`(`param1`: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject], `param2`: @escaping @autoclosure () -> [Foundation.NSObject]) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> Void, Void> {
+  public func `method`(`param1`: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject], `param2`: @escaping @autoclosure () -> [Foundation.NSObject]) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`param1`: [MockingbirdTestsHost.NSObject], `param2`: [Foundation.NSObject]) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithParameterLabels`()
@@ -1200,9 +1200,9 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     }
   }
 
-  public func `methodWithParameterLabels`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])> {
+  public func `methodWithParameterLabels`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithParameterLabels`() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]), ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])>(mock: self, invocation: invocation)
   }
 }
 
@@ -1256,10 +1256,10 @@ public final class AssociatedTypeGenericConformingConstraintsProtocolMock<Confor
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> ConformingType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ConformingType) -> Bool, Bool> {
+  public func `request`(`object`: @escaping @autoclosure () -> ConformingType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ConformingType) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: ConformingType) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ConformingType) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ConformingType) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -1313,10 +1313,10 @@ public final class AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType:
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> ConstrainedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ConstrainedType) -> Bool, Bool> {
+  public func `request`(`object`: @escaping @autoclosure () -> ConstrainedType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ConstrainedType) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: ConstrainedType) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ConstrainedType) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ConstrainedType) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -1390,10 +1390,10 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Swift.Equ
     }
   }
 
-  public func `methodUsingEquatableType`(`equatable`: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableType) -> Void, Void> {
+  public func `methodUsingEquatableType`(`equatable`: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (EquatableType) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`equatable`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodUsingEquatableType`(`equatable`: EquatableType) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableType) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (EquatableType) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodUsingEquatableTypeWithReturn`(`equatable`: EquatableType)
@@ -1414,10 +1414,10 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Swift.Equ
     }
   }
 
-  public func `methodUsingEquatableTypeWithReturn`(`equatable`: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableType) -> EquatableType, EquatableType> {
+  public func `methodUsingEquatableTypeWithReturn`(`equatable`: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (EquatableType) -> EquatableType, EquatableType> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`equatable`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodUsingEquatableTypeWithReturn`(`equatable`: EquatableType) -> EquatableType", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableType) -> EquatableType, EquatableType>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (EquatableType) -> EquatableType, EquatableType>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodUsingHashableType`(`hashable`: MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType)
@@ -1434,10 +1434,10 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Swift.Equ
     }
   }
 
-  public func `methodUsingHashableType`(`hashable`: @escaping @autoclosure () -> MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Void, Void> {
+  public func `methodUsingHashableType`(`hashable`: @escaping @autoclosure () -> MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`hashable`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodUsingHashableType`(`hashable`: MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -1484,10 +1484,10 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
     }
   }
 
-  public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T.HashableType, T.HashableType> where T.EquatableType == Bool, T.HashableType == String {
+  public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T.HashableType, T.HashableType> where T.EquatableType == Bool, T.HashableType == String {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> T.HashableType where T.EquatableType == Bool, T.HashableType == String", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T.HashableType, T.HashableType>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T.HashableType, T.HashableType>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T)
@@ -1508,10 +1508,10 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
     }
   }
 
-  public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T.HashableType, T.HashableType> where T.EquatableType == Int, T.HashableType == String {
+  public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T.HashableType, T.HashableType> where T.EquatableType == Int, T.HashableType == String {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> T.HashableType where T.EquatableType == Int, T.HashableType == String", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T.HashableType, T.HashableType>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T.HashableType, T.HashableType>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T)
@@ -1528,10 +1528,10 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
     }
   }
 
-  public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void> where T.EquatableType == Int, T.HashableType == String {
+  public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> Void, Void> where T.EquatableType == Int, T.HashableType == String {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> Void where T.EquatableType == Int, T.HashableType == String", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -1581,10 +1581,10 @@ public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.Associate
     }
   }
 
-  public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T.EquatableType, T.EquatableType> where T.EquatableType == Bool, T.HashableType == String {
+  public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T.EquatableType, T.EquatableType> where T.EquatableType == Bool, T.HashableType == String {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> T.EquatableType where T.EquatableType == Bool, T.HashableType == String", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T.EquatableType, T.EquatableType>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T.EquatableType, T.EquatableType>(mock: self, invocation: invocation)
   }
 
   #endif
@@ -1609,10 +1609,10 @@ public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.Associate
     }
   }
 
-  public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T.EquatableType, T.EquatableType> where T.EquatableType == Int, T.HashableType == String {
+  public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T.EquatableType, T.EquatableType> where T.EquatableType == Int, T.HashableType == String {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> T.EquatableType where T.EquatableType == Int, T.HashableType == String", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T.EquatableType, T.EquatableType>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T.EquatableType, T.EquatableType>(mock: self, invocation: invocation)
   }
 
   #endif
@@ -1631,10 +1631,10 @@ public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.Associate
     }
   }
 
-  public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void> where T.EquatableType == Int, T.HashableType == String {
+  public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> Void, Void> where T.EquatableType == Int, T.HashableType == String {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> Void where T.EquatableType == Int, T.HashableType == String", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -1730,10 +1730,10 @@ public final class AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, Ha
     }
   }
 
-  public func `methodUsingEquatableType`(`equatable`: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableType) -> Void, Void> {
+  public func `methodUsingEquatableType`(`equatable`: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (EquatableType) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`equatable`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodUsingEquatableType`(`equatable`: EquatableType) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableType) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (EquatableType) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodUsingEquatableTypeWithReturn`(`equatable`: EquatableType)
@@ -1754,10 +1754,10 @@ public final class AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, Ha
     }
   }
 
-  public func `methodUsingEquatableTypeWithReturn`(`equatable`: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableType) -> EquatableType, EquatableType> {
+  public func `methodUsingEquatableTypeWithReturn`(`equatable`: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (EquatableType) -> EquatableType, EquatableType> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`equatable`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodUsingEquatableTypeWithReturn`(`equatable`: EquatableType) -> EquatableType", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableType) -> EquatableType, EquatableType>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (EquatableType) -> EquatableType, EquatableType>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodUsingEquatableTypeWithReturn`(`equatable`: EquatableType)
@@ -1778,10 +1778,10 @@ public final class AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, Ha
     }
   }
 
-  public static func `methodUsingEquatableTypeWithReturn`(`equatable`: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableType) -> EquatableType, EquatableType> {
+  public static func `methodUsingEquatableTypeWithReturn`(`equatable`: @escaping @autoclosure () -> EquatableType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (EquatableType) -> EquatableType, EquatableType> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`equatable`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodUsingEquatableTypeWithReturn`(`equatable`: EquatableType) -> EquatableType", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableType) -> EquatableType, EquatableType>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (EquatableType) -> EquatableType, EquatableType>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `methodUsingHashableType`(`hashable`: HashableType)
@@ -1798,10 +1798,10 @@ public final class AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, Ha
     }
   }
 
-  public func `methodUsingHashableType`(`hashable`: @escaping @autoclosure () -> HashableType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (HashableType) -> Void, Void> {
+  public func `methodUsingHashableType`(`hashable`: @escaping @autoclosure () -> HashableType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (HashableType) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`hashable`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodUsingHashableType`(`hashable`: HashableType) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (HashableType) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (HashableType) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -1851,10 +1851,10 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
     }
   }
 
-  public func `request`<T: Sequence>(`array`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void> where T.Element == AssociatedTypeSelfReferencingProtocolMock {
+  public func `request`<T: Sequence>(`array`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> Void, Void> where T.Element == AssociatedTypeSelfReferencingProtocolMock {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`array`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: Sequence>(`array`: T) -> Void where T.Element == AssociatedTypeSelfReferencingProtocolMock", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`array`: SequenceType)
@@ -1871,10 +1871,10 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
     }
   }
 
-  public func `request`(`array`: @escaping @autoclosure () -> SequenceType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SequenceType) -> Void, Void> {
+  public func `request`(`array`: @escaping @autoclosure () -> SequenceType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (SequenceType) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`array`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`array`: SequenceType) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SequenceType) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (SequenceType) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`object`: AssociatedTypeSelfReferencingProtocolMock)
@@ -1891,10 +1891,10 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> AssociatedTypeSelfReferencingProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (AssociatedTypeSelfReferencingProtocolMock) -> Void, Void> {
+  public func `request`(`object`: @escaping @autoclosure () -> AssociatedTypeSelfReferencingProtocolMock) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (AssociatedTypeSelfReferencingProtocolMock) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: AssociatedTypeSelfReferencingProtocolMock) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (AssociatedTypeSelfReferencingProtocolMock) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (AssociatedTypeSelfReferencingProtocolMock) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -1941,10 +1941,10 @@ public final class BaseProtocolMock: MockingbirdTestsHost.BaseProtocol, Mockingb
     }
   }
 
-  public static func _equalTo(_ `lhs`: @escaping @autoclosure () -> BaseProtocolMock, _ `rhs`: @escaping @autoclosure () -> BaseProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (BaseProtocolMock, BaseProtocolMock) -> Bool, Bool> {
+  public static func _equalTo(_ `lhs`: @escaping @autoclosure () -> BaseProtocolMock, _ `rhs`: @escaping @autoclosure () -> BaseProtocolMock) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (BaseProtocolMock, BaseProtocolMock) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ `lhs`: BaseProtocolMock, _ `rhs`: BaseProtocolMock) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (BaseProtocolMock, BaseProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (BaseProtocolMock, BaseProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 }
 
@@ -2389,10 +2389,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     }
   }
 
-  public func `childParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `childParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `childParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int)
@@ -2413,10 +2413,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     }
   }
 
-  public static func `childParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `childParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `childTrivialInstanceMethod`()
@@ -2433,9 +2433,9 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     }
   }
 
-  public func `childTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `childTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `childTrivialStaticMethod`()
@@ -2452,9 +2452,9 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     }
   }
 
-  public static func `childTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `childTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialStaticMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -2475,10 +2475,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     }
   }
 
-  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int)
@@ -2499,10 +2499,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     }
   }
 
-  public static func `grandparentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `grandparentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialInstanceMethod`()
@@ -2519,9 +2519,9 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     }
   }
 
-  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialStaticMethod`()
@@ -2538,9 +2538,9 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     }
   }
 
-  public static func `grandparentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `grandparentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialStaticMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -2561,10 +2561,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     }
   }
 
-  public func `parentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `parentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int)
@@ -2585,10 +2585,10 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     }
   }
 
-  public static func `parentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `parentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentTrivialInstanceMethod`()
@@ -2605,9 +2605,9 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     }
   }
 
-  public func `parentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `parentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentTrivialStaticMethod`()
@@ -2624,9 +2624,9 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     }
   }
 
-  public static func `parentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `parentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialStaticMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 }
 
@@ -3067,10 +3067,10 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     }
   }
 
-  public static func `childParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `childParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -3091,10 +3091,10 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     }
   }
 
-  public func `childParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `childParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `childTrivialClassMethod`()
@@ -3111,9 +3111,9 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     }
   }
 
-  public static func `childTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `childTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialClassMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `childTrivialInstanceMethod`()
@@ -3130,9 +3130,9 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     }
   }
 
-  public func `childTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `childTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int)
@@ -3153,10 +3153,10 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     }
   }
 
-  public static func `grandparentParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `grandparentParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -3177,10 +3177,10 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     }
   }
 
-  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialClassMethod`()
@@ -3197,9 +3197,9 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     }
   }
 
-  public static func `grandparentTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `grandparentTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialClassMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialInstanceMethod`()
@@ -3216,9 +3216,9 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     }
   }
 
-  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int)
@@ -3239,10 +3239,10 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     }
   }
 
-  public static func `parentParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `parentParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -3263,10 +3263,10 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     }
   }
 
-  public func `parentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `parentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentTrivialClassMethod`()
@@ -3283,9 +3283,9 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     }
   }
 
-  public static func `parentTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `parentTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialClassMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentTrivialInstanceMethod`()
@@ -3302,9 +3302,9 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     }
   }
 
-  public func `parentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `parentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -3746,10 +3746,10 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     }
   }
 
-  public func `childParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `childParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `childParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int)
@@ -3770,10 +3770,10 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     }
   }
 
-  public static func `childParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `childParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `childTrivialInstanceMethod`()
@@ -3790,9 +3790,9 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     }
   }
 
-  public func `childTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `childTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `childTrivialStaticMethod`()
@@ -3809,9 +3809,9 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     }
   }
 
-  public static func `childTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `childTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialStaticMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -3832,10 +3832,10 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     }
   }
 
-  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int)
@@ -3856,10 +3856,10 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     }
   }
 
-  public static func `grandparentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `grandparentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialInstanceMethod`()
@@ -3876,9 +3876,9 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     }
   }
 
-  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialStaticMethod`()
@@ -3895,9 +3895,9 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     }
   }
 
-  public static func `grandparentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `grandparentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialStaticMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -3918,10 +3918,10 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     }
   }
 
-  public func `parentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `parentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int)
@@ -3942,10 +3942,10 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     }
   }
 
-  public static func `parentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `parentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentTrivialInstanceMethod`()
@@ -3962,9 +3962,9 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     }
   }
 
-  public func `parentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `parentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentTrivialStaticMethod`()
@@ -3981,9 +3981,9 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     }
   }
 
-  public static func `parentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `parentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialStaticMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 }
 
@@ -4242,10 +4242,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `autoclosureTrivialClosure`(`block`: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@autoclosure () -> Void) -> Bool, Bool> {
+  public func `autoclosureTrivialClosure`(`block`: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@autoclosure () -> Void) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`autoclosureTrivialClosure`(`block`: @autoclosure () -> Void) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@autoclosure () -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@autoclosure () -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `autoclosureTrivialReturningClosure`(`block`: @autoclosure () -> Bool)
@@ -4266,10 +4266,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `autoclosureTrivialReturningClosure`(`block`: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@autoclosure () -> Bool) -> Bool, Bool> {
+  public func `autoclosureTrivialReturningClosure`(`block`: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@autoclosure () -> Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`autoclosureTrivialReturningClosure`(`block`: @autoclosure () -> Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@autoclosure () -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@autoclosure () -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `escapingAutoclosureTrivialClosure`(`block`: @escaping @autoclosure () -> Void)
@@ -4290,10 +4290,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `escapingAutoclosureTrivialClosure`(`block`: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping @autoclosure () -> Void) -> Bool, Bool> {
+  public func `escapingAutoclosureTrivialClosure`(`block`: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@escaping @autoclosure () -> Void) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`escapingAutoclosureTrivialClosure`(`block`: @escaping @autoclosure () -> Void) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping @autoclosure () -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@escaping @autoclosure () -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `escapingAutoclosureTrivialReturningClosure`(`block`: @escaping @autoclosure () -> Bool)
@@ -4314,10 +4314,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `escapingAutoclosureTrivialReturningClosure`(`block`: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping @autoclosure () -> Bool) -> Bool, Bool> {
+  public func `escapingAutoclosureTrivialReturningClosure`(`block`: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@escaping @autoclosure () -> Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`escapingAutoclosureTrivialReturningClosure`(`block`: @escaping @autoclosure () -> Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping @autoclosure () -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@escaping @autoclosure () -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `escapingParameterizedClosure`(`block`: @escaping (Bool) -> Void)
@@ -4338,10 +4338,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `escapingParameterizedClosure`(`block`: @escaping @autoclosure () -> (Bool) -> Void) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping (Bool) -> Void) -> Bool, Bool> {
+  public func `escapingParameterizedClosure`(`block`: @escaping @autoclosure () -> (Bool) -> Void) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@escaping (Bool) -> Void) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`escapingParameterizedClosure`(`block`: @escaping (Bool) -> Void) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping (Bool) -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@escaping (Bool) -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `escapingParameterizedReturningClosure`(`block`: @escaping (Bool) -> Bool)
@@ -4362,10 +4362,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `escapingParameterizedReturningClosure`(`block`: @escaping @autoclosure () -> (Bool) -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping (Bool) -> Bool) -> Bool, Bool> {
+  public func `escapingParameterizedReturningClosure`(`block`: @escaping @autoclosure () -> (Bool) -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@escaping (Bool) -> Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`escapingParameterizedReturningClosure`(`block`: @escaping (Bool) -> Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping (Bool) -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@escaping (Bool) -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `escapingTrivialClosure`(`block`: @escaping () -> Void)
@@ -4386,10 +4386,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `escapingTrivialClosure`(`block`: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping () -> Void) -> Bool, Bool> {
+  public func `escapingTrivialClosure`(`block`: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@escaping () -> Void) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`escapingTrivialClosure`(`block`: @escaping () -> Void) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping () -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@escaping () -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `escapingTrivialReturningClosure`(`block`: @escaping () -> Bool)
@@ -4410,10 +4410,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `escapingTrivialReturningClosure`(`block`: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping () -> Bool) -> Bool, Bool> {
+  public func `escapingTrivialReturningClosure`(`block`: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@escaping () -> Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`escapingTrivialReturningClosure`(`block`: @escaping () -> Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping () -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@escaping () -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `implicitEscapingMultipleLabeledTupleClosure`(`block`: (a: () -> Void, b: (Bool) -> Bool))
@@ -4434,10 +4434,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `implicitEscapingMultipleLabeledTupleClosure`(`block`: @escaping @autoclosure () -> (a: () -> Void, b: (Bool) -> Bool)) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((a: () -> Void, b: (Bool) -> Bool)) -> Bool, Bool> {
+  public func `implicitEscapingMultipleLabeledTupleClosure`(`block`: @escaping @autoclosure () -> (a: () -> Void, b: (Bool) -> Bool)) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((a: () -> Void, b: (Bool) -> Bool)) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`implicitEscapingMultipleLabeledTupleClosure`(`block`: (a: () -> Void, b: (Bool) -> Bool)) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((a: () -> Void, b: (Bool) -> Bool)) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((a: () -> Void, b: (Bool) -> Bool)) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `implicitEscapingMultipleTupleClosure`(`block`: (() -> Void, (Bool) -> Bool))
@@ -4458,10 +4458,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `implicitEscapingMultipleTupleClosure`(`block`: @escaping @autoclosure () -> (() -> Void, (Bool) -> Bool)) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((() -> Void, (Bool) -> Bool)) -> Bool, Bool> {
+  public func `implicitEscapingMultipleTupleClosure`(`block`: @escaping @autoclosure () -> (() -> Void, (Bool) -> Bool)) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((() -> Void, (Bool) -> Bool)) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`implicitEscapingMultipleTupleClosure`(`block`: (() -> Void, (Bool) -> Bool)) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((() -> Void, (Bool) -> Bool)) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((() -> Void, (Bool) -> Bool)) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `implicitEscapingParameterizedClosure`(`block`: ((Bool) -> Void)?)
@@ -4482,10 +4482,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `implicitEscapingParameterizedClosure`(`block`: @escaping @autoclosure () -> ((Bool) -> Void)?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (((Bool) -> Void)?) -> Bool, Bool> {
+  public func `implicitEscapingParameterizedClosure`(`block`: @escaping @autoclosure () -> ((Bool) -> Void)?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (((Bool) -> Void)?) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`implicitEscapingParameterizedClosure`(`block`: ((Bool) -> Void)?) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (((Bool) -> Void)?) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (((Bool) -> Void)?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `implicitEscapingParameterizedReturningClosure`(`block`: ((Bool) -> Bool)?)
@@ -4506,10 +4506,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `implicitEscapingParameterizedReturningClosure`(`block`: @escaping @autoclosure () -> ((Bool) -> Bool)?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (((Bool) -> Bool)?) -> Bool, Bool> {
+  public func `implicitEscapingParameterizedReturningClosure`(`block`: @escaping @autoclosure () -> ((Bool) -> Bool)?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (((Bool) -> Bool)?) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`implicitEscapingParameterizedReturningClosure`(`block`: ((Bool) -> Bool)?) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (((Bool) -> Bool)?) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (((Bool) -> Bool)?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `implicitEscapingTrivialClosure`(`block`: (() -> Void)?)
@@ -4530,10 +4530,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `implicitEscapingTrivialClosure`(`block`: @escaping @autoclosure () -> (() -> Void)?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((() -> Void)?) -> Bool, Bool> {
+  public func `implicitEscapingTrivialClosure`(`block`: @escaping @autoclosure () -> (() -> Void)?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((() -> Void)?) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`implicitEscapingTrivialClosure`(`block`: (() -> Void)?) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((() -> Void)?) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((() -> Void)?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `implicitEscapingTrivialReturningClosure`(`block`: (() -> Bool)?)
@@ -4554,10 +4554,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `implicitEscapingTrivialReturningClosure`(`block`: @escaping @autoclosure () -> (() -> Bool)?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((() -> Bool)?) -> Bool, Bool> {
+  public func `implicitEscapingTrivialReturningClosure`(`block`: @escaping @autoclosure () -> (() -> Bool)?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((() -> Bool)?) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`implicitEscapingTrivialReturningClosure`(`block`: (() -> Bool)?) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((() -> Bool)?) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((() -> Bool)?) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `nestedOptionalTrivialParenthesizedClosure`(`block`: (() -> Void)??)
@@ -4578,10 +4578,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `nestedOptionalTrivialParenthesizedClosure`(`block`: @escaping @autoclosure () -> (() -> Void)??) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((() -> Void)??) -> Bool, Bool> {
+  public func `nestedOptionalTrivialParenthesizedClosure`(`block`: @escaping @autoclosure () -> (() -> Void)??) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((() -> Void)??) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedOptionalTrivialParenthesizedClosure`(`block`: (() -> Void)??) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((() -> Void)??) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((() -> Void)??) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `nestedParameterizedReturningParenthesizedClosure`(`block`: (Bool) -> Bool)
@@ -4602,10 +4602,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `nestedParameterizedReturningParenthesizedClosure`(`block`: @escaping @autoclosure () -> (Bool) -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Bool) -> Bool, Bool> {
+  public func `nestedParameterizedReturningParenthesizedClosure`(`block`: @escaping @autoclosure () -> (Bool) -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((Bool) -> Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedParameterizedReturningParenthesizedClosure`(`block`: (Bool) -> Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((Bool) -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parameterizedClosure`(`block`: (Bool) -> Void)
@@ -4626,10 +4626,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `parameterizedClosure`(`block`: @escaping @autoclosure () -> (Bool) -> Void) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Void) -> Bool, Bool> {
+  public func `parameterizedClosure`(`block`: @escaping @autoclosure () -> (Bool) -> Void) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((Bool) -> Void) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedClosure`(`block`: (Bool) -> Void) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((Bool) -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parameterizedParenthesizedClosure`(`block`: (Bool) -> Void)
@@ -4650,10 +4650,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `parameterizedParenthesizedClosure`(`block`: @escaping @autoclosure () -> (Bool) -> Void) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Void) -> Bool, Bool> {
+  public func `parameterizedParenthesizedClosure`(`block`: @escaping @autoclosure () -> (Bool) -> Void) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((Bool) -> Void) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedParenthesizedClosure`(`block`: (Bool) -> Void) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((Bool) -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parameterizedReturningClosure`(`block`: (Bool) -> Bool)
@@ -4674,10 +4674,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `parameterizedReturningClosure`(`block`: @escaping @autoclosure () -> (Bool) -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Bool) -> Bool, Bool> {
+  public func `parameterizedReturningClosure`(`block`: @escaping @autoclosure () -> (Bool) -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((Bool) -> Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedReturningClosure`(`block`: (Bool) -> Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((Bool) -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parameterizedReturningParenthesizedClosure`(`block`: (Bool) -> Bool)
@@ -4698,10 +4698,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `parameterizedReturningParenthesizedClosure`(`block`: @escaping @autoclosure () -> (Bool) -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Bool) -> Bool, Bool> {
+  public func `parameterizedReturningParenthesizedClosure`(`block`: @escaping @autoclosure () -> (Bool) -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((Bool) -> Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedReturningParenthesizedClosure`(`block`: (Bool) -> Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool) -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((Bool) -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `trivialClosure`(`block`: () -> Void)
@@ -4722,10 +4722,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `trivialClosure`(`block`: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() -> Void) -> Bool, Bool> {
+  public func `trivialClosure`(`block`: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (() -> Void) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialClosure`(`block`: () -> Void) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (() -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `trivialParenthesizedClosure`(`block`: () -> Void)
@@ -4746,10 +4746,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `trivialParenthesizedClosure`(`block`: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() -> Void) -> Bool, Bool> {
+  public func `trivialParenthesizedClosure`(`block`: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (() -> Void) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialParenthesizedClosure`(`block`: () -> Void) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (() -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `trivialReturningClosure`(`block`: () -> Bool)
@@ -4770,10 +4770,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `trivialReturningClosure`(`block`: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() -> Bool) -> Bool, Bool> {
+  public func `trivialReturningClosure`(`block`: @escaping @autoclosure () -> () -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (() -> Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialReturningClosure`(`block`: () -> Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (() -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `trivialReturningParenthesizedClosure`(`block`: () -> Void)
@@ -4794,10 +4794,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `trivialReturningParenthesizedClosure`(`block`: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() -> Void) -> Bool, Bool> {
+  public func `trivialReturningParenthesizedClosure`(`block`: @escaping @autoclosure () -> () -> Void) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (() -> Void) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialReturningParenthesizedClosure`(`block`: () -> Void) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (() -> Void) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `wrappedClosureParameter`(`block`: MockingbirdTestsHost.ClosureWrapper)
@@ -4818,10 +4818,10 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
     }
   }
 
-  public func `wrappedClosureParameter`(`block`: @escaping @autoclosure () -> MockingbirdTestsHost.ClosureWrapper) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.ClosureWrapper) -> Bool, Bool> {
+  public func `wrappedClosureParameter`(`block`: @escaping @autoclosure () -> MockingbirdTestsHost.ClosureWrapper) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.ClosureWrapper) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`wrappedClosureParameter`(`block`: MockingbirdTestsHost.ClosureWrapper) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.ClosureWrapper) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.ClosureWrapper) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -4902,10 +4902,10 @@ public final class CodableConformingProtocolMock: MockingbirdTestsHost.CodableCo
     }
   }
 
-  public func `encode`(`to` `encoder`: @escaping @autoclosure () -> Encoder) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Encoder) throws -> Void, Void> {
+  public func `encode`(`to` `encoder`: @escaping @autoclosure () -> Encoder) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Encoder) throws -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`encoder`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`encode`(`to` `encoder`: Encoder) throws -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Encoder) throws -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Encoder) throws -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked init(`from` `decoder`: Decoder)
@@ -5225,9 +5225,9 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     }
   }
 
-  public func `debugMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `debugMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`debugMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   #endif
@@ -5248,9 +5248,9 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     }
   }
 
-  public func `defaultMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `defaultMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`defaultMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   #endif
@@ -5269,9 +5269,9 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   #if DEBUG
@@ -5291,9 +5291,9 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     }
   }
 
-  public func `nestedDebugMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `nestedDebugMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedDebugMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   #endif
@@ -5316,9 +5316,9 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     }
   }
 
-  public func `nestedDefaultMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `nestedDefaultMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedDefaultMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   #endif
@@ -5341,9 +5341,9 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     }
   }
 
-  public func `nestedReleaseMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `nestedReleaseMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedReleaseMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   #endif
@@ -5365,9 +5365,9 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     }
   }
 
-  public func `onlyDebugMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `onlyDebugMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`onlyDebugMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   #endif
@@ -5388,9 +5388,9 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     }
   }
 
-  public func `releaseMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `releaseMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`releaseMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   #endif
@@ -5662,10 +5662,10 @@ public final class ConstrainedUnspecializedGenericSubclassMock<T: Swift.Equatabl
     }
   }
 
-  public func `baseMethod`(`param`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T> {
+  public func `baseMethod`(`param`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T, T> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: T) -> T", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
   }
 }
 
@@ -5839,10 +5839,10 @@ public final class DeclarationAttributesClassMock: MockingbirdTestsHost.Declarat
   }
 
   @available(iOS 10.0, *)
-  public func `availableMethod`(`param`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Bool, Bool> {
+  public func `availableMethod`(`param`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`availableMethod`(`param`: String) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `multipleAttributesMethod`(`param`: String)
@@ -5865,10 +5865,10 @@ public final class DeclarationAttributesClassMock: MockingbirdTestsHost.Declarat
   }
 
   @available(iOS 10.0, *)
-  public func `multipleAttributesMethod`(`param`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Bool, Bool> {
+  public func `multipleAttributesMethod`(`param`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`multipleAttributesMethod`(`param`: String) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -5942,10 +5942,10 @@ public final class DeclarationAttributesProtocolMock: MockingbirdTestsHost.Decla
   }
 
   @available(iOS 10.0, *)
-  public func `availableMethod`(`param`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Bool, Bool> {
+  public func `availableMethod`(`param`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`availableMethod`(`param`: String) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -5989,10 +5989,10 @@ public final class DefaultArgumentValuesClassMock: MockingbirdTestsHost.DefaultA
     }
   }
 
-  public func `method`(`param1`: @escaping @autoclosure () -> String, `param2`: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject]) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String, [MockingbirdTestsHost.NSObject]) -> Void, Void> {
+  public func `method`(`param1`: @escaping @autoclosure () -> String, `param2`: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject]) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String, [MockingbirdTestsHost.NSObject]) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`param1`: String, `param2`: [MockingbirdTestsHost.NSObject]) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String, [MockingbirdTestsHost.NSObject]) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String, [MockingbirdTestsHost.NSObject]) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -6035,10 +6035,10 @@ public final class DefaultArgumentValuesProtocolMock: MockingbirdTestsHost.Defau
     }
   }
 
-  public func `method`(`param1`: @escaping @autoclosure () -> String, `param2`: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject]) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String, [MockingbirdTestsHost.NSObject]) -> Void, Void> {
+  public func `method`(`param1`: @escaping @autoclosure () -> String, `param2`: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject]) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String, [MockingbirdTestsHost.NSObject]) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`param1`: String, `param2`: [MockingbirdTestsHost.NSObject]) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String, [MockingbirdTestsHost.NSObject]) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String, [MockingbirdTestsHost.NSObject]) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -6541,10 +6541,10 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     }
   }
 
-  public func `childParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `childParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `childParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int)
@@ -6565,10 +6565,10 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     }
   }
 
-  public static func `childParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `childParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `childTrivialInstanceMethod`()
@@ -6585,9 +6585,9 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     }
   }
 
-  public func `childTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `childTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `childTrivialStaticMethod`()
@@ -6604,9 +6604,9 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     }
   }
 
-  public static func `childTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `childTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialStaticMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -6627,10 +6627,10 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     }
   }
 
-  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int)
@@ -6651,10 +6651,10 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     }
   }
 
-  public static func `grandparentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `grandparentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialInstanceMethod`()
@@ -6671,9 +6671,9 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     }
   }
 
-  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialStaticMethod`()
@@ -6690,9 +6690,9 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     }
   }
 
-  public static func `grandparentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `grandparentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialStaticMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -6713,10 +6713,10 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     }
   }
 
-  public func `parentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `parentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int)
@@ -6737,10 +6737,10 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     }
   }
 
-  public static func `parentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `parentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentTrivialInstanceMethod`()
@@ -6757,9 +6757,9 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     }
   }
 
-  public func `parentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `parentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentTrivialStaticMethod`()
@@ -6776,9 +6776,9 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     }
   }
 
-  public static func `parentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `parentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialStaticMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 }
 
@@ -6874,10 +6874,10 @@ public final class DictionaryCollectionMock: MockingbirdTestsHost.DictionaryColl
     }
   }
 
-  public func `method`(`objects`: @escaping @autoclosure () -> [String: String]) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([String: String]) -> Bool, Bool> {
+  public func `method`(`objects`: @escaping @autoclosure () -> [String: String]) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([String: String]) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`objects`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`objects`: [String: String]) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([String: String]) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([String: String]) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -7108,9 +7108,9 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     }
   }
 
-  public func `explicitMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)> {
+  public func `explicitMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `explicitMethod`()
@@ -7131,9 +7131,9 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     }
   }
 
-  public func `explicitMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)> {
+  public func `explicitMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `explicitMethod`()
@@ -7154,9 +7154,9 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     }
   }
 
-  public func `explicitMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Dictionary<Foundation.URL, Foundation.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>> {
+  public func `explicitMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Dictionary<Foundation.URL, Foundation.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`() -> Dictionary<Foundation.URL, Foundation.NSObject>", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Dictionary<Foundation.URL, Foundation.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Dictionary<Foundation.URL, Foundation.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `explicitMethod`()
@@ -7177,9 +7177,9 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     }
   }
 
-  public func `explicitMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>> {
+  public func `explicitMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`() -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `explicitMethod`(`param1`: Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, `param2`: Dictionary<Foundation.URL, Foundation.NSObject>)
@@ -7196,10 +7196,10 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     }
   }
 
-  public func `explicitMethod`(`param1`: @escaping @autoclosure () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, `param2`: @escaping @autoclosure () -> Dictionary<Foundation.URL, Foundation.NSObject>) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> Void, Void> {
+  public func `explicitMethod`(`param1`: @escaping @autoclosure () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, `param2`: @escaping @autoclosure () -> Dictionary<Foundation.URL, Foundation.NSObject>) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`(`param1`: Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, `param2`: Dictionary<Foundation.URL, Foundation.NSObject>) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `explicitMethodWithParameterLabels`()
@@ -7220,9 +7220,9 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     }
   }
 
-  public func `explicitMethodWithParameterLabels`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)> {
+  public func `explicitMethodWithParameterLabels`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethodWithParameterLabels`() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>), (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`()
@@ -7243,9 +7243,9 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`()
@@ -7266,9 +7266,9 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`()
@@ -7289,9 +7289,9 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> [Foundation.URL: Foundation.NSObject], [Foundation.URL: Foundation.NSObject]> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> [Foundation.URL: Foundation.NSObject], [Foundation.URL: Foundation.NSObject]> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> [Foundation.URL: Foundation.NSObject]", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> [Foundation.URL: Foundation.NSObject], [Foundation.URL: Foundation.NSObject]>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> [Foundation.URL: Foundation.NSObject], [Foundation.URL: Foundation.NSObject]>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`()
@@ -7312,9 +7312,9 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`param1`: [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], `param2`: [Foundation.URL: Foundation.NSObject])
@@ -7331,10 +7331,10 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     }
   }
 
-  public func `method`(`param1`: @escaping @autoclosure () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], `param2`: @escaping @autoclosure () -> [Foundation.URL: Foundation.NSObject]) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> Void, Void> {
+  public func `method`(`param1`: @escaping @autoclosure () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], `param2`: @escaping @autoclosure () -> [Foundation.URL: Foundation.NSObject]) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`param1`: [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], `param2`: [Foundation.URL: Foundation.NSObject]) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithParameterLabels`()
@@ -7355,9 +7355,9 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     }
   }
 
-  public func `methodWithParameterLabels`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])> {
+  public func `methodWithParameterLabels`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithParameterLabels`() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]), ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])>(mock: self, invocation: invocation)
   }
 }
 
@@ -7390,6 +7390,76 @@ public final class DirectoryNonRelativeIgnoredSourceMock: MockingbirdTestsHost.D
 /// Initialize a protocol mock of `MockingbirdTestsHost.DirectoryNonRelativeIgnoredSource`.
 public func mock(_ type: MockingbirdTestsHost.DirectoryNonRelativeIgnoredSource.Protocol, file: StaticString = #file, line: UInt = #line) -> DirectoryNonRelativeIgnoredSourceMock {
   return DirectoryNonRelativeIgnoredSourceMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked DynamicMemberLookupClass
+
+public final class DynamicMemberLookupClassMock: MockingbirdTestsHost.DynamicMemberLookupClass, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      DynamicMemberLookupClassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked subscript(`dynamicMember` `member`: String)
+
+  public override subscript(`dynamicMember` `member`: String) -> Int {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(`dynamicMember` `member`: String) -> Int", arguments: [Mockingbird.ArgumentMatcher(`member`)])
+      return mockingContext.didInvoke(invocation) { () -> Int in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (String) -> Int {
+          return concreteImplementation(`member`)
+        } else if let concreteImplementation = implementation as? () -> Int {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Int).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(`dynamicMember` `member`: String, `newValue`: Int) -> Int", arguments: [Mockingbird.ArgumentMatcher(`member`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (String, Int) -> Void {
+          concreteImplementation(`member`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript(`dynamicMember` `member`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String) -> Int, Int> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`member`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(`dynamicMember` `member`: String) -> Int", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String) -> Int, Int>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript(`dynamicMember` `member`: @escaping @autoclosure () -> String, `newValue`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String, Int) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`member`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(`dynamicMember` `member`: String, `newValue`: Int) -> Int", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String, Int) -> Void, Void>(mock: self, invocation: invocation)
+  }
+}
+
+/// Initialize a class mock of `MockingbirdTestsHost.DynamicMemberLookupClass`.
+public func mock(_ type: MockingbirdTestsHost.DynamicMemberLookupClass.Type, file: StaticString = #file, line: UInt = #line) -> DynamicMemberLookupClassMock {
+  return DynamicMemberLookupClassMock(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked EmptyClass
@@ -7851,10 +7921,10 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     }
   }
 
-  public static func `childParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `childParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -7875,10 +7945,10 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     }
   }
 
-  public func `childParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `childParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `childTrivialClassMethod`()
@@ -7895,9 +7965,9 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     }
   }
 
-  public static func `childTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `childTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialClassMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `childTrivialInstanceMethod`()
@@ -7914,9 +7984,9 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     }
   }
 
-  public func `childTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `childTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int)
@@ -7937,10 +8007,10 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     }
   }
 
-  public static func `grandparentParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `grandparentParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -7961,10 +8031,10 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     }
   }
 
-  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialClassMethod`()
@@ -7981,9 +8051,9 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     }
   }
 
-  public static func `grandparentTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `grandparentTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialClassMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialInstanceMethod`()
@@ -8000,9 +8070,9 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     }
   }
 
-  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int)
@@ -8023,10 +8093,10 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     }
   }
 
-  public static func `parentParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `parentParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -8047,10 +8117,10 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     }
   }
 
-  public func `parentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `parentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentTrivialClassMethod`()
@@ -8067,9 +8137,9 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     }
   }
 
-  public static func `parentTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `parentTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialClassMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentTrivialInstanceMethod`()
@@ -8086,9 +8156,9 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     }
   }
 
-  public func `parentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `parentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -8507,10 +8577,10 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     }
   }
 
-  public func `childParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `childParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `childParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int)
@@ -8531,10 +8601,10 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     }
   }
 
-  public static func `childParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `childParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `childTrivialInstanceMethod`()
@@ -8551,9 +8621,9 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     }
   }
 
-  public func `childTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `childTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `childTrivialStaticMethod`()
@@ -8570,9 +8640,9 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     }
   }
 
-  public static func `childTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `childTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialStaticMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -8593,10 +8663,10 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     }
   }
 
-  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int)
@@ -8617,10 +8687,10 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     }
   }
 
-  public static func `grandparentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `grandparentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialInstanceMethod`()
@@ -8637,9 +8707,9 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     }
   }
 
-  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialStaticMethod`()
@@ -8656,9 +8726,9 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     }
   }
 
-  public static func `grandparentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `grandparentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialStaticMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -8679,10 +8749,10 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     }
   }
 
-  public func `parentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `parentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int)
@@ -8703,10 +8773,10 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     }
   }
 
-  public static func `parentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `parentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentTrivialInstanceMethod`()
@@ -8723,9 +8793,9 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     }
   }
 
-  public func `parentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `parentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentTrivialStaticMethod`()
@@ -8742,9 +8812,9 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     }
   }
 
-  public static func `parentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `parentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialStaticMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 }
 
@@ -8915,10 +8985,10 @@ public final class EquatableCodableConformingProtocolMock: MockingbirdTestsHost.
     }
   }
 
-  public static func _equalTo(_ `lhs`: @escaping @autoclosure () -> EquatableCodableConformingProtocolMock, _ `rhs`: @escaping @autoclosure () -> EquatableCodableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableCodableConformingProtocolMock, EquatableCodableConformingProtocolMock) -> Bool, Bool> {
+  public static func _equalTo(_ `lhs`: @escaping @autoclosure () -> EquatableCodableConformingProtocolMock, _ `rhs`: @escaping @autoclosure () -> EquatableCodableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (EquatableCodableConformingProtocolMock, EquatableCodableConformingProtocolMock) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ `lhs`: EquatableCodableConformingProtocolMock, _ `rhs`: EquatableCodableConformingProtocolMock) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableCodableConformingProtocolMock, EquatableCodableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (EquatableCodableConformingProtocolMock, EquatableCodableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `encode`(`to` `encoder`: Encoder)
@@ -8935,10 +9005,10 @@ public final class EquatableCodableConformingProtocolMock: MockingbirdTestsHost.
     }
   }
 
-  public func `encode`(`to` `encoder`: @escaping @autoclosure () -> Encoder) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Encoder) throws -> Void, Void> {
+  public func `encode`(`to` `encoder`: @escaping @autoclosure () -> Encoder) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Encoder) throws -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`encoder`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`encode`(`to` `encoder`: Encoder) throws -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Encoder) throws -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Encoder) throws -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked init(`from` `decoder`: Decoder)
@@ -9020,10 +9090,10 @@ public final class EquatableConformingProtocolMock: MockingbirdTestsHost.Equatab
     }
   }
 
-  public static func _equalTo(_ `lhs`: @escaping @autoclosure () -> EquatableConformingProtocolMock, _ `rhs`: @escaping @autoclosure () -> EquatableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool, Bool> {
+  public static func _equalTo(_ `lhs`: @escaping @autoclosure () -> EquatableConformingProtocolMock, _ `rhs`: @escaping @autoclosure () -> EquatableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ `lhs`: EquatableConformingProtocolMock, _ `rhs`: EquatableConformingProtocolMock) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 }
 
@@ -9135,9 +9205,9 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     }
   }
 
-  public func `anotherTrivialExtendedMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `anotherTrivialExtendedMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`anotherTrivialExtendedMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parameterizedExtendedMethod`(`param1`: Bool)
@@ -9154,10 +9224,10 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     }
   }
 
-  public func `parameterizedExtendedMethod`(`param1`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Void, Void> {
+  public func `parameterizedExtendedMethod`(`param1`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedExtendedMethod`(`param1`: Bool) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parameterizedReturningExtendedMethod`(`param1`: Bool)
@@ -9178,10 +9248,10 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     }
   }
 
-  public func `parameterizedReturningExtendedMethod`(`param1`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool> {
+  public func `parameterizedReturningExtendedMethod`(`param1`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedReturningExtendedMethod`(`param1`: Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `trivialBaseMethod`()
@@ -9198,9 +9268,9 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     }
   }
 
-  public func `trivialBaseMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `trivialBaseMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialBaseMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `trivialExtendedMethod`()
@@ -9217,9 +9287,9 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     }
   }
 
-  public func `trivialExtendedMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `trivialExtendedMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialExtendedMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -9663,9 +9733,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeable2Tuple`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int), (String, Int)> {
+  public func `fakeable2Tuple`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (String, Int), (String, Int)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeable2Tuple`() -> (String, Int)", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int), (String, Int)>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (String, Int), (String, Int)>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeable3Tuple`()
@@ -9686,9 +9756,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeable3Tuple`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int, Bool), (String, Int, Bool)> {
+  public func `fakeable3Tuple`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (String, Int, Bool), (String, Int, Bool)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeable3Tuple`() -> (String, Int, Bool)", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int, Bool), (String, Int, Bool)>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (String, Int, Bool), (String, Int, Bool)>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeable4Tuple`()
@@ -9709,9 +9779,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeable4Tuple`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int, Bool, Double), (String, Int, Bool, Double)> {
+  public func `fakeable4Tuple`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (String, Int, Bool, Double), (String, Int, Bool, Double)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeable4Tuple`() -> (String, Int, Bool, Double)", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int, Bool, Double), (String, Int, Bool, Double)>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (String, Int, Bool, Double), (String, Int, Bool, Double)>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeable5Tuple`()
@@ -9732,9 +9802,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeable5Tuple`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int, Bool, Double, Float), (String, Int, Bool, Double, Float)> {
+  public func `fakeable5Tuple`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (String, Int, Bool, Double, Float), (String, Int, Bool, Double, Float)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeable5Tuple`() -> (String, Int, Bool, Double, Float)", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int, Bool, Double, Float), (String, Int, Bool, Double, Float)>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (String, Int, Bool, Double, Float), (String, Int, Bool, Double, Float)>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeable6Tuple`()
@@ -9755,9 +9825,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeable6Tuple`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int, Bool, Double, Float, UInt), (String, Int, Bool, Double, Float, UInt)> {
+  public func `fakeable6Tuple`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (String, Int, Bool, Double, Float, UInt), (String, Int, Bool, Double, Float, UInt)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeable6Tuple`() -> (String, Int, Bool, Double, Float, UInt)", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int, Bool, Double, Float, UInt), (String, Int, Bool, Double, Float, UInt)>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (String, Int, Bool, Double, Float, UInt), (String, Int, Bool, Double, Float, UInt)>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableArray`()
@@ -9778,9 +9848,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableArray`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Array<String>, Array<String>> {
+  public func `fakeableArray`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Array<String>, Array<String>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableArray`() -> Array<String>", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Array<String>, Array<String>>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Array<String>, Array<String>>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableBool`()
@@ -9801,9 +9871,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableBool`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+  public func `fakeableBool`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableBool`() -> Bool", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableCGFloat`()
@@ -9824,9 +9894,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableCGFloat`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> CGFloat, CGFloat> {
+  public func `fakeableCGFloat`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> CGFloat, CGFloat> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableCGFloat`() -> CGFloat", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> CGFloat, CGFloat>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> CGFloat, CGFloat>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableCGPoint`()
@@ -9847,9 +9917,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableCGPoint`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> CGPoint, CGPoint> {
+  public func `fakeableCGPoint`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> CGPoint, CGPoint> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableCGPoint`() -> CGPoint", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> CGPoint, CGPoint>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> CGPoint, CGPoint>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableClass`()
@@ -9870,9 +9940,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableClass`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass> {
+  public func `fakeableClass`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableClass`() -> MockingbirdTestsHost.FakeableClass", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableDate`()
@@ -9893,9 +9963,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableDate`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Date, Date> {
+  public func `fakeableDate`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Date, Date> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableDate`() -> Date", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Date, Date>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Date, Date>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableDictionary`()
@@ -9916,9 +9986,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableDictionary`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Dictionary<String, Int>, Dictionary<String, Int>> {
+  public func `fakeableDictionary`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Dictionary<String, Int>, Dictionary<String, Int>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableDictionary`() -> Dictionary<String, Int>", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Dictionary<String, Int>, Dictionary<String, Int>>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Dictionary<String, Int>, Dictionary<String, Int>>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableDouble`()
@@ -9939,9 +10009,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableDouble`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Double, Double> {
+  public func `fakeableDouble`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Double, Double> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableDouble`() -> Double", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Double, Double>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Double, Double>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableEnum`()
@@ -9962,9 +10032,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableEnum`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableEnum, MockingbirdTestsHost.FakeableEnum> {
+  public func `fakeableEnum`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.FakeableEnum, MockingbirdTestsHost.FakeableEnum> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableEnum`() -> MockingbirdTestsHost.FakeableEnum", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableEnum, MockingbirdTestsHost.FakeableEnum>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.FakeableEnum, MockingbirdTestsHost.FakeableEnum>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableFloat`()
@@ -9985,9 +10055,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableFloat`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Float, Float> {
+  public func `fakeableFloat`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Float, Float> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableFloat`() -> Float", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Float, Float>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Float, Float>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableGenericClass`<T>()
@@ -10008,9 +10078,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableGenericClass`<T>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableGenericClass<T>, MockingbirdTestsHost.FakeableGenericClass<T>> {
+  public func `fakeableGenericClass`<T>() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.FakeableGenericClass<T>, MockingbirdTestsHost.FakeableGenericClass<T>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableGenericClass`<T>() -> MockingbirdTestsHost.FakeableGenericClass<T>", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableGenericClass<T>, MockingbirdTestsHost.FakeableGenericClass<T>>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.FakeableGenericClass<T>, MockingbirdTestsHost.FakeableGenericClass<T>>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableInt`()
@@ -10031,9 +10101,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableInt`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Int, Int> {
+  public func `fakeableInt`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Int, Int> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableInt`() -> Int", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Int, Int>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Int, Int>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableNSCache`()
@@ -10054,9 +10124,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableNSCache`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>, NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>> {
+  public func `fakeableNSCache`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>, NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableNSCache`() -> NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>, NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>, NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableNSHashTable`()
@@ -10077,9 +10147,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableNSHashTable`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> NSHashTable<MockingbirdTestsHost.FakeableClass>, NSHashTable<MockingbirdTestsHost.FakeableClass>> {
+  public func `fakeableNSHashTable`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> NSHashTable<MockingbirdTestsHost.FakeableClass>, NSHashTable<MockingbirdTestsHost.FakeableClass>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableNSHashTable`() -> NSHashTable<MockingbirdTestsHost.FakeableClass>", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> NSHashTable<MockingbirdTestsHost.FakeableClass>, NSHashTable<MockingbirdTestsHost.FakeableClass>>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> NSHashTable<MockingbirdTestsHost.FakeableClass>, NSHashTable<MockingbirdTestsHost.FakeableClass>>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableNSMapTable`()
@@ -10100,9 +10170,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableNSMapTable`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>, NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>> {
+  public func `fakeableNSMapTable`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>, NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableNSMapTable`() -> NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>, NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>, NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableProtocol`()
@@ -10123,9 +10193,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableProtocol`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableProtocol, MockingbirdTestsHost.FakeableProtocol> {
+  public func `fakeableProtocol`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.FakeableProtocol, MockingbirdTestsHost.FakeableProtocol> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableProtocol`() -> MockingbirdTestsHost.FakeableProtocol", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableProtocol, MockingbirdTestsHost.FakeableProtocol>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.FakeableProtocol, MockingbirdTestsHost.FakeableProtocol>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableSet`()
@@ -10146,9 +10216,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableSet`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Set<String>, Set<String>> {
+  public func `fakeableSet`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Set<String>, Set<String>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableSet`() -> Set<String>", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Set<String>, Set<String>>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Set<String>, Set<String>>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableString`()
@@ -10169,9 +10239,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableString`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> String, String> {
+  public func `fakeableString`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> String, String> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableString`() -> String", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> String, String>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> String, String>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableStruct`()
@@ -10192,9 +10262,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableStruct`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableStruct, MockingbirdTestsHost.FakeableStruct> {
+  public func `fakeableStruct`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.FakeableStruct, MockingbirdTestsHost.FakeableStruct> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableStruct`() -> MockingbirdTestsHost.FakeableStruct", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableStruct, MockingbirdTestsHost.FakeableStruct>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.FakeableStruct, MockingbirdTestsHost.FakeableStruct>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableTypealias`()
@@ -10215,9 +10285,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableTypealias`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableTypealias, MockingbirdTestsHost.FakeableTypealias> {
+  public func `fakeableTypealias`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.FakeableTypealias, MockingbirdTestsHost.FakeableTypealias> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableTypealias`() -> MockingbirdTestsHost.FakeableTypealias", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableTypealias, MockingbirdTestsHost.FakeableTypealias>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.FakeableTypealias, MockingbirdTestsHost.FakeableTypealias>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `fakeableUInt`()
@@ -10238,9 +10308,9 @@ public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableType
     }
   }
 
-  public func `fakeableUInt`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> UInt, UInt> {
+  public func `fakeableUInt`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> UInt, UInt> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableUInt`() -> UInt", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> UInt, UInt>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> UInt, UInt>(mock: self, invocation: invocation)
   }
 }
 
@@ -10318,10 +10388,10 @@ public final class GenericBaseClassMock<T>: MockingbirdTestsHost.GenericBaseClas
     }
   }
 
-  public func `baseMethod`(`param`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T> {
+  public func `baseMethod`(`param`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T, T> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: T) -> T", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
   }
 }
 
@@ -10446,9 +10516,9 @@ public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClass
     }
   }
 
-  public func `genericClassMethod`<Z>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClass<Z>, MockingbirdTestsHost.ReferencedGenericClass<Z>> {
+  public func `genericClassMethod`<Z>() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClass<Z>, MockingbirdTestsHost.ReferencedGenericClass<Z>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericClassMethod`<Z>() -> MockingbirdTestsHost.ReferencedGenericClass<Z>", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClass<Z>, MockingbirdTestsHost.ReferencedGenericClass<Z>>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClass<Z>, MockingbirdTestsHost.ReferencedGenericClass<Z>>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `genericClassMethod`<T, Z: MockingbirdTestsHost.ReferencedGenericClass<T>>(`metatype`: Z.Type)
@@ -10469,10 +10539,10 @@ public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClass
     }
   }
 
-  public func `genericClassMethod`<T, Z: MockingbirdTestsHost.ReferencedGenericClass<T>>(`metatype`: @escaping @autoclosure () -> Z.Type) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Z.Type) -> Z.Type, Z.Type> {
+  public func `genericClassMethod`<T, Z: MockingbirdTestsHost.ReferencedGenericClass<T>>(`metatype`: @escaping @autoclosure () -> Z.Type) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Z.Type) -> Z.Type, Z.Type> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`metatype`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericClassMethod`<T, Z: MockingbirdTestsHost.ReferencedGenericClass<T>>(`metatype`: Z.Type) -> Z.Type", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Z.Type) -> Z.Type, Z.Type>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Z.Type) -> Z.Type, Z.Type>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `genericClassWithConstraintsMethod`<Z>()
@@ -10493,9 +10563,9 @@ public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClass
     }
   }
 
-  public func `genericClassWithConstraintsMethod`<Z>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>, MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>> {
+  public func `genericClassWithConstraintsMethod`<Z>() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>, MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericClassWithConstraintsMethod`<Z>() -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>, MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>, MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `genericClassWithConstraintsMethod`<T, Z: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<T>>(`metatype`: Z.Type)
@@ -10516,16 +10586,86 @@ public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClass
     }
   }
 
-  public func `genericClassWithConstraintsMethod`<T, Z: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<T>>(`metatype`: @escaping @autoclosure () -> Z.Type) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Z.Type) -> Z.Type, Z.Type> {
+  public func `genericClassWithConstraintsMethod`<T, Z: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<T>>(`metatype`: @escaping @autoclosure () -> Z.Type) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Z.Type) -> Z.Type, Z.Type> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`metatype`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericClassWithConstraintsMethod`<T, Z: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<T>>(`metatype`: Z.Type) -> Z.Type", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Z.Type) -> Z.Type, Z.Type>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Z.Type) -> Z.Type, Z.Type>(mock: self, invocation: invocation)
   }
 }
 
 /// Initialize a protocol mock of `MockingbirdTestsHost.GenericClassReferencer`.
 public func mock(_ type: MockingbirdTestsHost.GenericClassReferencer.Protocol, file: StaticString = #file, line: UInt = #line) -> GenericClassReferencerMock {
   return GenericClassReferencerMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked GenericDynamicMemberLookupClass
+
+public final class GenericDynamicMemberLookupClassMock: MockingbirdTestsHost.GenericDynamicMemberLookupClass, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      GenericDynamicMemberLookupClassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked subscript<T>(`dynamicMember` `member`: String)
+
+  public override subscript<T>(`dynamicMember` `member`: String) -> T {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript<T>(`dynamicMember` `member`: String) -> T", arguments: [Mockingbird.ArgumentMatcher(`member`)])
+      return mockingContext.didInvoke(invocation) { () -> T in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (String) -> T {
+          return concreteImplementation(`member`)
+        } else if let concreteImplementation = implementation as? () -> T {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript<T>(`dynamicMember` `member`: String, `newValue`: T) -> T", arguments: [Mockingbird.ArgumentMatcher(`member`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (String, T) -> Void {
+          concreteImplementation(`member`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript<T>(`dynamicMember` `member`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String) -> T, T> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`member`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript<T>(`dynamicMember` `member`: String) -> T", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String) -> T, T>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript<T>(`dynamicMember` `member`: @escaping @autoclosure () -> String, `newValue`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String, T) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`member`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript<T>(`dynamicMember` `member`: String, `newValue`: T) -> T", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String, T) -> Void, Void>(mock: self, invocation: invocation)
+  }
+}
+
+/// Initialize a class mock of `MockingbirdTestsHost.GenericDynamicMemberLookupClass`.
+public func mock(_ type: MockingbirdTestsHost.GenericDynamicMemberLookupClass.Type, file: StaticString = #file, line: UInt = #line) -> GenericDynamicMemberLookupClassMock {
+  return GenericDynamicMemberLookupClassMock(sourceLocation: SourceLocation(file, line))
 }
 
 // MARK: - Mocked GrandparentProtocol
@@ -10690,10 +10830,10 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     }
   }
 
-  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int)
@@ -10714,10 +10854,10 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     }
   }
 
-  public static func `grandparentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `grandparentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialInstanceMethod`()
@@ -10734,9 +10874,9 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     }
   }
 
-  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialStaticMethod`()
@@ -10753,9 +10893,9 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     }
   }
 
-  public static func `grandparentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `grandparentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialStaticMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 }
 
@@ -10934,10 +11074,10 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     }
   }
 
-  public static func `grandparentParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `grandparentParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -10958,10 +11098,10 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     }
   }
 
-  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialClassMethod`()
@@ -10978,9 +11118,9 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     }
   }
 
-  public static func `grandparentTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `grandparentTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialClassMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialInstanceMethod`()
@@ -10997,9 +11137,9 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     }
   }
 
-  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -11043,10 +11183,10 @@ public final class HashableConformingClassMock: MockingbirdTestsHost.HashableCon
     }
   }
 
-  public func `hash`(`into` `hasher`: @escaping @autoclosure () -> Hasher) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (inout Hasher) -> Void, Void> {
+  public func `hash`(`into` `hasher`: @escaping @autoclosure () -> Hasher) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (inout Hasher) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`hasher`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`hash`(`into` `hasher`: inout Hasher) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (inout Hasher) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (inout Hasher) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -11116,10 +11256,10 @@ public final class HashableConformingProtocolMock: MockingbirdTestsHost.Hashable
     }
   }
 
-  public static func _equalTo(_ `lhs`: @escaping @autoclosure () -> HashableConformingProtocolMock, _ `rhs`: @escaping @autoclosure () -> HashableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool, Bool> {
+  public static func _equalTo(_ `lhs`: @escaping @autoclosure () -> HashableConformingProtocolMock, _ `rhs`: @escaping @autoclosure () -> HashableConformingProtocolMock) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ `lhs`: HashableConformingProtocolMock, _ `rhs`: HashableConformingProtocolMock) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `hash`(`into` `hasher`: inout Hasher)
@@ -11136,10 +11276,10 @@ public final class HashableConformingProtocolMock: MockingbirdTestsHost.Hashable
     }
   }
 
-  public func `hash`(`into` `hasher`: @escaping @autoclosure () -> Hasher) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (inout Hasher) -> Void, Void> {
+  public func `hash`(`into` `hasher`: @escaping @autoclosure () -> Hasher) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (inout Hasher) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`hasher`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`hash`(`into` `hasher`: inout Hasher) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (inout Hasher) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (inout Hasher) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -11187,10 +11327,10 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
     }
   }
 
-  public func `genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: @escaping @autoclosure () -> T?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T?) -> T?, T?> where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject? {
+  public func `genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: @escaping @autoclosure () -> T?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T?) -> T?, T?> where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject? {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject?", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T?) -> T?, T?>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T?) -> T?, T?>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: T)
@@ -11211,10 +11351,10 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
     }
   }
 
-  public func `genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T> where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdModuleTestsHost.NSObject {
+  public func `genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T, T> where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdModuleTestsHost.NSObject {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: T) -> T where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdModuleTestsHost.NSObject", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`object`: Foundation.NSObject?)
@@ -11235,10 +11375,10 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> Foundation.NSObject?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?> {
+  public func `request`(`object`: @escaping @autoclosure () -> Foundation.NSObject?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: Foundation.NSObject?) -> Foundation.NSObject?", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`object`: Foundation.NSObject)
@@ -11259,10 +11399,10 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> Foundation.NSObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject> {
+  public func `request`(`object`: @escaping @autoclosure () -> Foundation.NSObject) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: Foundation.NSObject) -> Foundation.NSObject", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`object`: MockingbirdModuleTestsHost.NSObject?)
@@ -11283,10 +11423,10 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> MockingbirdModuleTestsHost.NSObject?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?, MockingbirdModuleTestsHost.NSObject?> {
+  public func `request`(`object`: @escaping @autoclosure () -> MockingbirdModuleTestsHost.NSObject?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?, MockingbirdModuleTestsHost.NSObject?> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?, MockingbirdModuleTestsHost.NSObject?>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?, MockingbirdModuleTestsHost.NSObject?>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`object`: MockingbirdModuleTestsHost.NSObject)
@@ -11307,10 +11447,10 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> MockingbirdModuleTestsHost.NSObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject, MockingbirdModuleTestsHost.NSObject> {
+  public func `request`(`object`: @escaping @autoclosure () -> MockingbirdModuleTestsHost.NSObject) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject, MockingbirdModuleTestsHost.NSObject> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject, MockingbirdModuleTestsHost.NSObject>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject, MockingbirdModuleTestsHost.NSObject>(mock: self, invocation: invocation)
   }
 }
 
@@ -11569,10 +11709,10 @@ public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: 
     }
   }
 
-  public func `lessQualifiedImplementation`(`param`: @escaping @autoclosure () -> MockingbirdTestsHost.UnscopedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?> {
+  public func `lessQualifiedImplementation`(`param`: @escaping @autoclosure () -> MockingbirdTestsHost.UnscopedType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`lessQualifiedImplementation`(`param`: MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `moreQualifiedImplementation`(`param`: MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType)
@@ -11593,10 +11733,10 @@ public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: 
     }
   }
 
-  public func `moreQualifiedImplementation`(`param`: @escaping @autoclosure () -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?, MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?> {
+  public func `moreQualifiedImplementation`(`param`: @escaping @autoclosure () -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?, MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`moreQualifiedImplementation`(`param`: MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?, MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?, MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?>(mock: self, invocation: invocation)
   }
 }
 
@@ -11650,10 +11790,10 @@ public final class InheritedTypeQualificationProtocolMock<ScopedType>: Mockingbi
     }
   }
 
-  public func `lessQualifiedImplementation`(`param`: @escaping @autoclosure () -> MockingbirdTestsHost.UnscopedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?> {
+  public func `lessQualifiedImplementation`(`param`: @escaping @autoclosure () -> MockingbirdTestsHost.UnscopedType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`lessQualifiedImplementation`(`param`: MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?, MockingbirdTestsHost.UnscopedType?>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `moreQualifiedImplementation`(`param`: ScopedType)
@@ -11674,10 +11814,10 @@ public final class InheritedTypeQualificationProtocolMock<ScopedType>: Mockingbi
     }
   }
 
-  public func `moreQualifiedImplementation`(`param`: @escaping @autoclosure () -> ScopedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ScopedType) -> ScopedType?, ScopedType?> {
+  public func `moreQualifiedImplementation`(`param`: @escaping @autoclosure () -> ScopedType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ScopedType) -> ScopedType?, ScopedType?> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`moreQualifiedImplementation`(`param`: ScopedType) -> ScopedType?", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ScopedType) -> ScopedType?, ScopedType?>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ScopedType) -> ScopedType?, ScopedType?>(mock: self, invocation: invocation)
   }
 }
 
@@ -11727,10 +11867,10 @@ public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceT
     }
   }
 
-  public func `request`<T: Sequence>(`array`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void> where T.Element == InheritingAssociatedTypeSelfReferencingProtocolMock {
+  public func `request`<T: Sequence>(`array`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> Void, Void> where T.Element == InheritingAssociatedTypeSelfReferencingProtocolMock {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`array`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: Sequence>(`array`: T) -> Void where T.Element == InheritingAssociatedTypeSelfReferencingProtocolMock", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`array`: SequenceType)
@@ -11747,10 +11887,10 @@ public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceT
     }
   }
 
-  public func `request`(`array`: @escaping @autoclosure () -> SequenceType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SequenceType) -> Void, Void> {
+  public func `request`(`array`: @escaping @autoclosure () -> SequenceType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (SequenceType) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`array`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`array`: SequenceType) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SequenceType) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (SequenceType) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`object`: InheritingAssociatedTypeSelfReferencingProtocolMock)
@@ -11767,10 +11907,10 @@ public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceT
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> InheritingAssociatedTypeSelfReferencingProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (InheritingAssociatedTypeSelfReferencingProtocolMock) -> Void, Void> {
+  public func `request`(`object`: @escaping @autoclosure () -> InheritingAssociatedTypeSelfReferencingProtocolMock) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (InheritingAssociatedTypeSelfReferencingProtocolMock) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: InheritingAssociatedTypeSelfReferencingProtocolMock) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (InheritingAssociatedTypeSelfReferencingProtocolMock) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (InheritingAssociatedTypeSelfReferencingProtocolMock) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -11850,10 +11990,10 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     }
   }
 
-  public func `genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: @escaping @autoclosure () -> T?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T?) -> T?, T?> where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject? {
+  public func `genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: @escaping @autoclosure () -> T?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T?) -> T?, T?> where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject? {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject?", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T?) -> T?, T?>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T?) -> T?, T?>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: T)
@@ -11874,10 +12014,10 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     }
   }
 
-  public func `genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T> where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdModuleTestsHost.NSObject {
+  public func `genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T, T> where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdModuleTestsHost.NSObject {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: T) -> T where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdModuleTestsHost.NSObject", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`object`: Foundation.NSObject?)
@@ -11898,10 +12038,10 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> Foundation.NSObject?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?> {
+  public func `request`(`object`: @escaping @autoclosure () -> Foundation.NSObject?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: Foundation.NSObject?) -> Foundation.NSObject?", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`object`: Foundation.NSObject)
@@ -11922,10 +12062,10 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> Foundation.NSObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject> {
+  public func `request`(`object`: @escaping @autoclosure () -> Foundation.NSObject) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: Foundation.NSObject) -> Foundation.NSObject", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`object`: MockingbirdModuleTestsHost.NSObject?)
@@ -11946,10 +12086,10 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> MockingbirdModuleTestsHost.NSObject?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?, MockingbirdModuleTestsHost.NSObject?> {
+  public func `request`(`object`: @escaping @autoclosure () -> MockingbirdModuleTestsHost.NSObject?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?, MockingbirdModuleTestsHost.NSObject?> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?, MockingbirdModuleTestsHost.NSObject?>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?, MockingbirdModuleTestsHost.NSObject?>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`object`: MockingbirdModuleTestsHost.NSObject)
@@ -11970,10 +12110,10 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> MockingbirdModuleTestsHost.NSObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject, MockingbirdModuleTestsHost.NSObject> {
+  public func `request`(`object`: @escaping @autoclosure () -> MockingbirdModuleTestsHost.NSObject) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject, MockingbirdModuleTestsHost.NSObject> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject, MockingbirdModuleTestsHost.NSObject>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject, MockingbirdModuleTestsHost.NSObject>(mock: self, invocation: invocation)
   }
 }
 
@@ -12141,9 +12281,9 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
     }
   }
 
-  public func `anotherTrivialExtendedMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `anotherTrivialExtendedMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`anotherTrivialExtendedMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parameterizedExtendedMethod`(`param1`: Bool)
@@ -12160,10 +12300,10 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
     }
   }
 
-  public func `parameterizedExtendedMethod`(`param1`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Void, Void> {
+  public func `parameterizedExtendedMethod`(`param1`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedExtendedMethod`(`param1`: Bool) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parameterizedReturningExtendedMethod`(`param1`: Bool)
@@ -12184,10 +12324,10 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
     }
   }
 
-  public func `parameterizedReturningExtendedMethod`(`param1`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool> {
+  public func `parameterizedReturningExtendedMethod`(`param1`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedReturningExtendedMethod`(`param1`: Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `trivialBaseMethod`()
@@ -12204,9 +12344,9 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
     }
   }
 
-  public func `trivialBaseMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `trivialBaseMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialBaseMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `trivialChildMethod`()
@@ -12223,9 +12363,9 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
     }
   }
 
-  public func `trivialChildMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `trivialChildMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialChildMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `trivialExtendedMethod`()
@@ -12242,9 +12382,9 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
     }
   }
 
-  public func `trivialExtendedMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `trivialExtendedMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialExtendedMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -12967,10 +13107,10 @@ public final class InoutClassMock: MockingbirdTestsHost.InoutClass, Mockingbird.
     }
   }
 
-  public func `parameterizedMethod`(`object`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (inout String) -> Void, Void> {
+  public func `parameterizedMethod`(`object`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (inout String) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedMethod`(`object`: inout String) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (inout String) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (inout String) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -13013,10 +13153,10 @@ public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockin
     }
   }
 
-  public func `parameterizedMethod`(`object`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (inout String) -> Void, Void> {
+  public func `parameterizedMethod`(`object`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (inout String) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedMethod`(`object`: inout String) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (inout String) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (inout String) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -13060,10 +13200,10 @@ public final class KeywordArgNamesClassMock: MockingbirdTestsHost.KeywordArgName
     }
   }
 
-  public func `methodWithKeywordParam`(`inout`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Void, Void> {
+  public func `methodWithKeywordParam`(`inout`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`inout`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithKeywordParam`(`inout`: String) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithNamedKeywordParam`(`with` `inout`: String)
@@ -13080,10 +13220,10 @@ public final class KeywordArgNamesClassMock: MockingbirdTestsHost.KeywordArgName
     }
   }
 
-  public func `methodWithNamedKeywordParam`(`with` `inout`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Void, Void> {
+  public func `methodWithNamedKeywordParam`(`with` `inout`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`inout`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithNamedKeywordParam`(`with` `inout`: String) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithParamNamedKeyword`(`inout` `param`: String)
@@ -13100,10 +13240,10 @@ public final class KeywordArgNamesClassMock: MockingbirdTestsHost.KeywordArgName
     }
   }
 
-  public func `methodWithParamNamedKeyword`(`inout` `param`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Void, Void> {
+  public func `methodWithParamNamedKeyword`(`inout` `param`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithParamNamedKeyword`(`inout` `param`: String) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithUnnamedKeywordParam`(_ `inout`: String)
@@ -13120,10 +13260,10 @@ public final class KeywordArgNamesClassMock: MockingbirdTestsHost.KeywordArgName
     }
   }
 
-  public func `methodWithUnnamedKeywordParam`(_ `inout`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Void, Void> {
+  public func `methodWithUnnamedKeywordParam`(_ `inout`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`inout`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithUnnamedKeywordParam`(_ `inout`: String) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -13166,10 +13306,10 @@ public final class KeywordArgNamesProtocolMock: MockingbirdTestsHost.KeywordArgN
     }
   }
 
-  public func `methodWithKeywordParam`(`inout`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Void, Void> {
+  public func `methodWithKeywordParam`(`inout`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`inout`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithKeywordParam`(`inout`: String) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithNamedKeywordParam`(`with` `inout`: String)
@@ -13186,10 +13326,10 @@ public final class KeywordArgNamesProtocolMock: MockingbirdTestsHost.KeywordArgN
     }
   }
 
-  public func `methodWithNamedKeywordParam`(`with` `inout`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Void, Void> {
+  public func `methodWithNamedKeywordParam`(`with` `inout`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`inout`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithNamedKeywordParam`(`with` `inout`: String) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithParamNamedKeyword`(`inout` `param`: String)
@@ -13206,10 +13346,10 @@ public final class KeywordArgNamesProtocolMock: MockingbirdTestsHost.KeywordArgN
     }
   }
 
-  public func `methodWithParamNamedKeyword`(`inout` `param`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Void, Void> {
+  public func `methodWithParamNamedKeyword`(`inout` `param`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithParamNamedKeyword`(`inout` `param`: String) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithUnnamedKeywordParam`(_ `inout`: String)
@@ -13226,10 +13366,10 @@ public final class KeywordArgNamesProtocolMock: MockingbirdTestsHost.KeywordArgN
     }
   }
 
-  public func `methodWithUnnamedKeywordParam`(_ `inout`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Void, Void> {
+  public func `methodWithUnnamedKeywordParam`(_ `inout`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`inout`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithUnnamedKeywordParam`(_ `inout`: String) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -13344,9 +13484,9 @@ public final class LocalPublicExternalProtocolMock: MockingbirdTestsHost.LocalPu
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -13426,10 +13566,10 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     }
   }
 
-  public func `genericRequest`<T: MockingbirdTestsHost.NSObjectProtocol>(`object`: @escaping @autoclosure () -> T?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T?) -> T?, T?> where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdTestsHost.NSObject? {
+  public func `genericRequest`<T: MockingbirdTestsHost.NSObjectProtocol>(`object`: @escaping @autoclosure () -> T?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T?) -> T?, T?> where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdTestsHost.NSObject? {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericRequest`<T: MockingbirdTestsHost.NSObjectProtocol>(`object`: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdTestsHost.NSObject?", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T?) -> T?, T?>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T?) -> T?, T?>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `genericRequest`<T: MockingbirdTestsHost.NSObjectProtocol>(`object`: T)
@@ -13450,10 +13590,10 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     }
   }
 
-  public func `genericRequest`<T: MockingbirdTestsHost.NSObjectProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T> where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdTestsHost.NSObject {
+  public func `genericRequest`<T: MockingbirdTestsHost.NSObjectProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T, T> where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdTestsHost.NSObject {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericRequest`<T: MockingbirdTestsHost.NSObjectProtocol>(`object`: T) -> T where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdTestsHost.NSObject", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`object`: Foundation.NSObject?)
@@ -13474,10 +13614,10 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> Foundation.NSObject?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?> {
+  public func `request`(`object`: @escaping @autoclosure () -> Foundation.NSObject?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: Foundation.NSObject?) -> Foundation.NSObject?", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`object`: Foundation.NSObject)
@@ -13498,10 +13638,10 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> Foundation.NSObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject> {
+  public func `request`(`object`: @escaping @autoclosure () -> Foundation.NSObject) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: Foundation.NSObject) -> Foundation.NSObject", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`object`: MockingbirdTestsHost.NSObject?)
@@ -13522,10 +13662,10 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> MockingbirdTestsHost.NSObject?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.NSObject?) -> MockingbirdTestsHost.NSObject?, MockingbirdTestsHost.NSObject?> {
+  public func `request`(`object`: @escaping @autoclosure () -> MockingbirdTestsHost.NSObject?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.NSObject?) -> MockingbirdTestsHost.NSObject?, MockingbirdTestsHost.NSObject?> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: MockingbirdTestsHost.NSObject?) -> MockingbirdTestsHost.NSObject?", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.NSObject?) -> MockingbirdTestsHost.NSObject?, MockingbirdTestsHost.NSObject?>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.NSObject?) -> MockingbirdTestsHost.NSObject?, MockingbirdTestsHost.NSObject?>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`object`: MockingbirdTestsHost.NSObject)
@@ -13546,10 +13686,10 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> MockingbirdTestsHost.NSObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject> {
+  public func `request`(`object`: @escaping @autoclosure () -> MockingbirdTestsHost.NSObject) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject>(mock: self, invocation: invocation)
   }
 }
 
@@ -13950,9 +14090,9 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
     }
   }
 
-  public func `trivialBaseMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `trivialBaseMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialBaseMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -14151,9 +14291,9 @@ public final class ObjectiveCClassMock: MockingbirdTestsHost.ObjectiveCClass, Mo
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> Bool", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `nominalObjcMethod`()
@@ -14174,9 +14314,9 @@ public final class ObjectiveCClassMock: MockingbirdTestsHost.ObjectiveCClass, Mo
     }
   }
 
-  public func `nominalObjcMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+  public func `nominalObjcMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nominalObjcMethod`() -> Bool", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `objcMethod`()
@@ -14197,9 +14337,9 @@ public final class ObjectiveCClassMock: MockingbirdTestsHost.ObjectiveCClass, Mo
     }
   }
 
-  public func `objcMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+  public func `objcMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`objcMethod`() -> Bool", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -14364,9 +14504,9 @@ public final class ObjectiveCProtocolImplementerMock: MockingbirdTestsHost.Objec
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> Bool", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `nominalObjcMethod`()
@@ -14387,9 +14527,9 @@ public final class ObjectiveCProtocolImplementerMock: MockingbirdTestsHost.Objec
     }
   }
 
-  public func `nominalObjcMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+  public func `nominalObjcMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nominalObjcMethod`() -> Bool", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `objcMethod`()
@@ -14410,9 +14550,9 @@ public final class ObjectiveCProtocolImplementerMock: MockingbirdTestsHost.Objec
     }
   }
 
-  public func `objcMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+  public func `objcMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`objcMethod`() -> Bool", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -14528,9 +14668,9 @@ public final class ObjectiveCProtocolMock: MockingbirdTestsHost.ObjectiveCProtoc
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> Bool", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `nominalObjcMethod`()
@@ -14551,9 +14691,9 @@ public final class ObjectiveCProtocolMock: MockingbirdTestsHost.ObjectiveCProtoc
     }
   }
 
-  public func `nominalObjcMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+  public func `nominalObjcMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nominalObjcMethod`() -> Bool", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `objcMethod`()
@@ -14574,9 +14714,9 @@ public final class ObjectiveCProtocolMock: MockingbirdTestsHost.ObjectiveCProtoc
     }
   }
 
-  public func `objcMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+  public func `objcMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`objcMethod`() -> Bool", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -14787,10 +14927,10 @@ public final class OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock: Mock
     }
   }
 
-  public static func _equalTo(_ `lhs`: @escaping @autoclosure () -> OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock, _ `rhs`: @escaping @autoclosure () -> OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock, OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock) -> Bool, Bool> {
+  public static func _equalTo(_ `lhs`: @escaping @autoclosure () -> OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock, _ `rhs`: @escaping @autoclosure () -> OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock, OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`lhs`), Mockingbird.resolve(`rhs`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ `lhs`: OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock, _ `rhs`: OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock, OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock, OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `hash`(`into` `hasher`: inout Hasher)
@@ -14807,10 +14947,10 @@ public final class OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock: Mock
     }
   }
 
-  public func `hash`(`into` `hasher`: @escaping @autoclosure () -> Hasher) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (inout Hasher) -> Void, Void> {
+  public func `hash`(`into` `hasher`: @escaping @autoclosure () -> Hasher) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (inout Hasher) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`hasher`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`hash`(`into` `hasher`: inout Hasher) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (inout Hasher) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (inout Hasher) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -14975,10 +15115,10 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     }
   }
 
-  public func `methodWithMultiOptionalParameter`(`param`: @escaping @autoclosure () -> Bool???) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool???) -> Void, Void> {
+  public func `methodWithMultiOptionalParameter`(`param`: @escaping @autoclosure () -> Bool???) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool???) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithMultiOptionalParameter`(`param`: Bool???) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool???) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool???) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithMultiOptionalReturn`()
@@ -14999,9 +15139,9 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     }
   }
 
-  public func `methodWithMultiOptionalReturn`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool???, Bool???> {
+  public func `methodWithMultiOptionalReturn`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool???, Bool???> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithMultiOptionalReturn`() -> Bool???", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool???, Bool???>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool???, Bool???>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithMultiOptionalVariadicParameter`(`param`: Bool???...)
@@ -15018,15 +15158,16 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     }
   }
 
-  public func `methodWithMultiOptionalVariadicParameter`(`param`: @escaping @autoclosure () -> [Bool???]) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool???]) -> Void, Void> {
+  public func `methodWithMultiOptionalVariadicParameter`(`param`: @escaping @autoclosure () -> [Bool???]) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool???]) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithMultiOptionalVariadicParameter`(`param`: Bool???...) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool???]) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool???]) -> Void, Void>(mock: self, invocation: invocation)
   }
-  public func `methodWithMultiOptionalVariadicParameter`(`param`: Bool???...) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool???]) -> Void, Void> {
+
+  public func `methodWithMultiOptionalVariadicParameter`(`param`: Bool???...) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool???]) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.ArgumentMatcher(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithMultiOptionalVariadicParameter`(`param`: Bool???...) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool???]) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool???]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithMultiUnwrappedOptionalCompoundParameter`(`param`: (Bool?, Int)???!)
@@ -15043,10 +15184,10 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     }
   }
 
-  public func `methodWithMultiUnwrappedOptionalCompoundParameter`(`param`: @escaping @autoclosure () -> (Bool?, Int)???) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool?, Int)???) -> Void, Void> {
+  public func `methodWithMultiUnwrappedOptionalCompoundParameter`(`param`: @escaping @autoclosure () -> (Bool?, Int)???) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((Bool?, Int)???) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithMultiUnwrappedOptionalCompoundParameter`(`param`: (Bool?, Int)???!) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool?, Int)???) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((Bool?, Int)???) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithMultiUnwrappedOptionalCompoundReturn`()
@@ -15067,9 +15208,9 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     }
   }
 
-  public func `methodWithMultiUnwrappedOptionalCompoundReturn`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Bool?, Int)???, (Bool?, Int)???> {
+  public func `methodWithMultiUnwrappedOptionalCompoundReturn`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Bool?, Int)???, (Bool?, Int)???> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithMultiUnwrappedOptionalCompoundReturn`() -> (Bool?, Int)???!", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Bool?, Int)???, (Bool?, Int)???>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Bool?, Int)???, (Bool?, Int)???>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithMultiUnwrappedOptionalParameter`(`param`: Bool???!)
@@ -15086,10 +15227,10 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     }
   }
 
-  public func `methodWithMultiUnwrappedOptionalParameter`(`param`: @escaping @autoclosure () -> Bool???) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool???) -> Void, Void> {
+  public func `methodWithMultiUnwrappedOptionalParameter`(`param`: @escaping @autoclosure () -> Bool???) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool???) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithMultiUnwrappedOptionalParameter`(`param`: Bool???!) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool???) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool???) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithMultiUnwrappedOptionalReturn`()
@@ -15110,9 +15251,9 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     }
   }
 
-  public func `methodWithMultiUnwrappedOptionalReturn`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool???, Bool???> {
+  public func `methodWithMultiUnwrappedOptionalReturn`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool???, Bool???> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithMultiUnwrappedOptionalReturn`() -> Bool???!", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool???, Bool???>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool???, Bool???>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithOptionalParameter`(`param`: Bool?)
@@ -15129,10 +15270,10 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     }
   }
 
-  public func `methodWithOptionalParameter`(`param`: @escaping @autoclosure () -> Bool?) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool?) -> Void, Void> {
+  public func `methodWithOptionalParameter`(`param`: @escaping @autoclosure () -> Bool?) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool?) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithOptionalParameter`(`param`: Bool?) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool?) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool?) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithOptionalReturn`()
@@ -15153,9 +15294,9 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     }
   }
 
-  public func `methodWithOptionalReturn`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool?, Bool?> {
+  public func `methodWithOptionalReturn`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool?, Bool?> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithOptionalReturn`() -> Bool?", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool?, Bool?>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool?, Bool?>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithOptionalVariadicParameter`(`param`: Bool?...)
@@ -15172,15 +15313,16 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     }
   }
 
-  public func `methodWithOptionalVariadicParameter`(`param`: @escaping @autoclosure () -> [Bool?]) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool?]) -> Void, Void> {
+  public func `methodWithOptionalVariadicParameter`(`param`: @escaping @autoclosure () -> [Bool?]) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool?]) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithOptionalVariadicParameter`(`param`: Bool?...) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool?]) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool?]) -> Void, Void>(mock: self, invocation: invocation)
   }
-  public func `methodWithOptionalVariadicParameter`(`param`: Bool?...) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool?]) -> Void, Void> {
+
+  public func `methodWithOptionalVariadicParameter`(`param`: Bool?...) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool?]) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.ArgumentMatcher(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithOptionalVariadicParameter`(`param`: Bool?...) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool?]) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool?]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithUnwrappedCompoundParameter`(`param`: (Bool?, Int)!)
@@ -15197,10 +15339,10 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     }
   }
 
-  public func `methodWithUnwrappedCompoundParameter`(`param`: @escaping @autoclosure () -> (Bool?, Int)) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool?, Int)) -> Void, Void> {
+  public func `methodWithUnwrappedCompoundParameter`(`param`: @escaping @autoclosure () -> (Bool?, Int)) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((Bool?, Int)) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithUnwrappedCompoundParameter`(`param`: (Bool?, Int)!) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((Bool?, Int)) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((Bool?, Int)) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithUnwrappedCompoundReturn`()
@@ -15221,9 +15363,9 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     }
   }
 
-  public func `methodWithUnwrappedCompoundReturn`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Bool?, Int), (Bool?, Int)> {
+  public func `methodWithUnwrappedCompoundReturn`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Bool?, Int), (Bool?, Int)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithUnwrappedCompoundReturn`() -> (Bool?, Int)!", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Bool?, Int), (Bool?, Int)>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Bool?, Int), (Bool?, Int)>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithUnwrappedParameter`(`param`: Bool!)
@@ -15240,10 +15382,10 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     }
   }
 
-  public func `methodWithUnwrappedParameter`(`param`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Void, Void> {
+  public func `methodWithUnwrappedParameter`(`param`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithUnwrappedParameter`(`param`: Bool!) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithUnwrappedReturn`()
@@ -15264,9 +15406,9 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     }
   }
 
-  public func `methodWithUnwrappedReturn`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+  public func `methodWithUnwrappedReturn`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithUnwrappedReturn`() -> Bool!", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -15314,10 +15456,10 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
     }
   }
 
-  public func `overloadedParameters`<T>(`param1`: @escaping @autoclosure () -> T, `param2`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T, T) -> T, T> {
+  public func `overloadedParameters`<T>(`param1`: @escaping @autoclosure () -> T, `param2`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T, T) -> T, T> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`<T>(`param1`: T, `param2`: T) -> T", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T, T) -> T, T>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T, T) -> T, T>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `overloadedParameters`(`param1`: Bool, `param2`: Bool)
@@ -15338,10 +15480,10 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
     }
   }
 
-  public func `overloadedParameters`(`param1`: @escaping @autoclosure () -> Bool, `param2`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Bool) -> Bool, Bool> {
+  public func `overloadedParameters`(`param1`: @escaping @autoclosure () -> Bool, `param2`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`(`param1`: Bool, `param2`: Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `overloadedParameters`(`param1`: Int, `param2`: Int)
@@ -15362,10 +15504,10 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
     }
   }
 
-  public func `overloadedParameters`(`param1`: @escaping @autoclosure () -> Int, `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int, Int) -> Bool, Bool> {
+  public func `overloadedParameters`(`param1`: @escaping @autoclosure () -> Int, `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Int, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`(`param1`: Int, `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Int, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `overloadedReturnType`<T>()
@@ -15386,9 +15528,9 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
     }
   }
 
-  public func `overloadedReturnType`<T>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> T, T> {
+  public func `overloadedReturnType`<T>() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> T, T> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedReturnType`<T>() -> T", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> T, T>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> T, T>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `overloadedReturnType`()
@@ -15409,9 +15551,9 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
     }
   }
 
-  public func `overloadedReturnType`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+  public func `overloadedReturnType`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedReturnType`() -> Bool", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `overloadedReturnType`()
@@ -15432,9 +15574,9 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
     }
   }
 
-  public func `overloadedReturnType`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Int, Int> {
+  public func `overloadedReturnType`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Int, Int> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedReturnType`() -> Int", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Int, Int>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Int, Int>(mock: self, invocation: invocation)
   }
 }
 
@@ -15481,10 +15623,10 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
     }
   }
 
-  public func `overloadedParameters`<T>(`param1`: @escaping @autoclosure () -> T, `param2`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T, T) -> T, T> {
+  public func `overloadedParameters`<T>(`param1`: @escaping @autoclosure () -> T, `param2`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T, T) -> T, T> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`<T>(`param1`: T, `param2`: T) -> T", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T, T) -> T, T>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T, T) -> T, T>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `overloadedParameters`(`param1`: Bool, `param2`: Bool)
@@ -15505,10 +15647,10 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
     }
   }
 
-  public func `overloadedParameters`(`param1`: @escaping @autoclosure () -> Bool, `param2`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Bool) -> Bool, Bool> {
+  public func `overloadedParameters`(`param1`: @escaping @autoclosure () -> Bool, `param2`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`(`param1`: Bool, `param2`: Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `overloadedParameters`(`param1`: Int, `param2`: Int)
@@ -15529,10 +15671,10 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
     }
   }
 
-  public func `overloadedParameters`(`param1`: @escaping @autoclosure () -> Int, `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int, Int) -> Bool, Bool> {
+  public func `overloadedParameters`(`param1`: @escaping @autoclosure () -> Int, `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Int, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`(`param1`: Int, `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Int, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `overloadedReturnType`<T>()
@@ -15553,9 +15695,9 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
     }
   }
 
-  public func `overloadedReturnType`<T>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> T, T> {
+  public func `overloadedReturnType`<T>() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> T, T> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedReturnType`<T>() -> T", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> T, T>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> T, T>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `overloadedReturnType`()
@@ -15576,9 +15718,9 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
     }
   }
 
-  public func `overloadedReturnType`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+  public func `overloadedReturnType`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedReturnType`() -> Bool", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `overloadedReturnType`()
@@ -15599,9 +15741,9 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
     }
   }
 
-  public func `overloadedReturnType`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Int, Int> {
+  public func `overloadedReturnType`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Int, Int> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedReturnType`() -> Int", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Int, Int>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Int, Int>(mock: self, invocation: invocation)
   }
 }
 
@@ -15994,10 +16136,10 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     }
   }
 
-  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int)
@@ -16018,10 +16160,10 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     }
   }
 
-  public static func `grandparentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `grandparentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialInstanceMethod`()
@@ -16038,9 +16180,9 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     }
   }
 
-  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialStaticMethod`()
@@ -16057,9 +16199,9 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     }
   }
 
-  public static func `grandparentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `grandparentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialStaticMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -16080,10 +16222,10 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     }
   }
 
-  public func `parentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `parentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int)
@@ -16104,10 +16246,10 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     }
   }
 
-  public static func `parentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `parentParameterizedStaticMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentTrivialInstanceMethod`()
@@ -16124,9 +16266,9 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     }
   }
 
-  public func `parentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `parentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentTrivialStaticMethod`()
@@ -16143,9 +16285,9 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     }
   }
 
-  public static func `parentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `parentTrivialStaticMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialStaticMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 }
 
@@ -16455,10 +16597,10 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     }
   }
 
-  public static func `grandparentParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `grandparentParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -16479,10 +16621,10 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     }
   }
 
-  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `grandparentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialClassMethod`()
@@ -16499,9 +16641,9 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     }
   }
 
-  public static func `grandparentTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `grandparentTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialClassMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `grandparentTrivialInstanceMethod`()
@@ -16518,9 +16660,9 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     }
   }
 
-  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `grandparentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int)
@@ -16541,10 +16683,10 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     }
   }
 
-  public static func `parentParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public static func `parentParameterizedClassMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int)
@@ -16565,10 +16707,10 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     }
   }
 
-  public func `parentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool> {
+  public func `parentParameterizedInstanceMethod`(`param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `parentTrivialClassMethod`()
@@ -16585,9 +16727,9 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     }
   }
 
-  public static func `parentTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public static func `parentTrivialClassMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialClassMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: staticMock, invocation: invocation)
   }
 
   // MARK: Mocked `parentTrivialInstanceMethod`()
@@ -16604,9 +16746,9 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     }
   }
 
-  public func `parentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `parentTrivialInstanceMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialInstanceMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -16846,10 +16988,10 @@ public final class RethrowingProtocolMock: MockingbirdTestsHost.RethrowingProtoc
     }
   }
 
-  public func `rethrowingMethod`(`block`: @escaping @autoclosure () -> () throws -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() throws -> Bool) -> Bool, Bool> {
+  public func `rethrowingMethod`(`block`: @escaping @autoclosure () -> () throws -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (() throws -> Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`rethrowingMethod`(`block`: () throws -> Bool) rethrows -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() throws -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (() throws -> Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `rethrowingMethod`(`block`: () throws -> Bool)
@@ -16866,10 +17008,10 @@ public final class RethrowingProtocolMock: MockingbirdTestsHost.RethrowingProtoc
     }
   }
 
-  public func `rethrowingMethod`(`block`: @escaping @autoclosure () -> () throws -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() throws -> Bool) -> Void, Void> {
+  public func `rethrowingMethod`(`block`: @escaping @autoclosure () -> () throws -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (() throws -> Bool) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`rethrowingMethod`(`block`: () throws -> Bool) rethrows -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() throws -> Bool) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (() throws -> Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -16919,10 +17061,10 @@ public final class SecondLevelSelfConstrainedAssociatedTypeProtocolMock<Sequence
     }
   }
 
-  public func `request`<T: Sequence>(`array`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void> where T.Element == SecondLevelSelfConstrainedAssociatedTypeProtocolMock {
+  public func `request`<T: Sequence>(`array`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> Void, Void> where T.Element == SecondLevelSelfConstrainedAssociatedTypeProtocolMock {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`array`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: Sequence>(`array`: T) -> Void where T.Element == SecondLevelSelfConstrainedAssociatedTypeProtocolMock", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`array`: SequenceType)
@@ -16939,10 +17081,10 @@ public final class SecondLevelSelfConstrainedAssociatedTypeProtocolMock<Sequence
     }
   }
 
-  public func `request`(`array`: @escaping @autoclosure () -> SequenceType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SequenceType) -> Void, Void> {
+  public func `request`(`array`: @escaping @autoclosure () -> SequenceType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (SequenceType) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`array`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`array`: SequenceType) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SequenceType) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (SequenceType) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`object`: SecondLevelSelfConstrainedAssociatedTypeProtocolMock)
@@ -16959,10 +17101,10 @@ public final class SecondLevelSelfConstrainedAssociatedTypeProtocolMock<Sequence
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void, Void> {
+  public func `request`(`object`: @escaping @autoclosure () -> SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -17066,10 +17208,10 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
     }
   }
 
-  public func `shadowedClassScope`(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
+  public func `shadowedClassScope`(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: ShadowedType) -> ShadowedType", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType)
@@ -17090,10 +17232,10 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
     }
   }
 
-  public func `shadowedFunctionScope`<ShadowedType>(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
+  public func `shadowedFunctionScope`<ShadowedType>(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
   }
 
   // MARK: - Mocked NestedShadowedGenericType
@@ -17142,10 +17284,10 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
       }
     }
 
-    public func `shadowedClassScope`(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
+    public func `shadowedClassScope`(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
       let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: ShadowedType) -> ShadowedType", arguments: arguments)
-      return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
+      return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
     }
 
     // MARK: Mocked `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType)
@@ -17166,10 +17308,10 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
       }
     }
 
-    public func `shadowedFunctionScope`<ShadowedType>(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
+    public func `shadowedFunctionScope`<ShadowedType>(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
       let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: arguments)
-      return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
+      return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
     }
   }
 
@@ -17219,10 +17361,10 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
       }
     }
 
-    public func `shadowedClassScope`(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
+    public func `shadowedClassScope`(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
       let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: ShadowedType) -> ShadowedType", arguments: arguments)
-      return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
+      return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
     }
 
     // MARK: Mocked `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType)
@@ -17243,10 +17385,10 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
       }
     }
 
-    public func `shadowedFunctionScope`<ShadowedType>(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
+    public func `shadowedFunctionScope`<ShadowedType>(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
       let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: arguments)
-      return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
+      return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
     }
   }
 }
@@ -17328,10 +17470,10 @@ public final class SpecializedGenericProtocolMock: MockingbirdTestsHost.GenericB
     }
   }
 
-  public func `baseMethod`(`param`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool> {
+  public func `baseMethod`(`param`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -17402,10 +17544,10 @@ public final class SpecializedGenericSubclassMock: MockingbirdTestsHost.Speciali
     }
   }
 
-  public func `baseMethod`(`param`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool> {
+  public func `baseMethod`(`param`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -17453,10 +17595,10 @@ public final class SpecializedShadowedGenericProtocolMock: MockingbirdTestsHost.
     }
   }
 
-  public func `shadowedClassScope`(`param`: @escaping @autoclosure () -> MockingbirdTestsHost.NSObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject> {
+  public func `shadowedClassScope`(`param`: @escaping @autoclosure () -> MockingbirdTestsHost.NSObject) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType)
@@ -17477,10 +17619,10 @@ public final class SpecializedShadowedGenericProtocolMock: MockingbirdTestsHost.
     }
   }
 
-  public func `shadowedFunctionScope`<ShadowedType>(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
+  public func `shadowedFunctionScope`<ShadowedType>(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
   }
 }
 
@@ -17528,10 +17670,10 @@ public final class SpecializedShadowedGenericSubclassMock: MockingbirdTestsHost.
     }
   }
 
-  public func `shadowedClassScope`(`param`: @escaping @autoclosure () -> MockingbirdTestsHost.NSObject) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject> {
+  public func `shadowedClassScope`(`param`: @escaping @autoclosure () -> MockingbirdTestsHost.NSObject) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType)
@@ -17552,10 +17694,10 @@ public final class SpecializedShadowedGenericSubclassMock: MockingbirdTestsHost.
     }
   }
 
-  public func `shadowedFunctionScope`<ShadowedType>(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
+  public func `shadowedFunctionScope`<ShadowedType>(`param`: @escaping @autoclosure () -> ShadowedType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ShadowedType) -> ShadowedType, ShadowedType> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (ShadowedType) -> ShadowedType, ShadowedType>(mock: self, invocation: invocation)
   }
 }
 
@@ -17688,9 +17830,9 @@ public final class SubclassingExternalClassWithDesignatedIntializerMock: Mocking
     }
   }
 
-  public func `internalMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `internalMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`internalMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `openMethod`()
@@ -17707,9 +17849,9 @@ public final class SubclassingExternalClassWithDesignatedIntializerMock: Mocking
     }
   }
 
-  public func `openMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `openMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`openMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -17842,9 +17984,9 @@ public final class SubclassingExternalClassWithInheritedIntializerMock: Mockingb
     }
   }
 
-  public func `internalMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `internalMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`internalMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `openMethod`()
@@ -17861,9 +18003,9 @@ public final class SubclassingExternalClassWithInheritedIntializerMock: Mockingb
     }
   }
 
-  public func `openMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `openMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`openMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -18026,9 +18168,9 @@ public final class SubclassingExternalSubclassWithDesignatedInitializerMock: Moc
     }
   }
 
-  public func `baseOpenMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `baseOpenMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseOpenMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked init(`param1`: Bool)
@@ -18054,9 +18196,9 @@ public final class SubclassingExternalSubclassWithDesignatedInitializerMock: Moc
     }
   }
 
-  public func `internalMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `internalMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`internalMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `openMethod`()
@@ -18073,9 +18215,9 @@ public final class SubclassingExternalSubclassWithDesignatedInitializerMock: Moc
     }
   }
 
-  public func `openMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `openMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`openMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -18238,9 +18380,9 @@ public final class SubclassingExternalSubclassWithInheritedInitializerMock: Mock
     }
   }
 
-  public func `baseOpenMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `baseOpenMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseOpenMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked init()
@@ -18266,9 +18408,9 @@ public final class SubclassingExternalSubclassWithInheritedInitializerMock: Mock
     }
   }
 
-  public func `internalMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `internalMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`internalMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `openMethod`()
@@ -18285,9 +18427,9 @@ public final class SubclassingExternalSubclassWithInheritedInitializerMock: Mock
     }
   }
 
-  public func `openMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+  public func `openMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`openMethod`() -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -18373,6 +18515,685 @@ public func mock(_ type: MockingbirdTestsHost.SubclassingExternalTopLevelType.Ty
   return SubclassingExternalTopLevelTypeMock.InitializerProxy.self
 }
 
+// MARK: - Mocked SubscriptedClass
+
+public final class SubscriptedClassMock: MockingbirdTestsHost.SubscriptedClass, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      SubscriptedClassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked subscript<IndexType: Swift.Equatable, ReturnType: Swift.Hashable>(_ `index`: IndexType)
+
+  public override subscript<IndexType: Swift.Equatable, ReturnType: Swift.Hashable>(_ `index`: IndexType) -> ReturnType {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript<IndexType: Swift.Equatable, ReturnType: Swift.Hashable>(_ `index`: IndexType) -> ReturnType", arguments: [Mockingbird.ArgumentMatcher(`index`)])
+      return mockingContext.didInvoke(invocation) { () -> ReturnType in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (IndexType) -> ReturnType {
+          return concreteImplementation(`index`)
+        } else if let concreteImplementation = implementation as? () -> ReturnType {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (ReturnType).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript<IndexType: Swift.Equatable, ReturnType: Swift.Hashable>(_ `index`: IndexType, `newValue`: ReturnType) -> ReturnType", arguments: [Mockingbird.ArgumentMatcher(`index`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (IndexType, ReturnType) -> Void {
+          concreteImplementation(`index`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript<IndexType: Swift.Equatable, ReturnType: Swift.Hashable>(_ `index`: @escaping @autoclosure () -> IndexType) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (IndexType) -> ReturnType, ReturnType> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript<IndexType: Swift.Equatable, ReturnType: Swift.Hashable>(_ `index`: IndexType) -> ReturnType", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (IndexType) -> ReturnType, ReturnType>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript<IndexType: Swift.Equatable, ReturnType: Swift.Hashable>(_ `index`: @escaping @autoclosure () -> IndexType, `newValue`: @escaping @autoclosure () -> ReturnType) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (IndexType, ReturnType) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript<IndexType: Swift.Equatable, ReturnType: Swift.Hashable>(_ `index`: IndexType, `newValue`: ReturnType) -> ReturnType", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (IndexType, ReturnType) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked subscript(_ `index`: Int)
+
+  public override subscript(_ `index`: Int) -> Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`index`)])
+      return mockingContext.didInvoke(invocation) { () -> Bool in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (Int) -> Bool {
+          return concreteImplementation(`index`)
+        } else if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: Int, `newValue`: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`index`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (Int, Bool) -> Void {
+          concreteImplementation(`index`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript(_ `index`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: Int) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int) -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript(_ `index`: @escaping @autoclosure () -> Int, `newValue`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: Int, `newValue`: Bool) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked subscript(_ `index`: Int)
+
+  public override subscript(_ `index`: Int) -> Int {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: Int) -> Int", arguments: [Mockingbird.ArgumentMatcher(`index`)])
+      return mockingContext.didInvoke(invocation) { () -> Int in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (Int) -> Int {
+          return concreteImplementation(`index`)
+        } else if let concreteImplementation = implementation as? () -> Int {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Int).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: Int, `newValue`: Int) -> Int", arguments: [Mockingbird.ArgumentMatcher(`index`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (Int, Int) -> Void {
+          concreteImplementation(`index`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript(_ `index`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int) -> Int, Int> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: Int) -> Int", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int) -> Int, Int>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript(_ `index`: @escaping @autoclosure () -> Int, `newValue`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, Int) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: Int, `newValue`: Int) -> Int", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, Int) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked subscript(_ `index`: Int)
+
+  public override subscript(_ `index`: Int) -> String {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: Int) -> String", arguments: [Mockingbird.ArgumentMatcher(`index`)])
+      return mockingContext.didInvoke(invocation) { () -> String in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (Int) -> String {
+          return concreteImplementation(`index`)
+        } else if let concreteImplementation = implementation as? () -> String {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: Int, `newValue`: String) -> String", arguments: [Mockingbird.ArgumentMatcher(`index`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (Int, String) -> Void {
+          concreteImplementation(`index`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript(_ `index`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int) -> String, String> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: Int) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int) -> String, String>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript(_ `index`: @escaping @autoclosure () -> Int, `newValue`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, String) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: Int, `newValue`: String) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, String) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked subscript(_ `index`: String)
+
+  public override subscript(_ `index`: String) -> String {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: String) -> String", arguments: [Mockingbird.ArgumentMatcher(`index`)])
+      return mockingContext.didInvoke(invocation) { () -> String in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (String) -> String {
+          return concreteImplementation(`index`)
+        } else if let concreteImplementation = implementation as? () -> String {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: String, `newValue`: String) -> String", arguments: [Mockingbird.ArgumentMatcher(`index`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (String, String) -> Void {
+          concreteImplementation(`index`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript(_ `index`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String) -> String, String> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: String) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String) -> String, String>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript(_ `index`: @escaping @autoclosure () -> String, `newValue`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String, String) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: String, `newValue`: String) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String, String) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked subscript(_ `indexes`: String...)
+
+  public override subscript(_ `indexes`: String...) -> String {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `indexes`: String...) -> String", arguments: [Mockingbird.ArgumentMatcher(`indexes`)])
+      return mockingContext.didInvoke(invocation) { () -> String in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? ([String]) -> String {
+          return concreteImplementation(`indexes`)
+        } else if let concreteImplementation = implementation as? () -> String {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `indexes`: String..., `newValue`: String) -> String", arguments: [Mockingbird.ArgumentMatcher(`indexes`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? ([String], String) -> Void {
+          concreteImplementation(`indexes`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript(_ `indexes`: @escaping @autoclosure () -> [String]) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, ([String]) -> String, String> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`indexes`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `indexes`: String...) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, ([String]) -> String, String>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript(_ `indexes`: @escaping @autoclosure () -> [String], `newValue`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, ([String], String) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`indexes`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `indexes`: String..., `newValue`: String) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, ([String], String) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  public func getSubscript(_ `indexes`: String...) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, ([String]) -> String, String> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.ArgumentMatcher(`indexes`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `indexes`: String...) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, ([String]) -> String, String>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript(_ `indexes`: String..., `newValue`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, ([String], String) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.ArgumentMatcher(`indexes`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `indexes`: String..., `newValue`: String) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, ([String], String) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked subscript(_ `row`: Int, _ `column`: Int)
+
+  public override subscript(_ `row`: Int, _ `column`: Int) -> String {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `row`: Int, _ `column`: Int) -> String", arguments: [Mockingbird.ArgumentMatcher(`row`), Mockingbird.ArgumentMatcher(`column`)])
+      return mockingContext.didInvoke(invocation) { () -> String in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (Int, Int) -> String {
+          return concreteImplementation(`row`, `column`)
+        } else if let concreteImplementation = implementation as? () -> String {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `row`: Int, _ `column`: Int, `newValue`: String) -> String", arguments: [Mockingbird.ArgumentMatcher(`row`), Mockingbird.ArgumentMatcher(`column`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (Int, Int, String) -> Void {
+          concreteImplementation(`row`, `column`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript(_ `row`: @escaping @autoclosure () -> Int, _ `column`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, Int) -> String, String> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`row`), Mockingbird.resolve(`column`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `row`: Int, _ `column`: Int) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, Int) -> String, String>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript(_ `row`: @escaping @autoclosure () -> Int, _ `column`: @escaping @autoclosure () -> Int, `newValue`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, Int, String) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`row`), Mockingbird.resolve(`column`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `row`: Int, _ `column`: Int, `newValue`: String) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, Int, String) -> Void, Void>(mock: self, invocation: invocation)
+  }
+}
+
+/// Initialize a class mock of `MockingbirdTestsHost.SubscriptedClass`.
+public func mock(_ type: MockingbirdTestsHost.SubscriptedClass.Type, file: StaticString = #file, line: UInt = #line) -> SubscriptedClassMock {
+  return SubscriptedClassMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked SubscriptedProtocol
+
+public final class SubscriptedProtocolMock: MockingbirdTestsHost.SubscriptedProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      SubscriptedProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked subscript<IndexType: Swift.Equatable, ReturnType: Swift.Hashable>(_ `index`: IndexType)
+
+  public subscript<IndexType: Swift.Equatable, ReturnType: Swift.Hashable>(_ `index`: IndexType) -> ReturnType {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript<IndexType: Swift.Equatable, ReturnType: Swift.Hashable>(_ `index`: IndexType) -> ReturnType", arguments: [Mockingbird.ArgumentMatcher(`index`)])
+      return mockingContext.didInvoke(invocation) { () -> ReturnType in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (IndexType) -> ReturnType {
+          return concreteImplementation(`index`)
+        } else if let concreteImplementation = implementation as? () -> ReturnType {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (ReturnType).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript<IndexType: Swift.Equatable, ReturnType: Swift.Hashable>(_ `index`: IndexType, `newValue`: ReturnType) -> ReturnType", arguments: [Mockingbird.ArgumentMatcher(`index`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (IndexType, ReturnType) -> Void {
+          concreteImplementation(`index`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript<IndexType: Swift.Equatable, ReturnType: Swift.Hashable>(_ `index`: @escaping @autoclosure () -> IndexType) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (IndexType) -> ReturnType, ReturnType> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript<IndexType: Swift.Equatable, ReturnType: Swift.Hashable>(_ `index`: IndexType) -> ReturnType", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (IndexType) -> ReturnType, ReturnType>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript<IndexType: Swift.Equatable, ReturnType: Swift.Hashable>(_ `index`: @escaping @autoclosure () -> IndexType, `newValue`: @escaping @autoclosure () -> ReturnType) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (IndexType, ReturnType) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript<IndexType: Swift.Equatable, ReturnType: Swift.Hashable>(_ `index`: IndexType, `newValue`: ReturnType) -> ReturnType", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (IndexType, ReturnType) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked subscript(_ `index`: Int)
+
+  public subscript(_ `index`: Int) -> Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`index`)])
+      return mockingContext.didInvoke(invocation) { () -> Bool in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (Int) -> Bool {
+          return concreteImplementation(`index`)
+        } else if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: Int, `newValue`: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`index`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (Int, Bool) -> Void {
+          concreteImplementation(`index`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript(_ `index`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int) -> Bool, Bool> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: Int) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int) -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript(_ `index`: @escaping @autoclosure () -> Int, `newValue`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: Int, `newValue`: Bool) -> Bool", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked subscript(_ `index`: Int)
+
+  public subscript(_ `index`: Int) -> Int {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: Int) -> Int", arguments: [Mockingbird.ArgumentMatcher(`index`)])
+      return mockingContext.didInvoke(invocation) { () -> Int in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (Int) -> Int {
+          return concreteImplementation(`index`)
+        } else if let concreteImplementation = implementation as? () -> Int {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Int).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: Int, `newValue`: Int) -> Int", arguments: [Mockingbird.ArgumentMatcher(`index`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (Int, Int) -> Void {
+          concreteImplementation(`index`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript(_ `index`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int) -> Int, Int> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: Int) -> Int", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int) -> Int, Int>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript(_ `index`: @escaping @autoclosure () -> Int, `newValue`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, Int) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: Int, `newValue`: Int) -> Int", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, Int) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked subscript(_ `index`: Int)
+
+  public subscript(_ `index`: Int) -> String {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: Int) -> String", arguments: [Mockingbird.ArgumentMatcher(`index`)])
+      return mockingContext.didInvoke(invocation) { () -> String in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (Int) -> String {
+          return concreteImplementation(`index`)
+        } else if let concreteImplementation = implementation as? () -> String {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: Int, `newValue`: String) -> String", arguments: [Mockingbird.ArgumentMatcher(`index`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (Int, String) -> Void {
+          concreteImplementation(`index`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript(_ `index`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int) -> String, String> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: Int) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int) -> String, String>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript(_ `index`: @escaping @autoclosure () -> Int, `newValue`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, String) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: Int, `newValue`: String) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, String) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked subscript(_ `index`: String)
+
+  public subscript(_ `index`: String) -> String {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: String) -> String", arguments: [Mockingbird.ArgumentMatcher(`index`)])
+      return mockingContext.didInvoke(invocation) { () -> String in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (String) -> String {
+          return concreteImplementation(`index`)
+        } else if let concreteImplementation = implementation as? () -> String {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: String, `newValue`: String) -> String", arguments: [Mockingbird.ArgumentMatcher(`index`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (String, String) -> Void {
+          concreteImplementation(`index`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript(_ `index`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String) -> String, String> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `index`: String) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String) -> String, String>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript(_ `index`: @escaping @autoclosure () -> String, `newValue`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String, String) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`index`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `index`: String, `newValue`: String) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (String, String) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked subscript(_ `indexes`: String...)
+
+  public subscript(_ `indexes`: String...) -> String {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `indexes`: String...) -> String", arguments: [Mockingbird.ArgumentMatcher(`indexes`)])
+      return mockingContext.didInvoke(invocation) { () -> String in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? ([String]) -> String {
+          return concreteImplementation(`indexes`)
+        } else if let concreteImplementation = implementation as? () -> String {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `indexes`: String..., `newValue`: String) -> String", arguments: [Mockingbird.ArgumentMatcher(`indexes`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? ([String], String) -> Void {
+          concreteImplementation(`indexes`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript(_ `indexes`: @escaping @autoclosure () -> [String]) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, ([String]) -> String, String> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`indexes`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `indexes`: String...) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, ([String]) -> String, String>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript(_ `indexes`: @escaping @autoclosure () -> [String], `newValue`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, ([String], String) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`indexes`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `indexes`: String..., `newValue`: String) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, ([String], String) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  public func getSubscript(_ `indexes`: String...) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, ([String]) -> String, String> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.ArgumentMatcher(`indexes`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `indexes`: String...) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, ([String]) -> String, String>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript(_ `indexes`: String..., `newValue`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, ([String], String) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.ArgumentMatcher(`indexes`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `indexes`: String..., `newValue`: String) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, ([String], String) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked subscript(_ `row`: Int, _ `column`: Int)
+
+  public subscript(_ `row`: Int, _ `column`: Int) -> String {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `row`: Int, _ `column`: Int) -> String", arguments: [Mockingbird.ArgumentMatcher(`row`), Mockingbird.ArgumentMatcher(`column`)])
+      return mockingContext.didInvoke(invocation) { () -> String in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (Int, Int) -> String {
+          return concreteImplementation(`row`, `column`)
+        } else if let concreteImplementation = implementation as? () -> String {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `row`: Int, _ `column`: Int, `newValue`: String) -> String", arguments: [Mockingbird.ArgumentMatcher(`row`), Mockingbird.ArgumentMatcher(`column`), Mockingbird.ArgumentMatcher(`newValue`)])
+      mockingContext.didInvoke(invocation) { () -> Void in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? (Int, Int, String) -> Void {
+          concreteImplementation(`row`, `column`, `newValue`)
+        } else if let concreteImplementation = implementation as? () -> Void {
+          concreteImplementation()
+        }
+      }
+    }
+  }
+
+  public func getSubscript(_ `row`: @escaping @autoclosure () -> Int, _ `column`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, Int) -> String, String> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`row`), Mockingbird.resolve(`column`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "get.subscript(_ `row`: Int, _ `column`: Int) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, Int) -> String, String>(mock: self, invocation: invocation)
+  }
+
+  public func setSubscript(_ `row`: @escaping @autoclosure () -> Int, _ `column`: @escaping @autoclosure () -> Int, `newValue`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, Int, String) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`row`), Mockingbird.resolve(`column`), Mockingbird.resolve(`newValue`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "set.subscript(_ `row`: Int, _ `column`: Int, `newValue`: String) -> String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.SubscriptDeclaration, (Int, Int, String) -> Void, Void>(mock: self, invocation: invocation)
+  }
+}
+
+/// Initialize a protocol mock of `MockingbirdTestsHost.SubscriptedProtocol`.
+public func mock(_ type: MockingbirdTestsHost.SubscriptedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> SubscriptedProtocolMock {
+  return SubscriptedProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked TestCase
 
 public final class TestCaseMock: MockingbirdTestsHost.TestCase, Mockingbird.Mock {
@@ -18411,10 +19232,10 @@ public final class TestCaseMock: MockingbirdTestsHost.TestCase, Mockingbird.Mock
     }
   }
 
-  public func `run`(`description`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Bool, Bool> {
+  public func `run`(`description`: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`description`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`run`(`description`: String) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (String) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -18484,9 +19305,9 @@ public final class TestManagerMock: MockingbirdTestsHost.TestManager, Mockingbir
     }
   }
 
-  public func `stopTests`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+  public func `stopTests`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`stopTests`() -> Bool", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -18556,10 +19377,10 @@ public final class TestMock: MockingbirdTestsHost.Test, Mockingbird.Mock {
     }
   }
 
-  public func `add`(`testCase`: @escaping @autoclosure () -> MockingbirdTestsHost.TestCase) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TestCase) -> Bool, Bool> {
+  public func `add`(`testCase`: @escaping @autoclosure () -> MockingbirdTestsHost.TestCase) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TestCase) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`testCase`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`add`(`testCase`: MockingbirdTestsHost.TestCase) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TestCase) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TestCase) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -18606,9 +19427,9 @@ public final class ThrowingProtocolMock: MockingbirdTestsHost.ThrowingProtocol, 
     }
   }
 
-  public func `throwingMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () throws -> Bool, Bool> {
+  public func `throwingMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () throws -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`throwingMethod`() throws -> Bool", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () throws -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () throws -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `throwingMethod`()
@@ -18625,9 +19446,9 @@ public final class ThrowingProtocolMock: MockingbirdTestsHost.ThrowingProtocol, 
     }
   }
 
-  public func `throwingMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () throws -> Void, Void> {
+  public func `throwingMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () throws -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`throwingMethod`() throws -> Void", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () throws -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () throws -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `throwingMethod`(`block`: () throws -> Bool)
@@ -18644,10 +19465,10 @@ public final class ThrowingProtocolMock: MockingbirdTestsHost.ThrowingProtocol, 
     }
   }
 
-  public func `throwingMethod`(`block`: @escaping @autoclosure () -> () throws -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() throws -> Bool) throws -> Void, Void> {
+  public func `throwingMethod`(`block`: @escaping @autoclosure () -> () throws -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (() throws -> Bool) throws -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`block`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`throwingMethod`(`block`: () throws -> Bool) throws -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (() throws -> Bool) throws -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (() throws -> Bool) throws -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -18697,10 +19518,10 @@ public final class TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, Se
     }
   }
 
-  public func `request`<T: Sequence>(`array`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void> where T.Element == TopLevelSelfConstrainedAssociatedTypeProtocolMock {
+  public func `request`<T: Sequence>(`array`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> Void, Void> where T.Element == TopLevelSelfConstrainedAssociatedTypeProtocolMock {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`array`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: Sequence>(`array`: T) -> Void where T.Element == TopLevelSelfConstrainedAssociatedTypeProtocolMock", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`array`: SequenceType)
@@ -18717,10 +19538,10 @@ public final class TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, Se
     }
   }
 
-  public func `request`(`array`: @escaping @autoclosure () -> SequenceType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SequenceType) -> Void, Void> {
+  public func `request`(`array`: @escaping @autoclosure () -> SequenceType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (SequenceType) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`array`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`array`: SequenceType) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (SequenceType) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (SequenceType) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`object`: TopLevelSelfConstrainedAssociatedTypeProtocolMock)
@@ -18737,10 +19558,10 @@ public final class TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, Se
     }
   }
 
-  public func `request`(`object`: @escaping @autoclosure () -> TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void, Void> {
+  public func `request`(`object`: @escaping @autoclosure () -> TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void, Void>(mock: self, invocation: invocation)
   }
 }
 
@@ -18788,10 +19609,10 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
     }
   }
 
-  public func `topLevelMethod`(`param1`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType, `param2`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TopLevelType.SecondLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool> {
+  public func `topLevelMethod`(`param1`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType, `param2`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TopLevelType.SecondLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`topLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType.SecondLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TopLevelType.SecondLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TopLevelType.SecondLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   // MARK: - Mocked SecondLevelType
@@ -18833,10 +19654,10 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       }
     }
 
-    public func `secondLevelMethod`(`param1`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType, `param2`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool> {
+    public func `secondLevelMethod`(`param1`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType, `param2`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool> {
       let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`secondLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool", arguments: arguments)
-      return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
+      return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
     }
 
     // MARK: - Mocked ThirdLevelInheritingTopLevelType
@@ -18878,9 +19699,9 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         }
       }
 
-      public func `thirdLevelInheritingMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType> {
+      public func `thirdLevelInheritingMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType> {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`thirdLevelInheritingMethod`() -> MockingbirdTestsHost.TopLevelType", arguments: [])
-        return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType>(mock: self, invocation: invocation)
+        return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType>(mock: self, invocation: invocation)
       }
 
       // MARK: Mocked `topLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType.SecondLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType)
@@ -18901,10 +19722,10 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         }
       }
 
-      public func `topLevelMethod`(`param1`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType, `param2`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TopLevelType.SecondLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool> {
+      public func `topLevelMethod`(`param1`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType, `param2`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TopLevelType.SecondLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool> {
         let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`topLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType.SecondLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool", arguments: arguments)
-        return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TopLevelType.SecondLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
+        return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TopLevelType.SecondLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
       }
     }
 
@@ -18947,9 +19768,9 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         }
       }
 
-      public func `thirdLevelInheritingMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType> {
+      public func `thirdLevelInheritingMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType> {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`thirdLevelInheritingMethod`() -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType", arguments: [])
-        return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType>(mock: self, invocation: invocation)
+        return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType>(mock: self, invocation: invocation)
       }
 
       // MARK: Mocked `thirdLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType)
@@ -18970,10 +19791,10 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         }
       }
 
-      public func `thirdLevelMethod`(`param1`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType, `param2`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool, Bool> {
+      public func `thirdLevelMethod`(`param1`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType, `param2`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool, Bool> {
         let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`thirdLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool", arguments: arguments)
-        return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
+        return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
       }
     }
 
@@ -19016,9 +19837,9 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         }
       }
 
-      public func `thirdLevelInheritingMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType> {
+      public func `thirdLevelInheritingMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType> {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`thirdLevelInheritingMethod`() -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType", arguments: [])
-        return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType>(mock: self, invocation: invocation)
+        return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType>(mock: self, invocation: invocation)
       }
 
       // MARK: Mocked `thirdLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType)
@@ -19039,10 +19860,10 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         }
       }
 
-      public func `thirdLevelMethod`(`param1`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType, `param2`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool, Bool> {
+      public func `thirdLevelMethod`(`param1`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType, `param2`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool, Bool> {
         let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`thirdLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool", arguments: arguments)
-        return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
+        return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
       }
     }
 
@@ -19085,9 +19906,9 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         }
       }
 
-      public func `thirdLevelInheritingMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType> {
+      public func `thirdLevelInheritingMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType> {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`thirdLevelInheritingMethod`() -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType", arguments: [])
-        return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType>(mock: self, invocation: invocation)
+        return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType>(mock: self, invocation: invocation)
       }
 
       // MARK: Mocked `thirdLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType)
@@ -19108,10 +19929,10 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         }
       }
 
-      public func `thirdLevelMethod`(`param1`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType, `param2`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool, Bool> {
+      public func `thirdLevelMethod`(`param1`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType, `param2`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool, Bool> {
         let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`thirdLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool", arguments: arguments)
-        return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
+        return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
       }
     }
 
@@ -19154,10 +19975,10 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
         }
       }
 
-      public func `thirdLevelMethod`(`param1`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType, `param2`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool, Bool> {
+      public func `thirdLevelMethod`(`param1`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType, `param2`: @escaping @autoclosure () -> MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool, Bool> {
         let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`thirdLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool", arguments: arguments)
-        return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
+        return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool, Bool>(mock: self, invocation: invocation)
       }
     }
   }
@@ -19484,9 +20305,9 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     }
   }
 
-  public func `labeledMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))> {
+  public func `labeledMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`labeledMethod`() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `labeledMethod`()
@@ -19507,9 +20328,9 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     }
   }
 
-  public func `labeledMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))> {
+  public func `labeledMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`labeledMethod`() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `labeledMethod`()
@@ -19530,9 +20351,9 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     }
   }
 
-  public func `labeledMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))> {
+  public func `labeledMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`labeledMethod`() -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `labeledMethod`()
@@ -19553,9 +20374,9 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     }
   }
 
-  public func `labeledMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))> {
+  public func `labeledMethod`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`labeledMethod`() -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `labeledMethod`(`param1`: (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), `param2`: (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))
@@ -19572,10 +20393,10 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     }
   }
 
-  public func `labeledMethod`(`param1`: @escaping @autoclosure () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), `param2`: @escaping @autoclosure () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void, Void> {
+  public func `labeledMethod`(`param1`: @escaping @autoclosure () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), `param2`: @escaping @autoclosure () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`labeledMethod`(`param1`: (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), `param2`: (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `labeledMethodWithParameterLabels`()
@@ -19596,9 +20417,9 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     }
   }
 
-  public func `labeledMethodWithParameterLabels`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))> {
+  public func `labeledMethodWithParameterLabels`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`labeledMethodWithParameterLabels`() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))), ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`()
@@ -19619,9 +20440,9 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`()
@@ -19642,9 +20463,9 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`()
@@ -19665,9 +20486,9 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Foundation.URL, Foundation.NSObject), (Foundation.URL, Foundation.NSObject)> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Foundation.URL, Foundation.NSObject), (Foundation.URL, Foundation.NSObject)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> (Foundation.URL, Foundation.NSObject)", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (Foundation.URL, Foundation.NSObject), (Foundation.URL, Foundation.NSObject)>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (Foundation.URL, Foundation.NSObject), (Foundation.URL, Foundation.NSObject)>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`()
@@ -19688,9 +20509,9 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     }
   }
 
-  public func `method`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)> {
+  public func `method`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `method`(`param1`: (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), `param2`: (Foundation.URL, Foundation.NSObject))
@@ -19707,10 +20528,10 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     }
   }
 
-  public func `method`(`param1`: @escaping @autoclosure () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), `param2`: @escaping @autoclosure () -> (Foundation.URL, Foundation.NSObject)) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> Void, Void> {
+  public func `method`(`param1`: @escaping @autoclosure () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), `param2`: @escaping @autoclosure () -> (Foundation.URL, Foundation.NSObject)) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`param1`: (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), `param2`: (Foundation.URL, Foundation.NSObject)) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `methodWithParameterLabels`()
@@ -19731,9 +20552,9 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     }
   }
 
-  public func `methodWithParameterLabels`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))> {
+  public func `methodWithParameterLabels`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithParameterLabels`() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)), ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))>(mock: self, invocation: invocation)
   }
 }
 
@@ -19781,10 +20602,10 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
     }
   }
 
-  public func `request`(`callback`: @escaping @autoclosure () -> MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Foundation.NSObject, Foundation.NSObject> {
+  public func `request`(`callback`: @escaping @autoclosure () -> MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Foundation.NSObject, Foundation.NSObject> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`callback`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`callback`: MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Foundation.NSObject", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`callback`: MockingbirdTestsHost.TypealiasedClass.IndirectCallback)
@@ -19805,10 +20626,10 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
     }
   }
 
-  public func `request`(`callback`: @escaping @autoclosure () -> MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult, MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult> {
+  public func `request`(`callback`: @escaping @autoclosure () -> MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult, MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`callback`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`callback`: MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult, MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult, MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`escapingCallback`: @escaping MockingbirdTestsHost.TypealiasedClass.IndirectCallback)
@@ -19829,10 +20650,10 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
     }
   }
 
-  public func `request`(`escapingCallback`: @escaping @autoclosure () -> MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult, MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult> {
+  public func `request`(`escapingCallback`: @escaping @autoclosure () -> MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@escaping MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult, MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`escapingCallback`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`escapingCallback`: @escaping MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult, MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@escaping MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult, MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult>(mock: self, invocation: invocation)
   }
 }
 
@@ -19879,10 +20700,10 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
     }
   }
 
-  public func `request`(`callback`: @escaping @autoclosure () -> MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Foundation.NSObject, Foundation.NSObject> {
+  public func `request`(`callback`: @escaping @autoclosure () -> MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Foundation.NSObject, Foundation.NSObject> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`callback`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`callback`: MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Foundation.NSObject", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Foundation.NSObject, Foundation.NSObject>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`callback`: MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback)
@@ -19903,10 +20724,10 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
     }
   }
 
-  public func `request`(`callback`: @escaping @autoclosure () -> MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult, MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult> {
+  public func `request`(`callback`: @escaping @autoclosure () -> MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult, MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`callback`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`callback`: MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult, MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult, MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `request`(`escapingCallback`: @escaping MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback)
@@ -19927,10 +20748,10 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
     }
   }
 
-  public func `request`(`escapingCallback`: @escaping @autoclosure () -> MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult, MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult> {
+  public func `request`(`escapingCallback`: @escaping @autoclosure () -> MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@escaping MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult, MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`escapingCallback`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`escapingCallback`: @escaping MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (@escaping MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult, MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (@escaping MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult, MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult>(mock: self, invocation: invocation)
   }
 }
 
@@ -19985,10 +20806,10 @@ public final class UnalphabetizedGenericClassMock<C, B, A>: MockingbirdTestsHost
     }
   }
 
-  public func `genericMethod`<Z, Y, X>(`x`: @escaping @autoclosure () -> X, `y`: @escaping @autoclosure () -> Y, `z`: @escaping @autoclosure () -> Z) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (X, Y, Z) -> (X, Y, Z), (X, Y, Z)> {
+  public func `genericMethod`<Z, Y, X>(`x`: @escaping @autoclosure () -> X, `y`: @escaping @autoclosure () -> Y, `z`: @escaping @autoclosure () -> Z) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (X, Y, Z) -> (X, Y, Z), (X, Y, Z)> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`x`), Mockingbird.resolve(`y`), Mockingbird.resolve(`z`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericMethod`<Z, Y, X>(`x`: X, `y`: Y, `z`: Z) -> (X, Y, Z)", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (X, Y, Z) -> (X, Y, Z), (X, Y, Z)>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (X, Y, Z) -> (X, Y, Z), (X, Y, Z)>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `genericReferencingMethod`(`a`: A, `b`: B, `c`: C)
@@ -20009,10 +20830,10 @@ public final class UnalphabetizedGenericClassMock<C, B, A>: MockingbirdTestsHost
     }
   }
 
-  public func `genericReferencingMethod`(`a`: @escaping @autoclosure () -> A, `b`: @escaping @autoclosure () -> B, `c`: @escaping @autoclosure () -> C) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (A, B, C) -> (A, B, C), (A, B, C)> {
+  public func `genericReferencingMethod`(`a`: @escaping @autoclosure () -> A, `b`: @escaping @autoclosure () -> B, `c`: @escaping @autoclosure () -> C) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (A, B, C) -> (A, B, C), (A, B, C)> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`a`), Mockingbird.resolve(`b`), Mockingbird.resolve(`c`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericReferencingMethod`(`a`: A, `b`: B, `c`: C) -> (A, B, C)", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (A, B, C) -> (A, B, C), (A, B, C)>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (A, B, C) -> (A, B, C), (A, B, C)>(mock: self, invocation: invocation)
   }
 }
 
@@ -20059,10 +20880,10 @@ public final class UndefinedArgumentLabelsMock: MockingbirdTestsHost.UndefinedAr
     }
   }
 
-  public func `method`(_ `param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> String, _ `someParam`: @escaping @autoclosure () -> Int, _ `param4`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, String, Int, Bool) -> Bool, Bool> {
+  public func `method`(_ `param1`: @escaping @autoclosure () -> Bool, _ `param2`: @escaping @autoclosure () -> String, _ `someParam`: @escaping @autoclosure () -> Int, _ `param4`: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, String, Int, Bool) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`param2`), Mockingbird.resolve(`someParam`), Mockingbird.resolve(`param4`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(_ `param1`: Bool, _ `param2`: String, _ `someParam`: Int, _ `param4`: Bool) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Bool, String, Int, Bool) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Bool, String, Int, Bool) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -20140,10 +20961,10 @@ public final class UnspecializedGenericSubclassMock<T>: MockingbirdTestsHost.Uns
     }
   }
 
-  public func `baseMethod`(`param`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T> {
+  public func `baseMethod`(`param`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T, T> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: T) -> T", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
   }
 }
 
@@ -20221,10 +21042,10 @@ public final class UnspecializedMultipleGenericSubclassMock<T, R>: MockingbirdTe
     }
   }
 
-  public func `baseMethod`(`param`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T> {
+  public func `baseMethod`(`param`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T, T> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: T) -> T", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (T) -> T, T>(mock: self, invocation: invocation)
   }
 }
 
@@ -20885,15 +21706,16 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
     }
   }
 
-  public func `variadicMethod`(`objects`: @escaping @autoclosure () -> [Bool], `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Void, Void> {
+  public func `variadicMethod`(`objects`: @escaping @autoclosure () -> [Bool], `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool], Int) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethod`(`objects`: Bool..., `param2`: Int) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool], Int) -> Void, Void>(mock: self, invocation: invocation)
   }
-  public func `variadicMethod`(`objects`: Bool..., `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Void, Void> {
+
+  public func `variadicMethod`(`objects`: Bool..., `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool], Int) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethod`(`objects`: Bool..., `param2`: Int) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool], Int) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `variadicMethod`(`objects`: String..., `param2`: Int)
@@ -20910,15 +21732,16 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
     }
   }
 
-  public func `variadicMethod`(`objects`: @escaping @autoclosure () -> [String], `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([String], Int) -> Void, Void> {
+  public func `variadicMethod`(`objects`: @escaping @autoclosure () -> [String], `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([String], Int) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethod`(`objects`: String..., `param2`: Int) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([String], Int) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([String], Int) -> Void, Void>(mock: self, invocation: invocation)
   }
-  public func `variadicMethod`(`objects`: String..., `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([String], Int) -> Void, Void> {
+
+  public func `variadicMethod`(`objects`: String..., `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([String], Int) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethod`(`objects`: String..., `param2`: Int) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([String], Int) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([String], Int) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `variadicMethodAsFinalParam`(`param1`: Int, `objects`: String...)
@@ -20935,15 +21758,16 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
     }
   }
 
-  public func `variadicMethodAsFinalParam`(`param1`: @escaping @autoclosure () -> Int, `objects`: @escaping @autoclosure () -> [String]) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int, [String]) -> Void, Void> {
+  public func `variadicMethodAsFinalParam`(`param1`: @escaping @autoclosure () -> Int, `objects`: @escaping @autoclosure () -> [String]) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Int, [String]) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`objects`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethodAsFinalParam`(`param1`: Int, `objects`: String...) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int, [String]) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Int, [String]) -> Void, Void>(mock: self, invocation: invocation)
   }
-  public func `variadicMethodAsFinalParam`(`param1`: @escaping @autoclosure () -> Int, `objects`: String...) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int, [String]) -> Void, Void> {
+
+  public func `variadicMethodAsFinalParam`(`param1`: @escaping @autoclosure () -> Int, `objects`: String...) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Int, [String]) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.ArgumentMatcher(`objects`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethodAsFinalParam`(`param1`: Int, `objects`: String...) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int, [String]) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Int, [String]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `variadicReturningMethod`(`objects`: Bool..., `param2`: Int)
@@ -20964,15 +21788,16 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
     }
   }
 
-  public func `variadicReturningMethod`(`objects`: @escaping @autoclosure () -> [Bool], `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Bool, Bool> {
+  public func `variadicReturningMethod`(`objects`: @escaping @autoclosure () -> [Bool], `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool], Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicReturningMethod`(`objects`: Bool..., `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool], Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
-  public func `variadicReturningMethod`(`objects`: Bool..., `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Bool, Bool> {
+
+  public func `variadicReturningMethod`(`objects`: Bool..., `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool], Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicReturningMethod`(`objects`: Bool..., `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool], Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 
@@ -21015,15 +21840,16 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
     }
   }
 
-  public func `variadicMethod`(`objects`: @escaping @autoclosure () -> [Bool], `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Void, Void> {
+  public func `variadicMethod`(`objects`: @escaping @autoclosure () -> [Bool], `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool], Int) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethod`(`objects`: Bool..., `param2`: Int) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool], Int) -> Void, Void>(mock: self, invocation: invocation)
   }
-  public func `variadicMethod`(`objects`: Bool..., `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Void, Void> {
+
+  public func `variadicMethod`(`objects`: Bool..., `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool], Int) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethod`(`objects`: Bool..., `param2`: Int) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool], Int) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `variadicMethod`(`objects`: String..., `param2`: Int)
@@ -21040,15 +21866,16 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
     }
   }
 
-  public func `variadicMethod`(`objects`: @escaping @autoclosure () -> [String], `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([String], Int) -> Void, Void> {
+  public func `variadicMethod`(`objects`: @escaping @autoclosure () -> [String], `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([String], Int) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethod`(`objects`: String..., `param2`: Int) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([String], Int) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([String], Int) -> Void, Void>(mock: self, invocation: invocation)
   }
-  public func `variadicMethod`(`objects`: String..., `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([String], Int) -> Void, Void> {
+
+  public func `variadicMethod`(`objects`: String..., `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([String], Int) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethod`(`objects`: String..., `param2`: Int) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([String], Int) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([String], Int) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `variadicMethodAsFinalParam`(`param1`: Int, `objects`: String...)
@@ -21065,15 +21892,16 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
     }
   }
 
-  public func `variadicMethodAsFinalParam`(`param1`: @escaping @autoclosure () -> Int, `objects`: @escaping @autoclosure () -> [String]) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int, [String]) -> Void, Void> {
+  public func `variadicMethodAsFinalParam`(`param1`: @escaping @autoclosure () -> Int, `objects`: @escaping @autoclosure () -> [String]) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Int, [String]) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.resolve(`objects`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethodAsFinalParam`(`param1`: Int, `objects`: String...) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int, [String]) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Int, [String]) -> Void, Void>(mock: self, invocation: invocation)
   }
-  public func `variadicMethodAsFinalParam`(`param1`: @escaping @autoclosure () -> Int, `objects`: String...) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int, [String]) -> Void, Void> {
+
+  public func `variadicMethodAsFinalParam`(`param1`: @escaping @autoclosure () -> Int, `objects`: String...) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Int, [String]) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`param1`), Mockingbird.ArgumentMatcher(`objects`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethodAsFinalParam`(`param1`: Int, `objects`: String...) -> Void", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (Int, [String]) -> Void, Void>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Int, [String]) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked `variadicReturningMethod`(`objects`: Bool..., `param2`: Int)
@@ -21094,15 +21922,16 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
     }
   }
 
-  public func `variadicReturningMethod`(`objects`: @escaping @autoclosure () -> [Bool], `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Bool, Bool> {
+  public func `variadicReturningMethod`(`objects`: @escaping @autoclosure () -> [Bool], `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool], Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`objects`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicReturningMethod`(`objects`: Bool..., `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool], Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
-  public func `variadicReturningMethod`(`objects`: Bool..., `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Bool, Bool> {
+
+  public func `variadicReturningMethod`(`objects`: Bool..., `param2`: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool], Int) -> Bool, Bool> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.resolve(`param2`)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicReturningMethod`(`objects`: Bool..., `param2`: Int) -> Bool", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, ([Bool], Int) -> Bool, Bool>(mock: self, invocation: invocation)
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, ([Bool], Int) -> Bool, Bool>(mock: self, invocation: invocation)
   }
 }
 

@@ -12,17 +12,17 @@ import Mockingbird
 // MARK: - Stubbable declarations
 
 private protocol StubbableThrowingProtocol: Mock {
-  func throwingMethod() throws -> Mockable<MethodDeclaration, () throws -> Void, Void>
-  func throwingMethod() throws -> Mockable<MethodDeclaration, () throws -> Bool, Bool>
+  func throwingMethod() throws -> Mockable<FunctionDeclaration, () throws -> Void, Void>
+  func throwingMethod() throws -> Mockable<FunctionDeclaration, () throws -> Bool, Bool>
   func throwingMethod(block: @escaping @autoclosure () -> () throws -> Bool) throws
-    -> Mockable<MethodDeclaration, (() throws -> Bool) throws -> Void, Void>
+    -> Mockable<FunctionDeclaration, (() throws -> Bool) throws -> Void, Void>
 }
 extension ThrowingProtocolMock: StubbableThrowingProtocol {}
 
 private protocol StubbableRethrowingProtocol: RethrowingProtocol, Mock {
   func rethrowingMethod(block: @escaping @autoclosure () -> () throws -> Bool)
-    -> Mockable<MethodDeclaration, (() throws -> Bool) -> Void, Void>
+    -> Mockable<FunctionDeclaration, (() throws -> Bool) -> Void, Void>
   func rethrowingMethod(block: @escaping @autoclosure () -> () throws -> Bool)
-    -> Mockable<MethodDeclaration, (() throws -> Bool) -> Bool, Bool>
+    -> Mockable<FunctionDeclaration, (() throws -> Bool) -> Bool, Bool>
 }
 extension RethrowingProtocolMock: StubbableRethrowingProtocol {}

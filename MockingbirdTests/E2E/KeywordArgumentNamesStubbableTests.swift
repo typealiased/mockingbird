@@ -14,13 +14,13 @@ import Mockingbird
 
 private protocol StubbableKeywordArgNamesProtocol {
   func methodWithKeywordParam(`inout`: @escaping @autoclosure () -> String)
-      -> Mockable<MethodDeclaration, (String) -> Void, Void>
+      -> Mockable<FunctionDeclaration, (String) -> Void, Void>
   func methodWithNamedKeywordParam(with `inout`: @escaping @autoclosure () -> String)
-      -> Mockable<MethodDeclaration, (String) -> Void, Void>
+      -> Mockable<FunctionDeclaration, (String) -> Void, Void>
   func methodWithUnnamedKeywordParam(_ `inout`: @escaping @autoclosure () -> String)
-      -> Mockable<MethodDeclaration, (String) -> Void, Void>
+      -> Mockable<FunctionDeclaration, (String) -> Void, Void>
   func methodWithParamNamedKeyword(`inout` param: @escaping @autoclosure () -> String)
-      -> Mockable<MethodDeclaration, (String) -> Void, Void>
+      -> Mockable<FunctionDeclaration, (String) -> Void, Void>
 }
 
 extension KeywordArgNamesProtocolMock: StubbableKeywordArgNamesProtocol {}

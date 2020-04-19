@@ -29,7 +29,7 @@ class MethodTemplate: Template {
       .joined(separator: "\n\n")
   }
   
-  private enum Constants {
+  enum Constants {
     /// Certain methods have `Self` enforced parameter constraints.
     static let reservedNamesMap: [String: String] = [
       // Equatable
@@ -42,6 +42,9 @@ class MethodTemplate: Template {
       ">": "_greaterThan",
       ">=": "_greaterThanOrEqualTo",
     ]
+    
+    static let functionType = "Mockingbird.FunctionDeclaration"
+    static let subscriptType = "Mockingbird.SubscriptDeclaration"
   }
   
   var compilationDirectiveDeclaration: (start: String, end: String) {
@@ -59,80 +62,18 @@ class MethodTemplate: Template {
     return context.createScopedName(with: [], genericTypeContext: [], suffix: "Mock")
   }
   
-  var classInitializerProxy: String? {
-    guard method.isInitializer,
-      isClassBound || !context.containsOverridableDesignatedInitializer
-      else { return nil }
-    // We can't usually infer what concrete arguments to pass to the designated initializer.
-    guard !method.attributes.contains(.convenience) else { return nil }
-    let attributes = declarationAttributes.isEmpty ? "" : "\(declarationAttributes)\n"
-    let failable = method.attributes.contains(.failable) ? "?" : ""
-    let scopedName = mockableScopedName
-    
-    return """
-    \(attributes)public static func \(fullNameForInitializerProxy)\(returnTypeAttributesForMocking) -> \(scopedName)\(failable)\(genericConstraints) {
-      let mock: \(scopedName)\(failable) = \(tryInvocation)\(scopedName)(\(superCallParameters))
-      mock\(failable).sourceLocation = SourceLocation(__file, __line)
-      return mock
-    }
-    """
-  }
+  var classInitializerProxy: String? { return nil }
   
   var mockedDeclarations: String {
     let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
-    if method.isInitializer {
-      // We can't usually infer what concrete arguments to pass to the designated initializer.
-      guard !method.attributes.contains(.convenience) else { return "" }
-      let functionDeclaration = "public \(overridableModifiers)\(uniqueDeclaration)"
-      
-      if isClassBound {
-        // Class-defined initializer, called from an `InitializerProxy`.
-        let trySuper = method.attributes.contains(.throws) ? "try " : ""
-        return """
-          // MARK: Mocked \(fullNameForMocking)
-        \(attributes)
-          \(functionDeclaration){
-            \(trySuper)super.init(\(superCallParameters))
-            Mockingbird.checkVersion(for: self)
-            let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)])
-            \(contextPrefix)mockingContext.didInvoke(invocation)
-          }
-        """
-      } else if !context.containsOverridableDesignatedInitializer {
-        // Pure protocol or class-only protocol with no class-defined initializers.
-        let superCall = context.protocolClassConformance != nil ? "\n    super.init()" : ""
-        return """
-          // MARK: Mocked \(fullNameForMocking)
-        \(attributes)
-          \(functionDeclaration){\(superCall)
-            Mockingbird.checkVersion(for: self)
-            let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)])
-            \(contextPrefix)mockingContext.didInvoke(invocation)
-          }
-        """
-      } else {
-        // Unavailable class-only protocol-defined initializer, should not be used directly.
-        let initializerSuffix = context.protocolClassConformance != nil ? ".initialize(...)" : ""
-        let errorMessage = "Please use 'mock(\(context.mockableType.name).self)\(initializerSuffix)' to initialize a concrete mock instance"
-        return """
-          // MARK: Mocked \(fullNameForMocking)
-        \(attributes)
-          @available(*, deprecated, message: "\(errorMessage)")
-          \(functionDeclaration){
-            fatalError("\(errorMessage)")
-          }
-        """
+    return """
+      // MARK: Mocked \(fullNameForMocking)
+    \(attributes)
+      public \(overridableModifiers)func \(uniqueDeclaration) {
+        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)])
+    \(stubbedImplementationCall())
       }
-    } else {
-      return """
-        // MARK: Mocked \(fullNameForMocking)
-      \(attributes)
-        public \(overridableModifiers)func \(uniqueDeclaration) {
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)])
-      \(stubbedImplementationCall)
-        }
-      """
-    }
+    """
   }
   
   /// Declared in a class, or a class that the protocol conforms to.
@@ -142,38 +83,41 @@ class MethodTemplate: Template {
     return context.mockableType.kind == .class || isClassDefinedProtocolConformance
   }()
   
-  lazy var uniqueDeclaration: String = {
-    if method.isInitializer {
-      return "\(fullNameForMocking)\(returnTypeAttributesForMocking)\(genericConstraints) "
-    } else {
-      return "\(fullNameForMocking)\(returnTypeAttributesForMocking) -> \(specializedReturnTypeName)\(genericConstraints)"
-    }
-  }()
+  var overridableUniqueDeclaration: String {
+    return "\(fullNameForMocking)\(returnTypeAttributesForMocking) -> \(specializedReturnTypeName)\(genericConstraints)"
+  }
+  
+  lazy var uniqueDeclaration: String = { return overridableUniqueDeclaration }()
   
   var frameworkDeclarations: String {
-    guard !method.isInitializer else { return "" }
     let attributes = declarationAttributes.isEmpty ? "" : "  \(declarationAttributes)\n"
-    let returnTypeName = specializedReturnTypeName.removingImplicitlyUnwrappedOptionals()
+    let returnTypeName = unwrappedReturnTypeName
     let invocationType = "(\(methodParameterTypes)) \(returnTypeAttributesForMatching)-> \(returnTypeName)"
-    let mockableGenericTypes = ["Mockingbird.MethodDeclaration",
-                                 invocationType,
-                                 returnTypeName].joined(separator: ", ")
-    let mockable = """
+    
+    var mockableMethods = [String]()
+    let mockableGenericTypes = [Constants.functionType,
+                                invocationType,
+                                returnTypeName].joined(separator: ", ")
+    
+    mockableMethods.append("""
     \(attributes)  public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) {
     \(matchableInvocation)
         return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
       }
-    """
-    guard isVariadicMethod else { return mockable }
+    """)
     
-    // Allow methods with a variadic parameter to use variadics when stubbing.
-    return """
-    \(mockable)
-    \(attributes)  public \(regularModifiers)func \(fullNameForMatchingVariadics) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) {
-    \(matchableInvocationVariadics)
-        return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
-      }
-    """
+    if isVariadicMethod {
+      // Allow methods with a variadic parameter to use variadics when stubbing.
+      mockableMethods.append("""
+      \(attributes)  public \(regularModifiers)func \(fullNameForMatchingVariadics) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) {
+      \(resolvedVariadicArgumentMatchers)
+          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: arguments)
+          return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
+        }
+      """)
+    }
+    
+    return mockableMethods.joined(separator: "\n\n")
   }
 
   lazy var declarationAttributes: String = {
@@ -208,9 +152,13 @@ class MethodTemplate: Template {
       .map({ context.specializeTypeName("\($0)") }).joined(separator: ", ")
   }()
   
+  enum FunctionVariant {
+    case function, subscriptGetter, subscriptSetter
+  }
+  
   enum FullNameMode {
-    case mocking
-    case matching(useVariadics: Bool)
+    case mocking(variant: FunctionVariant)
+    case matching(useVariadics: Bool, variant: FunctionVariant)
     case initializerProxy
     
     var isMatching: Bool {
@@ -229,8 +177,15 @@ class MethodTemplate: Template {
     
     var useVariadics: Bool {
       switch self {
-      case .matching(let useVariadics): return useVariadics
+      case .matching(let useVariadics, _): return useVariadics
       case .mocking, .initializerProxy: return false
+      }
+    }
+    
+    var variant: FunctionVariant {
+      switch self {
+      case .matching(_, let variant), .mocking(let variant): return variant
+      case .initializerProxy: return .function
       }
     }
   }
@@ -247,32 +202,44 @@ class MethodTemplate: Template {
       failable = ""
     }
     
-    let tick = method.isInitializer
-      || (method.shortName.first?.isLetter != true
-        && method.shortName.first?.isNumber != true
-        && method.shortName.first != "_")
-      ? "" : "`"
-    let shortName = mode.isInitializerProxy ? "initialize" :
-      (tick + method.shortName + tick)
+    // Don't escape initializers, subscripts, and special functions with reserved tokens like `==`.
+    let shouldEscape = !method.isInitializer
+      && method.kind != .functionSubscript
+      && (method.shortName.first?.isLetter == true
+        || method.shortName.first?.isNumber == true
+        || method.shortName.first == "_")
+    let escapedShortName = mode.isInitializerProxy ? "initialize" :
+      (shouldEscape ? method.shortName.backtickWrapped : method.shortName)
     
     let allGenericTypes = self.genericTypesList.joined(separator: ", ")
     
     return genericTypes.isEmpty ?
-      "\(shortName)\(failable)" : "\(shortName)\(failable)<\(allGenericTypes)>"
+      "\(escapedShortName)\(failable)" : "\(escapedShortName)\(failable)<\(allGenericTypes)>"
   }
   
-  lazy var fullNameForMocking: String = { fullName(for: .mocking) }()
-  lazy var fullNameForMatching: String = { fullName(for: .matching(useVariadics: false)) }()
+  lazy var fullNameForMocking: String = {
+    return fullName(for: .mocking(variant: .function))
+  }()
+  lazy var fullNameForMatching: String = {
+    return fullName(for: .matching(useVariadics: false, variant: .function))
+  }()
   /// It's not possible to have an autoclosure with variadics. However, since a method can only have
   /// one variadic parameter, we can generate one method for wildcard matching using an argument
   /// matcher, and another for specific matching using variadics.
-  lazy var fullNameForMatchingVariadics: String = { fullName(for: .matching(useVariadics: true)) }()
-  lazy var fullNameForInitializerProxy: String = {
-    return fullName(for: .initializerProxy)
+  lazy var fullNameForMatchingVariadics: String = {
+    return fullName(for: .matching(useVariadics: true, variant: .function))
   }()
   func fullName(for mode: FullNameMode) -> String {
-    let additionalParameters = !mode.isInitializerProxy ? [] :
-      ["__file: StaticString = #file", "__line: UInt = #line"]
+    let additionalParameters: [String]
+    if mode.isInitializerProxy {
+      additionalParameters = ["__file: StaticString = #file", "__line: UInt = #line"]
+    } else if mode.variant == .subscriptSetter {
+      let closureType = mode.isMatching ? "@escaping @autoclosure () -> " : ""
+      additionalParameters = ["`newValue`: \(closureType)\(unwrappedReturnTypeName)"]
+    } else {
+      additionalParameters = []
+    }
+    
     let parameterNames = method.parameters.map({ parameter -> String in
       let typeName: String
       if mode.isMatching && (!mode.useVariadics || !parameter.attributes.contains(.variadic)) {
@@ -289,7 +256,7 @@ class MethodTemplate: Template {
       }
     }) + additionalParameters
     
-    let actualShortName = self.shortName(for: mode)
+    let actualShortName = shortName(for: mode)
     let shortName: String
     if mode.isMatching, let resolvedShortName = Constants.reservedNamesMap[actualShortName] {
       shortName = resolvedShortName
@@ -307,8 +274,11 @@ class MethodTemplate: Template {
     }).joined(separator: ", ")
   }()
   
-  lazy var stubbedImplementationCall: String = {
-    let returnTypeName = specializedReturnTypeName.removingImplicitlyUnwrappedOptionals()
+  // In certain cases, e.g. subscript setters, it's necessary to override parts of the definition.
+  func stubbedImplementationCall(parameterTypes: String? = nil,
+                                 parameterNames: String? = nil,
+                                 returnTypeName: String? = nil) -> String {
+    let returnTypeName = returnTypeName ?? unwrappedReturnTypeName
     let shouldReturn = !method.isInitializer && returnTypeName != "Void"
     let returnStatement = !shouldReturn ? "" : "return "
     let returnExpression = !shouldReturn ? "" : """
@@ -319,7 +289,9 @@ class MethodTemplate: Template {
           }
     """
     
-    let implementationType = "(\(methodParameterTypes)) \(returnTypeAttributesForMatching)-> \(returnTypeName)"
+    let parameterTypes = parameterTypes ?? methodParameterTypes
+    let parameterNames = parameterNames ?? methodParameterNamesForInvocation
+    let implementationType = "(\(parameterTypes)) \(returnTypeAttributesForMatching)-> \(returnTypeName)"
     let noArgsImplementationType = "() \(returnTypeAttributesForMatching)-> \(returnTypeName)"
     
     // 1. Stubbed implementation with args
@@ -329,13 +301,13 @@ class MethodTemplate: Template {
         \(returnStatement)\(tryInvocation)\(contextPrefix)mockingContext.didInvoke(invocation) { () -> \(returnTypeName) in
           let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation)
           if let concreteImplementation = implementation as? \(implementationType) {
-            \(returnStatement)\(tryInvocation)concreteImplementation(\(methodParameterNamesForInvocation))
+            \(returnStatement)\(tryInvocation)concreteImplementation(\(parameterNames))
           } else if let concreteImplementation = implementation as? \(noArgsImplementationType) {
             \(returnStatement)\(tryInvocation)concreteImplementation()
           }\(returnExpression)
         }
     """
-  }()
+  }
   
   lazy var matchableInvocation: String = {
     guard !method.parameters.isEmpty else {
@@ -349,29 +321,35 @@ class MethodTemplate: Template {
     """
   }()
   
-  lazy var matchableInvocationVariadics: String = {
-    return """
-    \(resolvedArgumentMatchersVariadics)
-        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: arguments)
-    """
+  lazy var resolvedArgumentMatchers: String = {
+    return self.resolvedArgumentMatchers(for: method.parameters.map({ ($0.name, true) }))
   }()
   
-  lazy var resolvedArgumentMatchers: String = {
-    let resolved = method.parameters.map({
-      return "Mockingbird.resolve(\($0.name.backtickWrapped))"
-    }).joined(separator: ", ")
-    return "    let arguments: [Mockingbird.ArgumentMatcher] = [\(resolved)]"
+  lazy var resolvedArgumentMatchersForSubscriptSetter: String = {
+    let parameters = method.parameters.map({ ($0.name, true) }) + [("newValue", true)]
+    return resolvedArgumentMatchers(for: parameters)
   }()
   
   /// Variadic parameters cannot be resolved indirectly using `resolve()`.
-  lazy var resolvedArgumentMatchersVariadics: String = {
-    let resolved = method.parameters.map({
-      guard $0.attributes.contains(.variadic) else { return "Mockingbird.resolve(\($0.name.backtickWrapped))" }
-      // Directly create an ArgumentMatcher if this parameter is variadic.
-      return "Mockingbird.ArgumentMatcher(\($0.name.backtickWrapped))"
+  lazy var resolvedVariadicArgumentMatchers: String = {
+    let parameters = method.parameters.map({ ($0.name, !$0.attributes.contains(.variadic)) })
+    return resolvedArgumentMatchers(for: parameters)
+  }()
+  
+  lazy var resolvedVariadicArgumentMatchersForSubscriptSetter: String = {
+    let parameters = method.parameters.map({ ($0.name, !$0.attributes.contains(.variadic)) })
+      + [("newValue", true)]
+    return resolvedArgumentMatchers(for: parameters)
+  }()
+  
+  /// Can create argument matchers via resolving (shouldResolve = true) or by direct initialization.
+  func resolvedArgumentMatchers(for parameters: [(name: String, shouldResolve: Bool)]) -> String {
+    let resolved = parameters.map({ (name, shouldResolve) in
+      let type = shouldResolve ? "resolve" : "ArgumentMatcher"
+      return "Mockingbird.\(type)(\(name.backtickWrapped))"
     }).joined(separator: ", ")
     return "    let arguments: [Mockingbird.ArgumentMatcher] = [\(resolved)]"
-  }()
+  }
   
   lazy var tryInvocation: String = {
     // We only try the invocation for throwing methods, not rethrowing ones since the stubbed
@@ -393,14 +371,18 @@ class MethodTemplate: Template {
     }
   }()
   
-  lazy var mockArgumentMatchers: String = {
+  lazy var mockArgumentMatchersList: [String] = {
     return method.parameters.map({ parameter -> String in
       // Can't save the argument in the invocation because it's a non-escaping parameter.
       guard !parameter.attributes.contains(.closure) || parameter.attributes.contains(.escaping) else {
         return "Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<\(parameter.matchableTypeName(in: self))>())"
       }
       return "Mockingbird.ArgumentMatcher(\(parameter.name.backtickWrapped))"
-    }).joined(separator: ", ")
+    })
+  }()
+  
+  lazy var mockArgumentMatchers: String = {
+    return mockArgumentMatchersList.joined(separator: ", ")
   }()
   
   lazy var mockObject: String = {
@@ -417,14 +399,24 @@ class MethodTemplate: Template {
     return context.specializeTypeName(method.returnTypeName)
   }()
   
+  lazy var unwrappedReturnTypeName: String = {
+    return specializedReturnTypeName.removingImplicitlyUnwrappedOptionals()
+  }()
+  
+  lazy var methodParameterTypesList: [String] = {
+    return method.parameters.map({ $0.mockableTypeName(in: self, forClosure: true) })
+  }()
+  
   lazy var methodParameterTypes: String = {
-    return method.parameters
-      .map({ $0.mockableTypeName(in: self, forClosure: true) })
-      .joined(separator: ", ")
+    return methodParameterTypesList.joined(separator: ", ")
+  }()
+  
+  lazy var methodParameterNamesForInvocationList: [String] = {
+    return method.parameters.map({ $0.invocationName })
   }()
   
   lazy var methodParameterNamesForInvocation: String = {
-    return method.parameters.map({ $0.invocationName }).joined(separator: ", ")
+    return methodParameterNamesForInvocationList.joined(separator: ", ")
   }()
   
   lazy var isVariadicMethod: Bool = {

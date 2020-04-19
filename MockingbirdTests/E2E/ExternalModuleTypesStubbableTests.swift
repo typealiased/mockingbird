@@ -14,15 +14,15 @@ import MockingbirdModuleTestsHost
 
 private protocol StubbableLocalPublicExternalProtocol {
   func getVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
-  func method() -> Mockable<MethodDeclaration, () -> Void, Void>
+  func method() -> Mockable<FunctionDeclaration, () -> Void, Void>
 }
 extension LocalPublicExternalProtocolMock: StubbableLocalPublicExternalProtocol {}
 
 private protocol StubbableSubclassingExternalClassWithInheritedIntializer {
   func getInternalVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
-  func internalMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  func internalMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
   func getOpenVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>
-  func openMethod() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>
+  func openMethod() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>
 }
 extension SubclassingExternalClassWithInheritedIntializerMock:
 StubbableSubclassingExternalClassWithInheritedIntializer {}

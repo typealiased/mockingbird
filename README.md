@@ -229,9 +229,9 @@ given(bird.canChirp(volume: notNil())) ~> true  // Matches any non-nil volume
 given(bird.canChirp(volume: 10)) ~> false       // Matches volume = 10
 ```
 
-#### Variables
+#### Properties
 
-Stub variables with their getter and setter methods.
+Stub properties with their getter and setter methods.
 
 ```swift
 given(bird.getName()) ~> "Ryan"
@@ -346,9 +346,9 @@ verify(bird.canChirp(volume: notNil())).wasCalled()  // Called with any non-nil 
 verify(bird.canChirp(volume: 10)).wasCalled()        // Called with volume = 10
 ```
 
-#### Variables
+#### Properties
 
-Verify variable invocations using their getter and setter methods.
+Verify property invocations using their getter and setter methods.
 
 ```swift
 verify(bird.getName()).wasCalled()
