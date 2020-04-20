@@ -32,7 +32,6 @@ public extension ValueProvider {
     // Floating point
     ObjectIdentifier(Float.self): Float(), // Float32
     ObjectIdentifier(Double.self): Double(), // Float64
-    ObjectIdentifier(Float80.self): Float80(),
   ])
 }
 
