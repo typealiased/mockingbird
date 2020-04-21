@@ -56,7 +56,7 @@ extension ArgumentParser {
   func addDestinationTarget() -> OptionArgument<String> {
     return add(option: "--target",
                kind: String.self,
-               usage: "The target name where Mockingbird will be installed.")
+               usage: "The name of a test target to configure.")
   }
   
   func addOutputs() -> OptionArgument<[PathArgument]> {
