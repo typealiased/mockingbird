@@ -128,7 +128,7 @@ $ make install-prebuilt
 Add `https://github.com/birdrides/mockingbird` as a dependency and link it to your test target.
 
 Then download and install the
-[latest CLI from Releases](https://github.com/birdrides/mockingbird/releases/download/0.11.0/MockingbirdCli.pkg).
+[latest CLI from Releases](https://github.com/birdrides/mockingbird/releases/download/0.11.1/Mockingbird.pkg).
 
 ### From Source
 
@@ -165,7 +165,7 @@ Need to [set up your project manually](https://github.com/birdrides/mockingbird/
 ### System Framework Compatibility
 
 For basic compatibility with the Swift standard library and other system frameworks, download the latest
-[starter supporting source files](https://github.com/birdrides/mockingbird/releases/download/0.11.0/MockingbirdSupport.zip)
+[starter supporting source files](https://github.com/birdrides/mockingbird/releases/download/0.11.1/MockingbirdSupport.zip)
 and place the `MockingbirdSupport` folder in the root directory of your project. Note that supporting source files
 should not be imported into Xcode or added to any targets. See [Supporting Source Files](#supporting-source-files)
 for more information.
@@ -530,7 +530,7 @@ details and best practices.
 
 Mockingbird includes starter supporting source files for the Swift standard library and common system frameworks
 such as `Foundation`. Download the latest
-[starter supporting source files](https://github.com/birdrides/mockingbird/releases/download/0.11.0/MockingbirdSupport.zip)
+[starter supporting source files](https://github.com/birdrides/mockingbird/releases/download/0.11.1/MockingbirdSupport.zip)
 and place the `MockingbirdSupport` folder in the root directory of your project. Note that supporting source files
 should not be imported into Xcode or added to any targets.
 
