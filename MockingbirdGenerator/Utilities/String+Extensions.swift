@@ -41,6 +41,16 @@ public extension String {
     return "\"\(self)\""
   }
   
+  /// Escape the string for use in module names, replacing special characters and invalid prefixes.
+  func escapingForModuleName() -> String {
+    let replaced = replacingOccurrences(of: "\\W", with: "_", options: .regularExpression)
+    if String(replaced[startIndex]).range(of: "\\d", options: .regularExpression) != nil {
+      return replaced.replacingCharacters(in: ...startIndex, with: "_")
+    } else {
+      return replaced
+    }
+  }
+  
   /// Splits a string into substrings given a character delimiter.
   ///
   /// - Note: This method is 2x faster than the built-in method on Release builds.
