@@ -18,30 +18,30 @@ class FloatingPointMatcherTests: XCTestCase {
   }
   
   func testMethod_exactMatch() {
-    given(floatingPoint.method(param: 0.42)) ~> true
-    XCTAssertTrue((floatingPoint as ArgumentMatchingProtocol).method(param: 0.42))
-    verify(floatingPoint.method(param: 0.42)).wasCalled()
-    verify(floatingPoint.method(param: 0.421)).wasNeverCalled()
+    given(floatingPoint.method(floatingPoint: 0.42)) ~> true
+    XCTAssertTrue((floatingPoint as ArgumentMatchingProtocol).method(floatingPoint: 0.42))
+    verify(floatingPoint.method(floatingPoint: 0.42)).wasCalled()
+    verify(floatingPoint.method(floatingPoint: 0.421)).wasNeverCalled()
   }
   
   func testMethod_fuzzyMatch_equalToTarget() {
-    given(floatingPoint.method(param: around(0.42, tolerance: 0.01))) ~> true
-    XCTAssertTrue((floatingPoint as ArgumentMatchingProtocol).method(param: 0.42))
-    verify(floatingPoint.method(param: around(0.42, tolerance: 0.01))).wasCalled()
-    verify(floatingPoint.method(param: around(0.42, tolerance: 0.001))).wasCalled()
+    given(floatingPoint.method(floatingPoint: around(0.42, tolerance: 0.01))) ~> true
+    XCTAssertTrue((floatingPoint as ArgumentMatchingProtocol).method(floatingPoint: 0.42))
+    verify(floatingPoint.method(floatingPoint: around(0.42, tolerance: 0.01))).wasCalled()
+    verify(floatingPoint.method(floatingPoint: around(0.42, tolerance: 0.001))).wasCalled()
   }
   
   func testMethod_fuzzyMatch_aboveTarget() {
-    given(floatingPoint.method(param: around(0.42, tolerance: 0.01))) ~> true
-    XCTAssertTrue((floatingPoint as ArgumentMatchingProtocol).method(param: 0.429))
-    verify(floatingPoint.method(param: around(0.42, tolerance: 0.01))).wasCalled()
-    verify(floatingPoint.method(param: around(0.42, tolerance: 0.001))).wasNeverCalled()
+    given(floatingPoint.method(floatingPoint: around(0.42, tolerance: 0.01))) ~> true
+    XCTAssertTrue((floatingPoint as ArgumentMatchingProtocol).method(floatingPoint: 0.429))
+    verify(floatingPoint.method(floatingPoint: around(0.42, tolerance: 0.01))).wasCalled()
+    verify(floatingPoint.method(floatingPoint: around(0.42, tolerance: 0.001))).wasNeverCalled()
   }
   
   func testMethod_fuzzyMatch_belowTarget() {
-    given(floatingPoint.method(param: around(0.42, tolerance: 0.01))) ~> true
-    XCTAssertTrue((floatingPoint as ArgumentMatchingProtocol).method(param: 0.411))
-    verify(floatingPoint.method(param: around(0.42, tolerance: 0.01))).wasCalled()
-    verify(floatingPoint.method(param: around(0.42, tolerance: 0.001))).wasNeverCalled()
+    given(floatingPoint.method(floatingPoint: around(0.42, tolerance: 0.01))) ~> true
+    XCTAssertTrue((floatingPoint as ArgumentMatchingProtocol).method(floatingPoint: 0.411))
+    verify(floatingPoint.method(floatingPoint: around(0.42, tolerance: 0.01))).wasCalled()
+    verify(floatingPoint.method(floatingPoint: around(0.42, tolerance: 0.001))).wasNeverCalled()
   }
 }
