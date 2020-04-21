@@ -1,10 +1,12 @@
-# Mockingbird
+<p align="center">
+  <img src="/Images/mockingbird-hero-image.png" alt="Mockingbird - Swift Mocking Framework" width="350">
+</p>
 
-[![Package managers](https://img.shields.io/badge/package-cocoapods%20|%20carthage%20|%20spm-4BC51D.svg)](#installation)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-[![Slack](https://img.shields.io/badge/slack-join%20channel-A417A6.svg)](https://slofile.com/slack/birdopensource)
-
-Mockingbird is a convenient mocking framework for Swift.
+<p align="center">
+  <a href="#installation"><img src="https://img.shields.io/badge/package-cocoapods%20%7C%20carthage%20%7C%20spm-4BC51D.svg" alt="Package managers"></a>
+  <a href="/andrewchang-bird/mockingbird/blob/add-readme-logo/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+  <a href="https://slofile.com/slack/birdopensource" rel="nofollow"><img src="https://img.shields.io/badge/slack-join%20channel-A417A6.svg" alt="Slack"></a>
+</p>
 
 ```swift
 // Mocking
@@ -17,18 +19,28 @@ given(bird.getName()) ~> "Ryan"
 verify(bird.fly()).wasCalled()
 ```
 
----
+## What is Mockingbird?
 
-## Overview
+Mockingbird is a Swift mocking framework that lets you throw away your hand-written mocks and write clean,
+readable tests.
 
-Mockingbird uses code generation to create overridable mocks and stubs with similar semantics to [Mockito](https://site.mockito.org).
+- **Expansive coverage of Swift language features**
+  - Mock classes and protocols in a single line of code
+  - Support for generics, inheritance, static members, nested classes, type aliasing, etc.
+- **Seamless integration with Xcode projects**
+  - Automatic discovery of source and dependency files
+  - Handling of external types from third-party libraries
+- **Convenient testing API**
+  - Clear stubbing and verification error messages
+  - Support for asynchronous code, in order verification, default return value stubbing, etc.
 
-At a high level, Mockingbird consists of two main components: the generator and the testing framework. Before each
-test bundle compilation, the generator creates an intermediary layer that implements protocols and subclasses
-classes. The testing framework provides hooks into the intermediary layer for mocking, stubbing, and verification
-during test runs.
+### Under the Hood
 
-Let’s start with a simple example!
+Mockingbird consists of two main components: the _generator_ and the _testing framework_. Before each test bundle
+compilation, configurable mock objects are created by implementing protocols and subclassing classes. The testing
+framework hooks into the generated code and provides APIs for mocking, stubbing, and verification.
+
+### A Simple Example
 
 ```swift
 protocol Bird {
@@ -50,16 +62,16 @@ class Tree {
 }
 
 func testShakingTreeCausesBirdToFly() {
-  // Given
+  // Given a tree with a bird that can fly
   let bird = mock(Bird.self)
-  let tree = Tree(with: bird) // a tree with a bird
-  given(bird.getCanFly()) ~> true // that can fly
+  let tree = Tree(with: bird)
+  given(bird.getCanFly()) ~> true
   
-  // When
-  tree.shake() // the tree is shaken
+  // When the tree is shaken
+  tree.shake()
   
-  // Then
-  verify(bird.fly()).wasCalled() // the bird flies away
+  // Then the bird flies away
+  verify(bird.fly()).wasCalled()
 }
 ```
 
@@ -97,7 +109,7 @@ Add the framework to your `Cartfile`.
 github "birdrides/mockingbird" ~> 0.11.0
 ```
 
-Build the framework using Carthage and [link it to your test target](Documentation/LinkingTestTargets.md), making
+Build the framework using Carthage and [link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets), making
 sure to add the framework to a Copy Files build phase with the destination set to `Frameworks`.
 
 ```bash
@@ -116,13 +128,13 @@ $ make install-prebuilt
 Add `https://github.com/birdrides/mockingbird` as a dependency and link it to your test target.
 
 Then download and install the
-[latest CLI from Releases](https://github.com/birdrides/mockingbird/releases/download/0.11.0/MockingbirdCli.pkg).
+[latest CLI from Releases](https://github.com/birdrides/mockingbird/releases/download/0.11.1/Mockingbird.pkg).
 
 ### From Source
 
 Clone the repository and build the `MockingbirdFramework` scheme for the desired platform. Drag the built 
 `Mockingbird.framework` product into your project and 
-[link it to your test target](Documentation/LinkingTestTargets.md).
+[link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets).
 
 ```bash
 $ git clone https://github.com/birdrides/mockingbird.git
@@ -148,12 +160,12 @@ $ mockingbird install \
   --sources Bird BirdManagers
 ```
 
-Need to [set up your project manually](Documentation/ManualSetup.md)?
+Need to [set up your project manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup)?
 
 ### System Framework Compatibility
 
 For basic compatibility with the Swift standard library and other system frameworks, download the latest
-[starter supporting source files](https://github.com/birdrides/mockingbird/releases/download/0.11.0/MockingbirdSupport.zip)
+[starter supporting source files](https://github.com/birdrides/mockingbird/releases/download/0.11.1/MockingbirdSupport.zip)
 and place the `MockingbirdSupport` folder in the root directory of your project. Note that supporting source files
 should not be imported into Xcode or added to any targets. See [Supporting Source Files](#supporting-source-files)
 for more information.
@@ -206,6 +218,8 @@ Stubbing allows you to define a custom value to return when a mocked method is c
 given(bird.getName()) ~> "Ryan"
 ```
 
+#### Methods with Parameters
+
 You can use an [argument matcher](#argument-matching) when stubbing methods with parameters. Stubs added 
 later have precedence over those added earlier, so stubs containing specific matchers should be added last.
 
@@ -214,6 +228,8 @@ given(bird.canChirp(volume: any())) ~> false    // Matches any volume
 given(bird.canChirp(volume: notNil())) ~> true  // Matches any non-nil volume
 given(bird.canChirp(volume: 10)) ~> false       // Matches volume = 10
 ```
+
+#### Variables
 
 Stub variables with their getter and setter methods.
 
@@ -225,10 +241,12 @@ given(bird.setName(any())) ~> { print($0) }
 Getters can be stubbed to automatically save and return values.
 
 ```swift
-given(bird.getName()) ~> lastSetValue(initial: "One")
-bird.name = "Two"
-assert(bird.name == "Two")
+given(bird.getName()) ~> lastSetValue(initial: "Ryan")
+bird.name = "Sterling"
+print(bird.name)  // Prints "Sterling""
 ```
+
+#### Complex Stubs and Throwing Errors
 
 Use a closure to implement complex stubs that contain logic or that interact with arguments. 
 
@@ -238,7 +256,7 @@ given(bird.chirp(volume: any(), callback: any())) ~> { volume, callback in
 }
 ```
 
-Closures also allow for stubbing methods that can throw.
+Closures also allow for stubbing methods that can throw errors.
 
 ```swift
 given(bird.chirp(volume: any())) ~> { volume in
@@ -248,13 +266,47 @@ given(bird.chirp(volume: any())) ~> { volume in
 }
 ```
 
-It’s possible to stub multiple methods with the same return type in a single call.
+#### Relaxed Stubbing with Default Values (0.12.0)
+
+Mocks are strict by default, meaning that calls to unstubbed methods will trigger a test failure. Methods returning
+`Void` do not need to be stubbed in strict mode.
 
 ```swift
-given(
-  birdOne.getName(),
-  birdTwo.getName()
-) ~> "Ryan"
+let bird = mock(Bird.self)
+print(bird.name)  // Fails because `bird.getName()` is not stubbed
+bird.fly()        // Okay because `fly()` has a `Void` return type
+```
+
+To return default values for unstubbed methods, use a `ValueProvider` with the initialized mock. Default values
+have a lower precedence than values returned from concrete stubs.
+
+```swift
+let valueProvider = ValueProvider().register("Ryan", for: String.self)
+let bird = mock(Bird.self)
+useDefaultValues(from: valueProvider, on: bird)
+print(bird.name)  // Prints "Ryan"
+
+// Values from concrete stubs have a higher precedence 
+given(bird.getName()) ~> "Sterling"
+print(bird.name)  // Prints "Sterling"
+```
+
+Mockingbird provides several preset value providers which are guaranteed to be backwards compatible.
+
+```
+.standardProvider
+├── .collectionsProvider
+├── .primitivesProvider
+├── .basicsProvider
+├── .geometryProvider
+├── .stringsProvider
+└── .datesProvider
+```
+
+```swift
+let bird = mock(Bird.self)
+useDefaultValues(from: .standardProvider, on: bird)
+print(bird.name)  // Prints ""
 ```
 
 ### Verification
@@ -264,6 +316,34 @@ Verification lets you assert that a mock received a particular invocation during
 ```swift
 verify(bird.fly()).wasCalled()
 ```
+
+Verifying doesn’t remove recorded invocations, so it’s safe to call verify multiple times (even if not recommended).
+
+```swift
+verify(bird.fly()).wasCalled()  // If this succeeds...
+verify(bird.fly()).wasCalled()  // ...this also succeeds
+```
+
+#### Methods with Parameters
+
+[Argument matching](#argument-matching) for verification follows the same syntax as stubbing.
+
+```swift
+verify(bird.canChirp(volume: any())).wasCalled()     // Called with any volume
+verify(bird.canChirp(volume: notNil())).wasCalled()  // Called with any non-nil volume
+verify(bird.canChirp(volume: 10)).wasCalled()        // Called with volume = 10
+```
+
+#### Variables
+
+Verify variable invocations using their getter and setter methods.
+
+```swift
+verify(bird.getName()).wasCalled()
+verify(bird.setName(any())).wasCalled()
+```
+
+#### Specific Number of Invocations
 
 It’s possible to verify that an invocation was called a specific number of times with a count matcher.
 
@@ -282,7 +362,9 @@ verify(bird.fly()).wasCalled(not(exactly(10)))           // n ≠ 10
 verify(bird.fly()).wasCalled(exactly(10).or(atMost(5)))  // n = 10 || n ≤ 5
 ```
 
-Sometimes you need to perform custom checks on received parameters by using an argument captor.
+#### Argument Capturing
+
+Sometimes you need to perform custom checks on argument values by using an argument captor.
 
 ```swift
 let nameCaptor = ArgumentCaptor<String>()
@@ -290,15 +372,28 @@ verify(bird.setName(nameCaptor.matcher)).wasCalled()
 assert(nameCaptor.value?.hasPrefix("R"))
 ```
 
+#### Ordered Invocations
+
 To enforce the relative order of invocations, use an `inOrder` block.
 
 ```swift
-// Check that `fly` was called before `chirp`
+// Verify that `fly` was called before `chirp`
 inOrder {
   verify(bird.fly()).wasCalled()
   verify(bird.chirp()).wasCalled()
 }
 ```
+
+Pass options to ordered verification blocks for stricter checks with additional invariants.
+
+```swift
+inOrder(with: .noInvocationsAfter) {
+  verify(bird.fly()).wasCalled()
+  verify(bird.chirp()).wasCalled()
+}
+```
+
+#### Asynchronous Verification
 
 You can test asynchronous code by using an `eventually` block which returns an `XCTestExpectation`. 
 
@@ -313,12 +408,7 @@ let expectation = eventually {
 wait(for: [expectation], timeout: 1.0)
 ```
 
-Verifying doesn’t remove recorded invocations, so it’s safe to call verify multiple times (even if not recommended).
-
-```swift
-verify(bird.fly()).wasCalled()  // If this succeeds...
-verify(bird.fly()).wasCalled()  // ...this also succeeds
-```
+#### Disambiguating Overloaded Return Types
 
 For methods overloaded by return type, you should help the compiler by specifying the type returned.
 
@@ -337,15 +427,20 @@ verify(bird.getMessage()).returning(String.self).wasCalled()
 Occasionally it’s necessary to remove stubs or clear recorded invocations.
 
 ```swift
-reset(bird)                 // Removes all stubs and recorded invocations
-clearStubs(on: bird)        // Only removes stubs
-clearInvocations(on: bird)  // Only removes recorded invocations
+reset(bird)                    // Removes all stubs, values, and invocations
+clearStubs(on: bird)           // Only removes stubs
+clearDefaultValues(on: bird)   // Only removes default values
+clearInvocations(on: bird)     // Only removes recorded invocations
 ```
 
 ### Argument Matching
 
-Match arguments received by mocks for stubbing and verification. The parameter type must explicitly conform to
-`Equatable` or the arguments will be compared by reference.
+Argument matching allows you to handle parameterized methods for stubbing or verification.
+
+#### Exact Value
+
+Match specific values by passing a concrete instance. The parameter type must explicitly conform to `Equatable` or
+the arguments will be compared by reference.
 
 ```swift
 // Many Swift standard library types such as `String` conform to `Equatable`
@@ -367,7 +462,9 @@ let tree = Tree(with: bird)
 verify(bird.setHome(tree)).wasCalled()
 ```
 
-Argument matchers allow wildcard and custom matching of arguments.
+#### Wildcard and Non-Equatable Matching
+
+Argument matchers allow wildcard and custom matching of arguments that don’t conform to `Equatable`.
 
 ```swift
 any()                    // Matches any value
@@ -394,6 +491,8 @@ any(keys: "a", "b", "c")  // Matches any dictionary with keys {"a", "b", "c"}
 any(count: atMost(42))    // Matches any collection with at most 42 elements
 notEmpty()                // Matches any non-empty collection
 ```
+
+#### Floating Point Values
 
 Mathematical operations on floating point numbers can cause unexpected behavior, so consider using `around` to
 fuzzily match floating point arguments with some tolerance.
@@ -424,14 +523,14 @@ public typealias Codable = Decodable & Encodable
 ```
 
 Supporting source files do not allow you to generate mocks for external types such as those defined in third-party
-libraries or frameworks. Please see [Mocking External Types](/Documentation/MockingExternalTypes.md) for
+libraries or frameworks. Please see [Mocking External Types](https://github.com/birdrides/mockingbird/wiki/Mocking-External-Types) for
 details and best practices.
 
 ### Starter Pack
 
 Mockingbird includes starter supporting source files for the Swift standard library and common system frameworks
 such as `Foundation`. Download the latest
-[starter supporting source files](https://github.com/birdrides/mockingbird/releases/download/0.11.0/MockingbirdSupport.zip)
+[starter supporting source files](https://github.com/birdrides/mockingbird/releases/download/0.11.1/MockingbirdSupport.zip)
 and place the `MockingbirdSupport` folder in the root directory of your project. Note that supporting source files
 should not be imported into Xcode or added to any targets.
 
@@ -545,86 +644,10 @@ By default Mockingbird will generate mocks into the `$(SRCROOT)/MockingbirdMocks
 Mockingbird will recursively look for [supporting source files](#supporting-source-files) in the
 `$(SRCROOT)/MockingbirdSupport` directory.
 
-## Troubleshooting
-
-### Mocks don’t exist or are out of date 
-
-Mocks are generated when the test target is built and run. Run tests once and check that generated mock files
-appear in `$(SRCROOT)/MockingbirdMocks` and are not empty. If nothing is generated or the files contain no
-mocks then something is wrong with the installation.
-
-- [Check the configured build phase](#debugging-a-configured-build-phase)
-- [Check the generator logs](#debugging-the-generator)
-
-### Generated mock does not compile
-
-Ensure that the project has [supporting source files](#supporting-source-files). Common compiler errors from not
-having supporting source files:
-
-- `MyTypeMock` does not conform to protocol `NSObjectProtocol`
-- Superclass must appear first in the inheritance clause
-- `Type` can only be used as a generic constraint because it has `Self` or associated type requirements
-
-If there are supporting source files and the error is related to inheritance, you may need to add a new supporting
-source file with definitions for the inherited type.
-
-If the issue is unrelated to inheritance, you may have found a [generator bug](#debugging-the-generator). If all else
-fails, [exclude the problematic source file](#excluding-files) and
-[file an issue](https://github.com/birdrides/mockingbird/issues/new/choose).
-
-### Supporting source files do not compile
-
-Supporting source files should not be imported into Xcode. If you want to use Xcode to add or modify supporting
-source files, make sure they are not added as sources to any targets.
-
-### Mocks are not generated for external types in third-party frameworks or libraries
-
-Please see [Mocking External Types](/Documentation/MockingExternalTypes.md) for details and best practices.
-
-### Editor placeholder in source file warning
-
-Generated mocks will contain the editor placeholder `__UnknownType__` for types that could not be inferred.
-Help the generator by adding
-[explicit type annotations](https://docs.swift.org/swift-book/ReferenceManual/Types.html#ID446) to the definition.
-
-### Cannot call stubbing or verification functions
-
-Ensure that Mockingbird is imported at the top of the test file.
-
-### Expression type is ambiguous without more context error
-
-This usually happens when trying to stub or verify a mock that was explicitly coerced into its supertype. Make sure
-the variable storing the mock has the concrete mock type, e.g. `MyTypeMock` instead of `MyType`.
-
-### Tests crash with an unable to load framework, image not found error
-
-Link Mockingbird and ensure that it’s included in the test bundle by
-[adding it to the Copy Files build phase](Documentation/LinkingTestTargets.md).
-
-### Unable to stub or verify methods with arguments
-
-Ensure that all parameter types explicitly conform to `Equatable` or work when compared by reference. Note that
-`struct` types that implicitly conform to `Equatable` have undefined behavior. Use a wildcard
-[argument matcher](#argument-matching) such as `any()` or `any(where:)` to match non-equatable or implicitly
-equatable types.
-
-### Debugging a configured build phase
-
-Open the test target
-[build phase](https://developer.apple.com/library/archive/documentation/ToolsLanguages/Conceptual/Xcode_Overview/WorkingwithTargets.html)
-and expand the build phase named `Generate Mockingbird Mocks`. If no phase exists or the listed targets seem incorrect, [set up](#setup) the test target again.
-
-### Debugging the generator
-
-Open the
-[Xcode report navigator](https://developer.apple.com/library/archive/documentation/ToolsLanguages/Conceptual/Xcode_Overview/NavigatingYourWorkspace.html)
-and select the Build entry for the most recent test run. Find the log message for
-`Run custom shell script 'Generate Mockingbird Mocks'` and check for any relevant warnings or errors.
-To increase the log verbosity, specify `--verbose` in the
-[configured build phase](#debugging-a-configured-build-phase).
-
 ## Additional Resources
 
+- [Troubleshooting](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
 - [Slack channel](https://slofile.com/slack/birdopensource)
+- [Mockingbird wiki](https://github.com/birdrides/mockingbird/wiki/)
 - [CocoaPods tutorial + example project](/Examples/iOSMockingbirdExample-CocoaPods)
 - [Carthage tutorial + example project](/Examples/iOSMockingbirdExample-Carthage)
