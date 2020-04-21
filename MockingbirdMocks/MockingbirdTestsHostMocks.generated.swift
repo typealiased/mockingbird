@@ -22,7 +22,7 @@ private var genericTypesStaticMocks = Mockingbird.Synchronized<[String: Mockingb
 
 public final class AbstractSpecializedGenericProtocolMock<EquatableType: Swift.Equatable>: MockingbirdTestsHost.GenericBaseClass<Bool>, MockingbirdTestsHost.AbstractSpecializedGenericProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(EquatableType.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(EquatableType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "AbstractSpecializedGenericProtocolMock<EquatableType: Swift.Equatable>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -46,7 +46,14 @@ public final class AbstractSpecializedGenericProtocolMock<EquatableType: Swift.E
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -66,11 +73,15 @@ public final class AbstractSpecializedGenericProtocolMock<EquatableType: Swift.E
   public override func `baseMethod`(`param`: Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool) -> Bool {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -203,11 +214,15 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
   public func `method`<P: MockingbirdTestsHost.BaseProtocol>(`optionalStructType`: MockingbirdTestsHost.StructType?, `optionalClassType`: MockingbirdTestsHost.ClassType?, `optionalEnumType`: MockingbirdTestsHost.EnumType?, `optionalStringType`: String?, `optionalBoolType`: Bool?, `optionalProtocolType`: P?, `optionalMetaType`: ClassType.Type?, `optionalAnyType`: Any?, `optionalAnyObjectType`: Swift.AnyObject?) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`<P: MockingbirdTestsHost.BaseProtocol>(`optionalStructType`: MockingbirdTestsHost.StructType?, `optionalClassType`: MockingbirdTestsHost.ClassType?, `optionalEnumType`: MockingbirdTestsHost.EnumType?, `optionalStringType`: String?, `optionalBoolType`: Bool?, `optionalProtocolType`: P?, `optionalMetaType`: ClassType.Type?, `optionalAnyType`: Any?, `optionalAnyObjectType`: Swift.AnyObject?) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`optionalStructType`), Mockingbird.ArgumentMatcher(`optionalClassType`), Mockingbird.ArgumentMatcher(`optionalEnumType`), Mockingbird.ArgumentMatcher(`optionalStringType`), Mockingbird.ArgumentMatcher(`optionalBoolType`), Mockingbird.ArgumentMatcher(`optionalProtocolType`), Mockingbird.ArgumentMatcher(`optionalMetaType`), Mockingbird.ArgumentMatcher(`optionalAnyType`), Mockingbird.ArgumentMatcher(`optionalAnyObjectType`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.StructType?, MockingbirdTestsHost.ClassType?, MockingbirdTestsHost.EnumType?, String?, Bool?, P?, ClassType.Type?, Any?, Swift.AnyObject?) -> Bool {
       return concreteImplementation(`optionalStructType`, `optionalClassType`, `optionalEnumType`, `optionalStringType`, `optionalBoolType`, `optionalProtocolType`, `optionalMetaType`, `optionalAnyType`, `optionalAnyObjectType`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -222,11 +237,15 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
   public func `method`<T: FloatingPoint>(`param`: T) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`<T: FloatingPoint>(`param`: T) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T) -> Bool {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -241,11 +260,15 @@ public final class ArgumentMatchingProtocolMock: MockingbirdTestsHost.ArgumentMa
   public func `method`<P: MockingbirdTestsHost.BaseProtocol>(`structType`: MockingbirdTestsHost.StructType, `classType`: MockingbirdTestsHost.ClassType, `enumType`: MockingbirdTestsHost.EnumType, `stringType`: String, `boolType`: Bool, `protocolType`: P, `metaType`: ClassType.Type, `anyType`: Any, `anyObjectType`: Swift.AnyObject) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`<P: MockingbirdTestsHost.BaseProtocol>(`structType`: MockingbirdTestsHost.StructType, `classType`: MockingbirdTestsHost.ClassType, `enumType`: MockingbirdTestsHost.EnumType, `stringType`: String, `boolType`: Bool, `protocolType`: P, `metaType`: ClassType.Type, `anyType`: Any, `anyObjectType`: Swift.AnyObject) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`structType`), Mockingbird.ArgumentMatcher(`classType`), Mockingbird.ArgumentMatcher(`enumType`), Mockingbird.ArgumentMatcher(`stringType`), Mockingbird.ArgumentMatcher(`boolType`), Mockingbird.ArgumentMatcher(`protocolType`), Mockingbird.ArgumentMatcher(`metaType`), Mockingbird.ArgumentMatcher(`anyType`), Mockingbird.ArgumentMatcher(`anyObjectType`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.StructType, MockingbirdTestsHost.ClassType, MockingbirdTestsHost.EnumType, String, Bool, P, ClassType.Type, Any, Swift.AnyObject) -> Bool {
       return concreteImplementation(`structType`, `classType`, `enumType`, `stringType`, `boolType`, `protocolType`, `metaType`, `anyType`, `anyObjectType`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -286,11 +309,15 @@ public final class ArrayCollectionMock: MockingbirdTestsHost.ArrayCollection, Mo
   public func `method`(`objects`: [String]) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`objects`: [String]) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`objects`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ([String]) -> Bool {
       return concreteImplementation(`objects`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -327,7 +354,14 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> [Foundation.NSObject])()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> [Foundation.NSObject] {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ([Foundation.NSObject]).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -342,7 +376,14 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitAnotherVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Array<Foundation.NSObject>)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Array<Foundation.NSObject> {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Array<Foundation.NSObject>).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -357,7 +398,14 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Array<MockingbirdTestsHost.NSObject>)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Array<MockingbirdTestsHost.NSObject> {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Array<MockingbirdTestsHost.NSObject>).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -372,7 +420,14 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> [Foundation.NSObject?])()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> [Foundation.NSObject?] {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ([Foundation.NSObject?]).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -387,7 +442,14 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalExplicitAnotherVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Array<Foundation.NSObject?>)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Array<Foundation.NSObject?> {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Array<Foundation.NSObject?>).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -402,7 +464,14 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalExplicitVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Array<MockingbirdTestsHost.NSObject?>)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Array<MockingbirdTestsHost.NSObject?> {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Array<MockingbirdTestsHost.NSObject?>).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -417,7 +486,14 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> [MockingbirdTestsHost.NSObject?])()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> [MockingbirdTestsHost.NSObject?] {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ([MockingbirdTestsHost.NSObject?]).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -432,7 +508,14 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> [MockingbirdTestsHost.NSObject])()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> [MockingbirdTestsHost.NSObject] {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ([MockingbirdTestsHost.NSObject]).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -451,11 +534,15 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func `explicitMethod`() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -469,11 +556,15 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func `explicitMethod`() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -487,11 +578,15 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func `explicitMethod`() -> Array<Foundation.NSObject> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`() -> Array<Foundation.NSObject>", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Array<Foundation.NSObject> {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Array<Foundation.NSObject> {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Array<Foundation.NSObject>).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Array<Foundation.NSObject>)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -505,11 +600,15 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func `explicitMethod`() -> Array<MockingbirdTestsHost.NSObject> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`() -> Array<MockingbirdTestsHost.NSObject>", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Array<MockingbirdTestsHost.NSObject> {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Array<MockingbirdTestsHost.NSObject> {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Array<MockingbirdTestsHost.NSObject>).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Array<MockingbirdTestsHost.NSObject>)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -523,11 +622,11 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func `explicitMethod`(`param1`: Array<MockingbirdTestsHost.NSObject>, `param2`: Array<Foundation.NSObject>) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`(`param1`: Array<MockingbirdTestsHost.NSObject>, `param2`: Array<Foundation.NSObject>) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> Void {
       concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -542,11 +641,15 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func `explicitMethodWithParameterLabels`() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethodWithParameterLabels`() -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>)).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>) -> (Array<MockingbirdTestsHost.NSObject>, Array<Foundation.NSObject>))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -560,11 +663,15 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func `method`() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -578,11 +685,15 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func `method`() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (([MockingbirdTestsHost.NSObject], [Foundation.NSObject])).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -596,11 +707,15 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func `method`() -> [Foundation.NSObject] {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> [Foundation.NSObject]", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> [Foundation.NSObject] {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> [Foundation.NSObject] {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ([Foundation.NSObject]).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> [Foundation.NSObject])()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -614,11 +729,15 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func `method`() -> [MockingbirdTestsHost.NSObject] {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> [MockingbirdTestsHost.NSObject]", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> [MockingbirdTestsHost.NSObject] {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> [MockingbirdTestsHost.NSObject] {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ([MockingbirdTestsHost.NSObject]).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> [MockingbirdTestsHost.NSObject])()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -632,11 +751,11 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func `method`(`param1`: [MockingbirdTestsHost.NSObject], `param2`: [Foundation.NSObject]) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`param1`: [MockingbirdTestsHost.NSObject], `param2`: [Foundation.NSObject]) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> Void {
       concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -651,11 +770,15 @@ public final class ArrayTypesMock: MockingbirdTestsHost.ArrayTypes, Mockingbird.
   public func `methodWithParameterLabels`() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithParameterLabels`() -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject])).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]) -> ([MockingbirdTestsHost.NSObject], [Foundation.NSObject]))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -674,7 +797,7 @@ public func mock(_ type: MockingbirdTestsHost.ArrayTypes.Protocol, file: StaticS
 
 public final class AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType: MockingbirdTestsHost.AssociatedTypeProtocol>: MockingbirdTestsHost.AssociatedTypeGenericConformingConstraintsProtocol, Mockingbird.Mock where ConformingType.EquatableType: MockingbirdTestsHost.EquatableConformingProtocol, ConformingType.HashableType: MockingbirdTestsHost.HashableConformingProtocol {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(ConformingType.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(ConformingType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType: MockingbirdTestsHost.AssociatedTypeProtocol>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -702,11 +825,15 @@ public final class AssociatedTypeGenericConformingConstraintsProtocolMock<Confor
   public func `request`(`object`: ConformingType) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: ConformingType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (ConformingType) -> Bool {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -726,7 +853,7 @@ public func mock<ConformingType: MockingbirdTestsHost.AssociatedTypeProtocol>(_ 
 
 public final class AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol>: MockingbirdTestsHost.AssociatedTypeGenericConstraintsProtocol, Mockingbird.Mock where ConstrainedType.EquatableType == Int, ConstrainedType.HashableType == String {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(ConstrainedType.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(ConstrainedType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -754,11 +881,15 @@ public final class AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType:
   public func `request`(`object`: ConstrainedType) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: ConstrainedType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (ConstrainedType) -> Bool {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -778,7 +909,7 @@ public func mock<ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol>(_
 
 public final class AssociatedTypeGenericImplementerMock<EquatableType: Swift.Equatable, S: Sequence>: MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>, Mockingbird.Mock where S.Element == EquatableType {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(EquatableType.self)", "\(S.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(EquatableType.self).debugDescription, ObjectIdentifier(S.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeGenericImplementerMock<EquatableType: Swift.Equatable, S: Sequence>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -802,7 +933,14 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Swift.Equ
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> EquatableType)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> EquatableType {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (EquatableType).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -822,11 +960,11 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Swift.Equ
   public override func `methodUsingEquatableType`(`equatable`: EquatableType) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodUsingEquatableType`(`equatable`: EquatableType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`equatable`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (EquatableType) -> Void {
       concreteImplementation(`equatable`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -841,11 +979,15 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Swift.Equ
   public override func `methodUsingEquatableTypeWithReturn`(`equatable`: EquatableType) -> EquatableType {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodUsingEquatableTypeWithReturn`(`equatable`: EquatableType) -> EquatableType", arguments: [Mockingbird.ArgumentMatcher(`equatable`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (EquatableType) -> EquatableType {
       return concreteImplementation(`equatable`)
+    } else if let concreteImplementation = implementation as? () -> EquatableType {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (EquatableType).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> EquatableType)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -860,11 +1002,11 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Swift.Equ
   public override func `methodUsingHashableType`(`hashable`: MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodUsingHashableType`(`hashable`: MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`hashable`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.AssociatedTypeGenericImplementer<EquatableType, S>.HashableType) -> Void {
       concreteImplementation(`hashable`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -905,11 +1047,15 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
   public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> T.HashableType where T.EquatableType == Bool, T.HashableType == String {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> T.HashableType where T.EquatableType == Bool, T.HashableType == String", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T) -> T.HashableType {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> T.HashableType {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T.HashableType).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> T.HashableType)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -924,11 +1070,15 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
   public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> T.HashableType where T.EquatableType == Int, T.HashableType == String {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> T.HashableType where T.EquatableType == Int, T.HashableType == String", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T) -> T.HashableType {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> T.HashableType {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T.HashableType).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> T.HashableType)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -943,11 +1093,11 @@ public final class AssociatedTypeImplementerProtocolMock: MockingbirdTestsHost.A
   public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> Void where T.EquatableType == Int, T.HashableType == String {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> Void where T.EquatableType == Int, T.HashableType == String", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T) -> Void {
       concreteImplementation(`object`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -989,11 +1139,11 @@ public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.Associate
   public override func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> Void where T.EquatableType == Int, T.HashableType == String {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> Void where T.EquatableType == Int, T.HashableType == String", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T) -> Void {
       concreteImplementation(`object`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -1013,7 +1163,7 @@ public func mock(_ type: MockingbirdTestsHost.AssociatedTypeImplementer.Type, fi
 
 public final class AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, HashableType: Swift.Hashable>: MockingbirdTestsHost.AssociatedTypeProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(EquatableType.self)", "\(HashableType.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(EquatableType.self).debugDescription, ObjectIdentifier(HashableType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, HashableType: Swift.Hashable>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -1037,7 +1187,14 @@ public final class AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, Ha
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> EquatableType)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> EquatableType {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (EquatableType).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -1052,7 +1209,14 @@ public final class AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, Ha
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "equatableTypeVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> EquatableType)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> EquatableType {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (EquatableType).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -1071,11 +1235,11 @@ public final class AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, Ha
   public func `methodUsingEquatableType`(`equatable`: EquatableType) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodUsingEquatableType`(`equatable`: EquatableType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`equatable`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (EquatableType) -> Void {
       concreteImplementation(`equatable`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -1090,11 +1254,15 @@ public final class AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, Ha
   public func `methodUsingEquatableTypeWithReturn`(`equatable`: EquatableType) -> EquatableType {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodUsingEquatableTypeWithReturn`(`equatable`: EquatableType) -> EquatableType", arguments: [Mockingbird.ArgumentMatcher(`equatable`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (EquatableType) -> EquatableType {
       return concreteImplementation(`equatable`)
+    } else if let concreteImplementation = implementation as? () -> EquatableType {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (EquatableType).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> EquatableType)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -1109,11 +1277,15 @@ public final class AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, Ha
   public static func `methodUsingEquatableTypeWithReturn`(`equatable`: EquatableType) -> EquatableType {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodUsingEquatableTypeWithReturn`(`equatable`: EquatableType) -> EquatableType", arguments: [Mockingbird.ArgumentMatcher(`equatable`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (EquatableType) -> EquatableType {
       return concreteImplementation(`equatable`)
+    } else if let concreteImplementation = implementation as? () -> EquatableType {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (EquatableType).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> EquatableType)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -1128,11 +1300,11 @@ public final class AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, Ha
   public func `methodUsingHashableType`(`hashable`: HashableType) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodUsingHashableType`(`hashable`: HashableType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`hashable`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (HashableType) -> Void {
       concreteImplementation(`hashable`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -1152,7 +1324,7 @@ public func mock<EquatableType: Swift.Equatable, HashableType: Swift.Hashable>(_
 
 public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Swift.Hashable>: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(SequenceType.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(SequenceType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Swift.Hashable>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -1180,11 +1352,11 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
   public func `request`<T: Sequence>(`array`: T) -> Void where T.Element == AssociatedTypeSelfReferencingProtocolMock {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: Sequence>(`array`: T) -> Void where T.Element == AssociatedTypeSelfReferencingProtocolMock", arguments: [Mockingbird.ArgumentMatcher(`array`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T) -> Void {
       concreteImplementation(`array`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -1199,11 +1371,11 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
   public func `request`(`array`: SequenceType) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`array`: SequenceType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`array`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (SequenceType) -> Void {
       concreteImplementation(`array`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -1218,11 +1390,11 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
   public func `request`(`object`: AssociatedTypeSelfReferencingProtocolMock) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: AssociatedTypeSelfReferencingProtocolMock) -> Void", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (AssociatedTypeSelfReferencingProtocolMock) -> Void {
       concreteImplementation(`object`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -1263,11 +1435,15 @@ public final class BaseProtocolMock: MockingbirdTestsHost.BaseProtocol, Mockingb
   public static func ==(_ `lhs`: BaseProtocolMock, _ `rhs`: BaseProtocolMock) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ `lhs`: BaseProtocolMock, _ `rhs`: BaseProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (BaseProtocolMock, BaseProtocolMock) -> Bool {
       return concreteImplementation(`lhs`, `rhs`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -1330,12 +1506,19 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -1361,7 +1544,14 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -1376,7 +1566,14 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -1391,12 +1588,19 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
       staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -1422,12 +1626,19 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -1453,7 +1664,14 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -1468,7 +1686,14 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -1483,12 +1708,19 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
       staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -1514,12 +1746,19 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -1545,7 +1784,14 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -1560,7 +1806,14 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -1575,12 +1828,19 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
       staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -1610,11 +1870,15 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   public func `childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -1629,11 +1893,15 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   public static func `childParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -1648,11 +1916,11 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   public func `childTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -1666,11 +1934,11 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   public static func `childTrivialStaticMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialStaticMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -1684,11 +1952,15 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   public func `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -1703,11 +1975,15 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   public static func `grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -1722,11 +1998,11 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   public func `grandparentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -1740,11 +2016,11 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   public static func `grandparentTrivialStaticMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialStaticMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -1758,11 +2034,15 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   public func `parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -1777,11 +2057,15 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   public static func `parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -1796,11 +2080,11 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   public func `parentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -1814,11 +2098,11 @@ public final class ChildProtocolMock: MockingbirdTestsHost.ChildProtocol, Mockin
   public static func `parentTrivialStaticMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialStaticMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -1854,7 +2138,14 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childClassVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -1869,7 +2160,14 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childComputedInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -1884,7 +2182,14 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childStoredFileprivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -1899,12 +2204,19 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childStoredInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childStoredInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -1930,7 +2242,14 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childStoredPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -1945,7 +2264,14 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -1960,7 +2286,14 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -1975,7 +2308,14 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStoredFileprivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -1990,12 +2330,19 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStoredInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStoredInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -2021,7 +2368,14 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStoredPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -2036,7 +2390,14 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -2051,7 +2412,14 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -2066,7 +2434,14 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStoredFileprivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -2081,12 +2456,19 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStoredInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStoredInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -2112,7 +2494,14 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStoredPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -2132,11 +2521,15 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   public override static func `childParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -2151,11 +2544,15 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   public override func `childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -2170,11 +2567,11 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   public override static func `childTrivialClassMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialClassMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -2188,11 +2585,11 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   public override func `childTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -2206,11 +2603,15 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   public override static func `grandparentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -2225,11 +2626,15 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   public override func `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -2244,11 +2649,11 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   public override static func `grandparentTrivialClassMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialClassMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -2262,11 +2667,11 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   public override func `grandparentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -2280,11 +2685,15 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   public override static func `parentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -2299,11 +2708,15 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   public override func `parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -2318,11 +2731,11 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   public override static func `parentTrivialClassMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialClassMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -2336,11 +2749,11 @@ public final class ChildMock: MockingbirdTestsHost.Child, Mockingbird.Mock {
   public override func `parentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -2376,12 +2789,19 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -2407,7 +2827,14 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -2422,7 +2849,14 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -2437,12 +2871,19 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
       staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -2468,12 +2909,19 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -2499,7 +2947,14 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -2514,7 +2969,14 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -2529,12 +2991,19 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
       staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -2560,12 +3029,19 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -2591,7 +3067,14 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -2606,7 +3089,14 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -2621,12 +3111,19 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
       staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -2652,7 +3149,14 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -2671,11 +3175,15 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
   public func `childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -2690,11 +3198,15 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
   public static func `childParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -2709,11 +3221,11 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
   public func `childTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -2727,11 +3239,11 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
   public static func `childTrivialStaticMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialStaticMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -2745,11 +3257,15 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
   public func `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -2764,11 +3280,15 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
   public static func `grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -2783,11 +3303,11 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
   public func `grandparentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -2801,11 +3321,11 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
   public static func `grandparentTrivialStaticMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialStaticMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -2819,11 +3339,15 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
   public func `parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -2838,11 +3362,15 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
   public static func `parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -2857,11 +3385,11 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
   public func `parentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -2875,11 +3403,11 @@ public final class ClassOnlyProtocolWithInheritanceMock: MockingbirdTestsHost.Cl
   public static func `parentTrivialStaticMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialStaticMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -2915,7 +3443,14 @@ public final class ClassOnlyProtocolMock: MockingbirdTestsHost.ClassOnlyProtocol
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -3053,12 +3588,19 @@ public final class ClassWithoutDesignatedInitializerMock: MockingbirdTestsHost.C
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -3115,11 +3657,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `autoclosureTrivialClosure`(`block`: @autoclosure () -> Void) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`autoclosureTrivialClosure`(`block`: @autoclosure () -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() -> Void>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (@autoclosure () -> Void) -> Bool {
       return concreteImplementation(`block`())
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3134,11 +3680,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `autoclosureTrivialReturningClosure`(`block`: @autoclosure () -> Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`autoclosureTrivialReturningClosure`(`block`: @autoclosure () -> Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() -> Bool>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (@autoclosure () -> Bool) -> Bool {
       return concreteImplementation(`block`())
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3153,11 +3703,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `escapingAutoclosureTrivialClosure`(`block`: @escaping @autoclosure () -> Void) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`escapingAutoclosureTrivialClosure`(`block`: @escaping @autoclosure () -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (@escaping @autoclosure () -> Void) -> Bool {
       return concreteImplementation(`block`())
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3172,11 +3726,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `escapingAutoclosureTrivialReturningClosure`(`block`: @escaping @autoclosure () -> Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`escapingAutoclosureTrivialReturningClosure`(`block`: @escaping @autoclosure () -> Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (@escaping @autoclosure () -> Bool) -> Bool {
       return concreteImplementation(`block`())
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3191,11 +3749,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `escapingParameterizedClosure`(`block`: @escaping (Bool) -> Void) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`escapingParameterizedClosure`(`block`: @escaping (Bool) -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (@escaping (Bool) -> Void) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3210,11 +3772,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `escapingParameterizedReturningClosure`(`block`: @escaping (Bool) -> Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`escapingParameterizedReturningClosure`(`block`: @escaping (Bool) -> Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (@escaping (Bool) -> Bool) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3229,11 +3795,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `escapingTrivialClosure`(`block`: @escaping () -> Void) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`escapingTrivialClosure`(`block`: @escaping () -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (@escaping () -> Void) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3248,11 +3818,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `escapingTrivialReturningClosure`(`block`: @escaping () -> Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`escapingTrivialReturningClosure`(`block`: @escaping () -> Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (@escaping () -> Bool) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3267,11 +3841,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `implicitEscapingMultipleLabeledTupleClosure`(`block`: (a: () -> Void, b: (Bool) -> Bool)) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`implicitEscapingMultipleLabeledTupleClosure`(`block`: (a: () -> Void, b: (Bool) -> Bool)) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ((a: () -> Void, b: (Bool) -> Bool)) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3286,11 +3864,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `implicitEscapingMultipleTupleClosure`(`block`: (() -> Void, (Bool) -> Bool)) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`implicitEscapingMultipleTupleClosure`(`block`: (() -> Void, (Bool) -> Bool)) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ((() -> Void, (Bool) -> Bool)) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3305,11 +3887,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `implicitEscapingParameterizedClosure`(`block`: ((Bool) -> Void)?) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`implicitEscapingParameterizedClosure`(`block`: ((Bool) -> Void)?) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (((Bool) -> Void)?) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3324,11 +3910,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `implicitEscapingParameterizedReturningClosure`(`block`: ((Bool) -> Bool)?) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`implicitEscapingParameterizedReturningClosure`(`block`: ((Bool) -> Bool)?) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (((Bool) -> Bool)?) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3343,11 +3933,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `implicitEscapingTrivialClosure`(`block`: (() -> Void)?) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`implicitEscapingTrivialClosure`(`block`: (() -> Void)?) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ((() -> Void)?) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3362,11 +3956,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `implicitEscapingTrivialReturningClosure`(`block`: (() -> Bool)?) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`implicitEscapingTrivialReturningClosure`(`block`: (() -> Bool)?) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ((() -> Bool)?) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3381,11 +3979,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `nestedOptionalTrivialParenthesizedClosure`(`block`: (() -> Void)??) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedOptionalTrivialParenthesizedClosure`(`block`: (() -> Void)??) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ((() -> Void)??) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3400,11 +4002,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `nestedParameterizedReturningParenthesizedClosure`(`block`: (Bool) -> Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedParameterizedReturningParenthesizedClosure`(`block`: (Bool) -> Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<(Bool) -> Bool>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ((Bool) -> Bool) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3419,11 +4025,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `parameterizedClosure`(`block`: (Bool) -> Void) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedClosure`(`block`: (Bool) -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<(Bool) -> Void>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ((Bool) -> Void) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3438,11 +4048,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `parameterizedParenthesizedClosure`(`block`: (Bool) -> Void) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedParenthesizedClosure`(`block`: (Bool) -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<(Bool) -> Void>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ((Bool) -> Void) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3457,11 +4071,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `parameterizedReturningClosure`(`block`: (Bool) -> Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedReturningClosure`(`block`: (Bool) -> Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<(Bool) -> Bool>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ((Bool) -> Bool) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3476,11 +4094,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `parameterizedReturningParenthesizedClosure`(`block`: (Bool) -> Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedReturningParenthesizedClosure`(`block`: (Bool) -> Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<(Bool) -> Bool>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ((Bool) -> Bool) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3495,11 +4117,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `trivialClosure`(`block`: () -> Void) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialClosure`(`block`: () -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() -> Void>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (() -> Void) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3514,11 +4140,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `trivialParenthesizedClosure`(`block`: () -> Void) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialParenthesizedClosure`(`block`: () -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() -> Void>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (() -> Void) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3533,11 +4163,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `trivialReturningClosure`(`block`: () -> Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialReturningClosure`(`block`: () -> Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() -> Bool>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (() -> Bool) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3552,11 +4186,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `trivialReturningParenthesizedClosure`(`block`: () -> Void) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialReturningParenthesizedClosure`(`block`: () -> Void) -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() -> Void>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (() -> Void) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3571,11 +4209,15 @@ public final class ClosureParametersProtocolMock: MockingbirdTestsHost.ClosurePa
   public func `wrappedClosureParameter`(`block`: MockingbirdTestsHost.ClosureWrapper) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`wrappedClosureParameter`(`block`: MockingbirdTestsHost.ClosureWrapper) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`block`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.ClosureWrapper) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -3654,11 +4296,11 @@ public final class CodableConformingProtocolMock: MockingbirdTestsHost.CodableCo
   public func `encode`(`to` `encoder`: Encoder) throws -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`encode`(`to` `encoder`: Encoder) throws -> Void", arguments: [Mockingbird.ArgumentMatcher(`encoder`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Encoder) throws -> Void {
       try concreteImplementation(`encoder`)
-    } else {
-      try (implementation as? () throws -> Void)?()
+    } else if let concreteImplementation = implementation as? () throws -> Void {
+      try concreteImplementation()
     }
   }
 
@@ -3703,7 +4345,14 @@ public final class CommentBlockNotDebugCompilationDirectiveProtocolMock: Mocking
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -3746,7 +4395,14 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "debugVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -3766,7 +4422,14 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nestedVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -3786,7 +4449,14 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "notDebugVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -3805,7 +4475,14 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "onlyDebugVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -3822,7 +4499,14 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -3843,11 +4527,11 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
   public func `debugMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`debugMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -3863,11 +4547,11 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
   public func `method`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -3884,11 +4568,11 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
   public func `nestedMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -3907,11 +4591,11 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
   public func `notDebugMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`notDebugMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -3929,11 +4613,11 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
   public func `onlyDebugMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`onlyDebugMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -4032,12 +4716,19 @@ public final class ConformingInitializableOpenClassConstrainedProtocolMock: Mock
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -4095,12 +4786,19 @@ public final class ConformingUninitializableOpenClassConstrainedProtocolMock: Mo
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -4130,7 +4828,7 @@ public func mock(_ type: MockingbirdTestsHost.ConformingUninitializableOpenClass
 
 public final class ConstrainedUnspecializedGenericSubclassMock<T: Swift.Equatable>: MockingbirdTestsHost.ConstrainedUnspecializedGenericSubclass<T>, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(T.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(T.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "ConstrainedUnspecializedGenericSubclassMock<T: Swift.Equatable>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -4154,7 +4852,14 @@ public final class ConstrainedUnspecializedGenericSubclassMock<T: Swift.Equatabl
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> T)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> T {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -4174,11 +4879,15 @@ public final class ConstrainedUnspecializedGenericSubclassMock<T: Swift.Equatabl
   public override func `baseMethod`(`param`: T) -> T {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: T) -> T", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T) -> T {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> T {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> T)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -4257,7 +4966,14 @@ public final class DebugCompilationDirectiveProtocolMock: MockingbirdTestsHost.D
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -4307,7 +5023,14 @@ public final class DeclarationAttributesClassMock: MockingbirdTestsHost.Declarat
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> String)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> String {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -4329,11 +5052,15 @@ public final class DeclarationAttributesClassMock: MockingbirdTestsHost.Declarat
   public override func `availableMethod`(`param`: String) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`availableMethod`(`param`: String) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (String) -> Bool {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -4350,11 +5077,15 @@ public final class DeclarationAttributesClassMock: MockingbirdTestsHost.Declarat
   public override func `multipleAttributesMethod`(`param`: String) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`multipleAttributesMethod`(`param`: String) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (String) -> Bool {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -4393,7 +5124,14 @@ public final class DeclarationAttributesProtocolMock: MockingbirdTestsHost.Decla
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "availableVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> String)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> String {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -4414,11 +5152,15 @@ public final class DeclarationAttributesProtocolMock: MockingbirdTestsHost.Decla
   public func `availableMethod`(`param`: String) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`availableMethod`(`param`: String) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (String) -> Bool {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -4461,11 +5203,11 @@ public final class DefaultArgumentValuesClassMock: MockingbirdTestsHost.DefaultA
   public override func `method`(`param1`: String, `param2`: [MockingbirdTestsHost.NSObject]) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`param1`: String, `param2`: [MockingbirdTestsHost.NSObject]) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (String, [MockingbirdTestsHost.NSObject]) -> Void {
       concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -4506,11 +5248,11 @@ public final class DefaultArgumentValuesProtocolMock: MockingbirdTestsHost.Defau
   public func `method`(`param1`: String, `param2`: [MockingbirdTestsHost.NSObject]) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`param1`: String, `param2`: [MockingbirdTestsHost.NSObject]) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (String, [MockingbirdTestsHost.NSObject]) -> Void {
       concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -4547,12 +5289,19 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -4578,7 +5327,14 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -4593,7 +5349,14 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -4608,12 +5371,19 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
       staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -4639,12 +5409,19 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -4670,7 +5447,14 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -4685,7 +5469,14 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -4700,12 +5491,19 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
       staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -4731,12 +5529,19 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -4762,7 +5567,14 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -4777,7 +5589,14 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -4792,12 +5611,19 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
       staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -4823,7 +5649,14 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -4842,11 +5675,15 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
   public func `childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -4861,11 +5698,15 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
   public static func `childParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -4880,11 +5721,11 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
   public func `childTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -4898,11 +5739,11 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
   public static func `childTrivialStaticMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialStaticMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -4916,11 +5757,15 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
   public func `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -4935,11 +5780,15 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
   public static func `grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -4954,11 +5803,11 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
   public func `grandparentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -4972,11 +5821,11 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
   public static func `grandparentTrivialStaticMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialStaticMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -4990,11 +5839,15 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
   public func `parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5009,11 +5862,15 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
   public static func `parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5028,11 +5885,11 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
   public func `parentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -5046,11 +5903,11 @@ public final class DeprecatedClassOnlyProtocolWithInheritanceMock: MockingbirdTe
   public static func `parentTrivialStaticMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialStaticMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -5086,7 +5943,14 @@ public final class DeprecatedClassOnlyProtocolMock: MockingbirdTestsHost.Depreca
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5131,11 +5995,15 @@ public final class DictionaryCollectionMock: MockingbirdTestsHost.DictionaryColl
   public func `method`(`objects`: [String: String]) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`objects`: [String: String]) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`objects`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ([String: String]) -> Bool {
       return concreteImplementation(`objects`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5172,7 +6040,14 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> [Foundation.URL: Foundation.NSObject])()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> [Foundation.URL: Foundation.NSObject] {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ([Foundation.URL: Foundation.NSObject]).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5187,7 +6062,14 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitAnotherVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Dictionary<Foundation.URL, Foundation.NSObject>)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Dictionary<Foundation.URL, Foundation.NSObject> {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Dictionary<Foundation.URL, Foundation.NSObject>).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5202,7 +6084,14 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject> {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5217,7 +6106,14 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> [Foundation.URL: Foundation.NSObject?])()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> [Foundation.URL: Foundation.NSObject?] {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ([Foundation.URL: Foundation.NSObject?]).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5232,7 +6128,14 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalExplicitAnotherVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Dictionary<Foundation.URL, Foundation.NSObject?>)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Dictionary<Foundation.URL, Foundation.NSObject?> {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Dictionary<Foundation.URL, Foundation.NSObject?>).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5247,7 +6150,14 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalExplicitVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?> {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject?>).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5262,7 +6172,14 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?])()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?] {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject?]).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5277,7 +6194,14 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject])()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject] {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5296,11 +6220,15 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func `explicitMethod`() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5314,11 +6242,15 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func `explicitMethod`() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5332,11 +6264,15 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func `explicitMethod`() -> Dictionary<Foundation.URL, Foundation.NSObject> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`() -> Dictionary<Foundation.URL, Foundation.NSObject>", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Dictionary<Foundation.URL, Foundation.NSObject> {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Dictionary<Foundation.URL, Foundation.NSObject> {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Dictionary<Foundation.URL, Foundation.NSObject>).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Dictionary<Foundation.URL, Foundation.NSObject>)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5350,11 +6286,15 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func `explicitMethod`() -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`() -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject> {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject> {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5368,11 +6308,11 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func `explicitMethod`(`param1`: Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, `param2`: Dictionary<Foundation.URL, Foundation.NSObject>) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethod`(`param1`: Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, `param2`: Dictionary<Foundation.URL, Foundation.NSObject>) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> Void {
       concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -5387,11 +6327,15 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func `explicitMethodWithParameterLabels`() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`explicitMethodWithParameterLabels`() -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>)).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>) -> (Dictionary<MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject>, Dictionary<Foundation.URL, Foundation.NSObject>))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5405,11 +6349,15 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func `method`() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5423,11 +6371,15 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func `method`() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5441,11 +6393,15 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func `method`() -> [Foundation.URL: Foundation.NSObject] {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> [Foundation.URL: Foundation.NSObject]", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> [Foundation.URL: Foundation.NSObject] {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> [Foundation.URL: Foundation.NSObject] {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ([Foundation.URL: Foundation.NSObject]).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> [Foundation.URL: Foundation.NSObject])()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5459,11 +6415,15 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func `method`() -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject] {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject] {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject] {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject]).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject])()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5477,11 +6437,11 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func `method`(`param1`: [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], `param2`: [Foundation.URL: Foundation.NSObject]) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`param1`: [MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], `param2`: [Foundation.URL: Foundation.NSObject]) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> Void {
       concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -5496,11 +6456,15 @@ public final class DictionaryTypesMock: MockingbirdTestsHost.DictionaryTypes, Mo
   public func `methodWithParameterLabels`() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithParameterLabels`() -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject])).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]) -> ([MockingbirdTestsHost.URL: MockingbirdTestsHost.NSObject], [Foundation.URL: Foundation.NSObject]))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5589,7 +6553,14 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childClassVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5604,7 +6575,14 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childComputedInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5619,7 +6597,14 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childStoredFileprivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5634,12 +6619,19 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childStoredInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childStoredInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -5665,7 +6657,14 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childStoredPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5680,7 +6679,14 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5695,7 +6701,14 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5710,7 +6723,14 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStoredFileprivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5725,12 +6745,19 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStoredInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStoredInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -5756,7 +6783,14 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStoredPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5771,7 +6805,14 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5786,7 +6827,14 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5801,7 +6849,14 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStoredFileprivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5816,12 +6871,19 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStoredInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStoredInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -5847,7 +6909,14 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStoredPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -5867,11 +6936,15 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
   public override static func `childParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5886,11 +6959,15 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
   public override func `childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5905,11 +6982,11 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
   public override static func `childTrivialClassMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialClassMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -5923,11 +7000,11 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
   public override func `childTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -5941,11 +7018,15 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
   public override static func `grandparentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5960,11 +7041,15 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
   public override func `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -5979,11 +7064,11 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
   public override static func `grandparentTrivialClassMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialClassMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -5997,11 +7082,11 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
   public override func `grandparentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -6015,11 +7100,15 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
   public override static func `parentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -6034,11 +7123,15 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
   public override func `parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -6053,11 +7146,11 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
   public override static func `parentTrivialClassMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialClassMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -6071,11 +7164,11 @@ public final class EmptyInheritingClassMock: MockingbirdTestsHost.EmptyInheritin
   public override func `parentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -6111,12 +7204,19 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -6142,7 +7242,14 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -6157,7 +7264,14 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childPrivateSetterStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -6172,12 +7286,19 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
       staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -6203,12 +7324,19 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -6234,7 +7362,14 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -6249,7 +7384,14 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -6264,12 +7406,19 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
       staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -6295,12 +7444,19 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -6326,7 +7482,14 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -6341,7 +7504,14 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -6356,12 +7526,19 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
       staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -6391,11 +7568,15 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
   public func `childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -6410,11 +7591,15 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
   public static func `childParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -6429,11 +7614,11 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
   public func `childTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -6447,11 +7632,11 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
   public static func `childTrivialStaticMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`childTrivialStaticMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -6465,11 +7650,15 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
   public func `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -6484,11 +7673,15 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
   public static func `grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -6503,11 +7696,11 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
   public func `grandparentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -6521,11 +7714,11 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
   public static func `grandparentTrivialStaticMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialStaticMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -6539,11 +7732,15 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
   public func `parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -6558,11 +7755,15 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
   public static func `parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -6577,11 +7778,11 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
   public func `parentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -6595,11 +7796,11 @@ public final class EmptyInheritingProtocolMock: MockingbirdTestsHost.EmptyInheri
   public static func `parentTrivialStaticMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialStaticMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -6763,11 +7964,15 @@ public final class EquatableCodableConformingProtocolMock: MockingbirdTestsHost.
   public static func ==(_ `lhs`: EquatableCodableConformingProtocolMock, _ `rhs`: EquatableCodableConformingProtocolMock) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ `lhs`: EquatableCodableConformingProtocolMock, _ `rhs`: EquatableCodableConformingProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (EquatableCodableConformingProtocolMock, EquatableCodableConformingProtocolMock) -> Bool {
       return concreteImplementation(`lhs`, `rhs`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -6782,11 +7987,11 @@ public final class EquatableCodableConformingProtocolMock: MockingbirdTestsHost.
   public func `encode`(`to` `encoder`: Encoder) throws -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`encode`(`to` `encoder`: Encoder) throws -> Void", arguments: [Mockingbird.ArgumentMatcher(`encoder`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Encoder) throws -> Void {
       try concreteImplementation(`encoder`)
-    } else {
-      try (implementation as? () throws -> Void)?()
+    } else if let concreteImplementation = implementation as? () throws -> Void {
+      try concreteImplementation()
     }
   }
 
@@ -6862,11 +8067,15 @@ public final class EquatableConformingProtocolMock: MockingbirdTestsHost.Equatab
   public static func ==(_ `lhs`: EquatableConformingProtocolMock, _ `rhs`: EquatableConformingProtocolMock) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ `lhs`: EquatableConformingProtocolMock, _ `rhs`: EquatableConformingProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (EquatableConformingProtocolMock, EquatableConformingProtocolMock) -> Bool {
       return concreteImplementation(`lhs`, `rhs`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -6903,7 +8112,14 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherExtendedVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -6918,7 +8134,14 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -6933,7 +8156,14 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -6952,11 +8182,11 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   public func `anotherTrivialExtendedMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`anotherTrivialExtendedMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -6970,11 +8200,11 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   public func `parameterizedExtendedMethod`(`param1`: Bool) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedExtendedMethod`(`param1`: Bool) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool) -> Void {
       concreteImplementation(`param1`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -6989,11 +8219,15 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   public func `parameterizedReturningExtendedMethod`(`param1`: Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedReturningExtendedMethod`(`param1`: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool) -> Bool {
       return concreteImplementation(`param1`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -7008,11 +8242,11 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   public func `trivialBaseMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialBaseMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -7026,11 +8260,11 @@ public final class ExtendableProtocolMock: MockingbirdTestsHost.ExtendableProtoc
   public func `trivialExtendedMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialExtendedMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -7333,11 +8567,718 @@ public func mock(_ type: MockingbirdTestsHost.FailableUnwrappedParameterizedInit
   return FailableUnwrappedParameterizedInitializerProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked FakeableClass
+
+public final class FakeableClassMock: MockingbirdTestsHost.FakeableClass, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      FakeableClassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public enum InitializerProxy {
+    public static func initialize(`param`: String, __file: StaticString = #file, __line: UInt = #line) -> FakeableClassMock {
+      let mock: FakeableClassMock = FakeableClassMock(param: `param`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+  }
+
+  // MARK: Mocked init(`param`: String)
+
+  public required override init(`param`: String) {
+    super.init(param: `param`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(`param`: String) ", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+  }
+}
+
+/// Initialize an initializable class mock of `MockingbirdTestsHost.FakeableClass`.
+public func mock(_ type: MockingbirdTestsHost.FakeableClass.Type, file: StaticString = #file, line: UInt = #line) -> FakeableClassMock.InitializerProxy.Type {
+  return FakeableClassMock.InitializerProxy.self
+}
+
+// MARK: - Mocked FakeableGenericClass
+
+public final class FakeableGenericClassMock<T>: MockingbirdTestsHost.FakeableGenericClass<T>, Mockingbird.Mock {
+  static var staticMock: Mockingbird.StaticMock {
+    let runtimeGenericTypeNames = [ObjectIdentifier(T.self).debugDescription].joined(separator: ",")
+    let staticMockIdentifier = "FakeableGenericClassMock<T>," + runtimeGenericTypeNames
+    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    let staticMock = Mockingbird.StaticMock()
+    genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+    return staticMock
+  }
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      FakeableGenericClassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public enum InitializerProxy {
+    public static func initialize(`param`: T, __file: StaticString = #file, __line: UInt = #line) -> FakeableGenericClassMock<T> {
+      let mock: FakeableGenericClassMock<T> = FakeableGenericClassMock<T>(param: `param`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+  }
+
+  // MARK: Mocked init(`param`: T)
+
+  public required override init(`param`: T) {
+    super.init(param: `param`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(`param`: T) ", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+  }
+}
+
+/// Initialize an initializable class mock of `MockingbirdTestsHost.FakeableGenericClass<T>`.
+public func mock<T>(_ type: FakeableGenericClassMock<T>.Type, file: StaticString = #file, line: UInt = #line) -> FakeableGenericClassMock<T>.InitializerProxy.Type {
+  return FakeableGenericClassMock<T>.InitializerProxy.self
+}
+
+// MARK: - Mocked FakeableProtocol
+
+public final class FakeableProtocolMock: MockingbirdTestsHost.FakeableProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      FakeableProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Initialize a protocol mock of `MockingbirdTestsHost.FakeableProtocol`.
+public func mock(_ type: MockingbirdTestsHost.FakeableProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> FakeableProtocolMock {
+  return FakeableProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked FakeableTypeReferencer
+
+public final class FakeableTypeReferencerMock: MockingbirdTestsHost.FakeableTypeReferencer, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      FakeableTypeReferencerMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+
+  // MARK: Mocked `fakeable2Tuple`()
+
+  public func `fakeable2Tuple`() -> (String, Int) {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeable2Tuple`() -> (String, Int)", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> (String, Int) {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (String, Int) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((String, Int)).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeable2Tuple`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int), (String, Int)> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeable2Tuple`() -> (String, Int)", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int), (String, Int)>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeable3Tuple`()
+
+  public func `fakeable3Tuple`() -> (String, Int, Bool) {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeable3Tuple`() -> (String, Int, Bool)", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> (String, Int, Bool) {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (String, Int, Bool) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((String, Int, Bool)).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeable3Tuple`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int, Bool), (String, Int, Bool)> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeable3Tuple`() -> (String, Int, Bool)", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int, Bool), (String, Int, Bool)>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeable4Tuple`()
+
+  public func `fakeable4Tuple`() -> (String, Int, Bool, Double) {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeable4Tuple`() -> (String, Int, Bool, Double)", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> (String, Int, Bool, Double) {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (String, Int, Bool, Double) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((String, Int, Bool, Double)).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeable4Tuple`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int, Bool, Double), (String, Int, Bool, Double)> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeable4Tuple`() -> (String, Int, Bool, Double)", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int, Bool, Double), (String, Int, Bool, Double)>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeable5Tuple`()
+
+  public func `fakeable5Tuple`() -> (String, Int, Bool, Double, Float) {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeable5Tuple`() -> (String, Int, Bool, Double, Float)", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> (String, Int, Bool, Double, Float) {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (String, Int, Bool, Double, Float) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((String, Int, Bool, Double, Float)).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeable5Tuple`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int, Bool, Double, Float), (String, Int, Bool, Double, Float)> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeable5Tuple`() -> (String, Int, Bool, Double, Float)", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int, Bool, Double, Float), (String, Int, Bool, Double, Float)>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeable6Tuple`()
+
+  public func `fakeable6Tuple`() -> (String, Int, Bool, Double, Float, UInt) {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeable6Tuple`() -> (String, Int, Bool, Double, Float, UInt)", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> (String, Int, Bool, Double, Float, UInt) {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (String, Int, Bool, Double, Float, UInt) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((String, Int, Bool, Double, Float, UInt)).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeable6Tuple`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int, Bool, Double, Float, UInt), (String, Int, Bool, Double, Float, UInt)> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeable6Tuple`() -> (String, Int, Bool, Double, Float, UInt)", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> (String, Int, Bool, Double, Float, UInt), (String, Int, Bool, Double, Float, UInt)>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableArray`()
+
+  public func `fakeableArray`() -> Array<String> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableArray`() -> Array<String>", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> Array<String> {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Array<String> {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Array<String>).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableArray`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Array<String>, Array<String>> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableArray`() -> Array<String>", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Array<String>, Array<String>>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableBool`()
+
+  public func `fakeableBool`() -> Bool {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableBool`() -> Bool", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableBool`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableBool`() -> Bool", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableCGFloat`()
+
+  public func `fakeableCGFloat`() -> CGFloat {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableCGFloat`() -> CGFloat", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> CGFloat {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> CGFloat {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (CGFloat).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableCGFloat`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> CGFloat, CGFloat> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableCGFloat`() -> CGFloat", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> CGFloat, CGFloat>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableCGPoint`()
+
+  public func `fakeableCGPoint`() -> CGPoint {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableCGPoint`() -> CGPoint", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> CGPoint {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> CGPoint {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (CGPoint).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableCGPoint`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> CGPoint, CGPoint> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableCGPoint`() -> CGPoint", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> CGPoint, CGPoint>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableClass`()
+
+  public func `fakeableClass`() -> MockingbirdTestsHost.FakeableClass {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableClass`() -> MockingbirdTestsHost.FakeableClass", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.FakeableClass {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.FakeableClass {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.FakeableClass).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableClass`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableClass`() -> MockingbirdTestsHost.FakeableClass", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableDate`()
+
+  public func `fakeableDate`() -> Date {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableDate`() -> Date", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> Date {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Date {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Date).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableDate`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Date, Date> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableDate`() -> Date", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Date, Date>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableDictionary`()
+
+  public func `fakeableDictionary`() -> Dictionary<String, Int> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableDictionary`() -> Dictionary<String, Int>", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> Dictionary<String, Int> {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Dictionary<String, Int> {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Dictionary<String, Int>).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableDictionary`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Dictionary<String, Int>, Dictionary<String, Int>> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableDictionary`() -> Dictionary<String, Int>", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Dictionary<String, Int>, Dictionary<String, Int>>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableDouble`()
+
+  public func `fakeableDouble`() -> Double {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableDouble`() -> Double", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> Double {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Double {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Double).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableDouble`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Double, Double> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableDouble`() -> Double", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Double, Double>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableEnum`()
+
+  public func `fakeableEnum`() -> MockingbirdTestsHost.FakeableEnum {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableEnum`() -> MockingbirdTestsHost.FakeableEnum", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.FakeableEnum {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.FakeableEnum {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.FakeableEnum).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableEnum`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableEnum, MockingbirdTestsHost.FakeableEnum> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableEnum`() -> MockingbirdTestsHost.FakeableEnum", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableEnum, MockingbirdTestsHost.FakeableEnum>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableFloat`()
+
+  public func `fakeableFloat`() -> Float {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableFloat`() -> Float", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> Float {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Float {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Float).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableFloat`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Float, Float> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableFloat`() -> Float", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Float, Float>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableGenericClass`<T>()
+
+  public func `fakeableGenericClass`<T>() -> MockingbirdTestsHost.FakeableGenericClass<T> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableGenericClass`<T>() -> MockingbirdTestsHost.FakeableGenericClass<T>", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.FakeableGenericClass<T> {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.FakeableGenericClass<T> {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.FakeableGenericClass<T>).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableGenericClass`<T>() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableGenericClass<T>, MockingbirdTestsHost.FakeableGenericClass<T>> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableGenericClass`<T>() -> MockingbirdTestsHost.FakeableGenericClass<T>", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableGenericClass<T>, MockingbirdTestsHost.FakeableGenericClass<T>>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableInt`()
+
+  public func `fakeableInt`() -> Int {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableInt`() -> Int", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> Int {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Int {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Int).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableInt`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Int, Int> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableInt`() -> Int", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Int, Int>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableNSCache`()
+
+  public func `fakeableNSCache`() -> NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableNSCache`() -> NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass> {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass> {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableNSCache`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>, NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableNSCache`() -> NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>, NSCache<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableNSHashTable`()
+
+  public func `fakeableNSHashTable`() -> NSHashTable<MockingbirdTestsHost.FakeableClass> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableNSHashTable`() -> NSHashTable<MockingbirdTestsHost.FakeableClass>", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> NSHashTable<MockingbirdTestsHost.FakeableClass> {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> NSHashTable<MockingbirdTestsHost.FakeableClass> {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (NSHashTable<MockingbirdTestsHost.FakeableClass>).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableNSHashTable`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> NSHashTable<MockingbirdTestsHost.FakeableClass>, NSHashTable<MockingbirdTestsHost.FakeableClass>> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableNSHashTable`() -> NSHashTable<MockingbirdTestsHost.FakeableClass>", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> NSHashTable<MockingbirdTestsHost.FakeableClass>, NSHashTable<MockingbirdTestsHost.FakeableClass>>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableNSMapTable`()
+
+  public func `fakeableNSMapTable`() -> NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableNSMapTable`() -> NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass> {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass> {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableNSMapTable`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>, NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableNSMapTable`() -> NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>, NSMapTable<MockingbirdTestsHost.FakeableClass, MockingbirdTestsHost.FakeableClass>>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableProtocol`()
+
+  public func `fakeableProtocol`() -> MockingbirdTestsHost.FakeableProtocol {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableProtocol`() -> MockingbirdTestsHost.FakeableProtocol", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.FakeableProtocol {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.FakeableProtocol {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.FakeableProtocol).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableProtocol`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableProtocol, MockingbirdTestsHost.FakeableProtocol> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableProtocol`() -> MockingbirdTestsHost.FakeableProtocol", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableProtocol, MockingbirdTestsHost.FakeableProtocol>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableSet`()
+
+  public func `fakeableSet`() -> Set<String> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableSet`() -> Set<String>", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> Set<String> {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Set<String> {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Set<String>).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableSet`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Set<String>, Set<String>> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableSet`() -> Set<String>", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Set<String>, Set<String>>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableString`()
+
+  public func `fakeableString`() -> String {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableString`() -> String", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> String {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> String {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableString`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> String, String> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableString`() -> String", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> String, String>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableStruct`()
+
+  public func `fakeableStruct`() -> MockingbirdTestsHost.FakeableStruct {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableStruct`() -> MockingbirdTestsHost.FakeableStruct", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.FakeableStruct {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.FakeableStruct {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.FakeableStruct).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableStruct`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableStruct, MockingbirdTestsHost.FakeableStruct> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableStruct`() -> MockingbirdTestsHost.FakeableStruct", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableStruct, MockingbirdTestsHost.FakeableStruct>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableTypealias`()
+
+  public func `fakeableTypealias`() -> MockingbirdTestsHost.FakeableTypealias {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableTypealias`() -> MockingbirdTestsHost.FakeableTypealias", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.FakeableTypealias {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.FakeableTypealias {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.FakeableTypealias).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableTypealias`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableTypealias, MockingbirdTestsHost.FakeableTypealias> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableTypealias`() -> MockingbirdTestsHost.FakeableTypealias", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> MockingbirdTestsHost.FakeableTypealias, MockingbirdTestsHost.FakeableTypealias>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked `fakeableUInt`()
+
+  public func `fakeableUInt`() -> UInt {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableUInt`() -> UInt", arguments: [])
+    mockingContext.didInvoke(invocation)
+    let implementation = stubbingContext.implementation(for: invocation)
+    if let concreteImplementation = implementation as? () -> UInt {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> UInt {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (UInt).self) {
+      return defaultValue
+    } else {
+      fatalError(stubbingContext.failTest(for: invocation))
+    }
+  }
+
+  public func `fakeableUInt`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> UInt, UInt> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`fakeableUInt`() -> UInt", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> UInt, UInt>(mock: self, invocation: invocation)
+  }
+}
+
+/// Initialize a protocol mock of `MockingbirdTestsHost.FakeableTypeReferencer`.
+public func mock(_ type: MockingbirdTestsHost.FakeableTypeReferencer.Protocol, file: StaticString = #file, line: UInt = #line) -> FakeableTypeReferencerMock {
+  return FakeableTypeReferencerMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked GenericBaseClass
 
 public final class GenericBaseClassMock<T>: MockingbirdTestsHost.GenericBaseClass<T>, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(T.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(T.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "GenericBaseClassMock<T>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -7361,7 +9302,14 @@ public final class GenericBaseClassMock<T>: MockingbirdTestsHost.GenericBaseClas
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> T)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> T {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -7381,11 +9329,15 @@ public final class GenericBaseClassMock<T>: MockingbirdTestsHost.GenericBaseClas
   public override func `baseMethod`(`param`: T) -> T {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: T) -> T", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T) -> T {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> T {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> T)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -7422,12 +9374,19 @@ public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClass
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> MockingbirdTestsHost.ReferencedGenericClass<String>)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.ReferencedGenericClass<String> {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.ReferencedGenericClass<String>).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (MockingbirdTestsHost.ReferencedGenericClass<String>) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -7453,12 +9412,19 @@ public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClass
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassWithConstraintsVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<[String]>)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<[String]> {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.ReferencedGenericClassWithConstraints<[String]>).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "genericClassWithConstraintsVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (MockingbirdTestsHost.ReferencedGenericClassWithConstraints<[String]>) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -7488,11 +9454,15 @@ public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClass
   public func `genericClassMethod`<Z>() -> MockingbirdTestsHost.ReferencedGenericClass<Z> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericClassMethod`<Z>() -> MockingbirdTestsHost.ReferencedGenericClass<Z>", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.ReferencedGenericClass<Z> {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.ReferencedGenericClass<Z> {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.ReferencedGenericClass<Z>).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdTestsHost.ReferencedGenericClass<Z>)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -7506,11 +9476,15 @@ public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClass
   public func `genericClassMethod`<T, Z: MockingbirdTestsHost.ReferencedGenericClass<T>>(`metatype`: Z.Type) -> Z.Type {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericClassMethod`<T, Z: MockingbirdTestsHost.ReferencedGenericClass<T>>(`metatype`: Z.Type) -> Z.Type", arguments: [Mockingbird.ArgumentMatcher(`metatype`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Z.Type) -> Z.Type {
       return concreteImplementation(`metatype`)
+    } else if let concreteImplementation = implementation as? () -> Z.Type {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Z.Type).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Z.Type)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -7525,11 +9499,15 @@ public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClass
   public func `genericClassWithConstraintsMethod`<Z>() -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericClassWithConstraintsMethod`<Z>() -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z> {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z> {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdTestsHost.ReferencedGenericClassWithConstraints<Z>)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -7543,11 +9521,15 @@ public final class GenericClassReferencerMock: MockingbirdTestsHost.GenericClass
   public func `genericClassWithConstraintsMethod`<T, Z: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<T>>(`metatype`: Z.Type) -> Z.Type {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericClassWithConstraintsMethod`<T, Z: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<T>>(`metatype`: Z.Type) -> Z.Type", arguments: [Mockingbird.ArgumentMatcher(`metatype`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Z.Type) -> Z.Type {
       return concreteImplementation(`metatype`)
+    } else if let concreteImplementation = implementation as? () -> Z.Type {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Z.Type).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Z.Type)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -7584,12 +9566,19 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -7615,7 +9604,14 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -7630,7 +9626,14 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -7645,12 +9648,19 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
       staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -7680,11 +9690,15 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   public func `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -7699,11 +9713,15 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   public static func `grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -7718,11 +9736,11 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   public func `grandparentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -7736,11 +9754,11 @@ public final class GrandparentProtocolMock: MockingbirdTestsHost.GrandparentProt
   public static func `grandparentTrivialStaticMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialStaticMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -7776,7 +9794,14 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -7791,7 +9816,14 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -7806,7 +9838,14 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStoredFileprivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -7821,12 +9860,19 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStoredInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStoredInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -7852,7 +9898,14 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStoredPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -7872,11 +9925,15 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   public override static func `grandparentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -7891,11 +9948,15 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   public override func `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -7910,11 +9971,11 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   public override static func `grandparentTrivialClassMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialClassMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -7928,11 +9989,11 @@ public final class GrandparentMock: MockingbirdTestsHost.Grandparent, Mockingbir
   public override func `grandparentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -7973,11 +10034,11 @@ public final class HashableConformingClassMock: MockingbirdTestsHost.HashableCon
   public override func `hash`(`into` `hasher`: inout Hasher) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`hash`(`into` `hasher`: inout Hasher) -> Void", arguments: [Mockingbird.ArgumentMatcher(`hasher`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (inout Hasher) -> Void {
       concreteImplementation(&`hasher`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -8014,7 +10075,14 @@ public final class HashableConformingProtocolMock: MockingbirdTestsHost.Hashable
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "hashValue.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Int)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Int {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Int).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -8033,11 +10101,15 @@ public final class HashableConformingProtocolMock: MockingbirdTestsHost.Hashable
   public static func ==(_ `lhs`: HashableConformingProtocolMock, _ `rhs`: HashableConformingProtocolMock) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ `lhs`: HashableConformingProtocolMock, _ `rhs`: HashableConformingProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (HashableConformingProtocolMock, HashableConformingProtocolMock) -> Bool {
       return concreteImplementation(`lhs`, `rhs`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8052,11 +10124,11 @@ public final class HashableConformingProtocolMock: MockingbirdTestsHost.Hashable
   public func `hash`(`into` `hasher`: inout Hasher) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`hash`(`into` `hasher`: inout Hasher) -> Void", arguments: [Mockingbird.ArgumentMatcher(`hasher`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (inout Hasher) -> Void {
       concreteImplementation(&`hasher`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -8098,11 +10170,15 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
   public override func `genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T?) -> T? {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> T? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T?).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> T?)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8117,11 +10193,15 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
   public override func `genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: T) -> T where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdModuleTestsHost.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: T) -> T where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdModuleTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T) -> T {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> T {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> T)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8136,11 +10216,15 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
   public override func `request`(`object`: Foundation.NSObject?) -> Foundation.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: Foundation.NSObject?) -> Foundation.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Foundation.NSObject?) -> Foundation.NSObject? {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> Foundation.NSObject? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Foundation.NSObject?).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Foundation.NSObject?)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8155,11 +10239,15 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
   public override func `request`(`object`: Foundation.NSObject) -> Foundation.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: Foundation.NSObject) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Foundation.NSObject) -> Foundation.NSObject {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> Foundation.NSObject {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Foundation.NSObject).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Foundation.NSObject)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8174,11 +10262,15 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
   public override func `request`(`object`: MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject? {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> MockingbirdModuleTestsHost.NSObject? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdModuleTestsHost.NSObject?).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdModuleTestsHost.NSObject?)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8193,11 +10285,15 @@ public final class ImplementingExternalModuleScopedTypealiasedProtocolMock: Mock
   public override func `request`(`object`: MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> MockingbirdModuleTestsHost.NSObject {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdModuleTestsHost.NSObject).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdModuleTestsHost.NSObject)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8242,12 +10338,19 @@ public final class ImplementingExternalModuleScopingMock: MockingbirdTestsHost.I
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "secondLevelType.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> MockingbirdModuleTestsHost.TopLevelType.SecondLevelType)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> MockingbirdModuleTestsHost.TopLevelType.SecondLevelType {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdModuleTestsHost.TopLevelType.SecondLevelType).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "secondLevelType.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (MockingbirdModuleTestsHost.TopLevelType.SecondLevelType) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -8273,12 +10376,19 @@ public final class ImplementingExternalModuleScopingMock: MockingbirdTestsHost.I
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelType.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> MockingbirdModuleTestsHost.TopLevelType.SecondLevelType.ThirdLevelType)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> MockingbirdModuleTestsHost.TopLevelType.SecondLevelType.ThirdLevelType {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdModuleTestsHost.TopLevelType.SecondLevelType.ThirdLevelType).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "thirdLevelType.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (MockingbirdModuleTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -8304,12 +10414,19 @@ public final class ImplementingExternalModuleScopingMock: MockingbirdTestsHost.I
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "topLevelType.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> MockingbirdModuleTestsHost.TopLevelType)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> MockingbirdModuleTestsHost.TopLevelType {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdModuleTestsHost.TopLevelType).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "topLevelType.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (MockingbirdModuleTestsHost.TopLevelType) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -8365,7 +10482,14 @@ public final class ImplicitlyImportedExternalObjectiveCTypeMock: MockingbirdTest
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -8389,7 +10513,7 @@ public func mock(_ type: MockingbirdTestsHost.ImplicitlyImportedExternalObjectiv
 
 public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(T.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(T.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "InheritedTypeQualificationProtocolGenericImplementerMock<T>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -8418,11 +10542,15 @@ public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: 
   public override func `lessQualifiedImplementation`(`param`: MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`lessQualifiedImplementation`(`param`: MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType? {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.UnscopedType? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.UnscopedType?).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdTestsHost.UnscopedType?)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8437,11 +10565,15 @@ public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: 
   public override func `moreQualifiedImplementation`(`param`: MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`moreQualifiedImplementation`(`param`: MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType) -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType? {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>.ScopedType?)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8461,7 +10593,7 @@ public func mock<T>(_ type: InheritedTypeQualificationProtocolGenericImplementer
 
 public final class InheritedTypeQualificationProtocolMock<ScopedType>: MockingbirdTestsHost.InheritedTypeQualificationProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(ScopedType.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(ScopedType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "InheritedTypeQualificationProtocolMock<ScopedType>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -8489,11 +10621,15 @@ public final class InheritedTypeQualificationProtocolMock<ScopedType>: Mockingbi
   public func `lessQualifiedImplementation`(`param`: MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`lessQualifiedImplementation`(`param`: MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType?", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.UnscopedType) -> MockingbirdTestsHost.UnscopedType? {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.UnscopedType? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.UnscopedType?).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdTestsHost.UnscopedType?)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8508,11 +10644,15 @@ public final class InheritedTypeQualificationProtocolMock<ScopedType>: Mockingbi
   public func `moreQualifiedImplementation`(`param`: ScopedType) -> ScopedType? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`moreQualifiedImplementation`(`param`: ScopedType) -> ScopedType?", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (ScopedType) -> ScopedType? {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> ScopedType? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (ScopedType?).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ScopedType?)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8532,7 +10672,7 @@ public func mock<ScopedType>(_ type: InheritedTypeQualificationProtocolMock<Scop
 
 public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Swift.Hashable>: MockingbirdTestsHost.InheritingAssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(SequenceType.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(SequenceType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Swift.Hashable>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -8560,11 +10700,11 @@ public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceT
   public func `request`<T: Sequence>(`array`: T) -> Void where T.Element == InheritingAssociatedTypeSelfReferencingProtocolMock {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: Sequence>(`array`: T) -> Void where T.Element == InheritingAssociatedTypeSelfReferencingProtocolMock", arguments: [Mockingbird.ArgumentMatcher(`array`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T) -> Void {
       concreteImplementation(`array`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -8579,11 +10719,11 @@ public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceT
   public func `request`(`array`: SequenceType) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`array`: SequenceType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`array`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (SequenceType) -> Void {
       concreteImplementation(`array`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -8598,11 +10738,11 @@ public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceT
   public func `request`(`object`: InheritingAssociatedTypeSelfReferencingProtocolMock) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: InheritingAssociatedTypeSelfReferencingProtocolMock) -> Void", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (InheritingAssociatedTypeSelfReferencingProtocolMock) -> Void {
       concreteImplementation(`object`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -8622,7 +10762,7 @@ public func mock<SequenceType: Sequence & Swift.Hashable>(_ type: InheritingAsso
 
 public final class InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol>: MockingbirdTestsHost.InheritingExternalModuleScopedAssociatedTypeProtocol, Mockingbird.Mock where Data.Element == MockingbirdModuleTestsHost.NSObject {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(Data.self)", "\(Element.self)", "\(Subelement.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(Data.self).debugDescription, ObjectIdentifier(Element.self).debugDescription, ObjectIdentifier(Subelement.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -8676,11 +10816,15 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
   public func `genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdModuleTestsHost.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T?) -> T? {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> T? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T?).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> T?)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8695,11 +10839,15 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
   public func `genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: T) -> T where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdModuleTestsHost.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericRequest`<T: MockingbirdModuleTestsHost.NSObjectProtocol>(`object`: T) -> T where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdModuleTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T) -> T {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> T {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> T)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8714,11 +10862,15 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
   public func `request`(`object`: Foundation.NSObject?) -> Foundation.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: Foundation.NSObject?) -> Foundation.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Foundation.NSObject?) -> Foundation.NSObject? {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> Foundation.NSObject? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Foundation.NSObject?).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Foundation.NSObject?)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8733,11 +10885,15 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
   public func `request`(`object`: Foundation.NSObject) -> Foundation.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: Foundation.NSObject) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Foundation.NSObject) -> Foundation.NSObject {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> Foundation.NSObject {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Foundation.NSObject).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Foundation.NSObject)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8752,11 +10908,15 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
   public func `request`(`object`: MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdModuleTestsHost.NSObject?) -> MockingbirdModuleTestsHost.NSObject? {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> MockingbirdModuleTestsHost.NSObject? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdModuleTestsHost.NSObject?).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdModuleTestsHost.NSObject?)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8771,11 +10931,15 @@ public final class InheritingExternalModuleScopedTypealiasedProtocolMock: Mockin
   public func `request`(`object`: MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdModuleTestsHost.NSObject) -> MockingbirdModuleTestsHost.NSObject {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> MockingbirdModuleTestsHost.NSObject {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdModuleTestsHost.NSObject).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdModuleTestsHost.NSObject)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8795,7 +10959,7 @@ public func mock(_ type: MockingbirdTestsHost.InheritingExternalModuleScopedType
 
 public final class InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>: MockingbirdTestsHost.InheritingModuleScopedAssociatedTypeProtocol, Mockingbird.Mock where Data.Element == MockingbirdTestsHost.NSObject {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(Data.self)", "\(Element.self)", "\(Subelement.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(Data.self).debugDescription, ObjectIdentifier(Element.self).debugDescription, ObjectIdentifier(Subelement.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -8845,7 +11009,14 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherExtendedVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -8860,7 +11031,14 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -8875,7 +11053,14 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "childVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -8890,7 +11075,14 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -8909,11 +11101,11 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
   public func `anotherTrivialExtendedMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`anotherTrivialExtendedMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -8927,11 +11119,11 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
   public func `parameterizedExtendedMethod`(`param1`: Bool) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedExtendedMethod`(`param1`: Bool) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool) -> Void {
       concreteImplementation(`param1`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -8946,11 +11138,15 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
   public func `parameterizedReturningExtendedMethod`(`param1`: Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedReturningExtendedMethod`(`param1`: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool) -> Bool {
       return concreteImplementation(`param1`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -8965,11 +11161,11 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
   public func `trivialBaseMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialBaseMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -8983,11 +11179,11 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
   public func `trivialChildMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialChildMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -9001,11 +11197,11 @@ public final class InheritsExtendableProtocolMock: MockingbirdTestsHost.Inherits
   public func `trivialExtendedMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialExtendedMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -9141,12 +11337,19 @@ public final class InitializableClassOnlyProtocolMock: MockingbirdTestsHost.Clas
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -9691,11 +11894,11 @@ public final class InoutClassMock: MockingbirdTestsHost.InoutClass, Mockingbird.
   public override func `parameterizedMethod`(`object`: inout String) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedMethod`(`object`: inout String) -> Void", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (inout String) -> Void {
       concreteImplementation(&`object`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -9736,11 +11939,11 @@ public final class InoutProtocolMock: MockingbirdTestsHost.InoutProtocol, Mockin
   public func `parameterizedMethod`(`object`: inout String) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parameterizedMethod`(`object`: inout String) -> Void", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (inout String) -> Void {
       concreteImplementation(&`object`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -9782,11 +11985,11 @@ public final class KeywordArgNamesClassMock: MockingbirdTestsHost.KeywordArgName
   public override func `methodWithKeywordParam`(`inout`: String) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithKeywordParam`(`inout`: String) -> Void", arguments: [Mockingbird.ArgumentMatcher(`inout`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (String) -> Void {
       concreteImplementation(`inout`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -9801,11 +12004,11 @@ public final class KeywordArgNamesClassMock: MockingbirdTestsHost.KeywordArgName
   public override func `methodWithNamedKeywordParam`(`with` `inout`: String) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithNamedKeywordParam`(`with` `inout`: String) -> Void", arguments: [Mockingbird.ArgumentMatcher(`inout`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (String) -> Void {
       concreteImplementation(`inout`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -9820,11 +12023,11 @@ public final class KeywordArgNamesClassMock: MockingbirdTestsHost.KeywordArgName
   public override func `methodWithParamNamedKeyword`(`inout` `param`: String) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithParamNamedKeyword`(`inout` `param`: String) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (String) -> Void {
       concreteImplementation(`param`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -9839,11 +12042,11 @@ public final class KeywordArgNamesClassMock: MockingbirdTestsHost.KeywordArgName
   public override func `methodWithUnnamedKeywordParam`(_ `inout`: String) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithUnnamedKeywordParam`(_ `inout`: String) -> Void", arguments: [Mockingbird.ArgumentMatcher(`inout`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (String) -> Void {
       concreteImplementation(`inout`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -9884,11 +12087,11 @@ public final class KeywordArgNamesProtocolMock: MockingbirdTestsHost.KeywordArgN
   public func `methodWithKeywordParam`(`inout`: String) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithKeywordParam`(`inout`: String) -> Void", arguments: [Mockingbird.ArgumentMatcher(`inout`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (String) -> Void {
       concreteImplementation(`inout`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -9903,11 +12106,11 @@ public final class KeywordArgNamesProtocolMock: MockingbirdTestsHost.KeywordArgN
   public func `methodWithNamedKeywordParam`(`with` `inout`: String) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithNamedKeywordParam`(`with` `inout`: String) -> Void", arguments: [Mockingbird.ArgumentMatcher(`inout`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (String) -> Void {
       concreteImplementation(`inout`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -9922,11 +12125,11 @@ public final class KeywordArgNamesProtocolMock: MockingbirdTestsHost.KeywordArgN
   public func `methodWithParamNamedKeyword`(`inout` `param`: String) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithParamNamedKeyword`(`inout` `param`: String) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (String) -> Void {
       concreteImplementation(`param`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -9941,11 +12144,11 @@ public final class KeywordArgNamesProtocolMock: MockingbirdTestsHost.KeywordArgN
   public func `methodWithUnnamedKeywordParam`(_ `inout`: String) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithUnnamedKeywordParam`(_ `inout`: String) -> Void", arguments: [Mockingbird.ArgumentMatcher(`inout`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (String) -> Void {
       concreteImplementation(`inout`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -9982,7 +12185,14 @@ public final class LineCommentNotDebugCompilationDirectiveProtocolMock: Mockingb
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -10023,7 +12233,14 @@ public final class LocalPublicExternalProtocolMock: MockingbirdTestsHost.LocalPu
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -10042,11 +12259,11 @@ public final class LocalPublicExternalProtocolMock: MockingbirdTestsHost.LocalPu
   public func `method`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -10065,7 +12282,7 @@ public func mock(_ type: MockingbirdTestsHost.LocalPublicExternalProtocol.Protoc
 
 public final class ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, Mockingbird.Mock where Data.Element == MockingbirdTestsHost.NSObject {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(Data.self)", "\(Element.self)", "\(Subelement.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(Data.self).debugDescription, ObjectIdentifier(Element.self).debugDescription, ObjectIdentifier(Subelement.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -10119,11 +12336,15 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
   public func `genericRequest`<T: MockingbirdTestsHost.NSObjectProtocol>(`object`: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdTestsHost.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericRequest`<T: MockingbirdTestsHost.NSObjectProtocol>(`object`: T?) -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == MockingbirdTestsHost.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T?) -> T? {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> T? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T?).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> T?)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -10138,11 +12359,15 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
   public func `genericRequest`<T: MockingbirdTestsHost.NSObjectProtocol>(`object`: T) -> T where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdTestsHost.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericRequest`<T: MockingbirdTestsHost.NSObjectProtocol>(`object`: T) -> T where T.Element == Foundation.NSObjectProtocol, T.Subelement == MockingbirdTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T) -> T {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> T {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> T)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -10157,11 +12382,15 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
   public func `request`(`object`: Foundation.NSObject?) -> Foundation.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: Foundation.NSObject?) -> Foundation.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Foundation.NSObject?) -> Foundation.NSObject? {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> Foundation.NSObject? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Foundation.NSObject?).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Foundation.NSObject?)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -10176,11 +12405,15 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
   public func `request`(`object`: Foundation.NSObject) -> Foundation.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: Foundation.NSObject) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Foundation.NSObject) -> Foundation.NSObject {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> Foundation.NSObject {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Foundation.NSObject).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Foundation.NSObject)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -10195,11 +12428,15 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
   public func `request`(`object`: MockingbirdTestsHost.NSObject?) -> MockingbirdTestsHost.NSObject? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: MockingbirdTestsHost.NSObject?) -> MockingbirdTestsHost.NSObject?", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.NSObject?) -> MockingbirdTestsHost.NSObject? {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.NSObject? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.NSObject?).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdTestsHost.NSObject?)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -10214,11 +12451,15 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
   public func `request`(`object`: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject {
       return concreteImplementation(`object`)
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.NSObject {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.NSObject).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdTestsHost.NSObject)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -10341,7 +12582,14 @@ public final class NestedCompilationDirectiveProtocolMock: MockingbirdTestsHost.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -10447,7 +12695,14 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -10467,11 +12722,11 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
   public override func `trivialBaseMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`trivialBaseMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -10511,7 +12766,14 @@ public final class NotDebugCompilationDirectiveProtocolMock: MockingbirdTestsHos
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -10568,12 +12830,19 @@ public final class ObjectiveCClassMock: MockingbirdTestsHost.ObjectiveCClass, Mo
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nominalObjcVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nominalObjcVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -10599,7 +12868,14 @@ public final class ObjectiveCClassMock: MockingbirdTestsHost.ObjectiveCClass, Mo
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "objcComputedVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -10614,12 +12890,19 @@ public final class ObjectiveCClassMock: MockingbirdTestsHost.ObjectiveCClass, Mo
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "objcVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "objcVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -10645,12 +12928,19 @@ public final class ObjectiveCClassMock: MockingbirdTestsHost.ObjectiveCClass, Mo
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -10684,11 +12974,15 @@ public final class ObjectiveCClassMock: MockingbirdTestsHost.ObjectiveCClass, Mo
   public override func `method`() -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> Bool", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Bool {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -10702,11 +12996,15 @@ public final class ObjectiveCClassMock: MockingbirdTestsHost.ObjectiveCClass, Mo
   public override func `nominalObjcMethod`() -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nominalObjcMethod`() -> Bool", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Bool {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -10720,11 +13018,15 @@ public final class ObjectiveCClassMock: MockingbirdTestsHost.ObjectiveCClass, Mo
   public override func `objcMethod`() -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`objcMethod`() -> Bool", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Bool {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -10760,12 +13062,19 @@ public final class ObjectiveCProtocolImplementerMock: MockingbirdTestsHost.Objec
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nominalObjcVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nominalObjcVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -10791,12 +13100,19 @@ public final class ObjectiveCProtocolImplementerMock: MockingbirdTestsHost.Objec
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "objcVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "objcVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -10822,12 +13138,19 @@ public final class ObjectiveCProtocolImplementerMock: MockingbirdTestsHost.Objec
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -10858,11 +13181,15 @@ public final class ObjectiveCProtocolImplementerMock: MockingbirdTestsHost.Objec
   public override func `method`() -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> Bool", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Bool {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -10876,11 +13203,15 @@ public final class ObjectiveCProtocolImplementerMock: MockingbirdTestsHost.Objec
   public override func `nominalObjcMethod`() -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nominalObjcMethod`() -> Bool", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Bool {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -10894,11 +13225,15 @@ public final class ObjectiveCProtocolImplementerMock: MockingbirdTestsHost.Objec
   public override func `objcMethod`() -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`objcMethod`() -> Bool", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Bool {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -10934,7 +13269,14 @@ public final class ObjectiveCProtocolMock: MockingbirdTestsHost.ObjectiveCProtoc
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nominalObjcVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -10949,7 +13291,14 @@ public final class ObjectiveCProtocolMock: MockingbirdTestsHost.ObjectiveCProtoc
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "objcVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -10964,7 +13313,14 @@ public final class ObjectiveCProtocolMock: MockingbirdTestsHost.ObjectiveCProtoc
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -10983,11 +13339,15 @@ public final class ObjectiveCProtocolMock: MockingbirdTestsHost.ObjectiveCProtoc
   public func `method`() -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> Bool", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Bool {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11001,11 +13361,15 @@ public final class ObjectiveCProtocolMock: MockingbirdTestsHost.ObjectiveCProtoc
   public func `nominalObjcMethod`() -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nominalObjcMethod`() -> Bool", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Bool {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11019,11 +13383,15 @@ public final class ObjectiveCProtocolMock: MockingbirdTestsHost.ObjectiveCProtoc
   public func `objcMethod`() -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`objcMethod`() -> Bool", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Bool {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11063,7 +13431,14 @@ public final class OnlyDebugCompilationDirectiveProtocolMock: MockingbirdTestsHo
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extensionVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -11082,7 +13457,14 @@ public final class OnlyDebugCompilationDirectiveProtocolMock: MockingbirdTestsHo
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -11184,7 +13566,14 @@ public final class OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock: Mock
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "hashValue.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Int)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Int {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Int).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -11203,11 +13592,15 @@ public final class OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock: Mock
   public static func ==(_ `lhs`: OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock, _ `rhs`: OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "==(_ `lhs`: OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock, _ `rhs`: OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`lhs`), Mockingbird.ArgumentMatcher(`rhs`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock, OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock) -> Bool {
       return concreteImplementation(`lhs`, `rhs`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11222,11 +13615,11 @@ public final class OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock: Mock
   public func `hash`(`into` `hasher`: inout Hasher) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`hash`(`into` `hasher`: inout Hasher) -> Void", arguments: [Mockingbird.ArgumentMatcher(`hasher`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (inout Hasher) -> Void {
       concreteImplementation(&`hasher`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -11316,7 +13709,14 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "multiUnwrappedOptionalVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool???)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool??? {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool???).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -11331,7 +13731,14 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool?)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool? {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool?).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -11346,7 +13753,14 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "unwrappedOptionalVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -11365,11 +13779,11 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
   public func `methodWithMultiOptionalParameter`(`param`: Bool???) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithMultiOptionalParameter`(`param`: Bool???) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool???) -> Void {
       concreteImplementation(`param`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -11384,11 +13798,15 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
   public func `methodWithMultiOptionalReturn`() -> Bool??? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithMultiOptionalReturn`() -> Bool???", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Bool??? {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool??? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool???).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool???)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11402,11 +13820,11 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
   public func `methodWithMultiOptionalVariadicParameter`(`param`: Bool???...) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithMultiOptionalVariadicParameter`(`param`: Bool???...) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ([Bool???]) -> Void {
       concreteImplementation(`param`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -11426,11 +13844,11 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
   public func `methodWithMultiUnwrappedOptionalCompoundParameter`(`param`: (Bool?, Int)???!) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithMultiUnwrappedOptionalCompoundParameter`(`param`: (Bool?, Int)???!) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ((Bool?, Int)???) -> Void {
       concreteImplementation(`param`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -11445,11 +13863,15 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
   public func `methodWithMultiUnwrappedOptionalCompoundReturn`() -> (Bool?, Int)???! {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithMultiUnwrappedOptionalCompoundReturn`() -> (Bool?, Int)???!", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> (Bool?, Int)??? {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (Bool?, Int)??? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((Bool?, Int)???).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> (Bool?, Int)???)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11463,11 +13885,11 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
   public func `methodWithMultiUnwrappedOptionalParameter`(`param`: Bool???!) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithMultiUnwrappedOptionalParameter`(`param`: Bool???!) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool???) -> Void {
       concreteImplementation(`param`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -11482,11 +13904,15 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
   public func `methodWithMultiUnwrappedOptionalReturn`() -> Bool???! {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithMultiUnwrappedOptionalReturn`() -> Bool???!", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Bool??? {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool??? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool???).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool???)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11500,11 +13926,11 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
   public func `methodWithOptionalParameter`(`param`: Bool?) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithOptionalParameter`(`param`: Bool?) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool?) -> Void {
       concreteImplementation(`param`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -11519,11 +13945,15 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
   public func `methodWithOptionalReturn`() -> Bool? {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithOptionalReturn`() -> Bool?", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Bool? {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool? {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool?).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool?)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11537,11 +13967,11 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
   public func `methodWithOptionalVariadicParameter`(`param`: Bool?...) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithOptionalVariadicParameter`(`param`: Bool?...) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ([Bool?]) -> Void {
       concreteImplementation(`param`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -11561,11 +13991,11 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
   public func `methodWithUnwrappedCompoundParameter`(`param`: (Bool?, Int)!) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithUnwrappedCompoundParameter`(`param`: (Bool?, Int)!) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ((Bool?, Int)) -> Void {
       concreteImplementation(`param`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -11580,11 +14010,15 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
   public func `methodWithUnwrappedCompoundReturn`() -> (Bool?, Int)! {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithUnwrappedCompoundReturn`() -> (Bool?, Int)!", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> (Bool?, Int) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (Bool?, Int) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((Bool?, Int)).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> (Bool?, Int))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11598,11 +14032,11 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
   public func `methodWithUnwrappedParameter`(`param`: Bool!) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithUnwrappedParameter`(`param`: Bool!) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool) -> Void {
       concreteImplementation(`param`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -11617,11 +14051,15 @@ public final class OptionalsProtocolMock: MockingbirdTestsHost.OptionalsProtocol
   public func `methodWithUnwrappedReturn`() -> Bool! {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithUnwrappedReturn`() -> Bool!", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Bool {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11662,11 +14100,15 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
   public override func `overloadedParameters`<T>(`param1`: T, `param2`: T) -> T {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`<T>(`param1`: T, `param2`: T) -> T", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T, T) -> T {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> T {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> T)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11681,11 +14123,15 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
   public override func `overloadedParameters`(`param1`: Bool, `param2`: Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`(`param1`: Bool, `param2`: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Bool) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11700,11 +14146,15 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
   public override func `overloadedParameters`(`param1`: Int, `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`(`param1`: Int, `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Int, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11719,11 +14169,15 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
   public override func `overloadedReturnType`<T>() -> T {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedReturnType`<T>() -> T", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> T {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> T {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> T)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11737,11 +14191,15 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
   public override func `overloadedReturnType`() -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedReturnType`() -> Bool", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Bool {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11755,11 +14213,15 @@ public final class OverloadedMethodsClassMock: MockingbirdTestsHost.OverloadedMe
   public override func `overloadedReturnType`() -> Int {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedReturnType`() -> Int", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Int {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Int {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Int).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Int)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11799,11 +14261,15 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
   public func `overloadedParameters`<T>(`param1`: T, `param2`: T) -> T {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`<T>(`param1`: T, `param2`: T) -> T", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T, T) -> T {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> T {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> T)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11818,11 +14284,15 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
   public func `overloadedParameters`(`param1`: Bool, `param2`: Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`(`param1`: Bool, `param2`: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Bool) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11837,11 +14307,15 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
   public func `overloadedParameters`(`param1`: Int, `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedParameters`(`param1`: Int, `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Int, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11856,11 +14330,15 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
   public func `overloadedReturnType`<T>() -> T {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedReturnType`<T>() -> T", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> T {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> T {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> T)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11874,11 +14352,15 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
   public func `overloadedReturnType`() -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedReturnType`() -> Bool", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Bool {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -11892,11 +14374,15 @@ public final class OverloadedMethodsProtocolMock: MockingbirdTestsHost.Overloade
   public func `overloadedReturnType`() -> Int {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`overloadedReturnType`() -> Int", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Int {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Int {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Int).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Int)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -12030,12 +14516,19 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -12061,7 +14554,14 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -12076,7 +14576,14 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentPrivateSetterStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -12091,12 +14598,19 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
       staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -12122,12 +14636,19 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -12153,7 +14674,14 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -12168,7 +14696,14 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentPrivateSetterStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -12183,12 +14718,19 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStaticVariable.set", arguments: [ArgumentMatcher(newValue)])
       staticMock.mockingContext.didInvoke(invocation)
-      let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -12218,11 +14760,15 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   public func `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -12237,11 +14783,15 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   public static func `grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -12256,11 +14806,11 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   public func `grandparentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -12274,11 +14824,11 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   public static func `grandparentTrivialStaticMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialStaticMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -12292,11 +14842,15 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   public func `parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -12311,11 +14865,15 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   public static func `parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedStaticMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -12330,11 +14888,11 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   public func `parentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -12348,11 +14906,11 @@ public final class ParentProtocolMock: MockingbirdTestsHost.ParentProtocol, Mock
   public static func `parentTrivialStaticMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialStaticMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -12388,7 +14946,14 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentClassVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -12403,7 +14968,14 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentComputedInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -12418,7 +14990,14 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStoredFileprivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -12433,12 +15012,19 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStoredInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStoredInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -12464,7 +15050,14 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "grandparentStoredPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -12479,7 +15072,14 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentClassVariable.get", arguments: [])
       staticMock.mockingContext.didInvoke(invocation)
-      return (staticMock.stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = staticMock.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(staticMock.stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -12494,7 +15094,14 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentComputedInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -12509,7 +15116,14 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStoredFileprivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -12524,12 +15138,19 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStoredInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStoredInstanceVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -12555,7 +15176,14 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "parentStoredPrivateSetterInstanceVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -12575,11 +15203,15 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   public override static func `grandparentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -12594,11 +15226,15 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   public override func `grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -12613,11 +15249,11 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   public override static func `grandparentTrivialClassMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialClassMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -12631,11 +15267,11 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   public override func `grandparentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`grandparentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -12649,11 +15285,15 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   public override static func `parentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedClassMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = staticMock.stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(staticMock.stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -12668,11 +15308,15 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   public override func `parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentParameterizedInstanceMethod`(`param1`: Bool, _ `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, Int) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -12687,11 +15331,11 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   public override static func `parentTrivialClassMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialClassMethod`() -> Void", arguments: [])
     staticMock.mockingContext.didInvoke(invocation)
-    let implementation = staticMock.stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = staticMock.stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -12705,11 +15349,11 @@ public final class ParentMock: MockingbirdTestsHost.Parent, Mockingbird.Mock {
   public override func `parentTrivialInstanceMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`parentTrivialInstanceMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -12728,7 +15372,7 @@ public func mock(_ type: MockingbirdTestsHost.Parent.Type, file: StaticString = 
 
 public final class ReferencedGenericClassWithConstraintsMock<S: Sequence>: MockingbirdTestsHost.ReferencedGenericClassWithConstraints<S>, Mockingbird.Mock where S.Element: Swift.Hashable {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(S.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(S.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "ReferencedGenericClassWithConstraintsMock<S: Sequence>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -12762,7 +15406,7 @@ public func mock<S: Sequence>(_ type: ReferencedGenericClassWithConstraintsMock<
 
 public final class ReferencedGenericClassMock<T>: MockingbirdTestsHost.ReferencedGenericClass<T>, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(T.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(T.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "ReferencedGenericClassMock<T>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -12881,11 +15525,15 @@ public final class RethrowingProtocolMock: MockingbirdTestsHost.RethrowingProtoc
   public func `rethrowingMethod`(`block`: () throws -> Bool) rethrows -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`rethrowingMethod`(`block`: () throws -> Bool) rethrows -> Bool", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() throws -> Bool>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (() throws -> Bool) -> Bool {
       return concreteImplementation(`block`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -12900,11 +15548,11 @@ public final class RethrowingProtocolMock: MockingbirdTestsHost.RethrowingProtoc
   public func `rethrowingMethod`(`block`: () throws -> Bool) rethrows -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`rethrowingMethod`(`block`: () throws -> Bool) rethrows -> Void", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() throws -> Bool>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (() throws -> Bool) -> Void {
       concreteImplementation(`block`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -12924,7 +15572,7 @@ public func mock(_ type: MockingbirdTestsHost.RethrowingProtocol.Protocol, file:
 
 public final class SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType: Sequence & Swift.Hashable>: MockingbirdTestsHost.SecondLevelSelfConstrainedAssociatedTypeProtocol, MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(SequenceType.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(SequenceType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType: Sequence & Swift.Hashable>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -12952,11 +15600,11 @@ public final class SecondLevelSelfConstrainedAssociatedTypeProtocolMock<Sequence
   public func `request`<T: Sequence>(`array`: T) -> Void where T.Element == SecondLevelSelfConstrainedAssociatedTypeProtocolMock {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: Sequence>(`array`: T) -> Void where T.Element == SecondLevelSelfConstrainedAssociatedTypeProtocolMock", arguments: [Mockingbird.ArgumentMatcher(`array`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T) -> Void {
       concreteImplementation(`array`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -12971,11 +15619,11 @@ public final class SecondLevelSelfConstrainedAssociatedTypeProtocolMock<Sequence
   public func `request`(`array`: SequenceType) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`array`: SequenceType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`array`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (SequenceType) -> Void {
       concreteImplementation(`array`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -12990,11 +15638,11 @@ public final class SecondLevelSelfConstrainedAssociatedTypeProtocolMock<Sequence
   public func `request`(`object`: SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (SecondLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void {
       concreteImplementation(`object`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -13031,7 +15679,14 @@ public final class ServiceRepositoryMock: MockingbirdTestsHost.ServiceRepository
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "testManager.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> MockingbirdTestsHost.TestManager)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.TestManager {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.TestManager).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -13055,7 +15710,7 @@ public func mock(_ type: MockingbirdTestsHost.ServiceRepository.Protocol, file: 
 
 public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.ShadowedGenericType<ShadowedType>, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(ShadowedType.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(ShadowedType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "ShadowedGenericTypeMock<ShadowedType>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -13084,11 +15739,15 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
   public override func `shadowedClassScope`(`param`: ShadowedType) -> ShadowedType {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: ShadowedType) -> ShadowedType", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (ShadowedType) -> ShadowedType {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> ShadowedType {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (ShadowedType).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ShadowedType)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -13103,11 +15762,15 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
   public override func `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (ShadowedType) -> ShadowedType {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> ShadowedType {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (ShadowedType).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ShadowedType)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -13150,11 +15813,15 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
     public override func `shadowedClassScope`(`param`: ShadowedType) -> ShadowedType {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: ShadowedType) -> ShadowedType", arguments: [Mockingbird.ArgumentMatcher(`param`)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: false)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (ShadowedType) -> ShadowedType {
         return concreteImplementation(`param`)
+      } else if let concreteImplementation = implementation as? () -> ShadowedType {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (ShadowedType).self) {
+        return defaultValue
       } else {
-        return (implementation as! () -> ShadowedType)()
+        fatalError(stubbingContext.failTest(for: invocation))
       }
     }
 
@@ -13169,11 +15836,15 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
     public override func `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: [Mockingbird.ArgumentMatcher(`param`)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: false)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (ShadowedType) -> ShadowedType {
         return concreteImplementation(`param`)
+      } else if let concreteImplementation = implementation as? () -> ShadowedType {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (ShadowedType).self) {
+        return defaultValue
       } else {
-        return (implementation as! () -> ShadowedType)()
+        fatalError(stubbingContext.failTest(for: invocation))
       }
     }
 
@@ -13188,7 +15859,7 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
 
   public final class NestedDoublyShadowedGenericTypeMock<ShadowedType>: NestedDoublyShadowedGenericType<ShadowedType>, Mockingbird.Mock {
     static var staticMock: Mockingbird.StaticMock {
-      let runtimeGenericTypeNames = ["\(ShadowedType.self)"].joined(separator: ",")
+      let runtimeGenericTypeNames = [ObjectIdentifier(ShadowedType.self).debugDescription].joined(separator: ",")
       let staticMockIdentifier = "NestedDoublyShadowedGenericTypeMock<ShadowedType>," + runtimeGenericTypeNames
       if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
       let staticMock = Mockingbird.StaticMock()
@@ -13217,11 +15888,15 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
     public override func `shadowedClassScope`(`param`: ShadowedType) -> ShadowedType {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: ShadowedType) -> ShadowedType", arguments: [Mockingbird.ArgumentMatcher(`param`)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: false)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (ShadowedType) -> ShadowedType {
         return concreteImplementation(`param`)
+      } else if let concreteImplementation = implementation as? () -> ShadowedType {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (ShadowedType).self) {
+        return defaultValue
       } else {
-        return (implementation as! () -> ShadowedType)()
+        fatalError(stubbingContext.failTest(for: invocation))
       }
     }
 
@@ -13236,11 +15911,15 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
     public override func `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: [Mockingbird.ArgumentMatcher(`param`)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: false)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (ShadowedType) -> ShadowedType {
         return concreteImplementation(`param`)
+      } else if let concreteImplementation = implementation as? () -> ShadowedType {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (ShadowedType).self) {
+        return defaultValue
       } else {
-        return (implementation as! () -> ShadowedType)()
+        fatalError(stubbingContext.failTest(for: invocation))
       }
     }
 
@@ -13288,7 +15967,14 @@ public final class SpecializedGenericProtocolMock: MockingbirdTestsHost.GenericB
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -13308,11 +15994,15 @@ public final class SpecializedGenericProtocolMock: MockingbirdTestsHost.GenericB
   public override func `baseMethod`(`param`: Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool) -> Bool {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -13349,7 +16039,14 @@ public final class SpecializedGenericSubclassMock: MockingbirdTestsHost.Speciali
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -13369,11 +16066,15 @@ public final class SpecializedGenericSubclassMock: MockingbirdTestsHost.Speciali
   public override func `baseMethod`(`param`: Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool) -> Bool {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -13415,11 +16116,15 @@ public final class SpecializedShadowedGenericProtocolMock: MockingbirdTestsHost.
   public override func `shadowedClassScope`(`param`: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.NSObject {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.NSObject).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdTestsHost.NSObject)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -13434,11 +16139,15 @@ public final class SpecializedShadowedGenericProtocolMock: MockingbirdTestsHost.
   public override func `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (ShadowedType) -> ShadowedType {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> ShadowedType {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (ShadowedType).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ShadowedType)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -13480,11 +16189,15 @@ public final class SpecializedShadowedGenericSubclassMock: MockingbirdTestsHost.
   public override func `shadowedClassScope`(`param`: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedClassScope`(`param`: MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.NSObject {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.NSObject).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdTestsHost.NSObject)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -13499,11 +16212,15 @@ public final class SpecializedShadowedGenericSubclassMock: MockingbirdTestsHost.
   public override func `shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`shadowedFunctionScope`<ShadowedType>(`param`: ShadowedType) -> ShadowedType", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (ShadowedType) -> ShadowedType {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> ShadowedType {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (ShadowedType).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ShadowedType)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -13548,12 +16265,19 @@ public final class SubclassingExternalClassWithDesignatedIntializerMock: Mocking
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "internalVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "internalVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -13579,12 +16303,19 @@ public final class SubclassingExternalClassWithDesignatedIntializerMock: Mocking
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -13618,11 +16349,11 @@ public final class SubclassingExternalClassWithDesignatedIntializerMock: Mocking
   public override func `internalMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`internalMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -13636,11 +16367,11 @@ public final class SubclassingExternalClassWithDesignatedIntializerMock: Mocking
   public override func `openMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`openMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -13684,12 +16415,19 @@ public final class SubclassingExternalClassWithInheritedIntializerMock: Mockingb
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "internalVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "internalVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -13715,12 +16453,19 @@ public final class SubclassingExternalClassWithInheritedIntializerMock: Mockingb
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -13754,11 +16499,11 @@ public final class SubclassingExternalClassWithInheritedIntializerMock: Mockingb
   public override func `internalMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`internalMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -13772,11 +16517,11 @@ public final class SubclassingExternalClassWithInheritedIntializerMock: Mockingb
   public override func `openMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`openMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -13820,12 +16565,19 @@ public final class SubclassingExternalSubclassWithDesignatedInitializerMock: Moc
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseOpenVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseOpenVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -13851,12 +16603,19 @@ public final class SubclassingExternalSubclassWithDesignatedInitializerMock: Moc
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "internalVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "internalVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -13882,12 +16641,19 @@ public final class SubclassingExternalSubclassWithDesignatedInitializerMock: Moc
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -13912,11 +16678,11 @@ public final class SubclassingExternalSubclassWithDesignatedInitializerMock: Moc
   public override func `baseOpenMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseOpenMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -13939,11 +16705,11 @@ public final class SubclassingExternalSubclassWithDesignatedInitializerMock: Moc
   public override func `internalMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`internalMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -13957,11 +16723,11 @@ public final class SubclassingExternalSubclassWithDesignatedInitializerMock: Moc
   public override func `openMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`openMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -14005,12 +16771,19 @@ public final class SubclassingExternalSubclassWithInheritedInitializerMock: Mock
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseOpenVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseOpenVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -14036,12 +16809,19 @@ public final class SubclassingExternalSubclassWithInheritedInitializerMock: Mock
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "internalVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "internalVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -14067,12 +16847,19 @@ public final class SubclassingExternalSubclassWithInheritedInitializerMock: Mock
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "openVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -14097,11 +16884,11 @@ public final class SubclassingExternalSubclassWithInheritedInitializerMock: Mock
   public override func `baseOpenMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseOpenMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -14124,11 +16911,11 @@ public final class SubclassingExternalSubclassWithInheritedInitializerMock: Mock
   public override func `internalMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`internalMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -14142,11 +16929,11 @@ public final class SubclassingExternalSubclassWithInheritedInitializerMock: Mock
   public override func `openMethod`() -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`openMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Void {
       concreteImplementation()
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -14190,12 +16977,19 @@ public final class SubclassingExternalTopLevelTypeMock: MockingbirdTestsHost.Sub
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "secondLevelType.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> SecondLevelType)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> SecondLevelType {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (SecondLevelType).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "secondLevelType.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (SecondLevelType) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -14255,11 +17049,15 @@ public final class TestCaseMock: MockingbirdTestsHost.TestCase, Mockingbird.Mock
   public func `run`(`description`: String) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`run`(`description`: String) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`description`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (String) -> Bool {
       return concreteImplementation(`description`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -14296,7 +17094,14 @@ public final class TestManagerMock: MockingbirdTestsHost.TestManager, Mockingbir
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "currentTest.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> MockingbirdTestsHost.Test)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.Test {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.Test).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -14315,11 +17120,15 @@ public final class TestManagerMock: MockingbirdTestsHost.TestManager, Mockingbir
   public func `stopTests`() -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`stopTests`() -> Bool", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> Bool {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -14355,7 +17164,14 @@ public final class TestMock: MockingbirdTestsHost.Test, Mockingbird.Mock {
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "testCase.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> MockingbirdTestsHost.TestCase)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.TestCase {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.TestCase).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -14374,11 +17190,15 @@ public final class TestMock: MockingbirdTestsHost.Test, Mockingbird.Mock {
   public func `add`(`testCase`: MockingbirdTestsHost.TestCase) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`add`(`testCase`: MockingbirdTestsHost.TestCase) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`testCase`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.TestCase) -> Bool {
       return concreteImplementation(`testCase`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -14419,11 +17239,15 @@ public final class ThrowingProtocolMock: MockingbirdTestsHost.ThrowingProtocol, 
   public func `throwingMethod`() throws -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`throwingMethod`() throws -> Bool", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () throws -> Bool {
       return try concreteImplementation()
+    } else if let concreteImplementation = implementation as? () throws -> Bool {
+      return try concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return try (implementation as! () throws -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -14437,11 +17261,11 @@ public final class ThrowingProtocolMock: MockingbirdTestsHost.ThrowingProtocol, 
   public func `throwingMethod`() throws -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`throwingMethod`() throws -> Void", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () throws -> Void {
       try concreteImplementation()
-    } else {
-      try (implementation as? () throws -> Void)?()
+    } else if let concreteImplementation = implementation as? () throws -> Void {
+      try concreteImplementation()
     }
   }
 
@@ -14455,11 +17279,11 @@ public final class ThrowingProtocolMock: MockingbirdTestsHost.ThrowingProtocol, 
   public func `throwingMethod`(`block`: () throws -> Bool) throws -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`throwingMethod`(`block`: () throws -> Bool) throws -> Void", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<() throws -> Bool>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (() throws -> Bool) throws -> Void {
       try concreteImplementation(`block`)
-    } else {
-      try (implementation as? () throws -> Void)?()
+    } else if let concreteImplementation = implementation as? () throws -> Void {
+      try concreteImplementation()
     }
   }
 
@@ -14479,7 +17303,7 @@ public func mock(_ type: MockingbirdTestsHost.ThrowingProtocol.Protocol, file: S
 
 public final class TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType: Sequence & Swift.Hashable>: MockingbirdTestsHost.TopLevelSelfConstrainedAssociatedTypeProtocol, MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol, MockingbirdTestsHost.SecondLevelSelfConstrainedAssociatedTypeProtocol, Mockingbird.Mock where Element: Swift.Hashable {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(Element.self)", "\(SequenceType.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(Element.self).debugDescription, ObjectIdentifier(SequenceType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType: Sequence & Swift.Hashable>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -14507,11 +17331,11 @@ public final class TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, Se
   public func `request`<T: Sequence>(`array`: T) -> Void where T.Element == TopLevelSelfConstrainedAssociatedTypeProtocolMock {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: Sequence>(`array`: T) -> Void where T.Element == TopLevelSelfConstrainedAssociatedTypeProtocolMock", arguments: [Mockingbird.ArgumentMatcher(`array`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T) -> Void {
       concreteImplementation(`array`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -14526,11 +17350,11 @@ public final class TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, Se
   public func `request`(`array`: SequenceType) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`array`: SequenceType) -> Void", arguments: [Mockingbird.ArgumentMatcher(`array`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (SequenceType) -> Void {
       concreteImplementation(`array`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -14545,11 +17369,11 @@ public final class TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, Se
   public func `request`(`object`: TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`object`: TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void", arguments: [Mockingbird.ArgumentMatcher(`object`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (TopLevelSelfConstrainedAssociatedTypeProtocolMock) -> Void {
       concreteImplementation(`object`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -14591,11 +17415,15 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
   public override func `topLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType.SecondLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`topLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType.SecondLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.TopLevelType.SecondLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool {
       return concreteImplementation(`param1`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -14631,11 +17459,15 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
     public override func `secondLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`secondLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: false)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool {
         return concreteImplementation(`param1`, `param2`)
+      } else if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
       } else {
-        return (implementation as! () -> Bool)()
+        fatalError(stubbingContext.failTest(for: invocation))
       }
     }
 
@@ -14671,11 +17503,15 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       public override func `thirdLevelInheritingMethod`() -> MockingbirdTestsHost.TopLevelType {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`thirdLevelInheritingMethod`() -> MockingbirdTestsHost.TopLevelType", arguments: [])
         mockingContext.didInvoke(invocation)
-        let implementation = stubbingContext.implementation(for: invocation, optional: false)
+        let implementation = stubbingContext.implementation(for: invocation)
         if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.TopLevelType {
           return concreteImplementation()
+        } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.TopLevelType {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.TopLevelType).self) {
+          return defaultValue
         } else {
-          return (implementation as! () -> MockingbirdTestsHost.TopLevelType)()
+          fatalError(stubbingContext.failTest(for: invocation))
         }
       }
 
@@ -14689,11 +17525,15 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       public override func `topLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType.SecondLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`topLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType.SecondLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
         mockingContext.didInvoke(invocation)
-        let implementation = stubbingContext.implementation(for: invocation, optional: false)
+        let implementation = stubbingContext.implementation(for: invocation)
         if let concreteImplementation = implementation as? (MockingbirdTestsHost.TopLevelType.SecondLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType) -> Bool {
           return concreteImplementation(`param1`, `param2`)
+        } else if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
         } else {
-          return (implementation as! () -> Bool)()
+          fatalError(stubbingContext.failTest(for: invocation))
         }
       }
 
@@ -14730,11 +17570,15 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       public override func `thirdLevelInheritingMethod`() -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`thirdLevelInheritingMethod`() -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType", arguments: [])
         mockingContext.didInvoke(invocation)
-        let implementation = stubbingContext.implementation(for: invocation, optional: false)
+        let implementation = stubbingContext.implementation(for: invocation)
         if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType {
           return concreteImplementation()
+        } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType).self) {
+          return defaultValue
         } else {
-          return (implementation as! () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType)()
+          fatalError(stubbingContext.failTest(for: invocation))
         }
       }
 
@@ -14748,11 +17592,15 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       public override func `thirdLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`thirdLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
         mockingContext.didInvoke(invocation)
-        let implementation = stubbingContext.implementation(for: invocation, optional: false)
+        let implementation = stubbingContext.implementation(for: invocation)
         if let concreteImplementation = implementation as? (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool {
           return concreteImplementation(`param1`, `param2`)
+        } else if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
         } else {
-          return (implementation as! () -> Bool)()
+          fatalError(stubbingContext.failTest(for: invocation))
         }
       }
 
@@ -14789,11 +17637,15 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       public override func `thirdLevelInheritingMethod`() -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`thirdLevelInheritingMethod`() -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType", arguments: [])
         mockingContext.didInvoke(invocation)
-        let implementation = stubbingContext.implementation(for: invocation, optional: false)
+        let implementation = stubbingContext.implementation(for: invocation)
         if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType {
           return concreteImplementation()
+        } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType).self) {
+          return defaultValue
         } else {
-          return (implementation as! () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType)()
+          fatalError(stubbingContext.failTest(for: invocation))
         }
       }
 
@@ -14807,11 +17659,15 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       public override func `thirdLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`thirdLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
         mockingContext.didInvoke(invocation)
-        let implementation = stubbingContext.implementation(for: invocation, optional: false)
+        let implementation = stubbingContext.implementation(for: invocation)
         if let concreteImplementation = implementation as? (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool {
           return concreteImplementation(`param1`, `param2`)
+        } else if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
         } else {
-          return (implementation as! () -> Bool)()
+          fatalError(stubbingContext.failTest(for: invocation))
         }
       }
 
@@ -14848,11 +17704,15 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       public override func `thirdLevelInheritingMethod`() -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`thirdLevelInheritingMethod`() -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType", arguments: [])
         mockingContext.didInvoke(invocation)
-        let implementation = stubbingContext.implementation(for: invocation, optional: false)
+        let implementation = stubbingContext.implementation(for: invocation)
         if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType {
           return concreteImplementation()
+        } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType).self) {
+          return defaultValue
         } else {
-          return (implementation as! () -> MockingbirdTestsHost.TopLevelType.SecondLevelType.ThirdLevelType)()
+          fatalError(stubbingContext.failTest(for: invocation))
         }
       }
 
@@ -14866,11 +17726,15 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       public override func `thirdLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`thirdLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
         mockingContext.didInvoke(invocation)
-        let implementation = stubbingContext.implementation(for: invocation, optional: false)
+        let implementation = stubbingContext.implementation(for: invocation)
         if let concreteImplementation = implementation as? (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool {
           return concreteImplementation(`param1`, `param2`)
+        } else if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
         } else {
-          return (implementation as! () -> Bool)()
+          fatalError(stubbingContext.failTest(for: invocation))
         }
       }
 
@@ -14907,11 +17771,15 @@ public final class TopLevelTypeMock: MockingbirdTestsHost.TopLevelType, Mockingb
       public override func `thirdLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool {
         let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`thirdLevelMethod`(`param1`: MockingbirdTestsHost.TopLevelType, `param2`: MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
         mockingContext.didInvoke(invocation)
-        let implementation = stubbingContext.implementation(for: invocation, optional: false)
+        let implementation = stubbingContext.implementation(for: invocation)
         if let concreteImplementation = implementation as? (MockingbirdTestsHost.TopLevelType, MockingbirdTestsHost.TopLevelType.SecondLevelType) -> Bool {
           return concreteImplementation(`param1`, `param2`)
+        } else if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
         } else {
-          return (implementation as! () -> Bool)()
+          fatalError(stubbingContext.failTest(for: invocation))
         }
       }
 
@@ -15044,7 +17912,14 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "anotherVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> (Foundation.URL, Foundation.NSObject))()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> (Foundation.URL, Foundation.NSObject) {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((Foundation.URL, Foundation.NSObject)).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -15059,7 +17934,14 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "labeledAnotherVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)) {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -15074,7 +17956,14 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "labeledVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)))()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)) {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -15089,7 +17978,14 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalAnotherVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> (Foundation.URL?, Foundation.NSObject?))()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> (Foundation.URL?, Foundation.NSObject?) {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((Foundation.URL?, Foundation.NSObject?)).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -15104,7 +18000,14 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalLabeledAnotherVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?))()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?) {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL?, Foundation.NSObject?)?)).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -15119,7 +18022,14 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalLabeledVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> (a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?))()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> (a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?) {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((a: MockingbirdTestsHost.URL?, b: MockingbirdTestsHost.NSObject?, (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)?)).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -15134,7 +18044,14 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "optionalVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?))()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> (MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?) {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((MockingbirdTestsHost.URL?, MockingbirdTestsHost.NSObject?)).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -15149,7 +18066,14 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject) {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -15168,11 +18092,15 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func `labeledMethod`() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`labeledMethod`() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15186,11 +18114,15 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func `labeledMethod`() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`labeledMethod`() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15204,11 +18136,15 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func `labeledMethod`() -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`labeledMethod`() -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15222,11 +18158,15 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func `labeledMethod`() -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`labeledMethod`() -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15240,11 +18180,11 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func `labeledMethod`(`param1`: (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), `param2`: (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`labeledMethod`(`param1`: (a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), `param2`: (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> Void {
       concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -15259,11 +18199,15 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func `labeledMethodWithParameterLabels`() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`labeledMethodWithParameterLabels`() -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject)))).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))) -> ((a: MockingbirdTestsHost.URL, b: MockingbirdTestsHost.NSObject, (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)), (a: Foundation.URL, b: Foundation.NSObject, (Foundation.URL, Foundation.NSObject))))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15277,11 +18221,15 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func `method`() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15295,11 +18243,15 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func `method`() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15313,11 +18265,15 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func `method`() -> (Foundation.URL, Foundation.NSObject) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> (Foundation.URL, Foundation.NSObject)", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> (Foundation.URL, Foundation.NSObject) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (Foundation.URL, Foundation.NSObject) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((Foundation.URL, Foundation.NSObject)).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> (Foundation.URL, Foundation.NSObject))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15331,11 +18287,15 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func `method`() -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`() -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject)).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15349,11 +18309,11 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func `method`(`param1`: (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), `param2`: (Foundation.URL, Foundation.NSObject)) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(`param1`: (MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), `param2`: (Foundation.URL, Foundation.NSObject)) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> Void {
       concreteImplementation(`param1`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -15368,11 +18328,15 @@ public final class TupleTypesMock: MockingbirdTestsHost.TupleTypes, Mockingbird.
   public func `methodWithParameterLabels`() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`methodWithParameterLabels`() -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))", arguments: [])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) {
       return concreteImplementation()
+    } else if let concreteImplementation = implementation as? () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject))).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)) -> ((MockingbirdTestsHost.URL, MockingbirdTestsHost.NSObject), (Foundation.URL, Foundation.NSObject)))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15413,11 +18377,15 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
   public override func `request`(`callback`: MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Foundation.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`callback`: MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<MockingbirdTestsHost.TypealiasedClass.IndirectCallback>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> Foundation.NSObject {
       return concreteImplementation(`callback`)
+    } else if let concreteImplementation = implementation as? () -> Foundation.NSObject {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Foundation.NSObject).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Foundation.NSObject)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15432,11 +18400,15 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
   public override func `request`(`callback`: MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`callback`: MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<MockingbirdTestsHost.TypealiasedClass.IndirectCallback>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult {
       return concreteImplementation(`callback`)
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15451,11 +18423,15 @@ public final class TypealiasedClassMock: MockingbirdTestsHost.TypealiasedClass, 
   public override func `request`(`escapingCallback`: @escaping MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`escapingCallback`: @escaping MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult", arguments: [Mockingbird.ArgumentMatcher(`escapingCallback`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (@escaping MockingbirdTestsHost.TypealiasedClass.IndirectCallback) -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult {
       return concreteImplementation(`escapingCallback`)
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdTestsHost.TypealiasedClass.IndirectRequestResult)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15496,11 +18472,15 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
   public func `request`(`callback`: MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Foundation.NSObject {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`callback`: MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Foundation.NSObject", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> Foundation.NSObject {
       return concreteImplementation(`callback`)
+    } else if let concreteImplementation = implementation as? () -> Foundation.NSObject {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Foundation.NSObject).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Foundation.NSObject)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15515,11 +18495,15 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
   public func `request`(`callback`: MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`callback`: MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult", arguments: [Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback>())])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult {
       return concreteImplementation(`callback`)
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15534,11 +18518,15 @@ public final class TypealiasedProtocolMock: MockingbirdTestsHost.TypealiasedProt
   public func `request`(`escapingCallback`: @escaping MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`(`escapingCallback`: @escaping MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult", arguments: [Mockingbird.ArgumentMatcher(`escapingCallback`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (@escaping MockingbirdTestsHost.TypealiasedProtocol.IndirectCallback) -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult {
       return concreteImplementation(`escapingCallback`)
+    } else if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> MockingbirdTestsHost.TypealiasedProtocol.IndirectRequestResult)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15558,7 +18546,7 @@ public func mock(_ type: MockingbirdTestsHost.TypealiasedProtocol.Protocol, file
 
 public final class UnalphabetizedGenericClassMock<C, B, A>: MockingbirdTestsHost.UnalphabetizedGenericClass<C, B, A>, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(A.self)", "\(B.self)", "\(C.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(A.self).debugDescription, ObjectIdentifier(B.self).debugDescription, ObjectIdentifier(C.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "UnalphabetizedGenericClassMock<C, B, A>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -15587,11 +18575,15 @@ public final class UnalphabetizedGenericClassMock<C, B, A>: MockingbirdTestsHost
   public override func `genericMethod`<Z, Y, X>(`x`: X, `y`: Y, `z`: Z) -> (X, Y, Z) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericMethod`<Z, Y, X>(`x`: X, `y`: Y, `z`: Z) -> (X, Y, Z)", arguments: [Mockingbird.ArgumentMatcher(`x`), Mockingbird.ArgumentMatcher(`y`), Mockingbird.ArgumentMatcher(`z`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (X, Y, Z) -> (X, Y, Z) {
       return concreteImplementation(`x`, `y`, `z`)
+    } else if let concreteImplementation = implementation as? () -> (X, Y, Z) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((X, Y, Z)).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> (X, Y, Z))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15606,11 +18598,15 @@ public final class UnalphabetizedGenericClassMock<C, B, A>: MockingbirdTestsHost
   public override func `genericReferencingMethod`(`a`: A, `b`: B, `c`: C) -> (A, B, C) {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`genericReferencingMethod`(`a`: A, `b`: B, `c`: C) -> (A, B, C)", arguments: [Mockingbird.ArgumentMatcher(`a`), Mockingbird.ArgumentMatcher(`b`), Mockingbird.ArgumentMatcher(`c`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (A, B, C) -> (A, B, C) {
       return concreteImplementation(`a`, `b`, `c`)
+    } else if let concreteImplementation = implementation as? () -> (A, B, C) {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((A, B, C)).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> (A, B, C))()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15651,11 +18647,15 @@ public final class UndefinedArgumentLabelsMock: MockingbirdTestsHost.UndefinedAr
   public func `method`(_ `param1`: Bool, _ `param2`: String, _ `someParam`: Int, _ `param4`: Bool) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`method`(_ `param1`: Bool, _ `param2`: String, _ `someParam`: Int, _ `param4`: Bool) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`param2`), Mockingbird.ArgumentMatcher(`someParam`), Mockingbird.ArgumentMatcher(`param4`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Bool, String, Int, Bool) -> Bool {
       return concreteImplementation(`param1`, `param2`, `someParam`, `param4`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15675,7 +18675,7 @@ public func mock(_ type: MockingbirdTestsHost.UndefinedArgumentLabels.Protocol, 
 
 public final class UnspecializedGenericSubclassMock<T>: MockingbirdTestsHost.UnspecializedGenericSubclass<T>, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(T.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(T.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "UnspecializedGenericSubclassMock<T>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -15699,7 +18699,14 @@ public final class UnspecializedGenericSubclassMock<T>: MockingbirdTestsHost.Uns
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> T)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> T {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -15719,11 +18726,15 @@ public final class UnspecializedGenericSubclassMock<T>: MockingbirdTestsHost.Uns
   public override func `baseMethod`(`param`: T) -> T {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: T) -> T", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T) -> T {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> T {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> T)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15743,7 +18754,7 @@ public func mock<T>(_ type: UnspecializedGenericSubclassMock<T>.Type, file: Stat
 
 public final class UnspecializedMultipleGenericSubclassMock<T, R>: MockingbirdTestsHost.UnspecializedMultipleGenericSubclass<T, R>, Mockingbird.Mock {
   static var staticMock: Mockingbird.StaticMock {
-    let runtimeGenericTypeNames = ["\(R.self)", "\(T.self)"].joined(separator: ",")
+    let runtimeGenericTypeNames = [ObjectIdentifier(R.self).debugDescription, ObjectIdentifier(T.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "UnspecializedMultipleGenericSubclassMock<T, R>," + runtimeGenericTypeNames
     if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
     let staticMock = Mockingbird.StaticMock()
@@ -15767,7 +18778,14 @@ public final class UnspecializedMultipleGenericSubclassMock<T, R>: MockingbirdTe
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "baseVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> T)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> T {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -15787,11 +18805,15 @@ public final class UnspecializedMultipleGenericSubclassMock<T, R>: MockingbirdTe
   public override func `baseMethod`(`param`: T) -> T {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`baseMethod`(`param`: T) -> T", arguments: [Mockingbird.ArgumentMatcher(`param`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (T) -> T {
       return concreteImplementation(`param`)
+    } else if let concreteImplementation = implementation as? () -> T {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> T)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -15828,7 +18850,14 @@ public final class VariablesContainerProtocolMock: MockingbirdTestsHost.Variable
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "readonlyVariableOverwrittenAsReadwrite.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -15877,12 +18906,19 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "computedMutableVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "computedMutableVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -15908,12 +18944,19 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "computedVariableWithDidSetObserver.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "computedVariableWithDidSetObserver.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -15939,12 +18982,19 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "computedVariableWithWillSetObserver.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "computedVariableWithWillSetObserver.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -15970,7 +19020,14 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "computedVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
   }
 
@@ -15985,12 +19042,19 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "lazyVariableWithExplicitType.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "lazyVariableWithExplicitType.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -16016,12 +19080,19 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "lazyVariableWithImplicitType.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "lazyVariableWithImplicitType.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -16047,12 +19118,19 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "readonlyVariableOverwrittenAsReadwrite.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "readonlyVariableOverwrittenAsReadwrite.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -16078,12 +19156,19 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithExplicitType.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithExplicitType.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -16109,12 +19194,19 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithImplicitType.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithImplicitType.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -16140,12 +19232,19 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "uninitializedVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> Bool)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Bool {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "uninitializedVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (Bool) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -16171,12 +19270,19 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "weakVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> MockingbirdTestsHost.VariablesContainer?)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.VariablesContainer? {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.VariablesContainer?).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "weakVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (MockingbirdTestsHost.VariablesContainer?) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -16237,11 +19343,11 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
   public override func `variadicMethod`(`objects`: Bool..., `param2`: Int) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethod`(`objects`: Bool..., `param2`: Int) -> Void", arguments: [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ([Bool], Int) -> Void {
       concreteImplementation(`objects`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -16261,11 +19367,11 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
   public override func `variadicMethod`(`objects`: String..., `param2`: Int) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethod`(`objects`: String..., `param2`: Int) -> Void", arguments: [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ([String], Int) -> Void {
       concreteImplementation(`objects`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -16285,11 +19391,11 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
   public override func `variadicMethodAsFinalParam`(`param1`: Int, `objects`: String...) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethodAsFinalParam`(`param1`: Int, `objects`: String...) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`objects`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Int, [String]) -> Void {
       concreteImplementation(`param1`, `objects`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -16309,11 +19415,15 @@ public final class VariadicClassMock: MockingbirdTestsHost.VariadicClass, Mockin
   public override func `variadicReturningMethod`(`objects`: Bool..., `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicReturningMethod`(`objects`: Bool..., `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ([Bool], Int) -> Bool {
       return concreteImplementation(`objects`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -16359,11 +19469,11 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   public func `variadicMethod`(`objects`: Bool..., `param2`: Int) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethod`(`objects`: Bool..., `param2`: Int) -> Void", arguments: [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ([Bool], Int) -> Void {
       concreteImplementation(`objects`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -16383,11 +19493,11 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   public func `variadicMethod`(`objects`: String..., `param2`: Int) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethod`(`objects`: String..., `param2`: Int) -> Void", arguments: [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ([String], Int) -> Void {
       concreteImplementation(`objects`, `param2`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -16407,11 +19517,11 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   public func `variadicMethodAsFinalParam`(`param1`: Int, `objects`: String...) -> Void {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicMethodAsFinalParam`(`param1`: Int, `objects`: String...) -> Void", arguments: [Mockingbird.ArgumentMatcher(`param1`), Mockingbird.ArgumentMatcher(`objects`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: true)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? (Int, [String]) -> Void {
       concreteImplementation(`param1`, `objects`)
-    } else {
-      (implementation as? () -> Void)?()
+    } else if let concreteImplementation = implementation as? () -> Void {
+      concreteImplementation()
     }
   }
 
@@ -16431,11 +19541,15 @@ public final class VariadicProtocolMock: MockingbirdTestsHost.VariadicProtocol, 
   public func `variadicReturningMethod`(`objects`: Bool..., `param2`: Int) -> Bool {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`variadicReturningMethod`(`objects`: Bool..., `param2`: Int) -> Bool", arguments: [Mockingbird.ArgumentMatcher(`objects`), Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
-    let implementation = stubbingContext.implementation(for: invocation, optional: false)
+    let implementation = stubbingContext.implementation(for: invocation)
     if let concreteImplementation = implementation as? ([Bool], Int) -> Bool {
       return concreteImplementation(`objects`, `param2`)
+    } else if let concreteImplementation = implementation as? () -> Bool {
+      return concreteImplementation()
+    } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+      return defaultValue
     } else {
-      return (implementation as! () -> Bool)()
+      fatalError(stubbingContext.failTest(for: invocation))
     }
   }
 
@@ -16477,12 +19591,19 @@ public final class ViewControllerExtensionReferencerMock: MockingbirdTestsHost.V
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedClassVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> AppKit.NSViewController.ExtendedClass)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> AppKit.NSViewController.ExtendedClass {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (AppKit.NSViewController.ExtendedClass).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedClassVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (AppKit.NSViewController.ExtendedClass) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -16508,12 +19629,19 @@ public final class ViewControllerExtensionReferencerMock: MockingbirdTestsHost.V
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedEnumVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> AppKit.NSViewController.ExtendedEnum)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> AppKit.NSViewController.ExtendedEnum {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (AppKit.NSViewController.ExtendedEnum).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedEnumVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (AppKit.NSViewController.ExtendedEnum) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -16539,12 +19667,19 @@ public final class ViewControllerExtensionReferencerMock: MockingbirdTestsHost.V
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedNestedClassVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> AppKit.NSViewController.ExtendedEnum.NestedExtendedClass)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> AppKit.NSViewController.ExtendedEnum.NestedExtendedClass {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (AppKit.NSViewController.ExtendedEnum.NestedExtendedClass).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedNestedClassVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (AppKit.NSViewController.ExtendedEnum.NestedExtendedClass) -> Void {
         concreteImplementation(newValue)
       } else {
@@ -16570,12 +19705,19 @@ public final class ViewControllerExtensionReferencerMock: MockingbirdTestsHost.V
     get {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedNestedEnumVariable.get", arguments: [])
       mockingContext.didInvoke(invocation)
-      return (stubbingContext.implementation(for: invocation) as! () -> AppKit.NSViewController.ExtendedClass.NestedExtendedEnum)()
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> AppKit.NSViewController.ExtendedClass.NestedExtendedEnum {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (AppKit.NSViewController.ExtendedClass.NestedExtendedEnum).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
     }
     set {
       let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "extendedNestedEnumVariable.set", arguments: [ArgumentMatcher(newValue)])
       mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation, optional: true)
+      let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? (AppKit.NSViewController.ExtendedClass.NestedExtendedEnum) -> Void {
         concreteImplementation(newValue)
       } else {

@@ -12,26 +12,26 @@ class Synchronized<T> {
   private(set) var unsafeValue: T
   var value: T {
     get {
-      lock.wait()
-      defer { lock.signal() }
+      lock.lock()
+      defer { lock.unlock() }
       return unsafeValue
     }
     
     set {
-      lock.wait()
-      defer { lock.signal() }
+      lock.lock()
+      defer { lock.unlock() }
       unsafeValue = newValue
     }
   }
-  private let lock = DispatchSemaphore(value: 1)
+  private let lock = NSLock()
   
   init(_ value: T) {
     self.unsafeValue = value
   }
   
   func update(_ block: (inout T) throws -> Void) rethrows {
-    lock.wait()
-    defer { lock.signal() }
+    lock.lock()
+    defer { lock.unlock() }
     try block(&unsafeValue)
   }
 }

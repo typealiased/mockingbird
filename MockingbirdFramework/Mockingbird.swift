@@ -33,6 +33,28 @@ public func lastSetValue<T, R>(initial: R) -> StubImplementation<T, R> {
   return StubImplementation(handler: implementation as! T, callback: callback)
 }
 
+/// Adds a value provider to return default values for unstubbed methods. This does not remove
+/// previously added value providers.
+///
+/// - Parameters:
+///   - valueProvider: A value provider to add.
+///   - mocks: A list of mocks that should start using the value provider.
+public func useDefaultValues(from valueProvider: ValueProvider, on mocks: [Mock]) {
+  mocks.forEach({
+    $0.stubbingContext.defaultValueProvider.addSubprovider(valueProvider)
+  })
+}
+
+/// Adds a value provider to return default values for unstubbed methods. This does not remove
+/// previously added value providers.
+///
+/// - Parameters:
+///   - valueProvider: A value provider to add.
+///   - mocks: A single mock that should start using the value provider.
+public func useDefaultValues(from valueProvider: ValueProvider, on mock: Mock) {
+  useDefaultValues(from: valueProvider, on: [mock])
+}
+
 // MARK: - Verification
 
 /// Verify that a mock recieved a specific invocation some number of times.
@@ -66,7 +88,7 @@ public func eventually(_ description: String? = nil,
   return createAsyncContext(description: description, block: block)
 }
 
-// MARK: - Expectation resetting
+// MARK: - Mock resetting
 
 /// Remove all observed invocations _and_ stubbed implementations on a set of mocks.
 ///
@@ -75,6 +97,7 @@ public func reset<M: Mock>(_ mocks: M...) {
   mocks.forEach({
     $0.mockingContext.clearInvocations()
     $0.stubbingContext.clearStubs()
+    $0.stubbingContext.defaultValueProvider.reset()
   })
 }
 
@@ -90,6 +113,13 @@ public func clearInvocations<M: Mock>(on mocks: M...) {
 /// - Parameter mocks: A set of mocks to reset.
 public func clearStubs<M: Mock>(on mocks: M...) {
   mocks.forEach({ $0.stubbingContext.clearStubs() })
+}
+
+/// Remove all registered default values on a set of mocks.
+///
+/// - Parameter mocks: A set of mocks to reset.
+public func clearDefaultValues<M: Mock>(on mocks: M...) {
+  mocks.forEach({ $0.stubbingContext.defaultValueProvider.reset() })
 }
 
 // MARK: - Standard argument matchers
