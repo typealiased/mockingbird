@@ -25,8 +25,15 @@ public class StubbingContext {
   }
   
   func failTest(for invocation: Invocation) -> String {
-    TestKiller().failTest(.missingStubbedImplementation(invocation: invocation), at: sourceLocation)
-    fatalError("Missing stubbed implementation for \(invocation), but unable to force XCTest case to fail")
+    let error = TestFailure.missingStubbedImplementation(invocation: invocation)
+    if let sourceLocation = sourceLocation {
+      MKBFail("\(error)", isFatal: true, file: sourceLocation.file, line: sourceLocation.line)
+    } else {
+      MKBFail("\(error)", isFatal: true)
+    }
+    // Usually test execution has stopped by this point, but unfortunately there's no workaround for
+    // invocations called on background threads.
+    fatalError("Missing stubbed implementation for \(invocation)")
   }
 
   func implementation(for invocation: Invocation) -> Any? {

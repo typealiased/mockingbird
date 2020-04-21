@@ -20,7 +20,7 @@ class TestKiller: NSObject, XCTestObservation {
     }
   }
   
-  private var testCase: XCTestCase?
+  private(set) var testCase: XCTestCase?
   func testCase(_ testCase: XCTestCase,
                 didFailWithDescription description: String,
                 inFile filePath: String?,
@@ -29,25 +29,5 @@ class TestKiller: NSObject, XCTestObservation {
     // happens from outside of the main thread. Dispatching to main doesn't solve the issue.
     testCase.continueAfterFailure = false
     self.testCase = testCase
-  }
-  
-  func failTest(_ error: TestFailure, at sourceLocation: SourceLocation? = nil) {
-    failTest("\(error)", at: sourceLocation)
-  }
-  
-  func failTest(_ message: String, at sourceLocation: SourceLocation? = nil) {
-    if let sourceLocation = sourceLocation {
-      MKBFail(message, file: sourceLocation.file, line: sourceLocation.line)
-    } else {
-      MKBFail(message)
-    }
-    
-    // `XCTest` execution should already be "gracefully" stopped by this point, EXCEPT that
-    // Nimble doesn't respect the `XCTestCase.continueAfterFailure` flag and has no built-in
-    // support for anything similar <https://github.com/Quick/Quick/issues/249>. The hacky
-    // workaround is to force an assertion failure within `xctest` by calling `stop()`
-    // multiple times on the current test run.
-    testCase?.testRun?.stop()
-    testCase?.testRun?.stop()
   }
 }

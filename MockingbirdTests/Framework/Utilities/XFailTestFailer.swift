@@ -11,28 +11,37 @@ import XCTest
 
 class XFailTestFailer: TestFailer {
   private var failures = [String]()
-  
-  private let sourceLocation: (file: String, line: Int)
   private let testCase: XCTestCase
+  private let sourceLocation: (file: String, line: Int)
   
-  init(file: String = #file, line: Int = #line, testCase: XCTestCase) {
-    self.sourceLocation = (file, line)
+  enum Constants {
+    static let threadSemaphoreKey = "kMKBXFailTestSemaphoreKey"
+  }
+  
+  init(testCase: XCTestCase, file: String = #file, line: Int = #line) {
     self.testCase = testCase
+    self.sourceLocation = (file, line)
   }
   
-  func fail(message: String, file: StaticString, line: UInt) {
+  func fail(message: String, isFatal: Bool, file: StaticString, line: UInt) {
     failures.append(message)
-  }
-  
-  func verify(expectedFailures: Int?) {
-    guard failures.count != (expectedFailures ?? failures.count) else { return }
-    let expectedFailuresDescription: String
-    if let expectedFailures = expectedFailures {
-      expectedFailuresDescription = "\(expectedFailures) failure\(expectedFailures == 1 ? "" : "s")"
-    } else {
-      expectedFailuresDescription = "at least 1 failure"
+    
+    guard let semaphore =
+      Thread.current.threadDictionary[Constants.threadSemaphoreKey] as? DispatchSemaphore
+    else {
+      // Not on a XFAIL testing thread, fail the test normally.
+      XCTFail(message, file: file, line: line)
+      return
     }
     
+    semaphore.signal()
+    if isFatal { Thread.exit() }
+  }
+  
+  func verify(expectedFailures: Int = 1) {
+    guard failures.count != expectedFailures else { return }
+    
+    let expectedFailuresDescription = "\(expectedFailures) failure\(expectedFailures == 1 ? "" : "s")"
     let allFailures = failures.isEmpty ? "   No failures recorded" :
       failures.enumerated()
         .map({ (offset: Int, element: String) in

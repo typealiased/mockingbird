@@ -129,7 +129,6 @@ class MethodTemplate: Template {
       \(attributes)
         public \(overridableModifiers)func \(uniqueDeclaration) {
           let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)])
-          \(contextPrefix)mockingContext.didInvoke(invocation)
       \(stubbedImplementationCall)
         }
       """
@@ -314,10 +313,10 @@ class MethodTemplate: Template {
     let returnStatement = !shouldReturn ? "" : "return "
     let returnExpression = !shouldReturn ? "" : """
      else if let defaultValue = \(contextPrefix)stubbingContext.defaultValueProvider.provideValue(for: (\(returnTypeName)).self) {
-          \(returnStatement)defaultValue
-        } else {
-          fatalError(\(contextPrefix)stubbingContext.failTest(for: invocation))
-        }
+            \(returnStatement)defaultValue
+          } else {
+            fatalError(\(contextPrefix)stubbingContext.failTest(for: invocation))
+          }
     """
     
     let implementationType = "(\(methodParameterTypes)) \(returnTypeAttributesForMatching)-> \(returnTypeName)"
@@ -327,12 +326,14 @@ class MethodTemplate: Template {
     // 2. Stubbed implementation without args
     // 3. Fakeable default value fallback
     return """
-        let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation)
-        if let concreteImplementation = implementation as? \(implementationType) {
-          \(returnStatement)\(tryInvocation)concreteImplementation(\(methodParameterNamesForInvocation))
-        } else if let concreteImplementation = implementation as? \(noArgsImplementationType) {
-          \(returnStatement)\(tryInvocation)concreteImplementation()
-        }\(returnExpression)
+        \(returnStatement)\(tryInvocation)\(contextPrefix)mockingContext.didInvoke(invocation) { () -> \(returnTypeName) in
+          let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation)
+          if let concreteImplementation = implementation as? \(implementationType) {
+            \(returnStatement)\(tryInvocation)concreteImplementation(\(methodParameterNamesForInvocation))
+          } else if let concreteImplementation = implementation as? \(noArgsImplementationType) {
+            \(returnStatement)\(tryInvocation)concreteImplementation()
+          }\(returnExpression)
+        }
     """
   }()
   
