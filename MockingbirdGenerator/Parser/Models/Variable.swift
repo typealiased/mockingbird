@@ -47,9 +47,11 @@ struct Variable: Hashable, Comparable {
         || kind.typeScope == .class
         || (kind.typeScope == .static && rootKind == .protocol) else { return nil }
     
-    guard let name = dictionary[SwiftDocKey.name.rawValue] as? String,
-      let accessLevel = AccessLevel(from: dictionary),
-      accessLevel.isMockableMember(in: rootKind, withinSameModule: rawType.parsedFile.shouldMock)
+    guard let name = dictionary[SwiftDocKey.name.rawValue] as? String else { return nil }
+    
+    let accessLevel = AccessLevel(from: dictionary) ?? .defaultLevel
+    guard accessLevel.isMockableMember(in: rootKind,
+                                       withinSameModule: rawType.parsedFile.shouldMock)
       else { return nil }
     self.accessLevel = accessLevel
     

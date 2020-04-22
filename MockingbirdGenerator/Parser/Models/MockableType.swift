@@ -64,9 +64,11 @@ class MockableType: Hashable, Comparable {
         rawTypeRepository: RawTypeRepository,
         typealiasRepository: TypealiasRepository) {
     guard let baseRawType = rawTypes.findBaseRawType(),
-      baseRawType.kind.isMockable,
-      let accessLevel = AccessLevel(from: baseRawType.dictionary),
-      accessLevel.isMockableType(withinSameModule: baseRawType.parsedFile.shouldMock)
+      baseRawType.kind.isMockable
+      else { return nil }
+    
+    let accessLevel = AccessLevel(from: baseRawType.dictionary) ?? .defaultLevel
+    guard accessLevel.isMockableType(withinSameModule: baseRawType.parsedFile.shouldMock)
       else { return nil }
     // Handle empty types (declared without any members).
     let substructure = baseRawType.dictionary[SwiftDocKey.substructure.rawValue]

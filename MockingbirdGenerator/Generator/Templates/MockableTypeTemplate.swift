@@ -301,6 +301,7 @@ class MockableTypeTemplate: Template {
   func isOverridable(method: Method) -> Bool {
     // Not possible to override overloaded methods where uniqueness is from generic constraints.
     // https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
+    // This is fixed in Swift 5.2, so non-overridable methods require compilation conditions.
     guard mockableType.kind == .class || mockableType.primarySelfConformanceType != nil
       else { return true }
     guard !method.whereClauses.isEmpty || !method.genericTypes.isEmpty else { return true }
@@ -309,9 +310,18 @@ class MockableTypeTemplate: Template {
   
   func renderMethods() -> String {
     return Set(mockableType.methods)
-      .filter(isOverridable)
       .sorted(by: <)
-      .map({ methodTemplate(for: $0).render() })
+      .map({
+        let renderedMethod = methodTemplate(for: $0).render()
+        guard !isOverridable(method: $0) else { return renderedMethod }
+        return """
+          #if swift(>=5.2)
+        
+        \(renderedMethod)
+        
+          #endif
+        """
+      })
       .filter({ !$0.isEmpty })
       .joined(separator: "\n\n")
   }
