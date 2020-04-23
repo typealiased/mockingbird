@@ -26,6 +26,8 @@ class FlattenInheritanceOperation: BasicOperation {
   
   let result = Result()
   
+  override var description: String { "Flatten Inheritance" }
+  
   init(rawType: [RawType],
        moduleDependencies: [String: Set<String>],
        rawTypeRepository: RawTypeRepository,
@@ -198,6 +200,7 @@ class FlattenInheritanceOperation: BasicOperation {
     FlattenInheritanceOperation.memoizedMockbleTypes.update {
       $0[fullyQualifiedName] = mockableType
     }
+    retainForever(mockableType)
     return mockableType
   }
 }

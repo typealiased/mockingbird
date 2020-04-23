@@ -12,7 +12,7 @@ import os.log
 @inlinable
 public func time<T>(_ signpostType: SignpostType, _ block: () throws -> T) rethrows -> T {
   #if PROFILE
-  let signpost: Signpost!
+  var signpost: Signpost!
   if #available(OSX 10.14, *) {
     signpost = OSLog.beginSignpost(signpostType)
   }

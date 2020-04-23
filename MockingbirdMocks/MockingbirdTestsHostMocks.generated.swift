@@ -6,15 +6,23 @@
 //  DO NOT EDIT
 //
 
+@testable import CoreVideo
 @testable import Mockingbird
 @testable import MockingbirdTestsHost
 import AppKit
 import CoreAudio
+import CoreData
+import CoreFoundation
+import CoreImage
+import CoreML
 import CoreText
+import CoreVideo
 import Foundation
 import MockingbirdModuleTestsHost
 import ObjectiveC
 import Swift
+import class CoreFoundation.CFArray
+import enum CoreText.CTFontUIFontType
 
 private var genericTypesStaticMocks = Mockingbird.Synchronized<[String: Mockingbird.StaticMock]>([:])
 
@@ -5005,14 +5013,41 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
 
   #endif
 
+  #if !(DEBUG) && !(RELEASE)
+
+  // MARK: Mocked defaultVariable
+
+  public var `defaultVariable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "defaultVariable.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Bool in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+  }
+
+  public func getDefaultVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "defaultVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  #endif
+
   #if DEBUG
   #if !(!(DEBUG))
 
-  // MARK: Mocked nestedVariable
+  // MARK: Mocked nestedDebugVariable
 
-  public var `nestedVariable`: Bool {
+  public var `nestedDebugVariable`: Bool {
     get {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nestedVariable.get", arguments: [])
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nestedDebugVariable.get", arguments: [])
       return mockingContext.didInvoke(invocation) { () -> Bool in
         let implementation = stubbingContext.implementation(for: invocation)
         if let concreteImplementation = implementation as? () -> Bool {
@@ -5026,21 +5061,22 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     }
   }
 
-  public func getNestedVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nestedVariable.get", arguments: [])
+  public func getNestedDebugVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nestedDebugVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
   #endif
   #endif
 
-  #if !(DEBUG)
+  #if DEBUG
+  #if !(!(!(DEBUG))) && !(RELEASE)
 
-  // MARK: Mocked notDebugVariable
+  // MARK: Mocked nestedDefaultVariable
 
-  public var `notDebugVariable`: Bool {
+  public var `nestedDefaultVariable`: Bool {
     get {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "notDebugVariable.get", arguments: [])
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nestedDefaultVariable.get", arguments: [])
       return mockingContext.didInvoke(invocation) { () -> Bool in
         let implementation = stubbingContext.implementation(for: invocation)
         if let concreteImplementation = implementation as? () -> Bool {
@@ -5054,11 +5090,41 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     }
   }
 
-  public func getNotDebugVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "notDebugVariable.get", arguments: [])
+  public func getNestedDefaultVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nestedDefaultVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
+  #endif
+  #endif
+
+  #if DEBUG
+  #if !(!(!(DEBUG))) && RELEASE
+
+  // MARK: Mocked nestedReleaseVariable
+
+  public var `nestedReleaseVariable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nestedReleaseVariable.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Bool in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+  }
+
+  public func getNestedReleaseVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "nestedReleaseVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  #endif
   #endif
 
   #if DEBUG
@@ -5083,6 +5149,33 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
 
   public func getOnlyDebugVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "onlyDebugVariable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  #endif
+
+  #if !(DEBUG) && RELEASE
+
+  // MARK: Mocked releaseVariable
+
+  public var `releaseVariable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "releaseVariable.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Bool in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+  }
+
+  public func getReleaseVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "releaseVariable.get", arguments: [])
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
   }
 
@@ -5139,6 +5232,29 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
 
   #endif
 
+  #if !(DEBUG) && !(RELEASE)
+
+  // MARK: Mocked `defaultMethod`()
+
+  public func `defaultMethod`() -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`defaultMethod`() -> Void", arguments: [])
+    mockingContext.didInvoke(invocation) { () -> Void in
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Void {
+        concreteImplementation()
+      } else if let concreteImplementation = implementation as? () -> Void {
+        concreteImplementation()
+      }
+    }
+  }
+
+  public func `defaultMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`defaultMethod`() -> Void", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  #endif
+
   // MARK: Mocked `method`()
 
   public func `method`() -> Void {
@@ -5161,10 +5277,10 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
   #if DEBUG
   #if !(!(DEBUG))
 
-  // MARK: Mocked `nestedMethod`()
+  // MARK: Mocked `nestedDebugMethod`()
 
-  public func `nestedMethod`() -> Void {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedMethod`() -> Void", arguments: [])
+  public func `nestedDebugMethod`() -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedDebugMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation) { () -> Void in
       let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? () -> Void {
@@ -5175,20 +5291,21 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     }
   }
 
-  public func `nestedMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedMethod`() -> Void", arguments: [])
+  public func `nestedDebugMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedDebugMethod`() -> Void", arguments: [])
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
   #endif
   #endif
 
-  #if !(DEBUG)
+  #if DEBUG
+  #if !(!(!(DEBUG))) && !(RELEASE)
 
-  // MARK: Mocked `notDebugMethod`()
+  // MARK: Mocked `nestedDefaultMethod`()
 
-  public func `notDebugMethod`() -> Void {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`notDebugMethod`() -> Void", arguments: [])
+  public func `nestedDefaultMethod`() -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedDefaultMethod`() -> Void", arguments: [])
     mockingContext.didInvoke(invocation) { () -> Void in
       let implementation = stubbingContext.implementation(for: invocation)
       if let concreteImplementation = implementation as? () -> Void {
@@ -5199,11 +5316,37 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
     }
   }
 
-  public func `notDebugMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`notDebugMethod`() -> Void", arguments: [])
+  public func `nestedDefaultMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedDefaultMethod`() -> Void", arguments: [])
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
+  #endif
+  #endif
+
+  #if DEBUG
+  #if !(!(!(DEBUG))) && RELEASE
+
+  // MARK: Mocked `nestedReleaseMethod`()
+
+  public func `nestedReleaseMethod`() -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedReleaseMethod`() -> Void", arguments: [])
+    mockingContext.didInvoke(invocation) { () -> Void in
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Void {
+        concreteImplementation()
+      } else if let concreteImplementation = implementation as? () -> Void {
+        concreteImplementation()
+      }
+    }
+  }
+
+  public func `nestedReleaseMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`nestedReleaseMethod`() -> Void", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  #endif
   #endif
 
   #if DEBUG
@@ -5224,6 +5367,29 @@ public final class CompilationDirectiveProtocolMock: MockingbirdTestsHost.Compil
 
   public func `onlyDebugMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`onlyDebugMethod`() -> Void", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  #endif
+
+  #if !(DEBUG) && RELEASE
+
+  // MARK: Mocked `releaseMethod`()
+
+  public func `releaseMethod`() -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`releaseMethod`() -> Void", arguments: [])
+    mockingContext.didInvoke(invocation) { () -> Void in
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Void {
+        concreteImplementation()
+      } else if let concreteImplementation = implementation as? () -> Void {
+        concreteImplementation()
+      }
+    }
+  }
+
+  public func `releaseMethod`() -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`releaseMethod`() -> Void", arguments: [])
     return Mockingbird.Mockable<Mockingbird.MethodDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
   }
 
@@ -5880,6 +6046,67 @@ public final class DefaultArgumentValuesProtocolMock: MockingbirdTestsHost.Defau
 public func mock(_ type: MockingbirdTestsHost.DefaultArgumentValuesProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> DefaultArgumentValuesProtocolMock {
   return DefaultArgumentValuesProtocolMock(sourceLocation: SourceLocation(file, line))
 }
+
+// MARK: - Mocked DefaultCompilationDirectiveProtocol
+
+#if !(DEBUG) && !(RELEASE)
+
+public final class DefaultCompilationDirectiveProtocolMock: MockingbirdTestsHost.DefaultCompilationDirectiveProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      DefaultCompilationDirectiveProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  #if !(DEBUG) && !(RELEASE)
+
+  // MARK: Mocked variable
+
+  public var `variable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Bool in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+  }
+
+  public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  #endif
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+#endif
+
+#if !(DEBUG) && !(RELEASE)
+
+/// Initialize a protocol mock of `MockingbirdTestsHost.DefaultCompilationDirectiveProtocol`.
+public func mock(_ type: MockingbirdTestsHost.DefaultCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> DefaultCompilationDirectiveProtocolMock {
+  return DefaultCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+#endif
 
 // MARK: - Mocked DeprecatedClassOnlyProtocolWithInheritance
 
@@ -13411,12 +13638,12 @@ public func mock(_ type: MockingbirdTestsHost.NSViewInheritingProtocol.Protocol,
   return NSViewInheritingProtocolMock.InitializerProxy.self
 }
 
-// MARK: - Mocked NestedCompilationDirectiveProtocol
+// MARK: - Mocked NestedDebugCompilationDirectiveProtocol
 
 #if DEBUG
 #if !(!(DEBUG))
 
-public final class NestedCompilationDirectiveProtocolMock: MockingbirdTestsHost.NestedCompilationDirectiveProtocol, Mockingbird.Mock {
+public final class NestedDebugCompilationDirectiveProtocolMock: MockingbirdTestsHost.NestedDebugCompilationDirectiveProtocol, Mockingbird.Mock {
   static let staticMock = Mockingbird.StaticMock()
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
@@ -13425,7 +13652,7 @@ public final class NestedCompilationDirectiveProtocolMock: MockingbirdTestsHost.
     get { return stubbingContext.sourceLocation }
     set {
       stubbingContext.sourceLocation = newValue
-      NestedCompilationDirectiveProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+      NestedDebugCompilationDirectiveProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
     }
   }
 
@@ -13470,9 +13697,143 @@ public final class NestedCompilationDirectiveProtocolMock: MockingbirdTestsHost.
 #if DEBUG
 #if !(!(DEBUG))
 
-/// Initialize a protocol mock of `MockingbirdTestsHost.NestedCompilationDirectiveProtocol`.
-public func mock(_ type: MockingbirdTestsHost.NestedCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NestedCompilationDirectiveProtocolMock {
-  return NestedCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
+/// Initialize a protocol mock of `MockingbirdTestsHost.NestedDebugCompilationDirectiveProtocol`.
+public func mock(_ type: MockingbirdTestsHost.NestedDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NestedDebugCompilationDirectiveProtocolMock {
+  return NestedDebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+#endif
+#endif
+
+// MARK: - Mocked NestedDefaultCompilationDirectiveProtocol
+
+#if DEBUG
+#if !(!(!(DEBUG))) && !(RELEASE)
+
+public final class NestedDefaultCompilationDirectiveProtocolMock: MockingbirdTestsHost.NestedDefaultCompilationDirectiveProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      NestedDefaultCompilationDirectiveProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  #if DEBUG
+  #if !(!(!(DEBUG))) && !(RELEASE)
+
+  // MARK: Mocked variable
+
+  public var `variable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Bool in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+  }
+
+  public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  #endif
+  #endif
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+#endif
+#endif
+
+#if DEBUG
+#if !(!(!(DEBUG))) && !(RELEASE)
+
+/// Initialize a protocol mock of `MockingbirdTestsHost.NestedDefaultCompilationDirectiveProtocol`.
+public func mock(_ type: MockingbirdTestsHost.NestedDefaultCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NestedDefaultCompilationDirectiveProtocolMock {
+  return NestedDefaultCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+#endif
+#endif
+
+// MARK: - Mocked NestedReleaseCompilationDirectiveProtocol
+
+#if DEBUG
+#if !(!(!(DEBUG))) && RELEASE
+
+public final class NestedReleaseCompilationDirectiveProtocolMock: MockingbirdTestsHost.NestedReleaseCompilationDirectiveProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      NestedReleaseCompilationDirectiveProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  #if DEBUG
+  #if !(!(!(DEBUG))) && RELEASE
+
+  // MARK: Mocked variable
+
+  public var `variable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Bool in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+  }
+
+  public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  #endif
+  #endif
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+#endif
+#endif
+
+#if DEBUG
+#if !(!(!(DEBUG))) && RELEASE
+
+/// Initialize a protocol mock of `MockingbirdTestsHost.NestedReleaseCompilationDirectiveProtocol`.
+public func mock(_ type: MockingbirdTestsHost.NestedReleaseCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NestedReleaseCompilationDirectiveProtocolMock {
+  return NestedReleaseCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
 #endif
@@ -13599,67 +13960,6 @@ public final class NonExtendableClassMock: MockingbirdTestsHost.NonExtendableCla
 public func mock(_ type: MockingbirdTestsHost.NonExtendableClass.Type, file: StaticString = #file, line: UInt = #line) -> NonExtendableClassMock {
   return NonExtendableClassMock(sourceLocation: SourceLocation(file, line))
 }
-
-// MARK: - Mocked NotDebugCompilationDirectiveProtocol
-
-#if !(DEBUG)
-
-public final class NotDebugCompilationDirectiveProtocolMock: MockingbirdTestsHost.NotDebugCompilationDirectiveProtocol, Mockingbird.Mock {
-  static let staticMock = Mockingbird.StaticMock()
-  public let mockingContext = Mockingbird.MockingContext()
-  public let stubbingContext = Mockingbird.StubbingContext()
-  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
-  public var sourceLocation: Mockingbird.SourceLocation? {
-    get { return stubbingContext.sourceLocation }
-    set {
-      stubbingContext.sourceLocation = newValue
-      NotDebugCompilationDirectiveProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
-    }
-  }
-
-  #if !(DEBUG)
-
-  // MARK: Mocked variable
-
-  public var `variable`: Bool {
-    get {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
-      return mockingContext.didInvoke(invocation) { () -> Bool in
-        let implementation = stubbingContext.implementation(for: invocation)
-        if let concreteImplementation = implementation as? () -> Bool {
-          return concreteImplementation()
-        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
-          return defaultValue
-        } else {
-          fatalError(stubbingContext.failTest(for: invocation))
-        }
-      }
-    }
-  }
-
-  public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  #endif
-
-  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
-    Mockingbird.checkVersion(for: self)
-    self.sourceLocation = sourceLocation
-  }
-}
-
-#endif
-
-#if !(DEBUG)
-
-/// Initialize a protocol mock of `MockingbirdTestsHost.NotDebugCompilationDirectiveProtocol`.
-public func mock(_ type: MockingbirdTestsHost.NotDebugCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> NotDebugCompilationDirectiveProtocolMock {
-  return NotDebugCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
-}
-
-#endif
 
 // MARK: - Mocked ObjectiveCClass
 
@@ -16408,6 +16708,67 @@ public final class RelativeSecondLevelFileIncludedSourceMock: MockingbirdTestsHo
 public func mock(_ type: MockingbirdTestsHost.RelativeSecondLevelFileIncludedSource.Protocol, file: StaticString = #file, line: UInt = #line) -> RelativeSecondLevelFileIncludedSourceMock {
   return RelativeSecondLevelFileIncludedSourceMock(sourceLocation: SourceLocation(file, line))
 }
+
+// MARK: - Mocked ReleaseCompilationDirectiveProtocol
+
+#if !(DEBUG) && RELEASE
+
+public final class ReleaseCompilationDirectiveProtocolMock: MockingbirdTestsHost.ReleaseCompilationDirectiveProtocol, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ReleaseCompilationDirectiveProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  #if !(DEBUG) && RELEASE
+
+  // MARK: Mocked variable
+
+  public var `variable`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Bool in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+  }
+
+  public func getVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "variable.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  #endif
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+#endif
+
+#if !(DEBUG) && RELEASE
+
+/// Initialize a protocol mock of `MockingbirdTestsHost.ReleaseCompilationDirectiveProtocol`.
+public func mock(_ type: MockingbirdTestsHost.ReleaseCompilationDirectiveProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ReleaseCompilationDirectiveProtocolMock {
+  return ReleaseCompilationDirectiveProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+#endif
 
 // MARK: - Mocked RequiredInitializerClass
 

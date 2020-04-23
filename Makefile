@@ -133,9 +133,18 @@ clean: clean-mocks clean-xcode clean-swift clean-installables
 setup-project:
 	swift package resolve
 	cp -rf Xcode/XCSchemes/*.xcscheme Mockingbird.xcodeproj/xcshareddata/xcschemes
+	rsync -vhr Xcode/GeneratedModuleMap/** Mockingbird.xcodeproj/GeneratedModuleMap
 
 save-xcschemes:
 	cp -rf Mockingbird.xcodeproj/xcshareddata/xcschemes/*.xcscheme Xcode/XCSchemes
+
+print-debug-info:
+	pwd
+	ls -la
+	swift --version
+	xcode-select --print-path
+	xcodebuild -version
+	xcodebuild -showsdks
 
 build-cli:
 	swift build $(SWIFT_BUILD_FLAGS) --product mockingbird

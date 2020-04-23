@@ -21,6 +21,8 @@ class ProcessStructuresOperation: BasicOperation {
   
   let result = Result()
   
+  override var description: String { "Process Structures" }
+  
   init(structureDictionary: StructureDictionary, parsedFile: ParsedFile) {
     self.structureDictionary = structureDictionary
     self.parsedFile = parsedFile

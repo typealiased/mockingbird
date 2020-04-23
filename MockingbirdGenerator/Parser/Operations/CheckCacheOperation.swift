@@ -20,6 +20,8 @@ public class CheckCacheOperation: BasicOperation {
   
   public let result = Result()
   
+  public override var description: String { "Check Cache" }
+  
   public init(extractSourcesResult: ExtractSourcesOperationResult,
               codableTarget: CodableTarget,
               outputFilePath: Path) {

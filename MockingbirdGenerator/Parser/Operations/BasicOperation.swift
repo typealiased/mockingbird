@@ -43,6 +43,7 @@ public class BasicOperation: Operation {
       try run()
     } catch {
       self.error = error
+      log("Operation '\(self)' failed with error '\(error)'", type: .error)
     }
     isExecuting = false
     isFinished = true

@@ -24,6 +24,8 @@ public class ProcessTypesOperation: BasicOperation {
   let rawTypeRepository = RawTypeRepository()
   let typealiasRepository = TypealiasRepository()
   
+  public override var description: String { "Process Types" }
+  
   public init(parseFilesResult: ParseFilesOperation.Result,
               checkCacheResult: CheckCacheOperation.Result?,
               useRelaxedLinking: Bool) {
@@ -36,9 +38,14 @@ public class ProcessTypesOperation: BasicOperation {
     guard checkCacheResult?.isCached != true else { return }
     time(.processTypes) {
       let queue = OperationQueue.createForActiveProcessors()
-      let processStructuresOperations = parseFilesResult.parsedFiles.map({
-        ProcessStructuresOperation(structureDictionary: $0.structure.dictionary, parsedFile: $0)
-      })
+      let processStructuresOperations = parseFilesResult.parsedFiles
+        .map({ parsedFile -> ProcessStructuresOperation in
+          let structureDictionary = parsedFile.structure.dictionary
+          let operation = ProcessStructuresOperation(structureDictionary: structureDictionary,
+                                                     parsedFile: parsedFile)
+          retainForever(operation)
+          return operation
+        })
       queue.addOperations(processStructuresOperations, waitUntilFinished: true)
       processStructuresOperations.forEach({
         $0.result.rawTypes.forEach({
@@ -52,11 +59,17 @@ public class ProcessTypesOperation: BasicOperation {
         .map({ $0.value })
         .filter({ $0.first(where: { $0.kind.isMockable })?.parsedFile.shouldMock == true })
         .filter({ $0.first?.isContainedType != true })
-        .map({ FlattenInheritanceOperation(rawType: $0,
-                                           moduleDependencies: parseFilesResult.moduleDependencies,
-                                           rawTypeRepository: rawTypeRepository,
-                                           typealiasRepository: typealiasRepository,
-                                           useRelaxedLinking: useRelaxedLinking) })
+        .map({ rawType -> FlattenInheritanceOperation in
+          let operation = FlattenInheritanceOperation(
+            rawType: rawType,
+            moduleDependencies: parseFilesResult.moduleDependencies,
+            rawTypeRepository: rawTypeRepository,
+            typealiasRepository: typealiasRepository,
+            useRelaxedLinking: useRelaxedLinking
+          )
+          retainForever(operation)
+          return operation
+        })
       queue.addOperations(flattenInheritanceOperations, waitUntilFinished: true)
       result.mockableTypes = flattenInheritanceOperations
         .compactMap({ $0.result.mockableType })

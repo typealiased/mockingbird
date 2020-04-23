@@ -1,6 +1,7 @@
 # Xcode
 
 ## Build generated
+*.xcodeproj/GeneratedModuleMap/
 build/
 DerivedData
 Mockingbird.pkg
