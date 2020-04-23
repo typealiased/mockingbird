@@ -124,6 +124,9 @@ extension Attributes {
   /// It's necessary to abuse named attributes, e.g. `@objc(anything)` as custom attributes on older
   /// Swift versions results in an error rather than returning `source.decl.attribute._custom`.
   enum CustomAttributeDeclaration: String {
+    /// The method is defined by a protocol and can be synthesized by the Swift compiler. For
+    /// initializers like in `Decodable`, subclasses that define any designated initializers must
+    /// now override the synthesized required initializer.
     case implicit = "@objc(mkb_implicit)"
   }
   
