@@ -110,7 +110,7 @@ func inferType(from string: String) -> String? {
     }
     
     // get everything before `(`
-    let components = string.components(separatedBy: "(", excluding: .allGroups)
+    let components = string.components(separatedBy: "(", excluding: .nonParenthesisGroups)
     let lastCharacter = string.last
     if components.count > 1 && lastCharacter == ")" {
       //initializer without `init`
