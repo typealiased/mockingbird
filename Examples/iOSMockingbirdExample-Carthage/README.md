@@ -25,7 +25,7 @@ $ touch Cartfile
 Add Mockingbird as a dependency in the Cartfile.
 
 ```ruby
-$ echo 'github "birdrides/mockingbird" ~> 0.11.0' >> Cartfile
+$ echo 'github "birdrides/mockingbird" ~> 0.11' >> Cartfile
 ```
 
 ### Install Mockingbird

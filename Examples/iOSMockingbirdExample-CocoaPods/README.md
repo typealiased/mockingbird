@@ -27,7 +27,7 @@ Add Mockingbird as a dependency to the test target in the Podfile.
 ```ruby
 target 'iOSMockingbirdExample-CocoaPodsTests' do
   use_frameworks!
-  pod 'MockingbirdFramework', '~> 0.11.0'
+  pod 'MockingbirdFramework', '~> 0.11'
 end
 ```
 
