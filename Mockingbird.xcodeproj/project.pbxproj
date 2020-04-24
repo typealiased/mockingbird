@@ -71,6 +71,7 @@
 		49F60A9F232F477100B51A7C /* FlattenInheritanceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60A9E232F477100B51A7C /* FlattenInheritanceOperation.swift */; };
 		49F60AA123305F5A00B51A7C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F60AA023305F5A00B51A7C /* Log.swift */; };
 		5D5FAC84DF438200D4E44D85 /* MockingbirdTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */; };
+		94854768245230BC00689FA1 /* InferTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94854767245230BC00689FA1 /* InferTypeTests.swift */; };
 		9491824C23F0CE3A00429146 /* KeywordArgumentNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491824B23F0CE3A00429146 /* KeywordArgumentNames.swift */; };
 		9491824E23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491824D23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift */; };
 		9491825023F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491824F23F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift */; };
@@ -1022,6 +1023,7 @@
 		49F60A9E232F477100B51A7C /* FlattenInheritanceOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlattenInheritanceOperation.swift; sourceTree = "<group>"; };
 		49F60AA023305F5A00B51A7C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
+		94854767245230BC00689FA1 /* InferTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferTypeTests.swift; sourceTree = "<group>"; };
 		9491824B23F0CE3A00429146 /* KeywordArgumentNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordArgumentNames.swift; sourceTree = "<group>"; };
 		9491824D23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordArgumentNamesMockableTests.swift; sourceTree = "<group>"; };
 		9491824F23F0D9B600429146 /* KeywordArgumentNamesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordArgumentNamesStubbableTests.swift; sourceTree = "<group>"; };
@@ -1955,6 +1957,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_186 /* DeclaredTypeTests.swift */,
+				94854767245230BC00689FA1 /* InferTypeTests.swift */,
 				499854532368AD0A0022D413 /* PathFnmatchTests.swift */,
 				3B7716CD2364AE3500B339EB /* PBXTargetTests.swift */,
 				OBJ_187 /* StringExtensionsTests.swift */,
@@ -4198,6 +4201,7 @@
 				3B7716CE2364AE3500B339EB /* PBXTargetTests.swift in Sources */,
 				OBJ_840 /* VariadicParametersStubbableTests.swift in Sources */,
 				OBJ_842 /* ArgumentCaptorTests.swift in Sources */,
+				94854768245230BC00689FA1 /* InferTypeTests.swift in Sources */,
 				OBJ_843 /* ArgumentMatchingTests.swift in Sources */,
 				9491824E23F0D71000429146 /* KeywordArgumentNamesMockableTests.swift in Sources */,
 				499854542368AD0A0022D413 /* PathFnmatchTests.swift in Sources */,

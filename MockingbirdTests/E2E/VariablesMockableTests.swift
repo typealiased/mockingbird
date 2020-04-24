@@ -22,7 +22,14 @@ private protocol MockableVariablesContainer: Mock {
   var computedVariableWithWillSetObserver: Bool { get set }
   
   var storedVariableWithImplicitType: Bool { get set }
+  var storedVariableWithImplicitTupleType: (Bool, Bool) { get set }
+  var storedVariableWithConstructedImplicitType: Bool { get set }
+  var storedVariableWithComplexConstructedImplicitType: Array<(String, String)> { get set }
+
   var storedVariableWithExplicitType: Bool { get set }
+
+  var constantVariableWithImplicitType: Bool { get }
+  var constantVariableWithExplicitType: Bool { get }
   
   var weakVariable: VariablesContainer? { get set }
   
