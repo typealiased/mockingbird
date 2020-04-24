@@ -17,20 +17,51 @@ public func given<T, I, R>(_ stubbable: Mockable<T, I, R>...) -> Stub<I, R> {
   return Stub<I, R>(from: stubbable)
 }
 
+/// Stub a sequence of values, returning each value sequentially. The last value will be used if the
+/// number of invocations is greater than the number of values provided.
+///
+/// - Parameter values: A sequence of values to stub.
+public func sequence<FunctionType, ReturnType>(of values: ReturnType...)
+  -> StubImplementation<FunctionType, ReturnType> {
+    var index = 0
+    let implementation: () -> ReturnType = {
+      let value = values[index]
+      if index+1 < values.count { index += 1 }
+      return value
+    }
+    return StubImplementation<FunctionType, ReturnType>(handler: implementation, callback: nil)
+}
+
+/// Stub a sequence of lazily computed values, returning each value sequentially. The last value
+/// will be used if the number of invocations is greater than the number of values provided.
+///
+/// - Parameter lazyValue: A sequence of lazily computed values to stub.
+public func sequence<FunctionType, ReturnType>(of lazyValues: (() -> ReturnType)...)
+  -> StubImplementation<FunctionType, ReturnType> {
+    var index = 0
+    let implementation: () -> ReturnType = {
+      let value = lazyValues[index]()
+      if index+1 < lazyValues.count { index += 1 }
+      return value
+    }
+    return StubImplementation<FunctionType, ReturnType>(handler: implementation, callback: nil)
+}
+
 /// Stubs a variable getter to return the last value received by the setter.
 ///
 /// - Parameter initial: The initial value to return.
-public func lastSetValue<T, R>(initial: R) -> StubImplementation<T, R> {
-  var currentValue = initial
-  let implementation: () -> R = { return currentValue }
-  let callback = { (stub: StubbingContext.Stub, context: StubbingContext) in
-    guard let setterInvocation = stub.invocation.toSetter() else { return }
-    let setterImplementation = { (newValue: R) -> Void in
-      currentValue = newValue
+public func lastSetValue<FunctionType, ReturnType>(initial: ReturnType)
+  -> StubImplementation<FunctionType, ReturnType> {
+    var currentValue = initial
+    let implementation: () -> ReturnType = { return currentValue }
+    let callback = { (stub: StubbingContext.Stub, context: StubbingContext) in
+      guard let setterInvocation = stub.invocation.toSetter() else { return }
+      let setterImplementation = { (newValue: ReturnType) -> Void in
+        currentValue = newValue
+      }
+      _ = context.swizzle(setterInvocation, with: setterImplementation)
     }
-    _ = context.swizzle(setterInvocation, with: setterImplementation)
-  }
-  return StubImplementation(handler: implementation as! T, callback: callback)
+    return StubImplementation<FunctionType, ReturnType>(handler: implementation, callback: callback)
 }
 
 /// Adds a value provider to return default values for unstubbed methods. This does not remove
