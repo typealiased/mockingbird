@@ -20119,6 +20119,84 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
+  // MARK: Mocked storedVariableWithComplexConstructedImplicitType
+
+  override public var `storedVariableWithComplexConstructedImplicitType`: Array<(String, String)> {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithComplexConstructedImplicitType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Array<(String, String)> in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Array<(String, String)> {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Array<(String, String)>).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithComplexConstructedImplicitType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (Array<(String, String)>) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getStoredVariableWithComplexConstructedImplicitType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Array<(String, String)>, Array<(String, String)>> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithComplexConstructedImplicitType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Array<(String, String)>, Array<(String, String)>>(mock: self, invocation: invocation)
+  }
+
+  public func setStoredVariableWithComplexConstructedImplicitType(_ newValue: @escaping @autoclosure () -> Array<(String, String)>) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Array<(String, String)>) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithComplexConstructedImplicitType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Array<(String, String)>) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked storedVariableWithConstructedImplicitType
+
+  override public var `storedVariableWithConstructedImplicitType`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithConstructedImplicitType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Bool in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithConstructedImplicitType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getStoredVariableWithConstructedImplicitType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithConstructedImplicitType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setStoredVariableWithConstructedImplicitType(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithConstructedImplicitType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
   // MARK: Mocked storedVariableWithExplicitType
 
   override public var `storedVariableWithExplicitType`: Bool {
@@ -20156,6 +20234,45 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithExplicitType.set", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked storedVariableWithImplicitTupleType
+
+  override public var `storedVariableWithImplicitTupleType`: (Bool, Bool) {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithImplicitTupleType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> (Bool, Bool) in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> (Bool, Bool) {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((Bool, Bool)).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithImplicitTupleType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? ((Bool, Bool)) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getStoredVariableWithImplicitTupleType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (Bool, Bool), (Bool, Bool)> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithImplicitTupleType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (Bool, Bool), (Bool, Bool)>(mock: self, invocation: invocation)
+  }
+
+  public func setStoredVariableWithImplicitTupleType(_ newValue: @escaping @autoclosure () -> (Bool, Bool)) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((Bool, Bool)) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithImplicitTupleType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((Bool, Bool)) -> Void, Void>(mock: self, invocation: invocation)
   }
 
   // MARK: Mocked storedVariableWithImplicitType

@@ -12,6 +12,10 @@ public extension Dictionary where Key == Character, Value == Character {
   static var allGroups: [Character: Character] {
     return ["(": ")", "[": "]", "<": ">"]
   }
+
+  static var nonParenthesisGroups: [Character: Character] {
+    return ["[": "]", "<": ">"]
+  }
 }
 
 public extension Set where Element == Character {
