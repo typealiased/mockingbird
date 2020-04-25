@@ -19194,6 +19194,59 @@ public func mock(_ type: MockingbirdTestsHost.SubscriptedProtocol.Protocol, file
   return SubscriptedProtocolMock(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked SynthesizedRequiredInitializer
+
+public final class SynthesizedRequiredInitializerMock: MockingbirdTestsHost.SynthesizedRequiredInitializer, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      SynthesizedRequiredInitializerMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  public enum InitializerProxy {
+    public static func initialize(`from` `decoder`: Decoder, __file: StaticString = #file, __line: UInt = #line) throws -> SynthesizedRequiredInitializerMock {
+      let mock: SynthesizedRequiredInitializerMock = try SynthesizedRequiredInitializerMock(from: `decoder`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+
+    public static func initialize(`with` `name`: String, __file: StaticString = #file, __line: UInt = #line) -> SynthesizedRequiredInitializerMock {
+      let mock: SynthesizedRequiredInitializerMock = SynthesizedRequiredInitializerMock(with: `name`)
+      mock.sourceLocation = SourceLocation(__file, __line)
+      return mock
+    }
+  }
+
+  // MARK: Mocked init(`from` `decoder`: Decoder)
+
+  public required init(`from` `decoder`: Decoder) throws {
+    try super.init(from: `decoder`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(`from` `decoder`: Decoder) throws ", arguments: [Mockingbird.ArgumentMatcher(`decoder`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  // MARK: Mocked init(`with` `name`: String)
+
+  public required override init(`with` `name`: String) {
+    super.init(with: `name`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init(`with` `name`: String) ", arguments: [Mockingbird.ArgumentMatcher(`name`)])
+    mockingContext.didInvoke(invocation)
+  }
+}
+
+/// Initialize an initializable class mock of `MockingbirdTestsHost.SynthesizedRequiredInitializer`.
+public func mock(_ type: MockingbirdTestsHost.SynthesizedRequiredInitializer.Type, file: StaticString = #file, line: UInt = #line) -> SynthesizedRequiredInitializerMock.InitializerProxy.Type {
+  return SynthesizedRequiredInitializerMock.InitializerProxy.self
+}
+
 // MARK: - Mocked TestCase
 
 public final class TestCaseMock: MockingbirdTestsHost.TestCase, Mockingbird.Mock {

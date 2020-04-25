@@ -28,3 +28,8 @@ public class HashableConformingClass: Hashable {
   public func hash(into hasher: inout Hasher) { fatalError() }
 }
 public class CodableConformingClass: Codable {}
+
+/// Defines a designated initializer that should force the mock subclass to implement `Decodable`.
+public class SynthesizedRequiredInitializer: Decodable {
+  init(with name: String) {}
+}

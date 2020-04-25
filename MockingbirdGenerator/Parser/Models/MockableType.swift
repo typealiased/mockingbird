@@ -352,12 +352,13 @@ class MockableType: Hashable, Comparable {
         
         methods = methods.union(mockableType.methods
           .filter({ method in
-            guard shouldInheritFromType || method.attributes.contains(.implicit)
-              else { return false }
+            let isImplicitlySynthesized = method.attributes.contains(.implicit)
+            guard shouldInheritFromType || isImplicitlySynthesized else { return false }
             return method.kind.typeScope.isMockable(in: baseRawType.kind) &&
               // Mocking a subclass with designated initializers shouldn't inherit the superclass'
               // initializers.
               (baseRawType.kind == .protocol
+                || isImplicitlySynthesized
                 || !definesDesignatedInitializer
                 || !method.isInitializer)
           })
