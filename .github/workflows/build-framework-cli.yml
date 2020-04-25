@@ -15,10 +15,12 @@ jobs:
       run: make setup-project
     - name: Clean
       run: make clean
-    - name: Build
-      run: make build
-    - name: Install
-      run: 'export PREFIX=$(pwd) && make install'
+    - name: Build Framework
+      run: make build-framework
+    - name: Build and Install CLI
+      run: |
+        PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make print-debug-info
+        PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make install
     - name: Set Up Target
       run: |
         ./bin/mockingbird install \
@@ -45,10 +47,12 @@ jobs:
       run: make setup-project
     - name: Clean
       run: make clean
-    - name: Build
-      run: make build
-    - name: Install
-      run: 'export PREFIX=$(pwd) && make install'
+    - name: Build Framework
+      run: make build-framework
+    - name: Build and Install CLI
+      run: |
+        PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make print-debug-info
+        PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make install
     - name: Set Up Target
       run: |
         ./bin/mockingbird install \
@@ -75,10 +79,12 @@ jobs:
       run: make setup-project
     - name: Clean
       run: make clean
-    - name: Build
-      run: make build
-    - name: Install
-      run: 'export PREFIX=$(pwd) && make install'
+    - name: Build Framework
+      run: make build-framework
+    - name: Build and Install CLI
+      run: |
+        PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make print-debug-info
+        PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make install
     - name: Set Up Target
       run: |
         ./bin/mockingbird install \
