@@ -45,6 +45,10 @@
 /* Begin PBXBuildFile section */
 		5D5FAC84DF438200D4E44D85 /* MockingbirdTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */; };
 		D372A4622454DFB60000E80A /* SequentialValueStubbingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A4612454DFB60000E80A /* SequentialValueStubbingTests.swift */; };
+		D372A44D2453CB2A0000E80A /* OutputStream+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A44C2453CB2A0000E80A /* OutputStream+Extensions.swift */; };
+		D372A4592454A5DD0000E80A /* SwiftSyntaxParserDylib.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A4492453C4C40000E80A /* SwiftSyntaxParserDylib.generated.swift */; };
+		D372A45B2454A7110000E80A /* LoadDylib.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A44E2453CCF60000E80A /* LoadDylib.swift */; };
+		D372A45D2454ADCB0000E80A /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A45C2454ADCB0000E80A /* Resource.swift */; };
 		D3D936F22450F61400078751 /* MockingbirdTestsHost.h in Headers */ = {isa = PBXBuildFile; fileRef = OBJ_130 /* MockingbirdTestsHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3D936F62450F85100078751 /* ParsedFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D936F52450F85100078751 /* ParsedFile.swift */; };
 		D3D936F82451606000078751 /* ParseSingleFileOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D936F72451606000078751 /* ParseSingleFileOperation.swift */; };
@@ -1104,6 +1108,12 @@
 		93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D372A4612454DFB60000E80A /* SequentialValueStubbingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequentialValueStubbingTests.swift; sourceTree = "<group>"; };
+		D372A4422452CF280000E80A /* lib_InternalSwiftSyntaxParser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = lib_InternalSwiftSyntaxParser.dylib; path = MockingbirdGenerator/Libraries/lib_InternalSwiftSyntaxParser.dylib; sourceTree = "<group>"; };
+		D372A4452452D9280000E80A /* lib_InternalSwiftSyntaxParser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = lib_InternalSwiftSyntaxParser.dylib; sourceTree = "<group>"; };
+		D372A4492453C4C40000E80A /* SwiftSyntaxParserDylib.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSyntaxParserDylib.generated.swift; sourceTree = "<group>"; };
+		D372A44C2453CB2A0000E80A /* OutputStream+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutputStream+Extensions.swift"; sourceTree = "<group>"; };
+		D372A44E2453CCF60000E80A /* LoadDylib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadDylib.swift; sourceTree = "<group>"; };
+		D372A45C2454ADCB0000E80A /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		D3A53F412450C59F00A1DB4B /* MockingbirdTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdTests.xcconfig; sourceTree = "<group>"; };
 		D3A53F422450C59F00A1DB4B /* MockingbirdModuleTestsHost.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdModuleTestsHost.xcconfig; sourceTree = "<group>"; };
 		D3A53F432450C59F00A1DB4B /* MockingbirdFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdFramework.xcconfig; sourceTree = "<group>"; };
@@ -1897,6 +1907,32 @@
 			name = "Generated Mocks";
 			sourceTree = "<group>";
 		};
+		D372A4412452CF280000E80A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D372A4422452CF280000E80A /* lib_InternalSwiftSyntaxParser.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D372A4442452D9280000E80A /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				D372A4452452D9280000E80A /* lib_InternalSwiftSyntaxParser.dylib */,
+				D372A4492453C4C40000E80A /* SwiftSyntaxParserDylib.generated.swift */,
+			);
+			path = Libraries;
+			sourceTree = "<group>";
+		};
+		D372A45E2454ADDF0000E80A /* Launcher */ = {
+			isa = PBXGroup;
+			children = (
+				D372A44E2453CCF60000E80A /* LoadDylib.swift */,
+				D372A45C2454ADCB0000E80A /* Resource.swift */,
+			);
+			path = Launcher;
+			sourceTree = "<group>";
+		};
 		D3A53F402450C59F00A1DB4B /* XCConfigs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1946,6 +1982,7 @@
 				OBJ_111 /* Log.swift */,
 				OBJ_113 /* OperationQueue+Extensions.swift */,
 				OBJ_112 /* OSLog+Extensions.swift */,
+				D372A44C2453CB2A0000E80A /* OutputStream+Extensions.swift */,
 				OBJ_114 /* Path+Fnmatch.swift */,
 				OBJ_115 /* Path+WriteUtf8Strings.swift */,
 				OBJ_116 /* String+Extensions.swift */,
@@ -2916,6 +2953,7 @@
 				OBJ_668 /* README.md */,
 				OBJ_669 /* CONTRIBUTING.md */,
 				OBJ_670 /* MockingbirdFramework.podspec */,
+				D372A4412452CF280000E80A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3330,6 +3368,8 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_9 /* Info.plist */,
+				D372A45E2454ADDF0000E80A /* Launcher */,
+				D372A4442452D9280000E80A /* Libraries */,
 				OBJ_10 /* Interface */,
 				OBJ_22 /* main.swift */,
 			);
@@ -3343,11 +3383,11 @@
 				OBJ_90 /* CheckCacheOperation.swift */,
 				OBJ_92 /* ExtractSourcesOperation.swift */,
 				OBJ_93 /* FlattenInheritanceOperation.swift */,
-				OBJ_94 /* SwiftFileParser.swift */,
 				OBJ_95 /* ParseFilesOperation.swift */,
 				D3D936F72451606000078751 /* ParseSingleFileOperation.swift */,
 				OBJ_96 /* ProcessStructuresOperation.swift */,
 				OBJ_97 /* ProcessTypesOperation.swift */,
+				OBJ_94 /* SwiftFileParser.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -3444,6 +3484,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_779 /* Build configuration list for PBXNativeTarget "MockingbirdCli" */;
 			buildPhases = (
+				D372A45A2454A5F00000E80A /* Generate Embedded Dylibs */,
 				OBJ_782 /* Sources */,
 				OBJ_794 /* Frameworks */,
 			);
@@ -3983,6 +4024,11 @@
 			attributes = {
 				LastSwiftMigration = 9999;
 				LastUpgradeCheck = 1140;
+				TargetAttributes = {
+					"Mockingbird::MockingbirdGenerator" = {
+						LastSwiftMigration = 1140;
+					};
+				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "Mockingbird" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -4051,6 +4097,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "${BUILT_PRODUCTS_DIR}/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs \"${SRCROOT}/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift\" \\\n  --support \"${SRCROOT}/MockingbirdSupport\" \\\n  --disable-cache \\\n  --verbose\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-718E12D6-8781-4D1E-92F1-32213EBE78AA'\n";
+		};
+		D372A45A2454A5F00000E80A /* Generate Embedded Dylibs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/MockingbirdCli/Libraries/lib_InternalSwiftSyntaxParser.dylib",
+				"",
+			);
+			name = "Generate Embedded Dylibs";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/MockingbirdCli/Libraries/SwiftSyntaxParserDylib.generated.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Scripts/generate-resource-file.sh\" \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\" 'swiftSyntaxParserDylib'\n";
 		};
 		E0C37AF4D09E1A81AA94E903 /* Clean Mockingbird Mocks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4593,14 +4660,17 @@
 				OBJ_783 /* ArgumentParser+Extensions.swift in Sources */,
 				OBJ_784 /* GenerateCommand.swift in Sources */,
 				OBJ_785 /* InstallCommand.swift in Sources */,
+				D372A4592454A5DD0000E80A /* SwiftSyntaxParserDylib.generated.swift in Sources */,
 				OBJ_786 /* TestbedCommand.swift in Sources */,
 				OBJ_787 /* UninstallCommand.swift in Sources */,
 				OBJ_788 /* VersionCommand.swift in Sources */,
 				OBJ_789 /* Generator.swift in Sources */,
 				OBJ_790 /* Installer.swift in Sources */,
+				D372A45B2454A7110000E80A /* LoadDylib.swift in Sources */,
 				OBJ_791 /* LocalizedError+Extensions.swift in Sources */,
 				OBJ_792 /* Program.swift in Sources */,
 				OBJ_793 /* main.swift in Sources */,
+				D372A45D2454ADCB0000E80A /* Resource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4649,6 +4719,7 @@
 				OBJ_879 /* MockableTypeInitializerTemplate.swift in Sources */,
 				OBJ_880 /* MockableTypeTemplate.swift in Sources */,
 				OBJ_881 /* Template.swift in Sources */,
+				D372A44D2453CB2A0000E80A /* OutputStream+Extensions.swift in Sources */,
 				OBJ_882 /* VariableTemplate.swift in Sources */,
 				OBJ_883 /* GenericType.swift in Sources */,
 				D3D936FA245193E000078751 /* Deallocation.swift in Sources */,
@@ -6506,6 +6577,10 @@
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdGenerator_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MockingbirdGenerator/Libraries",
+				);
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/Mockingbird.xcodeproj/GeneratedModuleMap/_CSwiftSyntax/module.modulemap";
@@ -6538,6 +6613,10 @@
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdGenerator_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MockingbirdGenerator/Libraries",
+				);
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/Mockingbird.xcodeproj/GeneratedModuleMap/_CSwiftSyntax/module.modulemap";

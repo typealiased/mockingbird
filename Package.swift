@@ -3,6 +3,10 @@ import PackageDescription
 
 let package = Package(
   name: "Mockingbird",
+  platforms: [
+    .macOS(.v10_14),
+    .iOS(.v8),
+  ],
   products: [
     .library(name: "Mockingbird", targets: ["MockingbirdFramework"]),
     .executable(name: "mockingbird", targets: ["MockingbirdCli"]),

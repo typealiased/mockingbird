@@ -32,8 +32,9 @@ public class ParseFilesOperation: BasicOperation {
     self.checkCacheResult = checkCacheResult
   }
   
-  override func run() {
+  override func run() throws {
     guard checkCacheResult?.isCached != true else { return }
+    
     time(.parseFiles) {
       let createOperations: (SourcePath, Bool) -> [BasicOperation] = { (sourcePath, shouldMock) in
         let parseSourceKit = ParseSourceKitOperation(sourcePath: sourcePath)
@@ -44,19 +45,24 @@ public class ParseFilesOperation: BasicOperation {
                                                        swiftSyntaxResult: parseSwiftSyntax.result)
         parseSingleFile.addDependency(parseSourceKit)
         parseSingleFile.addDependency(parseSwiftSyntax)
+        
         retainForever(parseSourceKit)
         retainForever(parseSwiftSyntax)
         retainForever(parseSingleFile)
+        
         return [parseSourceKit, parseSwiftSyntax, parseSingleFile]
       }
+      
+      let queue = OperationQueue.createForActiveProcessors()
       let operations = extractSourcesResult.targetPaths.flatMap({ createOperations($0, true) })
         + extractSourcesResult.dependencyPaths.flatMap({ createOperations($0, false) })
-      let queue = OperationQueue.createForActiveProcessors()
       queue.addOperations(operations, waitUntilFinished: true)
+      
       result.parsedFiles = operations.compactMap({ operation in
         return (operation as? ParseSingleFileOperation)?.result.parsedFile
       })
     }
+    
     result.imports = Set(result.parsedFiles.filter({ $0.shouldMock }).flatMap({ $0.imports }))
     result.moduleDependencies = extractSourcesResult.moduleDependencies
   }

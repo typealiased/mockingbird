@@ -73,14 +73,12 @@ class ParseSourceKitOperation: BasicOperation {
   }
   
   let result = Result()
-  override var description: String { "Parse Source Kit" }
+  override var description: String { "Parse SourceKit" }
   let sourcePath: SourcePath
   
   init(sourcePath: SourcePath) {
     self.sourcePath = sourcePath
   }
-  
-  private static var memoizedParsedFiles = Synchronized<[SourcePath: ParsedFile]>([:])
   
   override func run() throws {
     let file = try sourcePath.path.getFile()
@@ -96,14 +94,12 @@ class ParseSwiftSyntaxOperation: BasicOperation {
   }
   
   let result = Result()
-  override var description: String { "Parse Swift Syntax" }
+  override var description: String { "Parse SwiftSyntax" }
   let sourcePath: SourcePath
   
   init(sourcePath: SourcePath) {
     self.sourcePath = sourcePath
   }
-  
-  private static var memoizedParsedFiles = Synchronized<[SourcePath: ParsedFile]>([:])
   
   override func run() throws {
     // File reading is not shared with the parse SourceKit operation, but this is mostly CPU-bound.

@@ -48,15 +48,18 @@ class BaseCommand: Command {
 struct Program {
   private let parser: ArgumentParser
   private let commands: [Command]
+  private let environment: [String: String]
   private let fileManager: FileManager
   
   init(usage: String,
        overview: String,
        commands: [Command.Type],
+       environment: [String: String] = ProcessInfo.processInfo.environment,
        fileManager: FileManager = FileManager.default) {
     let parser = ArgumentParser(usage: usage, overview: overview)
     self.parser = parser
     self.commands = commands.map({ $0.init(parser: parser) })
+    self.environment = environment
     self.fileManager = fileManager
   }
   
@@ -76,7 +79,6 @@ struct Program {
         exitStatus = 1
       }
     }
-    flushLogs()
     return exitStatus
   }
   
@@ -87,8 +89,13 @@ struct Program {
         return
     }
     try command.run(with: arguments,
-                    environment: ProcessInfo.processInfo.environment,
+                    environment: environment,
                     workingPath: Path(fileManager.currentDirectoryPath))
 
   }
+}
+
+func exit(_ exitStatus: Int32) -> Never {
+  flushLogs()
+  Darwin.exit(exitStatus)
 }

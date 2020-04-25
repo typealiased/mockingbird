@@ -78,5 +78,5 @@ public func log(_ error: Error,
                 output: UnsafeMutablePointer<FILE>? = nil,
                 file: StaticString = #file,
                 line: UInt = #line) {
-  log(error.localizedDescription, type: .error, level: level, output: output, file: file, line: line)
+  log("\(error)", type: .error, level: level, output: output, file: file, line: line)
 }
