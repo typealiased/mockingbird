@@ -19,4 +19,6 @@ func main(arguments: [String]) -> Int32 {
   return program.run(with: arguments)
 }
 
-exit(main(arguments: ProcessInfo.processInfo.arguments))
+loadDylibs([swiftSyntaxParserDylib]) {
+  exit(main(arguments: ProcessInfo.processInfo.arguments))
+}

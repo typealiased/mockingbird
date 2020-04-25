@@ -35,6 +35,8 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
   
   public let result = ExtractSourcesOperationResult()
   
+  public override var description: String { "Extract Sources" }
+  
   public init(with target: T, sourceRoot: Path, supportPath: Path?) {
     self.target = target
     self.sourceRoot = sourceRoot
@@ -137,6 +139,8 @@ private class GlobSearchOperation: BasicOperation {
     static let negationPrefix = "!"
     static let escapingToken = "\\"
   }
+  
+  override var description: String { "Glob Search" }
   
   override func run() throws {
     guard shouldInclude(sourcePath: sourcePath.path, in: sourcePath.path.parent()).value else {

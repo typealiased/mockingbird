@@ -9,6 +9,68 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Print Debug Info
+      run: make print-debug-info
+    - name: Set Up Project
+      run: make setup-project
+    - name: Clean
+      run: make clean
+    - name: Build
+      run: make build
+    - name: Install
+      run: 'export PREFIX=$(pwd) && make install'
+    - name: Set Up Target
+      run: |
+        ./bin/mockingbird install \
+          --target MockingbirdTests \
+          --source MockingbirdTestsHost \
+          --loglevel verbose \
+          --verbose
+    - name: Test
+      run: make clean-test
+    - name: Cached Test
+      run: make test
+
+  build-xcode-11_4_0:
+    name: Xcode 11.4.0 toolchain
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set Up Environment
+      run: sudo xcode-select -s /Applications/Xcode_11.4.app/Contents/Developer
+    - name: Print Debug Info
+      run: make print-debug-info
+    - name: Set Up Project
+      run: make setup-project
+    - name: Clean
+      run: make clean
+    - name: Build
+      run: make build
+    - name: Install
+      run: 'export PREFIX=$(pwd) && make install'
+    - name: Set Up Target
+      run: |
+        ./bin/mockingbird install \
+          --target MockingbirdTests \
+          --source MockingbirdTestsHost \
+          --loglevel verbose \
+          --verbose
+    - name: Test
+      run: make clean-test
+    - name: Cached Test
+      run: make test
+
+  build-xcode-11_3_1:
+    name: Xcode 11.3.1 toolchain
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set Up Environment
+      run: sudo xcode-select -s /Applications/Xcode_11.3.1.app/Contents/Developer
+    - name: Print Debug Info
+      run: make print-debug-info
     - name: Set Up Project
       run: make setup-project
     - name: Clean

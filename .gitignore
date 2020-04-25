@@ -1,6 +1,7 @@
 # Xcode
 
 ## Build generated
+*.xcodeproj/GeneratedModuleMap/
 build/
 DerivedData
 Mockingbird.pkg
@@ -11,6 +12,9 @@ mockingbird
 
 ## Caches
 *.xcodeproj/MockingbirdCache/*.lock
+
+## Embedded resources
+MockingbirdCli/Libraries/*.generated.swift
 
 ## Various settings
 *.pbxuser

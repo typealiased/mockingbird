@@ -6,12 +6,13 @@ BUILD_TOOL?=xcodebuild
 TEMPORARY_FOLDER=$(TEMPORARY_FOLDER_ROOT)/Mockingbird.make.dst
 TEMPORARY_INSTALLER_FOLDER=$(TEMPORARY_FOLDER)/install
 XCODEBUILD_DERIVED_DATA=$(TEMPORARY_FOLDER)/xcodebuild/DerivedData/MockingbirdFramework
+XCODE_PATH=$(shell xcode-select --print-path)
 
 SIMULATOR_NAME=iphone11-mockingbird
 SIMULATOR_DEVICE_TYPE=com.apple.CoreSimulator.SimDeviceType.iPhone-11
 SIMULATOR_RUNTIME=com.apple.CoreSimulator.SimRuntime.iOS-13-3
 
-SWIFT_BUILD_FLAGS=--configuration release
+SWIFT_BUILD_FLAGS=--configuration release -Xlinker -weak-l_InternalSwiftSyntaxParser
 XCODEBUILD_FLAGS=-project 'Mockingbird.xcodeproj' DSTROOT=$(TEMPORARY_FOLDER)
 XCODEBUILD_MACOS_FLAGS=$(XCODEBUILD_FLAGS) -destination 'platform=OS X'
 XCODEBUILD_FRAMEWORK_FLAGS=$(XCODEBUILD_FLAGS) \
@@ -31,6 +32,9 @@ EXAMPLE_CARTHAGE_XCODEBUILD_FLAGS=$(EXAMPLE_XCODEBUILD_FLAGS) \
 
 FRAMEWORKS_FOLDER=/Library/Frameworks
 BINARIES_FOLDER=$(PREFIX)/bin
+
+DEFAULT_XCODE_RPATH=$(XCODE_PATH)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx
+MOCKINGBIRD_RPATH=/var/tmp/mockingbird/$(VERSION_STRING)/libs
 
 PKG_BUNDLE_IDENTIFIER=co.bird.mockingbird
 PKG_IDENTITY_NAME=3rd Party Mac Developer Installer: Bird Rides, Inc. (P2T4T6R4SL)
@@ -59,7 +63,11 @@ APPLETVSIMULATOR_FRAMEWORK_PATH=$(APPLETVSIMULATOR_FRAMEWORK_FOLDER)/$(FRAMEWORK
 LICENSE_FILENAME=LICENSE
 LICENSE_PATH=$(shell pwd)/$(LICENSE_FILENAME)
 
-INSTALLABLE_FILENAMES="$(CLI_FILENAME)" "$(MACOS_FRAMEWORK_FILENAME)" "$(IPHONESIMULATOR_FRAMEWORK_FILENAME)" "$(APPLETVSIMULATOR_FRAMEWORK_FILENAME)" "$(LICENSE_FILENAME)"
+INSTALLABLE_FILENAMES="$(CLI_FILENAME)" \
+	"$(MACOS_FRAMEWORK_FILENAME)" \
+	"$(IPHONESIMULATOR_FRAMEWORK_FILENAME)" \
+	"$(APPLETVSIMULATOR_FRAMEWORK_FILENAME)" \
+	"$(LICENSE_FILENAME)"
 
 OUTPUT_PACKAGE=Mockingbird.pkg
 OUTPUT_ZIP=Mockingbird.zip
@@ -81,6 +89,7 @@ ERROR_MSG=[ERROR] The downloaded Mockingbird CLI binary does not have the expect
 		clean \
 		setup-project \
 		save-xcschemes \
+		generate-embedded-dylibs \
 		build-cli \
 		build-framework-macos \
 		build-framework-iphonesimulator \
@@ -133,12 +142,46 @@ clean: clean-mocks clean-xcode clean-swift clean-installables
 setup-project:
 	swift package resolve
 	cp -rf Xcode/XCSchemes/*.xcscheme Mockingbird.xcodeproj/xcshareddata/xcschemes
+	rsync -vhr Xcode/GeneratedModuleMap/** Mockingbird.xcodeproj/GeneratedModuleMap
 
 save-xcschemes:
 	cp -rf Mockingbird.xcodeproj/xcshareddata/xcschemes/*.xcscheme Xcode/XCSchemes
 
-build-cli:
+# Generate a random number.
+# This is not run initially.
+GENERATE_ID = $(shell od -vAn -N2 -tu2 < /dev/urandom)
+
+# Generate a random number, and assign it to MY_ID
+# This is not run initially.
+SET_ID = $(eval MY_ID=$(GENERATE_ID))
+
+print-debug-info:	
+	@echo "Mockingbird version: $(VERSION_STRING)"
+	@echo "Installation prefix: $(PREFIX)"
+	@echo "Temporary folder: $(TEMPORARY_FOLDER_ROOT)"
+	@echo "Build tool: $(BUILD_TOOL)"
+	$(eval XCODE_PATH_VAR = $(XCODE_PATH))
+	@echo "Xcode path: $(XCODE_PATH_VAR)"
+	@echo "Built CLI path: $(EXECUTABLE_PATH)"
+	$(eval CURRENT_REV = $(shell git rev-parse HEAD))
+	@echo "Current revision: $(CURRENT_REV)"
+	$(eval SWIFT_VERSION = $(shell swift --version))
+	@echo "Swift version: $(SWIFT_VERSION)"
+	$(eval XCODEBUILD_VERSION = $(shell xcodebuild -version))
+	@echo "Xcodebuild version: $(XCODEBUILD_VERSION)"
+
+generate-embedded-dylibs:
+	Scripts/generate-resource-file.sh \
+		MockingbirdCli/Libraries/lib_InternalSwiftSyntaxParser.dylib \
+		MockingbirdCli/Libraries/SwiftSyntaxParserDylib.generated.swift \
+		'swiftSyntaxParserDylib'
+
+build-cli: generate-embedded-dylibs
 	swift build $(SWIFT_BUILD_FLAGS) --product mockingbird
+	# Inject custom rpath into binary.
+	$(eval RPATH = $(DEFAULT_XCODE_RPATH))
+	install_name_tool -delete_rpath "$(RPATH)" "$(EXECUTABLE_PATH)"
+	install_name_tool -add_rpath "$(MOCKINGBIRD_RPATH)" "$(EXECUTABLE_PATH)"
 
 build-framework-macos:
 	$(BUILD_TOOL) -scheme 'MockingbirdFramework' -configuration 'Release' -sdk macosx -arch x86_64 $(XCODEBUILD_FRAMEWORK_FLAGS)

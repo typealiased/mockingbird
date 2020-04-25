@@ -3,8 +3,12 @@ import PackageDescription
 
 let package = Package(
   name: "Mockingbird",
+  platforms: [
+    .macOS(.v10_14),
+    .iOS(.v8),
+  ],
   products: [
-    .library(name: "Mockingbird", targets: ["Mockingbird"]),
+    .library(name: "Mockingbird", targets: ["MockingbirdFramework"]),
     .executable(name: "mockingbird", targets: ["MockingbirdCli"]),
     
     // For local dev only. Uncomment before running `$ swift package generate-xcodeproj`.
@@ -14,10 +18,11 @@ let package = Package(
     .package(url: "https://github.com/tuist/XcodeProj.git", from: "7.0.0"),
     .package(url: "https://github.com/jpsim/SourceKitten.git", from: "0.24.0"),
     .package(url: "https://github.com/apple/swift-package-manager.git", .exact("0.4.0")),
+    .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50200.0")),
   ],
   targets: [
     .target(
-      name: "Mockingbird",
+      name: "MockingbirdFramework",
       dependencies: [],
       path: "MockingbirdFramework",
       linkerSettings: [.linkedFramework("XCTest")]
@@ -26,6 +31,7 @@ let package = Package(
       name: "MockingbirdGenerator",
       dependencies: [
         "SourceKittenFramework",
+        "SwiftSyntax",
         "XcodeProj",
       ],
       path: "MockingbirdGenerator"
@@ -60,7 +66,7 @@ let package = Package(
     .testTarget(
       name: "MockingbirdTests",
       dependencies: [
-        "Mockingbird",
+        "MockingbirdFramework",
         "MockingbirdGenerator",
         "MockingbirdTestsHost",
         "MockingbirdPerformanceTestsHost",

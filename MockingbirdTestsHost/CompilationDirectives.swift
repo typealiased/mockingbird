@@ -7,12 +7,20 @@
 
 import Foundation
 
+#if !(DEBUG)
+#warning("Testing #warning compilation directive keyword handling")
+#endif
+
 #if DEBUG
 protocol DebugCompilationDirectiveProtocol {
   var variable: Bool { get }
 }
+#elseif RELEASE
+protocol ReleaseCompilationDirectiveProtocol {
+  var variable: Bool { get }
+}
 #else
-protocol NotDebugCompilationDirectiveProtocol {
+protocol DefaultCompilationDirectiveProtocol {
   var variable: Bool { get }
 }
 #endif
@@ -31,7 +39,15 @@ extension OnlyDebugCompilationDirectiveProtocol {
 
 #if DEBUG
 #if !(!(DEBUG))
-protocol NestedCompilationDirectiveProtocol {
+protocol NestedDebugCompilationDirectiveProtocol {
+  var variable: Bool { get }
+}
+#elseif RELEASE
+protocol NestedReleaseCompilationDirectiveProtocol {
+  var variable: Bool { get }
+}
+#else
+protocol NestedDefaultCompilationDirectiveProtocol {
   var variable: Bool { get }
 }
 #endif
@@ -41,8 +57,10 @@ protocol CompilationDirectiveProtocol {
   var variable: Bool { get }
   #if DEBUG
   var debugVariable: Bool { get }
+  #elseif RELEASE
+  var releaseVariable: Bool { get }
   #else
-  var notDebugVariable: Bool { get }
+  var defaultVariable: Bool { get }
   #endif
   
   #if DEBUG
@@ -51,15 +69,21 @@ protocol CompilationDirectiveProtocol {
   
   #if DEBUG
   #if !(!(DEBUG))
-  var nestedVariable: Bool { get }
+  var nestedDebugVariable: Bool { get }
+  #elseif RELEASE
+  var nestedReleaseVariable: Bool { get }
+  #else
+  var nestedDefaultVariable: Bool { get }
   #endif
   #endif
   
   func method()
   #if DEBUG
   func debugMethod()
+  #elseif RELEASE
+  func releaseMethod()
   #else
-  func notDebugMethod()
+  func defaultMethod()
   #endif
   
   #if DEBUG
@@ -68,7 +92,11 @@ protocol CompilationDirectiveProtocol {
   
   #if DEBUG
   #if !(!(DEBUG))
-  func nestedMethod()
+  func nestedDebugMethod()
+  #elseif RELEASE
+  func nestedReleaseMethod()
+  #else
+  func nestedDefaultMethod()
   #endif
   #endif
 }

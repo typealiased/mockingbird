@@ -1,0 +1,4 @@
+module _CSwiftSyntax {
+    umbrella "../../../.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include"
+    export *
+}
