@@ -192,6 +192,9 @@ enum AccessLevel: String, CustomStringConvertible {
     }
   }
   
+  // In Swift 5.2, SourceKit no longer always returns an explicit access level for all structures.
+  static let defaultLevel = AccessLevel.internal
+  
   init?(from dictionary: StructureDictionary) {
     guard let rawAccessLevel = dictionary[AccessLevel.accessLevelKey] as? String else { return nil }
     self.init(rawValue: rawAccessLevel)

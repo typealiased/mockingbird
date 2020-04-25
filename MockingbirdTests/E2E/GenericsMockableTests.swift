@@ -32,6 +32,14 @@ extension AssociatedTypeImplementerProtocolMock: MockableAssociatedTypeImplement
 private protocol MockableAssociatedTypeImplementer {
   func request<T: AssociatedTypeProtocol>(object: T)
     where T.EquatableType == Int, T.HashableType == String
+  
+  #if swift(>=5.2) // This was fixed in Swift 5.2
+  func request<T: AssociatedTypeProtocol>(object: T) -> T.EquatableType
+    where T.EquatableType == Int, T.HashableType == String
+
+  func request<T: AssociatedTypeProtocol>(object: T) -> T.EquatableType
+    where T.EquatableType == Bool, T.HashableType == String
+  #endif
 }
 extension AssociatedTypeImplementerMock: MockableAssociatedTypeImplementer {}
 
@@ -58,6 +66,7 @@ extension GenericClassReferencerMock: MockableGenericClassReferencer {}
 
 // MARK: Non-mockable declarations
 
+#if swift(<5.2) // This was fixed in Swift 5.2
 private extension AssociatedTypeImplementerMock {
   func request<T: AssociatedTypeProtocol>(object: T) -> T.EquatableType
     where T.EquatableType == Int, T.HashableType == String { return 1 }
@@ -65,3 +74,4 @@ private extension AssociatedTypeImplementerMock {
   func request<T: AssociatedTypeProtocol>(object: T) -> T.EquatableType
     where T.EquatableType == Bool, T.HashableType == String { return true }
 }
+#endif

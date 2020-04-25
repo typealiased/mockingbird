@@ -47,8 +47,9 @@ struct Method {
     let isInitializer = name.hasPrefix("init(")
     self.isInitializer = isInitializer
     
-    guard let accessLevel = AccessLevel(from: dictionary),
-      accessLevel.isMockableMember(in: rootKind, withinSameModule: rawType.parsedFile.shouldMock)
+    let accessLevel = AccessLevel(from: dictionary) ?? .defaultLevel
+    guard accessLevel.isMockableMember(in: rootKind,
+                                       withinSameModule: rawType.parsedFile.shouldMock)
         || isInitializer && accessLevel.isMockable // Initializers cannot be `open`.
       else { return nil }
     self.accessLevel = accessLevel

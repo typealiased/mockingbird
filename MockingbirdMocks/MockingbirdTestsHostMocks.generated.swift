@@ -1553,6 +1553,62 @@ public final class AssociatedTypeImplementerMock: MockingbirdTestsHost.Associate
     self.sourceLocation = sourceLocation
   }
 
+  #if swift(>=5.2)
+
+  // MARK: Mocked `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T)
+
+  public override func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> T.EquatableType where T.EquatableType == Bool, T.HashableType == String {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> T.EquatableType where T.EquatableType == Bool, T.HashableType == String", arguments: [Mockingbird.ArgumentMatcher(`object`)])
+    return mockingContext.didInvoke(invocation) { () -> T.EquatableType in
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (T) -> T.EquatableType {
+        return concreteImplementation(`object`)
+      } else if let concreteImplementation = implementation as? () -> T.EquatableType {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T.EquatableType).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
+    }
+  }
+
+  public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T.EquatableType, T.EquatableType> where T.EquatableType == Bool, T.HashableType == String {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> T.EquatableType where T.EquatableType == Bool, T.HashableType == String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T.EquatableType, T.EquatableType>(mock: self, invocation: invocation)
+  }
+
+  #endif
+
+  #if swift(>=5.2)
+
+  // MARK: Mocked `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T)
+
+  public override func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> T.EquatableType where T.EquatableType == Int, T.HashableType == String {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> T.EquatableType where T.EquatableType == Int, T.HashableType == String", arguments: [Mockingbird.ArgumentMatcher(`object`)])
+    return mockingContext.didInvoke(invocation) { () -> T.EquatableType in
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (T) -> T.EquatableType {
+        return concreteImplementation(`object`)
+      } else if let concreteImplementation = implementation as? () -> T.EquatableType {
+        return concreteImplementation()
+      } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (T.EquatableType).self) {
+        return defaultValue
+      } else {
+        fatalError(stubbingContext.failTest(for: invocation))
+      }
+    }
+  }
+
+  public func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: @escaping @autoclosure () -> T) -> Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T.EquatableType, T.EquatableType> where T.EquatableType == Int, T.HashableType == String {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`object`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> T.EquatableType where T.EquatableType == Int, T.HashableType == String", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.MethodDeclaration, (T) -> T.EquatableType, T.EquatableType>(mock: self, invocation: invocation)
+  }
+
+  #endif
+
   // MARK: Mocked `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T)
 
   public override func `request`<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`object`: T) -> Void where T.EquatableType == Int, T.HashableType == String {
@@ -12254,6 +12310,32 @@ public final class InitializerClassMock: MockingbirdTestsHost.InitializerClass, 
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init<T>(`param2`: T) throws where T: MockingbirdTestsHost.AssociatedTypeProtocol ", arguments: [Mockingbird.ArgumentMatcher(`param2`)])
     mockingContext.didInvoke(invocation)
   }
+
+  #if swift(>=5.2)
+
+  // MARK: Mocked init<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`param`: T)
+
+  public required override init<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`param`: T) {
+    super.init(param: `param`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init<T: MockingbirdTestsHost.AssociatedTypeProtocol>(`param`: T) ", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  #endif
+
+  #if swift(>=5.2)
+
+  // MARK: Mocked init?<T>(`param`: T)
+
+  public required override init?<T>(`param`: T) {
+    super.init(param: `param`)
+    Mockingbird.checkVersion(for: self)
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "init?<T>(`param`: T) ", arguments: [Mockingbird.ArgumentMatcher(`param`)])
+    mockingContext.didInvoke(invocation)
+  }
+
+  #endif
 
   // MARK: Mocked init?(`param`: Bool)
 

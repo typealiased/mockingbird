@@ -75,13 +75,17 @@ class ProcessStructuresOperation: BasicOperation {
     // For inheritance, contained types are stored in the root namespace as fully qualified types.
     containedTypes.forEach({ result.rawTypes.append($0) })
     
-    guard let kind = optionalKind, kind.isParsable,
-      let accessLevel = AccessLevel(from: dictionary), accessLevel.isMockable else { return [] }
+    guard let kind = optionalKind, kind.isParsable else { return [] }
+    
+    let accessLevel = AccessLevel(from: dictionary) ?? .defaultLevel
+    guard accessLevel.isMockable else { return [] }
+    
     let fullyQualifiedName = attributedContainingTypeNames.joined(separator: ".")
     let selfConformanceTypeNames = kind == .protocol
       ? parseSelfConformanceTypeNames(from: dictionary) : []
     let aliasedTypeNames = kind == .typealias
       ? parseAliasedTypeNames(from: dictionary): []
+    
     return [RawType(dictionary: dictionary,
                     name: name,
                     fullyQualifiedName: fullyQualifiedName,
