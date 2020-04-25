@@ -23,10 +23,10 @@ private protocol StubbableChildProtocol {
     -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
   func childTrivialInstanceMethod()
-    -> Mockable<MethodDeclaration, () -> Void, Void>
+    -> Mockable<FunctionDeclaration, () -> Void, Void>
   func childParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                         _ param2: @escaping @autoclosure () -> Int)
-    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
+    -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
   
   static func getChildPrivateSetterStaticVariable()
     -> Mockable<VariableDeclaration, () -> Bool, Bool>
@@ -37,10 +37,10 @@ private protocol StubbableChildProtocol {
     -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
   static func childTrivialStaticMethod()
-    -> Mockable<MethodDeclaration, () -> Void, Void>
+    -> Mockable<FunctionDeclaration, () -> Void, Void>
   static func childParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool,
                                              _ param2: @escaping @autoclosure () -> Int)
-    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
+    -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
   
   // MARK: Parent
   func getParentPrivateSetterInstanceVariable()
@@ -52,10 +52,10 @@ private protocol StubbableChildProtocol {
     -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
   func parentTrivialInstanceMethod()
-    -> Mockable<MethodDeclaration, () -> Void, Void>
+    -> Mockable<FunctionDeclaration, () -> Void, Void>
   func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                          _ param2: @escaping @autoclosure () -> Int)
-    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
+    -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
   
   static func getParentPrivateSetterStaticVariable()
     -> Mockable<VariableDeclaration, () -> Bool, Bool>
@@ -66,10 +66,10 @@ private protocol StubbableChildProtocol {
     -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
   static func parentTrivialStaticMethod()
-    -> Mockable<MethodDeclaration, () -> Void, Void>
+    -> Mockable<FunctionDeclaration, () -> Void, Void>
   static func parentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool,
                                               _ param2: @escaping @autoclosure () -> Int)
-    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
+    -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
   
   // MARK: Grandparent
   func getGrandparentPrivateSetterInstanceVariable()
@@ -79,10 +79,10 @@ private protocol StubbableChildProtocol {
   func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
     -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
-  func grandparentTrivialInstanceMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  func grandparentTrivialInstanceMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
   func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
                                               _ param2: @escaping @autoclosure () -> Int)
-    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
+    -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
   
   static func getGrandparentPrivateSetterStaticVariable()
     -> Mockable<VariableDeclaration, () -> Bool, Bool>
@@ -93,10 +93,10 @@ private protocol StubbableChildProtocol {
     -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
   
   static func grandparentTrivialStaticMethod()
-    -> Mockable<MethodDeclaration, () -> Void, Void>
+    -> Mockable<FunctionDeclaration, () -> Void, Void>
   static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool,
                                                    _ param2: @escaping @autoclosure () -> Int)
-    -> Mockable<MethodDeclaration, (Bool, Int) -> Bool, Bool>
+    -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
 }
 extension ChildProtocolMock: StubbableChildProtocol {}
 

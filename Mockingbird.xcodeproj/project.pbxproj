@@ -44,11 +44,17 @@
 
 /* Begin PBXBuildFile section */
 		5D5FAC84DF438200D4E44D85 /* MockingbirdTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */; };
-		D372A4622454DFB60000E80A /* SequentialValueStubbingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A4612454DFB60000E80A /* SequentialValueStubbingTests.swift */; };
 		D372A44D2453CB2A0000E80A /* OutputStream+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A44C2453CB2A0000E80A /* OutputStream+Extensions.swift */; };
 		D372A4592454A5DD0000E80A /* SwiftSyntaxParserDylib.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A4492453C4C40000E80A /* SwiftSyntaxParserDylib.generated.swift */; };
 		D372A45B2454A7110000E80A /* LoadDylib.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A44E2453CCF60000E80A /* LoadDylib.swift */; };
 		D372A45D2454ADCB0000E80A /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A45C2454ADCB0000E80A /* Resource.swift */; };
+		D372A4622454DFB60000E80A /* SequentialValueStubbingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A4612454DFB60000E80A /* SequentialValueStubbingTests.swift */; };
+		D372A4652454E8790000E80A /* SubscriptMethodTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A4632454E8790000E80A /* SubscriptMethodTemplate.swift */; };
+		D372A4662454E8790000E80A /* InitializerMethodTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A4642454E8790000E80A /* InitializerMethodTemplate.swift */; };
+		D372A4682454E8FA0000E80A /* Subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A4672454E8FA0000E80A /* Subscripts.swift */; };
+		D372A46A2454E92B0000E80A /* SubscriptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A4692454E92B0000E80A /* SubscriptTests.swift */; };
+		D372A46C2454E9810000E80A /* SubscriptMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A46B2454E9810000E80A /* SubscriptMockableTests.swift */; };
+		D372A46E2454EB520000E80A /* SubscriptStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A46D2454EB520000E80A /* SubscriptStubbableTests.swift */; };
 		D3D936F22450F61400078751 /* MockingbirdTestsHost.h in Headers */ = {isa = PBXBuildFile; fileRef = OBJ_130 /* MockingbirdTestsHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3D936F62450F85100078751 /* ParsedFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D936F52450F85100078751 /* ParsedFile.swift */; };
 		D3D936F82451606000078751 /* ParseSingleFileOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D936F72451606000078751 /* ParseSingleFileOperation.swift */; };
@@ -1107,13 +1113,19 @@
 /* Begin PBXFileReference section */
 		93974737AF2D18DBCBCCA8F1 /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D372A4612454DFB60000E80A /* SequentialValueStubbingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequentialValueStubbingTests.swift; sourceTree = "<group>"; };
 		D372A4422452CF280000E80A /* lib_InternalSwiftSyntaxParser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = lib_InternalSwiftSyntaxParser.dylib; path = MockingbirdGenerator/Libraries/lib_InternalSwiftSyntaxParser.dylib; sourceTree = "<group>"; };
 		D372A4452452D9280000E80A /* lib_InternalSwiftSyntaxParser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = lib_InternalSwiftSyntaxParser.dylib; sourceTree = "<group>"; };
 		D372A4492453C4C40000E80A /* SwiftSyntaxParserDylib.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSyntaxParserDylib.generated.swift; sourceTree = "<group>"; };
 		D372A44C2453CB2A0000E80A /* OutputStream+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutputStream+Extensions.swift"; sourceTree = "<group>"; };
 		D372A44E2453CCF60000E80A /* LoadDylib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadDylib.swift; sourceTree = "<group>"; };
 		D372A45C2454ADCB0000E80A /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		D372A4612454DFB60000E80A /* SequentialValueStubbingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequentialValueStubbingTests.swift; sourceTree = "<group>"; };
+		D372A4632454E8790000E80A /* SubscriptMethodTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptMethodTemplate.swift; sourceTree = "<group>"; };
+		D372A4642454E8790000E80A /* InitializerMethodTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitializerMethodTemplate.swift; sourceTree = "<group>"; };
+		D372A4672454E8FA0000E80A /* Subscripts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscripts.swift; sourceTree = "<group>"; };
+		D372A4692454E92B0000E80A /* SubscriptTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptTests.swift; sourceTree = "<group>"; };
+		D372A46B2454E9810000E80A /* SubscriptMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptMockableTests.swift; sourceTree = "<group>"; };
+		D372A46D2454EB520000E80A /* SubscriptStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptStubbableTests.swift; sourceTree = "<group>"; };
 		D3A53F412450C59F00A1DB4B /* MockingbirdTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdTests.xcconfig; sourceTree = "<group>"; };
 		D3A53F422450C59F00A1DB4B /* MockingbirdModuleTestsHost.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdModuleTestsHost.xcconfig; sourceTree = "<group>"; };
 		D3A53F432450C59F00A1DB4B /* MockingbirdFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdFramework.xcconfig; sourceTree = "<group>"; };
@@ -2068,6 +2080,7 @@
 				OBJ_189 /* Parent.swift */,
 				OBJ_190 /* ParentProtocol.swift */,
 				OBJ_191 /* ProtocolInitializers.swift */,
+				D372A4672454E8FA0000E80A /* Subscripts.swift */,
 				OBJ_192 /* Typealiasing.swift */,
 				OBJ_193 /* UndefinedArgumentLabels.swift */,
 				OBJ_194 /* Variables.swift */,
@@ -2206,6 +2219,8 @@
 				OBJ_224 /* InoutParametersStubbableTests.swift */,
 				OBJ_225 /* KeywordArgumentNamesMockableTests.swift */,
 				OBJ_226 /* KeywordArgumentNamesStubbableTests.swift */,
+				D372A46B2454E9810000E80A /* SubscriptMockableTests.swift */,
+				D372A46D2454EB520000E80A /* SubscriptStubbableTests.swift */,
 				OBJ_227 /* TypealiasingMockableTests.swift */,
 				OBJ_228 /* TypealiasingStubbableTests.swift */,
 				OBJ_229 /* UndefinedArgumentLabelsMockableTests.swift */,
@@ -2249,6 +2264,7 @@
 				OBJ_247 /* OverloadedMethodTests.swift */,
 				D372A4612454DFB60000E80A /* SequentialValueStubbingTests.swift */,
 				OBJ_248 /* StubbingTests.swift */,
+				D372A4692454E92B0000E80A /* SubscriptTests.swift */,
 				OBJ_249 /* Utilities */,
 				OBJ_252 /* VariadicParametersTests.swift */,
 				OBJ_253 /* XFailOrderedVerificationTests.swift */,
@@ -3301,9 +3317,11 @@
 		OBJ_65 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
+				D372A4642454E8790000E80A /* InitializerMethodTemplate.swift */,
 				OBJ_66 /* MethodTemplate.swift */,
 				OBJ_67 /* MockableTypeInitializerTemplate.swift */,
 				OBJ_68 /* MockableTypeTemplate.swift */,
+				D372A4632454E8790000E80A /* SubscriptMethodTemplate.swift */,
 				OBJ_69 /* Template.swift */,
 				OBJ_70 /* VariableTemplate.swift */,
 			);
@@ -4182,6 +4200,7 @@
 				OBJ_1117 /* DirectoryNonRelativeIgnoredSource.swift in Sources */,
 				OBJ_1118 /* WildcardFileNonRelativeIgnoredSource.swift in Sources */,
 				OBJ_1119 /* NonRelativeSecondLevelFileIgnoredSource.swift in Sources */,
+				D372A4682454E8FA0000E80A /* Subscripts.swift in Sources */,
 				OBJ_1120 /* RelativeSecondLevelFileIncludedSource.swift in Sources */,
 				OBJ_1121 /* SecondLevelFileIgnoredSource.swift in Sources */,
 				OBJ_1122 /* TopLevelFileIgnoredSource.swift in Sources */,
@@ -4738,6 +4757,7 @@
 				OBJ_895 /* Typealias.swift in Sources */,
 				OBJ_896 /* Variable.swift in Sources */,
 				OBJ_897 /* BasicOperation.swift in Sources */,
+				D372A4662454E8790000E80A /* InitializerMethodTemplate.swift in Sources */,
 				OBJ_898 /* CheckCacheOperation.swift in Sources */,
 				OBJ_900 /* ExtractSourcesOperation.swift in Sources */,
 				OBJ_901 /* FlattenInheritanceOperation.swift in Sources */,
@@ -4755,6 +4775,7 @@
 				OBJ_913 /* Array+Extensions.swift in Sources */,
 				OBJ_914 /* CharacterSet+Extensions.swift in Sources */,
 				OBJ_915 /* DateFormatter+Extensions.swift in Sources */,
+				D372A4652454E8790000E80A /* SubscriptMethodTemplate.swift in Sources */,
 				D3D936F82451606000078751 /* ParseSingleFileOperation.swift in Sources */,
 				OBJ_916 /* Log.swift in Sources */,
 				OBJ_917 /* OSLog+Extensions.swift in Sources */,
@@ -4827,6 +4848,7 @@
 				OBJ_1006 /* InitializersMockableTests.swift in Sources */,
 				OBJ_1007 /* InoutParametersMockableTests.swift in Sources */,
 				OBJ_1008 /* InoutParametersStubbableTests.swift in Sources */,
+				D372A46E2454EB520000E80A /* SubscriptStubbableTests.swift in Sources */,
 				OBJ_1009 /* KeywordArgumentNamesMockableTests.swift in Sources */,
 				OBJ_1010 /* KeywordArgumentNamesStubbableTests.swift in Sources */,
 				OBJ_1011 /* TypealiasingMockableTests.swift in Sources */,
@@ -4852,9 +4874,11 @@
 				OBJ_1031 /* StubbingTests.swift in Sources */,
 				OBJ_1032 /* BaseTestCase.swift in Sources */,
 				OBJ_1033 /* XFailTestFailer.swift in Sources */,
+				D372A46C2454E9810000E80A /* SubscriptMockableTests.swift in Sources */,
 				OBJ_1034 /* VariadicParametersTests.swift in Sources */,
 				OBJ_1035 /* XFailOrderedVerificationTests.swift in Sources */,
 				OBJ_1036 /* DeclaredTypeTests.swift in Sources */,
+				D372A46A2454E92B0000E80A /* SubscriptTests.swift in Sources */,
 				D372A4622454DFB60000E80A /* SequentialValueStubbingTests.swift in Sources */,
 				OBJ_1037 /* PBXTargetTests.swift in Sources */,
 				OBJ_1038 /* PathFnmatchTests.swift in Sources */,

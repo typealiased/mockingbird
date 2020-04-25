@@ -33,7 +33,10 @@ extension SwiftDeclarationKind {
   
   var isMethod: Bool {
     switch self {
-    case .functionMethodInstance, .functionMethodStatic, .functionMethodClass: return true
+    case .functionMethodInstance,
+         .functionMethodStatic,
+         .functionMethodClass,
+         .functionSubscript: return true
     default: return false
     }
   }

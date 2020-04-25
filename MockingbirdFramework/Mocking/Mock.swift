@@ -44,4 +44,5 @@ public struct Mockable<T: DeclarationType, I, R> {
 /// Used for disambiguating methods with the same function signature as a variable accessor.
 public protocol DeclarationType {}
 public enum VariableDeclaration: DeclarationType {}
-public enum MethodDeclaration: DeclarationType {}
+public enum FunctionDeclaration: DeclarationType {}
+public enum SubscriptDeclaration: DeclarationType {}

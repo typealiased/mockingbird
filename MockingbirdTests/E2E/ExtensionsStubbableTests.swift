@@ -13,29 +13,29 @@ import Mockingbird
 // MARK: - Stubbable declarations
 
 private protocol StubbableExtendableProtocol {
-  func trivialBaseMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  func trivialBaseMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
   func getBaseVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
   
-  func trivialExtendedMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  func trivialExtendedMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
   func parameterizedExtendedMethod(param1: @escaping @autoclosure () -> Bool)
-    -> Mockable<MethodDeclaration, (Bool) -> Void, Void>
+    -> Mockable<FunctionDeclaration, (Bool) -> Void, Void>
   func parameterizedReturningExtendedMethod(param1: @escaping @autoclosure () -> Bool)
-    -> Mockable<MethodDeclaration, (Bool) -> Bool, Bool>
+    -> Mockable<FunctionDeclaration, (Bool) -> Bool, Bool>
   func getExtendedVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
   
-  func anotherTrivialExtendedMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  func anotherTrivialExtendedMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
   func getAnotherExtendedVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
 }
 extension ExtendableProtocolMock: StubbableExtendableProtocol {}
 
 private protocol StubbableInheritsExtendableProtocol: StubbableExtendableProtocol {
-  func trivialChildMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  func trivialChildMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
   func getChildVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
 }
 extension InheritsExtendableProtocolMock: StubbableInheritsExtendableProtocol {}
 
 private protocol StubbableNonExtendableClass {
-  func trivialBaseMethod() -> Mockable<MethodDeclaration, () -> Void, Void>
+  func trivialBaseMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
   func getBaseVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
 }
 extension NonExtendableClassMock: StubbableNonExtendableClass {}

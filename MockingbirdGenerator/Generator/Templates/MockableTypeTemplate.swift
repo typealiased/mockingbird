@@ -38,7 +38,14 @@ class MockableTypeTemplate: Template {
   
   func methodTemplate(for method: Method) -> MethodTemplate {
     if let existing = methodTemplates[method] { return existing }
-    let template = MethodTemplate(method: method, context: self)
+    let template: MethodTemplate
+    if method.isInitializer {
+      template = InitializerMethodTemplate(method: method, context: self)
+    } else if method.kind == .functionSubscript {
+      template = SubscriptMethodTemplate(method: method, context: self)
+    } else {
+      template = MethodTemplate(method: method, context: self)
+    }
     methodTemplates[method] = template
     return template
   }
