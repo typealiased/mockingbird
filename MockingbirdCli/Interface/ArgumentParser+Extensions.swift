@@ -175,6 +175,15 @@ extension ArgumentParser {
                kind: Bool.self,
                usage: "Only search explicitly imported modules.")
   }
+  
+  // MARK: - Positional
+  
+  func addAssetBundleType() -> PositionalArgument<AssetBundleType> {
+    return add(positional: "asset",
+               kind: AssetBundleType.self,
+               usage: "An asset bundle to download and unpack.",
+               completion: AssetBundleType.completion)
+  }
 }
 
 extension ArgumentParser.Result {

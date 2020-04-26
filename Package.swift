@@ -15,10 +15,11 @@ let package = Package(
     //.library(name: "MockingbirdGenerator", targets: ["MockingbirdGenerator"]),
   ],
   dependencies: [
-    .package(url: "https://github.com/tuist/XcodeProj.git", from: "7.0.0"),
-    .package(url: "https://github.com/jpsim/SourceKitten.git", from: "0.24.0"),
     .package(url: "https://github.com/apple/swift-package-manager.git", .exact("0.4.0")),
     .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50200.0")),
+    .package(url: "https://github.com/jpsim/SourceKitten.git", from: "0.24.0"),
+    .package(url: "https://github.com/tuist/XcodeProj.git", from: "7.0.0"),
+    .package(url: "https://github.com/weichsel/ZIPFoundation.git", from: "0.9.0"),
   ],
   targets: [
     .target(
@@ -42,6 +43,7 @@ let package = Package(
         "MockingbirdGenerator",
         "SPMUtility",
         "XcodeProj",
+        "ZIPFoundation",
       ],
       path: "MockingbirdCli"
     ),

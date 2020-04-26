@@ -14,6 +14,7 @@ func main(arguments: [String]) -> Int32 {
                         commands: [GenerateCommand.self,
                                    InstallCommand.self,
                                    UninstallCommand.self,
+                                   DownloadCommand.self,
                                    TestbedCommand.self,
                                    VersionCommand.self])
   return program.run(with: arguments)

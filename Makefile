@@ -73,8 +73,11 @@ INSTALLABLE_FILENAMES="$(CLI_FILENAME)" \
 	"$(APPLETVSIMULATOR_FRAMEWORK_FILENAME)" \
 	"$(LICENSE_FILENAME)"
 
+STARTER_PACK_FOLDER=MockingbirdSupport
+
 OUTPUT_PACKAGE=Mockingbird.pkg
 OUTPUT_ZIP=Mockingbird.zip
+OUTPUT_STARTER_PACK_ZIP=MockingbirdSupport.zip
 
 CLI_BUNDLE_PLIST=MockingbirdCli/Info.plist
 VERSION_STRING=$(shell /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$(CLI_BUNDLE_PLIST)")
@@ -117,6 +120,7 @@ ERROR_MSG=[ERROR] The downloaded Mockingbird CLI binary does not have the expect
 		prepare-zip \
 		zip \
 		signed-zip \
+		starter-pack-zip \
 		release \
 		signed-release \
 		get-version \
@@ -305,9 +309,12 @@ signed-zip: installables prepare-zip
 
 	(cd "$(TEMPORARY_INSTALLER_FOLDER)"; zip -yr - $(INSTALLABLE_FILENAMES)) > "$(OUTPUT_ZIP)"
 
-release: clean package zip
+starter-pack-zip:
+	zip -yr - $(STARTER_PACK_FOLDER) > "$(OUTPUT_STARTER_PACK_ZIP)"
 
-signed-release: clean signed-package signed-zip
+release: clean package zip starter-pack-zip
+
+signed-release: clean signed-package signed-zip starter-pack-zip
 
 get-version:
 	@echo $(VERSION_STRING)
