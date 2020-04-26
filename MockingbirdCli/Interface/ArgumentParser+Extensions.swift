@@ -257,7 +257,7 @@ extension ArgumentParser.Result {
     if let targets = get(argument) ?? get(convenienceArgument) {
       return targets
     } else {
-      throw ArgumentParserError.expectedValue(option: "--targets <list of target names>")
+      throw ArgumentParserError.expectedValue(option: "--sources <list of target names>")
     }
   }
   
@@ -265,7 +265,7 @@ extension ArgumentParser.Result {
     if let target = get(argument) {
       return target
     } else {
-      throw ArgumentParserError.expectedValue(option: "--destination <target name>")
+      throw ArgumentParserError.expectedValue(option: "--target <target name>")
     }
   }
   

@@ -216,9 +216,18 @@ class Generator {
     }
   }
   
-  static func defaultOutputPath(for target: AbstractTarget, sourceRoot: Path) -> Path {
-    let moduleName = target.productModuleName
-    return sourceRoot.mocksDirectory + "\(moduleName)\(Constants.generatedFileNameSuffix)"
+  static func defaultOutputPath(for sourceTarget: AbstractTarget,
+                                testTarget: AbstractTarget? = nil,
+                                sourceRoot: Path) -> Path {
+    let prefix: String
+    if let testTargetName = testTarget?.productModuleName,
+      testTargetName != sourceTarget.productModuleName {
+      prefix = testTargetName + "-"
+    } else {
+      prefix = "" // Probably installed on a source target instead of a test target...
+    }
+    let moduleName = sourceTarget.productModuleName
+    return sourceRoot.mocksDirectory + "\(prefix)\(moduleName)\(Constants.generatedFileNameSuffix)"
   }
   
   static func targetLockFilePath(for targetName: String, cacheDirectory: Path) -> Path {

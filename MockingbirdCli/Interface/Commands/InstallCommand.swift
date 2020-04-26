@@ -13,7 +13,7 @@ import SPMUtility
 final class InstallCommand: BaseCommand {
   private enum Constants {
     static let name = "install"
-    static let overview = "Set up a destination (unit test) target."
+    static let overview = "Configure a test target to use mocks."
   }
   override var name: String { return Constants.name }
   override var overview: String { return Constants.overview }

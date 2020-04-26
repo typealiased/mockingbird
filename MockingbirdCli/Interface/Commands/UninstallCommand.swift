@@ -13,7 +13,7 @@ import SPMUtility
 final class UninstallCommand: BaseCommand {
   private enum Constants {
     static let name = "uninstall"
-    static let overview = "Remove Mockingbird from a (unit test) target."
+    static let overview = "Remove Mockingbird from a test target."
   }
   override var name: String { return Constants.name }
   override var overview: String { return Constants.overview }
