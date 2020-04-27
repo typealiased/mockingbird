@@ -97,8 +97,7 @@ $ pod install
 Then install the CLI.
 
 ```bash
-$ cd Pods/MockingbirdFramework
-$ make install-prebuilt
+$ (cd Pods/MockingbirdFramework && make install-prebuilt)
 ```
 
 ### Carthage
@@ -119,30 +118,72 @@ $ carthage update
 Then install the CLI.
 
 ```bash
-$ cd Carthage/Checkouts/mockingbird
-$ make install-prebuilt
+$ (cd Carthage/Checkouts/mockingbird && make install-prebuilt)
 ```
 
 ### Swift Package Manager
 
-Add `https://github.com/birdrides/mockingbird` as a dependency and link it to your test target.
+<details><summary>Using a Package Manifest</summary>
 
-Then download and install the
-[latest CLI from Releases](https://github.com/birdrides/mockingbird/releases/download/0.12.0/Mockingbird.pkg).
+Add Mockingbird as a package dependency in `Package.swift`, making sure to include it as a dependency to your
+test target.
+
+```swift
+let package = Package(
+  name: "MyPackage",
+  dependencies: [
+    .package(url: "https://github.com/birdrides/mockingbird.git", from: "0.12.0"),
+  ],
+  .testTarget(
+    name: "MyPackageTests",
+    dependencies: [
+      "Mockingbird",
+    ],
+    path: "MyPackageTests"
+  )
+)
+```
+
+</details>
+
+<details><summary>Using Xcode’s GUI</summary>
+
+Add a new package dependency with `https://github.com/birdrides/mockingbird.git` as the repository
+URL, making sure to select your test target for the Mockingbird library product.
+
+</details>
+
+Initialize the package dependency.
+
+```bash
+$ xcodebuild -resolvePackageDependencies
+```
+
+Then install the CLI.
+
+```bash
+$ DERIVED_DATA=$(xcodebuild -showBuildSettings | grep -m1 'BUILD_DIR' | grep -o '\/.*' | dirname $(xargs dirname))
+$ (cd "${DERIVED_DATA}/SourcePackages/checkouts/mockingbird" && make install-prebuilt)
+```
 
 ### From Source
 
-Clone the repository and build the `MockingbirdFramework` scheme for the desired platform. Drag the built 
-`Mockingbird.framework` product into your project and 
-[link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets).
+Clone the repository.
 
 ```bash
 $ git clone https://github.com/birdrides/mockingbird.git
 $ cd mockingbird
-$ open Mockingbird.xcodeproj
 ```
 
-Then build and install the CLI.
+Build the release artifacts and add the framework to your project, making sure to 
+[link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets).
+
+```bash
+$ make release
+$ unzip Mockingbird.zip -d bin
+```
+
+Then build and install the CLI, or use the `Mockingbird.pkg` installer.
 
 ```bash
 $ make install
@@ -150,9 +191,7 @@ $ make install
 
 ## Setup
 
-Use the CLI to configure a test target, listing all source targets that should generate mocks before each build. Below,
-mock types will be generated for the `Bird` app target and the `BirdManagers` framework target, which can then be
-used in `BirdTests`.
+Use the CLI to configure a test target, listing all source targets that should be mocked.
 
 ```bash
 $ mockingbird install \
@@ -184,6 +223,7 @@ Example projects demonstrating basic usage of Mockingbird:
 
 - [CocoaPods tutorial + example project](/Examples/iOSMockingbirdExample-CocoaPods)
 - [Carthage tutorial + example project](/Examples/iOSMockingbirdExample-Carthage)
+- [Swift Package Manager tutorial + example project](/Examples/iOSMockingbirdExample-SPM)
 
 ### Mocking
 
@@ -666,5 +706,3 @@ Mockingbird will recursively look for [supporting source files](#supporting-sour
 - [Troubleshooting](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
 - [Slack channel](https://slofile.com/slack/birdopensource)
 - [Mockingbird wiki](https://github.com/birdrides/mockingbird/wiki/)
-- [CocoaPods tutorial + example project](/Examples/iOSMockingbirdExample-CocoaPods)
-- [Carthage tutorial + example project](/Examples/iOSMockingbirdExample-Carthage)
