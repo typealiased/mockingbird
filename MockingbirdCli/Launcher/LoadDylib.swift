@@ -10,7 +10,11 @@ import PathKit
 import MockingbirdGenerator
 
 /// Global world-writable place to output dylibs (must be added as an rpath).
+#if RELATIVE_RPATH // Use relative paths for CI builds.
+private let globalLibraryDirectory = Path("./var/tmp/mockingbird/\(mockingbirdVersion)/libs/")
+#else
 private let globalLibraryDirectory = Path("/var/tmp/mockingbird/\(mockingbirdVersion)/libs/")
+#endif
 private let subprocessEnvironmentKey = "MKB_SUBPROCESS"
   
 enum LoadingError: Error, CustomStringConvertible {
@@ -49,7 +53,7 @@ func loadDylibs(_ dylibs: [Resource],
   
   var shouldRelaunch = false
   for dylib in dylibs {
-    let dylibPath = globalLibraryDirectory + dylib.fileName
+    let dylibPath = (globalLibraryDirectory + dylib.fileName).absolute()
     guard !dylibPath.isFile || shouldOverwrite else { continue }
     shouldRelaunch = true // Need to relaunch if even a single expected dylib is missing.
     

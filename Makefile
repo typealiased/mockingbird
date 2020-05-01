@@ -1,4 +1,5 @@
 TEMPORARY_FOLDER_ROOT?=/tmp
+USE_RELATIVE_RPATH?=0
 PREFIX?=/usr/local
 BUILD_TOOL?=xcodebuild
 
@@ -8,11 +9,14 @@ TEMPORARY_INSTALLER_FOLDER=$(TEMPORARY_FOLDER)/install
 XCODEBUILD_DERIVED_DATA=$(TEMPORARY_FOLDER)/xcodebuild/DerivedData/MockingbirdFramework
 XCODE_PATH=$(shell xcode-select --print-path)
 
+$(eval RELATIVE_RPATH_FLAG = $(shell [[ $(USE_RELATIVE_RPATH) -eq 1 ]] && echo '-Xswiftc -DRELATIVE_RPATH' || echo ''))
+$(eval RPATH_FOLDER_ROOT = $(shell [[ $(USE_RELATIVE_RPATH) -eq 1 ]] && echo '.' || echo ''))
+
 SIMULATOR_NAME=iphone11-mockingbird
 SIMULATOR_DEVICE_TYPE=com.apple.CoreSimulator.SimDeviceType.iPhone-11
-SIMULATOR_RUNTIME=com.apple.CoreSimulator.SimRuntime.iOS-13-3
+SIMULATOR_RUNTIME=com.apple.CoreSimulator.SimRuntime.iOS-13-4
 
-SWIFT_BUILD_FLAGS=--configuration release -Xlinker -weak-l_InternalSwiftSyntaxParser
+SWIFT_BUILD_FLAGS=--configuration release -Xlinker -weak-l_InternalSwiftSyntaxParser $(RELATIVE_RPATH_FLAG)
 XCODEBUILD_FLAGS=-project 'Mockingbird.xcodeproj' DSTROOT=$(TEMPORARY_FOLDER)
 XCODEBUILD_MACOS_FLAGS=$(XCODEBUILD_FLAGS) -destination 'platform=OS X'
 XCODEBUILD_FRAMEWORK_FLAGS=$(XCODEBUILD_FLAGS) \
@@ -34,7 +38,7 @@ FRAMEWORKS_FOLDER=/Library/Frameworks
 BINARIES_FOLDER=$(PREFIX)/bin
 
 DEFAULT_XCODE_RPATH=$(XCODE_PATH)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx
-MOCKINGBIRD_RPATH=/var/tmp/mockingbird/$(VERSION_STRING)/libs
+MOCKINGBIRD_RPATH=$(RPATH_FOLDER_ROOT)/var/tmp/mockingbird/$(VERSION_STRING)/libs
 
 PKG_BUNDLE_IDENTIFIER=co.bird.mockingbird
 PKG_IDENTITY_NAME=3rd Party Mac Developer Installer: Bird Rides, Inc. (P2T4T6R4SL)
@@ -137,7 +141,11 @@ clean-installables:
 	rm -f "$(OUTPUT_PACKAGE)"
 	rm -f "$(OUTPUT_ZIP)"
 
-clean: clean-mocks clean-xcode clean-swift clean-installables
+clean-dylibs:
+	rm -f MockingbirdCli/Libraries/*.generated.swift
+	rm -rf "$(MOCKINGBIRD_RPATH)"
+
+clean: clean-mocks clean-xcode clean-swift clean-installables clean-dylibs
 
 setup-project:
 	swift package resolve
@@ -147,18 +155,11 @@ setup-project:
 save-xcschemes:
 	cp -rf Mockingbird.xcodeproj/xcshareddata/xcschemes/*.xcscheme Xcode/XCSchemes
 
-# Generate a random number.
-# This is not run initially.
-GENERATE_ID = $(shell od -vAn -N2 -tu2 < /dev/urandom)
-
-# Generate a random number, and assign it to MY_ID
-# This is not run initially.
-SET_ID = $(eval MY_ID=$(GENERATE_ID))
-
 print-debug-info:	
 	@echo "Mockingbird version: $(VERSION_STRING)"
 	@echo "Installation prefix: $(PREFIX)"
-	@echo "Temporary folder: $(TEMPORARY_FOLDER_ROOT)"
+	@echo "Temporary folder: $(TEMPORARY_FOLDER)"
+	@echo "Mockingbird rpath: $(MOCKINGBIRD_RPATH)"
 	@echo "Build tool: $(BUILD_TOOL)"
 	$(eval XCODE_PATH_VAR = $(XCODE_PATH))
 	@echo "Xcode path: $(XCODE_PATH_VAR)"
@@ -169,6 +170,7 @@ print-debug-info:
 	@echo "Swift version: $(SWIFT_VERSION)"
 	$(eval XCODEBUILD_VERSION = $(shell xcodebuild -version))
 	@echo "Xcodebuild version: $(XCODEBUILD_VERSION)"
+	@echo "Swift build flags: $(SWIFT_BUILD_FLAGS)"
 
 generate-embedded-dylibs:
 	Scripts/generate-resource-file.sh \
