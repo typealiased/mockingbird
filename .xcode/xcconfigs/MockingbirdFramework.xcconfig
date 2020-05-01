@@ -6,3 +6,4 @@ FRAMEWORK_SEARCH_PATHS = $(PLATFORM_DIR)/Developer/Library/Frameworks
 TARGET_NAME = Mockingbird
 ENABLE_BITCODE = NO
 SUPPORTED_PLATFORMS = macosx iphoneos iphonesimulator appletvos appletvsimulator
+BUILD_LIBRARY_FOR_DISTRIBUTION = YES
