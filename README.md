@@ -170,6 +170,18 @@ and place the `MockingbirdSupport` folder in the root directory of your project.
 should not be imported into Xcode or added to any targets. See [Supporting Source Files](#supporting-source-files)
 for more information.
 
+<details><summary>Upcoming changes in Mockingbird 0.12.0</summary>
+
+For basic compatibility with system frameworks and types defined outside of your project, download the latest starter
+supporting source files. Note that supporting source files should not be imported into Xcode or added to any targets.
+See [Supporting Source Files](#supporting-source-files) for more information.
+
+```bash
+$ mockingbird download starter-pack
+```
+
+</details>
+
 ### Excluding Files
 
 You can exclude unwanted or problematic sources from being mocked by adding a `.mockingbird-ignore` file. 
@@ -515,28 +527,14 @@ around(10.0, tolerance: 0.01)
 
 ## Supporting Source Files
 
-Add supporting source files whenever inheriting or conforming to types defined outside of your project. For example
-`protocol BirdBrain: Codable {}` inherits from the Swift standard library type `Codable`. In order to generate
-the methods `encode(to:)` and `init(from:)` for `BirdBrain`, the definition for `Codable`  needs to exist in the
-supporting source files like so:
+Mockingbird relies on parsing source files to generate mocked methods and properties. However, types defined
+outside of your project such as in system frameworks or in a CocoaPod dependency are considered external and
+cannot be parsed directly. Not having access to all sources can result in compiler errors when inheriting from an
+external type.
 
-```swift
-/* MockingbirdSupport/Swift/Codable.swift */
-
-public protocol Encodable {
-  func encode(to encoder: Encoder) throws
-}
-
-public protocol Decodable {
-  init(from decoder: Decoder) throws
-}
-
-public typealias Codable = Decodable & Encodable
-```
-
-Supporting source files do not allow you to generate mocks for external types such as those defined in third-party
-libraries or frameworks. Please see [Mocking External Types](https://github.com/birdrides/mockingbird/wiki/Mocking-External-Types) for
-details and best practices.
+Supporting source files allow you to provide external sources to the generator so that it can resolve inherited methods
+and properties correctly. Note that it does not allow you to
+[generate mocks for external types](https://github.com/birdrides/mockingbird/wiki/Mocking-External-Types).
 
 ### Starter Pack
 
@@ -546,27 +544,41 @@ such as `Foundation`. Download the latest
 and place the `MockingbirdSupport` folder in the root directory of your project. Note that supporting source files
 should not be imported into Xcode or added to any targets.
 
-If you share supporting source files between projects, you can specify a custom `--support` directory when 
-running the CLI installer or generator.
+<details><summary>Upcoming changes in Mockingbird 0.12.0</summary>
 
-### Structure
+Download the starter supporting source files for basic compatibility with the Swift standard library and common
+system frameworks. Note that supporting source files should not be imported into Xcode or added to any targets.
 
-Supporting source files should be contained in a directory that matches the module name. You can define 
-submodules and transitive dependencies by nesting directories.
-
-```
-MockingbirdSupport/
-├── Foundation/
-│   └── ObjectiveC/
-│       └── NSObject.swift
-└── Swift/
-    ├── Codable.swift
-    ├── Comparable.swift
-    ├── Equatable.swift
-    └── Hashable.swift
+```bash
+$ mockingbird download starter-pack
 ```
 
-With the above file structure, `NSObject` can be imported from both the `Foundation` and `ObjectiveC` modules.
+</details>
+
+### Adding Files
+
+Add supporting source files whenever a mock that inherits from an external type does not compile. For example, let’s
+say the mock for `protocol BirdBrain: StorageDelegate {}` does not compile because it inherits from the
+external type `StorageDelegate` defined in the framework `LossyStorage`.
+
+```swift
+/// A delegate defined in `LossyStorage`
+public protocol StorageDelegate: AnyObject {
+  func store<T: Codable>(memory: T)
+}
+```
+
+In order to generate the method `store(memory:)` for `BirdBrain`, we need to copy the definition for
+`StorageDelegate` into a supporting source file for `LossyStorage`. A good place might be 
+`MockingbirdSupport/LossyStorage/StorageDelegate.swift`. File names are arbitrary, but the parent
+directory must have the same name as the module declaring the external type.
+
+```swift
+/// Copied into `MockingbirdSupport/LossyStorage/StorageDelegate.swift`
+public protocol StorageDelegate: AnyObject {
+  func store<T: Codable>(memory: T)
+}
+```
 
 ## Mockingbird CLI
 
@@ -595,7 +607,7 @@ Generate mocks for a set of targets in a project.
 
 ### Install
 
-Set up a destination test target.
+Configure a test target to use mocks.
 
 `mockingbird install`
 
@@ -606,7 +618,7 @@ Set up a destination test target.
 | `--project` | [`(inferred)`](#--project) | Your project’s `.xcodeproj` file. |
 | `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |
 | `--outputs` | [`(inferred)`](#--outputs) | List of mock output file paths for each target. |
-| `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](#). |
+| `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](#supporting-source-files). |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
 | `--loglevel` |  `(none)` | The log level to use when generating mocks, `quiet` or `verbose` |
 
@@ -618,10 +630,11 @@ Set up a destination test target.
 | `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
 | `--disable-cache` | Ignore cached mock information stored on disk. |
 | `--disable-relaxed-linking` | Only search explicitly imported modules. |
+| `--download-starter-pack` | Download the starter [supporting source files](#supporting-source-files). |
 
 ### Uninstall
 
-Remove Mockingbird from a (unit test) target.
+Remove Mockingbird from a test target.
 
 `mockingbird uninstall`
 
@@ -630,6 +643,16 @@ Remove Mockingbird from a (unit test) target.
 | `--targets` | *(required)* | List of target names to uninstall the Run Script Phase. |
 | `--project` | [`(inferred)`](#--project) | Your project’s `.xcodeproj` file. |
 | `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |
+
+### Download
+
+Download and unpack a compatible asset bundle. Bundles will never overwrite existing files on disk.
+
+`mockingbird download <asset>`
+
+| Asset | Description |
+| --- | --- |
+| `starter-pack` | Starter [supporting source files](#supporting-source-files). |
 
 ### Global Options
 

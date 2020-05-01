@@ -5,9 +5,10 @@
 build/
 DerivedData
 Mockingbird.pkg
-mockingbird.zip
+Mockingbird.zip
 MockingbirdCli.pkg
-mockingbirdCli.zip
+MockingbirdCli.zip
+MockingbirdSupport.zip
 mockingbird
 
 ## Caches

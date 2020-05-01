@@ -98,5 +98,12 @@ final class InstallCommand: BaseCommand {
     )
     try Installer.install(using: config)
     print("Installed Mockingbird to `\(destinationTarget)` in \(projectPath)")
+    
+    // Warn users that haven't added supporting source files.
+    guard supportPath == nil else { return }
+    print("""
+    Please add starter supporting source files for basic compatibility with system frameworks.
+      $ mockingbird download starter-pack
+    """)
   }
 }

@@ -67,6 +67,14 @@ $ unzip -o 'MockingbirdSupport.zip'
 $ rm -f 'MockingbirdSupport.zip'
 ```
 
+<details><summary>Upcoming changes in Mockingbird 0.12.0</summary>
+
+```bash
+$ mockingbird download starter-pack
+```
+
+</details>
+
 ### Run Tests
 
 Open the Xcode project.
@@ -75,7 +83,7 @@ Open the Xcode project.
 $ open iOSMockingbirdExample-Carthage.xcodeproj
 ```
 
-Take a peek at the example test and sources and then run the tests (⌘+U):
+Take a peek at the example test and sources and then run the tests (⌘+U).
 
 - [`TreeTests.swift`](iOSMockingbirdExample-CarthageTests/TreeTests.swift)
 - [`Tree.swift`](iOSMockingbirdExample-Carthage/Tree.swift)
