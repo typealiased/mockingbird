@@ -22,9 +22,9 @@ jobs:
     - name: Clean
       run: make clean-cocoapods
     - name: Set Up
-      run: 'export PREFIX=$(pwd) && make setup-cocoapods'
+      run: 'PREFIX=$(pwd) make setup-cocoapods'
     - name: Test
-      run: 'export PATH=$(pwd)/bin:$PATH && make test-cocoapods'
+      run: 'PATH=$(pwd)/bin:$PATH make test-cocoapods'
     - name: Cached Test
       run: make test-cocoapods
 
@@ -37,8 +37,8 @@ jobs:
     - name: Clean
       run: make clean-carthage
     - name: Set Up
-      run: 'export PREFIX=$(pwd) && make setup-carthage'
+      run: 'PREFIX=$(pwd) make setup-carthage'
     - name: Test
-      run: 'export PATH=$(pwd)/bin:$PATH && make test-carthage'
+      run: 'PATH=$(pwd)/bin:$PATH make test-carthage'
     - name: Cached Test
       run: make test-carthage
