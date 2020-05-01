@@ -82,7 +82,7 @@ struct MockableTypeInitializerTemplate: Template {
     }
     
     let returnType: String
-    let returnExpression: String
+    let returnStatement: String
     let returnTypeDescription: String
     
     let mockTypeScopedName =
@@ -90,25 +90,30 @@ struct MockableTypeInitializerTemplate: Template {
                                             genericTypeContext: genericTypeContext,
                                             suffix: "Mock")
     
-    if !mockableTypeTemplate.shouldGenerateDefaultInitializer {
+    if !mockableTypeTemplate.isAvailable {
+      // Unavailable mocks do not generate real initializers.
+      returnType = mockTypeScopedName
+      returnStatement = "fatalError()"
+      returnTypeDescription = mockableTypeTemplate.unavailableMockAttribute
+    } else if !mockableTypeTemplate.shouldGenerateDefaultInitializer {
       // Requires an initializer proxy to create the partial class mock.
       returnType = "\(mockTypeScopedName).InitializerProxy.Type"
-      returnExpression = "\(mockTypeScopedName).InitializerProxy.self"
-      returnTypeDescription = "an initializable class mock"
+      returnStatement = "return \(mockTypeScopedName).InitializerProxy.self"
+      returnTypeDescription = "/// Initialize an initializable class mock of `\(mockableTypeTemplate.fullyQualifiedName)`."
     } else {
       // Does not require an initializer proxy.
       returnType = mockTypeScopedName
-      returnExpression = "\(mockTypeScopedName)(sourceLocation: SourceLocation(file, line))"
-      returnTypeDescription = "a " + (kind == .class ? "class" : "protocol") + " mock"
+      returnStatement = "return \(mockTypeScopedName)(sourceLocation: SourceLocation(file, line))"
+      returnTypeDescription = "/// Initialize a " + (kind == .class ? "class" : "protocol") + " mock of `\(mockableTypeTemplate.fullyQualifiedName)`."
     }
     
     let allGenericTypes = genericTypeConstraints.isEmpty ? "" :
       "<\(genericTypeConstraints.joined(separator: ", "))>"
     
     return """
-    /// Initialize \(returnTypeDescription) of `\(mockableTypeTemplate.fullyQualifiedName)`.
+    \(returnTypeDescription)
     public func mock\(allGenericTypes)(_ type: \(metatype), file: StaticString = #file, line: UInt = #line) -> \(returnType) {
-      return \(returnExpression)
+      \(returnStatement)
     }
     """
   }

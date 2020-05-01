@@ -26,6 +26,7 @@ jobs:
         ./bin/mockingbird install \
           --target MockingbirdTests \
           --source MockingbirdTestsHost \
+          --diagnostics all not-mockable \
           --loglevel verbose \
           --verbose
     - name: Download Starter Pack
@@ -60,6 +61,7 @@ jobs:
         ./bin/mockingbird install \
           --target MockingbirdTests \
           --source MockingbirdTestsHost \
+          --diagnostics all not-mockable \
           --loglevel verbose \
           --verbose
     - name: Download Starter Pack
@@ -94,6 +96,7 @@ jobs:
         ./bin/mockingbird install \
           --target MockingbirdTests \
           --source MockingbirdTestsHost \
+          --diagnostics all not-mockable \
           --loglevel verbose \
           --verbose
     - name: Download Starter Pack

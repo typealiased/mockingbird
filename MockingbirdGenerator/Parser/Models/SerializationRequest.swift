@@ -159,7 +159,14 @@ extension SerializationRequest {
                                 referencingModuleName: context.referencingModuleName,
                                 containingTypeNames: [])?
           .findBaseRawType() else {
-            logWarning("The type `\(typeName)` was defined in an extension for `\(extensionTypeName)` whose source was missing")
+            logWarning(
+              "Cannot resolve module name for containing type \(extensionTypeName.singleQuoted) which is not defined in the project or in a supporting source file",
+              diagnostic: .undefinedType,
+              filePath: baseRawType.parsedFile.path,
+              line: SourceSubstring.key
+                .extractLinesNumbers(from: baseRawType.dictionary,
+                                     contents: baseRawType.parsedFile.file.contents)?.start
+            )
             return nil
         }
         return extensionRawType.parsedFile.moduleName

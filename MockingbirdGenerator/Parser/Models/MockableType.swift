@@ -8,6 +8,7 @@
 
 import Foundation
 import SourceKittenFramework
+import PathKit
 
 /// Classes, protocols, and extensions on either.
 class MockableType: Hashable, Comparable {
@@ -21,6 +22,7 @@ class MockableType: Hashable, Comparable {
   let variables: Set<Variable>
   let inheritedTypes: Set<MockableType>
   let allInheritedTypeNames: [String] // Includes opaque inherited types, in declaration order.
+  let opaqueInheritedTypeNames: Set<String>
   let selfConformanceTypes: Set<MockableType> // Types for `Self` constrained protocols.
   let allSelfConformanceTypeNames: [String] // Includes opaque conformance type names.
   let primarySelfConformanceType: MockableType? // Guaranteed to be a class conformance.
@@ -35,8 +37,17 @@ class MockableType: Hashable, Comparable {
   let isContainedType: Bool
   let isInGenericContainingType: Bool
   let subclassesExternalType: Bool
-  let hasOpaqueInheritedType: Bool
   let hasSelfConstraint: Bool
+  
+  // MARK: Debugging
+  
+  private let baseRawType: RawType
+  let filePath: Path
+  lazy var lineNumber: Int? = {
+    return SourceSubstring.key
+      .extractLinesNumbers(from: baseRawType.dictionary,
+                           contents: baseRawType.parsedFile.file.contents)?.start
+  }()
   
   private let sortableIdentifier: String
   static func < (lhs: MockableType, rhs: MockableType) -> Bool {
@@ -58,7 +69,6 @@ class MockableType: Hashable, Comparable {
   ///   - mockableTypes: All currently known `MockableType` objects used for inheritance flattening.
   init?(from rawTypes: [RawType],
         mockableTypes: [String: MockableType],
-        hasOpaqueInheritedType: Bool,
         moduleNames: [String],
         specializationContexts: [String: SpecializationContext],
         rawTypeRepository: RawTypeRepository,
@@ -66,6 +76,8 @@ class MockableType: Hashable, Comparable {
     guard let baseRawType = rawTypes.findBaseRawType(),
       baseRawType.kind.isMockable
       else { return nil }
+    self.baseRawType = baseRawType
+    self.filePath = baseRawType.parsedFile.path
     
     let accessLevel = AccessLevel(from: baseRawType.dictionary) ?? .defaultLevel
     guard accessLevel.isMockableType(withinSameModule: baseRawType.parsedFile.shouldMock)
@@ -85,7 +97,7 @@ class MockableType: Hashable, Comparable {
     self.kind = baseRawType.kind
     self.accessLevel = accessLevel
     self.isContainedType = !baseRawType.containingTypeNames.isEmpty
-    self.hasOpaqueInheritedType = hasOpaqueInheritedType
+    self.opaqueInheritedTypeNames = Set(rawTypes.flatMap({ $0.opaqueInheritedTypeNames }))
     self.shouldMock = baseRawType.parsedFile.shouldMock
     self.genericTypeContext = baseRawType.genericTypeContext
     self.isInGenericContainingType = baseRawType.genericTypeContext.contains(where: { !$0.isEmpty })
@@ -156,7 +168,14 @@ class MockableType: Hashable, Comparable {
       let nonInheritableType = inheritedTypes.first(where: {
         $0.kind == .class && !$0.accessLevel.isInheritableType(withinSameModule: $0.shouldMock)
       }) {
-      logWarning("Ignoring type `\(baseRawType.name)` because it inherits from a non-inheritable type `\(nonInheritableType.name)`")
+      logWarning(
+        "\(baseRawType.name.singleQuoted) inherits from the non-inheritable type \(nonInheritableType.name.singleQuoted) and is not mockable",
+        diagnostic: .notMockable,
+        filePath: baseRawType.parsedFile.path,
+        line: SourceSubstring.key
+          .extractLinesNumbers(from: baseRawType.dictionary,
+                               contents: baseRawType.parsedFile.file.contents)?.start
+      )
       return nil
     }
     
@@ -194,7 +213,14 @@ class MockableType: Hashable, Comparable {
       let nonInheritableType = selfConformanceTypes.first(where: {
         $0.kind == .class && !$0.accessLevel.isInheritableType(withinSameModule: $0.shouldMock)
       }) {
-      logWarning("Ignoring `\(baseRawType.name)` because it requires Self conformance to a non-inheritable type `\(nonInheritableType.name)`")
+      logWarning(
+        "\(baseRawType.name.singleQuoted) inherits from the non-open class \(nonInheritableType.name.singleQuoted) and cannot be mocked",
+        diagnostic: .notMockable,
+        filePath: baseRawType.parsedFile.path,
+        line: SourceSubstring.key
+          .extractLinesNumbers(from: baseRawType.dictionary,
+                               contents: baseRawType.parsedFile.file.contents)?.start
+      )
       return nil
     }
     
@@ -305,7 +331,7 @@ class MockableType: Hashable, Comparable {
                                 referencingModuleName: baseRawType.parsedFile.moduleName,
                                 containingTypeNames: baseRawType.containingTypeNames[...])?
           .findBaseRawType() else {
-            logWarning("Unable to resolve referenced type `\(typeName)` in `\(baseRawType.name)`")
+            log("Unable to resolve inherited type \(typeName.singleQuoted) for \(baseRawType.name.singleQuoted)")
             allInheritedTypeNames.append(typeName)
             return []
         }

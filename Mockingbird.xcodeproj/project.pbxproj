@@ -173,7 +173,7 @@
 		OBJ_1166 /* TrivialIncludedSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_195 /* TrivialIncludedSource.swift */; };
 		OBJ_1167 /* ModuleImportCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_196 /* ModuleImportCases.swift */; };
 		OBJ_1168 /* NestedFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_197 /* NestedFields.swift */; };
-		OBJ_1169 /* OpaqueTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_198 /* OpaqueTypes.swift */; };
+		OBJ_1169 /* OpaquelyInheritedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_198 /* OpaquelyInheritedTypes.swift */; };
 		OBJ_1170 /* Optionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_199 /* Optionals.swift */; };
 		OBJ_1171 /* OverloadedMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_200 /* OverloadedMethods.swift */; };
 		OBJ_1172 /* Parent.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_201 /* Parent.swift */; };
@@ -1238,7 +1238,7 @@
 		OBJ_195 /* TrivialIncludedSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrivialIncludedSource.swift; sourceTree = "<group>"; };
 		OBJ_196 /* ModuleImportCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleImportCases.swift; sourceTree = "<group>"; };
 		OBJ_197 /* NestedFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedFields.swift; sourceTree = "<group>"; };
-		OBJ_198 /* OpaqueTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpaqueTypes.swift; sourceTree = "<group>"; };
+		OBJ_198 /* OpaquelyInheritedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpaquelyInheritedTypes.swift; sourceTree = "<group>"; };
 		OBJ_199 /* Optionals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optionals.swift; sourceTree = "<group>"; };
 		OBJ_20 /* Installer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Installer.swift; sourceTree = "<group>"; };
 		OBJ_200 /* OverloadedMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverloadedMethods.swift; sourceTree = "<group>"; };
@@ -2097,7 +2097,7 @@
 				OBJ_170 /* MockingbirdIgnore */,
 				OBJ_196 /* ModuleImportCases.swift */,
 				OBJ_197 /* NestedFields.swift */,
-				OBJ_198 /* OpaqueTypes.swift */,
+				OBJ_198 /* OpaquelyInheritedTypes.swift */,
 				OBJ_199 /* Optionals.swift */,
 				OBJ_200 /* OverloadedMethods.swift */,
 				OBJ_201 /* Parent.swift */,
@@ -3344,31 +3344,23 @@
 		OBJ_80 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				OBJ_86 /* DeclaredType.swift */,
 				OBJ_81 /* GenericType.swift */,
 				OBJ_82 /* Method.swift */,
 				OBJ_83 /* MethodParameter.swift */,
 				OBJ_84 /* MockableType.swift */,
-				OBJ_85 /* Parser */,
+				OBJ_87 /* ParsedFile.swift */,
 				OBJ_90 /* Primitives.swift */,
 				OBJ_91 /* RawType.swift */,
 				OBJ_92 /* SerializationRequest.swift */,
+				OBJ_88 /* Single.swift */,
 				OBJ_93 /* Specializable.swift */,
-				OBJ_94 /* TypeAttributes.swift */,
+				OBJ_89 /* Tuple.swift */,
 				OBJ_95 /* Typealias.swift */,
+				OBJ_94 /* TypeAttributes.swift */,
 				OBJ_96 /* Variable.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		OBJ_85 /* Parser */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_86 /* DeclaredType.swift */,
-				OBJ_87 /* ParsedFile.swift */,
-				OBJ_88 /* Single.swift */,
-				OBJ_89 /* Tuple.swift */,
-			);
-			path = Parser;
 			sourceTree = "<group>";
 		};
 		OBJ_97 /* Operations */ = {
@@ -4108,7 +4100,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${BUILT_PRODUCTS_DIR}/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs \"${SRCROOT}/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift\" \\\n  --support \"${SRCROOT}/MockingbirdSupport\" \\\n  --disable-cache \\\n  --verbose\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-16BC195B-65B7-4763-B2C9-AEA49F30A43A'\n";
+			shellScript = "set -e\n\n${BUILT_PRODUCTS_DIR}/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs \"${SRCROOT}/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift\" \\\n  --support \"${SRCROOT}/MockingbirdSupport\" \\\n  --diagnostics all \\\n  --disable-cache \\\n  --verbose\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-16BC195B-65B7-4763-B2C9-AEA49F30A43A'\n";
 		};
 		D372A59C2455878B0000E80A /* Generate Embedded Dylibs */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4286,7 +4278,7 @@
 				OBJ_1166 /* TrivialIncludedSource.swift in Sources */,
 				OBJ_1167 /* ModuleImportCases.swift in Sources */,
 				OBJ_1168 /* NestedFields.swift in Sources */,
-				OBJ_1169 /* OpaqueTypes.swift in Sources */,
+				OBJ_1169 /* OpaquelyInheritedTypes.swift in Sources */,
 				OBJ_1170 /* Optionals.swift in Sources */,
 				OBJ_1171 /* OverloadedMethods.swift in Sources */,
 				OBJ_1172 /* Parent.swift in Sources */,

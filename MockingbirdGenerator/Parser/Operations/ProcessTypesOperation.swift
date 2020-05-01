@@ -32,6 +32,8 @@ public class ProcessTypesOperation: BasicOperation {
     self.parseFilesResult = parseFilesResult
     self.checkCacheResult = checkCacheResult
     self.useRelaxedLinking = useRelaxedLinking
+    retainForever(rawTypeRepository)
+    retainForever(typealiasRepository)
   }
   
   override func run() {
@@ -78,7 +80,12 @@ public class ProcessTypesOperation: BasicOperation {
           guard mockableType.kind == .class, mockableType.subclassesExternalType else { return true }
           // Ignore any types that simply cannot be initialized.
           guard mockableType.methods.contains(where: { $0.isInitializer }) else {
-            logWarning("Ignoring `\(mockableType.name)` because it subclasses an externally-defined type without available initializers and does not locally declare any initializers")
+            logWarning(
+              "\(mockableType.name.singleQuoted) subclasses a type from a different module but does not declare any accessible initializers and cannot be mocked",
+              diagnostic: .notMockable,
+              filePath: mockableType.filePath,
+              line: mockableType.lineNumber
+            )
             return false
           }
           return true

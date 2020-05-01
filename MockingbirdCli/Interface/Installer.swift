@@ -23,6 +23,7 @@ class Installer {
     let supportPath: Path?
     let cliPath: Path
     let compilationCondition: String?
+    let diagnostics: [DiagnosticType]?
     let logLevel: LogLevel?
     let ignoreExisting: Bool
     let asynchronousGeneration: Bool
@@ -81,11 +82,11 @@ class Installer {
     let targetName = config.destinationTargetName
     let destinationTargets = xcodeproj.pbxproj.targets(named: targetName)
     if destinationTargets.count > 1 {
-      logWarning("Found multiple targets named `\(targetName)`, using the first one")
+      logWarning("Found multiple targets named \(targetName.singleQuoted), using the first one")
     }
     guard let target = destinationTargets.first else {
       throw Failure.malformedConfiguration(
-        description: "Unable to find a target named `\(targetName)`"
+        description: "Unable to find a target named \(targetName.singleQuoted)"
       )
     }
     if target.productType?.isTestBundle != true {
@@ -116,7 +117,7 @@ class Installer {
     } else {
       guard !target.buildPhases.contains(where: { $0.name() == Constants.buildPhaseName }) else {
         // Build phase is already added.
-        log("Ignoring existing Mockingbird build phase in target `\(target.name)`")
+        log("Ignoring existing Mockingbird build phase in target \(target.name.singleQuoted)")
         return
       }
     }
@@ -125,7 +126,7 @@ class Installer {
     guard let sourcesBuildPhase = try target.sourcesBuildPhase(),
       let buildPhaseIndex = target.buildPhases.firstIndex(of: sourcesBuildPhase) else {
         throw Failure.malformedConfiguration(
-          description: "Target `\(targetName)` does not have a compile sources phase"
+          description: "Target \(targetName.singleQuoted) does not have a compile sources phase"
         )
     }
     
@@ -164,17 +165,17 @@ class Installer {
     return try config.sourceTargetNames.map({ targetName throws -> PBXTarget in
       let sourceTargets = xcodeproj.pbxproj.targets(named: targetName).filter({ target in
         guard target.productType?.isTestBundle != true else {
-          logWarning("Ignoring source target `\(targetName)` because it is a test target")
+          logWarning("Ignoring source target \(targetName.singleQuoted) because it is a test target")
           return false
         }
         return true
       })
       if sourceTargets.count > 1 {
-        logWarning("Found multiple source targets named `\(targetName)`, using the first one")
+        logWarning("Found multiple source targets named \(targetName.singleQuoted), using the first one")
       }
       guard let sourceTarget = sourceTargets.first else {
         throw Failure.malformedConfiguration(
-          description: "Unable to find source target named `\(targetName)`"
+          description: "Unable to find source target named \(targetName.singleQuoted)"
         )
       }
       return sourceTarget
@@ -190,7 +191,7 @@ class Installer {
       try $0.file?.fullPath(sourceRoot: config.sourceRoot) == outputPath
     }) != true else {
       // De-dup already-added sources.
-      log("Target `\(target.name)` already references the output mock file at \(outputPath)")
+      log("Target \(target.name.singleQuoted) already references the output mock file at \(outputPath)")
       return
     }
     
@@ -222,7 +223,7 @@ class Installer {
     try config.targetNames.forEach({ targetName throws in
       guard let target = xcodeproj.pbxproj.targets(named: targetName).first else {
         throw Failure.malformedConfiguration(
-          description: "Unable to find target named `\(targetName)`"
+          description: "Unable to find target named \(targetName.singleQuoted)"
         )
       }
       try uninstall(from: xcodeproj, target: target, sourceRoot: config.sourceRoot)
@@ -247,7 +248,7 @@ class Installer {
       }) as? PBXShellScriptBuildPhase
       else { return }
     
-    log("Uninstalling existing 'Generate Mockingbird Mocks' build phase from target `\(target.name)`")
+    log("Uninstalling existing 'Generate Mockingbird Mocks' build phase from target \(target.name.singleQuoted)")
     
     // Remove build phase reference from project.
     xcodeproj.pbxproj.delete(object: buildPhase)
@@ -274,7 +275,7 @@ class Installer {
       }) as? PBXShellScriptBuildPhase
       else { return }
     
-    log("Uninstalling existing 'Clean Mockingbird Mocks' build phase from target `\(target.name)`")
+    log("Uninstalling existing 'Clean Mockingbird Mocks' build phase from target \(target.name.singleQuoted)")
     
     // Remove build phase reference from project.
     xcodeproj.pbxproj.delete(object: buildPhase)
@@ -304,6 +305,13 @@ class Installer {
       }
       if let expression = config.compilationCondition {
         options.append("--condition '\(expression)'")
+      }
+      if let diagnostics = config.diagnostics {
+        let allDiagnostics = Set(diagnostics)
+          .map({ $0.rawValue.singleQuoted })
+          .sorted()
+          .joined(separator: " ")
+        options.append("--diagnostics \(allDiagnostics)")
       }
       if config.onlyMockProtocols {
         options.append("--only-protocols")

@@ -596,6 +596,7 @@ Generate mocks for a set of targets in a project.
 | `--outputs` | [`(inferred)`](#--outputs) | List of mock output file paths for each target. |
 | `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](#). |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
+| `--diagnostics` | `(none)` | List of [diagnostic generator warnings](https://github.com/birdrides/mockingbird/wiki/Diagnostic-Warnings-and-Errors) to enable. |
 
 | Flag | Description |
 | --- | --- |
@@ -620,6 +621,7 @@ Configure a test target to use mocks.
 | `--outputs` | [`(inferred)`](#--outputs) | List of mock output file paths for each target. |
 | `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](#supporting-source-files). |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
+| `--diagnostics` | `(none)` | List of [diagnostic generator warnings](https://github.com/birdrides/mockingbird/wiki/Diagnostic-Warnings-and-Errors) to enable. |
 | `--loglevel` |  `(none)` | The log level to use when generating mocks, `quiet` or `verbose` |
 
 | Flag | Description |

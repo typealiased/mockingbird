@@ -169,7 +169,7 @@ struct Function: CustomStringConvertible, CustomDebugStringConvertible, Serializ
           } else if component == "@autoclosure" {
             attributes.insert(.autoclosure)
           } else if component.hasPrefix("@") { // Unknown parameter attribute.
-            logWarning("Ignoring unknown parameter attribute `\(component)` in function type declaration `\(serialized)`")
+            logWarning("Ignoring unknown parameter attribute \(String(component).singleQuoted) in function type declaration \(String(serialized).singleQuoted)")
           } else if component == "inout" {
             attributes.insert(.inout)
           } else if component == "..." {

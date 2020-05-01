@@ -6,14 +6,62 @@
 //
 
 import Foundation
+import PathKit
+
+enum ControlCode: CustomStringConvertible {
+  // MARK: Colors
+  case red
+  case green
+  case yellow
+  case cyan
+  case white
+  case black
+  case grey
+  
+  // MARK: Misc
+  case bold
+  case removeFormatting
+  
+  /// Returns the color code which can be prefixed on a string to display it in that color.
+  var description: String {
+    switch self {
+    case .red: return "\u{001B}[31m"
+    case .green: return "\u{001B}[32m"
+    case .yellow: return "\u{001B}[33m"
+    case .cyan: return "\u{001B}[36m"
+    case .white: return "\u{001B}[37m"
+    case .black: return "\u{001B}[30m"
+    case .grey: return "\u{001B}[30;1m"
+    case .bold: return "\u{001B}[1m"
+    case .removeFormatting: return "\u{001B}[2K"
+    }
+  }
+}
+
+private extension String {
+  func formatted(with controlCodes: ControlCode...) -> String {
+    return controlCodes.map({ "\($0)" }).joined(separator: "")
+      + self
+      + "\(ControlCode.removeFormatting)"
+  }
+}
 
 public enum LogType: Int, CustomStringConvertible {
   case debug = 0, warn, error
+  
+  public var formattedDescription: String {
+    switch self {
+    case .debug: return ""
+    case .warn: return description.formatted(with: ControlCode.yellow, ControlCode.bold)
+    case .error: return description.formatted(with: ControlCode.red, ControlCode.bold)
+    }
+  }
+  
   public var description: String {
     switch self {
-    case .debug: return "DEBUG"
-    case .warn: return "WARN"
-    case .error: return "ERROR"
+    case .debug: return ""
+    case .warn: return "warning:"
+    case .error: return "error:"
     }
   }
   
@@ -39,7 +87,16 @@ public enum LogLevel: String, RawRepresentable {
     }
   }
   
-  public static var `default` = Synchronized<LogLevel>(.normal)
+  public static let `default` = Synchronized<LogLevel>(.normal)
+}
+
+public enum DiagnosticType: String, Hashable, CaseIterable {
+  case all = "all"
+  case notMockable = "not-mockable"
+  case undefinedType = "undefined-type"
+  case typeInference = "type-inference"
+  
+  public static let enabled = Synchronized<Set<DiagnosticType>>([])
 }
 
 private let loggingQueue = DispatchQueue(label: "co.bird.mockingbird.log", qos: .background)
@@ -48,35 +105,63 @@ public func flushLogs() {
 }
 
 /// Log a message to `stdout` or `stderr` depending on the message severity.
-public func log(_ message: @autoclosure () -> String,
+public func log(_ message: @escaping @autoclosure () -> String,
                 type: LogType = .debug,
-                level: LogLevel = LogLevel.default.unsafeValue,
+                diagnostic: DiagnosticType? = nil,
                 output: UnsafeMutablePointer<FILE>? = nil,
-                file: StaticString = #file,
-                line: UInt = #line) {
-  guard level.shouldLog(type) else { return }
-  let logMessage = "[\(type)] " + message() + "\n"
-  let output = output ?? type.output
+                filePath: Path? = nil,
+                line: @escaping @autoclosure () -> Int? = nil) {
   loggingQueue.async {
+    guard LogLevel.default.value.shouldLog(type) else { return }
+    if let diagnostic = diagnostic,
+      !DiagnosticType.enabled.value.contains(.all),
+      !DiagnosticType.enabled.value.contains(diagnostic) { return }
+    
+    let locationPrefix: String
+    if let filePath = filePath {
+      var locationComponents = ["\(filePath.absolute())"]
+      if let line = line() { locationComponents.append("\(line)") }
+      locationPrefix = "\(locationComponents.joined(separator: ":")): "
+    } else {
+      locationPrefix = ""
+    }
+    
+    let isTTY = output != nil ? isatty(fileno(output)) != 0 : false
+    let typeDescription = isTTY ? type.formattedDescription : type.description
+    let typePrefix = typeDescription + (typeDescription.isEmpty ? "" : " ")
+    
+    let logMessage = locationPrefix + typePrefix + message() + "\n"
+    let output = output ?? type.output
+    
     fputs(logMessage, output)
     fflush(output) // fputs doesn't seem to auto-flush on line breaks.
   }
 }
 
 /// Convenience for logging a `.warn` message type
-public func logWarning(_ message: @autoclosure () -> String,
-                       level: LogLevel = LogLevel.default.unsafeValue,
+public func logWarning(_ message: @escaping @autoclosure () -> String,
+                       diagnostic: DiagnosticType? = nil,
                        output: UnsafeMutablePointer<FILE>? = nil,
-                       file: StaticString = #file,
-                       line: UInt = #line) {
-  log(message(), type: .warn, level: level, output: output, file: file, line: line)
+                       filePath: Path? = nil,
+                       line: @escaping @autoclosure () -> Int? = nil) {
+  log(message(),
+      type: .warn,
+      diagnostic: diagnostic,
+      output: output,
+      filePath: filePath,
+      line: line())
 }
 
 /// Convenience for logging an `.error` message type.
 public func log(_ error: Error,
-                level: LogLevel = LogLevel.default.unsafeValue,
+                diagnostic: DiagnosticType? = nil,
                 output: UnsafeMutablePointer<FILE>? = nil,
-                file: StaticString = #file,
-                line: UInt = #line) {
-  log("\(error)", type: .error, level: level, output: output, file: file, line: line)
+                filePath: Path? = nil,
+                line: @escaping @autoclosure () -> Int? = nil) {
+  log("\(error)",
+      type: .error,
+      diagnostic: diagnostic,
+      output: output,
+      filePath: filePath,
+      line: line())
 }

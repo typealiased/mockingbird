@@ -127,7 +127,7 @@ class Generator {
     }
     
     if config.supportPath == nil {
-      logWarning("No supporting source files specified. Running the generator without supporting source files can result in malformed mocks. Please see 'Supporting Source Files' in the README.")
+      logWarning("No supporting source files specified which can result in missing mocks; please see 'Supporting Source Files' in the README")
     }
     
     var lazyXcodeProj: XcodeProj?
@@ -145,7 +145,7 @@ class Generator {
     let pbxprojHash = try pbxprojPath?.read().generateSha1Hash()
     let cacheDirectory = config.projectPath + "MockingbirdCache"
     if let projectHash = pbxprojHash {
-      log("Using SHA-1 project hash `\(projectHash)` and cache directory at \(cacheDirectory)")
+      log("Using SHA-1 project hash \(projectHash.singleQuoted) and cache directory at \(cacheDirectory)")
     }
 
     // Resolve target names to concrete Xcode project targets.
@@ -163,17 +163,17 @@ class Generator {
       let xcodeproj = try getXcodeProj()
       let targets = xcodeproj.pbxproj.targets(named: targetName).filter({ target in
         guard target.productType?.isTestBundle != true else {
-          logWarning("Ignoring unit test target `\(targetName)`")
+          logWarning("Ignoring unit test target \(targetName.singleQuoted)")
           return false
         }
         return true
       })
       if targets.count > 1 {
-        logWarning("Found multiple input targets named `\(targetName)`, using the first one")
+        logWarning("Found multiple input targets named \(targetName.singleQuoted), using the first one")
       }
       guard let target = targets.first else {
         throw Failure.malformedConfiguration(
-          description: "Unable to find input target named `\(targetName)`"
+          description: "Unable to find input target named \(targetName.singleQuoted)"
         )
       }
       return target
@@ -239,10 +239,10 @@ class Generator {
                            cacheDirectory: Path,
                            sourceRoot: Path) -> CodableTarget? {
     let filePath = targetLockFilePath(for: targetName, cacheDirectory: cacheDirectory)
-    guard filePath.exists,
-      let target = try? JSONDecoder().decode(CodableTarget.self, from: filePath.read()) else {
-        logWarning("Unable to decode the cached target data at \(filePath.absolute())")
-        return nil
+    guard filePath.exists else { return nil }
+    guard let target = try? JSONDecoder().decode(CodableTarget.self, from: filePath.read()) else {
+      logWarning("Unable to decode the cached target data at \(filePath.absolute())")
+      return nil
     }
     guard target.projectHash == projectHash else {
       log("Current project hash invalidates the cached target data at \(filePath.absolute())")
@@ -253,7 +253,7 @@ class Generator {
       return nil
     }
     
-    log("Found cached source file information for target `\(targetName)` at \(filePath.absolute())")
+    log("Found cached source file information for target \(targetName.singleQuoted) at \(filePath.absolute())")
     return target
   }
   
@@ -296,7 +296,7 @@ class Generator {
     let data = try JSONEncoder().encode(target)
     let filePath = targetLockFilePath(for: target.name, cacheDirectory: cacheDirectory)
     try filePath.write(data)
-    log("Cached pipeline input target `\(pipeline.inputTarget.productModuleName)` to \(filePath.absolute())")
+    log("Cached pipeline input target \(pipeline.inputTarget.productModuleName.singleQuoted) to \(filePath.absolute())")
   }
 }
 
