@@ -61,6 +61,9 @@ class Installer {
     static let sourceGroupName = "Generated Mocks"
   }
   
+  
+  // MARK: - Install
+  
   static func install(using config: InstallConfiguration) throws {
     guard config.outputPaths == nil || config.sourceTargetNames.count == config.outputPaths?.count else {
       throw Failure.malformedConfiguration(description: "Number source targets does not match the number of output file paths")
@@ -78,34 +81,21 @@ class Installer {
     let targetName = config.destinationTargetName
     let destinationTargets = xcodeproj.pbxproj.targets(named: targetName)
     if destinationTargets.count > 1 {
-      logWarning("Found multiple destination targets named `\(targetName)`, using the first one")
+      logWarning("Found multiple targets named `\(targetName)`, using the first one")
     }
     guard let target = destinationTargets.first else {
       throw Failure.malformedConfiguration(
-        description: "Unable to find destination target named `\(targetName)`"
+        description: "Unable to find a target named `\(targetName)`"
       )
+    }
+    if target.productType?.isTestBundle != true {
+      logWarning("Installing to target `\(targetName)` which is not a test target")
     }
     
     // Validate source targets.
-    let sourceTargets = try config.sourceTargetNames.map({ targetName throws -> PBXTarget in
-      let sourceTargets = xcodeproj.pbxproj.targets(named: targetName).filter({ target in
-        guard target.productType?.isTestBundle != true else {
-          logWarning("Ignoring unit test source target `\(targetName)`")
-          return false
-        }
-        return true
-      })
-      if sourceTargets.count > 1 {
-        logWarning("Found multiple source targets named `\(targetName)`, using the first one")
-      }
-      guard let sourceTarget = sourceTargets.first else {
-        throw Failure.malformedConfiguration(
-          description: "Unable to find source target named `\(targetName)`"
-        )
-      }
-      return sourceTarget
-    })
+    let sourceTargets = try getSourceTargets(for: config, xcodeproj: xcodeproj)
     
+    // Create a "Generated Mocks" source group to store all mocks under.
     let sourceGroup: PBXGroup
     if let existingSourceGroup = rootGroup.group(named: Constants.sourceGroupName) {
       sourceGroup = existingSourceGroup
@@ -114,12 +104,13 @@ class Installer {
         .rootGroup()?
         .addGroup(named: Constants.sourceGroupName, options: [.withoutFolder]).first else {
           throw Failure.malformedConfiguration(
-            description: "Unable to create top-level `Generated Mocks` Xcode project file group"
+            description: "Unable to create top-level 'Generated Mocks' Xcode project file group"
           )
       }
       sourceGroup = addedGroup
     }
     
+    // Check if there's an existing installation that should be overridden or if we should abort.
     if !config.ignoreExisting { // Cleanup past installations.
       try uninstall(from: xcodeproj, target: target, sourceRoot: config.sourceRoot)
     } else {
@@ -134,12 +125,13 @@ class Installer {
     guard let sourcesBuildPhase = try target.sourcesBuildPhase(),
       let buildPhaseIndex = target.buildPhases.firstIndex(of: sourcesBuildPhase) else {
         throw Failure.malformedConfiguration(
-          description: "Destination target `\(targetName)` does not have a compile sources phase"
+          description: "Target `\(targetName)` does not have a compile sources phase"
         )
     }
     
+    // Create fixed output paths for each source target.
     let outputPaths = config.outputPaths ?? sourceTargets.map({
-      Generator.defaultOutputPath(for: $0, sourceRoot: config.sourceRoot)
+      Generator.defaultOutputPath(for: $0, testTarget: target, sourceRoot: config.sourceRoot)
     })
     
     // Add build phase reference to project.
@@ -157,36 +149,73 @@ class Installer {
     
     // Add the generated source target mock files to the destination target compile sources phase.
     for outputPath in outputPaths {
-      guard try target.sourcesBuildPhase()?.files?.contains(where: {
-        try $0.file?.fullPath(sourceRoot: config.sourceRoot) == outputPath
-      }) != true else {
-        // De-dup already-added sources.
-        log("Destination target `\(target.name)` already references the output mock file at \(outputPath)")
-        continue
-      }
-      
-      // Add the generated source file reference to the destination target groups.
-      let fileReference: PBXFileReference
-      if let existingReference = sourceGroup.file(named: outputPath.lastComponent),
-        (try? existingReference.fullPath(sourceRoot: config.sourceRoot)) == outputPath {
-        fileReference = existingReference
-        log("Using existing output mock file reference at \(outputPath)")
-      } else {
-        fileReference = try sourceGroup.addFile(at: outputPath,
-                                                sourceRoot: config.sourceRoot,
-                                                override: false,
-                                                validatePresence: false)
-        log("Creating new output mock file reference at \(outputPath)")
-      }
-      
-      // Add the generated source file reference to the Xcode project.
-      xcodeproj.pbxproj.add(object: fileReference)
-      
-      _ = try target.sourcesBuildPhase()?.add(file: fileReference)
+      try addSourceFilePath(outputPath,
+                            target: target,
+                            sourceGroup: sourceGroup,
+                            xcodeproj: xcodeproj,
+                            config: config)
     }
     
     try xcodeproj.writePBXProj(path: config.projectPath, outputSettings: PBXOutputSettings())
   }
+  
+  private static func getSourceTargets(for config: InstallConfiguration,
+                                       xcodeproj: XcodeProj) throws -> [PBXTarget] {
+    return try config.sourceTargetNames.map({ targetName throws -> PBXTarget in
+      let sourceTargets = xcodeproj.pbxproj.targets(named: targetName).filter({ target in
+        guard target.productType?.isTestBundle != true else {
+          logWarning("Ignoring source target `\(targetName)` because it is a test target")
+          return false
+        }
+        return true
+      })
+      if sourceTargets.count > 1 {
+        logWarning("Found multiple source targets named `\(targetName)`, using the first one")
+      }
+      guard let sourceTarget = sourceTargets.first else {
+        throw Failure.malformedConfiguration(
+          description: "Unable to find source target named `\(targetName)`"
+        )
+      }
+      return sourceTarget
+    })
+  }
+  
+  private static func addSourceFilePath(_ outputPath: Path,
+                                        target: PBXTarget,
+                                        sourceGroup: PBXGroup,
+                                        xcodeproj: XcodeProj,
+                                        config: InstallConfiguration) throws {
+    guard try target.sourcesBuildPhase()?.files?.contains(where: {
+      try $0.file?.fullPath(sourceRoot: config.sourceRoot) == outputPath
+    }) != true else {
+      // De-dup already-added sources.
+      log("Target `\(target.name)` already references the output mock file at \(outputPath)")
+      return
+    }
+    
+    // Add the generated source file reference to the destination target groups.
+    let fileReference: PBXFileReference
+    if let existingReference = sourceGroup.file(named: outputPath.lastComponent),
+      (try? existingReference.fullPath(sourceRoot: config.sourceRoot)) == outputPath {
+      fileReference = existingReference
+      log("Using existing output mock file reference at \(outputPath)")
+    } else {
+      fileReference = try sourceGroup.addFile(at: outputPath,
+                                              sourceRoot: config.sourceRoot,
+                                              override: false,
+                                              validatePresence: false)
+      log("Creating new output mock file reference at \(outputPath)")
+    }
+    
+    // Add the generated source file reference to the Xcode project.
+    xcodeproj.pbxproj.add(object: fileReference)
+    
+    _ = try target.sourcesBuildPhase()?.add(file: fileReference)
+  }
+  
+  
+  // MARK: - Uninstall
   
   static func uninstall(using config: UninstallConfiguration) throws {
     let xcodeproj = try XcodeProj(path: config.projectPath)
@@ -213,7 +242,9 @@ class Installer {
                                              target: PBXTarget,
                                              sourceRoot: Path) throws {
     guard let buildPhase = target.buildPhases
-      .first(where: { $0.name() == Constants.buildPhaseName }) as? PBXShellScriptBuildPhase
+      .first(where: {
+        $0 is PBXShellScriptBuildPhase && $0.name() == Constants.buildPhaseName
+      }) as? PBXShellScriptBuildPhase
       else { return }
     
     log("Uninstalling existing 'Generate Mockingbird Mocks' build phase from target `\(target.name)`")
@@ -221,15 +252,26 @@ class Installer {
     // Remove build phase reference from project.
     xcodeproj.pbxproj.delete(object: buildPhase)
     
+    // Remove all associated generated output files.
+    let outputFilesPaths = Set(buildPhase.outputPaths.map({
+      $0.replacingOccurrences(of: "$(SRCROOT)", with: "\(sourceRoot.absolute())")
+    }))
+    try target.sourcesBuildPhase()?.files?.removeAll(where: {
+      guard let fullPath = try $0.file?.fullPath(sourceRoot: sourceRoot) else { return false }
+      return outputFilesPaths.contains("\(fullPath)")
+    })
+    
     // Remove from target build phases.
-    target.buildPhases.removeAll(where: { $0.name() == Constants.buildPhaseName })
+    target.buildPhases.removeAll(where: { $0 === buildPhase })
   }
   
   private static func uninstallCleanPhase(from xcodeproj: XcodeProj,
                                           target: PBXTarget,
                                           sourceRoot: Path) throws {
     guard let buildPhase = target.buildPhases
-      .first(where: { $0.name() == Constants.cleanBuildPhaseName }) as? PBXShellScriptBuildPhase
+      .first(where: {
+        $0 is PBXShellScriptBuildPhase && $0.name() == Constants.cleanBuildPhaseName
+      }) as? PBXShellScriptBuildPhase
       else { return }
     
     log("Uninstalling existing 'Clean Mockingbird Mocks' build phase from target `\(target.name)`")
@@ -238,8 +280,11 @@ class Installer {
     xcodeproj.pbxproj.delete(object: buildPhase)
     
     // Remove from target build phases.
-    target.buildPhases.removeAll(where: { $0.name() == Constants.cleanBuildPhaseName })
+    target.buildPhases.removeAll(where: { $0 === buildPhase })
   }
+  
+  
+  // MARK: - Create build phases
   
   private static func createGenerateMocksBuildPhase(outputPaths: [Path],
                                                     cacheBreakerPath: Path,
@@ -286,6 +331,8 @@ class Installer {
                                                    style: .bash,
                                                    shouldNormalize: false)
       let shellScript = """
+      set -e
+      
       \(cliPath) generate \\
         \(options.joined(separator: " \\\n  "))
       
