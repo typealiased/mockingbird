@@ -51,13 +51,18 @@ class MockableTypeTemplate: Template {
   }
   
   func render() -> String {
-    let (start, end) = compilationDirectiveDeclaration
-    let preprocessorStart = start.isEmpty ? "" : "\n\(start)\n"
-    let preprocessorEnd = end.isEmpty ? "" : "\n\n\(end)"
+    let (directiveStart, directiveEnd) = compilationDirectiveDeclaration
+    let header = directiveStart.isEmpty ? "" : "\n\(directiveStart)\n"
+    let footer = directiveEnd.isEmpty ? "" : "\n\n\(directiveEnd)"
+    
+    let inheritance = !isAvailable ? Constants.mockProtocolName :
+      "\(allInheritedTypes)\(allGenericConstraints)"
+    let body = !isAvailable ? "" : "\n\n\(renderBody())"
+    
     return """
     // MARK: - Mocked \(mockableType.name)
-    \(preprocessorStart)
-    public final class \(mockableType.name)Mock\(allSpecializedGenericTypes): \(allInheritedTypes)\(allGenericConstraints) {
+    \(header)
+    public final class \(mockableType.name)Mock\(allSpecializedGenericTypes): \(inheritance) {
     \(staticMockingContext)
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()
@@ -68,10 +73,8 @@ class MockableTypeTemplate: Template {
           stubbingContext.sourceLocation = newValue
           \(mockableType.name)Mock.staticMock.stubbingContext.sourceLocation = newValue
         }
-      }
-    
-    \(renderBody())
-    }\(preprocessorEnd)
+      }\(body)
+    }\(footer)
     """
   }
   
@@ -85,6 +88,30 @@ class MockableTypeTemplate: Template {
       .joined(separator: "\n")
     return (start, end)
   }()
+  
+  /// Protocols that inherit from opaque external types are considered not available as mocks
+  /// because it's not possible to generate a well-formed concrete implementation unless the
+  /// inheritance is trivial.
+  lazy var isAvailable: Bool = {
+    return mockableType.kind != .protocol || mockableType.opaqueInheritedTypeNames.isEmpty
+  }()
+  
+  var unavailableMockAttribute: String {
+    guard !isAvailable else { return "" }
+    let opaqueTypeNames = mockableType.opaqueInheritedTypeNames.sorted()
+    let allOpaqueTypeNames = opaqueTypeNames.enumerated().map({ (index, typeName) -> String in
+      (index > 1 && index == opaqueTypeNames.count-1 ? "and " : "") + typeName.singleQuoted
+    }).joined(separator: opaqueTypeNames.count > 2 ? ", " : "")
+    let message: String
+    if opaqueTypeNames.count > 1 {
+      message = "\(mockableType.name.singleQuoted) inherits from the externally-defined types \(allOpaqueTypeNames) which needs to be declared in a supporting source file"
+    } else {
+      message = "\(mockableType.name.singleQuoted) inherits from the externally-defined type \(allOpaqueTypeNames) which needs to be declared in a supporting source file"
+    }
+    return """
+    @available(*, unavailable, message: "\(message)")
+    """
+  }
   
   /// The static mocking context allows static (or class) declared methods to be mocked.
   var staticMockingContext: String {
@@ -252,8 +279,13 @@ class MockableTypeTemplate: Template {
   /// unstubbed method invocations to show up in the testing code.
   var shouldGenerateDefaultInitializer: Bool {
     // Opaque types can have designated initializers we don't know about, so it's best to ignore.
-    guard !mockableType.hasOpaqueInheritedType else {
-      logWarning("Skipping default initializer generation for `\(mockableType.name)` because it has an opaque inherited type")
+    guard mockableType.opaqueInheritedTypeNames.isEmpty else {
+      logWarning(
+        "Unable to synthesize default initializer for \(mockableType.name.singleQuoted) which inherits from an external type not defined in a supporting source file",
+        diagnostic: .undefinedType,
+        filePath: mockableType.filePath,
+        line: self.mockableType.lineNumber
+      )
       return false
     }
     
@@ -262,7 +294,7 @@ class MockableTypeTemplate: Template {
     
     guard mockableType.kind == .protocol else { // Handle classes.
       if hasDesignatedInitializer {
-        log("Skipping default initializer generation for `\(mockableType.name)` because it is a class with a designated initializer")
+        log("Skipping default initializer generation for \(mockableType.name.singleQuoted) because it is a class with a designated initializer")
       }
       return !hasDesignatedInitializer
     }
@@ -272,13 +304,18 @@ class MockableTypeTemplate: Template {
     
     // Ignore protocols conforming to a class with a designated initializer.
     guard !hasDesignatedInitializer else {
-      log("Skipping default initializer generation for `\(mockableType.name)` because it is a protocol conforming to a class with a designated initializer")
+      log("Skipping default initializer generation for \(mockableType.name.singleQuoted) because it is a protocol conforming to a class with a designated initializer")
       return false
     }
     
     let isMockableClassConformance = mockableType.primarySelfConformanceType?.shouldMock ?? true
     if !isMockableClassConformance {
-      logWarning("The type `\(mockableType.name)` is uninitializable because it is a protocol conforming to a class without public initializers")
+      logWarning(
+        "\(mockableType.name.singleQuoted) conforms to a class without public initializers and cannot be initialized",
+        diagnostic: .notMockable,
+        filePath: mockableType.filePath,
+        line: self.mockableType.lineNumber
+      )
     }
     return isMockableClassConformance
   }

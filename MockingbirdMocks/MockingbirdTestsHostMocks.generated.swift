@@ -14866,6 +14866,27 @@ public func mock(_ type: MockingbirdTestsHost.OpaqueClassSelfConstrainedAssociat
   return OpaqueClassSelfConstrainedAssociatedTypeProtocolMock.InitializerProxy.self
 }
 
+// MARK: - Mocked OpaqueFileManagerDelegate
+
+public final class OpaqueFileManagerDelegateMock: Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      OpaqueFileManagerDelegateMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+}
+
+@available(*, unavailable, message: "'OpaqueFileManagerDelegate' inherits from the externally-defined type 'FileManagerDelegate' which needs to be declared in a supporting source file")
+public func mock(_ type: MockingbirdTestsHost.OpaqueFileManagerDelegate.Protocol, file: StaticString = #file, line: UInt = #line) -> OpaqueFileManagerDelegateMock {
+  fatalError()
+}
+
 // MARK: - Mocked OpaqueProtocolSelfConstrainedAssociatedTypeProtocol
 
 public final class OpaqueProtocolSelfConstrainedAssociatedTypeProtocolMock: MockingbirdTestsHost.OpaqueProtocolSelfConstrainedAssociatedTypeProtocol, Swift.Hashable, Mockingbird.Mock {

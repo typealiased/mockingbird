@@ -60,7 +60,7 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
         .union(supportSourcePaths)
         .subtracting(result.targetPaths)
     }
-    log("Found \(result.targetPaths.count) source file\(result.targetPaths.count != 1 ? "s" : "") and \(result.dependencyPaths.count) dependency source file\(result.dependencyPaths.count != 1 ? "s" : "") for target `\(target.name)`")
+    log("Found \(result.targetPaths.count) source file\(result.targetPaths.count != 1 ? "s" : "") and \(result.dependencyPaths.count) dependency source file\(result.dependencyPaths.count != 1 ? "s" : "") for target \(target.name.singleQuoted)")
   }
   
   /// Returns the compiled source file paths for a single given target.
@@ -221,7 +221,7 @@ private class GlobSearchOperation: BasicOperation {
         return Glob(pattern: pattern, isNegated: isNegated, root: directory)
       })
     else {
-      logWarning("Unable to read `\(Constants.mockingbirdIgnoreFileName)` at \(ignoreFile.absolute())")
+      logWarning("Unable to read \(Constants.mockingbirdIgnoreFileName.singleQuoted) at \(ignoreFile.absolute())")
       return (!matches(parentShouldInclude, parentGlobs), allParentGlobs)
     }
     

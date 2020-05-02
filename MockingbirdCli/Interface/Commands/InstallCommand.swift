@@ -27,6 +27,7 @@ final class InstallCommand: BaseCommand {
   private let outputArgument: OptionArgument<[PathArgument]>
   private let supportPathArgument: OptionArgument<PathArgument>
   private let compilationConditionArgument: OptionArgument<String>
+  private let diagnosticsArgument: OptionArgument<[DiagnosticType]>
   private let logLevelArgument: OptionArgument<String>
   
   private let ignoreExistingRunScriptArgument: OptionArgument<Bool>
@@ -48,6 +49,7 @@ final class InstallCommand: BaseCommand {
     self.outputArgument = subparser.addOutput()
     self.supportPathArgument = subparser.addSupportPath()
     self.compilationConditionArgument = subparser.addCompilationCondition()
+    self.diagnosticsArgument = subparser.addDiagnostics()
     self.logLevelArgument = subparser.addInstallerLogLevel()
     
     self.ignoreExistingRunScriptArgument = subparser.addIgnoreExistingRunScript()
@@ -77,6 +79,7 @@ final class InstallCommand: BaseCommand {
     let outputs = arguments.getOutputs(using: outputsArgument, convenienceArgument: outputArgument)
     let supportPath = try arguments.getSupportPath(using: supportPathArgument,
                                                    sourceRoot: sourceRoot)
+    let diagnostics = arguments.get(diagnosticsArgument)
     let logLevel = try arguments.getInstallerLogLevel(logLevelOption: logLevelArgument)
     
     let config = Installer.InstallConfiguration(
@@ -88,6 +91,7 @@ final class InstallCommand: BaseCommand {
       supportPath: supportPath,
       cliPath: Path(CommandLine.arguments[0]),
       compilationCondition: arguments.get(compilationConditionArgument),
+      diagnostics: diagnostics,
       logLevel: logLevel,
       ignoreExisting: arguments.get(ignoreExistingRunScriptArgument) == true,
       asynchronousGeneration: arguments.get(asynchronousGenerationArgument) == true,

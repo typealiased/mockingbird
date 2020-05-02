@@ -63,15 +63,14 @@ struct Variable: Hashable, Comparable {
     if let inferredTypeName = Variable.parseRawTypeName(from: dictionary, source: source) {
       rawTypeName = inferredTypeName
     } else {
-      logWarning("Unable to infer type for variable `\(name)` in module `\(rawType.parsedFile.moduleName)`. You should explicitly declare the variable type in the source file \(rawType.parsedFile.path.absolute())")
-      
-      if rootKind == .class { // Don't override types that couldn't be inferred.
-        return nil
-      }
-      
-      // Protocols should always have explicit types, so this should never actually be used.
-      // Use an editor placeholder to trigger a compiler error if this type is ever generated.
-      rawTypeName = "<#__UnknownType__#>"
+      logWarning(
+        "Unable to infer type of property \(name.singleQuoted) from complex expression",
+        diagnostic: .typeInference,
+        filePath: rawType.parsedFile.path,
+        line: SourceSubstring.key
+          .extractLinesNumbers(from: dictionary, contents: rawType.parsedFile.file.contents)?.start
+      )
+      return nil
     }
     let declaredType = DeclaredType(from: rawTypeName)
     let serializationContext = SerializationRequest

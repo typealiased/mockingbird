@@ -25,6 +25,7 @@ final class GenerateCommand: BaseCommand {
   private let outputsArgument: OptionArgument<[PathArgument]>
   private let outputArgument: OptionArgument<[PathArgument]>
   private let supportPathArgument: OptionArgument<PathArgument>
+  private let diagnosticsArgument: OptionArgument<[DiagnosticType]>
   
   private let compilationConditionArgument: OptionArgument<String>
   private let disableModuleImportArgument: OptionArgument<Bool>
@@ -43,6 +44,8 @@ final class GenerateCommand: BaseCommand {
     self.outputsArgument = subparser.addOutputs()
     self.outputArgument = subparser.addOutput()
     self.supportPathArgument = subparser.addSupportPath()
+    self.diagnosticsArgument = subparser.addDiagnostics()
+    
     self.compilationConditionArgument = subparser.addCompilationCondition()
     self.disableModuleImportArgument = subparser.addDisableModuleImport()
     self.onlyMockProtocolsArgument = subparser.addOnlyProtocols()
@@ -57,6 +60,7 @@ final class GenerateCommand: BaseCommand {
                     environment: [String: String],
                     workingPath: Path) throws {
     try super.run(with: arguments, environment: environment, workingPath: workingPath)
+    DiagnosticType.enabled.value = Set(arguments.get(diagnosticsArgument) ?? [])
     
     let projectPath = try arguments.getProjectPath(using: projectPathArgument,
                                                    environment: environment,

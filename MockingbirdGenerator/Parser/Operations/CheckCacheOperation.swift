@@ -48,10 +48,10 @@ public class CheckCacheOperation: BasicOperation {
         try extractSourcesResult.generateTargetPathsHash() == targetPathsHash,
         try extractSourcesResult.generateDependencyPathsHash() == dependencyPathsHash,
         try outputFilePath.read().generateSha1Hash() == outputHash else {
-          log("Detected \(changedFiles.count) changed source file\(changedFiles.count != 1 ? "s" : "") for target `\(codableTarget.name)` - \(changedFiles.map({ "\($0.path.absolute())" }))")
+          log("Detected \(changedFiles.count) changed source file\(changedFiles.count != 1 ? "s" : "") for target \(codableTarget.name.singleQuoted) - \(changedFiles.map({ "\($0.path.absolute())" }))")
           return
       }
-      log("Ignoring target `\(codableTarget.name)` because no source files were changed, the CLI version matches `\(mockingbirdVersion)`, and the generated mock file matches the expected SHA-1 hash of `\(outputHash)`")
+      log("Ignoring target \(codableTarget.name.singleQuoted) because no source files were changed, the CLI version matches \(mockingbirdVersion), and the generated mock file matches the expected SHA-1 hash of \(outputHash.singleQuoted)")
       result.isCached = true
     }
   }

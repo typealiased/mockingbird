@@ -16,7 +16,7 @@ extension ArgumentParser {
   func addProjectPath() -> OptionArgument<PathArgument> {
     return add(option: "--project",
                kind: PathArgument.self,
-               usage: "Path to your project’s `.xcodeproj` file.",
+               usage: "Path to your project’s '.xcodeproj' file.",
                completion: .filename)
   }
   
@@ -92,7 +92,7 @@ extension ArgumentParser {
   func addCompilationCondition() -> OptionArgument<String> {
     return add(option: "--condition",
                kind: String.self,
-               usage: "Compilation condition to wrap all generated mocks in, e.g. `DEBUG`.",
+               usage: "Compilation condition to wrap all generated mocks in, e.g. 'DEBUG'.",
                completion: .values([
                 (value: "DEBUG", description: "Debug build configuration"),
                 (value: "RELEASE", description: "Release build configuration"),
@@ -102,7 +102,7 @@ extension ArgumentParser {
   func addInstallerLogLevel() -> OptionArgument<String> {
     return add(option: "--loglevel",
                kind: String.self,
-               usage: "The log level to use when generating mocks, `quiet` or `verbose`")
+               usage: "The log level to use when generating mocks, 'quiet' or 'verbose'")
   }
   
   func addMetagenerateOutput() -> OptionArgument<PathArgument> {
@@ -116,6 +116,12 @@ extension ArgumentParser {
     return add(option: "--count",
                kind: Int.self,
                usage: "Number of source files to generate.")
+  }
+  
+  func addDiagnostics() -> OptionArgument<[DiagnosticType]> {
+    return add(option: "--diagnostics",
+               kind: [DiagnosticType].self,
+               usage: "List of diagnostic generator warnings to enable.")
   }
   
   // MARK: Global Options
@@ -200,14 +206,14 @@ extension ArgumentParser.Result {
         projectPath = firstProject
       } else {
         if inferredXcodeProjects.count > 1 {
-          logWarning("Unable to infer Xcode project because there are multiple `.xcodeproj` files in \(workingPath.absolute())")
+          logWarning("Unable to infer Xcode project because there are multiple '.xcodeproj' files in \(workingPath.absolute())")
         }
         throw ArgumentParserError.expectedValue(option: "--project <xcodeproj file path>")
       }
     }
     guard projectPath.isDirectory, projectPath.extension == "xcodeproj" else {
       throw ArgumentParserError.invalidValue(argument: "--project \(projectPath.absolute())",
-                                             error: .custom("Not a valid `.xcodeproj` path"))
+                                             error: .custom("Not a valid '.xcodeproj' path"))
     }
     return projectPath
   }
@@ -315,8 +321,9 @@ extension ArgumentParser.Result {
     let isVerbose = get(verboseOption) == true
     let isQuiet = get(quietOption) == true
     guard !isVerbose || !isQuiet else {
+      let error = ArgumentConversionError.custom("Cannot specify both --verbose and --quiet")
       throw ArgumentParserError.invalidValue(argument: "--verbose --quiet",
-                                             error: .custom("Cannot specify both --verbose and --quiet"))
+                                             error: error)
     }
     if isVerbose {
       return .verbose
@@ -324,6 +331,37 @@ extension ArgumentParser.Result {
       return .quiet
     } else {
       return .normal
+    }
+  }
+}
+
+extension DiagnosticType: ArgumentKind, CustomStringConvertible {
+  public init(argument: String) throws {
+    guard DiagnosticType(rawValue: argument) != nil else {
+      let allOptions = DiagnosticType.allCases.map({ $0.rawValue }).joined(separator: ", ")
+      throw ArgumentParserError.invalidValue(
+        argument: "--diagnostics \(argument)",
+        error: .custom("Not a valid diagnostic type, expected: \(allOptions)")
+      )
+    }
+    self.init(rawValue: argument)!
+  }
+  
+  public static var completion: ShellCompletion {
+    return .values(AssetBundleType.allCases.map({
+      (value: $0.rawValue, description: "\($0)")
+    }))
+  }
+  
+  public var description: String {
+    switch self {
+    case .all: return "Emit all diagnostic warnings."
+    case .notMockable:
+      return "Warn when skipping declarations that cannot be mocked."
+    case .undefinedType:
+      return "Warn on external types not defined in a supporting source file."
+    case .typeInference:
+      return "Warn when skipping complex property assignments in class mocks."
     }
   }
 }

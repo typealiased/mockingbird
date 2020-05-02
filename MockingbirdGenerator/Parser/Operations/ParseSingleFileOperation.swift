@@ -59,9 +59,9 @@ class ParseSingleFileOperation: BasicOperation {
     let totalCompilationDirectives = swiftSyntaxResult.compilationDirectives.count
     log("Parsed \(totalImportDeclarations) import declaration\(totalImportDeclarations != 1 ? "s" : "") and \(totalCompilationDirectives) compiler directive\(totalCompilationDirectives != 1 ? "s" : "") in source file at \(sourcePath.path)")
     if shouldMock {
-      log("Parsed source structure for module `\(sourcePath.moduleName)` at \(sourcePath.path)")
+      log("Parsed source structure for module \(sourcePath.moduleName.singleQuoted) at \(sourcePath.path)")
     } else {
-      log("Parsed dependency source structure for module `\(sourcePath.moduleName)` at \(sourcePath.path)")
+      log("Parsed dependency source structure for module \(sourcePath.moduleName.singleQuoted) at \(sourcePath.path)")
     }
   }
 }

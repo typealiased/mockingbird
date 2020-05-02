@@ -24,12 +24,12 @@ func checkVersion(for mock: Mock) {
   if generatorVersion << mockingbirdVersion {
     let moduleAttribute: String
     if let moduleName = mock.moduleName {
-      moduleAttribute = "module `\(moduleName)`"
+      moduleAttribute = "module '\(moduleName)'"
     } else {
       moduleAttribute = "your project"
     }
-    fputs("WARNING: `\(type(of: mock))` was generated with Mockingbird CLI v\(generatorVersion.shortString) and is at least one major version behind Mockingbird Framework v\(mockingbirdVersion.shortString). Please update Mockingbird CLI and re-generate mocks for \(moduleAttribute).\n", stderr)
+    fputs("warning: '\(type(of: mock))' was generated with Mockingbird CLI v\(generatorVersion.shortString) and is at least one major version behind Mockingbird Framework v\(mockingbirdVersion.shortString). Please update Mockingbird CLI and re-generate mocks for \(moduleAttribute).\n", stderr)
   } else if generatorVersion < mockingbirdVersion {
-    fputs("WARNING: `\(type(of: mock))` was generated with Mockingbird CLI v\(generatorVersion.shortString) and is at least one minor version behind Mockingbird Framework v\(mockingbirdVersion.shortString).\n", stderr)
+    fputs("warning: '\(type(of: mock))' was generated with Mockingbird CLI v\(generatorVersion.shortString) and is at least one minor version behind Mockingbird Framework v\(mockingbirdVersion.shortString).\n", stderr)
   }
 }

@@ -1,5 +1,5 @@
 //
-//  OpaqueTypes.swift
+//  OpaquelyInheritedTypes.swift
 //  MockingbirdTestsHost
 //
 //  Created by Andrew Chang on 9/17/19.
@@ -33,3 +33,6 @@ public class CodableConformingClass: Codable {}
 public class SynthesizedRequiredInitializer: Decodable {
   init(with name: String) {}
 }
+
+/// Inherits an opaque type not defined in a supporting source file. Should generate a `#warning`.
+public protocol OpaqueFileManagerDelegate: FileManagerDelegate {}

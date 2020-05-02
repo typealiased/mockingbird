@@ -25,7 +25,7 @@ class RawType {
   let kind: SwiftDeclarationKind
   let parsedFile: ParsedFile
   
-  var hasOpaqueInheritedType = false
+  var opaqueInheritedTypeNames = Set<String>()
   
   var isContainedType: Bool { return !containingTypeNames.isEmpty }
   
@@ -136,7 +136,7 @@ class RawTypeRepository {
   func addRawType(_ rawType: RawType) {
     let name = rawType.fullyQualifiedName.removingGenericTyping()
     let moduleName = rawType.parsedFile.moduleName
-    log("Added raw type: `\(name)`, moduleName: `\(moduleName)`")
+    log("Added raw type: \(name.singleQuoted), moduleName: \(moduleName.singleQuoted)")
     rawTypes[name, default: [:]][moduleName, default: []].append(rawType)
     moduleTypes[moduleName, default: []].insert(name)
   }

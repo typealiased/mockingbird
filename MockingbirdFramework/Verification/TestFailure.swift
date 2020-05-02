@@ -59,7 +59,7 @@ enum TestFailure: Error, CustomStringConvertible {
       """
     case let .missingStubbedImplementation(invocation):
       return """
-      Missing stubbed implementation for \(invocation))
+      Missing stubbed implementation for \(invocation)
       """
     }
   }
