@@ -7,7 +7,7 @@
 
 import Foundation
 
-private let objectReferences = Synchronized<[Any]>([])
+private var objectReferences = [AnyObject]()
 private let queue = DispatchQueue(label: "co.bird.mockingbird.retain", qos: .background)
 
 /// Retain an object for the lifetime of the application.
@@ -19,6 +19,6 @@ private let queue = DispatchQueue(label: "co.bird.mockingbird.retain", qos: .bac
 func retainForever<T: AnyObject>(_ object: T?) {
   guard let object = object else { return }
   #if !(DEBUG)
-  queue.async { objectReferences.value.append(object) }
+  queue.async { objectReferences.append(object) }
   #endif
 }

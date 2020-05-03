@@ -71,7 +71,8 @@ class FlattenInheritanceOperation: BasicOperation {
     }
 
     // Create a copy of `memoizedMockableTypes` to reduce lock contention.
-    let memoizedMockableTypes = FlattenInheritanceOperation.memoizedMockbleTypes.value
+    let memoizedMockableTypes = FlattenInheritanceOperation.memoizedMockbleTypes
+      .read({ $0.mapValues({ $0 }) })
     guard let baseRawType = rawType.findBaseRawType() else { return nil }
     
     let fullyQualifiedName = baseRawType.fullyQualifiedModuleName

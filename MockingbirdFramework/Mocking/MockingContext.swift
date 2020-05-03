@@ -34,10 +34,10 @@ public class MockingContext {
   }
     
   func didInvoke(_ invocation: Invocation) {
-    allInvocations.value.append(invocation)
-    invocations.value[invocation.selectorName, default: []].append(invocation)
+    allInvocations.update { $0.append(invocation) }
+    invocations.update { $0[invocation.selectorName, default: []].append(invocation) }
     
-    let observersCopy = observers.value[invocation.selectorName]
+    let observersCopy = observers.read { $0[invocation.selectorName] }
     observersCopy?.forEach({ observer in
       guard observer.handle(invocation, mockingContext: self) else { return }
       observers.update { $0[invocation.selectorName]?.remove(observer) }
@@ -51,7 +51,7 @@ public class MockingContext {
   }
 
   func invocations(with selectorName: String) -> [Invocation] {
-    return invocations.value[selectorName] ?? []
+    return invocations.read { $0[selectorName] } ?? []
   }
 
   func clearInvocations() {
@@ -79,17 +79,16 @@ public class MockingContext {
   
   func addObserver(_ observer: InvocationObserver, for selectorName: String) {
     // New observers receive all past invocations for the given `selectorName`.
-    if let invocations = invocations.value[selectorName] {
-      for invocation in invocations {
-        // If it can handle the invocation now, don't let it receive future updates.
-        if observer.handle(invocation, mockingContext: self) { return }
-      }
+    let invocations = self.invocations.read({ Array($0[selectorName] ?? []) })
+    for invocation in invocations {
+      // If it can handle the invocation now, don't let it receive future updates.
+      if observer.handle(invocation, mockingContext: self) { return }
     }
     observers.update { $0[selectorName, default: []].insert(observer) }
   }
   
   func addObserver(_ observer: InvocationObserver) {
-    for invocation in allInvocations.value {
+    for invocation in allInvocations.read({ Array($0) }) {
       if observer.handle(invocation, mockingContext: self) { return }
     }
     wildcardObservers.update { $0.append(observer) }

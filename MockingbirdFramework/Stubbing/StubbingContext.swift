@@ -37,7 +37,7 @@ public class StubbingContext {
   }
 
   func implementation(for invocation: Invocation) -> Any? {
-    return stubs.value[invocation.selectorName]?
+    return stubs.read({ $0[invocation.selectorName] })?
       .last(where: { $0.invocation == invocation })?
       .implementation
   }

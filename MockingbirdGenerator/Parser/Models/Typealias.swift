@@ -70,10 +70,10 @@ class TypealiasRepository {
                        moduleNames: [String],
                        referencingModuleName: String,
                        containingTypeNames: ArraySlice<String>) -> [String] {
-    let unwrappedTypealiases = self.unwrappedTypealiases.value
-    
     // This typealias is already resolved.
-    if let actualTypeNames = unwrappedTypealiases[typeAlias.rawType.fullyQualifiedModuleName] {
+    if let actualTypeNames = unwrappedTypealiases.read({
+      $0[typeAlias.rawType.fullyQualifiedModuleName]
+    }) {
       return actualTypeNames
     }
     
@@ -100,7 +100,7 @@ class TypealiasRepository {
                              referencingModuleName: aliasedTypealias.rawType.parsedFile.moduleName,
                              containingTypeNames: aliasedTypealias.rawType.containingTypeNames[...])
     })
-    self.unwrappedTypealiases.update {
+    unwrappedTypealiases.update {
       $0[typeAlias.rawType.fullyQualifiedModuleName] = unwrappedNames
     }
     return unwrappedNames
