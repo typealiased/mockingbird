@@ -71,6 +71,7 @@ class MockableType: Hashable, Comparable {
         mockableTypes: [String: MockableType],
         moduleNames: [String],
         specializationContexts: [String: SpecializationContext],
+        opaqueInheritedTypeNames: Set<String>,
         rawTypeRepository: RawTypeRepository,
         typealiasRepository: TypealiasRepository) {
     guard let baseRawType = rawTypes.findBaseRawType(),
@@ -97,7 +98,6 @@ class MockableType: Hashable, Comparable {
     self.kind = baseRawType.kind
     self.accessLevel = accessLevel
     self.isContainedType = !baseRawType.containingTypeNames.isEmpty
-    self.opaqueInheritedTypeNames = Set(rawTypes.flatMap({ $0.opaqueInheritedTypeNames }))
     self.shouldMock = baseRawType.parsedFile.shouldMock
     self.genericTypeContext = baseRawType.genericTypeContext
     self.isInGenericContainingType = baseRawType.genericTypeContext.contains(where: { !$0.isEmpty })
@@ -178,6 +178,8 @@ class MockableType: Hashable, Comparable {
       )
       return nil
     }
+    self.opaqueInheritedTypeNames = opaqueInheritedTypeNames
+      .union(Set(inheritedTypes.flatMap({ $0.opaqueInheritedTypeNames })))
     
     // Parse protocol `Self` conformance.
     let rawConformanceTypeNames = baseRawType.kind == .protocol ?

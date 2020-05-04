@@ -36,3 +36,4 @@ public class SynthesizedRequiredInitializer: Decodable {
 
 /// Inherits an opaque type not defined in a supporting source file. Should generate a `#warning`.
 public protocol OpaqueFileManagerDelegate: FileManagerDelegate {}
+public protocol InheritingOpaqueFileManagerDelegate: OpaqueFileManagerDelegate {}
