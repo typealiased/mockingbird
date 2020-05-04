@@ -33,7 +33,7 @@ enum ControlCode: CustomStringConvertible {
     case .black: return "\u{001B}[30m"
     case .grey: return "\u{001B}[30;1m"
     case .bold: return "\u{001B}[1m"
-    case .removeFormatting: return "\u{001B}[2K"
+    case .removeFormatting: return "\u{001B}[0m"
     }
   }
 }
@@ -126,12 +126,12 @@ public func log(_ message: @escaping @autoclosure () -> String,
       locationPrefix = ""
     }
     
-    let isTTY = output != nil ? isatty(fileno(output)) != 0 : false
+    let output = output ?? type.output
+    let isTTY = isatty(fileno(output)) != 0
     let typeDescription = isTTY ? type.formattedDescription : type.description
     let typePrefix = typeDescription + (typeDescription.isEmpty ? "" : " ")
     
     let logMessage = locationPrefix + typePrefix + message() + "\n"
-    let output = output ?? type.output
     
     fputs(logMessage, output)
     fflush(output) // fputs doesn't seem to auto-flush on line breaks.
