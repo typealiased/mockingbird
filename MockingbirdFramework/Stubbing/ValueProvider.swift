@@ -68,7 +68,7 @@ public class ValueProvider {
   /// - Parameter provider: The value provider to remove.
   @discardableResult
   public func removeSubprovider(_ provider: ValueProvider) -> Self {
-    subproviders.value.removeAll(where: { $0 === provider })
+    subproviders.update { $0.removeAll(where: { $0 === provider }) }
     return self
   }
   
@@ -83,7 +83,7 @@ public class ValueProvider {
   @discardableResult
   public func register<K, V>(_ value: V, for type: K.Type = K.self) -> Self {
     precondition(value is K)
-    storedValues.value[ObjectIdentifier(type)] = value
+    storedValues.update { $0[ObjectIdentifier(type)] = value }
     return self
   }
   
@@ -92,13 +92,13 @@ public class ValueProvider {
   /// - Parameter type: The type to remove a previously registered value for.
   @discardableResult
   public func removeValue<T>(for type: T.Type) -> Self {
-    storedValues.value.removeValue(forKey: ObjectIdentifier(type))
+    storedValues.update { $0.removeValue(forKey: ObjectIdentifier(type)) }
     return self
   }
   
   func reset() {
-    storedValues.value.removeAll()
-    subproviders.value.removeAll()
+    storedValues.update { $0.removeAll() }
+    subproviders.update { $0.removeAll() }
   }
   
   
@@ -118,62 +118,62 @@ public class ValueProvider {
   // type, so making helper functions doesn't work here.
   
   func provideValue<T>(for type: T.Type = T.self) -> T? {
-    for provider in subproviders.value {
+    for provider in subproviders.read({ Array($0) }) {
       if let value = provider.provideValue(for: type) { return value }
     }
-    return storedValues.value[ObjectIdentifier(type)] as? T
+    return storedValues.read { $0[ObjectIdentifier(type)] as? T }
   }
   
   // MARK: Collections
   
   func provideValue<T>(for type: Array<T>.Type) -> Array<T>? {
-    for provider in subproviders.value {
+    for provider in subproviders.read({ Array($0) }) {
       if let value = provider.provideValue(for: type) { return value }
     }
-    return storedValues.value[ObjectIdentifier(type)] as? Array<T>
+    return storedValues.read { $0[ObjectIdentifier(type)] as? Array<T> }
   }
   
   func provideValue<T>(for type: Set<T>.Type) -> Set<T>? {
-    for provider in subproviders.value {
+    for provider in subproviders.read({ Array($0) }) {
       if let value = provider.provideValue(for: type) { return value }
     }
-    return storedValues.value[ObjectIdentifier(type)] as? Set<T>
+    return storedValues.read { $0[ObjectIdentifier(type)] as? Set<T> }
   }
   
   func provideValue<K, V>(for type: Dictionary<K, V>.Type) -> Dictionary<K, V>? {
-    for provider in subproviders.value {
+    for provider in subproviders.read({ Array($0) }) {
       if let value = provider.provideValue(for: type) { return value }
     }
-    return storedValues.value[ObjectIdentifier(type)] as? Dictionary<K, V>
+    return storedValues.read { $0[ObjectIdentifier(type)] as? Dictionary<K, V> }
   }
   
   func provideValue<K, V>(for type: NSCache<K, V>.Type) -> NSCache<K, V>? {
-    for provider in subproviders.value {
+    for provider in subproviders.read({ Array($0) }) {
       if let value = provider.provideValue(for: type) { return value }
     }
-    return storedValues.value[ObjectIdentifier(type)] as? NSCache<K, V>
+    return storedValues.read { $0[ObjectIdentifier(type)] as? NSCache<K, V> }
   }
   
   func provideValue<K, V>(for type: NSMapTable<K, V>.Type) -> NSMapTable<K, V>? {
-    for provider in subproviders.value {
+    for provider in subproviders.read({ Array($0) }) {
       if let value = provider.provideValue(for: type) { return value }
     }
-    return storedValues.value[ObjectIdentifier(type)] as? NSMapTable<K, V>
+    return storedValues.read { $0[ObjectIdentifier(type)] as? NSMapTable<K, V> }
   }
   
   func provideValue<T>(for type: NSHashTable<T>.Type) -> NSHashTable<T>? {
-    for provider in subproviders.value {
+    for provider in subproviders.read({ Array($0) }) {
       if let value = provider.provideValue(for: type) { return value }
     }
-    return storedValues.value[ObjectIdentifier(type)] as? NSHashTable<T>
+    return storedValues.read { $0[ObjectIdentifier(type)] as? NSHashTable<T> }
   }
   
   // MARK: Foundation
   
   func provideValue<T>(for type: Optional<T>.Type) -> Optional<T>? {
-    for provider in subproviders.value {
+    for provider in subproviders.read({ Array($0) }) {
       if let value = provider.provideValue(for: type) { return value }
     }
-    return storedValues.value[ObjectIdentifier(type)] as? Optional<T>
+    return storedValues.read { $0[ObjectIdentifier(type)] as? Optional<T> }
   }
 }

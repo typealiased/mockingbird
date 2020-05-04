@@ -37,7 +37,7 @@ class ParseSingleFileOperation: BasicOperation {
   
   override func run() throws {
     let sourcePath = self.sourcePath
-    if let memoized = ParseSingleFileOperation.memoizedParsedFiles.value[sourcePath] {
+    if let memoized = ParseSingleFileOperation.memoizedParsedFiles.read({ $0[sourcePath] }) {
       result.parsedFile = ParsedFile(from: memoized, shouldMock: shouldMock)
       return
     }

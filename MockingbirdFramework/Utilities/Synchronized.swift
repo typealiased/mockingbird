@@ -12,26 +12,27 @@ class Synchronized<T> {
   private(set) var unsafeValue: T
   var value: T {
     get {
-      lock.lock()
-      defer { lock.unlock() }
-      return unsafeValue
+      var value: T!
+      queue.sync { value = unsafeValue }
+      return value
     }
-    
     set {
-      lock.lock()
-      defer { lock.unlock() }
-      unsafeValue = newValue
+      queue.sync { unsafeValue = newValue }
     }
   }
-  private let lock = NSLock()
+  private let queue = DispatchQueue(label: "co.bird.mockingbird.synchronized")
   
   init(_ value: T) {
     self.unsafeValue = value
   }
   
   func update(_ block: (inout T) throws -> Void) rethrows {
-    lock.lock()
-    defer { lock.unlock() }
-    try block(&unsafeValue)
+    try queue.sync { try block(&unsafeValue) }
+  }
+  
+  func read<R>(_ block: (T) throws -> R) rethrows -> R {
+    var value: R!
+    try queue.sync { value = try block(unsafeValue) }
+    return value
   }
 }

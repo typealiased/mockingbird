@@ -124,7 +124,7 @@ class MockableTypeTemplate: Template {
       static var staticMock: Mockingbird.StaticMock {
         let runtimeGenericTypeNames = \(runtimeGenericTypeNames)
         let staticMockIdentifier = "\(mockableType.name)Mock\(allSpecializedGenericTypes)," + runtimeGenericTypeNames
-        if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+        if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
         let staticMock = Mockingbird.StaticMock()
         genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
         return staticMock

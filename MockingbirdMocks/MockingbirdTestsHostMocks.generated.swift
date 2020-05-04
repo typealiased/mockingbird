@@ -32,7 +32,7 @@ public final class AbstractSpecializedGenericProtocolMock<EquatableType: Swift.E
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(EquatableType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "AbstractSpecializedGenericProtocolMock<EquatableType: Swift.Equatable>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -1217,7 +1217,7 @@ public final class AssociatedTypeGenericConformingConstraintsProtocolMock<Confor
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(ConformingType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeGenericConformingConstraintsProtocolMock<ConformingType: MockingbirdTestsHost.AssociatedTypeProtocol>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -1274,7 +1274,7 @@ public final class AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType:
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(ConstrainedType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeGenericConstraintsProtocolMock<ConstrainedType: MockingbirdTestsHost.AssociatedTypeProtocol>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -1331,7 +1331,7 @@ public final class AssociatedTypeGenericImplementerMock<EquatableType: Swift.Equ
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(EquatableType.self).debugDescription, ObjectIdentifier(S.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeGenericImplementerMock<EquatableType: Swift.Equatable, S: Sequence>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -1649,7 +1649,7 @@ public final class AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, Ha
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(EquatableType.self).debugDescription, ObjectIdentifier(HashableType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeProtocolMock<EquatableType: Swift.Equatable, HashableType: Swift.Hashable>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -1816,7 +1816,7 @@ public final class AssociatedTypeSelfReferencingProtocolMock<SequenceType: Seque
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(SequenceType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "AssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Swift.Hashable>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -5599,7 +5599,7 @@ public final class ConstrainedUnspecializedGenericSubclassMock<T: Swift.Equatabl
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(T.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "ConstrainedUnspecializedGenericSubclassMock<T: Swift.Equatable>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -9630,7 +9630,7 @@ public final class FakeableGenericClassMock<T>: MockingbirdTestsHost.FakeableGen
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(T.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "FakeableGenericClassMock<T>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -10325,7 +10325,7 @@ public final class GenericBaseClassMock<T>: MockingbirdTestsHost.GenericBaseClas
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(T.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "GenericBaseClassMock<T>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -11669,7 +11669,7 @@ public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: 
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(T.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "InheritedTypeQualificationProtocolGenericImplementerMock<T>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -11751,7 +11751,7 @@ public final class InheritedTypeQualificationProtocolMock<ScopedType>: Mockingbi
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(ScopedType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "InheritedTypeQualificationProtocolMock<ScopedType>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -11832,7 +11832,7 @@ public final class InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceT
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(SequenceType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "InheritingAssociatedTypeSelfReferencingProtocolMock<SequenceType: Sequence & Swift.Hashable>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -11925,7 +11925,7 @@ public final class InheritingExternalModuleScopedAssociatedTypeProtocolMock<Elem
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(Data.self).debugDescription, ObjectIdentifier(Element.self).debugDescription, ObjectIdentifier(Subelement.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "InheritingExternalModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdModuleTestsHost.ExternalModuleScopedAssociatedTypeProtocol>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -12128,7 +12128,7 @@ public final class InheritingModuleScopedAssociatedTypeProtocolMock<Element, Sub
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(Data.self).debugDescription, ObjectIdentifier(Element.self).debugDescription, ObjectIdentifier(Subelement.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "InheritingModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -13501,7 +13501,7 @@ public final class ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, D
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(Data.self).debugDescription, ObjectIdentifier(Element.self).debugDescription, ObjectIdentifier(Subelement.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "ModuleScopedAssociatedTypeProtocolMock<Element, Subelement, Data: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -16784,7 +16784,7 @@ public final class ReferencedGenericClassWithConstraintsMock<S: Sequence>: Mocki
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(S.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "ReferencedGenericClassWithConstraintsMock<S: Sequence>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -16818,7 +16818,7 @@ public final class ReferencedGenericClassMock<T>: MockingbirdTestsHost.Reference
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(T.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "ReferencedGenericClassMock<T>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -17047,7 +17047,7 @@ public final class SecondLevelSelfConstrainedAssociatedTypeProtocolMock<Sequence
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(SequenceType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "SecondLevelSelfConstrainedAssociatedTypeProtocolMock<SequenceType: Sequence & Swift.Hashable>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -17189,7 +17189,7 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(ShadowedType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "ShadowedGenericTypeMock<ShadowedType>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -17265,7 +17265,7 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
     static var staticMock: Mockingbird.StaticMock {
       let runtimeGenericTypeNames = [].joined(separator: ",")
       let staticMockIdentifier = "NestedShadowedGenericTypeMock," + runtimeGenericTypeNames
-      if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+      if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
       let staticMock = Mockingbird.StaticMock()
       genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
       return staticMock
@@ -17342,7 +17342,7 @@ public final class ShadowedGenericTypeMock<ShadowedType>: MockingbirdTestsHost.S
     static var staticMock: Mockingbird.StaticMock {
       let runtimeGenericTypeNames = [ObjectIdentifier(ShadowedType.self).debugDescription].joined(separator: ",")
       let staticMockIdentifier = "NestedDoublyShadowedGenericTypeMock<ShadowedType>," + runtimeGenericTypeNames
-      if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+      if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
       let staticMock = Mockingbird.StaticMock()
       genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
       return staticMock
@@ -19557,7 +19557,7 @@ public final class TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, Se
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(Element.self).debugDescription, ObjectIdentifier(SequenceType.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "TopLevelSelfConstrainedAssociatedTypeProtocolMock<Element, SequenceType: Sequence & Swift.Hashable>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -20840,7 +20840,7 @@ public final class UnalphabetizedGenericClassMock<C, B, A>: MockingbirdTestsHost
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(A.self).debugDescription, ObjectIdentifier(B.self).debugDescription, ObjectIdentifier(C.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "UnalphabetizedGenericClassMock<C, B, A>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -20972,7 +20972,7 @@ public final class UnspecializedGenericSubclassMock<T>: MockingbirdTestsHost.Uns
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(T.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "UnspecializedGenericSubclassMock<T>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
@@ -21053,7 +21053,7 @@ public final class UnspecializedMultipleGenericSubclassMock<T, R>: MockingbirdTe
   static var staticMock: Mockingbird.StaticMock {
     let runtimeGenericTypeNames = [ObjectIdentifier(R.self).debugDescription, ObjectIdentifier(T.self).debugDescription].joined(separator: ",")
     let staticMockIdentifier = "UnspecializedMultipleGenericSubclassMock<T, R>," + runtimeGenericTypeNames
-    if let staticMock = genericTypesStaticMocks.value[staticMockIdentifier] { return staticMock }
+    if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
     let staticMock = Mockingbird.StaticMock()
     genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
     return staticMock
