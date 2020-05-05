@@ -76,20 +76,6 @@ public class ProcessTypesOperation: BasicOperation {
       result.mockableTypes = flattenInheritanceOperations
         .compactMap({ $0.result.mockableType })
         .filter({ !$0.isContainedType })
-        .filter({ mockableType -> Bool in
-          guard mockableType.kind == .class, mockableType.subclassesExternalType else { return true }
-          // Ignore any types that simply cannot be initialized.
-          guard mockableType.methods.contains(where: { $0.isInitializer }) else {
-            logWarning(
-              "\(mockableType.name.singleQuoted) subclasses a type from a different module but does not declare any accessible initializers and cannot be mocked",
-              diagnostic: .notMockable,
-              filePath: mockableType.filePath,
-              line: mockableType.lineNumber
-            )
-            return false
-          }
-          return true
-        })
       result.imports = parseFilesResult.imports
       log("Created \(result.mockableTypes.count) mockable type\(result.mockableTypes.count != 1 ? "s" : "")")
     }

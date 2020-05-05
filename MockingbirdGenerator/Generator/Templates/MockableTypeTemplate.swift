@@ -57,7 +57,8 @@ class MockableTypeTemplate: Template {
     
     let inheritance = !isAvailable ? Constants.mockProtocolName :
       "\(allInheritedTypes)\(allGenericConstraints)"
-    let body = !isAvailable ? "" : "\n\n\(renderBody())"
+    let rawBody = renderBody()
+    let body = rawBody.isEmpty ? "" : "\n\n\(rawBody)"
     
     return """
     // MARK: - Mocked \(mockableType.name)
@@ -89,29 +90,87 @@ class MockableTypeTemplate: Template {
     return (start, end)
   }()
   
+  
+  lazy var isAvailable: Bool = {
+    return unavailableMockAttribute.isEmpty
+  }()
+  
   /// Protocols that inherit from opaque external types are considered not available as mocks
   /// because it's not possible to generate a well-formed concrete implementation unless the
   /// inheritance is trivial.
-  lazy var isAvailable: Bool = {
-    return mockableType.kind != .protocol || mockableType.opaqueInheritedTypeNames.isEmpty
-  }()
-  
-  var unavailableMockAttribute: String {
-    guard !isAvailable else { return "" }
+  var nonMockableOpaqueInheritanceMessage: String? {
+    let hasCompleteInheritance = mockableType.kind != .protocol
+      || mockableType.opaqueInheritedTypeNames.isEmpty
+    guard !hasCompleteInheritance else { return nil }
+    
     let opaqueTypeNames = mockableType.opaqueInheritedTypeNames.sorted()
     let allOpaqueTypeNames = opaqueTypeNames.enumerated().map({ (index, typeName) -> String in
-      (index > 1 && index == opaqueTypeNames.count-1 ? "and " : "") + typeName.singleQuoted
-    }).joined(separator: opaqueTypeNames.count > 2 ? ", " : "")
-    let message: String
+      (index > 0 && index == opaqueTypeNames.count-1 ? "and " : "") + typeName.singleQuoted
+    }).joined(separator: opaqueTypeNames.count > 2 ? ", " : " ")
+    
     if opaqueTypeNames.count > 1 {
-      message = "\(mockableType.name.singleQuoted) inherits from the externally-defined types \(allOpaqueTypeNames) which needs to be declared in a supporting source file"
+      return "\(mockableType.name.singleQuoted) inherits from the externally-defined types \(allOpaqueTypeNames) which needs to be declared in a supporting source file"
     } else {
-      message = "\(mockableType.name.singleQuoted) inherits from the externally-defined type \(allOpaqueTypeNames) which needs to be declared in a supporting source file"
+      return "\(mockableType.name.singleQuoted) inherits from the externally-defined type \(allOpaqueTypeNames) which needs to be declared in a supporting source file"
     }
+  }
+  
+  /// Cannot mock a type that inherits a type that isn't declared in the same module and isn't open.
+  /// This mainly applies to protocols that have a Self constraint to a non-inheritable type.
+  var nonMockableInheritedTypeMessage: String? {
+    guard let nonInheritableType = mockableType.inheritedTypes
+      .union(mockableType.selfConformanceTypes)
+      .first(where: {
+        $0.kind == .class && !$0.accessLevel.isInheritableType(withinSameModule: $0.shouldMock)
+      })
+      else { return nil }
+    return "\(mockableType.name.singleQuoted) inherits from the non-open class \(nonInheritableType.name.singleQuoted) and cannot be mocked"
+  }
+  
+  /// Protocols can inherit properties whose names conflict from other protocols, such that it is
+  /// not possible to create a class that conforms to the child protocol.
+  var nonMockablePropertiesMessage: String? {
+    let duplicates = Dictionary(grouping: mockableType.variables, by: {Variable.Reduced(from: $0)})
+      .mapValues({ $0.count })
+      .filter({ $1 > 1 })
+    guard !duplicates.isEmpty else { return nil }
+    
+    let allDuplicates = duplicates.keys.enumerated().map({ (index, variable) -> String in
+      (index > 0 && index == duplicates.count-1 ? "and " : "") + variable.name.singleQuoted
+    }).joined(separator: duplicates.count > 2 ? ", " : " ")
+    
+    if duplicates.count > 1 {
+      return "\(mockableType.name.singleQuoted) contains the properties \(allDuplicates) that each conflict with inherited declarations and cannot be mocked"
+    } else {
+      return "\(mockableType.name.singleQuoted) contains the property \(allDuplicates) that conflicts with an inherited declaration and cannot be mocked"
+    }
+  }
+  
+  var nonMockableInitializersMessage: String? {
+    guard mockableType.kind == .class, mockableType.subclassesExternalType else { return nil }
+    // Ignore any types that simply cannot be initialized.
+    guard !mockableType.methods.contains(where: { $0.isInitializer }) else { return nil }
+    return "\(mockableType.name.singleQuoted) subclasses a type from a different module but does not declare any accessible initializers and cannot be mocked"
+  }
+  
+  lazy var unavailableMockAttribute: String = {
+    guard let message = nonMockableOpaqueInheritanceMessage
+      ?? nonMockableInheritedTypeMessage
+      ?? nonMockablePropertiesMessage
+      ?? nonMockableInitializersMessage
+      else { return "" }
+    
+    logWarning(
+      message,
+      diagnostic: .notMockable,
+      filePath: mockableType.filePath,
+      line: self.mockableType.lineNumber
+    )
+    
     return """
     @available(*, unavailable, message: "\(message)")
     """
-  }
+  }()
   
   /// The static mocking context allows static (or class) declared methods to be mocked.
   var staticMockingContext: String {
@@ -233,13 +292,17 @@ class MockableTypeTemplate: Template {
   }
   
   func renderBody() -> String {
-    return [renderInitializerProxy(),
-            renderVariables(),
-            defaultInitializer,
-            renderMethods(),
-            renderContainedTypes()]
-      .filter({ !$0.isEmpty })
-      .joined(separator: "\n\n")
+    let components: [String]
+    if isAvailable {
+      components = [renderInitializerProxy(),
+                    renderVariables(),
+                    defaultInitializer,
+                    renderMethods(),
+                    renderContainedTypes()]
+    } else {
+      components = [renderContainedTypes()]
+    }
+    return components.filter({ !$0.isEmpty }).joined(separator: "\n\n")
   }
   
   func renderContainedTypes() -> String {

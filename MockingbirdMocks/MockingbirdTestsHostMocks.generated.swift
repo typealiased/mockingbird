@@ -5593,6 +5593,27 @@ public func mock(_ type: MockingbirdTestsHost.ConformingUninitializableOpenClass
   return ConformingUninitializableOpenClassConstrainedProtocolMock.InitializerProxy.self
 }
 
+// MARK: - Mocked ConformingUnmockablePublicClassConstrainedProtocol
+
+public final class ConformingUnmockablePublicClassConstrainedProtocolMock: Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ConformingUnmockablePublicClassConstrainedProtocolMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+}
+
+@available(*, unavailable, message: "'ConformingUnmockablePublicClassConstrainedProtocol' inherits from the non-open class 'PublicClass' and cannot be mocked")
+public func mock(_ type: MockingbirdTestsHost.ConformingUnmockablePublicClassConstrainedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ConformingUnmockablePublicClassConstrainedProtocolMock {
+  fatalError()
+}
+
 // MARK: - Mocked ConstrainedUnspecializedGenericSubclass
 
 public final class ConstrainedUnspecializedGenericSubclassMock<T: Swift.Equatable>: MockingbirdTestsHost.ConstrainedUnspecializedGenericSubclass<T>, Mockingbird.Mock {
@@ -12236,6 +12257,110 @@ public func mock(_ type: MockingbirdTestsHost.ImplicitlyImportedExternalObjectiv
   return ImplicitlyImportedExternalObjectiveCTypeMock(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked InheritedConflictingProtocolProperties
+
+public final class InheritedConflictingProtocolPropertiesMock: MockingbirdTestsHost.InheritedConflictingProtocolProperties, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      InheritedConflictingProtocolPropertiesMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mocked bar
+
+  public var `bar`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "bar.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Bool in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "bar.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getBar() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "bar.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setBar(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "bar.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked foo
+
+  public var `foo`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "foo.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Bool in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "foo.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getFoo() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "foo.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setFoo(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "foo.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Initialize a protocol mock of `MockingbirdTestsHost.InheritedConflictingProtocolProperties`.
+public func mock(_ type: MockingbirdTestsHost.InheritedConflictingProtocolProperties.Protocol, file: StaticString = #file, line: UInt = #line) -> InheritedConflictingProtocolPropertiesMock {
+  return InheritedConflictingProtocolPropertiesMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked InheritedTypeQualificationProtocolGenericImplementer
 
 public final class InheritedTypeQualificationProtocolGenericImplementerMock<T>: MockingbirdTestsHost.InheritedTypeQualificationProtocolGenericImplementer<T>, Mockingbird.Mock {
@@ -14290,6 +14415,27 @@ public final class ModuleScopedTypealiasedProtocolMock: MockingbirdTestsHost.Mod
 /// Initialize a protocol mock of `MockingbirdTestsHost.ModuleScopedTypealiasedProtocol`.
 public func mock(_ type: MockingbirdTestsHost.ModuleScopedTypealiasedProtocol.Protocol, file: StaticString = #file, line: UInt = #line) -> ModuleScopedTypealiasedProtocolMock {
   return ModuleScopedTypealiasedProtocolMock(sourceLocation: SourceLocation(file, line))
+}
+
+// MARK: - Mocked MultipleConflictingProtocolProperties
+
+public final class MultipleConflictingProtocolPropertiesMock: Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      MultipleConflictingProtocolPropertiesMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+}
+
+@available(*, unavailable, message: "'MultipleConflictingProtocolProperties' contains the properties 'bar' and 'foo' that each conflict with inherited declarations and cannot be mocked")
+public func mock(_ type: MockingbirdTestsHost.MultipleConflictingProtocolProperties.Protocol, file: StaticString = #file, line: UInt = #line) -> MultipleConflictingProtocolPropertiesMock {
+  fatalError()
 }
 
 // MARK: - Mocked NSObjectProtocolConformingProtocol
@@ -18023,6 +18169,27 @@ public func mock<ShadowedGenericType_ShadowedType, ShadowedType>(_ type: Shadowe
   return ShadowedGenericTypeMock<ShadowedGenericType_ShadowedType>.NestedDoublyShadowedGenericTypeMock<ShadowedType>(sourceLocation: SourceLocation(file, line))
 }
 
+// MARK: - Mocked SingleConflictingProtocolProperties
+
+public final class SingleConflictingProtocolPropertiesMock: Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      SingleConflictingProtocolPropertiesMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+}
+
+@available(*, unavailable, message: "'SingleConflictingProtocolProperties' contains the property 'foo' that conflicts with an inherited declaration and cannot be mocked")
+public func mock(_ type: MockingbirdTestsHost.SingleConflictingProtocolProperties.Protocol, file: StaticString = #file, line: UInt = #line) -> SingleConflictingProtocolPropertiesMock {
+  fatalError()
+}
+
 // MARK: - Mocked SpecializedGenericProtocol
 
 public final class SpecializedGenericProtocolMock: MockingbirdTestsHost.GenericBaseClass<Bool>, MockingbirdTestsHost.SpecializedGenericProtocol, Mockingbird.Mock {
@@ -18627,6 +18794,27 @@ public final class SubclassingExternalClassWithInheritedIntializerMock: Mockingb
 /// Initialize an initializable class mock of `MockingbirdTestsHost.SubclassingExternalClassWithInheritedIntializer`.
 public func mock(_ type: MockingbirdTestsHost.SubclassingExternalClassWithInheritedIntializer.Type, file: StaticString = #file, line: UInt = #line) -> SubclassingExternalClassWithInheritedIntializerMock.InitializerProxy.Type {
   return SubclassingExternalClassWithInheritedIntializerMock.InitializerProxy.self
+}
+
+// MARK: - Mocked SubclassingExternalClass
+
+public final class SubclassingExternalClassMock: Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      SubclassingExternalClassMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+}
+
+@available(*, unavailable, message: "'SubclassingExternalClass' subclasses a type from a different module but does not declare any accessible initializers and cannot be mocked")
+public func mock(_ type: MockingbirdTestsHost.SubclassingExternalClass.Type, file: StaticString = #file, line: UInt = #line) -> SubclassingExternalClassMock {
+  fatalError()
 }
 
 // MARK: - Mocked SubclassingExternalSubclassWithDesignatedInitializer
