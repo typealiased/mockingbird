@@ -198,7 +198,7 @@ private class GlobSearchOperation: BasicOperation {
     }
     guard let globs = try? ignoreFile.read(.utf8).components(separatedBy: "\n")
       .filter({ line -> Bool in
-        let stripped = line.stripped()
+        let stripped = line.trimmingCharacters(in: .whitespaces)
         return !stripped.isEmpty && !stripped.hasPrefix(Constants.commentPrefix)
       })
       .map({ rawLine -> Glob in

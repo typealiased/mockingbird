@@ -39,26 +39,6 @@ private protocol StubbableVariablesContainer {
     -> Mockable<VariableDeclaration, () -> Bool, Bool>
   func setComputedVariableWithWillSetObserver(_ newValue: @escaping @autoclosure () -> Bool)
     -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
-  
-  func getStoredVariableWithImplicitType()
-    -> Mockable<VariableDeclaration, () -> Bool, Bool>
-  func setStoredVariableWithImplicitType(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
-
-  func getStoredVariableWithImplicitTupleType()
-    -> Mockable<VariableDeclaration, () -> (Bool, Bool), (Bool, Bool)>
-  func setStoredVariableWithImplicitTupleType(_ newValue: @escaping @autoclosure () -> (Bool, Bool))
-    -> Mockable<VariableDeclaration, ((Bool, Bool)) -> Void, Void>
-
-  func getStoredVariableWithConstructedImplicitType()
-    -> Mockable<VariableDeclaration, () -> Bool, Bool>
-  func setStoredVariableWithConstructedImplicitType(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
-
-  func getStoredVariableWithComplexConstructedImplicitType()
-    -> Mockable<VariableDeclaration, () -> Array<(String, String)>, Array<(String, String)>>
-  func setStoredVariableWithComplexConstructedImplicitType(_ newValue: @escaping @autoclosure () -> Array<(String, String)>)
-    -> Mockable<VariableDeclaration, (Array<(String, String)>) -> Void, Void>
 
   func getStoredVariableWithExplicitType()
     -> Mockable<VariableDeclaration, () -> Bool, Bool>

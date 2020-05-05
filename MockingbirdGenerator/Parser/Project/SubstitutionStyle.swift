@@ -20,7 +20,7 @@ public enum SubstitutionStyle: CaseIterable {
     guard let style = SubstitutionStyle.allCases.first(where: {
       value.hasPrefix($0.prefix) && value.hasSuffix($0.suffix)
     }) else { return nil }
-    return (value.drop(first: style.prefix.count, last: style.suffix.count), style)
+    return (String(value.dropFirst(style.prefix.count).dropLast(style.suffix.count)), style)
   }
   
   public var prefix: String {
