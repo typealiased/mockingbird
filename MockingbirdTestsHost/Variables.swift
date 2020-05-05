@@ -28,11 +28,6 @@ class VariablesContainer: VariablesContainerProtocol {
   var computedVariableWithWillSetObserver: Bool {
     willSet {}
   }
-  
-  var storedVariableWithImplicitType = true
-  var storedVariableWithImplicitTupleType = (true, true)
-  var storedVariableWithConstructedImplicitType = Bool(booleanLiteral: true)
-  var storedVariableWithComplexConstructedImplicitType = Array<(String, String)>(arrayLiteral: ("Test", "Test"))
 
   var storedVariableWithExplicitType: Bool = true
   
@@ -42,10 +37,7 @@ class VariablesContainer: VariablesContainerProtocol {
   weak var weakVariable: VariablesContainer?
   
   lazy var lazyVariableWithImplicitType = true
-
   lazy var lazyVariableWithExplicitType: Bool = { return true }()
-
-  lazy var lazyVariableWithComplexImplicitType = weakVariable.map { $0 === self }
   
   init() {
     self.readonlyVariableOverwrittenAsReadwrite = true

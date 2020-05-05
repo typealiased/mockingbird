@@ -130,8 +130,8 @@ struct Variable: Hashable, Comparable {
     }
     
     // Try to infer the type from the raw declaration.
-    guard let declaration = SourceSubstring.nameSuffix.extract(from: dictionary,
-                                                               contents: source)?.stripped(),
+    guard let declaration = SourceSubstring.nameSuffix
+      .extract(from: dictionary, contents: source)?.trimmingCharacters(in: .whitespaces),
       declaration.hasPrefix("=") else { return nil }
     
     var cleanedDeclaration = declaration.dropFirst().trimmingCharacters(in: .whitespaces)

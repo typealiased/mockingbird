@@ -10,11 +10,11 @@ import Foundation
 
 public extension Dictionary where Key == Character, Value == Character {
   static var allGroups: [Character: Character] {
-    return ["(": ")", "[": "]", "<": ">"]
+    return ["(": ")", "[": "]", "<": ">", "{": "}"]
   }
 
   static var nonParenthesisGroups: [Character: Character] {
-    return ["[": "]", "<": ">"]
+    return ["[": "]", "<": ">", "{": "}"]
   }
 }
 

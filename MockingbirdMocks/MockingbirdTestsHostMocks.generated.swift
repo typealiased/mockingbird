@@ -11614,6 +11614,579 @@ public func mock(_ type: MockingbirdTestsHost.ImplementingExternalModuleScoping.
   return ImplementingExternalModuleScopingMock.InitializerProxy.self
 }
 
+// MARK: - Mocked ImplicitVariableTypes
+
+public final class ImplicitVariableTypesMock: MockingbirdTestsHost.ImplicitVariableTypes, Mockingbird.Mock {
+  static let staticMock = Mockingbird.StaticMock()
+  public let mockingContext = Mockingbird.MockingContext()
+  public let stubbingContext = Mockingbird.StubbingContext()
+  public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.11.0", "module_name": "MockingbirdTestsHost"])
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return stubbingContext.sourceLocation }
+    set {
+      stubbingContext.sourceLocation = newValue
+      ImplicitVariableTypesMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
+
+  // MARK: Mocked boolType
+
+  override public var `boolType`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "boolType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Bool in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "boolType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getBoolType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "boolType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setBoolType(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "boolType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked dictionaryArrayType
+
+  override public var `dictionaryArrayType`: [String: [Bool]] {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "dictionaryArrayType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> [String: [Bool]] in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> [String: [Bool]] {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ([String: [Bool]]).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "dictionaryArrayType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? ([String: [Bool]]) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getDictionaryArrayType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [String: [Bool]], [String: [Bool]]> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "dictionaryArrayType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [String: [Bool]], [String: [Bool]]>(mock: self, invocation: invocation)
+  }
+
+  public func setDictionaryArrayType(_ newValue: @escaping @autoclosure () -> [String: [Bool]]) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([String: [Bool]]) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "dictionaryArrayType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([String: [Bool]]) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked dictionaryDictionaryType
+
+  override public var `dictionaryDictionaryType`: [String: [String: Bool]] {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "dictionaryDictionaryType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> [String: [String: Bool]] in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> [String: [String: Bool]] {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ([String: [String: Bool]]).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "dictionaryDictionaryType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? ([String: [String: Bool]]) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getDictionaryDictionaryType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [String: [String: Bool]], [String: [String: Bool]]> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "dictionaryDictionaryType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [String: [String: Bool]], [String: [String: Bool]]>(mock: self, invocation: invocation)
+  }
+
+  public func setDictionaryDictionaryType(_ newValue: @escaping @autoclosure () -> [String: [String: Bool]]) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([String: [String: Bool]]) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "dictionaryDictionaryType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([String: [String: Bool]]) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked dictionaryType
+
+  override public var `dictionaryType`: [String: Bool] {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "dictionaryType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> [String: Bool] in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> [String: Bool] {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ([String: Bool]).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "dictionaryType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? ([String: Bool]) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getDictionaryType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [String: Bool], [String: Bool]> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "dictionaryType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [String: Bool], [String: Bool]>(mock: self, invocation: invocation)
+  }
+
+  public func setDictionaryType(_ newValue: @escaping @autoclosure () -> [String: Bool]) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([String: Bool]) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "dictionaryType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([String: Bool]) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked doubleType
+
+  override public var `doubleType`: Double {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "doubleType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Double in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Double {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Double).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "doubleType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (Double) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getDoubleType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Double, Double> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "doubleType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Double, Double>(mock: self, invocation: invocation)
+  }
+
+  public func setDoubleType(_ newValue: @escaping @autoclosure () -> Double) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Double) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "doubleType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Double) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked explicitInitializedType
+
+  override public var `explicitInitializedType`: String {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitInitializedType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> String in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> String {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitInitializedType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (String) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getExplicitInitializedType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitInitializedType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String>(mock: self, invocation: invocation)
+  }
+
+  public func setExplicitInitializedType(_ newValue: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (String) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "explicitInitializedType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked implicitGenericInitializedType
+
+  override public var `implicitGenericInitializedType`: Array<(String, Int)> {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "implicitGenericInitializedType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Array<(String, Int)> in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Array<(String, Int)> {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Array<(String, Int)>).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "implicitGenericInitializedType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (Array<(String, Int)>) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getImplicitGenericInitializedType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Array<(String, Int)>, Array<(String, Int)>> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "implicitGenericInitializedType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Array<(String, Int)>, Array<(String, Int)>>(mock: self, invocation: invocation)
+  }
+
+  public func setImplicitGenericInitializedType(_ newValue: @escaping @autoclosure () -> Array<(String, Int)>) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Array<(String, Int)>) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "implicitGenericInitializedType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Array<(String, Int)>) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked implicitInitializedType
+
+  override public var `implicitInitializedType`: Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "implicitInitializedType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Bool in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "implicitInitializedType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getImplicitInitializedType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "implicitInitializedType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setImplicitInitializedType(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "implicitInitializedType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked intType
+
+  override public var `intType`: Int {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "intType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Int in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Int {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Int).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "intType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (Int) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getIntType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Int, Int> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "intType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Int, Int>(mock: self, invocation: invocation)
+  }
+
+  public func setIntType(_ newValue: @escaping @autoclosure () -> Int) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Int) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "intType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Int) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked qualifiedEnumType
+
+  override public var `qualifiedEnumType`: MockingbirdTestsHost.EnumType {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "qualifiedEnumType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> MockingbirdTestsHost.EnumType in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> MockingbirdTestsHost.EnumType {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (MockingbirdTestsHost.EnumType).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "qualifiedEnumType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (MockingbirdTestsHost.EnumType) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getQualifiedEnumType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.EnumType, MockingbirdTestsHost.EnumType> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "qualifiedEnumType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> MockingbirdTestsHost.EnumType, MockingbirdTestsHost.EnumType>(mock: self, invocation: invocation)
+  }
+
+  public func setQualifiedEnumType(_ newValue: @escaping @autoclosure () -> MockingbirdTestsHost.EnumType) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (MockingbirdTestsHost.EnumType) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "qualifiedEnumType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (MockingbirdTestsHost.EnumType) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked qualifiedImplicitInitializedType
+
+  override public var `qualifiedImplicitInitializedType`: Swift.Bool {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "qualifiedImplicitInitializedType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> Swift.Bool in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> Swift.Bool {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Swift.Bool).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "qualifiedImplicitInitializedType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (Swift.Bool) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getQualifiedImplicitInitializedType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Swift.Bool, Swift.Bool> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "qualifiedImplicitInitializedType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Swift.Bool, Swift.Bool>(mock: self, invocation: invocation)
+  }
+
+  public func setQualifiedImplicitInitializedType(_ newValue: @escaping @autoclosure () -> Swift.Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Swift.Bool) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "qualifiedImplicitInitializedType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Swift.Bool) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked stringArrayType
+
+  override public var `stringArrayType`: [String] {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "stringArrayType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> [String] in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> [String] {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ([String]).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "stringArrayType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? ([String]) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getStringArrayType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [String], [String]> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "stringArrayType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> [String], [String]>(mock: self, invocation: invocation)
+  }
+
+  public func setStringArrayType(_ newValue: @escaping @autoclosure () -> [String]) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([String]) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "stringArrayType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ([String]) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked stringType
+
+  override public var `stringType`: String {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "stringType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> String in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> String {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (String).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "stringType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (String) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getStringType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "stringType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> String, String>(mock: self, invocation: invocation)
+  }
+
+  public func setStringType(_ newValue: @escaping @autoclosure () -> String) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (String) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "stringType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (String) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  // MARK: Mocked tupleType
+
+  override public var `tupleType`: (Bool, Bool) {
+    get {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "tupleType.get", arguments: [])
+      return mockingContext.didInvoke(invocation) { () -> (Bool, Bool) in
+        let implementation = stubbingContext.implementation(for: invocation)
+        if let concreteImplementation = implementation as? () -> (Bool, Bool) {
+          return concreteImplementation()
+        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((Bool, Bool)).self) {
+          return defaultValue
+        } else {
+          fatalError(stubbingContext.failTest(for: invocation))
+        }
+      }
+    }
+    set {
+      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "tupleType.set", arguments: [ArgumentMatcher(newValue)])
+      mockingContext.didInvoke(invocation)
+      let implementation = stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? ((Bool, Bool)) -> Void {
+        concreteImplementation(newValue)
+      } else {
+        (implementation as? () -> Void)?()
+      }
+    }
+  }
+
+  public func getTupleType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (Bool, Bool), (Bool, Bool)> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "tupleType.get", arguments: [])
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (Bool, Bool), (Bool, Bool)>(mock: self, invocation: invocation)
+  }
+
+  public func setTupleType(_ newValue: @escaping @autoclosure () -> (Bool, Bool)) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((Bool, Bool)) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "tupleType.set", arguments: arguments)
+    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((Bool, Bool)) -> Void, Void>(mock: self, invocation: invocation)
+  }
+
+  fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
+    super.init()
+    Mockingbird.checkVersion(for: self)
+    self.sourceLocation = sourceLocation
+  }
+}
+
+/// Initialize a class mock of `MockingbirdTestsHost.ImplicitVariableTypes`.
+public func mock(_ type: MockingbirdTestsHost.ImplicitVariableTypes.Type, file: StaticString = #file, line: UInt = #line) -> ImplicitVariableTypesMock {
+  return ImplicitVariableTypesMock(sourceLocation: SourceLocation(file, line))
+}
+
 // MARK: - Mocked ImplicitlyImportedExternalObjectiveCType
 
 public final class ImplicitlyImportedExternalObjectiveCTypeMock: MockingbirdTestsHost.ImplicitlyImportedExternalObjectiveCType, Mockingbird.Mock {
@@ -21457,84 +22030,6 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 
-  // MARK: Mocked storedVariableWithComplexConstructedImplicitType
-
-  override public var `storedVariableWithComplexConstructedImplicitType`: Array<(String, String)> {
-    get {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithComplexConstructedImplicitType.get", arguments: [])
-      return mockingContext.didInvoke(invocation) { () -> Array<(String, String)> in
-        let implementation = stubbingContext.implementation(for: invocation)
-        if let concreteImplementation = implementation as? () -> Array<(String, String)> {
-          return concreteImplementation()
-        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Array<(String, String)>).self) {
-          return defaultValue
-        } else {
-          fatalError(stubbingContext.failTest(for: invocation))
-        }
-      }
-    }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithComplexConstructedImplicitType.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation)
-      if let concreteImplementation = implementation as? (Array<(String, String)>) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
-  }
-
-  public func getStoredVariableWithComplexConstructedImplicitType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Array<(String, String)>, Array<(String, String)>> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithComplexConstructedImplicitType.get", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Array<(String, String)>, Array<(String, String)>>(mock: self, invocation: invocation)
-  }
-
-  public func setStoredVariableWithComplexConstructedImplicitType(_ newValue: @escaping @autoclosure () -> Array<(String, String)>) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Array<(String, String)>) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithComplexConstructedImplicitType.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Array<(String, String)>) -> Void, Void>(mock: self, invocation: invocation)
-  }
-
-  // MARK: Mocked storedVariableWithConstructedImplicitType
-
-  override public var `storedVariableWithConstructedImplicitType`: Bool {
-    get {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithConstructedImplicitType.get", arguments: [])
-      return mockingContext.didInvoke(invocation) { () -> Bool in
-        let implementation = stubbingContext.implementation(for: invocation)
-        if let concreteImplementation = implementation as? () -> Bool {
-          return concreteImplementation()
-        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
-          return defaultValue
-        } else {
-          fatalError(stubbingContext.failTest(for: invocation))
-        }
-      }
-    }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithConstructedImplicitType.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
-  }
-
-  public func getStoredVariableWithConstructedImplicitType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithConstructedImplicitType.get", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setStoredVariableWithConstructedImplicitType(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithConstructedImplicitType.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
-  }
-
   // MARK: Mocked storedVariableWithExplicitType
 
   override public var `storedVariableWithExplicitType`: Bool {
@@ -21571,84 +22066,6 @@ public final class VariablesContainerMock: MockingbirdTestsHost.VariablesContain
   public func setStoredVariableWithExplicitType(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
     let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
     let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithExplicitType.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
-  }
-
-  // MARK: Mocked storedVariableWithImplicitTupleType
-
-  override public var `storedVariableWithImplicitTupleType`: (Bool, Bool) {
-    get {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithImplicitTupleType.get", arguments: [])
-      return mockingContext.didInvoke(invocation) { () -> (Bool, Bool) in
-        let implementation = stubbingContext.implementation(for: invocation)
-        if let concreteImplementation = implementation as? () -> (Bool, Bool) {
-          return concreteImplementation()
-        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: ((Bool, Bool)).self) {
-          return defaultValue
-        } else {
-          fatalError(stubbingContext.failTest(for: invocation))
-        }
-      }
-    }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithImplicitTupleType.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation)
-      if let concreteImplementation = implementation as? ((Bool, Bool)) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
-  }
-
-  public func getStoredVariableWithImplicitTupleType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (Bool, Bool), (Bool, Bool)> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithImplicitTupleType.get", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> (Bool, Bool), (Bool, Bool)>(mock: self, invocation: invocation)
-  }
-
-  public func setStoredVariableWithImplicitTupleType(_ newValue: @escaping @autoclosure () -> (Bool, Bool)) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((Bool, Bool)) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithImplicitTupleType.set", arguments: arguments)
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, ((Bool, Bool)) -> Void, Void>(mock: self, invocation: invocation)
-  }
-
-  // MARK: Mocked storedVariableWithImplicitType
-
-  override public var `storedVariableWithImplicitType`: Bool {
-    get {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithImplicitType.get", arguments: [])
-      return mockingContext.didInvoke(invocation) { () -> Bool in
-        let implementation = stubbingContext.implementation(for: invocation)
-        if let concreteImplementation = implementation as? () -> Bool {
-          return concreteImplementation()
-        } else if let defaultValue = stubbingContext.defaultValueProvider.provideValue(for: (Bool).self) {
-          return defaultValue
-        } else {
-          fatalError(stubbingContext.failTest(for: invocation))
-        }
-      }
-    }
-    set {
-      let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithImplicitType.set", arguments: [ArgumentMatcher(newValue)])
-      mockingContext.didInvoke(invocation)
-      let implementation = stubbingContext.implementation(for: invocation)
-      if let concreteImplementation = implementation as? (Bool) -> Void {
-        concreteImplementation(newValue)
-      } else {
-        (implementation as? () -> Void)?()
-      }
-    }
-  }
-
-  public func getStoredVariableWithImplicitType() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithImplicitType.get", arguments: [])
-    return Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>(mock: self, invocation: invocation)
-  }
-
-  public func setStoredVariableWithImplicitType(_ newValue: @escaping @autoclosure () -> Bool) -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "storedVariableWithImplicitType.set", arguments: arguments)
     return Mockingbird.Mockable<Mockingbird.VariableDeclaration, (Bool) -> Void, Void>(mock: self, invocation: invocation)
   }
 

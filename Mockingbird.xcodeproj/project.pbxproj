@@ -45,6 +45,9 @@
 /* Begin PBXBuildFile section */
 		B90521EA3AD01445BE991C90 /* MockingbirdTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */; };
 		D372A59B2455876D0000E80A /* MockingbirdTestsHost.h in Headers */ = {isa = PBXBuildFile; fileRef = OBJ_141 /* MockingbirdTestsHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D37503D72460FE7E003017A7 /* ImplicitVariableTypesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37503D52460FE78003017A7 /* ImplicitVariableTypesMockableTests.swift */; };
+		D37503D92460FFE1003017A7 /* ImplicitVariableTypesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37503D82460FFE1003017A7 /* ImplicitVariableTypesStubbableTests.swift */; };
+		D3A854622460D9FC00C5764A /* ImplicitVariableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */; };
 		OBJ_1001 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_1013 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_139 /* Empty.swift */; };
 		OBJ_1019 /* ChildMockMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_212 /* ChildMockMockableTests.swift */; };
@@ -609,7 +612,6 @@
 		OBJ_943 /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_111 /* Target.swift */; };
 		OBJ_944 /* InferType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_113 /* InferType.swift */; };
 		OBJ_945 /* SourceSubstring.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_114 /* SourceSubstring.swift */; };
-		OBJ_946 /* String+SourceryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_115 /* String+SourceryExtensions.swift */; };
 		OBJ_947 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_117 /* Array+Extensions.swift */; };
 		OBJ_948 /* CharacterSet+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_118 /* CharacterSet+Extensions.swift */; };
 		OBJ_949 /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_119 /* DateFormatter+Extensions.swift */; };
@@ -1140,6 +1142,9 @@
 		D372A595245586DD0000E80A /* MockingbirdTestsHost.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdTestsHost.xcconfig; sourceTree = "<group>"; };
 		D372A596245586DD0000E80A /* MockingbirdCli.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdCli.xcconfig; sourceTree = "<group>"; };
 		D372A597245586DD0000E80A /* MockingbirdCli-Profile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "MockingbirdCli-Profile.xcconfig"; sourceTree = "<group>"; };
+		D37503D52460FE78003017A7 /* ImplicitVariableTypesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypesMockableTests.swift; sourceTree = "<group>"; };
+		D37503D82460FFE1003017A7 /* ImplicitVariableTypesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypesStubbableTests.swift; sourceTree = "<group>"; };
+		D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypes.swift; sourceTree = "<group>"; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1161,7 +1166,6 @@
 		OBJ_111 /* Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
 		OBJ_113 /* InferType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferType.swift; sourceTree = "<group>"; };
 		OBJ_114 /* SourceSubstring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceSubstring.swift; sourceTree = "<group>"; };
-		OBJ_115 /* String+SourceryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SourceryExtensions.swift"; sourceTree = "<group>"; };
 		OBJ_117 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		OBJ_118 /* CharacterSet+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Extensions.swift"; sourceTree = "<group>"; };
 		OBJ_119 /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
@@ -1999,9 +2003,7 @@
 		OBJ_112 /* Sourcery */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_113 /* InferType.swift */,
 				OBJ_114 /* SourceSubstring.swift */,
-				OBJ_115 /* String+SourceryExtensions.swift */,
 			);
 			path = Sourcery;
 			sourceTree = "<group>";
@@ -2090,6 +2092,7 @@
 				OBJ_163 /* Generics.swift */,
 				OBJ_164 /* Grandparent.swift */,
 				OBJ_165 /* GrandparentProtocol.swift */,
+				D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */,
 				OBJ_166 /* InheritedTypeQualification.swift */,
 				OBJ_167 /* Initializers.swift */,
 				OBJ_168 /* InoutParameters.swift */,
@@ -2237,6 +2240,8 @@
 				OBJ_232 /* GenericsStubbableTests.swift */,
 				OBJ_233 /* IgnoredSourceExclusionTests.swift */,
 				OBJ_234 /* IgnoredSourceInclusionTests.swift */,
+				D37503D52460FE78003017A7 /* ImplicitVariableTypesMockableTests.swift */,
+				D37503D82460FFE1003017A7 /* ImplicitVariableTypesStubbableTests.swift */,
 				OBJ_235 /* InitializersMockableTests.swift */,
 				OBJ_236 /* InoutParametersMockableTests.swift */,
 				OBJ_237 /* InoutParametersStubbableTests.swift */,
@@ -3359,6 +3364,7 @@
 				OBJ_95 /* Typealias.swift */,
 				OBJ_94 /* TypeAttributes.swift */,
 				OBJ_96 /* Variable.swift */,
+				OBJ_113 /* InferType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4171,6 +4177,7 @@
 				OBJ_1027 /* DefaultArgumentValuesMockableTests.swift in Sources */,
 				OBJ_1028 /* DefaultArgumentValuesStubbableTests.swift in Sources */,
 				OBJ_1029 /* EmptyTypesMockableTests.swift in Sources */,
+				D37503D72460FE7E003017A7 /* ImplicitVariableTypesMockableTests.swift in Sources */,
 				OBJ_1030 /* ExceptionsMockableTests.swift in Sources */,
 				OBJ_1031 /* ExceptionsStubbableTests.swift in Sources */,
 				OBJ_1032 /* ExtensionsMockableTests.swift in Sources */,
@@ -4224,6 +4231,7 @@
 				OBJ_1081 /* StringExtensionsTests.swift in Sources */,
 				OBJ_1082 /* SubstitutionStyleTests.swift in Sources */,
 				B90521EA3AD01445BE991C90 /* MockingbirdTestsHostMocks.generated.swift in Sources */,
+				D37503D92460FFE1003017A7 /* ImplicitVariableTypesStubbableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4275,6 +4283,7 @@
 				OBJ_1163 /* RelativeSecondLevelFileIncludedSource.swift in Sources */,
 				OBJ_1164 /* SecondLevelFileIgnoredSource.swift in Sources */,
 				OBJ_1165 /* TopLevelFileIgnoredSource.swift in Sources */,
+				D3A854622460D9FC00C5764A /* ImplicitVariableTypes.swift in Sources */,
 				OBJ_1166 /* TrivialIncludedSource.swift in Sources */,
 				OBJ_1167 /* ModuleImportCases.swift in Sources */,
 				OBJ_1168 /* NestedFields.swift in Sources */,
@@ -4867,7 +4876,6 @@
 				OBJ_943 /* Target.swift in Sources */,
 				OBJ_944 /* InferType.swift in Sources */,
 				OBJ_945 /* SourceSubstring.swift in Sources */,
-				OBJ_946 /* String+SourceryExtensions.swift in Sources */,
 				OBJ_947 /* Array+Extensions.swift in Sources */,
 				OBJ_948 /* CharacterSet+Extensions.swift in Sources */,
 				OBJ_949 /* DateFormatter+Extensions.swift in Sources */,
