@@ -164,23 +164,9 @@ class MockableType: Hashable, Comparable {
                              typealiasRepository: typealiasRepository)
     self.inheritedTypes = inheritedTypes
     self.allInheritedTypeNames = allInheritedTypeNames
-    if baseRawType.parsedFile.shouldMock,
-      let nonInheritableType = inheritedTypes.first(where: {
-        $0.kind == .class && !$0.accessLevel.isInheritableType(withinSameModule: $0.shouldMock)
-      }) {
-      logWarning(
-        "\(baseRawType.name.singleQuoted) inherits from the non-inheritable type \(nonInheritableType.name.singleQuoted) and is not mockable",
-        diagnostic: .notMockable,
-        filePath: baseRawType.parsedFile.path,
-        line: SourceSubstring.key
-          .extractLinesNumbers(from: baseRawType.dictionary,
-                               contents: baseRawType.parsedFile.file.contents)?.start
-      )
-      return nil
-    }
     self.opaqueInheritedTypeNames = opaqueInheritedTypeNames
       .union(Set(inheritedTypes.flatMap({ $0.opaqueInheritedTypeNames })))
-    
+
     // Parse protocol `Self` conformance.
     let rawConformanceTypeNames = baseRawType.kind == .protocol ?
       baseRawType.selfConformanceTypeNames.union(
@@ -211,20 +197,6 @@ class MockableType: Hashable, Comparable {
                                            baseRawType: baseRawType,
                                            rawTypeRepository: rawTypeRepository,
                                            typealiasRepository: typealiasRepository)
-    if baseRawType.parsedFile.shouldMock,
-      let nonInheritableType = selfConformanceTypes.first(where: {
-        $0.kind == .class && !$0.accessLevel.isInheritableType(withinSameModule: $0.shouldMock)
-      }) {
-      logWarning(
-        "\(baseRawType.name.singleQuoted) inherits from the non-open class \(nonInheritableType.name.singleQuoted) and cannot be mocked",
-        diagnostic: .notMockable,
-        filePath: baseRawType.parsedFile.path,
-        line: SourceSubstring.key
-          .extractLinesNumbers(from: baseRawType.dictionary,
-                               contents: baseRawType.parsedFile.file.contents)?.start
-      )
-      return nil
-    }
     
     self.subclassesExternalType = subclassesExternalType || conformsToExternalType
     self.methods = methods

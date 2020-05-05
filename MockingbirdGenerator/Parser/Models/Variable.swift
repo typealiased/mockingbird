@@ -22,9 +22,18 @@ struct Variable: Hashable, Comparable {
   
   private let rawType: RawType
   
+  struct Reduced: Hashable {
+    let name: String
+    let isInstance: Bool
+    init(from variable: Variable) {
+      self.name = variable.name
+      self.isInstance = variable.kind.typeScope == .instance
+    }
+  }
+  
   func hash(into hasher: inout Hasher) {
     hasher.combine(name)
-    hasher.combine(typeName)
+    hasher.combine(typeName) // This is used to generate availability attributes on conflicts.
     hasher.combine(kind.typeScope == .instance)
   }
   
