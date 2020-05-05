@@ -25,8 +25,6 @@ class RawType {
   let kind: SwiftDeclarationKind
   let parsedFile: ParsedFile
   
-  var opaqueInheritedTypeNames = Set<String>()
-  
   var isContainedType: Bool { return !containingTypeNames.isEmpty }
   
   /// Fully qualified with respect to other modules.
