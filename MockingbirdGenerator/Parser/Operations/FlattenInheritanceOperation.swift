@@ -89,7 +89,8 @@ class FlattenInheritanceOperation: BasicOperation {
     guard !inheritedTypeNames.isEmpty else {
       return createMockableType(for: rawType,
                                 moduleNames: moduleNames,
-                                specializationContexts: [:])
+                                specializationContexts: [:],
+                                opaqueInheritedTypeNames: [])
     }
     
     var opaqueInheritedTypeNames = Set<String>()
@@ -138,15 +139,10 @@ class FlattenInheritanceOperation: BasicOperation {
         _ = flattenInheritance(for: $0)
       })
     
-    // It's possible that a known inherited type indirectly references an opaque type.
-    let indirectOpaqueInheritedTypeNames = rawInheritedTypes
-      .flatMap({ $0 }).flatMap({ $0.opaqueInheritedTypeNames })
-    baseRawType.opaqueInheritedTypeNames.formUnion(opaqueInheritedTypeNames)
-    baseRawType.opaqueInheritedTypeNames.formUnion(indirectOpaqueInheritedTypeNames)
-    
     return createMockableType(for: rawType,
                               moduleNames: moduleNames,
-                              specializationContexts: specializationContexts)
+                              specializationContexts: specializationContexts,
+                              opaqueInheritedTypeNames: opaqueInheritedTypeNames)
   }
   
   private func parseSpecializationContext(typeName: String,
@@ -173,7 +169,8 @@ class FlattenInheritanceOperation: BasicOperation {
   private func createMockableType(
     for rawType: [RawType],
     moduleNames: [String],
-    specializationContexts: [String: SpecializationContext]
+    specializationContexts: [String: SpecializationContext],
+    opaqueInheritedTypeNames: Set<String>
   ) -> MockableType? {
     guard let baseRawType = rawType.findBaseRawType() else { return nil }
     let fullyQualifiedName = baseRawType.fullyQualifiedModuleName
@@ -184,6 +181,7 @@ class FlattenInheritanceOperation: BasicOperation {
                                     mockableTypes: memoizedMockableTypes,
                                     moduleNames: moduleNames,
                                     specializationContexts: specializationContexts,
+                                    opaqueInheritedTypeNames: opaqueInheritedTypeNames,
                                     rawTypeRepository: self.rawTypeRepository,
                                     typealiasRepository: self.typealiasRepository)
     // Contained types can inherit from their containing types, so store store this potentially
