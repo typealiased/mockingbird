@@ -29,8 +29,6 @@ jobs:
           --diagnostics all not-mockable \
           --loglevel verbose \
           --verbose
-    - name: Download Starter Pack
-      run: ./bin/mockingbird download starter-pack
     - name: Test
       run: make clean-test
     - name: Cached Test
@@ -64,8 +62,6 @@ jobs:
           --diagnostics all not-mockable \
           --loglevel verbose \
           --verbose
-    - name: Download Starter Pack
-      run: ./bin/mockingbird download starter-pack
     - name: Test
       run: make clean-test
     - name: Cached Test
@@ -99,8 +95,6 @@ jobs:
           --diagnostics all not-mockable \
           --loglevel verbose \
           --verbose
-    - name: Download Starter Pack
-      run: ./bin/mockingbird download starter-pack
     - name: Test
       run: make clean-test
     - name: Cached Test
