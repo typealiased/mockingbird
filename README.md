@@ -351,7 +351,7 @@ useDefaultValues(from: .standardProvider, on: bird)
 print(bird.name)  // Prints ""
 ```
 
-#### Sequence of Value
+#### Sequence of Values
 
 Methods that return a different value each time can be stubbed with a sequence of values. The last value will be used
 for all subsequent invocations.
@@ -361,6 +361,18 @@ given(bird.getName()) ~> sequence(of: "Ryan", "Sterling")
 print(bird.name)  // Prints "Ryan"
 print(bird.name)  // Prints "Sterling"
 print(bird.name)  // Prints "Sterling"
+```
+
+It’s also possible to stub a sequence of lazily-computed values using closures. 
+
+```swift
+given(bird.getName()) ~> sequence(of: {
+  return "Ryan"
+}, {
+  return "Sterling"
+}, {
+  return Bool.random() ? "Ryan" : "Sterling"
+})
 ```
 
 ### Verification

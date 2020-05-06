@@ -12,14 +12,14 @@ import XCTest
 public class StubbingContext {
   struct Stub {
     let invocation: Invocation
-    let implementation: Any?
+    let implementationProvider: (() -> Any)?
   }
   var stubs = Synchronized<[String: [Stub]]>([:])
   let defaultValueProvider = ValueProvider()
   var sourceLocation: SourceLocation?
   
-  func swizzle(_ invocation: Invocation, with implementation: Any?) -> Stub {
-    let stub = Stub(invocation: invocation, implementation: implementation)
+  func swizzle(_ invocation: Invocation, with implementationProvider: (() -> Any)?) -> Stub {
+    let stub = Stub(invocation: invocation, implementationProvider: implementationProvider)
     stubs.update { $0[invocation.selectorName, default: []].append(stub) }
     return stub
   }
@@ -39,7 +39,7 @@ public class StubbingContext {
   func implementation(for invocation: Invocation) -> Any? {
     return stubs.read({ $0[invocation.selectorName] })?
       .last(where: { $0.invocation == invocation })?
-      .implementation
+      .implementationProvider?()
   }
 
   func clearStubs() {
