@@ -84,7 +84,7 @@ Add the framework to a test target in your `Podfile`, making sure to include the
 ```ruby
 target 'MyTestTarget' do
   use_frameworks!
-  pod 'MockingbirdFramework', '~> 0.11'
+  pod 'MockingbirdFramework', '~> 0.12'
 end
 ```
 
@@ -106,7 +106,7 @@ $ make install-prebuilt
 Add the framework to your `Cartfile`.
 
 ```
-github "birdrides/mockingbird" ~> 0.11
+github "birdrides/mockingbird" ~> 0.12
 ```
 
 Build the framework using Carthage and [link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets), making
@@ -128,7 +128,7 @@ $ make install-prebuilt
 Add `https://github.com/birdrides/mockingbird` as a dependency and link it to your test target.
 
 Then download and install the
-[latest CLI from Releases](https://github.com/birdrides/mockingbird/releases/download/0.11.1/Mockingbird.pkg).
+[latest CLI from Releases](https://github.com/birdrides/mockingbird/releases/download/0.12.0/Mockingbird.pkg).
 
 ### From Source
 
@@ -164,14 +164,6 @@ Need to [set up your project manually](https://github.com/birdrides/mockingbird/
 
 ### System Framework Compatibility
 
-For basic compatibility with the Swift standard library and other system frameworks, download the latest
-[starter supporting source files](https://github.com/birdrides/mockingbird/releases/download/0.11.1/MockingbirdSupport.zip)
-and place the `MockingbirdSupport` folder in the root directory of your project. Note that supporting source files
-should not be imported into Xcode or added to any targets. See [Supporting Source Files](#supporting-source-files)
-for more information.
-
-<details><summary>Upcoming changes in Mockingbird 0.12.0</summary>
-
 For basic compatibility with system frameworks and types defined outside of your project, download the latest starter
 supporting source files. Note that supporting source files should not be imported into Xcode or added to any targets.
 See [Supporting Source Files](#supporting-source-files) for more information.
@@ -179,8 +171,6 @@ See [Supporting Source Files](#supporting-source-files) for more information.
 ```bash
 $ mockingbird download starter-pack
 ```
-
-</details>
 
 ### Excluding Files
 
@@ -278,7 +268,7 @@ given(bird.chirp(volume: any())) ~> { volume in
 }
 ```
 
-#### Relaxed Stubbing with Default Values (0.12.0)
+#### Relaxed Stubbing with Default Values
 
 Mocks are strict by default, meaning that calls to unstubbed methods will trigger a test failure. Methods returning
 `Void` do not need to be stubbed in strict mode.
@@ -321,7 +311,7 @@ useDefaultValues(from: .standardProvider, on: bird)
 print(bird.name)  // Prints ""
 ```
 
-#### Sequence of Values (0.12.0)
+#### Sequence of Value
 
 Methods that return a different value each time can be stubbed with a sequence of values. The last value will be used
 for all subsequent invocations.
@@ -538,22 +528,12 @@ and properties correctly. Note that it does not allow you to
 
 ### Starter Pack
 
-Mockingbird includes starter supporting source files for the Swift standard library and common system frameworks
-such as `Foundation`. Download the latest
-[starter supporting source files](https://github.com/birdrides/mockingbird/releases/download/0.11.1/MockingbirdSupport.zip)
-and place the `MockingbirdSupport` folder in the root directory of your project. Note that supporting source files
-should not be imported into Xcode or added to any targets.
-
-<details><summary>Upcoming changes in Mockingbird 0.12.0</summary>
-
 Download the starter supporting source files for basic compatibility with the Swift standard library and common
 system frameworks. Note that supporting source files should not be imported into Xcode or added to any targets.
 
 ```bash
 $ mockingbird download starter-pack
 ```
-
-</details>
 
 ### Adding Files
 
