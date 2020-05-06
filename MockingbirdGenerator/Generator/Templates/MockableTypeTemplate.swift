@@ -135,9 +135,13 @@ class MockableTypeTemplate: Template {
       .filter({ $1 > 1 })
     guard !duplicates.isEmpty else { return nil }
     
-    let allDuplicates = duplicates.keys.enumerated().map({ (index, variable) -> String in
-      (index > 0 && index == duplicates.count-1 ? "and " : "") + variable.name.singleQuoted
-    }).joined(separator: duplicates.count > 2 ? ", " : " ")
+    let allDuplicates = duplicates.keys
+      .sorted(by: { $0.name < $1.name })
+      .enumerated()
+      .map({ (index, variable) -> String in
+        (index > 0 && index == duplicates.count-1 ? "and " : "") + variable.name.singleQuoted
+      })
+      .joined(separator: duplicates.count > 2 ? ", " : " ")
     
     if duplicates.count > 1 {
       return "\(mockableType.name.singleQuoted) contains the properties \(allDuplicates) that each conflict with inherited declarations and cannot be mocked"
