@@ -26,32 +26,8 @@ class SequentialValueStubbingTests: XCTestCase {
     verify(concreteMock.fakeableInt()).wasCalled(exactly(3))
   }
   
-  func testLazyValuesReturnedInOrder() {
-    given(concreteMock.fakeableInt()) ~> sequence(of: {1}, {2}, {3})
-    XCTAssertEqual(concreteInstance.fakeableInt(), 1)
-    XCTAssertEqual(concreteInstance.fakeableInt(), 2)
-    XCTAssertEqual(concreteInstance.fakeableInt(), 3)
-    verify(concreteMock.fakeableInt()).wasCalled(exactly(3))
-  }
-  
-  func testLazyValuesEvaluatedLazily() {
-    given(concreteMock.fakeableInt()) ~> sequence(of: {1}, { XCTFail("Not lazy"); fatalError() })
-    XCTAssertEqual(concreteInstance.fakeableInt(), 1)
-    verify(concreteMock.fakeableInt()).wasCalled()
-  }
-  
   func testLastValueUsedWhenSequenceFinished() {
     given(concreteMock.fakeableInt()) ~> sequence(of: 1, 2, 3)
-    XCTAssertEqual(concreteInstance.fakeableInt(), 1)
-    XCTAssertEqual(concreteInstance.fakeableInt(), 2)
-    XCTAssertEqual(concreteInstance.fakeableInt(), 3)
-    XCTAssertEqual(concreteInstance.fakeableInt(), 3)
-    XCTAssertEqual(concreteInstance.fakeableInt(), 3)
-    verify(concreteMock.fakeableInt()).wasCalled(exactly(5))
-  }
-  
-  func testLastLazyValueUsedWhenSequenceFinished() {
-    given(concreteMock.fakeableInt()) ~> sequence(of: {1}, {2}, {3})
     XCTAssertEqual(concreteInstance.fakeableInt(), 1)
     XCTAssertEqual(concreteInstance.fakeableInt(), 2)
     XCTAssertEqual(concreteInstance.fakeableInt(), 3)

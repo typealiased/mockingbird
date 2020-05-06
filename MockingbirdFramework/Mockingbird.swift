@@ -32,21 +32,6 @@ public func sequence<FunctionType, ReturnType>(of values: ReturnType...)
     return StubImplementation<FunctionType, ReturnType>(handler: implementation, callback: nil)
 }
 
-/// Stub a sequence of lazily computed values, returning each value sequentially. The last value
-/// will be used if the number of invocations is greater than the number of values provided.
-///
-/// - Parameter lazyValue: A sequence of lazily computed values to stub.
-public func sequence<FunctionType, ReturnType>(of lazyValues: (() -> ReturnType)...)
-  -> StubImplementation<FunctionType, ReturnType> {
-    var index = 0
-    let implementation: () -> ReturnType = {
-      let value = lazyValues[index]()
-      if index+1 < lazyValues.count { index += 1 }
-      return value
-    }
-    return StubImplementation<FunctionType, ReturnType>(handler: implementation, callback: nil)
-}
-
 /// Stubs a variable getter to return the last value received by the setter.
 ///
 /// - Parameter initial: The initial value to return.
