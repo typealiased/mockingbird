@@ -18,7 +18,7 @@ jobs:
     runs-on: macOS-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Clean
       run: make clean-cocoapods
     - name: Set Up
@@ -33,7 +33,7 @@ jobs:
     runs-on: macOS-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Clean
       run: make clean-carthage
     - name: Set Up
@@ -42,3 +42,18 @@ jobs:
       run: 'PATH=$(pwd)/bin:$PATH make test-carthage'
     - name: Cached Test
       run: make test-carthage
+
+  test-spm:
+    name: Check SPM integration
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Clean
+      run: make clean-spm
+    - name: Set Up
+      run: 'PREFIX=$(pwd) make setup-spm'
+    - name: Test
+      run: 'PATH=$(pwd)/bin:$PATH make test-spm'
+    - name: Cached Test
+      run: make test-spm

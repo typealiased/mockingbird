@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8DD9E2198A351B0C771316A7 /* iOSMockingbirdExample_CarthageMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992B0274D09757C6B9BEEDDA /* iOSMockingbirdExample_CarthageMocks.generated.swift */; };
+		B98124D8F911DC2FBBA5BC82 /* iOSMockingbirdExample_CarthageTests-iOSMockingbirdExample_CarthageMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE8054CA44C04573A1936 /* iOSMockingbirdExample_CarthageTests-iOSMockingbirdExample_CarthageMocks.generated.swift */; };
 		D3482061243980B700C6DC75 /* Mockingbird.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3482060243980B700C6DC75 /* Mockingbird.framework */; };
 		D3482065243981D200C6DC75 /* TreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3482064243981D200C6DC75 /* TreeTests.swift */; };
 		D3482068243981E700C6DC75 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3482066243981E700C6DC75 /* Tree.swift */; };
@@ -45,7 +45,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		992B0274D09757C6B9BEEDDA /* iOSMockingbirdExample_CarthageMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = iOSMockingbirdExample_CarthageMocks.generated.swift; path = MockingbirdMocks/iOSMockingbirdExample_CarthageMocks.generated.swift; sourceTree = "<group>"; };
 		D348205E24397E0B00C6DC75 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D3482060243980B700C6DC75 /* Mockingbird.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mockingbird.framework; path = Carthage/Build/iOS/Mockingbird.framework; sourceTree = "<group>"; };
 		D3482064243981D200C6DC75 /* TreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeTests.swift; sourceTree = "<group>"; };
@@ -62,6 +61,7 @@
 		D3FF918A24395EA2008B48CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3FF918F24395EA3008B48CF /* iOSMockingbirdExample-CarthageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOSMockingbirdExample-CarthageTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3FF919524395EA3008B48CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F40BE8054CA44C04573A1936 /* iOSMockingbirdExample_CarthageTests-iOSMockingbirdExample_CarthageMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "iOSMockingbirdExample_CarthageTests-iOSMockingbirdExample_CarthageMocks.generated.swift"; path = "MockingbirdMocks/iOSMockingbirdExample_CarthageTests-iOSMockingbirdExample_CarthageMocks.generated.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +86,7 @@
 		0539F7044F8666CCD525E33A /* Generated Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				992B0274D09757C6B9BEEDDA /* iOSMockingbirdExample_CarthageMocks.generated.swift */,
+				F40BE8054CA44C04573A1936 /* iOSMockingbirdExample_CarthageTests-iOSMockingbirdExample_CarthageMocks.generated.swift */,
 			);
 			name = "Generated Mocks";
 			sourceTree = "<group>";
@@ -244,15 +244,15 @@
 			files = (
 			);
 			inputPaths = (
-				"/tmp/Mockingbird-B5F58C47-B04A-4CC4-AD7F-B8A9420D8A72",
+				"/tmp/Mockingbird-3B535FD9-718D-41BA-B603-F13FEE83F0D0",
 			);
 			name = "Generate Mockingbird Mocks";
 			outputPaths = (
-				"$(SRCROOT)/MockingbirdMocks/iOSMockingbirdExample_CarthageMocks.generated.swift",
+				"$(SRCROOT)/MockingbirdMocks/iOSMockingbirdExample_CarthageTests-iOSMockingbirdExample_CarthageMocks.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "mockingbird generate \\\n  --targets 'iOSMockingbirdExample-Carthage' \\\n  --outputs \"${SRCROOT}/MockingbirdMocks/iOSMockingbirdExample_CarthageMocks.generated.swift\" \\\n  --support \"${SRCROOT}/MockingbirdSupport\"\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-B5F58C47-B04A-4CC4-AD7F-B8A9420D8A72'\n";
+			shellScript = "set -e\n\nmockingbird generate \\\n  --targets 'iOSMockingbirdExample-Carthage' \\\n  --outputs \"${SRCROOT}/MockingbirdMocks/iOSMockingbirdExample_CarthageTests-iOSMockingbirdExample_CarthageMocks.generated.swift\" \\\n  --support \"${SRCROOT}/MockingbirdSupport\"\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-3B535FD9-718D-41BA-B603-F13FEE83F0D0'\n";
 		};
 		E0D6FD26E2FFDF2BDB777D3B /* Clean Mockingbird Mocks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -263,11 +263,11 @@
 			);
 			name = "Clean Mockingbird Mocks";
 			outputPaths = (
-				"/tmp/Mockingbird-B5F58C47-B04A-4CC4-AD7F-B8A9420D8A72",
+				"/tmp/Mockingbird-3B535FD9-718D-41BA-B603-F13FEE83F0D0",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo $RANDOM > '/tmp/Mockingbird-B5F58C47-B04A-4CC4-AD7F-B8A9420D8A72'\n";
+			shellScript = "echo $RANDOM > '/tmp/Mockingbird-3B535FD9-718D-41BA-B603-F13FEE83F0D0'\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -288,8 +288,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DD9E2198A351B0C771316A7 /* iOSMockingbirdExample_CarthageMocks.generated.swift in Sources */,
 				D3482065243981D200C6DC75 /* TreeTests.swift in Sources */,
+				B98124D8F911DC2FBBA5BC82 /* iOSMockingbirdExample_CarthageTests-iOSMockingbirdExample_CarthageMocks.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
