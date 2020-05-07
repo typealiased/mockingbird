@@ -3,13 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0F5B1FC6B5A3A18F1F36A0A9 /* Pods_iOSMockingbirdExample_CocoaPods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F972234777F454B22C13353 /* Pods_iOSMockingbirdExample_CocoaPods.framework */; };
 		0FAB41FB6325202D5332E857 /* Pods_iOSMockingbirdExample_CocoaPodsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1588E47B83AC767F9EC7FB5 /* Pods_iOSMockingbirdExample_CocoaPodsTests.framework */; };
-		427CDF6A8C13768CBA4CE48F /* iOSMockingbirdExample_CocoaPodsMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D5ABA031CCCF3A36FE2B6E /* iOSMockingbirdExample_CocoaPodsMocks.generated.swift */; };
 		D313755A24391AA8006A4888 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313755924391AA8006A4888 /* AppDelegate.swift */; };
 		D313755C24391AA8006A4888 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313755B24391AA8006A4888 /* SceneDelegate.swift */; };
 		D313755E24391AA8006A4888 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313755D24391AA8006A4888 /* ViewController.swift */; };
@@ -19,6 +18,7 @@
 		D313757D2439220B006A4888 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313757B2439220A006A4888 /* Bird.swift */; };
 		D313757E2439220B006A4888 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313757C2439220A006A4888 /* Tree.swift */; };
 		D3137580243922B2006A4888 /* TreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313757F243922B2006A4888 /* TreeTests.swift */; };
+		FBDDBB810321C7073182B65E /* iOSMockingbirdExample_CocoaPodsTests-iOSMockingbirdExample_CocoaPodsMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8603F1F08BFB63526E18F7A6 /* iOSMockingbirdExample_CocoaPodsTests-iOSMockingbirdExample_CocoaPodsMocks.generated.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +35,7 @@
 		2F972234777F454B22C13353 /* Pods_iOSMockingbirdExample_CocoaPods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSMockingbirdExample_CocoaPods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A5314745BEC805545075052 /* Pods-iOSMockingbirdExample-CocoaPodsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSMockingbirdExample-CocoaPodsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSMockingbirdExample-CocoaPodsTests/Pods-iOSMockingbirdExample-CocoaPodsTests.release.xcconfig"; sourceTree = "<group>"; };
 		755BDD7A8AFF54865101DFE7 /* Pods-iOSMockingbirdExample-CocoaPods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSMockingbirdExample-CocoaPods.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSMockingbirdExample-CocoaPods/Pods-iOSMockingbirdExample-CocoaPods.debug.xcconfig"; sourceTree = "<group>"; };
-		89D5ABA031CCCF3A36FE2B6E /* iOSMockingbirdExample_CocoaPodsMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = iOSMockingbirdExample_CocoaPodsMocks.generated.swift; path = MockingbirdMocks/iOSMockingbirdExample_CocoaPodsMocks.generated.swift; sourceTree = "<group>"; };
+		8603F1F08BFB63526E18F7A6 /* iOSMockingbirdExample_CocoaPodsTests-iOSMockingbirdExample_CocoaPodsMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "iOSMockingbirdExample_CocoaPodsTests-iOSMockingbirdExample_CocoaPodsMocks.generated.swift"; path = "MockingbirdMocks/iOSMockingbirdExample_CocoaPodsTests-iOSMockingbirdExample_CocoaPodsMocks.generated.swift"; sourceTree = "<group>"; };
 		9B831BE5C0CD7F22670B1A96 /* Pods-iOSMockingbirdExample-CocoaPodsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSMockingbirdExample-CocoaPodsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSMockingbirdExample-CocoaPodsTests/Pods-iOSMockingbirdExample-CocoaPodsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C232865C35AF47A1FBE49C4F /* Pods-iOSMockingbirdExample-CocoaPods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSMockingbirdExample-CocoaPods.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSMockingbirdExample-CocoaPods/Pods-iOSMockingbirdExample-CocoaPods.release.xcconfig"; sourceTree = "<group>"; };
 		D1588E47B83AC767F9EC7FB5 /* Pods_iOSMockingbirdExample_CocoaPodsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSMockingbirdExample_CocoaPodsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,7 +79,7 @@
 		035ABECE7378A4CBDFE18912 /* Generated Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				89D5ABA031CCCF3A36FE2B6E /* iOSMockingbirdExample_CocoaPodsMocks.generated.swift */,
+				8603F1F08BFB63526E18F7A6 /* iOSMockingbirdExample_CocoaPodsTests-iOSMockingbirdExample_CocoaPodsMocks.generated.swift */,
 			);
 			name = "Generated Mocks";
 			sourceTree = "<group>";
@@ -260,15 +260,15 @@
 			files = (
 			);
 			inputPaths = (
-				"/tmp/Mockingbird-80292098-3CB2-47C0-9635-6E5391046C5E",
+				"/tmp/Mockingbird-E0B298C0-F7DC-44E5-BB8A-7233FCCBD475",
 			);
 			name = "Generate Mockingbird Mocks";
 			outputPaths = (
-				"$(SRCROOT)/MockingbirdMocks/iOSMockingbirdExample_CocoaPodsMocks.generated.swift",
+				"$(SRCROOT)/MockingbirdMocks/iOSMockingbirdExample_CocoaPodsTests-iOSMockingbirdExample_CocoaPodsMocks.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "mockingbird generate \\\n  --targets 'iOSMockingbirdExample-CocoaPods' \\\n  --outputs \"${SRCROOT}/MockingbirdMocks/iOSMockingbirdExample_CocoaPodsMocks.generated.swift\" \\\n  --support \"${SRCROOT}/MockingbirdSupport\"\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-80292098-3CB2-47C0-9635-6E5391046C5E'\n";
+			shellScript = "set -e\n\nmockingbird generate \\\n  --targets 'iOSMockingbirdExample-CocoaPods' \\\n  --outputs \"${SRCROOT}/MockingbirdMocks/iOSMockingbirdExample_CocoaPodsTests-iOSMockingbirdExample_CocoaPodsMocks.generated.swift\" \\\n  --support \"${SRCROOT}/MockingbirdSupport\"\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-E0B298C0-F7DC-44E5-BB8A-7233FCCBD475'\n";
 		};
 		5E064B5C5B34FDB0269A0E4E /* Clean Mockingbird Mocks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -279,11 +279,11 @@
 			);
 			name = "Clean Mockingbird Mocks";
 			outputPaths = (
-				"/tmp/Mockingbird-80292098-3CB2-47C0-9635-6E5391046C5E",
+				"/tmp/Mockingbird-E0B298C0-F7DC-44E5-BB8A-7233FCCBD475",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo $RANDOM > '/tmp/Mockingbird-80292098-3CB2-47C0-9635-6E5391046C5E'\n";
+			shellScript = "echo $RANDOM > '/tmp/Mockingbird-E0B298C0-F7DC-44E5-BB8A-7233FCCBD475'\n";
 		};
 		965E86E495B31E19C1D3A58F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -366,7 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3137580243922B2006A4888 /* TreeTests.swift in Sources */,
-				427CDF6A8C13768CBA4CE48F /* iOSMockingbirdExample_CocoaPodsMocks.generated.swift in Sources */,
+				FBDDBB810321C7073182B65E /* iOSMockingbirdExample_CocoaPodsTests-iOSMockingbirdExample_CocoaPodsMocks.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

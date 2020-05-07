@@ -25,7 +25,7 @@ $ touch Cartfile
 Add Mockingbird as a dependency in the Cartfile.
 
 ```ruby
-$ echo 'github "birdrides/mockingbird" ~> 0.11' >> Cartfile
+$ echo 'github "birdrides/mockingbird" ~> 0.12' >> Cartfile
 ```
 
 ### Install Mockingbird
@@ -37,16 +37,14 @@ $ carthage update --platform ios
 $ open Carthage/Build/iOS
 ```
 
-Link the built `Mockingbird.framework` to the test target, making sure to add the framework to a new Copy Files
-build phase with the destination set to `Frameworks`.
-
-![Test target build phases](/Documentation/Assets/test-target-build-phases.png)
+Link the built `Mockingbird.framework` to the test target, making sure to add the framework to 
+[a new Copy Files build phase](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets) with the
+destination set to `Frameworks`.
 
 Then install the CLI.
 
 ```bash
-$ cd Carthage/Checkouts/mockingbird
-$ make install-prebuilt
+$ (cd Carthage/Checkouts/mockingbird && make install-prebuilt)
 ```
 
 Configure the test target by using the CLI.
@@ -60,20 +58,8 @@ $ mockingbird install \
 Finally, download the starter supporting source files into your project root.
 
 ```bash
-$ curl -Lo \
-  'MockingbirdSupport.zip' \
-  'https://github.com/birdrides/mockingbird/releases/download/0.11.0/MockingbirdSupport.zip'
-$ unzip -o 'MockingbirdSupport.zip'
-$ rm -f 'MockingbirdSupport.zip'
-```
-
-<details><summary>Upcoming changes in Mockingbird 0.12.0</summary>
-
-```bash
 $ mockingbird download starter-pack
 ```
-
-</details>
 
 ### Run Tests
 
@@ -89,5 +75,6 @@ Take a peek at the example test and sources and then run the tests (⌘+U).
 - [`Tree.swift`](iOSMockingbirdExample-Carthage/Tree.swift)
 - [`Bird.swift`](iOSMockingbirdExample-Carthage/Bird.swift)
 
-Bonus: look at the contents of 
-[`.mockingbird-ignore`](iOSMockingbirdExample-Carthage/.mockingbird-ignore). 
+Bonus: 
+- [`.mockingbird-ignore`](iOSMockingbirdExample-Carthage/.mockingbird-ignore)
+- [`.gitignore`](.gitignore)

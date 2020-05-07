@@ -10,6 +10,9 @@ MockingbirdCli.pkg
 MockingbirdCli.zip
 MockingbirdSupport.zip
 mockingbird
+Mockingbird-*.framework
+bin/
+var/
 
 ## Caches
 *.xcodeproj/MockingbirdCache/*.lock

@@ -33,6 +33,9 @@ EXAMPLE_COCOAPODS_XCODEBUILD_FLAGS=$(EXAMPLE_XCODEBUILD_FLAGS) \
 EXAMPLE_CARTHAGE_XCODEBUILD_FLAGS=$(EXAMPLE_XCODEBUILD_FLAGS) \
 	-project 'Examples/iOSMockingbirdExample-Carthage/iOSMockingbirdExample-Carthage.xcodeproj' \
 	-scheme 'iOSMockingbirdExample-Carthage'
+EXAMPLE_SPM_XCODEBUILD_FLAGS=$(EXAMPLE_XCODEBUILD_FLAGS) \
+	-project 'Examples/iOSMockingbirdExample-SPM/iOSMockingbirdExample-SPM.xcodeproj' \
+	-scheme 'iOSMockingbirdExample-SPM'
 
 FRAMEWORKS_FOLDER=/Library/Frameworks
 BINARIES_FOLDER=$(PREFIX)/bin
@@ -95,6 +98,7 @@ ERROR_MSG=[ERROR] The downloaded Mockingbird CLI binary does not have the expect
 		clean-installables \
 		clean \
 		setup-project \
+		bootstrap \
 		save-xcschemes \
 		generate-embedded-dylibs \
 		build-cli \
@@ -104,11 +108,15 @@ ERROR_MSG=[ERROR] The downloaded Mockingbird CLI binary does not have the expect
 		build-framework \
 		build \
 		setup-cocoapods \
+		setup-carthage \
+		setup-spm \
 		test-cocoapods \
 		test-carthage \
+		test-spm \
 		test-examples \
 		clean-cocoapods \
 		clean-carthage \
+		clean-spm \
 		clean-test-examples \
 		test \
 		clean-test \
@@ -130,6 +138,7 @@ all: build
 
 clean-mocks:
 	rm -f MockingbirdMocks/*.generated.swift
+	rm -f Mockingbird.xcodeproj/MockingbirdCache/*.lock
 
 clean-temporary-files:
 	rm -rf "$(TEMPORARY_FOLDER)"
@@ -155,6 +164,8 @@ setup-project:
 	swift package resolve
 	cp -rf Xcode/XCSchemes/*.xcscheme Mockingbird.xcodeproj/xcshareddata/xcschemes
 	rsync -vhr Xcode/GeneratedModuleMap/** Mockingbird.xcodeproj/GeneratedModuleMap
+
+bootstrap: setup-project
 
 save-xcschemes:
 	cp -rf Mockingbird.xcodeproj/xcshareddata/xcschemes/*.xcscheme Xcode/XCSchemes
@@ -210,6 +221,11 @@ setup-carthage:
 	(cd Examples/iOSMockingbirdExample-Carthage && carthage update --platform ios)
 	(cd Examples/iOSMockingbirdExample-Carthage/Carthage/Checkouts/mockingbird && make install-prebuilt)
 
+setup-spm:
+	(cd Examples/iOSMockingbirdExample-SPM && xcodebuild -resolvePackageDependencies)
+	$(eval DERIVED_DATA = $(shell xcodebuild -project Examples/iOSMockingbirdExample-SPM/iOSMockingbirdExample-SPM.xcodeproj -showBuildSettings | grep -m1 'BUILD_DIR' | grep -o '\/.*' | xargs dirname | xargs dirname))
+	(cd $(DERIVED_DATA)/SourcePackages/checkouts/mockingbird && make install-prebuilt)
+
 test-cocoapods: setup-cocoapods
 	$(eval DEVICE_UUID = $(shell xcrun simctl create "$(SIMULATOR_NAME)" "$(SIMULATOR_DEVICE_TYPE)" "$(SIMULATOR_RUNTIME)"))
 	$(BUILD_TOOL) -destination "platform=iOS Simulator,id=$(DEVICE_UUID)" $(EXAMPLE_COCOAPODS_XCODEBUILD_FLAGS) test
@@ -220,21 +236,34 @@ test-carthage: setup-carthage
 	$(BUILD_TOOL) -destination "platform=iOS Simulator,id=$(DEVICE_UUID)" $(EXAMPLE_CARTHAGE_XCODEBUILD_FLAGS) test
 	xcrun simctl delete "$(DEVICE_UUID)"
 
-test-examples: test-cocoapods test-carthage
+test-spm: setup-spm
+	$(eval DEVICE_UUID = $(shell xcrun simctl create "$(SIMULATOR_NAME)" "$(SIMULATOR_DEVICE_TYPE)" "$(SIMULATOR_RUNTIME)"))
+	$(BUILD_TOOL) -destination "platform=iOS Simulator,id=$(DEVICE_UUID)" $(EXAMPLE_SPM_XCODEBUILD_FLAGS) test
+	xcrun simctl delete "$(DEVICE_UUID)"
+
+test-examples: test-cocoapods test-carthage test-spm
 
 clean-cocoapods: clean-temporary-files
 	rm -f Examples/iOSMockingbirdExample-CocoaPods/MockingbirdMocks/*.generated.swift
+	rm -f Examples/iOSMockingbirdExample-CocoaPods/iOSMockingbirdExample-CocoaPods.xcodeproj/MockingbirdCache/*.lock
 	rm -f Examples/iOSMockingbirdExample-CocoaPods/Podfile.lock
 	rm -rf Examples/iOSMockingbirdExample-CocoaPods/Pods
 	$(BUILD_TOOL) $(EXAMPLE_COCOAPODS_XCODEBUILD_FLAGS) clean
 
 clean-carthage: clean-temporary-files
 	rm -f Examples/iOSMockingbirdExample-Carthage/MockingbirdMocks/*.generated.swift
+	rm -f Examples/iOSMockingbirdExample-Carthage/iOSMockingbirdExample-Carthage.xcodeproj/MockingbirdCache/*.lock
 	rm -f Examples/iOSMockingbirdExample-Carthage/Cartfile.resolved
 	rm -rf Examples/iOSMockingbirdExample-Carthage/Carthage
 	$(BUILD_TOOL) $(EXAMPLE_CARTHAGE_XCODEBUILD_FLAGS) clean
 
-clean-test-examples: clean-cocoapods clean-carthage test-examples
+clean-spm: clean-temporary-files
+	rm -f Examples/iOSMockingbirdExample-SPM/MockingbirdMocks/*.generated.swift
+	rm -f Examples/iOSMockingbirdExample-SPM/iOSMockingbirdExample-SPM.xcodeproj/MockingbirdCache/*.lock
+	rm -f Examples/iOSMockingbirdExample-SPM/iOSMockingbirdExample-SPM.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+	$(BUILD_TOOL) $(EXAMPLE_SPM_XCODEBUILD_FLAGS) clean
+
+clean-test-examples: clean-cocoapods clean-carthage clean-spm test-examples
 
 test:
 	$(BUILD_TOOL) -scheme 'MockingbirdTests' $(XCODEBUILD_MACOS_FLAGS) test
