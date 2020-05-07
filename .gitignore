@@ -14,7 +14,8 @@ Mockingbird-*.framework
 bin/
 var/
 
-## Caches
+## Mockingbird generated
+MockingbirdMocks/*.generated.swift
 *.xcodeproj/MockingbirdCache/*.lock
 
 ## Embedded resources
