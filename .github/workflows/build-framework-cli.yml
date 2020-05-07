@@ -19,6 +19,7 @@ jobs:
       run: make build-framework
     - name: Build and Install CLI
       run: |
+        make print-debug-info | grep "Mockingbird rpath: /var/tmp/mockingbird/$(make get-version)/libs"
         PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make print-debug-info
         PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make install
     - name: Set Up Target
@@ -52,6 +53,7 @@ jobs:
       run: make build-framework
     - name: Build and Install CLI
       run: |
+        make print-debug-info | grep "Mockingbird rpath: /var/tmp/mockingbird/$(make get-version)/libs"
         PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make print-debug-info
         PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make install
     - name: Set Up Target
@@ -85,6 +87,7 @@ jobs:
       run: make build-framework
     - name: Build and Install CLI
       run: |
+        make print-debug-info | grep "Mockingbird rpath: /var/tmp/mockingbird/$(make get-version)/libs"
         PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make print-debug-info
         PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make install
     - name: Set Up Target
