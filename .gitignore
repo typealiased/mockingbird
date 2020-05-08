@@ -11,7 +11,8 @@ MockingbirdCli.zip
 MockingbirdSupport.zip
 mockingbird
 
-## Caches
+## Mockingbird generated
+MockingbirdMocks/*.generated.swift
 *.xcodeproj/MockingbirdCache/*.lock
 
 ## Embedded resources
