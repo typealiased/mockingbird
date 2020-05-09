@@ -13,9 +13,7 @@ class FakeableClass {
   init(param: String) {}
 }
 
-class FakeableGenericClass<T> {
-  init(param: T) {}
-}
+class FakeableGenericClass<T> {}
 
 protocol FakeableProtocol {}
 
@@ -55,9 +53,6 @@ protocol FakeableTypeReferencer {
   func fakeableArray() -> Array<String>
   func fakeableSet() -> Set<String>
   func fakeableDictionary() -> Dictionary<String, Int>
-  func fakeableNSCache() -> NSCache<FakeableClass, FakeableClass>
-  func fakeableNSMapTable() -> NSMapTable<FakeableClass, FakeableClass>
-  func fakeableNSHashTable() -> NSHashTable<FakeableClass>
   
   // MARK: Tuples
   func fakeable2Tuple() -> (String, Int)
