@@ -14,7 +14,7 @@ protocol OverloadedMethodsProtocol {
   
   func overloadedReturnType() -> Bool
   func overloadedReturnType() -> Int
-  func overloadedReturnType<T>() -> T
+  func overloadedGenericReturnType<T>() -> T
 }
 
 class OverloadedMethodsClass {
@@ -24,5 +24,5 @@ class OverloadedMethodsClass {
   
   func overloadedReturnType() -> Bool { return true }
   func overloadedReturnType() -> Int { return 1 }
-  func overloadedReturnType<T>() -> T { fatalError() }
+  func overloadedGenericReturnType<T>() -> T { fatalError() }
 }
