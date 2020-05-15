@@ -9,12 +9,6 @@ import Foundation
 import PathKit
 import MockingbirdGenerator
 
-/// Global world-writable place to output dylibs (must be added as an rpath).
-#if RELATIVE_RPATH // Use relative paths for CI builds.
-private let globalLibraryDirectory = Path("./var/tmp/mockingbird/\(mockingbirdVersion)/libs/")
-#else
-private let globalLibraryDirectory = Path("/var/tmp/mockingbird/\(mockingbirdVersion)/libs/")
-#endif
 private let subprocessEnvironmentKey = "MKB_SUBPROCESS"
   
 enum LoadingError: Error, CustomStringConvertible {
@@ -50,6 +44,13 @@ func loadDylibs(_ dylibs: [Resource],
                 processInfo: ProcessInfo = ProcessInfo.processInfo,
                 onLoad block: () -> Void) {
   let environment = processInfo.environment
+  
+  // Global world-writable place to output dylibs, must be kept in sync with `Makefile`.
+  #if RELATIVE_RPATH // Use relative paths for sandboxed CI builds.
+  let globalLibraryDirectory = Path(processInfo.arguments.first ?? "./mockingbird").parent()
+  #else
+  let globalLibraryDirectory = Path("/var/tmp/mockingbird/\(mockingbirdVersion)/libs/")
+  #endif
   
   var shouldRelaunch = false
   for dylib in dylibs {
