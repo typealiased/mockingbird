@@ -205,7 +205,7 @@ Need to [set up your project manually](https://github.com/birdrides/mockingbird/
 
 For basic compatibility with system frameworks and types defined outside of your project, download the latest starter
 supporting source files. Note that supporting source files should not be imported into Xcode or added to any targets.
-See [Supporting Source Files](#supporting-source-files) for more information.
+See [Supporting Source Files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files) for more information.
 
 ```bash
 $ mockingbird download starter-pack
@@ -559,51 +559,6 @@ fuzzily match floating point arguments with some tolerance.
 around(10.0, tolerance: 0.01)
 ```
 
-## Supporting Source Files
-
-Mockingbird relies on parsing source files to generate mocked methods and properties. However, types defined
-outside of your project such as in system frameworks or in a CocoaPod dependency are considered external and
-cannot be parsed directly. Not having access to all sources can result in compiler errors when inheriting from an
-external type.
-
-Supporting source files allow you to provide external sources to the generator so that it can resolve inherited methods
-and properties correctly. Note that it does not allow you to
-[generate mocks for external types](https://github.com/birdrides/mockingbird/wiki/Mocking-External-Types).
-
-### Starter Pack
-
-Download the starter supporting source files for basic compatibility with the Swift standard library and common
-system frameworks. Note that supporting source files should not be imported into Xcode or added to any targets.
-
-```bash
-$ mockingbird download starter-pack
-```
-
-### Adding Files
-
-Add supporting source files whenever a mock that inherits from an external type does not compile. For example, let’s
-say the mock for `protocol BirdBrain: StorageDelegate {}` does not compile because it inherits from the
-external type `StorageDelegate` defined in the framework `LossyStorage`.
-
-```swift
-/// A delegate defined in `LossyStorage`
-public protocol StorageDelegate: AnyObject {
-  func store<T: Codable>(memory: T)
-}
-```
-
-In order to generate the method `store(memory:)` for `BirdBrain`, we need to copy the definition for
-`StorageDelegate` into a supporting source file for `LossyStorage`. A good place might be 
-`MockingbirdSupport/LossyStorage/StorageDelegate.swift`. File names are arbitrary, but the parent
-directory must have the same name as the module declaring the external type.
-
-```swift
-/// Copied into `MockingbirdSupport/LossyStorage/StorageDelegate.swift`
-public protocol StorageDelegate: AnyObject {
-  func store<T: Codable>(memory: T)
-}
-```
-
 ## Mockingbird CLI
 
 ### Generate
@@ -618,7 +573,7 @@ Generate mocks for a set of targets in a project.
 | `--targets` | `$TARGET_NAME` | List of target names to generate mocks for. |
 | `--srcroot` | `$SRCROOT` | The folder containing your project’s source files. |
 | `--outputs` | [`(inferred)`](#--outputs) | List of mock output file paths for each target. |
-| `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](#). |
+| `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files). |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
 | `--diagnostics` | `(none)` | List of [diagnostic generator warnings](https://github.com/birdrides/mockingbird/wiki/Diagnostic-Warnings-and-Errors) to enable. |
 
@@ -643,7 +598,7 @@ Configure a test target to use mocks.
 | `--project` | [`(inferred)`](#--project) | Your project’s `.xcodeproj` file. |
 | `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |
 | `--outputs` | [`(inferred)`](#--outputs) | List of mock output file paths for each target. |
-| `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](#supporting-source-files). |
+| `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files). |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
 | `--diagnostics` | `(none)` | List of [diagnostic generator warnings](https://github.com/birdrides/mockingbird/wiki/Diagnostic-Warnings-and-Errors) to enable. |
 | `--loglevel` |  `(none)` | The log level to use when generating mocks, `quiet` or `verbose` |
@@ -656,7 +611,7 @@ Configure a test target to use mocks.
 | `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
 | `--disable-cache` | Ignore cached mock information stored on disk. |
 | `--disable-relaxed-linking` | Only search explicitly imported modules. |
-| `--download-starter-pack` | Download the starter [supporting source files](#supporting-source-files). |
+| `--download-starter-pack` | Download the starter [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files). |
 
 ### Uninstall
 
@@ -678,7 +633,7 @@ Download and unpack a compatible asset bundle. Bundles will never overwrite exis
 
 | Asset | Description |
 | --- | --- |
-| `starter-pack` | Starter [supporting source files](#supporting-source-files). |
+| `starter-pack` | Starter [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files). |
 
 ### Global Options
 
@@ -702,7 +657,7 @@ By default Mockingbird will generate mocks into the `$(SRCROOT)/MockingbirdMocks
 
 #### `--support`
 
-Mockingbird will recursively look for [supporting source files](#supporting-source-files) in the
+Mockingbird will recursively look for [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files) in the
 `$(SRCROOT)/MockingbirdSupport` directory.
 
 ## Additional Resources
