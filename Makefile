@@ -8,9 +8,12 @@ TEMPORARY_FOLDER=$(TEMPORARY_FOLDER_ROOT)/Mockingbird.make.dst
 TEMPORARY_INSTALLER_FOLDER=$(TEMPORARY_FOLDER)/install
 XCODEBUILD_DERIVED_DATA=$(TEMPORARY_FOLDER)/xcodebuild/DerivedData/MockingbirdFramework
 XCODE_PATH=$(shell xcode-select --print-path)
+CLI_BUNDLE_PLIST=MockingbirdCli/Info.plist
+VERSION_STRING=$(shell /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$(CLI_BUNDLE_PLIST)")
 
+# Needs to be kept in sync with `LoadDylib.swift` and `build-framework-cli.yml`.
 $(eval RELATIVE_RPATH_FLAG = $(shell [[ $(USE_RELATIVE_RPATH) -eq 1 ]] && echo '-Xswiftc -DRELATIVE_RPATH' || echo ''))
-$(eval RPATH_FOLDER_ROOT = $(shell [[ $(USE_RELATIVE_RPATH) -eq 1 ]] && echo '.' || echo ''))
+$(eval MOCKINGBIRD_RPATH = $(shell [[ $(USE_RELATIVE_RPATH) -eq 1 ]] && echo '@executable_path' || echo '/var/tmp/mockingbird/$(VERSION_STRING)/libs'))
 
 SIMULATOR_NAME=iphone11-mockingbird
 SIMULATOR_DEVICE_TYPE=com.apple.CoreSimulator.SimDeviceType.iPhone-11
@@ -39,9 +42,7 @@ EXAMPLE_SPM_XCODEBUILD_FLAGS=$(EXAMPLE_XCODEBUILD_FLAGS) \
 
 FRAMEWORKS_FOLDER=/Library/Frameworks
 BINARIES_FOLDER=$(PREFIX)/bin
-
 DEFAULT_XCODE_RPATH=$(XCODE_PATH)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx
-MOCKINGBIRD_RPATH=$(RPATH_FOLDER_ROOT)/var/tmp/mockingbird/$(VERSION_STRING)/libs
 
 PKG_BUNDLE_IDENTIFIER=co.bird.mockingbird
 PKG_IDENTITY_NAME=3rd Party Mac Developer Installer: Bird Rides, Inc. (P2T4T6R4SL)
@@ -81,9 +82,6 @@ STARTER_PACK_FOLDER=MockingbirdSupport
 OUTPUT_PACKAGE=Mockingbird.pkg
 OUTPUT_ZIP=Mockingbird.zip
 OUTPUT_STARTER_PACK_ZIP=MockingbirdSupport.zip
-
-CLI_BUNDLE_PLIST=MockingbirdCli/Info.plist
-VERSION_STRING=$(shell /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$(CLI_BUNDLE_PLIST)")
 
 GITHUB_REPO_URL=https://github.com/birdrides/mockingbird
 ZIP_RELEASE_URL=$(GITHUB_REPO_URL)/releases/download/$(VERSION_STRING)/$(ZIP_FILENAME)
@@ -170,7 +168,7 @@ bootstrap: setup-project
 save-xcschemes:
 	cp -rf Mockingbird.xcodeproj/xcshareddata/xcschemes/*.xcscheme Xcode/XCSchemes
 
-print-debug-info:	
+print-debug-info:
 	@echo "Mockingbird version: $(VERSION_STRING)"
 	@echo "Installation prefix: $(PREFIX)"
 	@echo "Temporary folder: $(TEMPORARY_FOLDER)"
