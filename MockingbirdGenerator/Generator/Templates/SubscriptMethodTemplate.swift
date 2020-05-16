@@ -20,11 +20,11 @@ class SubscriptMethodTemplate: MethodTemplate {
     \(attributes)
       public \(overridableModifiers)\(uniqueDeclaration) {
         get {
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclarationForSubscriptGetter)", arguments: [\(mockArgumentMatchers)])
+          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclarationForSubscriptGetter)", arguments: [\(mockArgumentMatchers)], returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
     \(stubbedImplementationCall().indent())
         }
         set {
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclarationForSubscriptSetter)", arguments: [\(mockArgumentMatchersForSubscriptSetter)])
+          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclarationForSubscriptSetter)", arguments: [\(mockArgumentMatchersForSubscriptSetter)], returnType: Swift.ObjectIdentifier(Void.self))
     \(stubbedSetterImplementationCall.indent())
         }
       }
@@ -77,6 +77,7 @@ class SubscriptMethodTemplate: MethodTemplate {
     let variant: FunctionVariant = isGetter ? .subscriptGetter : .subscriptSetter
     let fullName = self.fullName(for: .matching(useVariadics: isVariadic, variant: variant))
     let namePrefix = isGetter ? "get" : "set"
+    let escapedReturnType = isGetter ? "(" + unwrappedReturnTypeName + ")" : "Void"
     
     let selectorName = isGetter ?
       uniqueDeclarationForSubscriptGetter : uniqueDeclarationForSubscriptSetter
@@ -92,7 +93,7 @@ class SubscriptMethodTemplate: MethodTemplate {
     return """
     \(attributes)  public \(regularModifiers)func \(namePrefix)\(fullName.capitalizedFirst) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) {
     \(argumentMatchers)
-        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(selectorName)", arguments: arguments)
+        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(selectorName)", arguments: arguments, returnType: Swift.ObjectIdentifier(\(escapedReturnType).self))
         return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
       }
     """
