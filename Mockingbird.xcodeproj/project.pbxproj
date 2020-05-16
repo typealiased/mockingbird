@@ -48,7 +48,8 @@
 		D37503D72460FE7E003017A7 /* ImplicitVariableTypesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37503D52460FE78003017A7 /* ImplicitVariableTypesMockableTests.swift */; };
 		D37503D92460FFE1003017A7 /* ImplicitVariableTypesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37503D82460FFE1003017A7 /* ImplicitVariableTypesStubbableTests.swift */; };
 		D3A854622460D9FC00C5764A /* ImplicitVariableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */; };
-		D37503DB246120EA003017A7 /* ConflictingProtocolProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37503DA246120EA003017A7 /* ConflictingProtocolProperties.swift */; };
+		D39350D0246619DC00FF52E2 /* DuplicateProtocolMembers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39350CF246619DC00FF52E2 /* DuplicateProtocolMembers.swift */; };
+		D3A854622460D9FC00C5764A /* ImplicitVariableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */; };
 		OBJ_1001 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_1013 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_139 /* Empty.swift */; };
 		OBJ_1019 /* ChildMockMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_212 /* ChildMockMockableTests.swift */; };
@@ -1146,7 +1147,8 @@
 		D37503D52460FE78003017A7 /* ImplicitVariableTypesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypesMockableTests.swift; sourceTree = "<group>"; };
 		D37503D82460FFE1003017A7 /* ImplicitVariableTypesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypesStubbableTests.swift; sourceTree = "<group>"; };
 		D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypes.swift; sourceTree = "<group>"; };
-		D37503DA246120EA003017A7 /* ConflictingProtocolProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConflictingProtocolProperties.swift; sourceTree = "<group>"; };
+		D39350CF246619DC00FF52E2 /* DuplicateProtocolMembers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuplicateProtocolMembers.swift; sourceTree = "<group>"; };
+		D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypes.swift; sourceTree = "<group>"; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2084,6 +2086,7 @@
 				D37503DA246120EA003017A7 /* ConflictingProtocolProperties.swift */,
 				OBJ_153 /* DeclarationAttributes.swift */,
 				OBJ_154 /* DefaultArgumentValues.swift */,
+				D39350CF246619DC00FF52E2 /* DuplicateProtocolMembers.swift */,
 				OBJ_155 /* EmptyTypes.swift */,
 				OBJ_156 /* Exceptions.swift */,
 				OBJ_157 /* Extensions.swift */,
@@ -4290,6 +4293,7 @@
 				D3A854622460D9FC00C5764A /* ImplicitVariableTypes.swift in Sources */,
 				OBJ_1166 /* TrivialIncludedSource.swift in Sources */,
 				OBJ_1167 /* ModuleImportCases.swift in Sources */,
+				D39350D0246619DC00FF52E2 /* DuplicateProtocolMembers.swift in Sources */,
 				OBJ_1168 /* NestedFields.swift in Sources */,
 				OBJ_1169 /* OpaquelyInheritedTypes.swift in Sources */,
 				OBJ_1170 /* Optionals.swift in Sources */,
