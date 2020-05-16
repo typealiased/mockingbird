@@ -9,16 +9,23 @@
 import Foundation
 import SourceKittenFramework
 
-struct WhereClause: Equatable, Hashable, Comparable, CustomStringConvertible {
-  enum Operator: String {
+struct WhereClause: Hashable, Comparable, CustomStringConvertible {
+  enum Requirement: String {
     case conforms = ":"
     case equals = "=="
+    
+    var isCommutative: Bool {
+      switch self {
+      case .conforms: return false
+      case .equals: return true
+      }
+    }
   }
   
   var description: String {
-    switch `operator` {
-    case .conforms: return "\(constrainedTypeName)\(self.operator.rawValue) \(genericConstraint)"
-    case .equals: return "\(constrainedTypeName) \(self.operator.rawValue) \(genericConstraint)"
+    switch requirement {
+    case .conforms: return "\(constrainedTypeName)\(self.requirement.rawValue) \(genericConstraint)"
+    case .equals: return "\(constrainedTypeName) \(self.requirement.rawValue) \(genericConstraint)"
     }
   }
   
@@ -28,32 +35,41 @@ struct WhereClause: Equatable, Hashable, Comparable, CustomStringConvertible {
   
   let constrainedTypeName: String
   let genericConstraint: String
-  let `operator`: Operator
+  let requirement: Requirement
   let hasSelfConstraint: Bool
   
   init?(from declaration: String) {
     self.hasSelfConstraint = false // Hydrated when qualified.
-    if let conformsIndex = declaration.firstIndex(of: Operator.conforms.rawValue.first!) {
-      self.operator = .conforms
-      self.constrainedTypeName = declaration[..<conformsIndex]
+    
+    let lhs: String
+    let rhs: String
+    if let conformsIndex = declaration.firstIndex(of: Requirement.conforms.rawValue.first!) {
+      self.requirement = .conforms
+      lhs = declaration[..<conformsIndex]
         .trimmingCharacters(in: .whitespacesAndNewlines)
-      self.genericConstraint = declaration[declaration.index(after: conformsIndex)...]
+      rhs = declaration[declaration.index(after: conformsIndex)...]
         .trimmingCharacters(in: .whitespacesAndNewlines)
-    } else if let equalsRange = declaration.range(of: Operator.equals.rawValue) {
-      self.operator = .equals
-      self.constrainedTypeName = declaration[..<equalsRange.lowerBound]
+    } else if let equalsRange = declaration.range(of: Requirement.equals.rawValue) {
+      self.requirement = .equals
+      lhs = declaration[..<equalsRange.lowerBound]
         .trimmingCharacters(in: .whitespacesAndNewlines)
-      self.genericConstraint = declaration[equalsRange.upperBound...]
+      rhs = declaration[equalsRange.upperBound...]
         .trimmingCharacters(in: .whitespacesAndNewlines)
     } else {
       return nil
     }
+    
+    // Commutative requirements require special consieration for hashing and equality.
+    var components = [lhs, rhs]
+    if self.requirement.isCommutative { components.sort() }
+    self.constrainedTypeName = components[0]
+    self.genericConstraint = components[1]
   }
   
-  init(constrainedTypeName: String, genericConstraint: String, operator: Operator) {
+  init(constrainedTypeName: String, genericConstraint: String, requirement: Requirement) {
     self.constrainedTypeName = constrainedTypeName
     self.genericConstraint = genericConstraint
-    self.operator = `operator`
+    self.requirement = requirement
     self.hasSelfConstraint =
       constrainedTypeName.contains(SerializationRequest.Constants.selfTokenIndicator)
       || genericConstraint.contains(SerializationRequest.Constants.selfTokenIndicator)
@@ -208,6 +224,6 @@ struct GenericType: Hashable {
     
     return WhereClause(constrainedTypeName: qualifiedConstrainedTypeName,
                        genericConstraint: qualifiedConstraintTypeName,
-                       operator: whereClause.operator)
+                       requirement: whereClause.requirement)
   }
 }

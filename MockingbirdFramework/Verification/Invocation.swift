@@ -11,12 +11,14 @@ import Foundation
 struct Invocation: CustomStringConvertible {
   let selectorName: String
   let arguments: [ArgumentMatcher]
+  let returnType: ObjectIdentifier
   let timestamp = Date()
   let identifier = UUID()
 
-  init(selectorName: String, arguments: [ArgumentMatcher]) {
+  init(selectorName: String, arguments: [ArgumentMatcher], returnType: ObjectIdentifier) {
     self.selectorName = selectorName
     self.arguments = arguments
+    self.returnType = returnType
   }
   
   /// Selector name without tickmark escaping.
@@ -47,13 +49,16 @@ struct Invocation: CustomStringConvertible {
     guard isGetter else { return nil }
     let setterSelectorName = String(selectorName.dropLast(4) + Constants.setterSuffix)
     let matcher = ArgumentMatcher(description: "any()", priority: .high) { return true }
-    return Invocation(selectorName: setterSelectorName, arguments: [matcher])
+    return Invocation(selectorName: setterSelectorName,
+                      arguments: [matcher],
+                      returnType: ObjectIdentifier(Void.self))
   }
 }
 
 extension Invocation: Equatable {
   static func == (lhs: Invocation, rhs: Invocation) -> Bool {
     guard lhs.arguments.count == rhs.arguments.count else { return false }
+    guard lhs.returnType == rhs.returnType else { return false }
     for (index, argument) in lhs.arguments.enumerated() {
       if argument != rhs.arguments[index] { return false }
     }

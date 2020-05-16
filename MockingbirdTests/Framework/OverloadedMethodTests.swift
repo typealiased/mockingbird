@@ -12,62 +12,28 @@ import Mockingbird
 class OverloadedMethodTests: XCTestCase {
   
   var classMock: OverloadedMethodsClassMock!
+  var classInstance: OverloadedMethodsClass { return classMock }
   var protocolMock: OverloadedMethodsProtocolMock!
+  var protocolInstance: OverloadedMethodsProtocol { return protocolMock }
   
   override func setUp() {
     classMock = mock(OverloadedMethodsClass.self)
     protocolMock = mock(OverloadedMethodsProtocol.self)
   }
   
-  func callOverloadedParametersMethod(on classMock: OverloadedMethodsClass,
-                                      param1: Bool = true,
-                                      param2: Bool = true) -> Bool {
-    return classMock.overloadedParameters(param1: param1, param2: param2)
-  }
-  func callOverloadedParametersMethod(on protocolMock: OverloadedMethodsProtocol,
-                                      param1: Bool = true,
-                                      param2: Bool = true) -> Bool {
-    return protocolMock.overloadedParameters(param1: param1, param2: param2)
-  }
-  
-  func callOverloadedParametersMethod(on classMock: OverloadedMethodsClass,
-                                      param1: Int = 1,
-                                      param2: Int = 1) -> Bool {
-    return classMock.overloadedParameters(param1: param1, param2: param2)
-  }
-  func callOverloadedParametersMethod(on protocolMock: OverloadedMethodsProtocol,
-                                      param1: Int = 1,
-                                      param2: Int = 1) -> Bool {
-    return protocolMock.overloadedParameters(param1: param1, param2: param2)
-  }
-  
-  func callOverloadedReturnTypeMethod(on classMock: OverloadedMethodsClass) -> Bool {
-    return classMock.overloadedReturnType()
-  }
-  func callOverloadedReturnTypeMethod(on protocolMock: OverloadedMethodsProtocol) -> Bool {
-    return protocolMock.overloadedReturnType()
-  }
-  
-  func callOverloadedReturnTypeMethod(on classMock: OverloadedMethodsClass) -> Int {
-    return classMock.overloadedReturnType()
-  }
-  func callOverloadedReturnTypeMethod(on protocolMock: OverloadedMethodsProtocol) -> Int {
-    return protocolMock.overloadedReturnType()
-  }
-  
   func testOverloadedMethod_classMock_overloadedParameters() {
     given(classMock.overloadedParameters(param1: any(Bool.self), param2: any())) ~> true
     given(classMock.overloadedParameters(param1: any(Int.self), param2: any())) ~> false
-    XCTAssertTrue(callOverloadedParametersMethod(on: classMock, param1: true, param2: false))
-    XCTAssertFalse(callOverloadedParametersMethod(on: classMock, param1: 1, param2: 2))
+    XCTAssertTrue(classInstance.overloadedParameters(param1: true, param2: false))
+    XCTAssertFalse(classInstance.overloadedParameters(param1: 1, param2: 2))
     verify(classMock.overloadedParameters(param1: any(Bool.self), param2: any())).wasCalled()
     verify(classMock.overloadedParameters(param1: any(Int.self), param2: any())).wasCalled()
   }
   func testOverloadedMethod_protocolMock_overloadedParameters() {
     given(protocolMock.overloadedParameters(param1: any(Bool.self), param2: any())) ~> true
     given(protocolMock.overloadedParameters(param1: any(Int.self), param2: any())) ~> false
-    XCTAssertTrue(callOverloadedParametersMethod(on: protocolMock, param1: true, param2: false))
-    XCTAssertFalse(callOverloadedParametersMethod(on: protocolMock, param1: 1, param2: 2))
+    XCTAssertTrue(protocolInstance.overloadedParameters(param1: true, param2: false))
+    XCTAssertFalse(protocolInstance.overloadedParameters(param1: 1, param2: 2))
     verify(protocolMock.overloadedParameters(param1: any(Bool.self), param2: any())).wasCalled()
     verify(protocolMock.overloadedParameters(param1: any(Int.self), param2: any())).wasCalled()
   }
@@ -75,16 +41,16 @@ class OverloadedMethodTests: XCTestCase {
   func testOverloadedMethod_classMock_overloadedReturnType() {
     given(classMock.overloadedReturnType()) ~> true
     given(classMock.overloadedReturnType()) ~> 1
-    XCTAssert(callOverloadedReturnTypeMethod(on: classMock) == true)
-    XCTAssert(callOverloadedReturnTypeMethod(on: classMock) == 1)
+    XCTAssert(classInstance.overloadedReturnType() == true)
+    XCTAssert(classInstance.overloadedReturnType() == 1)
     verify(classMock.overloadedReturnType()).returning(Bool.self).wasCalled()
     verify(classMock.overloadedReturnType()).returning(Int.self).wasCalled()
   }
   func testOverloadedMethod_protocolMock_overloadedReturnType() {
     given(protocolMock.overloadedReturnType()) ~> true
     given(protocolMock.overloadedReturnType()) ~> 1
-    XCTAssert(callOverloadedReturnTypeMethod(on: protocolMock) == true)
-    XCTAssert(callOverloadedReturnTypeMethod(on: protocolMock) == 1)
+    XCTAssert(protocolInstance.overloadedReturnType() == true)
+    XCTAssert(protocolInstance.overloadedReturnType() == 1)
     verify(protocolMock.overloadedReturnType()).returning(Bool.self).wasCalled()
     verify(protocolMock.overloadedReturnType()).returning(Int.self).wasCalled()
   }
@@ -92,14 +58,14 @@ class OverloadedMethodTests: XCTestCase {
   func testOverloadedMethod_classMock_overloadedParameters_separateInvocationCounts() {
     given(classMock.overloadedParameters(param1: any(Bool.self), param2: any())) ~> true
     given(classMock.overloadedParameters(param1: any(Int.self), param2: any())) ~> false
-    XCTAssertTrue(callOverloadedParametersMethod(on: classMock, param1: true, param2: false))
+    XCTAssertTrue(classInstance.overloadedParameters(param1: true, param2: false))
     verify(classMock.overloadedParameters(param1: any(Bool.self), param2: any())).wasCalled()
     verify(classMock.overloadedParameters(param1: any(Int.self), param2: any())).wasNeverCalled()
   }
   func testOverloadedMethod_protocolMock_overloadedParameters_separateInvocationCounts() {
     given(protocolMock.overloadedParameters(param1: any(Bool.self), param2: any())) ~> true
     given(protocolMock.overloadedParameters(param1: any(Int.self), param2: any())) ~> false
-    XCTAssertTrue(callOverloadedParametersMethod(on: protocolMock, param1: true, param2: false))
+    XCTAssertTrue(protocolInstance.overloadedParameters(param1: true, param2: false))
     verify(protocolMock.overloadedParameters(param1: any(Bool.self), param2: any())).wasCalled()
     verify(protocolMock.overloadedParameters(param1: any(Int.self), param2: any())).wasNeverCalled()
   }
@@ -107,15 +73,30 @@ class OverloadedMethodTests: XCTestCase {
   func testOverloadedMethod_classMock_overloadedReturnType_separateInvocationCounts() {
     given(classMock.overloadedReturnType()) ~> true
     given(classMock.overloadedReturnType()) ~> 1
-    XCTAssert(callOverloadedReturnTypeMethod(on: classMock) == true)
+    XCTAssert(classInstance.overloadedReturnType() == true)
     verify(classMock.overloadedReturnType()).returning(Bool.self).wasCalled()
     verify(classMock.overloadedReturnType()).returning(Int.self).wasNeverCalled()
   }
   func testOverloadedMethod_protocolMock_overloadedReturnType_separateInvocationCounts() {
     given(protocolMock.overloadedReturnType()) ~> true
     given(protocolMock.overloadedReturnType()) ~> 1
-    XCTAssert(callOverloadedReturnTypeMethod(on: protocolMock) == true)
+    XCTAssert(protocolInstance.overloadedReturnType() == true)
     verify(protocolMock.overloadedReturnType()).returning(Bool.self).wasCalled()
     verify(protocolMock.overloadedReturnType()).returning(Int.self).wasNeverCalled()
+  }
+  
+  func testOverloadedMethod_classMock_overloadedGenericReturnType_separateInvocationCounts() {
+    given(classMock.overloadedGenericReturnType()) ~> true
+    given(classMock.overloadedGenericReturnType()) ~> 1
+    XCTAssert(classInstance.overloadedGenericReturnType() == true)
+    verify(classMock.overloadedGenericReturnType()).returning(Bool.self).wasCalled()
+    verify(classMock.overloadedReturnType()).returning(Int.self).wasNeverCalled()
+  }
+  func testOverloadedMethod_protocolMock_overloadedGenericReturnType_separateInvocationCounts() {
+    given(protocolMock.overloadedGenericReturnType()) ~> true
+    given(protocolMock.overloadedGenericReturnType()) ~> 1
+    XCTAssert(protocolInstance.overloadedGenericReturnType() == true)
+    verify(protocolMock.overloadedGenericReturnType()).returning(Bool.self).wasCalled()
+    verify(protocolMock.overloadedGenericReturnType()).returning(Int.self).wasNeverCalled()
   }
 }

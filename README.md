@@ -319,36 +319,40 @@ print(bird.name)  // Fails because `bird.getName()` is not stubbed
 bird.fly()        // Okay because `fly()` has a `Void` return type
 ```
 
-To return default values for unstubbed methods, use a `ValueProvider` with the initialized mock. Default values
-have a lower precedence than values returned from concrete stubs.
+To return default values for unstubbed methods, use a `ValueProvider` with the initialized mock. Mockingbird
+provides preset value providers which are guaranteed to be backwards compatible, such as `.standardProvider`.
 
 ```swift
-let valueProvider = ValueProvider().register("Ryan", for: String.self)
-let bird = mock(Bird.self)
-useDefaultValues(from: valueProvider, on: bird)
-print(bird.name)  // Prints "Ryan"
+useDefaultValues(from: .standardProvider, on: bird)
+print(bird.name)    // Prints ""
+```
 
-// Values from concrete stubs have a higher precedence 
+Values from concrete stubs always have a higher precedence than default values.
+
+```swift
 given(bird.getName()) ~> "Sterling"
+useDefaultValues(from: .standardProvider, on: bird)
 print(bird.name)  // Prints "Sterling"
 ```
 
-Mockingbird provides several preset value providers which are guaranteed to be backwards compatible.
-
-```
-.standardProvider
-├── .collectionsProvider
-├── .primitivesProvider
-├── .basicsProvider
-├── .geometryProvider
-├── .stringsProvider
-└── .datesProvider
-```
+Create custom value providers by registering values for types. 
 
 ```swift
-let bird = mock(Bird.self)
-useDefaultValues(from: .standardProvider, on: bird)
-print(bird.name)  // Prints ""
+var valueProvider = ValueProvider(from: .standardProvider)
+valueProvider.register("Ryan", for: String.self)
+```
+
+Provide “wildcard” instances for generic types by conforming the base type to `Providable` and registering the type.
+
+```swift
+extension Array: Providable {
+  public static func createInstance() -> Self? {
+    return Array()
+  }
+}
+
+// An empty array is registered for all specialized `Array` types
+valueProvider.registerType(Array<Any>.self)
 ```
 
 #### Sequence of Value

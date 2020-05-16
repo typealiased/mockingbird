@@ -286,13 +286,13 @@ extension Method: Hashable {
     hasher.combine(whereClauses)
     hasher.combine(parameters)
   }
+  
+  static func == (lhs: Method, rhs: Method) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+  }
 }
 
 extension Method: Comparable {
-  static func ==(lhs: Method, rhs: Method) -> Bool {
-    return lhs.hashValue == rhs.hashValue
-  }
-  
   static func < (lhs: Method, rhs: Method) -> Bool {
     return lhs.sortableIdentifier < rhs.sortableIdentifier
   }
