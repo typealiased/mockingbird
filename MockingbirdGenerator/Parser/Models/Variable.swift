@@ -37,7 +37,7 @@ struct Variable: Hashable, Comparable {
     hasher.combine(kind.typeScope == .instance)
   }
   
-  static func ==(lhs: Variable, rhs: Variable) -> Bool {
+  static func == (lhs: Variable, rhs: Variable) -> Bool {
     return lhs.hashValue == rhs.hashValue
   }
   

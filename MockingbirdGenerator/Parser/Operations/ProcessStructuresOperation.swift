@@ -111,7 +111,7 @@ class ProcessStructuresOperation: BasicOperation {
     return Set(nameSuffix[whereRange.upperBound..<nameSuffix.endIndex]
       .components(separatedBy: ",", excluding: .allGroups)
       .compactMap({ WhereClause(from: String($0)) })
-      .filter({ $0.operator == .conforms && $0.constrainedTypeName == "Self" })
+      .filter({ $0.requirement == .conforms && $0.constrainedTypeName == "Self" })
       .map({ $0.genericConstraint }))
   }
   

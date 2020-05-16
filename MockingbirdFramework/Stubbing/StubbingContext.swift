@@ -15,7 +15,7 @@ public class StubbingContext {
     let implementationProvider: (() -> Any)?
   }
   var stubs = Synchronized<[String: [Stub]]>([:])
-  let defaultValueProvider = ValueProvider()
+  var defaultValueProvider = ValueProvider()
   var sourceLocation: SourceLocation?
   
   func swizzle(_ invocation: Invocation, with implementationProvider: (() -> Any)?) -> Stub {

@@ -8,7 +8,7 @@
 import Foundation
 import SourceKittenFramework
 
-struct MethodParameter: Hashable {
+struct MethodParameter {
   let name: String
   let argumentLabel: String?
   let typeName: String
@@ -60,6 +60,19 @@ struct MethodParameter: Hashable {
     self.attributes = attributes
     self.hasSelfConstraints = typeName.contains(SerializationRequest.Constants.selfTokenIndicator)
     self.rawType = rawType
+  }
+}
+
+extension MethodParameter: Hashable {
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(argumentLabel)
+    hasher.combine(typeName)
+    hasher.combine(kind.typeScope == .instance)
+    hasher.combine(attributes)
+  }
+  
+  static func == (lhs: MethodParameter, rhs: MethodParameter) -> Bool {
+    return lhs.hashValue == rhs.hashValue
   }
 }
 
