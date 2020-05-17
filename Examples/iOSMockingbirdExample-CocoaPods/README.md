@@ -8,11 +8,6 @@ Having issues setting up Mockingbird? Join the [Slack channel](https://slofile.c
 
 ## Tutorial
 
-### Create the Xcode Project
-
-Open Xcode and create an iOS Single View App with the name `iOSMockingbirdExample-CocoaPods`. Make sure
-that the checkbox labeled “Include Unit Tests” is selected.
-
 ### Configure CocoaPods
 
 Create the Podfile in the Xcode project root directory.
@@ -33,14 +28,14 @@ end
 
 ### Install Mockingbird
 
-Install the framework and CLI.
+Initialize the pod and install the CLI.
 
 ```bash
 $ pod install
 $ (cd Pods/MockingbirdFramework && make install-prebuilt)
 ```
 
-Then configure the test target by using the CLI.
+Then configure the test target.
 
 ```bash
 $ mockingbird install \

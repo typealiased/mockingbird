@@ -36,9 +36,15 @@ readable tests.
 
 ### Under the Hood
 
-Mockingbird consists of two main components: the _generator_ and the _testing framework_. Before each test bundle
-compilation, configurable mock objects are created by implementing protocols and subclassing classes. The testing
+Mockingbird consists of two main components: the _generator_ and the _testing framework_. The generator creates
+mocks before each test bundle compilation by implementing protocols and subclassing classes, while the testing
 framework hooks into the generated code and provides APIs for mocking, stubbing, and verification.
+
+A key design consideration was performance. Mockingbird runs an optimized parser built on SwiftSyntax and
+SourceKit that is [~30-40x faster](https://github.com/birdrides/mockingbird/wiki/Performance) than existing
+frameworks and supports a
+[broad range](https://github.com/birdrides/mockingbird/wiki/Elephant-in-the-Room#other-third-party-mocking-frameworks)
+of complex Swift features like generics and type qualification.
 
 ### A Simple Example
 
@@ -77,30 +83,41 @@ func testShakingTreeCausesBirdToFly() {
 
 ## Installation
 
-### CocoaPods
+<details><summary><b>CocoaPods</b></summary>
 
 Add the framework to a test target in your `Podfile`, making sure to include the `use_frameworks!` option.
 
 ```ruby
-target 'MyTestTarget' do
+target 'MyAppTests' do
   use_frameworks!
   pod 'MockingbirdFramework', '~> 0.12'
 end
 ```
 
-Initialize the pod.
+Initialize the pod and install the CLI.
 
 ```bash
 $ pod install
-```
-
-Then install the CLI.
-
-```bash
 $ (cd Pods/MockingbirdFramework && make install-prebuilt)
 ```
 
-### Carthage
+Finally, configure your test target to start generating mocks before each test bundle compilation. List all source targets
+that should be mocked. You can also
+[set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
+
+```bash
+$ mockingbird install --target MyAppTests --sources MyApp MyLibrary1 MyLibrary2
+```
+
+Have questions or issues?
+
+- Join the [Slack channel](https://slofile.com/slack/birdopensource)
+- Search the [troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
+- Check out the [CocoaPods tutorial + example project](/Examples/iOSMockingbirdExample-CocoaPods)
+
+</details>
+
+<details><summary><b>Carthage</b></summary>
 
 Add the framework to your `Cartfile`.
 
@@ -108,25 +125,33 @@ Add the framework to your `Cartfile`.
 github "birdrides/mockingbird" ~> 0.12
 ```
 
-Build the framework using Carthage and [link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets), making
-sure to add the framework to a Copy Files build phase with the destination set to `Frameworks`.
+Build the framework with Carthage,
+[link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets), and install the CLI.
 
 ```bash
 $ carthage update
-```
-
-Then install the CLI.
-
-```bash
 $ (cd Carthage/Checkouts/mockingbird && make install-prebuilt)
 ```
 
-### Swift Package Manager
+Finally, configure your test target to start generating mocks before each test bundle compilation. List all source targets
+that should be mocked. You can also
+[set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
 
-<details><summary>Using a Package Manifest</summary>
+```bash
+$ mockingbird install --target MyAppTests --sources MyApp MyLibrary1 MyLibrary2
+```
 
-Add Mockingbird as a package dependency in `Package.swift`, making sure to include it as a dependency to your
-test target.
+Have questions or issues?
+
+- Join the [Slack channel](https://slofile.com/slack/birdopensource)
+- Search the [troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
+- Check out the [Carthage tutorial + example project](/Examples/iOSMockingbirdExample-Carthage)
+
+</details>
+
+<details><summary><b>Swift Package Manager</b></summary>
+
+Add the framework as a package and test target dependency in your project’s `Package.swift` manifest file.
 
 ```swift
 let package = Package(
@@ -134,96 +159,37 @@ let package = Package(
   dependencies: [
     .package(url: "https://github.com/birdrides/mockingbird.git", from: "0.12.0"),
   ],
-  .testTarget(
-    name: "MyPackageTests",
-    dependencies: [
-      "Mockingbird",
-    ],
-    path: "MyPackageTests"
-  )
+  targets: [
+    .testTarget(name: "MyPackageTests", dependencies: ["Mockingbird"]),
+  ]
 )
 ```
 
-</details>
-
-<details><summary>Using Xcode’s GUI</summary>
-
-Add a new package dependency with `https://github.com/birdrides/mockingbird.git` as the repository
-URL, making sure to select your test target for the Mockingbird library product.
-
-</details>
-
-Initialize the package dependency.
+Initialize the package dependency and install the CLI.
 
 ```bash
 $ xcodebuild -resolvePackageDependencies
-```
-
-Then install the CLI.
-
-```bash
-$ DERIVED_DATA=$(xcodebuild -showBuildSettings | grep -m1 'BUILD_DIR' | grep -o '\/.*' | dirname $(xargs dirname))
+$ DERIVED_DATA=$(xcodebuild -showBuildSettings | pcregrep -o1 'OBJROOT = (/.*)/Build')
 $ (cd "${DERIVED_DATA}/SourcePackages/checkouts/mockingbird" && make install-prebuilt)
 ```
 
-### From Source
-
-Clone the repository.
-
-```bash
-$ git clone https://github.com/birdrides/mockingbird.git
-$ cd mockingbird
-```
-
-Build the release artifacts and add the framework to your project, making sure to 
-[link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets).
+Finally, configure your test target to start generating mocks before each test bundle compilation. List all source targets
+that should be mocked. You can also
+[set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
 
 ```bash
-$ make release
-$ unzip Mockingbird.zip -d bin
+$ mockingbird install --target MyPackageTests --sources MyPackage MyLibrary1 MyLibrary2
 ```
 
-Then build and install the CLI, or use the `Mockingbird.pkg` installer.
+Have questions or issues?
 
-```bash
-$ make install
-```
+- Join the [Slack channel](https://slofile.com/slack/birdopensource)
+- Search the [troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
+- Check out the [Swift Package Manager tutorial + example project](/Examples/iOSMockingbirdExample-SPM)
 
-## Setup
-
-Use the CLI to configure a test target, listing all source targets that should be mocked.
-
-```bash
-$ mockingbird install \
-  --target BirdTests \
-  --sources Bird BirdManagers
-```
-
-Need to [set up your project manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup)?
-
-### System Framework Compatibility
-
-For basic compatibility with system frameworks and types defined outside of your project, download the latest starter
-supporting source files. Note that supporting source files should not be imported into Xcode or added to any targets.
-See [Supporting Source Files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files) for more information.
-
-```bash
-$ mockingbird download starter-pack
-```
-
-### Excluding Files
-
-You can exclude unwanted or problematic sources from being mocked by adding a `.mockingbird-ignore` file. 
-Mockingbird follows the same pattern format as [`.gitignore`](https://git-scm.com/docs/gitignore#_pattern_format) 
-and scopes ignore files to their enclosing directory.
+</details>
 
 ## Usage
-
-Example projects demonstrating basic usage of Mockingbird:
-
-- [CocoaPods tutorial + example project](/Examples/iOSMockingbirdExample-CocoaPods)
-- [Carthage tutorial + example project](/Examples/iOSMockingbirdExample-Carthage)
-- [Swift Package Manager tutorial + example project](/Examples/iOSMockingbirdExample-SPM)
 
 ### Mocking
 
@@ -324,7 +290,7 @@ provides preset value providers which are guaranteed to be backwards compatible,
 
 ```swift
 useDefaultValues(from: .standardProvider, on: bird)
-print(bird.name)    // Prints ""
+print(bird.name)  // Prints ""
 ```
 
 Values from concrete stubs always have a higher precedence than default values.
@@ -571,6 +537,12 @@ fuzzily match floating point arguments with some tolerance.
 around(10.0, tolerance: 0.01)
 ```
 
+### Excluding Files
+
+You can exclude unwanted or problematic sources from being mocked by adding a `.mockingbird-ignore` file. 
+Mockingbird follows the same pattern format as [`.gitignore`](https://git-scm.com/docs/gitignore#_pattern_format) 
+and scopes ignore files to their enclosing directory.
+
 ## Mockingbird CLI
 
 ### Generate
@@ -674,6 +646,14 @@ Mockingbird will recursively look for [supporting source files](https://github.c
 
 ## Additional Resources
 
-- [Troubleshooting](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
+### Examples and Tutorials
+
+- [CocoaPods tutorial + example project](/Examples/iOSMockingbirdExample-CocoaPods)
+- [Carthage tutorial + example project](/Examples/iOSMockingbirdExample-Carthage)
+- [Swift Package Manager tutorial + example project](/Examples/iOSMockingbirdExample-SPM)
+
+### Help and Documentation
+
 - [Slack channel](https://slofile.com/slack/birdopensource)
+- [Troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
 - [Mockingbird wiki](https://github.com/birdrides/mockingbird/wiki/)
