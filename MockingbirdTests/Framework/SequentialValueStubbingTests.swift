@@ -26,7 +26,7 @@ class SequentialValueStubbingTests: XCTestCase {
     verify(concreteMock.fakeableInt()).wasCalled(exactly(3))
   }
   
-  func testLazyValuesReturnedInOrder() {
+  func testImplementationsReturnedInOrder() {
     given(concreteMock.fakeableInt()) ~> sequence(of: {1}, {2}, {3})
     XCTAssertEqual(concreteInstance.fakeableInt(), 1)
     XCTAssertEqual(concreteInstance.fakeableInt(), 2)
@@ -34,10 +34,35 @@ class SequentialValueStubbingTests: XCTestCase {
     verify(concreteMock.fakeableInt()).wasCalled(exactly(3))
   }
   
-  func testLazyValuesEvaluatedLazily() {
+  func testImplementationsEvaluatedLazily() {
     given(concreteMock.fakeableInt()) ~> sequence(of: {1}, { XCTFail("Not lazy"); fatalError() })
     XCTAssertEqual(concreteInstance.fakeableInt(), 1)
     verify(concreteMock.fakeableInt()).wasCalled()
+  }
+  
+  func testThrowingImplementationThrows() {
+    let concreteMock = mock(ThrowingProtocol.self)
+    let concreteInstance = concreteMock as ThrowingProtocol
+    struct LazyError: Error {}
+    func generateBool() throws -> Bool { throw LazyError() }
+    given(concreteMock.throwingMethod()) ~> sequence(of: {true}, {try generateBool()})
+    XCTAssertEqual(try concreteInstance.throwingMethod(), true)
+    XCTAssertThrowsError(try concreteInstance.throwingMethod() as Bool)
+  }
+  
+  func testParameterizedImplementation() {
+    let concreteMock = mock(ChildProtocol.self)
+    let concreteInstance = concreteMock as ChildProtocol
+    given(concreteMock.childParameterizedInstanceMethod(param1: any(), any())) ~>
+      sequence(of: { _, _ in
+        return true
+      }, { param1, param2 in
+        return param1 && param2 > 42
+      })
+    XCTAssertTrue(concreteInstance.childParameterizedInstanceMethod(param1: false, 0))
+    XCTAssertTrue(concreteInstance.childParameterizedInstanceMethod(param1: true, 43))
+    XCTAssertFalse(concreteInstance.childParameterizedInstanceMethod(param1: false, 43))
+    XCTAssertFalse(concreteInstance.childParameterizedInstanceMethod(param1: true, 41))
   }
   
   func testLastValueUsedWhenSequenceFinished() {
@@ -50,7 +75,7 @@ class SequentialValueStubbingTests: XCTestCase {
     verify(concreteMock.fakeableInt()).wasCalled(exactly(5))
   }
   
-  func testLastLazyValueUsedWhenSequenceFinished() {
+  func testImplementationUsedWhenSequenceFinished() {
     given(concreteMock.fakeableInt()) ~> sequence(of: {1}, {2}, {3})
     XCTAssertEqual(concreteInstance.fakeableInt(), 1)
     XCTAssertEqual(concreteInstance.fakeableInt(), 2)

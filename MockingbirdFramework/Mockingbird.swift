@@ -32,19 +32,19 @@ public func sequence<FunctionType, ReturnType>(of values: ReturnType...)
     return StubImplementation<FunctionType, ReturnType>(handler: implementation, callback: nil)
 }
 
-/// Stub a sequence of lazily computed values, returning each value sequentially. The last value
-/// will be used if the number of invocations is greater than the number of values provided.
+/// Stub a sequence of implementations, calling each implementation sequentially. The last item will
+/// be used if the number of invocations is greater than the number of implementations provided.
 ///
-/// - Parameter lazyValue: A sequence of lazily computed values to stub.
-public func sequence<FunctionType, ReturnType>(of lazyValues: (() -> ReturnType)...)
+/// - Parameter implementations: A sequence of implementations to stub.
+public func sequence<FunctionType, ReturnType>(of implementations: (FunctionType)...)
   -> StubImplementation<FunctionType, ReturnType> {
     var index = 0
-    let implementation: () -> ReturnType = {
-      let value = lazyValues[index]()
-      if index+1 < lazyValues.count { index += 1 }
-      return value
+    let provider: () -> FunctionType = {
+      let implementation = implementations[index]
+      if index+1 < implementations.count { index += 1 }
+      return implementation
     }
-    return StubImplementation<FunctionType, ReturnType>(handler: implementation, callback: nil)
+    return StubImplementation<FunctionType, ReturnType>(provider: provider, callback: nil)
 }
 
 /// Stubs a variable getter to return the last value received by the setter.
@@ -59,7 +59,7 @@ public func lastSetValue<FunctionType, ReturnType>(initial: ReturnType)
       let setterImplementation = { (newValue: ReturnType) -> Void in
         currentValue = newValue
       }
-      _ = context.swizzle(setterInvocation, with: setterImplementation)
+      _ = context.swizzle(setterInvocation, with: { setterImplementation })
     }
     return StubImplementation<FunctionType, ReturnType>(handler: implementation, callback: callback)
 }
