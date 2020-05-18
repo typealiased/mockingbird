@@ -10,7 +10,24 @@ import MockingbirdGenerator
 import PathKit
 import SPMUtility
 
-final class InstallCommand: BaseCommand {
+class ConfigureCommand: InstallCommand {
+  private enum Constants {
+    static let name = "configure"
+    static let overview = "Configure a test target to use mocks (alias of 'install')."
+  }
+  override var name: String { return Constants.name }
+  override var overview: String { return Constants.overview }
+  
+  required init(parser: ArgumentParser) {
+    super.init(parser: parser, name: Constants.name, overview: Constants.overview)
+  }
+  
+  required init(parser: ArgumentParser, name: String, overview: String) {
+    super.init(parser: parser, name: name, overview: overview)
+  }
+}
+
+class InstallCommand: BaseCommand, AliasableCommand {
   private enum Constants {
     static let name = "install"
     static let overview = "Configure a test target to use mocks."
@@ -37,8 +54,12 @@ final class InstallCommand: BaseCommand {
   private let disableCacheArgument: OptionArgument<Bool>
   private let disableRelaxedLinking: OptionArgument<Bool>
   
-  required init(parser: ArgumentParser) {
-    let subparser = parser.add(subparser: Constants.name, overview: Constants.overview)
+  required convenience init(parser: ArgumentParser) {
+    self.init(parser: parser, name: Constants.name, overview: Constants.overview)
+  }
+  
+  required init(parser: ArgumentParser, name: String, overview: String) {
+    let subparser = parser.add(subparser: name, overview: overview)
     
     self.projectPathArgument = subparser.addProjectPath()
     self.sourceTargetsArgument = subparser.addSourceTargets()
@@ -108,6 +129,7 @@ final class InstallCommand: BaseCommand {
     print("""
     Please add starter supporting source files for basic compatibility with system frameworks.
       $ mockingbird download starter-pack
+    See https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files for more information.
     """)
   }
 }

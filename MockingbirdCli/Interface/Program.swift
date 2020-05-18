@@ -22,6 +22,10 @@ protocol Command {
            workingPath: Path) throws
 }
 
+protocol AliasableCommand: BaseCommand {
+  init(parser subparser: ArgumentParser, name: String, overview: String)
+}
+
 class BaseCommand: Command {
   var name: String { fatalError() }
   var overview: String { fatalError() }

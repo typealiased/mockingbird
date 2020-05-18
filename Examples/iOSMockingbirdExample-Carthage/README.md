@@ -8,11 +8,6 @@ Having issues setting up Mockingbird? Join the [Slack channel](https://slofile.c
 
 ## Tutorial
 
-### Create the Xcode Project
-
-Open Xcode and create an iOS Single View App with the name `iOSMockingbirdExample-Carthage`. Make sure
-that the checkbox labeled “Include Unit Tests” is selected.
-
 ### Configure Carthage
 
 Create the Cartfile in the Xcode project root directory.
@@ -30,16 +25,15 @@ $ echo 'github "birdrides/mockingbird" ~> 0.12' >> Cartfile
 
 ### Install Mockingbird
 
-Build the framework using Carthage.
+Build the framework and link the built `Mockingbird.framework` to the test target, making sure to add the
+framework to
+[a new Copy Files build phase](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets) with the
+destination set to `Frameworks`.
 
 ```bash
 $ carthage update --platform ios
 $ open Carthage/Build/iOS
 ```
-
-Link the built `Mockingbird.framework` to the test target, making sure to add the framework to 
-[a new Copy Files build phase](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets) with the
-destination set to `Frameworks`.
 
 Then install the CLI.
 
@@ -47,7 +41,7 @@ Then install the CLI.
 $ (cd Carthage/Checkouts/mockingbird && make install-prebuilt)
 ```
 
-Configure the test target by using the CLI.
+Configure the test target.
 
 ```bash
 $ mockingbird install \

@@ -221,7 +221,7 @@ setup-carthage:
 
 setup-spm:
 	(cd Examples/iOSMockingbirdExample-SPM && xcodebuild -resolvePackageDependencies)
-	$(eval DERIVED_DATA = $(shell xcodebuild -project Examples/iOSMockingbirdExample-SPM/iOSMockingbirdExample-SPM.xcodeproj -showBuildSettings | grep -m1 'BUILD_DIR' | grep -o '\/.*' | xargs dirname | xargs dirname))
+	$(eval DERIVED_DATA = $(shell xcodebuild -project Examples/iOSMockingbirdExample-SPM/iOSMockingbirdExample-SPM.xcodeproj -showBuildSettings | pcregrep -o1 'OBJROOT = (/.*)/Build'))
 	(cd $(DERIVED_DATA)/SourcePackages/checkouts/mockingbird && make install-prebuilt)
 
 test-cocoapods: setup-cocoapods
