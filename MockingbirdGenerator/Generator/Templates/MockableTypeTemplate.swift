@@ -12,11 +12,6 @@ import Foundation
 
 private enum Constants {
   static let mockProtocolName = "Mockingbird.Mock"
-  
-  /// Mapping from protocol to concrete subclass conformance, mainly used for `NSObjectProtocol`.
-  static let automaticConformanceMap: [String: String] = [
-    "Foundation.NSObjectProtocol": "Foundation.NSObject"
-  ]
 }
 
 extension GenericType {
@@ -263,20 +258,12 @@ class MockableTypeTemplate: Template {
   }
   
   lazy var protocolClassConformance: String? = {
-    guard mockableType.kind == .protocol else { return nil }
+    guard mockableType.kind == .protocol,
+      let classConformance = mockableType.primarySelfConformanceTypeName
+      else { return nil }
     
-    if let classConformance = mockableType.primarySelfConformanceTypeName {
-      // Handle class conformance constraints from where clauses.
-      return classConformance
-      
-    } else if let autoConformance = mockableType.allInheritedTypeNames
-      .compactMap({ Constants.automaticConformanceMap[$0] }).first {
-      // Automatically conform unmockable protocols like `NSObjectProtocol` to `NSObject`.
-      return autoConformance
-      
-    }
-    
-    return nil
+    // Handle class conformance constraints from where clauses.
+    return classConformance
   }()
   
   var inheritedTypes: [String] {
@@ -286,11 +273,14 @@ class MockableTypeTemplate: Template {
     }
     types.append(fullyQualifiedName)
     
-    let classConformanceTypeNames = Set(mockableType.selfConformanceTypes
-      .filter({ $0.kind == .class })
-      .map({ $0.fullyQualifiedModuleName }))
+    let classConformanceTypeNames = Set(
+      mockableType.selfConformanceTypes
+        .filter({ $0.kind == .class })
+        .map({ $0.fullyQualifiedModuleName })
+    )
     let conformanceTypes = Set(mockableType.allSelfConformanceTypeNames)
       .subtracting(classConformanceTypeNames)
+      .subtracting(types)
       .sorted()
     return types + conformanceTypes
   }

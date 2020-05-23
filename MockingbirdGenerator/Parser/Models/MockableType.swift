@@ -39,7 +39,13 @@ class MockableType: Hashable, Comparable {
   let subclassesExternalType: Bool
   let hasSelfConstraint: Bool
   
-  // MARK: Debugging
+  enum Constants {
+    static let automaticInheritanceMap: [String: (moduleName: String, typeName: String)] = [
+      "Foundation.NSObjectProtocol": (moduleName: "Foundation", typeName: "NSObject"),
+    ]
+  }
+  
+  // MARK: Diagnostics
   
   private let baseRawType: RawType
   let filePath: Path
@@ -190,13 +196,33 @@ class MockableType: Hashable, Comparable {
                              typealiasRepository: typealiasRepository)
     self.selfConformanceTypes = allSelfConformanceTypes
     self.allSelfConformanceTypeNames = allSelfConformanceTypeNames
-    (self.primarySelfConformanceType, self.primarySelfConformanceTypeName) = MockableType
-      .parsePrimarySelfConformanceTypeName(selfConformanceTypes: allSelfConformanceTypes,
-                                           specializationContexts: specializationContexts,
-                                           moduleNames: moduleNames,
-                                           baseRawType: baseRawType,
-                                           rawTypeRepository: rawTypeRepository,
-                                           typealiasRepository: typealiasRepository)
+    
+    if let inheritedPrimaryType =
+      inheritedTypes.sorted() // e.g. `protocol MyProtocol: ClassOnlyProtocol`
+        .first(where: { $0.primarySelfConformanceType != nil }) ??
+      allSelfConformanceTypes.sorted() // e.g. `protocol MyProtocol where Self: ClassOnlyProtocol`
+        .first(where: { $0.primarySelfConformanceType != nil }),
+      let primarySelfConformanceType = inheritedPrimaryType.primarySelfConformanceType,
+      let primarySelfConformanceTypeName = inheritedPrimaryType.primarySelfConformanceTypeName {
+      
+      self.primarySelfConformanceType = primarySelfConformanceType
+      self.primarySelfConformanceTypeName = primarySelfConformanceTypeName
+
+    } else if let primaryType = allSelfConformanceTypes.sorted()
+      .first(where: { $0.kind == .class }) {
+      self.primarySelfConformanceType = primaryType
+      self.primarySelfConformanceTypeName = MockableType
+        .specializedSelfConformanceTypeName(primaryType,
+                                            specializationContexts: specializationContexts,
+                                            moduleNames: moduleNames,
+                                            baseRawType: baseRawType,
+                                            rawTypeRepository: rawTypeRepository,
+                                            typealiasRepository: typealiasRepository)
+
+    } else {
+      self.primarySelfConformanceType = nil
+      self.primarySelfConformanceTypeName = nil
+    }
     
     self.subclassesExternalType = subclassesExternalType || conformsToExternalType
     self.methods = methods
@@ -296,18 +322,34 @@ class MockableType: Hashable, Comparable {
       var subclassesExternalType = false
       let definesDesignatedInitializer = methods.contains(where: { $0.isDesignatedInitializer })
       
-      // Find the correct `MockableType` instances for inheritance based on type name.
-      let parsedInheritedTypes = rawInheritedTypeNames.flatMap({ typeName -> [MockableType] in
+      let resolveRawType: (String) -> RawType? = { typeName in
         guard let nearestRawType = rawTypeRepository
           .nearestInheritedType(named: typeName,
                                 trimmedName: typeName.removingGenericTyping(),
                                 moduleNames: moduleNames,
                                 referencingModuleName: baseRawType.parsedFile.moduleName,
                                 containingTypeNames: baseRawType.containingTypeNames[...])?
-          .findBaseRawType() else {
-            log("Unable to resolve inherited type \(typeName.singleQuoted) for \(baseRawType.name.singleQuoted)")
-            allInheritedTypeNames.append(typeName)
-            return []
+          .findBaseRawType() else { return nil }
+        
+        // Map unmockable inherited types to other types.
+        if baseRawType.kind == .protocol,
+          let mappedType = MockableType.Constants.automaticInheritanceMap[
+            nearestRawType.fullyQualifiedModuleName
+          ],
+          let mappedRawType = rawTypeRepository.rawType(named: mappedType.typeName,
+                                                        in: mappedType.moduleName) {
+          return mappedRawType.findBaseRawType()
+        }
+        
+        return nearestRawType
+      }
+      
+      // Find the correct `MockableType` instances for inheritance based on type name.
+      let parsedInheritedTypes = rawInheritedTypeNames.flatMap({ typeName -> [MockableType] in
+        guard let nearestRawType = resolveRawType(typeName) else {
+          log("Unable to resolve inherited type \(typeName.singleQuoted) for \(baseRawType.name.singleQuoted)")
+          allInheritedTypeNames.append(typeName)
+          return []
         }
         
         // Inherited types could be typealiased, which would hide conformance.
@@ -347,7 +389,7 @@ class MockableType: Hashable, Comparable {
           subclassesExternalType = true
         }
         
-        let shouldInheritFromType = baseRawType.kind != .class || mockableType.kind != .protocol
+        let shouldInheritFromType = baseRawType.kind == .protocol || mockableType.kind != .protocol
         let specializationContext = specializationContexts[mockableType.fullyQualifiedModuleName]
         
         methods = methods.union(mockableType.methods
@@ -394,10 +436,14 @@ class MockableType: Hashable, Comparable {
         
         inheritedTypes.insert(mockableType)
         
-        let grandparents = forConformance
-          ? mockableType.selfConformanceTypes : mockableType.inheritedTypes
-        allInheritedTypes.formUnion(grandparents)
-        allInheritedTypeNames.append(contentsOf: grandparents.map({ $0.fullyQualifiedModuleName }))
+        // Indirect inheritance.
+        if !forConformance {
+          allInheritedTypes.formUnion(mockableType.inheritedTypes)
+          allInheritedTypeNames.append(contentsOf: mockableType.allInheritedTypeNames)
+        } else {
+          allInheritedTypes.formUnion(mockableType.selfConformanceTypes)
+          allInheritedTypeNames.append(contentsOf: mockableType.allSelfConformanceTypeNames)
+        }
         
         let isSelfConstraintType = selfConstraintClauses.contains(where: {
           $0.constrainedTypeName == mockableType.fullyQualifiedModuleName
@@ -407,7 +453,14 @@ class MockableType: Hashable, Comparable {
           forConformance && (isSelfConstraintType || mockableType.kind == .class)
         if shouldIncludeInheritedType {
           allInheritedTypes.insert(mockableType)
-          allInheritedTypeNames.append(mockableType.fullyQualifiedModuleName)
+          allInheritedTypeNames.append(MockableType.specializedSelfConformanceTypeName(
+            mockableType,
+            specializationContexts: specializationContexts,
+            moduleNames: moduleNames,
+            baseRawType: baseRawType,
+            rawTypeRepository: rawTypeRepository,
+            typealiasRepository: typealiasRepository
+          ))
         }
 
         // Only bubble-up generics for protocols from inherited protocols.
@@ -422,19 +475,17 @@ class MockableType: Hashable, Comparable {
       return (inheritedTypes, allInheritedTypes, allInheritedTypeNames, subclassesExternalType)
   }
   
-  private static func parsePrimarySelfConformanceTypeName(
-    selfConformanceTypes: Set<MockableType>,
+  private static func specializedSelfConformanceTypeName(
+    _ type: MockableType,
     specializationContexts: [String: SpecializationContext],
     moduleNames: [String],
     baseRawType: RawType,
     rawTypeRepository: RawTypeRepository,
     typealiasRepository: TypealiasRepository
-  ) -> (MockableType?, String?) {
-    guard let primaryType = selfConformanceTypes.sorted().first(where: { $0.kind == .class })
-      else { return (nil, nil) }
-    guard !primaryType.genericTypes.isEmpty, !specializationContexts.isEmpty,
-      let context = specializationContexts[primaryType.fullyQualifiedModuleName]
-      else { return (primaryType, primaryType.fullyQualifiedModuleName) }
+  ) -> String {
+    guard !type.genericTypes.isEmpty, !specializationContexts.isEmpty,
+      let context = specializationContexts[type.fullyQualifiedModuleName]
+      else { return type.fullyQualifiedModuleName }
     
     let specializedGenericTypes = context.typeList.map({ specialization -> String in
       let serializationContext = SerializationRequest
@@ -448,8 +499,8 @@ class MockableType: Hashable, Comparable {
       return specialization.serialize(with: qualifiedTypeNameRequest)
     })
     
-    let specializedTypeName = primaryType.fullyQualifiedModuleName.removingGenericTyping() +
+    let specializedTypeName = type.fullyQualifiedModuleName.removingGenericTyping() +
       "<" + specializedGenericTypes.joined(separator: ", ") + ">"
-    return (primaryType, specializedTypeName)
+    return specializedTypeName
   }
 }
