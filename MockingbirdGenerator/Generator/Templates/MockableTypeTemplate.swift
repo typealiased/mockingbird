@@ -428,11 +428,19 @@ class MockableTypeTemplate: Template {
   }
   
   func specializeTypeName(_ typeName: String) -> String {
-    guard typeName.contains(SerializationRequest.Constants.selfTokenIndicator) else {
-      return typeName // Checking prior to running `replacingOccurrences` is 4x faster.
+    // NOTE: Checking for an indicator prior to running `replacingOccurrences` is 4x faster.
+    let concreteMockTypeName = mockableType.name + "Mock"
+    
+    if typeName.contains(SerializationRequest.Constants.selfTokenIndicator) {
+      return typeName.replacingOccurrences(of: SerializationRequest.Constants.selfToken,
+                                           with: concreteMockTypeName)
     }
+    
+    if typeName.contains(SerializationRequest.Constants.syntheticSelfTokenIndicator) {
+      return typeName.replacingOccurrences(of: SerializationRequest.Constants.syntheticSelfToken,
+                                           with: concreteMockTypeName)
+    }
+    
     return typeName
-      .replacingOccurrences(of: SerializationRequest.Constants.selfToken,
-                            with: mockableType.name + "Mock")
   }
 }
