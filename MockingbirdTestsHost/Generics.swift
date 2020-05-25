@@ -164,8 +164,49 @@ public class UnalphabetizedGenericClass<C, B, A> {
 }
 
 public class GenericBaseClass<T> {
-  var baseVariable: T { fatalError() }
+  typealias Nominal = String
+  typealias NominalSpecialized = Array<T>
+  typealias MyArray<T> = Array<T>
+  typealias MyDictionary<K: Hashable, V> = Dictionary<K, V>
+  
+  // MARK: Properties
+  
+  var baseProperty: T { fatalError() }
+  
+  var basePropertyArray: Array<T> { fatalError() }
+  var basePropertyArrayShorthand: [T] { fatalError() }
+  
+  var basePropertyDictionary: Dictionary<String, T> { fatalError() }
+  var basePropertyDictionaryShorthand: [String: T] { fatalError() }
+  
+  var basePropertyTuple: (T, named: T, nested: (T, named: T)) { fatalError() }
+  var basePropertyClosure: (T) -> T { fatalError() }
+  
+  var basePropertyNominalTypealias: Nominal { fatalError() }
+  var basePropertyNominalSpecializedTypealias: NominalSpecialized { fatalError() }
+  var basePropertyArrayTypealias: MyArray<T> { fatalError() }
+  var basePropertyDictionaryTypealias: MyDictionary<String, T> { fatalError() }
+  
+  // MARK: Methods
+  
   func baseMethod(param: T) -> T { fatalError() }
+  
+  func baseMethod(array: Array<T>) -> Array<T> { fatalError() }
+  func baseMethod(arrayShorthand: [T]) -> [T] { fatalError() }
+  
+  func baseMethod(dictionary: Dictionary<String, T>) -> Dictionary<String, T> { fatalError() }
+  func baseMethod(dictionaryShorthand: [String: T]) -> [String: T] { fatalError() }
+  
+  func baseMethod(tuple: (T, named: T, nested: (T, named: T)))
+    -> (T, named: T, nested: (T, named: T)) { fatalError() }
+  func baseMethod(closure: (T) -> T) -> (T) -> T { fatalError() }
+  
+  func baseMethod(nominalTypealias: Nominal) -> Nominal { fatalError() }
+  func baseMethod(nominalSpecializedTypealias: NominalSpecialized)
+    -> NominalSpecialized { fatalError() }
+  func baseMethod(arrayTypealias: MyArray<T>) -> MyArray<T> { fatalError() }
+  func baseMethod(dictionaryTypealias: MyDictionary<String, T>)
+    -> MyDictionary<String, T> { fatalError() }
 }
 
 // MARK: Shadowing
@@ -224,3 +265,11 @@ ConstrainedUnspecializedGenericSubclass<T> {}
 class UnspecializedMultipleGenericSubclass<T, R>: GenericBaseClass<T> {}
 class InheritingUnspecializedMultipleGenericSubclass<T, R>:
 UnspecializedMultipleGenericSubclass<T, R> {}
+
+struct GenericTypeOne<NotUsed> {}
+struct GenericTypeTwo<NotUsed> {}
+class UnspecializedCompoundGenericSubclass<T>: GenericBaseClass<GenericTypeOne<T>> {}
+class TriviallyInheritingUnspecializedCompoundGenericSubclass<T>:
+UnspecializedCompoundGenericSubclass<T> {}
+class CompoundInheritingUnspecializedNestedGenericSubclass<T>:
+UnspecializedCompoundGenericSubclass<GenericTypeTwo<T>> {}

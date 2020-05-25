@@ -335,24 +335,22 @@ extension Method: Specializable {
     let excludedGenericTypeNames = excludedGenericTypeNames.union(genericTypes.map({ $0.name }))
     
     // Specialize return type.
-    let specializedReturnTypeName: String
-    if let specialization = context.specializations[returnTypeName],
-      !excludedGenericTypeNames.contains(returnTypeName) {
-      let serializationContext = SerializationRequest
-        .Context(moduleNames: moduleNames,
-                 rawType: rawType,
-                 rawTypeRepository: rawTypeRepository,
-                 typealiasRepository: typealiasRepository)
-      let attributedSerializationContext = SerializationRequest
-        .Context(from: serializationContext,
-                 genericTypeContext: genericTypeContext + serializationContext.genericTypeContext)
-      let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
-                                                          context: attributedSerializationContext,
-                                                          options: .standard)
-      specializedReturnTypeName = specialization.serialize(with: qualifiedTypeNameRequest)
-    } else {
-      specializedReturnTypeName = returnTypeName
-    }
+    let declaredType = DeclaredType(from: returnTypeName)
+    let serializationContext = SerializationRequest
+      .Context(moduleNames: moduleNames,
+               rawType: rawType,
+               rawTypeRepository: rawTypeRepository,
+               typealiasRepository: typealiasRepository)
+    let attributedSerializationContext = SerializationRequest
+      .Context(from: serializationContext,
+               genericTypeContext: genericTypeContext + serializationContext.genericTypeContext,
+               excludedGenericTypeNames: excludedGenericTypeNames,
+               specializationContext: context)
+    let options: SerializationRequest.Options = [.standard, .shouldSpecializeTypes]
+    let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
+                                                        context: attributedSerializationContext,
+                                                        options: options)
+    let specializedReturnTypeName = declaredType.serialize(with: qualifiedTypeNameRequest)
     
     // Specialize parameters.
     let specializedParameters = parameters.map({

@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// Stores type specializations, e.g. `Dictionary<String, Int>`, mapping each generic type parameter
+/// from the original type declaration, e.g. `Dictionary<K, V>` => `{ K: String, V: Int }`.
 struct SpecializationContext {
   init?(typeName: String, baseRawType: RawType) {
     let declaredType = DeclaredType(from: typeName)

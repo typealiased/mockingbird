@@ -44,11 +44,11 @@
 
 /* Begin PBXBuildFile section */
 		B90521EA3AD01445BE991C90 /* MockingbirdTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */; };
+		D3643B6C247B78A5002DF069 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B6B247B78A4002DF069 /* Function.swift */; };
 		D372A59B2455876D0000E80A /* MockingbirdTestsHost.h in Headers */ = {isa = PBXBuildFile; fileRef = OBJ_141 /* MockingbirdTestsHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D37503D72460FE7E003017A7 /* ImplicitVariableTypesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37503D52460FE78003017A7 /* ImplicitVariableTypesMockableTests.swift */; };
 		D37503D92460FFE1003017A7 /* ImplicitVariableTypesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37503D82460FFE1003017A7 /* ImplicitVariableTypesStubbableTests.swift */; };
 		D37503DB246120EA003017A7 /* ConflictingProtocolProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37503DA246120EA003017A7 /* ConflictingProtocolProperties.swift */; };
-		D3A854622460D9FC00C5764A /* ImplicitVariableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */; };
 		D39350D0246619DC00FF52E2 /* DuplicateProtocolMembers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39350CF246619DC00FF52E2 /* DuplicateProtocolMembers.swift */; };
 		D3A854622460D9FC00C5764A /* ImplicitVariableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */; };
 		OBJ_1001 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
@@ -1137,6 +1137,7 @@
 /* Begin PBXFileReference section */
 		942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3643B6B247B78A4002DF069 /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
 		D372A590245586DD0000E80A /* MockingbirdTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdTests.xcconfig; sourceTree = "<group>"; };
 		D372A591245586DD0000E80A /* MockingbirdModuleTestsHost.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdModuleTestsHost.xcconfig; sourceTree = "<group>"; };
 		D372A592245586DD0000E80A /* MockingbirdFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdFramework.xcconfig; sourceTree = "<group>"; };
@@ -1148,7 +1149,6 @@
 		D37503D52460FE78003017A7 /* ImplicitVariableTypesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypesMockableTests.swift; sourceTree = "<group>"; };
 		D37503D82460FFE1003017A7 /* ImplicitVariableTypesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypesStubbableTests.swift; sourceTree = "<group>"; };
 		D37503DA246120EA003017A7 /* ConflictingProtocolProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConflictingProtocolProperties.swift; sourceTree = "<group>"; };
-		D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypes.swift; sourceTree = "<group>"; };
 		D39350CF246619DC00FF52E2 /* DuplicateProtocolMembers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuplicateProtocolMembers.swift; sourceTree = "<group>"; };
 		D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypes.swift; sourceTree = "<group>"; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3358,6 +3358,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_86 /* DeclaredType.swift */,
+				D3643B6B247B78A4002DF069 /* Function.swift */,
 				OBJ_81 /* GenericType.swift */,
 				OBJ_82 /* Method.swift */,
 				OBJ_83 /* MethodParameter.swift */,
@@ -4864,6 +4865,7 @@
 				OBJ_920 /* DeclaredType.swift in Sources */,
 				OBJ_921 /* ParsedFile.swift in Sources */,
 				OBJ_922 /* Single.swift in Sources */,
+				D3643B6C247B78A5002DF069 /* Function.swift in Sources */,
 				OBJ_923 /* Tuple.swift in Sources */,
 				OBJ_924 /* Primitives.swift in Sources */,
 				OBJ_925 /* RawType.swift in Sources */,

@@ -45,6 +45,7 @@ class RawType {
         .components(separatedBy: ".", excluding: .allGroups)
         .map({ String($0) })
       let specializedName = rawComponents[(rawComponents.count-1)...]
+      
       let qualifiers: [String]
       if let definingModuleName = definingModuleName {
         qualifiers = [definingModuleName] + containingTypeNames + [name]
@@ -52,19 +53,37 @@ class RawType {
         qualifiers = containingTypeNames + [name]
       }
       
+      // Preserve any generic type specialization from the raw declaration components.
+      let merge: ([String], [String]) -> String = { (old, new) -> String in
+        var components: Array<String>.SubSequence {
+          if new.count > old.count {
+            return (new[..<(new.count-old.count)] + old[...])
+          } else {
+            return old[(old.count-new.count)...]
+          }
+        }
+        return components.joined(separator: ".")
+      }
+      
       // Check if the referencing declaration is in the same scope as the type declaration.
       let lcaScopeIndex = zip(qualifiers, context)
         .map({ ($0, $1) })
         .lastIndex(where: { $0 == $1 }) ?? 0
       let endIndex = qualifiers.count - 1
+      
       // If the LCA is the module then include the module name, else exclude type-scoped qualifiers.
       let startIndex = min(lcaScopeIndex + (lcaScopeIndex > 0 ? 1 : 0), endIndex)
-      let moduleQualified = (qualifiers[..<endIndex] + specializedName).joined(separator: ".")
-      let contextQualified = (qualifiers[startIndex..<endIndex] + specializedName)
-        .joined(separator: ".")
+      
+      let moduleComponents = (qualifiers[..<endIndex] + specializedName).map({ String($0) })
+      let moduleQualified = merge(rawComponents, moduleComponents)
+      
+      let contextComponents =
+        (qualifiers[startIndex..<endIndex] + specializedName).map({ String($0) })
+      let contextQualified = merge(rawComponents, contextComponents)
       
       return (moduleQualified: moduleQualified, contextQualified: contextQualified)
   }
+
   
   init(dictionary: StructureDictionary,
        name: String,
