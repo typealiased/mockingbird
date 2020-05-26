@@ -128,7 +128,7 @@ $ make install-prebuilt
 Add `https://github.com/birdrides/mockingbird` as a dependency and link it to your test target.
 
 Then download and install the
-[latest CLI from Releases](https://github.com/birdrides/mockingbird/releases/download/0.12.0/Mockingbird.pkg).
+[latest CLI from Releases](https://github.com/birdrides/mockingbird/releases/download/0.12.2/Mockingbird.pkg).
 
 ### From Source
 
