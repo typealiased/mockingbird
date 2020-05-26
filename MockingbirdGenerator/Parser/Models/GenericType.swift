@@ -227,3 +227,17 @@ struct GenericType: Hashable {
                        requirement: whereClause.requirement)
   }
 }
+
+extension GenericType: Comparable {
+  static func < (lhs: GenericType, rhs: GenericType) -> Bool {
+    return (
+      lhs.whereClauses,
+      lhs.constraints.sorted(),
+      lhs.name
+    ) < (
+      rhs.whereClauses,
+      rhs.constraints.sorted(),
+      rhs.name
+    )
+  }
+}

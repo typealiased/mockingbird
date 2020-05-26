@@ -76,6 +76,20 @@ extension MethodParameter: Hashable {
   }
 }
 
+extension MethodParameter: Comparable {
+  static func < (lhs: MethodParameter, rhs: MethodParameter) -> Bool {
+    return (
+      lhs.typeName,
+      lhs.name,
+      lhs.argumentLabel ?? ""
+    ) < (
+      rhs.typeName,
+      rhs.name,
+      rhs.argumentLabel ?? ""
+    )
+  }
+}
+
 extension MethodParameter: Specializable {
   private init(from parameter: MethodParameter, typeName: String) {
     self.name = parameter.name

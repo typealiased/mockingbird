@@ -57,7 +57,7 @@ extension SwiftDeclarationKind {
   }
 }
 
-enum TypeScope: String {
+enum TypeScope: String, Comparable {
   case `instance` = "instance"
   case `static` = "static"
   case `class` = "class"
@@ -67,6 +67,10 @@ enum TypeScope: String {
     case .instance, .class: return true
     case .static: return kind == .protocol
     }
+  }
+  
+  static func < (lhs: TypeScope, rhs: TypeScope) -> Bool {
+    return lhs.rawValue < rhs.rawValue
   }
 }
 
