@@ -24,6 +24,7 @@ struct Method {
   let compilationDirectives: [CompilationDirective]
   let isOverridable: Bool
   let hasSelfConstraint: Bool
+  let isMockable: Bool
   
   private let rawType: RawType
   private let sortableIdentifier: String
@@ -48,10 +49,9 @@ struct Method {
     self.isInitializer = isInitializer
     
     let accessLevel = AccessLevel(from: dictionary) ?? .defaultLevel
-    guard accessLevel.isMockableMember(in: rootKind,
-                                       withinSameModule: rawType.parsedFile.shouldMock)
-        || isInitializer && accessLevel.isMockable // Initializers cannot be `open`.
-      else { return nil }
+    self.isMockable =
+      accessLevel.isMockableMember(in: rootKind, withinSameModule: rawType.parsedFile.shouldMock)
+      || (isInitializer && accessLevel.isMockable) // Initializers cannot be `open`.
     self.accessLevel = accessLevel
     
     let source = rawType.parsedFile.data
@@ -314,6 +314,7 @@ extension Method: Specializable {
     self.compilationDirectives = method.compilationDirectives
     self.isOverridable = method.isOverridable
     self.hasSelfConstraint = method.hasSelfConstraint
+    self.isMockable = method.isMockable
     self.rawType = method.rawType
     self.sortableIdentifier = Method.generateSortableIdentifier(name: name,
                                                                 genericTypes: genericTypes,

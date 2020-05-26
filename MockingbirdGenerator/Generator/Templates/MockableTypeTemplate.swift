@@ -150,10 +150,19 @@ class MockableTypeTemplate: Template {
     }
   }
   
-  var nonMockableInitializersMessage: String? {
+  /// Classes that define designated initializers but none which are accessible.
+  var nonMockableDesignatedInitializerMessage: String? {
+    guard mockableType.kind == .class, !shouldGenerateDefaultInitializer else { return nil }
+    guard !mockableType.methods.contains(where: { $0.isDesignatedInitializer && $0.isMockable })
+      else { return nil }
+    return "\(mockableType.name.singleQuoted) does not declare any accessible designated initializers and cannot be mocked"
+  }
+  
+  /// Classes that cannot be initialized due to imported accessibility from an external module.
+  var nonMockableExternalInitializerMessage: String? {
     guard mockableType.kind == .class, mockableType.subclassesExternalType else { return nil }
-    // Ignore any types that simply cannot be initialized.
-    guard !mockableType.methods.contains(where: { $0.isInitializer }) else { return nil }
+    guard !mockableType.methods.contains(where: { $0.isInitializer && $0.isMockable })
+      else { return nil }
     return "\(mockableType.name.singleQuoted) subclasses a type from a different module but does not declare any accessible initializers and cannot be mocked"
   }
   
@@ -161,7 +170,8 @@ class MockableTypeTemplate: Template {
     guard let message = nonMockableOpaqueInheritanceMessage
       ?? nonMockableInheritedTypeMessage
       ?? nonMockablePropertiesMessage
-      ?? nonMockableInitializersMessage
+      ?? nonMockableDesignatedInitializerMessage
+      ?? nonMockableExternalInitializerMessage
       else { return "" }
     
     logWarning(
@@ -320,7 +330,7 @@ class MockableTypeTemplate: Template {
     let isProxyable: (Method) -> Bool = {
       // This needs to be a designated initializer since if it's a convenience initializer, we can't
       // always infer what concrete argument values to pass to the designated initializer.
-      $0.isDesignatedInitializer
+      $0.isDesignatedInitializer && $0.isMockable
     }
     
     guard !shouldGenerateDefaultInitializer else { return "" }
@@ -399,7 +409,9 @@ class MockableTypeTemplate: Template {
   }
   
   lazy var containsOverridableDesignatedInitializer: Bool = {
-    return mockableType.methods.contains(where: { $0.isOverridable && $0.isDesignatedInitializer })
+    return mockableType.methods.contains(where: {
+      $0.isOverridable && $0.isDesignatedInitializer && $0.isMockable
+    })
   }()
   
   func renderVariables() -> String {
@@ -422,6 +434,7 @@ class MockableTypeTemplate: Template {
   func renderMethods() -> String {
     return Set(mockableType.methods)
       .sorted(by: <)
+      .filter({ $0.isMockable })
       .map({
         let renderedMethod = methodTemplate(for: $0).render()
         guard !isOverridable(method: $0) else { return renderedMethod }
