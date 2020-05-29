@@ -68,7 +68,7 @@ class InitializerTests: XCTestCase {
     classOnlyProtocolWithInheritance = mock(ClassOnlyProtocolWithInheritance.self)
     openClassConstrainedProtocol =
       mock(ConformingInitializableOpenClassConstrainedProtocol.self).initialize()
-    nsObjectProtocolConformingProtocol = mock(NSObjectProtocolConformingProtocol.self)
+    nsObjectProtocolConformingProtocol = mock(NSObjectProtocolConformingProtocol.self).initialize()
     initializableClassOnlyProtocol =
       mock(InitializableClassOnlyProtocol.self).initialize(param1: true, param2: 42)
     initializableClassOnlyProtocolWithInheritedInitializer =
