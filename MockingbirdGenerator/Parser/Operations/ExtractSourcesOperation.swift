@@ -32,15 +32,20 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
   public let target: T
   let sourceRoot: Path
   let supportPath: Path?
+  let environment: () -> [String: Any]
   
   public let result = ExtractSourcesOperationResult()
   
   public override var description: String { "Extract Sources" }
   
-  public init(with target: T, sourceRoot: Path, supportPath: Path?) {
+  public init(with target: T,
+              sourceRoot: Path,
+              supportPath: Path?,
+              environment: @escaping () -> [String: Any]) {
     self.target = target
     self.sourceRoot = sourceRoot
     self.supportPath = supportPath
+    self.environment = environment
   }
   
   override func run() throws {
@@ -68,7 +73,7 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
   private func sourceFilePaths(for target: T) -> Set<SourcePath> {
     if let memoized = memoizedSourceFilePaths[target] { return memoized }
     let paths = target.findSourceFilePaths(sourceRoot: sourceRoot)
-      .map({ SourcePath(path: $0, moduleName: target.productModuleName) })
+      .map({ SourcePath(path: $0, moduleName: resolveProductModuleName(for: target)) })
     let includedPaths = includedSourcePaths(for: Set(paths))
     memoizedSourceFilePaths[target] = includedPaths
     return includedPaths
@@ -81,7 +86,10 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
     let targets = Set([target]).union(target.dependencies
       .compactMap({ $0.target as? T })
       .flatMap({ allTargets(for: $0) }))
-    result.moduleDependencies[target.productModuleName] = Set(targets.map({ $0.productModuleName }))
+    let productModuleName = resolveProductModuleName(for: target)
+    result.moduleDependencies[productModuleName] = Set(targets.map({
+      resolveProductModuleName(for: $0)
+    }))
     memoizedTargets[target] = targets
     return targets
   }
@@ -116,6 +124,14 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
     let queue = OperationQueue.createForActiveProcessors()
     queue.addOperations(operations, waitUntilFinished: true)
     return Set(operations.compactMap({ $0.result.sourcePath }))
+  }
+  
+  private var memoizedProductModuleNames = [T: String]()
+  private func resolveProductModuleName(for target: T) -> String {
+    if let memoized = memoizedProductModuleNames[target] { return memoized }
+    let productModuleName = target.resolveProductModuleName(environment: environment)
+    memoizedProductModuleNames[target] = productModuleName
+    return productModuleName
   }
 }
 

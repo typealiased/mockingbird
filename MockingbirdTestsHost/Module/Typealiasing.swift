@@ -27,5 +27,11 @@ public protocol ExternalModuleScopedTypealiasedProtocol {
   func request(object: Foundation.NSObject?) -> Foundation.NSObject?
   func genericRequest<T: NSObjectProtocol>(object: T?)
     -> T? where T.Element == Foundation.NSObjectProtocol?, T.Subelement == NSObject?
+  
+  // MARK: Concrete context qualification
+  typealias MyArray<T> = Array<T>
+  typealias MyDictionary<K: Hashable, V> = Dictionary<K, V>
+  func method(array: MyArray<String>)
+  func method(dictionary: MyDictionary<String, Bool>)
 }
 

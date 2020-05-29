@@ -91,7 +91,12 @@ public protocol AssociatedTypeSelfReferencingProtocol {
   func request(object: Self)
 }
 
-public protocol InheritingAssociatedTypeSelfReferencingProtocol: AssociatedTypeSelfReferencingProtocol {}
+// MARK: Inheritance
+
+public protocol InheritingAssociatedTypeSelfReferencingProtocol:
+AssociatedTypeSelfReferencingProtocol {}
+public protocol IndirectlyInheritingAssociatedTypeSelfReferencingProtocol:
+InheritingAssociatedTypeSelfReferencingProtocol {}
 
 public protocol SecondLevelSelfConstrainedAssociatedTypeProtocol
 where Self: AssociatedTypeSelfReferencingProtocol {}
@@ -101,11 +106,42 @@ where Self: SecondLevelSelfConstrainedAssociatedTypeProtocol, Self.Element: Hash
   associatedtype Element
 }
 
-public protocol OpaqueClassSelfConstrainedAssociatedTypeProtocol
-where Self: NSViewController {}
+// NOTE: Constraint syntax is sugar for `where Self: <Type>`, but SourceKit treats them differently.
 
-public protocol OpaqueProtocolSelfConstrainedAssociatedTypeProtocol
-where Self: Hashable {}
+public protocol ExplicitSelfConstrainedToClassProtocol where Self: NSViewController {}
+public protocol InheritingExplicitSelfConstrainedToClassProtocol
+where Self: ExplicitSelfConstrainedToClassProtocol {}
+public protocol IndirectlyInheritingExplicitSelfConstrainedToClassProtocol
+where Self: InheritingExplicitSelfConstrainedToClassProtocol {}
+
+public protocol ConstrainedToClassProtocol: NSViewController {}
+public protocol InheritingConstrainedToClassProtocol: ConstrainedToClassProtocol {}
+public protocol IndirectlyInheritingConstrainedToClassProtocol:
+InheritingConstrainedToClassProtocol {}
+
+public protocol ExplicitSelfConstrainedToProtocolProtocol where Self: Hashable {}
+public protocol InheritingExplicitSelfConstrainedToProtocolProtocol
+where Self: ExplicitSelfConstrainedToProtocolProtocol {}
+public protocol IndirectlyInheritingExplicitSelfConstrainedToProtocolProtocol
+where Self: InheritingExplicitSelfConstrainedToProtocolProtocol {}
+
+public protocol ConstrainedToProtocolProtocol: Hashable {}
+public protocol InheritingConstrainedToProtocolProtocol: ConstrainedToProtocolProtocol {}
+public protocol IndirectlyInheritingConstrainedToProtocolProtocol:
+InheritingConstrainedToProtocolProtocol {}
+
+public protocol AutomaticallyConformedExplicitSelfConstrainedProtocol
+where Self: Foundation.NSObjectProtocol {}
+public protocol InheritingAutomaticallyConformedExplicitSelfConstrainedProtocol
+where Self: AutomaticallyConformedExplicitSelfConstrainedProtocol {}
+public protocol IndirectlyInheritingAutomaticallyConformedExplicitSelfConstrainedProtocol
+where Self: InheritingAutomaticallyConformedExplicitSelfConstrainedProtocol {}
+
+public protocol AutomaticallyConformedConstrainedProtocol: Foundation.NSObjectProtocol {}
+public protocol InheritingAutomaticallyConformedConstrainedProtocol:
+AutomaticallyConformedConstrainedProtocol {}
+public protocol IndirectlyInheritingAutomaticallyConformedConstrainedProtocol:
+InheritingAutomaticallyConformedConstrainedProtocol {}
 
 public class ReferencedGenericClass<T> {}
 public class ReferencedGenericClassWithConstraints<S: Sequence> where S.Element: Hashable {}
@@ -128,9 +164,52 @@ public class UnalphabetizedGenericClass<C, B, A> {
 }
 
 public class GenericBaseClass<T> {
-  var baseVariable: T { fatalError() }
+  typealias Nominal = String
+  typealias NominalSpecialized = Array<T>
+  typealias MyArray<T> = Array<T>
+  typealias MyDictionary<K: Hashable, V> = Dictionary<K, V>
+  
+  // MARK: Properties
+  
+  var baseProperty: T { fatalError() }
+  
+  var basePropertyArray: Array<T> { fatalError() }
+  var basePropertyArrayShorthand: [T] { fatalError() }
+  
+  var basePropertyDictionary: Dictionary<String, T> { fatalError() }
+  var basePropertyDictionaryShorthand: [String: T] { fatalError() }
+  
+  var basePropertyTuple: (T, named: T, nested: (T, named: T)) { fatalError() }
+  var basePropertyClosure: (T) -> T { fatalError() }
+  
+  var basePropertyNominalTypealias: Nominal { fatalError() }
+  var basePropertyNominalSpecializedTypealias: NominalSpecialized { fatalError() }
+  var basePropertyArrayTypealias: MyArray<T> { fatalError() }
+  var basePropertyDictionaryTypealias: MyDictionary<String, T> { fatalError() }
+  
+  // MARK: Methods
+  
   func baseMethod(param: T) -> T { fatalError() }
+  
+  func baseMethod(array: Array<T>) -> Array<T> { fatalError() }
+  func baseMethod(arrayShorthand: [T]) -> [T] { fatalError() }
+  
+  func baseMethod(dictionary: Dictionary<String, T>) -> Dictionary<String, T> { fatalError() }
+  func baseMethod(dictionaryShorthand: [String: T]) -> [String: T] { fatalError() }
+  
+  func baseMethod(tuple: (T, named: T, nested: (T, named: T)))
+    -> (T, named: T, nested: (T, named: T)) { fatalError() }
+  func baseMethod(closure: (T) -> T) -> (T) -> T { fatalError() }
+  
+  func baseMethod(nominalTypealias: Nominal) -> Nominal { fatalError() }
+  func baseMethod(nominalSpecializedTypealias: NominalSpecialized)
+    -> NominalSpecialized { fatalError() }
+  func baseMethod(arrayTypealias: MyArray<T>) -> MyArray<T> { fatalError() }
+  func baseMethod(dictionaryTypealias: MyDictionary<String, T>)
+    -> MyDictionary<String, T> { fatalError() }
 }
+
+// MARK: Shadowing
 
 public struct ShadowedType {}
 
@@ -149,17 +228,48 @@ public class ShadowedGenericType<ShadowedType> {
   }
 }
 
+// MARK: Specialization
+
 class SpecializedGenericSubclass: GenericBaseClass<Bool> {}
+class InheritingSpecializedGenericSubclass: SpecializedGenericSubclass {}
+class IndirectlyInheritingSpecializedGenericSubclass: InheritingSpecializedGenericSubclass {}
+
 protocol SpecializedGenericProtocol: GenericBaseClass<Bool> {}
+protocol InheritingSpecializedGenericProtocol: SpecializedGenericProtocol {}
+protocol IndirectlyInheritingSpecializedGenericProtocol: InheritingSpecializedGenericProtocol {}
+
+protocol SpecializedExplicitSelfConstrainedGenericProtocol
+where Self: GenericBaseClass<Bool> {}
+protocol InheritingSpecializedExplicitSelfConstrainedGenericProtocol
+where Self: SpecializedExplicitSelfConstrainedGenericProtocol {}
+protocol IndirectlyInheritingSpecializedExplicitSelfConstrainedGenericProtocol
+where Self: InheritingSpecializedExplicitSelfConstrainedGenericProtocol {}
+
 protocol AbstractSpecializedGenericProtocol: GenericBaseClass<Bool> {
   associatedtype EquatableType: Equatable
 }
+protocol InheritingAbstractSpecializedGenericProtocol: AbstractSpecializedGenericProtocol {}
+protocol IndirectlyInheritingAbstractSpecializedGenericProtocol:
+InheritingAbstractSpecializedGenericProtocol {}
 
 class SpecializedShadowedGenericSubclass: ShadowedGenericType<NSObject> {}
 protocol SpecializedShadowedGenericProtocol: ShadowedGenericType<NSObject> {}
 
 class UnspecializedGenericSubclass<T>: GenericBaseClass<T> {}
+class InheritingUnspecializedGenericSubclass<T>: UnspecializedGenericSubclass<T> {}
 
 class ConstrainedUnspecializedGenericSubclass<T: Equatable>: GenericBaseClass<T> {}
+class InheritingConstrainedUnspecializedGenericSubclass<T: Equatable>:
+ConstrainedUnspecializedGenericSubclass<T> {}
 
 class UnspecializedMultipleGenericSubclass<T, R>: GenericBaseClass<T> {}
+class InheritingUnspecializedMultipleGenericSubclass<T, R>:
+UnspecializedMultipleGenericSubclass<T, R> {}
+
+struct GenericTypeOne<NotUsed> {}
+struct GenericTypeTwo<NotUsed> {}
+class UnspecializedCompoundGenericSubclass<T>: GenericBaseClass<GenericTypeOne<T>> {}
+class TriviallyInheritingUnspecializedCompoundGenericSubclass<T>:
+UnspecializedCompoundGenericSubclass<T> {}
+class CompoundInheritingUnspecializedNestedGenericSubclass<T>:
+UnspecializedCompoundGenericSubclass<GenericTypeTwo<T>> {}

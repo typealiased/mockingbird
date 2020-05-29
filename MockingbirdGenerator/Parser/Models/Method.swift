@@ -24,6 +24,7 @@ struct Method {
   let compilationDirectives: [CompilationDirective]
   let isOverridable: Bool
   let hasSelfConstraint: Bool
+  let isMockable: Bool
   
   private let rawType: RawType
   
@@ -47,10 +48,9 @@ struct Method {
     self.isInitializer = isInitializer
     
     let accessLevel = AccessLevel(from: dictionary) ?? .defaultLevel
-    guard accessLevel.isMockableMember(in: rootKind,
-                                       withinSameModule: rawType.parsedFile.shouldMock)
-        || isInitializer && accessLevel.isMockable // Initializers cannot be `open`.
-      else { return nil }
+    self.isMockable =
+      accessLevel.isMockableMember(in: rootKind, withinSameModule: rawType.parsedFile.shouldMock)
+      || (isInitializer && accessLevel.isMockable) // Initializers cannot be `open`.
     self.accessLevel = accessLevel
     
     let source = rawType.parsedFile.data
@@ -299,6 +299,7 @@ extension Method: Specializable {
     self.compilationDirectives = method.compilationDirectives
     self.isOverridable = method.isOverridable
     self.hasSelfConstraint = method.hasSelfConstraint
+    self.isMockable = method.isMockable
     self.rawType = method.rawType
   }
   
@@ -314,24 +315,22 @@ extension Method: Specializable {
     let excludedGenericTypeNames = excludedGenericTypeNames.union(genericTypes.map({ $0.name }))
     
     // Specialize return type.
-    let specializedReturnTypeName: String
-    if let specialization = context.specializations[returnTypeName],
-      !excludedGenericTypeNames.contains(returnTypeName) {
-      let serializationContext = SerializationRequest
-        .Context(moduleNames: moduleNames,
-                 rawType: rawType,
-                 rawTypeRepository: rawTypeRepository,
-                 typealiasRepository: typealiasRepository)
-      let attributedSerializationContext = SerializationRequest
-        .Context(from: serializationContext,
-                 genericTypeContext: genericTypeContext + serializationContext.genericTypeContext)
-      let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
-                                                          context: attributedSerializationContext,
-                                                          options: .standard)
-      specializedReturnTypeName = specialization.serialize(with: qualifiedTypeNameRequest)
-    } else {
-      specializedReturnTypeName = returnTypeName
-    }
+    let declaredType = DeclaredType(from: returnTypeName)
+    let serializationContext = SerializationRequest
+      .Context(moduleNames: moduleNames,
+               rawType: rawType,
+               rawTypeRepository: rawTypeRepository,
+               typealiasRepository: typealiasRepository)
+    let attributedSerializationContext = SerializationRequest
+      .Context(from: serializationContext,
+               genericTypeContext: genericTypeContext + serializationContext.genericTypeContext,
+               excludedGenericTypeNames: excludedGenericTypeNames,
+               specializationContext: context)
+    let options: SerializationRequest.Options = [.standard, .shouldSpecializeTypes]
+    let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
+                                                        context: attributedSerializationContext,
+                                                        options: options)
+    let specializedReturnTypeName = declaredType.serialize(with: qualifiedTypeNameRequest)
     
     // Specialize parameters.
     let specializedParameters = parameters.map({

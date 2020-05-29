@@ -18,6 +18,13 @@ private protocol StubbableTypealiasedProtocol {
     -> Mockable<FunctionDeclaration, (@escaping TypealiasedProtocol.IndirectCallback) -> TypealiasedProtocol.IndirectRequestResult, TypealiasedProtocol.IndirectRequestResult>
   func request(callback: @escaping @autoclosure () -> TypealiasedProtocol.IndirectCallback)
     -> Mockable<FunctionDeclaration, (TypealiasedProtocol.IndirectCallback) -> Foundation.NSObject, Foundation.NSObject>
+  
+  func method(object: @escaping @autoclosure () -> TypealiasedProtocolMock.NSObject)
+    -> Mockable<FunctionDeclaration, (TypealiasedProtocolMock.NSObject) -> Void, Void>
+  func method(array: @escaping @autoclosure () -> TypealiasedProtocolMock.MyArray<String>)
+    -> Mockable<FunctionDeclaration, (TypealiasedProtocolMock.MyArray<String>) -> Void, Void>
+  func method(dictionary: @escaping @autoclosure () -> TypealiasedProtocolMock.MyDictionary<String, Bool>)
+    -> Mockable<FunctionDeclaration, (TypealiasedProtocolMock.MyDictionary<String, Bool>) -> Void, Void>
 }
 extension TypealiasedProtocolMock: StubbableTypealiasedProtocol {}
 
@@ -28,6 +35,13 @@ private protocol StubbableTypealiasedClass {
     -> Mockable<FunctionDeclaration, (@escaping TypealiasedClass.IndirectCallback) -> TypealiasedClass.IndirectRequestResult, TypealiasedClass.IndirectRequestResult>
   func request(callback: @escaping @autoclosure () -> TypealiasedClass.IndirectCallback)
     -> Mockable<FunctionDeclaration, (TypealiasedClass.IndirectCallback) -> Foundation.NSObject, Foundation.NSObject>
+  
+  func method(object: @escaping @autoclosure () -> TypealiasedClassMock.NSObject)
+    -> Mockable<FunctionDeclaration, (TypealiasedClassMock.NSObject) -> Void, Void>
+  func method(array: @escaping @autoclosure () -> TypealiasedClassMock.MyArray<String>)
+    -> Mockable<FunctionDeclaration, (TypealiasedClassMock.MyArray<String>) -> Void, Void>
+  func method(dictionary: @escaping @autoclosure () -> TypealiasedClassMock.MyDictionary<String, Bool>)
+    -> Mockable<FunctionDeclaration, (TypealiasedClassMock.MyDictionary<String, Bool>) -> Void, Void>
 }
 extension TypealiasedClassMock: StubbableTypealiasedClass {}
 

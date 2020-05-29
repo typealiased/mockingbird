@@ -9,8 +9,35 @@ import Foundation
 
 class NoInitializerClass {}
 
+class InheritingNoInitializerClass: NoInitializerClass {}
+class IndirectlyInheritingNoInitializerClass: InheritingNoInitializerClass {}
+
+protocol ConformingToNoInitializerClass: NoInitializerClass {}
+protocol IndirectlyConformingToNoInitializerClass: ConformingToNoInitializerClass {}
+
 class EmptyInitializerClass {
   init() {}
+}
+
+class InheritingEmptyInitializerClass: EmptyInitializerClass {}
+class IndirectlyInheritingEmptyInitializerClass: InheritingEmptyInitializerClass {}
+
+protocol ConformingToEmptyInitializerClass: EmptyInitializerClass {}
+protocol IndirectlyConformingToEmptyInitializerClass: ConformingToEmptyInitializerClass {}
+
+class PrivateInitializerClass {
+  private init() {}
+}
+
+class InheritingPrivateInitializerClass: PrivateInitializerClass {}
+class IndirectlyInheritingPrivateInitializerClass: InheritingPrivateInitializerClass {}
+
+protocol ConformingToPrivateInitializerClass: PrivateInitializerClass {}
+protocol IndirectlyConformingToPrivateInitializerClass: ConformingToPrivateInitializerClass {}
+
+class PrivateInitializerClassWithAccessibleInitializer {
+  private init() {}
+  init(param: Bool) {}
 }
 
 class ParameterizedInitializerClass {

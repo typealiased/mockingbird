@@ -44,11 +44,14 @@
 
 /* Begin PBXBuildFile section */
 		B90521EA3AD01445BE991C90 /* MockingbirdTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */; };
+		D3643B6C247B78A5002DF069 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B6B247B78A4002DF069 /* Function.swift */; };
+		D3643B72247C5107002DF069 /* String+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B71247C5107002DF069 /* String+Components.swift */; };
+		D3643B74247C517D002DF069 /* Substring+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B73247C517D002DF069 /* Substring+Components.swift */; };
+		D3643B76247C76EA002DF069 /* BuildSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B75247C76EA002DF069 /* BuildSetting.swift */; };
 		D372A59B2455876D0000E80A /* MockingbirdTestsHost.h in Headers */ = {isa = PBXBuildFile; fileRef = OBJ_141 /* MockingbirdTestsHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D37503D72460FE7E003017A7 /* ImplicitVariableTypesMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37503D52460FE78003017A7 /* ImplicitVariableTypesMockableTests.swift */; };
 		D37503D92460FFE1003017A7 /* ImplicitVariableTypesStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37503D82460FFE1003017A7 /* ImplicitVariableTypesStubbableTests.swift */; };
 		D37503DB246120EA003017A7 /* ConflictingProtocolProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37503DA246120EA003017A7 /* ConflictingProtocolProperties.swift */; };
-		D3A854622460D9FC00C5764A /* ImplicitVariableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */; };
 		D39350D0246619DC00FF52E2 /* DuplicateProtocolMembers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39350CF246619DC00FF52E2 /* DuplicateProtocolMembers.swift */; };
 		D3A854622460D9FC00C5764A /* ImplicitVariableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */; };
 		OBJ_1001 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
@@ -1137,6 +1140,10 @@
 /* Begin PBXFileReference section */
 		942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3643B6B247B78A4002DF069 /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
+		D3643B71247C5107002DF069 /* String+Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Components.swift"; sourceTree = "<group>"; };
+		D3643B73247C517D002DF069 /* Substring+Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Substring+Components.swift"; sourceTree = "<group>"; };
+		D3643B75247C76EA002DF069 /* BuildSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildSetting.swift; sourceTree = "<group>"; };
 		D372A590245586DD0000E80A /* MockingbirdTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdTests.xcconfig; sourceTree = "<group>"; };
 		D372A591245586DD0000E80A /* MockingbirdModuleTestsHost.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdModuleTestsHost.xcconfig; sourceTree = "<group>"; };
 		D372A592245586DD0000E80A /* MockingbirdFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdFramework.xcconfig; sourceTree = "<group>"; };
@@ -1148,7 +1155,6 @@
 		D37503D52460FE78003017A7 /* ImplicitVariableTypesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypesMockableTests.swift; sourceTree = "<group>"; };
 		D37503D82460FFE1003017A7 /* ImplicitVariableTypesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypesStubbableTests.swift; sourceTree = "<group>"; };
 		D37503DA246120EA003017A7 /* ConflictingProtocolProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConflictingProtocolProperties.swift; sourceTree = "<group>"; };
-		D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypes.swift; sourceTree = "<group>"; };
 		D39350CF246619DC00FF52E2 /* DuplicateProtocolMembers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuplicateProtocolMembers.swift; sourceTree = "<group>"; };
 		D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypes.swift; sourceTree = "<group>"; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1998,6 +2004,7 @@
 		OBJ_107 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				D3643B75247C76EA002DF069 /* BuildSetting.swift */,
 				OBJ_108 /* CodableTarget.swift */,
 				OBJ_109 /* PBXTarget+TargetConformance.swift */,
 				OBJ_110 /* SubstitutionStyle.swift */,
@@ -2027,8 +2034,10 @@
 				OBJ_124 /* OutputStream+Extensions.swift */,
 				OBJ_125 /* Path+Fnmatch.swift */,
 				OBJ_126 /* Path+WriteUtf8Strings.swift */,
+				D3643B71247C5107002DF069 /* String+Components.swift */,
 				OBJ_127 /* String+Extensions.swift */,
 				OBJ_128 /* String+SHA1.swift */,
+				D3643B73247C517D002DF069 /* Substring+Components.swift */,
 				OBJ_129 /* Synchronized.swift */,
 				OBJ_130 /* Timing.swift */,
 				OBJ_131 /* Version.swift */,
@@ -3358,6 +3367,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_86 /* DeclaredType.swift */,
+				D3643B6B247B78A4002DF069 /* Function.swift */,
 				OBJ_81 /* GenericType.swift */,
 				OBJ_82 /* Method.swift */,
 				OBJ_83 /* MethodParameter.swift */,
@@ -4860,10 +4870,12 @@
 				OBJ_916 /* GenericType.swift in Sources */,
 				OBJ_917 /* Method.swift in Sources */,
 				OBJ_918 /* MethodParameter.swift in Sources */,
+				D3643B76247C76EA002DF069 /* BuildSetting.swift in Sources */,
 				OBJ_919 /* MockableType.swift in Sources */,
 				OBJ_920 /* DeclaredType.swift in Sources */,
 				OBJ_921 /* ParsedFile.swift in Sources */,
 				OBJ_922 /* Single.swift in Sources */,
+				D3643B6C247B78A5002DF069 /* Function.swift in Sources */,
 				OBJ_923 /* Tuple.swift in Sources */,
 				OBJ_924 /* Primitives.swift in Sources */,
 				OBJ_925 /* RawType.swift in Sources */,
@@ -4886,6 +4898,7 @@
 				OBJ_942 /* SubstitutionStyle.swift in Sources */,
 				OBJ_943 /* Target.swift in Sources */,
 				OBJ_944 /* InferType.swift in Sources */,
+				D3643B74247C517D002DF069 /* Substring+Components.swift in Sources */,
 				OBJ_945 /* SourceSubstring.swift in Sources */,
 				OBJ_947 /* Array+Extensions.swift in Sources */,
 				OBJ_948 /* CharacterSet+Extensions.swift in Sources */,
@@ -4895,6 +4908,7 @@
 				OBJ_952 /* OSLog+Extensions.swift in Sources */,
 				OBJ_953 /* OperationQueue+Extensions.swift in Sources */,
 				OBJ_954 /* OutputStream+Extensions.swift in Sources */,
+				D3643B72247C5107002DF069 /* String+Components.swift in Sources */,
 				OBJ_955 /* Path+Fnmatch.swift in Sources */,
 				OBJ_956 /* Path+WriteUtf8Strings.swift in Sources */,
 				OBJ_957 /* String+Extensions.swift in Sources */,

@@ -45,6 +45,27 @@ class FlattenInheritanceOperation: BasicOperation {
     result.mockableType = flattenInheritance(for: rawType)
   }
   
+  private enum ReferencedType {
+    case inheritance(typeName: String)
+    case conformance(typeName: String)
+    case typeAliased(typeName: String)
+    
+    var typeName: String {
+      switch self {
+      case .inheritance(let typeName),
+           .conformance(let typeName),
+           .typeAliased(let typeName): return typeName
+      }
+    }
+    
+    var useAutomaticInheritance: Bool {
+      switch self {
+      case .inheritance, .conformance: return true
+      case .typeAliased: return false
+      }
+    }
+  }
+  
   /// Recursively traverse the inheritance graph from bottom up (children to parents). Note that
   /// `rawType` is actually an unmerged set of all `RawType` declarations found eg in extensions.
   private static var memoizedMockbleTypes = Synchronized<[String: MockableType]>([:])
@@ -58,9 +79,10 @@ class FlattenInheritanceOperation: BasicOperation {
     // Module names are put into an array and sorted so that looking up types is deterministic.
     let moduleNames: [String]
     if useRelaxedLinking {
-      // Relaxed linking aims to fix mixed source (ObjC + Swift) targets that implicitly import modules using the
-      // bridging header. The type system checks explicitly imported modules first, then falls back to any modules
-      // listed as a direct dependency for each raw type partial.
+      // Relaxed linking aims to fix mixed source (ObjC + Swift) targets that implicitly import
+      // modules using the bridging header. The type system checks explicitly imported modules
+      // first, then falls back to any modules listed as a direct dependency for each raw type
+      // partial.
       let implicitModuleNames = Set(rawType.flatMap({
         Array(moduleDependencies[$0.parsedFile.moduleName] ?? [])
       }))
@@ -78,15 +100,16 @@ class FlattenInheritanceOperation: BasicOperation {
     let fullyQualifiedName = baseRawType.fullyQualifiedModuleName
     if let memoized = memoizedMockableTypes[fullyQualifiedName] { return memoized }
     
-    let inheritedTypeNames = rawType
+    let referencedTypes: [ReferencedType] = rawType
       .compactMap({ $0.dictionary[SwiftDocKey.inheritedtypes.rawValue] as? [StructureDictionary] })
       .flatMap({ $0 })
       .compactMap({ $0[SwiftDocKey.name.rawValue] as? String })
-      + baseRawType.selfConformanceTypeNames
-      + baseRawType.aliasedTypeNames
+      .map({ ReferencedType.inheritance(typeName: $0) })
+      + baseRawType.selfConformanceTypeNames.map({ ReferencedType.conformance(typeName: $0) })
+      + baseRawType.aliasedTypeNames.map({ ReferencedType.typeAliased(typeName: $0) })
     
     // Check the base case where the type doesn't inherit from anything.
-    guard !inheritedTypeNames.isEmpty else {
+    guard !referencedTypes.isEmpty else {
       return createMockableType(for: rawType,
                                 moduleNames: moduleNames,
                                 specializationContexts: [:],
@@ -94,37 +117,58 @@ class FlattenInheritanceOperation: BasicOperation {
     }
     
     var opaqueInheritedTypeNames = Set<String>()
-    let (rawInheritedTypes, specializationContexts) = inheritedTypeNames
-      .reduce(into: ([[RawType]](), [String: SpecializationContext]()), { (result, typeName) in
+    let (rawInheritedTypes, specializationContexts) = referencedTypes
+      .reduce(into: ([[RawType]](), [String: SpecializationContext]()), { (result, type) in
+        let typeName = type.typeName
+        
         // Check if this is a closure instead of a raw type.
         guard !typeName.contains("->", excluding: .allGroups) else { return }
         
-        // Get stored raw type and specialization contexts.
-        guard let nearest = self.rawTypeRepository
-          .nearestInheritedType(named: typeName,
-                                moduleNames: moduleNames,
-                                referencingModuleName: baseRawType.parsedFile.moduleName,
-                                containingTypeNames: baseRawType.containingTypeNames[...])
-          else {
-            logWarning(
-              "\(typeName.singleQuoted) is not defined in the project or in a supporting source file",
-              diagnostic: .undefinedType,
-              filePath: baseRawType.parsedFile.path,
-              line: SourceSubstring.key
-                .extractLinesNumbers(from: baseRawType.dictionary,
-                                     contents: baseRawType.parsedFile.file.contents)?.start
-            )
-            opaqueInheritedTypeNames.insert(typeName)
-            return
+        let resolveRawType: (Bool) -> [RawType]? = { useAutomaticInheritance in
+          guard let nearestRawType = self.rawTypeRepository
+            .nearestInheritedType(named: typeName,
+                                  moduleNames: moduleNames,
+                                  referencingModuleName: baseRawType.parsedFile.moduleName,
+                                  containingTypeNames: baseRawType.containingTypeNames[...])
+            else {
+              logWarning(
+                "\(typeName.singleQuoted) is not defined in the project or in a supporting source file",
+                diagnostic: .undefinedType,
+                filePath: baseRawType.parsedFile.path,
+                line: SourceSubstring.key
+                  .extractLinesNumbers(from: baseRawType.dictionary,
+                                       contents: baseRawType.parsedFile.file.contents)?.start
+              )
+              opaqueInheritedTypeNames.insert(typeName)
+              return nil
+          }
+          
+          // MockableType maps unmockable inherited raw types to mockable raw types during creation.
+          if useAutomaticInheritance,
+            let rawType = nearestRawType.findBaseRawType(),
+            let mappedType = MockableType.Constants.automaticInheritanceMap[
+              rawType.fullyQualifiedModuleName
+            ],
+            let mappedRawType = self.rawTypeRepository.rawType(named: mappedType.typeName,
+                                                               in: mappedType.moduleName) {
+            return mappedRawType
+          }
+          
+          return nearestRawType
         }
-        result.0.append(nearest)
+        
+        // Get stored raw type and specialization contexts.
+        let useAutomaticInheritance = type.useAutomaticInheritance && baseRawType.kind == .protocol
+        guard let rawType = resolveRawType(useAutomaticInheritance) else { return }
+        
+        result.0.append(rawType)
         
         // Handle specialization of inherited type.
-        guard let baseInheritedRawType = nearest.findBaseRawType(),
+        guard let baseInheritedRawType = rawType.findBaseRawType(),
           !baseInheritedRawType.genericTypes.isEmpty else { return }
         
         result.1[baseInheritedRawType.fullyQualifiedModuleName] =
-          parseSpecializationContext(typeName: typeName, baseRawType: baseInheritedRawType)
+          SpecializationContext(typeName: typeName, baseRawType: baseInheritedRawType)
       })
     
     // If there are inherited types that aren't processed, flatten them first.
@@ -143,27 +187,6 @@ class FlattenInheritanceOperation: BasicOperation {
                               moduleNames: moduleNames,
                               specializationContexts: specializationContexts,
                               opaqueInheritedTypeNames: opaqueInheritedTypeNames)
-  }
-  
-  private func parseSpecializationContext(typeName: String,
-                                          baseRawType: RawType) -> SpecializationContext? {
-    let declaredType = DeclaredType(from: typeName)
-    var parsedGenericTypes: [DeclaredType]? {
-      switch declaredType {
-      case .single(let single, _): return single.genericTypes
-      case .tuple: return nil
-      }
-    }
-    guard let remappedGenericTypes = parsedGenericTypes else { return nil }
-    
-    var specializations = [String: DeclaredType]()
-    var typeList = [DeclaredType]()
-    for (i, genericType) in baseRawType.genericTypes.enumerated() {
-      guard let remappedGenericType = remappedGenericTypes.get(i) else { break }
-      specializations[genericType] = remappedGenericType
-      typeList.append(remappedGenericType)
-    }
-    return SpecializationContext(specializations: specializations, typeList: typeList)
   }
   
   private func createMockableType(

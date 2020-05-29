@@ -14,11 +14,13 @@ public class CodableTargetDependency: TargetDependency, Codable {
   
   init?<D: TargetDependency>(from dependency: D,
                              sourceRoot: Path,
-                             ignoredDependencies: inout Set<String>) throws {
+                             ignoredDependencies: inout Set<String>,
+                             environment: () -> [String: Any]) throws {
     guard let target = dependency.target else { return nil }
     self.target = try CodableTarget(from: target,
                                     sourceRoot: sourceRoot,
-                                    ignoredDependencies: &ignoredDependencies)
+                                    ignoredDependencies: &ignoredDependencies,
+                                    environment: environment)
   }
   
   public static func == (lhs: CodableTargetDependency, rhs: CodableTargetDependency) -> Bool {
@@ -57,14 +59,20 @@ public class CodableTarget: Target, Codable {
                          targetPathsHash: String? = nil,
                          dependencyPathsHash: String? = nil,
                          cliVersion: String? = nil,
-                         ignoredDependencies: inout Set<String>) throws {
+                         ignoredDependencies: inout Set<String>,
+                         environment: () -> [String: Any]) throws {
     self.name = target.name
-    self.productModuleName = target.productModuleName
+    self.productModuleName = target.resolveProductModuleName(environment: environment)
     self.dependencies = try target.dependencies
-      .filter({ !ignoredDependencies.contains($0.target?.productModuleName ?? "") })
+      .filter({
+        !ignoredDependencies.contains(
+          $0.target?.resolveProductModuleName(environment: environment) ?? ""
+        )
+      })
       .compactMap({ try CodableTargetDependency(from: $0,
                                                 sourceRoot: sourceRoot,
-                                                ignoredDependencies: &ignoredDependencies) })
+                                                ignoredDependencies: &ignoredDependencies,
+                                                environment: environment) })
     ignoredDependencies.formUnion(self.dependencies.map({ $0.target?.productModuleName ?? "" }))
     self.sourceFilePaths = try target.findSourceFilePaths(sourceRoot: sourceRoot)
       .map({ $0.absolute() })
@@ -80,6 +88,10 @@ public class CodableTarget: Target, Codable {
     self.projectHash = projectHash
     self.outputHash = outputHash
     self.cliVersion = cliVersion
+  }
+  
+  public func resolveProductModuleName(environment: () -> [String : Any]) -> String {
+    return productModuleName
   }
   
   public func findSourceFilePaths(sourceRoot: Path) -> [Path] {

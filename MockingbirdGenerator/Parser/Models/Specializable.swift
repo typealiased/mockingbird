@@ -7,7 +7,31 @@
 
 import Foundation
 
+/// Stores type specializations, e.g. `Dictionary<String, Int>`, mapping each generic type parameter
+/// from the original type declaration, e.g. `Dictionary<K, V>` => `{ K: String, V: Int }`.
 struct SpecializationContext {
+  init?(typeName: String, baseRawType: RawType) {
+    let declaredType = DeclaredType(from: typeName)
+    var parsedGenericTypes: [DeclaredType]? {
+      switch declaredType {
+      case .single(let single, _): return single.genericTypes
+      case .tuple: return nil
+      }
+    }
+    guard let remappedGenericTypes = parsedGenericTypes else { return nil }
+    
+    var specializations = [String: DeclaredType]()
+    var typeList = [DeclaredType]()
+    for (i, genericType) in baseRawType.genericTypes.enumerated() {
+      guard let remappedGenericType = remappedGenericTypes.get(i) else { break }
+      specializations[genericType] = remappedGenericType
+      typeList.append(remappedGenericType)
+    }
+    
+    self.specializations = specializations
+    self.typeList = typeList
+  }
+  
   /// Mapping from generic type name to a serializable `DeclaredType`
   let specializations: [String: DeclaredType]
   
