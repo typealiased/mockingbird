@@ -11,7 +11,12 @@ import Foundation
 struct SerializationRequest {
   enum Constants {
     static let selfTokenIndicator = "#"
-    static let selfToken = "<#Self#>"
+    /// `Self` substitution using the final mock type.
+    static let selfToken = "#Self#"
+    
+    static let syntheticSelfTokenIndicator = "%"
+    /// Same as `selfToken`, but created by the generator and doesn't affect generics.
+    static let syntheticSelfToken = "%Self%"
   }
   
   enum Method: String {
@@ -185,7 +190,14 @@ extension SerializationRequest {
     switch method {
     case .contextQualified: return qualifiedTypeNames.contextQualified
     case .moduleQualified:
-      // Exclude the module name if it's is shadowed by a type in one of the imported modules. This
+      // Nested type aliases referenced from an inherited context should use Self qualification.
+      // TODO: Workaround shadowed type aliases: https://bugs.swift.org/browse/TF-1279
+      if baseRawType.kind == .typealias && baseRawType.isContainedType &&
+        qualifiedTypeNames.contextQualified.count < qualifiedTypeNames.moduleQualified.count {
+        return Constants.syntheticSelfToken + "." + qualifiedTypeNames.contextQualified
+      }
+      
+      // Exclude the module name if it's shadowed by a type in one of the imported modules. This
       // will break if the shadowed module also contains type names that conflict with another
       // module. However, name conflicts are much less likely to occur than module name shadowing.
       if rawTypeRepository.isModuleNameShadowed(moduleName: baseRawType.parsedFile.moduleName,
