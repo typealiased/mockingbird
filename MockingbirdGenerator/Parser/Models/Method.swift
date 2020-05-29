@@ -27,7 +27,6 @@ struct Method {
   let isMockable: Bool
   
   private let rawType: RawType
-  private let sortableIdentifier: String
   
   init?(from dictionary: StructureDictionary,
         rootKind: SwiftDeclarationKind,
@@ -121,32 +120,6 @@ struct Method {
     self.hasSelfConstraint =
       returnTypeName.contains(SerializationRequest.Constants.selfTokenIndicator)
       || parameters.contains(where: { $0.hasSelfConstraints })
-    
-    // Create a unique and sortable identifier for this method.
-    self.sortableIdentifier = Method.generateSortableIdentifier(name: name,
-                                                                genericTypes: genericTypes,
-                                                                parameters: parameters,
-                                                                returnTypeName: returnTypeName,
-                                                                kind: kind,
-                                                                whereClauses: whereClauses)
-  }
-  
-  private static func generateSortableIdentifier(name: String,
-                                                 genericTypes: [GenericType],
-                                                 parameters: [MethodParameter],
-                                                 returnTypeName: String,
-                                                 kind: SwiftDeclarationKind,
-                                                 whereClauses: [WhereClause]) -> String {
-    return [
-      name,
-      genericTypes.map({ "\($0.name):\($0.constraints)" }).joined(separator: ","),
-      parameters
-        .map({ "\($0.argumentLabel ?? ""):\($0.name):\($0.typeName)" })
-        .joined(separator: ","),
-      returnTypeName,
-      kind.typeScope.rawValue,
-      whereClauses.map({ "\($0)" }).joined(separator: ",")
-    ].joined(separator: "|")
   }
   
   private static func parseDeclaration(from dictionary: StructureDictionary,
@@ -294,7 +267,19 @@ extension Method: Hashable {
 
 extension Method: Comparable {
   static func < (lhs: Method, rhs: Method) -> Bool {
-    return lhs.sortableIdentifier < rhs.sortableIdentifier
+    return (
+      lhs.whereClauses,
+      lhs.kind.typeScope,
+      lhs.parameters,
+      lhs.genericTypes,
+      lhs.name
+    ) < (
+      rhs.whereClauses,
+      rhs.kind.typeScope,
+      rhs.parameters,
+      rhs.genericTypes,
+      rhs.name
+    )
   }
 }
 
@@ -316,12 +301,6 @@ extension Method: Specializable {
     self.hasSelfConstraint = method.hasSelfConstraint
     self.isMockable = method.isMockable
     self.rawType = method.rawType
-    self.sortableIdentifier = Method.generateSortableIdentifier(name: name,
-                                                                genericTypes: genericTypes,
-                                                                parameters: parameters,
-                                                                returnTypeName: returnTypeName,
-                                                                kind: kind,
-                                                                whereClauses: whereClauses)
   }
   
   func specialize(using context: SpecializationContext,

@@ -25,3 +25,13 @@ public extension Array where Element: Hashable {
     return self.filter({ seen.insert($0).inserted })
   }
 }
+
+extension Array: Comparable where Element: Comparable {
+  public static func < (lhs: Array<Element>, rhs: Array<Element>) -> Bool {
+    for (lhsElement, rhsElement) in zip(lhs, rhs) {
+      if lhsElement < rhsElement { return true }
+      if lhsElement > rhsElement { return false }
+    }
+    return lhs.count < rhs.count
+  }
+}
