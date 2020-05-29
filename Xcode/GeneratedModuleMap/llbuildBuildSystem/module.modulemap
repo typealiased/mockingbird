@@ -1,4 +1,0 @@
-module llbuildBuildSystem {
-    umbrella "../../../.build/checkouts/swift-llbuild/lib/BuildSystem/include"
-    export *
-}

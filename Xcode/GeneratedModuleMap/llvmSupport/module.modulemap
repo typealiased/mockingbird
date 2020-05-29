@@ -1,4 +1,0 @@
-module llvmSupport {
-    umbrella "../../../.build/checkouts/swift-llbuild/lib/llvm/Support/include"
-    export *
-}

@@ -1138,7 +1138,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
+		942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = Sources/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3643B6B247B78A4002DF069 /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
 		D3643B71247C5107002DF069 /* String+Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Components.swift"; sourceTree = "<group>"; };
@@ -1157,6 +1157,8 @@
 		D37503DA246120EA003017A7 /* ConflictingProtocolProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConflictingProtocolProperties.swift; sourceTree = "<group>"; };
 		D39350CF246619DC00FF52E2 /* DuplicateProtocolMembers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuplicateProtocolMembers.swift; sourceTree = "<group>"; };
 		D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypes.swift; sourceTree = "<group>"; };
+		D3CEFE3B248196B200853D84 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = Sources/Package.swift; sourceTree = "<group>"; };
+		D3D647BC24819CCD007B5B49 /* generate-resource-file.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "generate-resource-file.sh"; sourceTree = "<group>"; };
 		"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = MockingbirdCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1343,7 +1345,7 @@
 		OBJ_287 /* Data+Serialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Serialization.swift"; sourceTree = "<group>"; };
 		OBJ_288 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		OBJ_289 /* FileManager+ZIP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+ZIP.swift"; sourceTree = "<group>"; };
-		OBJ_290 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = /Users/redbanhammer/Repos/mockingbird/.build/checkouts/ZIPFoundation/Package.swift; sourceTree = "<group>"; };
+		OBJ_290 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = ../../XcodeProj/Package.swift; sourceTree = "<group>"; };
 		OBJ_294 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		OBJ_296 /* AEXML+XcodeFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AEXML+XcodeFormat.swift"; sourceTree = "<group>"; };
 		OBJ_297 /* Array+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extras.swift"; sourceTree = "<group>"; };
@@ -1443,8 +1445,8 @@
 		OBJ_396 /* XCWorkspaceDataElementLocationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataElementLocationType.swift; sourceTree = "<group>"; };
 		OBJ_397 /* XCWorkspaceDataFileRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataFileRef.swift; sourceTree = "<group>"; };
 		OBJ_398 /* XCWorkspaceDataGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataGroup.swift; sourceTree = "<group>"; };
-		OBJ_399 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = /Users/redbanhammer/Repos/mockingbird/.build/checkouts/XcodeProj/Package.swift; sourceTree = "<group>"; };
-		OBJ_401 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = /Users/redbanhammer/Repos/mockingbird/.build/checkouts/PathKit/Package.swift; sourceTree = "<group>"; };
+		OBJ_399 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = ../Package.swift; sourceTree = "<group>"; };
+		OBJ_401 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = ../Package.swift; sourceTree = "<group>"; };
 		OBJ_402 /* PathKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathKit.swift; sourceTree = "<group>"; };
 		OBJ_405 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		OBJ_406 /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
@@ -1452,7 +1454,7 @@
 		OBJ_408 /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
 		OBJ_409 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		OBJ_41 /* Stubbing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stubbing.swift; sourceTree = "<group>"; };
-		OBJ_410 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = /Users/redbanhammer/Repos/mockingbird/.build/checkouts/AEXML/Package.swift; sourceTree = "<group>"; };
+		OBJ_410 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = ../Package.swift; sourceTree = "<group>"; };
 		OBJ_413 /* Clang_C.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Clang_C.m; sourceTree = "<group>"; };
 		OBJ_415 /* Index.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Index.h; sourceTree = "<group>"; };
 		OBJ_416 /* BuildSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuildSystem.h; sourceTree = "<group>"; };
@@ -1511,7 +1513,7 @@
 		OBJ_467 /* library_wrapper_Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = library_wrapper_Index.swift; sourceTree = "<group>"; };
 		OBJ_468 /* library_wrapper_sourcekitd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = library_wrapper_sourcekitd.swift; sourceTree = "<group>"; };
 		OBJ_47 /* ValueProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueProvider.swift; sourceTree = "<group>"; };
-		OBJ_470 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = /Users/redbanhammer/Repos/mockingbird/.build/checkouts/SourceKitten/Package.swift; sourceTree = "<group>"; };
+		OBJ_470 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = ../Package.swift; sourceTree = "<group>"; };
 		OBJ_474 /* api.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = api.c; sourceTree = "<group>"; };
 		OBJ_475 /* emitter.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = emitter.c; sourceTree = "<group>"; };
 		OBJ_476 /* parser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = parser.c; sourceTree = "<group>"; };
@@ -1538,8 +1540,8 @@
 		OBJ_498 /* YamlError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YamlError.swift; sourceTree = "<group>"; };
 		OBJ_499 /* shim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shim.swift; sourceTree = "<group>"; };
 		OBJ_50 /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
-		OBJ_500 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = /Users/redbanhammer/Repos/mockingbird/.build/checkouts/Yams/Package.swift; sourceTree = "<group>"; };
-		OBJ_502 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = /Users/redbanhammer/Repos/mockingbird/.build/checkouts/SWXMLHash/Package.swift; sourceTree = "<group>"; };
+		OBJ_500 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = ../Package.swift; sourceTree = "<group>"; };
+		OBJ_502 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = ../Package.swift; sourceTree = "<group>"; };
 		OBJ_503 /* SWXMLHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWXMLHash.swift; sourceTree = "<group>"; };
 		OBJ_504 /* XMLIndexer+XMLIndexerDeserializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLIndexer+XMLIndexerDeserializable.swift"; sourceTree = "<group>"; };
 		OBJ_505 /* shim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shim.swift; sourceTree = "<group>"; };
@@ -1590,7 +1592,7 @@
 		OBJ_553 /* atomic-counter.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "atomic-counter.c"; sourceTree = "<group>"; };
 		OBJ_555 /* atomic-counter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "atomic-counter.h"; sourceTree = "<group>"; };
 		OBJ_556 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = module.modulemap; path = /Users/redbanhammer/Repos/mockingbird/Mockingbird.xcodeproj/GeneratedModuleMap/_CSwiftSyntax/module.modulemap; sourceTree = "<group>"; };
-		OBJ_557 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/redbanhammer/Repos/mockingbird/.build/checkouts/swift-syntax/Package.swift"; sourceTree = "<group>"; };
+		OBJ_557 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_56 /* AsyncVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncVerification.swift; sourceTree = "<group>"; };
 		OBJ_560 /* Await.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Await.swift; sourceTree = "<group>"; };
 		OBJ_561 /* ByteString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByteString.swift; sourceTree = "<group>"; };
@@ -1672,7 +1674,7 @@
 		OBJ_642 /* libc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = libc.c; sourceTree = "<group>"; };
 		OBJ_644 /* clibc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = clibc.h; sourceTree = "<group>"; };
 		OBJ_645 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = module.modulemap; path = "/Users/redbanhammer/Repos/mockingbird/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap"; sourceTree = "<group>"; };
-		OBJ_646 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/redbanhammer/Repos/mockingbird/.build/checkouts/swift-package-manager/Package.swift"; sourceTree = "<group>"; };
+		OBJ_646 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_66 /* Attributes+Sanitize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attributes+Sanitize.swift"; sourceTree = "<group>"; };
 		OBJ_67 /* FileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileGenerator.swift; sourceTree = "<group>"; };
 		OBJ_688 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
@@ -1711,19 +1713,19 @@
 		OBJ_99 /* CheckCacheOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCacheOperation.swift; sourceTree = "<group>"; };
 		"PathKit::PathKit::Product" /* PathKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PathKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"SWXMLHash::SWXMLHash::Product" /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SWXMLHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"SourceKitten::Clang_C::Product" /* Clang_C.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Clang_C.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"SourceKitten::SourceKit::Product" /* SourceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SourceKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"SourceKitten::SourceKittenFramework::Product" /* SourceKittenFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SourceKittenFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"SwiftPM::Basic::Product" /* Basic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Basic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"SwiftPM::POSIX::Product" /* POSIX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = POSIX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"SwiftPM::SPMLibc::Product" /* SPMLibc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SPMLibc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"SwiftPM::SPMUtility::Product" /* SPMUtility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SPMUtility.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"SwiftPM::clibc::Product" /* clibc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = clibc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"SwiftSyntax::SwiftSyntax::Product" /* SwiftSyntax.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftSyntax.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"SwiftSyntax::_CSwiftSyntax::Product" /* _CSwiftSyntax.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _CSwiftSyntax.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"SourceKitten::Clang_C::Product" /* Clang_C.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Clang_C.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"SourceKitten::SourceKit::Product" /* SourceKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SourceKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"SourceKitten::SourceKittenFramework::Product" /* SourceKittenFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SourceKittenFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"SwiftPM::Basic::Product" /* Basic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Basic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"SwiftPM::POSIX::Product" /* POSIX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = POSIX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"SwiftPM::SPMLibc::Product" /* SPMLibc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SPMLibc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"SwiftPM::SPMUtility::Product" /* SPMUtility.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SPMUtility.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"SwiftPM::clibc::Product" /* clibc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = clibc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"SwiftSyntax::SwiftSyntax::Product" /* SwiftSyntax.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftSyntax.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"SwiftSyntax::_CSwiftSyntax::Product" /* _CSwiftSyntax.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = _CSwiftSyntax.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"XcodeProj::XcodeProj::Product" /* XcodeProj.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = XcodeProj.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"Yams::CYaml::Product" /* CYaml.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CYaml.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"Yams::Yams::Product" /* Yams.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Yams.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"Yams::CYaml::Product" /* CYaml.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CYaml.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"Yams::Yams::Product" /* Yams.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Yams.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"ZIPFoundation::ZIPFoundation::Product" /* ZIPFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZIPFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1972,7 +1974,7 @@
 			name = "Generated Mocks";
 			sourceTree = "<group>";
 		};
-		D372A58F245586DD0000E80A /* XCConfigs */ = {
+		D372A58F245586DD0000E80A /* Xcode Configs */ = {
 			isa = PBXGroup;
 			children = (
 				D372A590245586DD0000E80A /* MockingbirdTests.xcconfig */,
@@ -1984,8 +1986,16 @@
 				D372A596245586DD0000E80A /* MockingbirdCli.xcconfig */,
 				D372A597245586DD0000E80A /* MockingbirdCli-Profile.xcconfig */,
 			);
-			name = XCConfigs;
-			path = Xcode/XCConfigs;
+			name = "Xcode Configs";
+			path = .xcode/xcconfigs;
+			sourceTree = "<group>";
+		};
+		D3D647BB24819CCD007B5B49 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				D3D647BC24819CCD007B5B49 /* generate-resource-file.sh */,
+			);
+			path = Scripts;
 			sourceTree = "<group>";
 		};
 		OBJ_10 /* Interface */ = {
@@ -2068,7 +2078,7 @@
 				OBJ_137 /* Typealiasing.swift */,
 			);
 			name = MockingbirdModuleTestsHost;
-			path = MockingbirdTestsHost/Module;
+			path = Sources/MockingbirdTestsHost/Module;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_138 /* MockingbirdPerformanceTestsHost */ = {
@@ -2077,7 +2087,7 @@
 				OBJ_139 /* Empty.swift */,
 			);
 			name = MockingbirdPerformanceTestsHost;
-			path = MockingbirdTestsHost/Performance;
+			path = Sources/MockingbirdTestsHost/Performance;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_140 /* MockingbirdTestsHost */ = {
@@ -2129,7 +2139,8 @@
 				OBJ_207 /* Variables.swift */,
 				OBJ_208 /* VariadicParameters.swift */,
 			);
-			path = MockingbirdTestsHost;
+			name = MockingbirdTestsHost;
+			path = Sources/MockingbirdTestsHost;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_170 /* MockingbirdIgnore */ = {
@@ -2228,7 +2239,8 @@
 				OBJ_250 /* Framework */,
 				OBJ_272 /* Generator */,
 			);
-			path = MockingbirdTests;
+			name = MockingbirdTests;
+			path = Tests;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_211 /* E2E */ = {
@@ -2365,6 +2377,7 @@
 				OBJ_290 /* Package.swift */,
 			);
 			name = "ZIPFoundation 0.9.11";
+			path = Sources/.build/checkouts/ZIPFoundation/Sources;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_281 /* ZIPFoundation */ = {
@@ -2379,9 +2392,8 @@
 				OBJ_288 /* Entry.swift */,
 				OBJ_289 /* FileManager+ZIP.swift */,
 			);
-			name = ZIPFoundation;
-			path = .build/checkouts/ZIPFoundation/Sources/ZIPFoundation;
-			sourceTree = SOURCE_ROOT;
+			path = ZIPFoundation;
+			sourceTree = "<group>";
 		};
 		OBJ_29 /* MockingbirdFramework */ = {
 			isa = PBXGroup;
@@ -2394,7 +2406,8 @@
 				OBJ_48 /* Utilities */,
 				OBJ_55 /* Verification */,
 			);
-			path = MockingbirdFramework;
+			name = MockingbirdFramework;
+			path = Sources/MockingbirdFramework;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_291 /* XcodeProj 7.0.0 */ = {
@@ -2404,6 +2417,7 @@
 				OBJ_399 /* Package.swift */,
 			);
 			name = "XcodeProj 7.0.0";
+			path = Sources/.build/checkouts/XcodeProj/Sources;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_292 /* XcodeProj */ = {
@@ -2419,8 +2433,8 @@
 				OBJ_392 /* Workspace */,
 			);
 			name = XcodeProj;
-			path = .build/checkouts/XcodeProj/Sources/XcodeProj;
-			sourceTree = SOURCE_ROOT;
+			path = xcodeproj;
+			sourceTree = "<group>";
 		};
 		OBJ_293 /* Errors */ = {
 			isa = PBXGroup;
@@ -2666,7 +2680,7 @@
 				OBJ_402 /* PathKit.swift */,
 			);
 			name = "PathKit 1.0.0";
-			path = .build/checkouts/PathKit/Sources;
+			path = Sources/.build/checkouts/PathKit/Sources;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_403 /* AEXML 4.4.0 */ = {
@@ -2676,6 +2690,7 @@
 				OBJ_410 /* Package.swift */,
 			);
 			name = "AEXML 4.4.0";
+			path = Sources/.build/checkouts/AEXML/Sources;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_404 /* AEXML */ = {
@@ -2687,9 +2702,8 @@
 				OBJ_408 /* Options.swift */,
 				OBJ_409 /* Parser.swift */,
 			);
-			name = AEXML;
-			path = .build/checkouts/AEXML/Sources/AEXML;
-			sourceTree = SOURCE_ROOT;
+			path = AEXML;
+			sourceTree = "<group>";
 		};
 		OBJ_411 /* SourceKitten 0.24.0 */ = {
 			isa = PBXGroup;
@@ -2701,6 +2715,7 @@
 				OBJ_470 /* Package.swift */,
 			);
 			name = "SourceKitten 0.24.0";
+			path = Sources/.build/checkouts/SourceKitten/Source;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_412 /* Clang_C */ = {
@@ -2709,9 +2724,8 @@
 				OBJ_413 /* Clang_C.m */,
 				OBJ_414 /* include */,
 			);
-			name = Clang_C;
-			path = .build/checkouts/SourceKitten/Source/Clang_C;
-			sourceTree = SOURCE_ROOT;
+			path = Clang_C;
+			sourceTree = "<group>";
 		};
 		OBJ_414 /* include */ = {
 			isa = PBXGroup;
@@ -2734,9 +2748,8 @@
 				OBJ_424 /* SourceKit.m */,
 				OBJ_425 /* include */,
 			);
-			name = SourceKit;
-			path = .build/checkouts/SourceKitten/Source/SourceKit;
-			sourceTree = SOURCE_ROOT;
+			path = SourceKit;
+			sourceTree = "<group>";
 		};
 		OBJ_425 /* include */ = {
 			isa = PBXGroup;
@@ -2791,17 +2804,15 @@
 				OBJ_467 /* library_wrapper_Index.swift */,
 				OBJ_468 /* library_wrapper_sourcekitd.swift */,
 			);
-			name = SourceKittenFramework;
-			path = .build/checkouts/SourceKitten/Source/SourceKittenFramework;
-			sourceTree = SOURCE_ROOT;
+			path = SourceKittenFramework;
+			sourceTree = "<group>";
 		};
 		OBJ_469 /* sourcekitten */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = sourcekitten;
-			path = .build/checkouts/SourceKitten/Source/sourcekitten;
-			sourceTree = SOURCE_ROOT;
+			path = sourcekitten;
+			sourceTree = "<group>";
 		};
 		OBJ_471 /* Yams 2.0.0 */ = {
 			isa = PBXGroup;
@@ -2811,6 +2822,7 @@
 				OBJ_500 /* Package.swift */,
 			);
 			name = "Yams 2.0.0";
+			path = Sources/.build/checkouts/Yams/Sources;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_472 /* CYaml */ = {
@@ -2819,9 +2831,8 @@
 				OBJ_473 /* src */,
 				OBJ_480 /* include */,
 			);
-			name = CYaml;
-			path = .build/checkouts/Yams/Sources/CYaml;
-			sourceTree = SOURCE_ROOT;
+			path = CYaml;
+			sourceTree = "<group>";
 		};
 		OBJ_473 /* src */ = {
 			isa = PBXGroup;
@@ -2878,9 +2889,8 @@
 				OBJ_498 /* YamlError.swift */,
 				OBJ_499 /* shim.swift */,
 			);
-			name = Yams;
-			path = .build/checkouts/Yams/Sources/Yams;
-			sourceTree = SOURCE_ROOT;
+			path = Yams;
+			sourceTree = "<group>";
 		};
 		OBJ_5 = {
 			isa = PBXGroup;
@@ -2890,7 +2900,7 @@
 				OBJ_209 /* Tests */,
 				OBJ_279 /* Dependencies */,
 				OBJ_647 /* Products */,
-				D372A58F245586DD0000E80A /* XCConfigs */,
+				D372A58F245586DD0000E80A /* Xcode Configs */,
 				OBJ_688 /* Cartfile.resolved */,
 				OBJ_689 /* LICENSE */,
 				OBJ_690 /* Makefile */,
@@ -2911,7 +2921,7 @@
 				OBJ_505 /* shim.swift */,
 			);
 			name = "SWXMLHash 4.9.0";
-			path = .build/checkouts/SWXMLHash/Source;
+			path = Sources/.build/checkouts/SWXMLHash/Source;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_506 /* SwiftSyntax 0.50200.0 */ = {
@@ -2923,6 +2933,7 @@
 				OBJ_557 /* Package.swift */,
 			);
 			name = "SwiftSyntax 0.50200.0";
+			path = "Sources/.build/checkouts/swift-syntax";
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_507 /* SwiftSyntax */ = {
@@ -2951,8 +2962,8 @@
 				OBJ_528 /* gyb_generated */,
 			);
 			name = SwiftSyntax;
-			path = ".build/checkouts/swift-syntax/Sources/SwiftSyntax";
-			sourceTree = SOURCE_ROOT;
+			path = Sources/SwiftSyntax;
+			sourceTree = "<group>";
 		};
 		OBJ_528 /* gyb_generated */ = {
 			isa = PBXGroup;
@@ -3007,8 +3018,8 @@
 			children = (
 			);
 			name = SwiftSyntaxBuilder;
-			path = ".build/checkouts/swift-syntax/Sources/SwiftSyntaxBuilder";
-			sourceTree = SOURCE_ROOT;
+			path = Sources/SwiftSyntaxBuilder;
+			sourceTree = "<group>";
 		};
 		OBJ_551 /* _CSwiftSyntax */ = {
 			isa = PBXGroup;
@@ -3017,8 +3028,8 @@
 				OBJ_554 /* include */,
 			);
 			name = _CSwiftSyntax;
-			path = ".build/checkouts/swift-syntax/Sources/_CSwiftSyntax";
-			sourceTree = SOURCE_ROOT;
+			path = Sources/_CSwiftSyntax;
+			sourceTree = "<group>";
 		};
 		OBJ_552 /* src */ = {
 			isa = PBXGroup;
@@ -3056,6 +3067,7 @@
 				OBJ_646 /* Package.swift */,
 			);
 			name = "SwiftPM 0.4.0";
+			path = "Sources/.build/checkouts/swift-package-manager";
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_559 /* Basic */ = {
@@ -3101,16 +3113,16 @@
 				OBJ_597 /* misc.swift */,
 			);
 			name = Basic;
-			path = ".build/checkouts/swift-package-manager/Sources/Basic";
-			sourceTree = SOURCE_ROOT;
+			path = Sources/Basic;
+			sourceTree = "<group>";
 		};
 		OBJ_598 /* Build */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Build;
-			path = ".build/checkouts/swift-package-manager/Sources/Build";
-			sourceTree = SOURCE_ROOT;
+			path = Sources/Build;
+			sourceTree = "<group>";
 		};
 		OBJ_599 /* POSIX */ = {
 			isa = PBXGroup;
@@ -3128,40 +3140,40 @@
 				OBJ_610 /* usleep.swift */,
 			);
 			name = POSIX;
-			path = ".build/checkouts/swift-package-manager/Sources/POSIX";
-			sourceTree = SOURCE_ROOT;
+			path = Sources/POSIX;
+			sourceTree = "<group>";
 		};
 		OBJ_611 /* PackageGraph */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = PackageGraph;
-			path = ".build/checkouts/swift-package-manager/Sources/PackageGraph";
-			sourceTree = SOURCE_ROOT;
+			path = Sources/PackageGraph;
+			sourceTree = "<group>";
 		};
 		OBJ_612 /* PackageLoading */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = PackageLoading;
-			path = ".build/checkouts/swift-package-manager/Sources/PackageLoading";
-			sourceTree = SOURCE_ROOT;
+			path = Sources/PackageLoading;
+			sourceTree = "<group>";
 		};
 		OBJ_613 /* PackageModel */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = PackageModel;
-			path = ".build/checkouts/swift-package-manager/Sources/PackageModel";
-			sourceTree = SOURCE_ROOT;
+			path = Sources/PackageModel;
+			sourceTree = "<group>";
 		};
 		OBJ_614 /* SPMLLBuild */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = SPMLLBuild;
-			path = ".build/checkouts/swift-package-manager/Sources/SPMLLBuild";
-			sourceTree = SOURCE_ROOT;
+			path = Sources/SPMLLBuild;
+			sourceTree = "<group>";
 		};
 		OBJ_615 /* SPMLibc */ = {
 			isa = PBXGroup;
@@ -3169,8 +3181,8 @@
 				OBJ_616 /* libc.swift */,
 			);
 			name = SPMLibc;
-			path = ".build/checkouts/swift-package-manager/Sources/SPMLibc";
-			sourceTree = SOURCE_ROOT;
+			path = Sources/SPMLibc;
+			sourceTree = "<group>";
 		};
 		OBJ_617 /* SPMUtility */ = {
 			isa = PBXGroup;
@@ -3197,8 +3209,8 @@
 				OBJ_637 /* misc.swift */,
 			);
 			name = SPMUtility;
-			path = ".build/checkouts/swift-package-manager/Sources/SPMUtility";
-			sourceTree = SOURCE_ROOT;
+			path = Sources/SPMUtility;
+			sourceTree = "<group>";
 		};
 		OBJ_62 /* MockingbirdGenerator */ = {
 			isa = PBXGroup;
@@ -3208,7 +3220,8 @@
 				OBJ_79 /* Parser */,
 				OBJ_116 /* Utilities */,
 			);
-			path = MockingbirdGenerator;
+			name = MockingbirdGenerator;
+			path = Sources/MockingbirdGenerator;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_638 /* SourceControl */ = {
@@ -3216,16 +3229,16 @@
 			children = (
 			);
 			name = SourceControl;
-			path = ".build/checkouts/swift-package-manager/Sources/SourceControl";
-			sourceTree = SOURCE_ROOT;
+			path = Sources/SourceControl;
+			sourceTree = "<group>";
 		};
 		OBJ_639 /* Workspace */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Workspace;
-			path = ".build/checkouts/swift-package-manager/Sources/Workspace";
-			sourceTree = SOURCE_ROOT;
+			path = Sources/Workspace;
+			sourceTree = "<group>";
 		};
 		OBJ_64 /* Generator */ = {
 			isa = PBXGroup;
@@ -3243,8 +3256,8 @@
 			children = (
 			);
 			name = Xcodeproj;
-			path = ".build/checkouts/swift-package-manager/Sources/Xcodeproj";
-			sourceTree = SOURCE_ROOT;
+			path = Sources/Xcodeproj;
+			sourceTree = "<group>";
 		};
 		OBJ_641 /* clibc */ = {
 			isa = PBXGroup;
@@ -3253,8 +3266,8 @@
 				OBJ_643 /* include */,
 			);
 			name = clibc;
-			path = ".build/checkouts/swift-package-manager/Sources/clibc";
-			sourceTree = SOURCE_ROOT;
+			path = Sources/clibc;
+			sourceTree = "<group>";
 		};
 		OBJ_643 /* include */ = {
 			isa = PBXGroup;
@@ -3316,6 +3329,7 @@
 		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D3CEFE3B248196B200853D84 /* Package.swift */,
 				OBJ_8 /* MockingbirdCli */,
 				OBJ_29 /* MockingbirdFramework */,
 				OBJ_62 /* MockingbirdGenerator */,
@@ -3358,9 +3372,11 @@
 				OBJ_10 /* Interface */,
 				OBJ_23 /* Launcher */,
 				OBJ_26 /* Libraries */,
+				D3D647BB24819CCD007B5B49 /* Scripts */,
 				OBJ_28 /* main.swift */,
 			);
-			path = MockingbirdCli;
+			name = MockingbirdCli;
+			path = Sources/MockingbirdCli;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_80 /* Models */ = {
@@ -4121,11 +4137,11 @@
 			);
 			name = "Generate Mockingbird Mocks";
 			outputPaths = (
-				"$(SRCROOT)/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift",
+				"$(SRCROOT)/Sources/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\n${BUILT_PRODUCTS_DIR}/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs \"${SRCROOT}/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift\" \\\n  --support \"${SRCROOT}/MockingbirdSupport\" \\\n  --diagnostics all \\\n  --disable-cache \\\n  --verbose\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-16BC195B-65B7-4763-B2C9-AEA49F30A43A'\n";
+			shellScript = "set -e\n\n${BUILT_PRODUCTS_DIR}/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs \"${SRCROOT}/Sources/MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift\" \\\n  --support \"${SRCROOT}/Sources/MockingbirdSupport\" \\\n  --diagnostics all \\\n  --disable-cache \\\n  --verbose\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-16BC195B-65B7-4763-B2C9-AEA49F30A43A'\n";
 		};
 		D372A59C2455878B0000E80A /* Generate Embedded Dylibs */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4135,17 +4151,17 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/MockingbirdCli/Libraries/lib_InternalSwiftSyntaxParser.dylib",
+				"$(SRCROOT)/Sources/MockingbirdCli/Libraries/lib_InternalSwiftSyntaxParser.dylib",
 			);
 			name = "Generate Embedded Dylibs";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(SRCROOT)/MockingbirdCli/Libraries/SwiftSyntaxParserDylib.generated.swift",
+				"$(SRCROOT)/Sources/MockingbirdCli/Libraries/SwiftSyntaxParserDylib.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Scripts/generate-resource-file.sh\" \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\" 'swiftSyntaxParserDylib'\n";
+			shellScript = "\"${SRCROOT}/Sources/MockingbirdCli/Scripts/generate-resource-file.sh\" \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\" 'swiftSyntaxParserDylib'\n";
 		};
 		E0C37AF4D09E1A81AA94E903 /* Clean Mockingbird Mocks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -5362,10 +5378,10 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
-					"$(SRCROOT)/.build/checkouts/Yams/Sources/CYaml/include",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/SourceKit/include",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/Clang_C/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
+					"$(SRCROOT)/Sources/.build/checkouts/Yams/Sources/CYaml/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/SourceKit/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/Clang_C/include",
 					"$(SRCROOT)/Mockingbird.xcodeproj/GeneratedModuleMap/_CSwiftSyntax",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdTests_Info.plist;
@@ -5395,10 +5411,10 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
-					"$(SRCROOT)/.build/checkouts/Yams/Sources/CYaml/include",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/SourceKit/include",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/Clang_C/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
+					"$(SRCROOT)/Sources/.build/checkouts/Yams/Sources/CYaml/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/SourceKit/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/Clang_C/include",
 					"$(SRCROOT)/Mockingbird.xcodeproj/GeneratedModuleMap/_CSwiftSyntax",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdTests_Info.plist;
@@ -5484,13 +5500,13 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/POSIX_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = POSIX;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -5511,13 +5527,13 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/POSIX_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = POSIX;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -5604,13 +5620,13 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/SPMLibc_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = SPMLibc;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -5631,13 +5647,13 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/SPMLibc_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = SPMLibc;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -5658,13 +5674,13 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/SPMUtility_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = SPMUtility;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -5685,13 +5701,13 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/SPMUtility_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = SPMUtility;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -5780,7 +5796,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/SourceKit/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/SourceKit/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/SourceKit_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
@@ -5808,7 +5824,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/SourceKit/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/SourceKit/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/SourceKit_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
@@ -5834,9 +5850,9 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/Yams/Sources/CYaml/include",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/SourceKit/include",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/Clang_C/include",
+					"$(SRCROOT)/Sources/.build/checkouts/Yams/Sources/CYaml/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/SourceKit/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/Clang_C/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/SourceKittenFramework_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
@@ -5863,9 +5879,9 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/Yams/Sources/CYaml/include",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/SourceKit/include",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/Clang_C/include",
+					"$(SRCROOT)/Sources/.build/checkouts/Yams/Sources/CYaml/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/SourceKit/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/Clang_C/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/SourceKittenFramework_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
@@ -5928,7 +5944,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
 					"$(SRCROOT)/Mockingbird.xcodeproj/GeneratedModuleMap/_CSwiftSyntax",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/SwiftSyntax_Info.plist;
@@ -5960,7 +5976,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
 					"$(SRCROOT)/Mockingbird.xcodeproj/GeneratedModuleMap/_CSwiftSyntax",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/SwiftSyntax_Info.plist;
@@ -6084,7 +6100,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/Yams/Sources/CYaml/include",
+					"$(SRCROOT)/Sources/.build/checkouts/Yams/Sources/CYaml/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/Yams_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -6115,7 +6131,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/Yams/Sources/CYaml/include",
+					"$(SRCROOT)/Sources/.build/checkouts/Yams/Sources/CYaml/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/Yams_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -6239,7 +6255,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/_CSwiftSyntax_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -6270,7 +6286,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/_CSwiftSyntax_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -6301,7 +6317,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/clibc_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
@@ -6328,7 +6344,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/clibc_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
@@ -6542,13 +6558,13 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/Basic_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = Basic;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -6569,13 +6585,13 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/Basic_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = Basic;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -6598,7 +6614,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/Yams/Sources/CYaml/include",
+					"$(SRCROOT)/Sources/.build/checkouts/Yams/Sources/CYaml/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/CYaml_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -6630,7 +6646,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/Yams/Sources/CYaml/include",
+					"$(SRCROOT)/Sources/.build/checkouts/Yams/Sources/CYaml/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/CYaml_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -6662,7 +6678,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/Clang_C/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/Clang_C/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/Clang_C_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
@@ -6690,7 +6706,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/Clang_C/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/Clang_C/include",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/Clang_C_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
@@ -6729,11 +6745,11 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include",
-					"$(SRCROOT)/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
-					"$(SRCROOT)/.build/checkouts/Yams/Sources/CYaml/include",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/SourceKit/include",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/Clang_C/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
+					"$(SRCROOT)/Sources/.build/checkouts/Yams/Sources/CYaml/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/SourceKit/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/Clang_C/include",
 					"$(SRCROOT)/Mockingbird.xcodeproj/GeneratedModuleMap/_CSwiftSyntax",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdCli_Info.plist;
@@ -6742,7 +6758,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/Mockingbird.xcodeproj/GeneratedModuleMap/_CSwiftSyntax/module.modulemap";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/Mockingbird.xcodeproj/GeneratedModuleMap/_CSwiftSyntax/module.modulemap";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
@@ -6764,11 +6780,11 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include",
-					"$(SRCROOT)/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
-					"$(SRCROOT)/.build/checkouts/Yams/Sources/CYaml/include",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/SourceKit/include",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/Clang_C/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
+					"$(SRCROOT)/Sources/.build/checkouts/Yams/Sources/CYaml/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/SourceKit/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/Clang_C/include",
 					"$(SRCROOT)/Mockingbird.xcodeproj/GeneratedModuleMap/_CSwiftSyntax",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdCli_Info.plist;
@@ -6777,7 +6793,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/Mockingbird.xcodeproj/GeneratedModuleMap/_CSwiftSyntax/module.modulemap";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/Sources/.build/checkouts/swift-package-manager/Sources/clibc/include/module.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/Mockingbird.xcodeproj/GeneratedModuleMap/_CSwiftSyntax/module.modulemap";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
@@ -6865,10 +6881,10 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
-					"$(SRCROOT)/.build/checkouts/Yams/Sources/CYaml/include",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/SourceKit/include",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/Clang_C/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
+					"$(SRCROOT)/Sources/.build/checkouts/Yams/Sources/CYaml/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/SourceKit/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/Clang_C/include",
 					"$(SRCROOT)/Mockingbird.xcodeproj/GeneratedModuleMap/_CSwiftSyntax",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdGenerator_Info.plist;
@@ -6901,10 +6917,10 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
-					"$(SRCROOT)/.build/checkouts/Yams/Sources/CYaml/include",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/SourceKit/include",
-					"$(SRCROOT)/.build/checkouts/SourceKitten/Source/Clang_C/include",
+					"$(SRCROOT)/Sources/.build/checkouts/swift-syntax/Sources/_CSwiftSyntax/include",
+					"$(SRCROOT)/Sources/.build/checkouts/Yams/Sources/CYaml/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/SourceKit/include",
+					"$(SRCROOT)/Sources/.build/checkouts/SourceKitten/Source/Clang_C/include",
 					"$(SRCROOT)/Mockingbird.xcodeproj/GeneratedModuleMap/_CSwiftSyntax",
 				);
 				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdGenerator_Info.plist;
