@@ -14,15 +14,14 @@ public protocol TargetDependency: Hashable {
 }
 
 public protocol AbstractTarget {
-  var productModuleName: String { get }
+  var name: String { get }
+  func resolveProductModuleName(environment: () -> [String: Any]) -> String
 }
 
 /// Common protocol that both XcodeProj `PBXTarget` and our own `CodableTarget` objects conform to.
 public protocol Target: AbstractTarget, Hashable {
   associatedtype D where D: TargetDependency
   
-  var name: String { get }
   var dependencies: [D] { get }
-  
   func findSourceFilePaths(sourceRoot: Path) -> [Path]
 }

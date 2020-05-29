@@ -131,8 +131,12 @@ class Installer {
     }
     
     // Create fixed output paths for each source target.
+    let getBuildEnvironment = { return Generator.implicitBuildEnvironment(xcodeproj: xcodeproj) }
     let outputPaths = config.outputPaths ?? sourceTargets.map({
-      Generator.defaultOutputPath(for: $0, testTarget: target, sourceRoot: config.sourceRoot)
+      Generator.defaultOutputPath(for: $0,
+                                  testTarget: target,
+                                  sourceRoot: config.sourceRoot,
+                                  environment: getBuildEnvironment)
     })
     
     // Add build phase reference to project.

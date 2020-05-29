@@ -57,24 +57,32 @@ class Generator {
       })
     }
     
-    init(inputTarget: AbstractTarget, outputPath: Path, config: Configuration) throws {
+    init(inputTarget: AbstractTarget,
+         outputPath: Path,
+         config: Configuration,
+         environment: @escaping () -> [String: Any]) throws {
       self.inputTarget = inputTarget
       self.outputPath = outputPath
       self.operations = try Pipeline.createOperations(for: inputTarget,
                                                       outputPath: outputPath,
-                                                      config: config)
+                                                      config: config,
+                                                      environment: environment)
     }
     
-    private static func createOperations(for inputTarget: AbstractTarget,
-                                         outputPath: Path,
-                                         config: Configuration) throws -> [BasicOperation] {
+    private static func createOperations(
+      for inputTarget: AbstractTarget,
+      outputPath: Path,
+      config: Configuration,
+      environment: @escaping () -> [String: Any]
+    ) throws -> [BasicOperation] {
       let extractSources: ExtractSourcesAbstractOperation
       let checkCache: CheckCacheOperation?
       
       if let inputTarget = inputTarget as? CodableTarget {
         extractSources = ExtractSourcesOperation(with: inputTarget,
                                                  sourceRoot: config.sourceRoot,
-                                                 supportPath: config.supportPath)
+                                                 supportPath: config.supportPath,
+                                                 environment: environment)
         checkCache = CheckCacheOperation(extractSourcesResult: extractSources.result,
                                          codableTarget: inputTarget,
                                          outputFilePath: outputPath)
@@ -82,11 +90,12 @@ class Generator {
       } else if let inputTarget = inputTarget as? PBXTarget {
         extractSources = ExtractSourcesOperation(with: inputTarget,
                                                  sourceRoot: config.sourceRoot,
-                                                 supportPath: config.supportPath)
+                                                 supportPath: config.supportPath,
+                                                 environment: environment)
         checkCache = nil
       } else {
         throw Failure.internalError(
-          description: "Unsupported pipeline input target `\(inputTarget.productModuleName)`"
+          description: "Unsupported pipeline input target \(inputTarget.name.singleQuoted)"
         )
       }
         
@@ -99,7 +108,7 @@ class Generator {
                                                useRelaxedLinking: !config.disableRelaxedLinking)
       processTypes.addDependency(parseFiles)
       
-      let moduleName = inputTarget.productModuleName
+      let moduleName = inputTarget.resolveProductModuleName(environment: environment)
       let generateFile = GenerateFileOperation(processTypesResult: processTypes.result,
                                                checkCacheResult: checkCache?.result,
                                                moduleName: moduleName,
@@ -141,6 +150,11 @@ class Generator {
       return xcodeproj
     }
     
+    // Lazy implicit build environment for settings resolution.
+    let getBuildEnvironment: () -> [String: Any] = {
+      return implicitBuildEnvironment(xcodeproj: try? getXcodeProj())
+    }
+    
     let pbxprojPath = !config.disableCache ? config.projectPath.glob("*.pbxproj").first : nil
     let pbxprojHash = try pbxprojPath?.read().generateSha1Hash()
     let cacheDirectory = config.projectPath + "MockingbirdCache"
@@ -163,7 +177,7 @@ class Generator {
       let xcodeproj = try getXcodeProj()
       let targets = xcodeproj.pbxproj.targets(named: targetName).filter({ target in
         guard target.productType?.isTestBundle != true else {
-          logWarning("Ignoring unit test target \(targetName.singleQuoted)")
+          logWarning("Cannot generate mocks for \(targetName.singleQuoted) because it is a unit test target")
           return false
         }
         return true
@@ -182,7 +196,9 @@ class Generator {
     // Resolve nil output paths to mocks source root and output suffix.
     let outputPaths = try config.outputPaths ?? targets.map({ target throws -> Path in
       try config.sourceRoot.mocksDirectory.mkpath()
-      return Generator.defaultOutputPath(for: target, sourceRoot: config.sourceRoot)
+      return Generator.defaultOutputPath(for: target,
+                                         sourceRoot: config.sourceRoot,
+                                         environment: getBuildEnvironment)
     })
     
     // Create abstract generation pipelines from targets and output paths.
@@ -191,7 +207,10 @@ class Generator {
       guard !outputPath.isDirectory else {
         throw Failure.malformedConfiguration(description: "Output file path points to a directory: \(outputPath)")
       }
-      try pipelines.append(Pipeline(inputTarget: target, outputPath: outputPath, config: config))
+      try pipelines.append(Pipeline(inputTarget: target,
+                                    outputPath: outputPath,
+                                    config: config,
+                                    environment: getBuildEnvironment))
     }
     
     // Create concrete generation operation graphs from pipelines.
@@ -210,23 +229,38 @@ class Generator {
                             projectHash: projectHash,
                             cliVersion: "\(mockingbirdVersion)",
                             sourceRoot: config.sourceRoot,
-                            cacheDirectory: cacheDirectory)
+                            cacheDirectory: cacheDirectory,
+                            environment: getBuildEnvironment)
         })
       }
     }
   }
   
+  static func implicitBuildEnvironment(xcodeproj: XcodeProj?) -> [String: Any] {
+    var buildEnvironment = [String: Any]()
+    
+    if let projectName = xcodeproj?.pbxproj.rootObject?.name {
+      buildEnvironment["PROJECT_NAME"] = projectName
+      buildEnvironment["PROJECT"] = projectName
+    }
+    
+    return buildEnvironment
+  }
+  
   static func defaultOutputPath(for sourceTarget: AbstractTarget,
                                 testTarget: AbstractTarget? = nil,
-                                sourceRoot: Path) -> Path {
+                                sourceRoot: Path,
+                                environment: () -> [String: Any]) -> Path {
+    let moduleName = sourceTarget.resolveProductModuleName(environment: environment)
+    
     let prefix: String
-    if let testTargetName = testTarget?.productModuleName,
-      testTargetName != sourceTarget.productModuleName {
+    if let testTargetName = testTarget?.resolveProductModuleName(environment: environment),
+      testTargetName != moduleName {
       prefix = testTargetName + "-"
     } else {
       prefix = "" // Probably installed on a source target instead of a test target...
     }
-    let moduleName = sourceTarget.productModuleName
+    
     return sourceRoot.mocksDirectory + "\(prefix)\(moduleName)\(Constants.generatedFileNameSuffix)"
   }
   
@@ -261,12 +295,13 @@ class Generator {
                             projectHash: String,
                             cliVersion: String,
                             sourceRoot: Path,
-                            cacheDirectory: Path) throws {
+                            cacheDirectory: Path,
+                            environment: () -> [String: Any]) throws {
     guard !pipeline.usedCache,
       let result = pipeline.operations
         .compactMap({ $0 as? ExtractSourcesAbstractOperation }).first?.result else { return }
     
-    var ignoredDependencies = Set<String>()
+    var ignoredDependencies = Set<String>() // Keep a sparse representation of the dependency graph.
     let target: CodableTarget
     if let pipelineTarget = pipeline.inputTarget as? CodableTarget {
       target = try CodableTarget(from: pipelineTarget,
@@ -277,7 +312,8 @@ class Generator {
                                  targetPathsHash: result.generateTargetPathsHash(),
                                  dependencyPathsHash: result.generateDependencyPathsHash(),
                                  cliVersion: cliVersion,
-                                 ignoredDependencies: &ignoredDependencies)
+                                 ignoredDependencies: &ignoredDependencies,
+                                 environment: environment)
     } else if let pipelineTarget = pipeline.inputTarget as? PBXTarget {
       target = try CodableTarget(from: pipelineTarget,
                                  sourceRoot: sourceRoot,
@@ -287,16 +323,17 @@ class Generator {
                                  targetPathsHash: result.generateTargetPathsHash(),
                                  dependencyPathsHash: result.generateDependencyPathsHash(),
                                  cliVersion: cliVersion,
-                                 ignoredDependencies: &ignoredDependencies)
+                                 ignoredDependencies: &ignoredDependencies,
+                                 environment: environment)
     } else {
       throw Failure.internalError(
-        description: "Unsupported pipeline input target `\(pipeline.inputTarget.productModuleName)`"
+        description: "Unsupported pipeline input target \(pipeline.inputTarget.name.singleQuoted)"
       )
     }
     let data = try JSONEncoder().encode(target)
     let filePath = targetLockFilePath(for: target.name, cacheDirectory: cacheDirectory)
     try filePath.write(data)
-    log("Cached pipeline input target \(pipeline.inputTarget.productModuleName.singleQuoted) to \(filePath.absolute())")
+    log("Cached pipeline input target \(pipeline.inputTarget.name.singleQuoted) to \(filePath.absolute())")
   }
 }
 
