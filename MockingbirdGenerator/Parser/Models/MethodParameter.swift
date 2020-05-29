@@ -95,24 +95,22 @@ extension MethodParameter: Specializable {
                   typealiasRepository: TypealiasRepository) -> MethodParameter {
     guard !context.specializations.isEmpty else { return self }
     
-    let specializedTypeName: String
-    if let specialization = context.specializations[typeName],
-      !excludedGenericTypeNames.contains(typeName) {
-      let serializationContext = SerializationRequest
-        .Context(moduleNames: moduleNames,
-                 rawType: rawType,
-                 rawTypeRepository: rawTypeRepository,
-                 typealiasRepository: typealiasRepository)
-      let attributedSerializationContext = SerializationRequest
-        .Context(from: serializationContext,
-                 genericTypeContext: genericTypeContext + serializationContext.genericTypeContext)
-      let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
-                                                          context: attributedSerializationContext,
-                                                          options: .standard)
-      specializedTypeName = specialization.serialize(with: qualifiedTypeNameRequest)
-    } else {
-      specializedTypeName = typeName
-    }
+    let declaredType = DeclaredType(from: typeName)
+    let serializationContext = SerializationRequest
+      .Context(moduleNames: moduleNames,
+               rawType: rawType,
+               rawTypeRepository: rawTypeRepository,
+               typealiasRepository: typealiasRepository)
+    let attributedSerializationContext = SerializationRequest
+      .Context(from: serializationContext,
+               genericTypeContext: genericTypeContext + serializationContext.genericTypeContext,
+               excludedGenericTypeNames: excludedGenericTypeNames,
+               specializationContext: context)
+    let options: SerializationRequest.Options = [.standard, .shouldSpecializeTypes]
+    let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
+                                                        context: attributedSerializationContext,
+                                                        options: options)
+    let specializedTypeName = declaredType.serialize(with: qualifiedTypeNameRequest)
     
     return MethodParameter(from: self, typeName: specializedTypeName)
   }
