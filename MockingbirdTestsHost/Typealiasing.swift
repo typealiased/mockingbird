@@ -15,9 +15,18 @@ protocol TypealiasedProtocol {
   typealias RequestResult = Bool
   typealias IndirectRequestResult = RequestResult
   typealias NSObject = IndirectRequestResult // Shadowing `Foundation.NSObject`
+  typealias MyArray<T> = Array<T>
+  typealias MyDictionary<K: Hashable, V> = Dictionary<K, V>
+  
+  // MARK: Aliased non-escaping callbacks
   func request(callback: IndirectCallback) -> IndirectRequestResult
   func request(escapingCallback: @escaping IndirectCallback) -> IndirectRequestResult
   func request(callback: IndirectCallback) -> Foundation.NSObject
+  
+  // MARK: General aliased types
+  func method(object: NSObject)
+  func method(array: MyArray<String>)
+  func method(dictionary: MyDictionary<String, Bool>)
 }
 
 class TypealiasedClass {
@@ -26,13 +35,19 @@ class TypealiasedClass {
   typealias RequestResult = Bool
   typealias IndirectRequestResult = RequestResult
   typealias NSObject = IndirectRequestResult // Shadowing `Foundation.NSObject`
-  func request(callback: IndirectCallback) -> IndirectRequestResult { return true }
-  func request(escapingCallback: @escaping IndirectCallback) -> IndirectRequestResult {
-    return true
-  }
-  func request(callback: IndirectCallback) -> Foundation.NSObject {
-    return Foundation.NSObject()
-  }
+  typealias MyArray<T> = Array<T>
+  typealias MyDictionary<K: Hashable, V> = Dictionary<K, V>
+  
+  // MARK: Aliased non-escaping callbacks
+  func request(callback: IndirectCallback) -> IndirectRequestResult { fatalError() }
+  func request(escapingCallback: @escaping IndirectCallback)
+    -> IndirectRequestResult { fatalError() }
+  func request(callback: IndirectCallback) -> Foundation.NSObject { fatalError() }
+  
+  // MARK: General aliased types
+  func method(object: NSObject) { fatalError() }
+  func method(array: MyArray<String>) { fatalError() }
+  func method(dictionary: MyDictionary<String, Bool>) { fatalError() }
 }
 
 // MARK: - Module-scoped typealiases

@@ -23,18 +23,19 @@ extension PBXTarget: Target {
     return inferredBuildConfiguration
   }
   
-  public var productModuleName: String {
+  public func resolveProductModuleName(environment: () -> [String: Any]) -> String {
     guard
-      let buildConfiguration = testingBuildConfiguration,
-      let buildSetting =
-        buildConfiguration.buildSettings["PRODUCT_MODULE_NAME"] as? String ??
-        buildConfiguration.buildSettings["PRODUCT_NAME"] as? String,
-      let moduleName = buildConfiguration.resolve(buildSetting, for: self)
+      let configuration = testingBuildConfiguration,
+      let moduleName = try? PBXTarget.resolve(
+        BuildSetting("$(PRODUCT_MODULE_NAME:default=$(PRODUCT_NAME:default=$(TARGET_NAME)))"),
+        from: getBuildEnvironment(configuration: configuration, environment: environment())
+      )
     else {
       let fallbackModuleName = name.escapingForModuleName()
-      log("No explicit module name set for target \(name.singleQuoted), falling back to \(fallbackModuleName.singleQuoted)")
+      logWarning("Unable to resolve product module name for target \(name.singleQuoted), falling back to \(fallbackModuleName.singleQuoted)")
       return fallbackModuleName
     }
+    
     let escapedModuleName = moduleName.escapingForModuleName()
     log("Resolved product module name \(escapedModuleName.singleQuoted) for target \(name.singleQuoted)")
     return escapedModuleName
@@ -46,33 +47,68 @@ extension PBXTarget: Target {
       .compactMap({ try? $0.file?.fullPath(sourceRoot: sourceRoot) })
       .filter({ $0.extension == "swift" }) ?? []
   }
-}
-
-extension XCBuildConfiguration {
-  /// Certain build settings are implicitly applied, such as `TARGET_NAME`.
-  func getBuildSetting(named key: String, for target: PBXTarget) -> String? {
-    let implicitBuildSettings: [String: String] = [
-      "TARGET_NAME": target.name
-    ]
-    return buildSettings[key] as? String ?? implicitBuildSettings[key]
+  
+  /// Certain environment build settings are synthesized by Xcode and don't exist in the project
+  /// file such as `TARGET_NAME`. Since the generator usually runs as part of a test target bundle
+  /// (or even entirely outside of an Xcode build pipeline), we need to do some inference here.
+  func getBuildEnvironment(configuration: XCBuildConfiguration,
+                           environment: [String: Any]) -> [String: Any] {
+    let keepOld: (Any, Any) -> Any = { old, _ in old }
+    
+    // Explicit build settings defined in the Xcode project file.
+    var buildEnvironment: [String: Any] = configuration.buildSettings
+    
+    // Implicit settings derived from the target info.
+    buildEnvironment.merge([
+      "TARGET_NAME": name,
+      "TARGETNAME": name,
+    ], uniquingKeysWith: keepOld)
+    
+    // Implicit settings from external sources, e.g. `PROJECT_NAME`.
+    buildEnvironment.merge(environment, uniquingKeysWith: keepOld)
+    
+    return buildEnvironment
+  }
+  
+  enum ResolutionFailure: Error {
+    static let cycleFlagValue = "__MKB_CYCLE_FLAG__"
+    case evaluationCycle
   }
   
   /// Recursively resolves build settings.
-  func resolve(_ buildSetting: String?, for target: PBXTarget) -> String? {
-    guard let buildSetting = buildSetting else { return nil }
-    
-    let trimmedBuildSetting = buildSetting.trimmingCharacters(in: .whitespacesAndNewlines)
-    guard let unwrappedBuildSetting = SubstitutionStyle.unwrap(trimmedBuildSetting)?.variable
-      else { return buildSetting }
-    
-    let buildSettingName: String
-    if let endIndex = unwrappedBuildSetting.firstIndex(of: ":") { // `TARGET_NAME:c99exidentifier`
-      buildSettingName = String(unwrappedBuildSetting[..<endIndex])
-    } else { // `TARGET_NAME`
-      buildSettingName = unwrappedBuildSetting
-    }
-    
-    return resolve(getBuildSetting(named: buildSettingName, for: target), for: target)
+  static func resolve(_ buildSetting: BuildSetting,
+                      from environment: [String: Any]) throws -> String {
+    return try buildSetting.components.map({ component -> String in
+      switch component {
+      case .literal(let literal):
+        guard literal.value != ResolutionFailure.cycleFlagValue else {
+          throw ResolutionFailure.evaluationCycle
+        }
+        return literal.value
+      case .expression(let expression):
+        // Recursive `resolve` calls pass `attributedEnvironment` to break evaluation cycles.
+        var attributedEnvironment = environment
+        attributedEnvironment[expression.name] = ResolutionFailure.cycleFlagValue
+        
+        if let buildSettingValue = environment[expression.name] as? String,
+          !buildSettingValue.isEmpty {
+          return try resolve(BuildSetting(buildSettingValue), from: attributedEnvironment)
+        }
+        
+        // Empty build settings can have default values as of Xcode 11.4
+        // https://developer.apple.com/documentation/xcode_release_notes/xcode_11_4_release_notes
+        if let expressionOperator = expression.expressionOperator,
+          expressionOperator.name == "default",
+          let buildSetting = expressionOperator.value {
+          return try resolve(buildSetting, from: attributedEnvironment)
+        }
+        
+        let targetName = environment["TARGET_NAME"] as? String ?? ""
+        let description = "$(\(expression))"
+        logWarning("The build setting expression \(description.singleQuoted) evaluates to an empty string when resolving the product module name for \(targetName.singleQuoted)")
+        return ""
+      }
+      }).joined()
   }
 }
 

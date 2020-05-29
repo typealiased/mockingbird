@@ -28,4 +28,8 @@ class ImplementingExternalModuleScopedTypealiasedProtocol: ExternalModuleScopedT
     -> T? where T.Element == Foundation.NSObjectProtocol?,
     T.Subelement == MockingbirdModuleTestsHost.NSObject?
   { fatalError() }
+  
+  // MARK: Concrete context qualification
+  func method(array: MyArray<String>) {}
+  func method(dictionary: MyDictionary<String, Bool>) {}
 }

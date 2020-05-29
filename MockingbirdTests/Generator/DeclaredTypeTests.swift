@@ -86,7 +86,19 @@ class DeclaredTypeTests: XCTestCase {
   
   // MARK: - Functions
   
-  func testDeclaredType_parsesFunctionTypes() {
+  func testDeclaredType_parsesTrivialFunctionTypes() {
+    let actual = DeclaredType(from: "() -> Void")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function(() -> DeclaredType(Single(Void)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesSingleParameterFunctionTypes() {
+    let actual = DeclaredType(from: "(Int) -> String")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(Int)))) -> DeclaredType(Single(String)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesMultipleParameterFunctionTypes() {
     let actual = DeclaredType(from: "(Int, Bool) -> String")
     XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(Int))), Parameter(DeclaredType(Single(Bool)))) -> DeclaredType(Single(String)))))")
     XCTAssert(actual.isFunction)
@@ -201,9 +213,51 @@ class DeclaredTypeTests: XCTestCase {
     XCTAssert(actual.isFunction)
   }
   
+  func testDeclaredType_parsesGenericFunctionParameter() {
+    let actual = DeclaredType(from: "(GenericType<Bool>) -> Void")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(GenericType<DeclaredType(Single(Bool))>)))) -> DeclaredType(Single(Void)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesMultipleGenericFunctionParameters() {
+    let actual = DeclaredType(from: "(GenericType<Bool>, GenericType<Int>) -> Void")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(GenericType<DeclaredType(Single(Bool))>))), Parameter(DeclaredType(Single(GenericType<DeclaredType(Single(Int))>)))) -> DeclaredType(Single(Void)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
   func testDeclaredType_parsesGenericFunctionReturnType() {
+    let actual = DeclaredType(from: "() -> GenericType<Bool>")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function(() -> DeclaredType(Single(GenericType<DeclaredType(Single(Bool))>)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesGenericFunctionWrappedReturnType() {
     let actual = DeclaredType(from: "() -> (SignalProducer<String, Bool>)")
     XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function(() -> DeclaredType(Single(SignalProducer<DeclaredType(Single(String)), DeclaredType(Single(Bool))>)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesGenericFunctionOptionalReturnType() {
+    let actual = DeclaredType(from: "() -> GenericType<Bool>?")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function(() -> DeclaredType(Single(GenericType<DeclaredType(Single(Bool))>)?))))")
+    XCTAssert(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesGenericFunctionWrappedOptionalReturnType() {
+    let actual = DeclaredType(from: "() -> (GenericType<Bool>)?")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function(() -> DeclaredType(Single(GenericType<DeclaredType(Single(Bool))>)?))))")
+    XCTAssert(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesGenericFunctionParametersAndReturnType() {
+    let actual = DeclaredType(from: "(GenericType<Bool>, GenericType<Int>) -> SignalProducer<String, Bool>")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(GenericType<DeclaredType(Single(Bool))>))), Parameter(DeclaredType(Single(GenericType<DeclaredType(Single(Int))>)))) -> DeclaredType(Single(SignalProducer<DeclaredType(Single(String)), DeclaredType(Single(Bool))>)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesGenericFunctionParametersAndWrappedReturnType() {
+    let actual = DeclaredType(from: "(GenericType<Bool>, GenericType<Int>) -> (SignalProducer<String, Bool>)")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(GenericType<DeclaredType(Single(Bool))>))), Parameter(DeclaredType(Single(GenericType<DeclaredType(Single(Int))>)))) -> DeclaredType(Single(SignalProducer<DeclaredType(Single(String)), DeclaredType(Single(Bool))>)))))")
     XCTAssert(actual.isFunction)
   }
   
@@ -219,6 +273,18 @@ class DeclaredTypeTests: XCTestCase {
     let actual = DeclaredType(from: "Array<String>?")
     XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Array<DeclaredType(Single(String))>)?)")
     XCTAssertTrue(actual.isOptional)
+  }
+  
+  func testDeclaredType_parsesOptionalGenericTypeParameter() {
+    let actual = DeclaredType(from: "Array<String?>")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Array<DeclaredType(Single(String)?)>))")
+    XCTAssertFalse(actual.isOptional)
+  }
+  
+  func testDeclaredType_parsesMultipleOptionalGenericTypeParameters() {
+    let actual = DeclaredType(from: "Dictionary<String?, Int?>")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Dictionary<DeclaredType(Single(String)?), DeclaredType(Single(Int)?)>))")
+    XCTAssertFalse(actual.isOptional)
   }
   
   func testDeclaredType_parsesGenericImplicitlyUnwrappedOptionalType() {
@@ -297,7 +363,17 @@ class DeclaredTypeTests: XCTestCase {
   
   func testDeclaredType_parsesGenericQualifiedType() {
     let actual = DeclaredType(from: "Foundation.Array<String>.Element")
-    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Foundation.Array<String>.Element))")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Foundation.Array<DeclaredType(Single(String))>.Element))")
+  }
+  
+  func testDeclaredType_parsesMultipleGenericParametersQualifiedType() {
+    let actual = DeclaredType(from: "Foundation.Dictionary<String, Int>.Element")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Foundation.Dictionary<DeclaredType(Single(String)), DeclaredType(Single(Int))>.Element))")
+  }
+  
+  func testDeclaredType_parsesMultipleGenericComponentsQualifiedType() {
+    let actual = DeclaredType(from: "Foundation.Dictionary<String, Int>.Array<String>")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Foundation.Dictionary<DeclaredType(Single(String)), DeclaredType(Single(Int))>.Array<DeclaredType(Single(String))>))")
   }
   
   func testDeclaredType_parsesFullyQualifiedTupleType() {
@@ -315,6 +391,30 @@ class DeclaredTypeTests: XCTestCase {
     let actual = DeclaredType(from: "() -> Foundation.NSObject")
     XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function(() -> DeclaredType(Single(Foundation.NSObject)))))")
     XCTAssertTrue(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesFullyQualifiedGenericFunctionParameter() {
+    let actual = DeclaredType(from: "(Foundation.Array<T>) -> Void")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(Foundation.Array<DeclaredType(Single(T))>)))) -> DeclaredType(Single(Void)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesFullyQualifiedGenericFunctionParameterAndReturnType() {
+    let actual = DeclaredType(from: "(Foundation.Array<T>) -> Foundation.Array<T>")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(Foundation.Array<DeclaredType(Single(T))>)))) -> DeclaredType(Single(Foundation.Array<DeclaredType(Single(T))>)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesFullyQualifiedCompoundGenericFunctionReturnType() {
+    let actual = DeclaredType(from: "() -> Foundation.Array<Foundation.Set<String>>")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function(() -> DeclaredType(Single(Foundation.Array<DeclaredType(Single(Foundation.Set<DeclaredType(Single(String))>))>)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesFullyQualifiedCompoundGenericFunctionParameter() {
+    let actual = DeclaredType(from: "(Foundation.Array<Foundation.Set<String>>) -> Void")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(Foundation.Array<DeclaredType(Single(Foundation.Set<DeclaredType(Single(String))>))>)))) -> DeclaredType(Single(Void)))))")
+    XCTAssert(actual.isFunction)
   }
   
   // MARK: - Parameters
