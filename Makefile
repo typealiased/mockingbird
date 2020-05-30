@@ -8,7 +8,7 @@ TEMPORARY_FOLDER=$(TEMPORARY_FOLDER_ROOT)/Mockingbird.make.dst
 TEMPORARY_INSTALLER_FOLDER=$(TEMPORARY_FOLDER)/install
 XCODEBUILD_DERIVED_DATA=$(TEMPORARY_FOLDER)/xcodebuild/DerivedData/MockingbirdFramework
 XCODE_PATH=$(shell xcode-select --print-path)
-CLI_BUNDLE_PLIST=MockingbirdCli/Info.plist
+CLI_BUNDLE_PLIST=Sources/MockingbirdCli/Info.plist
 VERSION_STRING=$(shell /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$(CLI_BUNDLE_PLIST)")
 
 # Needs to be kept in sync with `LoadDylib.swift` and `build-framework-cli.yml`.
@@ -57,7 +57,7 @@ MACOS_FRAMEWORK_FILENAME=Mockingbird-macOS.framework
 IPHONESIMULATOR_FRAMEWORK_FILENAME=Mockingbird-iOS.framework
 APPLETVSIMULATOR_FRAMEWORK_FILENAME=Mockingbird-tvOS.framework
 
-EXECUTABLE_PATH=$(shell swift build $(SWIFT_BUILD_FLAGS) --show-bin-path)/mockingbird
+EXECUTABLE_PATH=$(shell cd Sources && swift build $(SWIFT_BUILD_FLAGS) --show-bin-path)/mockingbird
 
 MACOS_FRAMEWORK_FOLDER=$(XCODEBUILD_DERIVED_DATA)/Build/Products/Release
 MACOS_FRAMEWORK_PATH=$(MACOS_FRAMEWORK_FOLDER)/$(FRAMEWORK_FILENAME)
@@ -77,7 +77,7 @@ INSTALLABLE_FILENAMES="$(CLI_FILENAME)" \
 	"$(APPLETVSIMULATOR_FRAMEWORK_FILENAME)" \
 	"$(LICENSE_FILENAME)"
 
-STARTER_PACK_FOLDER=MockingbirdSupport
+STARTER_PACK_FOLDER=Sources/MockingbirdSupport
 
 OUTPUT_PACKAGE=Mockingbird.pkg
 OUTPUT_ZIP=Mockingbird.zip
@@ -135,7 +135,7 @@ ERROR_MSG=[ERROR] The downloaded Mockingbird CLI binary does not have the expect
 all: build
 
 clean-mocks:
-	rm -f MockingbirdMocks/*.generated.swift
+	rm -f Sources/MockingbirdMocks/*.generated.swift
 	rm -f Mockingbird.xcodeproj/MockingbirdCache/*.lock
 
 clean-temporary-files:
@@ -146,27 +146,27 @@ clean-xcode: clean-temporary-files
 	$(BUILD_TOOL) -scheme 'MockingbirdTestsHost' $(XCODEBUILD_MACOS_FLAGS) clean
 
 clean-swift:
-	swift package clean
+	(cd Sources && swift package clean)
 
 clean-installables:
 	rm -f "$(OUTPUT_PACKAGE)"
 	rm -f "$(OUTPUT_ZIP)"
 
 clean-dylibs:
-	rm -f MockingbirdCli/Libraries/*.generated.swift
+	rm -f Sources/MockingbirdCli/Libraries/*.generated.swift
 	rm -rf "$(MOCKINGBIRD_RPATH)"
 
 clean: clean-mocks clean-xcode clean-swift clean-installables clean-dylibs
 
 setup-project:
-	swift package resolve
-	cp -rf Xcode/XCSchemes/*.xcscheme Mockingbird.xcodeproj/xcshareddata/xcschemes
-	rsync -vhr Xcode/GeneratedModuleMap/** Mockingbird.xcodeproj/GeneratedModuleMap
+	(cd Sources && swift package resolve)
+	cp -rf .xcode/xcschemes/*.xcscheme Mockingbird.xcodeproj/xcshareddata/xcschemes
+	rsync -vhr .xcode/GeneratedModuleMap/** Mockingbird.xcodeproj/GeneratedModuleMap
 
 bootstrap: setup-project
 
 save-xcschemes:
-	cp -rf Mockingbird.xcodeproj/xcshareddata/xcschemes/*.xcscheme Xcode/XCSchemes
+	cp -rf Mockingbird.xcodeproj/xcshareddata/xcschemes/*.xcscheme .xcode/xcschemes
 
 print-debug-info:
 	@echo "Mockingbird version: $(VERSION_STRING)"
@@ -186,13 +186,13 @@ print-debug-info:
 	@echo "Swift build flags: $(SWIFT_BUILD_FLAGS)"
 
 generate-embedded-dylibs:
-	Scripts/generate-resource-file.sh \
-		MockingbirdCli/Libraries/lib_InternalSwiftSyntaxParser.dylib \
-		MockingbirdCli/Libraries/SwiftSyntaxParserDylib.generated.swift \
+	Sources/MockingbirdCli/Scripts/generate-resource-file.sh \
+		Sources/MockingbirdCli/Libraries/lib_InternalSwiftSyntaxParser.dylib \
+		Sources/MockingbirdCli/Libraries/SwiftSyntaxParserDylib.generated.swift \
 		'swiftSyntaxParserDylib'
 
 build-cli: generate-embedded-dylibs
-	swift build $(SWIFT_BUILD_FLAGS) --product mockingbird
+	(cd Sources && swift build $(SWIFT_BUILD_FLAGS) --product mockingbird)
 	# Inject custom rpath into binary.
 	$(eval RPATH = $(DEFAULT_XCODE_RPATH))
 	install_name_tool -delete_rpath "$(RPATH)" "$(EXECUTABLE_PATH)"

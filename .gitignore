@@ -15,11 +15,8 @@ bin/
 var/
 
 ## Mockingbird generated
-MockingbirdMocks/*.generated.swift
+*.generated.swift
 *.xcodeproj/MockingbirdCache/*.lock
-
-## Embedded resources
-MockingbirdCli/Libraries/*.generated.swift
 
 ## Various settings
 *.pbxuser

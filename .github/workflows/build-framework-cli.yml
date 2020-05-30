@@ -27,6 +27,7 @@ jobs:
         ./bin/mockingbird install \
           --target MockingbirdTests \
           --source MockingbirdTestsHost \
+          --support Sources/MockingbirdSupport \
           --diagnostics all not-mockable \
           --loglevel verbose \
           --verbose
@@ -61,6 +62,7 @@ jobs:
         ./bin/mockingbird install \
           --target MockingbirdTests \
           --source MockingbirdTestsHost \
+          --support Sources/MockingbirdSupport \
           --diagnostics all not-mockable \
           --loglevel verbose \
           --verbose
@@ -95,6 +97,7 @@ jobs:
         ./bin/mockingbird install \
           --target MockingbirdTests \
           --source MockingbirdTestsHost \
+          --support Sources/MockingbirdSupport \
           --diagnostics all not-mockable \
           --loglevel verbose \
           --verbose
