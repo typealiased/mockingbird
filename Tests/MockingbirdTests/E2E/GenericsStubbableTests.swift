@@ -24,7 +24,7 @@ private protocol StubbableAssociatedTypeProtocol {
     -> Mockable<FunctionDeclaration, (EquatableType) -> EquatableType, EquatableType>
   
   func getEquatableTypeVariable()
-    -> Mockable<VariableDeclaration, () -> EquatableType, EquatableType>
+    -> Mockable<PropertyGetterDeclaration, () -> EquatableType, EquatableType>
 }
 extension AssociatedTypeProtocolMock: StubbableAssociatedTypeProtocol {}
 
@@ -39,7 +39,7 @@ private protocol StubbableAssociatedTypeGenericImplementer: AssociatedTypeProtoc
     -> Mockable<FunctionDeclaration, (EquatableType) -> EquatableType, EquatableType>
   
   func getEquatableTypeVariable()
-    -> Mockable<VariableDeclaration, () -> EquatableType, EquatableType>
+    -> Mockable<PropertyGetterDeclaration, () -> EquatableType, EquatableType>
 }
 extension AssociatedTypeGenericImplementerMock: StubbableAssociatedTypeGenericImplementer {}
 
@@ -99,14 +99,14 @@ StubbableTopLevelSelfConstrainedAssociatedTypeProtocol {}
 
 private protocol StubbableGenericClassReferencer {
   func getGenericClassVariable()
-    -> Mockable<VariableDeclaration, () -> ReferencedGenericClass<String>, ReferencedGenericClass<String>>
+    -> Mockable<PropertyGetterDeclaration, () -> ReferencedGenericClass<String>, ReferencedGenericClass<String>>
   func setGenericClassVariable(_ newValue: @escaping @autoclosure () -> ReferencedGenericClass<String>)
-    -> Mockable<VariableDeclaration, (ReferencedGenericClass<String>) -> Void, Void>
+    -> Mockable<PropertySetterDeclaration, (ReferencedGenericClass<String>) -> Void, Void>
   
   func getGenericClassWithConstraintsVariable()
-    -> Mockable<VariableDeclaration, () -> ReferencedGenericClassWithConstraints<[String]>, ReferencedGenericClassWithConstraints<[String]>>
+    -> Mockable<PropertyGetterDeclaration, () -> ReferencedGenericClassWithConstraints<[String]>, ReferencedGenericClassWithConstraints<[String]>>
   func setGenericClassWithConstraintsVariable(_ newValue: @escaping @autoclosure () -> ReferencedGenericClassWithConstraints<[String]>)
-    -> Mockable<VariableDeclaration, (ReferencedGenericClassWithConstraints<[String]>) -> Void, Void>
+    -> Mockable<PropertySetterDeclaration, (ReferencedGenericClassWithConstraints<[String]>) -> Void, Void>
 
   func genericClassMethod<Z>()
     -> Mockable<FunctionDeclaration, () -> ReferencedGenericClass<Z>, ReferencedGenericClass<Z>>

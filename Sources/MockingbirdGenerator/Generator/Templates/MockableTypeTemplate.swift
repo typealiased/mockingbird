@@ -14,6 +14,19 @@ private enum Constants {
   static let mockProtocolName = "Mockingbird.Mock"
 }
 
+enum Declaration: String, CustomStringConvertible {
+  case functionDeclaration = "Mockingbird.FunctionDeclaration"
+  case throwingFunctionDeclaration = "Mockingbird.ThrowingFunctionDeclaration"
+  
+  case propertyGetterDeclaration = "Mockingbird.PropertyGetterDeclaration"
+  case propertySetterDeclaration = "Mockingbird.PropertySetterDeclaration"
+  
+  case subscriptGetterDeclaration = "Mockingbird.SubscriptGetterDeclaration"
+  case subscriptSetterDeclaration = "Mockingbird.SubscriptSetterDeclaration"
+  
+  var description: String { return rawValue }
+}
+
 extension GenericType {
   var flattenedDeclaration: String {
     guard !constraints.isEmpty else { return name }
@@ -190,10 +203,10 @@ class MockableTypeTemplate: Template {
     // `StaticMock` instance.
     return """
       static var staticMock: Mockingbird.StaticMock {
-        let runtimeGenericTypeNames = \(runtimeGenericTypeNames)
-        let staticMockIdentifier = "\(mockableType.name)Mock\(allSpecializedGenericTypes)," + runtimeGenericTypeNames
-        if let staticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
-        let staticMock = Mockingbird.StaticMock()
+        let runtimeGenericTypeNames: [String] = [\(runtimeGenericTypeNames)]
+        let staticMockIdentifier: String = runtimeGenericTypeNames.joined(separator: ",")
+        if let staticMock: Mockingbird.StaticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
+        let staticMock: Mockingbird.StaticMock = Mockingbird.StaticMock()
         genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
         return staticMock
       }
@@ -201,11 +214,11 @@ class MockableTypeTemplate: Template {
   }
   
   lazy var runtimeGenericTypeNames: String = {
+    let baseTypeName = "\(mockableType.name)Mock\(allSpecializedGenericTypes)"
     let genericTypeSelfNames = mockableType.genericTypes
       .sorted(by: { $0.name < $1.name })
-      .map({ "ObjectIdentifier(\($0.name).self).debugDescription" })
-      .joined(separator: ", ")
-    return "[\(genericTypeSelfNames)].joined(separator: \",\")"
+      .map({ "Swift.ObjectIdentifier(\($0.name).self).debugDescription" })
+    return ([baseTypeName.doubleQuoted] + genericTypeSelfNames).joined(separator: ", ")
   }()
   
   lazy var allSpecializedGenericTypesList: [String] = {

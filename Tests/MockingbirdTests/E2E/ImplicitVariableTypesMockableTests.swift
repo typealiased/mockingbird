@@ -20,6 +20,7 @@ private protocol MockableImplicitVariableTypes {
   var dictionaryType: [String: Bool] { get set }
   var dictionaryArrayType: [String: [Bool]] { get set }
   var dictionaryDictionaryType: [String: [String: Bool]] { get set }
+  var qualifiedEnumType: EnumType { get set }
   var explicitInitializedType: String { get set }
   var implicitInitializedType: Bool { get set }
   var implicitGenericInitializedType: Array<(String, Int)> { get set }

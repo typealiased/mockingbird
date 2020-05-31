@@ -307,12 +307,6 @@ class ArgumentMatchingTests: XCTestCase {
     verify(concreteMock.method(boolType: any(of: true, false))).wasCalled()
   }
   
-  func testArgumentMatching_anyType_multipleValueMatching() {
-    given(concreteMock.method(anyType: any(of: true, "hello", StructType(), ClassType()))) ~> true
-    XCTAssertTrue(concreteInstance.method(anyType: "hello"))
-    verify(concreteMock.method(anyType: any(of: true, "hello", StructType(), ClassType()))).wasCalled()
-  }
-  
   func testArgumentMatching_anyObjectType_multipleValueMatching() {
     let classTypeReference = ClassType()
     given(concreteMock.method(anyObjectType: any(of: ClassType(), classTypeReference))) ~> true

@@ -82,11 +82,10 @@ class VariableTemplate: Template {
     let typeName = unwrappedSpecializedTypeName
     let getterInvocationType = "() -> \(typeName)"
     let setterInvocationType = "(\(typeName)) -> Void"
-    let variableDeclarationType = "Mockingbird.VariableDeclaration"
-    let mockableGetterGenericTypes = [variableDeclarationType,
+    let mockableGetterGenericTypes = ["\(Declaration.propertyGetterDeclaration)",
                                       getterInvocationType,
                                       typeName].joined(separator: ", ")
-    let mockableSetterGenericTypes = [variableDeclarationType,
+    let mockableSetterGenericTypes = ["\(Declaration.propertySetterDeclaration)",
                                       setterInvocationType,
                                       "Void"].joined(separator: ", ")
     let setter = shouldGenerateSetter ? """
@@ -120,8 +119,7 @@ class VariableTemplate: Template {
   }()
   
   lazy var contextPrefix: String = {
-    return variable.kind.typeScope == .static || variable.kind.typeScope == .class
-      ? "staticMock." : ""
+    return mockObject + "."
   }()
   
   lazy var getterName: String = { return "\(variable.name).get" }()

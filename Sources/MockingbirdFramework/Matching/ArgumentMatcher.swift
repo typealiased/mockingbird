@@ -7,9 +7,7 @@
 
 import Foundation
 
-/// Matchers use equality for objects conforming to `Equatable` and fall back to comparison by
-/// reference. For custom objects that are not equatable, provide a custom `comparator` that should
-/// return `true` if `base` (lhs) is equal to the other `base` (rhs).
+/// Matches argument values with a comparator.
 public class ArgumentMatcher: CustomStringConvertible {
   /// Necessary for custom comparators such as `any()` that only work on the lhs.
   enum Priority: UInt {

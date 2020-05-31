@@ -8,31 +8,45 @@
 import Foundation
 import XCTest
 
-/// References a line of code in a file.
-public struct SourceLocation {
-  let file: StaticString
-  let line: UInt
-  init(_ file: StaticString, _ line: UInt) {
-    self.file = file
-    self.line = line
-  }
+/// Verify that a mock recieved a specific invocation some number of times.
+///
+/// Verification lets you assert that a mock received a particular invocation during its lifetime.
+///
+///     verify(bird.doMethod()).wasCalled()
+///     verify(bird.getProperty()).wasCalled()
+///     verify(bird.setProperty(any())).wasCalled()
+///
+/// Match exact or wildcard argument values when verifying methods with parameters.
+///
+///     verify(bird.canChirp(volume: any())).wasCalled()     // Called with any volume
+///     verify(bird.canChirp(volume: notNil())).wasCalled()  // Called with any non-nil volume
+///     verify(bird.canChirp(volume: 10)).wasCalled()        // Called with volume = 10
+///
+/// - Parameters:
+///   - mock: A mocked declaration to verify.
+public func verify<DeclarationType: Declaration, InvocationType, ReturnType>(
+  _ declaration: Mockable<DeclarationType, InvocationType, ReturnType>,
+  file: StaticString = #file, line: UInt = #line
+) -> VerificationManager<InvocationType, ReturnType> {
+  return VerificationManager(with: declaration, at: SourceLocation(file, line))
 }
 
-/// Intermediate verification object.
-public struct Verification<I, R> {
+/// An intermediate object used for verifying declarations returned by `verify`.
+public struct VerificationManager<InvocationType, ReturnType> {
   let mockingContext: MockingContext
   let invocation: Invocation
   let sourceLocation: SourceLocation
 
-  init<T>(with mockable: Mockable<T, I, R>, at sourceLocation: SourceLocation) {
-    self.mockingContext = mockable.mock.mockingContext
-    self.invocation = mockable.invocation
+  init<DeclarationType>(with declaration: Mockable<DeclarationType, InvocationType, ReturnType>,
+                        at sourceLocation: SourceLocation) {
+    self.mockingContext = declaration.mock.mockingContext
+    self.invocation = declaration.invocation
     self.sourceLocation = sourceLocation
   }
 
   /// Verify that the mock received the invocation some number of times using a count matcher.
   ///
-  /// - Parameter countMathcer: A count matcher defining the number of invocations to verify.
+  /// - Parameter countMatcher: A count matcher defining the number of invocations to verify.
   public func wasCalled(_ countMatcher: CountMatcher) {
     verify(using: countMatcher, for: sourceLocation)
   }
@@ -40,7 +54,7 @@ public struct Verification<I, R> {
   /// Verify that the mock received the invocation an exact number of times.
   ///
   /// - Parameter times: The exact number of invocations expected.
-  public func wasCalled(_ times: UInt = once) {
+  public func wasCalled(_ times: Int = once) {
     verify(using: exactly(times), for: sourceLocation)
   }
 
@@ -51,8 +65,21 @@ public struct Verification<I, R> {
   
   /// Disambiguate methods overloaded by return type.
   ///
-  /// - Parameter type: The return type of the method.
-  public func returning(_ type: R.Type = R.self) -> Verification<I, R> {
+  /// Declarations for methods overloaded by return type cannot type inference and should be
+  /// disambiguated.
+  ///
+  ///     protocol Bird {
+  ///       func getMessage<T>() throws -> T    // Overloaded generically
+  ///       func getMessage() throws -> String  // Overloaded explicitly
+  ///       func getMessage() throws -> Data
+  ///     }
+  ///
+  ///     verify(bird.send(any()))
+  ///       .returning(String.self)
+  ///       .wasCalled()
+  ///
+  /// - Parameter type: The return type of the declaration to verify.
+  public func returning(_ type: ReturnType.Type = ReturnType.self) -> Self {
     return self
   }
   
@@ -71,61 +98,8 @@ public struct Verification<I, R> {
   }
 }
 
-/// A deferred expectation that can be fulfilled when an invocation arrives later.
-struct CapturedExpectation {
-  let mockingContext: MockingContext
-  let invocation: Invocation
-  let expectation: Expectation
-}
-
-/// Stores all expectations invoked by verification methods within a scoped context.
-class ExpectationGroup {
-  private(set) weak var parent: ExpectationGroup?
-  private let verificationBlock: (ExpectationGroup) throws -> Void
-  
-  init(_ verificationBlock: @escaping (ExpectationGroup) throws -> Void) {
-    self.parent = DispatchQueue.currentExpectationGroup
-    self.verificationBlock = verificationBlock
-  }
-  
-  struct Failure: Error {
-    let error: TestFailure
-    let sourceLocation: SourceLocation
-  }
-
-  func verify(context: ExpectationGroup? = nil) throws {
-    if let parent = parent, context == nil {
-      parent.addSubgroup(self)
-    } else {
-      try verificationBlock(self)
-    }
-  }
-  
-  private(set) var expectations = [CapturedExpectation]()
-  func addExpectation(mockingContext: MockingContext,
-                      invocation: Invocation,
-                      expectation: Expectation) {
-    expectations.append(CapturedExpectation(mockingContext: mockingContext,
-                                            invocation: invocation,
-                                            expectation: expectation))
-  }
-  
-  private(set) var subgroups = [ExpectationGroup]()
-  func addSubgroup(_ subgroup: ExpectationGroup) {
-    subgroups.append(subgroup)
-  }
-}
-
-extension DispatchQueue {
-  class var currentExpectationGroup: ExpectationGroup? {
-    return DispatchQueue.getSpecific(key: Expectation.expectationGroupKey)
-  }
-}
-
-/// Packages a call matcher and its call site. Used by verification methods in attributed scopes.
+/// Wraps a call matcher and its call site. Used by verification methods in attributed scopes.
 struct Expectation {
-  static let expectationGroupKey = DispatchSpecificKey<ExpectationGroup>()
-  
   let countMatcher: CountMatcher
   let sourceLocation: SourceLocation
   let group: ExpectationGroup?
@@ -145,6 +119,7 @@ struct Expectation {
   }
 }
 
+/// Filters recorded invocations by upper and lower invocation bounds.
 func findInvocations(in mockingContext: MockingContext,
                      with selectorName: String,
                      before nextInvocation: Invocation?,
@@ -184,7 +159,7 @@ func expect(_ mockingContext: MockingContext,
                                        after: baseInvocation)
   let allMatchingInvocations = allInvocations.filter({ $0 == invocation })
   
-  let actualCallCount = UInt(allMatchingInvocations.count)
+  let actualCallCount = allMatchingInvocations.count
   guard !expectation.countMatcher.matches(actualCallCount) else { return allInvocations }
   throw TestFailure.incorrectInvocationCount(invocationCount: actualCallCount,
                                              invocation: invocation,

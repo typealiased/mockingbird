@@ -14,7 +14,7 @@ import MockingbirdModuleTestsHost
 
 private protocol StubbableSubclassingExternalTopLevelType {
   func getSecondLevelType()
-    -> Mockable<VariableDeclaration,
+    -> Mockable<PropertyGetterDeclaration,
     () -> MockingbirdModuleTestsHost.TopLevelType.SecondLevelType,
     MockingbirdModuleTestsHost.TopLevelType.SecondLevelType>
 }
@@ -22,15 +22,15 @@ extension SubclassingExternalTopLevelTypeMock: StubbableSubclassingExternalTopLe
 
 private protocol StubbableImplementingExternalModuleScoping {
   func getTopLevelType()
-    -> Mockable<VariableDeclaration,
+    -> Mockable<PropertyGetterDeclaration,
     () -> MockingbirdModuleTestsHost.TopLevelType,
     MockingbirdModuleTestsHost.TopLevelType>
   func getSecondLevelType()
-    -> Mockable<VariableDeclaration,
+    -> Mockable<PropertyGetterDeclaration,
     () -> MockingbirdModuleTestsHost.TopLevelType.SecondLevelType,
     MockingbirdModuleTestsHost.TopLevelType.SecondLevelType>
   func getThirdLevelType()
-    -> Mockable<VariableDeclaration,
+    -> Mockable<PropertyGetterDeclaration,
     () -> MockingbirdModuleTestsHost.TopLevelType.SecondLevelType.ThirdLevelType,
     MockingbirdModuleTestsHost.TopLevelType.SecondLevelType.ThirdLevelType>
 }

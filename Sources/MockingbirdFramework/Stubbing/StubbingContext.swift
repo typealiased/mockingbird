@@ -8,24 +8,27 @@
 import Foundation
 import XCTest
 
-/// Holds stubbed invocation implementations used by stubs.
+/// Stores stubbed implementations used by mocks.
 public class StubbingContext {
   struct Stub {
     let invocation: Invocation
-    let implementationProvider: (() -> Any)?
+    let implementationProvider: () -> Any?
   }
   var stubs = Synchronized<[String: [Stub]]>([:])
   var defaultValueProvider = ValueProvider()
   var sourceLocation: SourceLocation?
   
-  func swizzle(_ invocation: Invocation, with implementationProvider: (() -> Any)?) -> Stub {
+  func swizzle(_ invocation: Invocation,
+               with implementationProvider: @escaping () -> Any?) -> Stub {
     let stub = Stub(invocation: invocation, implementationProvider: implementationProvider)
     stubs.update { $0[invocation.selectorName, default: []].append(stub) }
     return stub
   }
   
   func failTest(for invocation: Invocation) -> String {
-    let error = TestFailure.missingStubbedImplementation(invocation: invocation)
+    let stubbedSelectorNames = stubs.read({ Array($0.keys) }).sorted()
+    let error = TestFailure.missingStubbedImplementation(invocation: invocation,
+                                                         stubbedSelectorNames: stubbedSelectorNames)
     if let sourceLocation = sourceLocation {
       MKBFail("\(error)", isFatal: true, file: sourceLocation.file, line: sourceLocation.line)
     } else {
@@ -39,7 +42,7 @@ public class StubbingContext {
   func implementation(for invocation: Invocation) -> Any? {
     return stubs.read({ $0[invocation.selectorName] })?
       .last(where: { $0.invocation == invocation })?
-      .implementationProvider?()
+      .implementationProvider()
   }
 
   func clearStubs() {

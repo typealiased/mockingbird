@@ -13,72 +13,72 @@ import Mockingbird
 
 private protocol StubbableSubscriptedProtocol {
   func getSubscript(_ index: @escaping @autoclosure () -> Int)
-    -> Mockable<SubscriptDeclaration, (Int) -> String, String>
+    -> Mockable<SubscriptGetterDeclaration, (Int) -> String, String>
   func setSubscript(_ index: @escaping @autoclosure () -> Int,
                     newValue: @escaping @autoclosure () -> String)
-    -> Mockable<SubscriptDeclaration, (Int, String) -> Void, Void>
+    -> Mockable<SubscriptSetterDeclaration, (Int, String) -> Void, Void>
   
   func getSubscript(_ index: @escaping @autoclosure () -> Int)
-    -> Mockable<SubscriptDeclaration, (Int) -> Bool, Bool>
+    -> Mockable<SubscriptGetterDeclaration, (Int) -> Bool, Bool>
   func setSubscript(_ index: @escaping @autoclosure () -> Int,
                     newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<SubscriptDeclaration, (Int, Bool) -> Void, Void>
+    -> Mockable<SubscriptSetterDeclaration, (Int, Bool) -> Void, Void>
   
   func getSubscript(_ index: @escaping @autoclosure () -> String)
-    -> Mockable<SubscriptDeclaration, (String) -> String, String>
+    -> Mockable<SubscriptGetterDeclaration, (String) -> String, String>
   func setSubscript(_ index: @escaping @autoclosure () -> String,
                     newValue: @escaping @autoclosure () -> String)
-    -> Mockable<SubscriptDeclaration, (String, String) -> Void, Void>
+    -> Mockable<SubscriptSetterDeclaration, (String, String) -> Void, Void>
   
   func getSubscript(_ index: @escaping @autoclosure () -> Int)
-    -> Mockable<SubscriptDeclaration, (Int) -> Int, Int>
+    -> Mockable<SubscriptGetterDeclaration, (Int) -> Int, Int>
   func setSubscript(_ index: @escaping @autoclosure () -> Int,
                     newValue: @escaping @autoclosure () -> Int)
-    -> Mockable<SubscriptDeclaration, (Int, Int) -> Void, Void>
+    -> Mockable<SubscriptSetterDeclaration, (Int, Int) -> Void, Void>
   
   func getSubscript(_ row: @escaping @autoclosure () -> Int,
                     _ column: @escaping @autoclosure () -> Int)
-    -> Mockable<SubscriptDeclaration, (Int, Int) -> String, String>
+    -> Mockable<SubscriptGetterDeclaration, (Int, Int) -> String, String>
   func setSubscript(_ row: @escaping @autoclosure () -> Int,
                     _ column: @escaping @autoclosure () -> Int,
                     newValue: @escaping @autoclosure () -> String)
-    -> Mockable<SubscriptDeclaration, (Int, Int, String) -> Void, Void>
+    -> Mockable<SubscriptSetterDeclaration, (Int, Int, String) -> Void, Void>
   
   func getSubscript(_ indexes: @escaping @autoclosure () -> [String])
-    -> Mockable<SubscriptDeclaration, ([String]) -> String, String>
+    -> Mockable<SubscriptGetterDeclaration, ([String]) -> String, String>
   func setSubscript(_ indexes: @escaping @autoclosure () -> [String],
                     newValue: @escaping @autoclosure () -> String)
-    -> Mockable<SubscriptDeclaration, ([String], String) -> Void, Void>
+    -> Mockable<SubscriptSetterDeclaration, ([String], String) -> Void, Void>
   func getSubscript(_ indexes: String...)
-    -> Mockable<SubscriptDeclaration, ([String]) -> String, String>
+    -> Mockable<SubscriptGetterDeclaration, ([String]) -> String, String>
   func setSubscript(_ indexes: String..., newValue: @escaping @autoclosure () -> String)
-    -> Mockable<SubscriptDeclaration, ([String], String) -> Void, Void>
+    -> Mockable<SubscriptSetterDeclaration, ([String], String) -> Void, Void>
   
   func getSubscript<IndexType: Equatable, ReturnType: Hashable>(
     _ index: @escaping @autoclosure () -> IndexType
-  ) -> Mockable<SubscriptDeclaration, (IndexType) -> ReturnType, ReturnType>
+  ) -> Mockable<SubscriptGetterDeclaration, (IndexType) -> ReturnType, ReturnType>
   func setSubscript<IndexType: Equatable, ReturnType: Hashable>(
     _ index: @escaping @autoclosure () -> IndexType,
     newValue: @escaping @autoclosure () -> ReturnType
-  ) -> Mockable<SubscriptDeclaration, (IndexType, ReturnType) -> Void, Void>
+  ) -> Mockable<SubscriptSetterDeclaration, (IndexType, ReturnType) -> Void, Void>
 }
 extension SubscriptedProtocolMock: StubbableSubscriptedProtocol {}
 extension SubscriptedClassMock: StubbableSubscriptedProtocol {}
 
 private protocol StubbableDynamicMemberLookupClass {
   func getSubscript(dynamicMember member: @escaping @autoclosure () -> String)
-    -> Mockable<SubscriptDeclaration, (String) -> Int, Int>
+    -> Mockable<SubscriptGetterDeclaration, (String) -> Int, Int>
   func setSubscript(dynamicMember member: @escaping @autoclosure () -> String,
                     newValue: @escaping @autoclosure () -> Int)
-    -> Mockable<SubscriptDeclaration, (String, Int) -> Void, Void>
+    -> Mockable<SubscriptSetterDeclaration, (String, Int) -> Void, Void>
 }
 extension DynamicMemberLookupClassMock: StubbableDynamicMemberLookupClass {}
 
 private protocol StubbableGenericDynamicMemberLookupClass {
   func getSubscript<T>(dynamicMember member: @escaping @autoclosure () -> String)
-    -> Mockable<SubscriptDeclaration, (String) -> T, T>
+    -> Mockable<SubscriptGetterDeclaration, (String) -> T, T>
   func setSubscript<T>(dynamicMember member: @escaping @autoclosure () -> String,
                        newValue: @escaping @autoclosure () -> T)
-    -> Mockable<SubscriptDeclaration, (String, T) -> Void, Void>
+    -> Mockable<SubscriptSetterDeclaration, (String, T) -> Void, Void>
 }
 extension GenericDynamicMemberLookupClassMock: StubbableGenericDynamicMemberLookupClass {}

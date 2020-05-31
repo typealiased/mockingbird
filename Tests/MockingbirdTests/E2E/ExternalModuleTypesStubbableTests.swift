@@ -13,16 +13,16 @@ import MockingbirdModuleTestsHost
 // MARK: - Stubbable declarations
 
 private protocol StubbableLocalPublicExternalProtocol {
-  func getVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func getVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
   func method() -> Mockable<FunctionDeclaration, () -> Void, Void>
 }
 extension LocalPublicExternalProtocolMock: StubbableLocalPublicExternalProtocol {}
 
 private protocol StubbableSubclassingExternalClassWithInheritedIntializer {
-  func getInternalVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func getInternalVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
   func internalMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
-  func getOpenVariable() -> Mockingbird.Mockable<Mockingbird.VariableDeclaration, () -> Bool, Bool>
-  func openMethod() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>
+  func getOpenVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
+  func openMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
 }
 extension SubclassingExternalClassWithInheritedIntializerMock:
 StubbableSubclassingExternalClassWithInheritedIntializer {}
@@ -34,23 +34,23 @@ extension SubclassingExternalSubclassWithDesignatedInitializerMock:
 StubbableSubclassingExternalClassWithInheritedIntializer {}
 
 private protocol StubbableConformingInitializableOpenClassConstrainedProtocol {
-  func getOpenVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func getOpenVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
   func setOpenVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
+    -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void>
 }
 extension ConformingInitializableOpenClassConstrainedProtocolMock:
 StubbableConformingInitializableOpenClassConstrainedProtocol {}
 
 private protocol StubbableConformingUninitializableOpenClassConstrainedProtocol {
-  func getOpenVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func getOpenVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
   func setOpenVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void>
+    -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void>
 }
 extension ConformingUninitializableOpenClassConstrainedProtocolMock:
 StubbableConformingUninitializableOpenClassConstrainedProtocol {}
 
 private protocol StubbableImplicitlyImportedExternalObjectiveCType {
-  func getVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func getVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
 }
 extension ImplicitlyImportedExternalObjectiveCTypeMock:
 StubbableImplicitlyImportedExternalObjectiveCType {}
@@ -59,13 +59,13 @@ StubbableImplicitlyImportedExternalObjectiveCType {}
 // MARK: - Non-stubbable declarations
 
 extension ConformingInitializableOpenClassConstrainedProtocolMock {
-  func getPublicVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool> { fatalError() }
+  func getPublicVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool> { fatalError() }
   func setPublicVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
+    -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
 }
 
 extension ConformingUninitializableOpenClassConstrainedProtocolMock {
-  func getPublicVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool> { fatalError() }
+  func getPublicVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool> { fatalError() }
   func setPublicVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
+    -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
 }

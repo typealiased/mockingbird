@@ -18,23 +18,23 @@ class CountMatcherTests: XCTestCase {
     child = mock(ChildProtocol.self)
   }
   
-  // MARK: - Nominal count matchers
+  // MARK: - Adverbial counts
   
   // MARK: Exact
   
-  func testNominalCountMatcher_exactlyNever() {
+  func testAdverbialCount_exactlyNever() {
     verify(child.childTrivialInstanceMethod()).wasCalled(never)
     verify(child.childTrivialInstanceMethod()).wasCalled(exactly(never))
     verify(child.childTrivialInstanceMethod()).wasNeverCalled()
   }
   
-  func testNominalCountMatcher_exactlyOnce() {
+  func testAdverbialCount_exactlyOnce() {
     (child as ChildProtocol).childTrivialInstanceMethod()
     verify(child.childTrivialInstanceMethod()).wasCalled(once)
     verify(child.childTrivialInstanceMethod()).wasCalled(exactly(once))
   }
   
-  func testNominalCountMatcher_exactlyTwice() {
+  func testAdverbialCount_exactlyTwice() {
     (child as ChildProtocol).childTrivialInstanceMethod()
     (child as ChildProtocol).childTrivialInstanceMethod()
     verify(child.childTrivialInstanceMethod()).wasCalled(twice)
@@ -43,22 +43,22 @@ class CountMatcherTests: XCTestCase {
   
   // MARK: Inequality
   
-  func testNominalCountMatcher_atMostOnce() {
+  func testAdverbialCount_atMostOnce() {
     (child as ChildProtocol).childTrivialInstanceMethod()
     verify(child.childTrivialInstanceMethod()).wasCalled(atMost(once))
   }
   
-  func testNominalCountMatcher_atLeastOnce() {
+  func testAdverbialCount_atLeastOnce() {
     (child as ChildProtocol).childTrivialInstanceMethod()
     verify(child.childTrivialInstanceMethod()).wasCalled(atLeast(once))
   }
   
-  func testNominalCountMatcher_atMostTwice() {
+  func testAdverbialCount_atMostTwice() {
     (child as ChildProtocol).childTrivialInstanceMethod()
     verify(child.childTrivialInstanceMethod()).wasCalled(atMost(twice))
   }
   
-  func testNominalCountMatcher_atLeastTwice() {
+  func testAdverbialCount_atLeastTwice() {
     (child as ChildProtocol).childTrivialInstanceMethod()
     (child as ChildProtocol).childTrivialInstanceMethod()
     verify(child.childTrivialInstanceMethod()).wasCalled(atLeast(twice))

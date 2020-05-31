@@ -9,7 +9,7 @@ import XCTest
 import Mockingbird
 @testable import MockingbirdTestsHost
 
-class SequentialValueStubbingTests: XCTestCase {
+class SequentialValueStubbingTests: BaseTestCase {
   
   var concreteMock: FakeableTypeReferencerMock!
   var concreteInstance: FakeableTypeReferencer { return concreteMock }
@@ -65,6 +65,8 @@ class SequentialValueStubbingTests: XCTestCase {
     XCTAssertFalse(concreteInstance.childParameterizedInstanceMethod(param1: true, 41))
   }
   
+  // MARK: Last value sequence
+  
   func testLastValueUsedWhenSequenceFinished() {
     given(concreteMock.fakeableInt()) ~> sequence(of: 1, 2, 3)
     XCTAssertEqual(concreteInstance.fakeableInt(), 1)
@@ -83,5 +85,51 @@ class SequentialValueStubbingTests: XCTestCase {
     XCTAssertEqual(concreteInstance.fakeableInt(), 3)
     XCTAssertEqual(concreteInstance.fakeableInt(), 3)
     verify(concreteMock.fakeableInt()).wasCalled(exactly(5))
+  }
+  
+  // MARK: Looping sequence
+  
+  func testSequenceLoopsValuesWhenReachesEnd() {
+    given(concreteMock.fakeableInt()) ~> loopingSequence(of: 1, 2, 3)
+    XCTAssertEqual(concreteInstance.fakeableInt(), 1)
+    XCTAssertEqual(concreteInstance.fakeableInt(), 2)
+    XCTAssertEqual(concreteInstance.fakeableInt(), 3)
+    XCTAssertEqual(concreteInstance.fakeableInt(), 1)
+    XCTAssertEqual(concreteInstance.fakeableInt(), 2)
+    XCTAssertEqual(concreteInstance.fakeableInt(), 3)
+    verify(concreteMock.fakeableInt()).wasCalled(exactly(6))
+  }
+  
+  func testSequenceLoopsImplementationsWhenReachesEnd() {
+    given(concreteMock.fakeableInt()) ~> loopingSequence(of: {1}, {2}, {3})
+    XCTAssertEqual(concreteInstance.fakeableInt(), 1)
+    XCTAssertEqual(concreteInstance.fakeableInt(), 2)
+    XCTAssertEqual(concreteInstance.fakeableInt(), 3)
+    XCTAssertEqual(concreteInstance.fakeableInt(), 1)
+    XCTAssertEqual(concreteInstance.fakeableInt(), 2)
+    XCTAssertEqual(concreteInstance.fakeableInt(), 3)
+    verify(concreteMock.fakeableInt()).wasCalled(exactly(6))
+  }
+  
+  // MARK: Finite sequence
+  
+  func testSequenceStopsReturningValuesWhenReachesEnd() {
+    shouldFail {
+      given(self.concreteMock.fakeableInt()) ~> finiteSequence(of: 1, 2, 3)
+      XCTAssertEqual(self.concreteInstance.fakeableInt(), 1)
+      XCTAssertEqual(self.concreteInstance.fakeableInt(), 2)
+      XCTAssertEqual(self.concreteInstance.fakeableInt(), 3)
+      _ = self.concreteInstance.fakeableInt()
+    }
+  }
+  
+  func testSequenceStopsReturningImplementationsWhenReachesEnd() {
+    shouldFail {
+      given(self.concreteMock.fakeableInt()) ~> finiteSequence(of: {1}, {2}, {3})
+      XCTAssertEqual(self.concreteInstance.fakeableInt(), 1)
+      XCTAssertEqual(self.concreteInstance.fakeableInt(), 2)
+      XCTAssertEqual(self.concreteInstance.fakeableInt(), 3)
+      _ = self.concreteInstance.fakeableInt()
+    }
   }
 }

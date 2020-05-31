@@ -8,14 +8,121 @@
 import Foundation
 import XCTest
 
+/// Enforce the relative order of invocations.
+///
+/// Calls to `verify` within the scope of an `inOrder` verification block are checked relative to
+/// each other.
+///
+///     // Verify that `fly` was called before `chirp`
+///     inOrder {
+///       verify(bird.fly()).wasCalled()
+///       verify(bird.chirp()).wasCalled()
+///     }
+///
+/// Pass options to `inOrder` verification blocks for stricter checks with additional invariants.
+///
+///     inOrder(with: .noInvocationsAfter) {
+///       verify(bird.fly()).wasCalled()
+///       verify(bird.chirp()).wasCalled()
+///     }
+///
+/// An `inOrder` block is resolved greedily, such that each verification must happen from the oldest
+/// remaining unsatisfied invocations.
+///
+///     // Given these unsatisfied invocations
+///     bird.fly()
+///     bird.fly()
+///     bird.chirp()
+///
+///     // Greedy strategy _must_ start from the first `fly`
+///     inOrder {
+///       verify(bird.fly()).wasCalled(twice)
+///       verify(bird.chirp()).wasCalled()
+///     }
+///
+///     // Non-greedy strategy can start from the second `fly`
+///     inOrder {
+///       verify(bird.fly()).wasCalled()
+///       verify(bird.chirp()).wasCalled()
+///     }
+///
+/// - Parameters:
+///   - options: Options to use when verifying invocations.
+///   - block: A block containing ordered verification calls.
+public func inOrder(with options: OrderedVerificationOptions = [],
+                    file: StaticString = #file, line: UInt = #line,
+                    _ block: () -> Void) {
+  createOrderedContext(at: SourceLocation(file, line), options: options, block: block)
+}
+
+/// Additional options to increase the strictness of `inOrder` verification blocks.
 public struct OrderedVerificationOptions: OptionSet {
   public let rawValue: Int
   public init(rawValue: Int) {
     self.rawValue = rawValue
   }
   
+  /// Check that there are no recorded invocations before those explicitly verified in the block.
+  ///
+  /// Use this option to disallow invocations prior to those satisfying the first verification.
+  ///
+  ///     bird.eat()
+  ///     bird.fly()
+  ///     bird.chirp()
+  ///
+  ///     // Passes _without_ the option
+  ///     inOrder {
+  ///       verify(bird.fly()).wasCalled()
+  ///       verify(bird.chirp()).wasCalled()
+  ///     }
+  ///
+  ///     // Fails with the option
+  ///     inOrder(with: .noInvocationsBefore) {
+  ///       verify(bird.fly()).wasCalled()
+  ///       verify(bird.chirp()).wasCalled()
+  ///     }
   public static let noInvocationsBefore = OrderedVerificationOptions(rawValue: 1 << 0)
+  
+  /// Check that there are no recorded invocations after those explicitly verified in the block.
+  ///
+  /// Use this option to disallow subsequent invocations to those satisfying the last verification.
+  ///
+  ///     bird.fly()
+  ///     bird.chirp()
+  ///     bird.eat()
+  ///
+  ///     // Passes _without_ the option
+  ///     inOrder {
+  ///       verify(bird.fly()).wasCalled()
+  ///       verify(bird.chirp()).wasCalled()
+  ///     }
+  ///
+  ///     // Fails with the option
+  ///     inOrder(with: .noInvocationsAfter) {
+  ///       verify(bird.fly()).wasCalled()
+  ///       verify(bird.chirp()).wasCalled()
+  ///     }
   public static let noInvocationsAfter = OrderedVerificationOptions(rawValue: 1 << 1)
+  
+  /// Check that there are no recorded invocations between those explicitly verified in the block.
+  ///
+  /// Use this option to disallow non-consecutive invocations to each verification.
+  ///
+  ///     bird.fly()
+  ///     bird.eat()
+  ///     bird.chirp()
+  ///
+  ///     // Passes _without_ the option
+  ///     inOrder {
+  ///       verify(bird.fly()).wasCalled()
+  ///       verify(bird.chirp()).wasCalled()
+  ///     }
+  ///
+  ///     // Fails with the option
+  ///     inOrder(with: .noInvocationsAfter) {
+  ///       verify(bird.fly()).wasCalled()
+  ///       verify(bird.chirp()).wasCalled()
+  ///     }
   public static let onlyConsecutiveInvocations = OrderedVerificationOptions(rawValue: 1 << 2)
 }
 
@@ -65,7 +172,6 @@ private func assertNoInvocationsAfter(_ capturedExpectation: CapturedExpectation
   throw ExpectationGroup.Failure(error: failure,
                                  sourceLocation: capturedExpectation.expectation.sourceLocation)
 }
-
 
 private struct Solution {
   let firstInvocation: Invocation?
@@ -176,7 +282,7 @@ func createOrderedContext(at sourceLocation: SourceLocation,
   }
   
   let queue = DispatchQueue(label: "co.bird.mockingbird.ordered-verification-scope")
-  queue.setSpecific(key: Expectation.expectationGroupKey, value: group)
+  queue.setSpecific(key: ExpectationGroup.contextKey, value: group)
   queue.sync { scope() }
   
   do {

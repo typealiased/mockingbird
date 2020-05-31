@@ -12,7 +12,7 @@ Having issues setting up Mockingbird? Join the [Slack channel](https://slofile.c
 
 Create the Cartfile in the Xcode project root directory.
 
-```bash
+```console
 $ cd iOSMockingbirdExample-Carthage
 $ touch Cartfile
 ```
@@ -30,20 +30,20 @@ framework to
 [a new Copy Files build phase](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets) with the
 destination set to `Frameworks`.
 
-```bash
+```console
 $ carthage update --platform ios
 $ open Carthage/Build/iOS
 ```
 
 Then install the CLI.
 
-```bash
+```console
 $ (cd Carthage/Checkouts/mockingbird && make install-prebuilt)
 ```
 
 Configure the test target.
 
-```bash
+```console
 $ mockingbird install \
   --target iOSMockingbirdExample-CarthageTests \
   --source iOSMockingbirdExample-Carthage
@@ -51,7 +51,7 @@ $ mockingbird install \
 
 Finally, download the starter supporting source files into your project root.
 
-```bash
+```console
 $ mockingbird download starter-pack
 ```
 
@@ -59,7 +59,7 @@ $ mockingbird download starter-pack
 
 Open the Xcode project.
 
-```bash
+```console
 $ open iOSMockingbirdExample-Carthage.xcodeproj
 ```
 
