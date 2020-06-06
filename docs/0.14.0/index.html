@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockingbird - Mockingbird</title>
+    <link rel="stylesheet" type="text/css" href="/mockingbird/0.14.0/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="/mockingbird/0.14.0">
+            <strong>
+                Mockingbird
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>0.14.0</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#classes">Classes</a></li><li><a href="#structures">Structures</a></li><li><a href="#enumerations">Enumerations</a></li><li><a href="#protocols">Protocols</a></li><li><a href="#functions">Functions</a></li><li><a href="#variables">Variables</a></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+                <section id="classes">
+        <h2>Classes</h2>
+        <dl>
+            <dt class="class">
+    <a href="/mockingbird/0.14.0/ArgumentCaptor-1017688" title="class - ArgumentCaptor">
+        Argument​Captor
+    </a>
+</dt>
+<dd>
+    <p>Captures method arguments passed during mock invocations.</p>
+
+</dd>
+<dt class="class">
+    <a href="/mockingbird/0.14.0/ArgumentMatcher-f013d1a" title="class - ArgumentMatcher">
+        Argument​Matcher
+    </a>
+</dt>
+<dd>
+    <p>Matches argument values with a comparator.</p>
+
+</dd>
+<dt class="class">
+    <a href="/mockingbird/0.14.0/StaticMock-882efeb" title="class - StaticMock">
+        Static​Mock
+    </a>
+</dt>
+<dd>
+    <p>Used to store invocations on static or class scoped methods.</p>
+
+</dd>
+<dt class="class">
+    <a href="/mockingbird/0.14.0/VariableDeclaration-c075015" title="class - VariableDeclaration">
+        Variable​Declaration
+    </a>
+</dt>
+<dd>
+    <p>Mockable variable declarations.</p>
+
+</dd>
+<dt class="class">
+    <a href="/mockingbird/0.14.0/PropertyGetterDeclaration-db9ea0d" title="class - PropertyGetterDeclaration">
+        Property​Getter​Declaration
+    </a>
+</dt>
+<dd>
+    <p>Mockable property getter declarations.</p>
+
+</dd>
+<dt class="class">
+    <a href="/mockingbird/0.14.0/PropertySetterDeclaration-7cfb3cc" title="class - PropertySetterDeclaration">
+        Property​Setter​Declaration
+    </a>
+</dt>
+<dd>
+    <p>Mockable property setter declarations.</p>
+
+</dd>
+<dt class="class">
+    <a href="/mockingbird/0.14.0/FunctionDeclaration-2ccea11" title="class - FunctionDeclaration">
+        Function​Declaration
+    </a>
+</dt>
+<dd>
+    <p>Mockable function declarations.</p>
+
+</dd>
+<dt class="class">
+    <a href="/mockingbird/0.14.0/ThrowingFunctionDeclaration-9b512dc" title="class - ThrowingFunctionDeclaration">
+        Throwing​Function​Declaration
+    </a>
+</dt>
+<dd>
+    <p>Mockable throwing function declarations.</p>
+
+</dd>
+<dt class="class">
+    <a href="/mockingbird/0.14.0/SubscriptDeclaration-38e94f4" title="class - SubscriptDeclaration">
+        Subscript​Declaration
+    </a>
+</dt>
+<dd>
+    <p>Mockable subscript declarations.</p>
+
+</dd>
+<dt class="class">
+    <a href="/mockingbird/0.14.0/SubscriptGetterDeclaration-2324199" title="class - SubscriptGetterDeclaration">
+        Subscript​Getter​Declaration
+    </a>
+</dt>
+<dd>
+    <p>Mockable subscript getter declarations.</p>
+
+</dd>
+<dt class="class">
+    <a href="/mockingbird/0.14.0/SubscriptSetterDeclaration-a66f358" title="class - SubscriptSetterDeclaration">
+        Subscript​Setter​Declaration
+    </a>
+</dt>
+<dd>
+    <p>Mockable subscript setter declarations.</p>
+
+</dd>
+<dt class="class">
+    <a href="/mockingbird/0.14.0/MockingContext-c5faed5" title="class - MockingContext">
+        Mocking​Context
+    </a>
+</dt>
+<dd>
+    <p>Stores invocations received by mocks.</p>
+
+</dd>
+<dt class="class">
+    <a href="/mockingbird/0.14.0/StubbingManager-761d798" title="class - StubbingManager">
+        Stubbing​Manager
+    </a>
+</dt>
+<dd>
+    <p>An intermediate object used for stubbing declarations returned by <code>given</code>.</p>
+
+</dd>
+<dt class="class">
+    <a href="/mockingbird/0.14.0/StubbingContext-794fb76" title="class - StubbingContext">
+        Stubbing​Context
+    </a>
+</dt>
+<dd>
+    <p>Stores stubbed implementations used by mocks.</p>
+
+</dd>
+<dt class="class">
+    <a href="/mockingbird/0.14.0/NonEscapingClosure-e61507c" title="class - NonEscapingClosure">
+        Non​Escaping​Closure
+    </a>
+</dt>
+<dd>
+    <p>Placeholder for non-escaping closure parameter types.</p>
+
+</dd>
+        </dl>
+    </section>
+    <section id="structures">
+        <h2>Structures</h2>
+        <dl>
+            <dt class="structure">
+    <a href="/mockingbird/0.14.0/CountMatcher-4be5ae3" title="structure - CountMatcher">
+        Count​Matcher
+    </a>
+</dt>
+<dd>
+    <p>Checks whether a number matches some expected count.</p>
+
+</dd>
+<dt class="structure">
+    <a href="/mockingbird/0.14.0/MockMetadata-36657c4" title="structure - MockMetadata">
+        Mock​Metadata
+    </a>
+</dt>
+<dd>
+    <p>Stores information about generated mocks.</p>
+
+</dd>
+<dt class="structure">
+    <a href="/mockingbird/0.14.0/Mockable-9a5a67c" title="structure - Mockable">
+        Mockable
+    </a>
+</dt>
+<dd>
+    <p>Represents a mocked declaration that can be stubbed or verified.</p>
+
+</dd>
+<dt class="structure">
+    <a href="/mockingbird/0.14.0/ImplementationProvider-c664b1e" title="structure - ImplementationProvider">
+        Implementation​Provider
+    </a>
+</dt>
+<dd>
+    <p>Provides implementation functions used to stub behavior and return values.</p>
+
+</dd>
+<dt class="structure">
+    <a href="/mockingbird/0.14.0/ValueProvider-7c6afc8" title="structure - ValueProvider">
+        Value​Provider
+    </a>
+</dt>
+<dd>
+    <p>Provides concrete instances of types.</p>
+
+</dd>
+<dt class="structure">
+    <a href="/mockingbird/0.14.0/SourceLocation-656fd60" title="structure - SourceLocation">
+        Source​Location
+    </a>
+</dt>
+<dd>
+    <p>References a line of code in a file.</p>
+
+</dd>
+<dt class="structure">
+    <a href="/mockingbird/0.14.0/OrderedVerificationOptions-77823cc" title="structure - OrderedVerificationOptions">
+        Ordered​Verification​Options
+    </a>
+</dt>
+<dd>
+    <p>Additional options to increase the strictness of <code>inOrder</code> verification blocks.</p>
+
+</dd>
+<dt class="structure">
+    <a href="/mockingbird/0.14.0/VerificationManager-94d5cc8" title="structure - VerificationManager">
+        Verification​Manager
+    </a>
+</dt>
+<dd>
+    <p>An intermediate object used for verifying declarations returned by <code>verify</code>.</p>
+
+</dd>
+        </dl>
+    </section>
+    <section id="enumerations">
+        <h2>Enumerations</h2>
+        <dl>
+            <dt class="enumeration">
+    <a href="/mockingbird/0.14.0/StubbingManager_TransitionStrategy-9f44b8f" title="enumeration - StubbingManager.TransitionStrategy">
+        Stubbing​Manager.​Transition​Strategy
+    </a>
+</dt>
+<dd>
+    <p>When to use the next chained implementation provider.</p>
+
+</dd>
+        </dl>
+    </section>
+    <section id="protocols">
+        <h2>Protocols</h2>
+        <dl>
+            <dt class="protocol">
+    <a href="/mockingbird/0.14.0/Mock-28ffcc3" title="protocol - Mock">
+        Mock
+    </a>
+</dt>
+<dd>
+    <p>All generated mocks conform to this protocol.</p>
+
+</dd>
+<dt class="protocol">
+    <a href="/mockingbird/0.14.0/Declaration-f6338ac" title="protocol - Declaration">
+        Declaration
+    </a>
+</dt>
+<dd>
+    <p>All mockable declaration types conform to this protocol.</p>
+
+</dd>
+<dt class="protocol">
+    <a href="/mockingbird/0.14.0/Providable-7bc5aa7" title="protocol - Providable">
+        Providable
+    </a>
+</dt>
+<dd>
+    <p>A type that can provide concrete instances of itself.</p>
+
+</dd>
+<dt class="protocol">
+    <a href="/mockingbird/0.14.0/TestFailer-4ae7a4d" title="protocol - TestFailer">
+        Test​Failer
+    </a>
+</dt>
+<dd>
+    <p>A type that can handle test failures emitted by Mockingbird.</p>
+
+</dd>
+        </dl>
+    </section>
+    <section id="functions">
+        <h2>Functions</h2>
+        <dl>
+            <dt class="function">
+    <a href="/mockingbird/0.14.0/any(_:containing:)-0e18f78" title="function - any(_:containing:)">
+        any(_:​containing:​)
+    </a>
+</dt>
+<dd>
+    <p>Matches any collection containing all of the values.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/any(_:containing:)-365e26e" title="function - any(_:containing:)">
+        any(_:​containing:​)
+    </a>
+</dt>
+<dd>
+    <p>Matches any dictionary containing all of the values.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/any(_:keys:)-e7f89d4" title="function - any(_:keys:)">
+        any(_:​keys:​)
+    </a>
+</dt>
+<dd>
+    <p>Matches any dictionary containing all of the keys.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/any(_:count:)-860fd11" title="function - any(_:count:)">
+        any(_:​count:​)
+    </a>
+</dt>
+<dd>
+    <p>Matches any collection with a specific number of elements.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/notEmpty(_:)-3cab350" title="function - notEmpty(_:)">
+        not​Empty(_:​)
+    </a>
+</dt>
+<dd>
+    <p>Matches any collection with at least one element.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/around(_:tolerance:)-831b19f" title="function - around(_:tolerance:)">
+        around(_:​tolerance:​)
+    </a>
+</dt>
+<dd>
+    <p>Matches floating point arguments within some tolerance.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/exactly(_:)-47abdfc" title="function - exactly(_:)">
+        exactly(_:​)
+    </a>
+</dt>
+<dd>
+    <p>Matches an exact count.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/atLeast(_:)-c832002" title="function - atLeast(_:)">
+        at​Least(_:​)
+    </a>
+</dt>
+<dd>
+    <p>Matches greater than or equal to some count.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/atMost(_:)-a2b82d3" title="function - atMost(_:)">
+        at​Most(_:​)
+    </a>
+</dt>
+<dd>
+    <p>Matches less than or equal to some count.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/between(_:)-cfca747" title="function - between(_:)">
+        between(_:​)
+    </a>
+</dt>
+<dd>
+    <p>Matches counts that fall within some range.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/not(_:)-cf99a2a" title="function - not(_:)">
+        not(_:​)
+    </a>
+</dt>
+<dd>
+    <p>Negate a count matcher, only passing on non-matching counts.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/not(_:)-3f926b2" title="function - not(_:)">
+        not(_:​)
+    </a>
+</dt>
+<dd>
+    <p>Negate an exact count, only passing on non-matching counts.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/any(_:)-da61986" title="function - any(_:)">
+        any(_:​)
+    </a>
+</dt>
+<dd>
+    <p>Matches all argument values.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/any(_:of:)-e376f19" title="function - any(_:of:)">
+        any(_:​of:​)
+    </a>
+</dt>
+<dd>
+    <p>Matches argument values equal to any of the provided values.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/any(_:of:)-89cb3ec" title="function - any(_:of:)">
+        any(_:​of:​)
+    </a>
+</dt>
+<dd>
+    <p>Matches argument values identical to any of the provided values.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/any(_:where:)-ea2d92e" title="function - any(_:where:)">
+        any(_:​where:​)
+    </a>
+</dt>
+<dd>
+    <p>Matches any argument values where the predicate returns <code>true</code>.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/notNil(_:)-42278eb" title="function - notNil(_:)">
+        not​Nil(_:​)
+    </a>
+</dt>
+<dd>
+    <p>Matches any non-nil argument value.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/reset(_:)-2a0feaf" title="function - reset(_:)">
+        reset(_:​)
+    </a>
+</dt>
+<dd>
+    <p>Remove all recorded invocations and configured stubs.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/clearInvocations(on:)-4120e8f" title="function - clearInvocations(on:)">
+        clear​Invocations(on:​)
+    </a>
+</dt>
+<dd>
+    <p>Remove all recorded invocations.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/clearStubs(on:)-f985ed7" title="function - clearStubs(on:)">
+        clear​Stubs(on:​)
+    </a>
+</dt>
+<dd>
+    <p>Remove all concrete stubs.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/clearDefaultValues(on:)-112773d" title="function - clearDefaultValues(on:)">
+        clear​Default​Values(on:​)
+    </a>
+</dt>
+<dd>
+    <p>Remove all registered default values.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/useDefaultValues(from:on:)-7eb6cc5" title="function - useDefaultValues(from:on:)">
+        use​Default​Values(from:​on:​)
+    </a>
+</dt>
+<dd>
+    <p>Start returning default values for unstubbed methods on multiple mocks.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/useDefaultValues(from:on:)-5df93fa" title="function - useDefaultValues(from:on:)">
+        use​Default​Values(from:​on:​)
+    </a>
+</dt>
+<dd>
+    <p>Start returning default values for unstubbed methods on a single mock.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/sequence(of:)-d9da3e4" title="function - sequence(of:)">
+        sequence(of:​)
+    </a>
+</dt>
+<dd>
+    <p>Stub a sequence of values.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/sequence(of:)-c40bb93" title="function - sequence(of:)">
+        sequence(of:​)
+    </a>
+</dt>
+<dd>
+    <p>Stub a sequence of implementations.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/loopingSequence(of:)-8ab9cb4" title="function - loopingSequence(of:)">
+        looping​Sequence(of:​)
+    </a>
+</dt>
+<dd>
+    <p>Stub a looping sequence of values.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/loopingSequence(of:)-9da831b" title="function - loopingSequence(of:)">
+        looping​Sequence(of:​)
+    </a>
+</dt>
+<dd>
+    <p>Stub a looping sequence of implementations.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/finiteSequence(of:)-9390bb3" title="function - finiteSequence(of:)">
+        finite​Sequence(of:​)
+    </a>
+</dt>
+<dd>
+    <p>Stub a finite sequence of values.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/finiteSequence(of:)-ff3ed8b" title="function - finiteSequence(of:)">
+        finite​Sequence(of:​)
+    </a>
+</dt>
+<dd>
+    <p>Stub a finite sequence of implementations.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/lastSetValue(initial:)-576c55c" title="function - lastSetValue(initial:)">
+        last​Set​Value(initial:​)
+    </a>
+</dt>
+<dd>
+    <p>Stubs a variable getter to return the last value received by the setter.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/given(_:)-05dd78f" title="function - given(_:)">
+        given(_:​)
+    </a>
+</dt>
+<dd>
+    <p>Stub one or more declarations to return a value or perform an operation.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/eventually(_:_:)-28d4191" title="function - eventually(_:_:)">
+        eventually(_:​_:​)
+    </a>
+</dt>
+<dd>
+    <p>Create a deferrable test expectation from a block containing verification calls.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/inOrder(with:file:line:_:)-3c038cb" title="function - inOrder(with:file:line:_:)">
+        in​Order(with:​file:​line:​_:​)
+    </a>
+</dt>
+<dd>
+    <p>Enforce the relative order of invocations.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/verify(_:file:line:)-a722fba" title="function - verify(_:file:line:)">
+        verify(_:​file:​line:​)
+    </a>
+</dt>
+<dd>
+    <p>Verify that a mock recieved a specific invocation some number of times.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/swizzleTestFailer(_:)-d923326" title="function - swizzleTestFailer(_:)">
+        swizzle​Test​Failer(_:​)
+    </a>
+</dt>
+<dd>
+    <p>Change the current global test failer.</p>
+
+</dd>
+<dt class="function">
+    <a href="/mockingbird/0.14.0/MKBFail(_:isFatal:file:line:)-c41bd8d" title="function - MKBFail(_:isFatal:file:line:)">
+        MKBFail(_:​is​Fatal:​file:​line:​)
+    </a>
+</dt>
+<dd>
+    <p>Called by Mockingbird on test assertion failures.</p>
+
+</dd>
+        </dl>
+    </section>
+    <section id="variables">
+        <h2>Variables</h2>
+        <dl>
+            <dt class="variable">
+    <a href="/mockingbird/0.14.0/never-9661ceb" title="variable - never">
+        never
+    </a>
+</dt>
+<dd>
+    <p>A count of zero.</p>
+
+</dd>
+<dt class="variable">
+    <a href="/mockingbird/0.14.0/once-3db83dd" title="variable - once">
+        once
+    </a>
+</dt>
+<dd>
+    <p>A count of one.</p>
+
+</dd>
+<dt class="variable">
+    <a href="/mockingbird/0.14.0/twice-f36cfd6" title="variable - twice">
+        twice
+    </a>
+</dt>
+<dd>
+    <p>A count of two.</p>
+
+</dd>
+        </dl>
+    </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-06-22T17:11:34-0700">June 22, 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

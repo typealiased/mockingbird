@@ -10,7 +10,7 @@ TEMPORARY_INSTALLER_FOLDER=$(TEMPORARY_FOLDER)/install
 XCODEBUILD_DERIVED_DATA=$(TEMPORARY_FOLDER)/xcodebuild/DerivedData/MockingbirdFramework
 XCODE_PATH=$(shell xcode-select --print-path)
 CLI_BUNDLE_PLIST=Sources/MockingbirdCli/Info.plist
-VERSION_STRING=$(shell /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$(CLI_BUNDLE_PLIST)")
+VERSION_STRING?=$(shell /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$(CLI_BUNDLE_PLIST)")
 
 # Needs to be kept in sync with `LoadDylib.swift` and `build-framework-cli.yml`.
 $(eval RELATIVE_RPATH_FLAG = $(shell [[ $(USE_RELATIVE_RPATH) -eq 1 ]] && echo '-Xswiftc -DRELATIVE_RPATH' || echo ''))
@@ -83,91 +83,62 @@ STARTER_PACK_FOLDER=Sources/MockingbirdSupport
 OUTPUT_PACKAGE=Mockingbird.pkg
 OUTPUT_ZIP=Mockingbird.zip
 OUTPUT_STARTER_PACK_ZIP=MockingbirdSupport.zip
+OUTPUT_DOCS_FOLDER=docs/$(VERSION_STRING)
 
 ZIP_RELEASE_URL=$(REPO_URL)/releases/download/$(VERSION_STRING)/$(ZIP_FILENAME)
 SUCCESS_MSG=Verified the Mockingbird CLI binary
 ERROR_MSG=[ERROR] The downloaded Mockingbird CLI binary does not have the expected code signature! See <Codesigning/README.md>.
 
-.PHONY: all \
-		clean-mocks \
-		clean-temporary-files \
-		clean-xcode \
-		clean-swift \
-		clean-installables \
-		clean \
-		setup-project \
-		bootstrap \
-		save-xcschemes \
-		generate-embedded-dylibs \
-		build-cli \
-		build-framework-macos \
-		build-framework-iphonesimulator \
-		build-framework-appletvsimulator \
-		build-framework \
-		build \
-		setup-cocoapods \
-		setup-carthage \
-		setup-spm \
-		test-cocoapods \
-		test-carthage \
-		test-spm \
-		test-examples \
-		clean-cocoapods \
-		clean-carthage \
-		clean-spm \
-		clean-test-examples \
-		test \
-		clean-test \
-		install \
-		install-prebuilt \
-		uninstall \
-		package \
-		signed-package \
-		prepare-zip \
-		zip \
-		signed-zip \
-		starter-pack-zip \
-		release \
-		signed-release \
-		get-version \
-		get-zip-sha256
+REDIRECT_DOCS_PAGE=<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=/mockingbird/$(VERSION_STRING)/"></head></html>
 
+.PHONY: all
 all: build
 
+.PHONY: clean-mocks
 clean-mocks:
 	rm -f Sources/MockingbirdMocks/*.generated.swift
 	rm -f Mockingbird.xcodeproj/MockingbirdCache/*.lock
 
+.PHONY: clean-temporary-files
 clean-temporary-files:
 	rm -rf "$(TEMPORARY_FOLDER)"
 
+.PHONY: clean-xcode
 clean-xcode: clean-temporary-files
 	$(BUILD_TOOL) -scheme 'MockingbirdFramework' $(XCODEBUILD_MACOS_FLAGS) clean
 	$(BUILD_TOOL) -scheme 'MockingbirdTestsHost' $(XCODEBUILD_MACOS_FLAGS) clean
 
+.PHONY: clean-swift
 clean-swift:
 	(cd Sources && swift package clean)
 
+.PHONY: clean-installables
 clean-installables:
 	rm -f "$(OUTPUT_PACKAGE)"
 	rm -f "$(OUTPUT_ZIP)"
 
+.PHONY: clean-dylibs
 clean-dylibs:
 	rm -f Sources/MockingbirdCli/Libraries/*.generated.swift
 	rm -rf "$(MOCKINGBIRD_RPATH)"
 
+.PHONY: clean
 clean: clean-mocks clean-xcode clean-swift clean-installables clean-dylibs
 
+.PHONY: setup-project
 setup-project:
 	(cd Sources && swift package resolve)
 	cp -rf .xcode/xcschemes/*.xcscheme Mockingbird.xcodeproj/xcshareddata/xcschemes
 	rsync -vhr .xcode/GeneratedModuleMap/** Mockingbird.xcodeproj/GeneratedModuleMap
 
+.PHONY: bootstrap
 bootstrap: setup-project
 
+.PHONY: save-xcschemes
 save-xcschemes:
 	cp -rf Mockingbird.xcodeproj/xcshareddata/xcschemes/*.xcscheme .xcode/xcschemes
 
+.PHONY: print-debug-info
 print-debug-info:
 	@echo "Mockingbird version: $(VERSION_STRING)"
 	@echo "Installation prefix: $(PREFIX)"
@@ -185,12 +156,14 @@ print-debug-info:
 	@echo "Xcodebuild version: $(XCODEBUILD_VERSION)"
 	@echo "Swift build flags: $(SWIFT_BUILD_FLAGS)"
 
+.PHONY: generate-embedded-dylibs
 generate-embedded-dylibs:
 	Sources/MockingbirdCli/Scripts/generate-resource-file.sh \
 		Sources/MockingbirdCli/Libraries/lib_InternalSwiftSyntaxParser.dylib \
 		Sources/MockingbirdCli/Libraries/SwiftSyntaxParserDylib.generated.swift \
 		'swiftSyntaxParserDylib'
 
+.PHONY: build-cli
 build-cli: generate-embedded-dylibs
 	(cd Sources && swift build $(SWIFT_BUILD_FLAGS) --product mockingbird)
 	# Inject custom rpath into binary.
@@ -198,49 +171,62 @@ build-cli: generate-embedded-dylibs
 	install_name_tool -delete_rpath "$(RPATH)" "$(EXECUTABLE_PATH)"
 	install_name_tool -add_rpath "$(MOCKINGBIRD_RPATH)" "$(EXECUTABLE_PATH)"
 
+.PHONY: build-framework-macos
 build-framework-macos:
 	$(BUILD_TOOL) -scheme 'MockingbirdFramework' -configuration 'Release' -sdk macosx -arch x86_64 $(XCODEBUILD_FRAMEWORK_FLAGS)
 
+.PHONY: build-framework-iphonesimulator
 build-framework-iphonesimulator:
 	$(BUILD_TOOL) -scheme 'MockingbirdFramework' -configuration 'Release' -sdk iphonesimulator -arch x86_64 -arch i386 $(XCODEBUILD_FRAMEWORK_FLAGS)
 
+.PHONY: build-framework-appletvsimulator
 build-framework-appletvsimulator:
 	$(BUILD_TOOL) -scheme 'MockingbirdFramework' -configuration 'Release' -sdk appletvsimulator -arch arm64 $(XCODEBUILD_FRAMEWORK_FLAGS)
 
+.PHONY: build-framework
 build-framework: build-framework-macos build-framework-iphonesimulator build-framework-appletvsimulator
 
+.PHONY: build
 build: build-cli build-framework
 
+.PHONY: setup-cocoapods
 setup-cocoapods:
 	(cd Examples/iOSMockingbirdExample-CocoaPods && pod install)
 	(cd Examples/iOSMockingbirdExample-CocoaPods/Pods/MockingbirdFramework && make install-prebuilt)
 
+.PHONY: setup-carthage
 setup-carthage:
 	(cd Examples/iOSMockingbirdExample-Carthage && carthage update --platform ios)
 	(cd Examples/iOSMockingbirdExample-Carthage/Carthage/Checkouts/mockingbird && make install-prebuilt)
 
+.PHONY: setup-spm
 setup-spm:
 	(cd Examples/iOSMockingbirdExample-SPM && xcodebuild -resolvePackageDependencies)
 	$(eval DERIVED_DATA = $(shell xcodebuild -project Examples/iOSMockingbirdExample-SPM/iOSMockingbirdExample-SPM.xcodeproj -showBuildSettings | pcregrep -o1 'OBJROOT = (/.*)/Build'))
 	(cd $(DERIVED_DATA)/SourcePackages/checkouts/mockingbird && make install-prebuilt)
 
+.PHONY: test-cocoapods
 test-cocoapods: setup-cocoapods
 	$(eval DEVICE_UUID = $(shell xcrun simctl create "$(SIMULATOR_NAME)" "$(SIMULATOR_DEVICE_TYPE)" "$(SIMULATOR_RUNTIME)"))
 	$(BUILD_TOOL) -destination "platform=iOS Simulator,id=$(DEVICE_UUID)" $(EXAMPLE_COCOAPODS_XCODEBUILD_FLAGS) test
 	xcrun simctl delete "$(DEVICE_UUID)"
 
+.PHONY: test-carthage
 test-carthage: setup-carthage
 	$(eval DEVICE_UUID = $(shell xcrun simctl create "$(SIMULATOR_NAME)" "$(SIMULATOR_DEVICE_TYPE)" "$(SIMULATOR_RUNTIME)"))
 	$(BUILD_TOOL) -destination "platform=iOS Simulator,id=$(DEVICE_UUID)" $(EXAMPLE_CARTHAGE_XCODEBUILD_FLAGS) test
 	xcrun simctl delete "$(DEVICE_UUID)"
 
+.PHONY: test-spm
 test-spm: setup-spm
 	$(eval DEVICE_UUID = $(shell xcrun simctl create "$(SIMULATOR_NAME)" "$(SIMULATOR_DEVICE_TYPE)" "$(SIMULATOR_RUNTIME)"))
 	$(BUILD_TOOL) -destination "platform=iOS Simulator,id=$(DEVICE_UUID)" $(EXAMPLE_SPM_XCODEBUILD_FLAGS) test
 	xcrun simctl delete "$(DEVICE_UUID)"
 
+.PHONY: test-examples
 test-examples: test-cocoapods test-carthage test-spm
 
+.PHONY: clean-cocoapods
 clean-cocoapods: clean-temporary-files
 	rm -f Examples/iOSMockingbirdExample-CocoaPods/MockingbirdMocks/*.generated.swift
 	rm -f Examples/iOSMockingbirdExample-CocoaPods/iOSMockingbirdExample-CocoaPods.xcodeproj/MockingbirdCache/*.lock
@@ -248,6 +234,7 @@ clean-cocoapods: clean-temporary-files
 	rm -rf Examples/iOSMockingbirdExample-CocoaPods/Pods
 	$(BUILD_TOOL) $(EXAMPLE_COCOAPODS_XCODEBUILD_FLAGS) clean
 
+.PHONY: clean-carthage
 clean-carthage: clean-temporary-files
 	rm -f Examples/iOSMockingbirdExample-Carthage/MockingbirdMocks/*.generated.swift
 	rm -f Examples/iOSMockingbirdExample-Carthage/iOSMockingbirdExample-Carthage.xcodeproj/MockingbirdCache/*.lock
@@ -255,19 +242,51 @@ clean-carthage: clean-temporary-files
 	rm -rf Examples/iOSMockingbirdExample-Carthage/Carthage
 	$(BUILD_TOOL) $(EXAMPLE_CARTHAGE_XCODEBUILD_FLAGS) clean
 
+.PHONY: clean-spm
 clean-spm: clean-temporary-files
 	rm -f Examples/iOSMockingbirdExample-SPM/MockingbirdMocks/*.generated.swift
 	rm -f Examples/iOSMockingbirdExample-SPM/iOSMockingbirdExample-SPM.xcodeproj/MockingbirdCache/*.lock
 	rm -f Examples/iOSMockingbirdExample-SPM/iOSMockingbirdExample-SPM.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
 	$(BUILD_TOOL) $(EXAMPLE_SPM_XCODEBUILD_FLAGS) clean
 
+.PHONY: clean-test-examples
 clean-test-examples: clean-cocoapods clean-carthage clean-spm test-examples
 
+.PHONY: test
 test:
 	$(BUILD_TOOL) -scheme 'MockingbirdTests' $(XCODEBUILD_MACOS_FLAGS) test
 
+.PHONY: clean-test
 clean-test: clean test
 
+.PHONY: setup-swiftdoc
+setup-swiftdoc:
+	(cd docs/swift-doc && make install)
+
+.PHONY: clean-docs
+clean-docs:
+	rm -rf "$(OUTPUT_DOCS_FOLDER)"
+	rm -rf docs/latest
+	rm -f docs/index.html
+
+docs/latest:
+	mkdir $@
+
+docs/index.html docs/latest/index.html: | docs/latest
+	echo '$(REDIRECT_DOCS_PAGE)' > $@
+
+.PHONY: docs
+docs: clean-docs setup-swiftdoc docs/index.html docs/latest/index.html
+	swift doc generate \
+		Sources/MockingbirdFramework \
+		--module-name Mockingbird \
+		--version "$(VERSION_STRING)" \
+		--output "$(OUTPUT_DOCS_FOLDER)" \
+		--format html \
+		--base-url "/mockingbird/$(VERSION_STRING)"
+	cp -f docs/swift-doc/Resources/all.min.css "$(OUTPUT_DOCS_FOLDER)/all.css"
+
+.PHONY: download
 download:
 	curl -Lo "$(ZIP_FILENAME)" "$(ZIP_RELEASE_URL)"
 	unzip -o "$(ZIP_FILENAME)" "$(CLI_FILENAME)"
@@ -276,20 +295,24 @@ download:
 		|| $$(echo "$(ERROR_MSG)" >&2; exit 1)
 	chmod +x "$(CLI_FILENAME)"
 
+.PHONY: install
 install: build-cli
 	install -d "$(BINARIES_FOLDER)"
 	install "$(EXECUTABLE_PATH)" "$(BINARIES_FOLDER)"
 
+.PHONY: install-prebuilt
 install-prebuilt: download
 	install -d "$(BINARIES_FOLDER)"
 	install "$(CLI_FILENAME)" "$(BINARIES_FOLDER)"
 
+.PHONY: uninstall
 uninstall:
 	rm -f "$(BINARIES_FOLDER)/$(CLI_FILENAME)"
 	rm -rf "$(FRAMEWORKS_FOLDER)/$(MACOS_FRAMEWORK_FILENAME)"
 	rm -rf "$(FRAMEWORKS_FOLDER)/$(IPHONESIMULATOR_FRAMEWORK_PATH)"
 	rm -rf "$(FRAMEWORKS_FOLDER)/$(APPLETVSIMULATOR_FRAMEWORK_PATH)"
 
+.PHONY: installables
 installables: build
 	install -d "$(TEMPORARY_INSTALLER_FOLDER)$(BINARIES_FOLDER)"
 	install -d "$(TEMPORARY_INSTALLER_FOLDER)$(FRAMEWORKS_FOLDER)"
@@ -300,6 +323,7 @@ installables: build
 	cp -rf "$(IPHONESIMULATOR_FRAMEWORK_PATH)" "$(TEMPORARY_INSTALLER_FOLDER)$(FRAMEWORKS_FOLDER)/$(IPHONESIMULATOR_FRAMEWORK_FILENAME)"
 	cp -rf "$(APPLETVSIMULATOR_FRAMEWORK_PATH)" "$(TEMPORARY_INSTALLER_FOLDER)$(FRAMEWORKS_FOLDER)/$(APPLETVSIMULATOR_FRAMEWORK_FILENAME)"
 
+.PHONY: package
 package: installables
 	pkgbuild \
 		--identifier "$(PKG_BUNDLE_IDENTIFIER)" \
@@ -308,6 +332,7 @@ package: installables
 		--version "$(VERSION_STRING)" \
 		"$(OUTPUT_PACKAGE)"
 
+.PHONY: signed-package
 signed-package: installables
 	pkgbuild \
 		--identifier "$(PKG_BUNDLE_IDENTIFIER)" \
@@ -317,6 +342,7 @@ signed-package: installables
 		--sign "$(PKG_IDENTITY_NAME)" \
 		"$(OUTPUT_PACKAGE)"
 
+.PHONY: prepare-zip
 prepare-zip:
 	cp -f "$(TEMPORARY_INSTALLER_FOLDER)$(BINARIES_FOLDER)/$(CLI_FILENAME)" "$(TEMPORARY_INSTALLER_FOLDER)"
 	cp -rf "$(TEMPORARY_INSTALLER_FOLDER)$(FRAMEWORKS_FOLDER)/$(MACOS_FRAMEWORK_FILENAME)" "$(TEMPORARY_INSTALLER_FOLDER)"
@@ -324,9 +350,11 @@ prepare-zip:
 	cp -rf "$(TEMPORARY_INSTALLER_FOLDER)$(FRAMEWORKS_FOLDER)/$(APPLETVSIMULATOR_FRAMEWORK_FILENAME)" "$(TEMPORARY_INSTALLER_FOLDER)"
 	cp -f "$(LICENSE_PATH)" "$(TEMPORARY_INSTALLER_FOLDER)"
 
+.PHONY: zip
 zip: installables prepare-zip
 	(cd "$(TEMPORARY_INSTALLER_FOLDER)"; zip -yr - $(INSTALLABLE_FILENAMES)) > "$(OUTPUT_ZIP)"
 
+.PHONY: signed-zip
 signed-zip: installables prepare-zip
 	codesign --sign "$(ZIP_IDENTITY_NAME)" "$(TEMPORARY_INSTALLER_FOLDER)/$(CLI_FILENAME)"
 	codesign -d -r- "$(TEMPORARY_INSTALLER_FOLDER)/$(CLI_FILENAME)" | cut -c 15- > "$(CLI_DESIGNATED_REQUIREMENT)"
@@ -336,16 +364,21 @@ signed-zip: installables prepare-zip
 
 	(cd "$(TEMPORARY_INSTALLER_FOLDER)"; zip -yr - $(INSTALLABLE_FILENAMES)) > "$(OUTPUT_ZIP)"
 
+.PHONY: starter-pack-zip
 starter-pack-zip:
 	zip -yr - $(STARTER_PACK_FOLDER) > "$(OUTPUT_STARTER_PACK_ZIP)"
 
+.PHONY: release
 release: clean package zip starter-pack-zip
 
+.PHONY: signed-release
 signed-release: clean signed-package signed-zip starter-pack-zip
 
+.PHONY: get-version
 get-version:
 	@echo $(VERSION_STRING)
 
+.PHONY: get-zip-sha256
 get-zip-sha256:
 	@echo $(shell shasum --algorithm 256 "$(OUTPUT_ZIP)" | awk '{print $$1}')
 
