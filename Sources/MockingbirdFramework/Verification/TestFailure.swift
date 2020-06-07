@@ -25,7 +25,11 @@ enum TestFailure: Error, CustomStringConvertible {
     capturedExpectations: [CapturedExpectation],
     allInvocations: [Invocation]
   )
-  case missingStubbedImplementation(invocation: Invocation, stubbedSelectorNames: [String])
+  case missingStubbedImplementation(
+    invocation: Invocation,
+    stubbedSelectorNames: [String],
+    stackTrace: StackTrace
+  )
 
   var description: String {
     switch self {
@@ -40,6 +44,7 @@ enum TestFailure: Error, CustomStringConvertible {
       All invocations of '\(invocation.unwrappedSelectorName)':
       \(allInvocations.indentedDescription)
       """
+
     case let .unexpectedInvocations(baseInvocation, unexpectedInvocations, priorToBase):
       return """
       Got unexpected invocations \(priorToBase ? "before" : "after") \(baseInvocation)
@@ -47,6 +52,7 @@ enum TestFailure: Error, CustomStringConvertible {
       Invocations:
       \(unexpectedInvocations.indentedDescription)
       """
+
     case let .unsatisfiableExpectations(capturedExpectations, allInvocations):
       return """
       Unable to simultaneously satisfy expectations
@@ -57,13 +63,25 @@ enum TestFailure: Error, CustomStringConvertible {
       All invocations:
       \(allInvocations.indentedDescription)
       """
-    case let .missingStubbedImplementation(invocation, stubbedSelectorNames):
+
+    case let .missingStubbedImplementation(invocation, stubbedSelectorNames, stackTrace):
       var allStubsDescription: String {
         guard !stubbedSelectorNames.isEmpty else { return "   No concrete stubs" }
         return stubbedSelectorNames.map({ "   - " + $0 }).joined(separator: "\n")
       }
+      let invocationType = invocation.isMethod ? "method" : "property"
       return """
       Missing stubbed implementation for \(invocation)
+      
+      Make sure the \(invocationType) has a concrete stub or a default value provider registered with the return type.
+      
+      Examples:
+         given(someMock.\(invocation.mockableExampleInvocation)).willReturn(someValue)
+         given(someMock.\(invocation.mockableExampleInvocation)).will { return someValue }
+         someMock.useDefaultValues(from: .standardProvider)
+      
+      Stack trace:
+      \(stackTrace.parseFrames().indentedDescription)
       
       All stubs:
       \(allStubsDescription)
@@ -92,5 +110,29 @@ private extension Array where Element == CapturedExpectation {
         return "   (\($0.offset+1)) \(capturedExpectation.invocation) called \(countMatcherDescription) times"
       })
       .joined(separator: "\n")
+  }
+}
+
+private extension Array where Element == StackTrace.Frame {
+  var indentedDescription: String {
+    guard count > 1 else { return  "   No call stack symbols" }
+    
+    let framesStartIndex = index(after: self[1...].firstIndex(where: {
+      $0.location == "Mockingbird"
+    }) ?? startIndex)
+    let framesEndIndex = firstIndex(where: {
+      $0.location == "XCTest" || $0.location == "libXCTestSwiftSupport.dylib"
+    }) ?? endIndex
+    
+    let relevantFrames = self[framesStartIndex..<framesEndIndex]
+    return relevantFrames
+      .map({ "[" + $0.location + "] " + $0.symbol }).enumerated()
+      .map({ "   (\($0.offset)) \($0.element)" }).joined(separator: "\n")
+  }
+}
+
+private extension Invocation {
+  var mockableExampleInvocation: String {
+    return declarationIdentifier + "(" + (arguments.isEmpty ? "" : "…") + ")"
   }
 }

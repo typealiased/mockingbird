@@ -25,6 +25,21 @@ struct Invocation: CustomStringConvertible {
   var unwrappedSelectorName: String {
     return selectorName.replacingOccurrences(of: "`", with: "")
   }
+  
+  /// Mockable declaration identifier, e.g. `someMethod`, `getSomeProperty`.
+  var declarationIdentifier: String {
+    let unwrappedSelectorName = self.unwrappedSelectorName
+    guard !isMethod else {
+      let endIndex = unwrappedSelectorName.firstIndex(of: "(") ?? unwrappedSelectorName.endIndex
+      return String(unwrappedSelectorName[..<endIndex])
+    }
+    
+    let propertyName = unwrappedSelectorName
+      .components(separatedBy: ".")
+      .dropLast()
+      .joined(separator: ".")
+    return (isGetter ? Constants.getterPrefix : Constants.setterPrefix) + propertyName.capitalized
+  }
 
   var description: String {
     guard !arguments.isEmpty else { return "'\(unwrappedSelectorName)'" }
@@ -35,14 +50,21 @@ struct Invocation: CustomStringConvertible {
   enum Constants {
     static let getterSuffix = ".get"
     static let setterSuffix = ".set"
+    
+    static let getterPrefix = "get"
+    static let setterPrefix = "set"
+  }
+  
+  var isMethod: Bool {
+    return selectorName.contains("->")
   }
   
   var isGetter: Bool {
-    return selectorName.hasSuffix(Constants.getterSuffix)
+    return !isMethod && selectorName.hasSuffix(Constants.getterSuffix)
   }
   
   var isSetter: Bool {
-    return selectorName.hasPrefix(Constants.setterSuffix)
+    return !isMethod && selectorName.hasPrefix(Constants.setterSuffix)
   }
   
   func toSetter() -> Invocation? {

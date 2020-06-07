@@ -54,6 +54,8 @@
 		D37503DB246120EA003017A7 /* ConflictingProtocolProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37503DA246120EA003017A7 /* ConflictingProtocolProperties.swift */; };
 		D39350D0246619DC00FF52E2 /* DuplicateProtocolMembers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39350CF246619DC00FF52E2 /* DuplicateProtocolMembers.swift */; };
 		D3A854622460D9FC00C5764A /* ImplicitVariableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */; };
+		D3B3D4C2248C9D1600FEEDA0 /* CwlDemangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B3D4C1248C9D1600FEEDA0 /* CwlDemangle.swift */; };
+		D3B3D4C6248CC15E00FEEDA0 /* StackTrace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B3D4C5248CC15E00FEEDA0 /* StackTrace.swift */; };
 		D3E6F67424838182000D1971 /* ChainedStubbingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E6F67324838182000D1971 /* ChainedStubbingTests.swift */; };
 		D3E6F67624844999000D1971 /* ImplementationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E6F67524844999000D1971 /* ImplementationProvider.swift */; };
 		D3E6F67824844A0C000D1971 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E6F67724844A0C000D1971 /* Sequence.swift */; };
@@ -1163,6 +1165,8 @@
 		D37503DA246120EA003017A7 /* ConflictingProtocolProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConflictingProtocolProperties.swift; sourceTree = "<group>"; };
 		D39350CF246619DC00FF52E2 /* DuplicateProtocolMembers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuplicateProtocolMembers.swift; sourceTree = "<group>"; };
 		D3A854612460D9FC00C5764A /* ImplicitVariableTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplicitVariableTypes.swift; sourceTree = "<group>"; };
+		D3B3D4C1248C9D1600FEEDA0 /* CwlDemangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CwlDemangle.swift; sourceTree = "<group>"; };
+		D3B3D4C5248CC15E00FEEDA0 /* StackTrace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTrace.swift; sourceTree = "<group>"; };
 		D3CEFE3B248196B200853D84 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = Sources/Package.swift; sourceTree = "<group>"; };
 		D3D647BC24819CCD007B5B49 /* generate-resource-file.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "generate-resource-file.sh"; sourceTree = "<group>"; };
 		D3E6F67324838182000D1971 /* ChainedStubbingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainedStubbingTests.swift; sourceTree = "<group>"; };
@@ -2868,7 +2872,9 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_49 /* Array+Extensions.swift */,
+				D3B3D4C1248C9D1600FEEDA0 /* CwlDemangle.swift */,
 				D3E6F67B24844C5B000D1971 /* SourceLocation.swift */,
+				D3B3D4C5248CC15E00FEEDA0 /* StackTrace.swift */,
 				OBJ_51 /* String+Extensions.swift */,
 				OBJ_52 /* Synchronized.swift */,
 				OBJ_53 /* Version.swift */,
@@ -4860,6 +4866,7 @@
 			files = (
 				OBJ_874 /* ArgumentCaptor.swift in Sources */,
 				OBJ_875 /* ArgumentMatcher.swift in Sources */,
+				D3B3D4C2248C9D1600FEEDA0 /* CwlDemangle.swift in Sources */,
 				D3E6F67824844A0C000D1971 /* Sequence.swift in Sources */,
 				D3E6F67C24844C5B000D1971 /* SourceLocation.swift in Sources */,
 				OBJ_876 /* CountMatcher.swift in Sources */,
@@ -4875,6 +4882,7 @@
 				OBJ_885 /* ValueProvider+Foundation.swift in Sources */,
 				OBJ_886 /* ValueProvider+Tuples.swift in Sources */,
 				D3E6F67624844999000D1971 /* ImplementationProvider.swift in Sources */,
+				D3B3D4C6248CC15E00FEEDA0 /* StackTrace.swift in Sources */,
 				D3E6F684248451B9000D1971 /* CollectionMatchers.swift in Sources */,
 				OBJ_887 /* ValueProvider.swift in Sources */,
 				OBJ_888 /* Array+Extensions.swift in Sources */,
