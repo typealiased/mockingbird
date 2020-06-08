@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.module_name            = 'Mockingbird'
   s.version                = `make get-version`
   s.summary                = 'A convenient mocking framework for Swift.'
-  s.homepage               = 'https://github.com/birdrides/mockingbird'
+  s.homepage               = `make get-repo-url`
   s.license                = { :type => 'MIT', :file => 'LICENSE' }
   s.author                 = { 'Andrew Chang' => 'andrew.chang@bird.co' }
   s.source                 = { :git => s.homepage + '.git', :tag => s.version }

@@ -2,6 +2,7 @@ TEMPORARY_FOLDER_ROOT?=/tmp
 USE_RELATIVE_RPATH?=0
 PREFIX?=/usr/local
 BUILD_TOOL?=xcodebuild
+REPO_URL?=https://github.com/birdrides/mockingbird
 
 # Prevent bad things from happening when cleaning the temporary folder.
 TEMPORARY_FOLDER=$(TEMPORARY_FOLDER_ROOT)/Mockingbird.make.dst
@@ -83,8 +84,7 @@ OUTPUT_PACKAGE=Mockingbird.pkg
 OUTPUT_ZIP=Mockingbird.zip
 OUTPUT_STARTER_PACK_ZIP=MockingbirdSupport.zip
 
-GITHUB_REPO_URL=https://github.com/birdrides/mockingbird
-ZIP_RELEASE_URL=$(GITHUB_REPO_URL)/releases/download/$(VERSION_STRING)/$(ZIP_FILENAME)
+ZIP_RELEASE_URL=$(REPO_URL)/releases/download/$(VERSION_STRING)/$(ZIP_FILENAME)
 SUCCESS_MSG=Verified the Mockingbird CLI binary
 ERROR_MSG=[ERROR] The downloaded Mockingbird CLI binary does not have the expected code signature! See <Codesigning/README.md>.
 
@@ -348,6 +348,9 @@ get-version:
 
 get-zip-sha256:
 	@echo $(shell shasum --algorithm 256 "$(OUTPUT_ZIP)" | awk '{print $$1}')
+
+get-repo-url:
+	@echo $(REPO_URL)
 
 %:
 	@:

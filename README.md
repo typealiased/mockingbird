@@ -83,7 +83,7 @@ Add the framework to a test target in your `Podfile`, making sure to include the
 ```ruby
 target 'MyAppTests' do
   use_frameworks!
-  pod 'MockingbirdFramework', '~> 0.12'
+  pod 'MockingbirdFramework', '~> 0.13'
 end
 ```
 
@@ -113,7 +113,7 @@ Have questions or issues?
 Add the framework to your `Cartfile`.
 
 ```
-github "birdrides/mockingbird" ~> 0.12
+github "birdrides/mockingbird" ~> 0.13
 ```
 
 Build the framework with Carthage, [link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets), and install the CLI.
@@ -145,7 +145,7 @@ Add the framework as a package and test target dependency in your project’s `P
 let package = Package(
   name: "MyPackage",
   dependencies: [
-    .package(url: "https://github.com/birdrides/mockingbird.git", from: "0.12.0"),
+    .package(url: "https://github.com/birdrides/mockingbird.git", from: "0.13.0"),
   ],
   targets: [
     .testTarget(name: "MyPackageTests", dependencies: ["Mockingbird"]),
@@ -300,8 +300,6 @@ useDefaultValues(from: .standardProvider, on: bird)
 print(bird.name)  // Still prints "Ryan"
 ```
 
-<details><summary><b>Available in Release 0.13</b></summary>
-
 Provide “wildcard” instances for generic types by conforming the base type to `Providable` and registering the type.
 
 ```swift
@@ -314,8 +312,6 @@ extension Array: Providable {
 // An empty array is registered for all specialized `Array` types
 valueProvider.registerType(Array<Any>.self)
 ```
-
-</details>
 
 #### Stub a Sequence of Values
 
