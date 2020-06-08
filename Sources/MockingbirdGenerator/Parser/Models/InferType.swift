@@ -130,15 +130,16 @@ private func parseInitializer(from string: String) -> String? {
 
 /// Try to parse qualified enums, e.g. `MyEnum.someCase(...)` => `MyEnum`.
 private func parseEnum(from string: String) -> String? {
-  let lastCharacter = string.last
-  guard lastCharacter?.isLetter == true
-    || lastCharacter?.isNumber == true
-    || lastCharacter == "_"
-    else { return nil }
-  
   // This can incorrectly infer uncapitalized qualified non-enum types e.g. `MyModule.fooClass`.
   let components = string.components(separatedBy: ".", excluding: .allGroups)
   guard components.count > 1, components.last?.first?.isLowercase ?? false else { return nil }
+  
+  // All components must be valid. This can incorrectly infer static methods and properties.
+  var validCharacterSet = CharacterSet.alphanumerics
+  validCharacterSet.insert("_")
+  guard components.reduce(into: true, { (result, component) in
+    result = result && component.rangeOfCharacter(from: validCharacterSet.inverted) == nil
+  }) else { return nil }
   
   // All identifier components must be capitalized.
   let identifierComponents = components.dropLast()

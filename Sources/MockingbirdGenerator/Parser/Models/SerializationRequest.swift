@@ -165,7 +165,6 @@ extension SerializationRequest {
     
     // Don't qualify generic types which could be shadowing types defined at the module level.
     guard !context.genericTypeContext.contains(where: { $0.contains(typeName) }) else {
-      print("wtfwtf shadowed module \(typeName)")
       return serializeGenericTypes(typeName)
     }
     
@@ -262,7 +261,6 @@ extension SerializationRequest {
       let specialization = context.specializationContext?.specializations[typeName],
       !context.excludedGenericTypeNames.contains(typeName)
       else {
-        print("wtfwtf not specialized \(typeName)")
         return nil
     }
     

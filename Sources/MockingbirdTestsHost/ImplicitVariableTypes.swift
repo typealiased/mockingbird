@@ -14,6 +14,19 @@ enum EnumWithCapitalizedCases {
   case Failure
 }
 
+enum EnumWithAssociatedValues {
+  case success(message: String)
+  case failure(message: String)
+}
+
+class ClassWithProperty {
+  var property: String { fatalError() }
+}
+
+class ClassWithStaticProperty {
+  static var property: String { fatalError() }
+}
+
 class ImplicitVariableTypes {
   // MARK: Inferrable
   var boolType = true
@@ -34,6 +47,11 @@ class ImplicitVariableTypes {
   // MARK: Not inferrable
   var complexFunctionalType = "foo".map({ $0.uppercased() })
   var qualifiedCapitalizedEnumType = EnumWithCapitalizedCases.Success
+  var qualifiedAssociatedValueEnumType = EnumWithAssociatedValues.success(message: "foo")
+  var classWithProperty = ClassWithProperty().property
   lazy var lazyComplexFunctionalType = self.stringType.map({ $0.uppercased() })
-  // var actuallyAFunction = NotAType() // TODO: This is an edge case we don't handle yet.
+  
+  // TODO: Edge cases the type inference system doesn't handle yet.
+  // var classWithStaticProperty = ClassWithStaticProperty.property
+  // var actuallyAFunction = NotAType()
 }

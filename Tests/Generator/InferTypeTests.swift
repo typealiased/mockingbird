@@ -10,6 +10,9 @@ import XCTest
 @testable import MockingbirdGenerator
 
 class InferTypeTests: XCTestCase {
+  
+  // MARK: - Literals
+  
   func testBooleanLiteralType() {
     XCTAssertEqual(inferType(from: "true"), "Bool")
     XCTAssertEqual(inferType(from: "false"), "Bool")
@@ -34,9 +37,31 @@ class InferTypeTests: XCTestCase {
     XCTAssertEqual(inferType(from: "##\"foo bar\"##"), "String")
   }
   
+  // MARK: - Initialized
+  
   func testImplicitInitializedType() {
     let input = "Bool(booleanLiteral: true)"
     XCTAssertEqual(inferType(from: input), "Bool")
+  }
+  
+  func testImplicitInitializedType_method() {
+    let input = "Bool(booleanLiteral: true).map({ true })"
+    XCTAssertNil(inferType(from: input))
+  }
+  
+  func testImplicitInitializedType_capitalizedMethod() {
+    let input = "Bool(booleanLiteral: true).Method(param: true)"
+    XCTAssertNil(inferType(from: input))
+  }
+  
+  func testImplicitInitializedType_trailingClosureMethod() {
+    let input = "Bool(booleanLiteral: true).map { true }"
+    XCTAssertNil(inferType(from: input))
+  }
+  
+  func testImplicitInitializedType_property() {
+    let input = "Bool(booleanLiteral: true).property"
+    XCTAssertNil(inferType(from: input))
   }
   
   func testExplicitInitializedType() {
@@ -44,15 +69,69 @@ class InferTypeTests: XCTestCase {
     XCTAssertEqual(inferType(from: input), "Bool")
   }
   
+  func testExplicitInitializedType_method() {
+    let input = "Bool.init(booleanLiteral: true).map({ true })"
+    XCTAssertNil(inferType(from: input))
+  }
+  
+  func testExplicitInitializedType_capitalizedMethod() {
+    let input = "Bool.init(booleanLiteral: true).Method(param: true)"
+    XCTAssertNil(inferType(from: input))
+  }
+  
+  func testExplicitInitializedType_trailingClosureMethod() {
+    let input = "Bool.init(booleanLiteral: true).map { true }"
+    XCTAssertNil(inferType(from: input))
+  }
+  
+  func testExplicitInitializedType_property() {
+    let input = "Bool.init(booleanLiteral: true).property"
+    XCTAssertNil(inferType(from: input))
+  }
+  
+  // MARK: - Qualified
+  
   func testImplicitQualifiedInitializedType() {
     let input = "Swift.Bool(booleanLiteral: true)"
     XCTAssertEqual(inferType(from: input), "Swift.Bool")
+  }
+  
+  func testImplicitQualifiedInitializedType_method() {
+    let input = "Swift.Bool(booleanLiteral: true).map({ true })"
+    XCTAssertNil(inferType(from: input))
+  }
+  
+  func testImplicitQualifiedInitializedType_trailingClosureMethod() {
+    let input = "Swift.Bool(booleanLiteral: true).map { true }"
+    XCTAssertNil(inferType(from: input))
+  }
+  
+  func testImplicitQualifiedInitializedType_property() {
+    let input = "Swift.Bool(booleanLiteral: true).property"
+    XCTAssertNil(inferType(from: input))
   }
   
   func testExplicitQualifiedInitializedType() {
     let input = "Swift.Bool.init(booleanLiteral: true)"
     XCTAssertEqual(inferType(from: input), "Swift.Bool")
   }
+  
+  func testExplicitQualifiedInitializedType_method() {
+    let input = "Swift.Bool.init(booleanLiteral: true).map({ true })"
+    XCTAssertNil(inferType(from: input))
+  }
+  
+  func testExplicitQualifiedInitializedType_trailingClosureMethod() {
+    let input = "Swift.Bool.init(booleanLiteral: true).map { true }"
+    XCTAssertNil(inferType(from: input))
+  }
+  
+  func testExplicitQualifiedInitializedType_property() {
+    let input = "Swift.Bool.init(booleanLiteral: true).property"
+    XCTAssertNil(inferType(from: input))
+  }
+  
+  // MARK: - Generics
 
   func testImplicitInitializedGenericType() {
     let input = #"Array<(String, Int)>(arrayLiteral: ("foo", 1))"#
@@ -74,15 +153,29 @@ class InferTypeTests: XCTestCase {
     XCTAssertEqual(inferType(from: input), "Foundation.Array<(String, Int)>")
   }
   
-  func testMappedInitializedType() {
-    let input = "Bool(booleanLiteral: true).map({ $0 })"
+  // MARK: - Enums
+  
+  func testEnumCase() {
+    let input = "MyEnum.someCase"
+    XCTAssertEqual(inferType(from: input), "MyEnum")
+  }
+  
+  func testQualifiedEnumCase() {
+    let input = "MyModule.MyEnum.someCase"
+    XCTAssertEqual(inferType(from: input), "MyModule.MyEnum")
+  }
+  
+  func testAssociatedTypeEnumCase() {
+    let input = "MyEnum.someCase(success: true)"
     XCTAssertNil(inferType(from: input))
   }
   
-  func testCalledInitializedType() {
-    let input = "Bool(booleanLiteral: true).SomeFunction()"
+  func testQualifiedAssociatedTypeEnumCase() {
+    let input = "MyModule.MyEnum.someCase(success: true)"
     XCTAssertNil(inferType(from: input))
   }
+
+  // MARK: - Tuples
   
   func testUniformTupleType() {
     let input = "(true, false)"
@@ -176,11 +269,6 @@ class InferTypeTests: XCTestCase {
   
   func testMappedVariableWithParentheses() {
     let input = #"self.foo.map({ $0 })"#
-    XCTAssertNil(inferType(from: input))
-  }
-  
-  func testMappedCapitalizedVariableWithParentheses() {
-    let input = #"Foo.map({ $0 })"#
     XCTAssertNil(inferType(from: input))
   }
 }
