@@ -102,10 +102,10 @@ class ParseSwiftSyntaxOperation: BasicOperation {
   }
   
   override func run() throws {
-    // File reading is not shared with the parse SourceKit operation, but this is mostly CPU-bound.
+    // File reading is not shared with the parse SourceKit operation, but parsing >> reading.
     let file = try sourcePath.path.getFile()
     let sourceFile = try SyntaxParser.parse(source: file.contents)
-    let parser = SwiftFileParser(with: {
+    let parser = SourceFileAuxiliaryParser(with: {
       SourceLocationConverter(file: "\(self.sourcePath.path)", tree: sourceFile)
     }).parse(sourceFile)
     retainForever(parser)

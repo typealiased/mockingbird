@@ -43,11 +43,10 @@ public extension String {
   ///
   /// - Parameter offset: The number of times to indent the current string.
   /// - Returns: A new indented string instance.
-  func indent(by offset: UInt = 1) -> String {
+  func indent(by offset: Int = 1) -> String {
     guard offset > 0, !isEmpty else { return self }
     let lines = substringComponents(separatedBy: "\n")
-    var indentation = "  "
-    for _ in 0..<(offset-1) { indentation += "  " }
+    let indentation = String(repeating: "  ", count: offset)
     return lines.map({
       guard !$0.isEmpty else { return String($0) }
       return indentation + $0

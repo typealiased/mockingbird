@@ -127,7 +127,8 @@ public func log(_ message: @escaping @autoclosure () -> String,
     }
     
     let output = output ?? type.output
-    let isTTY = isatty(fileno(output)) != 0
+    let isTTY = isatty(fileno(output)) != 0 &&
+      ProcessInfo.processInfo.environment["TERM"] != "dumb" // Terminals without color support.
     let typeDescription = isTTY ? type.formattedDescription : type.description
     let typePrefix = typeDescription + (typeDescription.isEmpty ? "" : " ")
     

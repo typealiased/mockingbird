@@ -14,10 +14,12 @@ import XcodeProj
 import os.log
 
 class Generator {
-  struct Configuration {
+  struct Configuration: Encodable {
     let projectPath: Path
     let sourceRoot: Path
     let inputTargetNames: [String]
+    let environmentProjectFilePath: Path?
+    let environmentTargetName: String?
     let outputPaths: [Path]?
     let supportPath: Path?
     let compilationCondition: String?
@@ -26,174 +28,120 @@ class Generator {
     let disableSwiftlint: Bool
     let disableCache: Bool
     let disableRelaxedLinking: Bool
+    let disablePruning: Bool
   }
   
-  enum Failure: Error, CustomStringConvertible {
-    case malformedConfiguration(description: String)
-    case internalError(description: String)
-    
-    var description: String {
-      switch self {
-      case .malformedConfiguration(let description):
-        return "Malformed configuration - \(description)"
-      case .internalError(let description):
-        return "Internal error - \(description)"
-      }
-    }
+  struct MalformedConfiguration: Error, CustomStringConvertible {
+    let description: String
   }
   
   enum Constants {
     static let generatedFileNameSuffix = "Mocks.generated.swift"
+    static let cacheSubdirectory = "MockingbirdCache"
   }
   
-  struct Pipeline {
-    let inputTarget: AbstractTarget
-    let outputPath: Path
-    let operations: [BasicOperation]
-    var usedCache: Bool {
-      return operations.contains(where: {
-        guard let operation = $0 as? CheckCacheOperation else { return false }
-        return operation.result.isCached
-      })
-    }
+  let config: Configuration
+  let configHash: String
+  let cliVersion = "\(mockingbirdVersion)"
+  
+  let sourceTargetCacheDirectory: Path
+  let testTargetCacheDirectory: Path?
+  
+  init(_ config: Configuration) throws {
+    self.config = config
+    self.configHash = try config.toSha1Hash()
     
-    init(inputTarget: AbstractTarget,
-         outputPath: Path,
-         config: Configuration,
-         environment: @escaping () -> [String: Any]) throws {
-      self.inputTarget = inputTarget
-      self.outputPath = outputPath
-      self.operations = try Pipeline.createOperations(for: inputTarget,
-                                                      outputPath: outputPath,
-                                                      config: config,
-                                                      environment: environment)
-    }
-    
-    private static func createOperations(
-      for inputTarget: AbstractTarget,
-      outputPath: Path,
-      config: Configuration,
-      environment: @escaping () -> [String: Any]
-    ) throws -> [BasicOperation] {
-      let extractSources: ExtractSourcesAbstractOperation
-      let checkCache: CheckCacheOperation?
-      
-      if let inputTarget = inputTarget as? CodableTarget {
-        extractSources = ExtractSourcesOperation(with: inputTarget,
-                                                 sourceRoot: config.sourceRoot,
-                                                 supportPath: config.supportPath,
-                                                 environment: environment)
-        checkCache = CheckCacheOperation(extractSourcesResult: extractSources.result,
-                                         codableTarget: inputTarget,
-                                         outputFilePath: outputPath)
-        checkCache?.addDependency(extractSources)
-      } else if let inputTarget = inputTarget as? PBXTarget {
-        extractSources = ExtractSourcesOperation(with: inputTarget,
-                                                 sourceRoot: config.sourceRoot,
-                                                 supportPath: config.supportPath,
-                                                 environment: environment)
-        checkCache = nil
-      } else {
-        throw Failure.internalError(
-          description: "Unsupported pipeline input target \(inputTarget.name.singleQuoted)"
-        )
-      }
-        
-      let parseFiles = ParseFilesOperation(extractSourcesResult: extractSources.result,
-                                           checkCacheResult: checkCache?.result)
-      parseFiles.addDependency(extractSources)
-      
-      let processTypes = ProcessTypesOperation(parseFilesResult: parseFiles.result,
-                                               checkCacheResult: checkCache?.result,
-                                               useRelaxedLinking: !config.disableRelaxedLinking)
-      processTypes.addDependency(parseFiles)
-      
-      let moduleName = inputTarget.resolveProductModuleName(environment: environment)
-      let generateFile = GenerateFileOperation(processTypesResult: processTypes.result,
-                                               checkCacheResult: checkCache?.result,
-                                               moduleName: moduleName,
-                                               outputPath: outputPath,
-                                               compilationCondition: config.compilationCondition,
-                                               shouldImportModule: config.shouldImportModule,
-                                               onlyMockProtocols: config.onlyMockProtocols,
-                                               disableSwiftlint: config.disableSwiftlint)
-      generateFile.addDependency(processTypes)
-      
-      if let checkCache = checkCache {
-        parseFiles.addDependency(checkCache)
-        return [extractSources, checkCache, parseFiles, processTypes, generateFile]
-      } else {
-        return [extractSources, parseFiles, processTypes, generateFile]
-      }
+    // Set up directories for target metadata caching.
+    self.sourceTargetCacheDirectory = config.projectPath + Constants.cacheSubdirectory
+    if let environmentProjectFilePath = config.environmentProjectFilePath {
+      let cacheDirectory = environmentProjectFilePath + Constants.cacheSubdirectory
+      self.testTargetCacheDirectory = cacheDirectory
+    } else {
+      self.testTargetCacheDirectory = nil
     }
   }
   
-  static func generate(using config: Configuration) throws {
+  var parsedProjects = [Path: XcodeProj]()
+  func getXcodeProj(_ projectPath: Path) throws -> XcodeProj {
+    if let xcodeproj = parsedProjects[projectPath] { return xcodeproj }
+    var xcodeproj: XcodeProj!
+    try time(.parseXcodeProject) {
+      xcodeproj = try XcodeProj(path: projectPath)
+    }
+    parsedProjects[projectPath] = xcodeproj
+    return xcodeproj
+  }
+  
+  // Parsing Xcode projects can be slow, so lazily get implicit build environments.
+  func getBuildEnvironment() -> [String: Any] {
+    let xcodeproj = try? getXcodeProj(config.projectPath)
+    return xcodeproj?.implicitBuildEnvironment ?? [:]
+  }
+  
+  var projectHash: String?
+  func getProjectHash(_ projectPath: Path) -> String? {
+    if let projectHash = projectHash { return projectHash }
+    let pbxprojPath = projectPath.glob("*.pbxproj").first
+    let projectHash = try? pbxprojPath?.read().generateSha1Hash()
+    self.projectHash = projectHash
+    return projectHash
+  }
+  
+  // Get cached source target metadata.
+  func getCachedSourceTarget(targetName: String) -> TargetType? {
+    guard !config.disableCache,
+      let projectHash = getProjectHash(config.projectPath),
+      let cachedTarget = findCachedSourceTarget(for: targetName,
+                                                cliVersion: cliVersion,
+                                                projectHash: projectHash,
+                                                configHash: configHash,
+                                                cacheDirectory: sourceTargetCacheDirectory,
+                                                sourceRoot: config.sourceRoot)
+      else { return nil }
+    return .sourceTarget(cachedTarget)
+  }
+  
+  // Get cached test target metadata.
+  func getCachedTestTarget(targetName: String) -> TargetType? {
+    guard !config.disablePruning,
+      let cacheDirectory = testTargetCacheDirectory,
+      let cachedTarget = findCachedTestTarget(for: targetName,
+                                              cliVersion: cliVersion,
+                                              configHash: configHash,
+                                              cacheDirectory: cacheDirectory,
+                                              sourceRoot: config.sourceRoot)
+      else { return nil }
+    return .testTarget(cachedTarget)
+  }
+  
+  func generate() throws {
     guard config.outputPaths == nil || config.inputTargetNames.count == config.outputPaths?.count else {
-      throw Failure.malformedConfiguration(
+      throw MalformedConfiguration(
         description: "Number of input targets does not match the number of output file paths"
       )
     }
     
     if config.supportPath == nil {
-      logWarning("No supporting source files specified which can result in missing mocks; please see 'Supporting Source Files' in the README")
+      logWarning("No supporting source files specified which can result in missing mocks")
     }
     
-    var lazyXcodeProj: XcodeProj?
-    let getXcodeProj: () throws -> XcodeProj = {
-      if let xcodeproj = lazyXcodeProj { return xcodeproj }
-      var xcodeproj: XcodeProj!
-      try time(.parseXcodeProject) {
-        xcodeproj = try XcodeProj(path: config.projectPath)
-      }
-      lazyXcodeProj = xcodeproj
-      return xcodeproj
-    }
-    
-    // Lazy implicit build environment for settings resolution.
-    let getBuildEnvironment: () -> [String: Any] = {
-      return implicitBuildEnvironment(xcodeproj: try? getXcodeProj())
-    }
-    
-    let pbxprojPath = !config.disableCache ? config.projectPath.glob("*.pbxproj").first : nil
-    let pbxprojHash = try pbxprojPath?.read().generateSha1Hash()
-    let cacheDirectory = config.projectPath + "MockingbirdCache"
-    if let projectHash = pbxprojHash {
-      log("Using SHA-1 project hash \(projectHash.singleQuoted) and cache directory at \(cacheDirectory)")
-    }
-
     // Resolve target names to concrete Xcode project targets.
-    let targets = try config.inputTargetNames.compactMap({ targetName throws -> AbstractTarget? in
-      // Check if the target is cached in the project.
-      if let projectHash = pbxprojHash,
-        let target = cachedTarget(for: targetName,
-                                  projectHash: projectHash,
-                                  cacheDirectory: cacheDirectory,
-                                  sourceRoot: config.sourceRoot) {
-        return target
+    let isSourceTarget: (PBXTarget) -> Bool = { target in
+      guard target.productType?.isTestBundle != true else {
+        logWarning("Excluding \(target.name.singleQuoted) from mock generation because it is a test bundle target")
+        return false
       }
-      
-      // Need to parse the Xcode project for the full `PBXTarget` object.
-      let xcodeproj = try getXcodeProj()
-      let targets = xcodeproj.pbxproj.targets(named: targetName).filter({ target in
-        guard target.productType?.isTestBundle != true else {
-          logWarning("Cannot generate mocks for \(targetName.singleQuoted) because it is a unit test target")
-          return false
-        }
-        return true
-      })
-      if targets.count > 1 {
-        logWarning("Found multiple input targets named \(targetName.singleQuoted), using the first one")
-      }
-      guard let target = targets.first else {
-        throw Failure.malformedConfiguration(
-          description: "Unable to find input target named \(targetName.singleQuoted)"
-        )
-      }
-      return target
+      return true
+    }
+    let targets = try config.inputTargetNames.compactMap({ targetName throws -> TargetType? in
+      return try Generator.resolveTarget(targetName: targetName,
+                                         projectPath: config.projectPath,
+                                         isValidTarget: isSourceTarget,
+                                         getCachedTarget: getCachedSourceTarget,
+                                         getXcodeProj: getXcodeProj)
     })
     
-    // Resolve nil output paths to mocks source root and output suffix.
+    // Resolve unspecified output paths to the default mock file output destination.
     let outputPaths = try config.outputPaths ?? targets.map({ target throws -> Path in
       try config.sourceRoot.mocksDirectory.mkpath()
       return Generator.defaultOutputPath(for: target,
@@ -201,54 +149,77 @@ class Generator {
                                          environment: getBuildEnvironment)
     })
     
+    let queue = OperationQueue.createForActiveProcessors()
+    
+    // Create operations to find used mock types in tests.
+    let pruningPipeline = config.disablePruning ? nil :
+      PruningPipeline(config: config,
+                      getCachedTarget: getCachedTestTarget,
+                      getXcodeProj: getXcodeProj,
+                      environment: getBuildEnvironment)
+    if let pruningOperations = pruningPipeline?.operations {
+      queue.addOperations(pruningOperations, waitUntilFinished: false)
+    }
+    let findMockedTypesOperation = pruningPipeline?.findMockedTypesOperation
+    
     // Create abstract generation pipelines from targets and output paths.
     var pipelines = [Pipeline]()
     for (target, outputPath) in zip(targets, outputPaths) {
       guard !outputPath.isDirectory else {
-        throw Failure.malformedConfiguration(description: "Output file path points to a directory: \(outputPath)")
+        throw MalformedConfiguration(
+          description: "Output file path points to a directory: \(outputPath)"
+        )
       }
       try pipelines.append(Pipeline(inputTarget: target,
                                     outputPath: outputPath,
                                     config: config,
+                                    findMockedTypesOperation: findMockedTypesOperation,
                                     environment: getBuildEnvironment))
     }
-    
-    // Create concrete generation operation graphs from pipelines.
-    let queue = OperationQueue.createForActiveProcessors()
     pipelines.forEach({ queue.addOperations($0.operations, waitUntilFinished: false) })
+    
+    // Run the operations.
     let operationsCopy = queue.operations.compactMap({ $0 as? BasicOperation })
     queue.waitUntilAllOperationsAreFinished()
     operationsCopy.compactMap({ $0.error }).forEach({ log($0) })
     
     // Write intermediary module cache info into project cache directory.
-    if let projectHash = pbxprojHash {
+    if !config.disableCache {
       try time(.cacheMocks) {
-        try cacheDirectory.mkpath()
-        try pipelines.forEach({
-          try cachePipeline($0,
-                            projectHash: projectHash,
-                            cliVersion: "\(mockingbirdVersion)",
-                            sourceRoot: config.sourceRoot,
-                            cacheDirectory: cacheDirectory,
-                            environment: getBuildEnvironment)
-        })
+        try cachePipelines(sourcePipelines: pipelines, pruningPipeline: pruningPipeline)
       }
     }
   }
   
-  static func implicitBuildEnvironment(xcodeproj: XcodeProj?) -> [String: Any] {
-    var buildEnvironment = [String: Any]()
-    
-    if let projectName = xcodeproj?.pbxproj.rootObject?.name {
-      buildEnvironment["PROJECT_NAME"] = projectName
-      buildEnvironment["PROJECT"] = projectName
+  func cachePipelines(sourcePipelines: [Pipeline], pruningPipeline: PruningPipeline?) throws {
+    // Cache source targets for generation.
+    if let projectHash = getProjectHash(config.projectPath) {
+      try sourceTargetCacheDirectory.mkpath()
+      try sourcePipelines.forEach({
+        try $0.cache(projectHash: projectHash,
+                     cliVersion: cliVersion,
+                     configHash: configHash,
+                     sourceRoot: config.sourceRoot,
+                     cacheDirectory: sourceTargetCacheDirectory,
+                     environment: getBuildEnvironment)
+      })
     }
     
-    return buildEnvironment
+    // Cache test target for thunk pruning.
+    if !config.disablePruning {
+      if let testTargetCacheDirectory = testTargetCacheDirectory {
+        try testTargetCacheDirectory.mkpath()
+        try pruningPipeline?.cache(cliVersion: cliVersion,
+                                   configHash: configHash,
+                                   sourceRoot: config.sourceRoot,
+                                   cacheDirectory: testTargetCacheDirectory,
+                                   environment: getBuildEnvironment)
+      }
+    }
   }
   
-  static func defaultOutputPath(for sourceTarget: AbstractTarget,
-                                testTarget: AbstractTarget? = nil,
+  static func defaultOutputPath(for sourceTarget: TargetType,
+                                testTarget: TargetType? = nil,
                                 sourceRoot: Path,
                                 environment: () -> [String: Any]) -> Path {
     let moduleName = sourceTarget.resolveProductModuleName(environment: environment)
@@ -258,82 +229,36 @@ class Generator {
       testTargetName != moduleName {
       prefix = testTargetName + "-"
     } else {
-      prefix = "" // Probably installed on a source target instead of a test target...
+      prefix = "" // Probably installed on a source target instead of a test target.
     }
     
     return sourceRoot.mocksDirectory + "\(prefix)\(moduleName)\(Constants.generatedFileNameSuffix)"
   }
   
-  static func targetLockFilePath(for targetName: String, cacheDirectory: Path) -> Path {
-    return cacheDirectory + "\(targetName).lock"
-  }
-  
-  static func cachedTarget(for targetName: String,
-                           projectHash: String,
-                           cacheDirectory: Path,
-                           sourceRoot: Path) -> CodableTarget? {
-    let filePath = targetLockFilePath(for: targetName, cacheDirectory: cacheDirectory)
-    guard filePath.exists else { return nil }
-    guard let target = try? JSONDecoder().decode(CodableTarget.self, from: filePath.read()) else {
-      logWarning("Unable to decode the cached target data at \(filePath.absolute())")
-      return nil
-    }
-    guard target.projectHash == projectHash else {
-      log("Current project hash invalidates the cached target data at \(filePath.absolute())")
-      return nil
-    }
-    guard Path(target.sourceRoot) == sourceRoot else {
-      log("Project source root invalidates the cached target data at \(filePath.absolute())")
-      return nil
+  static func resolveTarget(targetName: String,
+                            projectPath: Path,
+                            isValidTarget: (PBXTarget) -> Bool,
+                            getCachedTarget: (String) -> TargetType?,
+                            getXcodeProj: (Path) throws -> XcodeProj) throws -> TargetType {
+    // Check if the target is cached in the project.
+    if let cachedTarget = getCachedTarget(targetName) {
+      return cachedTarget
     }
     
-    log("Found cached source file information for target \(targetName.singleQuoted) at \(filePath.absolute())")
-    return target
-  }
-  
-  static func cachePipeline(_ pipeline: Pipeline,
-                            projectHash: String,
-                            cliVersion: String,
-                            sourceRoot: Path,
-                            cacheDirectory: Path,
-                            environment: () -> [String: Any]) throws {
-    guard !pipeline.usedCache,
-      let result = pipeline.operations
-        .compactMap({ $0 as? ExtractSourcesAbstractOperation }).first?.result else { return }
+    // Need to parse the Xcode project for the full `PBXTarget` object.
+    let xcodeproj = try getXcodeProj(projectPath)
+    let targets = xcodeproj.pbxproj.targets(named: targetName).filter(isValidTarget)
     
-    var ignoredDependencies = Set<String>() // Keep a sparse representation of the dependency graph.
-    let target: CodableTarget
-    if let pipelineTarget = pipeline.inputTarget as? CodableTarget {
-      target = try CodableTarget(from: pipelineTarget,
-                                 sourceRoot: sourceRoot,
-                                 supportPaths: result.supportPaths.map({ $0.path }),
-                                 projectHash: projectHash,
-                                 outputHash: pipeline.outputPath.read().generateSha1Hash(),
-                                 targetPathsHash: result.generateTargetPathsHash(),
-                                 dependencyPathsHash: result.generateDependencyPathsHash(),
-                                 cliVersion: cliVersion,
-                                 ignoredDependencies: &ignoredDependencies,
-                                 environment: environment)
-    } else if let pipelineTarget = pipeline.inputTarget as? PBXTarget {
-      target = try CodableTarget(from: pipelineTarget,
-                                 sourceRoot: sourceRoot,
-                                 supportPaths: result.supportPaths.map({ $0.path }),
-                                 projectHash: projectHash,
-                                 outputHash: pipeline.outputPath.read().generateSha1Hash(),
-                                 targetPathsHash: result.generateTargetPathsHash(),
-                                 dependencyPathsHash: result.generateDependencyPathsHash(),
-                                 cliVersion: cliVersion,
-                                 ignoredDependencies: &ignoredDependencies,
-                                 environment: environment)
-    } else {
-      throw Failure.internalError(
-        description: "Unsupported pipeline input target \(pipeline.inputTarget.name.singleQuoted)"
+    if targets.count > 1 {
+      logWarning("Found multiple targets named \(targetName.singleQuoted), using the first one")
+    }
+    
+    guard let target = targets.first else {
+      throw MalformedConfiguration(
+        description: "Unable to find target named \(targetName.singleQuoted)"
       )
     }
-    let data = try JSONEncoder().encode(target)
-    let filePath = targetLockFilePath(for: target.name, cacheDirectory: cacheDirectory)
-    try filePath.write(data)
-    log("Cached pipeline input target \(pipeline.inputTarget.name.singleQuoted) to \(filePath.absolute())")
+    return .pbxTarget(target)
   }
 }
 
@@ -341,12 +266,36 @@ extension Path {
   var mocksDirectory: Path {
     return absolute() + Path("MockingbirdMocks")
   }
+  
+  func targetLockFilePath(for targetName: String) -> Path {
+    return self + "\(targetName).lock"
+  }
+}
+
+extension XcodeProj {
+  var implicitBuildEnvironment: [String: Any] {
+    var buildEnvironment = [String: Any]()
+
+    if let projectName = pbxproj.rootObject?.name {
+      buildEnvironment["PROJECT_NAME"] = projectName
+      buildEnvironment["PROJECT"] = projectName
+    }
+    
+    return buildEnvironment
+  }
 }
 
 extension PBXProductType {
   var isTestBundle: Bool {
     switch self {
     case .unitTestBundle, .uiTestBundle, .ocUnitTestBundle: return true
+    default: return false
+    }
+  }
+  
+  var isSwiftUnitTestBundle: Bool {
+    switch self {
+    case .unitTestBundle: return true
     default: return false
     }
   }

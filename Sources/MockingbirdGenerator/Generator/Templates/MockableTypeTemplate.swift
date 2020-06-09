@@ -38,10 +38,12 @@ extension GenericType {
 /// Renders a `MockableType` to a `PartialFileContent` object.
 class MockableTypeTemplate: Template {
   let mockableType: MockableType
+  let mockedTypeNames: Set<String>?
   
   private var methodTemplates = [Method: MethodTemplate]()
-  init(mockableType: MockableType) {
+  init(mockableType: MockableType, mockedTypeNames: Set<String>?) {
     self.mockableType = mockableType
+    self.mockedTypeNames = mockedTypeNames
   }
   
   func methodTemplate(for method: Method) -> MethodTemplate {
@@ -65,6 +67,22 @@ class MockableTypeTemplate: Template {
     
     let inheritance = !isAvailable ? Constants.mockProtocolName :
       "\(allInheritedTypes)\(allGenericConstraints)"
+    
+    let sourceLocationBody: String
+    if shouldGenerateThunks {
+      sourceLocationBody = """
+      {
+          get { return self.stubbingContext.sourceLocation }
+          set {
+            self.stubbingContext.sourceLocation = newValue
+            \(mockableType.name)Mock.staticMock.stubbingContext.sourceLocation = newValue
+          }
+        }
+      """
+    } else {
+      sourceLocationBody = "{ get { fatalError() } set { fatalError() } }"
+    }
+    
     let rawBody = renderBody()
     let body = rawBody.isEmpty ? "" : "\n\n\(rawBody)"
     
@@ -76,13 +94,7 @@ class MockableTypeTemplate: Template {
       public let mockingContext = Mockingbird.MockingContext()
       public let stubbingContext = Mockingbird.StubbingContext()
       public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "\(mockingbirdVersion.shortString)", "module_name": "\(mockableType.moduleName)"])
-      public var sourceLocation: Mockingbird.SourceLocation? {
-        get { return stubbingContext.sourceLocation }
-        set {
-          stubbingContext.sourceLocation = newValue
-          \(mockableType.name)Mock.staticMock.stubbingContext.sourceLocation = newValue
-        }
-      }\(body)
+      public var sourceLocation: Mockingbird.SourceLocation? \(sourceLocationBody)\(body)
     }\(footer)
     """
   }
@@ -98,6 +110,11 @@ class MockableTypeTemplate: Template {
     return (start, end)
   }()
   
+  lazy var shouldGenerateThunks: Bool = {
+    guard let typeNames = mockedTypeNames else { return true }
+    return typeNames.contains(mockableType.fullyQualifiedName) ||
+      typeNames.contains(mockableType.fullyQualifiedModuleName)
+  }()
   
   lazy var isAvailable: Bool = {
     return unavailableMockAttribute.isEmpty
@@ -198,18 +215,28 @@ class MockableTypeTemplate: Template {
   var staticMockingContext: String {
     guard !mockableType.genericTypes.isEmpty || mockableType.isInGenericContainingType
       else { return "  static let staticMock = Mockingbird.StaticMock()" }
+    
+    let body: String
+    if shouldGenerateThunks {
+      body = """
+      {
+          let runtimeGenericTypeNames: [String] = [\(runtimeGenericTypeNames)]
+          let staticMockIdentifier: String = runtimeGenericTypeNames.joined(separator: ",")
+          if let staticMock: Mockingbird.StaticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
+          let staticMock: Mockingbird.StaticMock = Mockingbird.StaticMock()
+          genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
+          return staticMock
+        }
+      """
+    } else {
+      body = "{ fatalError() }"
+    }
+    
     // Since class-level generic types don't support static variables, we instead use a global
     // variable `genericTypesStaticMocks` that maps a runtime generated `staticMockIdentifier` to a
     // `StaticMock` instance.
     return """
-      static var staticMock: Mockingbird.StaticMock {
-        let runtimeGenericTypeNames: [String] = [\(runtimeGenericTypeNames)]
-        let staticMockIdentifier: String = runtimeGenericTypeNames.joined(separator: ",")
-        if let staticMock: Mockingbird.StaticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
-        let staticMock: Mockingbird.StaticMock = Mockingbird.StaticMock()
-        genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
-        return staticMock
-      }
+      static var staticMock: Mockingbird.StaticMock \(body)
     """
   }
   
@@ -325,7 +352,10 @@ class MockableTypeTemplate: Template {
   func renderContainedTypes() -> String {
     guard !mockableType.containedTypes.isEmpty else { return "" }
     let containedTypesSubstructure = mockableType.containedTypes
-      .map({ MockableTypeTemplate(mockableType: $0).render().indent() })
+      .map({
+        MockableTypeTemplate(mockableType: $0, mockedTypeNames: mockedTypeNames)
+          .render().indent()
+      })
     return containedTypesSubstructure.joined(separator: "\n\n")
   }
   

@@ -102,7 +102,7 @@ extension ArgumentParser {
   func addInstallerLogLevel() -> OptionArgument<String> {
     return add(option: "--loglevel",
                kind: String.self,
-               usage: "The log level to use when generating mocks, 'quiet' or 'verbose'")
+               usage: "The log level to use when generating mocks, 'quiet' or 'verbose'.")
   }
   
   func addMetagenerateOutput() -> OptionArgument<PathArgument> {
@@ -180,6 +180,12 @@ extension ArgumentParser {
     return add(option: "--disable-relaxed-linking",
                kind: Bool.self,
                usage: "Only search explicitly imported modules.")
+  }
+  
+  func addDisablePruning() -> OptionArgument<Bool> {
+    return add(option: "--disable-pruning",
+               kind: Bool.self,
+               usage: "Generate full mocks for unused types.")
   }
   
   // MARK: - Positional

@@ -53,6 +53,7 @@ class InstallCommand: BaseCommand, AliasableCommand {
   private let disableSwiftlintArgument: OptionArgument<Bool>
   private let disableCacheArgument: OptionArgument<Bool>
   private let disableRelaxedLinking: OptionArgument<Bool>
+  private let disablePruning: OptionArgument<Bool>
   
   required convenience init(parser: ArgumentParser) {
     self.init(parser: parser, name: Constants.name, overview: Constants.overview)
@@ -79,6 +80,7 @@ class InstallCommand: BaseCommand, AliasableCommand {
     self.disableSwiftlintArgument = subparser.addDisableSwiftlint()
     self.disableCacheArgument = subparser.addDisableCache()
     self.disableRelaxedLinking = subparser.addDisableRelaxedLinking()
+    self.disablePruning = subparser.addDisablePruning()
     
     super.init(parser: subparser)
   }
@@ -119,10 +121,11 @@ class InstallCommand: BaseCommand, AliasableCommand {
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
       disableSwiftlint: arguments.get(disableSwiftlintArgument) == true,
       disableCache: arguments.get(disableCacheArgument) == true,
-      disableRelaxedLinking: arguments.get(disableRelaxedLinking) == true
+      disableRelaxedLinking: arguments.get(disableRelaxedLinking) == true,
+      disablePruning: arguments.get(disablePruning) == true
     )
     try Installer.install(using: config)
-    print("Installed Mockingbird to `\(destinationTarget)` in \(projectPath)")
+    print("Installed Mockingbird to \(destinationTarget.singleQuoted) in \(projectPath)")
     
     // Warn users that haven't added supporting source files.
     guard supportPath == nil else { return }

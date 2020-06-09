@@ -14,6 +14,7 @@ import PathKit
 class MockableType: Hashable, Comparable {
   let name: String
   let moduleName: String
+  let fullyQualifiedName: String
   let fullyQualifiedModuleName: String
   let kind: SwiftDeclarationKind
   let accessLevel: AccessLevel
@@ -100,6 +101,7 @@ class MockableType: Hashable, Comparable {
     
     self.name = baseRawType.name
     self.moduleName = baseRawType.parsedFile.moduleName
+    self.fullyQualifiedName = baseRawType.fullyQualifiedName
     self.fullyQualifiedModuleName = baseRawType.fullyQualifiedModuleName
     self.kind = baseRawType.kind
     self.accessLevel = accessLevel

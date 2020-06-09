@@ -1,5 +1,5 @@
 //
-//  PBXTarget+TargetConformance.swift
+//  PBXTarget+Target.swift
 //  MockingbirdGenerator
 //
 //  Created by Andrew Chang on 4/15/20.
@@ -8,8 +8,6 @@
 import Foundation
 import PathKit
 import XcodeProj
-
-extension PBXTarget: AbstractTarget {}
 
 extension PBXTarget: Target {
   /// Get the build configuration for testing, which is almost always `debug`.
@@ -45,7 +43,8 @@ extension PBXTarget: Target {
     guard let phase = buildPhases.first(where: { $0.buildPhase == .sources }) else { return [] }
     return phase.files?
       .compactMap({ try? $0.file?.fullPath(sourceRoot: sourceRoot) })
-      .filter({ $0.extension == "swift" }) ?? []
+      .filter({ $0.extension == "swift" })
+      .map({ $0.absolute() }) ?? []
   }
   
   /// Certain environment build settings are synthesized by Xcode and don't exist in the project

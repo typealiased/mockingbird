@@ -33,6 +33,7 @@ final class GenerateCommand: BaseCommand {
   private let disableSwiftlintArgument: OptionArgument<Bool>
   private let disableCacheArgument: OptionArgument<Bool>
   private let disableRelaxedLinking: OptionArgument<Bool>
+  private let disablePruning: OptionArgument<Bool>
   
   required init(parser: ArgumentParser) {
     let subparser = parser.add(subparser: Constants.name, overview: Constants.overview)
@@ -52,6 +53,7 @@ final class GenerateCommand: BaseCommand {
     self.disableSwiftlintArgument = subparser.addDisableSwiftlint()
     self.disableCacheArgument = subparser.addDisableCache()
     self.disableRelaxedLinking = subparser.addDisableRelaxedLinking()
+    self.disablePruning = subparser.addDisablePruning()
     
     super.init(parser: subparser)
   }
@@ -76,10 +78,20 @@ final class GenerateCommand: BaseCommand {
     let supportPath = try arguments.getSupportPath(using: supportPathArgument,
                                                    sourceRoot: sourceRoot)
     
+    var environmentProjectFilePath: Path? {
+      guard let filePath = environment["PROJECT_FILE_PATH"] else { return nil }
+      let path = Path(filePath)
+      guard path.extension == "xcodeproj" else { return nil }
+      return path
+    }
+    let environmentTargetName = environment["TARGET_NAME"] ?? environment["TARGETNAME"]
+    
     let config = Generator.Configuration(
       projectPath: projectPath,
       sourceRoot: sourceRoot,
       inputTargetNames: targets,
+      environmentProjectFilePath: environmentProjectFilePath,
+      environmentTargetName: environmentTargetName,
       outputPaths: outputs,
       supportPath: supportPath,
       compilationCondition: arguments.get(compilationConditionArgument),
@@ -87,8 +99,9 @@ final class GenerateCommand: BaseCommand {
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
       disableSwiftlint: arguments.get(disableSwiftlintArgument) == true,
       disableCache: arguments.get(disableCacheArgument) == true,
-      disableRelaxedLinking: arguments.get(disableRelaxedLinking) == true
+      disableRelaxedLinking: arguments.get(disableRelaxedLinking) == true,
+      disablePruning: arguments.get(disablePruning) == true
     )
-    try Generator.generate(using: config)
+    try Generator(config).generate()
   }
 }

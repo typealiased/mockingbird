@@ -20,11 +20,15 @@ struct MockableTypeInitializerTemplate: Template {
     let nestedContainingTypeNames = containingTypeNames + [mockableTypeTemplate.mockableType.name]
     let initializers = [renderInitializer(with: containingTypeNames)] +
       mockableTypeTemplate.mockableType.containedTypes.map({ type -> String in
-        let template = MockableTypeInitializerTemplate(
-          mockableTypeTemplate: MockableTypeTemplate(mockableType: type),
+        let typeTemplate = MockableTypeTemplate(
+          mockableType: type,
+          mockedTypeNames: mockableTypeTemplate.mockedTypeNames
+        )
+        let initializerTemplate = MockableTypeInitializerTemplate(
+          mockableTypeTemplate: typeTemplate,
           containingTypeNames: nestedContainingTypeNames
         )
-        return template.render()
+        return initializerTemplate.render()
       })
     let allInitializers = initializers.joined(separator: "\n\n")
     let (preprocessorStart, preprocessorEnd) = mockableTypeTemplate.compilationDirectiveDeclaration
@@ -103,7 +107,7 @@ struct MockableTypeInitializerTemplate: Template {
     } else {
       // Does not require an initializer proxy.
       returnType = mockTypeScopedName
-      returnStatement = "return \(mockTypeScopedName)(sourceLocation: SourceLocation(file, line))"
+      returnStatement = "return \(mockTypeScopedName)(sourceLocation: Mockingbird.SourceLocation(file, line))"
       returnTypeDescription = "/// Initialize a " + (kind == .class ? "class" : "protocol") + " mock of `\(mockableTypeTemplate.fullyQualifiedName)`."
     }
     

@@ -10,7 +10,7 @@ import SPMUtility
 
 extension ArgumentParserError: LocalizedError {}
 extension ArgumentConversionError: LocalizedError {}
-extension Generator.Failure: LocalizedError {}
+extension Generator.MalformedConfiguration: LocalizedError {}
 
 public extension LocalizedError where Self: CustomStringConvertible {
    var errorDescription: String? {
