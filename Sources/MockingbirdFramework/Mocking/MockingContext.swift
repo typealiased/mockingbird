@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Logs invocations observed by generated mocks.
+/// Stores invocations received by mocks.
 public class MockingContext {
   private(set) var allInvocations = Synchronized<[Invocation]>([])
   private(set) var invocations = Synchronized<[String: [Invocation]]>([:])

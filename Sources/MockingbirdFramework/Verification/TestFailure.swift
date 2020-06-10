@@ -11,7 +11,7 @@ import XCTest
 /// Internal errors thrown due to a failed test assertion or precondition.
 enum TestFailure: Error, CustomStringConvertible {
   case incorrectInvocationCount(
-    invocationCount: UInt,
+    invocationCount: Int,
     invocation: Invocation,
     countMatcher: CountMatcher,
     allInvocations: [Invocation] // All captured invocations matching the selector.
@@ -25,7 +25,7 @@ enum TestFailure: Error, CustomStringConvertible {
     capturedExpectations: [CapturedExpectation],
     allInvocations: [Invocation]
   )
-  case missingStubbedImplementation(invocation: Invocation)
+  case missingStubbedImplementation(invocation: Invocation, stubbedSelectorNames: [String])
 
   var description: String {
     switch self {
@@ -57,9 +57,16 @@ enum TestFailure: Error, CustomStringConvertible {
       All invocations:
       \(allInvocations.indentedDescription)
       """
-    case let .missingStubbedImplementation(invocation):
+    case let .missingStubbedImplementation(invocation, stubbedSelectorNames):
+      var allStubsDescription: String {
+        guard !stubbedSelectorNames.isEmpty else { return "   No concrete stubs" }
+        return stubbedSelectorNames.map({ "   - " + $0 }).joined(separator: "\n")
+      }
       return """
       Missing stubbed implementation for \(invocation)
+      
+      All stubs:
+      \(allStubsDescription)
       """
     }
   }

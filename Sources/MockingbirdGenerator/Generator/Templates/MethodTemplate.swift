@@ -42,9 +42,6 @@ class MethodTemplate: Template {
       ">": "_greaterThan",
       ">=": "_greaterThanOrEqualTo",
     ]
-    
-    static let functionType = "Mockingbird.FunctionDeclaration"
-    static let subscriptType = "Mockingbird.SubscriptDeclaration"
   }
   
   var compilationDirectiveDeclaration: (start: String, end: String) {
@@ -95,7 +92,7 @@ class MethodTemplate: Template {
     let invocationType = "(\(methodParameterTypes)) \(returnTypeAttributesForMatching)-> \(returnTypeName)"
     
     var mockableMethods = [String]()
-    let mockableGenericTypes = [Constants.functionType,
+    let mockableGenericTypes = [declarationTypeForMocking,
                                 invocationType,
                                 returnTypeName].joined(separator: ", ")
     
@@ -293,6 +290,11 @@ class MethodTemplate: Template {
     let parameterNames = parameterNames ?? methodParameterNamesForInvocation
     let implementationType = "(\(parameterTypes)) \(returnTypeAttributesForMatching)-> \(returnTypeName)"
     let noArgsImplementationType = "() \(returnTypeAttributesForMatching)-> \(returnTypeName)"
+    let noArgsImplementation = method.parameters.isEmpty ? "" : """
+     else if let concreteImplementation = implementation as? \(noArgsImplementationType) {
+               \(returnStatement)\(tryInvocation)concreteImplementation()
+             }
+    """
     
     // 1. Stubbed implementation with args
     // 2. Stubbed implementation without args
@@ -302,9 +304,7 @@ class MethodTemplate: Template {
           let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation)
           if let concreteImplementation = implementation as? \(implementationType) {
             \(returnStatement)\(tryInvocation)concreteImplementation(\(parameterNames))
-          } else if let concreteImplementation = implementation as? \(noArgsImplementationType) {
-            \(returnStatement)\(tryInvocation)concreteImplementation()
-          }\(returnExpression)
+          }\(noArgsImplementation)\(returnExpression)
         }
     """
   }
@@ -352,9 +352,7 @@ class MethodTemplate: Template {
   }
   
   lazy var tryInvocation: String = {
-    // We only try the invocation for throwing methods, not rethrowing ones since the stubbed
-    // implementation is not actually the passed-in parameter to the wrapped function.
-    return method.attributes.contains(.throws) ? "try " : ""
+    return !returnTypeAttributesForMatching.isEmpty ? "try " : ""
   }()
   
   lazy var returnTypeAttributesForMocking: String = {
@@ -364,10 +362,18 @@ class MethodTemplate: Template {
   }()
   
   lazy var returnTypeAttributesForMatching: String = {
-    if method.attributes.contains(.throws) {
+    if method.attributes.contains(.throws) || method.attributes.contains(.rethrows) {
       return "throws "
-    } else { // Cannot rethrow stubbed implementations.
+    } else {
       return ""
+    }
+  }()
+  
+  lazy var declarationTypeForMocking: String = {
+    if method.attributes.contains(.throws) {
+      return "\(Declaration.throwingFunctionDeclaration)"
+    } else {
+      return "\(Declaration.functionDeclaration)"
     }
   }()
   
@@ -391,8 +397,7 @@ class MethodTemplate: Template {
   }()
   
   lazy var contextPrefix: String = {
-    return method.kind.typeScope == .static || method.kind.typeScope == .class
-      ? "staticMock." : ""
+    return mockObject + "."
   }()
   
   lazy var specializedReturnTypeName: String = {

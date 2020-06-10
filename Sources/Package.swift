@@ -71,7 +71,7 @@ let package = Package(
 //        "MockingbirdTestsHost",
 //        "MockingbirdPerformanceTestsHost",
 //      ],
-//      path: "Tests"
+//      path: "Tests/MockingbirdTests"
 //    ),
   ]
 )

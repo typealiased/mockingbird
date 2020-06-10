@@ -14,29 +14,29 @@ import Mockingbird
 
 private protocol StubbableExtendableProtocol {
   func trivialBaseMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
-  func getBaseVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func getBaseVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
   
   func trivialExtendedMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
   func parameterizedExtendedMethod(param1: @escaping @autoclosure () -> Bool)
     -> Mockable<FunctionDeclaration, (Bool) -> Void, Void>
   func parameterizedReturningExtendedMethod(param1: @escaping @autoclosure () -> Bool)
     -> Mockable<FunctionDeclaration, (Bool) -> Bool, Bool>
-  func getExtendedVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func getExtendedVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
   
   func anotherTrivialExtendedMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
-  func getAnotherExtendedVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func getAnotherExtendedVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
 }
 extension ExtendableProtocolMock: StubbableExtendableProtocol {}
 
 private protocol StubbableInheritsExtendableProtocol: StubbableExtendableProtocol {
   func trivialChildMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
-  func getChildVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func getChildVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
 }
 extension InheritsExtendableProtocolMock: StubbableInheritsExtendableProtocol {}
 
 private protocol StubbableNonExtendableClass {
   func trivialBaseMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
-  func getBaseVariable() -> Mockable<VariableDeclaration, () -> Bool, Bool>
+  func getBaseVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
 }
 extension NonExtendableClassMock: StubbableNonExtendableClass {}
 
@@ -44,14 +44,14 @@ extension NonExtendableClassMock: StubbableNonExtendableClass {}
 
 extension ExtendableProtocolMock {
   func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
+    -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
   func setExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
+    -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
   func setAnotherExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
+    -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
 }
 
 extension NonExtendableClassMock {
   func setBaseVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<VariableDeclaration, (Bool) -> Void, Void> { fatalError() }
+    -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
 }

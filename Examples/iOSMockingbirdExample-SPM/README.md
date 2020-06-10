@@ -19,7 +19,7 @@ Having issues setting up Mockingbird? Join the [Slack channel](https://slofile.c
 
 Initialize the package dependency and install the CLI.
 
-```bash
+```console
 $ xcodebuild -resolvePackageDependencies
 $ DERIVED_DATA=$(xcodebuild -showBuildSettings | pcregrep -o1 'OBJROOT = (/.*)/Build')
 $ (cd "${DERIVED_DATA}/SourcePackages/checkouts/mockingbird" && make install-prebuilt)
@@ -29,7 +29,7 @@ $ (cd "${DERIVED_DATA}/SourcePackages/checkouts/mockingbird" && make install-pre
 
 Configure the test target.
 
-```bash
+```console
 $ mockingbird install \
   --target iOSMockingbirdExample-SPMTests \
   --source iOSMockingbirdExample-SPM
@@ -37,7 +37,7 @@ $ mockingbird install \
 
 Finally, download the starter supporting source files into your project root.
 
-```bash
+```console
 $ mockingbird download starter-pack
 ```
 
@@ -45,7 +45,7 @@ $ mockingbird download starter-pack
 
 Open the Xcode project.
 
-```bash
+```console
 $ open iOSMockingbirdExample-SPM.xcodeproj
 ```
 

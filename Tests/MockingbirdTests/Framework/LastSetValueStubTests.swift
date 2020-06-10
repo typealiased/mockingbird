@@ -32,14 +32,32 @@ class LastSetValueStubTests: XCTestCase {
     XCTAssertFalse(getInstanceVariable(for: child))
   }
   
+  func testLastSetValueStub_returnsInitialValue_explicitSyntax() {
+    given(child.getChildInstanceVariable()).willReturn(lastSetValue(initial: false))
+    XCTAssertFalse(getInstanceVariable(for: child))
+  }
+  
   func testLastSetValueStub_returnsLastSetValue() {
     given(child.getChildInstanceVariable()) ~> lastSetValue(initial: false)
     setInstanceVariable(for: child, to: true)
     XCTAssertTrue(getInstanceVariable(for: child))
   }
   
+  func testLastSetValueStub_returnsLastSetValue_explicitSyntax() {
+    given(child.getChildInstanceVariable()).willReturn(lastSetValue(initial: false))
+    setInstanceVariable(for: child, to: true)
+    XCTAssertTrue(getInstanceVariable(for: child))
+  }
+  
   func testLastSetValueStub_settingValueOverridesLastSetValue() {
     given(child.getChildInstanceVariable()) ~> lastSetValue(initial: false)
+    setInstanceVariable(for: child, to: true)
+    setInstanceVariable(for: child, to: false)
+    XCTAssertFalse(getInstanceVariable(for: child))
+  }
+  
+  func testLastSetValueStub_settingValueOverridesLastSetValue_explicitSyntax() {
+    given(child.getChildInstanceVariable()).willReturn(lastSetValue(initial: false))
     setInstanceVariable(for: child, to: true)
     setInstanceVariable(for: child, to: false)
     XCTAssertFalse(getInstanceVariable(for: child))

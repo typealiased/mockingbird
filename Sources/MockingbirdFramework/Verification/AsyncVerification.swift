@@ -8,6 +8,32 @@
 import Foundation
 import XCTest
 
+/// Create a deferrable test expectation from a block containing verification calls.
+///
+/// Mocked methods that are invoked asynchronously can be verified using an `eventually` block which
+/// returns an `XCTestExpectation`.
+///
+///     DispatchQueue.main.async {
+///       Tree(with: bird).shake()
+///     }
+///
+///     let expectation =
+///       eventually {
+///         verify(bird.fly()).wasCalled()
+///         verify(bird.chirp()).wasCalled()
+///       }
+///
+///     wait(for: [expectation], timeout: 1.0)
+///
+/// - Parameters:
+///   - description: An optional description for the created `XCTestExpectation`.
+///   - block: A block containing verification calls.
+/// - Returns: An XCTestExpectation that fulfilles once all verifications in the block are met.
+public func eventually(_ description: String? = nil,
+                       _ block: () -> Void) -> XCTestExpectation {
+  return createAsyncContext(description: description, block: block)
+}
+
 /// Internal helper for `eventually` async verification scopes.
 ///   1. Creates an attributed `DispatchQueue` scope which collects all verifications.
 ///   2. Observes invocations on each mock and fulfills the test expectation if there is a match.
@@ -48,7 +74,7 @@ func createAsyncContext(description: String?, block scope: () -> Void) -> XCTest
   }
   
   let queue = DispatchQueue(label: "co.bird.mockingbird.async-verification-scope")
-  queue.setSpecific(key: Expectation.expectationGroupKey, value: group)
+  queue.setSpecific(key: ExpectationGroup.contextKey, value: group)
   queue.sync { scope() }
   
   try? group.verify()

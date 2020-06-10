@@ -41,10 +41,10 @@ class SubscriptMethodTemplate: MethodTemplate {
     
     var mockableMethods = [String]()
     
-    let mockableGenericGetterTypes = [Constants.subscriptType,
+    let mockableGenericGetterTypes = ["\(Declaration.subscriptGetterDeclaration)",
                                       getterInvocationType,
                                       getterReturnTypeName].joined(separator: ", ")
-    let mockableGenericSetterTypes = [Constants.subscriptType,
+    let mockableGenericSetterTypes = ["\(Declaration.subscriptSetterDeclaration)",
                                       setterInvocationType,
                                       setterReturnTypeName].joined(separator: ", ")
     
