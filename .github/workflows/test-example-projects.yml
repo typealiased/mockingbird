@@ -21,8 +21,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Clean
       run: make clean-cocoapods
-    - name: Set Up
-      run: 'PREFIX=$(pwd) make setup-cocoapods'
     - name: Test
       run: 'PATH=$(pwd)/bin:$PATH make test-cocoapods'
     - name: Cached Test
@@ -36,8 +34,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Clean
       run: make clean-carthage
-    - name: Set Up
-      run: 'PREFIX=$(pwd) make setup-carthage'
     - name: Test
       run: 'PATH=$(pwd)/bin:$PATH make test-carthage'
     - name: Cached Test
@@ -51,8 +47,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Clean
       run: make clean-spm
-    - name: Set Up
-      run: 'PREFIX=$(pwd) make setup-spm'
     - name: Test
       run: 'PATH=$(pwd)/bin:$PATH make test-spm'
     - name: Cached Test

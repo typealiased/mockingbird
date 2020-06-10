@@ -24,8 +24,8 @@ struct WhereClause: Hashable, Comparable, CustomStringConvertible {
   
   var description: String {
     switch requirement {
-    case .conforms: return "\(constrainedTypeName)\(self.requirement.rawValue) \(genericConstraint)"
-    case .equals: return "\(constrainedTypeName) \(self.requirement.rawValue) \(genericConstraint)"
+    case .conforms: return "\(constrainedTypeName)\(requirement.rawValue) \(genericConstraint)"
+    case .equals: return "\(constrainedTypeName) \(requirement.rawValue) \(genericConstraint)"
     }
   }
   

@@ -22,54 +22,33 @@ jobs:
         make print-debug-info | grep "Mockingbird rpath: /var/tmp/mockingbird/$(make get-version)/libs"
         PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make print-debug-info
         PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make install
-    - name: Set Up Target
+    - name: Set Up Caching Target
       run: |
         ./bin/mockingbird install \
           --target MockingbirdTests \
           --source MockingbirdTestsHost \
           --support Sources/MockingbirdSupport \
-          --diagnostics all not-mockable \
+          --output Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift \
+          --diagnostics all \
           --loglevel verbose \
           --verbose
     - name: Test
       run: make clean-test
     - name: Cached Test
       run: make test
-
-  build-xcode-11_4_0:
-    name: Xcode 11.4.0 toolchain
-    runs-on: macOS-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set Up Environment
-      run: sudo xcode-select -s /Applications/Xcode_11.4.app/Contents/Developer
-    - name: Print Debug Info
-      run: make print-debug-info
-    - name: Set Up Project
-      run: make setup-project
-    - name: Clean
-      run: make clean
-    - name: Build Framework
-      run: make build-framework
-    - name: Build and Install CLI
-      run: |
-        make print-debug-info | grep "Mockingbird rpath: /var/tmp/mockingbird/$(make get-version)/libs"
-        PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make print-debug-info
-        PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make install
-    - name: Set Up Target
+    - name: Set Up Non-Caching Target
       run: |
         ./bin/mockingbird install \
           --target MockingbirdTests \
           --source MockingbirdTestsHost \
           --support Sources/MockingbirdSupport \
-          --diagnostics all not-mockable \
+          --output Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift \
+          --disable-cache \
+          --diagnostics all \
           --loglevel verbose \
           --verbose
-    - name: Test
-      run: make clean-test
-    - name: Cached Test
-      run: make test
+    - name: Test Flakiness
+      run: make test-flaky
 
   build-xcode-11_3_1:
     name: Xcode 11.3.1 toolchain
@@ -98,7 +77,8 @@ jobs:
           --target MockingbirdTests \
           --source MockingbirdTestsHost \
           --support Sources/MockingbirdSupport \
-          --diagnostics all not-mockable \
+          --output Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift \
+          --diagnostics all \
           --loglevel verbose \
           --verbose
     - name: Test
