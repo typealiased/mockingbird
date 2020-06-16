@@ -549,7 +549,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/birdrides/mockingbird.git";
 			requirement = {
-				kind = upToNextMajorVersion;
+				kind = upToNextMinorVersion;
 				minimumVersion = 0.13.0;
 			};
 		};

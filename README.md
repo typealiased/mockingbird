@@ -143,13 +143,20 @@ Have questions or issues?
 
 <details><summary><b>Swift Package Manager</b></summary>
 
-Add the framework as a package and test target dependency in your project’s `Package.swift` manifest file.
+Add the framework as a package dependency and link it to your test target.
+
+1. File > Swift Packages > Add Package Dependency…
+2. Enter `https://github.com/birdrides/mockingbird` for the repository URL and click Next
+3. Choose “Up to Next Minor” for the version and click Next
+4. Select your test target under “Add to Target” and click Finish
+
+<details><summary>Click here if you are using a <code>Package.swift</code> manifest file instead.</summary>
 
 ```swift
 let package = Package(
   name: "MyPackage",
   dependencies: [
-    .package(url: "https://github.com/birdrides/mockingbird.git", from: "0.13.0"),
+    .package(url: "https://github.com/birdrides/mockingbird.git", .upToNextMinor(from: "0.13.0")),
   ],
   targets: [
     .testTarget(name: "MyPackageTests", dependencies: ["Mockingbird"]),
@@ -157,7 +164,9 @@ let package = Package(
 )
 ```
 
-Initialize the package dependency and install the CLI.
+</details>
+
+In your project directory, initialize the package dependency and install the CLI.
 
 ```console
 $ xcodebuild -resolvePackageDependencies
