@@ -39,72 +39,92 @@ class StubbingTests: BaseTestCase {
   
   func testStubTrivialMethod_onClassMock_implicitlyStubbed() {
     childInstance.childTrivialInstanceMethod()
+    verify(child.childTrivialInstanceMethod()).wasCalled()
   }
   func testStubTrivialMethod_onProtocolMock_implicitlyStubbed() {
     childProtocolInstance.childTrivialInstanceMethod()
+    verify(childProtocol.childTrivialInstanceMethod()).wasCalled()
   }
   
   func testStubTrivialMethod_onClassMock() {
     given(child.childTrivialInstanceMethod()) ~> ()
     childInstance.childTrivialInstanceMethod()
+    verify(child.childTrivialInstanceMethod()).wasCalled()
   }
   func testStubTrivialMethod_onProtocolMock() {
     given(childProtocol.childTrivialInstanceMethod()) ~> ()
     childProtocolInstance.childTrivialInstanceMethod()
+    verify(childProtocol.childTrivialInstanceMethod()).wasCalled()
   }
   
   func testStubTrivialMethod_onClassMock_explicitSyntax() {
     given(child.childTrivialInstanceMethod()).willReturn(())
     childInstance.childTrivialInstanceMethod()
+    verify(child.childTrivialInstanceMethod()).wasCalled()
   }
   func testStubTrivialMethod_onProtocolMock_explicitSyntax() {
     given(childProtocol.childTrivialInstanceMethod()).willReturn(())
     childProtocolInstance.childTrivialInstanceMethod()
+    verify(childProtocol.childTrivialInstanceMethod()).wasCalled()
   }
   
   func testStubTrivialMethod_onClassMock_convenienceExplicitSyntax() {
     given(child.childTrivialInstanceMethod()).willReturn()
     childInstance.childTrivialInstanceMethod()
+    verify(child.childTrivialInstanceMethod()).wasCalled()
   }
   func testStubTrivialMethod_onProtocolMock_convenienceExplicitSyntax() {
     given(childProtocol.childTrivialInstanceMethod()).willReturn()
     childProtocolInstance.childTrivialInstanceMethod()
+    verify(childProtocol.childTrivialInstanceMethod()).wasCalled()
   }
   
   func testStubParameterizedMethodWithWildcardMatcher_onClassMock() {
     given(child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     XCTAssertTrue(childInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(child.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
+    verify(child.childParameterizedInstanceMethod(param1: true, 1)).wasCalled()
   }
   func testStubParameterizedMethodWithWildcardMatcher_onProtocolMock() {
     given(childProtocol.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     XCTAssertTrue(childProtocolInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(childProtocol.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
+    verify(childProtocol.childParameterizedInstanceMethod(param1: true, 1)).wasCalled()
   }
   
   func testStubParameterizedMethodWithWildcardMatcher_onClassMock_explicitSyntax() {
     given(child.childParameterizedInstanceMethod(param1: any(), any())).willReturn(true)
     XCTAssertTrue(childInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(child.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
+    verify(child.childParameterizedInstanceMethod(param1: true, 1)).wasCalled()
   }
   func testStubParameterizedMethodWithWildcardMatcher_onProtocolMock_explicitSyntax() {
     given(childProtocol.childParameterizedInstanceMethod(param1: any(), any())).willReturn(true)
     XCTAssertTrue(childProtocolInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(childProtocol.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
+    verify(childProtocol.childParameterizedInstanceMethod(param1: true, 1)).wasCalled()
   }
   
   func testStubParameterizedMethodWithExactValue_onClassMock() {
     given(child.childParameterizedInstanceMethod(param1: true, 1)) ~> true
     XCTAssertTrue(childInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(child.childParameterizedInstanceMethod(param1: true, 1)).wasCalled()
   }
   func testStubParameterizedMethodWithExactValue_onProtocolMock() {
     given(childProtocol.childParameterizedInstanceMethod(param1: true, 1)) ~> true
     XCTAssertTrue(childProtocolInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(childProtocol.childParameterizedInstanceMethod(param1: true, 1)).wasCalled()
   }
   
   func testStubParameterizedMethodWithExactValue_onClassMock_explicitSyntax() {
     given(child.childParameterizedInstanceMethod(param1: true, 1)).willReturn(true)
     XCTAssertTrue(childInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(child.childParameterizedInstanceMethod(param1: true, 1)).wasCalled()
   }
   func testStubParameterizedMethodWithExactValue_onProtocolMock_explicitSyntax() {
     given(childProtocol.childParameterizedInstanceMethod(param1: true, 1)).willReturn(true)
     XCTAssertTrue(childProtocolInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(childProtocol.childParameterizedInstanceMethod(param1: true, 1)).wasCalled()
   }
   
   // MARK: Non-matching
@@ -168,12 +188,14 @@ class StubbingTests: BaseTestCase {
     XCTAssertTrue(childInstance.childComputedInstanceVariable)
     XCTAssertTrue(childInstance.childComputedInstanceVariable)
     XCTAssertTrue(childInstance.childComputedInstanceVariable)
+    verify(child.getChildComputedInstanceVariable()).wasCalled(exactly(3))
   }
   func testStubReturnValueReturnsSameValue_onProtocolMock() {
     given(childProtocol.getChildInstanceVariable()) ~> true
     XCTAssertTrue(childProtocolInstance.childInstanceVariable)
     XCTAssertTrue(childProtocolInstance.childInstanceVariable)
     XCTAssertTrue(childProtocolInstance.childInstanceVariable)
+    verify(childProtocol.getChildInstanceVariable()).wasCalled(exactly(3))
   }
   
   func testStubReturnValueReturnsSameValue_onClassMock_explicitSyntax() {
@@ -181,12 +203,14 @@ class StubbingTests: BaseTestCase {
     XCTAssertTrue(childInstance.childComputedInstanceVariable)
     XCTAssertTrue(childInstance.childComputedInstanceVariable)
     XCTAssertTrue(childInstance.childComputedInstanceVariable)
+    verify(child.getChildComputedInstanceVariable()).wasCalled(exactly(3))
   }
   func testStubReturnValueReturnsSameValue_onProtocolMock_explicitSyntax() {
     given(childProtocol.getChildInstanceVariable()).willReturn(true)
     XCTAssertTrue(childProtocolInstance.childInstanceVariable)
     XCTAssertTrue(childProtocolInstance.childInstanceVariable)
     XCTAssertTrue(childProtocolInstance.childInstanceVariable)
+    verify(childProtocol.getChildInstanceVariable()).wasCalled(exactly(3))
   }
   
   // MARK: Precedence
@@ -195,44 +219,60 @@ class StubbingTests: BaseTestCase {
     given(child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     given(child.childParameterizedInstanceMethod(param1: any(), any())) ~> false
     XCTAssertFalse(childInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(child.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
+    verify(child.childParameterizedInstanceMethod(param1: true, 1)).wasCalled()
   }
   func testStubParameterizedMethodOverridesPrevious_onProtocolMock() {
     given(childProtocol.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     given(childProtocol.childParameterizedInstanceMethod(param1: any(), any())) ~> false
     XCTAssertFalse(childProtocolInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(childProtocol.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
+    verify(childProtocol.childParameterizedInstanceMethod(param1: true, 1)).wasCalled()
   }
   
   func testStubParameterizedMethodOverridesPrevious_onClassMock_explicitSyntax() {
     given(child.childParameterizedInstanceMethod(param1: any(), any())).willReturn(true)
     given(child.childParameterizedInstanceMethod(param1: any(), any())).willReturn(false)
     XCTAssertFalse(childInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(child.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
+    verify(child.childParameterizedInstanceMethod(param1: true, 1)).wasCalled()
   }
   func testStubParameterizedMethodOverridesPrevious_onProtocolMock_explicitSyntax() {
     given(childProtocol.childParameterizedInstanceMethod(param1: any(), any())).willReturn(true)
     given(childProtocol.childParameterizedInstanceMethod(param1: any(), any())).willReturn(false)
     XCTAssertFalse(childProtocolInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(childProtocol.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
+    verify(childProtocol.childParameterizedInstanceMethod(param1: true, 1)).wasCalled()
   }
   
   func testStubParameterizedMethodIgnoresNonMatching_onClassMock() {
     given(child.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     given(child.childParameterizedInstanceMethod(param1: any(), 100)) ~> false
     XCTAssertTrue(childInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(child.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
+    verify(child.childParameterizedInstanceMethod(param1: true, 1)).wasCalled()
   }
   func testStubParameterizedMethodIgnoresNonMatching_onProtocolMock() {
     given(childProtocol.childParameterizedInstanceMethod(param1: any(), any())) ~> true
     given(childProtocol.childParameterizedInstanceMethod(param1: any(), 100)) ~> false
     XCTAssertTrue(childProtocolInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(childProtocol.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
+    verify(childProtocol.childParameterizedInstanceMethod(param1: true, 1)).wasCalled()
   }
   
   func testStubParameterizedMethodIgnoresNonMatching_onClassMock_explicitSyntax() {
     given(child.childParameterizedInstanceMethod(param1: any(), any())).willReturn(true)
     given(child.childParameterizedInstanceMethod(param1: any(), 100)).willReturn(false)
     XCTAssertTrue(childInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(child.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
+    verify(child.childParameterizedInstanceMethod(param1: true, 1)).wasCalled()
   }
   func testStubParameterizedMethodIgnoresNonMatching_onProtocolMock_explicitSyntax() {
     given(childProtocol.childParameterizedInstanceMethod(param1: any(), any())).willReturn(true)
     given(childProtocol.childParameterizedInstanceMethod(param1: any(), 100)).willReturn(false)
     XCTAssertTrue(childProtocolInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(childProtocol.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
+    verify(childProtocol.childParameterizedInstanceMethod(param1: true, 1)).wasCalled()
   }
   
   // MARK: Clearing stubs
@@ -276,6 +316,8 @@ class StubbingTests: BaseTestCase {
     ) ~> true
     XCTAssertTrue(childInstance.childComputedInstanceVariable)
     XCTAssertTrue(childInstance.parentComputedInstanceVariable)
+    verify(child.getChildComputedInstanceVariable()).wasCalled()
+    verify(child.getParentComputedInstanceVariable()).wasCalled()
   }
   func testStubMultipleInvocations_onProtocolMock() {
     given(
@@ -284,6 +326,8 @@ class StubbingTests: BaseTestCase {
     ) ~> true
     XCTAssertTrue(childProtocolInstance.childInstanceVariable)
     XCTAssertTrue(childProtocolInstance.parentInstanceVariable)
+    verify(childProtocol.getChildInstanceVariable()).wasCalled()
+    verify(childProtocol.getParentInstanceVariable()).wasCalled()
   }
   
   func testStubMultipleInvocations_onClassMock_explicitSyntax() {
@@ -293,6 +337,8 @@ class StubbingTests: BaseTestCase {
     ).willReturn(true)
     XCTAssertTrue(childInstance.childComputedInstanceVariable)
     XCTAssertTrue(childInstance.parentComputedInstanceVariable)
+    verify(child.getChildComputedInstanceVariable()).wasCalled()
+    verify(child.getParentComputedInstanceVariable()).wasCalled()
   }
   func testStubMultipleInvocations_onProtocolMock_explicitSyntax() {
     given(
@@ -301,6 +347,8 @@ class StubbingTests: BaseTestCase {
     ).willReturn(true)
     XCTAssertTrue(childProtocolInstance.childInstanceVariable)
     XCTAssertTrue(childProtocolInstance.parentInstanceVariable)
+    verify(childProtocol.getChildInstanceVariable()).wasCalled()
+    verify(childProtocol.getParentInstanceVariable()).wasCalled()
   }
   
   // MARK: Closure implementation stubs
@@ -311,6 +359,7 @@ class StubbingTests: BaseTestCase {
       return param1 && param2 == 1
     }
     XCTAssertTrue(childInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(child.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
   }
   func testStubParameterizedMethod_onProtocolMock_withExplicitlyTypedClosure() {
     given(childProtocol.childParameterizedInstanceMethod(param1: any(), any())) ~> {
@@ -318,35 +367,42 @@ class StubbingTests: BaseTestCase {
       return param1 && param2 == 1
     }
     XCTAssertTrue(childProtocolInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(childProtocol.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
   }
   
   func testStubParameterizedMethod_onClassMock_withImplicitlyTypedClosure() {
     given(child.childParameterizedInstanceMethod(param1: any(), any()))
       ~> { $0 && $1 == 1 }
     XCTAssertTrue(childInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(child.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
   }
   func testStubParameterizedMethod_onProtocolMock_withImplicitlyTypedClosure() {
     given(childProtocol.childParameterizedInstanceMethod(param1: any(), any()))
       ~> { $0 && $1 == 1 }
     XCTAssertTrue(childProtocolInstance.childParameterizedInstanceMethod(param1: true, 1))
+    verify(childProtocol.childParameterizedInstanceMethod(param1: any(), any())).wasCalled()
   }
   
   func testStubTrivialMethod_onClassMock_withExplicitClosure() {
     given(child.childTrivialInstanceMethod()) ~> {}
     childInstance.childTrivialInstanceMethod()
+    verify(child.childTrivialInstanceMethod()).wasCalled()
   }
   func testStubTrivialMethod_onProtocolMock_withExplicitClosure() {
     given(childProtocol.childTrivialInstanceMethod()) ~> {}
     childProtocolInstance.childTrivialInstanceMethod()
+    verify(childProtocol.childTrivialInstanceMethod()).wasCalled()
   }
   
   func testStubNonParameterizedReturningMethod_onClassMock_withExplicitClosure() {
     given(child.getChildComputedInstanceVariable()) ~> {true}
     XCTAssertTrue(childInstance.childComputedInstanceVariable)
+    verify(child.getChildComputedInstanceVariable()).wasCalled()
   }
   func testStubNonParameterizedReturningMethod_onProtocolMock_withExplicitClosure() {
     given(childProtocol.getChildInstanceVariable()) ~> {true}
     XCTAssertTrue(childProtocolInstance.childInstanceVariable)
+    verify(childProtocol.getChildInstanceVariable()).wasCalled()
   }
   
   // MARK: Throwing errors
@@ -354,69 +410,83 @@ class StubbingTests: BaseTestCase {
   func testStubThrowingMethod_returnsValue() {
     given(throwingProtocol.throwingMethod()) ~> true
     XCTAssertTrue(try throwingProtocolInstance.throwingMethod())
+    verify(throwingProtocol.throwingMethod()).returning(Bool.self).wasCalled()
   }
   func testStubThrowingMethod_throwsError() {
     given(throwingProtocol.throwingMethod()) ~> { () throws -> Bool in throw FakeError() }
     XCTAssertThrowsError(try throwingProtocolInstance.throwingMethod() as Bool)
+    verify(throwingProtocol.throwingMethod()).returning(Bool.self).wasCalled()
   }
   func testStubThrowingMethod_implicitlyRethrowsError() {
     given(throwingProtocol.throwingMethod(block: any())) ~> { _ = try $0() }
     XCTAssertThrowsError(try throwingProtocolInstance.throwingMethod(block: { throw FakeError() }))
+    verify(throwingProtocol.throwingMethod(block: any())).wasCalled()
   }
   
   func testStubThrowingMethod_returnsValue_explicitSyntax() {
     given(throwingProtocol.throwingMethod()).willReturn(true)
     XCTAssertTrue(try throwingProtocolInstance.throwingMethod())
+    verify(throwingProtocol.throwingMethod()).returning(Bool.self).wasCalled()
   }
   func testStubThrowingMethod_throwsError_explicitSyntax() {
     given(throwingProtocol.throwingMethod()).returning(Bool.self).willThrow(FakeError())
     XCTAssertThrowsError(try throwingProtocolInstance.throwingMethod() as Bool)
+    verify(throwingProtocol.throwingMethod()).returning(Bool.self).wasCalled()
   }
   func testStubThrowingMethod_implicitlyRethrowsError_explicitSyntax() {
     given(throwingProtocol.throwingMethod(block: any())).will { _ = try $0() }
     XCTAssertThrowsError(try throwingProtocolInstance.throwingMethod(block: { throw FakeError() }))
+    verify(throwingProtocol.throwingMethod(block: any())).wasCalled()
   }
   
   func testStubRethrowingReturningMethod_returnsValue() {
     given(rethrowingProtocol.rethrowingMethod(block: any())) ~> true
     XCTAssertTrue(try rethrowingProtocolInstance.rethrowingMethod(block: { throw FakeError() }))
+    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Bool.self).wasCalled()
   }
   func testStubRethrowingReturningMethod_returnsValueFromBlock() {
     given(rethrowingProtocol.rethrowingMethod(block: any())) ~> { return try $0() }
     XCTAssertTrue(rethrowingProtocolInstance.rethrowingMethod(block: { return true }))
+    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Bool.self).wasCalled()
   }
   func testStubRethrowingReturningMethod_rethrowsError() {
     given(rethrowingProtocol.rethrowingMethod(block: any())) ~> { return try $0() }
     XCTAssertThrowsError(try rethrowingProtocolInstance.rethrowingMethod(block: {
       throw FakeError()
     }) as Bool)
+    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Bool.self).wasCalled()
   }
   func testStubRethrowingNonReturningMethod_rethrowsError() {
     given(rethrowingProtocol.rethrowingMethod(block: any())) ~> { _ = try $0() }
     XCTAssertThrowsError(try rethrowingProtocolInstance.rethrowingMethod(block: {
       throw FakeError()
     }) as Void)
+    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Void.self).wasCalled()
   }
   
   func testStubRethrowingReturningMethod_returnsValue_explicitSyntax() {
     given(rethrowingProtocol.rethrowingMethod(block: any())).willReturn(true)
     XCTAssertTrue(try rethrowingProtocolInstance.rethrowingMethod(block: { throw FakeError() }))
+    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Bool.self).wasCalled()
   }
   func testStubRethrowingReturningMethod_returnsValueFromBlock_explicitSyntax() {
     given(rethrowingProtocol.rethrowingMethod(block: any())).will { return try $0() }
     XCTAssertTrue(rethrowingProtocolInstance.rethrowingMethod(block: { return true }))
+    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Bool.self).wasCalled()
   }
   func testStubRethrowingReturningMethod_rethrowsError_explicitSyntax() {
     given(rethrowingProtocol.rethrowingMethod(block: any())).will { return try $0() }
     XCTAssertThrowsError(try rethrowingProtocolInstance.rethrowingMethod(block: {
       throw FakeError()
     }) as Bool)
+    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Bool.self).wasCalled()
   }
   func testStubRethrowingNonReturningMethod_rethrowsError_explicitSyntax() {
     given(rethrowingProtocol.rethrowingMethod(block: any())).will { _ = try $0() }
     XCTAssertThrowsError(try rethrowingProtocolInstance.rethrowingMethod(block: {
       throw FakeError()
     }) as Void)
+    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Void.self).wasCalled()
   }
   
   // MARK: Inout parameters
@@ -426,12 +496,14 @@ class StubbingTests: BaseTestCase {
     var valueType = "foo bar"
     inoutProtocolInstance.parameterizedMethod(object: &valueType)
     XCTAssertEqual(valueType, "foo bar")
+    verify(inoutProtocol.parameterizedMethod(object: any())).wasCalled()
   }
   func testInoutParameter_uppercasesString() {
     given(inoutProtocol.parameterizedMethod(object: any())) ~> { $0 = $0.uppercased() }
     var valueType = "foo bar"
     inoutProtocolInstance.parameterizedMethod(object: &valueType)
     XCTAssertEqual(valueType, "FOO BAR")
+    verify(inoutProtocol.parameterizedMethod(object: any())).wasCalled()
   }
   
   // MARK: Chained stubbing
@@ -449,6 +521,8 @@ class StubbingTests: BaseTestCase {
     
     // Check clamped to last value
     XCTAssertTrue(childProtocolInstance.childInstanceVariable)
+    
+    verify(childProtocol.getChildInstanceVariable()).wasCalled(exactly(6))
   }
   
   func testTransitionsToNextStub_afterCount_skipsValueWhenStubbedLater() {
@@ -463,6 +537,8 @@ class StubbingTests: BaseTestCase {
     
     // Check clamped to last value
     XCTAssertTrue(childProtocolInstance.childInstanceVariable)
+    
+    verify(childProtocol.getChildInstanceVariable()).wasCalled(exactly(5))
   }
   
   func testTransitionsToNextStub_onFirstNil() {
@@ -475,5 +551,7 @@ class StubbingTests: BaseTestCase {
     
     // Check clamped to last value
     XCTAssertTrue(childProtocolInstance.childInstanceVariable)
+    
+    verify(childProtocol.getChildInstanceVariable()).wasCalled(exactly(4))
   }
 }
