@@ -21,15 +21,15 @@ public class MockingContext {
   
   // Ensures that the stubbed return expression was evaluated prior to recording the invocation.
   func didInvoke<T>(_ invocation: Invocation, returning expression: () throws -> T) rethrows -> T {
+    defer { didInvoke(invocation) }
     let evaluatedExpression = try expression()
-    didInvoke(invocation)
     return evaluatedExpression
   }
   
   // Ensures that the stubbed return expression was evaluated prior to recording the invocation.
   func didInvoke<T>(_ invocation: Invocation, returning expression: () -> T) -> T {
+    defer { didInvoke(invocation) }
     let evaluatedExpression = expression()
-    didInvoke(invocation)
     return evaluatedExpression
   }
     
