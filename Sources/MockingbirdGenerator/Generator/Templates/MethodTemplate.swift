@@ -292,8 +292,8 @@ class MethodTemplate: Template {
     let noArgsImplementationType = "() \(returnTypeAttributesForMatching)-> \(returnTypeName)"
     let noArgsImplementation = method.parameters.isEmpty ? "" : """
      else if let concreteImplementation = implementation as? \(noArgsImplementationType) {
-               \(returnStatement)\(tryInvocation)concreteImplementation()
-             }
+            \(returnStatement)\(tryInvocation)concreteImplementation()
+          }
     """
     
     // 1. Stubbed implementation with args

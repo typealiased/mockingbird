@@ -27,8 +27,10 @@ public class StubbingContext {
   
   func failTest(for invocation: Invocation) -> String {
     let stubbedSelectorNames = stubs.read({ Array($0.keys) }).sorted()
+    let stackTrace = StackTrace(from: Thread.callStackSymbols)
     let error = TestFailure.missingStubbedImplementation(invocation: invocation,
-                                                         stubbedSelectorNames: stubbedSelectorNames)
+                                                         stubbedSelectorNames: stubbedSelectorNames,
+                                                         stackTrace: stackTrace)
     if let sourceLocation = sourceLocation {
       MKBFail("\(error)", isFatal: true, file: sourceLocation.file, line: sourceLocation.line)
     } else {
