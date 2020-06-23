@@ -1,0 +1,3 @@
+[submodule "docs/swift-doc"]
+	path = docs/swift-doc
+	url = https://github.com/andrewchang-bird/swift-doc
