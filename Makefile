@@ -96,7 +96,7 @@ all: build
 
 .PHONY: clean-mocks
 clean-mocks:
-	rm -f Sources/MockingbirdMocks/*.generated.swift
+	rm -f Tests/MockingbirdTests/Mocks/*.generated.swift
 	rm -f Mockingbird.xcodeproj/MockingbirdCache/*.lock
 
 .PHONY: clean-temporary-files
@@ -258,6 +258,20 @@ test:
 
 .PHONY: clean-test
 clean-test: clean test
+
+.PHONY: test-flaky
+test-flaky:
+	$(BUILD_TOOL) -scheme 'MockingbirdTests' $(XCODEBUILD_MACOS_FLAGS) test
+	mv -f Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift \
+		Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.tmp.generated.swift
+
+	set -e
+	for i in {1..4}; do \
+		$(BUILD_TOOL) -scheme 'MockingbirdTests' $(XCODEBUILD_MACOS_FLAGS) test; \
+		diff Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift \
+			Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.tmp.generated.swift; \
+		[[ $$? == 0 ]] && echo "[Test $$i completed]" || exit 1; \
+	done
 
 .PHONY: setup-swiftdoc
 setup-swiftdoc:

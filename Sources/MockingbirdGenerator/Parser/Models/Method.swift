@@ -269,12 +269,14 @@ extension Method: Comparable {
   static func < (lhs: Method, rhs: Method) -> Bool {
     return (
       lhs.whereClauses,
+      lhs.returnTypeName,
       lhs.kind.typeScope,
       lhs.parameters,
       lhs.genericTypes,
       lhs.name
     ) < (
       rhs.whereClauses,
+      rhs.returnTypeName,
       rhs.kind.typeScope,
       rhs.parameters,
       rhs.genericTypes,
