@@ -574,7 +574,7 @@
 		OBJ_875 /* ArgumentMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* ArgumentMatcher.swift */; };
 		OBJ_876 /* CountMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* CountMatcher.swift */; };
 		OBJ_877 /* TypeFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* TypeFacade.swift */; };
-		OBJ_878 /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* Mock.swift */; };
+		OBJ_878 /* Mocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* Mocking.swift */; };
 		OBJ_879 /* MockingContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* MockingContext.swift */; };
 		OBJ_881 /* Stubbing.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* Stubbing.swift */; };
 		OBJ_882 /* StubbingContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_42 /* StubbingContext.swift */; };
@@ -1449,7 +1449,7 @@
 		OBJ_367 /* XCScheme+BuildAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+BuildAction.swift"; sourceTree = "<group>"; };
 		OBJ_368 /* XCScheme+BuildableProductRunnable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+BuildableProductRunnable.swift"; sourceTree = "<group>"; };
 		OBJ_369 /* XCScheme+BuildableReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+BuildableReference.swift"; sourceTree = "<group>"; };
-		OBJ_37 /* Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
+		OBJ_37 /* Mocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocking.swift; sourceTree = "<group>"; };
 		OBJ_370 /* XCScheme+CommandLineArguments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+CommandLineArguments.swift"; sourceTree = "<group>"; };
 		OBJ_371 /* XCScheme+EnvironmentVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+EnvironmentVariable.swift"; sourceTree = "<group>"; };
 		OBJ_372 /* XCScheme+ExecutionAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+ExecutionAction.swift"; sourceTree = "<group>"; };
@@ -2637,7 +2637,7 @@
 		OBJ_36 /* Mocking */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_37 /* Mock.swift */,
+				OBJ_37 /* Mocking.swift */,
 				OBJ_38 /* MockingContext.swift */,
 				D3E6F67F24845131000D1971 /* ResetMock.swift */,
 			);
@@ -4905,7 +4905,7 @@
 				D3E6F67C24844C5B000D1971 /* SourceLocation.swift in Sources */,
 				OBJ_876 /* CountMatcher.swift in Sources */,
 				OBJ_877 /* TypeFacade.swift in Sources */,
-				OBJ_878 /* Mock.swift in Sources */,
+				OBJ_878 /* Mocking.swift in Sources */,
 				OBJ_879 /* MockingContext.swift in Sources */,
 				D3E6F67E24844CEA000D1971 /* ExpectationGroup.swift in Sources */,
 				D3E6F67A24844A37000D1971 /* DefaultValues.swift in Sources */,

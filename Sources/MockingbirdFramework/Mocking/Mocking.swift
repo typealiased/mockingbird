@@ -1,11 +1,36 @@
 //
-//  Mock.swift
+//  Mocking.swift
 //  Mockingbird
 //
 //  Created by Andrew Chang on 7/29/19.
 //
 
 import Foundation
+
+/// Returns a mock of a given type.
+///
+/// Initialized mocks can be passed in place of the original type. Protocol mocks do not require
+/// explicit initialization while class mocks should be created using `initialize(…)`.
+///
+///     protocol Bird {
+///       init(name: String)
+///     }
+///     class Tree {
+///       init(with bird: Bird) {}
+///     }
+///
+///     let bird = mock(Bird.self)  // Protocol mock
+///     let tree = mock(Tree.self).initialize(with: bird)  // Class mock
+///
+/// Generated mock types are suffixed with `Mock` and should not be coerced into their supertype.
+///
+///     let bird: BirdMock = mock(Bird.self)  // The concrete type is `BirdMock`
+///     let inferredBird = mock(Bird.self)    // Type inference also works
+///     let coerced: Bird = mock(Bird.self)   // Avoid upcasting mocks
+///
+/// - Parameter type: The type to mock.
+@available(*, unavailable, message: "No generated mock for this type which might be resolved by building the test target (⇧⌘U)")
+public func mock<T>(_ type: T.Type) -> T { fatalError() }
 
 /// All generated mocks conform to this protocol.
 public protocol Mock {
