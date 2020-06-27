@@ -8,7 +8,7 @@ Having issues setting up Mockingbird? Join the [Slack channel](https://slofile.c
 
 ## Tutorial
 
-### Configure Carthage
+### 1. Add Dependency
 
 Create the Cartfile in the Xcode project root directory.
 
@@ -23,25 +23,28 @@ Add Mockingbird as a dependency in the Cartfile.
 $ echo 'github "birdrides/mockingbird" ~> 0.13' >> Cartfile
 ```
 
-### Install Mockingbird
+### 2. Install Mockingbird
 
-Build the framework and link the built `Mockingbird.framework` to the test target, making sure to add the
-framework to
-[a new Copy Files build phase](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets) with the
-destination set to `Frameworks`.
+Build the framework and install the CLI
 
 ```console
 $ carthage update --platform ios
-$ open Carthage/Build/iOS
-```
-
-Then install the CLI.
-
-```console
 $ (cd Carthage/Checkouts/mockingbird && make install-prebuilt)
 ```
 
-Configure the test target.
+### 3. Configure Test Target
+
+Link the built `Mockingbird.framework` to the test target, making sure to add the framework to [a new Copy Files build phase](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets) with the destination set to `Frameworks`.
+
+![Linking Mockingbird to a test target](https://github.com/birdrides/mockingbird/wiki/images/Linking-Test-Targets/test-target-build-phases.png)
+
+Download the starter supporting source files into your project root.
+
+```console
+$ mockingbird download starter-pack
+```
+
+Then configure the test target.
 
 ```console
 $ mockingbird install \
@@ -49,13 +52,7 @@ $ mockingbird install \
   --source iOSMockingbirdExample-Carthage
 ```
 
-Finally, download the starter supporting source files into your project root.
-
-```console
-$ mockingbird download starter-pack
-```
-
-### Run Tests
+### 4. Run Tests
 
 Open the Xcode project.
 
