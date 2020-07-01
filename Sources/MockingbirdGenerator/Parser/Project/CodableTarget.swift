@@ -9,6 +9,11 @@ import Foundation
 import PathKit
 import XcodeProj
 
+public struct SourceFile: Codable, Hashable {
+  public let path: Path
+  public let hash: String?
+}
+
 public class CodableTargetDependency: TargetDependency, Codable {
   public let target: CodableTarget?
   
@@ -32,62 +37,55 @@ public class CodableTargetDependency: TargetDependency, Codable {
   }
 }
 
-public struct SourceFile: Codable, Hashable {
-  public let path: String
-  public let hash: String?
-}
-
 public class CodableTarget: Target, Codable {
   public let name: String
   public let productModuleName: String
   public let dependencies: [CodableTargetDependency]
   
+  public let sourceRoot: Path
   public let sourceFilePaths: [SourceFile]
-  public let supportingFilePaths: [SourceFile]?
-  public let sourceRoot: String
-  public let projectHash: String?
-  public let outputHash: String?
-  public let targetPathsHash: String?
-  public let dependencyPathsHash: String?
-  public let cliVersion: String?
   
   public init<T: Target>(from target: T,
                          sourceRoot: Path,
-                         supportPaths: [Path]? = nil,
-                         projectHash: String? = nil,
-                         outputHash: String? = nil,
-                         targetPathsHash: String? = nil,
-                         dependencyPathsHash: String? = nil,
-                         cliVersion: String? = nil,
+                         dependencies: [CodableTargetDependency]? = nil,
                          ignoredDependencies: inout Set<String>,
                          environment: () -> [String: Any]) throws {
     self.name = target.name
     self.productModuleName = target.resolveProductModuleName(environment: environment)
-    self.dependencies = try target.dependencies
-      .filter({
-        !ignoredDependencies.contains(
-          $0.target?.resolveProductModuleName(environment: environment) ?? ""
-        )
-      })
-      .compactMap({ try CodableTargetDependency(from: $0,
-                                                sourceRoot: sourceRoot,
-                                                ignoredDependencies: &ignoredDependencies,
-                                                environment: environment) })
+    if let dependencies = dependencies {
+      self.dependencies = dependencies
+    } else {
+      self.dependencies = try target.dependencies
+        .filter({
+          !ignoredDependencies.contains(
+            $0.target?.resolveProductModuleName(environment: environment) ?? ""
+          )
+        })
+        .compactMap({
+          try CodableTargetDependency(from: $0,
+                                      sourceRoot: sourceRoot,
+                                      ignoredDependencies: &ignoredDependencies,
+                                      environment: environment)
+        })
+    }
     ignoredDependencies.formUnion(self.dependencies.map({ $0.target?.productModuleName ?? "" }))
     self.sourceFilePaths = try target.findSourceFilePaths(sourceRoot: sourceRoot)
       .map({ $0.absolute() })
       .sorted()
-      .map({ try SourceFile(path: "\($0)", hash: $0.read().generateSha1Hash()) })
-    self.supportingFilePaths = try supportPaths?
-      .map({ $0.absolute() })
-      .sorted()
-      .map({ try SourceFile(path: "\($0)", hash: $0.read().generateSha1Hash()) })
-    self.targetPathsHash = targetPathsHash
-    self.dependencyPathsHash = dependencyPathsHash
-    self.sourceRoot = "\(sourceRoot.absolute())"
-    self.projectHash = projectHash
-    self.outputHash = outputHash
-    self.cliVersion = cliVersion
+      .map({ try SourceFile(path: $0, hash: $0.read().generateSha1Hash()) })
+    self.sourceRoot = sourceRoot.absolute()
+  }
+  
+  init(name: String,
+       productModuleName: String,
+       dependencies: [CodableTargetDependency],
+       sourceRoot: Path,
+       sourceFilePaths: [SourceFile]) {
+    self.name = name
+    self.productModuleName = productModuleName
+    self.dependencies = dependencies
+    self.sourceRoot = sourceRoot
+    self.sourceFilePaths = sourceFilePaths
   }
   
   public func resolveProductModuleName(environment: () -> [String : Any]) -> String {
@@ -95,11 +93,12 @@ public class CodableTarget: Target, Codable {
   }
   
   public func findSourceFilePaths(sourceRoot: Path) -> [Path] {
-    guard "\(sourceRoot.absolute())" == self.sourceRoot else {
-      logWarning("Cached source root does not match the input source root") // Should never happen
+    guard sourceRoot.absolute() == self.sourceRoot.absolute() else {
+      // Should not happen unless the `.xcodeproj` is moved relative to `SRCROOT`.
+      logWarning("Cached source root does not match the input source root")
       return []
     }
-    return sourceFilePaths.map({ Path($0.path) })
+    return sourceFilePaths.map({ $0.path })
   }
   
   public static func == (lhs: CodableTarget, rhs: CodableTarget) -> Bool {

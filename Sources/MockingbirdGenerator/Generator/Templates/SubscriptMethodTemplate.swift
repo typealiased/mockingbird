@@ -5,6 +5,8 @@
 //  Created by Andrew Chang on 4/18/20.
 //
 
+// swiftlint:disable leading_whitespace
+
 import Foundation
 
 /// Subscripts are a special case and require synthesizing getters and setters for matching.
@@ -15,19 +17,29 @@ class SubscriptMethodTemplate: MethodTemplate {
       stubbedImplementationCall(parameterTypes: methodParameterTypesForSubscriptSetter,
                                 parameterNames: methodParameterNamesForSubscriptSetterInvocation,
                                 returnTypeName: "Void")
+    
+    let body: String
+    if context.shouldGenerateThunks {
+      body = """
+      {
+          get {
+            let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclarationForSubscriptGetter)", arguments: [\(mockArgumentMatchers)], returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
+      \(stubbedImplementationCall().indent())
+          }
+          set {
+            let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclarationForSubscriptSetter)", arguments: [\(mockArgumentMatchersForSubscriptSetter)], returnType: Swift.ObjectIdentifier(Void.self))
+      \(stubbedSetterImplementationCall.indent())
+          }
+        }
+      """
+    } else {
+      body = "{ get { fatalError() } set { fatalError() } }"
+    }
+    
     return """
       // MARK: Mocked \(fullNameForMocking)
     \(attributes)
-      public \(overridableModifiers)\(uniqueDeclaration) {
-        get {
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclarationForSubscriptGetter)", arguments: [\(mockArgumentMatchers)], returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
-    \(stubbedImplementationCall().indent())
-        }
-        set {
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclarationForSubscriptSetter)", arguments: [\(mockArgumentMatchersForSubscriptSetter)], returnType: Swift.ObjectIdentifier(Void.self))
-    \(stubbedSetterImplementationCall.indent())
-        }
-      }
+      public \(overridableModifiers)\(uniqueDeclaration) \(body)
     """
   }
   
@@ -90,12 +102,21 @@ class SubscriptMethodTemplate: MethodTemplate {
         resolvedArgumentMatchers : resolvedArgumentMatchersForSubscriptSetter
     }
     
+    let body: String
+    if context.shouldGenerateThunks {
+      body = """
+      {
+      \(argumentMatchers)
+          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(selectorName)", arguments: arguments, returnType: Swift.ObjectIdentifier(\(escapedReturnType).self))
+          return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
+        }
+      """
+    } else {
+      body = "{ fatalError() }"
+    }
+    
     return """
-    \(attributes)  public \(regularModifiers)func \(namePrefix)\(fullName.capitalizedFirst) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) {
-    \(argumentMatchers)
-        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(selectorName)", arguments: arguments, returnType: Swift.ObjectIdentifier(\(escapedReturnType).self))
-        return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
-      }
+    \(attributes)  public \(regularModifiers)func \(namePrefix)\(fullName.capitalizedFirst) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) \(body)
     """
   }
   

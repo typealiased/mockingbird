@@ -16,9 +16,17 @@ private let queue = DispatchQueue(label: "co.bird.mockingbird.retain", qos: .bac
 /// object lifetimes to extend until the program exits we can let the OS take care of deallocations.
 ///
 /// - Parameter object: A class object to retain.
-func retainForever<T: AnyObject>(_ object: T?) {
-  guard let object = object else { return }
+@discardableResult
+func retainForever<T: AnyObject>(_ object: T) -> T {
   #if !(DEBUG)
   queue.async { objectReferences.append(object) }
   #endif
+  return object
+}
+
+/// Convenience for handling `nil` objects.
+@discardableResult
+func retainForever<T: AnyObject>(_ object: T?) -> T? {
+  guard let object = object else { return nil }
+  return retainForever(object) as T
 }

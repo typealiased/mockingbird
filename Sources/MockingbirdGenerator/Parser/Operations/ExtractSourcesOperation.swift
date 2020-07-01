@@ -27,24 +27,39 @@ public protocol ExtractSourcesAbstractOperation: BasicOperation {
   var result: ExtractSourcesOperationResult { get }
 }
 
+public struct ExtractSourcesOptions: OptionSet {
+  public let rawValue: Int
+  public init(rawValue: Int) {
+    self.rawValue = rawValue
+  }
+  
+  public static let dependencyPaths = ExtractSourcesOptions(rawValue: 1 << 1)
+  public static let useMockingbirdIgnore = ExtractSourcesOptions(rawValue: 1 << 2)
+  
+  public static let all: ExtractSourcesOptions = [.dependencyPaths, .useMockingbirdIgnore]
+}
+
 /// Given a target, find all related source files including those compiled by dependencies.
 public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesAbstractOperation {
   public let target: T
   let sourceRoot: Path
   let supportPath: Path?
+  let options: ExtractSourcesOptions
   let environment: () -> [String: Any]
   
   public let result = ExtractSourcesOperationResult()
   
   public override var description: String { "Extract Sources" }
   
-  public init(with target: T,
+  public init(target: T,
               sourceRoot: Path,
               supportPath: Path?,
+              options: ExtractSourcesOptions,
               environment: @escaping () -> [String: Any]) {
     self.target = target
     self.sourceRoot = sourceRoot
     self.supportPath = supportPath
+    self.options = options
     self.environment = environment
   }
   
@@ -52,18 +67,20 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
     try time(.extractSources) {
       result.targetPaths = sourceFilePaths(for: target)
       
-      let supportSourcePaths: Set<SourcePath>
-      if let supportPath = supportPath {
-        supportSourcePaths = try findSupportSourcePaths(at: supportPath)
-      } else {
-        supportSourcePaths = []
-      }
+      if options.contains(.dependencyPaths) {
+        let supportSourcePaths: Set<SourcePath>
+        if let supportPath = supportPath {
+          supportSourcePaths = try findSupportSourcePaths(at: supportPath)
+        } else {
+          supportSourcePaths = []
+        }
+        result.supportPaths = supportSourcePaths
       
-      result.supportPaths = supportSourcePaths
-      result.dependencyPaths = Set(allTargets(for: target, includeTarget: false)
-        .flatMap({ sourceFilePaths(for: $0) }))
-        .union(supportSourcePaths)
-        .subtracting(result.targetPaths)
+        result.dependencyPaths =
+          Set(allTargets(for: target).flatMap({ sourceFilePaths(for: $0) }))
+            .union(supportSourcePaths)
+            .subtracting(result.targetPaths)
+      }
     }
     log("Found \(result.targetPaths.count) source file\(result.targetPaths.count != 1 ? "s" : "") and \(result.dependencyPaths.count) dependency source file\(result.dependencyPaths.count != 1 ? "s" : "") for target \(target.name.singleQuoted)")
   }
@@ -72,25 +89,33 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
   private var memoizedSourceFilePaths = [T: Set<SourcePath>]()
   private func sourceFilePaths(for target: T) -> Set<SourcePath> {
     if let memoized = memoizedSourceFilePaths[target] { return memoized }
+    
+    let moduleName = resolveProductModuleName(for: target)
     let paths = target.findSourceFilePaths(sourceRoot: sourceRoot)
-      .map({ SourcePath(path: $0, moduleName: resolveProductModuleName(for: target)) })
+      .map({ SourcePath(path: $0, moduleName: moduleName) })
+    
     let includedPaths = includedSourcePaths(for: Set(paths))
     memoizedSourceFilePaths[target] = includedPaths
+    
     return includedPaths
   }
   
   /// Recursively find all targets and its dependency targets.
   private var memoizedTargets = [T: Set<T>]()
-  private func allTargets(for target: T, includeTarget: Bool = true) -> Set<T> {
+  private func allTargets(for target: T) -> Set<T> {
     if let memoized = memoizedTargets[target] { return memoized }
-    let targets = Set([target]).union(target.dependencies
-      .compactMap({ $0.target as? T })
-      .flatMap({ allTargets(for: $0) }))
+    
+    let targets = Set([target]).union(
+      target.dependencies
+        .compactMap({ $0.target as? T })
+        .flatMap({ allTargets(for: $0) }))
     let productModuleName = resolveProductModuleName(for: target)
+    
     result.moduleDependencies[productModuleName] = Set(targets.map({
       resolveProductModuleName(for: $0)
     }))
     memoizedTargets[target] = targets
+    
     return targets
   }
   
@@ -117,10 +142,12 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
     }))
   }
   
-  /// Only returns non-ignored source file paths based on `.mockingbird-ignored` glob declarations.
+  /// Only returns non-ignored source file paths based on `.mockingbird-ignore` glob declarations.
   private func includedSourcePaths(for sourcePaths: Set<SourcePath>) -> Set<SourcePath> {
-    let operations = sourcePaths.map({ GlobSearchOperation(sourcePath: $0,
-                                                           sourceRoot: sourceRoot) })
+    guard options.contains(.useMockingbirdIgnore) else { return sourcePaths }
+    let operations = sourcePaths.map({
+      retainForever(GlobSearchOperation(sourcePath: $0, sourceRoot: sourceRoot))
+    })
     let queue = OperationQueue.createForActiveProcessors()
     queue.addOperations(operations, waitUntilFinished: true)
     return Set(operations.compactMap({ $0.result.sourcePath }))

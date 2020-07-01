@@ -31,6 +31,7 @@ class Installer {
     let disableSwiftlint: Bool
     let disableCache: Bool
     let disableRelaxedLinking: Bool
+    let disablePruning: Bool
   }
   
   struct UninstallConfiguration {
@@ -131,10 +132,10 @@ class Installer {
     }
     
     // Create fixed output paths for each source target.
-    let getBuildEnvironment = { return Generator.implicitBuildEnvironment(xcodeproj: xcodeproj) }
+    let getBuildEnvironment = { return xcodeproj.implicitBuildEnvironment }
     let outputPaths = config.outputPaths ?? sourceTargets.map({
-      Generator.defaultOutputPath(for: $0,
-                                  testTarget: target,
+      Generator.defaultOutputPath(for: .pbxTarget($0),
+                                  testTarget: .pbxTarget(target),
                                   sourceRoot: config.sourceRoot,
                                   environment: getBuildEnvironment)
     })
@@ -328,6 +329,9 @@ class Installer {
       }
       if config.disableRelaxedLinking {
         options.append("--disable-relaxed-linking")
+      }
+      if config.disablePruning {
+        options.append("--disable-pruning")
       }
       if let logLevel = config.logLevel {
         switch logLevel {

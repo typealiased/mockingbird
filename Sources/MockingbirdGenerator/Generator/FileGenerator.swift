@@ -14,6 +14,7 @@ import os.log
 
 class FileGenerator {
   let mockableTypes: [MockableType]
+  let mockedTypeNames: Set<String>?
   let moduleName: String
   let imports: Set<String>
   let outputPath: Path
@@ -22,7 +23,8 @@ class FileGenerator {
   let onlyMockProtocols: Bool
   let disableSwiftlint: Bool
   
-  init(_ mockableTypes: [MockableType],
+  init(mockableTypes: [MockableType],
+       mockedTypeNames: Set<String>?,
        moduleName: String,
        imports: Set<String>,
        outputPath: Path,
@@ -31,8 +33,8 @@ class FileGenerator {
        onlyMockProtocols: Bool,
        disableSwiftlint: Bool) {
     self.mockableTypes = onlyMockProtocols ?
-      mockableTypes.filter({ $0.kind == .protocol }) :
-      mockableTypes
+      mockableTypes.filter({ $0.kind == .protocol }) : mockableTypes
+    self.mockedTypeNames = mockedTypeNames
     self.moduleName = moduleName
     self.imports = imports
     self.outputPath = outputPath
@@ -81,15 +83,22 @@ class FileGenerator {
     let operations = mockableTypes
       .sorted(by: <)
       .flatMap({ mockableType -> [RenderTemplateOperation] in
-        let mockableTypeTemplate = MockableTypeTemplate(mockableType: mockableType)
+        let mockableTypeTemplate = MockableTypeTemplate(mockableType: mockableType,
+                                                        mockedTypeNames: mockedTypeNames)
         let initializerTemplate = MockableTypeInitializerTemplate(
           mockableTypeTemplate: mockableTypeTemplate,
           containingTypeNames: []
         )
+        
         let generateMockableTypeOperation = RenderTemplateOperation(template: mockableTypeTemplate)
         let generateInitializerOperation = RenderTemplateOperation(template: initializerTemplate)
+        
         // The initializer accesses lazy vars from `mockableTypeTemplate` which is not thread-safe.
         generateInitializerOperation.addDependency(generateMockableTypeOperation)
+        
+        retainForever(generateMockableTypeOperation)
+        retainForever(generateInitializerOperation)
+        
         return [generateMockableTypeOperation, generateInitializerOperation]
       })
     let queue = OperationQueue.createForActiveProcessors()
@@ -106,11 +115,11 @@ class FileGenerator {
   
   func generate() -> PartialFileContent {
     return PartialFileContent(contents: nil,
-                               substructure: [generateFileHeader(),
-                                              generateFileBody(),
-                                              generateFileFooter()].filter({ !$0.isEmpty }),
-                               delimiter: "\n",
-                               footer: "\n")
+                              substructure: [generateFileHeader(),
+                                             generateFileBody(),
+                                             generateFileFooter()].filter({ !$0.isEmpty }),
+                              delimiter: "\n",
+                              footer: "\n")
   }
   
   private var genericTypesStaticMocks: String {

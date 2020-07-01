@@ -13,6 +13,7 @@ import os.log
 public class GenerateFileOperation: BasicOperation {
   let processTypesResult: ProcessTypesOperation.Result
   let checkCacheResult: CheckCacheOperation.Result?
+  let findMockedTypesResult: FindMockedTypesOperation.Result?
   
   let moduleName: String
   let outputPath: Path
@@ -23,6 +24,7 @@ public class GenerateFileOperation: BasicOperation {
   
   public init(processTypesResult: ProcessTypesOperation.Result,
               checkCacheResult: CheckCacheOperation.Result?,
+              findMockedTypesResult: FindMockedTypesOperation.Result?,
               moduleName: String,
               outputPath: Path,
               compilationCondition: String?,
@@ -31,6 +33,7 @@ public class GenerateFileOperation: BasicOperation {
               disableSwiftlint: Bool) {
     self.processTypesResult = processTypesResult
     self.checkCacheResult = checkCacheResult
+    self.findMockedTypesResult = findMockedTypesResult
     self.moduleName = moduleName
     self.outputPath = outputPath
     self.shouldImportModule = shouldImportModule
@@ -43,14 +46,17 @@ public class GenerateFileOperation: BasicOperation {
     guard checkCacheResult?.isCached != true else { return }
     var contents: PartialFileContent!
     time(.renderMocks) {
-      let generator = FileGenerator(processTypesResult.mockableTypes,
-                                    moduleName: moduleName,
-                                    imports: processTypesResult.imports,
-                                    outputPath: outputPath,
-                                    compilationCondition: compilationCondition,
-                                    shouldImportModule: shouldImportModule,
-                                    onlyMockProtocols: onlyMockProtocols,
-                                    disableSwiftlint: disableSwiftlint)
+      let generator = FileGenerator(
+        mockableTypes: processTypesResult.mockableTypes,
+        mockedTypeNames: findMockedTypesResult?.allMockedTypeNames,
+        moduleName: moduleName,
+        imports: processTypesResult.imports,
+        outputPath: outputPath,
+        compilationCondition: compilationCondition,
+        shouldImportModule: shouldImportModule,
+        onlyMockProtocols: onlyMockProtocols,
+        disableSwiftlint: disableSwiftlint
+      )
       contents = generator.generate()
     }
     
@@ -58,6 +64,6 @@ public class GenerateFileOperation: BasicOperation {
       try outputPath.writeUtf8Strings(contents)
     }
     
-    print("Generated file to \(String(describing: outputPath.absolute()))")
+    print("Generated file to \(outputPath.absolute())")
   }
 }

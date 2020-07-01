@@ -1,5 +1,5 @@
 //
-//  SwiftFileParser.swift
+//  SourceFileAuxiliaryParser.swift
 //  MockingbirdGenerator
 //
 //  Created by Andrew Chang on 4/22/20.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftSyntax
 
-class SwiftFileParser: SyntaxVisitor {
+class SourceFileAuxiliaryParser: SyntaxVisitor {
   var importedPaths = Set<ImportDeclaration>()
   var directives = [CompilationDirective]()
   
@@ -29,9 +29,7 @@ class SwiftFileParser: SyntaxVisitor {
   override func visit(_ node: ImportDeclSyntax) -> SyntaxVisitorContinueKind {
     guard let moduleName = node.path.first?.name.text else { return .skipChildren }
     let fullPath = node.path.withoutTrivia().description
-      .trimmingCharacters(in: .whitespacesAndNewlines)
     let fullDeclaration = node.withoutTrivia().description
-      .trimmingCharacters(in: .whitespacesAndNewlines)
     importedPaths.insert(ImportDeclaration(moduleName: moduleName,
                                            fullPath: fullPath,
                                            fullDeclaration: fullDeclaration))

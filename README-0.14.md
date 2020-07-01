@@ -572,11 +572,12 @@ Generate mocks for a set of targets in a project.
 
 | Flag | Description |
 | --- | --- |
-| `--disable-module-import` | Omit `@testable import <module>` from generated mocks. |
 | `--only-protocols` | Only generate mocks for protocols. |
+| `--disable-module-import` | Omit `@testable import <module>` from generated mocks. |
 | `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
 | `--disable-cache` | Ignore cached mock information stored on disk. |
 | `--disable-relaxed-linking` | Only search explicitly imported modules. |
+| `--disable-pruning` | Generate full mocks for unused types. |
 
 ### Install
 
@@ -594,7 +595,7 @@ Configure a test target to use mocks.
 | `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files). |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
 | `--diagnostics` | `(none)` | List of [diagnostic generator warnings](https://github.com/birdrides/mockingbird/wiki/Diagnostic-Warnings-and-Errors) to enable. |
-| `--loglevel` |  `(none)` | The log level to use when generating mocks, `quiet` or `verbose` |
+| `--loglevel` |  `(none)` | The log level to use when generating mocks, `quiet` or `verbose`. |
 
 | Flag | Description |
 | --- | --- |
@@ -604,6 +605,7 @@ Configure a test target to use mocks.
 | `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
 | `--disable-cache` | Ignore cached mock information stored on disk. |
 | `--disable-relaxed-linking` | Only search explicitly imported modules. |
+| `--disable-pruning` | Generate full mocks for unused types. |
 
 ### Uninstall
 

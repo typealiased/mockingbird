@@ -63,13 +63,23 @@ class MethodTemplate: Template {
   
   var mockedDeclarations: String {
     let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
+    
+    let body: String
+    if context.shouldGenerateThunks {
+      body = """
+      {
+          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)], returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
+      \(stubbedImplementationCall())
+        }
+      """
+    } else {
+      body = "{ fatalError() }"
+    }
+    
     return """
       // MARK: Mocked \(fullNameForMocking)
     \(attributes)
-      public \(overridableModifiers)func \(uniqueDeclaration) {
-        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)], returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
-    \(stubbedImplementationCall())
-      }
+      public \(overridableModifiers)func \(uniqueDeclaration) \(body)
     """
   }
   
@@ -96,21 +106,39 @@ class MethodTemplate: Template {
                                 invocationType,
                                 returnTypeName].joined(separator: ", ")
     
-    mockableMethods.append("""
-    \(attributes)  public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) {
-    \(matchableInvocation)
-        return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
-      }
-    """)
-    
-    if isVariadicMethod {
-      // Allow methods with a variadic parameter to use variadics when stubbing.
-      mockableMethods.append("""
-      \(attributes)  public \(regularModifiers)func \(fullNameForMatchingVariadics) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) {
-      \(resolvedVariadicArgumentMatchers)
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: arguments, returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
+    let body: String
+      
+    if context.shouldGenerateThunks {
+      body = """
+      {
+      \(matchableInvocation)
           return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
         }
+      """
+    } else {
+      body = "{ fatalError() }"
+    }
+    
+    mockableMethods.append("""
+    \(attributes)  public \(regularModifiers)func \(fullNameForMatching) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) \(body)
+    """)
+    
+    // Allow methods with a variadic parameter to use variadics when stubbing.
+    if isVariadicMethod {
+      let variadicBody: String
+      if context.shouldGenerateThunks {
+        variadicBody = """
+        {
+        \(resolvedVariadicArgumentMatchers)
+            let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: arguments, returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
+            return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
+          }
+        """
+      } else {
+        variadicBody = "{ fatalError() }"
+      }
+      mockableMethods.append("""
+      \(attributes)  public \(regularModifiers)func \(fullNameForMatchingVariadics) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) \(variadicBody)
       """)
     }
     
@@ -393,7 +421,7 @@ class MethodTemplate: Template {
   
   lazy var mockObject: String = {
     return method.kind.typeScope == .static || method.kind.typeScope == .class
-      ? "staticMock" : "self"
+      ? "self.staticMock" : "self"
   }()
   
   lazy var contextPrefix: String = {

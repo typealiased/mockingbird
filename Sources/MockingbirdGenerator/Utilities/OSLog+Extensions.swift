@@ -13,12 +13,13 @@ private enum Constants {
 }
 
 public enum SignpostType {
+  case createDylibs
   case runProgram
   case parseArguments
   case parseXcodeProject
   case extractSources
   case checkCache
-  case createDylibs
+  case parseTests
   case parseFiles
   case processTypes
   case renderMocks
@@ -27,12 +28,13 @@ public enum SignpostType {
   
   public var name: StaticString {
     switch self {
+    case .createDylibs: return "Create Dylibs"
     case .runProgram: return "Run Program"
     case .parseArguments: return "Parse Arguments"
     case .parseXcodeProject: return "Parse Xcode Project"
     case .extractSources: return "Extract Sources"
     case .checkCache: return "Check Cache"
-    case .createDylibs: return "Create Dylibs"
+    case .parseTests: return "Parse Tests"
     case .parseFiles: return "Parse Files"
     case .processTypes: return "Process Types"
     case .renderMocks: return "Render Mocks"

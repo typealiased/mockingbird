@@ -22,6 +22,7 @@ import CoreText// Ignore single line comments
 import CoreAudio/* Ignore multi-line comments */
 import CoreFoundation ; import CoreImage
 ; import CoreData ;import CoreML
+  import CoreMedia
 
 /* Ignore comment before */import CoreVideo
 @testable import CoreVideo // Unique because of attribute

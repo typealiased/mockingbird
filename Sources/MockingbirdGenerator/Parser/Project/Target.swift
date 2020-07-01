@@ -7,21 +7,20 @@
 
 import Foundation
 import PathKit
+import XcodeProj
 
 public protocol TargetDependency: Hashable {
   associatedtype T where T: Target
   var target: T? { get }
 }
 
-public protocol AbstractTarget {
-  var name: String { get }
-  func resolveProductModuleName(environment: () -> [String: Any]) -> String
-}
-
 /// Common protocol that both XcodeProj `PBXTarget` and our own `CodableTarget` objects conform to.
-public protocol Target: AbstractTarget, Hashable {
+public protocol Target: Hashable {
   associatedtype D where D: TargetDependency
   
+  var name: String { get }
   var dependencies: [D] { get }
+  
+  func resolveProductModuleName(environment: () -> [String: Any]) -> String
   func findSourceFilePaths(sourceRoot: Path) -> [Path]
 }

@@ -49,6 +49,20 @@ jobs:
           --verbose
     - name: Test Flakiness
       run: make test-flaky
+    - name: Set Up Non-Pruning Target
+      run: |
+        ./bin/mockingbird install \
+          --target MockingbirdTests \
+          --source MockingbirdTestsHost \
+          --support Sources/MockingbirdSupport \
+          --output Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift \
+          --disable-cache \
+          --disable-pruning \
+          --diagnostics all \
+          --loglevel verbose \
+          --verbose
+    - name: Test All Thunks
+      run: make clean-test
 
   build-xcode-11_3_1:
     name: Xcode 11.3.1 toolchain
