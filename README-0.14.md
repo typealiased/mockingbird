@@ -201,27 +201,26 @@ Mockingbird provides a comprehensive [API reference](https://birdrides.github.io
 
 ### 1. Mocking
 
-Mock types can be passed in place of the original type and are suffixed with `Mock`. Avoid explicitly coercing mock types into their supertype, as this breaks stubbing and verification.
+Initialized mocks can be passed in place of the original type. Protocol mocks do not require explicit initialization while class mocks should be created using `initialize(…)`.
 
-#### Mock Protocols
+```swift
+protocol Bird {
+  init(name: String)
+}
+class Tree {
+  init(with bird: Bird) {}
+}
 
-Note that the initialized mock type is `BirdMock` instead of `Bird`.
+let bird = mock(Bird.self)  // Protocol mock
+let tree = mock(Tree.self).initialize(with: bird)  // Class mock
+```
+
+Generated mock types are suffixed with `Mock` and should not be coerced into their supertype.
 
 ```swift
 let bird: BirdMock = mock(Bird.self)  // The concrete type is `BirdMock`
-let inferredBird = mock(Bird.self)    // but type inference also works
-```
-
-#### Mock Classes
-
-Initialize concrete class mocks using the `initialize` method. Keep in mind that class mocks rely on subclassing which has certain limitations, so consider using protocol mocks whenever possible.
-
-```swift
-class Bird {
-  let name: String
-  init(named name: String) { self.name = name }
-}
-let bird = mock(Bird.self).initialize(named: "Ryan")
+let inferredBird = mock(Bird.self)    // Type inference also works
+let coerced: Bird = mock(Bird.self)   // Avoid upcasting mocks
 ```
 
 #### Reset Mocks

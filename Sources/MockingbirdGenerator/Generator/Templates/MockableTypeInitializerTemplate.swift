@@ -103,12 +103,12 @@ struct MockableTypeInitializerTemplate: Template {
       // Requires an initializer proxy to create the partial class mock.
       returnType = "\(mockTypeScopedName).InitializerProxy.Type"
       returnStatement = "return \(mockTypeScopedName).InitializerProxy.self"
-      returnTypeDescription = "/// Initialize an initializable class mock of `\(mockableTypeTemplate.fullyQualifiedName)`."
+      returnTypeDescription = "/// Returns an abstract mock which should be initialized using `mock(\(mockableTypeTemplate.mockableType.name).self).initialize(…)`."
     } else {
       // Does not require an initializer proxy.
       returnType = mockTypeScopedName
       returnStatement = "return \(mockTypeScopedName)(sourceLocation: Mockingbird.SourceLocation(file, line))"
-      returnTypeDescription = "/// Initialize a " + (kind == .class ? "class" : "protocol") + " mock of `\(mockableTypeTemplate.fullyQualifiedName)`."
+      returnTypeDescription = "/// Returns a concrete mock of `\(mockableTypeTemplate.mockableType.name)`."
     }
     
     let allGenericTypes = genericTypeConstraints.isEmpty ? "" :
