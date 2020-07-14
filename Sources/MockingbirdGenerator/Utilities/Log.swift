@@ -47,11 +47,11 @@ private extension String {
 }
 
 public enum LogType: Int, CustomStringConvertible {
-  case debug = 0, warn, error
+  case debug = 0, info, warn, error
   
   public var formattedDescription: String {
     switch self {
-    case .debug: return ""
+    case .debug, .info: return ""
     case .warn: return description.formatted(with: ControlCode.yellow, ControlCode.bold)
     case .error: return description.formatted(with: ControlCode.red, ControlCode.bold)
     }
@@ -59,7 +59,7 @@ public enum LogType: Int, CustomStringConvertible {
   
   public var description: String {
     switch self {
-    case .debug: return ""
+    case .debug, .info: return ""
     case .warn: return "warning:"
     case .error: return "error:"
     }
@@ -67,7 +67,7 @@ public enum LogType: Int, CustomStringConvertible {
   
   var output: UnsafeMutablePointer<FILE> {
     switch self {
-    case .debug: return stdout
+    case .debug, .info: return stdout
     case .warn: return stderr
     case .error: return stderr
     }
@@ -81,7 +81,7 @@ public enum LogLevel: String, RawRepresentable {
   
   func shouldLog(_ type: LogType) -> Bool {
     switch self {
-    case .normal: return type.rawValue >= LogType.warn.rawValue
+    case .normal: return type.rawValue >= LogType.info.rawValue
     case .quiet: return type.rawValue >= LogType.error.rawValue
     case .verbose: return true
     }
@@ -139,7 +139,13 @@ public func log(_ message: @escaping @autoclosure () -> String,
   }
 }
 
-/// Convenience for logging a `.warn` message type
+/// Convenience for logging a `.info` message type.
+public func logInfo(_ message: @escaping @autoclosure () -> String,
+                    output: UnsafeMutablePointer<FILE>? = nil) {
+  log(message(), type: .info, output: output)
+}
+
+/// Convenience for logging a `.warn` message type.
 public func logWarning(_ message: @escaping @autoclosure () -> String,
                        diagnostic: DiagnosticType? = nil,
                        output: UnsafeMutablePointer<FILE>? = nil,

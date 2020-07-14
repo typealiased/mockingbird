@@ -85,22 +85,21 @@ final class DownloadCommand: BaseCommand {
     try super.run(with: arguments, environment: environment, workingPath: workingPath)
     guard let type = arguments.get(assetBundleTypeArgument) else { return }
     
-    print("Downloading asset bundle from \(type.url)")
+    logInfo("Downloading asset bundle from \(type.url)")
     guard let fileUrl = downloadAssetBundle(type.url) else {
       log("Unable to download asset bundle \(type.rawValue.singleQuoted)", type: .error)
       exit(1)
     }
     
-    log("Temporary asset bundle data stored at \(fileUrl)")
-    print("Extracting downloaded asset bundle to \(Path().absolute())")
+    logInfo("Temporary asset bundle data stored at \(fileUrl)")
+    logInfo("Extracting downloaded asset bundle to \(Path().absolute())")
     guard let archive = Archive(url: fileUrl, accessMode: .read) else {
       log("The downloaded asset bundle is corrupted", type: .error)
       exit(1)
     }
     
     try self.extractAssetBundle(archive, to: inferredRootPath)
-    flushLogs()
-    print("Successfully loaded asset bundle \(type.rawValue.singleQuoted) into \(inferredRootPath)")
+    logInfo("Successfully loaded asset bundle \(type.rawValue.singleQuoted) into \(inferredRootPath)")
   }
   
   private func downloadAssetBundle(_ url: Foundation.URL) -> Foundation.URL? {
