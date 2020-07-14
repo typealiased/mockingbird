@@ -55,8 +55,9 @@ public class CheckCacheOperation: BasicOperation {
         log("Invalidated cached mocks for \(target.name.singleQuoted) because the dependency paths hash changed from \(target.dependencyPathsHash.singleQuoted) to \(currentDependencyPathsHash.singleQuoted)")
         return
       }
-       
-      let currentOutputFilePathHash = try outputFilePath.read().generateSha1Hash()
+      
+      let outputFileData = (try? outputFilePath.read()) ?? Data()
+      let currentOutputFilePathHash = try outputFileData.generateSha1Hash()
       guard currentOutputFilePathHash == target.outputHash else {
         log("Invalidated cached mocks for \(target.name.singleQuoted) because the output file content hash changed from \(target.outputHash.singleQuoted) to \(currentOutputFilePathHash.singleQuoted)")
         return
@@ -64,7 +65,10 @@ public class CheckCacheOperation: BasicOperation {
       
       let changedFiles = try extractSourcesResult.targetPaths
         .union(extractSourcesResult.dependencyPaths)
-        .filter({ try $0.path.read().generateSha1Hash() != sourceHashes[$0.path] })
+        .filter({
+          let data = (try? $0.path.read()) ?? Data()
+          return try data.generateSha1Hash() != sourceHashes[$0.path]
+        })
       guard changedFiles.isEmpty else {
         log("Invalidated cached mocks for \(target.name.singleQuoted) because \(changedFiles.count) source file\(changedFiles.count != 1 ? "s" : "") were modified - \(changedFiles.map({ "\($0.path.absolute())" }).sorted())")
         return

@@ -182,10 +182,10 @@ extension ArgumentParser {
                usage: "Only search explicitly imported modules.")
   }
   
-  func addDisablePruning() -> OptionArgument<Bool> {
-    return add(option: "--disable-pruning",
+  func addDisableThunkStubs() -> OptionArgument<Bool> {
+    return add(option: "--disable-thunk-stubs",
                kind: Bool.self,
-               usage: "Generate full mocks for unused types.")
+               usage: "Generate full mocks for potentially unused types.")
   }
   
   // MARK: - Positional
@@ -227,7 +227,8 @@ extension ArgumentParser.Result {
   func getSourceRoot(using argument: OptionArgument<PathArgument>,
                      environment: [String: String],
                      projectPath: Path) -> Path {
-    if let rawSourceRoot = get(argument)?.path.pathString ?? environment["SRCROOT"] {
+    if let rawSourceRoot = get(argument)?.path.pathString ??
+      environment["SRCROOT"] ?? environment["SOURCE_ROOT"] {
       return Path(rawSourceRoot)
     } else {
       return projectPath.parent()

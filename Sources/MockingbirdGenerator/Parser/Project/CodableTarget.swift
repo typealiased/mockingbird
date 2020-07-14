@@ -72,7 +72,10 @@ public class CodableTarget: Target, Codable {
     self.sourceFilePaths = try target.findSourceFilePaths(sourceRoot: sourceRoot)
       .map({ $0.absolute() })
       .sorted()
-      .map({ try SourceFile(path: $0, hash: $0.read().generateSha1Hash()) })
+      .map({
+        let data = (try? $0.read()) ?? Data()
+        return try SourceFile(path: $0, hash: data.generateSha1Hash())
+      })
     self.sourceRoot = sourceRoot.absolute()
   }
   

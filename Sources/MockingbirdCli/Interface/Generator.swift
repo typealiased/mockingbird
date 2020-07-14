@@ -19,6 +19,7 @@ class Generator {
     let sourceRoot: Path
     let inputTargetNames: [String]
     let environmentProjectFilePath: Path?
+    let environmentSourceRoot: Path?
     let environmentTargetName: String?
     let outputPaths: [Path]?
     let supportPath: Path?
@@ -28,7 +29,7 @@ class Generator {
     let disableSwiftlint: Bool
     let disableCache: Bool
     let disableRelaxedLinking: Bool
-    let disablePruning: Bool
+    let disableThunkStubs: Bool
   }
   
   struct MalformedConfiguration: Error, CustomStringConvertible {
@@ -103,7 +104,7 @@ class Generator {
   
   // Get cached test target metadata.
   func getCachedTestTarget(targetName: String) -> TargetType? {
-    guard !config.disablePruning,
+    guard !config.disableThunkStubs,
       let cacheDirectory = testTargetCacheDirectory,
       let cachedTarget = findCachedTestTarget(for: targetName,
                                               cliVersion: cliVersion,
@@ -152,7 +153,7 @@ class Generator {
     let queue = OperationQueue.createForActiveProcessors()
     
     // Create operations to find used mock types in tests.
-    let pruningPipeline = config.disablePruning ? nil :
+    let pruningPipeline = config.disableThunkStubs ? nil :
       PruningPipeline(config: config,
                       getCachedTarget: getCachedTestTarget,
                       getXcodeProj: getXcodeProj,
@@ -206,12 +207,13 @@ class Generator {
     }
     
     // Cache test target for thunk pruning.
-    if !config.disablePruning {
-      if let testTargetCacheDirectory = testTargetCacheDirectory {
+    if !config.disableThunkStubs {
+      if let testTargetCacheDirectory = testTargetCacheDirectory,
+        let environmentSourceRoot = config.environmentSourceRoot {
         try testTargetCacheDirectory.mkpath()
         try pruningPipeline?.cache(cliVersion: cliVersion,
                                    configHash: configHash,
-                                   sourceRoot: config.sourceRoot,
+                                   sourceRoot: environmentSourceRoot,
                                    cacheDirectory: testTargetCacheDirectory,
                                    environment: getBuildEnvironment)
       }

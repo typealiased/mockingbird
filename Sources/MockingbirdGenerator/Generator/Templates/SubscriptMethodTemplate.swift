@@ -33,7 +33,7 @@ class SubscriptMethodTemplate: MethodTemplate {
         }
       """
     } else {
-      body = "{ get { fatalError() } set { fatalError() } }"
+      body = "{ get { \(MockableTypeTemplate.Constants.thunkStub) } set { \(MockableTypeTemplate.Constants.thunkStub) } }"
     }
     
     return """
@@ -112,7 +112,7 @@ class SubscriptMethodTemplate: MethodTemplate {
         }
       """
     } else {
-      body = "{ fatalError() }"
+      body = "{ \(MockableTypeTemplate.Constants.thunkStub) }"
     }
     
     return """

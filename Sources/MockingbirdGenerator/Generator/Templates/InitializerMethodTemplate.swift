@@ -30,7 +30,7 @@ class InitializerMethodTemplate: MethodTemplate {
       }
       """
     } else {
-      body = "{ fatalError() }"
+      body = "{ \(MockableTypeTemplate.Constants.thunkStub) }"
     }
     
     return """
@@ -60,7 +60,7 @@ class InitializerMethodTemplate: MethodTemplate {
           }
         """
       } else {
-        body = "{ fatalError() }"
+        body = "{ \(MockableTypeTemplate.Constants.thunkStub) }"
       }
       return """
         // MARK: Mocked \(fullNameForMocking)
@@ -81,7 +81,7 @@ class InitializerMethodTemplate: MethodTemplate {
           }
         """
       } else {
-        body = "{ fatalError() }"
+        body = "{ \(MockableTypeTemplate.Constants.thunkStub) }"
       }
       
       return """

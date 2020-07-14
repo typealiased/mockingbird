@@ -57,7 +57,7 @@ jobs:
           --support Sources/MockingbirdSupport \
           --output Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift \
           --disable-cache \
-          --disable-pruning \
+          --disable-thunk-stubs \
           --diagnostics all \
           --loglevel verbose \
           --verbose

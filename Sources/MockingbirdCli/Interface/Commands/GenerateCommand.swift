@@ -33,7 +33,7 @@ final class GenerateCommand: BaseCommand {
   private let disableSwiftlintArgument: OptionArgument<Bool>
   private let disableCacheArgument: OptionArgument<Bool>
   private let disableRelaxedLinking: OptionArgument<Bool>
-  private let disablePruning: OptionArgument<Bool>
+  private let disableThunkStubs: OptionArgument<Bool>
   
   required init(parser: ArgumentParser) {
     let subparser = parser.add(subparser: Constants.name, overview: Constants.overview)
@@ -53,7 +53,7 @@ final class GenerateCommand: BaseCommand {
     self.disableSwiftlintArgument = subparser.addDisableSwiftlint()
     self.disableCacheArgument = subparser.addDisableCache()
     self.disableRelaxedLinking = subparser.addDisableRelaxedLinking()
-    self.disablePruning = subparser.addDisablePruning()
+    self.disableThunkStubs = subparser.addDisableThunkStubs()
     
     super.init(parser: subparser)
   }
@@ -84,6 +84,13 @@ final class GenerateCommand: BaseCommand {
       guard path.extension == "xcodeproj" else { return nil }
       return path
     }
+    var environmentSourceRoot: Path? {
+      guard let sourceRoot = environment["SRCROOT"] ?? environment["SOURCE_ROOT"] else {
+        return nil
+      }
+      let path = Path(sourceRoot)
+      return path
+    }
     let environmentTargetName = environment["TARGET_NAME"] ?? environment["TARGETNAME"]
     
     let config = Generator.Configuration(
@@ -91,6 +98,7 @@ final class GenerateCommand: BaseCommand {
       sourceRoot: sourceRoot,
       inputTargetNames: targets,
       environmentProjectFilePath: environmentProjectFilePath,
+      environmentSourceRoot: environmentSourceRoot,
       environmentTargetName: environmentTargetName,
       outputPaths: outputs,
       supportPath: supportPath,
@@ -100,7 +108,7 @@ final class GenerateCommand: BaseCommand {
       disableSwiftlint: arguments.get(disableSwiftlintArgument) == true,
       disableCache: arguments.get(disableCacheArgument) == true,
       disableRelaxedLinking: arguments.get(disableRelaxedLinking) == true,
-      disablePruning: arguments.get(disablePruning) == true
+      disableThunkStubs: arguments.get(disableThunkStubs) == true
     )
     try Generator(config).generate()
   }

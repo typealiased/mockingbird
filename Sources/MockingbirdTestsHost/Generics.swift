@@ -216,15 +216,21 @@ public struct ShadowedType {}
 public class ShadowedGenericType<ShadowedType> {
   func shadowedClassScope(param: ShadowedType) -> ShadowedType { fatalError() }
   func shadowedFunctionScope<ShadowedType>(param: ShadowedType) -> ShadowedType { fatalError() }
+  func shadowedFunctionScope<ShadowedType>(param: Array<ShadowedType>)
+    -> Array<ShadowedType> { fatalError() }
   
   public class NestedShadowedGenericType {
     func shadowedClassScope(param: ShadowedType) -> ShadowedType { fatalError() }
     func shadowedFunctionScope<ShadowedType>(param: ShadowedType) -> ShadowedType { fatalError() }
+    func shadowedFunctionScope<ShadowedType>(param: Array<ShadowedType>)
+      -> Array<ShadowedType> { fatalError() }
   }
   
   public class NestedDoublyShadowedGenericType<ShadowedType> {
     func shadowedClassScope(param: ShadowedType) -> ShadowedType { fatalError() }
     func shadowedFunctionScope<ShadowedType>(param: ShadowedType) -> ShadowedType { fatalError() }
+    func shadowedFunctionScope<ShadowedType>(param: Array<ShadowedType>)
+      -> Array<ShadowedType> { fatalError() }
   }
 }
 

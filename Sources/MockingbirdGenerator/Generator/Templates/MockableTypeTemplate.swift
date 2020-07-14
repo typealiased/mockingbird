@@ -10,10 +10,6 @@
 
 import Foundation
 
-private enum Constants {
-  static let mockProtocolName = "Mockingbird.Mock"
-}
-
 enum Declaration: String, CustomStringConvertible {
   case functionDeclaration = "Mockingbird.FunctionDeclaration"
   case throwingFunctionDeclaration = "Mockingbird.ThrowingFunctionDeclaration"
@@ -39,6 +35,11 @@ extension GenericType {
 class MockableTypeTemplate: Template {
   let mockableType: MockableType
   let mockedTypeNames: Set<String>?
+  
+  enum Constants {
+    static let mockProtocolName = "Mockingbird.Mock"
+    static let thunkStub = #"fatalError("See 'Thunk Stubs' in the README")"#
+  }
   
   private var methodTemplates = [Method: MethodTemplate]()
   init(mockableType: MockableType, mockedTypeNames: Set<String>?) {
@@ -80,7 +81,7 @@ class MockableTypeTemplate: Template {
         }
       """
     } else {
-      sourceLocationBody = "{ get { fatalError() } set { fatalError() } }"
+      sourceLocationBody = "{ get { \(Constants.thunkStub) } set { \(Constants.thunkStub) } }"
     }
     
     let rawBody = renderBody()
@@ -229,7 +230,7 @@ class MockableTypeTemplate: Template {
         }
       """
     } else {
-      body = "{ fatalError() }"
+      body = "{ \(Constants.thunkStub) }"
     }
     
     // Since class-level generic types don't support static variables, we instead use a global
