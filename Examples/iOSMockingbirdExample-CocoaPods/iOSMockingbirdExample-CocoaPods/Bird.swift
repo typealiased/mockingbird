@@ -16,5 +16,5 @@ public protocol Bird {
   // MARK: Generics
   
   func canEat<T: Equatable>(_ object: T) -> Bool
-  func eat<T: Equatable>(_ object: T)
+  func eat<T: Equatable>(_ object: T) throws
 }
