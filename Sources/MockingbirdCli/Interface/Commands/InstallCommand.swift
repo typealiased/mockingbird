@@ -53,7 +53,7 @@ class InstallCommand: BaseCommand, AliasableCommand {
   private let disableSwiftlintArgument: OptionArgument<Bool>
   private let disableCacheArgument: OptionArgument<Bool>
   private let disableRelaxedLinking: OptionArgument<Bool>
-  private let disablePruning: OptionArgument<Bool>
+  private let disableThunkStubs: OptionArgument<Bool>
   
   required convenience init(parser: ArgumentParser) {
     self.init(parser: parser, name: Constants.name, overview: Constants.overview)
@@ -80,7 +80,7 @@ class InstallCommand: BaseCommand, AliasableCommand {
     self.disableSwiftlintArgument = subparser.addDisableSwiftlint()
     self.disableCacheArgument = subparser.addDisableCache()
     self.disableRelaxedLinking = subparser.addDisableRelaxedLinking()
-    self.disablePruning = subparser.addDisablePruning()
+    self.disableThunkStubs = subparser.addDisableThunkStubs()
     
     super.init(parser: subparser)
   }
@@ -122,7 +122,7 @@ class InstallCommand: BaseCommand, AliasableCommand {
       disableSwiftlint: arguments.get(disableSwiftlintArgument) == true,
       disableCache: arguments.get(disableCacheArgument) == true,
       disableRelaxedLinking: arguments.get(disableRelaxedLinking) == true,
-      disablePruning: arguments.get(disablePruning) == true
+      disableThunkStubs: arguments.get(disableThunkStubs) == true
     )
     try Installer.install(using: config)
     print("Installed Mockingbird to \(destinationTarget.singleQuoted) in \(projectPath)")

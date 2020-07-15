@@ -551,6 +551,13 @@ You can exclude unwanted or problematic sources from being mocked by adding a `.
 
 Supporting source files are used by the generator to resolve inherited types defined outside of your project. Although Mockingbird provides a preset “starter pack” for basic compatibility with common system frameworks, you will occasionally need to add your own definitions for third-party library types. Please see [Supporting Source Files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files) for more information.
 
+#### Thunk Stubs
+
+To reduce compilation time, Mockingbird only generates mocking code (known as thunks) for types referenced in tests with `mock(SomeType.self)`. Types not used in any test files produce minimal generated code in the form of “thunk stubs,” which are simply bodies containing `fatalError`. Projects that indirectly synthesize mocked types, such as through Objective-C based dependency injection, may incorrectly encounter thunk stubs during tests and require special consideration.
+
+- **Option 1:** Explicitly reference each indirectly synthesized type in your tests, e.g. `_ = mock(SomeType.self)`. References can be placed anywhere in the test target sources, such as in the `setUp` method of a test case or in a single file.
+- **Option 2:** Disable thunk stubs entirely by adding the `--disable-thunk-stubs` generator flag.
+
 ## Mockingbird CLI
 
 ### Generate
@@ -576,7 +583,7 @@ Generate mocks for a set of targets in a project.
 | `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
 | `--disable-cache` | Ignore cached mock information stored on disk. |
 | `--disable-relaxed-linking` | Only search explicitly imported modules. |
-| `--disable-pruning` | Generate full mocks for unused types. |
+| `--disable-thunk-stubs` | Generate full mocks for potentially unused types. |
 
 ### Install
 
@@ -604,7 +611,7 @@ Configure a test target to use mocks.
 | `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
 | `--disable-cache` | Ignore cached mock information stored on disk. |
 | `--disable-relaxed-linking` | Only search explicitly imported modules. |
-| `--disable-pruning` | Generate full mocks for unused types. |
+| `--disable-thunk-stubs` | Generate full mocks for potentially unused types. |
 
 ### Uninstall
 

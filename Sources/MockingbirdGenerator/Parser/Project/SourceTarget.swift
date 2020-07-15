@@ -45,7 +45,10 @@ public class SourceTarget: CodableTarget {
     self.supportingFilePaths = try supportPaths
       .map({ $0.absolute() })
       .sorted()
-      .map({ try SourceFile(path: $0, hash: $0.read().generateSha1Hash()) })
+      .map({
+        let data = (try? $0.read()) ?? Data()
+        return try SourceFile(path: $0, hash: data.generateSha1Hash())
+      })
     self.targetPathsHash = targetPathsHash
     self.dependencyPathsHash = dependencyPathsHash
     self.projectHash = projectHash

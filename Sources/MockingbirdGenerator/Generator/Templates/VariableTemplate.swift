@@ -87,7 +87,7 @@ class VariableTemplate: Template {
         }
       """
     } else {
-      body = "{ get { fatalError() } " + (shouldGenerateSetter ? "set { fatalError() } " : "") + "}"
+      body = "{ get { \(MockableTypeTemplate.Constants.thunkStub) } " + (shouldGenerateSetter ? "set { \(MockableTypeTemplate.Constants.thunkStub) } " : "") + "}"
     }
     
     return """
@@ -120,7 +120,7 @@ class VariableTemplate: Template {
         }
       """
     } else {
-      getterBody = "{ fatalError() }"
+      getterBody = "{ \(MockableTypeTemplate.Constants.thunkStub) }"
     }
     let getter = """
     \(attributes)  public \(modifiers)func get\(capitalizedName)() -> Mockingbird.Mockable<\(mockableGetterGenericTypes)> \(getterBody)
@@ -138,7 +138,7 @@ class VariableTemplate: Template {
           }
         """
       } else {
-        setterBody = "{ fatalError() }"
+        setterBody = "{ \(MockableTypeTemplate.Constants.thunkStub) }"
       }
       
       let setter = """

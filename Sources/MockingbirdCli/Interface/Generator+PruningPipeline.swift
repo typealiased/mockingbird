@@ -22,6 +22,7 @@ extension Generator {
           getXcodeProj: (Path) throws -> XcodeProj,
           environment: @escaping () -> [String: Any]) {
       guard let environmentProjectFilePath = config.environmentProjectFilePath,
+        let environmentSourceRoot = config.environmentSourceRoot,
         let environmentTargetName = config.environmentTargetName
         else { return nil }
       
@@ -48,7 +49,7 @@ extension Generator {
       switch testTarget {
       case .pbxTarget(let target):
         let operation = ExtractSourcesOperation(target: target,
-                                                sourceRoot: config.sourceRoot,
+                                                sourceRoot: environmentSourceRoot,
                                                 supportPath: config.supportPath,
                                                 options: [],
                                                 environment: environment)
@@ -61,7 +62,7 @@ extension Generator {
       
       case .testTarget(let target):
         let operation = ExtractSourcesOperation(target: target as CodableTarget,
-                                                sourceRoot: config.sourceRoot,
+                                                sourceRoot: environmentSourceRoot,
                                                 supportPath: config.supportPath,
                                                 options: [],
                                                 environment: environment)

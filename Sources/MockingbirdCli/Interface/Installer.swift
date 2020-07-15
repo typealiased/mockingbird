@@ -31,7 +31,7 @@ class Installer {
     let disableSwiftlint: Bool
     let disableCache: Bool
     let disableRelaxedLinking: Bool
-    let disablePruning: Bool
+    let disableThunkStubs: Bool
   }
   
   struct UninstallConfiguration {
@@ -330,8 +330,8 @@ class Installer {
       if config.disableRelaxedLinking {
         options.append("--disable-relaxed-linking")
       }
-      if config.disablePruning {
-        options.append("--disable-pruning")
+      if config.disableThunkStubs {
+        options.append("--disable-thunk-stubs")
       }
       if let logLevel = config.logLevel {
         switch logLevel {

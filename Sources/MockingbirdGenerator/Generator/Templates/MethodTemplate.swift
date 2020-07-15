@@ -73,7 +73,7 @@ class MethodTemplate: Template {
         }
       """
     } else {
-      body = "{ fatalError() }"
+      body = "{ \(MockableTypeTemplate.Constants.thunkStub) }"
     }
     
     return """
@@ -116,7 +116,7 @@ class MethodTemplate: Template {
         }
       """
     } else {
-      body = "{ fatalError() }"
+      body = "{ \(MockableTypeTemplate.Constants.thunkStub) }"
     }
     
     mockableMethods.append("""
@@ -135,7 +135,7 @@ class MethodTemplate: Template {
           }
         """
       } else {
-        variadicBody = "{ fatalError() }"
+        variadicBody = "{ \(MockableTypeTemplate.Constants.thunkStub) }"
       }
       mockableMethods.append("""
       \(attributes)  public \(regularModifiers)func \(fullNameForMatchingVariadics) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) \(variadicBody)
