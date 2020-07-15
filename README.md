@@ -13,7 +13,7 @@
 let bird = mock(Bird.self)
 
 // Stubbing
-given(bird.getName()) ~> "Ryan"
+given(bird.getName()).willReturn("Ryan")
 
 // Verification
 verify(bird.fly()).wasCalled()
@@ -64,7 +64,7 @@ func testShakingTreeCausesBirdToFly() {
   // Given a tree with a bird that can fly
   let bird = mock(Bird.self)
   let tree = Tree(with: bird)
-  given(bird.getCanFly()) ~> true
+  given(bird.getCanFly()).willReturn(true)
   
   // When the tree is shaken
   tree.shake()
@@ -85,7 +85,7 @@ Add the framework to a test target in your `Podfile`, making sure to include the
 ```ruby
 target 'MyAppTests' do
   use_frameworks!
-  pod 'MockingbirdFramework', '~> 0.13'
+  pod 'MockingbirdFramework', '~> 0.14'
 end
 ```
 
@@ -116,7 +116,7 @@ Have questions or issues?
 Add the framework to your `Cartfile`.
 
 ```
-github "birdrides/mockingbird" ~> 0.13
+github "birdrides/mockingbird" ~> 0.14
 ```
 
 Build the framework with Carthage, [link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets), and install the CLI.
@@ -156,7 +156,7 @@ Add the framework as a package dependency and link it to your test target.
 let package = Package(
   name: "MyPackage",
   dependencies: [
-    .package(url: "https://github.com/birdrides/mockingbird.git", .upToNextMinor(from: "0.13.0")),
+    .package(url: "https://github.com/birdrides/mockingbird.git", .upToNextMinor(from: "0.14.0")),
   ],
   targets: [
     .testTarget(name: "MyPackageTests", dependencies: ["Mockingbird"]),
@@ -190,6 +190,8 @@ Have questions or issues?
 </details>
 
 ## Usage
+
+Mockingbird provides a comprehensive [API reference](https://birdrides.github.io/mockingbird/latest/) generated with [SwiftDoc](https://github.com/SwiftDocOrg/swift-doc).
 
 1. [Mocking](#1-mocking)
 2. [Stubbing](#2-stubbing)
@@ -237,6 +239,16 @@ clearInvocations(on: bird)     // Only remove recorded invocations
 Stubbing allows you to define custom behavior for mocks to perform.
 
 ```swift
+given(bird.canChirp()).willReturn(true)
+given(bird.canChirp()).willThrow(BirdError())
+given(bird.canChirp(volume: any())).will { volume in
+  return volume < 42
+}
+```
+
+This is equivalent to the shorthand syntax using the stubbing operator `~>`.
+
+```swift
 given(bird.canChirp()) ~> true
 given(bird.canChirp()) ~> { throw BirdError() }
 given(bird.canChirp(volume: any())) ~> { volume in
@@ -249,9 +261,9 @@ given(bird.canChirp(volume: any())) ~> { volume in
 [Match argument values](#4-argument-matching) to stub methods with parameters. Stubs added later have a higher precedence, so add stubs with specific matchers last.
 
 ```swift
-given(bird.canChirp(volume: any())) ~> true     // Any volume
-given(bird.canChirp(volume: notNil())) ~> true  // Any non-nil volume
-given(bird.canChirp(volume: 10)) ~> true        // Volume = 10
+given(bird.canChirp(volume: any())).willReturn(true)     // Any volume
+given(bird.canChirp(volume: notNil())).willReturn(true)  // Any non-nil volume
+given(bird.canChirp(volume: 10)).willReturn(true)        // Volume = 10
 ```
 
 #### Stub Properties
@@ -259,14 +271,14 @@ given(bird.canChirp(volume: 10)) ~> true        // Volume = 10
 Stub properties with their getter and setter methods.
 
 ```swift
-given(bird.getName()) ~> "Ryan"
-given(bird.setName(any())) ~> { print($0) }
+given(bird.getName()).willReturn("Ryan")
+given(bird.setName(any())).will { print($0) }
 ```
 
 Getters can be stubbed to automatically save and return values.
 
 ```swift
-given(bird.getName()) ~> lastSetValue(initial: "")
+given(bird.getName()).willReturn(lastSetValue(initial: ""))
 print(bird.name)  // Prints ""
 bird.name = "Ryan"
 print(bird.name)  // Prints "Ryan"
@@ -286,7 +298,7 @@ To return default values for unstubbed methods, use a `ValueProvider` with the i
 
 ```swift
 let bird = mock(Bird.self)
-useDefaultValues(from: .standardProvider, on: bird)
+bird.useDefaultValues(from: .standardProvider)
 print(bird.name)  // Prints ""
 ```
 
@@ -295,17 +307,17 @@ You can create custom value providers by registering values for types.
 ```swift
 var valueProvider = ValueProvider()
 valueProvider.register("Ryan", for: String.self)
-useDefaultValues(from: valueProvider, on: bird)
+bird.useDefaultValues(from: valueProvider)
 print(bird.name)  // Prints "Ryan"
 ```
 
 Values from concrete stubs always have a higher precedence than default values.
 
 ```swift
-given(bird.getName()) ~> "Ryan"
+given(bird.getName()).willReturn("Ryan")
 print(bird.name)  // Prints "Ryan"
 
-useDefaultValues(from: .standardProvider, on: bird)
+bird.useDefaultValues(from: .standardProvider)
 print(bird.name)  // Prints "Ryan"
 ```
 
@@ -327,10 +339,19 @@ valueProvider.registerType(Array<Any>.self)
 Methods that return a different value each time can be stubbed with a sequence of values. The last value will be used for all subsequent invocations.
 
 ```swift
-given(bird.getName()) ~> sequence(of: "Ryan", "Sterling")
+given(bird.getName()).willReturn(sequence(of: "Ryan", "Sterling"))
 print(bird.name)  // Prints "Ryan"
 print(bird.name)  // Prints "Sterling"
 print(bird.name)  // Prints "Sterling"
+```
+
+It’s also possible to stub a sequence of arbitrary behaviors.
+
+```swift
+given(bird.getName())
+  .willReturn("Ryan")
+  .willReturn("Sterling")
+  .will { return Bool.random() ? "Ryan" : "Sterling" }
 ```
 
 ### 3. Verification
@@ -530,6 +551,13 @@ You can exclude unwanted or problematic sources from being mocked by adding a `.
 
 Supporting source files are used by the generator to resolve inherited types defined outside of your project. Although Mockingbird provides a preset “starter pack” for basic compatibility with common system frameworks, you will occasionally need to add your own definitions for third-party library types. Please see [Supporting Source Files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files) for more information.
 
+#### Thunk Stubs
+
+To reduce compilation time, Mockingbird only generates mocking code (known as thunks) for types referenced in tests with `mock(SomeType.self)`. Types not used in any test files produce minimal generated code in the form of “thunk stubs,” which are simply bodies containing `fatalError`. Projects that indirectly synthesize mocked types, such as through Objective-C based dependency injection, may incorrectly encounter thunk stubs during tests and require special consideration.
+
+- **Option 1:** Explicitly reference each indirectly synthesized type in your tests, e.g. `_ = mock(SomeType.self)`. References can be placed anywhere in the test target sources, such as in the `setUp` method of a test case or in a single file.
+- **Option 2:** Disable thunk stubs entirely by adding the `--disable-thunk-stubs` generator flag.
+
 ## Mockingbird CLI
 
 ### Generate
@@ -550,11 +578,12 @@ Generate mocks for a set of targets in a project.
 
 | Flag | Description |
 | --- | --- |
-| `--disable-module-import` | Omit `@testable import <module>` from generated mocks. |
 | `--only-protocols` | Only generate mocks for protocols. |
+| `--disable-module-import` | Omit `@testable import <module>` from generated mocks. |
 | `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
 | `--disable-cache` | Ignore cached mock information stored on disk. |
 | `--disable-relaxed-linking` | Only search explicitly imported modules. |
+| `--disable-thunk-stubs` | Generate full mocks for potentially unused types. |
 
 ### Install
 
@@ -572,7 +601,7 @@ Configure a test target to use mocks.
 | `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files). |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
 | `--diagnostics` | `(none)` | List of [diagnostic generator warnings](https://github.com/birdrides/mockingbird/wiki/Diagnostic-Warnings-and-Errors) to enable. |
-| `--loglevel` |  `(none)` | The log level to use when generating mocks, `quiet` or `verbose` |
+| `--loglevel` |  `(none)` | The log level to use when generating mocks, `quiet` or `verbose`. |
 
 | Flag | Description |
 | --- | --- |
@@ -582,6 +611,7 @@ Configure a test target to use mocks.
 | `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
 | `--disable-cache` | Ignore cached mock information stored on disk. |
 | `--disable-relaxed-linking` | Only search explicitly imported modules. |
+| `--disable-thunk-stubs` | Generate full mocks for potentially unused types. |
 
 ### Uninstall
 
@@ -636,6 +666,7 @@ Mockingbird will recursively look for [supporting source files](https://github.c
 
 ### Help and Documentation
 
+- [API reference](https://birdrides.github.io/mockingbird/latest/)
 - [Slack channel](https://slofile.com/slack/birdopensource)
 - [Troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
 - [Mockingbird wiki](https://github.com/birdrides/mockingbird/wiki/)
