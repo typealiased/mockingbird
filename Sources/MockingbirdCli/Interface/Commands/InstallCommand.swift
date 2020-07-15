@@ -125,11 +125,11 @@ class InstallCommand: BaseCommand, AliasableCommand {
       disableThunkStubs: arguments.get(disableThunkStubs) == true
     )
     try Installer.install(using: config)
-    print("Installed Mockingbird to \(destinationTarget.singleQuoted) in \(projectPath)")
+    logInfo("Installed Mockingbird to \(destinationTarget.singleQuoted) in \(projectPath)")
     
     // Warn users that haven't added supporting source files.
     guard supportPath == nil else { return }
-    print("""
+    logInfo("""
     Please add starter supporting source files for basic compatibility with system frameworks.
       $ mockingbird download starter-pack
     See https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files for more information.

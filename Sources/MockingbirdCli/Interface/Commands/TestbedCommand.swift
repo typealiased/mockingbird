@@ -37,7 +37,7 @@ final class TestbedCommand: BaseCommand {
     let count = try arguments.getCount(using: countArgument) ?? 1000
     for i in 0..<count { try generateSourceFile(to: outputDirectory, index: i) }
     
-    print("Generated \(count) source file\(count > 1 ? "s" : "") to \(outputDirectory.absolute())")
+    logInfo("Generated \(count) source file\(count > 1 ? "s" : "") to \(outputDirectory.absolute())")
   }
 
   func generateSourceFile(to directory: Path, index: Int) throws {

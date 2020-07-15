@@ -64,6 +64,6 @@ public class GenerateFileOperation: BasicOperation {
       try outputPath.writeUtf8Strings(contents)
     }
     
-    print("Generated file to \(outputPath.absolute())")
+    logInfo("Generated file to \(outputPath.absolute())")
   }
 }

@@ -27,6 +27,6 @@ final class VersionCommand: BaseCommand {
                     environment: [String: String],
                     workingPath: Path) throws {
     try super.run(with: arguments, environment: environment, workingPath: workingPath)
-    print(mockingbirdVersion)
+    logInfo("\(mockingbirdVersion)")
   }
 }

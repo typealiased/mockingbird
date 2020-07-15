@@ -55,6 +55,6 @@ final class UninstallCommand: BaseCommand {
       targetNames: targets
     )
     try Installer.uninstall(using: config)
-    print("Uninstalled Mockingbird from \(targets.map({ "`\($0)`" }).joined(separator: ", ")) in \(projectPath)")
+    logInfo("Uninstalled Mockingbird from \(targets.map({ "`\($0)`" }).joined(separator: ", ")) in \(projectPath)")
   }
 }
