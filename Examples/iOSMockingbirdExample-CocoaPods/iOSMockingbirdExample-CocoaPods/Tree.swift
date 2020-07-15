@@ -29,8 +29,8 @@ extension Tree {
     let size: Int
   }
   
-  func drop(_ fruit: Fruit) {
+  func drop(_ fruit: Fruit) throws {
     guard bird.canEat(fruit) else { return }
-    bird.eat(fruit)
+    try bird.eat(fruit)
   }
 }

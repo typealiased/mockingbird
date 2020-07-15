@@ -24,13 +24,13 @@ class TreeTests: XCTestCase {
   // MARK: Bird can fly
   
   func testShakingTree_makesBirdFlyAway() {
-    given(bird.getCanFly()) ~> true // Given the bird can fly
+    given(bird.getCanFly()).willReturn(true) // Given the bird can fly
     tree.shake() // When the tree is shaken
     verify(bird.fly()).wasCalled() // Then the bird flies away
   }
   
   func testShakingTree_makesBirdChirp() {
-    given(bird.getCanFly()) ~> true // Given the bird can fly
+    given(bird.getCanFly()).willReturn(true) // Given the bird can fly
     tree.shake() // When the tree is shaken
     verify(bird.chirp(volume: any())).wasCalled() // Then the bird chirps at any volume
   }
@@ -38,7 +38,7 @@ class TreeTests: XCTestCase {
   // MARK: Bird cannot fly
   
   func testShakingTree_doesNothingWhenBirdCannotFly() {
-    given(bird.getCanFly()) ~> false // Given the bird _cannot_ fly
+    given(bird.getCanFly()).willReturn(false) // Given the bird _cannot_ fly
     tree.shake() // When the tree is shaken
     verify(bird.fly()).wasNeverCalled() // Then the bird does not fly away
   }
@@ -46,19 +46,22 @@ class TreeTests: XCTestCase {
   // MARK: - Test dropping fruit
   
   func testDroppingSmallFruit_causesBirdToEatFruit() {
-    given(bird.canEat(any(Tree.Fruit.self))) ~> {
-      $0.size < 10 // Given this bird can only eat fruits that are smaller than 10 units
+    given(bird.canEat(any(Tree.Fruit.self))).will {
+      return $0.size < 10 // Given this bird can only eat fruits that are smaller than 10 units
     }
     let fruit = Tree.Fruit(size: 1)
-    tree.drop(fruit) // When the tree drops a very small fruit
-    verify(bird.eat(fruit)).wasCalled() // Then the bird eats it
+    XCTAssertNoThrow(try tree.drop(fruit)) // When the tree drops a very small fruit
+    verify(bird.eat(fruit)).wasCalled() // Then the bird eats the fruit
   }
   
+  struct FakeBirdError: Error {}
+  
   func testDroppingLargeFruit_doesNothing() {
-    given(bird.canEat(any(Tree.Fruit.self))) ~> {
-      $0.size < 10 // Given this bird can only eat fruits that are smaller than 10 units
+    given(bird.canEat(any(Tree.Fruit.self))).will {
+      return $0.size < 10 // Given this bird can only eat fruits that are smaller than 10 units
     }
-    tree.drop(Tree.Fruit(size: 99)) // When the tree drops a large fruit
+    given(bird.eat(any(Tree.Fruit.self))).willThrow(FakeBirdError()) // and eating throws an error
+    XCTAssertNoThrow(try tree.drop(Tree.Fruit(size: 99))) // When the tree drops a large fruit
     verify(bird.eat(any(Tree.Fruit.self))).wasNeverCalled() // Then the bird never eats
   }
 }
