@@ -37,5 +37,5 @@ extension TypealiasedClassMock: MockableTypealiasedClass {}
 private protocol MockableModuleScopedTypealiasedProtocol: ModuleScopedTypealiasedProtocol, Mock {}
 extension ModuleScopedTypealiasedProtocolMock: MockableModuleScopedTypealiasedProtocol {}
 
-private protocol MockableInheritingModuleScopedAssociatedTypeProtocol: ModuleScopedAssociatedTypeProtocol, Mock {}
+private protocol MockableInheritingModuleScopedAssociatedTypeProtocol: MockingbirdTestsHost.ModuleScopedAssociatedTypeProtocol, Mock {}
 extension InheritingModuleScopedAssociatedTypeProtocolMock: MockableInheritingModuleScopedAssociatedTypeProtocol {}
