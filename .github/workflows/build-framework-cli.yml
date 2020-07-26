@@ -29,6 +29,7 @@ jobs:
           --source MockingbirdTestsHost \
           --support Sources/MockingbirdSupport \
           --output Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift \
+          --header '// Header line 1' '// Header line 2' \
           --diagnostics all \
           --loglevel verbose \
           --verbose
@@ -43,6 +44,7 @@ jobs:
           --source MockingbirdTestsHost \
           --support Sources/MockingbirdSupport \
           --output Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift \
+          --header '// Header line 1' '// Header line 2' \
           --disable-cache \
           --diagnostics all \
           --loglevel verbose \
@@ -56,6 +58,7 @@ jobs:
           --source MockingbirdTestsHost \
           --support Sources/MockingbirdSupport \
           --output Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift \
+          --header '// Header line 1' '// Header line 2' \
           --disable-cache \
           --disable-thunk-stubs \
           --diagnostics all \
@@ -92,6 +95,7 @@ jobs:
           --source MockingbirdTestsHost \
           --support Sources/MockingbirdSupport \
           --output Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift \
+          --header '// Header line 1' '// Header line 2' \
           --diagnostics all \
           --loglevel verbose \
           --verbose

@@ -26,8 +26,9 @@ final class GenerateCommand: BaseCommand {
   private let outputArgument: OptionArgument<[PathArgument]>
   private let supportPathArgument: OptionArgument<PathArgument>
   private let diagnosticsArgument: OptionArgument<[DiagnosticType]>
-  
+  private let headerArgument: OptionArgument<[String]>
   private let compilationConditionArgument: OptionArgument<String>
+  
   private let disableModuleImportArgument: OptionArgument<Bool>
   private let onlyMockProtocolsArgument: OptionArgument<Bool>
   private let disableSwiftlintArgument: OptionArgument<Bool>
@@ -46,8 +47,9 @@ final class GenerateCommand: BaseCommand {
     self.outputArgument = subparser.addOutput()
     self.supportPathArgument = subparser.addSupportPath()
     self.diagnosticsArgument = subparser.addDiagnostics()
-    
+    self.headerArgument = subparser.addHeader()
     self.compilationConditionArgument = subparser.addCompilationCondition()
+    
     self.disableModuleImportArgument = subparser.addDisableModuleImport()
     self.onlyMockProtocolsArgument = subparser.addOnlyProtocols()
     self.disableSwiftlintArgument = subparser.addDisableSwiftlint()
@@ -102,6 +104,7 @@ final class GenerateCommand: BaseCommand {
       environmentTargetName: environmentTargetName,
       outputPaths: outputs,
       supportPath: supportPath,
+      header: arguments.get(headerArgument),
       compilationCondition: arguments.get(compilationConditionArgument),
       shouldImportModule: arguments.get(disableModuleImportArgument) != true,
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,

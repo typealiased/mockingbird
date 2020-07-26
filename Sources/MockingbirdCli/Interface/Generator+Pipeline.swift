@@ -79,6 +79,7 @@ extension Generator {
         findMockedTypesResult: findMockedTypesOperation?.result,
         moduleName: moduleName,
         outputPath: outputPath,
+        header: config.header,
         compilationCondition: config.compilationCondition,
         shouldImportModule: config.shouldImportModule,
         onlyMockProtocols: config.onlyMockProtocols,

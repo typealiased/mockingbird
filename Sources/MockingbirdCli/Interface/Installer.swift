@@ -22,6 +22,7 @@ class Installer {
     let outputPaths: [Path]?
     let supportPath: Path?
     let cliPath: Path
+    let header: [String]?
     let compilationCondition: String?
     let diagnostics: [DiagnosticType]?
     let logLevel: LogLevel?
@@ -310,6 +311,9 @@ class Installer {
       }
       if let expression = config.compilationCondition {
         options.append("--condition '\(expression)'")
+      }
+      if let header = config.header {
+        options.append("--header \(header.map({ "'\($0)'" }).joined(separator: " "))")
       }
       if let diagnostics = config.diagnostics {
         let allDiagnostics = Set(diagnostics)
