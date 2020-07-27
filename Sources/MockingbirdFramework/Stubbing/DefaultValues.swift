@@ -135,7 +135,7 @@ public extension Mock {
   ///   - valueProvider: A value provider to add.
   @discardableResult
   func useDefaultValues(from valueProvider: ValueProvider) -> Self {
-    stubbingContext.defaultValueProvider.addSubprovider(valueProvider)
+    stubbingContext.defaultValueProvider.add(valueProvider)
     return self
   }
 }

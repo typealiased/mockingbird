@@ -20,7 +20,8 @@ extension Dictionary: Providable {
 }
 
 public extension ValueProvider {  
-  /// Provides default-initialized collections.
+  /// A value provider with default-initialized collections.
+  ///
   /// https://developer.apple.com/documentation/foundation/collections
   static let collectionsProvider = ValueProvider(values: [
     ObjectIdentifier(NSCountedSet.self): NSCountedSet(),
