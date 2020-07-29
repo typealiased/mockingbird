@@ -113,8 +113,8 @@ class MockableTypeTemplate: Template {
   
   lazy var shouldGenerateThunks: Bool = {
     guard let typeNames = mockedTypeNames else { return true }
-    return typeNames.contains(mockableType.fullyQualifiedName) ||
-      typeNames.contains(mockableType.fullyQualifiedModuleName)
+    return typeNames.contains(mockableType.fullyQualifiedName.removingGenericTyping()) ||
+      typeNames.contains(mockableType.fullyQualifiedModuleName.removingGenericTyping())
   }()
   
   lazy var isAvailable: Bool = {

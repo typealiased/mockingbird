@@ -28,7 +28,8 @@ class TestFileParser: SyntaxVisitor {
     guard expression.lastToken?.withoutTrivia().description == "self" else { return .visitChildren }
     
     // Could be a fully or partially qualified type name.
-    mockedTypeNames.insert(String(expression.withoutTrivia().description.dropLast(5)))
+    let typeName = String(expression.withoutTrivia().description.dropLast(5))
+    mockedTypeNames.insert(typeName.removingGenericTyping())
     
     return .skipChildren
   }
