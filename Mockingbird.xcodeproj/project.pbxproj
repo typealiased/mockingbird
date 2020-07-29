@@ -43,6 +43,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		D314ED7F24CE1C10000CC23D /* GenericsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314ED7E24CE1C10000CC23D /* GenericsTests.swift */; };
 		D3643B6C247B78A5002DF069 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B6B247B78A4002DF069 /* Function.swift */; };
 		D3643B72247C5107002DF069 /* String+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B71247C5107002DF069 /* String+Components.swift */; };
 		D3643B74247C517D002DF069 /* Substring+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B73247C517D002DF069 /* Substring+Components.swift */; };
@@ -1156,6 +1157,7 @@
 /* Begin PBXFileReference section */
 		942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
 		"AEXML::AEXML::Product" /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D314ED7E24CE1C10000CC23D /* GenericsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericsTests.swift; sourceTree = "<group>"; };
 		D3643B6B247B78A4002DF069 /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
 		D3643B71247C5107002DF069 /* String+Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Components.swift"; sourceTree = "<group>"; };
 		D3643B73247C517D002DF069 /* Substring+Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Substring+Components.swift"; sourceTree = "<group>"; };
@@ -2355,6 +2357,7 @@
 				OBJ_257 /* CountMatcherTests.swift */,
 				OBJ_258 /* DefaultValueProviderTests.swift */,
 				OBJ_259 /* FloatingPointMatcherTests.swift */,
+				D314ED7E24CE1C10000CC23D /* GenericsTests.swift */,
 				OBJ_260 /* InitializerTests.swift */,
 				OBJ_261 /* LastSetValueStubTests.swift */,
 				OBJ_262 /* OrderedVerificationTests.swift */,
@@ -4278,6 +4281,7 @@
 				OBJ_1036 /* ExternalModuleTypesMockableTests.swift in Sources */,
 				OBJ_1037 /* ExternalModuleTypesStubbableTests.swift in Sources */,
 				OBJ_1038 /* GenericsMockableTests.swift in Sources */,
+				D314ED7F24CE1C10000CC23D /* GenericsTests.swift in Sources */,
 				OBJ_1039 /* GenericsStubbableTests.swift in Sources */,
 				OBJ_1040 /* IgnoredSourceExclusionTests.swift in Sources */,
 				OBJ_1041 /* IgnoredSourceInclusionTests.swift in Sources */,
