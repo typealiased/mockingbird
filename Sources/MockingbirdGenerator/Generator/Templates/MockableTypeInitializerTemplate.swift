@@ -39,12 +39,10 @@ struct MockableTypeInitializerTemplate: Template {
       .joined(separator: "\n\n")
   }
   
-  private var requiresGenericInitializer: Bool {
+  private var isAssociatedTypeProtocol: Bool {
     let mockableType = mockableTypeTemplate.mockableType
-    let isSelfConstrainedProtocol = mockableType.kind == .protocol && mockableType.hasSelfConstraint
-    return !mockableType.genericTypes.isEmpty
-      || mockableType.isInGenericContainingType
-      || isSelfConstrainedProtocol
+    guard mockableType.kind == .protocol else { return false }
+    return !mockableType.genericTypes.isEmpty || mockableType.hasSelfConstraint
   }
   
   private func getAllSpecializedGenericTypesList(with containingTypeNames: [String]) -> [String] {
@@ -68,21 +66,22 @@ struct MockableTypeInitializerTemplate: Template {
     let kind = mockableType.kind
     let genericTypeContext = mockableType.genericTypeContext
     
-    let genericTypeConstraints: [String]
-    let metatype: String
+    let genericTypeConstraints = getAllSpecializedGenericTypes(with: containingTypeNames)
+    let allGenericTypeConstraints = genericTypeConstraints.isEmpty ? "" :
+      "<\(genericTypeConstraints.joined(separator: ", "))>"
     
-    if requiresGenericInitializer {
-      genericTypeConstraints = getAllSpecializedGenericTypes(with: containingTypeNames)
-      let mockName = mockableTypeTemplate.createScopedName(with: containingTypeNames,
-                                                           genericTypeContext: genericTypeContext,
-                                                           suffix: "Mock")
-      metatype = "\(mockName).Type"
+    let metatype: String
+    let supportingTypeDeclaration: String // A concrete type for protocols with associated types.
+    
+    if isAssociatedTypeProtocol {
+      metatype = "\(mockableType.name)\(mockableTypeTemplate.allGenericTypes).Type"
+      supportingTypeDeclaration = "public enum \(mockableType.name)\(allGenericTypeConstraints) {}\n"
     } else {
-      genericTypeConstraints = []
       let scopedName = mockableTypeTemplate.createScopedName(with: containingTypeNames,
                                                              genericTypeContext: genericTypeContext)
       let metatypeKeyword = (kind == .class ? "Type" : "Protocol")
       metatype = "\(mockableType.moduleName).\(scopedName).\(metatypeKeyword)"
+      supportingTypeDeclaration = ""
     }
     
     let returnType: String
@@ -111,12 +110,9 @@ struct MockableTypeInitializerTemplate: Template {
       returnTypeDescription = "/// Returns a concrete mock of `\(mockableTypeTemplate.mockableType.name)`."
     }
     
-    let allGenericTypes = genericTypeConstraints.isEmpty ? "" :
-      "<\(genericTypeConstraints.joined(separator: ", "))>"
-    
     return """
-    \(returnTypeDescription)
-    public func mock\(allGenericTypes)(_ type: \(metatype), file: StaticString = #file, line: UInt = #line) -> \(returnType) {
+    \(supportingTypeDeclaration)\(returnTypeDescription)
+    public func mock\(allGenericTypeConstraints)(_ type: \(metatype), file: StaticString = #file, line: UInt = #line) -> \(returnType) {
       \(returnStatement)
     }
     """
