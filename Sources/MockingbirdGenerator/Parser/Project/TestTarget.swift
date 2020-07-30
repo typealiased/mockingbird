@@ -10,11 +10,13 @@ import PathKit
 
 public class TestTarget: CodableTarget {
   public let mockedTypeNames: [Path: Set<String>]
+  public let projectHash: String
   public let cliVersion: String
   public let configHash: String
   
   enum CodingKeys: String, CodingKey {
     case mockedTypeNames
+    case projectHash
     case cliVersion
     case configHash
   }
@@ -22,10 +24,12 @@ public class TestTarget: CodableTarget {
   public init<T: Target>(from target: T,
                          sourceRoot: Path,
                          mockedTypeNames: [Path: Set<String>],
+                         projectHash: String,
                          cliVersion: String,
                          configHash: String,
                          environment: () -> [String: Any]) throws {
     self.mockedTypeNames = mockedTypeNames
+    self.projectHash = projectHash
     self.cliVersion = cliVersion
     self.configHash = configHash
     
@@ -41,6 +45,7 @@ public class TestTarget: CodableTarget {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     
     self.mockedTypeNames = try container.decode([Path: Set<String>].self, forKey: .mockedTypeNames)
+    self.projectHash = try container.decode(String.self, forKey: .projectHash)
     self.cliVersion = try container.decode(String.self, forKey: .cliVersion)
     self.configHash = try container.decode(String.self, forKey: .configHash)
     
@@ -51,6 +56,7 @@ public class TestTarget: CodableTarget {
     var container = encoder.container(keyedBy: CodingKeys.self)
     
     try container.encode(mockedTypeNames, forKey: .mockedTypeNames)
+    try container.encode(projectHash, forKey: .projectHash)
     try container.encode(cliVersion, forKey: .cliVersion)
     try container.encode(configHash, forKey: .configHash)
     
