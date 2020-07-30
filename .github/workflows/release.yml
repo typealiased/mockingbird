@@ -1,0 +1,97 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+      - 'release-*'
+    tags:
+      - '*'
+
+jobs:
+  build:
+    name: Build Signed Artifacts
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Import Secrets
+      uses: apple-actions/import-codesign-certs@v1
+      with: 
+        p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
+        p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
+    - name: Print Debug Info
+      run: make print-debug-info
+    - name: Set Up Project
+      run: make setup-project
+    - name: Clean
+      run: make clean
+    - name: Build
+      env:
+        AC_USERNAME: ${{ secrets.AC_USERNAME }}
+        AC_PASSWORD: ${{ secrets.AC_PASSWORD }}
+      run: make signed-release
+    - name: Document SHAs
+      run: |
+        shasum -a 512 Mockingbird.zip
+        shasum -a 512 Mockingbird.pkg
+        shasum -a 512 MockingbirdSupport.zip
+        shasum -a 512 Codesigning/MockingbirdCli.dr
+    - name: Upload Zip
+      uses: actions/upload-artifact@v2
+      with:
+        name: Mockingbird.zip
+        path: Mockingbird.zip
+    - name: Upload Pkg
+      uses: actions/upload-artifact@v2
+      with:
+        name: Mockingbird.pkg
+        path: Mockingbird.pkg
+    - name: Upload Starter Pack
+      uses: actions/upload-artifact@v2
+      with:
+        name: MockingbirdSupport.zip
+        path: MockingbirdSupport.zip
+    - name: Upload CLI Designated Requirement
+      uses: actions/upload-artifact@v2
+      with:
+        name: MockingbirdCli.dr
+        path: Codesigning/MockingbirdCli.dr
+
+  build-cisafe:
+    name: Build CI-Safe Signed Artifacts
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Import Secrets
+      uses: apple-actions/import-codesign-certs@v1
+      with: 
+        p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
+        p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
+    - name: Print Debug Info
+      run: make print-debug-info
+    - name: Set Up Project
+      run: make setup-project
+    - name: Clean
+      run: make clean
+    - name: Build
+      env:
+        AC_USERNAME: ${{ secrets.AC_USERNAME }}
+        AC_PASSWORD: ${{ secrets.AC_PASSWORD }}
+        USE_RELATIVE_RPATH: 1
+      run: make signed-release
+    - name: Document SHAs
+      run: |
+        shasum -a 512 Mockingbird.zip
+        shasum -a 512 Mockingbird.pkg
+        shasum -a 512 MockingbirdSupport.zip
+        shasum -a 512 Codesigning/MockingbirdCli.dr
+    - name: Upload Zip
+      uses: actions/upload-artifact@v2
+      with:
+        name: Mockingbird-cisafe.zip
+        path: Mockingbird.zip
+    - name: Upload Pkg
+      uses: actions/upload-artifact@v2
+      with:
+        name: Mockingbird-cisafe.pkg
+        path: Mockingbird.pkg

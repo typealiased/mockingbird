@@ -3,6 +3,10 @@ USE_RELATIVE_RPATH?=0
 PREFIX?=/usr/local
 BUILD_TOOL?=xcodebuild
 REPO_URL?=https://github.com/birdrides/mockingbird
+AC_USERNAME?=
+AC_PASSWORD?=
+PKG_IDENTITY?=Developer ID Installer: Bird Rides, Inc. (P2T4T6R4SL)
+BIN_IDENTITY?=Developer ID Application: Bird Rides, Inc. (P2T4T6R4SL)
 
 # Prevent bad things from happening when cleaning the temporary folder.
 TEMPORARY_FOLDER=$(TEMPORARY_FOLDER_ROOT)/Mockingbird.make.dst
@@ -18,7 +22,7 @@ $(eval MOCKINGBIRD_RPATH = $(shell [[ $(USE_RELATIVE_RPATH) -eq 1 ]] && echo '@e
 
 SIMULATOR_NAME=iphone11-mockingbird
 SIMULATOR_DEVICE_TYPE=com.apple.CoreSimulator.SimDeviceType.iPhone-11
-SIMULATOR_RUNTIME=com.apple.CoreSimulator.SimRuntime.iOS-13-5
+SIMULATOR_RUNTIME=com.apple.CoreSimulator.SimRuntime.iOS-13-6
 
 SWIFT_BUILD_FLAGS=--configuration release -Xlinker -weak-l_InternalSwiftSyntaxParser $(RELATIVE_RPATH_FLAG)
 XCODEBUILD_FLAGS=-project 'Mockingbird.xcodeproj' DSTROOT=$(TEMPORARY_FOLDER)
@@ -46,8 +50,6 @@ BINARIES_FOLDER=$(PREFIX)/bin
 DEFAULT_XCODE_RPATH=$(XCODE_PATH)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx
 
 PKG_BUNDLE_IDENTIFIER=co.bird.mockingbird
-PKG_IDENTITY_NAME=3rd Party Mac Developer Installer: Bird Rides, Inc. (P2T4T6R4SL)
-ZIP_IDENTITY_NAME=3rd Party Mac Developer Application: Bird Rides, Inc. (P2T4T6R4SL)
 CLI_DESIGNATED_REQUIREMENT=Codesigning/MockingbirdCli.dr
 ZIP_FILENAME=Mockingbird.zip
 CLI_FILENAME=mockingbird
@@ -87,7 +89,7 @@ OUTPUT_DOCS_FOLDER=docs/$(VERSION_STRING)
 
 ZIP_RELEASE_URL=$(REPO_URL)/releases/download/$(VERSION_STRING)/$(ZIP_FILENAME)
 SUCCESS_MSG=Verified the Mockingbird CLI binary
-ERROR_MSG=[ERROR] The downloaded Mockingbird CLI binary does not have the expected code signature! See <Codesigning/README.md>.
+ERROR_MSG=error: The downloaded Mockingbird CLI binary does not satisfy the expected code signature!
 
 REDIRECT_DOCS_PAGE=<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=/mockingbird/$(VERSION_STRING)/"></head></html>
 
@@ -337,6 +339,21 @@ installables: build
 	cp -rf "$(IPHONESIMULATOR_FRAMEWORK_PATH)" "$(TEMPORARY_INSTALLER_FOLDER)$(FRAMEWORKS_FOLDER)/$(IPHONESIMULATOR_FRAMEWORK_FILENAME)"
 	cp -rf "$(APPLETVSIMULATOR_FRAMEWORK_PATH)" "$(TEMPORARY_INSTALLER_FOLDER)$(FRAMEWORKS_FOLDER)/$(APPLETVSIMULATOR_FRAMEWORK_FILENAME)"
 
+.PHONY: bundle-artifacts
+bundle-artifacts:
+	mkdir -p "$(TEMPORARY_INSTALLER_FOLDER)$(BINARIES_FOLDER)"
+	cp -f "$(EXECUTABLE_PATH)" "$(TEMPORARY_INSTALLER_FOLDER)$(BINARIES_FOLDER)"
+
+	mkdir -p "$(TEMPORARY_INSTALLER_FOLDER)$(FRAMEWORKS_FOLDER)"
+	cp -rf "$(MACOS_FRAMEWORK_PATH)" "$(TEMPORARY_INSTALLER_FOLDER)$(FRAMEWORKS_FOLDER)/$(MACOS_FRAMEWORK_FILENAME)"
+	cp -rf "$(IPHONESIMULATOR_FRAMEWORK_PATH)" "$(TEMPORARY_INSTALLER_FOLDER)$(FRAMEWORKS_FOLDER)/$(IPHONESIMULATOR_FRAMEWORK_FILENAME)"
+	cp -rf "$(APPLETVSIMULATOR_FRAMEWORK_PATH)" "$(TEMPORARY_INSTALLER_FOLDER)$(FRAMEWORKS_FOLDER)/$(APPLETVSIMULATOR_FRAMEWORK_FILENAME)"
+
+.PHONY: signed-installables
+signed-installables: build bundle-artifacts
+	codesign --sign "$(BIN_IDENTITY)" -v --timestamp --options runtime \
+		"$(TEMPORARY_INSTALLER_FOLDER)$(BINARIES_FOLDER)/$(CLI_FILENAME)"
+
 .PHONY: package
 package: installables
 	pkgbuild \
@@ -347,14 +364,24 @@ package: installables
 		"$(OUTPUT_PACKAGE)"
 
 .PHONY: signed-package
-signed-package: installables
+signed-package: signed-installables
 	pkgbuild \
 		--identifier "$(PKG_BUNDLE_IDENTIFIER)" \
 		--install-location "/" \
 		--root "$(TEMPORARY_INSTALLER_FOLDER)" \
 		--version "$(VERSION_STRING)" \
-		--sign "$(PKG_IDENTITY_NAME)" \
+		--sign "$(PKG_IDENTITY)" \
 		"$(OUTPUT_PACKAGE)"
+	@[[ -z "$(AC_USERNAME)" ]] || xcrun altool \
+		--notarize-app \
+		--primary-bundle-id "$(PKG_BUNDLE_IDENTIFIER).pkg" \
+		--username "$(AC_USERNAME)" \
+		--password "$(AC_PASSWORD)" \
+		--file "$(OUTPUT_PACKAGE)"
+
+.PHONY: stapled-package
+stapled-package:
+	xcrun stapler staple "$(OUTPUT_PACKAGE)"
 
 .PHONY: prepare-zip
 prepare-zip:
@@ -364,29 +391,35 @@ prepare-zip:
 	cp -rf "$(TEMPORARY_INSTALLER_FOLDER)$(FRAMEWORKS_FOLDER)/$(APPLETVSIMULATOR_FRAMEWORK_FILENAME)" "$(TEMPORARY_INSTALLER_FOLDER)"
 	cp -f "$(LICENSE_PATH)" "$(TEMPORARY_INSTALLER_FOLDER)"
 
-.PHONY: zip
-zip: installables prepare-zip
+.PHONY: archive
+archive:
 	(cd "$(TEMPORARY_INSTALLER_FOLDER)"; zip -yr - $(INSTALLABLE_FILENAMES)) > "$(OUTPUT_ZIP)"
+
+.PHONY: zip
+zip: installables prepare-zip archive
 
 .PHONY: signed-zip
-signed-zip: installables prepare-zip
-	codesign --sign "$(ZIP_IDENTITY_NAME)" "$(TEMPORARY_INSTALLER_FOLDER)/$(CLI_FILENAME)"
+signed-zip: signed-installables prepare-zip archive
+	# Generate designated requirement.
 	codesign -d -r- "$(TEMPORARY_INSTALLER_FOLDER)/$(CLI_FILENAME)" | cut -c 15- > "$(CLI_DESIGNATED_REQUIREMENT)"
+	codesign -vvv -R "$(CLI_DESIGNATED_REQUIREMENT)" "$(TEMPORARY_INSTALLER_FOLDER)/$(CLI_FILENAME)"
 
-	# Double-check that the cli satisfies the explicit designated requirements.
-	codesign -v -R "$(CLI_DESIGNATED_REQUIREMENT)" "$(TEMPORARY_INSTALLER_FOLDER)/$(CLI_FILENAME)"
-
-	(cd "$(TEMPORARY_INSTALLER_FOLDER)"; zip -yr - $(INSTALLABLE_FILENAMES)) > "$(OUTPUT_ZIP)"
+	@[[ -z "$(AC_USERNAME)" ]] || xcrun altool \
+		--notarize-app \
+		--primary-bundle-id "$(PKG_BUNDLE_IDENTIFIER).zip" \
+		--username "$(AC_USERNAME)" \
+		--password "$(AC_PASSWORD)" \
+		--file "$(OUTPUT_ZIP)"
 
 .PHONY: starter-pack-zip
 starter-pack-zip:
 	zip -yr - $(STARTER_PACK_FOLDER) > "$(OUTPUT_STARTER_PACK_ZIP)"
 
 .PHONY: release
-release: clean package zip starter-pack-zip
+release: package zip starter-pack-zip
 
 .PHONY: signed-release
-signed-release: clean signed-package signed-zip starter-pack-zip
+signed-release: signed-package signed-zip starter-pack-zip
 
 .PHONY: get-version
 get-version:
