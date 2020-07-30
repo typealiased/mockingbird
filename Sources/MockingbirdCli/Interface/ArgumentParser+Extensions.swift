@@ -89,6 +89,12 @@ extension ArgumentParser {
                completion: .filename)
   }
   
+  func addHeader() -> OptionArgument<[String]> {
+    return add(option: "--header",
+               kind: [String].self,
+               usage: "Content to add at the beginning of each generated mock file.")
+  }
+  
   func addCompilationCondition() -> OptionArgument<String> {
     return add(option: "--condition",
                kind: String.self,
