@@ -107,7 +107,9 @@ class Generator {
   func getCachedTestTarget(targetName: String) -> TargetType? {
     guard !config.disableThunkStubs,
       let cacheDirectory = testTargetCacheDirectory,
+      let projectHash = getProjectHash(config.projectPath),
       let cachedTarget = findCachedTestTarget(for: targetName,
+                                              projectHash: projectHash,
                                               cliVersion: cliVersion,
                                               configHash: configHash,
                                               cacheDirectory: cacheDirectory,
@@ -194,25 +196,26 @@ class Generator {
   }
   
   func cachePipelines(sourcePipelines: [Pipeline], pruningPipeline: PruningPipeline?) throws {
+    guard let projectHash = getProjectHash(config.projectPath) else { return }
+    
     // Cache source targets for generation.
-    if let projectHash = getProjectHash(config.projectPath) {
-      try sourceTargetCacheDirectory.mkpath()
-      try sourcePipelines.forEach({
-        try $0.cache(projectHash: projectHash,
-                     cliVersion: cliVersion,
-                     configHash: configHash,
-                     sourceRoot: config.sourceRoot,
-                     cacheDirectory: sourceTargetCacheDirectory,
-                     environment: getBuildEnvironment)
-      })
-    }
+    try sourceTargetCacheDirectory.mkpath()
+    try sourcePipelines.forEach({
+      try $0.cache(projectHash: projectHash,
+                   cliVersion: cliVersion,
+                   configHash: configHash,
+                   sourceRoot: config.sourceRoot,
+                   cacheDirectory: sourceTargetCacheDirectory,
+                   environment: getBuildEnvironment)
+    })
     
     // Cache test target for thunk pruning.
     if !config.disableThunkStubs {
       if let testTargetCacheDirectory = testTargetCacheDirectory,
         let environmentSourceRoot = config.environmentSourceRoot {
         try testTargetCacheDirectory.mkpath()
-        try pruningPipeline?.cache(cliVersion: cliVersion,
+        try pruningPipeline?.cache(projectHash: projectHash,
+                                   cliVersion: cliVersion,
                                    configHash: configHash,
                                    sourceRoot: environmentSourceRoot,
                                    cacheDirectory: testTargetCacheDirectory,

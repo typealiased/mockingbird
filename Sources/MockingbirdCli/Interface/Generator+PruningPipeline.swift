@@ -82,7 +82,8 @@ extension Generator {
       self.findMockedTypesOperation = findMockedTypesOperation
     }
     
-    func cache(cliVersion: String,
+    func cache(projectHash: String,
+               cliVersion: String,
                configHash: String,
                sourceRoot: Path,
                cacheDirectory: Path,
@@ -95,6 +96,7 @@ extension Generator {
         target = try TestTarget(from: pipelineTarget,
                                 sourceRoot: sourceRoot,
                                 mockedTypeNames: mockedTypeNames,
+                                projectHash: projectHash,
                                 cliVersion: cliVersion,
                                 configHash: configHash,
                                 environment: environment)
@@ -106,6 +108,7 @@ extension Generator {
         target = try TestTarget(from: pipelineTarget,
                                 sourceRoot: sourceRoot,
                                 mockedTypeNames: mockedTypeNames,
+                                projectHash: projectHash,
                                 cliVersion: cliVersion,
                                 configHash: configHash,
                                 environment: environment)
@@ -119,6 +122,7 @@ extension Generator {
   }
   
   func findCachedTestTarget(for targetName: String,
+                            projectHash: String,
                             cliVersion: String,
                             configHash: String,
                             cacheDirectory: Path,
@@ -137,6 +141,11 @@ extension Generator {
     
     guard target.sourceRoot.absolute() == sourceRoot.absolute() else {
       log("Invalidated cached test target metadata for \(targetName.singleQuoted) because the source root changed from \(target.sourceRoot.absolute()) to \(sourceRoot.absolute())")
+      return nil
+    }
+    
+    guard target.projectHash == projectHash else {
+      log("Invalidated cached test target metadata for \(targetName.singleQuoted) because the project hash changed from \(target.projectHash.singleQuoted) to \(projectHash.singleQuoted)")
       return nil
     }
     
