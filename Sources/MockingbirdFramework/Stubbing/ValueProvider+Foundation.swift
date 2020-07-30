@@ -9,7 +9,8 @@ import Foundation
 import CoreGraphics
 
 public extension ValueProvider {
-  /// Provides default values for primitive Swift types.
+  /// A value provider with primitive Swift types.
+  ///
   /// https://developer.apple.com/documentation/foundation/numbers_data_and_basic_values
   static let primitivesProvider = ValueProvider(values: [
     ObjectIdentifier(Bool.self): Bool(),
@@ -40,31 +41,26 @@ extension Optional: Providable {
 }
 
 public extension ValueProvider {
-  /// Provides default values for basic types that are not primitives.
+  /// A value provider with basic number and data types that are not primitives.
+  ///
   /// https://developer.apple.com/documentation/foundation/numbers_data_and_basic_values
   static let basicsProvider = ValueProvider(values: [
     ObjectIdentifier(Data.self): Data(),
     ObjectIdentifier(UUID.self): UUID(),
     ObjectIdentifier(IndexPath.self): IndexPath(),
     ObjectIdentifier(IndexSet.self): IndexSet(),
+    ObjectIdentifier(CGFloat.self): CGFloat(),
+    ObjectIdentifier(CGPoint.self): CGPoint(),
+    ObjectIdentifier(CGSize.self): CGSize(),
+    ObjectIdentifier(CGRect.self): CGRect(),
   ], identifiers: [
     Optional<Any>.providableIdentifier,
   ])
 }
 
 public extension ValueProvider {
-  /// Provides default values for graphics and geometry types.
-  /// https://developer.apple.com/documentation/foundation/numbers_data_and_basic_values
-  static let geometryProvider = ValueProvider(values: [
-    ObjectIdentifier(CGFloat.self): CGFloat(),
-    ObjectIdentifier(CGPoint.self): CGPoint(),
-    ObjectIdentifier(CGSize.self): CGSize(),
-    ObjectIdentifier(CGRect.self): CGRect(),
-  ])
-}
-
-public extension ValueProvider {
-  /// Provides default values for string and text types.
+  /// A value provider with string and text types.
+  ///
   /// https://developer.apple.com/documentation/foundation/strings_and_text
   static let stringsProvider = ValueProvider(values: [
     ObjectIdentifier(String.self): String(),
@@ -76,7 +72,8 @@ public extension ValueProvider {
 }
 
 public extension ValueProvider {
-  /// Provides default values for date and time types.
+  ///A value provider with date and time types.
+  /// 
   /// https://developer.apple.com/documentation/foundation/dates_and_times
   static let datesProvider = ValueProvider(values: [
     ObjectIdentifier(Date.self): Date(),

@@ -38,7 +38,8 @@ struct Invocation: CustomStringConvertible {
       .components(separatedBy: ".")
       .dropLast()
       .joined(separator: ".")
-    return (isGetter ? Constants.getterPrefix : Constants.setterPrefix) + propertyName.capitalized
+    return (isGetter ? Constants.getterPrefix : Constants.setterPrefix) +
+      propertyName.prefix(1).uppercased() + propertyName.dropFirst()
   }
 
   var description: String {

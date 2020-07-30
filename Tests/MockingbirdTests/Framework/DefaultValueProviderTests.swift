@@ -18,8 +18,16 @@ class DefaultValueProviderTests: BaseTestCase {
   var concreteMock: FakeableTypeReferencerMock!
   var concreteInstance: FakeableTypeReferencer { return concreteMock }
   
+  var childMock: ChildMock!
+  var childInstance: Child { return childMock }
+  
+  var protocolMock: GrandparentProtocolMock!
+  var protocolInstance: GrandparentProtocol { return protocolMock }
+  
   override func setUp() {
     concreteMock = mock(FakeableTypeReferencer.self)
+    childMock = mock(Child.self)
+    protocolMock = mock(GrandparentProtocol.self)
   }
   
   // MARK: - Single registration
@@ -129,7 +137,7 @@ class DefaultValueProviderTests: BaseTestCase {
       valueProvider.register(42, for: Int.self)
       useDefaultValues(from: valueProvider, on: self.concreteMock)
       clearDefaultValues(on: self.concreteMock)
-      _ = self.concreteInstance.fakeableInt()
+      let _ = self.concreteInstance.fakeableInt()
     }
   }
   
@@ -194,11 +202,18 @@ class DefaultValueProviderTests: BaseTestCase {
     verify(anotherConcreteMock.fakeableInt()).wasCalled()
   }
   
-  // MARK: - Subprovider
+  // MARK: - Composition
   
   func testAddSingleSubprovider() {
     var valueProvider = ValueProvider()
-    valueProvider.addSubprovider(.standardProvider)
+    valueProvider.add(.standardProvider)
+    useDefaultValues(from: valueProvider, on: concreteMock)
+    XCTAssertEqual(concreteInstance.fakeableString(), "")
+    verify(concreteMock.fakeableString()).wasCalled()
+  }
+  
+  func testAddSingleSubprovider_operatorSyntax() {
+    let valueProvider = ValueProvider() + .standardProvider
     useDefaultValues(from: valueProvider, on: concreteMock)
     XCTAssertEqual(concreteInstance.fakeableString(), "")
     verify(concreteMock.fakeableString()).wasCalled()
@@ -206,8 +221,8 @@ class DefaultValueProviderTests: BaseTestCase {
   
   func testAddMultipleSubproviders() {
     var valueProvider = ValueProvider()
-    valueProvider.addSubprovider(.collectionsProvider)
-    valueProvider.addSubprovider(.primitivesProvider)
+    valueProvider.add(.collectionsProvider)
+    valueProvider.add(.primitivesProvider)
     useDefaultValues(from: valueProvider, on: concreteMock)
     XCTAssertEqual(concreteInstance.fakeableArray(), [])
     XCTAssertEqual(concreteInstance.fakeableInt(), Int())
@@ -215,24 +230,22 @@ class DefaultValueProviderTests: BaseTestCase {
     verify(concreteMock.fakeableInt()).wasCalled()
   }
   
-  func testRemoveSubprovider() {
-    shouldFail {
-      var valueProvider = ValueProvider()
-      valueProvider.addSubprovider(.collectionsProvider)
-      valueProvider.removeSubprovider(.collectionsProvider)
-      useDefaultValues(from: valueProvider, on: self.concreteMock)
-      _ = self.concreteInstance.fakeableArray()
-    }
-  }
-  
-  func testRemoveAndReaddSubprovider() {
-    var valueProvider = ValueProvider()
-    valueProvider.addSubprovider(.collectionsProvider)
-    valueProvider.removeSubprovider(.collectionsProvider)
-    valueProvider.addSubprovider(.collectionsProvider)
+  func testAddMultipleSubproviders_nonMutatingOperation() {
+    let valueProvider = ValueProvider.collectionsProvider.adding(.primitivesProvider)
     useDefaultValues(from: valueProvider, on: concreteMock)
     XCTAssertEqual(concreteInstance.fakeableArray(), [])
+    XCTAssertEqual(concreteInstance.fakeableInt(), Int())
     verify(concreteMock.fakeableArray()).wasCalled()
+    verify(concreteMock.fakeableInt()).wasCalled()
+  }
+  
+  func testAddMultipleSubproviders_nonMutatingOperation_operatorSyntax() {
+    let valueProvider = .collectionsProvider + .primitivesProvider
+    useDefaultValues(from: valueProvider, on: concreteMock)
+    XCTAssertEqual(concreteInstance.fakeableArray(), [])
+    XCTAssertEqual(concreteInstance.fakeableInt(), Int())
+    verify(concreteMock.fakeableArray()).wasCalled()
+    verify(concreteMock.fakeableInt()).wasCalled()
   }
   
   // MARK: - Precedence
@@ -273,12 +286,6 @@ class DefaultValueProviderTests: BaseTestCase {
     XCTAssertEqual(concreteInstance.fakeableFloat(), Float())
     XCTAssertEqual(concreteInstance.fakeableDouble(), Double())
     XCTAssertEqual(concreteInstance.fakeableBool(), Bool())
-  }
-  
-  func testUseGeometryProvider() {
-    useDefaultValues(from: .geometryProvider, on: concreteMock)
-    XCTAssertEqual(concreteInstance.fakeableCGFloat(), CGFloat())
-    XCTAssertEqual(concreteInstance.fakeableCGPoint(), CGPoint())
   }
   
   func testUseCollectionsProvider() {
@@ -370,5 +377,18 @@ class DefaultValueProviderTests: BaseTestCase {
       useDefaultValues(from: .standardProvider, on: self.concreteMock)
       _ = self.concreteInstance.fakeableClass()
     }
+  }
+}
+
+private class ProtocolImplementation: GrandparentProtocol {
+  var grandparentPrivateSetterInstanceVariable = true
+  var grandparentInstanceVariable = true
+  func grandparentTrivialInstanceMethod() {}
+  func grandparentParameterizedInstanceMethod(param1: Bool, _ param2: Int) -> Bool { return true }
+  static var grandparentPrivateSetterStaticVariable = true
+  static var grandparentStaticVariable = true
+  static func grandparentTrivialStaticMethod() {}
+  static func grandparentParameterizedStaticMethod(param1: Bool, _ param2: Int) -> Bool {
+    return true
   }
 }
