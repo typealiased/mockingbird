@@ -28,7 +28,7 @@ private protocol StubbableAssociatedTypeProtocol {
 }
 extension AssociatedTypeProtocolMock: StubbableAssociatedTypeProtocol {}
 
-private protocol StubbableAssociatedTypeGenericImplementer: AssociatedTypeProtocol {
+private protocol StubbableAssociatedTypeGenericImplementer: MockingbirdTestsHost.AssociatedTypeProtocol {
   associatedtype S: Sequence where S.Element == EquatableType
   
   func methodUsingEquatableType(equatable: @escaping @autoclosure () -> EquatableType)
@@ -44,40 +44,40 @@ private protocol StubbableAssociatedTypeGenericImplementer: AssociatedTypeProtoc
 extension AssociatedTypeGenericImplementerMock: StubbableAssociatedTypeGenericImplementer {}
 
 private protocol StubbableAssociatedTypeImplementerProtocol {
-  func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T)
+  func request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T)
     -> Mockable<FunctionDeclaration, (T) -> Void, Void>
     where T.EquatableType == Int, T.HashableType == String
   
-  func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T)
+  func request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T)
     -> Mockable<FunctionDeclaration, (T) -> T.HashableType, T.HashableType>
     where T.EquatableType == Int, T.HashableType == String
   
-  func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T)
+  func request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T)
     -> Mockable<FunctionDeclaration, (T) -> T.HashableType, T.HashableType>
     where T.EquatableType == Bool, T.HashableType == String
 }
 extension AssociatedTypeImplementerProtocolMock: StubbableAssociatedTypeImplementerProtocol {}
 
 private protocol StubbableAssociatedTypeImplementer {
-  func request<T: AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T)
+  func request<T: MockingbirdTestsHost.AssociatedTypeProtocol>(object: @escaping @autoclosure () -> T)
     -> Mockable<FunctionDeclaration, (T) -> Void, Void>
     where T.EquatableType == Int, T.HashableType == String
 }
 extension AssociatedTypeImplementerMock: StubbableAssociatedTypeImplementer {}
 
-private protocol StubbableAssociatedTypeGenericConstraintsProtocol: AssociatedTypeGenericConstraintsProtocol {
+private protocol StubbableAssociatedTypeGenericConstraintsProtocol: MockingbirdTestsHost.AssociatedTypeGenericConstraintsProtocol {
   func request(object: @escaping @autoclosure () -> ConstrainedType)
     -> Mockable<FunctionDeclaration, (ConstrainedType) -> Bool, Bool>
 }
 extension AssociatedTypeGenericConstraintsProtocolMock: StubbableAssociatedTypeGenericConstraintsProtocol {}
 
-private protocol StubbableAssociatedTypeGenericConformingConstraintsProtocol: AssociatedTypeGenericConformingConstraintsProtocol {
+private protocol StubbableAssociatedTypeGenericConformingConstraintsProtocol: MockingbirdTestsHost.AssociatedTypeGenericConformingConstraintsProtocol {
   func request(object: @escaping @autoclosure () -> ConformingType)
     -> Mockable<FunctionDeclaration, (ConformingType) -> Bool, Bool>
 }
 extension AssociatedTypeGenericConformingConstraintsProtocolMock: StubbableAssociatedTypeGenericConformingConstraintsProtocol {}
 
-private protocol StubbableAssociatedTypeSelfReferencingProtocol: AssociatedTypeSelfReferencingProtocol {
+private protocol StubbableAssociatedTypeSelfReferencingProtocol: MockingbirdTestsHost.AssociatedTypeSelfReferencingProtocol {
   func request(array: @escaping @autoclosure () -> SequenceType)
     -> Mockable<FunctionDeclaration, (SequenceType) -> Void, Void>
   func request<T: Sequence>(array: @escaping @autoclosure () -> T)

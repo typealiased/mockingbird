@@ -17,6 +17,7 @@ public class GenerateFileOperation: BasicOperation {
   
   let moduleName: String
   let outputPath: Path
+  let header: [String]?
   let compilationCondition: String?
   let shouldImportModule: Bool
   let onlyMockProtocols: Bool
@@ -27,6 +28,7 @@ public class GenerateFileOperation: BasicOperation {
               findMockedTypesResult: FindMockedTypesOperation.Result?,
               moduleName: String,
               outputPath: Path,
+              header: [String]?,
               compilationCondition: String?,
               shouldImportModule: Bool,
               onlyMockProtocols: Bool,
@@ -37,6 +39,7 @@ public class GenerateFileOperation: BasicOperation {
     self.moduleName = moduleName
     self.outputPath = outputPath
     self.shouldImportModule = shouldImportModule
+    self.header = header
     self.compilationCondition = compilationCondition
     self.onlyMockProtocols = onlyMockProtocols
     self.disableSwiftlint = disableSwiftlint
@@ -52,6 +55,7 @@ public class GenerateFileOperation: BasicOperation {
         moduleName: moduleName,
         imports: processTypesResult.imports,
         outputPath: outputPath,
+        header: header,
         compilationCondition: compilationCondition,
         shouldImportModule: shouldImportModule,
         onlyMockProtocols: onlyMockProtocols,

@@ -9,12 +9,8 @@ import Foundation
 
 // Tuples only work for non-generic types, since generic parameters cannot be inferred here.
 extension ValueProvider {
-  
   func provideValue<T1, T2>(for type: (T1, T2).Type) -> (T1, T2)? {
-    for provider in subproviders.value {
-      if let value = provider.provideValue(for: type) { return value }
-    }
-    if let tupleValue = storedValues.value[ObjectIdentifier(type)] as? (T1, T2) {
+    if let tupleValue = storedValues[ObjectIdentifier(type)] as? (T1, T2) {
       return tupleValue
     } else if
       let t1 = provideValue(for: T1.self),
@@ -26,10 +22,7 @@ extension ValueProvider {
   }
   
   func provideValue<T1, T2, T3>(for type: (T1, T2, T3).Type) -> (T1, T2, T3)? {
-    for provider in subproviders.value {
-      if let value = provider.provideValue(for: type) { return value }
-    }
-    if let tupleValue = storedValues.value[ObjectIdentifier(type)] as? (T1, T2, T3) {
+    if let tupleValue = storedValues[ObjectIdentifier(type)] as? (T1, T2, T3) {
       return tupleValue
     } else if
       let t1 = provideValue(for: T1.self),
@@ -42,10 +35,7 @@ extension ValueProvider {
   }
   
   func provideValue<T1, T2, T3, T4>(for type: (T1, T2, T3, T4).Type) -> (T1, T2, T3, T4)? {
-    for provider in subproviders.value {
-      if let value = provider.provideValue(for: type) { return value }
-    }
-    if let tupleValue = storedValues.value[ObjectIdentifier(type)] as? (T1, T2, T3, T4) {
+    if let tupleValue = storedValues[ObjectIdentifier(type)] as? (T1, T2, T3, T4) {
       return tupleValue
     } else if
       let t1 = provideValue(for: T1.self),
@@ -60,10 +50,7 @@ extension ValueProvider {
   
   func provideValue<T1, T2, T3, T4, T5>(for type: (T1, T2, T3, T4, T5).Type)
     -> (T1, T2, T3, T4, T5)? {
-      for provider in subproviders.value {
-        if let value = provider.provideValue(for: type) { return value }
-      }
-      if let tupleValue = storedValues.value[ObjectIdentifier(type)] as? (T1, T2, T3, T4, T5) {
+      if let tupleValue = storedValues[ObjectIdentifier(type)] as? (T1, T2, T3, T4, T5) {
         return tupleValue
       } else if
         let t1 = provideValue(for: T1.self),
@@ -79,10 +66,7 @@ extension ValueProvider {
   
   func provideValue<T1, T2, T3, T4, T5, T6>(for type: (T1, T2, T3, T4, T5, T6).Type)
     -> (T1, T2, T3, T4, T5, T6)? {
-      for provider in subproviders.value {
-        if let value = provider.provideValue(for: type) { return value }
-      }
-      if let tupleValue = storedValues.value[ObjectIdentifier(type)] as? (T1, T2, T3, T4, T5, T6) {
+      if let tupleValue = storedValues[ObjectIdentifier(type)] as? (T1, T2, T3, T4, T5, T6) {
         return tupleValue
       } else if
         let t1 = provideValue(for: T1.self),
@@ -100,10 +84,7 @@ extension ValueProvider {
   // MARK: - Optionals
   
   func provideValue<T1, T2>(for type: (T1?, T2?).Type) -> (T1?, T2?)? {
-    for provider in subproviders.value {
-      if let value = provider.provideValue(for: type) { return value }
-    }
-    if let tupleValue = storedValues.value[ObjectIdentifier(type)] as? (T1?, T2?) {
+    if let tupleValue = storedValues[ObjectIdentifier(type)] as? (T1?, T2?) {
       return tupleValue
     } else if
       let t1 = provideValue(for: T1.self),
@@ -115,10 +96,7 @@ extension ValueProvider {
   }
   
   func provideValue<T1, T2, T3>(for type: (T1?, T2?, T3?).Type) -> (T1?, T2?, T3?)? {
-    for provider in subproviders.value {
-      if let value = provider.provideValue(for: type) { return value }
-    }
-    if let tupleValue = storedValues.value[ObjectIdentifier(type)] as? (T1?, T2?, T3?) {
+    if let tupleValue = storedValues[ObjectIdentifier(type)] as? (T1?, T2?, T3?) {
       return tupleValue
     } else if
       let t1 = provideValue(for: T1.self),
@@ -131,10 +109,7 @@ extension ValueProvider {
   }
   
   func provideValue<T1, T2, T3, T4>(for type: (T1?, T2?, T3?, T4?).Type) -> (T1?, T2?, T3?, T4?)? {
-    for provider in subproviders.value {
-      if let value = provider.provideValue(for: type) { return value }
-    }
-    if let tupleValue = storedValues.value[ObjectIdentifier(type)] as? (T1?, T2?, T3?, T4?) {
+    if let tupleValue = storedValues[ObjectIdentifier(type)] as? (T1?, T2?, T3?, T4?) {
       return tupleValue
     } else if
       let t1 = provideValue(for: T1.self),
@@ -149,10 +124,7 @@ extension ValueProvider {
   
   func provideValue<T1, T2, T3, T4, T5>(for type: (T1?, T2?, T3?, T4?, T5?).Type)
     -> (T1?, T2?, T3?, T4?, T5?)? {
-      for provider in subproviders.value {
-        if let value = provider.provideValue(for: type) { return value }
-      }
-      if let tupleValue = storedValues.value[ObjectIdentifier(type)] as? (T1?, T2?, T3?, T4?, T5?) {
+      if let tupleValue = storedValues[ObjectIdentifier(type)] as? (T1?, T2?, T3?, T4?, T5?) {
         return tupleValue
       } else if
         let t1 = provideValue(for: T1.self),
@@ -168,11 +140,8 @@ extension ValueProvider {
   
   func provideValue<T1, T2, T3, T4, T5, T6>(for type: (T1?, T2?, T3?, T4?, T5?, T6?).Type)
     -> (T1?, T2?, T3?, T4?, T5?, T6?)? {
-      for provider in subproviders.value {
-        if let value = provider.provideValue(for: type) { return value }
-      }
       if let tupleValue =
-        storedValues.value[ObjectIdentifier(type)] as? (T1?, T2?, T3?, T4?, T5?, T6?) {
+        storedValues[ObjectIdentifier(type)] as? (T1?, T2?, T3?, T4?, T5?, T6?) {
         return tupleValue
       } else if
         let t1 = provideValue(for: T1.self),

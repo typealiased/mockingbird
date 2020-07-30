@@ -64,96 +64,71 @@ extension Providable {
 ///     
 ///     bird.useDefaultValues(from: valueProvider)
 ///     print(bird.name)  // Prints "Ryan"
-public struct ValueProvider: Hashable {
-  let subproviders = Synchronized<[ValueProvider]>([])
-  let storedValues = Synchronized<[ObjectIdentifier: Any]>([:])
-  let enabledIdentifiers = Synchronized<Set<String>>([])
-  let identifier = UUID()
+public struct ValueProvider {
+  var storedValues = [ObjectIdentifier: Any]()
+  var enabledIdentifiers = Set<String>()
   
-  init(subproviders: [ValueProvider] = [],
-       values: [ObjectIdentifier: Any] = [:],
-       identifiers: Set<String> = []) {
-    self.storedValues.value = values
-    self.subproviders.value = subproviders
-    self.enabledIdentifiers.value = identifiers
+  init(values: [ObjectIdentifier: Any] = [:], identifiers: Set<String> = []) {
+    self.storedValues = values
+    self.enabledIdentifiers = identifiers
   }
   
   /// Create an empty value provider.
   public init() {
-    self.init(subproviders: [], values: [:], identifiers: [])
-  }
-  
-  /// Copy another value provider.
-  ///
-  /// Mockingbird provides several preset value providers that can be used as the base template for
-  /// custom value providers.
-  ///
-  ///     var valueProvider = ValueProvider(from: .standardProvider)
-  ///     print(valueProvider.provideValue(for: String.self))  // Prints ""
-  ///
-  /// - Parameter other: Another value provider to copy.
-  public init(from other: ValueProvider) {
-    self.init(subproviders: other.subproviders.read { Array($0) },
-              values: other.storedValues.read { $0.mapValues({ $0 }) },
-              identifiers: other.enabledIdentifiers.read { Set($0) })
-  }
-  
-  /// Hashes the value provider instance.
-  ///
-  /// - Parameter hasher: The hasher to use when combining the components of this instance.
-  public func hash(into hasher: inout Hasher) {
-    hasher.combine(identifier)
-  }
-  
-  /// Returns a Boolean value indicating whether two value provider instances are equal.
-  ///
-  /// - Parameters:
-  ///   - lhs: A value to compare.
-  ///   - rhs: Another value to compare.
-  public static func == (lhs: ValueProvider, rhs: ValueProvider) -> Bool {
-    return lhs.identifier == rhs.identifier
+    self.init(values: [:], identifiers: [])
   }
   
   
   // MARK: - Subproviders
   
-  /// Add another value provider as a subprovider
+  /// Adds the values from another value provider.
   ///
-  /// Value providers can be composed hierarchically by adding subproviders. Providers added later
-  /// have higher precedence.
+  /// Value providers can be composed by adding values from another provider. Values in the other
+  /// provider have precedence and will overwrite existing values in this provider.
   ///
   ///     var valueProvider = ValueProvider()
-  ///
-  ///     // Add a preset value provider as a subprovider.
-  ///     valueProvider.addSubprovider(.standardProvider)
+  ///     valueProvider.add(.standardProvider)
   ///     print(valueProvider.provideValue(for: String.self))  // Prints ""
   ///
-  ///     // Add a custom value provider a subprovider.
-  ///     var stringProvider = ValueProvider()
-  ///     stringProvider.register("Ryan", for: String.self)
-  ///     valueProvider.addSubprovider(stringProvider)
-  ///     print(valueProvider.provideValue(for: String.self))  // Prints "Ryan"
-  ///
-  /// - Parameter provider: A value provider to add.
-  mutating public func addSubprovider(_ provider: ValueProvider) {
-    precondition(provider != self)
-    subproviders.value = [provider] + subproviders.value
+  /// - Parameter other: A value provider to combine.
+  mutating public func add(_ other: Self) {
+    storedValues.merge(other.storedValues, uniquingKeysWith: { (_, new) in return new })
+    enabledIdentifiers.formUnion(other.enabledIdentifiers)
   }
   
-  /// Remove a previously added value provider.
+  /// Returns a new value provider containing the values from both providers.
   ///
-  /// Instances are internally unique such that it's possible to easily add and remove preset value
-  /// providers.
+  /// Value providers can be composed by adding values from another provider. Values in the added
+  /// provider have precendence over those in base provider.
   ///
-  ///     var valueProvider = ValueProvider()
-  ///     valueProvider.addSubprovider(.standardProvider)
-  ///     valueProvider.removeSubprovider(.standardProvider)
+  ///     let valueProvider = ValueProvider.collectionsProvider.adding(.primitivesProvider)
+  ///     print(valueProvider.provideValue(for: [Bool].self))  // Prints []
+  ///     print(valueProvider.provideValue(for: Int.self))     // Prints 0
   ///
-  /// - Parameter provider: The value provider to remove.
-  mutating public func removeSubprovider(_ provider: ValueProvider) {
-    subproviders.update { $0.removeAll(where: { $0 == provider }) }
+  /// - Parameter other: A value provider to combine.
+  /// - Returns: A new value provider with the values of `lhs` and `rhs`.
+  public func adding(_ other: Self) -> Self {
+    var newProvider = self
+    newProvider.add(other)
+    return newProvider
   }
   
+  /// Returns a new value provider containing the values from both providers.
+  ///
+  /// Value providers can be composed by adding values from other providers. Values in the second
+  /// provider have precendence over those in first provider.
+  ///
+  ///     let valueProvider = .collectionsProvider + .primitivesProvider
+  ///     print(valueProvider.provideValue(for: [Bool].self))  // Prints []
+  ///     print(valueProvider.provideValue(for: Int.self))     // Prints 0
+  ///
+  /// - Parameters:
+  ///   - lhs: A value provider.
+  ///   - rhs: A value provider.
+  /// - Returns: A new value provider with the values of `lhs` and `rhs`.
+  static public func + (lhs: Self, rhs: Self) -> Self {
+    return lhs.adding(rhs)
+  }
   
   // MARK: - Value management
   
@@ -168,9 +143,9 @@ public struct ValueProvider: Hashable {
   /// - Parameters:
   ///   - value: The value to register.
   ///   - type: The type to register the value under. `value` must be of kind `type`.
-  mutating public func register<K, V>(_ value: V, for type: K.Type = K.self) {
+  mutating public func register<K, V>(_ value: V, for type: K.Type) {
     precondition(value is K)
-    storedValues.update { $0[ObjectIdentifier(type)] = value }
+    storedValues[ObjectIdentifier(type)] = value
   }
   
   /// Register a `Providable` type used to provide values for generic types.
@@ -197,8 +172,8 @@ public struct ValueProvider: Hashable {
   ///     print(valueProvider.provideValue(for: Array<Data>.self))    // Prints []
   ///
   /// - Parameter type: A `Providable` type to register.
-  mutating public func registerType<V: Providable>(_ type: V.Type = V.self) {
-    enabledIdentifiers.update { $0.insert(type.providableIdentifier) }
+  mutating public func registerType<T: Providable>(_ type: T.Type = T.self) {
+    enabledIdentifiers.insert(type.providableIdentifier)
   }
   
   /// Remove a registered value for a given type.
@@ -219,7 +194,7 @@ public struct ValueProvider: Hashable {
   ///
   /// - Parameter type: The type to remove a previously registered value for.
   mutating public func remove<T>(_ type: T.Type) {
-    storedValues.update { $0.removeValue(forKey: ObjectIdentifier(type)) }
+    storedValues.removeValue(forKey: ObjectIdentifier(type))
   }
   
   /// Remove a registered `Providable` type.
@@ -236,44 +211,41 @@ public struct ValueProvider: Hashable {
   ///     print(valueProvider.provideValue(for: Array<String>.self))  // Prints nil
   ///
   /// - Parameter type: A `Providable` type to remove.
-  mutating public func remove<V: Providable>(_ type: V.Type = V.self) {
-    enabledIdentifiers.update { $0.remove(type.providableIdentifier) }
+  mutating public func remove<T: Providable>(_ type: T.Type = T.self) {
+    enabledIdentifiers.remove(type.providableIdentifier)
   }
   
   /// Remove all stored values, subproviders, and enabled identifiers.
   mutating func reset() {
-    storedValues.update { $0.removeAll() }
-    subproviders.update { $0.removeAll() }
-    enabledIdentifiers.update { $0.removeAll() }
+    storedValues.removeAll()
+    enabledIdentifiers.removeAll()
   }
   
   
   // MARK: - Value providing
   
   /// All preset value providers.
-  public static let standardProvider = ValueProvider(subproviders: [
-    .collectionsProvider,
-    .primitivesProvider,
-    .basicsProvider,
-    .geometryProvider,
-    .stringsProvider,
-    .datesProvider,
-  ])
+  public static let standardProvider = ValueProvider() +
+    .collectionsProvider +
+    .primitivesProvider +
+    .basicsProvider +
+    .stringsProvider +
+    .datesProvider
   
-  func provideValue<T>(for type: T.Type = T.self) -> T? {
-    for provider in subproviders.read({ Array($0) }) {
-      if let value = provider.provideValue(for: type) { return value }
-    }
-    return storedValues.read { $0[ObjectIdentifier(type)] as? T }
+  /// Provide a value for a given type.
+  ///
+  /// - Parameter type: A type to provide a value for.
+  /// - Returns: A concrete instance of the given type, or `nil` if no value could be provided.
+  public func provideValue<T>(for type: T.Type = T.self) -> T? {
+    return storedValues[ObjectIdentifier(type)] as? T
   }
   
-  func provideValue<T: Providable>(for type: T.Type = T.self) -> T? {
-    for provider in subproviders.read({ Array($0) }) {
-      if let value = provider.provideValue(for: type) { return value }
-    }
-    return storedValues.read { $0[ObjectIdentifier(type)] as? T } ??
-      (enabledIdentifiers
-        .read({ Set($0) })
-        .contains(T.providableIdentifier) ? T.createInstance() : nil)
+  /// Provide a value a given `Providable` type.
+  ///
+  /// - Parameter type: A `Providable` type to provide a value for.
+  /// - Returns: A concrete instance of the given type, or `nil` if no value could be provided.
+  public func provideValue<T: Providable>(for type: T.Type = T.self) -> T? {
+    return storedValues[ObjectIdentifier(type)] as? T ??
+      (enabledIdentifiers.contains(T.providableIdentifier) ? T.createInstance() : nil)
   }
 }

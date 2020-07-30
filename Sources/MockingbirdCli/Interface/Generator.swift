@@ -23,6 +23,7 @@ class Generator {
     let environmentTargetName: String?
     let outputPaths: [Path]?
     let supportPath: Path?
+    let header: [String]?
     let compilationCondition: String?
     let shouldImportModule: Bool
     let onlyMockProtocols: Bool
