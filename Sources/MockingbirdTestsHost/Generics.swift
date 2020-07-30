@@ -33,12 +33,12 @@ where S.Element == EquatableType {
     fatalError()
   }
 
-  public static func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType {
+  public class func methodUsingEquatableTypeWithReturn(equatable: EquatableType) -> EquatableType {
     fatalError()
   }
 
-  public var equatableTypeVariable: EquatableType { return 1 as! EquatableType }
-  public static var equatableTypeVariable: EquatableType { return 1 as! EquatableType }
+  public var equatableTypeVariable: EquatableType { fatalError() }
+  public class var equatableTypeVariable: EquatableType { fatalError() }
 }
 
 public protocol AssociatedTypeImplementerProtocol {
@@ -57,12 +57,12 @@ public class AssociatedTypeImplementer {
     where T.EquatableType == Int, T.HashableType == String {}
 
   func request<T: AssociatedTypeProtocol>(object: T) -> T.EquatableType
-    where T.EquatableType == Int, T.HashableType == String { return 1 }
+    where T.EquatableType == Int, T.HashableType == String { fatalError() }
 
   // Not possible to override overloaded methods where uniqueness is from generic constraints.
   // https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
   func request<T: AssociatedTypeProtocol>(object: T) -> T.EquatableType
-    where T.EquatableType == Bool, T.HashableType == String { return true }
+    where T.EquatableType == Bool, T.HashableType == String { fatalError() }
 }
 
 public protocol AssociatedTypeGenericConstraintsProtocol {

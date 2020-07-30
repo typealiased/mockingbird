@@ -417,7 +417,12 @@ class StubbingTests: BaseTestCase {
     XCTAssertThrowsError(try throwingProtocolInstance.throwingMethod() as Bool)
     verify(throwingProtocol.throwingMethod()).returning(Bool.self).wasCalled()
   }
-  func testStubThrowingMethod_implicitlyRethrowsError() {
+  func testStubParameterizedThrowingMethod_throwsError() {
+    given(throwingProtocol.throwingMethod(block: any())) ~> { _ in throw FakeError() }
+    XCTAssertThrowsError(try throwingProtocolInstance.throwingMethod(block: { true }))
+    verify(throwingProtocol.throwingMethod(block: any())).wasCalled()
+  }
+  func testStubParameterizedThrowingMethod_implicitlyRethrowsError() {
     given(throwingProtocol.throwingMethod(block: any())) ~> { _ = try $0() }
     XCTAssertThrowsError(try throwingProtocolInstance.throwingMethod(block: { throw FakeError() }))
     verify(throwingProtocol.throwingMethod(block: any())).wasCalled()
@@ -433,7 +438,12 @@ class StubbingTests: BaseTestCase {
     XCTAssertThrowsError(try throwingProtocolInstance.throwingMethod() as Bool)
     verify(throwingProtocol.throwingMethod()).returning(Bool.self).wasCalled()
   }
-  func testStubThrowingMethod_implicitlyRethrowsError_explicitSyntax() {
+  func testStubParameterizedThrowingMethod_throwsError_explicitSyntax() {
+    given(throwingProtocol.throwingMethod(block: any())).willThrow(FakeError())
+    XCTAssertThrowsError(try throwingProtocolInstance.throwingMethod(block: { true }))
+    verify(throwingProtocol.throwingMethod(block: any())).wasCalled()
+  }
+  func testStubParameterizedThrowingMethod_implicitlyRethrowsError_explicitSyntax() {
     given(throwingProtocol.throwingMethod(block: any())).will { _ = try $0() }
     XCTAssertThrowsError(try throwingProtocolInstance.throwingMethod(block: { throw FakeError() }))
     verify(throwingProtocol.throwingMethod(block: any())).wasCalled()

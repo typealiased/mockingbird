@@ -43,6 +43,7 @@ class InstallCommand: BaseCommand, AliasableCommand {
   private let outputsArgument: OptionArgument<[PathArgument]>
   private let outputArgument: OptionArgument<[PathArgument]>
   private let supportPathArgument: OptionArgument<PathArgument>
+  private let headerArgument: OptionArgument<[String]>
   private let compilationConditionArgument: OptionArgument<String>
   private let diagnosticsArgument: OptionArgument<[DiagnosticType]>
   private let logLevelArgument: OptionArgument<String>
@@ -70,6 +71,7 @@ class InstallCommand: BaseCommand, AliasableCommand {
     self.outputsArgument = subparser.addOutputs()
     self.outputArgument = subparser.addOutput()
     self.supportPathArgument = subparser.addSupportPath()
+    self.headerArgument = subparser.addHeader()
     self.compilationConditionArgument = subparser.addCompilationCondition()
     self.diagnosticsArgument = subparser.addDiagnostics()
     self.logLevelArgument = subparser.addInstallerLogLevel()
@@ -113,6 +115,7 @@ class InstallCommand: BaseCommand, AliasableCommand {
       outputPaths: outputs,
       supportPath: supportPath,
       cliPath: Path(CommandLine.arguments[0]),
+      header: arguments.get(headerArgument),
       compilationCondition: arguments.get(compilationConditionArgument),
       diagnostics: diagnostics,
       logLevel: logLevel,
