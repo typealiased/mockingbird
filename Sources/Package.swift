@@ -63,15 +63,15 @@ let package = Package(
       path: "MockingbirdTestsHost/Performance"
     ),
     // Uncomment before running `$ swift package generate-xcodeproj`.
-//    .testTarget(
-//      name: "MockingbirdTests",
-//      dependencies: [
-//        "Mockingbird",
-//        "MockingbirdGenerator",
-//        "MockingbirdTestsHost",
-//        "MockingbirdPerformanceTestsHost",
-//      ],
-//      path: "Tests/MockingbirdTests"
-//    ),
+    .testTarget(
+      name: "MockingbirdTests",
+      dependencies: [
+        "Mockingbird",
+        "MockingbirdGenerator",
+        "MockingbirdTestsHost",
+        "MockingbirdPerformanceTestsHost",
+      ],
+      path: "Tests/MockingbirdTests"
+    ),
   ]
 )

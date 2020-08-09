@@ -16,7 +16,8 @@ class TreeTests: XCTestCase {
   
   override func setUp() {
     bird = mock(Bird.self)
-    tree = Tree(with: bird)
+    let leafMock = mock(Leaf.self)
+    tree = Tree(with: bird, leaf: leafMock)
   }
   
   // MARK: - Test shaking

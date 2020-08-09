@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MockingbirdModuleTestsHost
 
 // Implicitly importing `ExternalObjectiveCProtocol` from `MockingbirdModuleTestsHost` via header.
 protocol ImplicitlyImportedExternalObjectiveCType: ExternalObjectiveCProtocol {}

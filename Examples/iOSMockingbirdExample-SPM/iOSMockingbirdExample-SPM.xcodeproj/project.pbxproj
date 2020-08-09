@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		121A46ACF3DD25E768A5F4B8 /* iOSMockingbirdExample_SPMTests-iOSMockingbirdExample_SPMMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C555F5D109832B257CBCBC62 /* iOSMockingbirdExample_SPMTests-iOSMockingbirdExample_SPMMocks.generated.swift */; };
+		9C3266D62FA38050234018CC /* iOSMockingbirdExample_SPMTests-iOSMockingbirdExample_SPMMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C555F5D109832B257CBCBC62 /* iOSMockingbirdExample_SPMTests-iOSMockingbirdExample_SPMMocks.generated.swift */; };
 		D372A5A42456C0EC0000E80A /* Mockingbird in Frameworks */ = {isa = PBXBuildFile; productRef = D372A5A32456C0EC0000E80A /* Mockingbird */; };
 		D372A5A62456C4F30000E80A /* TreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A5A52456C4F30000E80A /* TreeTests.swift */; };
 		D372A5A92456C50D0000E80A /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A5A72456C50C0000E80A /* Tree.swift */; };
@@ -243,11 +243,11 @@
 			);
 			name = "Clean Mockingbird Mocks";
 			outputPaths = (
-				"/tmp/Mockingbird-6EAB9CDD-C217-48F8-A312-628DE001E90E",
+				"/tmp/Mockingbird-F6FF6FD2-D68C-46D7-8630-268AC9275959",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo $RANDOM > '/tmp/Mockingbird-6EAB9CDD-C217-48F8-A312-628DE001E90E'\n";
+			shellScript = "echo $RANDOM > '/tmp/Mockingbird-F6FF6FD2-D68C-46D7-8630-268AC9275959'\n";
 		};
 		521AA37ABF84787FA6EEFA61 /* Generate Mockingbird Mocks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -255,7 +255,7 @@
 			files = (
 			);
 			inputPaths = (
-				"/tmp/Mockingbird-6EAB9CDD-C217-48F8-A312-628DE001E90E",
+				"/tmp/Mockingbird-F6FF6FD2-D68C-46D7-8630-268AC9275959",
 			);
 			name = "Generate Mockingbird Mocks";
 			outputPaths = (
@@ -263,7 +263,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nmockingbird generate \\\n  --targets 'iOSMockingbirdExample-SPM' \\\n  --outputs \"${SRCROOT}/MockingbirdMocks/iOSMockingbirdExample_SPMTests-iOSMockingbirdExample_SPMMocks.generated.swift\" \\\n  --support \"${SRCROOT}/MockingbirdSupport\"\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-6EAB9CDD-C217-48F8-A312-628DE001E90E'\n";
+			shellScript = "set -e\n\nmockingbird generate \\\n  --targets 'iOSMockingbirdExample-SPM' \\\n  --outputs \"${SRCROOT}/MockingbirdMocks/iOSMockingbirdExample_SPMTests-iOSMockingbirdExample_SPMMocks.generated.swift\" \\\n  --support \"${SRCROOT}/MockingbirdSupport\"\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-F6FF6FD2-D68C-46D7-8630-268AC9275959'\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -285,7 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D372A5A62456C4F30000E80A /* TreeTests.swift in Sources */,
-				121A46ACF3DD25E768A5F4B8 /* iOSMockingbirdExample_SPMTests-iOSMockingbirdExample_SPMMocks.generated.swift in Sources */,
+				9C3266D62FA38050234018CC /* iOSMockingbirdExample_SPMTests-iOSMockingbirdExample_SPMMocks.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
