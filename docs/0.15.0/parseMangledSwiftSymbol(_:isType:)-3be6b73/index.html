@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockingbird - parseMangledSwiftSymbol(_:isType:)</title>
+    <link rel="stylesheet" type="text/css" href="/mockingbird/0.15.0/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="/mockingbird/0.15.0">
+            <strong>
+                Mockingbird
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>0.15.0</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol/>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+<small>Function</small>
+<span class="name">parse​Mangled​Swift​Symbol(_:​is​Type:​)</span>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">parseMangledSwiftSymbol</span>(<span class="keyword">_</span> <span class="variable">mangled</span>: <span class="type">String</span>, <span class="variable">isType</span>: <span class="type">Bool</span> = <span class="keyword">false</span>) <span class="keyword">throws</span> -&gt; <a href="/mockingbird/0.15.0/SwiftSymbol-df7f148"><span class="type">SwiftSymbol</span></a></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>This is likely to be the primary entry point to this file. Pass a string containing a Swift mangled symbol or type, get a parsed SwiftSymbol structure which can then be directly examined or printed.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>mangled</th>
+    <td><code class="type">String</code></td></td>
+    <td><p>the string to be parsed (&quot;isType` is false, the string should start with a Swift Symbol prefix, _T, _$S or $S).</p>
+</td>
+</tr>
+<tr>
+    <th>is​Type</th>
+    <td><code class="type">Bool</code></td></td>
+    <td><p>if true, no prefix is parsed and, on completion, the first item on the parse stack is returned.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Throws</h4>
+  <p>a SwiftSymbolParseError error that contains parse position when the error occurred.</p>
+
+  <h4>Returns</h4>
+  <p>the successfully parsed result</p>
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-12T14:19:41-0700">August 12, 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

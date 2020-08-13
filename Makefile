@@ -415,7 +415,7 @@ signed-zip: signed-installables prepare-zip archive
 
 .PHONY: starter-pack-zip
 starter-pack-zip:
-	zip -yr - $(STARTER_PACK_FOLDER) > "$(OUTPUT_STARTER_PACK_ZIP)"
+	(cd Sources; zip -yr - $(STARTER_PACK_FOLDER)) > "$(OUTPUT_STARTER_PACK_ZIP)"
 
 .PHONY: release
 release: package zip starter-pack-zip
