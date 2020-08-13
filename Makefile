@@ -80,7 +80,7 @@ INSTALLABLE_FILENAMES="$(CLI_FILENAME)" \
 	"$(APPLETVSIMULATOR_FRAMEWORK_FILENAME)" \
 	"$(LICENSE_FILENAME)"
 
-STARTER_PACK_FOLDER=Sources/MockingbirdSupport
+STARTER_PACK_FOLDER=MockingbirdSupport
 
 OUTPUT_PACKAGE=Mockingbird.pkg
 OUTPUT_ZIP=Mockingbird.zip
@@ -212,6 +212,8 @@ test-cocoapods: setup-cocoapods
 	$(eval DEVICE_UUID = $(shell xcrun simctl create "$(SIMULATOR_NAME)" "$(SIMULATOR_DEVICE_TYPE)" "$(SIMULATOR_RUNTIME)"))
 	$(BUILD_TOOL) -destination "platform=iOS Simulator,id=$(DEVICE_UUID)" $(EXAMPLE_COCOAPODS_XCODEBUILD_FLAGS) test
 	xcrun simctl delete "$(DEVICE_UUID)"
+	# Ensure the pinned prebuilt binary for CocoaPods exists.
+	[[ -f Examples/iOSMockingbirdExample-CocoaPods/Pods/MockingbirdFramework/mockingbird ]]
 
 .PHONY: test-carthage
 test-carthage: setup-carthage
