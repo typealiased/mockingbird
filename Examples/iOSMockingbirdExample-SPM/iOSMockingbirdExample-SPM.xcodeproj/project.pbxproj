@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		121A46ACF3DD25E768A5F4B8 /* iOSMockingbirdExample_SPMTests-iOSMockingbirdExample_SPMMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C555F5D109832B257CBCBC62 /* iOSMockingbirdExample_SPMTests-iOSMockingbirdExample_SPMMocks.generated.swift */; };
-		D372A5A42456C0EC0000E80A /* Mockingbird in Frameworks */ = {isa = PBXBuildFile; productRef = D372A5A32456C0EC0000E80A /* Mockingbird */; };
 		D372A5A62456C4F30000E80A /* TreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A5A52456C4F30000E80A /* TreeTests.swift */; };
 		D372A5A92456C50D0000E80A /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A5A72456C50C0000E80A /* Tree.swift */; };
 		D372A5AA2456C50D0000E80A /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A5A82456C50C0000E80A /* Bird.swift */; };
+		D37F3C9D24E5D4F2008EE2B3 /* Mockingbird in Frameworks */ = {isa = PBXBuildFile; productRef = D37F3C9C24E5D4F2008EE2B3 /* Mockingbird */; };
 		D388BD552447CF0300EBAB2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388BD542447CF0300EBAB2E /* AppDelegate.swift */; };
 		D388BD572447CF0300EBAB2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388BD562447CF0300EBAB2E /* SceneDelegate.swift */; };
 		D388BD592447CF0300EBAB2E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388BD582447CF0300EBAB2E /* ViewController.swift */; };
@@ -60,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D372A5A42456C0EC0000E80A /* Mockingbird in Frameworks */,
+				D37F3C9D24E5D4F2008EE2B3 /* Mockingbird in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,7 +165,7 @@
 			);
 			name = "iOSMockingbirdExample-SPMTests";
 			packageProductDependencies = (
-				D372A5A32456C0EC0000E80A /* Mockingbird */,
+				D37F3C9C24E5D4F2008EE2B3 /* Mockingbird */,
 			);
 			productName = "iOSMockingbirdExample-SPMTests";
 			productReference = D388BD672447CF0500EBAB2E /* iOSMockingbirdExample-SPMTests.xctest */;
@@ -201,7 +201,7 @@
 			);
 			mainGroup = D388BD482447CF0300EBAB2E;
 			packageReferences = (
-				D372A5A22456C0EC0000E80A /* XCRemoteSwiftPackageReference "mockingbird" */,
+				D37F3C9B24E5D4F2008EE2B3 /* XCRemoteSwiftPackageReference "mockingbird" */,
 			);
 			productRefGroup = D388BD522447CF0300EBAB2E /* Products */;
 			projectDirPath = "";
@@ -545,20 +545,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D372A5A22456C0EC0000E80A /* XCRemoteSwiftPackageReference "mockingbird" */ = {
+		D37F3C9B24E5D4F2008EE2B3 /* XCRemoteSwiftPackageReference "mockingbird" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/birdrides/mockingbird.git";
+			repositoryURL = "https://github.com/birdrides/mockingbird";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 0.14.0;
+				minimumVersion = 0.15.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D372A5A32456C0EC0000E80A /* Mockingbird */ = {
+		D37F3C9C24E5D4F2008EE2B3 /* Mockingbird */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D372A5A22456C0EC0000E80A /* XCRemoteSwiftPackageReference "mockingbird" */;
+			package = D37F3C9B24E5D4F2008EE2B3 /* XCRemoteSwiftPackageReference "mockingbird" */;
 			productName = Mockingbird;
 		};
 /* End XCSwiftPackageProductDependency section */
