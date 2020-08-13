@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockingbird - SwiftSymbol.Kind</title>
+    <link rel="stylesheet" type="text/css" href="/mockingbird/0.15.0/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="/mockingbird/0.15.0">
+            <strong>
+                Mockingbird
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>0.15.0</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#swiftsymbol.kind.`class`">`class`</a></li><li class="case"><a href="#swiftsymbol.kind.`enum`">`enum`</a></li><li class="case"><a href="#swiftsymbol.kind.`extension`">`extension`</a></li><li class="case"><a href="#swiftsymbol.kind.`protocol`">`protocol`</a></li><li class="case"><a href="#swiftsymbol.kind.protocolsymbolicreference">protocol​Symbolic​Reference</a></li><li class="case"><a href="#swiftsymbol.kind.`static`">`static`</a></li><li class="case"><a href="#swiftsymbol.kind.`subscript`">`subscript`</a></li><li class="case"><a href="#swiftsymbol.kind.allocator">allocator</a></li><li class="case"><a href="#swiftsymbol.kind.anonymouscontext">anonymous​Context</a></li><li class="case"><a href="#swiftsymbol.kind.anonymousdescriptor">anonymous​Descriptor</a></li><li class="case"><a href="#swiftsymbol.kind.argumenttuple">argument​Tuple</a></li><li class="case"><a href="#swiftsymbol.kind.associatedconformancedescriptor">associated​Conformance​Descriptor</a></li><li class="case"><a href="#swiftsymbol.kind.associatedtype">associated​Type</a></li><li class="case"><a href="#swiftsymbol.kind.associatedtypedescriptor">associated​Type​Descriptor</a></li><li class="case"><a href="#swiftsymbol.kind.associatedtypegenericparamref">associated​Type​Generic​Param​Ref</a></li><li class="case"><a href="#swiftsymbol.kind.associatedtypemetadataaccessor">associated​Type​Metadata​Accessor</a></li><li class="case"><a href="#swiftsymbol.kind.associatedtyperef">associated​Type​Ref</a></li><li class="case"><a href="#swiftsymbol.kind.associatedtypewitnesstableaccessor">associated​Type​Witness​Table​Accessor</a></li><li class="case"><a href="#swiftsymbol.kind.assoctypepath">assoc​Type​Path</a></li><li class="case"><a href="#swiftsymbol.kind.autoclosuretype">auto​Closure​Type</a></li><li class="case"><a href="#swiftsymbol.kind.boundgenericclass">bound​Generic​Class</a></li><li class="case"><a href="#swiftsymbol.kind.boundgenericenum">bound​Generic​Enum</a></li><li class="case"><a href="#swiftsymbol.kind.boundgenericfunction">bound​Generic​Function</a></li><li class="case"><a href="#swiftsymbol.kind.boundgenericothernominaltype">bound​Generic​Other​Nominal​Type</a></li><li class="case"><a href="#swiftsymbol.kind.boundgenericprotocol">bound​Generic​Protocol</a></li><li class="case"><a href="#swiftsymbol.kind.boundgenericstructure">bound​Generic​Structure</a></li><li class="case"><a href="#swiftsymbol.kind.boundgenerictypealias">bound​Generic​Type​Alias</a></li><li class="case"><a href="#swiftsymbol.kind.builtintypename">builtin​Type​Name</a></li><li class="case"><a href="#swiftsymbol.kind.cfunctionpointer">cFunction​Pointer</a></li><li class="case"><a href="#swiftsymbol.kind.classmetadatabaseoffset">class​Metadata​Base​Offset</a></li><li class="case"><a href="#swiftsymbol.kind.constructor">constructor</a></li><li class="case"><a href="#swiftsymbol.kind.coroutinecontinuationprototype">coroutine​Continuation​Prototype</a></li><li class="case"><a href="#swiftsymbol.kind.currythunk">curry​Thunk</a></li><li class="case"><a href="#swiftsymbol.kind.deallocator">deallocator</a></li><li class="case"><a href="#swiftsymbol.kind.declcontext">decl​Context</a></li><li class="case"><a href="#swiftsymbol.kind.defaultargumentinitializer">default​Argument​Initializer</a></li><li class="case"><a href="#swiftsymbol.kind.defaultassociatedconformanceaccessor">default​Associated​Conformance​Accessor</a></li><li class="case"><a href="#swiftsymbol.kind.defaultassociatedtypemetadataaccessor">default​Associated​Type​Metadata​Accessor</a></li><li class="case"><a href="#swiftsymbol.kind.dependentassociatedtyperef">dependent​Associated​Type​Ref</a></li><li class="case"><a href="#swiftsymbol.kind.dependentgenericconformancerequirement">dependent​Generic​Conformance​Requirement</a></li><li class="case"><a href="#swiftsymbol.kind.dependentgenericlayoutrequirement">dependent​Generic​Layout​Requirement</a></li><li class="case"><a href="#swiftsymbol.kind.dependentgenericparamcount">dependent​Generic​Param​Count</a></li><li class="case"><a href="#swiftsymbol.kind.dependentgenericparamtype">dependent​Generic​Param​Type</a></li><li class="case"><a href="#swiftsymbol.kind.dependentgenericsametyperequirement">dependent​Generic​Same​Type​Requirement</a></li><li class="case"><a href="#swiftsymbol.kind.dependentgenericsignature">dependent​Generic​Signature</a></li><li class="case"><a href="#swiftsymbol.kind.dependentgenerictype">dependent​Generic​Type</a></li><li class="case"><a href="#swiftsymbol.kind.dependentmembertype">dependent​Member​Type</a></li><li class="case"><a href="#swiftsymbol.kind.dependentpseudogenericsignature">dependent​Pseudogeneric​Signature</a></li><li class="case"><a href="#swiftsymbol.kind.destructor">destructor</a></li><li class="case"><a href="#swiftsymbol.kind.didset">did​Set</a></li><li class="case"><a href="#swiftsymbol.kind.directmethodreferenceattribute">direct​Method​Reference​Attribute</a></li><li class="case"><a href="#swiftsymbol.kind.directness">directness</a></li><li class="case"><a href="#swiftsymbol.kind.dispatchthunk">dispatch​Thunk</a></li><li class="case"><a href="#swiftsymbol.kind.dynamicattribute">dynamic​Attribute</a></li><li class="case"><a href="#swiftsymbol.kind.dynamicself">dynamic​Self</a></li><li class="case"><a href="#swiftsymbol.kind.emptylist">empty​List</a></li><li class="case"><a href="#swiftsymbol.kind.enumcase">enum​Case</a></li><li class="case"><a href="#swiftsymbol.kind.errortype">error​Type</a></li><li class="case"><a href="#swiftsymbol.kind.escapingautoclosuretype">escaping​Auto​Closure​Type</a></li><li class="case"><a href="#swiftsymbol.kind.existentialmetatype">existential​Metatype</a></li><li class="case"><a href="#swiftsymbol.kind.explicitclosure">explicit​Closure</a></li><li class="case"><a href="#swiftsymbol.kind.extensiondescriptor">extension​Descriptor</a></li><li class="case"><a href="#swiftsymbol.kind.fieldoffset">field​Offset</a></li><li class="case"><a href="#swiftsymbol.kind.firstelementmarker">first​Element​Marker</a></li><li class="case"><a href="#swiftsymbol.kind.fulltypemetadata">full​Type​Metadata</a></li><li class="case"><a href="#swiftsymbol.kind.function">function</a></li><li class="case"><a href="#swiftsymbol.kind.functionsignaturespecialization">function​Signature​Specialization</a></li><li class="case"><a href="#swiftsymbol.kind.functionsignaturespecializationparam">function​Signature​Specialization​Param</a></li><li class="case"><a href="#swiftsymbol.kind.functionsignaturespecializationparamkind">function​Signature​Specialization​Param​Kind</a></li><li class="case"><a href="#swiftsymbol.kind.functionsignaturespecializationparampayload">function​Signature​Specialization​Param​Payload</a></li><li class="case"><a href="#swiftsymbol.kind.functiontype">function​Type</a></li><li class="case"><a href="#swiftsymbol.kind.genericpartialspecialization">generic​Partial​Specialization</a></li><li class="case"><a href="#swiftsymbol.kind.genericpartialspecializationnotreabstracted">generic​Partial​Specialization​Not​ReAbstracted</a></li><li class="case"><a href="#swiftsymbol.kind.genericprotocolwitnesstable">generic​Protocol​Witness​Table</a></li><li class="case"><a href="#swiftsymbol.kind.genericprotocolwitnesstableinstantiationfunction">generic​Protocol​Witness​Table​Instantiation​Function</a></li><li class="case"><a href="#swiftsymbol.kind.genericspecialization">generic​Specialization</a></li><li class="case"><a href="#swiftsymbol.kind.genericspecializationnotreabstracted">generic​Specialization​Not​ReAbstracted</a></li><li class="case"><a href="#swiftsymbol.kind.genericspecializationparam">generic​Specialization​Param</a></li><li class="case"><a href="#swiftsymbol.kind.generictypemetadatapattern">generic​Type​Metadata​Pattern</a></li><li class="case"><a href="#swiftsymbol.kind.generictypeparamdecl">generic​Type​Param​Decl</a></li><li class="case"><a href="#swiftsymbol.kind.getter">getter</a></li><li class="case"><a href="#swiftsymbol.kind.global">global</a></li><li class="case"><a href="#swiftsymbol.kind.globalgetter">global​Getter</a></li><li class="case"><a href="#swiftsymbol.kind.identifier">identifier</a></li><li class="case"><a href="#swiftsymbol.kind.implconvention">impl​Convention</a></li><li class="case"><a href="#swiftsymbol.kind.implerrorresult">impl​Error​Result</a></li><li class="case"><a href="#swiftsymbol.kind.implescaping">impl​Escaping</a></li><li class="case"><a href="#swiftsymbol.kind.implfunctionattribute">impl​Function​Attribute</a></li><li class="case"><a href="#swiftsymbol.kind.implfunctiontype">impl​Function​Type</a></li><li class="case"><a href="#swiftsymbol.kind.implicitclosure">implicit​Closure</a></li><li class="case"><a href="#swiftsymbol.kind.implparameter">impl​Parameter</a></li><li class="case"><a href="#swiftsymbol.kind.implresult">impl​Result</a></li><li class="case"><a href="#swiftsymbol.kind.index">index</a></li><li class="case"><a href="#swiftsymbol.kind.infixoperator">infix​Operator</a></li><li class="case"><a href="#swiftsymbol.kind.initializer">initializer</a></li><li class="case"><a href="#swiftsymbol.kind.inlinedgenericfunction">inlined​Generic​Function</a></li><li class="case"><a href="#swiftsymbol.kind.inout">in​Out</a></li><li class="case"><a href="#swiftsymbol.kind.isserialized">is​Serialized</a></li><li class="case"><a href="#swiftsymbol.kind.ivardestroyer">iVar​Destroyer</a></li><li class="case"><a href="#swiftsymbol.kind.ivarinitializer">iVar​Initializer</a></li><li class="case"><a href="#swiftsymbol.kind.keypathequalsthunkhelper">key​Path​Equals​Thunk​Helper</a></li><li class="case"><a href="#swiftsymbol.kind.keypathgetterthunkhelper">key​Path​Getter​Thunk​Helper</a></li><li class="case"><a href="#swiftsymbol.kind.keypathhashthunkhelper">key​Path​Hash​Thunk​Helper</a></li><li class="case"><a href="#swiftsymbol.kind.keypathsetterthunkhelper">key​Path​Setter​Thunk​Helper</a></li><li class="case"><a href="#swiftsymbol.kind.labellist">label​List</a></li><li class="case"><a href="#swiftsymbol.kind.lazyprotocolwitnesstableaccessor">lazy​Protocol​Witness​Table​Accessor</a></li><li class="case"><a href="#swiftsymbol.kind.lazyprotocolwitnesstablecachevariable">lazy​Protocol​Witness​Table​Cache​Variable</a></li><li class="case"><a href="#swiftsymbol.kind.localdeclname">local​Decl​Name</a></li><li class="case"><a href="#swiftsymbol.kind.materializeforset">materialize​For​Set</a></li><li class="case"><a href="#swiftsymbol.kind.mergedfunction">merged​Function</a></li><li class="case"><a href="#swiftsymbol.kind.metaclass">metaclass</a></li><li class="case"><a href="#swiftsymbol.kind.metatype">metatype</a></li><li class="case"><a href="#swiftsymbol.kind.metatyperepresentation">metatype​Representation</a></li><li class="case"><a href="#swiftsymbol.kind.methoddescriptor">method​Descriptor</a></li><li class="case"><a href="#swiftsymbol.kind.methodlookupfunction">method​Lookup​Function</a></li><li class="case"><a href="#swiftsymbol.kind.modifyaccessor">modify​Accessor</a></li><li class="case"><a href="#swiftsymbol.kind.module">module</a></li><li class="case"><a href="#swiftsymbol.kind.moduledescriptor">module​Descriptor</a></li><li class="case"><a href="#swiftsymbol.kind.nativeowningaddressor">native​Owning​Addressor</a></li><li class="case"><a href="#swiftsymbol.kind.nativeowningmutableaddressor">native​Owning​Mutable​Addressor</a></li><li class="case"><a href="#swiftsymbol.kind.nativepinningaddressor">native​Pinning​Addressor</a></li><li class="case"><a href="#swiftsymbol.kind.nativepinningmutableaddressor">native​Pinning​Mutable​Addressor</a></li><li class="case"><a href="#swiftsymbol.kind.noescapefunctiontype">no​Escape​Function​Type</a></li><li class="case"><a href="#swiftsymbol.kind.nominaltypedescriptor">nominal​Type​Descriptor</a></li><li class="case"><a href="#swiftsymbol.kind.nonobjcattribute">non​Obj​CAttribute</a></li><li class="case"><a href="#swiftsymbol.kind.number">number</a></li><li class="case"><a href="#swiftsymbol.kind.objcattribute">obj​CAttribute</a></li><li class="case"><a href="#swiftsymbol.kind.objcblock">obj​CBlock</a></li><li class="case"><a href="#swiftsymbol.kind.othernominaltype">other​Nominal​Type</a></li><li class="case"><a href="#swiftsymbol.kind.outlinedassignwithcopy">outlined​Assign​With​Copy</a></li><li class="case"><a href="#swiftsymbol.kind.outlinedassignwithtake">outlined​Assign​With​Take</a></li><li class="case"><a href="#swiftsymbol.kind.outlinedbridgedmethod">outlined​Bridged​Method</a></li><li class="case"><a href="#swiftsymbol.kind.outlinedconsume">outlined​Consume</a></li><li class="case"><a href="#swiftsymbol.kind.outlinedcopy">outlined​Copy</a></li><li class="case"><a href="#swiftsymbol.kind.outlineddestroy">outlined​Destroy</a></li><li class="case"><a href="#swiftsymbol.kind.outlinedinitializewithcopy">outlined​Initialize​With​Copy</a></li><li class="case"><a href="#swiftsymbol.kind.outlinedinitializewithtake">outlined​Initialize​With​Take</a></li><li class="case"><a href="#swiftsymbol.kind.outlinedrelease">outlined​Release</a></li><li class="case"><a href="#swiftsymbol.kind.outlinedretain">outlined​Retain</a></li><li class="case"><a href="#swiftsymbol.kind.outlinedvariable">outlined​Variable</a></li><li class="case"><a href="#swiftsymbol.kind.owned">owned</a></li><li class="case"><a href="#swiftsymbol.kind.owningaddressor">owning​Addressor</a></li><li class="case"><a href="#swiftsymbol.kind.owningmutableaddressor">owning​Mutable​Addressor</a></li><li class="case"><a href="#swiftsymbol.kind.partialapplyforwarder">partial​Apply​Forwarder</a></li><li class="case"><a href="#swiftsymbol.kind.partialapplyobjcforwarder">partial​Apply​Obj​CForwarder</a></li><li class="case"><a href="#swiftsymbol.kind.postfixoperator">postfix​Operator</a></li><li class="case"><a href="#swiftsymbol.kind.prefixoperator">prefix​Operator</a></li><li class="case"><a href="#swiftsymbol.kind.privatedeclname">private​Decl​Name</a></li><li class="case"><a href="#swiftsymbol.kind.propertydescriptor">property​Descriptor</a></li><li class="case"><a href="#swiftsymbol.kind.protocolconformance">protocol​Conformance</a></li><li class="case"><a href="#swiftsymbol.kind.protocolconformancedescriptor">protocol​Conformance​Descriptor</a></li><li class="case"><a href="#swiftsymbol.kind.protocoldescriptor">protocol​Descriptor</a></li><li class="case"><a href="#swiftsymbol.kind.protocollist">protocol​List</a></li><li class="case"><a href="#swiftsymbol.kind.protocollistwithanyobject">protocol​List​With​Any​Object</a></li><li class="case"><a href="#swiftsymbol.kind.protocollistwithclass">protocol​List​With​Class</a></li><li class="case"><a href="#swiftsymbol.kind.protocolrequirementsbasedescriptor">protocol​Requirements​Base​Descriptor</a></li><li class="case"><a href="#swiftsymbol.kind.protocolwitness">protocol​Witness</a></li><li class="case"><a href="#swiftsymbol.kind.protocolwitnesstable">protocol​Witness​Table</a></li><li class="case"><a href="#swiftsymbol.kind.protocolwitnesstableaccessor">protocol​Witness​Table​Accessor</a></li><li class="case"><a href="#swiftsymbol.kind.protocolwitnesstablepattern">protocol​Witness​Table​Pattern</a></li><li class="case"><a href="#swiftsymbol.kind.reabstractionthunk">reabstraction​Thunk</a></li><li class="case"><a href="#swiftsymbol.kind.reabstractionthunkhelper">reabstraction​Thunk​Helper</a></li><li class="case"><a href="#swiftsymbol.kind.readaccessor">read​Accessor</a></li><li class="case"><a href="#swiftsymbol.kind.reflectionmetadataassoctypedescriptor">reflection​Metadata​Assoc​Type​Descriptor</a></li><li class="case"><a href="#swiftsymbol.kind.reflectionmetadatabuiltindescriptor">reflection​Metadata​Builtin​Descriptor</a></li><li class="case"><a href="#swiftsymbol.kind.reflectionmetadatafielddescriptor">reflection​Metadata​Field​Descriptor</a></li><li class="case"><a href="#swiftsymbol.kind.reflectionmetadatasuperclassdescriptor">reflection​Metadata​Superclass​Descriptor</a></li><li class="case"><a href="#swiftsymbol.kind.relatedentitydeclname">related​Entity​Decl​Name</a></li><li class="case"><a href="#swiftsymbol.kind.resilientprotocolwitnesstable">resilient​Protocol​Witness​Table</a></li><li class="case"><a href="#swiftsymbol.kind.retroactiveconformance">retroactive​Conformance</a></li><li class="case"><a href="#swiftsymbol.kind.returntype">return​Type</a></li><li class="case"><a href="#swiftsymbol.kind.setter">setter</a></li><li class="case"><a href="#swiftsymbol.kind.shared">shared</a></li><li class="case"><a href="#swiftsymbol.kind.silboximmutablefield">sil​Box​Immutable​Field</a></li><li class="case"><a href="#swiftsymbol.kind.silboxlayout">sil​Box​Layout</a></li><li class="case"><a href="#swiftsymbol.kind.silboxmutablefield">sil​Box​Mutable​Field</a></li><li class="case"><a href="#swiftsymbol.kind.silboxtype">sil​Box​Type</a></li><li class="case"><a href="#swiftsymbol.kind.silboxtypewithlayout">sil​Box​Type​With​Layout</a></li><li class="case"><a href="#swiftsymbol.kind.specializationpassid">specialization​Pass​ID</a></li><li class="case"><a href="#swiftsymbol.kind.structure">structure</a></li><li class="case"><a href="#swiftsymbol.kind.suffix">suffix</a></li><li class="case"><a href="#swiftsymbol.kind.sugaredoptional">sugared​Optional</a></li><li class="case"><a href="#swiftsymbol.kind.sugaredarray">sugared​Array</a></li><li class="case"><a href="#swiftsymbol.kind.sugareddictionary">sugared​Dictionary</a></li><li class="case"><a href="#swiftsymbol.kind.sugaredparen">sugared​Paren</a></li><li class="case"><a href="#swiftsymbol.kind.typesymbolicreference">type​Symbolic​Reference</a></li><li class="case"><a href="#swiftsymbol.kind.thinfunctiontype">thin​Function​Type</a></li><li class="case"><a href="#swiftsymbol.kind.throwsannotation">throws​Annotation</a></li><li class="case"><a href="#swiftsymbol.kind.tuple">tuple</a></li><li class="case"><a href="#swiftsymbol.kind.tupleelement">tuple​Element</a></li><li class="case"><a href="#swiftsymbol.kind.tupleelementname">tuple​Element​Name</a></li><li class="case"><a href="#swiftsymbol.kind.type">type</a></li><li class="case"><a href="#swiftsymbol.kind.typealias">type​Alias</a></li><li class="case"><a href="#swiftsymbol.kind.typelist">type​List</a></li><li class="case"><a href="#swiftsymbol.kind.typemangling">type​Mangling</a></li><li class="case"><a href="#swiftsymbol.kind.typemetadata">type​Metadata</a></li><li class="case"><a href="#swiftsymbol.kind.typemetadataaccessfunction">type​Metadata​Access​Function</a></li><li class="case"><a href="#swiftsymbol.kind.typemetadatacompletionfunction">type​Metadata​Completion​Function</a></li><li class="case"><a href="#swiftsymbol.kind.typemetadatainstantiationcache">type​Metadata​Instantiation​Cache</a></li><li class="case"><a href="#swiftsymbol.kind.typemetadatainstantiationfunction">type​Metadata​Instantiation​Function</a></li><li class="case"><a href="#swiftsymbol.kind.typemetadatalazycache">type​Metadata​Lazy​Cache</a></li><li class="case"><a href="#swiftsymbol.kind.typemetadatasingletoninitializationcache">type​Metadata​Singleton​Initialization​Cache</a></li><li class="case"><a href="#swiftsymbol.kind.uncurriedfunctiontype">uncurried​Function​Type</a></li><li class="case"><a href="#swiftsymbol.kind.unmanaged">unmanaged</a></li><li class="case"><a href="#swiftsymbol.kind.unowned">unowned</a></li><li class="case"><a href="#swiftsymbol.kind.unsafeaddressor">unsafe​Addressor</a></li><li class="case"><a href="#swiftsymbol.kind.unsafemutableaddressor">unsafe​Mutable​Addressor</a></li><li class="case"><a href="#swiftsymbol.kind.valuewitness">value​Witness</a></li><li class="case"><a href="#swiftsymbol.kind.valuewitnesstable">value​Witness​Table</a></li><li class="case"><a href="#swiftsymbol.kind.variable">variable</a></li><li class="case"><a href="#swiftsymbol.kind.variadicmarker">variadic​Marker</a></li><li class="case"><a href="#swiftsymbol.kind.vtableattribute">vTable​Attribute</a></li><li class="case"><a href="#swiftsymbol.kind.vtablethunk">vTable​Thunk</a></li><li class="case"><a href="#swiftsymbol.kind.weak">weak</a></li><li class="case"><a href="#swiftsymbol.kind.willset">will​Set</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Enumeration</small>
+    <code class="name">Swift​Symbol.​Kind</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">Kind</span></code></pre></body></html>
+<section id="relationships">
+    <h2 hidden>Relationships</h2>
+        
+        <h3>Member Of</h3>
+<dl>
+    <dt class="structure"><code><a href="/mockingbird/0.15.0/SwiftSymbol-df7f148">SwiftSymbol</a></code></dt>
+<dd></dd>
+</dl>
+</section>
+    <section id="enumeration cases">
+        <h2>Enumeration Cases</h2>
+
+        <div role="article" class="case" id="swiftsymbol.kind.`class`">
+    <h3>
+        <code>`class`</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">`class`</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.`enum`">
+    <h3>
+        <code>`enum`</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">`enum`</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.`extension`">
+    <h3>
+        <code>`extension`</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">`extension`</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.`protocol`">
+    <h3>
+        <code>`protocol`</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">`protocol`</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.protocolsymbolicreference">
+    <h3>
+        <code>protocol​Symbolic​Reference</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">protocolSymbolicReference</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.`static`">
+    <h3>
+        <code>`static`</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">`static`</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.`subscript`">
+    <h3>
+        <code>`subscript`</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">`subscript`</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.allocator">
+    <h3>
+        <code>allocator</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">allocator</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.anonymouscontext">
+    <h3>
+        <code>anonymous​Context</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">anonymousContext</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.anonymousdescriptor">
+    <h3>
+        <code>anonymous​Descriptor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">anonymousDescriptor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.argumenttuple">
+    <h3>
+        <code>argument​Tuple</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">argumentTuple</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.associatedconformancedescriptor">
+    <h3>
+        <code>associated​Conformance​Descriptor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">associatedConformanceDescriptor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.associatedtype">
+    <h3>
+        <code>associated​Type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">associatedType</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.associatedtypedescriptor">
+    <h3>
+        <code>associated​Type​Descriptor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">associatedTypeDescriptor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.associatedtypegenericparamref">
+    <h3>
+        <code>associated​Type​Generic​Param​Ref</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">associatedTypeGenericParamRef</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.associatedtypemetadataaccessor">
+    <h3>
+        <code>associated​Type​Metadata​Accessor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">associatedTypeMetadataAccessor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.associatedtyperef">
+    <h3>
+        <code>associated​Type​Ref</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">associatedTypeRef</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.associatedtypewitnesstableaccessor">
+    <h3>
+        <code>associated​Type​Witness​Table​Accessor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">associatedTypeWitnessTableAccessor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.assoctypepath">
+    <h3>
+        <code>assoc​Type​Path</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">assocTypePath</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.autoclosuretype">
+    <h3>
+        <code>auto​Closure​Type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">autoClosureType</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.boundgenericclass">
+    <h3>
+        <code>bound​Generic​Class</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">boundGenericClass</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.boundgenericenum">
+    <h3>
+        <code>bound​Generic​Enum</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">boundGenericEnum</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.boundgenericfunction">
+    <h3>
+        <code>bound​Generic​Function</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">boundGenericFunction</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.boundgenericothernominaltype">
+    <h3>
+        <code>bound​Generic​Other​Nominal​Type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">boundGenericOtherNominalType</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.boundgenericprotocol">
+    <h3>
+        <code>bound​Generic​Protocol</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">boundGenericProtocol</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.boundgenericstructure">
+    <h3>
+        <code>bound​Generic​Structure</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">boundGenericStructure</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.boundgenerictypealias">
+    <h3>
+        <code>bound​Generic​Type​Alias</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">boundGenericTypeAlias</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.builtintypename">
+    <h3>
+        <code>builtin​Type​Name</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">builtinTypeName</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.cfunctionpointer">
+    <h3>
+        <code>cFunction​Pointer</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">cFunctionPointer</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.classmetadatabaseoffset">
+    <h3>
+        <code>class​Metadata​Base​Offset</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">classMetadataBaseOffset</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.constructor">
+    <h3>
+        <code>constructor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">constructor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.coroutinecontinuationprototype">
+    <h3>
+        <code>coroutine​Continuation​Prototype</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">coroutineContinuationPrototype</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.currythunk">
+    <h3>
+        <code>curry​Thunk</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">curryThunk</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.deallocator">
+    <h3>
+        <code>deallocator</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">deallocator</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.declcontext">
+    <h3>
+        <code>decl​Context</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">declContext</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.defaultargumentinitializer">
+    <h3>
+        <code>default​Argument​Initializer</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">defaultArgumentInitializer</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.defaultassociatedconformanceaccessor">
+    <h3>
+        <code>default​Associated​Conformance​Accessor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">defaultAssociatedConformanceAccessor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.defaultassociatedtypemetadataaccessor">
+    <h3>
+        <code>default​Associated​Type​Metadata​Accessor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">defaultAssociatedTypeMetadataAccessor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.dependentassociatedtyperef">
+    <h3>
+        <code>dependent​Associated​Type​Ref</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">dependentAssociatedTypeRef</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.dependentgenericconformancerequirement">
+    <h3>
+        <code>dependent​Generic​Conformance​Requirement</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">dependentGenericConformanceRequirement</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.dependentgenericlayoutrequirement">
+    <h3>
+        <code>dependent​Generic​Layout​Requirement</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">dependentGenericLayoutRequirement</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.dependentgenericparamcount">
+    <h3>
+        <code>dependent​Generic​Param​Count</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">dependentGenericParamCount</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.dependentgenericparamtype">
+    <h3>
+        <code>dependent​Generic​Param​Type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">dependentGenericParamType</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.dependentgenericsametyperequirement">
+    <h3>
+        <code>dependent​Generic​Same​Type​Requirement</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">dependentGenericSameTypeRequirement</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.dependentgenericsignature">
+    <h3>
+        <code>dependent​Generic​Signature</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">dependentGenericSignature</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.dependentgenerictype">
+    <h3>
+        <code>dependent​Generic​Type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">dependentGenericType</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.dependentmembertype">
+    <h3>
+        <code>dependent​Member​Type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">dependentMemberType</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.dependentpseudogenericsignature">
+    <h3>
+        <code>dependent​Pseudogeneric​Signature</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">dependentPseudogenericSignature</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.destructor">
+    <h3>
+        <code>destructor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">destructor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.didset">
+    <h3>
+        <code>did​Set</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">didSet</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.directmethodreferenceattribute">
+    <h3>
+        <code>direct​Method​Reference​Attribute</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">directMethodReferenceAttribute</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.directness">
+    <h3>
+        <code>directness</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">directness</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.dispatchthunk">
+    <h3>
+        <code>dispatch​Thunk</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">dispatchThunk</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.dynamicattribute">
+    <h3>
+        <code>dynamic​Attribute</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">dynamicAttribute</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.dynamicself">
+    <h3>
+        <code>dynamic​Self</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">dynamicSelf</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.emptylist">
+    <h3>
+        <code>empty​List</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">emptyList</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.enumcase">
+    <h3>
+        <code>enum​Case</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">enumCase</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.errortype">
+    <h3>
+        <code>error​Type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">errorType</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.escapingautoclosuretype">
+    <h3>
+        <code>escaping​Auto​Closure​Type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">escapingAutoClosureType</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.existentialmetatype">
+    <h3>
+        <code>existential​Metatype</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">existentialMetatype</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.explicitclosure">
+    <h3>
+        <code>explicit​Closure</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">explicitClosure</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.extensiondescriptor">
+    <h3>
+        <code>extension​Descriptor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">extensionDescriptor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.fieldoffset">
+    <h3>
+        <code>field​Offset</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">fieldOffset</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.firstelementmarker">
+    <h3>
+        <code>first​Element​Marker</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">firstElementMarker</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.fulltypemetadata">
+    <h3>
+        <code>full​Type​Metadata</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">fullTypeMetadata</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.function">
+    <h3>
+        <code>function</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">function</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.functionsignaturespecialization">
+    <h3>
+        <code>function​Signature​Specialization</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">functionSignatureSpecialization</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.functionsignaturespecializationparam">
+    <h3>
+        <code>function​Signature​Specialization​Param</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">functionSignatureSpecializationParam</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.functionsignaturespecializationparamkind">
+    <h3>
+        <code>function​Signature​Specialization​Param​Kind</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">functionSignatureSpecializationParamKind</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.functionsignaturespecializationparampayload">
+    <h3>
+        <code>function​Signature​Specialization​Param​Payload</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">functionSignatureSpecializationParamPayload</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.functiontype">
+    <h3>
+        <code>function​Type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">functionType</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.genericpartialspecialization">
+    <h3>
+        <code>generic​Partial​Specialization</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">genericPartialSpecialization</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.genericpartialspecializationnotreabstracted">
+    <h3>
+        <code>generic​Partial​Specialization​Not​ReAbstracted</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">genericPartialSpecializationNotReAbstracted</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.genericprotocolwitnesstable">
+    <h3>
+        <code>generic​Protocol​Witness​Table</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">genericProtocolWitnessTable</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.genericprotocolwitnesstableinstantiationfunction">
+    <h3>
+        <code>generic​Protocol​Witness​Table​Instantiation​Function</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">genericProtocolWitnessTableInstantiationFunction</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.genericspecialization">
+    <h3>
+        <code>generic​Specialization</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">genericSpecialization</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.genericspecializationnotreabstracted">
+    <h3>
+        <code>generic​Specialization​Not​ReAbstracted</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">genericSpecializationNotReAbstracted</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.genericspecializationparam">
+    <h3>
+        <code>generic​Specialization​Param</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">genericSpecializationParam</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.generictypemetadatapattern">
+    <h3>
+        <code>generic​Type​Metadata​Pattern</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">genericTypeMetadataPattern</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.generictypeparamdecl">
+    <h3>
+        <code>generic​Type​Param​Decl</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">genericTypeParamDecl</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.getter">
+    <h3>
+        <code>getter</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">getter</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.global">
+    <h3>
+        <code>global</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">global</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.globalgetter">
+    <h3>
+        <code>global​Getter</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">globalGetter</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.identifier">
+    <h3>
+        <code>identifier</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">identifier</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.implconvention">
+    <h3>
+        <code>impl​Convention</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">implConvention</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.implerrorresult">
+    <h3>
+        <code>impl​Error​Result</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">implErrorResult</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.implescaping">
+    <h3>
+        <code>impl​Escaping</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">implEscaping</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.implfunctionattribute">
+    <h3>
+        <code>impl​Function​Attribute</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">implFunctionAttribute</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.implfunctiontype">
+    <h3>
+        <code>impl​Function​Type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">implFunctionType</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.implicitclosure">
+    <h3>
+        <code>implicit​Closure</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">implicitClosure</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.implparameter">
+    <h3>
+        <code>impl​Parameter</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">implParameter</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.implresult">
+    <h3>
+        <code>impl​Result</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">implResult</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.index">
+    <h3>
+        <code>index</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">index</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.infixoperator">
+    <h3>
+        <code>infix​Operator</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">infixOperator</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.initializer">
+    <h3>
+        <code>initializer</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">initializer</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.inlinedgenericfunction">
+    <h3>
+        <code>inlined​Generic​Function</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">inlinedGenericFunction</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.inout">
+    <h3>
+        <code>in​Out</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">inOut</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.isserialized">
+    <h3>
+        <code>is​Serialized</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">isSerialized</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.ivardestroyer">
+    <h3>
+        <code>iVar​Destroyer</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">iVarDestroyer</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.ivarinitializer">
+    <h3>
+        <code>iVar​Initializer</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">iVarInitializer</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.keypathequalsthunkhelper">
+    <h3>
+        <code>key​Path​Equals​Thunk​Helper</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">keyPathEqualsThunkHelper</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.keypathgetterthunkhelper">
+    <h3>
+        <code>key​Path​Getter​Thunk​Helper</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">keyPathGetterThunkHelper</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.keypathhashthunkhelper">
+    <h3>
+        <code>key​Path​Hash​Thunk​Helper</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">keyPathHashThunkHelper</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.keypathsetterthunkhelper">
+    <h3>
+        <code>key​Path​Setter​Thunk​Helper</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">keyPathSetterThunkHelper</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.labellist">
+    <h3>
+        <code>label​List</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">labelList</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.lazyprotocolwitnesstableaccessor">
+    <h3>
+        <code>lazy​Protocol​Witness​Table​Accessor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">lazyProtocolWitnessTableAccessor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.lazyprotocolwitnesstablecachevariable">
+    <h3>
+        <code>lazy​Protocol​Witness​Table​Cache​Variable</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">lazyProtocolWitnessTableCacheVariable</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.localdeclname">
+    <h3>
+        <code>local​Decl​Name</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">localDeclName</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.materializeforset">
+    <h3>
+        <code>materialize​For​Set</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">materializeForSet</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.mergedfunction">
+    <h3>
+        <code>merged​Function</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">mergedFunction</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.metaclass">
+    <h3>
+        <code>metaclass</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">metaclass</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.metatype">
+    <h3>
+        <code>metatype</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">metatype</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.metatyperepresentation">
+    <h3>
+        <code>metatype​Representation</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">metatypeRepresentation</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.methoddescriptor">
+    <h3>
+        <code>method​Descriptor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">methodDescriptor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.methodlookupfunction">
+    <h3>
+        <code>method​Lookup​Function</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">methodLookupFunction</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.modifyaccessor">
+    <h3>
+        <code>modify​Accessor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">modifyAccessor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.module">
+    <h3>
+        <code>module</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">module</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.moduledescriptor">
+    <h3>
+        <code>module​Descriptor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">moduleDescriptor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.nativeowningaddressor">
+    <h3>
+        <code>native​Owning​Addressor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">nativeOwningAddressor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.nativeowningmutableaddressor">
+    <h3>
+        <code>native​Owning​Mutable​Addressor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">nativeOwningMutableAddressor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.nativepinningaddressor">
+    <h3>
+        <code>native​Pinning​Addressor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">nativePinningAddressor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.nativepinningmutableaddressor">
+    <h3>
+        <code>native​Pinning​Mutable​Addressor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">nativePinningMutableAddressor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.noescapefunctiontype">
+    <h3>
+        <code>no​Escape​Function​Type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">noEscapeFunctionType</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.nominaltypedescriptor">
+    <h3>
+        <code>nominal​Type​Descriptor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">nominalTypeDescriptor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.nonobjcattribute">
+    <h3>
+        <code>non​Obj​CAttribute</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">nonObjCAttribute</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.number">
+    <h3>
+        <code>number</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">number</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.objcattribute">
+    <h3>
+        <code>obj​CAttribute</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">objCAttribute</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.objcblock">
+    <h3>
+        <code>obj​CBlock</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">objCBlock</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.othernominaltype">
+    <h3>
+        <code>other​Nominal​Type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">otherNominalType</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.outlinedassignwithcopy">
+    <h3>
+        <code>outlined​Assign​With​Copy</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">outlinedAssignWithCopy</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.outlinedassignwithtake">
+    <h3>
+        <code>outlined​Assign​With​Take</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">outlinedAssignWithTake</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.outlinedbridgedmethod">
+    <h3>
+        <code>outlined​Bridged​Method</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">outlinedBridgedMethod</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.outlinedconsume">
+    <h3>
+        <code>outlined​Consume</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">outlinedConsume</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.outlinedcopy">
+    <h3>
+        <code>outlined​Copy</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">outlinedCopy</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.outlineddestroy">
+    <h3>
+        <code>outlined​Destroy</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">outlinedDestroy</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.outlinedinitializewithcopy">
+    <h3>
+        <code>outlined​Initialize​With​Copy</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">outlinedInitializeWithCopy</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.outlinedinitializewithtake">
+    <h3>
+        <code>outlined​Initialize​With​Take</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">outlinedInitializeWithTake</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.outlinedrelease">
+    <h3>
+        <code>outlined​Release</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">outlinedRelease</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.outlinedretain">
+    <h3>
+        <code>outlined​Retain</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">outlinedRetain</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.outlinedvariable">
+    <h3>
+        <code>outlined​Variable</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">outlinedVariable</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.owned">
+    <h3>
+        <code>owned</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">owned</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.owningaddressor">
+    <h3>
+        <code>owning​Addressor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">owningAddressor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.owningmutableaddressor">
+    <h3>
+        <code>owning​Mutable​Addressor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">owningMutableAddressor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.partialapplyforwarder">
+    <h3>
+        <code>partial​Apply​Forwarder</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">partialApplyForwarder</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.partialapplyobjcforwarder">
+    <h3>
+        <code>partial​Apply​Obj​CForwarder</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">partialApplyObjCForwarder</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.postfixoperator">
+    <h3>
+        <code>postfix​Operator</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">postfixOperator</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.prefixoperator">
+    <h3>
+        <code>prefix​Operator</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">prefixOperator</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.privatedeclname">
+    <h3>
+        <code>private​Decl​Name</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">privateDeclName</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.propertydescriptor">
+    <h3>
+        <code>property​Descriptor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">propertyDescriptor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.protocolconformance">
+    <h3>
+        <code>protocol​Conformance</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">protocolConformance</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.protocolconformancedescriptor">
+    <h3>
+        <code>protocol​Conformance​Descriptor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">protocolConformanceDescriptor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.protocoldescriptor">
+    <h3>
+        <code>protocol​Descriptor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">protocolDescriptor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.protocollist">
+    <h3>
+        <code>protocol​List</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">protocolList</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.protocollistwithanyobject">
+    <h3>
+        <code>protocol​List​With​Any​Object</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">protocolListWithAnyObject</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.protocollistwithclass">
+    <h3>
+        <code>protocol​List​With​Class</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">protocolListWithClass</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.protocolrequirementsbasedescriptor">
+    <h3>
+        <code>protocol​Requirements​Base​Descriptor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">protocolRequirementsBaseDescriptor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.protocolwitness">
+    <h3>
+        <code>protocol​Witness</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">protocolWitness</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.protocolwitnesstable">
+    <h3>
+        <code>protocol​Witness​Table</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">protocolWitnessTable</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.protocolwitnesstableaccessor">
+    <h3>
+        <code>protocol​Witness​Table​Accessor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">protocolWitnessTableAccessor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.protocolwitnesstablepattern">
+    <h3>
+        <code>protocol​Witness​Table​Pattern</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">protocolWitnessTablePattern</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.reabstractionthunk">
+    <h3>
+        <code>reabstraction​Thunk</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">reabstractionThunk</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.reabstractionthunkhelper">
+    <h3>
+        <code>reabstraction​Thunk​Helper</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">reabstractionThunkHelper</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.readaccessor">
+    <h3>
+        <code>read​Accessor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">readAccessor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.reflectionmetadataassoctypedescriptor">
+    <h3>
+        <code>reflection​Metadata​Assoc​Type​Descriptor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">reflectionMetadataAssocTypeDescriptor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.reflectionmetadatabuiltindescriptor">
+    <h3>
+        <code>reflection​Metadata​Builtin​Descriptor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">reflectionMetadataBuiltinDescriptor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.reflectionmetadatafielddescriptor">
+    <h3>
+        <code>reflection​Metadata​Field​Descriptor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">reflectionMetadataFieldDescriptor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.reflectionmetadatasuperclassdescriptor">
+    <h3>
+        <code>reflection​Metadata​Superclass​Descriptor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">reflectionMetadataSuperclassDescriptor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.relatedentitydeclname">
+    <h3>
+        <code>related​Entity​Decl​Name</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">relatedEntityDeclName</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.resilientprotocolwitnesstable">
+    <h3>
+        <code>resilient​Protocol​Witness​Table</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">resilientProtocolWitnessTable</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.retroactiveconformance">
+    <h3>
+        <code>retroactive​Conformance</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">retroactiveConformance</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.returntype">
+    <h3>
+        <code>return​Type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">returnType</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.setter">
+    <h3>
+        <code>setter</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">setter</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.shared">
+    <h3>
+        <code>shared</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">shared</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.silboximmutablefield">
+    <h3>
+        <code>sil​Box​Immutable​Field</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">silBoxImmutableField</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.silboxlayout">
+    <h3>
+        <code>sil​Box​Layout</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">silBoxLayout</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.silboxmutablefield">
+    <h3>
+        <code>sil​Box​Mutable​Field</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">silBoxMutableField</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.silboxtype">
+    <h3>
+        <code>sil​Box​Type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">silBoxType</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.silboxtypewithlayout">
+    <h3>
+        <code>sil​Box​Type​With​Layout</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">silBoxTypeWithLayout</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.specializationpassid">
+    <h3>
+        <code>specialization​Pass​ID</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">specializationPassID</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.structure">
+    <h3>
+        <code>structure</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">structure</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.suffix">
+    <h3>
+        <code>suffix</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">suffix</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.sugaredoptional">
+    <h3>
+        <code>sugared​Optional</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">sugaredOptional</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.sugaredarray">
+    <h3>
+        <code>sugared​Array</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">sugaredArray</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.sugareddictionary">
+    <h3>
+        <code>sugared​Dictionary</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">sugaredDictionary</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.sugaredparen">
+    <h3>
+        <code>sugared​Paren</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">sugaredParen</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.typesymbolicreference">
+    <h3>
+        <code>type​Symbolic​Reference</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">typeSymbolicReference</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.thinfunctiontype">
+    <h3>
+        <code>thin​Function​Type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">thinFunctionType</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.throwsannotation">
+    <h3>
+        <code>throws​Annotation</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">throwsAnnotation</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.tuple">
+    <h3>
+        <code>tuple</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">tuple</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.tupleelement">
+    <h3>
+        <code>tuple​Element</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">tupleElement</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.tupleelementname">
+    <h3>
+        <code>tuple​Element​Name</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">tupleElementName</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.type">
+    <h3>
+        <code>type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">type</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.typealias">
+    <h3>
+        <code>type​Alias</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">typeAlias</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.typelist">
+    <h3>
+        <code>type​List</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">typeList</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.typemangling">
+    <h3>
+        <code>type​Mangling</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">typeMangling</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.typemetadata">
+    <h3>
+        <code>type​Metadata</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">typeMetadata</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.typemetadataaccessfunction">
+    <h3>
+        <code>type​Metadata​Access​Function</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">typeMetadataAccessFunction</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.typemetadatacompletionfunction">
+    <h3>
+        <code>type​Metadata​Completion​Function</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">typeMetadataCompletionFunction</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.typemetadatainstantiationcache">
+    <h3>
+        <code>type​Metadata​Instantiation​Cache</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">typeMetadataInstantiationCache</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.typemetadatainstantiationfunction">
+    <h3>
+        <code>type​Metadata​Instantiation​Function</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">typeMetadataInstantiationFunction</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.typemetadatalazycache">
+    <h3>
+        <code>type​Metadata​Lazy​Cache</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">typeMetadataLazyCache</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.typemetadatasingletoninitializationcache">
+    <h3>
+        <code>type​Metadata​Singleton​Initialization​Cache</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">typeMetadataSingletonInitializationCache</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.uncurriedfunctiontype">
+    <h3>
+        <code>uncurried​Function​Type</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">uncurriedFunctionType</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.unmanaged">
+    <h3>
+        <code>unmanaged</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">unmanaged</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.unowned">
+    <h3>
+        <code>unowned</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">unowned</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.unsafeaddressor">
+    <h3>
+        <code>unsafe​Addressor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">unsafeAddressor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.unsafemutableaddressor">
+    <h3>
+        <code>unsafe​Mutable​Addressor</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">unsafeMutableAddressor</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.valuewitness">
+    <h3>
+        <code>value​Witness</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">valueWitness</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.valuewitnesstable">
+    <h3>
+        <code>value​Witness​Table</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">valueWitnessTable</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.variable">
+    <h3>
+        <code>variable</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">variable</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.variadicmarker">
+    <h3>
+        <code>variadic​Marker</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">variadicMarker</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.vtableattribute">
+    <h3>
+        <code>vTable​Attribute</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">vTableAttribute</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.vtablethunk">
+    <h3>
+        <code>vTable​Thunk</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">vTableThunk</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.weak">
+    <h3>
+        <code>weak</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">weak</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="swiftsymbol.kind.willset">
+    <h3>
+        <code>will​Set</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">willSet</span></code></pre></body></html>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-12T14:19:42-0700">August 12, 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

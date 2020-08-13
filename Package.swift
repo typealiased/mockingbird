@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
   name: "Mockingbird",
   platforms: [
-    .macOS(.v10_14),
+    .macOS(.v10_10),
     .iOS(.v8),
     .tvOS(.v9),
   ],
