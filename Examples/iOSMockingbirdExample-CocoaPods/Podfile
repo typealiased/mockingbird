@@ -4,7 +4,7 @@ target 'iOSMockingbirdExample-CocoaPods' do
 
   target 'iOSMockingbirdExample-CocoaPodsTests' do
     inherit! :search_paths
-    pod 'MockingbirdFramework', '~> 0.14'
+    pod 'MockingbirdFramework', '~> 0.15'
   end
 
 end

@@ -3,11 +3,11 @@
     "pins": [
       {
         "package": "Mockingbird",
-        "repositoryURL": "https://github.com/birdrides/mockingbird.git",
+        "repositoryURL": "https://github.com/birdrides/mockingbird",
         "state": {
           "branch": null,
-          "revision": "8106a935251700a473d1cc5f9f7de0d557a20d31",
-          "version": "0.14.0"
+          "revision": "50feb5e24587091abfc5c37b2dc9be7c1bbdd7f0",
+          "version": "0.15.0"
         }
       }
     ]
