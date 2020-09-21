@@ -3854,7 +3854,7 @@ fileprivate struct SymbolPrinter {
             target.write(">")
         case .dependentGenericParamCount: return nil
         case .dependentGenericConformanceRequirement:
-            _ = printFirstChild(name)
+            printFirstChild(name)
             _ = printOptional(name.children.at(1), prefix: ": ")
         case .dependentGenericLayoutRequirement:
             guard let layout = name.children.at(1), let c = layout.text?.unicodeScalars.first else { return nil }
@@ -3923,17 +3923,17 @@ fileprivate struct SymbolPrinter {
             }
         case .sugaredArray:
             target.write("[")
-            _ = printFirstChild(name)
+            printFirstChild(name)
             target.write("]")
         case .sugaredDictionary:
             target.write("[")
-            _ = printFirstChild(name)
+            printFirstChild(name)
             target.write(" : ")
             _ = printOptional(name.children.at(1))
             target.write("]")
         case .sugaredParen:
             target.write("(")
-            _ = printFirstChild(name)
+            printFirstChild(name)
             target.write(")")
         }
         

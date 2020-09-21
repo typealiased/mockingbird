@@ -71,19 +71,15 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--targets MockingbirdTestsHost"
+            argument = "--target MockingbirdTests"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--destination MockingbirdTests"
+            argument = "--sources MockingbirdTestsHost"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--outputs ./MockingbirdTests/Mocks.generated.swift"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "--asynchronous"
+            argument = "--outputs ./Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
@@ -99,7 +95,7 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--targets MockingbirdTestsHost"
+            argument = "--target MockingbirdTestsHost"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
@@ -107,35 +103,27 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--project /Users/andrew/api-ios/ios/Bird.xcodeproj"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "--target BirdInterface"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "--output /Users/andrew/api-ios/ios/Modules/BirdFoundation/BirdFoundationTestHelpers/Mocks.generated.swift"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "--output /tmp/Mocks.generated.swift"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
             argument = "--project ./Mockingbird.xcodeproj"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--target MockingbirdTestsHost"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--output ./MockingbirdTests/Mocks.generated.swift"
-            isEnabled = "NO">
+            argument = "--output ./Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--disable-cache"
+            argument = "--support ./Sources/MockingbirdSupport"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--verbose"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--diagnostics all"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -154,11 +142,24 @@
             argument = "version"
             isEnabled = "NO">
          </CommandLineArgument>
-         <CommandLineArgument
-            argument = "--verbose"
-            isEnabled = "YES">
-         </CommandLineArgument>
       </CommandLineArguments>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "TARGET_NAME"
+            value = "WhatsAppTests"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "SRCROOT"
+            value = "/Users/typealias/whatsapp-ios"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "PROJECT_FILE_PATH"
+            value = "/Users/typealias/whatsapp-ios/WhatsApp.xcodeproj"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Profile"
