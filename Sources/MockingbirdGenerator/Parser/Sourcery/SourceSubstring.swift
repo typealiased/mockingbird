@@ -68,7 +68,8 @@ internal enum SourceSubstring {
   
   func extractLines(from source: [String: SourceKitRepresentable], contents: String, trimWhitespacesAndNewlines: Bool = true) -> String? {
     guard let range = range(for: source) else { return nil }
-    let substring = contents.bridge().substringLinesWithByteRange(start: Int(range.offset), length: Int(range.length))
+    let byteRange = ByteRange(location: ByteCount(range.offset), length: ByteCount(range.length))
+    let substring = StringView(contents).substringLinesWithByteRange(byteRange)
     return substring?.isEmpty == true
       ? nil
       : trimWhitespacesAndNewlines ? substring?.trimmingCharacters(in: .whitespacesAndNewlines) : substring
@@ -76,7 +77,8 @@ internal enum SourceSubstring {
   
   func extractLinesNumbers(from source: [String: SourceKitRepresentable], contents: String) -> (start: Int, end: Int)? {
     guard let range = range(for: source) else { return nil }
-    return contents.bridge().lineRangeWithByteRange(start: Int(range.offset), length: Int(range.length))
+    let byteRange = ByteRange(location: ByteCount(range.offset), length: ByteCount(range.length))
+    return StringView(contents).lineRangeWithByteRange(byteRange)
   }
   
 }

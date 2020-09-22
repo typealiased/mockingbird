@@ -22,7 +22,7 @@ $(eval MOCKINGBIRD_RPATH = $(shell [[ $(USE_RELATIVE_RPATH) -eq 1 ]] && echo '@e
 
 SIMULATOR_NAME=iphone11-mockingbird
 SIMULATOR_DEVICE_TYPE=com.apple.CoreSimulator.SimDeviceType.iPhone-11
-SIMULATOR_RUNTIME=com.apple.CoreSimulator.SimRuntime.iOS-13-6
+SIMULATOR_RUNTIME=$(shell xcrun simctl list runtimes | pcregrep -o1 '(com\.apple\.CoreSimulator\.SimRuntime\.iOS\-.*)')
 
 SWIFT_BUILD_FLAGS=--configuration release -Xlinker -weak-l_InternalSwiftSyntaxParser $(RELATIVE_RPATH_FLAG)
 XCODEBUILD_FLAGS=-project 'Mockingbird.xcodeproj' DSTROOT=$(TEMPORARY_FOLDER)
@@ -129,9 +129,7 @@ clean: clean-mocks clean-xcode clean-swift clean-installables clean-dylibs
 
 .PHONY: setup-project
 setup-project:
-	(cd Sources && swift package resolve)
 	cp -rf .xcode/xcschemes/*.xcscheme Mockingbird.xcodeproj/xcshareddata/xcschemes
-	rsync -vhr .xcode/GeneratedModuleMap/** Mockingbird.xcodeproj/GeneratedModuleMap
 
 .PHONY: bootstrap
 bootstrap: setup-project
@@ -157,6 +155,7 @@ print-debug-info:
 	$(eval XCODEBUILD_VERSION = $(shell xcodebuild -version))
 	@echo "Xcodebuild version: $(XCODEBUILD_VERSION)"
 	@echo "Swift build flags: $(SWIFT_BUILD_FLAGS)"
+	@echo "Simulator runtime: $(SIMULATOR_RUNTIME)"
 
 .PHONY: generate-embedded-dylibs
 generate-embedded-dylibs:

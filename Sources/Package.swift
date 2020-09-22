@@ -1,7 +1,7 @@
 // swift-tools-version:5.0
 import PackageDescription
 
-// Package configuration for local development.
+// Package configuration for building the CLI using `$ swift build`.
 let package = Package(
   name: "MockingbirdCli",
   platforms: [
@@ -11,22 +11,17 @@ let package = Package(
   ],
   products: [
     .executable(name: "mockingbird", targets: ["MockingbirdCli"]),
-    .library(name: "Mockingbird", targets: ["Mockingbird"]),
     .library(name: "MockingbirdGenerator", targets: ["MockingbirdGenerator"]),
   ],
+  // Keep this in sync with the Mockingbird.xcodeproj dependencies!
   dependencies: [
     .package(url: "https://github.com/apple/swift-package-manager.git", .exact("0.4.0")),
-    .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50200.0")),
-    .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.24.0")),
-    .package(url: "https://github.com/tuist/XcodeProj.git", .exact("7.0.0")),
+    .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50300.0")),
+    .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.0")),
+    .package(url: "https://github.com/tuist/XcodeProj.git", .exact("7.14.0")),
     .package(url: "https://github.com/weichsel/ZIPFoundation.git", .exact("0.9.11")),
   ],
   targets: [
-    .target(
-      name: "Mockingbird",
-      path: "MockingbirdFramework",
-      linkerSettings: [.linkedFramework("XCTest")]
-    ),
     .target(
       name: "MockingbirdCli",
       dependencies: [
@@ -46,32 +41,5 @@ let package = Package(
       ],
       path: "MockingbirdGenerator"
     ),
-    .target(
-      name: "MockingbirdTestsHost",
-      dependencies: [
-        "MockingbirdModuleTestsHost",
-      ],
-      path: "MockingbirdTestsHost",
-      exclude: ["Module", "Performance"]
-    ),
-    .target(
-      name: "MockingbirdModuleTestsHost",
-      path: "MockingbirdTestsHost/Module"
-    ),
-    .target(
-      name: "MockingbirdPerformanceTestsHost",
-      path: "MockingbirdTestsHost/Performance"
-    ),
-    // Uncomment before running `$ swift package generate-xcodeproj`.
-//    .testTarget(
-//      name: "MockingbirdTests",
-//      dependencies: [
-//        "Mockingbird",
-//        "MockingbirdGenerator",
-//        "MockingbirdTestsHost",
-//        "MockingbirdPerformanceTestsHost",
-//      ],
-//      path: "Tests/MockingbirdTests"
-//    ),
   ]
 )
