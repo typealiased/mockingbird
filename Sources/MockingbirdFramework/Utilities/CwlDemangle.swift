@@ -15,7 +15,7 @@ import Foundation
 ///   - isType: if true, no prefix is parsed and, on completion, the first item on the parse stack is returned.
 /// - Returns: the successfully parsed result
 /// - Throws: a SwiftSymbolParseError error that contains parse position when the error occurred.
-public func parseMangledSwiftSymbol(_ mangled: String, isType: Bool = false) throws -> SwiftSymbol {
+func parseMangledSwiftSymbol(_ mangled: String, isType: Bool = false) throws -> SwiftSymbol {
     return try parseMangledSwiftSymbol(mangled.unicodeScalars, isType: isType)
 }
 
@@ -26,7 +26,7 @@ public func parseMangledSwiftSymbol(_ mangled: String, isType: Bool = false) thr
 ///   - isType: if true, no prefix is parsed and, on completion, the first item on the parse stack is returned.
 /// - Returns: the successfully parsed result
 /// - Throws: a SwiftSymbolParseError error that contains parse position when the error occurred.
-public func parseMangledSwiftSymbol<C: Collection>(_ mangled: C, isType: Bool = false, symbolicReferenceResolver: ((Int32, Int) throws -> SwiftSymbol)? = nil) throws -> SwiftSymbol where C.Iterator.Element == UnicodeScalar {
+func parseMangledSwiftSymbol<C: Collection>(_ mangled: C, isType: Bool = false, symbolicReferenceResolver: ((Int32, Int) throws -> SwiftSymbol)? = nil) throws -> SwiftSymbol where C.Iterator.Element == UnicodeScalar {
     var demangler = Demangler(scalars: mangled)
     demangler.symbolicReferenceResolver = symbolicReferenceResolver
     if isType {
@@ -40,7 +40,7 @@ public func parseMangledSwiftSymbol<C: Collection>(_ mangled: C, isType: Bool = 
 
 extension SwiftSymbol: CustomStringConvertible {
     /// Overridden method to allow simple printing with default options
-    public var description: String {
+    var description: String {
         var printer = SymbolPrinter()
         _ = printer.printName(self)
         return printer.target
@@ -50,7 +50,7 @@ extension SwiftSymbol: CustomStringConvertible {
     ///
     /// - Parameter options: an option set containing the different `DemangleOptions` from the Swift project.
     /// - Returns: `self` printed to a string according to the specified options.
-    public func print(using options: SymbolPrintOptions = .default) -> String {
+    func print(using options: SymbolPrintOptions = .default) -> String {
         var printer = SymbolPrinter(options: options)
         _ = printer.printName(self)
         return printer.target
@@ -60,32 +60,32 @@ extension SwiftSymbol: CustomStringConvertible {
 // MARK: Demangle.h
 
 /// These options mimic those used in the Swift project. Check that project for details.
-public struct SymbolPrintOptions: OptionSet {
-    public let rawValue: Int
+struct SymbolPrintOptions: OptionSet {
+    let rawValue: Int
     
-    public static let synthesizeSugarOnTypes = SymbolPrintOptions(rawValue: 1 << 0)
-    public static let displayDebuggerGeneratedModule = SymbolPrintOptions(rawValue: 1 << 1)
-    public static let qualifyEntities = SymbolPrintOptions(rawValue: 1 << 2)
-    public static let displayExtensionContexts = SymbolPrintOptions(rawValue: 1 << 3)
-    public static let displayUnmangledSuffix = SymbolPrintOptions(rawValue: 1 << 4)
-    public static let displayModuleNames = SymbolPrintOptions(rawValue: 1 << 5)
-    public static let displayGenericSpecializations = SymbolPrintOptions(rawValue: 1 << 6)
-    public static let displayProtocolConformances = SymbolPrintOptions(rawValue: 1 << 5)
-    public static let displayWhereClauses = SymbolPrintOptions(rawValue: 1 << 8)
-    public static let displayEntityTypes = SymbolPrintOptions(rawValue: 1 << 9)
-    public static let shortenPartialApply = SymbolPrintOptions(rawValue: 1 << 10)
-    public static let shortenThunk = SymbolPrintOptions(rawValue: 1 << 11)
-    public static let shortenValueWitness = SymbolPrintOptions(rawValue: 1 << 12)
-    public static let shortenArchetype = SymbolPrintOptions(rawValue: 1 << 13)
-    public static let showPrivateDiscriminators = SymbolPrintOptions(rawValue: 1 << 14)
-    public static let showFunctionArgumentTypes = SymbolPrintOptions(rawValue: 1 << 15)
+    static let synthesizeSugarOnTypes = SymbolPrintOptions(rawValue: 1 << 0)
+    static let displayDebuggerGeneratedModule = SymbolPrintOptions(rawValue: 1 << 1)
+    static let qualifyEntities = SymbolPrintOptions(rawValue: 1 << 2)
+    static let displayExtensionContexts = SymbolPrintOptions(rawValue: 1 << 3)
+    static let displayUnmangledSuffix = SymbolPrintOptions(rawValue: 1 << 4)
+    static let displayModuleNames = SymbolPrintOptions(rawValue: 1 << 5)
+    static let displayGenericSpecializations = SymbolPrintOptions(rawValue: 1 << 6)
+    static let displayProtocolConformances = SymbolPrintOptions(rawValue: 1 << 5)
+    static let displayWhereClauses = SymbolPrintOptions(rawValue: 1 << 8)
+    static let displayEntityTypes = SymbolPrintOptions(rawValue: 1 << 9)
+    static let shortenPartialApply = SymbolPrintOptions(rawValue: 1 << 10)
+    static let shortenThunk = SymbolPrintOptions(rawValue: 1 << 11)
+    static let shortenValueWitness = SymbolPrintOptions(rawValue: 1 << 12)
+    static let shortenArchetype = SymbolPrintOptions(rawValue: 1 << 13)
+    static let showPrivateDiscriminators = SymbolPrintOptions(rawValue: 1 << 14)
+    static let showFunctionArgumentTypes = SymbolPrintOptions(rawValue: 1 << 15)
     
-    public init(rawValue: Int) {
+    init(rawValue: Int) {
         self.rawValue = rawValue
     }
     
-    public static let `default`: SymbolPrintOptions = [.displayDebuggerGeneratedModule, .qualifyEntities, .displayExtensionContexts, .displayUnmangledSuffix, .displayModuleNames, .displayGenericSpecializations, .displayProtocolConformances, .displayWhereClauses, .displayEntityTypes, .showPrivateDiscriminators, .showFunctionArgumentTypes]
-    public static let simplified: SymbolPrintOptions = [.synthesizeSugarOnTypes, .qualifyEntities, .shortenPartialApply, .shortenThunk, .shortenValueWitness, .shortenArchetype]
+    static let `default`: SymbolPrintOptions = [.displayDebuggerGeneratedModule, .qualifyEntities, .displayExtensionContexts, .displayUnmangledSuffix, .displayModuleNames, .displayGenericSpecializations, .displayProtocolConformances, .displayWhereClauses, .displayEntityTypes, .showPrivateDiscriminators, .showFunctionArgumentTypes]
+    static let simplified: SymbolPrintOptions = [.synthesizeSugarOnTypes, .qualifyEntities, .shortenPartialApply, .shortenThunk, .shortenValueWitness, .shortenArchetype]
 }
 
 enum FunctionSigSpecializationParamKind: UInt64 {
@@ -224,18 +224,18 @@ enum ValueWitnessKind: UInt64, CustomStringConvertible {
     }
 }
 
-public struct SwiftSymbol {
-    public let kind: Kind
-    public var children: [SwiftSymbol]
-    public let contents: Contents
+struct SwiftSymbol {
+    let kind: Kind
+    var children: [SwiftSymbol]
+    let contents: Contents
     
-    public enum Contents {
+    enum Contents {
         case none
         case index(UInt64)
         case name(String)
     }
     
-    public init(kind: Kind, children: [SwiftSymbol] = [], contents: Contents = .none) {
+    init(kind: Kind, children: [SwiftSymbol] = [], contents: Contents = .none) {
         self.kind = kind
         self.children = children
         self.contents = contents
@@ -313,7 +313,7 @@ public struct SwiftSymbol {
 // MARK: DemangleNodes.def
 
 extension SwiftSymbol {
-    public enum Kind {
+    enum Kind {
         case `class`
         case `enum`
         case `extension`
@@ -4376,7 +4376,7 @@ extension FunctionSigSpecializationParamKind {
 // MARK: ScalarScanner.swift
 
 /// A type for representing the different possible failure conditions when using ScalarScanner
-public enum SwiftSymbolParseError: Error {
+enum SwiftSymbolParseError: Error {
     /// Attempted to convert the buffer to UnicodeScalars but the buffer contained invalid data
     case utf8ParseError
     
