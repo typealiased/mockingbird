@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="#installation"><img src="https://img.shields.io/badge/package-cocoapods%20%7C%20carthage%20%7C%20spm-4BC51D.svg" alt="Package managers"></a>
-  <a href="/andrewchang-bird/mockingbird/blob/add-readme-logo/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+  <a href="/birdrides/mockingbird/blob/add-readme-logo/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
   <a href="https://slofile.com/slack/birdopensource" rel="nofollow"><img src="https://img.shields.io/badge/slack-join%20channel-A417A6.svg" alt="Slack"></a>
 </p>
 
@@ -570,11 +570,12 @@ Generate mocks for a set of targets in a project.
 
 | Option | Default Value | Description | 
 | --- | --- | --- |
-| `--project` | [`(inferred)`](#--project) | Path to your project’s `.xcodeproj` file. |
-| `--targets` | `$TARGET_NAME` | List of target names to generate mocks for. |
-| `--srcroot` | `$SRCROOT` | The folder containing your project’s source files. |
+| `--targets` | *(required)* | List of target names to generate mocks for. |
+| `--project` | [`(inferred)`](#--project) | Path to an `.xcodeproj` file or a [JSON project description](https://github.com/birdrides/mockingbird/wiki/Manual-Setup#generating-mocks-for-non-xcode-projects). |
+| `--srcroot` | [`(inferred)`](#--srcroot) | The directory containing your project’s source files. |
 | `--outputs` | [`(inferred)`](#--outputs) | List of mock output file paths for each target. |
-| `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files). |
+| `--support` | [`(inferred)`](#--support) | The directory containing [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files). |
+| `--testbundle` | [`(inferred)`](#--testbundle) | The name of the test bundle using the mocks. |
 | `--header` |  `(none)` | Content to add at the beginning of each generated mock file. |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
 | `--diagnostics` | `(none)` | List of [diagnostic generator warnings](https://github.com/birdrides/mockingbird/wiki/Diagnostic-Warnings-and-Errors) to enable. |
@@ -598,10 +599,10 @@ Configure a test target to use mocks.
 | --- | --- | --- |
 | `--target` | *(required)* | The name of a test target to configure. |
 | `--sources` | *(required)* | List of target names to generate mocks for. |
-| `--project` | [`(inferred)`](#--project) | Your project’s `.xcodeproj` file. |
-| `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |
+| `--project` | [`(inferred)`](#--project) | Path to an `.xcodeproj` file or a [JSON project description](https://github.com/birdrides/mockingbird/wiki/Manual-Setup#generating-mocks-for-non-xcode-projects). |
+| `--srcroot` | [`(inferred)`](#--srcroot) | The directory containing your project’s source files. |
 | `--outputs` | [`(inferred)`](#--outputs) | List of mock output file paths for each target. |
-| `--support` | [`(inferred)`](#--support) | The folder containing [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files). |
+| `--support` | [`(inferred)`](#--support) | The directory containing [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files). |
 | `--header` |  `(none)` | Content to add at the beginning of each generated mock file. |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
 | `--diagnostics` | `(none)` | List of [diagnostic generator warnings](https://github.com/birdrides/mockingbird/wiki/Diagnostic-Warnings-and-Errors) to enable. |
@@ -627,7 +628,7 @@ Remove Mockingbird from a test target.
 | --- | --- | --- |
 | `--targets` | *(required)* | List of target names to uninstall the Run Script Phase. |
 | `--project` | [`(inferred)`](#--project) | Your project’s `.xcodeproj` file. |
-| `--srcroot` |  `<project>/../` | The folder containing your project’s source files. |
+| `--srcroot` | [`(inferred)`](#--srcroot) | The directory containing your project’s source files. |
 
 ### Download
 
@@ -650,15 +651,23 @@ Download and unpack a compatible asset bundle. Bundles will never overwrite exis
 
 #### `--project`
 
-Mockingbird will first check if the environment variable `$PROJECT_FILE_PATH` was set (usually by an Xcode build context). It will then perform a shallow search of the current working directory for an `.xcodeproj` file. If multiple `.xcodeproj` files exist then you must explicitly provide a project file path.
+Mockingbird first checks the environment variable `PROJECT_FILE_PATH` set by the Xcode build context and then performs a shallow search of the current working directory for an `.xcodeproj` file. If multiple `.xcodeproj` files exist then you must explicitly provide a project file path.
+
+#### `--srcroot`
+
+Mockingbird checks the environment variables `SRCROOT` and `SOURCE_ROOT` set by the Xcode build context and then falls back to the directory containing the `.xcodeproj` project file. Note that source root is ignored when using JSON project descriptions. 
 
 #### `--outputs`
 
-By default Mockingbird will generate mocks into the `$(SRCROOT)/MockingbirdMocks` directory with the file name `$(PRODUCT_MODULE_NAME)Mocks.generated.swift`.
+By Mockingbird generates mocks into the directory `$(SRCROOT)/MockingbirdMocks` with the file name `$(PRODUCT_MODULE_NAME)Mocks.generated.swift`.
 
 #### `--support`
 
-Mockingbird will recursively look for [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files) in the `$(SRCROOT)/MockingbirdSupport` directory.
+Mockingbird recursively looks for [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files) in the directory `$(SRCROOT)/MockingbirdSupport`.
+
+#### `--testbundle`
+
+Mockingbird checks the environment variables `TARGET_NAME` and `TARGETNAME` set by the Xcode build context and verifies that it refers to a valid Swift unit test target. The test bundle option must be set when using [JSON project descriptions](https://github.com/birdrides/mockingbird/wiki/Manual-Setup#generating-mocks-for-non-xcode-projects) in order to enable thunk stubs.
 
 ## Additional Resources
 

@@ -19,25 +19,35 @@ extension Generator {
     
     init?(config: Configuration,
           getCachedTarget: (String) -> TargetType?,
-          getXcodeProj: (Path) throws -> XcodeProj,
+          getProject: (Path) throws -> Project,
           environment: @escaping () -> [String: Any]) {
       guard let environmentProjectFilePath = config.environmentProjectFilePath,
         let environmentSourceRoot = config.environmentSourceRoot,
         let environmentTargetName = config.environmentTargetName
         else { return nil }
       
-      let isTestTarget: (PBXTarget) -> Bool = { target in
-        guard target.productType?.isSwiftUnitTestBundle == true else {
-          log("Ignoring \(target.name.singleQuoted) because it is not a Swift unit test bundle")
-          return false
+      let isTestTarget: (TargetType) -> Bool = { target in
+        switch target {
+        case .pbxTarget(let target):
+          guard target.productType?.isSwiftUnitTestBundle == true else {
+            log("Ignoring \(target.name.singleQuoted) because it is not a Swift unit test bundle")
+            return false
+          }
+          return true
+        case .describedTarget(let target):
+          switch target.productType {
+          case .library, .none: return false
+          case .test: return true
+          }
+        case .sourceTarget: return false
+        case .testTarget: return true
         }
-        return true
       }
       guard let testTarget = try? resolveTarget(targetName: environmentTargetName,
                                                 projectPath: environmentProjectFilePath,
                                                 isValidTarget: isTestTarget,
                                                 getCachedTarget: getCachedTarget,
-                                                getXcodeProj: getXcodeProj)
+                                                getProject: getProject)
       else {
         log("Generating all thunks because the build environment target does not appear to be a Swift unit test bundle")
         return nil
@@ -48,6 +58,16 @@ extension Generator {
       let cachedTestTarget: TestTarget?
       switch testTarget {
       case .pbxTarget(let target):
+        let operation = ExtractSourcesOperation(target: target,
+                                                sourceRoot: environmentSourceRoot,
+                                                supportPath: config.supportPath,
+                                                options: [],
+                                                environment: environment)
+        extractSources = operation
+        extractSourcesResult = operation.result
+        cachedTestTarget = nil
+        
+      case .describedTarget(let target):
         let operation = ExtractSourcesOperation(target: target,
                                                 sourceRoot: environmentSourceRoot,
                                                 supportPath: config.supportPath,
@@ -93,6 +113,15 @@ extension Generator {
       let target: TestTarget
       switch testTarget {
       case .pbxTarget(let pipelineTarget):
+        target = try TestTarget(from: pipelineTarget,
+                                sourceRoot: sourceRoot,
+                                mockedTypeNames: mockedTypeNames,
+                                projectHash: projectHash,
+                                cliVersion: cliVersion,
+                                configHash: configHash,
+                                environment: environment)
+        
+      case .describedTarget(let pipelineTarget):
         target = try TestTarget(from: pipelineTarget,
                                 sourceRoot: sourceRoot,
                                 mockedTypeNames: mockedTypeNames,
