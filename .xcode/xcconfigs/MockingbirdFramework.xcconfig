@@ -1,5 +1,5 @@
-INFOPLIST_FILE = $(SRCROOT)/MockingbirdFramework/Info.plist
-PRODUCT_BUNDLE_IDENTIFIER = Mockingbird
+INFOPLIST_FILE = $(SRCROOT)/Sources/MockingbirdFramework/Info.plist
+PRODUCT_BUNDLE_IDENTIFIER = co.bird.mockingbird
 PRODUCT_MODULE_NAME = Mockingbird
 PRODUCT_NAME = Mockingbird
 FRAMEWORK_SEARCH_PATHS = $(PLATFORM_DIR)/Developer/Library/Frameworks

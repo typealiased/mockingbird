@@ -275,25 +275,28 @@ class MockableTypeTemplate: Template {
   
   /// For scoped types referenced within their containing type.
   lazy var fullyQualifiedName: String = {
-    guard mockableType.kind == .class else {
-      return "\(mockableType.moduleName).\(mockableType.name)"
+    guard mockableType.kind == .class, mockableType.isContainedType else {
+      return mockableType.fullyQualifiedModuleName
     }
-    guard !mockableType.isContainedType else { return "\(mockableType.name)\(allGenericTypes)" }
-    return "\(mockableType.moduleName).\(mockableType.name)\(allGenericTypes)"
+    return "\(mockableType.name)\(allGenericTypes)"
   }()
   
   /// For scoped types referenced at the top level but in the same module.
   func createScopedName(with containingTypeNames: [String],
                         genericTypeContext: [[String]],
-                        suffix: String = "") -> String {
+                        suffix: String = "",
+                        moduleQualified: Bool = false) -> String {
+    let name = moduleQualified ?
+      mockableType.fullyQualifiedModuleName.removingGenericTyping() : mockableType.name
     guard mockableType.kind == .class else { // Protocols can't be nested
-      return mockableType.name + suffix + (!suffix.isEmpty ? allGenericTypes : "")
+      return name + suffix + (!suffix.isEmpty ? allGenericTypes : "")
     }
     guard mockableType.isContainedType else {
-      return "\(mockableType.name)\(suffix)\(allGenericTypes)"
+      return name + suffix + allGenericTypes
     }
-    let containingTypeNames = containingTypeNames.enumerated()
-      .map({ (index, typeName) in
+    
+    let typeNames = containingTypeNames.enumerated()
+      .map({ (index, typeName) -> String in
         guard let genericTypeNames = genericTypeContext.get(index), !genericTypeNames.isEmpty
           else { return typeName + suffix }
         
@@ -303,9 +306,13 @@ class MockableTypeTemplate: Template {
           .joined(separator: ", ")
         return typeName + suffix + "<" + allGenericTypeNames + ">"
       })
-      .joined(separator: ".")
-      + (containingTypeNames.isEmpty ? "" : ".")
-    return "\(containingTypeNames)\(mockableType.name)\(suffix)\(allGenericTypes)"
+      + [mockableType.name + suffix + allGenericTypes]
+    
+    if moduleQualified && mockableType.fullyQualifiedName != mockableType.fullyQualifiedModuleName {
+      return ([mockableType.moduleName] + typeNames).joined(separator: ".")
+    } else {
+      return typeNames.joined(separator: ".")
+    }
   }
   
   lazy var protocolClassConformance: String? = {
