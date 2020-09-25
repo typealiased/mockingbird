@@ -29,13 +29,13 @@ final class GenerateCommand: BaseCommand {
   private let diagnosticsArgument: OptionArgument<[DiagnosticType]>
   private let headerArgument: OptionArgument<[String]>
   private let compilationConditionArgument: OptionArgument<String>
+  private let pruningMethod: OptionArgument<PruningMethod>
   
   private let disableModuleImportArgument: OptionArgument<Bool>
   private let onlyMockProtocolsArgument: OptionArgument<Bool>
   private let disableSwiftlintArgument: OptionArgument<Bool>
   private let disableCacheArgument: OptionArgument<Bool>
   private let disableRelaxedLinking: OptionArgument<Bool>
-  private let disableThunkStubs: OptionArgument<Bool>
   
   required init(parser: ArgumentParser) {
     let subparser = parser.add(subparser: Constants.name, overview: Constants.overview)
@@ -51,13 +51,13 @@ final class GenerateCommand: BaseCommand {
     self.diagnosticsArgument = subparser.addDiagnostics()
     self.headerArgument = subparser.addHeader()
     self.compilationConditionArgument = subparser.addCompilationCondition()
+    self.pruningMethod = subparser.addPruningMethod()
     
     self.disableModuleImportArgument = subparser.addDisableModuleImport()
     self.onlyMockProtocolsArgument = subparser.addOnlyProtocols()
     self.disableSwiftlintArgument = subparser.addDisableSwiftlint()
     self.disableCacheArgument = subparser.addDisableCache()
     self.disableRelaxedLinking = subparser.addDisableRelaxedLinking()
-    self.disableThunkStubs = subparser.addDisableThunkStubs()
     
     super.init(parser: subparser)
   }
@@ -111,12 +111,12 @@ final class GenerateCommand: BaseCommand {
       supportPath: supportPath,
       header: arguments.get(headerArgument),
       compilationCondition: arguments.get(compilationConditionArgument),
+      pruningMethod: arguments.get(pruningMethod) ?? .stub,
       shouldImportModule: arguments.get(disableModuleImportArgument) != true,
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
       disableSwiftlint: arguments.get(disableSwiftlintArgument) == true,
       disableCache: arguments.get(disableCacheArgument) == true,
-      disableRelaxedLinking: arguments.get(disableRelaxedLinking) == true,
-      disableThunkStubs: arguments.get(disableThunkStubs) == true
+      disableRelaxedLinking: arguments.get(disableRelaxedLinking) == true
     )
     try Generator(config).generate()
   }

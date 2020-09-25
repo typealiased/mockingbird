@@ -25,12 +25,12 @@ class Generator {
     let supportPath: Path?
     let header: [String]?
     let compilationCondition: String?
+    let pruningMethod: PruningMethod
     let shouldImportModule: Bool
     let onlyMockProtocols: Bool
     let disableSwiftlint: Bool
     let disableCache: Bool
     let disableRelaxedLinking: Bool
-    let disableThunkStubs: Bool
   }
   
   struct MalformedConfiguration: Error, CustomStringConvertible {
@@ -122,7 +122,7 @@ class Generator {
   
   // Get cached test target metadata.
   func getCachedTestTarget(targetName: String) -> TargetType? {
-    guard !config.disableThunkStubs,
+    guard config.pruningMethod != .disable,
       let cacheDirectory = testTargetCacheDirectory,
       let projectHash = getProjectHash(config.projectPath),
       let cachedTarget = findCachedTestTarget(for: targetName,
@@ -183,7 +183,7 @@ class Generator {
     let queue = OperationQueue.createForActiveProcessors()
     
     // Create operations to find used mock types in tests.
-    let pruningPipeline = config.disableThunkStubs ? nil :
+    let pruningPipeline = config.pruningMethod == .disable ? nil :
       PruningPipeline(config: config,
                       getCachedTarget: getCachedTestTarget,
                       getProject: getProject,
@@ -237,7 +237,7 @@ class Generator {
     })
     
     // Cache test target for thunk pruning.
-    if !config.disableThunkStubs {
+    if config.pruningMethod != .disable {
       if let testTargetCacheDirectory = testTargetCacheDirectory,
         let environmentSourceRoot = config.environmentSourceRoot {
         try testTargetCacheDirectory.mkpath()

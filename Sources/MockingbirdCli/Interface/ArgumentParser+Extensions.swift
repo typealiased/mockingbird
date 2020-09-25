@@ -111,10 +111,16 @@ extension ArgumentParser {
                 (value: "TEST", description: "Test build configuration")]))
   }
   
-  func addInstallerLogLevel() -> OptionArgument<String> {
+  func addInstallerLogLevel() -> OptionArgument<LogLevel> {
     return add(option: "--loglevel",
-               kind: String.self,
-               usage: "The log level to use when generating mocks, 'quiet' or 'verbose'.")
+               kind: LogLevel.self,
+               usage: "The log level to use when generating mocks.")
+  }
+  
+  func addPruningMethod() -> OptionArgument<PruningMethod> {
+    return add(option: "--prune",
+               kind: PruningMethod.self,
+               usage: "The pruning method to use on unreferenced types.")
   }
   
   func addMetagenerateOutput() -> OptionArgument<PathArgument> {
@@ -193,13 +199,7 @@ extension ArgumentParser {
                kind: Bool.self,
                usage: "Only search explicitly imported modules.")
   }
-  
-  func addDisableThunkStubs() -> OptionArgument<Bool> {
-    return add(option: "--disable-thunk-stubs",
-               kind: Bool.self,
-               usage: "Generate full mocks for potentially unused types.")
-  }
-  
+
   // MARK: - Positional
   
   func addAssetBundleType() -> PositionalArgument<AssetBundleType> {
@@ -322,15 +322,6 @@ extension ArgumentParser.Result {
     return nil
   }
   
-  func getInstallerLogLevel(logLevelOption: OptionArgument<String>) throws -> LogLevel? {
-    guard let rawLogLevel = get(logLevelOption) else { return nil }
-    guard let logLevel = LogLevel(rawValue: rawLogLevel) else {
-      throw ArgumentParserError.invalidValue(argument: "--loglevel \(rawLogLevel)",
-                                             error: .custom("Not a valid log level"))
-    }
-    return logLevel
-  }
-  
   func getLogLevel(verboseOption: OptionArgument<Bool>,
                    quietOption: OptionArgument<Bool>) throws -> LogLevel {
     let isVerbose = get(verboseOption) == true
@@ -350,6 +341,36 @@ extension ArgumentParser.Result {
   }
 }
 
+extension LogLevel: ArgumentKind, CustomStringConvertible {
+  public init(argument: String) throws {
+    guard LogLevel(rawValue: argument) != nil else {
+      let allOptions = LogLevel.allCases.map({ $0.rawValue }).joined(separator: ", ")
+      throw ArgumentParserError.invalidValue(
+        argument: "--loglevel \(argument)",
+        error: .custom("Not a valid log level, expected: \(allOptions)")
+      )
+    }
+    self.init(rawValue: argument)!
+  }
+  
+  public static var completion: ShellCompletion {
+    return .values(LogLevel.allCases.map({
+      (value: $0.rawValue, description: "\($0)")
+    }))
+  }
+  
+  public var description: String {
+    switch self {
+    case .quiet:
+      return "Only log error messages."
+    case .normal:
+      return "Log errors and warnings."
+    case .verbose:
+      return "Log all errors, warnings, and debug messages."
+    }
+  }
+}
+
 extension DiagnosticType: ArgumentKind, CustomStringConvertible {
   public init(argument: String) throws {
     guard DiagnosticType(rawValue: argument) != nil else {
@@ -363,20 +384,51 @@ extension DiagnosticType: ArgumentKind, CustomStringConvertible {
   }
   
   public static var completion: ShellCompletion {
-    return .values(AssetBundleType.allCases.map({
+    return .values(DiagnosticType.allCases.map({
       (value: $0.rawValue, description: "\($0)")
     }))
   }
   
   public var description: String {
     switch self {
-    case .all: return "Emit all diagnostic warnings."
+    case .all:
+      return "Emit all diagnostic warnings."
     case .notMockable:
       return "Warn when skipping declarations that cannot be mocked."
     case .undefinedType:
       return "Warn on external types not defined in a supporting source file."
     case .typeInference:
       return "Warn when skipping complex property assignments in class mocks."
+    }
+  }
+}
+
+extension PruningMethod: ArgumentKind, CustomStringConvertible {
+  public init(argument: String) throws {
+    guard PruningMethod(rawValue: argument) != nil else {
+      let allOptions = PruningMethod.allCases.map({ $0.rawValue }).joined(separator: ", ")
+      throw ArgumentParserError.invalidValue(
+        argument: "--prune \(argument)",
+        error: .custom("Not a valid pruning method, expected: \(allOptions)")
+      )
+    }
+    self.init(rawValue: argument)!
+  }
+  
+  public static var completion: ShellCompletion {
+    return .values(PruningMethod.allCases.map({
+      (value: $0.rawValue, description: "\($0)")
+    }))
+  }
+  
+  public var description: String {
+    switch self {
+    case .disable:
+      return "Always generate full thunks regardless of usage in tests."
+    case .stub:
+      return "Generate partial definitions filled with 'fatalError'."
+    case .omit:
+      return "Don’t generate any definitions for unused types."
     }
   }
 }

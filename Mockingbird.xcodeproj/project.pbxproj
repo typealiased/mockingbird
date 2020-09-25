@@ -1270,7 +1270,6 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_65 /* Extensions */,
-				OBJ_67 /* FileGenerator.swift */,
 				OBJ_68 /* Operations */,
 				OBJ_71 /* Templates */,
 			);
@@ -1303,6 +1302,7 @@
 		OBJ_68 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				OBJ_67 /* FileGenerator.swift */,
 				OBJ_69 /* GenerateFileOperation.swift */,
 				OBJ_70 /* RenderTemplateOperation.swift */,
 			);

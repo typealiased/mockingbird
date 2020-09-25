@@ -31,6 +31,13 @@ extension GenericType {
   }
 }
 
+extension MockableType {
+  func isReferenced(by typeNames: Set<String>) -> Bool {
+    return typeNames.contains(fullyQualifiedName.removingGenericTyping())
+        || typeNames.contains(fullyQualifiedModuleName.removingGenericTyping())
+  }
+}
+
 /// Renders a `MockableType` to a `PartialFileContent` object.
 class MockableTypeTemplate: Template {
   let mockableType: MockableType
@@ -38,7 +45,7 @@ class MockableTypeTemplate: Template {
   
   enum Constants {
     static let mockProtocolName = "Mockingbird.Mock"
-    static let thunkStub = #"fatalError("See 'Thunk Stubs' in the README")"#
+    static let thunkStub = #"fatalError("See 'Thunk Pruning' in the README")"#
   }
   
   private var methodTemplates = [Method: MethodTemplate]()
@@ -113,8 +120,7 @@ class MockableTypeTemplate: Template {
   
   lazy var shouldGenerateThunks: Bool = {
     guard let typeNames = mockedTypeNames else { return true }
-    return typeNames.contains(mockableType.fullyQualifiedName.removingGenericTyping()) ||
-      typeNames.contains(mockableType.fullyQualifiedModuleName.removingGenericTyping())
+    return mockableType.isReferenced(by: typeNames)
   }()
   
   lazy var isAvailable: Bool = {

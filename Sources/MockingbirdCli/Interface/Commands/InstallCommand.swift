@@ -46,7 +46,8 @@ class InstallCommand: BaseCommand, AliasableCommand {
   private let headerArgument: OptionArgument<[String]>
   private let compilationConditionArgument: OptionArgument<String>
   private let diagnosticsArgument: OptionArgument<[DiagnosticType]>
-  private let logLevelArgument: OptionArgument<String>
+  private let logLevelArgument: OptionArgument<LogLevel>
+  private let pruningMethod: OptionArgument<PruningMethod>
   
   private let ignoreExistingRunScriptArgument: OptionArgument<Bool>
   private let asynchronousGenerationArgument: OptionArgument<Bool>
@@ -54,7 +55,6 @@ class InstallCommand: BaseCommand, AliasableCommand {
   private let disableSwiftlintArgument: OptionArgument<Bool>
   private let disableCacheArgument: OptionArgument<Bool>
   private let disableRelaxedLinking: OptionArgument<Bool>
-  private let disableThunkStubs: OptionArgument<Bool>
   
   required convenience init(parser: ArgumentParser) {
     self.init(parser: parser, name: Constants.name, overview: Constants.overview)
@@ -75,6 +75,7 @@ class InstallCommand: BaseCommand, AliasableCommand {
     self.compilationConditionArgument = subparser.addCompilationCondition()
     self.diagnosticsArgument = subparser.addDiagnostics()
     self.logLevelArgument = subparser.addInstallerLogLevel()
+    self.pruningMethod = subparser.addPruningMethod()
     
     self.ignoreExistingRunScriptArgument = subparser.addIgnoreExistingRunScript()
     self.asynchronousGenerationArgument = subparser.addAynchronousGeneration()
@@ -82,7 +83,6 @@ class InstallCommand: BaseCommand, AliasableCommand {
     self.disableSwiftlintArgument = subparser.addDisableSwiftlint()
     self.disableCacheArgument = subparser.addDisableCache()
     self.disableRelaxedLinking = subparser.addDisableRelaxedLinking()
-    self.disableThunkStubs = subparser.addDisableThunkStubs()
     
     super.init(parser: subparser)
   }
@@ -104,8 +104,6 @@ class InstallCommand: BaseCommand, AliasableCommand {
     let outputs = arguments.getOutputs(using: outputsArgument, convenienceArgument: outputArgument)
     let supportPath = try arguments.getSupportPath(using: supportPathArgument,
                                                    sourceRoot: sourceRoot)
-    let diagnostics = arguments.get(diagnosticsArgument)
-    let logLevel = try arguments.getInstallerLogLevel(logLevelOption: logLevelArgument)
     
     let config = Installer.InstallConfiguration(
       projectPath: projectPath,
@@ -117,15 +115,15 @@ class InstallCommand: BaseCommand, AliasableCommand {
       cliPath: Path(CommandLine.arguments[0]),
       header: arguments.get(headerArgument),
       compilationCondition: arguments.get(compilationConditionArgument),
-      diagnostics: diagnostics,
-      logLevel: logLevel,
+      diagnostics: arguments.get(diagnosticsArgument),
+      logLevel: arguments.get(logLevelArgument),
+      pruningMethod: arguments.get(pruningMethod),
       ignoreExisting: arguments.get(ignoreExistingRunScriptArgument) == true,
       asynchronousGeneration: arguments.get(asynchronousGenerationArgument) == true,
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
       disableSwiftlint: arguments.get(disableSwiftlintArgument) == true,
       disableCache: arguments.get(disableCacheArgument) == true,
-      disableRelaxedLinking: arguments.get(disableRelaxedLinking) == true,
-      disableThunkStubs: arguments.get(disableThunkStubs) == true
+      disableRelaxedLinking: arguments.get(disableRelaxedLinking) == true
     )
     try Installer.install(using: config)
     logInfo("Installed Mockingbird to \(destinationTarget.singleQuoted) in \(projectPath)")
