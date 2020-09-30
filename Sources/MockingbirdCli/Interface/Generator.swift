@@ -25,12 +25,12 @@ class Generator {
     let supportPath: Path?
     let header: [String]?
     let compilationCondition: String?
+    let pruningMethod: PruningMethod
     let shouldImportModule: Bool
     let onlyMockProtocols: Bool
     let disableSwiftlint: Bool
     let disableCache: Bool
     let disableRelaxedLinking: Bool
-    let disableThunkStubs: Bool
   }
   
   struct MalformedConfiguration: Error, CustomStringConvertible {
@@ -39,7 +39,8 @@ class Generator {
   
   enum Constants {
     static let generatedFileNameSuffix = "Mocks.generated.swift"
-    static let cacheSubdirectory = "MockingbirdCache"
+    static let xcodeCacheSubdirectory = "MockingbirdCache"
+    static let jsonCacheSubdirectory = ".mockingbird"
   }
   
   let config: Configuration
@@ -54,37 +55,53 @@ class Generator {
     self.configHash = try config.toSha1Hash()
     
     // Set up directories for target metadata caching.
-    self.sourceTargetCacheDirectory = config.projectPath + Constants.cacheSubdirectory
-    if let environmentProjectFilePath = config.environmentProjectFilePath {
-      let cacheDirectory = environmentProjectFilePath + Constants.cacheSubdirectory
-      self.testTargetCacheDirectory = cacheDirectory
+    if config.projectPath.extension == "xcodeproj" {
+      self.sourceTargetCacheDirectory = config.projectPath + Constants.xcodeCacheSubdirectory
+      if let environmentProjectFilePath = config.environmentProjectFilePath {
+        let cacheDirectory = environmentProjectFilePath + Constants.xcodeCacheSubdirectory
+        self.testTargetCacheDirectory = cacheDirectory
+      } else {
+        self.testTargetCacheDirectory = nil
+      }
     } else {
-      self.testTargetCacheDirectory = nil
+      self.sourceTargetCacheDirectory = config.projectPath.parent()
+        + Constants.jsonCacheSubdirectory
+      self.testTargetCacheDirectory = self.sourceTargetCacheDirectory
     }
   }
   
-  var parsedProjects = [Path: XcodeProj]()
-  func getXcodeProj(_ projectPath: Path) throws -> XcodeProj {
+  var parsedProjects = [Path: Project]()
+  func getProject(_ projectPath: Path) throws -> Project {
     if let xcodeproj = parsedProjects[projectPath] { return xcodeproj }
-    var xcodeproj: XcodeProj!
+    var project: Project!
     try time(.parseXcodeProject) {
-      xcodeproj = try XcodeProj(path: projectPath)
+      if projectPath.extension == "xcodeproj" {
+        project = .xcode(try XcodeProj(path: projectPath))
+      } else {
+        logInfo("Inferring JSON project description from extension \((projectPath.extension ?? "").singleQuoted)")
+        project = .json(try JSONProject(path: projectPath))
+      }
     }
-    parsedProjects[projectPath] = xcodeproj
-    return xcodeproj
+    parsedProjects[projectPath] = project
+    return project
   }
   
   // Parsing Xcode projects can be slow, so lazily get implicit build environments.
   func getBuildEnvironment() -> [String: Any] {
-    let xcodeproj = try? getXcodeProj(config.projectPath)
-    return xcodeproj?.implicitBuildEnvironment ?? [:]
+    let project = try? getProject(config.projectPath)
+    switch project {
+    case .xcode(let xcodeproj): return xcodeproj.implicitBuildEnvironment
+    case .json, .none: return [:]
+    }
   }
   
   var projectHash: String?
   func getProjectHash(_ projectPath: Path) -> String? {
     if let projectHash = projectHash { return projectHash }
-    let pbxprojPath = projectPath.glob("*.pbxproj").first
-    let projectHash = try? pbxprojPath?.read().generateSha1Hash()
+    let filePath = projectPath.extension == "xcodeproj"
+      ? projectPath.glob("*.pbxproj").first
+      : projectPath
+    let projectHash = try? filePath?.read().generateSha1Hash()
     self.projectHash = projectHash
     return projectHash
   }
@@ -105,7 +122,7 @@ class Generator {
   
   // Get cached test target metadata.
   func getCachedTestTarget(targetName: String) -> TargetType? {
-    guard !config.disableThunkStubs,
+    guard config.pruningMethod != .disable,
       let cacheDirectory = testTargetCacheDirectory,
       let projectHash = getProjectHash(config.projectPath),
       let cachedTarget = findCachedTestTarget(for: targetName,
@@ -130,19 +147,29 @@ class Generator {
     }
     
     // Resolve target names to concrete Xcode project targets.
-    let isSourceTarget: (PBXTarget) -> Bool = { target in
-      guard target.productType?.isTestBundle != true else {
-        logWarning("Excluding \(target.name.singleQuoted) from mock generation because it is a test bundle target")
-        return false
+    let isSourceTarget: (TargetType) -> Bool = { target in
+      switch target {
+      case .pbxTarget(let target):
+        guard target.productType?.isTestBundle != true else {
+          logWarning("Excluding \(target.name.singleQuoted) from mock generation because it is a test bundle target")
+          return false
+        }
+        return true
+      case .describedTarget(let target):
+        switch target.productType {
+        case .library: return true
+        case .test, .none: return false
+        }
+      case .sourceTarget: return true
+      case .testTarget: return false
       }
-      return true
     }
     let targets = try config.inputTargetNames.compactMap({ targetName throws -> TargetType? in
       return try Generator.resolveTarget(targetName: targetName,
                                          projectPath: config.projectPath,
                                          isValidTarget: isSourceTarget,
                                          getCachedTarget: getCachedSourceTarget,
-                                         getXcodeProj: getXcodeProj)
+                                         getProject: getProject)
     })
     
     // Resolve unspecified output paths to the default mock file output destination.
@@ -156,10 +183,10 @@ class Generator {
     let queue = OperationQueue.createForActiveProcessors()
     
     // Create operations to find used mock types in tests.
-    let pruningPipeline = config.disableThunkStubs ? nil :
+    let pruningPipeline = config.pruningMethod == .disable ? nil :
       PruningPipeline(config: config,
                       getCachedTarget: getCachedTestTarget,
-                      getXcodeProj: getXcodeProj,
+                      getProject: getProject,
                       environment: getBuildEnvironment)
     if let pruningOperations = pruningPipeline?.operations {
       queue.addOperations(pruningOperations, waitUntilFinished: false)
@@ -210,7 +237,7 @@ class Generator {
     })
     
     // Cache test target for thunk pruning.
-    if !config.disableThunkStubs {
+    if config.pruningMethod != .disable {
       if let testTargetCacheDirectory = testTargetCacheDirectory,
         let environmentSourceRoot = config.environmentSourceRoot {
         try testTargetCacheDirectory.mkpath()
@@ -243,17 +270,17 @@ class Generator {
   
   static func resolveTarget(targetName: String,
                             projectPath: Path,
-                            isValidTarget: (PBXTarget) -> Bool,
+                            isValidTarget: (TargetType) -> Bool,
                             getCachedTarget: (String) -> TargetType?,
-                            getXcodeProj: (Path) throws -> XcodeProj) throws -> TargetType {
+                            getProject: (Path) throws -> Project) throws -> TargetType {
     // Check if the target is cached in the project.
     if let cachedTarget = getCachedTarget(targetName) {
       return cachedTarget
     }
     
     // Need to parse the Xcode project for the full `PBXTarget` object.
-    let xcodeproj = try getXcodeProj(projectPath)
-    let targets = xcodeproj.pbxproj.targets(named: targetName).filter(isValidTarget)
+    let project = try getProject(projectPath)
+    let targets = project.targets(named: targetName).filter(isValidTarget)
     
     if targets.count > 1 {
       logWarning("Found multiple targets named \(targetName.singleQuoted), using the first one")
@@ -264,7 +291,7 @@ class Generator {
         description: "Unable to find target named \(targetName.singleQuoted)"
       )
     }
-    return .pbxTarget(target)
+    return target
   }
 }
 

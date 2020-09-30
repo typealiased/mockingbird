@@ -178,7 +178,7 @@ build-framework-macos:
 
 .PHONY: build-framework-iphonesimulator
 build-framework-iphonesimulator:
-	$(BUILD_TOOL) -scheme 'MockingbirdFramework' -configuration 'Release' -sdk iphonesimulator -arch x86_64 -arch i386 $(XCODEBUILD_FRAMEWORK_FLAGS)
+	$(BUILD_TOOL) -scheme 'MockingbirdFramework' -configuration 'Release' -sdk iphonesimulator -arch x86_64 $(XCODEBUILD_FRAMEWORK_FLAGS)
 
 .PHONY: build-framework-appletvsimulator
 build-framework-appletvsimulator:
@@ -305,7 +305,8 @@ docs: clean-docs setup-swiftdoc docs/index.html docs/latest/index.html
 
 .PHONY: download
 download:
-	curl -Lo "$(ZIP_FILENAME)" "$(ZIP_RELEASE_URL)"
+	$(eval CURL_AUTH_HEADER = $(shell [[ -z "${GH_ACCESS_TOKEN}" ]] || echo '-H "Authorization: token' ${GH_ACCESS_TOKEN}'"'))
+	curl $(CURL_AUTH_HEADER) -Lo "$(ZIP_FILENAME)" "$(ZIP_RELEASE_URL)"
 	unzip -o "$(ZIP_FILENAME)" "$(CLI_FILENAME)"
 	@codesign -v -R "$(CLI_DESIGNATED_REQUIREMENT)" "$(CLI_FILENAME)" \
 		&& echo "$(SUCCESS_MSG)" \

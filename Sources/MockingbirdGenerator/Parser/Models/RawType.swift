@@ -162,16 +162,17 @@ class RawTypeRepository {
     static let optionalsCharacterSet = CharacterSet.createOptionalsSet()
   }
   
+  /// Perform type realization based on scope and module.
+  ///
   /// Contained types can shadow higher level type names, so inheritance requires some inference.
   /// Type inference starts from the deepest level and works outwards.
-  /*
-   class SecondLevelType {}
-   class TopLevelType {
-     class SecondLevelType {
-       class ThirdLevelType: SecondLevelType {} // Inherits from the contained `SecondLevelType`
-     }
-   }
-   */
+  ///     class SecondLevelType {}
+  ///     class TopLevelType {
+  ///        class SecondLevelType {
+  ///          // Inherits from the contained `SecondLevelType`
+  ///          class ThirdLevelType: SecondLevelType {}
+  ///        }
+  ///      }
   func nearestInheritedType(named rawName: String,
                             trimmedName: String? = nil,
                             moduleNames: [String],
@@ -232,10 +233,12 @@ class RawTypeRepository {
   
   /// Returns whether a module name is shadowed by a type definition in any of the given modules.
   /// - Parameter moduleName: A module name to check.
-  /// - Parameter moduleNames: A list of modules to check for type definitions.
-  func isModuleNameShadowed(moduleName: String, moduleNames: [String]) -> Bool {
-    return moduleNames.contains(where: {
-      moduleTypes[$0]?.contains(moduleName) == true
-    })
+  /// - Parameter moduleNames: An optional list of modules to check for type definitions.
+  func isModuleNameShadowed(moduleName: String, moduleNames: [String]? = nil) -> Bool {
+    if let moduleNames = moduleNames {
+      return moduleNames.contains(where: { moduleTypes[$0]?.contains(moduleName) == true })
+    } else {
+      return moduleTypes.contains(where: { $0.value.contains(moduleName) })
+    }
   }
 }

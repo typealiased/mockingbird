@@ -43,6 +43,14 @@ extension Generator {
                                                  options: .all,
                                                  environment: environment)
         checkCache = nil
+        
+      case .describedTarget(let target):
+        extractSources = ExtractSourcesOperation(target: target,
+                                                 sourceRoot: config.sourceRoot,
+                                                 supportPath: config.supportPath,
+                                                 options: .all,
+                                                 environment: environment)
+        checkCache = nil
       
       case .sourceTarget(let target):
         extractSources = ExtractSourcesOperation(target: target as CodableTarget,
@@ -77,13 +85,16 @@ extension Generator {
         processTypesResult: processTypes.result,
         checkCacheResult: checkCache?.result,
         findMockedTypesResult: findMockedTypesOperation?.result,
-        moduleName: moduleName,
-        outputPath: outputPath,
-        header: config.header,
-        compilationCondition: config.compilationCondition,
-        shouldImportModule: config.shouldImportModule,
-        onlyMockProtocols: config.onlyMockProtocols,
-        disableSwiftlint: config.disableSwiftlint
+        config: GenerateFileConfig(
+          moduleName: moduleName,
+          outputPath: outputPath,
+          header: config.header,
+          compilationCondition: config.compilationCondition,
+          shouldImportModule: config.shouldImportModule,
+          onlyMockProtocols: config.onlyMockProtocols,
+          disableSwiftlint: config.disableSwiftlint,
+          pruningMethod: config.pruningMethod
+        )
       )
       generateFile.addDependency(processTypes)
       
@@ -116,6 +127,20 @@ extension Generator {
       let target: SourceTarget
       switch inputTarget {
       case .pbxTarget(let pipelineTarget):
+        target = try SourceTarget(from: pipelineTarget,
+                                  sourceRoot: sourceRoot,
+                                  supportPaths: result.supportPaths.map({ $0.path }),
+                                  projectHash: projectHash,
+                                  outputHash: outputPath.read().generateSha1Hash(),
+                                  mockedTypesHash: mockedTypesResult?.generateMockedTypeNamesHash(),
+                                  targetPathsHash: result.generateTargetPathsHash(),
+                                  dependencyPathsHash: result.generateDependencyPathsHash(),
+                                  cliVersion: cliVersion,
+                                  configHash: configHash,
+                                  ignoredDependencies: &ignoredDependencies,
+                                  environment: environment)
+        
+      case .describedTarget(let pipelineTarget):
         target = try SourceTarget(from: pipelineTarget,
                                   sourceRoot: sourceRoot,
                                   supportPaths: result.supportPaths.map({ $0.path }),

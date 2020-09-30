@@ -25,16 +25,17 @@ final class GenerateCommand: BaseCommand {
   private let outputsArgument: OptionArgument<[PathArgument]>
   private let outputArgument: OptionArgument<[PathArgument]>
   private let supportPathArgument: OptionArgument<PathArgument>
+  private let testBundleArgument: OptionArgument<String>
   private let diagnosticsArgument: OptionArgument<[DiagnosticType]>
   private let headerArgument: OptionArgument<[String]>
   private let compilationConditionArgument: OptionArgument<String>
+  private let pruningMethod: OptionArgument<PruningMethod>
   
   private let disableModuleImportArgument: OptionArgument<Bool>
   private let onlyMockProtocolsArgument: OptionArgument<Bool>
   private let disableSwiftlintArgument: OptionArgument<Bool>
   private let disableCacheArgument: OptionArgument<Bool>
   private let disableRelaxedLinking: OptionArgument<Bool>
-  private let disableThunkStubs: OptionArgument<Bool>
   
   required init(parser: ArgumentParser) {
     let subparser = parser.add(subparser: Constants.name, overview: Constants.overview)
@@ -46,16 +47,17 @@ final class GenerateCommand: BaseCommand {
     self.outputsArgument = subparser.addOutputs()
     self.outputArgument = subparser.addOutput()
     self.supportPathArgument = subparser.addSupportPath()
+    self.testBundleArgument = subparser.addTestBundle()
     self.diagnosticsArgument = subparser.addDiagnostics()
     self.headerArgument = subparser.addHeader()
     self.compilationConditionArgument = subparser.addCompilationCondition()
+    self.pruningMethod = subparser.addPruningMethod()
     
     self.disableModuleImportArgument = subparser.addDisableModuleImport()
     self.onlyMockProtocolsArgument = subparser.addOnlyProtocols()
     self.disableSwiftlintArgument = subparser.addDisableSwiftlint()
     self.disableCacheArgument = subparser.addDisableCache()
     self.disableRelaxedLinking = subparser.addDisableRelaxedLinking()
-    self.disableThunkStubs = subparser.addDisableThunkStubs()
     
     super.init(parser: subparser)
   }
@@ -81,19 +83,22 @@ final class GenerateCommand: BaseCommand {
                                                    sourceRoot: sourceRoot)
     
     var environmentProjectFilePath: Path? {
+      guard projectPath.extension == "xcodeproj" else { return projectPath }
       guard let filePath = environment["PROJECT_FILE_PATH"] else { return nil }
       let path = Path(filePath)
       guard path.extension == "xcodeproj" else { return nil }
       return path
     }
     var environmentSourceRoot: Path? {
+      guard projectPath.extension == "xcodeproj" else { return projectPath.parent() }
       guard let sourceRoot = environment["SRCROOT"] ?? environment["SOURCE_ROOT"] else {
         return nil
       }
       let path = Path(sourceRoot)
       return path
     }
-    let environmentTargetName = environment["TARGET_NAME"] ?? environment["TARGETNAME"]
+    let environmentTargetName = arguments.get(testBundleArgument)
+      ?? environment["TARGET_NAME"] ?? environment["TARGETNAME"]
     
     let config = Generator.Configuration(
       projectPath: projectPath,
@@ -106,12 +111,12 @@ final class GenerateCommand: BaseCommand {
       supportPath: supportPath,
       header: arguments.get(headerArgument),
       compilationCondition: arguments.get(compilationConditionArgument),
+      pruningMethod: arguments.get(pruningMethod) ?? .stub,
       shouldImportModule: arguments.get(disableModuleImportArgument) != true,
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
       disableSwiftlint: arguments.get(disableSwiftlintArgument) == true,
       disableCache: arguments.get(disableCacheArgument) == true,
-      disableRelaxedLinking: arguments.get(disableRelaxedLinking) == true,
-      disableThunkStubs: arguments.get(disableThunkStubs) == true
+      disableRelaxedLinking: arguments.get(disableRelaxedLinking) == true
     )
     try Generator(config).generate()
   }

@@ -74,7 +74,7 @@ public enum LogType: Int, CustomStringConvertible {
   }
 }
 
-public enum LogLevel: String, RawRepresentable {
+public enum LogLevel: String, RawRepresentable, CaseIterable {
   case normal = "normal"
   case quiet = "quiet"
   case verbose = "verbose"
@@ -97,6 +97,12 @@ public enum DiagnosticType: String, Hashable, CaseIterable {
   case typeInference = "type-inference"
   
   public static let enabled = Synchronized<Set<DiagnosticType>>([])
+}
+
+public enum PruningMethod: String, Codable, CaseIterable {
+  case disable = "disable"
+  case stub = "stub"
+  case omit = "omit"
 }
 
 private let loggingQueue = DispatchQueue(label: "co.bird.mockingbird.log", qos: .background)

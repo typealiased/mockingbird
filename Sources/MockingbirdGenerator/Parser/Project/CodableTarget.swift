@@ -14,6 +14,8 @@ public struct SourceFile: Codable, Hashable {
   public let hash: String?
 }
 
+/// A sparse representation of dependencies is used since caching only relies on the unique set of
+/// dependency sources for a single module being mocked.
 public class CodableTargetDependency: TargetDependency, Codable {
   public let target: CodableTarget?
   
@@ -26,6 +28,10 @@ public class CodableTargetDependency: TargetDependency, Codable {
                                     sourceRoot: sourceRoot,
                                     ignoredDependencies: &ignoredDependencies,
                                     environment: environment)
+  }
+  
+  init(target: CodableTarget) {
+    self.target = target
   }
   
   public static func == (lhs: CodableTargetDependency, rhs: CodableTargetDependency) -> Bool {
