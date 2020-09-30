@@ -16,14 +16,14 @@ extension ArgumentParser {
   func addProjectPath() -> OptionArgument<PathArgument> {
     return add(option: "--project",
                kind: PathArgument.self,
-               usage: "Path to your project’s '.xcodeproj' file.",
+               usage: "Path to an '.xcodeproj' file or a JSON project description.",
                completion: .filename)
   }
   
   func addSourceRoot() -> OptionArgument<PathArgument> {
     return add(option: "--srcroot",
                kind: PathArgument.self,
-               usage: "The folder containing your project's source files.",
+               usage: "The directory containing your project's source files.",
                completion: .filename)
   }
   
@@ -85,8 +85,14 @@ extension ArgumentParser {
   func addSupportPath() -> OptionArgument<PathArgument> {
     return add(option: "--support",
                kind: PathArgument.self,
-               usage: "The folder containing supporting source files.",
+               usage: "The directory containing supporting source files.",
                completion: .filename)
+  }
+  
+  func addTestBundle() -> OptionArgument<String> {
+    return add(option: "--testbundle",
+               kind: String.self,
+               usage: "The name of the test bundle using the mocks.")
   }
   
   func addHeader() -> OptionArgument<[String]> {
@@ -222,10 +228,6 @@ extension ArgumentParser.Result {
         }
         throw ArgumentParserError.expectedValue(option: "--project <xcodeproj file path>")
       }
-    }
-    guard projectPath.isDirectory, projectPath.extension == "xcodeproj" else {
-      throw ArgumentParserError.invalidValue(argument: "--project \(projectPath.absolute())",
-                                             error: .custom("Not a valid '.xcodeproj' path"))
     }
     return projectPath
   }

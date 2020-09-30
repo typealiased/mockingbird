@@ -25,6 +25,7 @@ final class GenerateCommand: BaseCommand {
   private let outputsArgument: OptionArgument<[PathArgument]>
   private let outputArgument: OptionArgument<[PathArgument]>
   private let supportPathArgument: OptionArgument<PathArgument>
+  private let testBundleArgument: OptionArgument<String>
   private let diagnosticsArgument: OptionArgument<[DiagnosticType]>
   private let headerArgument: OptionArgument<[String]>
   private let compilationConditionArgument: OptionArgument<String>
@@ -46,6 +47,7 @@ final class GenerateCommand: BaseCommand {
     self.outputsArgument = subparser.addOutputs()
     self.outputArgument = subparser.addOutput()
     self.supportPathArgument = subparser.addSupportPath()
+    self.testBundleArgument = subparser.addTestBundle()
     self.diagnosticsArgument = subparser.addDiagnostics()
     self.headerArgument = subparser.addHeader()
     self.compilationConditionArgument = subparser.addCompilationCondition()
@@ -81,19 +83,22 @@ final class GenerateCommand: BaseCommand {
                                                    sourceRoot: sourceRoot)
     
     var environmentProjectFilePath: Path? {
+      guard projectPath.extension == "xcodeproj" else { return projectPath }
       guard let filePath = environment["PROJECT_FILE_PATH"] else { return nil }
       let path = Path(filePath)
       guard path.extension == "xcodeproj" else { return nil }
       return path
     }
     var environmentSourceRoot: Path? {
+      guard projectPath.extension == "xcodeproj" else { return projectPath.parent() }
       guard let sourceRoot = environment["SRCROOT"] ?? environment["SOURCE_ROOT"] else {
         return nil
       }
       let path = Path(sourceRoot)
       return path
     }
-    let environmentTargetName = environment["TARGET_NAME"] ?? environment["TARGETNAME"]
+    let environmentTargetName = arguments.get(testBundleArgument)
+      ?? environment["TARGET_NAME"] ?? environment["TARGETNAME"]
     
     let config = Generator.Configuration(
       projectPath: projectPath,
