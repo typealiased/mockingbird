@@ -35,11 +35,13 @@ Mockingbird is a Swift mocking framework that lets you throw away your hand-writ
 
 ### Under the Hood
 
-Mockingbird consists of two main components: the _generator_ and the _testing framework_. The generator creates mocks before each test bundle compilation by implementing protocols and subclassing classes, while the testing framework hooks into the generated code and provides APIs for mocking, stubbing, and verification.
+Mockingbird consists of two main components: the _generator_ and the _testing framework_. Before each test bundle compilation, the generator mocks types by implementing protocols and subclassing classes. The testing framework then hooks into the generated code and provides APIs for mocking, stubbing, and verification.
 
 A key design consideration was performance. Mockingbird runs an optimized parser built on SwiftSyntax and SourceKit that is [~30-40x faster](https://github.com/birdrides/mockingbird/wiki/Performance) than existing frameworks and supports a [broad range](https://github.com/birdrides/mockingbird/wiki/Elephant-in-the-Room#other-third-party-mocking-frameworks) of complex Swift features like generics and type qualification.
 
 ### A Simple Example
+
+Let’s say we wanted to test a `Person` class with a function that takes in a `Bird`.
 
 ```swift
 protocol Bird {
@@ -47,31 +49,26 @@ protocol Bird {
   func fly()
 }
 
-class Tree {
-  let bird: Bird
-  
-  init(with bird: Bird) {
-    self.bird = bird
-  }
-  
-  func shake() {
+class Person {
+  func release(_ bird: Bird) {
     guard bird.canFly else { return }
     bird.fly()
   }
 }
+```
 
-func testShakingTreeCausesBirdToFly() {
-  // Given a tree with a bird that can fly
-  let bird = mock(Bird.self)
-  let tree = Tree(with: bird)
-  given(bird.getCanFly()).willReturn(true)
-  
-  // When the tree is shaken
-  tree.shake()
-  
-  // Then the bird flies away
-  verify(bird.fly()).wasCalled()
-}
+With Mockingbird, it’s easy to stub return values and verify that mocked methods were called.
+
+```swift
+// Given a bird that can fly
+let bird = mock(Bird.self)
+given(bird.getCanFly()).willReturn(true)
+
+// When a person releases the bird
+Person().release(bird)
+
+// Then the bird flies away
+verify(bird.fly()).wasCalled()
 ```
 
 ## Installation
@@ -85,7 +82,7 @@ Add the framework to a test target in your `Podfile`, making sure to include the
 ```ruby
 target 'MyAppTests' do
   use_frameworks!
-  pod 'MockingbirdFramework', '~> 0.15'
+  pod 'MockingbirdFramework', '~> 0.17'
 end
 ```
 
@@ -96,12 +93,22 @@ $ pod install
 $ (cd Pods/MockingbirdFramework && make install-prebuilt)
 ```
 
-Finally, download the starter [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files) and configure a test target. This adds a build phase to the test target that generates mocks for each listed source module. For advanced usages, see the [available installer options](#install) and how to [set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
+Then download the starter [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files).
 
 ```console
 $ mockingbird download starter-pack
+```
+
+Finally, configure a test target to generate mocks for each listed source module. For advanced usages, see the [available installer options](#install) and how to [set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
+
+```console
 $ mockingbird install --target MyAppTests --sources MyApp MyLibrary1 MyLibrary2
 ```
+
+Optional but recommended:
+
+- [Exclude generated files from source control](https://github.com/birdrides/mockingbird/wiki/Integration-Tips#source-control-exclusion)
+- [Pin the binary for hermetic builds](https://github.com/birdrides/mockingbird/wiki/Integration-Tips#pin-the-binary)
 
 Have questions or issues?
 
@@ -116,7 +123,7 @@ Have questions or issues?
 Add the framework to your `Cartfile`.
 
 ```
-github "birdrides/mockingbird" ~> 0.15
+github "birdrides/mockingbird" ~> 0.17
 ```
 
 Build the framework with Carthage, [link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets), and install the CLI.
@@ -126,12 +133,22 @@ $ carthage update
 $ (cd Carthage/Checkouts/mockingbird && make install-prebuilt)
 ```
 
-Finally, download the starter [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files) and configure a test target. This adds a build phase to the test target that generates mocks for each listed source module. For advanced usages, see the [available installer options](#install) and how to [set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
+Then download the starter [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files).
 
 ```console
 $ mockingbird download starter-pack
+```
+
+Finally, configure a test target to generate mocks for each listed source module. For advanced usages, see the [available installer options](#install) and how to [set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
+
+```console
 $ mockingbird install --target MyAppTests --sources MyApp MyLibrary1 MyLibrary2
 ```
+
+Optional but recommended:
+
+- [Exclude generated files from source control](https://github.com/birdrides/mockingbird/wiki/Integration-Tips#source-control-exclusion)
+- [Pin the binary for hermetic builds](https://github.com/birdrides/mockingbird/wiki/Integration-Tips#pin-the-binary)
 
 Have questions or issues?
 
@@ -152,16 +169,22 @@ Add the framework as a package dependency and link it to your test target.
 
 <details><summary>Click here if you are using a <code>Package.swift</code> manifest file instead.</summary>
 
-Add `.package(name: "Mockingbird", …)` and declare `"Mockingbird"` as a dependency of your `.testTarget`.
+Add Mockingbird to your package and test target dependencies.
 
 ```swift
 let package = Package(
   name: "MyPackage",
   dependencies: [
-    .package(name: "Mockingbird", url: "https://github.com/birdrides/mockingbird.git", .upToNextMinor(from: "0.15.0")),
+    // Add the line below
+    .package(name: "Mockingbird", url: "https://github.com/birdrides/mockingbird.git", .upToNextMinor(from: "0.17.0")),
   ],
   targets: [
-    .testTarget(name: "MyPackageTests", dependencies: ["Mockingbird"]),
+    .testTarget(
+      name: "MyPackageTests",
+      dependencies: [
+        "Mockingbird", // Add this line
+      ]
+    ),
   ]
 )
 ```
@@ -176,12 +199,22 @@ $ DERIVED_DATA=$(xcodebuild -showBuildSettings | pcregrep -o1 'OBJROOT = (/.*)/B
 $ (cd "${DERIVED_DATA}/SourcePackages/checkouts/mockingbird" && make install-prebuilt)
 ```
 
-Finally, download the starter [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files) and configure a test target. This adds a build phase to the test target that generates mocks for each listed source module. For advanced usages, see the [available installer options](#install) and how to [set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
+Then download the starter [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files).
 
 ```console
 $ mockingbird download starter-pack
+```
+
+Finally, configure a test target to generate mocks for each listed source module. For advanced usages, see the [available installer options](#install) and how to [set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
+
+```console
 $ mockingbird install --target MyPackageTests --sources MyPackage MyLibrary1 MyLibrary2
 ```
+
+Optional but recommended:
+
+- [Exclude generated files from source control](https://github.com/birdrides/mockingbird/wiki/Integration-Tips#source-control-exclusion)
+- [Pin the binary for hermetic builds](https://github.com/birdrides/mockingbird/wiki/Integration-Tips#pin-the-binary)
 
 Have questions or issues?
 
