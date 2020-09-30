@@ -26,13 +26,13 @@ class Installer {
     let compilationCondition: String?
     let diagnostics: [DiagnosticType]?
     let logLevel: LogLevel?
+    let pruningMethod: PruningMethod?
     let ignoreExisting: Bool
     let asynchronousGeneration: Bool
     let onlyMockProtocols: Bool
     let disableSwiftlint: Bool
     let disableCache: Bool
-    let disableRelaxedLinking: Bool
-    let disableThunkStubs: Bool
+    let disableRelaxedLinking: Bool 
   }
   
   struct UninstallConfiguration {
@@ -310,7 +310,7 @@ class Installer {
         options.append("--support \(relativeSupportPath.doubleQuoted)")
       }
       if let expression = config.compilationCondition {
-        options.append("--condition '\(expression)'")
+        options.append("--condition \(expression.singleQuoted)")
       }
       if let header = config.header {
         options.append("--header \(header.map({ "'\($0)'" }).joined(separator: " "))")
@@ -321,6 +321,9 @@ class Installer {
           .sorted()
           .joined(separator: " ")
         options.append("--diagnostics \(allDiagnostics)")
+      }
+      if let method = config.pruningMethod {
+        options.append("--prune \(method.rawValue.singleQuoted)")
       }
       if config.onlyMockProtocols {
         options.append("--only-protocols")
@@ -333,9 +336,6 @@ class Installer {
       }
       if config.disableRelaxedLinking {
         options.append("--disable-relaxed-linking")
-      }
-      if config.disableThunkStubs {
-        options.append("--disable-thunk-stubs")
       }
       if let logLevel = config.logLevel {
         switch logLevel {

@@ -59,8 +59,8 @@ jobs:
           --support Sources/MockingbirdSupport \
           --output Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift \
           --header '// Header line 1' '// Header line 2' \
+          --prune disable \
           --disable-cache \
-          --disable-thunk-stubs \
           --diagnostics all \
           --loglevel verbose \
           --verbose

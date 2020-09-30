@@ -21,12 +21,17 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		281B6246251DC7220084EBED /* MockingbirdShadowedTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */; };
+		281B6286251DC7FC0084EBED /* ModuleNameShadowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B61F1251DBBDE0084EBED /* ModuleNameShadowing.swift */; };
+		281B62FF251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */; };
 		287F851F25194DE4007D135D /* SPMUtility in Frameworks */ = {isa = PBXBuildFile; productRef = 287F851E25194DE4007D135D /* SPMUtility */; };
 		287F852225194E16007D135D /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 287F852125194E16007D135D /* SwiftSyntax */; };
 		287F852525194EF5007D135D /* SourceKittenFramework in Frameworks */ = {isa = PBXBuildFile; productRef = 287F852425194EF5007D135D /* SourceKittenFramework */; };
 		287F852825194F2A007D135D /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 287F852725194F2A007D135D /* ZIPFoundation */; };
 		287F852E25195011007D135D /* XcodeProj in Frameworks */ = {isa = PBXBuildFile; productRef = 287F852D25195011007D135D /* XcodeProj */; };
 		287F85322519659B007D135D /* MockingbirdGenerator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */; };
+		28950E2D251C4C82008EEE29 /* ProjectDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28950E2C251C4C82008EEE29 /* ProjectDescription.swift */; };
+		28DAD96E251BDD66001A0B3F /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DAD96D251BDD66001A0B3F /* Project.swift */; };
 		D314ED7F24CE1C10000CC23D /* GenericsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314ED7E24CE1C10000CC23D /* GenericsTests.swift */; };
 		D3643B6C247B78A5002DF069 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B6B247B78A4002DF069 /* Function.swift */; };
 		D3643B72247C5107002DF069 /* String+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B71247C5107002DF069 /* String+Components.swift */; };
@@ -288,6 +293,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		281B6244251DC7150084EBED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 281B621B251DC5AD0084EBED;
+			remoteInfo = MockingbirdShadowedTestsHost;
+		};
 		287F853B25196999007D135D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
@@ -354,7 +366,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		281B61F1251DBBDE0084EBED /* ModuleNameShadowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleNameShadowing.swift; sourceTree = "<group>"; };
+		281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MockingbirdShadowedTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		281B62CF251DCAB90084EBED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockingbirdShadowedTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdShadowedTestsHostMocks.generated.swift; sourceTree = "<group>"; };
 		287F853D25196ACE007D135D /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = Sources/Package.swift; sourceTree = "<group>"; };
+		28950E2C251C4C82008EEE29 /* ProjectDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescription.swift; sourceTree = "<group>"; };
+		28DAD96D251BDD66001A0B3F /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
 		D314ED7E24CE1C10000CC23D /* GenericsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericsTests.swift; sourceTree = "<group>"; };
 		D3643B6B247B78A4002DF069 /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
@@ -399,7 +417,7 @@
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdModuleTestsHost::Product" /* MockingbirdModuleTestsHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdModuleTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"Mockingbird::MockingbirdPerformanceTestsHost::Product" /* MockingbirdPerformanceTestsHost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MockingbirdPerformanceTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"Mockingbird::MockingbirdPerformanceTestsHost::Product" /* MockingbirdPerformanceTestsHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdPerformanceTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdTests::Product" /* MockingbirdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = MockingbirdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdTestsHost::Product" /* MockingbirdTestsHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_100 /* ExtractSourcesOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractSourcesOperation.swift; sourceTree = "<group>"; };
@@ -637,6 +655,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		281B6222251DC5AD0084EBED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		OBJ_1014 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
@@ -661,6 +686,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_1181 /* MockingbirdModuleTestsHost.framework in Frameworks */,
+				281B6246251DC7220084EBED /* MockingbirdShadowedTestsHost.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,6 +727,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		281B623A251DC6B10084EBED /* Shadowed */ = {
+			isa = PBXGroup;
+			children = (
+				281B61F1251DBBDE0084EBED /* ModuleNameShadowing.swift */,
+			);
+			path = Shadowed;
+			sourceTree = "<group>";
+		};
 		287F852C25195011007D135D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -712,6 +746,7 @@
 			isa = PBXGroup;
 			children = (
 				942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */,
+				281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */,
 			);
 			name = "Generated Mocks";
 			sourceTree = "<group>";
@@ -769,6 +804,8 @@
 				D3643B75247C76EA002DF069 /* BuildSetting.swift */,
 				OBJ_108 /* CodableTarget.swift */,
 				OBJ_109 /* PBXTarget+Target.swift */,
+				28DAD96D251BDD66001A0B3F /* Project.swift */,
+				28950E2C251C4C82008EEE29 /* ProjectDescription.swift */,
 				D3EC1C0A2490BB92004E555F /* SourceTarget.swift */,
 				OBJ_110 /* SubstitutionStyle.swift */,
 				OBJ_111 /* Target.swift */,
@@ -823,7 +860,7 @@
 			path = Commands;
 			sourceTree = "<group>";
 		};
-		OBJ_132 /* MockingbirdModuleTestsHost */ = {
+		OBJ_132 /* Module */ = {
 			isa = PBXGroup;
 			children = (
 				OBJ_133 /* ClassScopedTypes.swift */,
@@ -832,22 +869,27 @@
 				OBJ_136 /* ObjectiveC.swift */,
 				OBJ_137 /* Typealiasing.swift */,
 			);
-			name = MockingbirdModuleTestsHost;
+			name = Module;
 			path = Sources/MockingbirdTestsHost/Module;
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_138 /* MockingbirdPerformanceTestsHost */ = {
+		OBJ_138 /* Performance */ = {
 			isa = PBXGroup;
 			children = (
 				OBJ_139 /* Empty.swift */,
 			);
-			name = MockingbirdPerformanceTestsHost;
+			name = Performance;
 			path = Sources/MockingbirdTestsHost/Performance;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_140 /* MockingbirdTestsHost */ = {
 			isa = PBXGroup;
 			children = (
+				281B62CF251DCAB90084EBED /* Info.plist */,
+				OBJ_170 /* MockingbirdIgnore */,
+				OBJ_132 /* Module */,
+				OBJ_138 /* Performance */,
+				281B623A251DC6B10084EBED /* Shadowed */,
 				OBJ_141 /* MockingbirdTestsHost.h */,
 				OBJ_143 /* ArgumentMatching.swift */,
 				OBJ_144 /* Child.swift */,
@@ -879,7 +921,6 @@
 				OBJ_167 /* Initializers.swift */,
 				OBJ_168 /* InoutParameters.swift */,
 				OBJ_169 /* KeywordArgumentNames.swift */,
-				OBJ_170 /* MockingbirdIgnore */,
 				OBJ_196 /* ModuleImportCases.swift */,
 				OBJ_198 /* OpaquelyInheritedTypes.swift */,
 				OBJ_199 /* Optionals.swift */,
@@ -1229,7 +1270,6 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_65 /* Extensions */,
-				OBJ_67 /* FileGenerator.swift */,
 				OBJ_68 /* Operations */,
 				OBJ_71 /* Templates */,
 			);
@@ -1246,6 +1286,7 @@
 				"Mockingbird::MockingbirdModuleTestsHost::Product" /* MockingbirdModuleTestsHost.framework */,
 				"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */,
 				"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */,
+				281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */,
 			);
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -1261,6 +1302,7 @@
 		OBJ_68 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				OBJ_67 /* FileGenerator.swift */,
 				OBJ_69 /* GenerateFileOperation.swift */,
 				OBJ_70 /* RenderTemplateOperation.swift */,
 			);
@@ -1274,8 +1316,6 @@
 				OBJ_8 /* MockingbirdCli */,
 				OBJ_29 /* MockingbirdFramework */,
 				OBJ_62 /* MockingbirdGenerator */,
-				OBJ_132 /* MockingbirdModuleTestsHost */,
-				OBJ_138 /* MockingbirdPerformanceTestsHost */,
 				OBJ_140 /* MockingbirdTestsHost */,
 			);
 			name = Sources;
@@ -1377,6 +1417,22 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		281B621B251DC5AD0084EBED /* MockingbirdShadowedTestsHost */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 281B6223251DC5AD0084EBED /* Build configuration list for PBXNativeTarget "MockingbirdShadowedTestsHost" */;
+			buildPhases = (
+				281B621C251DC5AD0084EBED /* Sources */,
+				281B6222251DC5AD0084EBED /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MockingbirdShadowedTestsHost;
+			productName = MockingbirdModuleTestsHost;
+			productReference = 281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		"Mockingbird::MockingbirdCli" /* MockingbirdCli */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_803 /* Build configuration list for PBXNativeTarget "MockingbirdCli" */;
@@ -1504,6 +1560,7 @@
 			);
 			dependencies = (
 				OBJ_1182 /* PBXTargetDependency */,
+				281B6245251DC7150084EBED /* PBXTargetDependency */,
 			);
 			name = MockingbirdTestsHost;
 			productName = MockingbirdTestsHost;
@@ -1517,7 +1574,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 9999;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 					287F85372519698B007D135D = {
 						CreatedOnToolsVersion = 12.0;
@@ -1547,10 +1604,11 @@
 				"Mockingbird::MockingbirdCli" /* MockingbirdCli */,
 				"Mockingbird::MockingbirdFramework" /* MockingbirdFramework */,
 				"Mockingbird::MockingbirdGenerator" /* MockingbirdGenerator */,
-				"Mockingbird::MockingbirdModuleTestsHost" /* MockingbirdModuleTestsHost */,
-				"Mockingbird::MockingbirdPerformanceTestsHost" /* MockingbirdPerformanceTestsHost */,
 				"Mockingbird::MockingbirdTests" /* MockingbirdTests */,
 				"Mockingbird::MockingbirdTestsHost" /* MockingbirdTestsHost */,
+				"Mockingbird::MockingbirdModuleTestsHost" /* MockingbirdModuleTestsHost */,
+				281B621B251DC5AD0084EBED /* MockingbirdShadowedTestsHost */,
+				"Mockingbird::MockingbirdPerformanceTestsHost" /* MockingbirdPerformanceTestsHost */,
 				287F85372519698B007D135D /* mockingbird */,
 			);
 		};
@@ -1568,10 +1626,11 @@
 			name = "Generate Mockingbird Mocks";
 			outputPaths = (
 				"$(SRCROOT)/Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift",
+				"$(SRCROOT)/Tests/MockingbirdTests/Mocks/MockingbirdShadowedTestsHostMocks.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\n${BUILT_PRODUCTS_DIR}/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' \\\n  --outputs \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift\" \\\n  --support \"${SRCROOT}/Sources/MockingbirdSupport\" \\\n  --diagnostics all \\\n  --disable-cache \\\n  --verbose\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-16BC195B-65B7-4763-B2C9-AEA49F30A43A'\n";
+			shellScript = "set -e\n\n${BUILT_PRODUCTS_DIR}/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' 'MockingbirdShadowedTestsHost' \\\n  --outputs \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift\" \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdShadowedTestsHostMocks.generated.swift\" \\\n  --support \"${SRCROOT}/Sources/MockingbirdSupport\" \\\n  --diagnostics all \\\n  --disable-cache \\\n  --verbose\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-16BC195B-65B7-4763-B2C9-AEA49F30A43A'\n";
 		};
 		D372A59C2455878B0000E80A /* Generate Embedded Dylibs */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1611,6 +1670,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		281B621C251DC5AD0084EBED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				281B6286251DC7FC0084EBED /* ModuleNameShadowing.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		OBJ_1012 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
@@ -1636,6 +1703,7 @@
 				OBJ_1029 /* EmptyTypesMockableTests.swift in Sources */,
 				D37503D72460FE7E003017A7 /* ImplicitVariableTypesMockableTests.swift in Sources */,
 				OBJ_1030 /* ExceptionsMockableTests.swift in Sources */,
+				281B62FF251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift in Sources */,
 				OBJ_1031 /* ExceptionsStubbableTests.swift in Sources */,
 				OBJ_1032 /* ExtensionsMockableTests.swift in Sources */,
 				OBJ_1033 /* ExtensionsStubbableTests.swift in Sources */,
@@ -1857,9 +1925,11 @@
 				OBJ_923 /* Tuple.swift in Sources */,
 				OBJ_924 /* Primitives.swift in Sources */,
 				OBJ_925 /* RawType.swift in Sources */,
+				28950E2D251C4C82008EEE29 /* ProjectDescription.swift in Sources */,
 				OBJ_926 /* SerializationRequest.swift in Sources */,
 				OBJ_927 /* Specializable.swift in Sources */,
 				OBJ_928 /* TypeAttributes.swift in Sources */,
+				28DAD96E251BDD66001A0B3F /* Project.swift in Sources */,
 				OBJ_929 /* Typealias.swift in Sources */,
 				OBJ_930 /* Variable.swift in Sources */,
 				OBJ_931 /* BasicOperation.swift in Sources */,
@@ -1914,6 +1984,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		281B6245251DC7150084EBED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 281B621B251DC5AD0084EBED /* MockingbirdShadowedTestsHost */;
+			targetProxy = 281B6244251DC7150084EBED /* PBXContainerItemProxy */;
+		};
 		287F853C25196999007D135D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "Mockingbird::MockingbirdCli" /* MockingbirdCli */;
@@ -1962,6 +2037,66 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		281B6224251DC5AD0084EBED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D372A595245586DD0000E80A /* MockingbirdTestsHost.xcconfig */;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = MockingbirdShadowedTestsHost;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		281B6225251DC5AD0084EBED /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D372A595245586DD0000E80A /* MockingbirdTestsHost.xcconfig */;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = MockingbirdShadowedTestsHost;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
 		287F85382519698B007D135D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1980,6 +2115,7 @@
 		};
 		OBJ_1010 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D372A595245586DD0000E80A /* MockingbirdTestsHost.xcconfig */;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1987,8 +2123,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdPerformanceTestsHost_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
@@ -1997,20 +2132,20 @@
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = MockingbirdPerformanceTestsHost;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = MockingbirdPerformanceTestsHost;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
 		OBJ_1011 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D372A595245586DD0000E80A /* MockingbirdTestsHost.xcconfig */;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2018,8 +2153,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdPerformanceTestsHost_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
@@ -2028,14 +2162,13 @@
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = MockingbirdPerformanceTestsHost;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = MockingbirdPerformanceTestsHost;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
@@ -2050,8 +2183,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdTests_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@loader_path/../Frameworks",
@@ -2064,7 +2196,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = MockingbirdTests;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
@@ -2079,8 +2211,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdTests_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@loader_path/../Frameworks",
@@ -2093,7 +2224,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = MockingbirdTests;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
@@ -2108,8 +2239,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdTestsHost_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
@@ -2118,14 +2248,13 @@
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = MockingbirdTestsHost;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = MockingbirdTestsHost;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
@@ -2140,8 +2269,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdTestsHost_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
@@ -2150,14 +2278,13 @@
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = MockingbirdTestsHost;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = MockingbirdTestsHost;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
@@ -2178,6 +2305,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -2231,6 +2359,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -2275,8 +2404,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdCli_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
@@ -2291,7 +2419,7 @@
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = MockingbirdCli;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
@@ -2306,8 +2434,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdCli_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
@@ -2322,7 +2449,7 @@
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = MockingbirdCli;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
@@ -2337,8 +2464,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdFramework_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
@@ -2351,14 +2477,13 @@
 					XCTest,
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = MockingbirdFramework;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = Mockingbird;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
@@ -2373,8 +2498,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdFramework_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
@@ -2387,14 +2511,13 @@
 					XCTest,
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = MockingbirdFramework;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = Mockingbird;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
@@ -2409,8 +2532,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdGenerator_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
@@ -2419,14 +2541,13 @@
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = MockingbirdGenerator;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = MockingbirdGenerator;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
@@ -2441,8 +2562,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdGenerator_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
@@ -2451,14 +2571,13 @@
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = MockingbirdGenerator;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = MockingbirdGenerator;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
@@ -2473,8 +2592,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdModuleTestsHost_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
@@ -2483,14 +2601,13 @@
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = MockingbirdModuleTestsHost;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = MockingbirdModuleTestsHost;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
@@ -2505,8 +2622,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Mockingbird.xcodeproj/MockingbirdModuleTestsHost_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
@@ -2515,14 +2631,13 @@
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = MockingbirdModuleTestsHost;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = MockingbirdModuleTestsHost;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
@@ -2530,6 +2645,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		281B6223251DC5AD0084EBED /* Build configuration list for PBXNativeTarget "MockingbirdShadowedTestsHost" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				281B6224251DC5AD0084EBED /* Debug */,
+				281B6225251DC5AD0084EBED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		287F853A2519698B007D135D /* Build configuration list for PBXAggregateTarget "mockingbird" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

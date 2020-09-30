@@ -102,7 +102,15 @@ class MockableType: Hashable, Comparable {
     self.name = baseRawType.name
     self.moduleName = baseRawType.parsedFile.moduleName
     self.fullyQualifiedName = baseRawType.fullyQualifiedName
-    self.fullyQualifiedModuleName = baseRawType.fullyQualifiedModuleName
+    self.fullyQualifiedModuleName = DeclaredType(from: baseRawType.fullyQualifiedModuleName)
+      .serialize(
+        with: SerializationRequest(
+          method: .moduleQualified,
+          context: SerializationRequest.Context(
+            moduleNames: moduleNames,
+            rawType: baseRawType,
+            rawTypeRepository: rawTypeRepository),
+          options: .standard))
     self.kind = baseRawType.kind
     self.accessLevel = accessLevel
     self.isContainedType = !baseRawType.containingTypeNames.isEmpty

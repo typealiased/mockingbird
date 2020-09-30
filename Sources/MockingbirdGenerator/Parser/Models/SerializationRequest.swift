@@ -230,8 +230,7 @@ extension SerializationRequest {
       // Exclude the module name if it's shadowed by a type in one of the imported modules. This
       // will break if the shadowed module also contains type names that conflict with another
       // module. However, name conflicts are much less likely to occur than module name shadowing.
-      if rawTypeRepository.isModuleNameShadowed(moduleName: baseRawType.parsedFile.moduleName,
-                                                moduleNames: context.moduleNames) {
+      if rawTypeRepository.isModuleNameShadowed(moduleName: baseRawType.parsedFile.moduleName) {
         let partiallyQualifiedTypeName = qualifiedTypeNames.moduleQualified
           .substringComponents(separatedBy: ".")[1...]
           .joined(separator: ".")

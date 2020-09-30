@@ -10,11 +10,7 @@ import Foundation
 import PathKit
 import os.log
 
-public class GenerateFileOperation: BasicOperation {
-  let processTypesResult: ProcessTypesOperation.Result
-  let checkCacheResult: CheckCacheOperation.Result?
-  let findMockedTypesResult: FindMockedTypesOperation.Result?
-  
+public struct GenerateFileConfig {
   let moduleName: String
   let outputPath: Path
   let header: [String]?
@@ -22,27 +18,41 @@ public class GenerateFileOperation: BasicOperation {
   let shouldImportModule: Bool
   let onlyMockProtocols: Bool
   let disableSwiftlint: Bool
+  let pruningMethod: PruningMethod
   
-  public init(processTypesResult: ProcessTypesOperation.Result,
-              checkCacheResult: CheckCacheOperation.Result?,
-              findMockedTypesResult: FindMockedTypesOperation.Result?,
-              moduleName: String,
+  public init(moduleName: String,
               outputPath: Path,
               header: [String]?,
               compilationCondition: String?,
               shouldImportModule: Bool,
               onlyMockProtocols: Bool,
-              disableSwiftlint: Bool) {
+              disableSwiftlint: Bool,
+              pruningMethod: PruningMethod) {
+    self.moduleName = moduleName
+    self.outputPath = outputPath
+    self.header = header
+    self.compilationCondition = compilationCondition
+    self.shouldImportModule = shouldImportModule
+    self.onlyMockProtocols = onlyMockProtocols
+    self.disableSwiftlint = disableSwiftlint
+    self.pruningMethod = pruningMethod
+  }
+}
+
+public class GenerateFileOperation: BasicOperation {
+  let processTypesResult: ProcessTypesOperation.Result
+  let checkCacheResult: CheckCacheOperation.Result?
+  let findMockedTypesResult: FindMockedTypesOperation.Result?
+  let config: GenerateFileConfig
+  
+  public init(processTypesResult: ProcessTypesOperation.Result,
+              checkCacheResult: CheckCacheOperation.Result?,
+              findMockedTypesResult: FindMockedTypesOperation.Result?,
+              config: GenerateFileConfig) {
     self.processTypesResult = processTypesResult
     self.checkCacheResult = checkCacheResult
     self.findMockedTypesResult = findMockedTypesResult
-    self.moduleName = moduleName
-    self.outputPath = outputPath
-    self.shouldImportModule = shouldImportModule
-    self.header = header
-    self.compilationCondition = compilationCondition
-    self.onlyMockProtocols = onlyMockProtocols
-    self.disableSwiftlint = disableSwiftlint
+    self.config = config
   }
   
   override func run() throws {
@@ -52,22 +62,16 @@ public class GenerateFileOperation: BasicOperation {
       let generator = FileGenerator(
         mockableTypes: processTypesResult.mockableTypes,
         mockedTypeNames: findMockedTypesResult?.allMockedTypeNames,
-        moduleName: moduleName,
         imports: processTypesResult.imports,
-        outputPath: outputPath,
-        header: header,
-        compilationCondition: compilationCondition,
-        shouldImportModule: shouldImportModule,
-        onlyMockProtocols: onlyMockProtocols,
-        disableSwiftlint: disableSwiftlint
+        config: config
       )
       contents = generator.generate()
     }
     
     try time(.writeFiles) {
-      try outputPath.writeUtf8Strings(contents)
+      try config.outputPath.writeUtf8Strings(contents)
     }
     
-    logInfo("Generated file to \(outputPath.absolute())")
+    logInfo("Generated file to \(config.outputPath.absolute())")
   }
 }

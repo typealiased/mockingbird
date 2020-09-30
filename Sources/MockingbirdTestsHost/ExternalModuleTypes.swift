@@ -7,6 +7,7 @@
 
 import Foundation
 import MockingbirdModuleTestsHost
+import MockingbirdShadowedTestsHost
 
 protocol LocalPublicExternalProtocol: PublicExternalProtocol {}
 
@@ -54,3 +55,9 @@ protocol ConformingExternalClassConstrainedProtocol: ExternalClassConstrainedPro
 protocol ConformingInitializableOpenClassConstrainedProtocol: InitializableOpenClassConstrainedProtocol {}
 protocol ConformingUninitializableOpenClassConstrainedProtocol: UninitializableOpenClassConstrainedProtocol {}
 protocol ConformingUnmockablePublicClassConstrainedProtocol: UnmockablePublicClassConstrainedProtocol {}
+
+// MARK: - Module name shadowing
+
+class ConformingExternalShadowedProtocol: MockingbirdShadowedTestsHost {
+  func referencingShadowedType(param: MockingbirdShadowedTestsHost) {}
+}

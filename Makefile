@@ -178,7 +178,7 @@ build-framework-macos:
 
 .PHONY: build-framework-iphonesimulator
 build-framework-iphonesimulator:
-	$(BUILD_TOOL) -scheme 'MockingbirdFramework' -configuration 'Release' -sdk iphonesimulator -arch x86_64 -arch i386 $(XCODEBUILD_FRAMEWORK_FLAGS)
+	$(BUILD_TOOL) -scheme 'MockingbirdFramework' -configuration 'Release' -sdk iphonesimulator -arch x86_64 $(XCODEBUILD_FRAMEWORK_FLAGS)
 
 .PHONY: build-framework-appletvsimulator
 build-framework-appletvsimulator:

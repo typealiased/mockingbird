@@ -78,9 +78,10 @@ struct MockableTypeInitializerTemplate: Template {
       supportingTypeDeclaration = "public enum \(mockableType.name)\(allGenericTypeConstraints) {}\n"
     } else {
       let scopedName = mockableTypeTemplate.createScopedName(with: containingTypeNames,
-                                                             genericTypeContext: genericTypeContext)
+                                                             genericTypeContext: genericTypeContext,
+                                                             moduleQualified: true)
       let metatypeKeyword = (kind == .class ? "Type" : "Protocol")
-      metatype = "\(mockableType.moduleName).\(scopedName).\(metatypeKeyword)"
+      metatype = "\(scopedName).\(metatypeKeyword)"
       supportingTypeDeclaration = ""
     }
     
