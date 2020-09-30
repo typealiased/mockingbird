@@ -85,13 +85,16 @@ extension Generator {
         processTypesResult: processTypes.result,
         checkCacheResult: checkCache?.result,
         findMockedTypesResult: findMockedTypesOperation?.result,
-        moduleName: moduleName,
-        outputPath: outputPath,
-        header: config.header,
-        compilationCondition: config.compilationCondition,
-        shouldImportModule: config.shouldImportModule,
-        onlyMockProtocols: config.onlyMockProtocols,
-        disableSwiftlint: config.disableSwiftlint
+        config: GenerateFileConfig(
+          moduleName: moduleName,
+          outputPath: outputPath,
+          header: config.header,
+          compilationCondition: config.compilationCondition,
+          shouldImportModule: config.shouldImportModule,
+          onlyMockProtocols: config.onlyMockProtocols,
+          disableSwiftlint: config.disableSwiftlint,
+          pruningMethod: config.pruningMethod
+        )
       )
       generateFile.addDependency(processTypes)
       
