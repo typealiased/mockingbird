@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockingbird - verify(_:file:line:)</title>
+    <link rel="stylesheet" type="text/css" href="/mockingbird/0.16.0/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="/mockingbird/0.16.0">
+            <strong>
+                Mockingbird
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>0.16.0</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol/>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+<small>Function</small>
+<span class="name">verify(_:​file:​line:​)</span>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">verify</span>&lt;<span class="variable">DeclarationType</span>: <a href="/mockingbird/0.16.0/Declaration-f6338ac"><span class="type">Declaration</span></a>, <span class="variable">InvocationType</span>, <span class="variable">ReturnType</span>&gt;(<span class="keyword">_</span> <span class="variable">declaration</span>: <a href="/mockingbird/0.16.0/Mockable-9a5a67c"><span class="type">Mockable</span></a>&lt;<span class="type">DeclarationType</span>, <span class="type">InvocationType</span>, <span class="type">ReturnType</span>&gt;, <span class="variable">file</span>: <span class="type">StaticString</span> = <span class="keyword">#file</span>, <span class="variable">line</span>: <span class="type">UInt</span> = <span class="keyword">#line</span>) -&gt; <a href="/mockingbird/0.16.0/VerificationManager-94d5cc8"><span class="type">VerificationManager</span></a>&lt;<span class="type">InvocationType</span>, <span class="type">ReturnType</span>&gt;</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Verify that a mock recieved a specific invocation some number of times.</p>
+
+</div>
+<div class="discussion">
+    <p>Verification lets you assert that a mock received a particular invocation during its lifetime.</p>
+
+<html><body><pre class="highlight"><code><span class="variable">verify</span>(<span class="variable">bird</span>.<span class="type">doMethod</span>()).<span class="type">wasCalled</span>()
+<span class="variable">verify</span>(<span class="variable">bird</span>.<span class="type">getProperty</span>()).<span class="type">wasCalled</span>()
+<span class="variable">verify</span>(<span class="variable">bird</span>.<span class="type">setProperty</span>(<span class="variable">any</span>())).<span class="type">wasCalled</span>()
+</code></pre></body></html>
+<p>Match exact or wildcard argument values when verifying methods with parameters.</p>
+
+<html><body><pre class="highlight"><code><span class="variable">verify</span>(<span class="variable">bird</span>.<span class="type">canChirp</span>(<span class="variable">volume</span>: <span class="type">any</span>())).<span class="type">wasCalled</span>()     <span class="comment">// Called with any volume</span>
+<span class="variable">verify</span>(<span class="variable">bird</span>.<span class="type">canChirp</span>(<span class="variable">volume</span>: <span class="type">notNil</span>())).<span class="type">wasCalled</span>()  <span class="comment">// Called with any non-nil volume</span>
+<span class="variable">verify</span>(<span class="variable">bird</span>.<span class="type">canChirp</span>(<span class="variable">volume</span>: <span class="number literal">10</span>)).<span class="type">wasCalled</span>()        <span class="comment">// Called with volume = 10</span>
+</code></pre></body></html>
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>mock</th>
+    <td></td></td>
+    <td><p>A mocked declaration to verify.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-09-30T14:05:12-0700">September 30, 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>
