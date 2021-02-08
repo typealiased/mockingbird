@@ -23,6 +23,7 @@ extension Generator {
       })
     }
     private let mockedTypesResult: FindMockedTypesOperation.Result?
+    private let environmentTargetName: String?
     
     init(inputTarget: TargetType,
          outputPath: Path,
@@ -31,6 +32,7 @@ extension Generator {
          environment: @escaping () -> [String: Any]) throws {
       self.inputTarget = inputTarget
       self.outputPath = outputPath
+      self.environmentTargetName = config.environmentTargetName
       
       // Extract sources.
       let extractSources: ExtractSourcesAbstractOperation
@@ -173,7 +175,7 @@ extension Generator {
       }
       
       let data = try JSONEncoder().encode(target)
-      let filePath = cacheDirectory.targetLockFilePath(for: target.name)
+      let filePath = cacheDirectory.targetLockFilePath(for: target.name, testBundle: self.environmentTargetName)
       try filePath.write(data)
       log("Cached pipeline input target \(inputTarget.name.singleQuoted) to \(filePath.absolute())")
     }
@@ -185,7 +187,7 @@ extension Generator {
                               configHash: String,
                               cacheDirectory: Path,
                               sourceRoot: Path) -> SourceTarget? {
-    let filePath = cacheDirectory.targetLockFilePath(for: targetName)
+    let filePath = cacheDirectory.targetLockFilePath(for: targetName, testBundle: self.config.environmentTargetName)
     
     guard filePath.exists else {
       log("No cached source target metadata exists for \(targetName.singleQuoted) at \(filePath.absolute())")
