@@ -5,8 +5,8 @@ BUILD_TOOL?=xcodebuild
 REPO_URL?=https://github.com/birdrides/mockingbird
 AC_USERNAME?=
 AC_PASSWORD?=
-PKG_IDENTITY?=Developer ID Installer: Bird Rides, Inc. (P2T4T6R4SL)
-BIN_IDENTITY?=Developer ID Application: Bird Rides, Inc. (P2T4T6R4SL)
+PKG_IDENTITY?=Developer ID Installer: Ryan Meisters (X9ZU6SYUX2)
+BIN_IDENTITY?=Developer ID Application: Ryan Meisters (X9ZU6SYUX2)
 
 # Prevent bad things from happening when cleaning the temporary folder.
 TEMPORARY_FOLDER=$(TEMPORARY_FOLDER_ROOT)/Mockingbird.make.dst
