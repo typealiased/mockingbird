@@ -16,6 +16,7 @@ extension Generator {
     let operations: [BasicOperation]
     let testTarget: TargetType
     let findMockedTypesOperation: FindMockedTypesOperation
+    private let environmentTargetName: String
     
     init?(config: Configuration,
           getCachedTarget: (String) -> TargetType?,
@@ -25,6 +26,7 @@ extension Generator {
         let environmentSourceRoot = config.environmentSourceRoot,
         let environmentTargetName = config.environmentTargetName
         else { return nil }
+      self.environmentTargetName = environmentTargetName
       
       let isTestTarget: (TargetType) -> Bool = { target in
         switch target {
@@ -144,7 +146,7 @@ extension Generator {
       }
       
       let data = try JSONEncoder().encode(target)
-      let filePath = cacheDirectory.targetLockFilePath(for: target.name)
+      let filePath = cacheDirectory.targetLockFilePath(for: target.name, testBundle:  environmentTargetName)
       try filePath.write(data)
       log("Cached pipeline test target \(target.name.singleQuoted) to \(filePath.absolute())")
     }
@@ -156,7 +158,7 @@ extension Generator {
                             configHash: String,
                             cacheDirectory: Path,
                             sourceRoot: Path) -> TestTarget? {
-    let filePath = cacheDirectory.targetLockFilePath(for: targetName)
+    let filePath = cacheDirectory.targetLockFilePath(for: targetName, testBundle: self.config.environmentTargetName)
     
     guard filePath.exists else {
       log("No cached test target metadata exists for \(targetName.singleQuoted) at \(filePath.absolute())")

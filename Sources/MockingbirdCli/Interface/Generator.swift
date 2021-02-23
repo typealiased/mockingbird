@@ -300,8 +300,14 @@ extension Path {
     return absolute() + Path("MockingbirdMocks")
   }
   
-  func targetLockFilePath(for targetName: String) -> Path {
-    return self + "\(targetName).lock"
+  func targetLockFilePath(for targetName: String, testBundle: String?) -> Path {
+    var lockFileName: String
+    if let testBundle = testBundle {
+      lockFileName = "\(targetName)-\(testBundle).lock"
+    } else {
+      lockFileName = "\(targetName).lock"
+    }
+    return self + lockFileName
   }
 }
 
