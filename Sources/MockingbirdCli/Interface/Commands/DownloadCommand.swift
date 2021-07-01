@@ -11,6 +11,8 @@ import PathKit
 import SPMUtility
 import ZIPFoundation
 
+private var downloadUrl: String = "https://github.com/birdrides/mockingbird/releases/download"
+
 enum AssetBundleType: String, ArgumentKind, CaseIterable, CustomStringConvertible {
   case starterPack = "starter-pack"
   
@@ -39,7 +41,7 @@ enum AssetBundleType: String, ArgumentKind, CaseIterable, CustomStringConvertibl
   
   private func assetBundleUrl(for fileName: String) -> Foundation.URL {
     return Foundation.URL(string:
-      "https://github.com/birdrides/mockingbird/releases/download/\(mockingbirdVersion)/\(fileName)"
+      "\(downloadUrl)/\(mockingbirdVersion)/\(fileName)"
     )!
   }
   var url: Foundation.URL {
@@ -66,11 +68,14 @@ final class DownloadCommand: BaseCommand {
   
   private let assetBundleTypeArgument: PositionalArgument<AssetBundleType>
   private let projectPathArgument: OptionArgument<PathArgument>
+    
+  private let downloadUrlArgument: OptionArgument<String>
   
   required init(parser: ArgumentParser) {
     let subparser = parser.add(subparser: Constants.name, overview: Constants.overview)
     self.assetBundleTypeArgument = subparser.addAssetBundleType()
     self.projectPathArgument = subparser.addProjectPath()
+    self.downloadUrlArgument = subparser.addDownloadUrl()
     super.init(parser: subparser)
   }
   
@@ -81,6 +86,10 @@ final class DownloadCommand: BaseCommand {
                                                    environment: environment,
                                                    workingPath: workingPath)
     let inferredRootPath = projectPath.parent()
+    
+    if let newDownloadUrl = try arguments.getDownloadUrl(using: downloadUrlArgument) {
+        downloadUrl = newDownloadUrl
+    }
     
     try super.run(with: arguments, environment: environment, workingPath: workingPath)
     guard let type = arguments.get(assetBundleTypeArgument) else { return }

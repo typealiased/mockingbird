@@ -141,6 +141,12 @@ extension ArgumentParser {
                kind: [DiagnosticType].self,
                usage: "List of diagnostic generator warnings to enable.")
   }
+    
+  func addDownloadUrl() -> OptionArgument<String> {
+    return add(option: "--url",
+               kind: String.self,
+               usage: "The url where the file should be downloaded from.")
+  }
   
   // MARK: Global Options
   
@@ -296,6 +302,14 @@ extension ArgumentParser.Result {
       return target
     } else {
       throw ArgumentParserError.expectedValue(option: "--target <target name>")
+    }
+  }
+    
+  func getDownloadUrl(using argument: OptionArgument<String>) throws -> String? {
+    if let url = get(argument) {
+      return url
+    } else {
+      throw ArgumentParserError.expectedValue(option: "--url <download url>")
     }
   }
   
