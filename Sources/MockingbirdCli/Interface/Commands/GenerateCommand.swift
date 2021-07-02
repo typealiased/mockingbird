@@ -111,7 +111,7 @@ final class GenerateCommand: BaseCommand {
       supportPath: supportPath,
       header: arguments.get(headerArgument),
       compilationCondition: arguments.get(compilationConditionArgument),
-      pruningMethod: arguments.get(pruningMethod) ?? .stub,
+      pruningMethod: arguments.get(pruningMethod) ?? .omit,
       shouldImportModule: arguments.get(disableModuleImportArgument) != true,
       onlyMockProtocols: arguments.get(onlyMockProtocolsArgument) == true,
       disableSwiftlint: arguments.get(disableSwiftlintArgument) == true,

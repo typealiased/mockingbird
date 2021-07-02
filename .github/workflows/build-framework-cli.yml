@@ -32,6 +32,7 @@ jobs:
           --header '// Header line 1' '// Header line 2' \
           --diagnostics all \
           --loglevel verbose \
+          --prune stub \
           --verbose
     - name: Test
       run: make clean-test
@@ -48,6 +49,7 @@ jobs:
           --disable-cache \
           --diagnostics all \
           --loglevel verbose \
+          --prune stub \
           --verbose
     - name: Test Flakiness
       run: make test-flaky
@@ -63,6 +65,7 @@ jobs:
           --disable-cache \
           --diagnostics all \
           --loglevel verbose \
+          --prune stub \
           --verbose
     - name: Test All Thunks
       run: make clean-test
@@ -98,6 +101,7 @@ jobs:
           --header '// Header line 1' '// Header line 2' \
           --diagnostics all \
           --loglevel verbose \
+          --prune stub \
           --verbose
     - name: Test
       run: make clean-test
@@ -135,6 +139,7 @@ jobs:
           --header '// Header line 1' '// Header line 2' \
           --diagnostics all \
           --loglevel verbose \
+          --prune stub \
           --verbose
     - name: Test
       run: make clean-test
