@@ -111,7 +111,7 @@ class ParseSwiftSyntaxOperation: BasicOperation {
     retainForever(parser)
     
     // All Swift files implicitly import the Swift standard library.
-    result.importDeclarations = parser.importedPaths.union([.implicitSwiftImport])
+    result.importDeclarations = parser.importedPaths.union([ImportDeclaration("Swift")])
     result.compilationDirectives = parser.directives.sorted()
   }
 }

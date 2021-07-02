@@ -55,7 +55,7 @@ struct ParsedFile {
   }
 }
 
-struct CompilationDirective: Comparable {
+struct CompilationDirective: Comparable, Hashable {
   let range: Range<Int64> // Byte offset bounds of the compilation directive declaration.
   let declaration: String
   let condition: String?
@@ -109,16 +109,30 @@ struct CompilationDirective: Comparable {
   static func < (lhs: CompilationDirective, rhs: CompilationDirective) -> Bool {
     return lhs.range.lowerBound < rhs.range.lowerBound
   }
+  
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(declaration)
+    hasher.combine(condition)
+  }
 }
 
 struct ImportDeclaration: Hashable {
   let moduleName: String
   let fullPath: String
   let fullDeclaration: String
+  let offset: Int64
   
-  static var implicitSwiftImport: ImportDeclaration {
-    return ImportDeclaration(moduleName: "Swift",
-                             fullPath: "Swift",
-                             fullDeclaration: "import Swift")
+  init(moduleName: String, fullPath: String, fullDeclaration: String, offset: Int64) {
+    self.moduleName = moduleName
+    self.fullPath = fullPath
+    self.fullDeclaration = fullDeclaration
+    self.offset = offset
+  }
+
+  init(_ moduleName: String, testable: Bool = false) {
+    self.moduleName = moduleName
+    self.fullPath = moduleName
+    self.fullDeclaration = (testable ? "@testable " : "") + "import " + moduleName
+    self.offset = 0
   }
 }

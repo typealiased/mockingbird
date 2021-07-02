@@ -18,7 +18,6 @@ public class ParseFilesOperation: BasicOperation {
   
   public class Result {
     fileprivate(set) var parsedFiles = [ParsedFile]()
-    fileprivate(set) var imports = Set<String>()
     fileprivate(set) var moduleDependencies = [String: Set<String>]()
   }
   
@@ -63,7 +62,6 @@ public class ParseFilesOperation: BasicOperation {
       })
     }
     
-    result.imports = Set(result.parsedFiles.filter({ $0.shouldMock }).flatMap({ $0.imports }))
     result.moduleDependencies = extractSourcesResult.moduleDependencies
   }
 }
