@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -eu
+cd "$(dirname "$0")"
+
+version=${MKB_VERSION:-"$(make get-version)"}
+
+# Hermetic builds extract dylib dependencies into the enclosing directory
+# making them safer in sandboxed environments like a CI.
+hermetic=${HERMETIC:-1}
+
+versionString="${version}"
+if [[ "${hermetic}" -ne 1 ]]; then
+  versionString="${versionString}-portable"
+fi
+echo "Using Mockingbird v${versionString}"
+
+binaryPath="bin/${versionString}/mockingbird"
+
+# Download a versioned binary if needed.
+if [[ ! -f "${binaryPath}" ]]; then
+  downloadUrl="$(make get-release-url)"
+  echo "Downloading CLI from ${downloadUrl}"
+  HERMETIC="${hermetic}" make download
+fi
+
+MKB_LAUNCHER="$0" "${binaryPath}" "$@"
