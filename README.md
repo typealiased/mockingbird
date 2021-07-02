@@ -681,6 +681,10 @@ Download and unpack a compatible asset bundle. Bundles will never overwrite exis
 | --- | --- |
 | `starter-pack` | Starter [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files). |
 
+| Option | Default Value | Description |
+| --- | --- | --- |
+| `--url` | `https://github.com/birdrides/mockingbird/releases/download` | The base URL containing downloadable asset bundles. |
+
 ### Global Options
 
 | Flag | Description |

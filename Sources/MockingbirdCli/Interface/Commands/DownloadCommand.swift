@@ -37,15 +37,14 @@ enum AssetBundleType: String, ArgumentKind, CaseIterable, CustomStringConvertibl
     }
   }
   
-  private func assetBundleUrl(for fileName: String) -> Foundation.URL {
-    return Foundation.URL(string:
-      "https://github.com/birdrides/mockingbird/releases/download/\(mockingbirdVersion)/\(fileName)"
-    )!
-  }
-  var url: Foundation.URL {
+  func getUrl(with baseUrl: String) -> Foundation.URL {
+    let fileName: String
     switch self {
-    case .starterPack: return assetBundleUrl(for: "MockingbirdSupport.zip")
+    case .starterPack: fileName = "MockingbirdSupport.zip"
     }
+    return Foundation.URL(string:
+      "\(baseUrl)/\(mockingbirdVersion)/\(fileName)"
+    )!
   }
 }
 
@@ -60,17 +59,21 @@ final class DownloadCommand: BaseCommand {
     static let excludedAssetFileNames: Set<String> = [
       ".DS_Store",
     ]
+    
+    static let defaultBaseUrl = "https://github.com/birdrides/mockingbird/releases/download"
   }
   override var name: String { return Constants.name }
   override var overview: String { return Constants.overview }
   
   private let assetBundleTypeArgument: PositionalArgument<AssetBundleType>
   private let projectPathArgument: OptionArgument<PathArgument>
+  private let baseUrlArgument: OptionArgument<String>
   
   required init(parser: ArgumentParser) {
     let subparser = parser.add(subparser: Constants.name, overview: Constants.overview)
     self.assetBundleTypeArgument = subparser.addAssetBundleType()
     self.projectPathArgument = subparser.addProjectPath()
+    self.baseUrlArgument = subparser.addBaseUrl()
     super.init(parser: subparser)
   }
   
@@ -81,12 +84,14 @@ final class DownloadCommand: BaseCommand {
                                                    environment: environment,
                                                    workingPath: workingPath)
     let inferredRootPath = projectPath.parent()
+    let baseUrl = arguments.get(baseUrlArgument) ?? Constants.defaultBaseUrl
     
     try super.run(with: arguments, environment: environment, workingPath: workingPath)
     guard let type = arguments.get(assetBundleTypeArgument) else { return }
     
-    logInfo("Downloading asset bundle from \(type.url)")
-    guard let fileUrl = downloadAssetBundle(type.url) else {
+    let downloadUrl = type.getUrl(with: baseUrl)
+    logInfo("Downloading asset bundle from \(downloadUrl)")
+    guard let fileUrl = downloadAssetBundle(downloadUrl) else {
       log("Unable to download asset bundle \(type.rawValue.singleQuoted)", type: .error)
       exit(1)
     }

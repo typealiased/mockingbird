@@ -141,6 +141,12 @@ extension ArgumentParser {
                kind: [DiagnosticType].self,
                usage: "List of diagnostic generator warnings to enable.")
   }
+    
+  func addBaseUrl() -> OptionArgument<String> {
+    return add(option: "--url",
+               kind: String.self,
+               usage: "The base URL containing downloadable asset bundles.")
+  }
   
   // MARK: Global Options
   
