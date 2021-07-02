@@ -84,7 +84,7 @@ final class DownloadCommand: BaseCommand {
                                                    environment: environment,
                                                    workingPath: workingPath)
     let inferredRootPath = projectPath.parent()
-    let baseUrl = try arguments.getBaseUrl(using: baseUrlArgument) ?? Constants.defaultBaseUrl
+    let baseUrl = arguments.get(baseUrlArgument) ?? Constants.defaultBaseUrl
     
     try super.run(with: arguments, environment: environment, workingPath: workingPath)
     guard let type = arguments.get(assetBundleTypeArgument) else { return }

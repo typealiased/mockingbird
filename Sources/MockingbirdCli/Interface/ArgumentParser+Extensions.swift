@@ -304,14 +304,6 @@ extension ArgumentParser.Result {
       throw ArgumentParserError.expectedValue(option: "--target <target name>")
     }
   }
-    
-  func getBaseUrl(using argument: OptionArgument<String>) throws -> String? {
-    if let url = get(argument) {
-      return url
-    } else {
-      throw ArgumentParserError.expectedValue(option: "--url <base url>")
-    }
-  }
   
   func getOutputDirectory(using argument: OptionArgument<PathArgument>) throws -> Path {
     if let rawOutput = get(argument)?.path.pathString {
