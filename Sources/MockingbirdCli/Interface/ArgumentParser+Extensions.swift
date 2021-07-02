@@ -142,10 +142,10 @@ extension ArgumentParser {
                usage: "List of diagnostic generator warnings to enable.")
   }
     
-  func addDownloadUrl() -> OptionArgument<String> {
+  func addBaseUrl() -> OptionArgument<String> {
     return add(option: "--url",
                kind: String.self,
-               usage: "The url where the file should be downloaded from.")
+               usage: "The base URL containing downloadable asset bundles.")
   }
   
   // MARK: Global Options
@@ -305,11 +305,11 @@ extension ArgumentParser.Result {
     }
   }
     
-  func getDownloadUrl(using argument: OptionArgument<String>) throws -> String? {
+  func getBaseUrl(using argument: OptionArgument<String>) throws -> String? {
     if let url = get(argument) {
       return url
     } else {
-      throw ArgumentParserError.expectedValue(option: "--url <download url>")
+      throw ArgumentParserError.expectedValue(option: "--url <base url>")
     }
   }
   
