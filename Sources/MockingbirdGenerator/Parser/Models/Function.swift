@@ -94,27 +94,39 @@ struct Function: CustomStringConvertible, CustomDebugStringConvertible, Serializ
       typeDeclaration[...].components(separatedBy: .whitespacesAndNewlines, excluding: .allGroups)
         .filter({ !$0.isEmpty })
         .forEach({ component in
-          if component == "@escaping" {
-            attributes.insert(.escaping)
-          } else if component == "@autoclosure" {
-            attributes.insert(.autoclosure)
-          } else if component.hasPrefix("@") { // Unknown parameter attribute.
-            logWarning("Ignoring unknown parameter attribute \(String(component).singleQuoted) in function type declaration \(String(serialized).singleQuoted)")
-          } else if component == "inout" {
-            attributes.insert(.inout)
-          } else if component == "..." {
-            attributes.insert(.variadic)
-          } else { // Probably part of the parameter type.
-            guard component.hasSuffix("...") else {
-              parameterTypeComponents.append(component)
-              return
+          var mutableComponent = component
+          while (true) { // TODO: Use SwiftSyntax to properly parse this...
+            if mutableComponent.starts(with: "@escaping") {
+              attributes.insert(.escaping)
+              mutableComponent = mutableComponent.dropFirst("@escaping".count)
+            } else if mutableComponent.starts(with: "@autoclosure") {
+              attributes.insert(.autoclosure)
+              mutableComponent = mutableComponent.dropFirst("@autoclosure".count)
+            } else if mutableComponent.hasPrefix("@") { // Unknown parameter attribute.
+              logWarning("Ignoring unknown parameter attribute \(String(mutableComponent).singleQuoted) in function type declaration \(String(serialized).singleQuoted)")
+              let index = mutableComponent.firstIndex(where: { !$0.isLetter && !$0.isNumber })
+                ?? mutableComponent.endIndex
+              mutableComponent = mutableComponent[index...]
+            } else if mutableComponent == "inout" {
+              attributes.insert(.inout)
+              mutableComponent = mutableComponent.dropFirst("inout".count)
+            } else if mutableComponent == "..." {
+              attributes.insert(.variadic)
+              mutableComponent = mutableComponent.dropFirst("...".count)
+            } else {
+              break
             }
-            // Handle variadic components that are "stuck" to a parameter type component.
-            attributes.insert(.variadic)
-            parameterTypeComponents.append(
-              component[..<component.index(component.endIndex, offsetBy: -3)]
-            )
           }
+          
+          guard mutableComponent.hasSuffix("...") else {
+            parameterTypeComponents.append(mutableComponent)
+            return
+          }
+          // Handle variadic components that are "stuck" to a parameter type component.
+          attributes.insert(.variadic)
+          parameterTypeComponents.append(
+            mutableComponent[..<mutableComponent.index(mutableComponent.endIndex, offsetBy: -3)]
+          )
         })
       self.attributes = attributes
       let parameterType = parameterTypeComponents.joined(separator: " ")

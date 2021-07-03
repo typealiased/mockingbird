@@ -128,9 +128,21 @@ class DeclaredTypeTests: XCTestCase {
     XCTAssert(actual.isFunction)
   }
   
-  func testDeclaredType_parsesFunctionTypeAttributesInFunctionTypeParameters() {
+  func testDeclaredType_parsesFunctionTypeAttributes() {
     let actual = DeclaredType(from: "(@autoclosure @escaping (Int, Bool) -> String, Int) -> Void")
     XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(@escaping @autoclosure DeclaredType(Single(Function((Parameter(DeclaredType(Single(Int))), Parameter(DeclaredType(Single(Bool)))) -> DeclaredType(Single(String)))))), Parameter(DeclaredType(Single(Int)))) -> DeclaredType(Single(Void)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesFunctionTypeAttributesWithoutWhitespace() {
+    let actual = DeclaredType(from: "(@escaping(String)) -> Void")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(@escaping DeclaredType(Single(String)))) -> DeclaredType(Single(Void)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesFunctionTypeAttributesChainedWithoutWhitespace() {
+    let actual = DeclaredType(from: "(@autoclosure@escaping()) -> String")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(@escaping @autoclosure DeclaredType(Tuple(())))) -> DeclaredType(Single(String)))))")
     XCTAssert(actual.isFunction)
   }
   
