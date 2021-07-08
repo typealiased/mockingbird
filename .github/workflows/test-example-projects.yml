@@ -1,16 +1,16 @@
 name: Test Example Projects
 
 on:
- push:
-  paths:
-  - 'Examples/**'
-  - '.github/workflows/**'
-  - 'Makefile'
- pull_request:
-  paths:
-  - 'Examples/**'
-  - '.github/workflows/**'
-  - 'Makefile'
+  push:
+    paths:
+    - 'Examples/**'
+    - '.github/workflows/**'
+    - 'Makefile'
+  pull_request:
+    paths:
+    - 'Examples/**'
+    - '.github/workflows/**'
+    - 'Makefile'
 
 jobs:
   test-cocoapods:

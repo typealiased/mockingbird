@@ -28,7 +28,7 @@ $ echo 'github "birdrides/mockingbird" ~> 0.15' >> Cartfile
 Build the framework and install the CLI
 
 ```console
-$ carthage update --platform ios
+$ carthage update --use-xcframeworks --platform ios
 $ (cd Carthage/Checkouts/mockingbird && make install-prebuilt)
 ```
 
@@ -66,6 +66,6 @@ Take a peek at the example test and sources and then run the tests (⌘+U).
 - [`Tree.swift`](iOSMockingbirdExample-Carthage/Tree.swift)
 - [`Bird.swift`](iOSMockingbirdExample-Carthage/Bird.swift)
 
-Bonus: 
+Bonus:
 - [`.mockingbird-ignore`](iOSMockingbirdExample-Carthage/.mockingbird-ignore)
 - [`.gitignore`](.gitignore)
