@@ -628,7 +628,7 @@ Configure a test target to use mocks.
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
 | `--diagnostics` | `(none)` | List of [diagnostic generator warnings](https://github.com/birdrides/mockingbird/wiki/Diagnostic-Warnings-and-Errors) to enable. |
 | `--loglevel` |  `(none)` | The log level to use when generating mocks, `quiet` or `verbose`. |
-| `--prune` | `stub` | The [pruning method](#thunk-pruning) to use on unreferenced types. |
+| `--prune` | `omit` | The [pruning method](#thunk-pruning) to use on unreferenced types. |
 
 | Flag | Description |
 | --- | --- |

@@ -1630,7 +1630,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\n${BUILT_PRODUCTS_DIR}/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' 'MockingbirdShadowedTestsHost' \\\n  --outputs \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift\" \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdShadowedTestsHostMocks.generated.swift\" \\\n  --support \"${SRCROOT}/Sources/MockingbirdSupport\" \\\n  --diagnostics all \\\n  --disable-cache \\\n  --verbose\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-16BC195B-65B7-4763-B2C9-AEA49F30A43A'\n";
+			shellScript = "set -e\n\n${BUILT_PRODUCTS_DIR}/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' 'MockingbirdShadowedTestsHost' \\\n  --outputs \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift\" \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdShadowedTestsHostMocks.generated.swift\" \\\n  --support \"${SRCROOT}/Sources/MockingbirdSupport\" \\\n  --diagnostics all \\\n  --disable-cache \\\n  --prune stub \\\n  --verbose\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-16BC195B-65B7-4763-B2C9-AEA49F30A43A'\n";
 		};
 		D372A59C2455878B0000E80A /* Generate Embedded Dylibs */ = {
 			isa = PBXShellScriptBuildPhase;
