@@ -282,8 +282,8 @@ class MockableType: Hashable, Comparable {
       for rawType in rawTypes {
         guard let substructure = rawType.dictionary[SwiftDocKey.substructure.rawValue]
           as? [StructureDictionary] else { continue }
-        // Cannot override declarations in extensions for classes.
-        guard baseRawType.kind != .class || rawType.kind != .extension else { continue }
+        // Cannot override declarations in extensions as they are statically defined.
+        guard rawType.kind != .extension else { continue }
         for structure in substructure {
           if let method = Method(from: structure,
                                  rootKind: baseRawType.kind,
