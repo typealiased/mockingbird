@@ -197,7 +197,7 @@ setup-cocoapods:
 
 .PHONY: setup-carthage
 setup-carthage:
-	(cd Examples/iOSMockingbirdExample-Carthage && carthage update --platform ios)
+	(cd Examples/iOSMockingbirdExample-Carthage && carthage update --use-xcframeworks --platform ios)
 	(cd Examples/iOSMockingbirdExample-Carthage/Carthage/Checkouts/mockingbird && make install-prebuilt)
 
 .PHONY: setup-spm

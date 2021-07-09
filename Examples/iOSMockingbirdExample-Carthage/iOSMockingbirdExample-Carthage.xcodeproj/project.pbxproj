@@ -3,16 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28B001E92697912A00D8F711 /* Mockingbird.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28B001E82697912A00D8F711 /* Mockingbird.xcframework */; };
+		28B001EA2697913800D8F711 /* Mockingbird.xcframework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 28B001E82697912A00D8F711 /* Mockingbird.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B98124D8F911DC2FBBA5BC82 /* iOSMockingbirdExample_CarthageTests-iOSMockingbirdExample_CarthageMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE8054CA44C04573A1936 /* iOSMockingbirdExample_CarthageTests-iOSMockingbirdExample_CarthageMocks.generated.swift */; };
-		D3482061243980B700C6DC75 /* Mockingbird.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3482060243980B700C6DC75 /* Mockingbird.framework */; };
 		D3482065243981D200C6DC75 /* TreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3482064243981D200C6DC75 /* TreeTests.swift */; };
 		D3482068243981E700C6DC75 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3482066243981E700C6DC75 /* Tree.swift */; };
 		D3482069243981E700C6DC75 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3482067243981E700C6DC75 /* Bird.swift */; };
-		D348206C243983CE00C6DC75 /* Mockingbird.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D3482060243980B700C6DC75 /* Mockingbird.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D3FF917D24395EA1008B48CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF917C24395EA1008B48CF /* AppDelegate.swift */; };
 		D3FF917F24395EA1008B48CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF917E24395EA1008B48CF /* SceneDelegate.swift */; };
 		D3FF918124395EA1008B48CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF918024395EA1008B48CF /* ViewController.swift */; };
@@ -38,15 +38,15 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D348206C243983CE00C6DC75 /* Mockingbird.framework in CopyFiles */,
+				28B001EA2697913800D8F711 /* Mockingbird.xcframework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		28B001E82697912A00D8F711 /* Mockingbird.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Mockingbird.xcframework; path = Carthage/Build/Mockingbird.xcframework; sourceTree = "<group>"; };
 		D348205E24397E0B00C6DC75 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		D3482060243980B700C6DC75 /* Mockingbird.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mockingbird.framework; path = Carthage/Build/iOS/Mockingbird.framework; sourceTree = "<group>"; };
 		D3482064243981D200C6DC75 /* TreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeTests.swift; sourceTree = "<group>"; };
 		D3482066243981E700C6DC75 /* Tree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 		D3482067243981E700C6DC75 /* Bird.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
@@ -76,7 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3482061243980B700C6DC75 /* Mockingbird.framework in Frameworks */,
+				28B001E92697912A00D8F711 /* Mockingbird.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,7 +94,7 @@
 		D348205F243980B700C6DC75 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D3482060243980B700C6DC75 /* Mockingbird.framework */,
+				28B001E82697912A00D8F711 /* Mockingbird.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -479,7 +479,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/Mockingbird.xcframework/ios-arm64_i386_x86_64-simulator",
 				);
 				INFOPLIST_FILE = "iOSMockingbirdExample-CarthageTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -490,6 +490,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "co.bird.iOSMockingbirdExample-CarthageTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOSMockingbirdExample-Carthage.app/iOSMockingbirdExample-Carthage";
@@ -504,7 +505,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/Mockingbird.xcframework/ios-arm64_i386_x86_64-simulator",
 				);
 				INFOPLIST_FILE = "iOSMockingbirdExample-CarthageTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -515,6 +516,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "co.bird.iOSMockingbirdExample-CarthageTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOSMockingbirdExample-Carthage.app/iOSMockingbirdExample-Carthage";
