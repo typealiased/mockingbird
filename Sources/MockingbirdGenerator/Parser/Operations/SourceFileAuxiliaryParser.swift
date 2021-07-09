@@ -30,9 +30,13 @@ class SourceFileAuxiliaryParser: SyntaxVisitor {
     guard let moduleName = node.path.first?.name.text else { return .skipChildren }
     let fullPath = node.path.withoutTrivia().description
     let fullDeclaration = node.withoutTrivia().description
+    let sourceRange = node.sourceRange(converter: converter,
+                                       afterLeadingTrivia: true,
+                                       afterTrailingTrivia: true)
     importedPaths.insert(ImportDeclaration(moduleName: moduleName,
                                            fullPath: fullPath,
-                                           fullDeclaration: fullDeclaration))
+                                           fullDeclaration: fullDeclaration,
+                                           offset: Int64(sourceRange.start.offset)))
     return .skipChildren
   }
   

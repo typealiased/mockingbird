@@ -62,7 +62,7 @@ public class GenerateFileOperation: BasicOperation {
       let generator = FileGenerator(
         mockableTypes: processTypesResult.mockableTypes,
         mockedTypeNames: findMockedTypesResult?.allMockedTypeNames,
-        imports: processTypesResult.imports,
+        parsedFiles: processTypesResult.parsedFiles,
         config: config
       )
       contents = generator.generate()

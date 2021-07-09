@@ -17,7 +17,7 @@ public class ProcessTypesOperation: BasicOperation {
   
   public class Result {
     fileprivate(set) var mockableTypes = [MockableType]()
-    fileprivate(set) var imports = Set<String>()
+    fileprivate(set) var parsedFiles = [ParsedFile]()
   }
   
   public let result = Result()
@@ -76,7 +76,7 @@ public class ProcessTypesOperation: BasicOperation {
       result.mockableTypes = flattenInheritanceOperations
         .compactMap({ $0.result.mockableType })
         .filter({ !$0.isContainedType })
-      result.imports = parseFilesResult.imports
+      result.parsedFiles = parseFilesResult.parsedFiles
       log("Created \(result.mockableTypes.count) mockable type\(result.mockableTypes.count != 1 ? "s" : "")")
     }
   }

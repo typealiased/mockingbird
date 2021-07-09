@@ -7,6 +7,14 @@
 
 import Foundation
 
+#if DEBUG
+import Foundation
+#endif
+
+#if NEVER_TRUE
+import InvalidModule
+#endif
+
 #if !(DEBUG)
 #warning("Testing #warning compilation directive keyword handling")
 #endif

@@ -15,17 +15,17 @@ import os.log
 class FileGenerator {
   let mockableTypes: [MockableType]
   let mockedTypeNames: Set<String>?
-  let imports: Set<String>
+  let parsedFiles: [ParsedFile]
   let config: GenerateFileConfig
   
   init(mockableTypes: [MockableType],
        mockedTypeNames: Set<String>?,
-       imports: Set<String>,
+       parsedFiles: [ParsedFile],
        config: GenerateFileConfig) {
     self.mockableTypes = config.onlyMockProtocols ?
       mockableTypes.filter({ $0.kind == .protocol }) : mockableTypes
     self.mockedTypeNames = mockedTypeNames
-    self.imports = imports
+    self.parsedFiles = parsedFiles
     self.config = config
   }
   
@@ -48,12 +48,33 @@ class FileGenerator {
       headerSections.append("#if \(condition)")
     }
     
-    let moduleImports = (
-      imports.union(["import Foundation", "@testable import Mockingbird"]).union(
-        config.shouldImportModule ? ["@testable import \(config.moduleName)"] : []
-      )
-    ).sorted()
-    headerSections.append(moduleImports.joined(separator: "\n"))
+    let implicitImports = [
+      ImportDeclaration("Foundation"),
+      ImportDeclaration("Mockingbird", testable: true),
+      config.shouldImportModule ? ImportDeclaration(config.moduleName, testable: true) : nil,
+    ].compactMap({ $0?.fullDeclaration })
+    
+    let explicitImports = parsedFiles
+      .filter({ $0.shouldMock })
+      .flatMap({ file in
+        file.importDeclarations.map({ importDeclaration -> String in
+          let compilationDirectives = file.compilationDirectives
+            .filter({ $0.range.contains(importDeclaration.offset) })
+          guard !compilationDirectives.isEmpty else {
+            return importDeclaration.fullDeclaration
+          }
+          let start = compilationDirectives.map({ $0.declaration }).joined(separator: "\n")
+          let end = compilationDirectives.map({ _ in "#endif" }).joined(separator: "\n")
+          return [
+            start,
+            importDeclaration.fullDeclaration,
+            end,
+          ].joined(separator: "\n")
+        })
+      })
+    
+    let allImports = Set(implicitImports + explicitImports).sorted()
+    headerSections.append(allImports.joined(separator: "\n"))
     
     return PartialFileContent(contents: """
     //
