@@ -4,12 +4,11 @@
 *.xcodeproj/GeneratedModuleMap/
 build/
 DerivedData
-Mockingbird.pkg
-Mockingbird.zip
-MockingbirdCli.pkg
-MockingbirdCli.zip
+Mockingbird*.pkg
+Mockingbird*.zip
+MockingbirdCli*.pkg
+MockingbirdCli*.zip
 MockingbirdSupport.zip
-mockingbird
 Mockingbird-*.framework
 bin/
 var/

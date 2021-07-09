@@ -20,8 +20,8 @@ jobs:
     - name: Build and Install CLI
       run: |
         make print-debug-info | grep "Mockingbird rpath: /var/tmp/mockingbird/$(make get-version)/libs"
-        PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make print-debug-info
-        PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make install
+        PREFIX=$(pwd) HERMETIC=1 make print-debug-info
+        PREFIX=$(pwd) HERMETIC=1 make install
     - name: Set Up Caching Target
       run: |
         ./bin/mockingbird install \
@@ -86,8 +86,8 @@ jobs:
     - name: Build and Install CLI
       run: |
         make print-debug-info | grep "Mockingbird rpath: /var/tmp/mockingbird/$(make get-version)/libs"
-        PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make print-debug-info
-        PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make install
+        PREFIX=$(pwd) HERMETIC=1 make print-debug-info
+        PREFIX=$(pwd) HERMETIC=1 make install
     - name: Set Up Target
       run: |
         ./bin/mockingbird install \
@@ -123,8 +123,8 @@ jobs:
     - name: Build and Install CLI
       run: |
         make print-debug-info | grep "Mockingbird rpath: /var/tmp/mockingbird/$(make get-version)/libs"
-        PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make print-debug-info
-        PREFIX=$(pwd) USE_RELATIVE_RPATH=1 make install
+        PREFIX=$(pwd) HERMETIC=1 make print-debug-info
+        PREFIX=$(pwd) HERMETIC=1 make install
     - name: Set Up Target
       run: |
         ./bin/mockingbird install \

@@ -31,6 +31,8 @@ class InstallCommand: BaseCommand, AliasableCommand {
   private enum Constants {
     static let name = "install"
     static let overview = "Configure a test target to use mocks."
+    
+    static let launcherEnvironmentKey = "MKB_LAUNCHER"
   }
   override var name: String { return Constants.name }
   override var overview: String { return Constants.overview }
@@ -105,6 +107,10 @@ class InstallCommand: BaseCommand, AliasableCommand {
     let supportPath = try arguments.getSupportPath(using: supportPathArgument,
                                                    sourceRoot: sourceRoot)
     
+    let launcherPath = environment[Constants.launcherEnvironmentKey]
+    let realBinaryPath = CommandLine.arguments[0]
+    let cliPath = Path(launcherPath ?? realBinaryPath)
+    
     let config = Installer.InstallConfiguration(
       projectPath: projectPath,
       sourceRoot: sourceRoot,
@@ -112,7 +118,7 @@ class InstallCommand: BaseCommand, AliasableCommand {
       destinationTargetName: destinationTarget,
       outputPaths: outputs,
       supportPath: supportPath,
-      cliPath: Path(CommandLine.arguments[0]),
+      cliPath: cliPath,
       header: arguments.get(headerArgument),
       compilationCondition: arguments.get(compilationConditionArgument),
       diagnostics: arguments.get(diagnosticsArgument),
