@@ -390,7 +390,7 @@ extension Path {
                        style: SubstitutionStyle,
                        shouldNormalize: Bool = true) -> String {
     let sourceRootPath = "\(sourceRoot.absolute())"
-    let absolutePath = shouldNormalize ? "\(absolute())" : "\(self)"
+    let absolutePath = shouldNormalize ? "\(absolute())" : "\(abbreviate())"
     guard absolutePath.hasPrefix(sourceRootPath) else { return absolutePath }
     return style.wrap("SRCROOT") + absolutePath.dropFirst(sourceRootPath.count)
   }

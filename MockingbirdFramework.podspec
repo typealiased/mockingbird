@@ -8,7 +8,6 @@ Pod::Spec.new do |s|
   s.author                 = { 'Andrew Chang' => 'andrew.chang@bird.co' }
   s.source                 = { :git => s.homepage + '.git', :tag => s.version }
   s.source_files           = 'Sources/MockingbirdFramework/**/*.swift'
-  s.prepare_command        = 'make download'
   s.ios.deployment_target  = '8.0'
   s.osx.deployment_target  = '10.14'
   s.tvos.deployment_target = '9.0'
