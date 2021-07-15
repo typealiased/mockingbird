@@ -298,7 +298,7 @@ docs/index.html docs/latest/index.html: | docs/latest
 
 .PHONY: docs
 docs: clean-docs setup-swiftdoc docs/index.html docs/latest/index.html
-	swift doc generate \
+	/usr/local/bin/swift-doc generate \
 		Sources/MockingbirdFramework \
 		--module-name Mockingbird \
 		--version "$(VERSION_STRING)" \
