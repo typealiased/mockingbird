@@ -38,9 +38,11 @@ public func swizzleTestFailer(_ newTestFailer: TestFailer) {
 ///   - isFatal: If `true`, test case execution should not continue.
 ///   - file: The file where the failure occurred.
 ///   - line: The line in the file where the failure occurred.
+@discardableResult
 public func MKBFail(_ message: String, isFatal: Bool = false,
-                    file: StaticString = #file, line: UInt = #line) {
+                    file: StaticString = #file, line: UInt = #line) -> String {
   testFailer.fail(message: message, isFatal: isFatal, file: file, line: line)
+  return message
 }
 
 // MARK: - Internal

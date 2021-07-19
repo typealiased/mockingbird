@@ -43,6 +43,8 @@ class ObjectiveCTests: BaseTestCase {
     print("foo")
     centralManagerMock.cancelPeripheralConnection(peripheralMock)
     print("bar")
+    
+    verify(self.centralManagerMock.cancelPeripheralConnection(any())).wasCalled()
   }
   
   func testObjectComparison() throws {

@@ -31,8 +31,21 @@ public func verify<DeclarationType: Declaration, InvocationType, ReturnType>(
   return VerificationManager(with: declaration, at: SourceLocation(file, line))
 }
 
+public func verify<ReturnType>(
+  _ expression: @escaping @autoclosure () -> ReturnType,
+  file: StaticString = #file, line: UInt = #line
+) -> VerificationManager<Any?, ReturnType> {
+  let recorder = InvocationRecorder.startRecording(mode: .verifying, block: { expression() })
+  recorder.semaphore.wait()
+  guard let value = recorder.value else {
+    fatalError(
+      MKBFail("\(TestFailure.unmockableExpression)", isFatal: true, file: file, line: line))
+  }
+  return VerificationManager(from: value, at: SourceLocation(file, line))
+}
+
 /// An intermediate object used for verifying declarations returned by `verify`.
-public struct VerificationManager<InvocationType, ReturnType> {
+public class VerificationManager<InvocationType, ReturnType> {
   let mockingContext: MockingContext
   let invocation: Invocation
   let sourceLocation: SourceLocation
@@ -41,6 +54,12 @@ public struct VerificationManager<InvocationType, ReturnType> {
                         at sourceLocation: SourceLocation) {
     self.mockingContext = declaration.mock.mockingContext
     self.invocation = declaration.invocation
+    self.sourceLocation = sourceLocation
+  }
+  
+  init(from record: InvocationRecord, at sourceLocation: SourceLocation) {
+    self.mockingContext = record.mockingContext
+    self.invocation = record.invocation
     self.sourceLocation = sourceLocation
   }
 

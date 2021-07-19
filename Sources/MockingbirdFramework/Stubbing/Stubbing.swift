@@ -36,7 +36,8 @@ import XCTest
 public func given<DeclarationType: Declaration, InvocationType, ReturnType>(
   _ declaration: Mockable<DeclarationType, InvocationType, ReturnType>
 ) -> StubbingManager<DeclarationType, InvocationType, ReturnType> {
-  return StubbingManager(from: declaration)
+  return StubbingManager(invocation: declaration.invocation,
+                         context: declaration.mock.stubbingContext)
 }
 
 /// Stub an Objective-C declaration to return a value or perform an operation.
@@ -67,7 +68,11 @@ public func given<ReturnType>(
 ) -> ObjCStubbingManager<ReturnType> {
   let recorder = InvocationRecorder.startRecording(mode: .stubbing, block: { expression() })
   recorder.semaphore.wait()
-  return ObjCStubbingManager(from: recorder.invocationRecords)
+  guard let value = recorder.value else {
+    // HACK: Unable to add source location to function declaration due to Swift compiler.
+    fatalError(MKBFail("\(TestFailure.unmockableExpression)", isFatal: true))
+  }
+  return ObjCStubbingManager(invocation: value.invocation, context: value.stubbingContext)
 }
 
 /// An intermediate object used for stubbing declarations returned by `given`.
@@ -80,10 +85,6 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   }
   var implementationsProvidedCount = 0
   var stubs = [(stub: StubbingContext.Stub, context: StubbingContext)]()
-  private func addStub(invocation: Invocation, context: StubbingContext) {
-    let stub = context.swizzle(invocation) { return self.getCurrentImplementation() }
-    stubs.append((stub, context))
-  }
   
   /// When to use the next chained implementation provider.
   public enum TransitionStrategy {
@@ -117,14 +118,9 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
     case onFirstNil
   }
   
-  init(from declaration: Mockable<DeclarationType, InvocationType, ReturnType>) {
-    addStub(invocation: declaration.invocation, context: declaration.mock.stubbingContext)
-  }
-  
-  init(from invocationRecords: [InvocationRecorder.InvocationRecord]) {
-    invocationRecords.forEach({ record in
-      addStub(invocation: record.invocation, context: record.stubbingContext)
-    })
+  init(invocation: Invocation, context: StubbingContext) {
+    let stub = context.swizzle(invocation) { return self.getCurrentImplementation() }
+    stubs.append((stub, context))
   }
   
   func getCurrentImplementation() -> Any? {

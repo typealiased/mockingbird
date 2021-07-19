@@ -30,6 +30,7 @@ enum TestFailure: Error, CustomStringConvertible {
     stubbedSelectorNames: [String],
     stackTrace: StackTrace
   )
+  case unmockableExpression
 
   var description: String {
     switch self {
@@ -39,7 +40,7 @@ enum TestFailure: Error, CustomStringConvertible {
                                        allInvocations):
       let countMatcherDescription = countMatcher.describe(invocation: invocation)
       return """
-      Got \(invocationCount) invocations of \(invocation) but expected \(countMatcherDescription)
+      Got \(invocationCount) invocation\(invocationCount != 1 ? "s" : "") of \(invocation) but expected \(countMatcherDescription)
       
       All invocations of '\(invocation.unwrappedSelectorName)':
       \(allInvocations.indentedDescription)
@@ -85,6 +86,17 @@ enum TestFailure: Error, CustomStringConvertible {
       
       All stubs:
       \(allStubsDescription)
+      """
+      
+    case .unmockableExpression:
+      return """
+      The expression contains no mockable Obj-C declarations
+      
+      Make sure the expression provided to 'given(…)' is declared by a mocked Obj-C type.
+      
+      Examples:
+         given(someObjCMock.doSomething()).will { return someValue }
+         given(someObjCMock.someProperty).willReturn(someValue)
       """
     }
   }

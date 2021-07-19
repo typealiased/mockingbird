@@ -68,10 +68,9 @@
 
     case MKBInvocationRecorderModeStubbing:
     case MKBInvocationRecorderModeVerifying:{
-      MKBInvocationRecord *invocationRecord =
-        [[MKBInvocationRecord alloc] initWithInvocation:objcInvocation
-                                        stubbingContext:self.stubbingContext];
-      [recorder record:invocationRecord];
+      [recorder recordWithInvocation:objcInvocation
+                      mockingContext:self.mockingContext
+                     stubbingContext:self.stubbingContext];
       [NSThread exit];
       break;
     }

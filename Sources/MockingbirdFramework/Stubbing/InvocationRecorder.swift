@@ -7,6 +7,12 @@
 
 import Foundation
 
+struct InvocationRecord {
+  let invocation: Invocation
+  let mockingContext: MockingContext
+  let stubbingContext: StubbingContext
+}
+
 /// Records invocations for stubbing and verification.
 @objc(MKBInvocationRecorder) public class InvocationRecorder: NSObject {
   @objc(MKBInvocationRecorderMode) public enum Mode: UInt {
@@ -15,25 +21,12 @@ import Foundation
     case verifying
   }
   
-  @objc(MKBInvocationRecord) public class InvocationRecord: NSObject {
-    let invocation: Invocation
-    let stubbingContext: StubbingContext
-    
-    init(invocation: Invocation, stubbingContext: StubbingContext) {
-      self.invocation = invocation
-      self.stubbingContext = stubbingContext
-    }
-    
-    @objc public convenience init(invocation: ObjCInvocation, stubbingContext: StubbingContext) {
-      self.init(invocation: invocation as Invocation, stubbingContext: stubbingContext)
-    }
-  }
-  
   enum Constants {
     static let recorderKey = "co.bird.mockingbird.invocation-recorder"
   }
   
-  private(set) var invocationRecords = [InvocationRecord]()
+  private(set) var value: InvocationRecord?
+  
   @objc public let mode: Mode
   @objc public let thread: Thread
   let semaphore: DispatchSemaphore
@@ -50,8 +43,12 @@ import Foundation
     }
   }
   
-  @objc public func record(_ invocationRecord: InvocationRecord) {
-    invocationRecords.append(invocationRecord)
+  @objc public func record(invocation: ObjCInvocation,
+                           mockingContext: MockingContext,
+                           stubbingContext: StubbingContext) {
+    self.value = InvocationRecord(invocation: invocation,
+                                  mockingContext: mockingContext,
+                                  stubbingContext: stubbingContext)
   }
   
   // MARK: DispatchQueue utils
