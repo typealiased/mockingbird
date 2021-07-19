@@ -23,11 +23,11 @@ class SubscriptMethodTemplate: MethodTemplate {
       body = """
       {
           get {
-            let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclarationForSubscriptGetter)", arguments: [\(mockArgumentMatchers)], returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
+            let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(uniqueDeclarationForSubscriptGetter)", arguments: [\(mockArgumentMatchers)], returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
       \(stubbedImplementationCall().indent())
           }
           set {
-            let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclarationForSubscriptSetter)", arguments: [\(mockArgumentMatchersForSubscriptSetter)], returnType: Swift.ObjectIdentifier(Void.self))
+            let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(uniqueDeclarationForSubscriptSetter)", arguments: [\(mockArgumentMatchersForSubscriptSetter)], returnType: Swift.ObjectIdentifier(Void.self))
       \(stubbedSetterImplementationCall.indent())
           }
         }
@@ -107,7 +107,7 @@ class SubscriptMethodTemplate: MethodTemplate {
       body = """
       {
       \(argumentMatchers)
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(selectorName)", arguments: arguments, returnType: Swift.ObjectIdentifier(\(escapedReturnType).self))
+          let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(selectorName)", arguments: arguments, returnType: Swift.ObjectIdentifier(\(escapedReturnType).self))
           return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
         }
       """

@@ -9,7 +9,7 @@ import Foundation
 import XCTest
 
 /// Stores stubbed implementations used by mocks.
-public class StubbingContext {
+@objc(MKBStubbingContext) public class StubbingContext: NSObject {
   struct Stub {
     let invocation: Invocation
     let implementationProvider: () -> Any?
@@ -25,6 +25,7 @@ public class StubbingContext {
     return stub
   }
   
+  @discardableResult
   func failTest(for invocation: Invocation) -> String {
     let stubbedSelectorNames = stubs.read({ Array($0.keys) }).sorted()
     let stackTrace = StackTrace(from: Thread.callStackSymbols)
@@ -40,11 +41,90 @@ public class StubbingContext {
     // invocations called on background threads.
     fatalError("Missing stubbed implementation for \(invocation)")
   }
+  
+  @discardableResult
+  @objc public func failTest(for invocation: ObjCInvocation) -> String {
+    return failTest(for: invocation as Invocation)
+  }
 
   func implementation(for invocation: Invocation) -> Any? {
     return stubs.read({ $0[invocation.selectorName] })?
-      .last(where: { $0.invocation == invocation })?
+      .last(where: { $0.invocation.isEqual(to: invocation) })?
       .implementationProvider()
+  }
+  
+  @objc public static let noImplementation = NSObject()
+  
+  @objc public func returnValue(for invocation: ObjCInvocation) -> Any? {
+    let implementation = implementation(for: invocation as Invocation)
+    if let concreteImplementation = implementation as? () -> Any? {
+      return concreteImplementation()
+    } else if let concreteImplementation = implementation
+                as? (Any?) -> Any? {
+      return concreteImplementation(invocation.arguments.get(0)?.base)
+    } else if let concreteImplementation = implementation
+                as? (Any?, Any?) -> Any? {
+      return concreteImplementation(invocation.arguments.get(0)?.base,
+                                    invocation.arguments.get(1)?.base)
+    } else if let concreteImplementation = implementation
+                as? (Any?, Any?, Any?) -> Any? {
+      return concreteImplementation(invocation.arguments.get(0)?.base,
+                                    invocation.arguments.get(1)?.base,
+                                    invocation.arguments.get(2)?.base)
+    } else if let concreteImplementation = implementation
+                as? (Any?, Any?, Any?, Any?) -> Any? {
+      return concreteImplementation(invocation.arguments.get(0)?.base,
+                                    invocation.arguments.get(1)?.base,
+                                    invocation.arguments.get(2)?.base,
+                                    invocation.arguments.get(3)?.base)
+    } else if let concreteImplementation = implementation
+                as? (Any?, Any?, Any?, Any?, Any?) -> Any? {
+      return concreteImplementation(invocation.arguments.get(0)?.base,
+                                    invocation.arguments.get(1)?.base,
+                                    invocation.arguments.get(2)?.base,
+                                    invocation.arguments.get(3)?.base,
+                                    invocation.arguments.get(4)?.base)
+    } else if let concreteImplementation = implementation
+                as? (Any?, Any?, Any?, Any?, Any?, Any?) -> Any? {
+      return concreteImplementation(invocation.arguments.get(0)?.base,
+                                    invocation.arguments.get(1)?.base,
+                                    invocation.arguments.get(2)?.base,
+                                    invocation.arguments.get(3)?.base,
+                                    invocation.arguments.get(4)?.base,
+                                    invocation.arguments.get(5)?.base)
+    } else if let concreteImplementation = implementation
+                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Any? {
+      return concreteImplementation(invocation.arguments.get(0)?.base,
+                                    invocation.arguments.get(1)?.base,
+                                    invocation.arguments.get(2)?.base,
+                                    invocation.arguments.get(3)?.base,
+                                    invocation.arguments.get(4)?.base,
+                                    invocation.arguments.get(5)?.base,
+                                    invocation.arguments.get(6)?.base)
+    } else if let concreteImplementation = implementation
+                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Any? {
+      return concreteImplementation(invocation.arguments.get(0)?.base,
+                                    invocation.arguments.get(1)?.base,
+                                    invocation.arguments.get(2)?.base,
+                                    invocation.arguments.get(3)?.base,
+                                    invocation.arguments.get(4)?.base,
+                                    invocation.arguments.get(5)?.base,
+                                    invocation.arguments.get(6)?.base,
+                                    invocation.arguments.get(7)?.base)
+    } else if let concreteImplementation = implementation
+                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Any? {
+      return concreteImplementation(invocation.arguments.get(0)?.base,
+                                    invocation.arguments.get(1)?.base,
+                                    invocation.arguments.get(2)?.base,
+                                    invocation.arguments.get(3)?.base,
+                                    invocation.arguments.get(4)?.base,
+                                    invocation.arguments.get(5)?.base,
+                                    invocation.arguments.get(6)?.base,
+                                    invocation.arguments.get(7)?.base,
+                                    invocation.arguments.get(8)?.base)
+    }
+    
+    return Self.noImplementation
   }
 
   func clearStubs() {

@@ -55,7 +55,7 @@ class InitializerMethodTemplate: MethodTemplate {
         {
             \(trySuper)super.init(\(superCallParameters))
             Mockingbird.checkVersion(for: self)
-            let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)], returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
+            let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)], returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
             \(contextPrefix)mockingContext.didInvoke(invocation)
           }
         """
@@ -76,7 +76,7 @@ class InitializerMethodTemplate: MethodTemplate {
         body = """
         {\(superCall)
             Mockingbird.checkVersion(for: self)
-            let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)], returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
+            let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)], returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
             \(contextPrefix)mockingContext.didInvoke(invocation)
           }
         """

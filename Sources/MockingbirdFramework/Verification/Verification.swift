@@ -129,11 +129,11 @@ func findInvocations(in mockingContext: MockingContext,
     .filter({ invocation in
       var isBeforeNextInvocation: Bool {
         guard let nextInvocation = nextInvocation else { return true }
-        return invocation < nextInvocation
+        return invocation.uid < nextInvocation.uid
       }
       var isAfterBaseInvocation: Bool {
         guard let baseInvocation = baseInvocation else { return true }
-        return invocation > baseInvocation
+        return invocation.uid > baseInvocation.uid
       }
       return isBeforeNextInvocation && isAfterBaseInvocation
     })
@@ -157,7 +157,7 @@ func expect(_ mockingContext: MockingContext,
                                        with: invocation.selectorName,
                                        before: nextInvocation,
                                        after: baseInvocation)
-  let allMatchingInvocations = allInvocations.filter({ $0 == invocation })
+  let allMatchingInvocations = allInvocations.filter({ $0.isEqual(to: invocation) })
   
   let actualCallCount = allMatchingInvocations.count
   guard !expectation.countMatcher.matches(actualCallCount) else { return allInvocations }

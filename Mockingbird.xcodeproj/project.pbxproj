@@ -24,12 +24,29 @@
 		281B6246251DC7220084EBED /* MockingbirdShadowedTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */; };
 		281B6286251DC7FC0084EBED /* ModuleNameShadowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B61F1251DBBDE0084EBED /* ModuleNameShadowing.swift */; };
 		281B62FF251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */; };
+		287C4F3B26A3547000A7E0D9 /* MKBClassMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 287C4F3926A3547000A7E0D9 /* MKBClassMock.h */; };
+		287C4F3C26A3547000A7E0D9 /* MKBClassMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F3A26A3547000A7E0D9 /* MKBClassMock.m */; };
+		287C4F3F26A3547F00A7E0D9 /* MKBProtocolMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 287C4F3D26A3547F00A7E0D9 /* MKBProtocolMock.h */; };
+		287C4F4026A3547F00A7E0D9 /* MKBProtocolMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F3E26A3547F00A7E0D9 /* MKBProtocolMock.m */; };
+		287C4F4326A3688100A7E0D9 /* MKBMocking.h in Headers */ = {isa = PBXBuildFile; fileRef = 287C4F4126A3688100A7E0D9 /* MKBMocking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		287C4F4426A3688100A7E0D9 /* MKBMocking.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F4226A3688100A7E0D9 /* MKBMocking.m */; };
+		287C4F4F26A36DC000A7E0D9 /* MKBTypeFacade.h in Headers */ = {isa = PBXBuildFile; fileRef = 287C4F4D26A36DC000A7E0D9 /* MKBTypeFacade.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		287C4F5026A36DC000A7E0D9 /* MKBTypeFacade.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F4E26A36DC000A7E0D9 /* MKBTypeFacade.m */; };
+		287C4F5426A36FFF00A7E0D9 /* ObjectiveCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F5326A36FFF00A7E0D9 /* ObjectiveCTests.swift */; };
+		287C4F5726A3710600A7E0D9 /* MKBConcreteMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 287C4F5526A3710600A7E0D9 /* MKBConcreteMock.h */; };
+		287C4F5826A3710600A7E0D9 /* MKBConcreteMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F5626A3710600A7E0D9 /* MKBConcreteMock.m */; };
+		287C4F6426A3D21D00A7E0D9 /* MonotonicIncreasingIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F6326A3D21D00A7E0D9 /* MonotonicIncreasingIndex.swift */; };
+		287C4F6626A3E00800A7E0D9 /* NonEscapingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F6526A3E00800A7E0D9 /* NonEscapingType.swift */; };
+		287C4F6926A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 287C4F6726A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.h */; };
+		287C4F6A26A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F6826A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.m */; };
+		287C4F6C26A4AAA900A7E0D9 /* InvocationRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F6B26A4AAA900A7E0D9 /* InvocationRecorder.swift */; };
 		287F851F25194DE4007D135D /* SPMUtility in Frameworks */ = {isa = PBXBuildFile; productRef = 287F851E25194DE4007D135D /* SPMUtility */; };
 		287F852225194E16007D135D /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 287F852125194E16007D135D /* SwiftSyntax */; };
 		287F852525194EF5007D135D /* SourceKittenFramework in Frameworks */ = {isa = PBXBuildFile; productRef = 287F852425194EF5007D135D /* SourceKittenFramework */; };
 		287F852825194F2A007D135D /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 287F852725194F2A007D135D /* ZIPFoundation */; };
 		287F852E25195011007D135D /* XcodeProj in Frameworks */ = {isa = PBXBuildFile; productRef = 287F852D25195011007D135D /* XcodeProj */; };
 		287F85322519659B007D135D /* MockingbirdGenerator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */; };
+		2894622626A2AF6F00044839 /* Mockingbird.h in Headers */ = {isa = PBXBuildFile; fileRef = 2894622526A2AF6F00044839 /* Mockingbird.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		28950E2D251C4C82008EEE29 /* ProjectDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28950E2C251C4C82008EEE29 /* ProjectDescription.swift */; };
 		2896E54126AA52A400124D02 /* KeyedDecodingContainer+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E54026AA52A400124D02 /* KeyedDecodingContainer+Array.swift */; };
 		2896E54626AA5A3E00124D02 /* spm-project-description.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2896E54326AA59ED00124D02 /* spm-project-description.json */; };
@@ -388,7 +405,24 @@
 		281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MockingbirdShadowedTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		281B62CF251DCAB90084EBED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockingbirdShadowedTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdShadowedTestsHostMocks.generated.swift; sourceTree = "<group>"; };
+		287C4F3926A3547000A7E0D9 /* MKBClassMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBClassMock.h; sourceTree = "<group>"; };
+		287C4F3A26A3547000A7E0D9 /* MKBClassMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBClassMock.m; sourceTree = "<group>"; };
+		287C4F3D26A3547F00A7E0D9 /* MKBProtocolMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBProtocolMock.h; sourceTree = "<group>"; };
+		287C4F3E26A3547F00A7E0D9 /* MKBProtocolMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBProtocolMock.m; sourceTree = "<group>"; };
+		287C4F4126A3688100A7E0D9 /* MKBMocking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBMocking.h; sourceTree = "<group>"; };
+		287C4F4226A3688100A7E0D9 /* MKBMocking.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBMocking.m; sourceTree = "<group>"; };
+		287C4F4D26A36DC000A7E0D9 /* MKBTypeFacade.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBTypeFacade.h; sourceTree = "<group>"; };
+		287C4F4E26A36DC000A7E0D9 /* MKBTypeFacade.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBTypeFacade.m; sourceTree = "<group>"; };
+		287C4F5326A36FFF00A7E0D9 /* ObjectiveCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveCTests.swift; sourceTree = "<group>"; };
+		287C4F5526A3710600A7E0D9 /* MKBConcreteMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBConcreteMock.h; sourceTree = "<group>"; };
+		287C4F5626A3710600A7E0D9 /* MKBConcreteMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBConcreteMock.m; sourceTree = "<group>"; };
+		287C4F6326A3D21D00A7E0D9 /* MonotonicIncreasingIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonotonicIncreasingIndex.swift; sourceTree = "<group>"; };
+		287C4F6526A3E00800A7E0D9 /* NonEscapingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonEscapingType.swift; sourceTree = "<group>"; };
+		287C4F6726A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSInvocation+MKBArgumentMatcher.h"; sourceTree = "<group>"; };
+		287C4F6826A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSInvocation+MKBArgumentMatcher.m"; sourceTree = "<group>"; };
+		287C4F6B26A4AAA900A7E0D9 /* InvocationRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationRecorder.swift; sourceTree = "<group>"; };
 		287F853D25196ACE007D135D /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = Sources/Package.swift; sourceTree = "<group>"; };
+		2894622526A2AF6F00044839 /* Mockingbird.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mockingbird.h; sourceTree = "<group>"; };
 		28950E2C251C4C82008EEE29 /* ProjectDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescription.swift; sourceTree = "<group>"; };
 		2896E54026AA52A400124D02 /* KeyedDecodingContainer+Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+Array.swift"; sourceTree = "<group>"; };
 		2896E54326AA59ED00124D02 /* spm-project-description.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "spm-project-description.json"; sourceTree = "<group>"; };
@@ -773,6 +807,26 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		2894622026A28F3C00044839 /* Objective-C */ = {
+			isa = PBXGroup;
+			children = (
+				2894622526A2AF6F00044839 /* Mockingbird.h */,
+				287C4F3926A3547000A7E0D9 /* MKBClassMock.h */,
+				287C4F3A26A3547000A7E0D9 /* MKBClassMock.m */,
+				287C4F5526A3710600A7E0D9 /* MKBConcreteMock.h */,
+				287C4F5626A3710600A7E0D9 /* MKBConcreteMock.m */,
+				287C4F4126A3688100A7E0D9 /* MKBMocking.h */,
+				287C4F4226A3688100A7E0D9 /* MKBMocking.m */,
+				287C4F3D26A3547F00A7E0D9 /* MKBProtocolMock.h */,
+				287C4F3E26A3547F00A7E0D9 /* MKBProtocolMock.m */,
+				287C4F4D26A36DC000A7E0D9 /* MKBTypeFacade.h */,
+				287C4F4E26A36DC000A7E0D9 /* MKBTypeFacade.m */,
+				287C4F6726A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.h */,
+				287C4F6826A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.m */,
+			);
+			path = "Objective-C";
+			sourceTree = "<group>";
+		};
 		C5115F86A66BC03B1665F801 /* Generated Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1141,6 +1195,7 @@
 				D314ED7E24CE1C10000CC23D /* GenericsTests.swift */,
 				OBJ_260 /* InitializerTests.swift */,
 				OBJ_261 /* LastSetValueStubTests.swift */,
+				287C4F5326A36FFF00A7E0D9 /* ObjectiveCTests.swift */,
 				OBJ_262 /* OrderedVerificationTests.swift */,
 				OBJ_263 /* OverloadedMethodTests.swift */,
 				OBJ_264 /* SequentialValueStubbingTests.swift */,
@@ -1191,6 +1246,7 @@
 				OBJ_30 /* Info.plist */,
 				OBJ_31 /* Matching */,
 				OBJ_36 /* Mocking */,
+				2894622026A28F3C00044839 /* Objective-C */,
 				OBJ_40 /* Stubbing */,
 				OBJ_48 /* Utilities */,
 				OBJ_55 /* Verification */,
@@ -1206,6 +1262,7 @@
 				OBJ_33 /* ArgumentMatcher.swift */,
 				D3E6F683248451B9000D1971 /* CollectionMatchers.swift */,
 				OBJ_34 /* CountMatcher.swift */,
+				287C4F6526A3E00800A7E0D9 /* NonEscapingType.swift */,
 				OBJ_35 /* TypeFacade.swift */,
 				D3E6F6812484517A000D1971 /* WildcardMatchers.swift */,
 			);
@@ -1227,6 +1284,7 @@
 			children = (
 				D3E6F67924844A37000D1971 /* DefaultValues.swift */,
 				D3E6F67524844999000D1971 /* ImplementationProvider.swift */,
+				287C4F6B26A4AAA900A7E0D9 /* InvocationRecorder.swift */,
 				D3E6F67724844A0C000D1971 /* Sequence.swift */,
 				OBJ_41 /* Stubbing.swift */,
 				OBJ_42 /* StubbingContext.swift */,
@@ -1280,6 +1338,7 @@
 				OBJ_56 /* AsyncVerification.swift */,
 				D3E6F67D24844CEA000D1971 /* ExpectationGroup.swift */,
 				OBJ_57 /* Invocation.swift */,
+				287C4F6326A3D21D00A7E0D9 /* MonotonicIncreasingIndex.swift */,
 				OBJ_58 /* OrderedVerification.swift */,
 				OBJ_59 /* TestFailure.swift */,
 				OBJ_60 /* Verification.swift */,
@@ -1440,6 +1499,20 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		2894622326A2AF1000044839 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2894622626A2AF6F00044839 /* Mockingbird.h in Headers */,
+				287C4F4326A3688100A7E0D9 /* MKBMocking.h in Headers */,
+				287C4F4F26A36DC000A7E0D9 /* MKBTypeFacade.h in Headers */,
+				287C4F5726A3710600A7E0D9 /* MKBConcreteMock.h in Headers */,
+				287C4F3B26A3547000A7E0D9 /* MKBClassMock.h in Headers */,
+				287C4F3F26A3547F00A7E0D9 /* MKBProtocolMock.h in Headers */,
+				287C4F6926A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D372A59A245587650000E80A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1493,6 +1566,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_870 /* Build configuration list for PBXNativeTarget "MockingbirdFramework" */;
 			buildPhases = (
+				2894622326A2AF1000044839 /* Headers */,
 				OBJ_873 /* Sources */,
 				OBJ_900 /* Frameworks */,
 			);
@@ -1613,6 +1687,12 @@
 				TargetAttributes = {
 					287F85372519698B007D135D = {
 						CreatedOnToolsVersion = 12.0;
+					};
+					"Mockingbird::MockingbirdFramework" = {
+						LastSwiftMigration = 1250;
+					};
+					"Mockingbird::MockingbirdTests" = {
+						LastSwiftMigration = 1250;
 					};
 				};
 			};
@@ -1744,6 +1824,7 @@
 				OBJ_1033 /* ExtensionsStubbableTests.swift in Sources */,
 				OBJ_1034 /* ExternalModuleClassScopedTypesMockableTests.swift in Sources */,
 				OBJ_1035 /* ExternalModuleClassScopedTypesStubbableTests.swift in Sources */,
+				287C4F5426A36FFF00A7E0D9 /* ObjectiveCTests.swift in Sources */,
 				OBJ_1036 /* ExternalModuleTypesMockableTests.swift in Sources */,
 				OBJ_1037 /* ExternalModuleTypesStubbableTests.swift in Sources */,
 				OBJ_1038 /* GenericsMockableTests.swift in Sources */,
@@ -1896,18 +1977,27 @@
 			files = (
 				OBJ_874 /* ArgumentCaptor.swift in Sources */,
 				OBJ_875 /* ArgumentMatcher.swift in Sources */,
+				287C4F5826A3710600A7E0D9 /* MKBConcreteMock.m in Sources */,
 				D3B3D4C2248C9D1600FEEDA0 /* CwlDemangle.swift in Sources */,
 				D3E6F67824844A0C000D1971 /* Sequence.swift in Sources */,
+				287C4F4026A3547F00A7E0D9 /* MKBProtocolMock.m in Sources */,
 				D3E6F67C24844C5B000D1971 /* SourceLocation.swift in Sources */,
+				287C4F5026A36DC000A7E0D9 /* MKBTypeFacade.m in Sources */,
+				287C4F6626A3E00800A7E0D9 /* NonEscapingType.swift in Sources */,
 				OBJ_876 /* CountMatcher.swift in Sources */,
 				OBJ_877 /* TypeFacade.swift in Sources */,
+				287C4F4426A3688100A7E0D9 /* MKBMocking.m in Sources */,
 				OBJ_878 /* Mocking.swift in Sources */,
+				287C4F6426A3D21D00A7E0D9 /* MonotonicIncreasingIndex.swift in Sources */,
+				287C4F3C26A3547000A7E0D9 /* MKBClassMock.m in Sources */,
 				OBJ_879 /* MockingContext.swift in Sources */,
 				D3E6F67E24844CEA000D1971 /* ExpectationGroup.swift in Sources */,
 				D3E6F67A24844A37000D1971 /* DefaultValues.swift in Sources */,
+				287C4F6C26A4AAA900A7E0D9 /* InvocationRecorder.swift in Sources */,
 				OBJ_881 /* Stubbing.swift in Sources */,
 				OBJ_882 /* StubbingContext.swift in Sources */,
 				OBJ_883 /* TestKiller.swift in Sources */,
+				287C4F6A26A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.m in Sources */,
 				OBJ_884 /* ValueProvider+Collections.swift in Sources */,
 				OBJ_885 /* ValueProvider+Foundation.swift in Sources */,
 				OBJ_886 /* ValueProvider+Tuples.swift in Sources */,
@@ -2231,6 +2321,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -Xfrontend -debug-time-function-bodies";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = MockingbirdTests;
 				TVOS_DEPLOYMENT_TARGET = 12.0;
@@ -2495,12 +2586,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A592245586DD0000E80A /* MockingbirdFramework.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2518,6 +2609,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = Mockingbird;
 				TVOS_DEPLOYMENT_TARGET = 12.0;
@@ -2529,12 +2621,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A592245586DD0000E80A /* MockingbirdFramework.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

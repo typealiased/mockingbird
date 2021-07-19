@@ -68,7 +68,7 @@ class MethodTemplate: Template {
     if context.shouldGenerateThunks {
       body = """
       {
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)], returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
+          let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(uniqueDeclaration)", arguments: [\(mockArgumentMatchers)], returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
       \(stubbedImplementationCall())
         }
       """
@@ -130,7 +130,7 @@ class MethodTemplate: Template {
         variadicBody = """
         {
         \(resolvedVariadicArgumentMatchers)
-            let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: arguments, returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
+            let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(uniqueDeclaration)", arguments: arguments, returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
             return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
           }
         """
@@ -340,12 +340,12 @@ class MethodTemplate: Template {
   lazy var matchableInvocation: String = {
     guard !method.parameters.isEmpty else {
       return """
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: [], returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
+          let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(uniqueDeclaration)", arguments: [], returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
       """
     }
     return """
     \(resolvedArgumentMatchers)
-        let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclaration)", arguments: arguments, returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
+        let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(uniqueDeclaration)", arguments: arguments, returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
     """
   }()
   

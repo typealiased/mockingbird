@@ -9,7 +9,7 @@ import Dispatch
 import Foundation
 import XCTest
 
-/// Stub one or more declarations to return a value or perform an operation.
+/// Stub a declaration to return a value or perform an operation.
 ///
 /// Stubbing allows you to define custom behavior for mocks to perform.
 ///
@@ -32,11 +32,42 @@ import XCTest
 ///     given(bird.getName()).willReturn("Ryan")
 ///     given(bird.setName(any())).will { print($0) }
 ///
-/// - Parameter declarations: One or more stubbable declarations.
+/// - Parameter declaration: A stubbable declaration.
 public func given<DeclarationType: Declaration, InvocationType, ReturnType>(
-  _ declarations: Mockable<DeclarationType, InvocationType, ReturnType>...
+  _ declaration: Mockable<DeclarationType, InvocationType, ReturnType>
 ) -> StubbingManager<DeclarationType, InvocationType, ReturnType> {
-  return StubbingManager(from: declarations)
+  return StubbingManager(from: declaration)
+}
+
+/// Stub an Objective-C declaration to return a value or perform an operation.
+///
+/// Stubbing allows you to define custom behavior for mocks to perform.
+///
+///     given(bird.canChirp()).willReturn(true)
+///     given(bird.canChirp()).willThrow(BirdError())
+///     given(bird.canChirp(volume: any())).will { volume in
+///       return volume as Int < 42
+///     }
+///
+/// This is equivalent to the shorthand syntax using the stubbing operator `~>`.
+///
+///     given(bird.canChirp()) ~> true
+///     given(bird.canChirp()) ~> { throw BirdError() }
+///     given(bird.canChirp(volume: any())) ~> { volume in
+///       return volume as Int < 42
+///     }
+///
+/// Property getters can be stubbed, but setters are currently unsupported.
+///
+///     given(bird.name).willReturn("Ryan")
+///
+/// - Parameter declaration: A stubbable declaration.
+public func given<ReturnType>(
+  _ expression: @escaping @autoclosure () -> ReturnType
+) -> ObjCStubbingManager<ReturnType> {
+  let recorder = InvocationRecorder.startRecording(mode: .stubbing, block: { expression() })
+  recorder.semaphore.wait()
+  return ObjCStubbingManager(from: recorder.invocationRecords)
 }
 
 /// An intermediate object used for stubbing declarations returned by `given`.
@@ -49,6 +80,10 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   }
   var implementationsProvidedCount = 0
   var stubs = [(stub: StubbingContext.Stub, context: StubbingContext)]()
+  private func addStub(invocation: Invocation, context: StubbingContext) {
+    let stub = context.swizzle(invocation) { return self.getCurrentImplementation() }
+    stubs.append((stub, context))
+  }
   
   /// When to use the next chained implementation provider.
   public enum TransitionStrategy {
@@ -82,11 +117,13 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
     case onFirstNil
   }
   
-  init(from declarations: [Mockable<DeclarationType, InvocationType, ReturnType>]) {
-    declarations.forEach({ declaration in
-      let context = declaration.mock.stubbingContext
-      let stub = context.swizzle(declaration.invocation) { return self.getCurrentImplementation() }
-      self.stubs.append((stub, context))
+  init(from declaration: Mockable<DeclarationType, InvocationType, ReturnType>) {
+    addStub(invocation: declaration.invocation, context: declaration.mock.stubbingContext)
+  }
+  
+  init(from invocationRecords: [InvocationRecorder.InvocationRecord]) {
+    invocationRecords.forEach({ record in
+      addStub(invocation: record.invocation, context: record.stubbingContext)
     })
   }
   
@@ -215,6 +252,9 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   ///
   ///     // Inout parameter type
   ///     var message = "Hello!"
+  ///     given(bird.send(message: any())).will { message in
+  ///       message = message.uppercased()
+  ///     }
   ///     bird.send(&message)
   ///     print(message)   // Prints "HELLO!"
   ///
@@ -289,6 +329,115 @@ extension StubbingManager where ReturnType == Void {
   @discardableResult
   public func willReturn() -> Self {
     add(implementation: { return () })
+    return self
+  }
+}
+
+/// TODO: Docs, Type erasure for Obj-C
+public class ObjCStubbingManager<ReturnType>:
+  StubbingManager<AnyObjCDeclaration, Any?, ReturnType> {
+
+  // TODO: Docs
+  @discardableResult
+  override public func willReturn(_ value: ReturnType) -> Self {
+    add(implementation: { () -> Any? in return value as Any? })
+    return self
+  }
+  
+  // TODO: Docs
+  @discardableResult
+  public func willThrow(_ error: Error) -> Self {
+    add(implementation: { () throws -> Any? in throw error })
+    return self
+  }
+  
+  // TODO: Docs
+  @discardableResult
+  public func will(
+    _ implementation: @escaping () -> ReturnType
+  ) -> Self {
+    add(implementation: { implementation() as Any? })
+    return self
+  }
+  
+  // TODO: Docs
+  @discardableResult
+  public func will(
+    _ implementation: @escaping (Any?) -> ReturnType
+  ) -> Self {
+    add(implementation: { implementation($0) as Any? })
+    return self
+  }
+  
+  // TODO: Docs
+  @discardableResult
+  public func will(
+    _ implementation: @escaping (Any?, Any?) -> ReturnType
+  ) -> Self {
+    add(implementation: { implementation($0, $1) as Any? })
+    return self
+  }
+  
+  // TODO: Docs
+  @discardableResult
+  public func will(
+    _ implementation: @escaping (Any?, Any?, Any?) -> ReturnType
+  ) -> Self {
+    add(implementation: { implementation($0, $1, $2) as Any? })
+    return self
+  }
+  
+  // TODO: Docs
+  @discardableResult
+  public func will(
+    _ implementation: @escaping (Any?, Any?, Any?, Any?) -> ReturnType
+  ) -> Self {
+    add(implementation: { implementation($0, $1, $2, $3) as Any? })
+    return self
+  }
+  
+  // TODO: Docs
+  @discardableResult
+  public func will(
+    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?) -> ReturnType
+  ) -> Self {
+    add(implementation: { implementation($0, $1, $2, $3, $4) as Any? })
+    return self
+  }
+  
+  // TODO: Docs
+  @discardableResult
+  public func will(
+    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?) -> ReturnType
+  ) -> Self {
+    add(implementation: { implementation($0, $1, $2, $3, $4, $5) as Any? })
+    return self
+  }
+  
+  // TODO: Docs
+  @discardableResult
+  public func will(
+    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> ReturnType
+  ) -> Self {
+    add(implementation: { implementation($0, $1, $2, $3, $4, $5, $6) as Any? })
+    return self
+  }
+  
+  // TODO: Docs
+  @discardableResult
+  public func will(
+    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> ReturnType
+  ) -> Self {
+    add(implementation: { implementation($0, $1, $2, $3, $4, $5, $6, $7) as Any? })
+    return self
+  }
+  
+  // TODO: Docs
+  @discardableResult
+  public func will(
+    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> ReturnType
+  ) -> Self {
+    add(implementation: { implementation($0, $1, $2, $3, $4, $5, $6, $7, $8) as Any? })
     return self
   }
 }

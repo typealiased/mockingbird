@@ -200,6 +200,30 @@ public func any<T>(_ type: T.Type = T.self, where predicate: @escaping (_ value:
   return createTypeFacade(matcher)
 }
 
+// TODO: Docs
+public func any<T: NSObject>(_ type: T.Type = T.self,
+                             where predicate: @escaping (_ value: T) -> Bool) -> T {
+  let base: T? = nil
+  let description = "any<\(T.self)>(where:)"
+  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
+    guard let rhs = rhs as? T else { return false }
+    return predicate(rhs)
+  }
+  return MKBTypeFacade<T>(mock: mkb_mockClass(T.self), object: matcher).fixupType()
+}
+
+// TODO: Docs
+public func any<T: NSObjectProtocol>(_ type: T.Type = T.self,
+                                     where predicate: @escaping (_ value: T) -> Bool) -> T {
+  let base: T? = nil
+  let description = "any<\(T.self)>(where:)"
+  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
+    guard let rhs = rhs as? T else { return false }
+    return predicate(rhs)
+  }
+  return MKBTypeFacade<T>(mock: mkb_mockProtocol(T.self), object: matcher).fixupType()
+}
+
 /// Matches any non-nil argument value.
 ///
 /// Argument matching allows you to stub or verify specific invocations of parameterized methods.

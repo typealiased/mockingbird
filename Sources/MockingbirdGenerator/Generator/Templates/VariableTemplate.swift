@@ -46,7 +46,7 @@ class VariableTemplate: Template {
     
     let getter = """
         get {
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [], returnType: Swift.ObjectIdentifier((\(unwrappedSpecializedTypeName)).self))
+          let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(getterName)", arguments: [], returnType: Swift.ObjectIdentifier((\(unwrappedSpecializedTypeName)).self))
           return \(contextPrefix)mockingContext.didInvoke(invocation) { () -> \(unwrappedSpecializedTypeName) in
             let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation)
             if let concreteImplementation = implementation as? () -> \(unwrappedSpecializedTypeName) {
@@ -67,7 +67,7 @@ class VariableTemplate: Template {
       setter = """
 
           set {
-            let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: [ArgumentMatcher(newValue)], returnType: Swift.ObjectIdentifier(Void.self))
+            let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(setterName)", arguments: [ArgumentMatcher(newValue)], returnType: Swift.ObjectIdentifier(Void.self))
             \(contextPrefix)mockingContext.didInvoke(invocation)
             let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation)
             if let concreteImplementation = implementation as? (\(unwrappedSpecializedTypeName)) -> Void {
@@ -115,7 +115,7 @@ class VariableTemplate: Template {
     if context.shouldGenerateThunks {
       getterBody = """
       {
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(getterName)", arguments: [], returnType: Swift.ObjectIdentifier((\(unwrappedSpecializedTypeName)).self))
+          let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(getterName)", arguments: [], returnType: Swift.ObjectIdentifier((\(unwrappedSpecializedTypeName)).self))
           return Mockingbird.Mockable<\(mockableGetterGenericTypes)>(mock: \(mockObject), invocation: invocation)
         }
       """
@@ -133,7 +133,7 @@ class VariableTemplate: Template {
         setterBody = """
         {
             let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-            let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(setterName)", arguments: arguments, returnType: Swift.ObjectIdentifier(Void.self))
+            let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(setterName)", arguments: arguments, returnType: Swift.ObjectIdentifier(Void.self))
             return Mockingbird.Mockable<\(mockableSetterGenericTypes)>(mock: \(mockObject), invocation: invocation)
           }
         """

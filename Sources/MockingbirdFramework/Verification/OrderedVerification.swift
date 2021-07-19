@@ -132,9 +132,9 @@ private func getAllInvocations(in contexts: [UUID: MockingContext],
     .flatMap({ $0.allInvocations.value })
     .filter({
       guard let baseInvocation = baseInvocation else { return true }
-      return $0 > baseInvocation
+      return $0.uid > baseInvocation.uid
     })
-    .sorted(by: <)
+    .sorted(by: { $0.uid < $1.uid })
 }
 
 private func assertNoInvocationsBefore(_ capturedExpectation: CapturedExpectation,
@@ -143,9 +143,11 @@ private func assertNoInvocationsBefore(_ capturedExpectation: CapturedExpectatio
   let allInvocations = getAllInvocations(in: contexts, after: baseInvocation)
   
   // Failure if the first invocation in all contexts doesn't match the first expectation.
-  if let firstInvocation = allInvocations.first, firstInvocation != capturedExpectation.invocation {
-    let endIndex = allInvocations.firstIndex(where: { $0 == capturedExpectation.invocation })
-      ?? allInvocations.endIndex
+  if let firstInvocation = allInvocations.first,
+     !firstInvocation.isEqual(to: capturedExpectation.invocation) {
+    let endIndex = allInvocations.firstIndex(where: {
+      $0.isEqual(to: capturedExpectation.invocation)
+    }) ?? allInvocations.endIndex
     let unexpectedInvocations = Array(allInvocations[allInvocations.startIndex..<endIndex])
     
     let failure = TestFailure.unexpectedInvocations(
@@ -213,7 +215,7 @@ private func satisfy(_ capturedExpectations: [CapturedExpectation],
       }
       
       // Potential match with the current base invocation, try satisfying the next expectation.
-      let allMatchingInvocations = allInvocations.filter({ $0 == capturedExpectation.invocation })
+      let allMatchingInvocations = allInvocations.filter({ $0.isEqual(to: capturedExpectation.invocation) })
       let result = try satisfy(capturedExpectations,
                                at: index+1,
                                baseInvocation: allMatchingInvocations.first,

@@ -307,50 +307,6 @@ class StubbingTests: BaseTestCase {
     }
   }
   
-  // MARK: Multiple invocation stubbing
-  
-  func testStubMultipleInvocations_onClassMock() {
-    given(
-      child.getChildComputedInstanceVariable(),
-      child.getParentComputedInstanceVariable()
-    ) ~> true
-    XCTAssertTrue(childInstance.childComputedInstanceVariable)
-    XCTAssertTrue(childInstance.parentComputedInstanceVariable)
-    verify(child.getChildComputedInstanceVariable()).wasCalled()
-    verify(child.getParentComputedInstanceVariable()).wasCalled()
-  }
-  func testStubMultipleInvocations_onProtocolMock() {
-    given(
-      childProtocol.getChildInstanceVariable(),
-      childProtocol.getParentInstanceVariable()
-    ) ~> true
-    XCTAssertTrue(childProtocolInstance.childInstanceVariable)
-    XCTAssertTrue(childProtocolInstance.parentInstanceVariable)
-    verify(childProtocol.getChildInstanceVariable()).wasCalled()
-    verify(childProtocol.getParentInstanceVariable()).wasCalled()
-  }
-  
-  func testStubMultipleInvocations_onClassMock_explicitSyntax() {
-    given(
-      child.getChildComputedInstanceVariable(),
-      child.getParentComputedInstanceVariable()
-    ).willReturn(true)
-    XCTAssertTrue(childInstance.childComputedInstanceVariable)
-    XCTAssertTrue(childInstance.parentComputedInstanceVariable)
-    verify(child.getChildComputedInstanceVariable()).wasCalled()
-    verify(child.getParentComputedInstanceVariable()).wasCalled()
-  }
-  func testStubMultipleInvocations_onProtocolMock_explicitSyntax() {
-    given(
-      childProtocol.getChildInstanceVariable(),
-      childProtocol.getParentInstanceVariable()
-    ).willReturn(true)
-    XCTAssertTrue(childProtocolInstance.childInstanceVariable)
-    XCTAssertTrue(childProtocolInstance.parentInstanceVariable)
-    verify(childProtocol.getChildInstanceVariable()).wasCalled()
-    verify(childProtocol.getParentInstanceVariable()).wasCalled()
-  }
-  
   // MARK: Closure implementation stubs
   
   func testStubParameterizedMethod_onClassMock_withExplicitlyTypedClosure() {

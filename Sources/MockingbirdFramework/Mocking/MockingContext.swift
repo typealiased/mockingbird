@@ -8,7 +8,7 @@
 import Foundation
 
 /// Stores invocations received by mocks.
-public class MockingContext {
+@objc(MKBMockingContext) public class MockingContext: NSObject {
   private(set) var allInvocations = Synchronized<[Invocation]>([])
   private(set) var invocations = Synchronized<[String: [Invocation]]>([:])
   let identifier = UUID()
@@ -19,18 +19,24 @@ public class MockingContext {
     self.invocations = other.invocations
   }
   
-  // Ensures that the stubbed return expression was evaluated prior to recording the invocation.
-  func didInvoke<T>(_ invocation: Invocation, returning expression: () throws -> T) rethrows -> T {
+  /// Invoke a thunk that can throw.
+  func didInvoke<T>(_ invocation: Invocation, evaluating thunk: () throws -> T) rethrows -> T {
+    // Ensures that the thunk is evaluated prior to recording the invocation.
     defer { didInvoke(invocation) }
-    let evaluatedExpression = try expression()
-    return evaluatedExpression
+    return (try thunk())
   }
   
-  // Ensures that the stubbed return expression was evaluated prior to recording the invocation.
-  func didInvoke<T>(_ invocation: Invocation, returning expression: () -> T) -> T {
+  /// Invoke a non-throwing thunk.
+  func didInvoke<T>(_ invocation: Invocation, evaluating thunk: () -> T) -> T {
+    // Ensures that the thunk is evaluated prior to recording the invocation.
     defer { didInvoke(invocation) }
-    let evaluatedExpression = expression()
-    return evaluatedExpression
+    return thunk()
+  }
+  
+  /// Invoke a thunk from Objective-C.
+  @objc public func didInvoke(_ invocation: ObjCInvocation,
+                              evaluating thunk: () -> Any?) -> Any? {
+    return didInvoke(invocation as Invocation, evaluating: thunk)
   }
     
   func didInvoke(_ invocation: Invocation) {
@@ -62,7 +68,7 @@ public class MockingContext {
     allInvocations.update { allInvocations in
       invocations.update { invocations in
         guard let baseIndex = allInvocations
-          .lastIndex(where: { $0 <= invocation })?
+                .lastIndex(where: { $0.uid <= invocation.uid })?
           .advanced(by: inclusive ? 1 : 0)
           else { return }
         allInvocations.removeFirst(baseIndex)
@@ -96,8 +102,11 @@ public class MockingContext {
 }
 
 struct InvocationObserver: Hashable, Equatable {
-  init(_ handler: @escaping (Invocation, MockingContext) -> Bool) {
+  let identifier: UUID
+  
+  init(_ handler: @escaping (Invocation, MockingContext) -> Bool, identifier: UUID = UUID()) {
     self.handler = handler
+    self.identifier = identifier
   }
   
   /// Attempts to handle an invocation, returning `true` if successful.
@@ -106,7 +115,6 @@ struct InvocationObserver: Hashable, Equatable {
     return handler(invocation, mockingContext)
   }
   
-  private let identifier = UUID()
   func hash(into hasher: inout Hasher) {
     hasher.combine(identifier)
   }

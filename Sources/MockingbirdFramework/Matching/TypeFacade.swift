@@ -15,8 +15,8 @@ import Foundation
 /// It goes without saying that this should probably never be done in production.
 
 private enum Constants {
-  static let resultKey = "result"
-  static let semaphoreKey = "semaphore"
+  static let resultKey = "co.bird.mockingbird.type-facade.result"
+  static let semaphoreKey = "co.bird.mockingbird.type-facade.semaphore"
 }
 
 private class ResolutionResult {
@@ -37,8 +37,8 @@ private class ResolutionContext<T>: Thread {
   override func main() {
     // Set the thread's context dictionary.
     let context = Thread.current.threadDictionary
-    context[Constants.resultKey] = self.result
-    context[Constants.semaphoreKey] = self.semaphore
+    context[Constants.resultKey] = result
+    context[Constants.semaphoreKey] = semaphore
     
     // Resolve type facade by executing closure.
     result.value = typeFacade()
@@ -56,8 +56,8 @@ func createTypeFacade<T>(_ value: Any?) -> T {
   
   result.value = value
   semaphore.signal()
-  Thread.exit() // Stop the current thread's execution.
-  fatalError() // This will never run.
+  Thread.exit()
+  fatalError("This should never run")
 }
 
 /// Resolve `parameter` when `T` is _not_ known to be `Equatable`.

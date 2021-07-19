@@ -8,7 +8,7 @@
 import Foundation
 
 /// Matches argument values with a comparator.
-public class ArgumentMatcher: CustomStringConvertible {
+@objc(MKBArgumentMatcher) public class ArgumentMatcher: NSObject {
   /// Necessary for custom comparators such as `any()` that only work on the lhs.
   enum Priority: UInt {
     case low = 0, `default` = 500, high = 1000
@@ -21,7 +21,8 @@ public class ArgumentMatcher: CustomStringConvertible {
   let baseType: Any?
 
   /// A description for test failure output.
-  public let description: String
+  let internalDescription: String
+  public override var description: String { return internalDescription }
 
   /// The commutativity of the matcher comparator.
   let priority: Priority
@@ -38,7 +39,7 @@ public class ArgumentMatcher: CustomStringConvertible {
                      priority: Priority = .default) {
     self.base = base
     self.baseType = T.self
-    self.description = description ?? "\(String.describe(base))"
+    self.internalDescription = description ?? "\(String.describe(base))"
     self.priority = priority
     self.comparator = { base == $1 as? T }
   }
@@ -61,7 +62,17 @@ public class ArgumentMatcher: CustomStringConvertible {
     self.priority = priority
     self.comparator = comparator ?? { $0 as AnyObject === $1 as AnyObject }
     let annotation = comparator == nil ? " (by reference)" : ""
-    self.description = description ?? "\(String.describe(base))\(annotation)"
+    self.internalDescription = description ?? "\(String.describe(base))\(annotation)"
+  }
+  
+  @objc public init(_ base: Any? = nil,
+                    description: String? = nil,
+                    comparator: @escaping (Any?, Any?) -> Bool) {
+    self.base = base
+    self.baseType = type(of: base)
+    self.priority = .low
+    self.comparator = comparator
+    self.internalDescription = description ?? String.describe(base)
   }
   
   init(_ matcher: ArgumentMatcher) {
@@ -69,16 +80,22 @@ public class ArgumentMatcher: CustomStringConvertible {
     self.baseType = type(of: matcher.base)
     self.priority = matcher.priority
     self.comparator = matcher.comparator
-    self.description = matcher.description
+    self.internalDescription = matcher.description
   }
 }
 
-extension ArgumentMatcher: Equatable {
+// MARK: - Equatable
+
+extension ArgumentMatcher {
   public static func == (lhs: ArgumentMatcher, rhs: ArgumentMatcher) -> Bool {
     if lhs.priority.rawValue >= rhs.priority.rawValue {
       return lhs.compare(with: rhs.base)
     } else {
       return rhs.compare(with: lhs.base)
     }
+  }
+  
+  public static func != (lhs: ArgumentMatcher, rhs: ArgumentMatcher) -> Bool {
+    return !(lhs == rhs)
   }
 }

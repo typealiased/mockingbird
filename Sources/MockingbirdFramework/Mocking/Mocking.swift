@@ -32,6 +32,16 @@ import Foundation
 @available(*, unavailable, message: "No generated mock for this type which might be resolved by building the test target (⇧⌘U)")
 public func mock<T>(_ type: T.Type) -> T { fatalError() }
 
+// TODO: Docs
+public func mock<T: NSObjectProtocol>(_ type: T.Type) -> T {
+  return MKBTypeFacade.create(from: mkb_mockProtocol(type))
+}
+
+// TODO: Docs
+public func mock<T: NSObject>(_ type: T.Type) -> T {
+  return MKBTypeFacade.create(from: mkb_mockClass(type))
+}
+
 /// All generated mocks conform to this protocol.
 public protocol Mock {
   /// Information about received invocations.
@@ -100,3 +110,6 @@ public class SubscriptDeclaration: Declaration {}
 public class SubscriptGetterDeclaration: SubscriptDeclaration {}
 /// Mockable subscript setter declarations.
 public class SubscriptSetterDeclaration: SubscriptDeclaration {}
+
+/// Mockable Objective-C declarations.
+public class AnyObjCDeclaration: Declaration {}
