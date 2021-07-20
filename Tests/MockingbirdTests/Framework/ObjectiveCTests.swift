@@ -29,22 +29,33 @@ class ObjectiveCTests: BaseTestCase {
   }
   
   func testExample() throws {
-    let uuid = UUID(uuidString: "BA6C41BD-E803-4527-A91A-9951ADC57CBF")
-    given(self.peripheralMock.identifier).willReturn(uuid)
+    given(self.peripheralMock.identifier)
+      .willReturn(UUID(uuidString: "BA6C41BD-E803-4527-A91A-9951ADC57CBF"))
+    given(self.peripheralMock.name).willReturn("foobar")
+    
+    XCTAssertEqual(peripheralMock.identifier, UUID(uuidString: "BA6C41BD-E803-4527-A91A-9951ADC57CBF"))
+    XCTAssertEqual(peripheralMock.name, "foobar")
+    
+    verify(self.peripheralMock.identifier).wasCalled()
+    verify(self.peripheralMock.name).wasCalled()
+    
     given(
       self.centralManagerMock.cancelPeripheralConnection(
-        any(where: { $0.identifier == uuid })
-//        self.peripheralMock
+        any(where: { $0.identifier.uuidString == "BA6C41BD-E803-4527-A91A-9951ADC57CBF" })
       )
     ).will {
       let peripheral = $0 as! CBPeripheral
       print("Hello world! \(peripheral.identifier.uuidString)")
     }
-    print("foo")
+    
     centralManagerMock.cancelPeripheralConnection(peripheralMock)
-    print("bar")
     
     verify(self.centralManagerMock.cancelPeripheralConnection(any())).wasCalled()
+    verify(self.centralManagerMock.cancelPeripheralConnection(self.peripheralMock)).wasCalled()
+    
+    let peripheralCaptor = ArgumentCaptor<CBPeripheral>()
+    verify(self.centralManagerMock.cancelPeripheralConnection(peripheralCaptor.any())).wasCalled()
+    XCTAssertEqual(peripheralCaptor.value?.name, "foobar")
   }
   
   func testObjectComparison() throws {

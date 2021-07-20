@@ -48,23 +48,13 @@ public func any<T>(_ type: T.Type = T.self) -> T {
 }
 
 // TODO: Docs
-public func any<T: NSObject>(_ type: T.Type = T.self) -> T {
-  let base: T? = nil
-  let description = "any<\(T.self)>()"
-  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
-    return rhs is T || rhs is NonEscapingType
-  }
-  return MKBTypeFacade<T>(mock: mkb_mockClass(T.self), object: matcher).fixupType()
-}
-
-// TODO: Docs
 public func any<T: NSObjectProtocol>(_ type: T.Type = T.self) -> T {
   let base: T? = nil
   let description = "any<\(T.self)>()"
   let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
     return rhs is T || rhs is NonEscapingType
   }
-  return MKBTypeFacade<T>(mock: mkb_mockProtocol(T.self), object: matcher).fixupType()
+  return MKBTypeFacade<T>(mock: mkb_mock(T.self), object: matcher).fixupType()
 }
 
 /// Matches argument values equal to any of the provided values.
@@ -221,18 +211,6 @@ public func any<T>(_ type: T.Type = T.self, where predicate: @escaping (_ value:
 }
 
 // TODO: Docs
-public func any<T: NSObject>(_ type: T.Type = T.self,
-                             where predicate: @escaping (_ value: T) -> Bool) -> T {
-  let base: T? = nil
-  let description = "any<\(T.self)>(where:)"
-  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
-    guard let rhs = rhs as? T else { return false }
-    return predicate(rhs)
-  }
-  return MKBTypeFacade<T>(mock: mkb_mockClass(T.self), object: matcher).fixupType()
-}
-
-// TODO: Docs
 public func any<T: NSObjectProtocol>(_ type: T.Type = T.self,
                                      where predicate: @escaping (_ value: T) -> Bool) -> T {
   let base: T? = nil
@@ -241,7 +219,7 @@ public func any<T: NSObjectProtocol>(_ type: T.Type = T.self,
     guard let rhs = rhs as? T else { return false }
     return predicate(rhs)
   }
-  return MKBTypeFacade<T>(mock: mkb_mockProtocol(T.self), object: matcher).fixupType()
+  return MKBTypeFacade<T>(mock: mkb_mock(T.self), object: matcher).fixupType()
 }
 
 /// Matches any non-nil argument value.

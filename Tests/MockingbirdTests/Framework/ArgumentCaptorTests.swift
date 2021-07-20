@@ -20,14 +20,14 @@ class ArgumentCaptorTests: XCTestCase {
   
   func testArgumentCaptor_capturesSingleValue() {
     let structTypeCaptor = ArgumentCaptor<StructType>()
-    given(concreteMock.method(structType: structTypeCaptor.matcher)) ~> true
+    given(concreteMock.method(structType: structTypeCaptor.any())) ~> true
     XCTAssertTrue(concreteInstance.method(structType: StructType(value: 99)))
     XCTAssert(structTypeCaptor.value?.value == 99)
   }
   
   func testArgumentCaptor_capturesMultipleValues_returnsLastValueCaptured() {
     let structTypeCaptor = ArgumentCaptor<StructType>()
-    given(concreteMock.method(structType: structTypeCaptor.matcher)) ~> true
+    given(concreteMock.method(structType: structTypeCaptor.any())) ~> true
     XCTAssertTrue(concreteInstance.method(structType: StructType(value: 99)))
     XCTAssertTrue(concreteInstance.method(structType: StructType(value: 42)))
     XCTAssert(structTypeCaptor.value?.value == 42)
@@ -35,7 +35,7 @@ class ArgumentCaptorTests: XCTestCase {
   
   func testArgumentCaptor_capturesMultipleValues_returnsAllValuesCaptured() {
     let structTypeCaptor = ArgumentCaptor<StructType>()
-    given(concreteMock.method(structType: structTypeCaptor.matcher)) ~> true
+    given(concreteMock.method(structType: structTypeCaptor.any())) ~> true
     XCTAssertTrue(concreteInstance.method(structType: StructType(value: 99)))
     XCTAssertTrue(concreteInstance.method(structType: StructType(value: 42)))
     XCTAssert(structTypeCaptor.allValues.map({ $0.value }) == [99, 42])

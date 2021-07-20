@@ -14,45 +14,72 @@ import Foundation
 ///
 /// It goes without saying that this should probably never be done in production.
 
-private enum Constants {
-  static let resultKey = "co.bird.mockingbird.type-facade.result"
-  static let semaphoreKey = "co.bird.mockingbird.type-facade.semaphore"
-}
-
-private class ResolutionResult {
-  var value: Any?
-}
-
-private class ResolutionContext<T>: Thread {
-  private let typeFacade: () -> T
-  private let result: ResolutionResult
-  private let semaphore: DispatchSemaphore
+private class ResolutionContext: Thread {
+  private let typeFacade: () -> Any?
+  let result: Result
+  let semaphore: DispatchSemaphore
   
-  init(typeFacade: @escaping () -> T, result: ResolutionResult, semaphore: DispatchSemaphore) {
+  private enum Constants {
+    static let resultKey = "co.bird.mockingbird.resolution-context.result"
+    static let semaphoreKey = "co.bird.mockingbird.resolution-context.semaphore"
+  }
+  
+  class Result {
+    var value: Any?
+  }
+  
+  static var result: Result? {
+    return Thread.current.threadDictionary[Constants.resultKey] as? Result
+  }
+  static var semaphore: DispatchSemaphore? {
+    return Thread.current.threadDictionary[Constants.semaphoreKey] as? DispatchSemaphore
+  }
+  
+  init<T>(typeFacade: @escaping () -> T) {
     self.typeFacade = typeFacade
-    self.result = result
-    self.semaphore = semaphore
+    self.result = Result()
+    self.semaphore = DispatchSemaphore(value: 0)
   }
   
   override func main() {
-    // Set the thread's context dictionary.
-    let context = Thread.current.threadDictionary
-    context[Constants.resultKey] = result
-    context[Constants.semaphoreKey] = semaphore
-    
-    // Resolve type facade by executing closure.
+    threadDictionary[Constants.resultKey] = self.result
+    threadDictionary[Constants.semaphoreKey] = self.semaphore
     result.value = typeFacade()
     semaphore.signal()
   }
 }
 
+private class PrimitiveTypeFacade {
+  static let shared = PrimitiveTypeFacade()
+}
+
 /// Wraps a value into any type `T` when resolved inside of a `ResolutionContext<T>`.
 func createTypeFacade<T>(_ value: Any?) -> T {
-  let context = Thread.current.threadDictionary
-  guard
-    let result = context[Constants.resultKey] as? ResolutionResult,
-    let semaphore = context[Constants.semaphoreKey] as? DispatchSemaphore
-    else { preconditionFailure("Invalid resolution thread context state") }
+  guard let result = ResolutionContext.result, let semaphore = ResolutionContext.semaphore else {
+    guard InvocationRecorder.sharedRecorder != nil else {
+      preconditionFailure("Invalid resolution thread context state")
+    }
+    // This is actually an invocation recording context, but the type is not an object.
+    return Unmanaged.passUnretained(PrimitiveTypeFacade.shared)
+      .toOpaque()
+      .bindMemory(to: T.self, capacity: 512)
+      .pointee
+  }
+  
+  result.value = value
+  semaphore.signal()
+  Thread.exit()
+  fatalError("This should never run")
+}
+
+func createTypeFacade<T: NSObjectProtocol>(_ value: Any?) -> T {
+  guard let result = ResolutionContext.result, let semaphore = ResolutionContext.semaphore else {
+    guard InvocationRecorder.sharedRecorder != nil else {
+      preconditionFailure("Invalid resolution thread context state")
+    }
+    // This is actually an invocation recording context.
+    return MKBTypeFacade(mock: mkb_mock(T.self), object: value as Any).fixupType()
+  }
   
   result.value = value
   semaphore.signal()
@@ -62,26 +89,22 @@ func createTypeFacade<T>(_ value: Any?) -> T {
 
 /// Resolve `parameter` when `T` is _not_ known to be `Equatable`.
 func resolve<T>(_ parameter: @escaping () -> T) -> ArgumentMatcher {
-  let result = ResolutionResult()
-  let semaphore = DispatchSemaphore(value: 0)
-  let context = ResolutionContext(typeFacade: parameter, result: result, semaphore: semaphore)
+  let context = ResolutionContext(typeFacade: parameter)
   context.start()
-  semaphore.wait()
-  if let matcher = result.value as? ArgumentMatcher { return matcher }
-  if let typedValue = result.value as? T { return ArgumentMatcher(typedValue) }
-  return ArgumentMatcher(result.value)
+  context.semaphore.wait()
+  if let matcher = context.result.value as? ArgumentMatcher { return matcher }
+  if let typedValue = context.result.value as? T { return ArgumentMatcher(typedValue) }
+  return ArgumentMatcher(context.result.value)
 }
 
 /// Resolve `parameter` when `T` is known to be `Equatable`.
 func resolve<T: Equatable>(_ parameter: @escaping () -> T) -> ArgumentMatcher {
-  let result = ResolutionResult()
-  let semaphore = DispatchSemaphore(value: 0)
-  let context = ResolutionContext(typeFacade: parameter, result: result, semaphore: semaphore)
+  let context = ResolutionContext(typeFacade: parameter)
   context.start()
-  semaphore.wait()
-  if let matcher = result.value as? ArgumentMatcher { return matcher }
-  if let typedValue = result.value as? T { return ArgumentMatcher(typedValue) }
-  return ArgumentMatcher(result.value)
+  context.semaphore.wait()
+  if let matcher = context.result.value as? ArgumentMatcher { return matcher }
+  if let typedValue = context.result.value as? T { return ArgumentMatcher(typedValue) }
+  return ArgumentMatcher(context.result.value)
 }
 
 /// Resolve `parameter` when the closure returns an `ArgumentMatcher`.

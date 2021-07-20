@@ -24,13 +24,12 @@
   [invocation getArgument:&value atIndex:index];
   
   // Unwrapped boxed types within type facades.
-  if ([NSStringFromClass([value class]) isEqualToString:NSStringFromClass([MKBTypeFacade class])]) {
+  if ([[value class] isSubclassOfClass:[MKBTypeFacade class]]) {
     value = ((MKBTypeFacade *)value).boxedObject;
   }
   
   // Use argument matchers directly.
-  if ([NSStringFromClass([value class])
-       isEqualToString:NSStringFromClass([MKBArgumentMatcher class])]) {
+  if ([[value class] isSubclassOfClass:[MKBArgumentMatcher class]]) {
     return (MKBArgumentMatcher *)value;
   }
   

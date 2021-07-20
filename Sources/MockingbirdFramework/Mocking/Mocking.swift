@@ -34,12 +34,7 @@ public func mock<T>(_ type: T.Type) -> T { fatalError() }
 
 // TODO: Docs
 public func mock<T: NSObjectProtocol>(_ type: T.Type) -> T {
-  return MKBTypeFacade.create(from: mkb_mockProtocol(type))
-}
-
-// TODO: Docs
-public func mock<T: NSObject>(_ type: T.Type) -> T {
-  return MKBTypeFacade.create(from: mkb_mockClass(type))
+  return MKBTypeFacade.create(from: mkb_mock(type))
 }
 
 /// All generated mocks conform to this protocol.

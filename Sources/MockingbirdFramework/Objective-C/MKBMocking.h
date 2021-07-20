@@ -9,6 +9,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+id mkb_mock(id aType);
+
 id mkb_mockClass(Class aClass);
 id mkb_mockProtocol(id aProtocol);
 
