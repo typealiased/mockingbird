@@ -24,7 +24,7 @@
   [invocation getArgument:&value atIndex:index];
   
   // Unwrapped boxed types within type facades.
-  if ([value isKindOfClass:[MKBTypeFacade class]]) {
+  if ([[value class] isSubclassOfClass:[MKBTypeFacade class]]) {
     value = ((MKBTypeFacade *)value).boxedObject;
   }
   

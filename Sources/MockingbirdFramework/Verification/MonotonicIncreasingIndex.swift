@@ -15,7 +15,10 @@ enum MonotonicIncreasingIndex {
   }
   
   static func getIndex() -> UInt {
-    return index.read { $0 + 1 }
+    return index.update { index in
+      index += 1
+      return index
+    }
   }
   
   static func incrementIndex() {

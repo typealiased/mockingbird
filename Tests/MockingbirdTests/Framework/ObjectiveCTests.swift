@@ -14,6 +14,9 @@ import XCTest
   @objc dynamic func echo(val: Bool) -> Bool {
     fatalError()
   }
+  @objc dynamic func prim(val: String) -> String {
+    fatalError()
+  }
   @objc dynamic public func trivial() {}
 }
 
@@ -36,8 +39,20 @@ class ObjectiveCTests: BaseTestCase {
     given(self.testMock.echo(val: any(at: 0))).will { val in
       return val as! Bool
     }
-    XCTAssertEqual(testMock.echo(val: true), true)
+    XCTAssertTrue(testMock.echo(val: true))
+    XCTAssertFalse(testMock.echo(val: false))
     verify(self.testMock.echo(val: true)).wasCalled()
+    verify(self.testMock.echo(val: false)).wasCalled()
+    
+    given(self.testMock.prim(val: any(at: 0))).will { val in
+      return (val as! String).uppercased()
+    }
+    XCTAssertEqual(testMock.prim(val: "hello, world"), "HELLO, WORLD")
+    verify(self.testMock.prim(val: any(at: 0))).wasCalled()
+    
+    given(self.testMock.prim(val: "foobar")).willReturn("barfoo")
+    XCTAssertEqual(testMock.prim(val: "foobar"), "barfoo")
+    verify(self.testMock.prim(val: "foobar")).wasCalled()
   }
   
   func testExample() throws {
