@@ -6,8 +6,12 @@
 //
 
 #import "MKBConcreteMock.h"
-#import "NSInvocation+MKBArgumentMatcher.h"
+#import "InvocationHandlers/MKBInvocationHandlerChain.h"
 #import <Mockingbird/Mockingbird-Swift.h>
+
+@interface MKBConcreteMock ()
+@property (nonatomic, strong, readwrite) MKBInvocationHandlerChain *invocationHandlerChain;
+@end
 
 @implementation MKBConcreteMock
 
@@ -18,6 +22,7 @@
   if (self) {
     _mockingContext = [[MKBMockingContext alloc] init];
     _stubbingContext = [[MKBStubbingContext alloc] init];
+    _invocationHandlerChain = [[MKBInvocationHandlerChain alloc] init];
   }
   return self;
 }
@@ -38,7 +43,8 @@
   
   // Account for self, _cmd arguments.
   for (NSUInteger i = 2; i < argumentCount; i++) {
-    [arguments addObject:[invocation mkb_createArgumentMatcherAtIndex:i]];
+    [arguments addObject:
+     [self.invocationHandlerChain serializeArgumentAtIndex:i forInvocation:invocation]];
   }
   
   MKBObjCInvocation *objcInvocation =
@@ -59,8 +65,8 @@
           }
           // Mocks are strict by default, so fail the test now.
           [self.stubbingContext failTestFor:objcInvocation];
-        } else {
-          [invocation setReturnValue:&returnValue];
+        } else if (returnValue) {
+          [self.invocationHandlerChain deserializeReturnValue:returnValue forInvocation:invocation];
         }
       }
       break;

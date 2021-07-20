@@ -24,6 +24,48 @@
 		281B6246251DC7220084EBED /* MockingbirdShadowedTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */; };
 		281B6286251DC7FC0084EBED /* ModuleNameShadowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B61F1251DBBDE0084EBED /* ModuleNameShadowing.swift */; };
 		281B62FF251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */; };
+		28571A7C26A6548B0063AB83 /* MKBObjectInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571A7A26A6548B0063AB83 /* MKBObjectInvocationHandler.h */; };
+		28571A7D26A6548B0063AB83 /* MKBObjectInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571A7B26A6548B0063AB83 /* MKBObjectInvocationHandler.m */; };
+		28571A8026A65A490063AB83 /* MKBComparator.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571A7E26A65A490063AB83 /* MKBComparator.h */; };
+		28571A8426A65D8A0063AB83 /* MKBLongInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571A8226A65D8A0063AB83 /* MKBLongInvocationHandler.h */; };
+		28571A8526A65D8A0063AB83 /* MKBLongInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571A8326A65D8A0063AB83 /* MKBLongInvocationHandler.m */; };
+		28571A8826A65EB80063AB83 /* MKBIntInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571A8626A65EB80063AB83 /* MKBIntInvocationHandler.h */; };
+		28571A8926A65EB80063AB83 /* MKBIntInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571A8726A65EB80063AB83 /* MKBIntInvocationHandler.m */; };
+		28571A8C26A65F680063AB83 /* MKBBoolInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571A8A26A65F680063AB83 /* MKBBoolInvocationHandler.h */; };
+		28571A8D26A65F680063AB83 /* MKBBoolInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571A8B26A65F680063AB83 /* MKBBoolInvocationHandler.m */; };
+		28571A9026A65FD80063AB83 /* MKBCharInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571A8E26A65FD80063AB83 /* MKBCharInvocationHandler.h */; };
+		28571A9126A65FD80063AB83 /* MKBCharInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571A8F26A65FD80063AB83 /* MKBCharInvocationHandler.m */; };
+		28571A9426A660460063AB83 /* MKBCStringInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571A9226A660460063AB83 /* MKBCStringInvocationHandler.h */; };
+		28571A9526A660460063AB83 /* MKBCStringInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571A9326A660460063AB83 /* MKBCStringInvocationHandler.m */; };
+		28571A9826A660DB0063AB83 /* MKBClassInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571A9626A660DB0063AB83 /* MKBClassInvocationHandler.h */; };
+		28571A9926A660DB0063AB83 /* MKBClassInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571A9726A660DB0063AB83 /* MKBClassInvocationHandler.m */; };
+		28571A9C26A661910063AB83 /* MKBDoubleInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571A9A26A661910063AB83 /* MKBDoubleInvocationHandler.h */; };
+		28571A9D26A661910063AB83 /* MKBDoubleInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571A9B26A661910063AB83 /* MKBDoubleInvocationHandler.m */; };
+		28571AA026A6623C0063AB83 /* MKBFloatInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571A9E26A6623C0063AB83 /* MKBFloatInvocationHandler.h */; };
+		28571AA126A6623C0063AB83 /* MKBFloatInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571A9F26A6623C0063AB83 /* MKBFloatInvocationHandler.m */; };
+		28571AA426A662E40063AB83 /* MKBLongLongInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571AA226A662E40063AB83 /* MKBLongLongInvocationHandler.h */; };
+		28571AA526A662E40063AB83 /* MKBLongLongInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571AA326A662E40063AB83 /* MKBLongLongInvocationHandler.m */; };
+		28571AA826A6635F0063AB83 /* MKBPointerInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571AA626A6635F0063AB83 /* MKBPointerInvocationHandler.h */; };
+		28571AA926A6635F0063AB83 /* MKBPointerInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571AA726A6635F0063AB83 /* MKBPointerInvocationHandler.m */; };
+		28571AAC26A664340063AB83 /* MKBSelectorInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571AAA26A664340063AB83 /* MKBSelectorInvocationHandler.h */; };
+		28571AAD26A664340063AB83 /* MKBSelectorInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571AAB26A664340063AB83 /* MKBSelectorInvocationHandler.m */; };
+		28571AB026A664AF0063AB83 /* MKBShortInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571AAE26A664AE0063AB83 /* MKBShortInvocationHandler.h */; };
+		28571AB126A664AF0063AB83 /* MKBShortInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571AAF26A664AF0063AB83 /* MKBShortInvocationHandler.m */; };
+		28571AB426A664F70063AB83 /* MKBStructInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571AB226A664F70063AB83 /* MKBStructInvocationHandler.h */; };
+		28571AB526A664F70063AB83 /* MKBStructInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571AB326A664F70063AB83 /* MKBStructInvocationHandler.m */; };
+		28571AB826A666070063AB83 /* MKBUnsignedCharInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571AB626A666070063AB83 /* MKBUnsignedCharInvocationHandler.h */; };
+		28571AB926A666070063AB83 /* MKBUnsignedCharInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571AB726A666070063AB83 /* MKBUnsignedCharInvocationHandler.m */; };
+		28571ABC26A6663D0063AB83 /* MKBUnsignedIntInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571ABA26A6663D0063AB83 /* MKBUnsignedIntInvocationHandler.h */; };
+		28571ABD26A6663D0063AB83 /* MKBUnsignedIntInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571ABB26A6663D0063AB83 /* MKBUnsignedIntInvocationHandler.m */; };
+		28571AC026A6669D0063AB83 /* MKBUnsignedLongInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571ABE26A6669D0063AB83 /* MKBUnsignedLongInvocationHandler.h */; };
+		28571AC126A6669D0063AB83 /* MKBUnsignedLongInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571ABF26A6669D0063AB83 /* MKBUnsignedLongInvocationHandler.m */; };
+		28571AC426A666E60063AB83 /* MKBUnsignedLongLongInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571AC226A666E60063AB83 /* MKBUnsignedLongLongInvocationHandler.h */; };
+		28571AC526A666E60063AB83 /* MKBUnsignedLongLongInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571AC326A666E60063AB83 /* MKBUnsignedLongLongInvocationHandler.m */; };
+		28571AC826A667300063AB83 /* MKBUnsignedShortInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571AC626A667300063AB83 /* MKBUnsignedShortInvocationHandler.h */; };
+		28571AC926A667300063AB83 /* MKBUnsignedShortInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571AC726A667300063AB83 /* MKBUnsignedShortInvocationHandler.m */; };
+		28571ACC26A668530063AB83 /* MKBInvocationHandlerChain.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571ACA26A668530063AB83 /* MKBInvocationHandlerChain.h */; };
+		28571ACD26A668530063AB83 /* MKBInvocationHandlerChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571ACB26A668530063AB83 /* MKBInvocationHandlerChain.m */; };
+		28571ACF26A670E50063AB83 /* MKBComparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571ACE26A670E50063AB83 /* MKBComparator.m */; };
 		287C4F3B26A3547000A7E0D9 /* MKBClassMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 287C4F3926A3547000A7E0D9 /* MKBClassMock.h */; };
 		287C4F3C26A3547000A7E0D9 /* MKBClassMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F3A26A3547000A7E0D9 /* MKBClassMock.m */; };
 		287C4F3F26A3547F00A7E0D9 /* MKBProtocolMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 287C4F3D26A3547F00A7E0D9 /* MKBProtocolMock.h */; };
@@ -37,8 +79,6 @@
 		287C4F5826A3710600A7E0D9 /* MKBConcreteMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F5626A3710600A7E0D9 /* MKBConcreteMock.m */; };
 		287C4F6426A3D21D00A7E0D9 /* MonotonicIncreasingIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F6326A3D21D00A7E0D9 /* MonotonicIncreasingIndex.swift */; };
 		287C4F6626A3E00800A7E0D9 /* NonEscapingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F6526A3E00800A7E0D9 /* NonEscapingType.swift */; };
-		287C4F6926A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 287C4F6726A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.h */; };
-		287C4F6A26A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F6826A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.m */; };
 		287C4F6C26A4AAA900A7E0D9 /* InvocationRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F6B26A4AAA900A7E0D9 /* InvocationRecorder.swift */; };
 		287F851F25194DE4007D135D /* SPMUtility in Frameworks */ = {isa = PBXBuildFile; productRef = 287F851E25194DE4007D135D /* SPMUtility */; };
 		287F852225194E16007D135D /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 287F852125194E16007D135D /* SwiftSyntax */; };
@@ -51,6 +91,8 @@
 		2896E54126AA52A400124D02 /* KeyedDecodingContainer+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E54026AA52A400124D02 /* KeyedDecodingContainer+Array.swift */; };
 		2896E54626AA5A3E00124D02 /* spm-project-description.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2896E54326AA59ED00124D02 /* spm-project-description.json */; };
 		2896E54726AA5A3F00124D02 /* generic-project-description.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2896E54426AA5A1900124D02 /* generic-project-description.json */; };
+		28C8E5DB26A64D6C00C68A1D /* MKBInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */; };
+		28C8E5DC26A64D6C00C68A1D /* MKBInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */; };
 		28DAD96E251BDD66001A0B3F /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DAD96D251BDD66001A0B3F /* Project.swift */; };
 		8356225C26A94CBE005CD5C5 /* TargetDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */; };
 		D314ED7F24CE1C10000CC23D /* GenericsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314ED7E24CE1C10000CC23D /* GenericsTests.swift */; };
@@ -405,6 +447,48 @@
 		281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MockingbirdShadowedTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		281B62CF251DCAB90084EBED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockingbirdShadowedTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdShadowedTestsHostMocks.generated.swift; sourceTree = "<group>"; };
+		28571A7A26A6548B0063AB83 /* MKBObjectInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBObjectInvocationHandler.h; sourceTree = "<group>"; };
+		28571A7B26A6548B0063AB83 /* MKBObjectInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBObjectInvocationHandler.m; sourceTree = "<group>"; };
+		28571A7E26A65A490063AB83 /* MKBComparator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBComparator.h; sourceTree = "<group>"; };
+		28571A8226A65D8A0063AB83 /* MKBLongInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBLongInvocationHandler.h; sourceTree = "<group>"; };
+		28571A8326A65D8A0063AB83 /* MKBLongInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBLongInvocationHandler.m; sourceTree = "<group>"; };
+		28571A8626A65EB80063AB83 /* MKBIntInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBIntInvocationHandler.h; sourceTree = "<group>"; };
+		28571A8726A65EB80063AB83 /* MKBIntInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBIntInvocationHandler.m; sourceTree = "<group>"; };
+		28571A8A26A65F680063AB83 /* MKBBoolInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBBoolInvocationHandler.h; sourceTree = "<group>"; };
+		28571A8B26A65F680063AB83 /* MKBBoolInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBBoolInvocationHandler.m; sourceTree = "<group>"; };
+		28571A8E26A65FD80063AB83 /* MKBCharInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBCharInvocationHandler.h; sourceTree = "<group>"; };
+		28571A8F26A65FD80063AB83 /* MKBCharInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBCharInvocationHandler.m; sourceTree = "<group>"; };
+		28571A9226A660460063AB83 /* MKBCStringInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBCStringInvocationHandler.h; sourceTree = "<group>"; };
+		28571A9326A660460063AB83 /* MKBCStringInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBCStringInvocationHandler.m; sourceTree = "<group>"; };
+		28571A9626A660DB0063AB83 /* MKBClassInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBClassInvocationHandler.h; sourceTree = "<group>"; };
+		28571A9726A660DB0063AB83 /* MKBClassInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBClassInvocationHandler.m; sourceTree = "<group>"; };
+		28571A9A26A661910063AB83 /* MKBDoubleInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBDoubleInvocationHandler.h; sourceTree = "<group>"; };
+		28571A9B26A661910063AB83 /* MKBDoubleInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBDoubleInvocationHandler.m; sourceTree = "<group>"; };
+		28571A9E26A6623C0063AB83 /* MKBFloatInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBFloatInvocationHandler.h; sourceTree = "<group>"; };
+		28571A9F26A6623C0063AB83 /* MKBFloatInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBFloatInvocationHandler.m; sourceTree = "<group>"; };
+		28571AA226A662E40063AB83 /* MKBLongLongInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBLongLongInvocationHandler.h; sourceTree = "<group>"; };
+		28571AA326A662E40063AB83 /* MKBLongLongInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBLongLongInvocationHandler.m; sourceTree = "<group>"; };
+		28571AA626A6635F0063AB83 /* MKBPointerInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBPointerInvocationHandler.h; sourceTree = "<group>"; };
+		28571AA726A6635F0063AB83 /* MKBPointerInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBPointerInvocationHandler.m; sourceTree = "<group>"; };
+		28571AAA26A664340063AB83 /* MKBSelectorInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBSelectorInvocationHandler.h; sourceTree = "<group>"; };
+		28571AAB26A664340063AB83 /* MKBSelectorInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBSelectorInvocationHandler.m; sourceTree = "<group>"; };
+		28571AAE26A664AE0063AB83 /* MKBShortInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBShortInvocationHandler.h; sourceTree = "<group>"; };
+		28571AAF26A664AF0063AB83 /* MKBShortInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBShortInvocationHandler.m; sourceTree = "<group>"; };
+		28571AB226A664F70063AB83 /* MKBStructInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBStructInvocationHandler.h; sourceTree = "<group>"; };
+		28571AB326A664F70063AB83 /* MKBStructInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBStructInvocationHandler.m; sourceTree = "<group>"; };
+		28571AB626A666070063AB83 /* MKBUnsignedCharInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBUnsignedCharInvocationHandler.h; sourceTree = "<group>"; };
+		28571AB726A666070063AB83 /* MKBUnsignedCharInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBUnsignedCharInvocationHandler.m; sourceTree = "<group>"; };
+		28571ABA26A6663D0063AB83 /* MKBUnsignedIntInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBUnsignedIntInvocationHandler.h; sourceTree = "<group>"; };
+		28571ABB26A6663D0063AB83 /* MKBUnsignedIntInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBUnsignedIntInvocationHandler.m; sourceTree = "<group>"; };
+		28571ABE26A6669D0063AB83 /* MKBUnsignedLongInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBUnsignedLongInvocationHandler.h; sourceTree = "<group>"; };
+		28571ABF26A6669D0063AB83 /* MKBUnsignedLongInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBUnsignedLongInvocationHandler.m; sourceTree = "<group>"; };
+		28571AC226A666E60063AB83 /* MKBUnsignedLongLongInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBUnsignedLongLongInvocationHandler.h; sourceTree = "<group>"; };
+		28571AC326A666E60063AB83 /* MKBUnsignedLongLongInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBUnsignedLongLongInvocationHandler.m; sourceTree = "<group>"; };
+		28571AC626A667300063AB83 /* MKBUnsignedShortInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBUnsignedShortInvocationHandler.h; sourceTree = "<group>"; };
+		28571AC726A667300063AB83 /* MKBUnsignedShortInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBUnsignedShortInvocationHandler.m; sourceTree = "<group>"; };
+		28571ACA26A668530063AB83 /* MKBInvocationHandlerChain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBInvocationHandlerChain.h; sourceTree = "<group>"; };
+		28571ACB26A668530063AB83 /* MKBInvocationHandlerChain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBInvocationHandlerChain.m; sourceTree = "<group>"; };
+		28571ACE26A670E50063AB83 /* MKBComparator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBComparator.m; sourceTree = "<group>"; };
 		287C4F3926A3547000A7E0D9 /* MKBClassMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBClassMock.h; sourceTree = "<group>"; };
 		287C4F3A26A3547000A7E0D9 /* MKBClassMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBClassMock.m; sourceTree = "<group>"; };
 		287C4F3D26A3547F00A7E0D9 /* MKBProtocolMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBProtocolMock.h; sourceTree = "<group>"; };
@@ -418,8 +502,6 @@
 		287C4F5626A3710600A7E0D9 /* MKBConcreteMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBConcreteMock.m; sourceTree = "<group>"; };
 		287C4F6326A3D21D00A7E0D9 /* MonotonicIncreasingIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonotonicIncreasingIndex.swift; sourceTree = "<group>"; };
 		287C4F6526A3E00800A7E0D9 /* NonEscapingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonEscapingType.swift; sourceTree = "<group>"; };
-		287C4F6726A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSInvocation+MKBArgumentMatcher.h"; sourceTree = "<group>"; };
-		287C4F6826A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSInvocation+MKBArgumentMatcher.m"; sourceTree = "<group>"; };
 		287C4F6B26A4AAA900A7E0D9 /* InvocationRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationRecorder.swift; sourceTree = "<group>"; };
 		287F853D25196ACE007D135D /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = Sources/Package.swift; sourceTree = "<group>"; };
 		2894622526A2AF6F00044839 /* Mockingbird.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mockingbird.h; sourceTree = "<group>"; };
@@ -427,6 +509,8 @@
 		2896E54026AA52A400124D02 /* KeyedDecodingContainer+Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+Array.swift"; sourceTree = "<group>"; };
 		2896E54326AA59ED00124D02 /* spm-project-description.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "spm-project-description.json"; sourceTree = "<group>"; };
 		2896E54426AA5A1900124D02 /* generic-project-description.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "generic-project-description.json"; sourceTree = "<group>"; };
+		28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBInvocationHandler.h; sourceTree = "<group>"; };
+		28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBInvocationHandler.m; sourceTree = "<group>"; };
 		28DAD96D251BDD66001A0B3F /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetDescriptionTests.swift; sourceTree = "<group>"; };
 		942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
@@ -821,10 +905,60 @@
 				287C4F3E26A3547F00A7E0D9 /* MKBProtocolMock.m */,
 				287C4F4D26A36DC000A7E0D9 /* MKBTypeFacade.h */,
 				287C4F4E26A36DC000A7E0D9 /* MKBTypeFacade.m */,
-				287C4F6726A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.h */,
-				287C4F6826A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.m */,
+				28C8E5D826A64D1600C68A1D /* InvocationHandlers */,
 			);
 			path = "Objective-C";
+			sourceTree = "<group>";
+		};
+		28C8E5D826A64D1600C68A1D /* InvocationHandlers */ = {
+			isa = PBXGroup;
+			children = (
+				28571A7E26A65A490063AB83 /* MKBComparator.h */,
+				28571ACE26A670E50063AB83 /* MKBComparator.m */,
+				28571ACA26A668530063AB83 /* MKBInvocationHandlerChain.h */,
+				28571ACB26A668530063AB83 /* MKBInvocationHandlerChain.m */,
+				28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */,
+				28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */,
+				28571A8A26A65F680063AB83 /* MKBBoolInvocationHandler.h */,
+				28571A8B26A65F680063AB83 /* MKBBoolInvocationHandler.m */,
+				28571A8E26A65FD80063AB83 /* MKBCharInvocationHandler.h */,
+				28571A8F26A65FD80063AB83 /* MKBCharInvocationHandler.m */,
+				28571A9626A660DB0063AB83 /* MKBClassInvocationHandler.h */,
+				28571A9726A660DB0063AB83 /* MKBClassInvocationHandler.m */,
+				28571A9226A660460063AB83 /* MKBCStringInvocationHandler.h */,
+				28571A9326A660460063AB83 /* MKBCStringInvocationHandler.m */,
+				28571A9A26A661910063AB83 /* MKBDoubleInvocationHandler.h */,
+				28571A9B26A661910063AB83 /* MKBDoubleInvocationHandler.m */,
+				28571A9E26A6623C0063AB83 /* MKBFloatInvocationHandler.h */,
+				28571A9F26A6623C0063AB83 /* MKBFloatInvocationHandler.m */,
+				28571A8626A65EB80063AB83 /* MKBIntInvocationHandler.h */,
+				28571A8726A65EB80063AB83 /* MKBIntInvocationHandler.m */,
+				28571A8226A65D8A0063AB83 /* MKBLongInvocationHandler.h */,
+				28571A8326A65D8A0063AB83 /* MKBLongInvocationHandler.m */,
+				28571AA226A662E40063AB83 /* MKBLongLongInvocationHandler.h */,
+				28571AA326A662E40063AB83 /* MKBLongLongInvocationHandler.m */,
+				28571A7A26A6548B0063AB83 /* MKBObjectInvocationHandler.h */,
+				28571A7B26A6548B0063AB83 /* MKBObjectInvocationHandler.m */,
+				28571AA626A6635F0063AB83 /* MKBPointerInvocationHandler.h */,
+				28571AA726A6635F0063AB83 /* MKBPointerInvocationHandler.m */,
+				28571AAA26A664340063AB83 /* MKBSelectorInvocationHandler.h */,
+				28571AAB26A664340063AB83 /* MKBSelectorInvocationHandler.m */,
+				28571AAE26A664AE0063AB83 /* MKBShortInvocationHandler.h */,
+				28571AAF26A664AF0063AB83 /* MKBShortInvocationHandler.m */,
+				28571AB226A664F70063AB83 /* MKBStructInvocationHandler.h */,
+				28571AB326A664F70063AB83 /* MKBStructInvocationHandler.m */,
+				28571AB626A666070063AB83 /* MKBUnsignedCharInvocationHandler.h */,
+				28571AB726A666070063AB83 /* MKBUnsignedCharInvocationHandler.m */,
+				28571ABA26A6663D0063AB83 /* MKBUnsignedIntInvocationHandler.h */,
+				28571ABB26A6663D0063AB83 /* MKBUnsignedIntInvocationHandler.m */,
+				28571ABE26A6669D0063AB83 /* MKBUnsignedLongInvocationHandler.h */,
+				28571ABF26A6669D0063AB83 /* MKBUnsignedLongInvocationHandler.m */,
+				28571AC226A666E60063AB83 /* MKBUnsignedLongLongInvocationHandler.h */,
+				28571AC326A666E60063AB83 /* MKBUnsignedLongLongInvocationHandler.m */,
+				28571AC626A667300063AB83 /* MKBUnsignedShortInvocationHandler.h */,
+				28571AC726A667300063AB83 /* MKBUnsignedShortInvocationHandler.m */,
+			);
+			path = InvocationHandlers;
 			sourceTree = "<group>";
 		};
 		C5115F86A66BC03B1665F801 /* Generated Mocks */ = {
@@ -1504,12 +1638,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				2894622626A2AF6F00044839 /* Mockingbird.h in Headers */,
+				28571AB826A666070063AB83 /* MKBUnsignedCharInvocationHandler.h in Headers */,
+				28571A8C26A65F680063AB83 /* MKBBoolInvocationHandler.h in Headers */,
+				28571A9C26A661910063AB83 /* MKBDoubleInvocationHandler.h in Headers */,
+				28571AA026A6623C0063AB83 /* MKBFloatInvocationHandler.h in Headers */,
+				28571AAC26A664340063AB83 /* MKBSelectorInvocationHandler.h in Headers */,
+				28571AB026A664AF0063AB83 /* MKBShortInvocationHandler.h in Headers */,
 				287C4F4326A3688100A7E0D9 /* MKBMocking.h in Headers */,
+				28571ACC26A668530063AB83 /* MKBInvocationHandlerChain.h in Headers */,
+				28571AC826A667300063AB83 /* MKBUnsignedShortInvocationHandler.h in Headers */,
 				287C4F4F26A36DC000A7E0D9 /* MKBTypeFacade.h in Headers */,
+				28571A9026A65FD80063AB83 /* MKBCharInvocationHandler.h in Headers */,
+				28571AB426A664F70063AB83 /* MKBStructInvocationHandler.h in Headers */,
+				28571AC426A666E60063AB83 /* MKBUnsignedLongLongInvocationHandler.h in Headers */,
+				28571AA426A662E40063AB83 /* MKBLongLongInvocationHandler.h in Headers */,
+				28571A8026A65A490063AB83 /* MKBComparator.h in Headers */,
+				28571AC026A6669D0063AB83 /* MKBUnsignedLongInvocationHandler.h in Headers */,
+				28571A9426A660460063AB83 /* MKBCStringInvocationHandler.h in Headers */,
+				28571AA826A6635F0063AB83 /* MKBPointerInvocationHandler.h in Headers */,
+				28571A8426A65D8A0063AB83 /* MKBLongInvocationHandler.h in Headers */,
+				28C8E5DB26A64D6C00C68A1D /* MKBInvocationHandler.h in Headers */,
+				28571A9826A660DB0063AB83 /* MKBClassInvocationHandler.h in Headers */,
+				28571ABC26A6663D0063AB83 /* MKBUnsignedIntInvocationHandler.h in Headers */,
+				28571A7C26A6548B0063AB83 /* MKBObjectInvocationHandler.h in Headers */,
 				287C4F5726A3710600A7E0D9 /* MKBConcreteMock.h in Headers */,
+				28571A8826A65EB80063AB83 /* MKBIntInvocationHandler.h in Headers */,
 				287C4F3B26A3547000A7E0D9 /* MKBClassMock.h in Headers */,
 				287C4F3F26A3547F00A7E0D9 /* MKBProtocolMock.h in Headers */,
-				287C4F6926A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1977,32 +2132,49 @@
 			files = (
 				OBJ_874 /* ArgumentCaptor.swift in Sources */,
 				OBJ_875 /* ArgumentMatcher.swift in Sources */,
+				28571AA126A6623C0063AB83 /* MKBFloatInvocationHandler.m in Sources */,
 				287C4F5826A3710600A7E0D9 /* MKBConcreteMock.m in Sources */,
+				28571AC526A666E60063AB83 /* MKBUnsignedLongLongInvocationHandler.m in Sources */,
 				D3B3D4C2248C9D1600FEEDA0 /* CwlDemangle.swift in Sources */,
 				D3E6F67824844A0C000D1971 /* Sequence.swift in Sources */,
+				28571AB126A664AF0063AB83 /* MKBShortInvocationHandler.m in Sources */,
 				287C4F4026A3547F00A7E0D9 /* MKBProtocolMock.m in Sources */,
 				D3E6F67C24844C5B000D1971 /* SourceLocation.swift in Sources */,
 				287C4F5026A36DC000A7E0D9 /* MKBTypeFacade.m in Sources */,
+				28571ACD26A668530063AB83 /* MKBInvocationHandlerChain.m in Sources */,
+				28571A9126A65FD80063AB83 /* MKBCharInvocationHandler.m in Sources */,
 				287C4F6626A3E00800A7E0D9 /* NonEscapingType.swift in Sources */,
+				28571A9926A660DB0063AB83 /* MKBClassInvocationHandler.m in Sources */,
 				OBJ_876 /* CountMatcher.swift in Sources */,
+				28571AA526A662E40063AB83 /* MKBLongLongInvocationHandler.m in Sources */,
 				OBJ_877 /* TypeFacade.swift in Sources */,
+				28571AA926A6635F0063AB83 /* MKBPointerInvocationHandler.m in Sources */,
 				287C4F4426A3688100A7E0D9 /* MKBMocking.m in Sources */,
 				OBJ_878 /* Mocking.swift in Sources */,
 				287C4F6426A3D21D00A7E0D9 /* MonotonicIncreasingIndex.swift in Sources */,
 				287C4F3C26A3547000A7E0D9 /* MKBClassMock.m in Sources */,
+				28571A9526A660460063AB83 /* MKBCStringInvocationHandler.m in Sources */,
 				OBJ_879 /* MockingContext.swift in Sources */,
 				D3E6F67E24844CEA000D1971 /* ExpectationGroup.swift in Sources */,
+				28571AC926A667300063AB83 /* MKBUnsignedShortInvocationHandler.m in Sources */,
 				D3E6F67A24844A37000D1971 /* DefaultValues.swift in Sources */,
+				28571ACF26A670E50063AB83 /* MKBComparator.m in Sources */,
 				287C4F6C26A4AAA900A7E0D9 /* InvocationRecorder.swift in Sources */,
+				28571A8D26A65F680063AB83 /* MKBBoolInvocationHandler.m in Sources */,
 				OBJ_881 /* Stubbing.swift in Sources */,
 				OBJ_882 /* StubbingContext.swift in Sources */,
+				28571AB926A666070063AB83 /* MKBUnsignedCharInvocationHandler.m in Sources */,
+				28571AAD26A664340063AB83 /* MKBSelectorInvocationHandler.m in Sources */,
 				OBJ_883 /* TestKiller.swift in Sources */,
-				287C4F6A26A3F27800A7E0D9 /* NSInvocation+MKBArgumentMatcher.m in Sources */,
 				OBJ_884 /* ValueProvider+Collections.swift in Sources */,
 				OBJ_885 /* ValueProvider+Foundation.swift in Sources */,
 				OBJ_886 /* ValueProvider+Tuples.swift in Sources */,
 				D3E6F67624844999000D1971 /* ImplementationProvider.swift in Sources */,
+				28571AC126A6669D0063AB83 /* MKBUnsignedLongInvocationHandler.m in Sources */,
 				D3B3D4C6248CC15E00FEEDA0 /* StackTrace.swift in Sources */,
+				28571ABD26A6663D0063AB83 /* MKBUnsignedIntInvocationHandler.m in Sources */,
+				28571A9D26A661910063AB83 /* MKBDoubleInvocationHandler.m in Sources */,
+				28C8E5DC26A64D6C00C68A1D /* MKBInvocationHandler.m in Sources */,
 				D3E6F684248451B9000D1971 /* CollectionMatchers.swift in Sources */,
 				OBJ_887 /* ValueProvider.swift in Sources */,
 				OBJ_888 /* Array+Extensions.swift in Sources */,
@@ -2012,12 +2184,16 @@
 				OBJ_892 /* Version.swift in Sources */,
 				OBJ_893 /* VersionControl.swift in Sources */,
 				OBJ_894 /* AsyncVerification.swift in Sources */,
+				28571A8926A65EB80063AB83 /* MKBIntInvocationHandler.m in Sources */,
 				OBJ_895 /* Invocation.swift in Sources */,
+				28571A8526A65D8A0063AB83 /* MKBLongInvocationHandler.m in Sources */,
 				OBJ_896 /* OrderedVerification.swift in Sources */,
+				28571AB526A664F70063AB83 /* MKBStructInvocationHandler.m in Sources */,
 				OBJ_897 /* TestFailure.swift in Sources */,
 				OBJ_898 /* Verification.swift in Sources */,
 				D3E6F6822484517A000D1971 /* WildcardMatchers.swift in Sources */,
 				OBJ_899 /* XCTFailSwizzler.swift in Sources */,
+				28571A7D26A6548B0063AB83 /* MKBObjectInvocationHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
