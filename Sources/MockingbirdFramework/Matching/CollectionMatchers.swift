@@ -130,7 +130,7 @@ public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
 ///
 ///     let messageId1 = UUID()
 ///     let messageId2 = UUID()
-///     given(bird.send(any(containing: messageId1, messageId2)))
+///     given(bird.send(any(keys: messageId1, messageId2)))
 ///       .will { print($0) }
 ///
 ///     bird.send([
@@ -153,7 +153,7 @@ public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
 ///
 ///     let messageId1 = UUID()
 ///     let messageId2 = UUID()
-///     given(bird.send(any([UUID: String].self, containing: messageId1, messageId2)))
+///     given(bird.send(any([UUID: String].self, keys: messageId1, messageId2)))
 ///       .will { print($0) }
 ///
 ///     bird.send([

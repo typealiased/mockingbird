@@ -58,7 +58,10 @@
     MKBInvocationHandler *shortHandler = [[MKBShortInvocationHandler alloc] initWithNext:intHandler];
     MKBInvocationHandler *charHandler = [[MKBCharInvocationHandler alloc] initWithNext:shortHandler];
     MKBInvocationHandler *boolHandler = [[MKBBoolInvocationHandler alloc] initWithNext:charHandler];
-    MKBInvocationHandler *classHandler = [[MKBClassInvocationHandler alloc] initWithNext:boolHandler];
+    MKBInvocationHandler *cstringHandler = [[MKBCStringInvocationHandler alloc] initWithNext:boolHandler];
+    MKBInvocationHandler *selectorHandler = [[MKBSelectorInvocationHandler alloc] initWithNext:cstringHandler];
+    MKBInvocationHandler *pointerHandler = [[MKBPointerInvocationHandler alloc] initWithNext:selectorHandler];
+    MKBInvocationHandler *classHandler = [[MKBClassInvocationHandler alloc] initWithNext:pointerHandler];
     MKBInvocationHandler *objectHandler = [[MKBObjectInvocationHandler alloc] initWithNext:classHandler];
     _firstHandler = objectHandler;
   }
@@ -67,6 +70,12 @@
 
 - (MKBArgumentMatcher *)serializeArgumentAtIndex:(NSUInteger)index
                                    forInvocation:(NSInvocation *)invocation {
+  // Handle argument matchers applied to primitive parameter types.
+  id _Nullable facadeValue = [[MKBInvocationRecorder sharedRecorder] getFacadeValueAt:index-2];
+  if ([facadeValue isKindOfClass:[MKBArgumentMatcher class]]) {
+    return (MKBArgumentMatcher *)facadeValue;
+  }
+  
   MKBInvocationHandler *handler = self.firstHandler;
   while (handler) {
     if (![handler canSerializeArgumentAtIndex:index forInvocation:invocation]) {

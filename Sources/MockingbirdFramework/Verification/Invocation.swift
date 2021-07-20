@@ -120,7 +120,9 @@ struct SwiftInvocation: Invocation {
   }
   
   var unwrappedSelectorName: String { return selectorName }
-  var declarationIdentifier: String { return selectorName }
+  var declarationIdentifier: String {
+    return String(selectorName.split(separator: ":").first ?? "")
+  }
   
   override public var description: String {
     guard !arguments.isEmpty else { return "'\(unwrappedSelectorName)'" }

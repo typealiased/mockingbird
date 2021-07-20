@@ -49,21 +49,30 @@ private class ResolutionContext: Thread {
   }
 }
 
-private class PrimitiveTypeFacade {
-  static let shared = PrimitiveTypeFacade()
+func fakePrimitiveValue<T>(_ value: Any?) -> T {
+  if let value = ValueProvider.standardProvider.provideValue(for: T.self) {
+    return value
+  }
+  
+  // Fall back to returning a buffer of ample size. This can break for bridged primitive types.
+  return UnsafeMutableRawPointer
+    .allocate(byteCount: 512, alignment: MemoryLayout<Int8>.alignment)
+    .bindMemory(to: T.self, capacity: 1)
+    .pointee
 }
 
 /// Wraps a value into any type `T` when resolved inside of a `ResolutionContext<T>`.
-func createTypeFacade<T>(_ value: Any?) -> T {
+func createTypeFacade<T>(_ value: Any?, at position: UInt? = nil) -> T {
   guard let result = ResolutionContext.result, let semaphore = ResolutionContext.semaphore else {
-    guard InvocationRecorder.sharedRecorder != nil else {
+    guard let recorder = InvocationRecorder.sharedRecorder else {
       preconditionFailure("Invalid resolution thread context state")
     }
-    // This is actually an invocation recording context, but the type is not an object.
-    return Unmanaged.passUnretained(PrimitiveTypeFacade.shared)
-      .toOpaque()
-      .bindMemory(to: T.self, capacity: 512)
-      .pointee
+    // This is actually an invocation recording context, but the type is not mockable in Obj-C.
+    guard let position = position else {
+      preconditionFailure("An argument index is required, e.g. 'any(at: 0)' for the first parameter")
+    }
+    recorder.record(facadeValue: value, at: position)
+    return fakePrimitiveValue(value)
   }
   
   result.value = value
@@ -72,6 +81,7 @@ func createTypeFacade<T>(_ value: Any?) -> T {
   fatalError("This should never run")
 }
 
+// TODO: Clean up and docs
 func createTypeFacade<T: NSObjectProtocol>(_ value: Any?) -> T {
   guard let result = ResolutionContext.result, let semaphore = ResolutionContext.semaphore else {
     guard InvocationRecorder.sharedRecorder != nil else {

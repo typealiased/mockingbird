@@ -38,13 +38,15 @@ import Foundation
 ///     verify(bird.send(any(Data.self))).wasNeverCalled()
 ///
 /// - Parameter type: The parameter type used to disambiguate overloaded methods.
-public func any<T>(_ type: T.Type = T.self) -> T {
+/// - Parameter argumentIndex: The positional index of the argument. Only used when mocking a
+/// primitive parameter type for an Objective-C mock.
+public func any<T>(_ type: T.Type = T.self, at position: UInt? = nil) -> T {
   let base: T? = nil
   let description = "any<\(T.self)>()"
   let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
     return rhs is T || rhs is NonEscapingType
   }
-  return createTypeFacade(matcher)
+  return createTypeFacade(matcher, at: position)
 }
 
 // TODO: Docs

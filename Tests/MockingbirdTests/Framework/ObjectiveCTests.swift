@@ -10,22 +10,34 @@ import Mockingbird
 @testable import MockingbirdTestsHost
 import XCTest
 
+@objc public class MyObjCTestClass: Foundation.NSObject {
+  @objc dynamic func echo(val: Bool) -> Bool {
+    fatalError()
+  }
+  @objc dynamic public func trivial() {}
+}
+
 class ObjectiveCTests: BaseTestCase {
   
   var centralManagerMock: CBCentralManager!
   var delegateMock: CBCentralManagerDelegate!
   var peripheralMock: CBPeripheral!
-  
-  class DelegateMock: Foundation.NSObject, CBCentralManagerDelegate {
-    func centralManagerDidUpdateState(_ central: CBCentralManager) {
-      print("wtf")
-    }
-  }
+  var testMock: MyObjCTestClass!
   
   override func setUpWithError() throws {
     self.centralManagerMock = mock(CBCentralManager.self)
     self.delegateMock = mock(CBCentralManagerDelegate.self)
     self.peripheralMock = mock(CBPeripheral.self)
+    self.testMock = mock(MyObjCTestClass.self)
+  }
+  
+  func testPrimitives() throws {
+//    given(self.testMock.trivial()).willReturn()
+    given(self.testMock.echo(val: any(at: 0))).will { val in
+      return val as! Bool
+    }
+    XCTAssertEqual(testMock.echo(val: true), true)
+    verify(self.testMock.echo(val: true)).wasCalled()
   }
   
   func testExample() throws {

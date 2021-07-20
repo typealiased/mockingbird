@@ -26,6 +26,7 @@ struct InvocationRecord {
   }
   
   private(set) var value: InvocationRecord?
+  private(set) var facadeValues = [UInt: Any?]()
   
   @objc public let mode: Mode
   @objc public let thread: Thread
@@ -46,9 +47,17 @@ struct InvocationRecord {
   @objc public func record(invocation: ObjCInvocation,
                            mockingContext: MockingContext,
                            stubbingContext: StubbingContext) {
-    self.value = InvocationRecord(invocation: invocation,
-                                  mockingContext: mockingContext,
-                                  stubbingContext: stubbingContext)
+    value = InvocationRecord(invocation: invocation,
+                             mockingContext: mockingContext,
+                             stubbingContext: stubbingContext)
+  }
+  
+  func record(facadeValue: Any?, at argumentIndex: UInt) {
+    facadeValues[argumentIndex] = facadeValue
+  }
+  
+  @objc public func getFacadeValue(at index: UInt) -> Any? {
+    return facadeValues[index] ?? nil
   }
   
   // MARK: DispatchQueue utils

@@ -66,6 +66,12 @@ public func given<DeclarationType: Declaration, InvocationType, ReturnType>(
 public func given<ReturnType>(
   _ expression: @escaping @autoclosure () -> ReturnType
 ) -> ObjCStubbingManager<ReturnType> {
+  /// `EXC_BAD_ACCESS` usually happens when mocking a Swift type that inherits from `NSObject`.
+  ///   - Make sure that the Swift type has a generated mock, e.g. `SomeTypeMock` exists.
+  ///   - If you actually do want to use Obj-C dynamic mocking, the method must be annotated with
+  ///     both `@objc` and `dynamic`, e.g. `@objc dynamic func someMethod()`.
+  ///   - If this is happening on a pure Obj-C type, please file a bug report with the stack trace.
+  ///     https://github.com/birdrides/mockingbird/issues/new/choose
   let recorder = InvocationRecorder.startRecording(mode: .stubbing, block: { expression() })
   recorder.semaphore.wait()
   guard let value = recorder.value else {
