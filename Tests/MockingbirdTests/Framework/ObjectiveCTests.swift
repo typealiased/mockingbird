@@ -36,7 +36,9 @@ class ObjectiveCTests: BaseTestCase {
   
   func testPrimitives() throws {
 //    given(self.testMock.trivial()).willReturn()
-    given(self.testMock.echo(val: any(at: 0))).will { val in
+    given(
+      self.testMock.echo(val: arg(any(), at: 0))
+    ).will { val in
       return val as! Bool
     }
     XCTAssertTrue(testMock.echo(val: true))
@@ -44,11 +46,11 @@ class ObjectiveCTests: BaseTestCase {
     verify(self.testMock.echo(val: true)).wasCalled()
     verify(self.testMock.echo(val: false)).wasCalled()
     
-    given(self.testMock.prim(val: any(at: 0))).will { val in
+    given(self.testMock.prim(val: arg(any(), at: 0))).will { val in
       return (val as! String).uppercased()
     }
     XCTAssertEqual(testMock.prim(val: "hello, world"), "HELLO, WORLD")
-    verify(self.testMock.prim(val: any(at: 0))).wasCalled()
+    verify(self.testMock.prim(val: arg(any(), at: 0))).wasCalled()
     
     given(self.testMock.prim(val: "foobar")).willReturn("barfoo")
     XCTAssertEqual(testMock.prim(val: "foobar"), "barfoo")

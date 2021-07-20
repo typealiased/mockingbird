@@ -38,15 +38,13 @@ import Foundation
 ///     verify(bird.send(any(Data.self))).wasNeverCalled()
 ///
 /// - Parameter type: The parameter type used to disambiguate overloaded methods.
-/// - Parameter argumentIndex: The positional index of the argument. Only used when mocking a
-/// primitive parameter type for an Objective-C mock.
-public func any<T>(_ type: T.Type = T.self, at position: UInt? = nil) -> T {
+public func any<T>(_ type: T.Type = T.self) -> T {
   let base: T? = nil
   let description = "any<\(T.self)>()"
   let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
     return rhs is T || rhs is NonEscapingType
   }
-  return createTypeFacade(matcher, at: position)
+  return createTypeFacade(matcher)
 }
 
 // TODO: Docs
@@ -249,8 +247,8 @@ public func any<T: NSObjectProtocol>(_ type: T.Type = T.self,
 ///     given(bird.send(notNil(String?.self)))
 ///       .will { print($0) }
 ///
-///     bird.send("Hello")    // Prints Optional("Hello")
-///     bird.send(nil)        // Error: Missing stubbed implementation
+///     bird.send("Hello")  // Prints Optional("Hello")
+///     bird.send(nil)      // Error: Missing stubbed implementation
 ///
 /// - Parameter type: The parameter type used to disambiguate overloaded methods.
 public func notNil<T>(_ type: T.Type = T.self) -> T {
@@ -260,4 +258,32 @@ public func notNil<T>(_ type: T.Type = T.self) -> T {
     return (rhs is T || rhs is NonEscapingType) && rhs != nil
   }
   return createTypeFacade(matcher)
+}
+
+/// Specifies the positional index of an argument matcher for dynamic mocks.
+///
+/// When using dynamic mocking with wildcard argument matchers, you must provide the argument index
+/// if stubbing or verifying a primitive (non-object) parameter type.
+///
+/// This helper has no effect on argument matchers passed to statically generated Swift mocks or to
+/// object parameter types.
+///
+///     @objc class Bird: NSObject {
+///       @objc dynamic func chirp(volume: Int, duration: Int) {}
+///     }
+///
+///     given(bird.chirp(volume: arg(any(), at: 0),
+///                      duration: arg(any(), at: 1)))
+///       .will { print($0 as! Int, $1 as! Int) }
+///
+///     bird.chirp(42, 9001)  // Prints 42, 9001
+///
+/// - Parameters:
+///   - matcher: An argument matcher.
+///   - index: The position index of the argument in the mocked declaration.
+public func arg<T>(_ matcher: @autoclosure () -> T, at index: UInt) -> T {
+  if let recorder = InvocationRecorder.sharedRecorder {
+    recorder.record(argumentIndex: index)
+  }
+  return matcher()
 }

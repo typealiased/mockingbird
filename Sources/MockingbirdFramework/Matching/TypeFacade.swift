@@ -62,16 +62,16 @@ func fakePrimitiveValue<T>(_ value: Any?) -> T {
 }
 
 /// Wraps a value into any type `T` when resolved inside of a `ResolutionContext<T>`.
-func createTypeFacade<T>(_ value: Any?, at position: UInt? = nil) -> T {
+func createTypeFacade<T>(_ value: Any?) -> T {
   guard let result = ResolutionContext.result, let semaphore = ResolutionContext.semaphore else {
     guard let recorder = InvocationRecorder.sharedRecorder else {
       preconditionFailure("Invalid resolution thread context state")
     }
     // This is actually an invocation recording context, but the type is not mockable in Obj-C.
-    guard let position = position else {
-      preconditionFailure("An argument index is required, e.g. 'any(at: 0)' for the first parameter")
+    guard let argumentIndex = recorder.argumentIndex else {
+      preconditionFailure("An argument index is required, e.g. 'arg(any(), at: 0)'")
     }
-    recorder.record(facadeValue: value, at: position)
+    recorder.record(facadeValue: value, at: argumentIndex)
     return fakePrimitiveValue(value)
   }
   

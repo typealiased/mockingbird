@@ -24,7 +24,7 @@ protocol Invocation: CustomStringConvertible {
   var isSetter: Bool { get }
   
   /// If the current invocation referrs to a property getter, convert it to the equivalent setter.
-  /// - warning: This method is not available for invocations on mocked Objective-C types.
+  /// - Warning: This method is not available for invocations on mocked Objective-C types.
   func toSetter() -> Self?
 }
 
