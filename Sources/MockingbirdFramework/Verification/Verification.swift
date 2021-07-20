@@ -31,6 +31,7 @@ public func verify<DeclarationType: Declaration, InvocationType, ReturnType>(
   return VerificationManager(with: declaration, at: SourceLocation(file, line))
 }
 
+// TODO: Docs
 public func verify<ReturnType>(
   _ expression: @escaping @autoclosure () -> ReturnType,
   file: StaticString = #file, line: UInt = #line
