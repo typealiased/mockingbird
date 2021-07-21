@@ -92,7 +92,7 @@
 		2896E54626AA5A3E00124D02 /* spm-project-description.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2896E54326AA59ED00124D02 /* spm-project-description.json */; };
 		2896E54726AA5A3F00124D02 /* generic-project-description.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2896E54426AA5A1900124D02 /* generic-project-description.json */; };
 		2896E51826A6E93A00124D02 /* StubbingContext+ObjCReturnValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E51726A6E93A00124D02 /* StubbingContext+ObjCReturnValue.swift */; };
-		2896E51A26A6E97900124D02 /* ObjCStubbingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E51926A6E97900124D02 /* ObjCStubbingManager.swift */; };
+		2896E51A26A6E97900124D02 /* DynamicStubbingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E51926A6E97900124D02 /* DynamicStubbingManager.swift */; };
 		2896E51D26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.h in Headers */ = {isa = PBXBuildFile; fileRef = 2896E51B26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.h */; };
 		2896E51E26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2896E51C26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.m */; };
 		28C8E5DB26A64D6C00C68A1D /* MKBInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */; };
@@ -514,7 +514,7 @@
 		2896E54326AA59ED00124D02 /* spm-project-description.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "spm-project-description.json"; sourceTree = "<group>"; };
 		2896E54426AA5A1900124D02 /* generic-project-description.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "generic-project-description.json"; sourceTree = "<group>"; };
 		2896E51726A6E93A00124D02 /* StubbingContext+ObjCReturnValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StubbingContext+ObjCReturnValue.swift"; sourceTree = "<group>"; };
-		2896E51926A6E97900124D02 /* ObjCStubbingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjCStubbingManager.swift; sourceTree = "<group>"; };
+		2896E51926A6E97900124D02 /* DynamicStubbingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicStubbingManager.swift; sourceTree = "<group>"; };
 		2896E51B26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSInvocation+MKBErrorObjectType.h"; sourceTree = "<group>"; };
 		2896E51C26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSInvocation+MKBErrorObjectType.m"; sourceTree = "<group>"; };
 		28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBInvocationHandler.h; sourceTree = "<group>"; };
@@ -1427,11 +1427,11 @@
 			isa = PBXGroup;
 			children = (
 				D3E6F67924844A37000D1971 /* DefaultValues.swift */,
+				2896E51926A6E97900124D02 /* DynamicStubbingManager.swift */,
 				D3E6F67524844999000D1971 /* ImplementationProvider.swift */,
 				287C4F6B26A4AAA900A7E0D9 /* InvocationRecorder.swift */,
 				D3E6F67724844A0C000D1971 /* Sequence.swift */,
 				OBJ_41 /* Stubbing.swift */,
-				2896E51926A6E97900124D02 /* ObjCStubbingManager.swift */,
 				OBJ_42 /* StubbingContext.swift */,
 				2896E51726A6E93A00124D02 /* StubbingContext+ObjCReturnValue.swift */,
 				OBJ_43 /* TestKiller.swift */,
@@ -2175,7 +2175,7 @@
 				28571ACF26A670E50063AB83 /* MKBComparator.m in Sources */,
 				287C4F6C26A4AAA900A7E0D9 /* InvocationRecorder.swift in Sources */,
 				28571A8D26A65F680063AB83 /* MKBBoolInvocationHandler.m in Sources */,
-				2896E51A26A6E97900124D02 /* ObjCStubbingManager.swift in Sources */,
+				2896E51A26A6E97900124D02 /* DynamicStubbingManager.swift in Sources */,
 				OBJ_881 /* Stubbing.swift in Sources */,
 				OBJ_882 /* StubbingContext.swift in Sources */,
 				28571AB926A666070063AB83 /* MKBUnsignedCharInvocationHandler.m in Sources */,

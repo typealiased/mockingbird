@@ -1,5 +1,5 @@
 //
-//  ObjCStubbingManager.swift
+//  DynamicStubbingManager.swift
 //  MockingbirdFramework
 //
 //  Created by typealias on 7/20/21.
@@ -9,9 +9,9 @@ import Foundation
 
 /// An intermediate object used for stubbing Objective-C declarations returned by `given`.
 ///
-/// Stubbed implementations are _type erased_ to allow Swift to apply arguments with minimal type
-/// information. See `StubbingContext+ObjCReturnValue`.
-public class ObjCStubbingManager<ReturnType>:
+/// Stubbed implementations are type erased to allow Swift to apply arguments with minimal type
+/// information. See `StubbingContext+ObjCReturnValue` for more context.
+public class DynamicStubbingManager<ReturnType>:
   StubbingManager<AnyDeclaration, Any?, ReturnType> {
   
   /// Stub a mocked method or property by returning a single value.
@@ -258,120 +258,6 @@ public class ObjCStubbingManager<ReturnType>:
     return add(implementation: { implementation($0, $1, $2, $3, $4, $5, $6, $7, $8, $9) as Any? })
   }
   
-  /// Stub a mocked method or property with a closure implementation.
-  ///
-  /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
-  ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
-  ///
-  /// - Parameter implementation: A closure implementation stub to evaluate.
-  /// - Returns: The current stubbing manager which can be used to chain additional stubs.
-  @discardableResult
-  public func will(
-    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?)
-      -> ReturnType
-  ) -> Self {
-    return add(implementation: { implementation($0, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10) as Any? })
-  }
-  
-  /// Stub a mocked method or property with a closure implementation.
-  ///
-  /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
-  ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
-  ///
-  /// - Parameter implementation: A closure implementation stub to evaluate.
-  /// - Returns: The current stubbing manager which can be used to chain additional stubs.
-  @discardableResult
-  public func will(
-    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?)
-      -> ReturnType
-  ) -> Self {
-    return add(implementation: { implementation($0, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) as Any? })
-  }
-  
-  /// Stub a mocked method or property with a closure implementation.
-  ///
-  /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
-  ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
-  ///
-  /// - Parameter implementation: A closure implementation stub to evaluate.
-  /// - Returns: The current stubbing manager which can be used to chain additional stubs.
-  @discardableResult
-  public func will(
-    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?)
-      -> ReturnType
-  ) -> Self {
-    return add(implementation: { implementation($0, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) as Any? })
-  }
-  
-  /// Stub a mocked method or property with a closure implementation.
-  ///
-  /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
-  ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
-  ///
-  /// - Parameter implementation: A closure implementation stub to evaluate.
-  /// - Returns: The current stubbing manager which can be used to chain additional stubs.
-  @discardableResult
-  public func will(
-    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?)
-      -> ReturnType
-  ) -> Self {
-    return add(implementation: { implementation($0, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) as Any? })
-  }
-  
-  /// Stub a mocked method or property with a closure implementation.
-  ///
-  /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
-  ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
-  ///
-  /// - Parameter implementation: A closure implementation stub to evaluate.
-  /// - Returns: The current stubbing manager which can be used to chain additional stubs.
-  @discardableResult
-  public func will(
-    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?)
-      -> ReturnType
-  ) -> Self {
-    return add(implementation: { implementation($0, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) as Any? })
-  }
-  
-  /// Stub a mocked method or property with a closure implementation.
-  ///
-  /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
-  ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
-  ///
-  /// - Parameter implementation: A closure implementation stub to evaluate.
-  /// - Returns: The current stubbing manager which can be used to chain additional stubs.
-  @discardableResult
-  public func will(
-    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?)
-      -> ReturnType
-  ) -> Self {
-    return add(implementation: { implementation($0, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) as Any? })
-  }
-  
   
   // MARK: - Throwing closures
   
@@ -572,119 +458,5 @@ public class ObjCStubbingManager<ReturnType>:
       throws -> ReturnType
   ) -> Self {
     return add(implementation: { try implementation($0, $1, $2, $3, $4, $5, $6, $7, $8, $9) as Any? })
-  }
-  
-  /// Stub a mocked method or property with a closure implementation.
-  ///
-  /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
-  ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
-  ///
-  /// - Parameter implementation: A closure implementation stub to evaluate.
-  /// - Returns: The current stubbing manager which can be used to chain additional stubs.
-  @discardableResult
-  public func will(
-    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?)
-      throws -> ReturnType
-  ) -> Self {
-    return add(implementation: { try implementation($0, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10) as Any? })
-  }
-  
-  /// Stub a mocked method or property with a closure implementation.
-  ///
-  /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
-  ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
-  ///
-  /// - Parameter implementation: A closure implementation stub to evaluate.
-  /// - Returns: The current stubbing manager which can be used to chain additional stubs.
-  @discardableResult
-  public func will(
-    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?)
-      throws -> ReturnType
-  ) -> Self {
-    return add(implementation: { try implementation($0, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) as Any? })
-  }
-  
-  /// Stub a mocked method or property with a closure implementation.
-  ///
-  /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
-  ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
-  ///
-  /// - Parameter implementation: A closure implementation stub to evaluate.
-  /// - Returns: The current stubbing manager which can be used to chain additional stubs.
-  @discardableResult
-  public func will(
-    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?)
-      throws -> ReturnType
-  ) -> Self {
-    return add(implementation: { try implementation($0, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) as Any? })
-  }
-  
-  /// Stub a mocked method or property with a closure implementation.
-  ///
-  /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
-  ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
-  ///
-  /// - Parameter implementation: A closure implementation stub to evaluate.
-  /// - Returns: The current stubbing manager which can be used to chain additional stubs.
-  @discardableResult
-  public func will(
-    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?)
-      throws -> ReturnType
-  ) -> Self {
-    return add(implementation: { try implementation($0, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) as Any? })
-  }
-  
-  /// Stub a mocked method or property with a closure implementation.
-  ///
-  /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
-  ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
-  ///
-  /// - Parameter implementation: A closure implementation stub to evaluate.
-  /// - Returns: The current stubbing manager which can be used to chain additional stubs.
-  @discardableResult
-  public func will(
-    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?)
-      throws -> ReturnType
-  ) -> Self {
-    return add(implementation: { try implementation($0, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) as Any? })
-  }
-  
-  /// Stub a mocked method or property with a closure implementation.
-  ///
-  /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
-  ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
-  ///
-  /// - Parameter implementation: A closure implementation stub to evaluate.
-  /// - Returns: The current stubbing manager which can be used to chain additional stubs.
-  @discardableResult
-  public func will(
-    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?)
-      throws -> ReturnType
-  ) -> Self {
-    return add(implementation: { try implementation($0, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) as Any? })
   }
 }

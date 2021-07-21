@@ -31,12 +31,27 @@ public func verify<DeclarationType: Declaration, InvocationType, ReturnType>(
   return VerificationManager(with: declaration, at: SourceLocation(file, line))
 }
 
-// TODO: Docs
+/// Verify that a mock recieved a specific invocation some number of times.
+///
+/// Verification lets you assert that a mock received a particular invocation during its lifetime.
+///
+///     verify(bird.doMethod()).wasCalled()
+///     verify(bird.getProperty()).wasCalled()
+///     verify(bird.setProperty(any())).wasCalled()
+///
+/// Match exact or wildcard argument values when verifying methods with parameters.
+///
+///     verify(bird.canChirp(volume: any())).wasCalled()     // Called with any volume
+///     verify(bird.canChirp(volume: notNil())).wasCalled()  // Called with any non-nil volume
+///     verify(bird.canChirp(volume: 10)).wasCalled()        // Called with volume = 10
+///
+/// - Parameters:
+///   - mock: A mocked declaration to verify.
 public func verify<ReturnType>(
-  _ expression: @escaping @autoclosure () -> ReturnType,
+  _ declaration: @escaping @autoclosure () -> ReturnType,
   file: StaticString = #file, line: UInt = #line
 ) -> VerificationManager<Any?, ReturnType> {
-  let recorder = InvocationRecorder.startRecording(mode: .verifying, block: { expression() })
+  let recorder = InvocationRecorder.startRecording(mode: .verifying, block: { declaration() })
   recorder.semaphore.wait()
   guard let value = recorder.value else {
     fatalError(
