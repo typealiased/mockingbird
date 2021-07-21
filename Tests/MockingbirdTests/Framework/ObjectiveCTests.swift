@@ -101,7 +101,17 @@ class ObjectiveCTests: BaseTestCase {
     })
   }
   
-  func testThrowSwiftError() throws {
+  func testThrowSwiftErrorStruct() throws {
+    struct FakeError: LocalizedError {
+      let errorDescription: String? = "foobar"
+    }
+    given(try self.testMock.throwing()).willThrow(FakeError())
+    XCTAssertThrowsError(try testMock.throwing(), "Mock should throw", { error in
+      XCTAssertEqual(error.localizedDescription, "foobar")
+    })
+  }
+  
+  func testThrowSwiftErrorClass() throws {
     class FakeError: LocalizedError {
       let errorDescription: String? = "foobar"
     }
@@ -109,6 +119,13 @@ class ObjectiveCTests: BaseTestCase {
     XCTAssertThrowsError(try testMock.throwing(), "Mock should throw", { error in
       XCTAssertEqual(error.localizedDescription, "foobar")
     })
+  }
+  
+  func testThrowingOnNonThrowingMethod() throws {
+    struct FakeError: Error {}
+    given(self.testMock.trivial()).willThrow(FakeError())
+    testMock.trivial()
+    verify(self.testMock.trivial()).wasCalled()
   }
   
   func testSubclass() throws {

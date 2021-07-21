@@ -45,8 +45,8 @@ public class ObjCStubbingManager<ReturnType>:
   /// - Note: Methods overloaded by return type should chain `returning` with `willThrow` to
   /// disambiguate the mocked declaration.
   ///
-  /// - Warning: It’s a programmer error and undefined behavior to stub throwing an error on a
-  /// dynamic method that does not throw.
+  /// - Warning: It’s undefined behavior to stub throwing an error on a dynamically mocked method
+  /// that does not actually throw.
   ///
   /// - Parameter error: A stubbed error to throw.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
