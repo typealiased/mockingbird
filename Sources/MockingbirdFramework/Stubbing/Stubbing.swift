@@ -64,18 +64,17 @@ public func given<DeclarationType: Declaration, InvocationType, ReturnType>(
 ///
 /// - Parameter declaration: A stubbable declaration.
 public func given<ReturnType>(
-  _ expression: @escaping @autoclosure () -> ReturnType
-) -> ObjCStubbingManager<ReturnType> {
+  _ expression: @escaping @autoclosure () throws -> ReturnType
+) -> ObjCStubbingManager<ReturnType, AnyDeclaration> {
   /// `EXC_BAD_ACCESS` usually happens when mocking a Swift type that inherits from `NSObject`.
   ///   - Make sure that the Swift type has a generated mock, e.g. `SomeTypeMock` exists.
-  ///   - If you actually do want to use Obj-C dynamic mocking, the method must be annotated with
-  ///     both `@objc` and `dynamic`, e.g. `@objc dynamic func someMethod()`.
+  ///   - If you actually do want to use Obj-C dynamic mocking with a Swift type, the method must
+  ///     be annotated with both `@objc` and `dynamic`, e.g. `@objc dynamic func someMethod()`.
   ///   - If this is happening on a pure Obj-C type, please file a bug report with the stack trace.
   ///     https://github.com/birdrides/mockingbird/issues/new/choose
-  let recorder = InvocationRecorder.startRecording(mode: .stubbing, block: { expression() })
+  let recorder = InvocationRecorder.startRecording(mode: .stubbing, block: { try? expression() })
   recorder.semaphore.wait()
   guard let value = recorder.value else {
-    // HACK: Unable to add source location to function declaration due to Swift compiler.
     fatalError(MKBFail("\(TestFailure.unmockableExpression)", isFatal: true))
   }
   return ObjCStubbingManager(invocation: value.invocation, context: value.stubbingContext)

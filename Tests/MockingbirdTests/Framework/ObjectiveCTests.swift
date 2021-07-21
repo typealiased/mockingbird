@@ -17,6 +17,7 @@ import XCTest
   @objc dynamic func prim(val: String) -> String {
     fatalError()
   }
+  @objc dynamic func throwing() throws {}
   @objc dynamic public func trivial() {}
 }
 
@@ -85,6 +86,13 @@ class ObjectiveCTests: BaseTestCase {
     let peripheralCaptor = ArgumentCaptor<CBPeripheral>()
     verify(self.centralManagerMock.cancelPeripheralConnection(peripheralCaptor.any())).wasCalled()
     XCTAssertEqual(peripheralCaptor.value?.name, "foobar")
+  }
+  
+  func testThrow() throws {
+    given(try self.testMock.throwing()).will {
+      print("Hey")
+    }
+    try? testMock.throwing()
   }
   
   func testObjectComparison() throws {

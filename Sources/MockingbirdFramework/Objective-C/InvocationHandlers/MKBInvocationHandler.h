@@ -34,12 +34,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// The encoded Objective-C type that this handler accepts.
 @property (nonatomic, assign, readonly) const char *objCType;
 
+/// An optional selector that boxed values must respond to.
+@property (nonatomic, assign, readonly) SEL deserializationSelector;
+
 - (instancetype)initWithNext:(MKBInvocationHandler *_Nullable)next;
-- (instancetype)initWithObjCType:(const char *)objCType next:(MKBInvocationHandler *_Nullable)next;
+- (instancetype)initWithObjCType:(const char *)objCType
+                            next:(MKBInvocationHandler *_Nullable)next
+                        selector:(SEL)selector;
 - (instancetype)init NS_UNAVAILABLE;
 
 - (BOOL)canSerializeArgumentAtIndex:(NSUInteger)index forInvocation:(NSInvocation *)invocation;
-- (BOOL)canDeserializeReturnValueForInvocation:(NSInvocation *)invocation;
+- (BOOL)canDeserializeReturnValue:(id)returnValue forInvocation:(NSInvocation *)invocation;
 
 @end
 

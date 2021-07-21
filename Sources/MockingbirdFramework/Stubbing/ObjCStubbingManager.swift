@@ -7,9 +7,29 @@
 
 import Foundation
 
-/// TODO: Docs, Type erasure for Obj-C
-public class ObjCStubbingManager<ReturnType>: StubbingManager<AnyObjCDeclaration, Any?, ReturnType> {
-  // TODO: Docs
+/// An intermediate object used for stubbing Objective-C declarations returned by `given`.
+public class ObjCStubbingManager<ReturnType, DeclarationType: Declaration>:
+  StubbingManager<DeclarationType, Any?, ReturnType> {
+  
+  // Stubbed implementations are type erased to allow Swift to apply arguments with minimal type
+  // information. See `StubbingContext+ObjCReturnValue`.
+  
+  /// Stub a mocked method or property by returning a single value.
+  ///
+  /// Stubbing allows you to define custom behavior for mocks to perform.
+  ///
+  ///     given(bird.doMethod()).willReturn(someValue)
+  ///     given(bird.property).willReturn(someValue)
+  ///
+  /// Match exact or wildcard argument values when stubbing methods with parameters. Stubs added
+  /// later have a higher precedence, so add stubs with specific matchers last.
+  ///
+  ///     given(bird.canChirp(volume: any())).willReturn(true)     // Any volume
+  ///     given(bird.canChirp(volume: notNil())).willReturn(true)  // Any non-nil volume
+  ///     given(bird.canChirp(volume: 10)).willReturn(true)        // Volume = 10
+  ///
+  /// - Parameter value: A stubbed value to return.
+  /// - Returns: The current stubbing manager which can be used to chain additional stubs.
   @discardableResult
   override public func willReturn(_ value: ReturnType) -> Self {
     add(implementation: { () -> Any? in return value as Any? })

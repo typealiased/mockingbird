@@ -13,7 +13,7 @@
 
 - (instancetype)initWithNext:(MKBInvocationHandler *)next
 {
-  return (self = [super initWithObjCType:@encode(char) next:next]);
+  return (self = [super initWithObjCType:@encode(char) next:next selector:@selector(charValue)]);
 }
 
 - (MKBArgumentMatcher *)serializeArgumentAtIndex:(NSUInteger)index

@@ -14,13 +14,8 @@ import Foundation
 /// value.
 ///
 ///     given(bird.canChirp(volume: any())).willReturn(true)
-///     given(bird.setName(any())).will { print($0) }
-///
 ///     print(bird.canChirp(volume: 10))  // Prints "true"
-///     bird.name = "Ryan"  // Prints "Ryan"
-///
 ///     verify(bird.canChirp(volume: any())).wasCalled()
-///     verify(bird.setName(any())).wasCalled()
 ///
 /// Methods overloaded by parameter type can be disambiguated by explicitly specifying the type.
 ///
@@ -47,14 +42,45 @@ public func any<T>(_ type: T.Type = T.self) -> T {
   return createTypeFacade(matcher)
 }
 
-// TODO: Docs
+/// Matches all Objective-C object argument values.
+///
+/// Argument matching allows you to stub or verify specific invocations of parameterized methods.
+/// Use the wildcard argument matcher `any` as a type safe placeholder for matching any argument
+/// value.
+///
+///     // Protocol referencing Obj-C object types
+///     protocol Bird {
+///       func canChirp(volume: NSNumber) -> Bool
+///     }
+///
+///     given(bird.canChirp(volume: any())).willReturn(true)
+///     print(bird.canChirp(volume: 10))  // Prints "true"
+///     verify(bird.canChirp(volume: any())).wasCalled()
+///
+/// Methods overloaded by parameter type can be disambiguated by explicitly specifying the type.
+///
+///     // Protocol referencing Obj-C object types
+///     protocol Bird {
+///       func send<T: NSObject>(_ message: T)  // Overloaded generically
+///       func send(_ message: NSString)        // Overloaded explicitly
+///       func send(_ message: NSData)
+///     }
+///
+///     given(bird.send(any(NSString.self))).will { print($0) }
+///
+///     bird.send("Hello")  // Prints "Hello"
+///
+///     verify(bird.send(any(NSString.self))).wasCalled()
+///     verify(bird.send(any(NSData.self))).wasNeverCalled()
+///
+/// - Parameter type: The parameter type used to disambiguate overloaded methods.
 public func any<T: NSObjectProtocol>(_ type: T.Type = T.self) -> T {
   let base: T? = nil
-  let description = "any<\(T.self)>()"
+  let description = "any<\(T.self): NSObjectProtocol>()"
   let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
     return rhs is T || rhs is NonEscapingType
   }
-  return MKBTypeFacade<T>(mock: mkb_mock(T.self), object: matcher).fixupType()
+  return MKBTypeFacade(mock: mkb_mock(T.self), object: matcher).fixupType()
 }
 
 /// Matches argument values equal to any of the provided values.
@@ -210,7 +236,49 @@ public func any<T>(_ type: T.Type = T.self, where predicate: @escaping (_ value:
   return createTypeFacade(matcher)
 }
 
-// TODO: Docs
+/// Matches any Objective-C object argument values where the predicate returns `true`.
+///
+/// Argument matching allows you to stub or verify specific invocations of parameterized methods.
+/// Use the argument matcher `any(where:)` to match objects with custom equality logic. This is
+/// particularly useful for parameter types that do not conform to `Equatable`.
+///
+///     // Non-equatable class subclassing `NSObject`
+///     class Fruit: NSObject {
+///       let size: Int
+///       init(size: Int) { self.size = size }
+///     }
+///
+///     protocol Bird {
+///       func eat(_ fruit: Fruit)
+///     }
+///
+///     given(bird.eat(any(where: { $0.size < 100 })))
+///       .will { print($0.size) }
+///
+///     let apple = Fruit(size: 42)
+///     bird.eat(apple)  // Prints "42"
+///
+///     let pear = Fruit(size: 9001)
+///     bird.eat(pear)   // Error: Missing stubbed implementation
+///
+/// Methods overloaded by parameter type can be disambiguated by explicitly specifying the type.
+///
+///     protocol Bird {
+///       func eat<T: NSObject>(_ object: T)  // Overloaded generically
+///       func eat(_ fruit: Fruit)            // Overloaded explicitly
+///       func eat(_ fruits: [Fruit])
+///     }
+///
+///     given(bird.eat(any(Fruit.self, where: { $0.size < 100 })))
+///       .will { print($0) }
+///
+///     let apple = Fruit(size: 42)
+///     bird.eat(apple)    // Prints "42"
+///     bird.eat("Apple")  // Error: Missing stubbed implementation
+///
+/// - Parameters:
+///   - type: The parameter type used to disambiguate overloaded methods.
+///   - predicate: A closure that takes a value and returns `true` if it represents a match.
 public func any<T: NSObjectProtocol>(_ type: T.Type = T.self,
                                      where predicate: @escaping (_ value: T) -> Bool) -> T {
   let base: T? = nil
@@ -252,6 +320,46 @@ public func any<T: NSObjectProtocol>(_ type: T.Type = T.self,
 ///
 /// - Parameter type: The parameter type used to disambiguate overloaded methods.
 public func notNil<T>(_ type: T.Type = T.self) -> T {
+  let base: T? = nil
+  let description = "notNil<\(T.self)>()"
+  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
+    return (rhs is T || rhs is NonEscapingType) && rhs != nil
+  }
+  return createTypeFacade(matcher)
+}
+
+/// Matches any non-nil Objective-C object argument value.
+///
+/// Argument matching allows you to stub or verify specific invocations of parameterized methods.
+/// Use the argument matcher `notNil` to match non-nil argument values.
+///
+///     // Protocol referencing Obj-C object types
+///     protocol Bird {
+///       func send(_ message: NSString?)
+///     }
+///
+///     given(bird.send(notNil())).will { print($0) }
+///
+///     bird.send("Hello")  // Prints Optional("Hello")
+///     bird.send(nil)      // Error: Missing stubbed implementation
+///
+/// Methods overloaded by parameter type can be disambiguated by explicitly specifying the type.
+///
+///     // Protocol referencing Obj-C object types
+///     protocol Bird {
+///       func send<T: NSObject>(_ message: T?)  // Overloaded generically
+///       func send(_ message: NSString?)        // Overloaded explicitly
+///       func send(_ messages: NSData?)
+///     }
+///
+///     given(bird.send(notNil(NSString?.self)))
+///       .will { print($0) }
+///
+///     bird.send("Hello")  // Prints Optional("Hello")
+///     bird.send(nil)      // Error: Missing stubbed implementation
+///
+/// - Parameter type: The parameter type used to disambiguate overloaded methods.
+public func notNil<T: NSObjectProtocol>(_ type: T.Type = T.self) -> T {
   let base: T? = nil
   let description = "notNil<\(T.self)>()"
   let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in

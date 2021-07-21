@@ -13,7 +13,7 @@
 
 - (instancetype)initWithNext:(MKBInvocationHandler *)next
 {
-  return (self = [super initWithObjCType:@encode(int) next:next]);
+  return (self = [super initWithObjCType:@encode(int) next:next selector:@selector(intValue)]);
 }
 
 - (MKBArgumentMatcher *)serializeArgumentAtIndex:(NSUInteger)index
@@ -28,7 +28,7 @@
 
 - (void)deserializeReturnValue:(id)returnValue forInvocation:(NSInvocation *)invocation
 {
-  long value = [returnValue longValue];
+  int value = [returnValue intValue];
   [invocation setReturnValue:&value];
 }
 

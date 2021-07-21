@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Returns a mock of a given type.
+/// Returns a mock of a given Swift type.
 ///
 /// Initialized mocks can be passed in place of the original type. Protocol mocks do not require
 /// explicit initialization while class mocks should be created using `initialize(…)`.
@@ -32,7 +32,36 @@ import Foundation
 @available(*, unavailable, message: "No generated mock for this type which might be resolved by building the test target (⇧⌘U)")
 public func mock<T>(_ type: T.Type) -> T { fatalError() }
 
-// TODO: Docs
+/// Returns a dynamic mock of a given Objective-C object type.
+///
+/// Initialized mocks can be passed in place of the original type. Dynamic mocks use the
+/// Objective-C runtime and do not require explicit initialization like Swift class mocks.
+///
+///     // Objective-C declarations
+///     @protocol Bird <NSObject>
+///     - (instancetype)initWithName:(NSString *);
+///     @end
+///     @interface Tree : NSObject
+///     - (instancetype)initWithBird:(Bird *)bird;
+///     @end
+///
+///     let bird = mock(Bird.self)  // Protocol mock
+///     let tree = mock(Tree.self)  // Class mock
+///
+/// It's also possible to mock Swift types inheriting from `NSObject` or conforming to
+/// `NSObjectProtocol`. Members must be dynamically dispatched and available to the Objective-C
+/// runtime by specifying the `objc` attribute and `dynamic` modifier.
+///
+///     @objc protocol Bird: NSObjectProtocol {
+///       @objc dynamic func chirp()
+///       @objc dynamic var name: String { get }
+///     }
+///     @objc class Tree: NSObject {
+///       @objc dynamic func shake() {}
+///       @objc dynamic var bird: Bird?
+///     }
+///
+/// - Parameter type: The type to mock.
 public func mock<T: NSObjectProtocol>(_ type: T.Type) -> T {
   return MKBTypeFacade.create(from: mkb_mock(type))
 }
@@ -87,6 +116,9 @@ public struct Mockable<DeclarationType: Declaration, InvocationType, ReturnType>
 /// All mockable declaration types conform to this protocol.
 public protocol Declaration {}
 
+/// Mockable declarations.
+public class AnyDeclaration: Declaration {}
+
 /// Mockable variable declarations.
 public class VariableDeclaration: Declaration {}
 /// Mockable property getter declarations.
@@ -105,6 +137,3 @@ public class SubscriptDeclaration: Declaration {}
 public class SubscriptGetterDeclaration: SubscriptDeclaration {}
 /// Mockable subscript setter declarations.
 public class SubscriptSetterDeclaration: SubscriptDeclaration {}
-
-/// Mockable Objective-C declarations.
-public class AnyObjCDeclaration: Declaration {}

@@ -12,6 +12,9 @@ extension StubbingContext {
   @objc public static let noImplementation = NSObject()
   
   /// Apply arguments to a Swift implementation forwarded by the Objective-C runtime.
+  ///
+  /// Invocations with more than 16 arguments will throw a missing stubbed implementation error.
+  ///
   /// - Parameter invocation: An Objective-C invocation to handle.
   /// - Returns: The value returned from evaluating the Swift implementation.
   @objc public func returnValue(for invocation: ObjCInvocation) -> Any? {

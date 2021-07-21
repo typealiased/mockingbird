@@ -13,7 +13,9 @@
 
 - (instancetype)initWithNext:(MKBInvocationHandler *)next
 {
-  return (self = [super initWithObjCType:@encode(long long) next:next]);
+  return (self = [super initWithObjCType:@encode(long long)
+                                    next:next
+                                selector:@selector(longLongValue)]);
 }
 
 - (MKBArgumentMatcher *)serializeArgumentAtIndex:(NSUInteger)index

@@ -96,7 +96,7 @@
 - (void)deserializeReturnValue:(id)returnValue forInvocation:(NSInvocation *)invocation {
   MKBInvocationHandler *handler = self.firstHandler;
   while (handler) {
-    if (![handler canDeserializeReturnValueForInvocation:invocation]) {
+    if (![handler canDeserializeReturnValue:returnValue forInvocation:invocation]) {
       handler = handler.next;
       continue;
     }

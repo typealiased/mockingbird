@@ -16,12 +16,15 @@
   return nil;
 }
 
-- (instancetype)initWithObjCType:(const char *)objCType next:(MKBInvocationHandler *_Nullable)next
+- (instancetype)initWithObjCType:(const char *)objCType
+                            next:(MKBInvocationHandler *_Nullable)next
+                        selector:(SEL)selector
 {
   self = [super init];
   if (self) {
     _next = next;
     _objCType = objCType;
+    _deserializationSelector = selector;
   }
   return self;
 }
@@ -32,10 +35,11 @@
   return argumentType[0] == self.objCType[0];
 }
 
-- (BOOL)canDeserializeReturnValueForInvocation:(NSInvocation *)invocation
+- (BOOL)canDeserializeReturnValue:(id)returnValue forInvocation:(NSInvocation *)invocation
 {
   const char *returnType = invocation.methodSignature.methodReturnType;
-  return returnType[0] == self.objCType[0];
+  return returnType[0] == self.objCType[0] &&
+    [returnValue respondsToSelector:self.deserializationSelector];
 }
 
 - (MKBArgumentMatcher *)serializeArgumentAtIndex:(NSUInteger)index
