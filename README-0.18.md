@@ -183,13 +183,13 @@ In your project directory, initialize the package dependency and download the st
 $ xcodebuild -resolvePackageDependencies
 $ DERIVED_DATA=$(xcodebuild -showBuildSettings | pcregrep -o1 'OBJROOT = (/.*)/Build')
 $ REPO_PATH="${DERIVED_DATA}/SourcePackages/checkouts/mockingbird"
-$ REPO_PATH/mockingbird download starter-pack
+$ "${REPO_PATH}/mockingbird" download starter-pack
 ```
 
 Finally, configure a test target to generate mocks for each listed source module. For advanced usages, see the [available installer options](#install) and how to [set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
 
 ```console
-$ REPO_PATH/mockingbird install --target MyPackageTests --sources MyPackage MyLibrary1 MyLibrary2
+$ "${REPO_PATH}/mockingbird" install --target MyPackageTests --sources MyPackage MyLibrary1 MyLibrary2
 ```
 
 Optional but recommended:
