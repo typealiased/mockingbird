@@ -164,18 +164,21 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   }
   
   /// Convenience method to wrap stub implementations into an implementation provider.
+  @discardableResult
   func add(implementation: Any,
-           callback: ((StubbingContext.Stub, StubbingContext) -> Void)? = nil) {
-    add(provider: ImplementationProvider(implementation: implementation, callback: callback),
+           callback: ((StubbingContext.Stub, StubbingContext) -> Void)? = nil) -> Self {
+    return add(provider: ImplementationProvider(implementation: implementation, callback: callback),
         transition: .after(1))
   }
 
   /// Swizzle type-erased stub implementation providers onto stubbing contexts.
+  @discardableResult
   func add(provider: ImplementationProvider<DeclarationType, InvocationType, ReturnType>,
            transition: TransitionStrategy,
-           callback: ((StubbingContext.Stub, StubbingContext) -> Void)? = nil) {
+           callback: ((StubbingContext.Stub, StubbingContext) -> Void)? = nil) -> Self {
     implementationProviders.append((provider, transition))
     stubs.forEach({ provider.didAddStub($0.stub, context: $0.context, manager: self) })
+    return self
   }
   
   /// Stub a mocked method or property by returning a single value.
@@ -196,8 +199,7 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
   @discardableResult
   public func willReturn(_ value: ReturnType) -> Self {
-    add(implementation: { return value })
-    return self
+    return add(implementation: { return value })
   }
   
   /// Stub a mocked method or property with an implementation provider.
@@ -231,8 +233,7 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
     _ provider: ImplementationProvider<DeclarationType, InvocationType, ReturnType>,
     transition: TransitionStrategy = .onFirstNil
   ) -> Self {
-    add(provider: provider, transition: transition)
-    return self
+    return add(provider: provider, transition: transition)
   }
   
   /// Stub a mocked method or property with a closure implementation.
@@ -271,27 +272,27 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
   @discardableResult
   public func will(_ implementation: InvocationType) -> Self {
-    add(implementation: implementation)
-    return self
+    return add(implementation: implementation)
   }
 }
 
 extension StubbingManager where DeclarationType == ThrowingFunctionDeclaration {
-  /// Stub a mocked method that throws by throwing an error.
+  /// Stub a mocked method that throws with an error.
   ///
-  /// Stubbing allows you to define custom behavior for mocks to perform.
+  /// Stubbing allows you to define custom behavior for mocks to perform. Methods that throw or
+  /// rethrow errors can be stubbed with a throwable object.
   ///
+  ///     struct BirdError: Error {}
   ///     given(bird.throwingMethod()).willThrow(BirdError())
   ///
   /// - Note: Methods overloaded by return type should chain `returning` with `willThrow` to
   /// disambiguate the mocked declaration.
   ///
-  /// - Parameter error: A stubbed error to throw.
+  /// - Parameter error: A stubbed error object to throw.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
   @discardableResult
   public func willThrow(_ error: Error) -> Self {
-    add(implementation: { () throws -> ReturnType in throw error })
-    return self
+    return add(implementation: { () throws -> ReturnType in throw error })
   }
   
   /// Disambiguate throwing methods overloaded by return type.
@@ -329,8 +330,7 @@ extension StubbingManager where ReturnType == Void {
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
   @discardableResult
   public func willReturn() -> Self {
-    add(implementation: { return () })
-    return self
+    return add(implementation: { return () })
   }
 }
 

@@ -12,12 +12,14 @@ import Foundation
   // There's some weird bridging errors with Swift errors, so ErrorBox is just an abstract class
   // that the Obj-C runtime can (responsibly) pull errors from using `performSelector:`.
 }
+/// Holds Swift errors which are bridged to `NSErrors`.
 @objc(MKBSwiftErrorBox) public class SwiftErrorBox: ErrorBox {
   @objc public let error: Error
   init(_ error: Error) {
     self.error = error
   }
 }
+/// Holds Objective-C `NSError` objects.
 @objc(MKBObjCErrorBox) public class ObjCErrorBox: ErrorBox {
   @objc public let error: NSError?
   init(_ error: NSError) {
