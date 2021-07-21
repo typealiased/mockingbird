@@ -65,7 +65,7 @@ public func given<DeclarationType: Declaration, InvocationType, ReturnType>(
 /// - Parameter declaration: A stubbable declaration.
 public func given<ReturnType>(
   _ expression: @escaping @autoclosure () throws -> ReturnType
-) -> ObjCStubbingManager<ReturnType, AnyDeclaration> {
+) -> ObjCStubbingManager<ReturnType> {
   /// `EXC_BAD_ACCESS` usually happens when mocking a Swift type that inherits from `NSObject`.
   ///   - Make sure that the Swift type has a generated mock, e.g. `SomeTypeMock` exists.
   ///   - If you actually do want to use Obj-C dynamic mocking with a Swift type, the method must

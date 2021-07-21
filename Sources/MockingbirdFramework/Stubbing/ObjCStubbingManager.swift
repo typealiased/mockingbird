@@ -8,8 +8,8 @@
 import Foundation
 
 /// An intermediate object used for stubbing Objective-C declarations returned by `given`.
-public class ObjCStubbingManager<ReturnType, DeclarationType: Declaration>:
-  StubbingManager<DeclarationType, Any?, ReturnType> {
+public class ObjCStubbingManager<ReturnType>:
+  StubbingManager<AnyDeclaration, Any?, ReturnType> {
   
   // Stubbed implementations are type erased to allow Swift to apply arguments with minimal type
   // information. See `StubbingContext+ObjCReturnValue`.
@@ -36,7 +36,20 @@ public class ObjCStubbingManager<ReturnType, DeclarationType: Declaration>:
     return self
   }
   
-  // TODO: Docs
+  /// Stub a mocked method that throws by throwing an error.
+  ///
+  /// Stubbing allows you to define custom behavior for mocks to perform.
+  ///
+  ///     given(bird.throwingMethod()).willThrow(BirdError())
+  ///
+  /// - Note: Methods overloaded by return type should chain `returning` with `willThrow` to
+  /// disambiguate the mocked declaration.
+  ///
+  /// - Warning: It’s a programmer error and undefined behavior to stub throwing an error on a
+  /// dynamic method that does not throw.
+  ///
+  /// - Parameter error: A stubbed error to throw.
+  /// - Returns: The current stubbing manager which can be used to chain additional stubs.
   @discardableResult
   public func willThrow(_ error: Error) -> Self {
     add(implementation: { () throws -> Any? in throw error })

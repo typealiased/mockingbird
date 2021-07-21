@@ -92,11 +92,23 @@ class ObjectiveCTests: BaseTestCase {
     XCTAssertEqual(peripheralCaptor.value?.name, "foobar")
   }
   
-  func testThrow() throws {
-    given(try self.testMock.throwing()).will {
-      print("Hey")
+  func testThrowNSError() throws {
+    given(try self.testMock.throwing())
+      .willThrow(NSError(domain: "co.bird.mockingbird.error", code: 1, userInfo: nil))
+    XCTAssertThrowsError(try testMock.throwing(), "Mock should throw", { error in
+      XCTAssertEqual((error as NSError).domain, "co.bird.mockingbird.error")
+      XCTAssertEqual((error as NSError).code, 1)
+    })
+  }
+  
+  func testThrowSwiftError() throws {
+    class FakeError: LocalizedError {
+      let errorDescription: String? = "foobar"
     }
-    try? testMock.throwing()
+    given(try self.testMock.throwing()).willThrow(FakeError())
+    XCTAssertThrowsError(try testMock.throwing(), "Mock should throw", { error in
+      XCTAssertEqual(error.localizedDescription, "foobar")
+    })
   }
   
   func testSubclass() throws {

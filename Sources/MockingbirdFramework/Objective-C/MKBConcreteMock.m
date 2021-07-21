@@ -7,6 +7,7 @@
 
 #import "MKBConcreteMock.h"
 #import "InvocationHandlers/MKBInvocationHandlerChain.h"
+#import "InvocationHandlers/NSInvocation+MKBErrorObjectType.h"
 #import <Mockingbird/Mockingbird-Swift.h>
 
 @interface MKBConcreteMock ()
@@ -59,12 +60,18 @@
         }];
 
       if (!isVoidReturnType) {
-        if ((NSObject *)returnValue == [MKBStubbingContext noImplementation]) {
+        if (returnValue == [MKBStubbingContext noImplementation]) {
           if ([[self class] instancesRespondToSelector:invocation.selector]) {
             break; // Forward the invocation to ourself to handle.
           }
           // Mocks are strict by default, so fail the test now.
           [self.stubbingContext failTestFor:objcInvocation];
+        } else if ([returnValue isKindOfClass:[MKBErrorBox class]] &&
+                   [invocation isErrorArgumentTypeAtIndex:argumentCount-1]) {
+          __unsafe_unretained NSError *boxedError = [returnValue performSelector:@selector(error)];
+          __unsafe_unretained NSError **errorOut;
+          [invocation getArgument:&errorOut atIndex:argumentCount-1];
+          *errorOut = boxedError;
         } else if (returnValue) {
           [self.invocationHandlerChain deserializeReturnValue:returnValue forInvocation:invocation];
         }

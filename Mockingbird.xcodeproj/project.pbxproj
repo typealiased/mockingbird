@@ -93,6 +93,8 @@
 		2896E54726AA5A3F00124D02 /* generic-project-description.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2896E54426AA5A1900124D02 /* generic-project-description.json */; };
 		2896E51826A6E93A00124D02 /* StubbingContext+ObjCReturnValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E51726A6E93A00124D02 /* StubbingContext+ObjCReturnValue.swift */; };
 		2896E51A26A6E97900124D02 /* ObjCStubbingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E51926A6E97900124D02 /* ObjCStubbingManager.swift */; };
+		2896E51D26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.h in Headers */ = {isa = PBXBuildFile; fileRef = 2896E51B26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.h */; };
+		2896E51E26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2896E51C26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.m */; };
 		28C8E5DB26A64D6C00C68A1D /* MKBInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */; };
 		28C8E5DC26A64D6C00C68A1D /* MKBInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */; };
 		28DAD96E251BDD66001A0B3F /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DAD96D251BDD66001A0B3F /* Project.swift */; };
@@ -513,6 +515,8 @@
 		2896E54426AA5A1900124D02 /* generic-project-description.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "generic-project-description.json"; sourceTree = "<group>"; };
 		2896E51726A6E93A00124D02 /* StubbingContext+ObjCReturnValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StubbingContext+ObjCReturnValue.swift"; sourceTree = "<group>"; };
 		2896E51926A6E97900124D02 /* ObjCStubbingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjCStubbingManager.swift; sourceTree = "<group>"; };
+		2896E51B26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSInvocation+MKBErrorObjectType.h"; sourceTree = "<group>"; };
+		2896E51C26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSInvocation+MKBErrorObjectType.m"; sourceTree = "<group>"; };
 		28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBInvocationHandler.h; sourceTree = "<group>"; };
 		28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBInvocationHandler.m; sourceTree = "<group>"; };
 		28DAD96D251BDD66001A0B3F /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -923,6 +927,8 @@
 				28571ACB26A668530063AB83 /* MKBInvocationHandlerChain.m */,
 				28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */,
 				28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */,
+				2896E51B26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.h */,
+				2896E51C26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.m */,
 				28571A8A26A65F680063AB83 /* MKBBoolInvocationHandler.h */,
 				28571A8B26A65F680063AB83 /* MKBBoolInvocationHandler.m */,
 				28571A8E26A65FD80063AB83 /* MKBCharInvocationHandler.h */,
@@ -1656,6 +1662,7 @@
 				287C4F4F26A36DC000A7E0D9 /* MKBTypeFacade.h in Headers */,
 				28571A9026A65FD80063AB83 /* MKBCharInvocationHandler.h in Headers */,
 				28571AB426A664F70063AB83 /* MKBStructInvocationHandler.h in Headers */,
+				2896E51D26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.h in Headers */,
 				28571AC426A666E60063AB83 /* MKBUnsignedLongLongInvocationHandler.h in Headers */,
 				28571AA426A662E40063AB83 /* MKBLongLongInvocationHandler.h in Headers */,
 				28571A8026A65A490063AB83 /* MKBComparator.h in Headers */,
@@ -2151,6 +2158,7 @@
 				28571A9126A65FD80063AB83 /* MKBCharInvocationHandler.m in Sources */,
 				287C4F6626A3E00800A7E0D9 /* NonEscapingType.swift in Sources */,
 				28571A9926A660DB0063AB83 /* MKBClassInvocationHandler.m in Sources */,
+				2896E51E26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.m in Sources */,
 				OBJ_876 /* CountMatcher.swift in Sources */,
 				28571AA526A662E40063AB83 /* MKBLongLongInvocationHandler.m in Sources */,
 				OBJ_877 /* TypeFacade.swift in Sources */,
