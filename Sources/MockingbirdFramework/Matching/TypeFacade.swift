@@ -69,6 +69,8 @@ func createTypeFacade<T>(_ value: Any?) -> T {
     }
     // This is actually an invocation recording context, but the type is not mockable in Obj-C.
     guard let argumentIndex = recorder.argumentIndex else {
+      /// Explicit argument indexes are required in certain cases. See the `arg(_:at:)` docs for
+      /// more information and usage.
       preconditionFailure("An argument index is required, e.g. 'arg(any(), at: 0)'")
     }
     recorder.record(facadeValue: value, at: argumentIndex)

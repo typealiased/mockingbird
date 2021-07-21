@@ -21,18 +21,22 @@ import XCTest
   @objc dynamic public func trivial() {}
 }
 
+public class MyObjCTestSubclass: MyObjCTestClass {}
+
 class ObjectiveCTests: BaseTestCase {
   
   var centralManagerMock: CBCentralManager!
   var delegateMock: CBCentralManagerDelegate!
   var peripheralMock: CBPeripheral!
   var testMock: MyObjCTestClass!
+  var subclassMock: MyObjCTestSubclass!
   
   override func setUpWithError() throws {
     self.centralManagerMock = mock(CBCentralManager.self)
     self.delegateMock = mock(CBCentralManagerDelegate.self)
     self.peripheralMock = mock(CBPeripheral.self)
     self.testMock = mock(MyObjCTestClass.self)
+    self.subclassMock = mock(MyObjCTestSubclass.self)
   }
   
   func testPrimitives() throws {
@@ -93,6 +97,13 @@ class ObjectiveCTests: BaseTestCase {
       print("Hey")
     }
     try? testMock.throwing()
+  }
+  
+  func testSubclass() throws {
+    given(self.subclassMock.echo(val: arg(any(), at: 0))).will { return $0 as! Bool }
+    XCTAssertTrue(subclassMock.echo(val: true))
+    XCTAssertFalse(subclassMock.echo(val: false))
+    verify(self.subclassMock.echo(val: arg(any(), at: 0))).wasCalled(twice)
   }
   
   func testObjectComparison() throws {
