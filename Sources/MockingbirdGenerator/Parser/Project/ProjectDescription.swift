@@ -12,7 +12,7 @@ public struct ProjectDescription: Codable, Hashable {
   public let targets: [TargetDescription]
 }
 
-public struct TargetDescription: Codable, Hashable {
+public struct TargetDescription: Hashable {
   public let name: String
   public let c99name: String?
   public let type: String
@@ -22,6 +22,65 @@ public struct TargetDescription: Codable, Hashable {
   
   public var productModuleName: String {
     return c99name ?? name.escapingForModuleName()
+  }
+}
+
+extension TargetDescription: Codable {
+  
+  public enum CodingKeys: String, CodingKey, CaseIterable {
+    case name
+    case c99name
+    case type
+    case path
+    case sources
+    case dependencies = "target_dependencies"
+  }
+  
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    self.name = try container.decode(String.self, forKey: .name)
+    self.c99name = try container.decodeIfPresent(String.self, forKey: .c99name)
+    self.type = try container.decode(String.self, forKey: .type)
+    self.path = try container.decode(Path.self, forKey: .path)
+    
+    self.sources = try {
+      guard container.contains(.sources) else {
+        return []
+      }
+      
+      var sourcesContainer = try container.nestedUnkeyedContainer(forKey: .sources)
+      var sourcesBuffer = [Path]()
+      sourcesBuffer.reserveCapacity(sourcesContainer.count ?? 0)
+      
+      while !sourcesContainer.isAtEnd {
+        let path = try sourcesContainer.decode(Path.self)
+        sourcesBuffer.append(path)
+      }
+      return sourcesBuffer
+    }()
+    
+    self.dependencies = try {
+      guard container.contains(.dependencies) else {
+        return []
+      }
+      
+      do {
+        var dependenciesContainer = try container.nestedUnkeyedContainer(forKey: .dependencies)
+        var dependenciesBuffer = [String]()
+        dependenciesBuffer.reserveCapacity(dependenciesContainer.count ?? 0)
+        
+        while !dependenciesContainer.isAtEnd {
+          let name = try dependenciesContainer.decode(String.self)
+          dependenciesBuffer.append(name)
+        }
+        return dependenciesBuffer
+      } catch DecodingError.keyNotFound {
+        return []
+      }
+      catch {
+        throw error
+      }
+    }()
   }
 }
 

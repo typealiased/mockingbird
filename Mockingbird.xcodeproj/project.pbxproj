@@ -32,6 +32,7 @@
 		287F85322519659B007D135D /* MockingbirdGenerator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */; };
 		28950E2D251C4C82008EEE29 /* ProjectDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28950E2C251C4C82008EEE29 /* ProjectDescription.swift */; };
 		28DAD96E251BDD66001A0B3F /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DAD96D251BDD66001A0B3F /* Project.swift */; };
+		8356225C26A94CBE005CD5C5 /* TargetDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */; };
 		D314ED7F24CE1C10000CC23D /* GenericsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314ED7E24CE1C10000CC23D /* GenericsTests.swift */; };
 		D3643B6C247B78A5002DF069 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B6B247B78A4002DF069 /* Function.swift */; };
 		D3643B72247C5107002DF069 /* String+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B71247C5107002DF069 /* String+Components.swift */; };
@@ -373,6 +374,7 @@
 		287F853D25196ACE007D135D /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = Sources/Package.swift; sourceTree = "<group>"; };
 		28950E2C251C4C82008EEE29 /* ProjectDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescription.swift; sourceTree = "<group>"; };
 		28DAD96D251BDD66001A0B3F /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetDescriptionTests.swift; sourceTree = "<group>"; };
 		942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
 		D314ED7E24CE1C10000CC23D /* GenericsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericsTests.swift; sourceTree = "<group>"; };
 		D3643B6B247B78A4002DF069 /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
@@ -1147,6 +1149,7 @@
 				OBJ_276 /* PathFnmatchTests.swift */,
 				OBJ_277 /* StringExtensionsTests.swift */,
 				OBJ_278 /* SubstitutionStyleTests.swift */,
+				8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */,
 			);
 			path = Generator;
 			sourceTree = "<group>";
@@ -1725,6 +1728,7 @@
 				OBJ_1048 /* SubscriptStubbableTests.swift in Sources */,
 				OBJ_1049 /* TypealiasingMockableTests.swift in Sources */,
 				OBJ_1050 /* TypealiasingStubbableTests.swift in Sources */,
+				8356225C26A94CBE005CD5C5 /* TargetDescriptionTests.swift in Sources */,
 				OBJ_1051 /* UndefinedArgumentLabelsMockableTests.swift in Sources */,
 				OBJ_1052 /* UndefinedArgumentLabelsStubbableTests.swift in Sources */,
 				OBJ_1053 /* VariablesMockableTests.swift in Sources */,
