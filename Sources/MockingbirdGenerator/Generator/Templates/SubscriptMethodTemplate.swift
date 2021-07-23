@@ -81,7 +81,7 @@ class SubscriptMethodTemplate: MethodTemplate {
                                                 genericTypes: setterGenericTypes))
     }
     
-    return mockableMethods.joined(separator: "\n\n")
+    return String(lines: mockableMethods, spacing: 2)
   }
   
   lazy var getterCallingContext: String = {

@@ -27,10 +27,6 @@ struct PropertyDefinitionTemplate: Template {
   }
   
   func render() -> String {
-    return String(lines: [
-      type.keyword + " {",
-      body.indent(),
-      "}",
-    ])
+    return type.keyword + " " + BlockTemplate(body: body).render()
   }
 }

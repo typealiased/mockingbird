@@ -30,13 +30,10 @@ struct MockableTypeInitializerTemplate: Template {
         )
         return initializerTemplate.render()
       })
-    let allInitializers = initializers.joined(separator: "\n\n")
-    let (preprocessorStart, preprocessorEnd) = mockableTypeTemplate.compilationDirectiveDeclaration
-    guard !preprocessorStart.isEmpty else { return allInitializers }
-    return [preprocessorStart,
-            allInitializers,
-            preprocessorEnd]
-      .joined(separator: "\n\n")
+    let allInitializers = String(lines: initializers, spacing: 2)
+    let (directiveStart, directiveEnd) = mockableTypeTemplate.compilationDirectiveDeclaration
+    guard !directiveStart.isEmpty else { return allInitializers }
+    return String(lines: [directiveStart, allInitializers, directiveEnd])
   }
   
   private var isAssociatedTypeProtocol: Bool {

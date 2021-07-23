@@ -70,23 +70,17 @@ class MockableTypeTemplate: Template {
   
   func render() -> String {
     let (directiveStart, directiveEnd) = compilationDirectiveDeclaration
-    let header = directiveStart.isEmpty ? "" : "\n\(directiveStart)\n"
-    let footer = directiveEnd.isEmpty ? "" : "\n\n\(directiveEnd)"
-    
-    let inheritance = !isAvailable ? Constants.mockProtocolName :
-      "\(allInheritedTypes)\(allGenericConstraints)"
-    
-    let rawBody = renderBody()
-    let body = rawBody.isEmpty ? "" : "\n\n\(rawBody)"
-    
-    return """
-    // MARK: - Mocked \(mockableType.name)
-    \(header)
-    public final class \(mockableType.name)Mock\(allSpecializedGenericTypes): \(inheritance) {
-    \(staticMockingContext)
-      public let mockingbirdContext = Mockingbird.Context(["generator_version": "\(mockingbirdVersion.shortString)", "module_name": "\(mockableType.moduleName)"])\(body)
-    }\(footer)
-    """
+    return String(lines: [
+      "// MARK: - Mocked \(mockableType.name)",
+      directiveStart,
+      NominalTypeDefinitionTemplate(
+        declaration: "public final class \(mockableType.name)Mock",
+        genericTypes: allSpecializedGenericTypesList,
+        genericConstraints: mockableType.whereClauses.sorted().map({ specializeTypeName("\($0)") }),
+        inheritedTypes: (isAvailable ? inheritedTypes : []) + [Constants.mockProtocolName],
+        body: renderBody()).render(),
+      directiveEnd,
+    ])
   }
   
   lazy var compilationDirectiveDeclaration: (start: String, end: String) = {
@@ -200,32 +194,23 @@ class MockableTypeTemplate: Template {
     """
   }()
   
-  /// The static mocking context allows static (or class) declared methods to be mocked.
+  /// The static mocking context allows static or class methods to be mocked.
   var staticMockingContext: String {
-    guard !mockableType.genericTypes.isEmpty || mockableType.isInGenericContainingType
-      else { return "  static let staticMock = Mockingbird.StaticMock()" }
-    
-    let body: String
-    if shouldGenerateThunks {
-      body = """
-      {
-          let runtimeGenericTypeNames: [String] = [\(runtimeGenericTypeNames)]
-          let staticMockIdentifier: String = runtimeGenericTypeNames.joined(separator: ",")
-          if let staticMock: Mockingbird.StaticMock = genericTypesStaticMocks.read({ $0[staticMockIdentifier] }) { return staticMock }
-          let staticMock: Mockingbird.StaticMock = Mockingbird.StaticMock()
-          genericTypesStaticMocks.update { $0[staticMockIdentifier] = staticMock }
-          return staticMock
-        }
+    if !mockableType.genericTypes.isEmpty || mockableType.isInGenericContainingType {
+      // Class-level generic types don't support static variables directly.
+      let body = !shouldGenerateThunks ? Constants.thunkStub :
+        "return genericStaticMockContext.resolveTypeNames([\(runtimeGenericTypeNames)])"
+      return """
+      static var staticMock: Mockingbird.StaticMock \(BlockTemplate(body: body, multiline: false))
       """
     } else {
-      body = "{ \(Constants.thunkStub) }"
+      return "static let staticMock = Mockingbird.StaticMock()"
     }
-    
-    // Since class-level generic types don't support static variables, we instead use a global
-    // variable `genericTypesStaticMocks` that maps a runtime generated `staticMockIdentifier` to a
-    // `StaticMock` instance.
+  }
+  
+  var mockingbirdContext: String {
     return """
-      static var staticMock: Mockingbird.StaticMock \(body)
+    public let mockingbirdContext = Mockingbird.Context(["generator_version": "\(mockingbirdVersion.shortString)", "module_name": "\(mockableType.moduleName)"])
     """
   }
   
@@ -332,17 +317,19 @@ class MockableTypeTemplate: Template {
   }
   
   func renderBody() -> String {
-    let components: [String]
+    var components = [String(lines: [staticMockingContext, mockingbirdContext])]
     if isAvailable {
-      components = [renderInitializerProxy(),
-                    renderVariables(),
-                    defaultInitializer,
-                    renderMethods(),
-                    renderContainedTypes()]
+      components.append(contentsOf: [
+        renderInitializerProxy(),
+        renderVariables(),
+        defaultInitializer,
+        renderMethods(),
+        renderContainedTypes()
+      ])
     } else {
-      components = [renderContainedTypes()]
+      components.append(renderContainedTypes())
     }
-    return components.filter({ !$0.isEmpty }).joined(separator: "\n\n")
+    return String(lines: components, spacing: 2)
   }
   
   func renderContainedTypes() -> String {
@@ -352,7 +339,7 @@ class MockableTypeTemplate: Template {
         MockableTypeTemplate(mockableType: $0, mockedTypeNames: mockedTypeNames)
           .render().indent()
       })
-    return containedTypesSubstructure.joined(separator: "\n\n")
+    return String(lines: containedTypesSubstructure, spacing: 2)
   }
   
   func renderInitializerProxy() -> String {
@@ -370,15 +357,10 @@ class MockableTypeTemplate: Template {
       .compactMap({ methodTemplate(for: $0).classInitializerProxy?.indent(by: 2) })
     
     guard !initializers.isEmpty else {
-      return """
-        public enum InitializerProxy {}
-      """
+      return "public enum InitializerProxy {}"
     }
-    return """
-      public enum InitializerProxy {
-    \(initializers.joined(separator: "\n\n"))
-      }
-    """
+    return NominalTypeDefinitionTemplate(declaration: "public enum InitializerProxy",
+                                         body: initializers.joined(separator: "\n\n")).render()
   }
   
   /// Store the source location of where the mock was initialized. This allows `XCTest` errors from
@@ -425,17 +407,17 @@ class MockableTypeTemplate: Template {
     }
     return isMockableClassConformance
   }
+  
   var defaultInitializer: String {
     guard shouldGenerateDefaultInitializer else { return "" }
-    let superInit = mockableType.kind == .class || protocolClassConformance != nil
-      ? "super.init()\n    " : ""
-    return """
-      fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
-        \(superInit)
-        self.mockingbirdContext.sourceLocation = sourceLocation
-        \(mockableType.name)Mock.staticMock.mockingbirdContext.sourceLocation = sourceLocation
-      }
-    """
+    let canCallSuper = mockableType.kind == .class || protocolClassConformance != nil
+    return FunctionDefinitionTemplate(
+      declaration: "fileprivate init(sourceLocation: Mockingbird.SourceLocation)",
+      body: String(lines: [
+        canCallSuper ? "super.init()" : "",
+        "self.mockingbirdContext.sourceLocation = sourceLocation",
+        "\(mockableType.name)Mock.staticMock.mockingbirdContext.sourceLocation = sourceLocation",
+      ])).render()
   }
   
   lazy var containsOverridableDesignatedInitializer: Bool = {
@@ -445,10 +427,11 @@ class MockableTypeTemplate: Template {
   }()
   
   func renderVariables() -> String {
-    return mockableType.variables
-      .sorted(by: <)
-      .map({ VariableTemplate(variable: $0, context: self).render() })
-      .joined(separator: "\n\n")
+    return String(
+      lines: mockableType.variables
+        .sorted(by: <)
+        .map({ VariableTemplate(variable: $0, context: self).render() }),
+      spacing: 2)
   }
   
   func isOverridable(method: Method) -> Bool {
@@ -462,22 +445,21 @@ class MockableTypeTemplate: Template {
   }
   
   func renderMethods() -> String {
-    return Set(mockableType.methods)
-      .sorted(by: <)
-      .filter({ $0.isMockable })
-      .map({
-        let renderedMethod = methodTemplate(for: $0).render()
-        guard !isOverridable(method: $0) else { return renderedMethod }
-        return """
-          #if swift(>=5.2)
-        
-        \(renderedMethod)
-        
-          #endif
-        """
-      })
-      .filter({ !$0.isEmpty })
-      .joined(separator: "\n\n")
+    return String(
+      lines:
+        Set(mockableType.methods)
+        .sorted(by: <)
+        .filter({ $0.isMockable })
+        .map({
+          let renderedMethod = methodTemplate(for: $0).render()
+          guard !isOverridable(method: $0) else { return renderedMethod }
+          return String(lines: [
+            "#if swift(>=5.2)",
+            renderedMethod,
+            "#endif",
+          ])
+        }),
+      spacing: 2)
   }
   
   func specializeTypeName(_ typeName: String) -> String {

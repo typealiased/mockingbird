@@ -86,7 +86,7 @@ class FileGenerator {
     let allImports = Set(implicitImports + explicitImports).sorted()
     headerSections.append(allImports.joined(separator: "\n"))
     
-    return PartialFileContent(contents: headerSections.joined(separator: "\n\n"))
+    return PartialFileContent(contents: String(lines: headerSections, spacing: 2))
   }
   
   private func generateFileBody() -> PartialFileContent {
@@ -142,6 +142,6 @@ class FileGenerator {
   }
   
   private var genericTypesStaticMocks: String {
-    return "private var genericTypesStaticMocks = Mockingbird.Synchronized<[String: Mockingbird.StaticMock]>([:])"
+    return "private let genericStaticMockContext = Mockingbird.GenericStaticMockContext()"
   }
 }

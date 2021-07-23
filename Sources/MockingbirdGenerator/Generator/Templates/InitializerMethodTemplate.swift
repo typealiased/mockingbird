@@ -22,12 +22,14 @@ class InitializerMethodTemplate: MethodTemplate {
     let scopedName = mockableScopedName
     let declaration = "public static func \(fullNameForInitializerProxy)\(returnTypeAttributesForMocking) -> \(scopedName)\(failable)\(genericConstraints)"
     
-    let body = !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub :
-      """
-      let mock: \(scopedName)\(failable) = \(tryInvocation)\(scopedName)(\(superCallParameters))
-      mock\(failable).mockingbirdContext.sourceLocation = SourceLocation(__file, __line)
-      return mock
-      """
+    let body = !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub : """
+    let mock: \(scopedName)\(failable) = \(FunctionCallTemplate(
+                                            name: scopedName,
+                                            parameters: method.parameters,
+                                            isThrowing: method.isThrowing))
+    mock\(failable).mockingbirdContext.sourceLocation = SourceLocation(__file, __line)
+    return mock
+    """
     
     return FunctionDefinitionTemplate(attributes: method.attributes.safeDeclarations,
                                       declaration: declaration,

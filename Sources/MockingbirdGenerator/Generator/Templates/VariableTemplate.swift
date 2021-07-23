@@ -21,12 +21,9 @@ class VariableTemplate: Template {
   
   func render() -> String {
     let (directiveStart, directiveEnd) = compilationDirectiveDeclaration
-    return [directiveStart,
-            mockedDeclaration,
-            synthesizedDeclarations,
-            directiveEnd]
-      .filter({ !$0.isEmpty })
-      .joined(separator: "\n\n")
+    return String(lines: [directiveStart,
+                          String(lines: [mockedDeclaration, synthesizedDeclarations], spacing: 2),
+                          directiveEnd])
   }
   
   var compilationDirectiveDeclaration: (start: String, end: String) {
@@ -157,7 +154,7 @@ class VariableTemplate: Template {
       getterDefinition.render(),
       setterDefinition.render(),
     ]
-    return accessors.joined(separator: "\n\n")
+    return String(lines: accessors, spacing: 2)
   }
   
   lazy var declarationAttributes: String = {

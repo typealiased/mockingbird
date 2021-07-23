@@ -8,12 +8,8 @@
 import Foundation
 
 extension String {
-  init(lines: [String], removeEmpty: Bool = true) {
-    self = lines.filter({ !$0.isEmpty }).joined(separator: "\n")
-  }
-  
-  var braced: Self {
-    return "\(braced: self)"
+  init(lines: [String], spacing: Int = 1, removeEmpty: Bool = true) {
+    self = lines.filter({ !$0.isEmpty }).joined(separator: String(repeating: "\n", count: spacing))
   }
   
   func padded(count: Int) -> Self {
@@ -41,9 +37,5 @@ extension String.StringInterpolation {
   mutating func appendInterpolation(padded str: String, count: Int = 0) {
     let padding = String(repeating: " ", count: count)
     appendLiteral(padding + str + padding)
-  }
-  
-  mutating func appendInterpolation(braced str: String) {
-    appendLiteral("{\(str)}")
   }
 }

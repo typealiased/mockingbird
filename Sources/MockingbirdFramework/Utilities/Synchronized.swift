@@ -30,7 +30,7 @@ class Synchronized<T> {
     try queue.sync { try block(&unsafeValue) }
   }
   
-  func update(_ block: (inout T) throws -> T) rethrows -> T {
+  func update<R>(_ block: (inout T) throws -> R) rethrows -> R {
     return try queue.sync { try block(&unsafeValue) }
   }
   

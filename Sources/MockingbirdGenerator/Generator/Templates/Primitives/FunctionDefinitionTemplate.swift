@@ -28,9 +28,7 @@ struct FunctionDefinitionTemplate: Template {
       (" where " + genericConstraints.joined(separator: ", ") )
     return String(lines: [
       attributes.filter({ !$0.isEmpty }).joined(separator: " "),
-      declaration + genericConstraintsString + " {",
-      body.indent(),
-      "}"
+      declaration + genericConstraintsString + " " + BlockTemplate(body: body).render()
     ])
   }
 }

@@ -20,13 +20,12 @@ class MethodTemplate: Template {
   }
   
   func render() -> String {
-    let (preprocessorStart, preprocessorEnd) = compilationDirectiveDeclaration
-    return [preprocessorStart,
-            mockedDeclarations,
-            synthesizedDeclarations,
-            preprocessorEnd]
-      .filter({ !$0.isEmpty })
-      .joined(separator: "\n\n")
+    let (directiveStart, directiveEnd) = compilationDirectiveDeclaration
+    return String(lines: [
+      directiveStart,
+      String(lines: [mockedDeclarations, synthesizedDeclarations], spacing: 2),
+      directiveEnd
+    ])
   }
   
   enum Constants {
@@ -129,12 +128,8 @@ class MethodTemplate: Template {
                                    body: body).render())
     }
     
-    return methods.joined(separator: "\n\n")
+    return String(lines: methods, spacing: 2)
   }
-
-//  lazy var declarationAttributes: String = {
-//    return method.attributes.safeDeclarations.joined(separator: " ")
-//  }()
   
   /// Modifiers specifically for stubbing and verification methods.
   lazy var regularModifiers: String = { return modifiers(allowOverride: false) }()
@@ -279,13 +274,6 @@ class MethodTemplate: Template {
     return "\(shortName)(\(parameterNames.joined(separator: ", ")))"
   }
   
-  lazy var superCallParameters: String = {
-    return method.parameters.map({ parameter -> String in
-      guard let label = parameter.argumentLabel else { return parameter.name.backtickWrapped }
-      return "\(label): \(parameter.name.backtickWrapped)"
-    }).joined(separator: ", ")
-  }()
-  
   // It's necessary to override parts of the definition in certain cases like subscript setters.
   func mockedImplementation(parameterTypes: [String]? = nil,
                             invocation: String? = nil,
@@ -295,12 +283,11 @@ class MethodTemplate: Template {
         (index, type) in
         return ("p\(index)", "\(parenthetical: type.removingParameterAttributes()).self")
       })
-    let isThrowing = method.attributes.contains(.throws) || method.attributes.contains(.rethrows)
-    let name = isThrowing ? "forwardThrowingSwiftInvocation" : "forwardSwiftInvocation"
+    let name = method.isThrowing ? "forwardThrowingSwiftInvocation" : "forwardSwiftInvocation"
     let forwardSwiftInvocation = FunctionCallTemplate(
       name: "\(contextPrefix)mockingbirdContext.\(name)",
       arguments: [(nil, invocation ?? mockableInvocation)] + parameters,
-      isThrowing: isThrowing)
+      isThrowing: method.isThrowing)
     // Returning for void return types is valid here and handled by the proxy API.
     return "\(!method.isInitializer ? "return " : "")\(forwardSwiftInvocation)"
   }
@@ -356,10 +343,6 @@ class MethodTemplate: Template {
     }).joined(separator: ", ")
   }
   
-  lazy var tryInvocation: String = {
-    return !returnTypeAttributesForMatching.isEmpty ? "try " : ""
-  }()
-  
   lazy var returnTypeAttributesForMocking: String = {
     if method.attributes.contains(.rethrows) { return " rethrows" }
     if method.attributes.contains(.throws) { return " throws" }
@@ -367,11 +350,7 @@ class MethodTemplate: Template {
   }()
   
   lazy var returnTypeAttributesForMatching: String = {
-    if method.attributes.contains(.throws) || method.attributes.contains(.rethrows) {
-      return "throws "
-    } else {
-      return ""
-    }
+    return method.isThrowing ? "throws " : ""
   }()
   
   lazy var declarationTypeForMocking: String = {
@@ -384,11 +363,19 @@ class MethodTemplate: Template {
   
   lazy var mockArgumentMatchersList: [String] = {
     return method.parameters.map({ parameter -> String in
-      // Can't save the argument in the invocation because it's a non-escaping parameter.
-      guard !parameter.attributes.contains(.closure) || parameter.attributes.contains(.escaping) else {
-        return "Mockingbird.ArgumentMatcher(Mockingbird.NonEscapingClosure<\(parameter.matchableTypeName(in: self))>())"
+      guard !parameter.isNonEscapingClosure else {
+        // Can't save the argument in the invocation because it's a non-escaping closure type.
+        return ObjectInitializationTemplate(
+          name: "Mockingbird.ArgumentMatcher",
+          arguments: [
+            (nil, ObjectInitializationTemplate(
+              name: "Mockingbird.NonEscapingClosure",
+              genericTypes: [parameter.matchableTypeName(in: self)]).render())
+          ]).render()
       }
-      return "Mockingbird.ArgumentMatcher(\(parameter.name.backtickWrapped))"
+      return ObjectInitializationTemplate(
+        name: "Mockingbird.ArgumentMatcher",
+        arguments: [(nil, "\(backticked: parameter.name)")]).render()
     })
   }()
   
@@ -434,6 +421,12 @@ class MethodTemplate: Template {
   }()
 }
 
+extension Method {
+  var isThrowing: Bool {
+    return attributes.contains(.throws) || attributes.contains(.rethrows)
+  }
+}
+
 private extension MethodParameter {
   func mockableTypeName(in context: MethodTemplate, forClosure: Bool) -> String {
     let rawTypeName = context.context.specializeTypeName(self.typeName)
@@ -464,5 +457,9 @@ private extension MethodParameter {
     } else {
       return typeName
     }
+  }
+  
+  var isNonEscapingClosure: Bool {
+    return attributes.contains(.closure) && !attributes.contains(.escaping)
   }
 }

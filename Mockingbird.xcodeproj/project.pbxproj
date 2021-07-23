@@ -24,6 +24,9 @@
 		281B6246251DC7220084EBED /* MockingbirdShadowedTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */; };
 		281B6286251DC7FC0084EBED /* ModuleNameShadowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B61F1251DBBDE0084EBED /* ModuleNameShadowing.swift */; };
 		281B62FF251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */; };
+		284C3B4026AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284C3B3F26AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift */; };
+		284C3B4326AACD5700F076E2 /* BlockTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284C3B4226AACD5700F076E2 /* BlockTemplate.swift */; };
+		284C3B4826AAD05C00F076E2 /* GenericStaticMockContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284C3B4726AAD05C00F076E2 /* GenericStaticMockContext.swift */; };
 		28571A7C26A6548B0063AB83 /* MKBObjectInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571A7A26A6548B0063AB83 /* MKBObjectInvocationHandler.h */; };
 		28571A7D26A6548B0063AB83 /* MKBObjectInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571A7B26A6548B0063AB83 /* MKBObjectInvocationHandler.m */; };
 		28571A8026A65A490063AB83 /* MKBComparator.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571A7E26A65A490063AB83 /* MKBComparator.h */; };
@@ -225,7 +228,7 @@
 		OBJ_1132 /* DeclarationAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_153 /* DeclarationAttributes.swift */; };
 		OBJ_1133 /* DefaultArgumentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_154 /* DefaultArgumentValues.swift */; };
 		OBJ_1134 /* EmptyTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_155 /* EmptyTypes.swift */; };
-		OBJ_1135 /* Exceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_156 /* Exceptions.swift */; };
+		OBJ_1135 /* ThrowingMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_156 /* ThrowingMethods.swift */; };
 		OBJ_1136 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_157 /* Extensions.swift */; };
 		OBJ_1137 /* ExternalModuleClassScopedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_158 /* ExternalModuleClassScopedTypes.swift */; };
 		OBJ_1138 /* ExternalModuleImplicitlyImportedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_159 /* ExternalModuleImplicitlyImportedTypes.swift */; };
@@ -462,6 +465,9 @@
 		281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MockingbirdShadowedTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		281B62CF251DCAB90084EBED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockingbirdShadowedTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdShadowedTestsHostMocks.generated.swift; sourceTree = "<group>"; };
+		284C3B3F26AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominalTypeDefinitionTemplate.swift; sourceTree = "<group>"; };
+		284C3B4226AACD5700F076E2 /* BlockTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTemplate.swift; sourceTree = "<group>"; };
+		284C3B4726AAD05C00F076E2 /* GenericStaticMockContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericStaticMockContext.swift; sourceTree = "<group>"; };
 		28571A7A26A6548B0063AB83 /* MKBObjectInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBObjectInvocationHandler.h; sourceTree = "<group>"; };
 		28571A7B26A6548B0063AB83 /* MKBObjectInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBObjectInvocationHandler.m; sourceTree = "<group>"; };
 		28571A7E26A65A490063AB83 /* MKBComparator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBComparator.h; sourceTree = "<group>"; };
@@ -642,7 +648,7 @@
 		OBJ_153 /* DeclarationAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclarationAttributes.swift; sourceTree = "<group>"; };
 		OBJ_154 /* DefaultArgumentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultArgumentValues.swift; sourceTree = "<group>"; };
 		OBJ_155 /* EmptyTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTypes.swift; sourceTree = "<group>"; };
-		OBJ_156 /* Exceptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exceptions.swift; sourceTree = "<group>"; };
+		OBJ_156 /* ThrowingMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrowingMethods.swift; sourceTree = "<group>"; };
 		OBJ_157 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		OBJ_158 /* ExternalModuleClassScopedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleClassScopedTypes.swift; sourceTree = "<group>"; };
 		OBJ_159 /* ExternalModuleImplicitlyImportedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleImplicitlyImportedTypes.swift; sourceTree = "<group>"; };
@@ -905,6 +911,21 @@
 			path = Shadowed;
 			sourceTree = "<group>";
 		};
+		284C3B4126AACCF600F076E2 /* Primitives */ = {
+			isa = PBXGroup;
+			children = (
+				284C3B4226AACD5700F076E2 /* BlockTemplate.swift */,
+				2896E53E26A9661B00124D02 /* ClosureTemplate.swift */,
+				2896E53126A91AB300124D02 /* FunctionDefinitionTemplate.swift */,
+				284C3B3F26AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift */,
+				2896E53526A91EFE00124D02 /* FunctionCallTemplate.swift */,
+				2896E53826A929F600124D02 /* ObjectInitializationTemplate.swift */,
+				2896E53A26A9439000124D02 /* PropertyDefinitionTemplate.swift */,
+				2896E53C26A949F400124D02 /* VariableDefinitionTemplate.swift */,
+			);
+			path = Primitives;
+			sourceTree = "<group>";
+		};
 		287F852C25195011007D135D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1159,7 +1180,6 @@
 				OBJ_154 /* DefaultArgumentValues.swift */,
 				D39350CF246619DC00FF52E2 /* DuplicateProtocolMembers.swift */,
 				OBJ_155 /* EmptyTypes.swift */,
-				OBJ_156 /* Exceptions.swift */,
 				OBJ_157 /* Extensions.swift */,
 				OBJ_158 /* ExternalModuleClassScopedTypes.swift */,
 				OBJ_159 /* ExternalModuleImplicitlyImportedTypes.swift */,
@@ -1182,6 +1202,7 @@
 				OBJ_202 /* ParentProtocol.swift */,
 				OBJ_203 /* ProtocolInitializers.swift */,
 				OBJ_204 /* Subscripts.swift */,
+				OBJ_156 /* ThrowingMethods.swift */,
 				OBJ_205 /* Typealiasing.swift */,
 				OBJ_206 /* UndefinedArgumentLabels.swift */,
 				OBJ_207 /* Variables.swift */,
@@ -1447,6 +1468,7 @@
 				OBJ_38 /* MockingContext.swift */,
 				2896E52926A8A9E300124D02 /* Proxy.swift */,
 				2896E52F26A8E1CC00124D02 /* ProxyContext.swift */,
+				284C3B4726AAD05C00F076E2 /* GenericStaticMockContext.swift */,
 			);
 			path = Mocking;
 			sourceTree = "<group>";
@@ -1590,18 +1612,13 @@
 		OBJ_71 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
-				2896E53E26A9661B00124D02 /* ClosureTemplate.swift */,
-				2896E53126A91AB300124D02 /* FunctionDefinitionTemplate.swift */,
-				2896E53526A91EFE00124D02 /* FunctionCallTemplate.swift */,
-				2896E53826A929F600124D02 /* ObjectInitializationTemplate.swift */,
+				284C3B4126AACCF600F076E2 /* Primitives */,
 				OBJ_72 /* InitializerMethodTemplate.swift */,
 				OBJ_73 /* MethodTemplate.swift */,
 				OBJ_74 /* MockableTypeInitializerTemplate.swift */,
 				OBJ_75 /* MockableTypeTemplate.swift */,
-				2896E53A26A9439000124D02 /* PropertyDefinitionTemplate.swift */,
 				OBJ_76 /* SubscriptMethodTemplate.swift */,
 				OBJ_77 /* Template.swift */,
-				2896E53C26A949F400124D02 /* VariableDefinitionTemplate.swift */,
 				OBJ_78 /* VariableTemplate.swift */,
 			);
 			path = Templates;
@@ -2097,7 +2114,7 @@
 				OBJ_1132 /* DeclarationAttributes.swift in Sources */,
 				OBJ_1133 /* DefaultArgumentValues.swift in Sources */,
 				OBJ_1134 /* EmptyTypes.swift in Sources */,
-				OBJ_1135 /* Exceptions.swift in Sources */,
+				OBJ_1135 /* ThrowingMethods.swift in Sources */,
 				OBJ_1136 /* Extensions.swift in Sources */,
 				OBJ_1137 /* ExternalModuleClassScopedTypes.swift in Sources */,
 				OBJ_1138 /* ExternalModuleImplicitlyImportedTypes.swift in Sources */,
@@ -2197,6 +2214,7 @@
 				2896E52026A80E1C00124D02 /* ArgumentIndex.swift in Sources */,
 				28571AA526A662E40063AB83 /* MKBLongLongInvocationHandler.m in Sources */,
 				OBJ_877 /* TypeFacade.swift in Sources */,
+				284C3B4826AAD05C00F076E2 /* GenericStaticMockContext.swift in Sources */,
 				28571AA926A6635F0063AB83 /* MKBPointerInvocationHandler.m in Sources */,
 				287C4F4426A3688100A7E0D9 /* MKBMocking.m in Sources */,
 				OBJ_878 /* Mocking.swift in Sources */,
@@ -2320,6 +2338,7 @@
 				OBJ_953 /* OperationQueue+Extensions.swift in Sources */,
 				OBJ_954 /* OutputStream+Extensions.swift in Sources */,
 				D3643B72247C5107002DF069 /* String+Components.swift in Sources */,
+				284C3B4326AACD5700F076E2 /* BlockTemplate.swift in Sources */,
 				2896E53F26A9661B00124D02 /* ClosureTemplate.swift in Sources */,
 				OBJ_955 /* Path+Fnmatch.swift in Sources */,
 				OBJ_956 /* Path+WriteUtf8Strings.swift in Sources */,
@@ -2328,6 +2347,7 @@
 				OBJ_959 /* Synchronized.swift in Sources */,
 				OBJ_960 /* Timing.swift in Sources */,
 				OBJ_961 /* Version.swift in Sources */,
+				284C3B4026AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift in Sources */,
 				D3B3D4CA248D77F300FEEDA0 /* FindMockedTypesOperation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

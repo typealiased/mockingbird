@@ -14,10 +14,13 @@ struct ObjectInitializationTemplate: Template {
   
   init(name: String,
        genericTypes: [String] = [],
-       arguments: [(parameter: String, argument: String)]) {
+       arguments: [(argumentLabel: String?, argument: String)] = []) {
     self.name = name
     self.genericTypes = genericTypes
-    self.arguments = arguments.map({ $0.parameter + ": " + $0.argument })
+    self.arguments = arguments.map({ (argumentLabel, argument) in
+      guard let label = argumentLabel else { return argument }
+      return label + ": " + argument
+    })
   }
   
   func render() -> String {

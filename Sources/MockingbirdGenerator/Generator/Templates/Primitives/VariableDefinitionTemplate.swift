@@ -23,9 +23,7 @@ struct VariableDefinitionTemplate: Template {
   func render() -> String {
     return String(lines: [
       attributes.filter({ !$0.isEmpty }).joined(separator: " "),
-      declaration + " {",
-      body.indent(),
-      "}"
+      declaration + " " + BlockTemplate(body: body).render(),
     ])
   }
 }
