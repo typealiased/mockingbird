@@ -26,14 +26,18 @@ public struct TargetDescription: Hashable {
 }
 
 extension TargetDescription: Codable {
-  
   public enum CodingKeys: String, CodingKey, CaseIterable {
     case name
     case c99name
     case type
     case path
     case sources
-    case dependencies = "target_dependencies"
+    case dependencies
+  }
+  
+  /// Compatibility with Swift Package Manager JSON project descriptions.
+  enum SwiftPackageManagerKeys: String, CodingKey, CaseIterable {
+    case targetDependencies = "target_dependencies"
   }
   
   public init(from decoder: Decoder) throws {
@@ -42,45 +46,12 @@ extension TargetDescription: Codable {
     self.c99name = try container.decodeIfPresent(String.self, forKey: .c99name)
     self.type = try container.decode(String.self, forKey: .type)
     self.path = try container.decode(Path.self, forKey: .path)
+    self.sources = try container.decodeIfPresent([Path].self, forKey: .sources) ?? []
     
-    self.sources = try {
-      guard container.contains(.sources) else {
-        return []
-      }
-      
-      var sourcesContainer = try container.nestedUnkeyedContainer(forKey: .sources)
-      var sourcesBuffer = [Path]()
-      sourcesBuffer.reserveCapacity(sourcesContainer.count ?? 0)
-      
-      while !sourcesContainer.isAtEnd {
-        let path = try sourcesContainer.decode(Path.self)
-        sourcesBuffer.append(path)
-      }
-      return sourcesBuffer
-    }()
-    
-    self.dependencies = try {
-      guard container.contains(.dependencies) else {
-        return []
-      }
-      
-      do {
-        var dependenciesContainer = try container.nestedUnkeyedContainer(forKey: .dependencies)
-        var dependenciesBuffer = [String]()
-        dependenciesBuffer.reserveCapacity(dependenciesContainer.count ?? 0)
-        
-        while !dependenciesContainer.isAtEnd {
-          let name = try dependenciesContainer.decode(String.self)
-          dependenciesBuffer.append(name)
-        }
-        return dependenciesBuffer
-      } catch DecodingError.keyNotFound {
-        return []
-      }
-      catch {
-        throw error
-      }
-    }()
+    let spmContainer = try decoder.container(keyedBy: SwiftPackageManagerKeys.self)
+    self.dependencies = try spmContainer.decodeIfPresent([String].self, forKey: .targetDependencies)
+      ?? container.decodeIfPresent([String].self, forKey: .dependencies)
+      ?? []
   }
 }
 

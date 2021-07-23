@@ -31,6 +31,9 @@
 		287F852E25195011007D135D /* XcodeProj in Frameworks */ = {isa = PBXBuildFile; productRef = 287F852D25195011007D135D /* XcodeProj */; };
 		287F85322519659B007D135D /* MockingbirdGenerator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */; };
 		28950E2D251C4C82008EEE29 /* ProjectDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28950E2C251C4C82008EEE29 /* ProjectDescription.swift */; };
+		2896E54126AA52A400124D02 /* KeyedDecodingContainer+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E54026AA52A400124D02 /* KeyedDecodingContainer+Array.swift */; };
+		2896E54626AA5A3E00124D02 /* spm-project-description.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2896E54326AA59ED00124D02 /* spm-project-description.json */; };
+		2896E54726AA5A3F00124D02 /* generic-project-description.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2896E54426AA5A1900124D02 /* generic-project-description.json */; };
 		28DAD96E251BDD66001A0B3F /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DAD96D251BDD66001A0B3F /* Project.swift */; };
 		8356225C26A94CBE005CD5C5 /* TargetDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */; };
 		D314ED7F24CE1C10000CC23D /* GenericsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314ED7E24CE1C10000CC23D /* GenericsTests.swift */; };
@@ -366,6 +369,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2896E54526AA5A2F00124D02 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				2896E54626AA5A3E00124D02 /* spm-project-description.json in CopyFiles */,
+				2896E54726AA5A3F00124D02 /* generic-project-description.json in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		281B61F1251DBBDE0084EBED /* ModuleNameShadowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleNameShadowing.swift; sourceTree = "<group>"; };
 		281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MockingbirdShadowedTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -373,6 +390,9 @@
 		281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockingbirdShadowedTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdShadowedTestsHostMocks.generated.swift; sourceTree = "<group>"; };
 		287F853D25196ACE007D135D /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = Sources/Package.swift; sourceTree = "<group>"; };
 		28950E2C251C4C82008EEE29 /* ProjectDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescription.swift; sourceTree = "<group>"; };
+		2896E54026AA52A400124D02 /* KeyedDecodingContainer+Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+Array.swift"; sourceTree = "<group>"; };
+		2896E54326AA59ED00124D02 /* spm-project-description.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "spm-project-description.json"; sourceTree = "<group>"; };
+		2896E54426AA5A1900124D02 /* generic-project-description.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "generic-project-description.json"; sourceTree = "<group>"; };
 		28DAD96D251BDD66001A0B3F /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetDescriptionTests.swift; sourceTree = "<group>"; };
 		942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
@@ -744,6 +764,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2896E54226AA59BE00124D02 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2896E54326AA59ED00124D02 /* spm-project-description.json */,
+				2896E54426AA5A1900124D02 /* generic-project-description.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		C5115F86A66BC03B1665F801 /* Generated Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -831,6 +860,7 @@
 				OBJ_117 /* Array+Extensions.swift */,
 				OBJ_118 /* CharacterSet+Extensions.swift */,
 				OBJ_120 /* Deallocation.swift */,
+				2896E54026AA52A400124D02 /* KeyedDecodingContainer+Array.swift */,
 				OBJ_121 /* Log.swift */,
 				OBJ_122 /* OSLog+Extensions.swift */,
 				OBJ_123 /* OperationQueue+Extensions.swift */,
@@ -1143,6 +1173,7 @@
 		OBJ_272 /* Generator */ = {
 			isa = PBXGroup;
 			children = (
+				2896E54226AA59BE00124D02 /* Resources */,
 				OBJ_273 /* DeclaredTypeTests.swift */,
 				OBJ_274 /* InferTypeTests.swift */,
 				OBJ_275 /* PBXTargetTests.swift */,
@@ -1535,6 +1566,7 @@
 				02321D380F2F1A659EC139B7 /* Generate Mockingbird Mocks */,
 				OBJ_1018 /* Sources */,
 				OBJ_1083 /* Frameworks */,
+				2896E54526AA5A2F00124D02 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1936,6 +1968,7 @@
 				28DAD96E251BDD66001A0B3F /* Project.swift in Sources */,
 				OBJ_929 /* Typealias.swift in Sources */,
 				OBJ_930 /* Variable.swift in Sources */,
+				2896E54126AA52A400124D02 /* KeyedDecodingContainer+Array.swift in Sources */,
 				OBJ_931 /* BasicOperation.swift in Sources */,
 				OBJ_932 /* CheckCacheOperation.swift in Sources */,
 				OBJ_933 /* ExtractSourcesOperation.swift in Sources */,
