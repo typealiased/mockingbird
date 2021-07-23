@@ -214,6 +214,10 @@ class MockableTypeTemplate: Template {
     """
   }
   
+  var mockingbirdSupertype: String {
+    return "typealias MockingbirdSupertype = \(fullyQualifiedName)"
+  }
+  
   lazy var runtimeGenericTypeNames: String = {
     let baseTypeName = "\(mockableType.name)Mock\(allSpecializedGenericTypes)"
     let genericTypeSelfNames = mockableType.genericTypes
@@ -317,7 +321,11 @@ class MockableTypeTemplate: Template {
   }
   
   func renderBody() -> String {
-    var components = [String(lines: [staticMockingContext, mockingbirdContext])]
+    var components = [String(lines: [
+      mockingbirdSupertype,
+      staticMockingContext,
+      mockingbirdContext,
+    ])]
     if isAvailable {
       components.append(contentsOf: [
         renderInitializerProxy(),

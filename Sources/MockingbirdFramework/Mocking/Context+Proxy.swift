@@ -22,9 +22,24 @@ extension Context: Proxy {
     recordInvocation(invocation)
     
     let implementation = stubbing.implementation(for: invocation) // Explicitly stubbed
-    for target in [implementation] + proxy.targets.value {
-      guard test(target) else { continue }
-      return try call(target)
+    if test(implementation) {
+      return try call(implementation)
+    }
+    
+    for (index, target) in proxy.targets.value.enumerated() {
+      guard let implementation = { () -> Any? in
+        switch target {
+        case .superclass: return invocation.context.super
+        case .object(let object):
+          guard let invocationProxy = invocation.context.proxy else { return nil }
+          let (function, target) = invocationProxy(object)
+          proxy.updateTarget(.object(target), at: index) // Manual inout
+          return function
+        }
+      }() else { continue }
+      
+      guard test(implementation) else { continue }
+      return try call(implementation)
     }
     
     if let value = stubbing.defaultValueProvider.value.provideValue(for: R.self) {

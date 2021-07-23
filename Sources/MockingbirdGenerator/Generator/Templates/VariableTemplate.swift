@@ -34,24 +34,49 @@ class VariableTemplate: Template {
   }
   
   lazy var getterCallingContext: String = {
+    // Cannot reference the getters directly.
     let superCall = context.mockableType.kind != .class ? "nil" :
-      "super.\(backticked: variable.name)"
+      ClosureTemplate(body: "super.\(backticked: variable.name)").render()
+    
+    let supertype = variable.kind.typeScope.isStatic ?
+      "MockingbirdSupertype.Type" : "MockingbirdSupertype"
+    let proxyFunction = ClosureTemplate(body: "target.\(backticked: variable.name)")
+    
+    // Unable to specialize generic protocols for a proxy contexts.
+    let isGenericProtocol = context.mockableType.kind == .protocol
+      && !context.mockableType.genericTypes.isEmpty
+    let proxyCall = isGenericProtocol ? "nil" :  ClosureTemplate(
+      body: "Mockingbird.CallingContext.createProxy($0, type: \(supertype).self) { target in \(proxyFunction) }").render()
+    
     return ObjectInitializationTemplate(
       name: "Mockingbird.CallingContext",
-      arguments: [("super", superCall)]
+      arguments: [("super", superCall), ("proxy", proxyCall)]
     ).render()
   }()
   
   lazy var setterCallingContext: String = {
-    // Cannot reference the super setter directly.
+    // Cannot reference the setters directly.
     let typeName = unwrappedSpecializedTypeName
     let superCall = context.mockableType.kind != .class ? "nil" : ClosureTemplate(
       parameters: [("newValue", typeName)],
       body: "super.\(backticked: variable.name) = newValue"
     ).render()
+    
+    let supertype = variable.kind.typeScope.isStatic ?
+      "MockingbirdSupertype.Type" : "MockingbirdSupertype"
+    let proxyFunction = ClosureTemplate(
+      parameters: [("newValue", typeName)],
+      body: "target.\(backticked: variable.name) = newValue")
+    
+    // Unable to specialize generic protocols for a proxy contexts.
+    let isGenericProtocol = context.mockableType.kind == .protocol
+      && !context.mockableType.genericTypes.isEmpty
+    let proxyCall = isGenericProtocol ? "nil" : ClosureTemplate(
+      body: "Mockingbird.CallingContext.createProxy($0, type: \(supertype).self) { target in \(proxyFunction) }").render()
+    
     return ObjectInitializationTemplate(
       name: "Mockingbird.CallingContext",
-      arguments: [("super", superCall)]
+      arguments: [("super", superCall), ("proxy", proxyCall)]
     ).render()
   }()
   
@@ -162,12 +187,11 @@ class VariableTemplate: Template {
   }()
   
   lazy var modifiers: String = {
-    return (variable.kind.typeScope == .static || variable.kind.typeScope == .class ? "class " : "")
+    return variable.kind.typeScope.isStatic ? "class " : ""
   }()
   
   lazy var mockObject: String = {
-    return variable.kind.typeScope == .static || variable.kind.typeScope == .class
-      ? "staticMock" : "self"
+    return variable.kind.typeScope.isStatic ? "staticMock" : "self"
   }()
   
   lazy var contextPrefix: String = {

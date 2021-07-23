@@ -34,8 +34,7 @@ import Foundation
   }
   
   /// Invoke a thunk from Objective-C.
-  @objc public func didInvoke(_ invocation: ObjCInvocation,
-                              evaluating thunk: () -> Any?) -> Any? {
+  @objc public func didInvoke(_ invocation: ObjCInvocation, evaluating thunk: () -> Any?) -> Any? {
     return didInvoke(invocation as Invocation, evaluating: thunk)
   }
     

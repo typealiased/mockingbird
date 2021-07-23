@@ -69,6 +69,13 @@ enum TypeScope: String, Comparable {
     }
   }
   
+  var isStatic: Bool {
+    switch self {
+    case .class, .static: return true
+    case .instance: return false
+    }
+  }
+  
   static func < (lhs: TypeScope, rhs: TypeScope) -> Bool {
     return lhs.rawValue < rhs.rawValue
   }

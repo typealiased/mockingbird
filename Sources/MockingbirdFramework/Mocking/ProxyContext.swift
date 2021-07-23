@@ -15,8 +15,12 @@ struct ProxyContext {
   
   let targets = Synchronized<[Target]>([])
   
-  func addTarget(target: Target) {
+  func addTarget(_ target: Target) {
     targets.update { $0.append(target) }
+  }
+  
+  func updateTarget(_ target: Target, at index: Int) {
+    targets.update { $0[index] = target }
   }
   
   func clearTargets() {

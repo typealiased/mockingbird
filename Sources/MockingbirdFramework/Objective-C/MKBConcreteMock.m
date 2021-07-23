@@ -48,7 +48,7 @@
   }
   
   MKBCallingContext *callingContext =
-    [[MKBCallingContext alloc] initWithSuper:nil]; // TODO: How will this work?
+    [[MKBCallingContext alloc] initWithSuper:nil proxy:nil]; // TODO: How will this work?
   MKBObjCInvocation *objcInvocation =
     [[MKBObjCInvocation alloc] initWithSelectorName:selectorName
                                           arguments:arguments

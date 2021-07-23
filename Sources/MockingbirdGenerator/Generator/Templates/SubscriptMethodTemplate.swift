@@ -18,7 +18,7 @@ class SubscriptMethodTemplate: MethodTemplate {
         ("selectorName", "\(doubleQuoted: uniqueDeclarationForSubscriptGetter)"),
         ("arguments", "[\(mockArgumentMatchers)]"),
         ("returnType", "Swift.ObjectIdentifier(\(parenthetical: unwrappedReturnTypeName).self)"),
-        ("context", getterCallingContext),
+        ("context", getterCallingContext(forMocking: true)),
       ])
     
     let setterInvocation = ObjectInitializationTemplate(
@@ -27,7 +27,7 @@ class SubscriptMethodTemplate: MethodTemplate {
         ("selectorName", "\(doubleQuoted: uniqueDeclarationForSubscriptSetter)"),
         ("arguments", "[\(mockArgumentMatchers)]"),
         ("returnType", "Swift.ObjectIdentifier(Void.self)"),
-        ("context", setterCallingContext),
+        ("context", setterCallingContext(forMocking: true)),
       ])
     
     let getterDefinition = PropertyDefinitionTemplate(
@@ -37,7 +37,7 @@ class SubscriptMethodTemplate: MethodTemplate {
     let setterDefinition = PropertyDefinitionTemplate(
       type: .setter,
       body: !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub :
-        mockedImplementation(parameterTypes: methodParameterTypesListForSubscriptSetter,
+        mockedImplementation(parameterTypes: methodParameterTypesListForMatchingSubscriptSetter,
                              invocation: setterInvocation.render(),
                              returnTypeName: "Void"))
     
@@ -54,17 +54,17 @@ class SubscriptMethodTemplate: MethodTemplate {
     let getterReturnTypeName = unwrappedReturnTypeName
     let setterReturnTypeName = "Void"
     
-    let getterInvocationType = "(\(methodParameterTypes)) \(returnTypeAttributesForMatching)-> \(getterReturnTypeName)"
-    let setterInvocationType = "(\(methodParameterTypesForSubscriptSetter)) \(returnTypeAttributesForMatching)-> \(setterReturnTypeName)"
+    let getterInvocationType = "(\(methodParameterTypesForMatching)) \(returnTypeAttributesForMatching)-> \(getterReturnTypeName)"
+    let setterInvocationType = "(\(methodParameterTypesForMatchingSubscriptSetter)) \(returnTypeAttributesForMatching)-> \(setterReturnTypeName)"
     
     var mockableMethods = [String]()
     
     let getterGenericTypes = ["\(Declaration.subscriptGetterDeclaration)",
-                                      getterInvocationType,
-                                      getterReturnTypeName]
+                              getterInvocationType,
+                              getterReturnTypeName]
     let setterGenericTypes = ["\(Declaration.subscriptSetterDeclaration)",
-                                      setterInvocationType,
-                                      setterReturnTypeName]
+                              setterInvocationType,
+                              setterReturnTypeName]
     
     mockableMethods.append(matchableSubscript(isGetter: true,
                                               genericTypes: getterGenericTypes))
@@ -84,40 +84,71 @@ class SubscriptMethodTemplate: MethodTemplate {
     return String(lines: mockableMethods, spacing: 2)
   }
   
-  lazy var getterCallingContext: String = {
-    // Cannot reference the super subscript getter directly.
+  func getterCallingContext(forMocking: Bool) -> String {
+    // Cannot reference the subscript getters directly.
+    let parameterTypes = forMocking ? methodParameterTypesListForMocking : methodParameterTypesListForMatching
     let parameters: [(argumentLabel: String, type: String)] =
-      methodParameterTypesList.enumerated().map({
+      parameterTypes.enumerated().map({
         (index, type) in
         return ("p\(index)", type.removingParameterAttributes())
       })
+    let arguments = parameters.map({ $0.argumentLabel }).joined(separator: ", ")
     let superCall = context.mockableType.kind != .class ? "nil" : ClosureTemplate(
       parameters: parameters,
       returnType: unwrappedReturnTypeName,
-      body: "super[\(parameters.map({ $0.argumentLabel }).joined(separator: ", "))]"
+      body: "super[\(arguments)]"
     ).render()
+    
+    let supertype = method.kind.typeScope.isStatic ?
+      "MockingbirdSupertype.Type" : "MockingbirdSupertype"
+    let proxyFunction = ClosureTemplate(
+      parameters: parameters,
+      returnType: unwrappedReturnTypeName,
+      body: "target[\(arguments)]")
+    
+    // Unable to specialize generic protocols for a proxy contexts.
+    let isGenericProtocol = context.mockableType.kind == .protocol
+      && !context.mockableType.genericTypes.isEmpty
+    let proxyCall = isGenericProtocol ? "nil" :  ClosureTemplate(
+      body: "Mockingbird.CallingContext.createProxy($0, type: \(supertype).self) { target in \(proxyFunction) }").render()
+    
     return ObjectInitializationTemplate(
       name: "Mockingbird.CallingContext",
-      arguments: [("super", superCall)]
+      arguments: [("super", superCall), ("proxy", proxyCall)]
     ).render()
-  }()
+  }
   
-  lazy var setterCallingContext: String = {
-    // Cannot reference the super subscript setter directly.
+  func setterCallingContext(forMocking: Bool) -> String {
+    // Cannot reference the subscript setters directly.
+    let parameterTypes = forMocking ? methodParameterTypesListForMocking : methodParameterTypesListForMatching
     let parameters: [(argumentLabel: String, type: String)] =
-      methodParameterTypesList.enumerated().map({
+      parameterTypes.enumerated().map({
         (index, type) in
         return ("p\(index)", type.removingParameterAttributes())
       })
+    let arguments = parameters.map({ $0.argumentLabel }).joined(separator: ", ")
     let superCall = context.mockableType.kind != .class ? "nil" : ClosureTemplate(
       parameters: parameters + [("newValue", unwrappedReturnTypeName)],
-      body: "super[\(parameters.map({ $0.argumentLabel }).joined(separator: ", "))] = newValue"
+      body: "super[\(arguments)] = newValue"
     ).render()
+    
+    let supertype = method.kind.typeScope.isStatic ?
+      "MockingbirdSupertype.Type" : "MockingbirdSupertype"
+    let proxyFunction = ClosureTemplate(
+      parameters: parameters + [("newValue", unwrappedReturnTypeName)],
+      body: "target[\(arguments)] = newValue")
+    
+    // Unable to specialize generic protocols for a proxy contexts.
+    let isGenericProtocol = context.mockableType.kind == .protocol
+      && !context.mockableType.genericTypes.isEmpty
+    let proxyCall = isGenericProtocol ? "nil" :  ClosureTemplate(
+      body: "Mockingbird.CallingContext.createProxy($0, type: \(supertype).self) { target in \(proxyFunction) }").render()
+
     return ObjectInitializationTemplate(
       name: "Mockingbird.CallingContext",
-      arguments: [("super", superCall)]
+      arguments: [("super", superCall), ("proxy", proxyCall)]
     ).render()
-  }()
+  }
   
   func matchableSubscript(isGetter: Bool,
                           isVariadic: Bool = false,
@@ -144,7 +175,8 @@ class SubscriptMethodTemplate: MethodTemplate {
         ("selectorName", "\(doubleQuoted: selectorName)"),
         ("arguments", "[\(argumentMatchers)]"),
         ("returnType", "Swift.ObjectIdentifier(\(returnType).self)"),
-        ("context", isGetter ? getterCallingContext : setterCallingContext),
+        ("context", isGetter ?
+          getterCallingContext(forMocking: false) : setterCallingContext(forMocking: false)),
       ])
     
     let body = !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub : """
@@ -189,11 +221,19 @@ class SubscriptMethodTemplate: MethodTemplate {
       .joined(separator: ", ")
   }()
   
-  lazy var methodParameterTypesListForSubscriptSetter: [String] = {
-    return methodParameterTypesList + [unwrappedReturnTypeName]
+  lazy var methodParameterTypesListForMockingSubscriptSetter: [String] = {
+    return methodParameterTypesListForMocking + [unwrappedReturnTypeName]
   }()
   
-  lazy var methodParameterTypesForSubscriptSetter: String = {
-    return methodParameterTypesListForSubscriptSetter.joined(separator: ", ")
+  lazy var methodParameterTypesForMockingSubscriptSetter: String = {
+    return methodParameterTypesListForMockingSubscriptSetter.joined(separator: ", ")
+  }()
+  
+  lazy var methodParameterTypesListForMatchingSubscriptSetter: [String] = {
+    return methodParameterTypesListForMatching + [unwrappedReturnTypeName]
+  }()
+  
+  lazy var methodParameterTypesForMatchingSubscriptSetter: String = {
+    return methodParameterTypesListForMatchingSubscriptSetter.joined(separator: ", ")
   }()
 }

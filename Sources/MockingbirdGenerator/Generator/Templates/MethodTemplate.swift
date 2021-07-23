@@ -89,7 +89,7 @@ class MethodTemplate: Template {
   /// Methods synthesized specifically for the stubbing and verification APIs.
   var synthesizedDeclarations: String {
     let returnTypeName = unwrappedReturnTypeName
-    let invocationType = "(\(methodParameterTypes)) \(returnTypeAttributesForMatching)-> \(returnTypeName)"
+    let invocationType = "(\(methodParameterTypesForMatching)) \(returnTypeAttributesForMatching)-> \(returnTypeName)"
     
     var methods = [String]()
     let genericTypes = [declarationTypeForMocking, invocationType, returnTypeName]
@@ -252,7 +252,7 @@ class MethodTemplate: Template {
       if mode.isMatching && (!mode.useVariadics || !parameter.attributes.contains(.variadic)) {
         typeName = "@escaping @autoclosure () -> \(parameter.matchableTypeName(in: self))"
       } else {
-        typeName = parameter.mockableTypeName(in: self, forClosure: false)
+        typeName = parameter.mockableTypeName(in: self, forDeclaration: true)
       }
       let argumentLabel = parameter.argumentLabel?.backtickWrapped ?? "_"
       let parameterName = parameter.name.backtickWrapped
@@ -279,7 +279,7 @@ class MethodTemplate: Template {
                             invocation: String? = nil,
                             returnTypeName: String? = nil) -> String {
     let parameters: [(String, String)] =
-      (parameterTypes ?? methodParameterTypesList).enumerated().map({
+      (parameterTypes ?? methodParameterTypesListForMatching).enumerated().map({
         (index, type) in
         return ("p\(index)", "\(parenthetical: type.removingParameterAttributes()).self")
       })
@@ -293,12 +293,21 @@ class MethodTemplate: Template {
   }
   
   lazy var callingContext: String = {
-    let callType = "\(parenthetical: methodParameterTypes) -> \(unwrappedReturnTypeName)"
+    let callType = "\(parenthetical: methodParameterTypesForMocking)\(method.isThrowing ? " throws" : "") -> \(unwrappedReturnTypeName)"
     let superCall = context.mockableType.kind != .class ? "nil" :
       "super.\(backticked: method.shortName) as \(callType)"
+    let supertype = method.kind.typeScope.isStatic ?
+      "MockingbirdSupertype.Type" : "MockingbirdSupertype"
+    
+    // Unable to specialize generic protocols for a proxy contexts.
+    let isGenericProtocol = context.mockableType.kind == .protocol
+      && !context.mockableType.genericTypes.isEmpty
+    let proxyCall = isGenericProtocol ? "nil" : ClosureTemplate(
+      body: "Mockingbird.CallingContext.createProxy($0, type: \(supertype).self) { $0.\(backticked: method.shortName) as \(callType) }").render()
+    
     return ObjectInitializationTemplate(
       name: "Mockingbird.CallingContext",
-      arguments: [("super", superCall)]
+      arguments: [("super", superCall), ("proxy", proxyCall)]
     ).render()
   }()
   
@@ -400,12 +409,20 @@ class MethodTemplate: Template {
     return specializedReturnTypeName.removingImplicitlyUnwrappedOptionals()
   }()
   
-  lazy var methodParameterTypesList: [String] = {
-    return method.parameters.map({ $0.mockableTypeName(in: self, forClosure: true) })
+  lazy var methodParameterTypesListForMocking: [String] = {
+    return method.parameters.map({ $0.mockableTypeName(in: self, forDeclaration: true) })
   }()
   
-  lazy var methodParameterTypes: String = {
-    return methodParameterTypesList.joined(separator: ", ")
+  lazy var methodParameterTypesForMocking: String = {
+    return methodParameterTypesListForMocking.joined(separator: ", ")
+  }()
+  
+  lazy var methodParameterTypesListForMatching: [String] = {
+    return method.parameters.map({ $0.mockableTypeName(in: self, forDeclaration: false) })
+  }()
+  
+  lazy var methodParameterTypesForMatching: String = {
+    return methodParameterTypesListForMatching.joined(separator: ", ")
   }()
   
   lazy var methodParameterNamesForInvocationList: [String] = {
@@ -428,14 +445,12 @@ extension Method {
 }
 
 private extension MethodParameter {
-  func mockableTypeName(in context: MethodTemplate, forClosure: Bool) -> String {
+  func mockableTypeName(in context: MethodTemplate, forDeclaration: Bool) -> String {
     let rawTypeName = context.context.specializeTypeName(self.typeName)
+    guard !forDeclaration else { return rawTypeName }
     
-    // When the type names are used for invocations instead of declaring the method parameters.
-    guard forClosure else {
-      return "\(rawTypeName)"
-    }
-    
+    // Type names outside of function declarations differ slightly. Variadics and implicitly
+    // unwrapped optionals must be sanitized.
     let typeName = rawTypeName.removingImplicitlyUnwrappedOptionals()
     if attributes.contains(.variadic) {
       return "[\(typeName.dropLast(3))]"

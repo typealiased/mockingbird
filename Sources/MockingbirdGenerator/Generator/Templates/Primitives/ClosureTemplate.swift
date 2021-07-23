@@ -25,7 +25,8 @@ struct ClosureTemplate: Template {
   
   func render() -> String {
     let throwing = isThrowing ? " throws" : ""
-    let type = "\(parenthetical: parameters.joined(separator: ", "))\(throwing) -> \(returnType)"
-    return BlockTemplate(body: "\(type) in \(body)", multiline: false).render()
+    let signature = parameters.isEmpty && returnType == "Void" ? "" :
+      "\(parenthetical: parameters.joined(separator: ", "))\(throwing) -> \(returnType) in "
+    return BlockTemplate(body: "\(signature)\(body)", multiline: false).render()
   }
 }
