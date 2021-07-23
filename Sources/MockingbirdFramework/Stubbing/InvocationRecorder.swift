@@ -45,19 +45,21 @@ struct InvocationRecord {
     }
   }
   
-  @objc public func record(invocation: ObjCInvocation,
-                           mockingContext: MockingContext,
-                           stubbingContext: StubbingContext) {
+  func recordInvocation(_ invocation: Invocation, context: Context) {
     value = InvocationRecord(invocation: invocation,
-                             mockingContext: mockingContext,
-                             stubbingContext: stubbingContext)
+                             mockingContext: context.mocking,
+                             stubbingContext: context.stubbing)
   }
   
-  func record(argumentIndex: UInt) {
+  @objc public func recordInvocation(_ invocation: ObjCInvocation, context: Context) {
+    recordInvocation(invocation as Invocation, context: context)
+  }
+  
+  func recordArgumentIndex(_ argumentIndex: UInt) {
     self.argumentIndex = argumentIndex
   }
   
-  func record(facadeValue: Any?, at argumentIndex: UInt) {
+  func recordFacadeValue(_ facadeValue: Any?, at argumentIndex: UInt) {
     facadeValues[argumentIndex] = facadeValue
   }
   

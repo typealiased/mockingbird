@@ -19,6 +19,8 @@ import XCTest
   }
   @objc dynamic func throwing() throws {}
   @objc dynamic public func trivial() {}
+  
+  @objc dynamic var name: String = ""
 }
 
 public class MyObjCTestSubclass: MyObjCTestClass {}
@@ -42,7 +44,7 @@ class ObjectiveCTests: BaseTestCase {
   func testPrimitives() throws {
 //    given(self.testMock.trivial()).willReturn()
     given(
-      self.testMock.echo(val: arg(any(), at: 0))
+      self.testMock.echo(val: firstArg(any()))
     ).will { val in
       return val as! Bool
     }
@@ -51,11 +53,11 @@ class ObjectiveCTests: BaseTestCase {
     verify(self.testMock.echo(val: true)).wasCalled()
     verify(self.testMock.echo(val: false)).wasCalled()
     
-    given(self.testMock.prim(val: arg(any(), at: 0))).will { val in
+    given(self.testMock.prim(val: firstArg(any()))).will { val in
       return (val as! String).uppercased()
     }
     XCTAssertEqual(testMock.prim(val: "hello, world"), "HELLO, WORLD")
-    verify(self.testMock.prim(val: arg(any(), at: 0))).wasCalled()
+    verify(self.testMock.prim(val: firstArg(any()))).wasCalled()
     
     given(self.testMock.prim(val: "foobar")).willReturn("barfoo")
     XCTAssertEqual(testMock.prim(val: "foobar"), "barfoo")
@@ -90,6 +92,14 @@ class ObjectiveCTests: BaseTestCase {
     let peripheralCaptor = ArgumentCaptor<CBPeripheral>()
     verify(self.centralManagerMock.cancelPeripheralConnection(peripheralCaptor.any())).wasCalled()
     XCTAssertEqual(peripheralCaptor.value?.name, "foobar")
+  }
+  
+  func testPropertySetter() throws {
+    given(self.testMock.name = firstArg(any())).will { name in
+      print("Set name to \(name as! String)")
+    }
+    testMock.name = "foo"
+    verify(self.testMock.name = "foo").wasCalled()
   }
   
   func testThrowNSError() throws {
@@ -139,10 +149,10 @@ class ObjectiveCTests: BaseTestCase {
   }
   
   func testSubclass() throws {
-    given(self.subclassMock.echo(val: arg(any(), at: 0))).will { return $0 as! Bool }
+    given(self.subclassMock.echo(val: firstArg(any()))).will { return $0 as! Bool }
     XCTAssertTrue(subclassMock.echo(val: true))
     XCTAssertFalse(subclassMock.echo(val: false))
-    verify(self.subclassMock.echo(val: arg(any(), at: 0))).wasCalled(twice)
+    verify(self.subclassMock.echo(val: firstArg(any()))).wasCalled(twice)
   }
   
   func testObjectComparison() throws {

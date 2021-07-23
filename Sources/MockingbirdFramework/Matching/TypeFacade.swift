@@ -71,9 +71,9 @@ func createTypeFacade<T>(_ value: Any?) -> T {
     guard let argumentIndex = recorder.argumentIndex else {
       /// Explicit argument indexes are required in certain cases. See the `arg(_:at:)` docs for
       /// more information and usage.
-      preconditionFailure("An argument index is required, e.g. 'arg(any(), at: 0)'")
+      preconditionFailure("An argument index is required, e.g. 'firstArg(any())'")
     }
-    recorder.record(facadeValue: value, at: argumentIndex)
+    recorder.recordFacadeValue(value, at: argumentIndex)
     return fakePrimitiveValue(value)
   }
   

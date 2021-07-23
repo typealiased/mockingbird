@@ -76,21 +76,6 @@ class MockableTypeTemplate: Template {
     let inheritance = !isAvailable ? Constants.mockProtocolName :
       "\(allInheritedTypes)\(allGenericConstraints)"
     
-    let sourceLocationBody: String
-    if shouldGenerateThunks {
-      sourceLocationBody = """
-      {
-          get { return self.stubbingContext.sourceLocation }
-          set {
-            self.stubbingContext.sourceLocation = newValue
-            \(mockableType.name)Mock.staticMock.stubbingContext.sourceLocation = newValue
-          }
-        }
-      """
-    } else {
-      sourceLocationBody = "{ get { \(Constants.thunkStub) } set { \(Constants.thunkStub) } }"
-    }
-    
     let rawBody = renderBody()
     let body = rawBody.isEmpty ? "" : "\n\n\(rawBody)"
     
@@ -99,10 +84,7 @@ class MockableTypeTemplate: Template {
     \(header)
     public final class \(mockableType.name)Mock\(allSpecializedGenericTypes): \(inheritance) {
     \(staticMockingContext)
-      public let mockingContext = Mockingbird.MockingContext()
-      public let stubbingContext = Mockingbird.StubbingContext()
-      public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "\(mockingbirdVersion.shortString)", "module_name": "\(mockableType.moduleName)"])
-      public var sourceLocation: Mockingbird.SourceLocation? \(sourceLocationBody)\(body)
+      public let mockingbirdContext = Mockingbird.Context(["generator_version": "\(mockingbirdVersion.shortString)", "module_name": "\(mockableType.moduleName)"])\(body)
     }\(footer)
     """
   }
@@ -449,8 +431,9 @@ class MockableTypeTemplate: Template {
       ? "super.init()\n    " : ""
     return """
       fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
-        \(superInit)Mockingbird.checkVersion(for: self)
-        self.sourceLocation = sourceLocation
+        \(superInit)
+        self.mockingbirdContext.sourceLocation = sourceLocation
+        \(mockableType.name)Mock.staticMock.mockingbirdContext.sourceLocation = sourceLocation
       }
     """
   }

@@ -68,7 +68,7 @@ public class VerificationManager<InvocationType, ReturnType> {
 
   init<DeclarationType>(with declaration: Mockable<DeclarationType, InvocationType, ReturnType>,
                         at sourceLocation: SourceLocation) {
-    self.mockingContext = declaration.mock.mockingContext
+    self.mockingContext = declaration.mock.mockingbirdContext.mocking
     self.invocation = declaration.invocation
     self.sourceLocation = sourceLocation
   }

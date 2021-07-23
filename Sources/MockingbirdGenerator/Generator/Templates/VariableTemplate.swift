@@ -23,7 +23,7 @@ class VariableTemplate: Template {
     let (directiveStart, directiveEnd) = compilationDirectiveDeclaration
     return [directiveStart,
             mockedDeclaration,
-            frameworkDeclarations,
+            synthesizedDeclarations,
             directiveEnd]
       .filter({ !$0.isEmpty })
       .joined(separator: "\n\n")
@@ -31,122 +31,132 @@ class VariableTemplate: Template {
   
   var compilationDirectiveDeclaration: (start: String, end: String) {
     guard !variable.compilationDirectives.isEmpty else { return ("", "") }
-    let start = variable.compilationDirectives
-      .map({ "  " + $0.declaration })
-      .joined(separator: "\n")
-    let end = variable.compilationDirectives
-      .map({ _ in "  #endif" })
-      .joined(separator: "\n")
+    let start = String(lines: variable.compilationDirectives.map({ $0.declaration }))
+    let end = String(lines: variable.compilationDirectives.map({ _ in "#endif" }))
     return (start, end)
   }
   
+  lazy var getterCallingContext: String = {
+    let superCall = context.mockableType.kind != .class ? "nil" :
+      "super.\(backticked: variable.name)"
+    return ObjectInitializationTemplate(
+      name: "Mockingbird.CallingContext",
+      arguments: [("super", superCall)]
+    ).render()
+  }()
+  
+  lazy var setterCallingContext: String = {
+    // Cannot reference the super setter directly.
+    let typeName = unwrappedSpecializedTypeName
+    let superCall = context.mockableType.kind != .class ? "nil" : ClosureTemplate(
+      parameters: [("newValue", typeName)],
+      body: "super.\(backticked: variable.name) = newValue"
+    ).render()
+    return ObjectInitializationTemplate(
+      name: "Mockingbird.CallingContext",
+      arguments: [("super", superCall)]
+    ).render()
+  }()
+  
+  lazy var getterInvocation: String = {
+    return ObjectInitializationTemplate(
+      name: "Mockingbird.SwiftInvocation",
+      arguments: [
+        ("selectorName", "\(doubleQuoted: getterName)"),
+        ("arguments", "[]"),
+        ("returnType", "Swift.ObjectIdentifier(\(parenthetical: unwrappedSpecializedTypeName).self)"),
+        ("context", getterCallingContext),
+      ]).render()
+  }()
+  
+  lazy var mockableSetterInvocation: String = {
+    return ObjectInitializationTemplate(
+      name: "Mockingbird.SwiftInvocation",
+      arguments: [
+        ("selectorName", "\(doubleQuoted: setterName)"),
+        ("arguments", "[Mockingbird.ArgumentMatcher(newValue)]"),
+        ("returnType", "Swift.ObjectIdentifier(Void.self)"),
+        ("context", setterCallingContext),
+      ]).render()
+  }()
+  
+  lazy var matchableSetterInvocation: String = {
+    return ObjectInitializationTemplate(
+      name: "Mockingbird.SwiftInvocation",
+      arguments: [
+        ("selectorName", "\(doubleQuoted: setterName)"),
+        ("arguments", "[Mockingbird.resolve(newValue)]"),
+        ("returnType", "Swift.ObjectIdentifier(Void.self)"),
+        ("context", setterCallingContext),
+      ]).render()
+  }()
+  
   var mockedDeclaration: String {
-    let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
+    let getterDefinition = PropertyDefinitionTemplate(
+      type: .getter,
+      body: !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub : """
+      return \(FunctionCallTemplate(
+                name: "\(contextPrefix)mockingbirdContext.forwardSwiftInvocation",
+                arguments: [(nil, getterInvocation)]))
+      """)
+    let setterDefinition = PropertyDefinitionTemplate(
+      type: .setter,
+      body: !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub : """
+      return \(FunctionCallTemplate(
+                name: "\(contextPrefix)mockingbirdContext.forwardSwiftInvocation",
+                arguments: [(nil, mockableSetterInvocation)]))
+      """)
+  
+    let accessors = !shouldGenerateSetter ? [getterDefinition.render()] : [
+      getterDefinition.render(),
+      setterDefinition.render(),
+    ]
+    
     let override = variable.isOverridable ? "override " : ""
-    
-    let getter = """
-        get {
-          let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(getterName)", arguments: [], returnType: Swift.ObjectIdentifier((\(unwrappedSpecializedTypeName)).self))
-          return \(contextPrefix)mockingContext.didInvoke(invocation) { () -> \(unwrappedSpecializedTypeName) in
-            let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation)
-            if let concreteImplementation = implementation as? () -> \(unwrappedSpecializedTypeName) {
-              return concreteImplementation()
-            } else if let defaultValue = \(contextPrefix)stubbingContext.defaultValueProvider.provideValue(for: (\(unwrappedSpecializedTypeName)).self) {
-              return defaultValue
-            } else {
-              fatalError(\(contextPrefix)stubbingContext.failTest(for: invocation))
-            }
-          }
-        }
-    """
-    
-    let setter: String
-    if !shouldGenerateSetter {
-      setter = ""
-    } else {
-      setter = """
-
-          set {
-            let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(setterName)", arguments: [ArgumentMatcher(newValue)], returnType: Swift.ObjectIdentifier(Void.self))
-            \(contextPrefix)mockingContext.didInvoke(invocation)
-            let implementation = \(contextPrefix)stubbingContext.implementation(for: invocation)
-            if let concreteImplementation = implementation as? (\(unwrappedSpecializedTypeName)) -> Void {
-              concreteImplementation(newValue)
-            } else {
-              (implementation as? () -> Void)?()
-            }
-          }
-      """
-    }
-    
-    let body: String
-    if context.shouldGenerateThunks {
-      body = """
-      {
-      \(getter)\(setter)
-        }
-      """
-    } else {
-      body = "{ get { \(MockableTypeTemplate.Constants.thunkStub) } " + (shouldGenerateSetter ? "set { \(MockableTypeTemplate.Constants.thunkStub) } " : "") + "}"
-    }
-    
-    return """
-      // MARK: Mocked \(variable.name)
-    \(attributes)
-      \(override)public \(modifiers)var `\(variable.name)`: \(specializedTypeName) \(body)
-    """
+    let declaration = "\(override)public \(modifiers)var \(backticked: variable.name): \(specializedTypeName)"
+    return String(lines: [
+      "// MARK: Mocked \(variable.name)",
+      VariableDefinitionTemplate(attributes: variable.attributes.safeDeclarations,
+                                 declaration: declaration,
+                                 body: String(lines: accessors)).render()
+    ])
   }
   
-  var frameworkDeclarations: String {
-    let attributes = declarationAttributes.isEmpty ? "" : "  \(declarationAttributes)\n"
+  var synthesizedDeclarations: String {
     let typeName = unwrappedSpecializedTypeName
-    let getterInvocationType = "() -> \(typeName)"
-    let setterInvocationType = "(\(typeName)) -> Void"
-    let mockableGetterGenericTypes = ["\(Declaration.propertyGetterDeclaration)",
-                                      getterInvocationType,
-                                      typeName].joined(separator: ", ")
-    let mockableSetterGenericTypes = ["\(Declaration.propertySetterDeclaration)",
-                                      setterInvocationType,
-                                      "Void"].joined(separator: ", ")
+    let getterGenericTypes = ["\(Declaration.propertyGetterDeclaration)",
+                              "() -> \(typeName)",
+                              typeName]
+    let setterGenericTypes = ["\(Declaration.propertySetterDeclaration)",
+                              "(\(typeName)) -> Void",
+                              "Void"]
     
-    var accessors = [String]()
+    let getterReturnType = "Mockingbird.Mockable<\(getterGenericTypes.joined(separator: ", "))>"
+    let getterDefinition = FunctionDefinitionTemplate(
+      attributes: variable.attributes.safeDeclarations,
+      declaration: "public \(modifiers)func get\(capitalizedName)() -> \(getterReturnType)",
+      body: !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub : """
+      return \(ObjectInitializationTemplate(
+                name: "Mockingbird.Mockable",
+                genericTypes: getterGenericTypes,
+                arguments: [("mock", mockObject), ("invocation", getterInvocation)]))
+      """)
     
-    let getterBody: String
-    if context.shouldGenerateThunks {
-      getterBody = """
-      {
-          let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(getterName)", arguments: [], returnType: Swift.ObjectIdentifier((\(unwrappedSpecializedTypeName)).self))
-          return Mockingbird.Mockable<\(mockableGetterGenericTypes)>(mock: \(mockObject), invocation: invocation)
-        }
-      """
-    } else {
-      getterBody = "{ \(MockableTypeTemplate.Constants.thunkStub) }"
-    }
-    let getter = """
-    \(attributes)  public \(modifiers)func get\(capitalizedName)() -> Mockingbird.Mockable<\(mockableGetterGenericTypes)> \(getterBody)
-    """
-    accessors.append(getter)
+    let setterReturnType = "Mockingbird.Mockable<\(setterGenericTypes.joined(separator: ", "))>"
+    let setterDefinition = FunctionDefinitionTemplate(
+      attributes: variable.attributes.safeDeclarations,
+      declaration: "public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> \(setterReturnType)",
+      body: !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub : """
+      return \(ObjectInitializationTemplate(
+                name: "Mockingbird.Mockable",
+                genericTypes: setterGenericTypes,
+                arguments: [("mock", mockObject), ("invocation", matchableSetterInvocation)]))
+      """)
     
-    if shouldGenerateSetter {
-      let setterBody: String
-      if context.shouldGenerateThunks {
-        setterBody = """
-        {
-            let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(newValue)]
-            let invocation: Mockingbird.Invocation = Mockingbird.SwiftInvocation(selectorName: "\(setterName)", arguments: arguments, returnType: Swift.ObjectIdentifier(Void.self))
-            return Mockingbird.Mockable<\(mockableSetterGenericTypes)>(mock: \(mockObject), invocation: invocation)
-          }
-        """
-      } else {
-        setterBody = "{ \(MockableTypeTemplate.Constants.thunkStub) }"
-      }
-      
-      let setter = """
-      \(attributes)  public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> Mockingbird.Mockable<\(mockableSetterGenericTypes)> \(setterBody)
-      """
-      accessors.append(setter)
-    }
-    
+    let accessors = !shouldGenerateSetter ? [getterDefinition.render()] : [
+      getterDefinition.render(),
+      setterDefinition.render(),
+    ]
     return accessors.joined(separator: "\n\n")
   }
   

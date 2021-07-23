@@ -27,17 +27,28 @@ import XCTest
 ///       return volume < 42
 ///     }
 ///
-/// Properties can be stubbed with their getter and setter methods.
+/// Properties can have stubs on both their getters and setters.
+///
+///     given(bird.name).willReturn("Ryan")
+///     given(bird.name = firstArg(any())).will { print("Hello \($0)") }
+///
+///     print(bird.name)        // Prints "Ryan"
+///     bird.name = "Sterling"  // Prints "Hello Sterling"
+///
+/// This is equivalent to using the synthesized getter and setter methods.
 ///
 ///     given(bird.getName()).willReturn("Ryan")
-///     given(bird.setName(any())).will { print($0) }
+///     given(bird.setName(any())).will { print("Hello \($0)") }
+///
+///     print(bird.name)        // Prints "Ryan"
+///     bird.name = "Sterling"  // Prints "Hello Sterling"
 ///
 /// - Parameter declaration: A stubbable declaration.
 public func given<DeclarationType: Declaration, InvocationType, ReturnType>(
   _ declaration: Mockable<DeclarationType, InvocationType, ReturnType>
 ) -> StubbingManager<DeclarationType, InvocationType, ReturnType> {
   return StubbingManager(invocation: declaration.invocation,
-                         context: declaration.mock.stubbingContext)
+                         context: declaration.mock.mockingbirdContext.stubbing)
 }
 
 /// Stub a declaration to return a value or perform an operation.
@@ -54,13 +65,17 @@ public func given<DeclarationType: Declaration, InvocationType, ReturnType>(
 ///
 ///     given(bird.canChirp()) ~> true
 ///     given(bird.canChirp()) ~> { throw BirdError() }
-///     given(bird.canChirp(volume: any())) ~> { volume in
+///     given(bird.canChirp(volume: any()) ~> { volume in
 ///       return volume as Int < 42
 ///     }
 ///
-/// Property getters can be stubbed, but setters are currently unsupported.
+/// Properties can have stubs on both their getters and setters.
 ///
 ///     given(bird.name).willReturn("Ryan")
+///     given(bird.name = any()).will { print("Hello \($0)") }
+///
+///     print(bird.name)        // Prints "Ryan"
+///     bird.name = "Sterling"  // Prints "Hello Sterling"
 ///
 /// - Parameter declaration: A stubbable declaration.
 public func given<ReturnType>(

@@ -21,8 +21,7 @@
 - (instancetype)init
 {
   if (self) {
-    _mockingContext = [[MKBMockingContext alloc] init];
-    _stubbingContext = [[MKBStubbingContext alloc] init];
+    _mockingbirdContext = [[MKBContext alloc] init];
     _invocationHandlerChain = [[MKBInvocationHandlerChain alloc] init];
   }
   return self;
@@ -48,15 +47,19 @@
      [self.invocationHandlerChain serializeArgumentAtIndex:i forInvocation:invocation]];
   }
   
+  MKBCallingContext *callingContext =
+    [[MKBCallingContext alloc] initWithSuper:nil]; // TODO: How will this work?
   MKBObjCInvocation *objcInvocation =
-    [[MKBObjCInvocation alloc] initWithSelectorName:selectorName arguments:arguments];
+    [[MKBObjCInvocation alloc] initWithSelectorName:selectorName
+                                          arguments:arguments
+                                            context:callingContext];
   MKBInvocationRecorder *recorder = [MKBInvocationRecorder sharedRecorder];
   
   switch (recorder.mode) {
     case MKBInvocationRecorderModeNone: {
       id _Nullable returnValue =
-        [self.mockingContext didInvoke:objcInvocation evaluating:^id _Nullable {
-          return [self.stubbingContext returnValueFor:objcInvocation];
+        [self.mockingbirdContext.mocking didInvoke:objcInvocation evaluating:^id _Nullable {
+          return [self.mockingbirdContext.stubbing returnValueFor:objcInvocation];
         }];
 
       if (!isVoidReturnType) {
@@ -65,7 +68,7 @@
             break; // Forward the invocation to ourself to handle.
           }
           // Mocks are strict by default, so fail the test now.
-          [self.stubbingContext failTestFor:objcInvocation];
+          [self.mockingbirdContext.stubbing failTestFor:objcInvocation];
         } else if ([returnValue isKindOfClass:[MKBErrorBox class]] &&
                    [invocation isErrorArgumentTypeAtIndex:argumentCount-1]) {
           __unsafe_unretained NSError *boxedError = [returnValue performSelector:@selector(error)];
@@ -81,9 +84,7 @@
 
     case MKBInvocationRecorderModeStubbing:
     case MKBInvocationRecorderModeVerifying:{
-      [recorder recordWithInvocation:objcInvocation
-                      mockingContext:self.mockingContext
-                     stubbingContext:self.stubbingContext];
+      [recorder recordInvocation:objcInvocation context:self.mockingbirdContext];
       [NSThread exit];
       break;
     }

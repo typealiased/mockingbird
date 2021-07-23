@@ -367,31 +367,3 @@ public func notNil<T: NSObjectProtocol>(_ type: T.Type = T.self) -> T {
   }
   return createTypeFacade(matcher)
 }
-
-/// Specifies the positional index of an argument matcher for dynamic mocks.
-///
-/// When using dynamic mocking with wildcard argument matchers, you must provide the argument index
-/// if stubbing or verifying a primitive (non-object) parameter type.
-///
-/// This helper has no effect on argument matchers passed to statically generated Swift mocks or to
-/// object parameter types.
-///
-///     @objc class Bird: NSObject {
-///       @objc dynamic func chirp(volume: Int, duration: Int) {}
-///     }
-///
-///     given(bird.chirp(volume: arg(any(), at: 0),
-///                      duration: arg(any(), at: 1)))
-///       .will { print($0 as! Int, $1 as! Int) }
-///
-///     bird.chirp(42, 9001)  // Prints 42, 9001
-///
-/// - Parameters:
-///   - matcher: An argument matcher.
-///   - index: The position index of the argument in the mocked declaration.
-public func arg<T>(_ matcher: @autoclosure () -> T, at index: UInt) -> T {
-  if let recorder = InvocationRecorder.sharedRecorder {
-    recorder.record(argumentIndex: index)
-  }
-  return matcher()
-}

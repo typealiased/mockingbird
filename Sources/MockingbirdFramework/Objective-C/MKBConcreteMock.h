@@ -9,13 +9,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MKBMockingContext;
-@class MKBStubbingContext;
+@class MKBContext;
 
 @interface MKBConcreteMock : NSProxy
 
-@property (nonatomic, strong, readonly) MKBMockingContext *mockingContext;
-@property (nonatomic, strong, readonly) MKBStubbingContext *stubbingContext;
+@property (nonatomic, strong, readonly) MKBContext *mockingbirdContext;
 
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
 

@@ -454,8 +454,7 @@ public class DynamicStubbingManager<ReturnType>:
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
   @discardableResult
   public func will(
-    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?)
-      throws -> ReturnType
+    _ implementation: @escaping (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) throws -> ReturnType
   ) -> Self {
     return add(implementation: { try implementation($0, $1, $2, $3, $4, $5, $6, $7, $8, $9) as Any? })
   }

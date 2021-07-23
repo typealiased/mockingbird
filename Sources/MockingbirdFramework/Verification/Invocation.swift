@@ -7,11 +7,20 @@
 
 import Foundation
 
+/// Context the invocation was called from.
+@objc(MKBCallingContext) public class CallingContext: NSObject {
+  let `super`: Any?
+  @objc public init(super: Any?) {
+    self.super = `super`
+  }
+}
+
 /// Mocks create invocations when receiving calls to methods or member methods.
 protocol Invocation: CustomStringConvertible {
   var selectorName: String { get }
   var arguments: [ArgumentMatcher] { get }
   var returnType: ObjectIdentifier { get }
+  var context: CallingContext { get }
   var uid: UInt { get }
   
   /// Selector name without tickmark escaping.
@@ -44,12 +53,17 @@ struct SwiftInvocation: Invocation {
   let selectorName: String
   let arguments: [ArgumentMatcher]
   let returnType: ObjectIdentifier
+  let context: CallingContext
   let uid = MonotonicIncreasingIndex.getIndex()
 
-  init(selectorName: String, arguments: [ArgumentMatcher], returnType: ObjectIdentifier) {
+  init(selectorName: String,
+       arguments: [ArgumentMatcher],
+       returnType: ObjectIdentifier,
+       context: CallingContext) {
     self.selectorName = selectorName
     self.arguments = arguments
     self.returnType = returnType
+    self.context = context
   }
   
   var unwrappedSelectorName: String {
@@ -103,7 +117,8 @@ struct SwiftInvocation: Invocation {
     let matcher = ArgumentMatcher(description: "any()", priority: .high) { return true }
     return Self(selectorName: setterSelectorName,
                 arguments: [matcher],
-                returnType: ObjectIdentifier(Void.self))
+                returnType: ObjectIdentifier(Void.self),
+                context: context)
   }
 }
 
@@ -111,12 +126,16 @@ struct SwiftInvocation: Invocation {
   let selectorName: String
   let arguments: [ArgumentMatcher]
   let returnType: ObjectIdentifier
+  let context: CallingContext
   let uid = MonotonicIncreasingIndex.getIndex()
   
-  @objc public required init(selectorName: String, arguments: [ArgumentMatcher]) {
+  @objc public required init(selectorName: String,
+                             arguments: [ArgumentMatcher],
+                             context: CallingContext) {
     self.selectorName = selectorName
     self.arguments = arguments
     self.returnType = ObjectIdentifier(Any.self) // Return type doesn't matter for Obj-C.
+    self.context = context
   }
   
   var unwrappedSelectorName: String { return selectorName }

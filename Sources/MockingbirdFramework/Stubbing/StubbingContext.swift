@@ -15,8 +15,7 @@ import XCTest
     let implementationProvider: () -> Any?
   }
   var stubs = Synchronized<[String: [Stub]]>([:])
-  var defaultValueProvider = ValueProvider()
-  var sourceLocation: SourceLocation?
+  var defaultValueProvider = Synchronized<ValueProvider>(ValueProvider())
   
   func swizzle(_ invocation: Invocation,
                with implementationProvider: @escaping () -> Any?) -> Stub {
@@ -26,7 +25,7 @@ import XCTest
   }
   
   @discardableResult
-  func failTest(for invocation: Invocation) -> String {
+  func failTest(for invocation: Invocation, at sourceLocation: SourceLocation? = nil) -> String {
     let stubbedSelectorNames = stubs.read({ Array($0.keys) }).sorted()
     let stackTrace = StackTrace(from: Thread.callStackSymbols)
     let error = TestFailure.missingStubbedImplementation(invocation: invocation,

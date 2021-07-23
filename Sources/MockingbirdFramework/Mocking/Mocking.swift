@@ -66,74 +66,137 @@ public func mock<T: NSObjectProtocol>(_ type: T.Type) -> T {
   return MKBTypeFacade.create(from: mkb_mock(type))
 }
 
-/// All generated mocks conform to this protocol.
-public protocol Mock {
-  /// Information about received invocations.
-  var mockingContext: MockingContext { get }
-  
-  /// Implementations for stubbing behaviors.
-  var stubbingContext: StubbingContext { get }
-  
-  /// Static metadata about the mock created at generation time.
-  var mockMetadata: MockMetadata { get }
-  
-  /// Where the mock was initialized.
-  var sourceLocation: SourceLocation? { get set }
+/// Remove all recorded invocations and configured stubs.
+///
+/// Fully reset a set of mocks during test runs by removing all recorded invocations and clearing
+/// all configurations.
+///
+///     let bird = mock(Bird.self)
+///     given(bird.getName()).willReturn("Ryan")
+///
+///     print(bird.name)  // Prints "Ryan"
+///     verify(bird.getName()).wasCalled()  // Passes
+///
+///     reset(bird)
+///
+///     print(bird.name)  // Error: Missing stubbed implementation
+///     verify(bird.getName()).wasCalled()  // Error: Got 0 invocations
+///
+/// - Parameter mocks: A set of mocks to reset.
+public func reset(_ mocks: Mock...) {
+  mocks.forEach({ mock in
+    clearInvocations(on: mock)
+    clearStubs(on: mock)
+    clearDefaultValues(on: mock)
+    clearTargets(on: mock)
+  })
 }
 
-/// Used to store invocations on static or class scoped methods.
-public class StaticMock: Mock {
-  /// Information about received invocations.
-  public let mockingContext = MockingContext()
-  
-  /// Implementations for stubbing behaviors.
-  public let stubbingContext = StubbingContext()
-  
-  /// Static metadata about the mock created at generation time.
-  public let mockMetadata = MockMetadata()
-  
-  /// Where the mock was initialized.
-  public var sourceLocation: SourceLocation? {
-    get { return stubbingContext.sourceLocation }
-    set { stubbingContext.sourceLocation = newValue }
-  }
+// TODO: Docs
+public func reset(_ mocks: NSObjectProtocol...) {
+  mocks.forEach({ mock in
+    clearInvocations(on: mock)
+    clearStubs(on: mock)
+    clearDefaultValues(on: mock)
+    clearTargets(on: mock)
+  })
 }
 
-/// Stores information about generated mocks.
-public struct MockMetadata {
-  let dictionary: [String: Any]
-  init(_ dictionary: [String: Any] = [:]) {
-    self.dictionary = dictionary
-  }
+/// Remove all recorded invocations.
+///
+/// Partially reset a set of mocks during test runs by removing all recorded invocations.
+///
+///     let bird = mock(Bird.self)
+///     given(bird.getName()).willReturn("Ryan")
+///
+///     print(bird.name)  // Prints "Ryan"
+///     verify(bird.getName()).wasCalled()  // Passes
+///
+///     clearInvocations(on: bird)
+///
+///     print(bird.name)  // Prints "Ryan"
+///     verify(bird.getName()).wasCalled()  // Error: Got 0 invocations
+///
+/// - Parameter mocks: A set of mocks to reset.
+public func clearInvocations(on mocks: Mock...) {
+  mocks.forEach({ $0.mockingbirdContext.mocking.clearInvocations() })
 }
 
-/// Represents a mocked declaration that can be stubbed or verified.
-public struct Mockable<DeclarationType: Declaration, InvocationType, ReturnType> {
-  let mock: Mock
-  let invocation: Invocation
+// TODO: Docs
+public func clearInvocations(on mocks: NSObjectProtocol...) {
+  mocks.forEach({ mock in
+    guard let context = mock.mockingbirdContext else { return }
+    context.mocking.clearInvocations()
+  })
 }
 
-/// All mockable declaration types conform to this protocol.
-public protocol Declaration {}
+/// Remove all concrete stubs.
+///
+/// Partially reset a set of mocks during test runs by removing all stubs.
+///
+///     let bird = mock(Bird.self)
+///     given(bird.getName()).willReturn("Ryan")
+///
+///     print(bird.name)  // Prints "Ryan"
+///     verify(bird.getName()).wasCalled()  // Passes
+///
+///     clearStubs(on: bird)
+///
+///     print(bird.name)  // Error: Missing stubbed implementation
+///     verify(bird.getName()).wasCalled()  // Passes
+///
+/// - Parameter mocks: A set of mocks to reset.
+public func clearStubs(on mocks: Mock...) {
+  mocks.forEach({ $0.mockingbirdContext.stubbing.clearStubs() })
+}
 
-/// Mockable declarations.
-public class AnyDeclaration: Declaration {}
+// TODO: Docs
+public func clearStubs(on mocks: NSObjectProtocol...) {
+  mocks.forEach({ mock in
+    guard let context = mock.mockingbirdContext else { return }
+    context.stubbing.clearStubs()
+  })
+}
 
-/// Mockable variable declarations.
-public class VariableDeclaration: Declaration {}
-/// Mockable property getter declarations.
-public class PropertyGetterDeclaration: VariableDeclaration {}
-/// Mockable property setter declarations.
-public class PropertySetterDeclaration: VariableDeclaration {}
+/// Remove all registered default values.
+///
+/// Partially reset a set of mocks during test runs by removing all registered default values.
+///
+///     let bird = mock(Bird.self)
+///     bird.useDefaultValues(from: .standardProvider)
+///
+///     print(bird.name)  // Prints ""
+///     verify(bird.getName()).wasCalled()  // Passes
+///
+///     clearDefaultValues(on: bird)
+///
+///     print(bird.name)  // Error: Missing stubbed implementation
+///     verify(bird.getName()).wasCalled()  // Passes
+///
+/// - Parameter mocks: A set of mocks to reset.
+public func clearDefaultValues(on mocks: Mock...) {
+  mocks.forEach({
+    $0.mockingbirdContext.stubbing.defaultValueProvider.update { $0.reset() }
+  })
+}
 
-/// Mockable function declarations.
-public class FunctionDeclaration: Declaration {}
-/// Mockable throwing function declarations.
-public class ThrowingFunctionDeclaration: FunctionDeclaration {}
+// TODO: Docs
+public func clearDefaultValues(on mocks: NSObjectProtocol...) {
+  mocks.forEach({ mock in
+    guard let context = mock.mockingbirdContext else { return }
+    context.stubbing.defaultValueProvider.update { $0.reset() }
+  })
+}
 
-/// Mockable subscript declarations.
-public class SubscriptDeclaration: Declaration {}
-/// Mockable subscript getter declarations.
-public class SubscriptGetterDeclaration: SubscriptDeclaration {}
-/// Mockable subscript setter declarations.
-public class SubscriptSetterDeclaration: SubscriptDeclaration {}
+// TODO: Docs
+public func clearTargets(on mocks: Mock...) {
+  mocks.forEach({ $0.mockingbirdContext.proxy.clearTargets() })
+}
+
+// TODO: Docs
+public func clearTargets(on mocks: NSObjectProtocol...) {
+  mocks.forEach({ mock in
+    guard let context = mock.mockingbirdContext else { return }
+    context.proxy.clearTargets()
+  })
+}
