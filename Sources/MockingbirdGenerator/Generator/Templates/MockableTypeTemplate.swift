@@ -348,13 +348,13 @@ class MockableTypeTemplate: Template {
       .filter(isProxyable)
       .filter(isOverridable)
       .sorted()
-      .compactMap({ methodTemplate(for: $0).classInitializerProxy?.indent(by: 2) })
+      .compactMap({ methodTemplate(for: $0).classInitializerProxy })
     
     guard !initializers.isEmpty else {
       return "public enum InitializerProxy {}"
     }
     return NominalTypeDefinitionTemplate(declaration: "public enum InitializerProxy",
-                                         body: initializers.joined(separator: "\n\n")).render()
+                                         body: String(lines: initializers, spacing: 2)).render()
   }
   
   /// Store the source location of where the mock was initialized. This allows `XCTest` errors from
