@@ -12,7 +12,7 @@ public struct ProjectDescription: Codable, Hashable {
   public let targets: [TargetDescription]
 }
 
-public struct TargetDescription: Codable, Hashable {
+public struct TargetDescription: Hashable {
   public let name: String
   public let c99name: String?
   public let type: String
@@ -22,6 +22,36 @@ public struct TargetDescription: Codable, Hashable {
   
   public var productModuleName: String {
     return c99name ?? name.escapingForModuleName()
+  }
+}
+
+extension TargetDescription: Codable {
+  public enum CodingKeys: String, CodingKey, CaseIterable {
+    case name
+    case c99name
+    case type
+    case path
+    case sources
+    case dependencies
+  }
+  
+  /// Compatibility with Swift Package Manager JSON project descriptions.
+  enum SwiftPackageManagerKeys: String, CodingKey, CaseIterable {
+    case targetDependencies = "target_dependencies"
+  }
+  
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    self.name = try container.decode(String.self, forKey: .name)
+    self.c99name = try container.decodeIfPresent(String.self, forKey: .c99name)
+    self.type = try container.decode(String.self, forKey: .type)
+    self.path = try container.decode(Path.self, forKey: .path)
+    self.sources = try container.decodeIfPresent([Path].self, forKey: .sources) ?? []
+    
+    let spmContainer = try decoder.container(keyedBy: SwiftPackageManagerKeys.self)
+    self.dependencies = try spmContainer.decodeIfPresent([String].self, forKey: .targetDependencies)
+      ?? container.decodeIfPresent([String].self, forKey: .dependencies)
+      ?? []
   }
 }
 
