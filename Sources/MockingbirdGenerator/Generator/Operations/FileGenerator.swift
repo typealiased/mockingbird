@@ -73,18 +73,18 @@ class FileGenerator {
           guard !compilationDirectives.isEmpty else {
             return importDeclaration.fullDeclaration
           }
-          let start = compilationDirectives.map({ $0.declaration }).joined(separator: "\n")
-          let end = compilationDirectives.map({ _ in "#endif" }).joined(separator: "\n")
-          return [
+          let start = String(lines: compilationDirectives.map({ $0.declaration }))
+          let end = String(lines: compilationDirectives.map({ _ in "#endif" }))
+          return String(lines: [
             start,
             importDeclaration.fullDeclaration,
             end,
-          ].joined(separator: "\n")
+          ])
         })
       })
     
     let allImports = Set(implicitImports + explicitImports).sorted()
-    headerSections.append(allImports.joined(separator: "\n"))
+    headerSections.append(String(lines: allImports))
     
     return PartialFileContent(contents: String(lines: headerSections, spacing: 2))
   }

@@ -47,10 +47,10 @@ public extension String {
     guard offset > 0, !isEmpty else { return self }
     let lines = substringComponents(separatedBy: "\n")
     let indentation = String(repeating: "  ", count: offset)
-    return lines.map({
+    return String(lines: lines.map({
       guard !$0.isEmpty else { return String($0) }
       return indentation + $0
-    }).joined(separator: "\n")
+    }), keepEmptyLines: true)
   }
   
   /// Returns a new string created by removing implicitly unwrapped optionals.

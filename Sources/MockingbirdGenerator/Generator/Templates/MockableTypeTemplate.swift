@@ -85,12 +85,8 @@ class MockableTypeTemplate: Template {
   
   lazy var compilationDirectiveDeclaration: (start: String, end: String) = {
     guard !mockableType.compilationDirectives.isEmpty else { return ("", "") }
-    let start = mockableType.compilationDirectives
-      .map({ $0.declaration })
-      .joined(separator: "\n")
-    let end = mockableType.compilationDirectives
-      .map({ _ in "#endif" })
-      .joined(separator: "\n")
+    let start = String(lines: mockableType.compilationDirectives.map({ $0.declaration }))
+    let end = String(lines: mockableType.compilationDirectives.map({ _ in "#endif" }))
     return (start, end)
   }()
   
