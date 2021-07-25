@@ -116,6 +116,9 @@
 		28A1F3BA26AC9D06002F282D /* GuardStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3B926AC9D06002F282D /* GuardStatement.swift */; };
 		28A1F3BC26AD9E3B002F282D /* StubbingThrowingErrorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3BB26AD9E3B002F282D /* StubbingThrowingErrorsTests.swift */; };
 		28A1F3BE26AD9EAB002F282D /* StubbingInoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3BD26AD9EAB002F282D /* StubbingInoutTests.swift */; };
+		28A1F3C026ADA2A8002F282D /* PartialMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3BF26ADA2A8002F282D /* PartialMockTests.swift */; };
+		28A1F3C226ADC9DA002F282D /* PresetImplementationProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3C126ADC9DA002F282D /* PresetImplementationProviders.swift */; };
+		28A1F3C426ADD57C002F282D /* MinimalTestTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3C326ADD57C002F282D /* MinimalTestTypes.swift */; };
 		28C8E5DB26A64D6C00C68A1D /* MKBInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */; };
 		28C8E5DC26A64D6C00C68A1D /* MKBInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */; };
 		28DAD96E251BDD66001A0B3F /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DAD96D251BDD66001A0B3F /* Project.swift */; };
@@ -557,6 +560,9 @@
 		28A1F3B926AC9D06002F282D /* GuardStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardStatement.swift; sourceTree = "<group>"; };
 		28A1F3BB26AD9E3B002F282D /* StubbingThrowingErrorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbingThrowingErrorsTests.swift; sourceTree = "<group>"; };
 		28A1F3BD26AD9EAB002F282D /* StubbingInoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbingInoutTests.swift; sourceTree = "<group>"; };
+		28A1F3BF26ADA2A8002F282D /* PartialMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialMockTests.swift; sourceTree = "<group>"; };
+		28A1F3C126ADC9DA002F282D /* PresetImplementationProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetImplementationProviders.swift; sourceTree = "<group>"; };
+		28A1F3C326ADD57C002F282D /* MinimalTestTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimalTestTypes.swift; sourceTree = "<group>"; };
 		28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBInvocationHandler.h; sourceTree = "<group>"; };
 		28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBInvocationHandler.m; sourceTree = "<group>"; };
 		28DAD96D251BDD66001A0B3F /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -1208,6 +1214,7 @@
 				OBJ_167 /* Initializers.swift */,
 				OBJ_168 /* InoutParameters.swift */,
 				OBJ_169 /* KeywordArgumentNames.swift */,
+				28A1F3C326ADD57C002F282D /* MinimalTestTypes.swift */,
 				OBJ_196 /* ModuleImportCases.swift */,
 				OBJ_198 /* OpaquelyInheritedTypes.swift */,
 				OBJ_199 /* Optionals.swift */,
@@ -1400,6 +1407,7 @@
 				287C4F5326A36FFF00A7E0D9 /* ObjectiveCTests.swift */,
 				OBJ_262 /* OrderedVerificationTests.swift */,
 				OBJ_263 /* OverloadedMethodTests.swift */,
+				28A1F3BF26ADA2A8002F282D /* PartialMockTests.swift */,
 				OBJ_264 /* SequentialValueStubbingTests.swift */,
 				OBJ_265 /* StubbingTests.swift */,
 				28A1F3BB26AD9E3B002F282D /* StubbingThrowingErrorsTests.swift */,
@@ -1494,6 +1502,7 @@
 				2896E51926A6E97900124D02 /* DynamicStubbingManager.swift */,
 				D3E6F67524844999000D1971 /* ImplementationProvider.swift */,
 				287C4F6B26A4AAA900A7E0D9 /* InvocationRecorder.swift */,
+				28A1F3C126ADC9DA002F282D /* PresetImplementationProviders.swift */,
 				D3E6F67724844A0C000D1971 /* Sequence.swift */,
 				OBJ_41 /* Stubbing.swift */,
 				OBJ_42 /* StubbingContext.swift */,
@@ -1631,9 +1640,9 @@
 				OBJ_73 /* MethodTemplate.swift */,
 				OBJ_74 /* MockableTypeInitializerTemplate.swift */,
 				OBJ_75 /* MockableTypeTemplate.swift */,
-				28A1F3B126AC857B002F282D /* ThunkTemplate.swift */,
 				OBJ_76 /* SubscriptMethodTemplate.swift */,
 				OBJ_77 /* Template.swift */,
+				28A1F3B126AC857B002F282D /* ThunkTemplate.swift */,
 				OBJ_78 /* VariableTemplate.swift */,
 			);
 			path = Templates;
@@ -2052,6 +2061,7 @@
 				D37503D72460FE7E003017A7 /* ImplicitVariableTypesMockableTests.swift in Sources */,
 				28A1F3BC26AD9E3B002F282D /* StubbingThrowingErrorsTests.swift in Sources */,
 				OBJ_1030 /* ExceptionsMockableTests.swift in Sources */,
+				28A1F3C026ADA2A8002F282D /* PartialMockTests.swift in Sources */,
 				281B62FF251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift in Sources */,
 				OBJ_1031 /* ExceptionsStubbableTests.swift in Sources */,
 				OBJ_1032 /* ExtensionsMockableTests.swift in Sources */,
@@ -2149,6 +2159,7 @@
 				OBJ_1150 /* #EscapedCommentPrefixIgnoredSource.swift in Sources */,
 				OBJ_1151 /* CascadingExcludedSource.swift in Sources */,
 				OBJ_1152 /* CascadingIncludedSource.swift in Sources */,
+				28A1F3C426ADD57C002F282D /* MinimalTestTypes.swift in Sources */,
 				OBJ_1153 /* RelativeTopLevelFileIgnoredSource.swift in Sources */,
 				OBJ_1154 /* DirectoryIgnoredSource.swift in Sources */,
 				OBJ_1155 /* EnclosingDirectoryOverriddenIgnoredSource.swift in Sources */,
@@ -2252,6 +2263,7 @@
 				28571AB926A666070063AB83 /* MKBUnsignedCharInvocationHandler.m in Sources */,
 				28571AAD26A664340063AB83 /* MKBSelectorInvocationHandler.m in Sources */,
 				OBJ_883 /* TestKiller.swift in Sources */,
+				28A1F3C226ADC9DA002F282D /* PresetImplementationProviders.swift in Sources */,
 				OBJ_884 /* ValueProvider+Collections.swift in Sources */,
 				OBJ_885 /* ValueProvider+Foundation.swift in Sources */,
 				OBJ_886 /* ValueProvider+Tuples.swift in Sources */,

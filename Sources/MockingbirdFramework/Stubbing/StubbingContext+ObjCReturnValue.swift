@@ -40,9 +40,7 @@ extension StubbingContext {
   @objc public func returnValue(for invocation: ObjCInvocation) -> Any? {
     let implementation = implementation(for: invocation as Invocation)
     do {
-      return try applyInvocation(invocation, to: implementation)
-        ?? applyThrowingInvocation(invocation, to: implementation)
-        ?? Self.noImplementation
+      return try applyInvocation(invocation, to: implementation) ?? Self.noImplementation
     } catch let err as NSError {
       return ObjCErrorBox(err)
     } catch let err {
@@ -50,90 +48,8 @@ extension StubbingContext {
     }
   }
   
-  private func applyInvocation(_ invocation: ObjCInvocation, to implementation: Any?) -> Any? {
-    if let concreteImplementation = implementation as? () -> Any? {
-      return concreteImplementation()
-    } else if let concreteImplementation = implementation
-                as? (Any?) -> Any? {
-      return concreteImplementation(invocation.arguments.get(0)?.base)
-    } else if let concreteImplementation = implementation
-                as? (Any?, Any?) -> Any? {
-      return concreteImplementation(invocation.arguments.get(0)?.base,
-                                    invocation.arguments.get(1)?.base)
-    } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?) -> Any? {
-      return concreteImplementation(invocation.arguments.get(0)?.base,
-                                    invocation.arguments.get(1)?.base,
-                                    invocation.arguments.get(2)?.base)
-    } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?) -> Any? {
-      return concreteImplementation(invocation.arguments.get(0)?.base,
-                                    invocation.arguments.get(1)?.base,
-                                    invocation.arguments.get(2)?.base,
-                                    invocation.arguments.get(3)?.base)
-    } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?) -> Any? {
-      return concreteImplementation(invocation.arguments.get(0)?.base,
-                                    invocation.arguments.get(1)?.base,
-                                    invocation.arguments.get(2)?.base,
-                                    invocation.arguments.get(3)?.base,
-                                    invocation.arguments.get(4)?.base)
-    } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?, Any?) -> Any? {
-      return concreteImplementation(invocation.arguments.get(0)?.base,
-                                    invocation.arguments.get(1)?.base,
-                                    invocation.arguments.get(2)?.base,
-                                    invocation.arguments.get(3)?.base,
-                                    invocation.arguments.get(4)?.base,
-                                    invocation.arguments.get(5)?.base)
-    } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Any? {
-      return concreteImplementation(invocation.arguments.get(0)?.base,
-                                    invocation.arguments.get(1)?.base,
-                                    invocation.arguments.get(2)?.base,
-                                    invocation.arguments.get(3)?.base,
-                                    invocation.arguments.get(4)?.base,
-                                    invocation.arguments.get(5)?.base,
-                                    invocation.arguments.get(6)?.base)
-    } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Any? {
-      return concreteImplementation(invocation.arguments.get(0)?.base,
-                                    invocation.arguments.get(1)?.base,
-                                    invocation.arguments.get(2)?.base,
-                                    invocation.arguments.get(3)?.base,
-                                    invocation.arguments.get(4)?.base,
-                                    invocation.arguments.get(5)?.base,
-                                    invocation.arguments.get(6)?.base,
-                                    invocation.arguments.get(7)?.base)
-    } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Any? {
-      return concreteImplementation(invocation.arguments.get(0)?.base,
-                                    invocation.arguments.get(1)?.base,
-                                    invocation.arguments.get(2)?.base,
-                                    invocation.arguments.get(3)?.base,
-                                    invocation.arguments.get(4)?.base,
-                                    invocation.arguments.get(5)?.base,
-                                    invocation.arguments.get(6)?.base,
-                                    invocation.arguments.get(7)?.base,
-                                    invocation.arguments.get(8)?.base)
-    } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Any? {
-      return concreteImplementation(invocation.arguments.get(0)?.base,
-                                    invocation.arguments.get(1)?.base,
-                                    invocation.arguments.get(2)?.base,
-                                    invocation.arguments.get(3)?.base,
-                                    invocation.arguments.get(4)?.base,
-                                    invocation.arguments.get(5)?.base,
-                                    invocation.arguments.get(6)?.base,
-                                    invocation.arguments.get(7)?.base,
-                                    invocation.arguments.get(8)?.base,
-                                    invocation.arguments.get(9)?.base)
-    }
-    return nil
-  }
-  
-  private func applyThrowingInvocation(_ invocation: ObjCInvocation,
-                                       to implementation: Any?) throws -> Any? {
+  private func applyInvocation(_ invocation: ObjCInvocation,
+                               to implementation: Any?) throws -> Any? {
     if let concreteImplementation = implementation as? () throws -> Any? {
       return try concreteImplementation()
     } else if let concreteImplementation = implementation

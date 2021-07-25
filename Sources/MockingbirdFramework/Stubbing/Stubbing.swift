@@ -48,7 +48,7 @@ public func given<DeclarationType: Declaration, InvocationType, ReturnType>(
   _ declaration: Mockable<DeclarationType, InvocationType, ReturnType>
 ) -> StubbingManager<DeclarationType, InvocationType, ReturnType> {
   return StubbingManager(invocation: declaration.invocation,
-                         context: declaration.mock.mockingbirdContext.stubbing)
+                         context: declaration.mock.mockingbirdContext)
 }
 
 /// Stub a declaration to return a value or perform an operation.
@@ -92,11 +92,12 @@ public func given<ReturnType>(
   guard let value = recorder.value else {
     fatalError(MKBFail("\(TestFailure.unmockableExpression)", isFatal: true))
   }
-  return DynamicStubbingManager(invocation: value.invocation, context: value.stubbingContext)
+  return DynamicStubbingManager(invocation: value.invocation, context: value.context)
 }
 
 /// An intermediate object used for stubbing declarations returned by `given`.
 public class StubbingManager<DeclarationType: Declaration, InvocationType, ReturnType> {
+  let context: Context
   var implementationProviders =
     [(provider: ImplementationProvider<DeclarationType, InvocationType, ReturnType>,
       transition: TransitionStrategy)]()
@@ -104,7 +105,7 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
     didSet { implementationsProvidedCount = 0 }
   }
   var implementationsProvidedCount = 0
-  var stubs = [(stub: StubbingContext.Stub, context: StubbingContext)]()
+  var stubs = [(stub: StubbingContext.Stub, context: Context)]()
   
   /// When to use the next chained implementation provider.
   public enum TransitionStrategy {
@@ -138,9 +139,10 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
     case onFirstNil
   }
   
-  init(invocation: Invocation, context: StubbingContext) {
-    let stub = context.swizzle(invocation) { return self.getCurrentImplementation() }
-    stubs.append((stub, context))
+  init(invocation: Invocation, context: Context) {
+    self.context = context
+    let stub = context.stubbing.swizzle(invocation) { return self.getCurrentImplementation() }
+    self.stubs.append((stub, context))
   }
   
   func getCurrentImplementation() -> Any? {
@@ -181,7 +183,7 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   /// Convenience method to wrap stub implementations into an implementation provider.
   @discardableResult
   func add(implementation: Any,
-           callback: ((StubbingContext.Stub, StubbingContext) -> Void)? = nil) -> Self {
+           callback: ((StubbingContext.Stub, Context) -> Void)? = nil) -> Self {
     return add(provider: ImplementationProvider(implementation: implementation, callback: callback),
         transition: .after(1))
   }
@@ -190,7 +192,7 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   @discardableResult
   func add(provider: ImplementationProvider<DeclarationType, InvocationType, ReturnType>,
            transition: TransitionStrategy,
-           callback: ((StubbingContext.Stub, StubbingContext) -> Void)? = nil) -> Self {
+           callback: ((StubbingContext.Stub, Context) -> Void)? = nil) -> Self {
     implementationProviders.append((provider, transition))
     stubs.forEach({ provider.didAddStub($0.stub, context: $0.context, manager: self) })
     return self
@@ -201,7 +203,7 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   /// Stubbing allows you to define custom behavior for mocks to perform.
   ///
   ///     given(bird.doMethod()).willReturn(someValue)
-  ///     given(bird.getProperty()).willReturn(someValue)
+  ///     given(bird.property).willReturn(someValue)
   ///
   /// Match exact or wildcard argument values when stubbing methods with parameters. Stubs added
   /// later have a higher precedence, so add stubs with specific matchers last.
@@ -288,6 +290,13 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   @discardableResult
   public func will(_ implementation: InvocationType) -> Self {
     return add(implementation: implementation)
+  }
+  
+  // TODO: Docs
+  @discardableResult
+  public func willForward(to target: ProxyContext.Target) -> Self {
+    context.proxy.addTarget(target)
+    return self
   }
 }
 

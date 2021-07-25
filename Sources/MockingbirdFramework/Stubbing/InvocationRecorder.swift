@@ -9,8 +9,7 @@ import Foundation
 
 struct InvocationRecord {
   let invocation: Invocation
-  let mockingContext: MockingContext
-  let stubbingContext: StubbingContext
+  let context: Context
 }
 
 /// Records invocations for stubbing and verification.
@@ -46,9 +45,8 @@ struct InvocationRecord {
   }
   
   func recordInvocation(_ invocation: Invocation, context: Context) {
-    value = InvocationRecord(invocation: invocation,
-                             mockingContext: context.mocking,
-                             stubbingContext: context.stubbing)
+    value = InvocationRecord(invocation: invocation, context: context)
+    Thread.exit()
   }
   
   @objc public func recordInvocation(_ invocation: ObjCInvocation, context: Context) {

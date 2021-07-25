@@ -62,19 +62,19 @@ public func verify<ReturnType>(
 
 /// An intermediate object used for verifying declarations returned by `verify`.
 public class VerificationManager<InvocationType, ReturnType> {
-  let mockingContext: MockingContext
+  let context: Context
   let invocation: Invocation
   let sourceLocation: SourceLocation
 
   init<DeclarationType>(with declaration: Mockable<DeclarationType, InvocationType, ReturnType>,
                         at sourceLocation: SourceLocation) {
-    self.mockingContext = declaration.mock.mockingbirdContext.mocking
+    self.context = declaration.mock.mockingbirdContext
     self.invocation = declaration.invocation
     self.sourceLocation = sourceLocation
   }
   
   init(from record: InvocationRecord, at sourceLocation: SourceLocation) {
-    self.mockingContext = record.mockingContext
+    self.context = record.context
     self.invocation = record.invocation
     self.sourceLocation = sourceLocation
   }
@@ -124,7 +124,7 @@ public class VerificationManager<InvocationType, ReturnType> {
                                   sourceLocation: sourceLocation,
                                   group: DispatchQueue.currentExpectationGroup)
     do {
-      try expect(mockingContext, handled: invocation, using: expectation)
+      try expect(context.mocking, handled: invocation, using: expectation)
     } catch {
       MKBFail(String(describing: error),
               file: expectation.sourceLocation.file,

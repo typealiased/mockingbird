@@ -45,16 +45,16 @@ class ObjectiveCTests: BaseTestCase {
 //    given(self.testMock.trivial()).willReturn()
     given(
       self.testMock.echo(val: firstArg(any()))
-    ).will { val in
-      return val as! Bool
+    ).will { (val: Bool) in
+      return val
     }
     XCTAssertTrue(testMock.echo(val: true))
     XCTAssertFalse(testMock.echo(val: false))
     verify(self.testMock.echo(val: true)).wasCalled()
     verify(self.testMock.echo(val: false)).wasCalled()
     
-    given(self.testMock.prim(val: firstArg(any()))).will { val in
-      return (val as! String).uppercased()
+    given(self.testMock.prim(val: firstArg(any()))).will { (val: String) in
+      return val.uppercased()
     }
     XCTAssertEqual(testMock.prim(val: "hello, world"), "HELLO, WORLD")
     verify(self.testMock.prim(val: firstArg(any()))).wasCalled()
@@ -79,8 +79,7 @@ class ObjectiveCTests: BaseTestCase {
       self.centralManagerMock.cancelPeripheralConnection(
         any(where: { $0.identifier.uuidString == "BA6C41BD-E803-4527-A91A-9951ADC57CBF" })
       )
-    ).will {
-      let peripheral = $0 as! CBPeripheral
+    ).will { (peripheral: CBPeripheral) in
       print("Hello world! \(peripheral.identifier.uuidString)")
     }
     
@@ -95,8 +94,8 @@ class ObjectiveCTests: BaseTestCase {
   }
   
   func testPropertySetter() throws {
-    given(self.testMock.name = firstArg(any())).will { name in
-      print("Set name to \(name as! String)")
+    given(self.testMock.name = firstArg(any())).will { (name: String) in
+      print("Set name to \(name)")
     }
     testMock.name = "foo"
     verify(self.testMock.name = "foo").wasCalled()
@@ -149,7 +148,9 @@ class ObjectiveCTests: BaseTestCase {
   }
   
   func testSubclass() throws {
-    given(self.subclassMock.echo(val: firstArg(any()))).will { return $0 as! Bool }
+    given(self.subclassMock.echo(val: firstArg(any()))).will { (val: Bool) in
+      return val
+    }
     XCTAssertTrue(subclassMock.echo(val: true))
     XCTAssertFalse(subclassMock.echo(val: false))
     verify(self.subclassMock.echo(val: firstArg(any()))).wasCalled(twice)

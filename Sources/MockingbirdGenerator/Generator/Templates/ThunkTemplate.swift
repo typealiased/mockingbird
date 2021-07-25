@@ -19,11 +19,11 @@ class ThunkTemplate: Template {
   let invocationArguments: [(argumentLabel: String?, parameterName: String)]
   
   enum Scope: CustomStringConvertible {
-    case superclass
+    case `super`
     case object
     var description: String {
       switch self {
-      case .superclass: return "super"
+      case .super: return "super"
       case .object: return "mkbObject"
       }
     }
@@ -78,6 +78,10 @@ class ThunkTemplate: Template {
     let isGeneric = !mockableType.genericTypes.isEmpty || mockableType.hasSelfConstraint
     let isProxyable = !(mockableType.kind == .protocol && isGeneric)
     
+    let proxyTargets = """
+    \(context).proxy.targets(with: mkbImpl)\(isProxyable ? ".reversed().enumerated()" : "")
+    """
+    
     return """
     return \(didInvoke) \(BlockTemplate(body: """
     \(FunctionCallTemplate(name: "\(context).recordInvocation", arguments: [(nil, "$0")]))
@@ -88,11 +92,11 @@ class ThunkTemplate: Template {
       callConvenience,
       !isSubclass && !isProxyable ? "" : ForInStatementTemplate(
         item: isProxyable ? "(mkbIndex, mkbTarget)" : "mkbTarget",
-        collection: "\(context).proxy.targets.value" + (isProxyable ? ".enumerated()" : ""),
+        collection: proxyTargets,
         body: SwitchStatementTemplate(
           controlExpression: "mkbTarget",
           cases: [
-            (".superclass", isSubclass ? "break" : "return \(callMember(.superclass))"),
+            (".super", isSubclass ? "break" : "return \(callMember(.super))"),
             (".object" + (isProxyable ? "(let mkbObject)" : ""), !isProxyable ? "break" : """
             \(GuardStatementTemplate(
                 condition: "var mkbObject = mkbObject as? \(supertype)", body: "continue"))

@@ -7,13 +7,21 @@
 
 import Foundation
 
-struct ProxyContext {
-  enum Target {
-    case superclass
+/// Stores potential targets that can handle forwarded invocations from mocked calls.
+public struct ProxyContext {
+  public enum Target {
+    case `super`
     case object(Any)
   }
   
-  let targets = Synchronized<[Target]>([])
+  private let targets = Synchronized<[Target]>([])
+  
+  /// Returns available proxy targets in insertion order (ascending priority).
+  /// - Parameter additionalTarget: Convenience to append an optional proxy target.
+  func targets(with additionalTarget: Any? = nil) -> [Target] {
+    guard let target = additionalTarget as? Target else { return targets.value }
+    return targets.value + [target]
+  }
   
   func addTarget(_ target: Target) {
     targets.update { $0.append(target) }

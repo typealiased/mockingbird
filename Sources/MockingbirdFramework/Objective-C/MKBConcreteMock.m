@@ -85,7 +85,6 @@
     case MKBInvocationRecorderModeStubbing:
     case MKBInvocationRecorderModeVerifying:{
       [recorder recordInvocation:objcInvocation context:self.mockingbirdContext];
-      [NSThread exit];
       break;
     }
   }
