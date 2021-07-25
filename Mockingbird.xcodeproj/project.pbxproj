@@ -114,6 +114,8 @@
 		28A1F3B626AC9007002F282D /* SwitchStatementTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3B526AC9007002F282D /* SwitchStatementTemplate.swift */; };
 		28A1F3B826AC91D3002F282D /* ForInStatementTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3B726AC91D3002F282D /* ForInStatementTemplate.swift */; };
 		28A1F3BA26AC9D06002F282D /* GuardStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3B926AC9D06002F282D /* GuardStatement.swift */; };
+		28A1F3BC26AD9E3B002F282D /* StubbingThrowingErrorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3BB26AD9E3B002F282D /* StubbingThrowingErrorsTests.swift */; };
+		28A1F3BE26AD9EAB002F282D /* StubbingInoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3BD26AD9EAB002F282D /* StubbingInoutTests.swift */; };
 		28C8E5DB26A64D6C00C68A1D /* MKBInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */; };
 		28C8E5DC26A64D6C00C68A1D /* MKBInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */; };
 		28DAD96E251BDD66001A0B3F /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DAD96D251BDD66001A0B3F /* Project.swift */; };
@@ -553,6 +555,8 @@
 		28A1F3B526AC9007002F282D /* SwitchStatementTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchStatementTemplate.swift; sourceTree = "<group>"; };
 		28A1F3B726AC91D3002F282D /* ForInStatementTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForInStatementTemplate.swift; sourceTree = "<group>"; };
 		28A1F3B926AC9D06002F282D /* GuardStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardStatement.swift; sourceTree = "<group>"; };
+		28A1F3BB26AD9E3B002F282D /* StubbingThrowingErrorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbingThrowingErrorsTests.swift; sourceTree = "<group>"; };
+		28A1F3BD26AD9EAB002F282D /* StubbingInoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbingInoutTests.swift; sourceTree = "<group>"; };
 		28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBInvocationHandler.h; sourceTree = "<group>"; };
 		28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBInvocationHandler.m; sourceTree = "<group>"; };
 		28DAD96D251BDD66001A0B3F /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -1398,6 +1402,8 @@
 				OBJ_263 /* OverloadedMethodTests.swift */,
 				OBJ_264 /* SequentialValueStubbingTests.swift */,
 				OBJ_265 /* StubbingTests.swift */,
+				28A1F3BB26AD9E3B002F282D /* StubbingThrowingErrorsTests.swift */,
+				28A1F3BD26AD9EAB002F282D /* StubbingInoutTests.swift */,
 				OBJ_266 /* SubscriptTests.swift */,
 				OBJ_267 /* Utilities */,
 				OBJ_270 /* VariadicParametersTests.swift */,
@@ -2044,6 +2050,7 @@
 				OBJ_1028 /* DefaultArgumentValuesStubbableTests.swift in Sources */,
 				OBJ_1029 /* EmptyTypesMockableTests.swift in Sources */,
 				D37503D72460FE7E003017A7 /* ImplicitVariableTypesMockableTests.swift in Sources */,
+				28A1F3BC26AD9E3B002F282D /* StubbingThrowingErrorsTests.swift in Sources */,
 				OBJ_1030 /* ExceptionsMockableTests.swift in Sources */,
 				281B62FF251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift in Sources */,
 				OBJ_1031 /* ExceptionsStubbableTests.swift in Sources */,
@@ -2066,6 +2073,7 @@
 				OBJ_1046 /* KeywordArgumentNamesStubbableTests.swift in Sources */,
 				OBJ_1047 /* SubscriptMockableTests.swift in Sources */,
 				OBJ_1048 /* SubscriptStubbableTests.swift in Sources */,
+				28A1F3BE26AD9EAB002F282D /* StubbingInoutTests.swift in Sources */,
 				OBJ_1049 /* TypealiasingMockableTests.swift in Sources */,
 				OBJ_1050 /* TypealiasingStubbableTests.swift in Sources */,
 				8356225C26A94CBE005CD5C5 /* TargetDescriptionTests.swift in Sources */,
