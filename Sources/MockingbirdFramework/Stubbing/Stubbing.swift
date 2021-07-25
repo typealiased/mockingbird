@@ -294,8 +294,15 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   
   // TODO: Docs
   @discardableResult
-  public func willForward(to target: ProxyContext.Target) -> Self {
-    context.proxy.addTarget(target)
+  public func willForwardToSuper() -> Self {
+    context.proxy.addTarget(.super)
+    return self
+  }
+  
+  // TODO: Docs
+  @discardableResult
+  public func willForward<T>(to object: T) -> Self {
+    context.proxy.addTarget(.object(object))
     return self
   }
 }

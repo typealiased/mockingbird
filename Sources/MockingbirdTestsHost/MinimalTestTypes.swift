@@ -12,7 +12,7 @@ protocol MinimalProtocol {
   func method(value: String) -> String
 }
 
-class MimimalClass {
-  var property: String = ""
-  func method(value: String) -> String { fatalError() }
+class MinimalClass {
+  var property: String = "super"
+  func method(value: String) -> String { return "super-" + value }
 }
