@@ -71,24 +71,29 @@ class ThunkTemplate: Template {
     let didInvoke = FunctionCallTemplate(name: "\(context).mocking.didInvoke",
                                          unlabeledArguments: [invocation],
                                          isThrowing: isThrowing)
+    
+    let isSubclass = mockableType.kind != .class
+    
+    // TODO: Handle generic protocols
     let isGeneric = !mockableType.genericTypes.isEmpty || mockableType.hasSelfConstraint
+    let isProxyable = !(mockableType.kind == .protocol && isGeneric)
     
     return """
     return \(didInvoke) \(BlockTemplate(body: """
     \(FunctionCallTemplate(name: "\(context).recordInvocation", arguments: [(nil, "$0")]))
     let mkbImpl = \(FunctionCallTemplate(name: "\(context).stubbing.implementation",
                                          arguments: [("for", "$0")]))
-    \(callDefault)
-    \(callConvenience)
-    \(ForInStatementTemplate(
-        item: "(mkbIndex, mkbTarget)",
-        collection: "\(context).proxy.targets.value.enumerated()",
+    \(String(lines: [
+      callDefault.render(),
+      callConvenience,
+      !isSubclass && !isProxyable ? "" : ForInStatementTemplate(
+        item: isProxyable ? "(mkbIndex, mkbTarget)" : "mkbTarget",
+        collection: "\(context).proxy.targets.value" + (isProxyable ? ".enumerated()" : ""),
         body: SwitchStatementTemplate(
           controlExpression: "mkbTarget",
           cases: [
-            (".superclass", mockableType.kind != .class ? "break" :
-              "return \(callMember(.superclass))"),
-            (".object(let mkbObject)", mockableType.kind == .protocol && isGeneric ? "break" : """
+            (".superclass", isSubclass ? "break" : "return \(callMember(.superclass))"),
+            (".object" + (isProxyable ? "(let mkbObject)" : ""), !isProxyable ? "break" : """
             \(GuardStatementTemplate(
                 condition: "var mkbObject = mkbObject as? \(supertype)", body: "continue"))
             let mkbValue: \(returnTypeName) = \(callMember(.object))
@@ -97,7 +102,8 @@ class ThunkTemplate: Template {
                 arguments: [(nil, "&mkbObject"), ("at", "mkbIndex")]))
             return mkbValue
             """)
-          ]).render()))
+          ]).render()).render(),
+    ]))
     \(IfStatementTemplate(
         condition: """
         let mkbValue = \(FunctionCallTemplate(

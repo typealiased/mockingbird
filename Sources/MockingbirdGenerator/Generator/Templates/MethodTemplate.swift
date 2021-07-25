@@ -87,7 +87,7 @@ class MethodTemplate: Template {
                         isThrowing: self.method.isThrowing).render()
                     },
                     invocationArguments: invocationArguments).render()
-    let declaration = "public \(overridableModifiers)func \(fullNameForMocking)\(returnTypeAttributesForMocking) -> \(declarationReturnType)"
+    let declaration = "public \(overridableModifiers)func \(fullNameForMocking)\(returnTypeAttributesForMocking) -> \(mockableReturnType)"
     return String(lines: [
       "// MARK: Mocked \(fullNameForMocking)",
       FunctionDefinitionTemplate(attributes: method.attributes.safeDeclarations,
@@ -105,17 +105,17 @@ class MethodTemplate: Template {
   }()
   
   var overridableUniqueDeclaration: String {
-    return "\(fullNameForMocking)\(returnTypeAttributesForMocking) -> \(declarationReturnType)\(genericConstraints)"
+    return "\(fullNameForMocking)\(returnTypeAttributesForMocking) -> \(mockableReturnType)\(genericConstraints)"
   }
   
   lazy var uniqueDeclaration: String = { return overridableUniqueDeclaration }()
   
   /// Methods synthesized specifically for the stubbing and verification APIs.
   var synthesizedDeclarations: String {
-    let invocationType = "(\(separated: matchableParameterTypes)) \(returnTypeAttributesForMatching)-> \(returnType)"
+    let invocationType = "(\(separated: matchableParameterTypes)) \(returnTypeAttributesForMatching)-> \(matchableReturnType)"
     
     var methods = [String]()
-    let genericTypes = [declarationTypeForMocking, invocationType, returnType]
+    let genericTypes = [declarationTypeForMocking, invocationType, matchableReturnType]
     let returnType = "Mockingbird.Mockable<\(separated: genericTypes)>"
     
     let declaration = "public \(regularModifiers)func \(fullNameForMatching) -> \(returnType)"
@@ -258,7 +258,7 @@ class MethodTemplate: Template {
       additionalParameters = ["__file: StaticString = #file", "__line: UInt = #line"]
     } else if mode.variant == .subscriptSetter {
       let closureType = mode.isMatching ? "@escaping @autoclosure () -> " : ""
-      additionalParameters = ["`newValue`: \(closureType)\(returnType)"]
+      additionalParameters = ["`newValue`: \(closureType)\(matchableReturnType)"]
     } else {
       additionalParameters = []
     }
@@ -296,7 +296,7 @@ class MethodTemplate: Template {
       arguments: [
         ("selectorName", "\(doubleQuoted: uniqueDeclaration)"),
         ("arguments", "[\(separated: mockArgumentMatchers)]"),
-        ("returnType", "Swift.ObjectIdentifier(\(parenthetical: returnType).self)"),
+        ("returnType", "Swift.ObjectIdentifier(\(parenthetical: matchableReturnType).self)"),
       ]).render()
   }()
   
@@ -307,7 +307,7 @@ class MethodTemplate: Template {
       arguments: [
         ("selectorName", "\(doubleQuoted: uniqueDeclaration)"),
         ("arguments", "[\(matchers)]"),
-        ("returnType", "Swift.ObjectIdentifier(\(parenthetical: returnType).self)"),
+        ("returnType", "Swift.ObjectIdentifier(\(parenthetical: matchableReturnType).self)"),
       ]).render()
   }
   
@@ -375,27 +375,27 @@ class MethodTemplate: Template {
     let parameterTypes = method.parameters.map({
       $0.matchableTypeName(context: self, bridgeVariadics: false)
     })
-    return "(\(separated: parameterTypes))\(modifiers) -> \(returnType)"
+    return "(\(separated: parameterTypes))\(modifiers) -> \(matchableReturnType)"
   }()
   
   /// General function signature for matching.
   lazy var longSignature: String = {
     let modifiers = method.isThrowing ? " throws" : ""
-    return "(\(separated: matchableParameterTypes))\(modifiers) -> \(returnType)"
+    return "(\(separated: matchableParameterTypes))\(modifiers) -> \(matchableReturnType)"
   }()
   
   /// Convenience function signature for matching without any arguments.
   lazy var shortSignature: String = {
     let modifiers = method.isThrowing ? " throws" : ""
-    return "()\(modifiers) -> \(returnType)"
+    return "()\(modifiers) -> \(matchableReturnType)"
   }()
   
-  lazy var declarationReturnType: String = {
+  lazy var mockableReturnType: String = {
     return context.specializeTypeName(method.returnTypeName)
   }()
   
-  lazy var returnType: String = {
-    return declarationReturnType.removingImplicitlyUnwrappedOptionals()
+  lazy var matchableReturnType: String = {
+    return mockableReturnType.removingImplicitlyUnwrappedOptionals()
   }()
   
   lazy var mockableParameterTypes: [String] = {

@@ -20,10 +20,9 @@ private protocol StubbableThrowingProtocol: Mock {
 extension ThrowingProtocolMock: StubbableThrowingProtocol {}
 
 private protocol StubbableRethrowingProtocol: RethrowingProtocol, Mock {
-  // @nocommit
   func rethrowingMethod(block: @escaping @autoclosure () -> () throws -> Bool)
-    -> Mockable<ThrowingFunctionDeclaration, (() throws -> Bool) throws -> Void, Void>
+    -> Mockable<FunctionDeclaration, (() throws -> Bool) throws -> Void, Void>
   func rethrowingMethod(block: @escaping @autoclosure () -> () throws -> Bool)
-    -> Mockable<ThrowingFunctionDeclaration, (() throws -> Bool) throws -> Bool, Bool>
+    -> Mockable<FunctionDeclaration, (() throws -> Bool) throws -> Bool, Bool>
 }
 extension RethrowingProtocolMock: StubbableRethrowingProtocol {}

@@ -39,7 +39,7 @@ class VariableTemplate: Template {
       arguments: [
         ("selectorName", "\(doubleQuoted: getterName)"),
         ("arguments", "[]"),
-        ("returnType", "Swift.ObjectIdentifier(\(parenthetical: unwrappedSpecializedTypeName).self)"),
+        ("returnType", "Swift.ObjectIdentifier(\(parenthetical: matchableType).self)"),
       ]).render()
   }()
   
@@ -66,10 +66,32 @@ class VariableTemplate: Template {
   var mockedDeclaration: String {
     let getterDefinition = PropertyDefinitionTemplate(
       type: .getter,
-      body: MockableTypeTemplate.Constants.thunkStub)
+      body: !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub :
+        ThunkTemplate(mockableType: context.mockableType,
+                      invocation: getterInvocation,
+                      shortSignature: nil,
+                      longSignature: "() -> \(matchableType)",
+                      returnTypeName: matchableType,
+                      isThrowing: false,
+                      isStatic: variable.kind.typeScope.isStatic,
+                      callMember: { scope in
+                        return "\(scope).\(backticked: self.variable.name)"
+                      },
+                      invocationArguments: []).render())
     let setterDefinition = PropertyDefinitionTemplate(
       type: .setter,
-      body: MockableTypeTemplate.Constants.thunkStub)
+      body: !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub :
+        ThunkTemplate(mockableType: context.mockableType,
+                      invocation: mockableSetterInvocation,
+                      shortSignature: "() -> Void",
+                      longSignature: "\(parenthetical: matchableType) -> Void",
+                      returnTypeName: "Void",
+                      isThrowing: false,
+                      isStatic: variable.kind.typeScope.isStatic,
+                      callMember: { scope in
+                        return "\(scope).\(backticked: self.variable.name) = newValue"
+                      },
+                      invocationArguments: [(nil, "newValue")]).render())
   
     let accessors = !shouldGenerateSetter ? [getterDefinition.render()] : [
       getterDefinition.render(),
@@ -77,7 +99,7 @@ class VariableTemplate: Template {
     ]
     
     let override = variable.isOverridable ? "override " : ""
-    let declaration = "\(override)public \(modifiers)var \(backticked: variable.name): \(specializedTypeName)"
+    let declaration = "\(override)public \(modifiers)var \(backticked: variable.name): \(mockableType)"
     return String(lines: [
       "// MARK: Mocked \(variable.name)",
       VariableDefinitionTemplate(attributes: variable.attributes.safeDeclarations,
@@ -87,12 +109,11 @@ class VariableTemplate: Template {
   }
   
   var synthesizedDeclarations: String {
-    let typeName = unwrappedSpecializedTypeName
     let getterGenericTypes = ["\(Declaration.propertyGetterDeclaration)",
-                              "() -> \(typeName)",
-                              typeName]
+                              "() -> \(matchableType)",
+                              matchableType]
     let setterGenericTypes = ["\(Declaration.propertySetterDeclaration)",
-                              "(\(typeName)) -> Void",
+                              "(\(matchableType)) -> Void",
                               "Void"]
     
     let getterReturnType = "Mockingbird.Mockable<\(separated: getterGenericTypes)>"
@@ -109,7 +130,7 @@ class VariableTemplate: Template {
     let setterReturnType = "Mockingbird.Mockable<\(separated: setterGenericTypes)>"
     let setterDefinition = FunctionDefinitionTemplate(
       attributes: variable.attributes.safeDeclarations,
-      declaration: "public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> \(setterReturnType)",
+      declaration: "public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(matchableType)) -> \(setterReturnType)",
       body: !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub : """
       return \(ObjectInitializationTemplate(
                 name: "Mockingbird.Mockable",
@@ -124,10 +145,6 @@ class VariableTemplate: Template {
     return String(lines: accessors, spacing: 2)
   }
   
-  lazy var declarationAttributes: String = {
-    return String(list: variable.attributes.safeDeclarations)
-  }()
-  
   lazy var modifiers: String = {
     return variable.kind.typeScope.isStatic ? "class " : ""
   }()
@@ -136,15 +153,22 @@ class VariableTemplate: Template {
     return variable.kind.typeScope.isStatic ? "staticMock" : "self"
   }()
   
-  lazy var getterName: String = { return "\(variable.name).get" }()
-  lazy var setterName: String = { return "\(variable.name).set" }()
+  // Keep this in sync with `MockingbirdFramework.Invocation.Constants.getterSuffix`
+  lazy var getterName: String = {
+    return "\(variable.name).getter"
+  }()
   
-  lazy var specializedTypeName: String = {
+  // Keep this in sync with `MockingbirdFramework.Invocation.Constants.setterSuffix`
+  lazy var setterName: String = {
+    return "\(variable.name).setter"
+  }()
+  
+  lazy var mockableType: String = {
     return context.specializeTypeName(variable.typeName)
   }()
   
-  lazy var unwrappedSpecializedTypeName: String = {
-    return specializedTypeName.removingImplicitlyUnwrappedOptionals()
+  lazy var matchableType: String = {
+    return mockableType.removingImplicitlyUnwrappedOptionals()
   }()
   
   lazy var capitalizedName: String = {

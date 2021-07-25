@@ -127,8 +127,10 @@ struct SwiftInvocation: Invocation {
   }
   
   enum Constants {
-    static let getterSuffix = ".get"
-    static let setterSuffix = ".set"
+    // Keep this in sync with `MockingbirdGenerator.VariableTemplate.getterName`
+    static let getterSuffix = ".getter"
+    // Keep this in sync with `MockingbirdGenerator.VariableTemplate.setterName`
+    static let setterSuffix = ".setter"
     
     static let getterPrefix = "get"
     static let setterPrefix = "set"
@@ -148,7 +150,8 @@ struct SwiftInvocation: Invocation {
   
   func toSetter() -> Self? {
     guard isGetter else { return nil }
-    let setterSelectorName = String(selectorName.dropLast(4) + Constants.setterSuffix)
+    let setterSelectorName = String(selectorName.dropLast(Constants.setterSuffix.count))
+      + Constants.setterSuffix
     let matcher = ArgumentMatcher(description: "any()", priority: .high) { return true }
     return Self(selectorName: setterSelectorName,
                 arguments: [matcher],

@@ -17,10 +17,10 @@ class SubscriptMethodTemplate: MethodTemplate {
       arguments: [
         ("selectorName", "\(doubleQuoted: uniqueDeclarationForSubscriptGetter)"),
         ("arguments", "[\(separated: mockArgumentMatchers)]"),
-        ("returnType", "Swift.ObjectIdentifier(\(parenthetical: returnType).self)"),
+        ("returnType", "Swift.ObjectIdentifier(\(parenthetical: matchableReturnType).self)"),
       ])
     
-    let setterArguments = mockArgumentMatchers + ["Mockingbird.ArgumentMatcher(`newValue`)"]
+    let setterArguments = mockArgumentMatchers + ["Mockingbird.ArgumentMatcher(newValue)"]
     let setterInvocation = ObjectInitializationTemplate(
       name: "Mockingbird.SwiftInvocation",
       arguments: [
@@ -48,11 +48,11 @@ class SubscriptMethodTemplate: MethodTemplate {
     let setterShortSignature = method.parameters.isEmpty ? nil : """
     ()\(method.isThrowing ? " throws" : "") -> Void
     """
-    let setterParameterTypes = matchableParameterTypes + [returnType]
+    let setterParameterTypes = matchableParameterTypes + [matchableReturnType]
     let setterLongSignature = """
     (\(separated: setterParameterTypes))\(method.isThrowing ? " throws" : "") -> Void
     """
-    let setterInvocationArguments = invocationArguments + [("newValue", "`newValue`")]
+    let setterInvocationArguments = invocationArguments + [(nil, "newValue")]
     let setterDefinition = PropertyDefinitionTemplate(
       type: .setter,
       body: !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub :
@@ -78,7 +78,7 @@ class SubscriptMethodTemplate: MethodTemplate {
   }
   
   override var synthesizedDeclarations: String {
-    let getterReturnType = returnType
+    let getterReturnType = matchableReturnType
     let setterReturnType = "Void"
     
     let modifiers = method.isThrowing ? " throws" : ""
@@ -87,7 +87,7 @@ class SubscriptMethodTemplate: MethodTemplate {
     (\(separated: matchableParameterTypes))\(modifiers) -> \(getterReturnType)
     """
     
-    let setterParameterTypes = matchableParameterTypes + [returnType]
+    let setterParameterTypes = matchableParameterTypes + [matchableReturnType]
     let setterInvocationType = """
     (\(separated: setterParameterTypes))\(modifiers) -> \(setterReturnType)
     """
@@ -125,7 +125,7 @@ class SubscriptMethodTemplate: MethodTemplate {
     let variant: FunctionVariant = isGetter ? .subscriptGetter : .subscriptSetter
     let name = fullName(for: .matching(useVariadics: isVariadic, variant: variant))
     let namePrefix = isGetter ? "get" : "set"
-    let returnType = isGetter ? "\(parenthetical: returnType)" : "Void"
+    let returnType = isGetter ? "\(parenthetical: matchableReturnType)" : "Void"
     let selectorName = isGetter ?
       uniqueDeclarationForSubscriptGetter : uniqueDeclarationForSubscriptSetter
     
@@ -164,12 +164,12 @@ class SubscriptMethodTemplate: MethodTemplate {
   
   lazy var uniqueDeclarationForSubscriptGetter: String = {
     let fullName = self.fullName(for: .mocking(variant: .subscriptGetter))
-    return "get.\(fullName)\(returnTypeAttributesForMocking) -> \(declarationReturnType)\(genericConstraints)"
+    return "get.\(fullName)\(returnTypeAttributesForMocking) -> \(mockableReturnType)\(genericConstraints)"
   }()
   
   lazy var uniqueDeclarationForSubscriptSetter: String = {
     let fullName = self.fullName(for: .mocking(variant: .subscriptSetter))
-    return "set.\(fullName)\(returnTypeAttributesForMocking) -> \(declarationReturnType)\(genericConstraints)"
+    return "set.\(fullName)\(returnTypeAttributesForMocking) -> \(mockableReturnType)\(genericConstraints)"
   }()
   
   lazy var resolvedArgumentMatchersForSubscriptSetter: String = {

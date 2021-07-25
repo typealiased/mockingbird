@@ -410,52 +410,50 @@ class StubbingTests: BaseTestCase {
     XCTAssertTrue(try rethrowingProtocolInstance.rethrowingMethod(block: { throw FakeError() }))
     verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Bool.self).wasCalled()
   }
-  // @nocommit
-//  func testStubRethrowingReturningMethod_returnsValueFromBlock() {
-//    given(rethrowingProtocol.rethrowingMethod(block: any())) ~> { return try $0() }
-//    XCTAssertTrue(rethrowingProtocolInstance.rethrowingMethod(block: { return true }))
-//    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Bool.self).wasCalled()
-//  }
-//  func testStubRethrowingReturningMethod_rethrowsError() {
-//    given(rethrowingProtocol.rethrowingMethod(block: any())) ~> { return try $0() }
-//    XCTAssertThrowsError(try rethrowingProtocolInstance.rethrowingMethod(block: {
-//      throw FakeError()
-//    }) as Bool)
-//    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Bool.self).wasCalled()
-//  }
-//  func testStubRethrowingNonReturningMethod_rethrowsError() {
-//    given(rethrowingProtocol.rethrowingMethod(block: any())) ~> { _ = try $0() }
-//    XCTAssertThrowsError(try rethrowingProtocolInstance.rethrowingMethod(block: {
-//      throw FakeError()
-//    }) as Void)
-//    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Void.self).wasCalled()
-//  }
+  func testStubRethrowingReturningMethod_returnsValueFromBlock() {
+    given(rethrowingProtocol.rethrowingMethod(block: any())) ~> { return try $0() }
+    XCTAssertTrue(rethrowingProtocolInstance.rethrowingMethod(block: { return true }))
+    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Bool.self).wasCalled()
+  }
+  func testStubRethrowingReturningMethod_rethrowsError() {
+    given(rethrowingProtocol.rethrowingMethod(block: any())) ~> { return try $0() }
+    XCTAssertThrowsError(try rethrowingProtocolInstance.rethrowingMethod(block: {
+      throw FakeError()
+    }) as Bool)
+    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Bool.self).wasCalled()
+  }
+  func testStubRethrowingNonReturningMethod_rethrowsError() {
+    given(rethrowingProtocol.rethrowingMethod(block: any())) ~> { _ = try $0() }
+    XCTAssertThrowsError(try rethrowingProtocolInstance.rethrowingMethod(block: {
+      throw FakeError()
+    }) as Void)
+    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Void.self).wasCalled()
+  }
   
   func testStubRethrowingReturningMethod_returnsValue_explicitSyntax() {
     given(rethrowingProtocol.rethrowingMethod(block: any())).willReturn(true)
     XCTAssertTrue(try rethrowingProtocolInstance.rethrowingMethod(block: { throw FakeError() }))
     verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Bool.self).wasCalled()
   }
-  // @nocommit
-//  func testStubRethrowingReturningMethod_returnsValueFromBlock_explicitSyntax() {
-//    given(rethrowingProtocol.rethrowingMethod(block: any())).will { return try $0() }
-//    XCTAssertTrue(rethrowingProtocolInstance.rethrowingMethod(block: { return true }))
-//    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Bool.self).wasCalled()
-//  }
-//  func testStubRethrowingReturningMethod_rethrowsError_explicitSyntax() {
-//    given(rethrowingProtocol.rethrowingMethod(block: any())).will { return try $0() }
-//    XCTAssertThrowsError(try rethrowingProtocolInstance.rethrowingMethod(block: {
-//      throw FakeError()
-//    }) as Bool)
-//    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Bool.self).wasCalled()
-//  }
-//  func testStubRethrowingNonReturningMethod_rethrowsError_explicitSyntax() {
-//    given(rethrowingProtocol.rethrowingMethod(block: any())).will { _ = try $0() }
-//    XCTAssertThrowsError(try rethrowingProtocolInstance.rethrowingMethod(block: {
-//      throw FakeError()
-//    }) as Void)
-//    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Void.self).wasCalled()
-//  }
+  func testStubRethrowingReturningMethod_returnsValueFromBlock_explicitSyntax() {
+    given(rethrowingProtocol.rethrowingMethod(block: any())).will { return try $0() }
+    XCTAssertTrue(rethrowingProtocolInstance.rethrowingMethod(block: { return true }))
+    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Bool.self).wasCalled()
+  }
+  func testStubRethrowingReturningMethod_rethrowsError_explicitSyntax() {
+    given(rethrowingProtocol.rethrowingMethod(block: any())).will { return try $0() }
+    XCTAssertThrowsError(try rethrowingProtocolInstance.rethrowingMethod(block: {
+      throw FakeError()
+    }) as Bool)
+    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Bool.self).wasCalled()
+  }
+  func testStubRethrowingNonReturningMethod_rethrowsError_explicitSyntax() {
+    given(rethrowingProtocol.rethrowingMethod(block: any())).will { _ = try $0() }
+    XCTAssertThrowsError(try rethrowingProtocolInstance.rethrowingMethod(block: {
+      throw FakeError()
+    }) as Void)
+    verify(rethrowingProtocol.rethrowingMethod(block: any())).returning(Void.self).wasCalled()
+  }
   
   // MARK: Inout parameters
   
