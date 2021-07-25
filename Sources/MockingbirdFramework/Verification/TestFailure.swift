@@ -145,6 +145,10 @@ private extension Array where Element == StackTrace.Frame {
 
 private extension Invocation {
   var mockableExampleInvocation: String {
-    return declarationIdentifier + "(" + (arguments.isEmpty ? "" : "…") + ")"
+    if isMethod {
+      return declarationIdentifier + "(" + (arguments.isEmpty ? "" : "…") + ")"
+    } else {
+      return declarationIdentifier + (isSetter ? " = any()" : "")
+    }
   }
 }

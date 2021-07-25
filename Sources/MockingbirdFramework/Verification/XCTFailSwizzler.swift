@@ -49,12 +49,7 @@ public func MKBFail(_ message: String, isFatal: Bool = false,
 
 private class StandardTestFailer: TestFailer {
   func fail(message: String, isFatal: Bool, file: StaticString, line: UInt) {
-    _ = isFatal ? TestKiller() : nil
-    if Thread.current.isMainThread {
-      XCTFail(message, file: file, line: line)
-    } else {
-      DispatchQueue.main.sync { XCTFail(message, file: file, line: line) }
-    }
+    XCTFail(message, file: file, line: line)
   }
 }
 

@@ -73,7 +73,7 @@ func createAsyncContext(description: String?, block scope: () -> Void) -> XCTest
     })
   }
   
-  let queue = DispatchQueue(label: "co.bird.mockingbird.async-verification-scope")
+  let queue = DispatchQueue(label: "co.bird.mockingbird.verify.eventually")
   queue.setSpecific(key: ExpectationGroup.contextKey, value: group)
   queue.sync { scope() }
   

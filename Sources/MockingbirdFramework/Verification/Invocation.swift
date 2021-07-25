@@ -112,12 +112,11 @@ struct SwiftInvocation: Invocation {
       return String(unwrappedSelectorName[..<endIndex])
     }
     
-    let propertyName = unwrappedSelectorName
+    // Extract the property name.
+    return unwrappedSelectorName
       .components(separatedBy: ".")
       .dropLast()
       .joined(separator: ".")
-    return (isGetter ? Constants.getterPrefix : Constants.setterPrefix) +
-      propertyName.prefix(1).uppercased() + propertyName.dropFirst()
   }
 
   var description: String {

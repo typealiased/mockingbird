@@ -36,8 +36,11 @@ import XCTest
     } else {
       MKBFail("\(error)", isFatal: true)
     }
-    // Usually test execution has stopped by this point, but unfortunately there's no workaround for
-    // invocations called on background threads.
+    
+    // Raise an Objective-C exception to stop the test runner.
+    mkb_fail_test("\(error)")
+    
+    // Usually test execution has stopped by this point.
     fatalError("Missing stubbed implementation for \(invocation)")
   }
   

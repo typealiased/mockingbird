@@ -14,4 +14,6 @@ id mkb_mock(id aType);
 id mkb_mockClass(Class aClass);
 id mkb_mockProtocol(id aProtocol);
 
+void mkb_fail_test(NSString *reason);
+
 NS_ASSUME_NONNULL_END

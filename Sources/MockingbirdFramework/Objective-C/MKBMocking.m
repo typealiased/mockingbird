@@ -26,3 +26,10 @@ id mkb_mockClass(Class aClass) {
 id mkb_mockProtocol(id aProtocol) {
   return [[MKBProtocolMock alloc] initWithProtocol:aProtocol];
 }
+
+void mkb_fail_test(NSString *reason)
+{
+  @throw [NSException exceptionWithName:@"co.bird.mockingbird.TestFailure"
+                                 reason:reason
+                               userInfo:nil];
+}

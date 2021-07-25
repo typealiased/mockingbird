@@ -20,8 +20,8 @@ private class ResolutionContext: Thread {
   let semaphore: DispatchSemaphore
   
   private enum Constants {
-    static let resultKey = "co.bird.mockingbird.resolution-context.result"
-    static let semaphoreKey = "co.bird.mockingbird.resolution-context.semaphore"
+    static let resultKey = "co.bird.mockingbird.ResolutionContext.result"
+    static let semaphoreKey = "co.bird.mockingbird.ResolutionContext.semaphore"
   }
   
   class Result {

@@ -22,7 +22,7 @@ struct InvocationRecord {
   }
   
   enum Constants {
-    static let recorderKey = "co.bird.mockingbird.invocation-recorder"
+    static let recorderKey = "co.bird.mockingbird.InvocationRecorder"
   }
   
   private(set) var value: InvocationRecord?
