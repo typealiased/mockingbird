@@ -22,10 +22,10 @@ struct FunctionDefinitionTemplate: Template {
     self.genericConstraints = genericConstraints
     self.body = body
   }
-  
+
   func render() -> String {
     let genericConstraintsString = genericConstraints.isEmpty ? "" :
-      (" where " + genericConstraints.joined(separator: ", ") )
+      " where \(separated: genericConstraints)"
     return String(lines: [
       attributes.filter({ !$0.isEmpty }).joined(separator: " "),
       declaration + genericConstraintsString + " " + BlockTemplate(body: body).render()

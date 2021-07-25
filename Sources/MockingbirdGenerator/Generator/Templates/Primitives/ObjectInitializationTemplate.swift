@@ -24,8 +24,7 @@ struct ObjectInitializationTemplate: Template {
   }
   
   func render() -> String {
-    let genericTypesString = genericTypes.isEmpty ? "" :
-      ("<" + genericTypes.joined(separator: ", ") + ">")
-    return name + genericTypesString + "(" + arguments.joined(separator: ", ") + ")"
+    let genericTypesString = genericTypes.isEmpty ? "" : "<\(separated: genericTypes)>"
+    return "\(name)\(genericTypesString)(\(separated: arguments))"
   }
 }

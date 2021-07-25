@@ -20,22 +20,24 @@ import Foundation
   }
   
   /// Invoke a thunk that can throw.
-  func didInvoke<T>(_ invocation: Invocation, evaluating thunk: () throws -> T) rethrows -> T {
+  func didInvoke<T, I: Invocation>(_ invocation: I,
+                                   evaluating thunk: (I) throws -> T) rethrows -> T {
     // Ensures that the thunk is evaluated prior to recording the invocation.
     defer { didInvoke(invocation) }
-    return (try thunk())
+    return try thunk(invocation)
   }
   
   /// Invoke a non-throwing thunk.
-  func didInvoke<T>(_ invocation: Invocation, evaluating thunk: () -> T) -> T {
+  func didInvoke<T, I: Invocation>(_ invocation: I, evaluating thunk: (I) -> T) -> T {
     // Ensures that the thunk is evaluated prior to recording the invocation.
     defer { didInvoke(invocation) }
-    return thunk()
+    return thunk(invocation)
   }
   
   /// Invoke a thunk from Objective-C.
-  @objc public func didInvoke(_ invocation: ObjCInvocation, evaluating thunk: () -> Any?) -> Any? {
-    return didInvoke(invocation as Invocation, evaluating: thunk)
+  @objc public func objcDidInvoke(_ invocation: ObjCInvocation,
+                                  evaluating thunk: (ObjCInvocation) -> Any?) -> Any? {
+    return didInvoke(invocation, evaluating: thunk)
   }
     
   func didInvoke(_ invocation: Invocation) {

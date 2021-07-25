@@ -14,6 +14,7 @@ protocol ThrowingProtocol {
 }
 
 protocol RethrowingProtocol {
-  func rethrowingMethod(block: () throws -> Bool) rethrows
-  func rethrowingMethod(block: () throws -> Bool) rethrows -> Bool
+  // @nocommit
+  func rethrowingMethod(block: () throws -> Bool) throws
+  func rethrowingMethod(block: () throws -> Bool) throws -> Bool
 }

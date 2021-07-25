@@ -13,53 +13,46 @@ import Mockingbird
 class LastSetValueStubTests: XCTestCase {
   
   var child: ChildProtocolMock!
+  var concreteChild: ChildProtocol!
   
   override func setUp() {
     child = MockingbirdTests.mock(ChildProtocol.self)
-  }
-  
-  func getInstanceVariable(for child: ChildProtocol) -> Bool {
-    return child.childInstanceVariable
-  }
-  
-  func setInstanceVariable(for child: ChildProtocol, to value: Bool) {
-    var childCopy = child
-    childCopy.childInstanceVariable = value
+    concreteChild = child as ChildProtocol
   }
   
   func testLastSetValueStub_returnsInitialValue() {
     given(child.getChildInstanceVariable()) ~> lastSetValue(initial: false)
-    XCTAssertFalse(getInstanceVariable(for: child))
+    XCTAssertFalse(concreteChild.childInstanceVariable)
   }
   
   func testLastSetValueStub_returnsInitialValue_explicitSyntax() {
     given(child.getChildInstanceVariable()).willReturn(lastSetValue(initial: false))
-    XCTAssertFalse(getInstanceVariable(for: child))
+    XCTAssertFalse(concreteChild.childInstanceVariable)
   }
   
   func testLastSetValueStub_returnsLastSetValue() {
     given(child.getChildInstanceVariable()) ~> lastSetValue(initial: false)
-    setInstanceVariable(for: child, to: true)
-    XCTAssertTrue(getInstanceVariable(for: child))
+    concreteChild.childInstanceVariable = true
+    XCTAssertTrue(concreteChild.childInstanceVariable)
   }
   
   func testLastSetValueStub_returnsLastSetValue_explicitSyntax() {
     given(child.getChildInstanceVariable()).willReturn(lastSetValue(initial: false))
-    setInstanceVariable(for: child, to: true)
-    XCTAssertTrue(getInstanceVariable(for: child))
+    concreteChild.childInstanceVariable = true
+    XCTAssertTrue(concreteChild.childInstanceVariable)
   }
   
   func testLastSetValueStub_settingValueOverridesLastSetValue() {
     given(child.getChildInstanceVariable()) ~> lastSetValue(initial: false)
-    setInstanceVariable(for: child, to: true)
-    setInstanceVariable(for: child, to: false)
-    XCTAssertFalse(getInstanceVariable(for: child))
+    concreteChild.childInstanceVariable = true
+    concreteChild.childInstanceVariable = false
+    XCTAssertFalse(concreteChild.childInstanceVariable)
   }
   
   func testLastSetValueStub_settingValueOverridesLastSetValue_explicitSyntax() {
     given(child.getChildInstanceVariable()).willReturn(lastSetValue(initial: false))
-    setInstanceVariable(for: child, to: true)
-    setInstanceVariable(for: child, to: false)
-    XCTAssertFalse(getInstanceVariable(for: child))
+    concreteChild.childInstanceVariable = true
+    concreteChild.childInstanceVariable = false
+    XCTAssertFalse(concreteChild.childInstanceVariable)
   }
 }

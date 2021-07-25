@@ -19,8 +19,8 @@ struct ProxyContext {
     targets.update { $0.append(target) }
   }
   
-  func updateTarget(_ target: Target, at index: Int) {
-    targets.update { $0[index] = target }
+  func updateTarget<T>(_ target: inout T, at index: Int) {
+    targets.update { $0[index] = .object(target) }
   }
   
   func clearTargets() {

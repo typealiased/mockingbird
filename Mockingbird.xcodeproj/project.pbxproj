@@ -101,8 +101,6 @@
 		2896E52026A80E1C00124D02 /* ArgumentIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E51F26A80E1C00124D02 /* ArgumentIndex.swift */; };
 		2896E52226A89BC100124D02 /* Declaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E52126A89BC100124D02 /* Declaration.swift */; };
 		2896E52426A89BF900124D02 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E52326A89BF900124D02 /* Context.swift */; };
-		2896E52A26A8A9E300124D02 /* Proxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E52926A8A9E300124D02 /* Proxy.swift */; };
-		2896E52E26A8AE2B00124D02 /* Context+Proxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E52D26A8AE2B00124D02 /* Context+Proxy.swift */; };
 		2896E53026A8E1CD00124D02 /* ProxyContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E52F26A8E1CC00124D02 /* ProxyContext.swift */; };
 		2896E53426A91D0400124D02 /* String+GeneratorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E53326A91D0400124D02 /* String+GeneratorUtils.swift */; };
 		2896E53626A91EFE00124D02 /* FunctionCallTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E53526A91EFE00124D02 /* FunctionCallTemplate.swift */; };
@@ -111,6 +109,11 @@
 		2896E53B26A9439000124D02 /* PropertyDefinitionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E53A26A9439000124D02 /* PropertyDefinitionTemplate.swift */; };
 		2896E53D26A949F400124D02 /* VariableDefinitionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E53C26A949F400124D02 /* VariableDefinitionTemplate.swift */; };
 		2896E53F26A9661B00124D02 /* ClosureTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E53E26A9661B00124D02 /* ClosureTemplate.swift */; };
+		28A1F3B226AC857B002F282D /* ThunkTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3B126AC857B002F282D /* ThunkTemplate.swift */; };
+		28A1F3B426AC85C8002F282D /* IfStatementTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3B326AC85C8002F282D /* IfStatementTemplate.swift */; };
+		28A1F3B626AC9007002F282D /* SwitchStatementTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3B526AC9007002F282D /* SwitchStatementTemplate.swift */; };
+		28A1F3B826AC91D3002F282D /* ForInStatementTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3B726AC91D3002F282D /* ForInStatementTemplate.swift */; };
+		28A1F3BA26AC9D06002F282D /* GuardStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3B926AC9D06002F282D /* GuardStatement.swift */; };
 		28C8E5DB26A64D6C00C68A1D /* MKBInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */; };
 		28C8E5DC26A64D6C00C68A1D /* MKBInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */; };
 		28DAD96E251BDD66001A0B3F /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DAD96D251BDD66001A0B3F /* Project.swift */; };
@@ -537,8 +540,6 @@
 		2896E51F26A80E1C00124D02 /* ArgumentIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentIndex.swift; sourceTree = "<group>"; };
 		2896E52126A89BC100124D02 /* Declaration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Declaration.swift; sourceTree = "<group>"; };
 		2896E52326A89BF900124D02 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
-		2896E52926A8A9E300124D02 /* Proxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proxy.swift; sourceTree = "<group>"; };
-		2896E52D26A8AE2B00124D02 /* Context+Proxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Context+Proxy.swift"; sourceTree = "<group>"; };
 		2896E52F26A8E1CC00124D02 /* ProxyContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyContext.swift; sourceTree = "<group>"; };
 		2896E53126A91AB300124D02 /* FunctionDefinitionTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionDefinitionTemplate.swift; sourceTree = "<group>"; };
 		2896E53326A91D0400124D02 /* String+GeneratorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+GeneratorUtils.swift"; sourceTree = "<group>"; };
@@ -547,6 +548,11 @@
 		2896E53A26A9439000124D02 /* PropertyDefinitionTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDefinitionTemplate.swift; sourceTree = "<group>"; };
 		2896E53C26A949F400124D02 /* VariableDefinitionTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableDefinitionTemplate.swift; sourceTree = "<group>"; };
 		2896E53E26A9661B00124D02 /* ClosureTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureTemplate.swift; sourceTree = "<group>"; };
+		28A1F3B126AC857B002F282D /* ThunkTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThunkTemplate.swift; sourceTree = "<group>"; };
+		28A1F3B326AC85C8002F282D /* IfStatementTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfStatementTemplate.swift; sourceTree = "<group>"; };
+		28A1F3B526AC9007002F282D /* SwitchStatementTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchStatementTemplate.swift; sourceTree = "<group>"; };
+		28A1F3B726AC91D3002F282D /* ForInStatementTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForInStatementTemplate.swift; sourceTree = "<group>"; };
+		28A1F3B926AC9D06002F282D /* GuardStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardStatement.swift; sourceTree = "<group>"; };
 		28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBInvocationHandler.h; sourceTree = "<group>"; };
 		28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBInvocationHandler.m; sourceTree = "<group>"; };
 		28DAD96D251BDD66001A0B3F /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -916,11 +922,15 @@
 			children = (
 				284C3B4226AACD5700F076E2 /* BlockTemplate.swift */,
 				2896E53E26A9661B00124D02 /* ClosureTemplate.swift */,
-				2896E53126A91AB300124D02 /* FunctionDefinitionTemplate.swift */,
-				284C3B3F26AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift */,
+				28A1F3B726AC91D3002F282D /* ForInStatementTemplate.swift */,
 				2896E53526A91EFE00124D02 /* FunctionCallTemplate.swift */,
+				2896E53126A91AB300124D02 /* FunctionDefinitionTemplate.swift */,
+				28A1F3B926AC9D06002F282D /* GuardStatement.swift */,
+				28A1F3B326AC85C8002F282D /* IfStatementTemplate.swift */,
+				284C3B3F26AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift */,
 				2896E53826A929F600124D02 /* ObjectInitializationTemplate.swift */,
 				2896E53A26A9439000124D02 /* PropertyDefinitionTemplate.swift */,
+				28A1F3B526AC9007002F282D /* SwitchStatementTemplate.swift */,
 				2896E53C26A949F400124D02 /* VariableDefinitionTemplate.swift */,
 			);
 			path = Primitives;
@@ -1462,11 +1472,9 @@
 			isa = PBXGroup;
 			children = (
 				2896E52326A89BF900124D02 /* Context.swift */,
-				2896E52D26A8AE2B00124D02 /* Context+Proxy.swift */,
 				2896E52126A89BC100124D02 /* Declaration.swift */,
 				OBJ_37 /* Mocking.swift */,
 				OBJ_38 /* MockingContext.swift */,
-				2896E52926A8A9E300124D02 /* Proxy.swift */,
 				2896E52F26A8E1CC00124D02 /* ProxyContext.swift */,
 				284C3B4726AAD05C00F076E2 /* GenericStaticMockContext.swift */,
 			);
@@ -1617,6 +1625,7 @@
 				OBJ_73 /* MethodTemplate.swift */,
 				OBJ_74 /* MockableTypeInitializerTemplate.swift */,
 				OBJ_75 /* MockableTypeTemplate.swift */,
+				28A1F3B126AC857B002F282D /* ThunkTemplate.swift */,
 				OBJ_76 /* SubscriptMethodTemplate.swift */,
 				OBJ_77 /* Template.swift */,
 				OBJ_78 /* VariableTemplate.swift */,
@@ -1963,7 +1972,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\n${BUILT_PRODUCTS_DIR}/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' 'MockingbirdShadowedTestsHost' \\\n  --outputs \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift\" \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdShadowedTestsHostMocks.generated.swift\" \\\n  --support \"${SRCROOT}/Sources/MockingbirdSupport\" \\\n  --diagnostics all \\\n  --disable-cache \\\n  --prune stub \\\n  --verbose\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-16BC195B-65B7-4763-B2C9-AEA49F30A43A'\n";
+			shellScript = "set -e\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-16BC195B-65B7-4763-B2C9-AEA49F30A43A'\n\n${BUILT_PRODUCTS_DIR}/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' 'MockingbirdShadowedTestsHost' \\\n  --outputs \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift\" \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdShadowedTestsHostMocks.generated.swift\" \\\n  --support \"${SRCROOT}/Sources/MockingbirdSupport\" \\\n  --diagnostics all \\\n  --disable-cache \\\n  --prune stub \\\n  --verbose\n";
 		};
 		D372A59C2455878B0000E80A /* Generate Embedded Dylibs */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2218,14 +2227,12 @@
 				28571AA926A6635F0063AB83 /* MKBPointerInvocationHandler.m in Sources */,
 				287C4F4426A3688100A7E0D9 /* MKBMocking.m in Sources */,
 				OBJ_878 /* Mocking.swift in Sources */,
-				2896E52A26A8A9E300124D02 /* Proxy.swift in Sources */,
 				287C4F6426A3D21D00A7E0D9 /* MonotonicIncreasingIndex.swift in Sources */,
 				287C4F3C26A3547000A7E0D9 /* MKBClassMock.m in Sources */,
 				28571A9526A660460063AB83 /* MKBCStringInvocationHandler.m in Sources */,
 				OBJ_879 /* MockingContext.swift in Sources */,
 				D3E6F67E24844CEA000D1971 /* ExpectationGroup.swift in Sources */,
 				28571AC926A667300063AB83 /* MKBUnsignedShortInvocationHandler.m in Sources */,
-				2896E52E26A8AE2B00124D02 /* Context+Proxy.swift in Sources */,
 				D3E6F67A24844A37000D1971 /* DefaultValues.swift in Sources */,
 				2896E52426A89BF900124D02 /* Context.swift in Sources */,
 				28571ACF26A670E50063AB83 /* MKBComparator.m in Sources */,
@@ -2283,6 +2290,7 @@
 				OBJ_912 /* MockableTypeTemplate.swift in Sources */,
 				2896E53926A929F600124D02 /* ObjectInitializationTemplate.swift in Sources */,
 				OBJ_913 /* SubscriptMethodTemplate.swift in Sources */,
+				28A1F3B226AC857B002F282D /* ThunkTemplate.swift in Sources */,
 				OBJ_914 /* Template.swift in Sources */,
 				D3EC1C092490BB72004E555F /* TargetType.swift in Sources */,
 				OBJ_915 /* VariableTemplate.swift in Sources */,
@@ -2293,10 +2301,12 @@
 				2896E53B26A9439000124D02 /* PropertyDefinitionTemplate.swift in Sources */,
 				D3643B76247C76EA002DF069 /* BuildSetting.swift in Sources */,
 				D3EC1C0B2490BB92004E555F /* SourceTarget.swift in Sources */,
+				28A1F3B826AC91D3002F282D /* ForInStatementTemplate.swift in Sources */,
 				OBJ_919 /* MockableType.swift in Sources */,
 				OBJ_920 /* DeclaredType.swift in Sources */,
 				2896E53D26A949F400124D02 /* VariableDefinitionTemplate.swift in Sources */,
 				OBJ_921 /* ParsedFile.swift in Sources */,
+				28A1F3B426AC85C8002F282D /* IfStatementTemplate.swift in Sources */,
 				D3B410CA248DA35B008913A8 /* TestFileParser.swift in Sources */,
 				OBJ_922 /* Single.swift in Sources */,
 				D3643B6C247B78A5002DF069 /* Function.swift in Sources */,
@@ -2316,9 +2326,11 @@
 				OBJ_932 /* CheckCacheOperation.swift in Sources */,
 				OBJ_933 /* ExtractSourcesOperation.swift in Sources */,
 				OBJ_934 /* FlattenInheritanceOperation.swift in Sources */,
+				28A1F3B626AC9007002F282D /* SwitchStatementTemplate.swift in Sources */,
 				OBJ_935 /* ParseFilesOperation.swift in Sources */,
 				OBJ_936 /* ParseSingleFileOperation.swift in Sources */,
 				OBJ_937 /* ProcessStructuresOperation.swift in Sources */,
+				28A1F3BA26AC9D06002F282D /* GuardStatement.swift in Sources */,
 				OBJ_938 /* ProcessTypesOperation.swift in Sources */,
 				OBJ_939 /* SourceFileAuxiliaryParser.swift in Sources */,
 				OBJ_940 /* CodableTarget.swift in Sources */,

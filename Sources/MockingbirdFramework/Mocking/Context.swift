@@ -62,6 +62,14 @@ public struct MockMetadata {
     self.metadata = MockMetadata()
     self.sourceLocation = nil
   }
+  
+  func recordInvocation(_ invocation: Invocation) {
+    guard let recorder = InvocationRecorder.sharedRecorder else { return }
+    switch recorder.mode {
+    case .none: return
+    case .stubbing, .verifying: recorder.recordInvocation(invocation, context: self)
+    }
+  }
 }
 
 extension NSObjectProtocol {

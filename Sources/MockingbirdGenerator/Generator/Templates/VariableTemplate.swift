@@ -33,53 +33,6 @@ class VariableTemplate: Template {
     return (start, end)
   }
   
-  lazy var getterCallingContext: String = {
-    // Cannot reference the getters directly.
-    let superCall = context.mockableType.kind != .class ? "nil" :
-      ClosureTemplate(body: "super.\(backticked: variable.name)").render()
-    
-    let supertype = variable.kind.typeScope.isStatic ?
-      "MockingbirdSupertype.Type" : "MockingbirdSupertype"
-    let proxyFunction = ClosureTemplate(body: "target.\(backticked: variable.name)")
-    
-    // Unable to specialize generic protocols for a proxy contexts.
-    let isGenericProtocol = context.mockableType.kind == .protocol
-      && !context.mockableType.genericTypes.isEmpty
-    let proxyCall = isGenericProtocol ? "nil" :  ClosureTemplate(
-      body: "Mockingbird.CallingContext.createProxy($0, type: \(supertype).self) { target in \(proxyFunction) }").render()
-    
-    return ObjectInitializationTemplate(
-      name: "Mockingbird.CallingContext",
-      arguments: [("super", superCall), ("proxy", proxyCall)]
-    ).render()
-  }()
-  
-  lazy var setterCallingContext: String = {
-    // Cannot reference the setters directly.
-    let typeName = unwrappedSpecializedTypeName
-    let superCall = context.mockableType.kind != .class ? "nil" : ClosureTemplate(
-      parameters: [("newValue", typeName)],
-      body: "super.\(backticked: variable.name) = newValue"
-    ).render()
-    
-    let supertype = variable.kind.typeScope.isStatic ?
-      "MockingbirdSupertype.Type" : "MockingbirdSupertype"
-    let proxyFunction = ClosureTemplate(
-      parameters: [("newValue", typeName)],
-      body: "target.\(backticked: variable.name) = newValue")
-    
-    // Unable to specialize generic protocols for a proxy contexts.
-    let isGenericProtocol = context.mockableType.kind == .protocol
-      && !context.mockableType.genericTypes.isEmpty
-    let proxyCall = isGenericProtocol ? "nil" : ClosureTemplate(
-      body: "Mockingbird.CallingContext.createProxy($0, type: \(supertype).self) { target in \(proxyFunction) }").render()
-    
-    return ObjectInitializationTemplate(
-      name: "Mockingbird.CallingContext",
-      arguments: [("super", superCall), ("proxy", proxyCall)]
-    ).render()
-  }()
-  
   lazy var getterInvocation: String = {
     return ObjectInitializationTemplate(
       name: "Mockingbird.SwiftInvocation",
@@ -87,7 +40,6 @@ class VariableTemplate: Template {
         ("selectorName", "\(doubleQuoted: getterName)"),
         ("arguments", "[]"),
         ("returnType", "Swift.ObjectIdentifier(\(parenthetical: unwrappedSpecializedTypeName).self)"),
-        ("context", getterCallingContext),
       ]).render()
   }()
   
@@ -98,7 +50,6 @@ class VariableTemplate: Template {
         ("selectorName", "\(doubleQuoted: setterName)"),
         ("arguments", "[Mockingbird.ArgumentMatcher(newValue)]"),
         ("returnType", "Swift.ObjectIdentifier(Void.self)"),
-        ("context", setterCallingContext),
       ]).render()
   }()
   
@@ -109,25 +60,16 @@ class VariableTemplate: Template {
         ("selectorName", "\(doubleQuoted: setterName)"),
         ("arguments", "[Mockingbird.resolve(newValue)]"),
         ("returnType", "Swift.ObjectIdentifier(Void.self)"),
-        ("context", setterCallingContext),
       ]).render()
   }()
   
   var mockedDeclaration: String {
     let getterDefinition = PropertyDefinitionTemplate(
       type: .getter,
-      body: !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub : """
-      return \(FunctionCallTemplate(
-                name: "\(contextPrefix)mockingbirdContext.forwardSwiftInvocation",
-                arguments: [(nil, getterInvocation)]))
-      """)
+      body: MockableTypeTemplate.Constants.thunkStub)
     let setterDefinition = PropertyDefinitionTemplate(
       type: .setter,
-      body: !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub : """
-      return \(FunctionCallTemplate(
-                name: "\(contextPrefix)mockingbirdContext.forwardSwiftInvocation",
-                arguments: [(nil, mockableSetterInvocation)]))
-      """)
+      body: MockableTypeTemplate.Constants.thunkStub)
   
     let accessors = !shouldGenerateSetter ? [getterDefinition.render()] : [
       getterDefinition.render(),
@@ -153,7 +95,7 @@ class VariableTemplate: Template {
                               "(\(typeName)) -> Void",
                               "Void"]
     
-    let getterReturnType = "Mockingbird.Mockable<\(getterGenericTypes.joined(separator: ", "))>"
+    let getterReturnType = "Mockingbird.Mockable<\(separated: getterGenericTypes)>"
     let getterDefinition = FunctionDefinitionTemplate(
       attributes: variable.attributes.safeDeclarations,
       declaration: "public \(modifiers)func get\(capitalizedName)() -> \(getterReturnType)",
@@ -164,7 +106,7 @@ class VariableTemplate: Template {
                 arguments: [("mock", mockObject), ("invocation", getterInvocation)]))
       """)
     
-    let setterReturnType = "Mockingbird.Mockable<\(setterGenericTypes.joined(separator: ", "))>"
+    let setterReturnType = "Mockingbird.Mockable<\(separated: setterGenericTypes)>"
     let setterDefinition = FunctionDefinitionTemplate(
       attributes: variable.attributes.safeDeclarations,
       declaration: "public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(typeName)) -> \(setterReturnType)",
@@ -183,7 +125,7 @@ class VariableTemplate: Template {
   }
   
   lazy var declarationAttributes: String = {
-    return variable.attributes.safeDeclarations.joined(separator: " ")
+    return String(list: variable.attributes.safeDeclarations)
   }()
   
   lazy var modifiers: String = {
@@ -192,10 +134,6 @@ class VariableTemplate: Template {
   
   lazy var mockObject: String = {
     return variable.kind.typeScope.isStatic ? "staticMock" : "self"
-  }()
-  
-  lazy var contextPrefix: String = {
-    return mockObject + "."
   }()
   
   lazy var getterName: String = { return "\(variable.name).get" }()

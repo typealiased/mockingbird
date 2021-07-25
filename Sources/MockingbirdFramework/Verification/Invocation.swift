@@ -7,34 +7,46 @@
 
 import Foundation
 
+protocol TargetBox {
+  var target: Any { get }
+  var function: Any { get }
+}
+
+/// Keep track of mutations on value (and reference) types when calling invocations.
+class ProxyTargetBox<T>: TargetBox {
+  var internalTarget: T
+  var target: Any { return internalTarget as Any }
+  
+  var internalFunction: Any!
+  var function: Any { return internalFunction! }
+  
+  init(_ target: T) {
+    self.internalTarget = target
+  }
+  
+  // Convenience to set the funtion and return self.
+  func setFunction(_ function: Any) -> Self {
+    self.internalFunction = function
+    return self
+  }
+}
+
 /// Holds function contexts with the same signature as the original invocation.
 @objc(MKBCallingContext) public class CallingContext: NSObject {
   /// The super function implementation.
   let `super`: Any?
   /// Convert a proxy target to its function implementation and the new (mutated) target.
-  let proxy: ((_ target: Any) -> (function: Any, target: Any))?
+  let proxy: ((_ target: Any) -> TargetBox)?
   
-  init(super: Any?, proxy: ((_ target: Any) -> (function: Any, target: Any))?) {
+  init(super: Any?, proxy: ((_ target: Any) -> TargetBox)?) {
     self.super = `super`
     self.proxy = proxy
   }
   
-  @objc public init(super: Any?, proxy: ((Any) -> Any)?) {
-    self.super = `super`
-    
-    // Obj-C doesn't need to worry about passing value types as proxy targets.
-    if let proxy = proxy {
-      self.proxy = { (target: Any) -> (Any, Any) in (proxy(target), target) }
-    } else {
-      self.proxy = nil
-    }
-  }
-  
-  class func createProxy<T>(_ target: Any, type: T.Type, block: (inout T) -> Any) -> (Any, Any) {
-    var mutableTarget = target as! T
-    return ({ (target: inout T) -> Any in
-      block(&target)
-    }(&mutableTarget), mutableTarget)
+  @objc public override init() {
+    // TODO
+    self.super = nil
+    self.proxy = nil
   }
 }
 
@@ -82,7 +94,7 @@ struct SwiftInvocation: Invocation {
   init(selectorName: String,
        arguments: [ArgumentMatcher],
        returnType: ObjectIdentifier,
-       context: CallingContext) {
+       context: CallingContext = CallingContext(super: nil, proxy: nil)) {
     self.selectorName = selectorName
     self.arguments = arguments
     self.returnType = returnType

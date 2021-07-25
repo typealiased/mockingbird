@@ -26,7 +26,7 @@ enum Declaration: String, CustomStringConvertible {
 extension GenericType {
   var flattenedDeclaration: String {
     guard !constraints.isEmpty else { return name }
-    let flattenedInheritedTypes = constraints.sorted().joined(separator: " & ")
+    let flattenedInheritedTypes = String(list: constraints.sorted(), separator: " & ")
     return "\(name): \(flattenedInheritedTypes)"
   }
 }
@@ -75,7 +75,7 @@ class MockableTypeTemplate: Template {
       directiveStart,
       NominalTypeDefinitionTemplate(
         declaration: "public final class \(mockableType.name)Mock",
-        genericTypes: allSpecializedGenericTypesList,
+        genericTypes: genericTypes,
         genericConstraints: mockableType.whereClauses.sorted().map({ specializeTypeName("\($0)") }),
         inheritedTypes: (isAvailable ? inheritedTypes : []) + [Constants.mockProtocolName],
         body: renderBody()).render(),
@@ -208,46 +208,25 @@ class MockableTypeTemplate: Template {
     }
   }
   
-  var mockingbirdContext: String {
-    return """
-    public let mockingbirdContext = Mockingbird.Context(["generator_version": "\(mockingbirdVersion.shortString)", "module_name": "\(mockableType.moduleName)"])
-    """
-  }
-  
-  var mockingbirdSupertype: String {
-    return "typealias MockingbirdSupertype = \(fullyQualifiedName)"
-  }
-  
   lazy var runtimeGenericTypeNames: String = {
-    let baseTypeName = "\(mockableType.name)Mock\(allSpecializedGenericTypes)"
+    let baseTypeName = "\(mockableType.name)Mock\(allGenericTypes)"
     let genericTypeSelfNames = mockableType.genericTypes
       .sorted(by: { $0.name < $1.name })
       .map({ "Swift.ObjectIdentifier(\($0.name).self).debugDescription" })
-    return ([baseTypeName.doubleQuoted] + genericTypeSelfNames).joined(separator: ", ")
+    return String(list: [baseTypeName.doubleQuoted] + genericTypeSelfNames)
   }()
   
-  lazy var allSpecializedGenericTypesList: [String] = {
+  lazy var genericTypes: [String] = {
     return mockableType.genericTypes.map({ $0.flattenedDeclaration })
-  }()
-  
-  lazy var allSpecializedGenericTypes: String = {
-    guard !mockableType.genericTypes.isEmpty else { return "" }
-    return "<" + allSpecializedGenericTypesList.joined(separator: ", ") + ">"
   }()
   
   lazy var allGenericTypes: String = {
     guard !mockableType.genericTypes.isEmpty else { return "" }
-    return "<" + mockableType.genericTypes.map({ $0.name }).joined(separator: ", ") + ">"
-  }()
-  
-  lazy var allGenericConstraints: String = {
-    guard !mockableType.whereClauses.isEmpty else { return "" }
-    return " where " + mockableType.whereClauses
-      .sorted().map({ specializeTypeName("\($0)") }).joined(separator: ", ")
+    return "<\(separated: mockableType.genericTypes.map({ $0.name }))>"
   }()
   
   var allInheritedTypes: String {
-    return (inheritedTypes + [Constants.mockProtocolName]).joined(separator: ", ")
+    return String(list: inheritedTypes + [Constants.mockProtocolName])
   }
   
   /// For scoped types referenced within their containing type.
@@ -274,21 +253,18 @@ class MockableTypeTemplate: Template {
     
     let typeNames = containingTypeNames.enumerated()
       .map({ (index, typeName) -> String in
-        guard let genericTypeNames = genericTypeContext.get(index), !genericTypeNames.isEmpty
-          else { return typeName + suffix }
-        
+        guard let genericTypeNames = genericTypeContext.get(index), !genericTypeNames.isEmpty else {
+          return typeName + suffix
+        }
         // Disambiguate generic types that shadow those defined by a containing type.
-        let allGenericTypeNames = genericTypeNames
-          .map({ typeName + "_" + $0 })
-          .joined(separator: ", ")
-        return typeName + suffix + "<" + allGenericTypeNames + ">"
+        return typeName + suffix + "<\(separated: genericTypeNames.map({ typeName + "_" + $0 }))>"
       })
       + [mockableType.name + suffix + allGenericTypes]
     
     if moduleQualified && mockableType.fullyQualifiedName != mockableType.fullyQualifiedModuleName {
-      return ([mockableType.moduleName] + typeNames).joined(separator: ".")
+      return String(list: [mockableType.moduleName] + typeNames, separator: ".")
     } else {
-      return typeNames.joined(separator: ".")
+      return String(list: typeNames, separator: ".")
     }
   }
   
@@ -321,11 +297,20 @@ class MockableTypeTemplate: Template {
   }
   
   func renderBody() -> String {
+    let supertypeDeclaration = "typealias MockingbirdSupertype = \(fullyQualifiedName)"
+    let mockingbirdContext = """
+    public let mockingbirdContext = Mockingbird.Context(["generator_version": "\(mockingbirdVersion.shortString)", "module_name": "\(mockableType.moduleName)"])
+    """
+    
     var components = [String(lines: [
-      mockingbirdSupertype,
+      // Type declarations
+      supertypeDeclaration,
+      
+      // Properties
       staticMockingContext,
       mockingbirdContext,
     ])]
+    
     if isAvailable {
       components.append(contentsOf: [
         renderInitializerProxy(),
@@ -337,6 +322,7 @@ class MockableTypeTemplate: Template {
     } else {
       components.append(renderContainedTypes())
     }
+    
     return String(lines: components, spacing: 2)
   }
   
@@ -435,39 +421,32 @@ class MockableTypeTemplate: Template {
   }()
   
   func renderVariables() -> String {
-    return String(
-      lines: mockableType.variables
-        .sorted(by: <)
-        .map({ VariableTemplate(variable: $0, context: self).render() }),
-      spacing: 2)
+    return String(lines: mockableType.variables.sorted(by: <).map({
+      VariableTemplate(variable: $0, context: self).render()
+    }), spacing: 2)
   }
   
   func isOverridable(method: Method) -> Bool {
+    let isClassMock = mockableType.kind == .class || mockableType.primarySelfConformanceType != nil
+    let isGeneric = !method.whereClauses.isEmpty || !method.genericTypes.isEmpty
+    guard isClassMock, isGeneric else { return true }
+    
     // Not possible to override overloaded methods where uniqueness is from generic constraints.
     // https://forums.swift.org/t/cannot-override-more-than-one-superclass-declaration/22213
     // This is fixed in Swift 5.2, so non-overridable methods require compilation conditions.
-    guard mockableType.kind == .class || mockableType.primarySelfConformanceType != nil
-      else { return true }
-    guard !method.whereClauses.isEmpty || !method.genericTypes.isEmpty else { return true }
     return mockableType.methodsCount[Method.Reduced(from: method)] == 1
   }
   
   func renderMethods() -> String {
-    return String(
-      lines:
-        Set(mockableType.methods)
-        .sorted(by: <)
-        .filter({ $0.isMockable })
-        .map({
-          let renderedMethod = methodTemplate(for: $0).render()
-          guard !isOverridable(method: $0) else { return renderedMethod }
-          return String(lines: [
-            "#if swift(>=5.2)",
-            renderedMethod,
-            "#endif",
-          ])
-        }),
-      spacing: 2)
+    return String(lines: Set(mockableType.methods).sorted(by: <).filter({ $0.isMockable }).map({
+      let renderedMethod = methodTemplate(for: $0).render()
+      guard !isOverridable(method: $0) else { return renderedMethod }
+      return String(lines: [
+        "#if swift(>=5.2)",
+        renderedMethod,
+        "#endif",
+      ])
+    }), spacing: 2)
   }
   
   func specializeTypeName(_ typeName: String) -> String {

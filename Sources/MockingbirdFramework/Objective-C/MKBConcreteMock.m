@@ -47,8 +47,7 @@
      [self.invocationHandlerChain serializeArgumentAtIndex:i forInvocation:invocation]];
   }
   
-  MKBCallingContext *callingContext =
-    [[MKBCallingContext alloc] initWithSuper:nil proxy:nil]; // TODO: How will this work?
+  MKBCallingContext *callingContext = [[MKBCallingContext alloc] init]; // TODO: How will this work?
   MKBObjCInvocation *objcInvocation =
     [[MKBObjCInvocation alloc] initWithSelectorName:selectorName
                                           arguments:arguments
@@ -58,8 +57,9 @@
   switch (recorder.mode) {
     case MKBInvocationRecorderModeNone: {
       id _Nullable returnValue =
-        [self.mockingbirdContext.mocking didInvoke:objcInvocation evaluating:^id _Nullable {
-          return [self.mockingbirdContext.stubbing returnValueFor:objcInvocation];
+        [self.mockingbirdContext.mocking
+         objcDidInvoke:objcInvocation evaluating:^id _Nullable(MKBObjCInvocation *invocation) {
+          return [self.mockingbirdContext.stubbing returnValueFor:invocation];
         }];
 
       if (!isVoidReturnType) {

@@ -45,6 +45,10 @@ extension Providable {
   static var providableIdentifier: String {
     return String(reflecting: self).removingGenericTyping()
   }
+  
+  func metatype() -> Self.Type {
+    return type(of: self)
+  }
 }
 
 /// Provides concrete instances of types.
@@ -75,7 +79,7 @@ public struct ValueProvider {
   
   /// Create an empty value provider.
   public init() {
-    self.init(values: [:], identifiers: [])
+    self.init(values: [ObjectIdentifier(Void.self): ()], identifiers: [])
   }
   
   
@@ -237,7 +241,13 @@ public struct ValueProvider {
   /// - Parameter type: A type to provide a value for.
   /// - Returns: A concrete instance of the given type, or `nil` if no value could be provided.
   public func provideValue<T>(for type: T.Type = T.self) -> T? {
-    return storedValues[ObjectIdentifier(type)] as? T
+    if let value = storedValues[ObjectIdentifier(type)] as? T {
+      return value
+    }
+    // Workaround type erased call sites.
+    guard let providableType = type as? Providable.Type,
+          enabledIdentifiers.contains(providableType.providableIdentifier) else { return nil }
+    return providableType.createInstance() as? T
   }
   
   /// Provide a value a given `Providable` type.

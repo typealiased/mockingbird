@@ -49,16 +49,19 @@ private class ResolutionContext: Thread {
   }
 }
 
-func fakePrimitiveValue<T>(_ value: Any?) -> T {
-  if let value = ValueProvider.standardProvider.provideValue(for: T.self) {
-    return value
-  }
-  
-  // Fall back to returning a buffer of ample size. This can break for bridged primitive types.
+func unsafeFakeValue<T>() -> T {
   return UnsafeMutableRawPointer
     .allocate(byteCount: 512, alignment: MemoryLayout<Int8>.alignment)
     .bindMemory(to: T.self, capacity: 1)
     .pointee
+}
+
+func fakePrimitiveValue<T>() -> T {
+  if let value = ValueProvider.standardProvider.provideValue(for: T.self) {
+    return value
+  }
+  // Fall back to returning a buffer of ample size. This can break for bridged primitive types.
+  return unsafeFakeValue()
 }
 
 /// Wraps a value into any type `T` when resolved inside of a `ResolutionContext<T>`.
@@ -74,7 +77,7 @@ func createTypeFacade<T>(_ value: Any?) -> T {
       preconditionFailure("An argument index is required, e.g. 'firstArg(any())'")
     }
     recorder.recordFacadeValue(value, at: argumentIndex)
-    return fakePrimitiveValue(value)
+    return fakePrimitiveValue()
   }
   
   result.value = value

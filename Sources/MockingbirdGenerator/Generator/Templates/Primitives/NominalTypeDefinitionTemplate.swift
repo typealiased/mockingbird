@@ -27,11 +27,10 @@ struct NominalTypeDefinitionTemplate: Template {
   }
   
   func render() -> String {
-    let genericTypesString = genericTypes.isEmpty ? "" :
-      ("<" + genericTypes.joined(separator: ", ") + ">")
+    let genericTypesString = genericTypes.isEmpty ? "" : "<\(separated: genericTypes)>"
     let genericConstraintsString = genericConstraints.isEmpty ? "" :
-      (" where " + genericConstraints.joined(separator: ", ") )
-    let inheritedTypesString = inheritedTypes.joined(separator: ", ")
+      " where \(separated: genericConstraints)"
+    let inheritedTypesString = String(list: inheritedTypes)
     return declaration + genericTypesString
       + (!inheritedTypes.isEmpty ? ": " : "")
       + inheritedTypesString + genericConstraintsString + " "
