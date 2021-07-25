@@ -1,0 +1,132 @@
+{
+  "cLanguageStandard" : null,
+  "cxxLanguageStandard" : null,
+  "dependencies" : [
+    {
+      "explicitName" : "swift-collections",
+      "name" : "swift-collections",
+      "productFilter" : null,
+      "requirement" : {
+        "range" : [
+          {
+            "lowerBound" : "0.0.1",
+            "upperBound" : "1.0.0"
+          }
+        ]
+      },
+      "url" : "https://github.com/apple/swift-collections"
+    },
+    {
+      "explicitName" : "Mockingbird",
+      "name" : "Mockingbird",
+      "productFilter" : null,
+      "requirement" : {
+        "range" : [
+          {
+            "lowerBound" : "0.16.0",
+            "upperBound" : "1.0.0"
+          }
+        ]
+      },
+      "url" : "https://github.com/birdrides/mockingbird.git"
+    }
+  ],
+  "name" : "Feature",
+  "packageKind" : "root",
+  "pkgConfig" : null,
+  "platforms" : [
+
+  ],
+  "products" : [
+    {
+      "name" : "Feature",
+      "targets" : [
+        "FeatureTarget"
+      ],
+      "type" : {
+        "library" : [
+          "automatic"
+        ]
+      }
+    }
+  ],
+  "providers" : null,
+  "swiftLanguageVersions" : null,
+  "targets" : [
+    {
+      "dependencies" : [
+        {
+          "target" : [
+            "EmptyTarget",
+            null
+          ]
+        },
+        {
+          "product" : [
+            "Collections",
+            "swift-collections",
+            null
+          ]
+        }
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "FeatureTarget",
+      "path" : "Sources/FeatureTargetSources",
+      "resources" : [
+
+      ],
+      "settings" : [
+
+      ],
+      "type" : "regular"
+    },
+    {
+      "dependencies" : [
+
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "EmptyTarget",
+      "resources" : [
+
+      ],
+      "settings" : [
+
+      ],
+      "type" : "regular"
+    },
+    {
+      "dependencies" : [
+        {
+          "byName" : [
+            "FeatureTarget",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "Mockingbird",
+            null
+          ]
+        }
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "FeatureTargetTests",
+      "resources" : [
+
+      ],
+      "settings" : [
+
+      ],
+      "type" : "test"
+    }
+  ],
+  "toolsVersion" : {
+    "_version" : "5.3.0"
+  }
+}

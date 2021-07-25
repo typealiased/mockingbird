@@ -24,7 +24,7 @@ public struct TargetDescription: Hashable {
     return c99name ?? name.escapingForModuleName()
   }
 }
-
+/// Useful reference: https://github.com/apple/swift-package-manager/blob/main/Sources/PackageDescription/Target.swift
 extension TargetDescription: Codable {
   public enum CodingKeys: String, CodingKey, CaseIterable {
     case name
@@ -45,13 +45,52 @@ extension TargetDescription: Codable {
     self.name = try container.decode(String.self, forKey: .name)
     self.c99name = try container.decodeIfPresent(String.self, forKey: .c99name)
     self.type = try container.decode(String.self, forKey: .type)
-    self.path = try container.decode(Path.self, forKey: .path)
     self.sources = try container.decodeIfPresent([Path].self, forKey: .sources) ?? []
     
+    if let path = try container.decodeIfPresent(Path.self, forKey: .path) {
+      self.path = path
+    } else {
+      // if a custom path has not been set, swiftpm uses "Sources" and "Tests" relative to the package root.
+      // https://github.com/apple/swift-package-manager/blob/main/Sources/PackageDescription/Target.swift
+      let name = try container.decode(String.self, forKey: .name)
+      let type = try container.decode(String.self, forKey: .type)
+      if type == "regular" || type == "library" || type == "executable" {
+        self.path = Path("Sources/\(name)")
+      } else if type == "test" {
+        self.path = Path("Tests/\(name)")
+      } else {
+        self.path = Path(name)
+      }
+    }
+    
     let spmContainer = try decoder.container(keyedBy: SwiftPackageManagerKeys.self)
-    self.dependencies = try spmContainer.decodeIfPresent([String].self, forKey: .targetDependencies)
-      ?? container.decodeIfPresent([String].self, forKey: .dependencies)
-      ?? []
+    let spmDependencies = try spmContainer.decodeIfPresent([String].self, forKey: .targetDependencies)
+    
+    if let dependencies = spmDependencies {
+      self.dependencies = dependencies
+    } else {
+      struct PackageDumpDependenciesMissingError: Error { }
+      do {
+        if let packageDumpDependencies = try container.decodeIfPresent([[String: [String?]]].self, forKey: .dependencies) {
+          self.dependencies = packageDumpDependencies.compactMap { element -> String? in
+            let values = element["product"] ?? element["byName"] ?? element["target"]
+            guard let first = values?.first else { return nil }
+            return first
+          }
+        } else {
+          throw PackageDumpDependenciesMissingError()
+        }
+      } catch DecodingError.typeMismatch, is PackageDumpDependenciesMissingError {
+        if let names = try container.decodeIfPresent([String].self, forKey: .dependencies) {
+          self.dependencies = names
+        }
+        else {
+          self.dependencies = []
+        }
+      } catch {
+        throw error
+      }
+    }
   }
 }
 

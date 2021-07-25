@@ -14,12 +14,13 @@ class ProjectDescriptionDecodingTests: XCTestCase {
     XCTAssertEqual(decodedTarget.c99name, expectedTarget.c99name)
     XCTAssertEqual(decodedTarget.path, expectedTarget.path)
     XCTAssertEqual(decodedTarget.sources, expectedTarget.sources)
-    XCTAssertEqual(decodedTarget.dependencies, expectedTarget.dependencies)
+    XCTAssertEqual(decodedTarget.dependencies.sorted(), expectedTarget.dependencies.sorted())
   }
   
   enum TestProjectDescription: String {
     case swiftPackageManager = "spm-project-description"
     case generic = "generic-project-description"
+    case swiftPackageManagerDumpPackage = "spm-dump-package"
     var name: String { return rawValue }
     
     struct LoadingError: LocalizedError {
@@ -153,6 +154,58 @@ class ProjectDescriptionDecodingTests: XCTestCase {
     let expectedEmptyTarget = TargetDescription(name: "EmptyTarget",
                                                 c99name: "EmptyTarget",
                                                 type: "library",
+                                                path: "Sources/EmptyTarget",
+                                                sources: [],
+                                                dependencies: [])
+    
+    if let emptyTarget = description.targets.first(where: { $0.name == expectedEmptyTarget.name }) {
+      assertDecodedTarget(emptyTarget, isEqualTo: expectedEmptyTarget)
+    } else {
+      XCTFail("Did not decode \(expectedEmptyTarget.name) target.")
+    }
+  }
+  
+  func testParseSwiftPackageManagerDumpPackage() throws {
+    let json = try loadJSONProjectDescription(.swiftPackageManagerDumpPackage)
+    let description = try JSONDecoder().decode(ProjectDescription.self, from: json)
+    
+    XCTAssertEqual(description.targets.count, 3)
+    
+    // swift package package-dump does not include sources!
+    let expectedTestTarget = TargetDescription(name: "FeatureTargetTests",
+                                               c99name: nil,
+                                               type: "test",
+                                               path: "Tests/FeatureTargetTests",
+                                               sources: [],
+                                               dependencies: [
+                                                "FeatureTarget", "Mockingbird"
+                                               ])
+    
+    if let testTarget = description.targets.first(where: { $0.type == expectedTestTarget.type }) {
+      assertDecodedTarget(testTarget, isEqualTo: expectedTestTarget)
+    } else {
+      XCTFail("Did not decode test target.")
+    }
+    
+    let expectedLibraryTarget = TargetDescription(name: "FeatureTarget",
+                                                  c99name: nil,
+                                                  type: "regular",
+                                                  path: "Sources/FeatureTargetSources",
+                                                  sources: [],
+                                                  dependencies: [
+                                                    "Collections",
+                                                    "EmptyTarget",
+                                                  ])
+    
+    if let libraryTarget = description.targets.first(where: { $0.name == expectedLibraryTarget.name }) {
+      assertDecodedTarget(libraryTarget, isEqualTo: expectedLibraryTarget)
+    } else {
+      XCTFail("Did not decode \(expectedLibraryTarget.name) target.")
+    }
+    
+    let expectedEmptyTarget = TargetDescription(name: "EmptyTarget",
+                                                c99name: nil,
+                                                type: "regular",
                                                 path: "Sources/EmptyTarget",
                                                 sources: [],
                                                 dependencies: [])
