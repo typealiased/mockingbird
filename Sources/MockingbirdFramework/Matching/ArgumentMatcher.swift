@@ -20,9 +20,12 @@ import Foundation
   /// The original type of the base instance.
   let baseType: Any?
 
-  /// A description for test failure output.
+  /// A debug description for verbose test failure output.
   let internalDescription: String
   public override var description: String { return internalDescription }
+  
+  /// The declaration of the matcher to use in test failure examples.
+  let declaration: String
 
   /// The commutativity of the matcher comparator.
   let priority: Priority
@@ -36,15 +39,20 @@ import Foundation
 
   init<T: Equatable>(_ base: T?,
                      description: String? = nil,
+                     declaration: String? = nil,
                      priority: Priority = .default) {
     self.base = base
     self.baseType = T.self
-    self.internalDescription = description ?? "\(String.describe(base))"
     self.priority = priority
     self.comparator = { base == $1 as? T }
+    
+    let internalDescription = description ?? "\(String.describe(base))"
+    self.internalDescription = internalDescription
+    self.declaration = declaration ?? internalDescription
   }
   
   convenience init(description: String,
+                   declaration: String? = nil,
                    priority: Priority = .low,
                    comparator: @escaping () -> Bool) {
     self.init(Optional<ArgumentMatcher>(nil), description: description, priority: priority) {
@@ -55,6 +63,7 @@ import Foundation
   
   init<T>(_ base: T? = nil,
           description: String? = nil,
+          declaration: String? = nil,
           priority: Priority = .low,
           comparator: ((Any?, Any?) -> Bool)? = nil) {
     self.base = base
@@ -62,7 +71,10 @@ import Foundation
     self.priority = priority
     self.comparator = comparator ?? { $0 as AnyObject === $1 as AnyObject }
     let annotation = comparator == nil ? " (by reference)" : ""
-    self.internalDescription = description ?? "\(String.describe(base))\(annotation)"
+    
+    let internalDescription = description ?? "\(String.describe(base))\(annotation)"
+    self.internalDescription = internalDescription
+    self.declaration = declaration ?? internalDescription
   }
   
   @objc public init(_ base: Any? = nil,
@@ -72,7 +84,10 @@ import Foundation
     self.baseType = type(of: base)
     self.priority = .low
     self.comparator = comparator
-    self.internalDescription = description ?? String.describe(base)
+    
+    let internalDescription = description ?? String.describe(base)
+    self.internalDescription = internalDescription
+    self.declaration = internalDescription
   }
   
   init(_ matcher: ArgumentMatcher) {
@@ -81,6 +96,7 @@ import Foundation
     self.priority = matcher.priority
     self.comparator = matcher.comparator
     self.internalDescription = matcher.description
+    self.declaration = matcher.declaration
   }
 }
 

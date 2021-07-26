@@ -12,7 +12,8 @@ class ThunkTemplate: Template {
   let invocation: String
   let shortSignature: String?
   let longSignature: String
-  let returnTypeName: String
+  let bridgedSignature: String?
+  let returnType: String
   let isThrowing: Bool
   let isStatic: Bool
   let callMember: (_ scope: Scope) -> String
@@ -33,7 +34,8 @@ class ThunkTemplate: Template {
        invocation: String,
        shortSignature: String?,
        longSignature: String,
-       returnTypeName: String,
+       bridgedSignature: String?,
+       returnType: String,
        isThrowing: Bool,
        isStatic: Bool,
        callMember: @escaping (_ scope: Scope) -> String,
@@ -42,7 +44,8 @@ class ThunkTemplate: Template {
     self.invocation = invocation
     self.shortSignature = shortSignature
     self.longSignature = longSignature
-    self.returnTypeName = returnTypeName
+    self.bridgedSignature = bridgedSignature
+    self.returnType = returnType
     self.isThrowing = isThrowing
     self.isStatic = isStatic
     self.callMember = callMember
@@ -54,18 +57,29 @@ class ThunkTemplate: Template {
     let callDefault = IfStatementTemplate(
       condition: "let mkbImpl = mkbImpl as? \(longSignature)",
       body: """
-      return \(FunctionCallTemplate(
-                name: "mkbImpl",
-                unlabeledArguments: unlabledArguments,
-                isThrowing: isThrowing))
+      return \(FunctionCallTemplate(name: "mkbImpl",
+                                    unlabeledArguments: unlabledArguments,
+                                    isThrowing: isThrowing))
       """)
     let callConvenience: String = {
       guard let shortSignature = shortSignature else { return "" }
       return IfStatementTemplate(
         condition: "let mkbImpl = mkbImpl as? \(shortSignature)",
-        body: "return \(FunctionCallTemplate(name: "mkbImpl", isThrowing: isThrowing))"
-      ).render()
+        body: """
+        return \(FunctionCallTemplate(name: "mkbImpl", isThrowing: isThrowing))
+        """).render()
     }()
+    let callBridged: String = {
+      guard let bridgedSignature = bridgedSignature else { return "" }
+      return IfStatementTemplate(
+        condition: "let mkbImpl = mkbImpl as? \(bridgedSignature)",
+        body: """
+        return \(FunctionCallTemplate(name: "mkbImpl",
+                                      unlabeledArguments: unlabledArguments,
+                                      isThrowing: isThrowing)) as! \(returnType)
+        """).render()
+    }()
+    
     let context = isStatic ? "self.staticMock.mockingbirdContext" : "self.mockingbirdContext"
     let supertype = isStatic ? "MockingbirdSupertype.Type" : "MockingbirdSupertype"
     let didInvoke = FunctionCallTemplate(name: "\(context).mocking.didInvoke",
@@ -78,10 +92,6 @@ class ThunkTemplate: Template {
     let isGeneric = !mockableType.genericTypes.isEmpty || mockableType.hasSelfConstraint
     let isProxyable = !(mockableType.kind == .protocol && isGeneric)
     
-    let proxyTargets = """
-    \(context).proxy.targets(with: mkbImpl)\(isProxyable ? ".reversed().enumerated()" : "")
-    """
-    
     return """
     return \(didInvoke) \(BlockTemplate(body: """
     \(FunctionCallTemplate(name: "\(context).recordInvocation", arguments: [(nil, "$0")]))
@@ -90,20 +100,21 @@ class ThunkTemplate: Template {
     \(String(lines: [
       callDefault.render(),
       callConvenience,
+      callBridged,
       !isSubclass && !isProxyable ? "" : ForInStatementTemplate(
-        item: isProxyable ? "(mkbIndex, mkbTarget)" : "mkbTarget",
-        collection: proxyTargets,
+        item: "mkbTargetBox",
+        collection: "\(context).proxy.targets(for: $0)",
         body: SwitchStatementTemplate(
-          controlExpression: "mkbTarget",
+          controlExpression: "mkbTargetBox.target",
           cases: [
             (".super", isSubclass ? "break" : "return \(callMember(.super))"),
             (".object" + (isProxyable ? "(let mkbObject)" : ""), !isProxyable ? "break" : """
             \(GuardStatementTemplate(
                 condition: "var mkbObject = mkbObject as? \(supertype)", body: "continue"))
-            let mkbValue: \(returnTypeName) = \(callMember(.object))
+            let mkbValue: \(returnType) = \(callMember(.object))
             \(FunctionCallTemplate(
                 name: "\(context).proxy.updateTarget",
-                arguments: [(nil, "&mkbObject"), ("at", "mkbIndex")]))
+                arguments: [(nil, "&mkbObject"), ("in", "mkbTargetBox")]))
             return mkbValue
             """)
           ]).render()).render(),
@@ -112,7 +123,7 @@ class ThunkTemplate: Template {
         condition: """
         let mkbValue = \(FunctionCallTemplate(
                           name: "\(context).stubbing.defaultValueProvider.value.provideValue",
-                          arguments: [("for", "\(parenthetical: returnTypeName).self")]))
+                          arguments: [("for", "\(parenthetical: returnType).self")]))
         """,
         body: "return mkbValue"))
     \(FunctionCallTemplate(name: "fatalError", unlabeledArguments: [

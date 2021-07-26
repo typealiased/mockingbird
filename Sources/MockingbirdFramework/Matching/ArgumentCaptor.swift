@@ -61,8 +61,10 @@ public class ArgumentCaptor<ParameterType>: ArgumentMatcher {
   /// - Parameter weak: Whether captured arguments should be stored weakly.
   public init(weak: Bool = false) {
     self.weak = weak
-    let base: ParameterType? = nil
-    super.init(base, description: "any<\(ParameterType.self)>()", priority: .high) { (_, rhs) in
+    super.init(nil as ParameterType?,
+               description: "any<\(ParameterType.self)>() (captor)",
+               declaration: "any()",
+               priority: .high) { (_, rhs) in
       return rhs is ParameterType || rhs is NonEscapingType
     }
   }

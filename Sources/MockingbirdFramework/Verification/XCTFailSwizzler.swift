@@ -50,6 +50,10 @@ public func MKBFail(_ message: String, isFatal: Bool = false,
 private class StandardTestFailer: TestFailer {
   func fail(message: String, isFatal: Bool, file: StaticString, line: UInt) {
     XCTFail(message, file: file, line: line)
+    guard isFatal else { return }
+    
+    // Raise an Objective-C exception to stop the test runner.
+    mkb_fail_test(message)
   }
 }
 

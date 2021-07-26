@@ -1,5 +1,5 @@
 //
-//  Sequence.swift
+//  SequenceProviders.swift
 //  MockingbirdFramework
 //
 //  Created by Andrew Chang on 5/31/20.

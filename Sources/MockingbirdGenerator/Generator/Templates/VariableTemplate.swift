@@ -71,7 +71,8 @@ class VariableTemplate: Template {
                       invocation: getterInvocation,
                       shortSignature: nil,
                       longSignature: "() -> \(matchableType)",
-                      returnTypeName: matchableType,
+                      bridgedSignature: "() -> Any?",
+                      returnType: matchableType,
                       isThrowing: false,
                       isStatic: variable.kind.typeScope.isStatic,
                       callMember: { scope in
@@ -85,7 +86,8 @@ class VariableTemplate: Template {
                       invocation: mockableSetterInvocation,
                       shortSignature: "() -> Void",
                       longSignature: "\(parenthetical: matchableType) -> Void",
-                      returnTypeName: "Void",
+                      bridgedSignature: "(Any?) -> Any?",
+                      returnType: "Void",
                       isThrowing: false,
                       isStatic: variable.kind.typeScope.isStatic,
                       callMember: { scope in

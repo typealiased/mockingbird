@@ -53,9 +53,12 @@ public func verify<ReturnType>(
 ) -> VerificationManager<Any?, ReturnType> {
   let recorder = InvocationRecorder.startRecording(mode: .verifying, block: { declaration() })
   recorder.semaphore.wait()
+  if let errorMessage = recorder.errorMessage {
+    preconditionFailure(MKBFail(errorMessage, isFatal: true, file: file, line: line))
+  }
   guard let value = recorder.value else {
-    fatalError(
-      MKBFail("\(TestFailure.unmockableExpression)", isFatal: true, file: file, line: line))
+    preconditionFailure(MKBFail("\(TestFailure.unmockableExpression)", isFatal: true,
+                                file: file, line: line))
   }
   return VerificationManager(from: value, at: SourceLocation(file, line))
 }

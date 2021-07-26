@@ -95,8 +95,18 @@ struct SwiftInvocation: Invocation {
        arguments: [ArgumentMatcher],
        returnType: ObjectIdentifier,
        context: CallingContext = CallingContext(super: nil, proxy: nil)) {
+    
+    // Handle argument matchers in dynamic declaration contexts.
+    var resolvedArguments = arguments
+    if let recorder = InvocationRecorder.sharedRecorder {
+      for i in 0..<resolvedArguments.count {
+        guard let matcher = recorder.getFacadeValue(at: i) as? ArgumentMatcher else { continue }
+        resolvedArguments[i] = matcher
+      }
+    }
+    
     self.selectorName = selectorName
-    self.arguments = arguments
+    self.arguments = resolvedArguments
     self.returnType = returnType
     self.context = context
   }
@@ -151,7 +161,9 @@ struct SwiftInvocation: Invocation {
     guard isGetter else { return nil }
     let setterSelectorName = String(selectorName.dropLast(Constants.setterSuffix.count))
       + Constants.setterSuffix
-    let matcher = ArgumentMatcher(description: "any()", priority: .high) { return true }
+    let matcher = ArgumentMatcher(description: "any()",
+                                  declaration: "any()",
+                                  priority: .high) { return true }
     return Self(selectorName: setterSelectorName,
                 arguments: [matcher],
                 returnType: ObjectIdentifier(Void.self),

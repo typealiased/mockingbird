@@ -89,8 +89,11 @@ public func given<ReturnType>(
   ///     https://github.com/birdrides/mockingbird/issues/new/choose
   let recorder = InvocationRecorder.startRecording(mode: .stubbing, block: { try? declaration() })
   recorder.semaphore.wait()
+  if let errorMessage = recorder.errorMessage {
+    preconditionFailure(MKBFail(errorMessage, isFatal: true))
+  }
   guard let value = recorder.value else {
-    fatalError(MKBFail("\(TestFailure.unmockableExpression)", isFatal: true))
+    preconditionFailure(MKBFail("\(TestFailure.unmockableExpression)", isFatal: true))
   }
   return DynamicStubbingManager(invocation: value.invocation, context: value.context)
 }
@@ -98,6 +101,8 @@ public func given<ReturnType>(
 /// An intermediate object used for stubbing declarations returned by `given`.
 public class StubbingManager<DeclarationType: Declaration, InvocationType, ReturnType> {
   let context: Context
+  let invocation: Invocation
+  
   var implementationProviders =
     [(provider: ImplementationProvider<DeclarationType, InvocationType, ReturnType>,
       transition: TransitionStrategy)]()
@@ -141,6 +146,7 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   
   init(invocation: Invocation, context: Context) {
     self.context = context
+    self.invocation = invocation
     let stub = context.stubbing.swizzle(invocation) { return self.getCurrentImplementation() }
     self.stubs.append((stub, context))
   }
@@ -182,17 +188,17 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   
   /// Convenience method to wrap stub implementations into an implementation provider.
   @discardableResult
-  func add(implementation: Any,
-           callback: ((StubbingContext.Stub, Context) -> Void)? = nil) -> Self {
-    return add(provider: ImplementationProvider(implementation: implementation, callback: callback),
-        transition: .after(1))
+  func addImplementation(_ implementation: Any,
+                         callback: ((StubbingContext.Stub, Context) -> Void)? = nil) -> Self {
+    return addProvider(ImplementationProvider(implementation: implementation, callback: callback),
+                       transition: .after(1))
   }
 
   /// Swizzle type-erased stub implementation providers onto stubbing contexts.
   @discardableResult
-  func add(provider: ImplementationProvider<DeclarationType, InvocationType, ReturnType>,
-           transition: TransitionStrategy,
-           callback: ((StubbingContext.Stub, Context) -> Void)? = nil) -> Self {
+  func addProvider(_ provider: ImplementationProvider<DeclarationType, InvocationType, ReturnType>,
+                   transition: TransitionStrategy,
+                   callback: ((StubbingContext.Stub, Context) -> Void)? = nil) -> Self {
     implementationProviders.append((provider, transition))
     stubs.forEach({ provider.didAddStub($0.stub, context: $0.context, manager: self) })
     return self
@@ -216,7 +222,7 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
   @discardableResult
   public func willReturn(_ value: ReturnType) -> Self {
-    return add(implementation: { return value })
+    return addImplementation({ return value })
   }
   
   /// Stub a mocked method or property with an implementation provider.
@@ -250,7 +256,7 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
     _ provider: ImplementationProvider<DeclarationType, InvocationType, ReturnType>,
     transition: TransitionStrategy = .onFirstNil
   ) -> Self {
-    return add(provider: provider, transition: transition)
+    return addProvider(provider, transition: transition)
   }
   
   /// Stub a mocked method or property with a closure implementation.
@@ -289,21 +295,25 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
   @discardableResult
   public func will(_ implementation: InvocationType) -> Self {
-    return add(implementation: implementation)
+    return addImplementation(implementation)
+  }
+  
+  @discardableResult
+  func addForwardingTarget(_ target: ProxyContext.Target) -> Self {
+    context.proxy.addTarget(target, for: invocation)
+    return self
   }
   
   // TODO: Docs
   @discardableResult
   public func willForwardToSuper() -> Self {
-    context.proxy.addTarget(.super)
-    return self
+    return addForwardingTarget(.super)
   }
   
   // TODO: Docs
   @discardableResult
   public func willForward<T>(to object: T) -> Self {
-    context.proxy.addTarget(.object(object))
-    return self
+    return addForwardingTarget(.object(object))
   }
 }
 
@@ -323,7 +333,7 @@ extension StubbingManager where DeclarationType == ThrowingFunctionDeclaration {
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
   @discardableResult
   public func willThrow(_ error: Error) -> Self {
-    return add(implementation: { () throws -> ReturnType in throw error })
+    return addImplementation({ () throws -> ReturnType in throw error })
   }
   
   /// Disambiguate throwing methods overloaded by return type.
@@ -361,7 +371,7 @@ extension StubbingManager where ReturnType == Void {
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
   @discardableResult
   public func willReturn() -> Self {
-    return add(implementation: { return () })
+    return addImplementation({ return () })
   }
 }
 
@@ -391,7 +401,7 @@ public func ~> <DeclarationType: Declaration, InvocationType, ReturnType>(
   manager: StubbingManager<DeclarationType, InvocationType, ReturnType>,
   implementation: @escaping @autoclosure () -> ReturnType
 ) {
-  manager.add(implementation: implementation)
+  manager.addImplementation(implementation)
 }
 
 /// Stub a mocked method or property with a closure implementation.
@@ -429,7 +439,7 @@ public func ~> <DeclarationType: Declaration, InvocationType, ReturnType>(
   manager: StubbingManager<DeclarationType, InvocationType, ReturnType>,
   implementation: InvocationType
 ) {
-  manager.add(implementation: implementation)
+  manager.addImplementation(implementation)
 }
 
 /// Stub a mocked method or property with an implementation provider.
@@ -449,5 +459,13 @@ public func ~> <DeclarationType: Declaration, InvocationType, ReturnType>(
   manager: StubbingManager<DeclarationType, InvocationType, ReturnType>,
   provider: ImplementationProvider<DeclarationType, InvocationType, ReturnType>
 ) {
-  manager.add(provider: provider, transition: .onFirstNil)
+  manager.addProvider(provider, transition: .onFirstNil)
+}
+
+// TODO: Docs
+public func ~> <DeclarationType: Declaration, InvocationType, ReturnType>(
+  manager: StubbingManager<DeclarationType, InvocationType, ReturnType>,
+  forwardingContext: ForwardingContext
+) {
+  manager.addForwardingTarget(forwardingContext.target)
 }

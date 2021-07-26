@@ -95,7 +95,7 @@ enum TestFailure: Error, CustomStringConvertible {
       Make sure the expression provided to 'given(…)' is declared by a mocked Obj-C type.
       
       Examples:
-         given(someObjCMock.doSomething()).will { return someValue }
+         given(someObjCMock.someMethod()).will { return someValue }
          given(someObjCMock.someProperty).willReturn(someValue)
       """
     }

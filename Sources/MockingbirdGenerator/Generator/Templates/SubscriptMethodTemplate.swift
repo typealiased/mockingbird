@@ -37,7 +37,8 @@ class SubscriptMethodTemplate: MethodTemplate {
                       invocation: getterInvocation.render(),
                       shortSignature: method.parameters.isEmpty ? nil : shortSignature,
                       longSignature: longSignature,
-                      returnTypeName: method.returnTypeName,
+                      bridgedSignature: nil, // TODO
+                      returnType: method.returnTypeName,
                       isThrowing: method.isThrowing,
                       isStatic: method.kind.typeScope.isStatic,
                       callMember: { scope in
@@ -60,7 +61,8 @@ class SubscriptMethodTemplate: MethodTemplate {
                       invocation: setterInvocation.render(),
                       shortSignature: setterShortSignature,
                       longSignature: setterLongSignature,
-                      returnTypeName: "Void",
+                      bridgedSignature: nil, // TODO
+                      returnType: "Void",
                       isThrowing: method.isThrowing,
                       isStatic: method.kind.typeScope.isStatic,
                       callMember: { scope in

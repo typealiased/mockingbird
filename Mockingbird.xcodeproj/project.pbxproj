@@ -69,6 +69,8 @@
 		28571ACC26A668530063AB83 /* MKBInvocationHandlerChain.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571ACA26A668530063AB83 /* MKBInvocationHandlerChain.h */; };
 		28571ACD26A668530063AB83 /* MKBInvocationHandlerChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571ACB26A668530063AB83 /* MKBInvocationHandlerChain.m */; };
 		28571ACF26A670E50063AB83 /* MKBComparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571ACE26A670E50063AB83 /* MKBComparator.m */; };
+		287BB9CB26AE1578004014CA /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287BB9CA26AE1577004014CA /* Mock.swift */; };
+		287BB9CD26AE15F0004014CA /* InvocationForwarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287BB9CC26AE15F0004014CA /* InvocationForwarding.swift */; };
 		287C4F3B26A3547000A7E0D9 /* MKBClassMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 287C4F3926A3547000A7E0D9 /* MKBClassMock.h */; };
 		287C4F3C26A3547000A7E0D9 /* MKBClassMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F3A26A3547000A7E0D9 /* MKBClassMock.m */; };
 		287C4F3F26A3547F00A7E0D9 /* MKBProtocolMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 287C4F3D26A3547F00A7E0D9 /* MKBProtocolMock.h */; };
@@ -117,7 +119,7 @@
 		28A1F3BC26AD9E3B002F282D /* StubbingThrowingErrorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3BB26AD9E3B002F282D /* StubbingThrowingErrorsTests.swift */; };
 		28A1F3BE26AD9EAB002F282D /* StubbingInoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3BD26AD9EAB002F282D /* StubbingInoutTests.swift */; };
 		28A1F3C026ADA2A8002F282D /* PartialMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3BF26ADA2A8002F282D /* PartialMockTests.swift */; };
-		28A1F3C226ADC9DA002F282D /* PresetImplementationProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3C126ADC9DA002F282D /* PresetImplementationProviders.swift */; };
+		28A1F3C226ADC9DA002F282D /* PropertyProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3C126ADC9DA002F282D /* PropertyProviders.swift */; };
 		28A1F3C426ADD57C002F282D /* MinimalTestTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3C326ADD57C002F282D /* MinimalTestTypes.swift */; };
 		28C8E5DB26A64D6C00C68A1D /* MKBInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */; };
 		28C8E5DC26A64D6C00C68A1D /* MKBInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */; };
@@ -144,7 +146,7 @@
 		D3DC37952492140D001E02A5 /* Generator+PruningPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DC37942492140D001E02A5 /* Generator+PruningPipeline.swift */; };
 		D3E6F67424838182000D1971 /* ChainedStubbingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E6F67324838182000D1971 /* ChainedStubbingTests.swift */; };
 		D3E6F67624844999000D1971 /* ImplementationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E6F67524844999000D1971 /* ImplementationProvider.swift */; };
-		D3E6F67824844A0C000D1971 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E6F67724844A0C000D1971 /* Sequence.swift */; };
+		D3E6F67824844A0C000D1971 /* SequenceProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E6F67724844A0C000D1971 /* SequenceProviders.swift */; };
 		D3E6F67A24844A37000D1971 /* DefaultValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E6F67924844A37000D1971 /* DefaultValues.swift */; };
 		D3E6F67C24844C5B000D1971 /* SourceLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E6F67B24844C5B000D1971 /* SourceLocation.swift */; };
 		D3E6F67E24844CEA000D1971 /* ExpectationGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E6F67D24844CEA000D1971 /* ExpectationGroup.swift */; };
@@ -518,6 +520,8 @@
 		28571ACA26A668530063AB83 /* MKBInvocationHandlerChain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBInvocationHandlerChain.h; sourceTree = "<group>"; };
 		28571ACB26A668530063AB83 /* MKBInvocationHandlerChain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBInvocationHandlerChain.m; sourceTree = "<group>"; };
 		28571ACE26A670E50063AB83 /* MKBComparator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBComparator.m; sourceTree = "<group>"; };
+		287BB9CA26AE1577004014CA /* Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
+		287BB9CC26AE15F0004014CA /* InvocationForwarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationForwarding.swift; sourceTree = "<group>"; };
 		287C4F3926A3547000A7E0D9 /* MKBClassMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBClassMock.h; sourceTree = "<group>"; };
 		287C4F3A26A3547000A7E0D9 /* MKBClassMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBClassMock.m; sourceTree = "<group>"; };
 		287C4F3D26A3547F00A7E0D9 /* MKBProtocolMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBProtocolMock.h; sourceTree = "<group>"; };
@@ -561,7 +565,7 @@
 		28A1F3BB26AD9E3B002F282D /* StubbingThrowingErrorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbingThrowingErrorsTests.swift; sourceTree = "<group>"; };
 		28A1F3BD26AD9EAB002F282D /* StubbingInoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbingInoutTests.swift; sourceTree = "<group>"; };
 		28A1F3BF26ADA2A8002F282D /* PartialMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialMockTests.swift; sourceTree = "<group>"; };
-		28A1F3C126ADC9DA002F282D /* PresetImplementationProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetImplementationProviders.swift; sourceTree = "<group>"; };
+		28A1F3C126ADC9DA002F282D /* PropertyProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyProviders.swift; sourceTree = "<group>"; };
 		28A1F3C326ADD57C002F282D /* MinimalTestTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimalTestTypes.swift; sourceTree = "<group>"; };
 		28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBInvocationHandler.h; sourceTree = "<group>"; };
 		28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBInvocationHandler.m; sourceTree = "<group>"; };
@@ -596,7 +600,7 @@
 		D3DC37942492140D001E02A5 /* Generator+PruningPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generator+PruningPipeline.swift"; sourceTree = "<group>"; };
 		D3E6F67324838182000D1971 /* ChainedStubbingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainedStubbingTests.swift; sourceTree = "<group>"; };
 		D3E6F67524844999000D1971 /* ImplementationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplementationProvider.swift; sourceTree = "<group>"; };
-		D3E6F67724844A0C000D1971 /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
+		D3E6F67724844A0C000D1971 /* SequenceProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceProviders.swift; sourceTree = "<group>"; };
 		D3E6F67924844A37000D1971 /* DefaultValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultValues.swift; sourceTree = "<group>"; };
 		D3E6F67B24844C5B000D1971 /* SourceLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceLocation.swift; sourceTree = "<group>"; };
 		D3E6F67D24844CEA000D1971 /* ExpectationGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectationGroup.swift; sourceTree = "<group>"; };
@@ -1487,6 +1491,7 @@
 			children = (
 				2896E52326A89BF900124D02 /* Context.swift */,
 				2896E52126A89BC100124D02 /* Declaration.swift */,
+				287BB9CA26AE1577004014CA /* Mock.swift */,
 				OBJ_37 /* Mocking.swift */,
 				OBJ_38 /* MockingContext.swift */,
 				2896E52F26A8E1CC00124D02 /* ProxyContext.swift */,
@@ -1501,9 +1506,10 @@
 				D3E6F67924844A37000D1971 /* DefaultValues.swift */,
 				2896E51926A6E97900124D02 /* DynamicStubbingManager.swift */,
 				D3E6F67524844999000D1971 /* ImplementationProvider.swift */,
+				287BB9CC26AE15F0004014CA /* InvocationForwarding.swift */,
 				287C4F6B26A4AAA900A7E0D9 /* InvocationRecorder.swift */,
-				28A1F3C126ADC9DA002F282D /* PresetImplementationProviders.swift */,
-				D3E6F67724844A0C000D1971 /* Sequence.swift */,
+				28A1F3C126ADC9DA002F282D /* PropertyProviders.swift */,
+				D3E6F67724844A0C000D1971 /* SequenceProviders.swift */,
 				OBJ_41 /* Stubbing.swift */,
 				OBJ_42 /* StubbingContext.swift */,
 				2896E51726A6E93A00124D02 /* StubbingContext+ObjCReturnValue.swift */,
@@ -2227,7 +2233,7 @@
 				287C4F5826A3710600A7E0D9 /* MKBConcreteMock.m in Sources */,
 				28571AC526A666E60063AB83 /* MKBUnsignedLongLongInvocationHandler.m in Sources */,
 				D3B3D4C2248C9D1600FEEDA0 /* CwlDemangle.swift in Sources */,
-				D3E6F67824844A0C000D1971 /* Sequence.swift in Sources */,
+				D3E6F67824844A0C000D1971 /* SequenceProviders.swift in Sources */,
 				28571AB126A664AF0063AB83 /* MKBShortInvocationHandler.m in Sources */,
 				287C4F4026A3547F00A7E0D9 /* MKBProtocolMock.m in Sources */,
 				D3E6F67C24844C5B000D1971 /* SourceLocation.swift in Sources */,
@@ -2256,6 +2262,7 @@
 				2896E52426A89BF900124D02 /* Context.swift in Sources */,
 				28571ACF26A670E50063AB83 /* MKBComparator.m in Sources */,
 				287C4F6C26A4AAA900A7E0D9 /* InvocationRecorder.swift in Sources */,
+				287BB9CD26AE15F0004014CA /* InvocationForwarding.swift in Sources */,
 				28571A8D26A65F680063AB83 /* MKBBoolInvocationHandler.m in Sources */,
 				2896E51A26A6E97900124D02 /* DynamicStubbingManager.swift in Sources */,
 				OBJ_881 /* Stubbing.swift in Sources */,
@@ -2263,7 +2270,7 @@
 				28571AB926A666070063AB83 /* MKBUnsignedCharInvocationHandler.m in Sources */,
 				28571AAD26A664340063AB83 /* MKBSelectorInvocationHandler.m in Sources */,
 				OBJ_883 /* TestKiller.swift in Sources */,
-				28A1F3C226ADC9DA002F282D /* PresetImplementationProviders.swift in Sources */,
+				28A1F3C226ADC9DA002F282D /* PropertyProviders.swift in Sources */,
 				OBJ_884 /* ValueProvider+Collections.swift in Sources */,
 				OBJ_885 /* ValueProvider+Foundation.swift in Sources */,
 				OBJ_886 /* ValueProvider+Tuples.swift in Sources */,
@@ -2292,6 +2299,7 @@
 				D3E6F6822484517A000D1971 /* WildcardMatchers.swift in Sources */,
 				OBJ_899 /* XCTFailSwizzler.swift in Sources */,
 				28571A7D26A6548B0063AB83 /* MKBObjectInvocationHandler.m in Sources */,
+				287BB9CB26AE1578004014CA /* Mock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

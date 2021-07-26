@@ -25,8 +25,9 @@ struct InvocationRecord {
   }
   
   private(set) var value: InvocationRecord?
-  private(set) var facadeValues = [UInt: Any?]()
-  private(set) var argumentIndex: UInt?
+  private(set) var facadeValues = [Int: Any?]()
+  private(set) var argumentIndex: Int?
+  private(set) var errorMessage: String?
   
   @objc public let mode: Mode
   @objc public let thread: Thread
@@ -53,16 +54,21 @@ struct InvocationRecord {
     recordInvocation(invocation as Invocation, context: context)
   }
   
-  func recordArgumentIndex(_ argumentIndex: UInt) {
+  func recordArgumentIndex(_ argumentIndex: Int) {
     self.argumentIndex = argumentIndex
   }
   
-  func recordFacadeValue(_ facadeValue: Any?, at argumentIndex: UInt) {
+  func recordFacadeValue(_ facadeValue: Any?, at argumentIndex: Int) {
     facadeValues[argumentIndex] = facadeValue
   }
   
-  @objc public func getFacadeValue(at argumentIndex: UInt) -> Any? {
+  @objc public func getFacadeValue(at argumentIndex: Int) -> Any? {
     return facadeValues[argumentIndex] ?? nil
+  }
+  
+  func recordError(_ message: String) {
+    self.errorMessage = message
+    Thread.exit()
   }
   
   // MARK: DispatchQueue utils

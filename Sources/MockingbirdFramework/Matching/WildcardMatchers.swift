@@ -34,9 +34,10 @@ import Foundation
 ///
 /// - Parameter type: The parameter type used to disambiguate overloaded methods.
 public func any<T>(_ type: T.Type = T.self) -> T {
-  let base: T? = nil
-  let description = "any<\(T.self)>()"
-  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
+  let matcher = ArgumentMatcher(nil as T?,
+                                description: "any<\(T.self)>()",
+                                declaration: "any()",
+                                priority: .high) { (_, rhs) in
     return rhs is T || rhs is NonEscapingType
   }
   return createTypeFacade(matcher)
@@ -75,9 +76,10 @@ public func any<T>(_ type: T.Type = T.self) -> T {
 ///
 /// - Parameter type: The parameter type used to disambiguate overloaded methods.
 public func any<T: NSObjectProtocol>(_ type: T.Type = T.self) -> T {
-  let base: T? = nil
-  let description = "any<\(T.self): NSObjectProtocol>()"
-  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
+  let matcher = ArgumentMatcher(nil as T?,
+                                description: "any<\(T.self)>() (Obj-C)",
+                                declaration: "any()",
+                                priority: .high) { (_, rhs) in
     return rhs is T || rhs is NonEscapingType
   }
   return MKBTypeFacade(mock: mkb_mock(T.self), object: matcher).fixupType()
@@ -119,9 +121,10 @@ public func any<T: NSObjectProtocol>(_ type: T.Type = T.self) -> T {
 ///   - type: The parameter type used to disambiguate overloaded methods.
 ///   - objects: A set of equatable objects that should result in a match.
 public func any<T: Equatable>(_ type: T.Type = T.self, of objects: T...) -> T {
-  let base: T? = nil
-  let description = "any<\(T.self)>(of: [\(objects)])"
-  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
+  let matcher = ArgumentMatcher(nil as T?,
+                                description: "any<\(T.self)>(of: [\(objects.count)])",
+                                declaration: "any(of: …)",
+                                priority: .high) { (_, rhs) in
     guard let other = rhs as? T else { return false }
     return objects.contains(where: { $0 == other })
   }
@@ -176,9 +179,11 @@ public func any<T: Equatable>(_ type: T.Type = T.self, of objects: T...) -> T {
 ///   - type: The parameter type used to disambiguate overloaded methods.
 ///   - objects: A set of non-equatable objects that should result in a match.
 public func any<T: AnyObject>(_ type: T.Type = T.self, of objects: T...) -> T {
-  let base: T? = nil
-  let description = "any<\(T.self)>(of: [\(objects)]) (by reference)"
-  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
+  let matcher = ArgumentMatcher(
+    nil as T?,
+    description: "any<\(T.self)>(of: [\(objects.count)]) (by reference)",
+    declaration: "any(of: …)",
+    priority: .high) { (_, rhs) in
     return objects.contains(where: { $0 as AnyObject === rhs as AnyObject })
   }
   return createTypeFacade(matcher)
@@ -227,9 +232,10 @@ public func any<T: AnyObject>(_ type: T.Type = T.self, of objects: T...) -> T {
 ///   - type: The parameter type used to disambiguate overloaded methods.
 ///   - predicate: A closure that takes a value and returns `true` if it represents a match.
 public func any<T>(_ type: T.Type = T.self, where predicate: @escaping (_ value: T) -> Bool) -> T {
-  let base: T? = nil
-  let description = "any<\(T.self)>(where:)"
-  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
+  let matcher = ArgumentMatcher(nil as T?,
+                                description: "any<\(T.self)>(where:)",
+                                declaration: "any(where: …)",
+                                priority: .high) { (_, rhs) in
     guard let rhs = rhs as? T else { return false }
     return predicate(rhs)
   }
@@ -281,9 +287,10 @@ public func any<T>(_ type: T.Type = T.self, where predicate: @escaping (_ value:
 ///   - predicate: A closure that takes a value and returns `true` if it represents a match.
 public func any<T: NSObjectProtocol>(_ type: T.Type = T.self,
                                      where predicate: @escaping (_ value: T) -> Bool) -> T {
-  let base: T? = nil
-  let description = "any<\(T.self)>(where:)"
-  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
+  let matcher = ArgumentMatcher(nil as T?,
+                                description: "any<\(T.self)>(where:) (Obj-C)",
+                                declaration: "any(where: …)",
+                                priority: .high) { (_, rhs) in
     guard let rhs = rhs as? T else { return false }
     return predicate(rhs)
   }
@@ -320,9 +327,10 @@ public func any<T: NSObjectProtocol>(_ type: T.Type = T.self,
 ///
 /// - Parameter type: The parameter type used to disambiguate overloaded methods.
 public func notNil<T>(_ type: T.Type = T.self) -> T {
-  let base: T? = nil
-  let description = "notNil<\(T.self)>()"
-  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
+  let matcher = ArgumentMatcher(nil as T?,
+                                description: "notNil<\(T.self)>()",
+                                declaration: "notNil()",
+                                priority: .high) { (_, rhs) in
     return (rhs is T || rhs is NonEscapingType) && rhs != nil
   }
   return createTypeFacade(matcher)
@@ -360,9 +368,10 @@ public func notNil<T>(_ type: T.Type = T.self) -> T {
 ///
 /// - Parameter type: The parameter type used to disambiguate overloaded methods.
 public func notNil<T: NSObjectProtocol>(_ type: T.Type = T.self) -> T {
-  let base: T? = nil
-  let description = "notNil<\(T.self)>()"
-  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
+  let matcher = ArgumentMatcher(nil as T?,
+                                description: "notNil<\(T.self)>() (Obj-C)",
+                                declaration: "notNil()",
+                                priority: .high) { (_, rhs) in
     return (rhs is T || rhs is NonEscapingType) && rhs != nil
   }
   return createTypeFacade(matcher)

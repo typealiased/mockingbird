@@ -36,9 +36,9 @@ import Foundation
 /// - Parameters:
 ///   - matcher: An argument matcher.
 ///   - index: The position index of the argument in the mocked declaration.
-public func arg<T>(_ matcher: @autoclosure () -> T, at index: UInt) -> T {
+public func arg<T>(_ matcher: @autoclosure () -> T, at index: Int) -> T {
   if let recorder = InvocationRecorder.sharedRecorder {
-    recorder.recordArgumentIndex(index)
+    recorder.recordArgumentIndex(Int(index))
   }
   return matcher()
 }

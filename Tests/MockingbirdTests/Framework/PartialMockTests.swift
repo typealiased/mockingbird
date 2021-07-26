@@ -48,13 +48,34 @@ class PartialMockTests: BaseTestCase {
     implementer = MinimalImplementer()
   }
   
-  func testForwardPropertyToObject() throws {
+  // MARK: - Specific members
+  
+  func testForwardPropertyGetterToObject() throws {
     given(self.protocolMock.property).willForward(to: implementer)
     XCTAssertEqual(protocolMock.property, "foobar")
     protocolMock.property = "hello"
-    XCTAssertEqual(protocolMock.property, "hello")
-    XCTAssertEqual(implementer.property, "hello")
+    XCTAssertEqual(protocolMock.property, "foobar") // Setter is not stubbed
     verify(self.protocolMock.property).wasCalled(twice)
+  }
+  func testForwardPropertyGetterToObject_stubbingOperator() throws {
+    given(self.protocolMock.property) ~> forward(to: implementer)
+    XCTAssertEqual(protocolMock.property, "foobar")
+    protocolMock.property = "hello"
+    XCTAssertEqual(protocolMock.property, "foobar") // Setter is not stubbed
+    verify(self.protocolMock.property).wasCalled(twice)
+  }
+  
+  func testForwardPropertySetterToObject() throws {
+    given(self.protocolMock.property = firstArg(any())).willForward(to: implementer)
+    protocolMock.property = "hello"
+    XCTAssertEqual(implementer.property, "hello")
+    verify(self.protocolMock.property = "hello").wasCalled()
+  }
+  func testForwardPropertySetterToObject_stubbingOperator() throws {
+    given(self.protocolMock.property = firstArg(any())) ~> forward(to: implementer)
+    protocolMock.property = "hello"
+    XCTAssertEqual(implementer.property, "hello")
+    verify(self.protocolMock.property = "hello").wasCalled()
   }
   
   func testForwardMethodToObject() throws {
@@ -62,17 +83,36 @@ class PartialMockTests: BaseTestCase {
     XCTAssertEqual(protocolMock.method(value: "hello"), "hello")
     verify(protocolMock.method(value: "hello")).wasCalled()
   }
+  func testForwardMethodToObject_stubbingOperator() throws {
+    given(protocolMock.method(value: any())) ~> forward(to: implementer)
+    XCTAssertEqual(protocolMock.method(value: "hello"), "hello")
+    verify(protocolMock.method(value: "hello")).wasCalled()
+  }
   
   func testForwardPropertyToSuperclass() throws {
     given(self.classMock.property).willForwardToSuper()
+    given(self.classMock.property = firstArg(any())).willForwardToSuper()
     XCTAssertEqual(classMock.property, "super")
     classMock.property = "hello"
     XCTAssertEqual(classMock.property, "hello")
-    verify(self.classMock.property).wasCalled(twice)
+    verify(self.classMock.property = firstArg(any())).wasCalled()
+  }
+  func testForwardPropertyToSuperclass_stubbingOperator() throws {
+    given(self.classMock.property) ~> forwardToSuper()
+    given(self.classMock.property = firstArg(any())) ~> forwardToSuper()
+    XCTAssertEqual(classMock.property, "super")
+    classMock.property = "hello"
+    XCTAssertEqual(classMock.property, "hello")
+    verify(self.classMock.property = firstArg(any())).wasCalled()
   }
   
   func testForwardMethodToSuperclass() throws {
     given(classMock.method(value: any())).willForwardToSuper()
+    XCTAssertEqual(classMock.method(value: "hello"), "super-hello")
+    verify(classMock.method(value: "hello")).wasCalled()
+  }
+  func testForwardMethodToSuperclass_stubbingOperator() throws {
+    given(classMock.method(value: any())) ~> forwardToSuper()
     XCTAssertEqual(classMock.method(value: "hello"), "super-hello")
     verify(classMock.method(value: "hello")).wasCalled()
   }
@@ -84,11 +124,47 @@ class PartialMockTests: BaseTestCase {
     given(self.protocolMock.property).willForward(to: implementer)
     XCTAssertEqual(protocolMock.property, "foobar")
   }
+  func testPropertyGetterForwardingPrecedence_stubbingOperator() throws {
+    given(self.protocolMock.property) ~> forward(to: OverriddenImplementer())
+    given(self.protocolMock.property) ~> forward(to: implementer)
+    XCTAssertEqual(protocolMock.property, "foobar")
+  }
+  
+  func testPropertyGetterForwardingPrecedenceWithExplicitStubs() throws {
+    given(self.protocolMock.property).willForward(to: OverriddenImplementer())
+    given(self.protocolMock.property).willReturn("hello")
+    XCTAssertEqual(protocolMock.property, "hello")
+  }
+  func testPropertyGetterForwardingPrecedenceWithExplicitStubs_stubbingOperator() throws {
+    given(self.protocolMock.property) ~> forward(to: OverriddenImplementer())
+    given(self.protocolMock.property) ~> "hello"
+    XCTAssertEqual(protocolMock.property, "hello")
+  }
   
   func testPropertySetterForwardingPrecedence() throws {
-    given(self.protocolMock.property).willForward(to: OverriddenImplementer())
-    given(self.protocolMock.property).willForward(to: implementer)
+    given(self.protocolMock.property = firstArg(any())).willForward(to: OverriddenImplementer())
+    given(self.protocolMock.property = firstArg(any())).willForward(to: implementer)
     protocolMock.property = "foobar"
+  }
+  func testPropertySetterForwardingPrecedence_stubbingOperator() throws {
+    given(self.protocolMock.property = firstArg(any())) ~> forward(to: OverriddenImplementer())
+    given(self.protocolMock.property = firstArg(any())) ~> forward(to: implementer)
+    protocolMock.property = "foobar"
+  }
+  
+  func testPropertySetterForwardingPrecedenceWithExplicitStubs() throws {
+    given(self.protocolMock.property = firstArg(any())).willForward(to: OverriddenImplementer())
+    let expectation = XCTestExpectation()
+    given(self.protocolMock.property = "foobar").will { (newVal: String) -> Void in expectation.fulfill() }
+    protocolMock.property = "foobar"
+    wait(for: [expectation], timeout: 2)
+  }
+  func testPropertySetterForwardingPrecedenceWithExplicitStubs_stubbingOperator() throws {
+    given(self.protocolMock.property = firstArg(any())) ~> forward(to: OverriddenImplementer())
+    let expectation = XCTestExpectation()
+    given(self.protocolMock.property = "foobar") ~> { expectation.fulfill() }
+    protocolMock.property = "foobar"
+    wait(for: [expectation], timeout: 2)
   }
   
   func testMethodForwardingPrecedence() throws {
@@ -96,4 +172,38 @@ class PartialMockTests: BaseTestCase {
     given(protocolMock.method(value: any())).willForward(to: implementer)
     XCTAssertEqual(protocolMock.method(value: "hello"), "hello")
   }
+  func testMethodForwardingPrecedence_stubbingOperator() throws {
+    given(protocolMock.method(value: any())) ~> forward(to: OverriddenImplementer())
+    given(protocolMock.method(value: any())) ~> forward(to: implementer)
+    XCTAssertEqual(protocolMock.method(value: "hello"), "hello")
+  }
+  
+  func testMethodForwardingPrecedenceWithExplicitStubs() throws {
+    given(protocolMock.method(value: any())).willForward(to: OverriddenImplementer())
+    given(protocolMock.method(value: any())).willReturn("hello")
+    XCTAssertEqual(protocolMock.method(value: "hello"), "hello")
+  }
+  func testMethodForwardingPrecedenceWithExplicitStubs_stubbingOperator() throws {
+    given(protocolMock.method(value: any())) ~> forward(to: OverriddenImplementer())
+    given(protocolMock.method(value: any())) ~> "hello"
+    XCTAssertEqual(protocolMock.method(value: "hello"), "hello")
+  }
+  
+  // MARK: - Global
+  
+  func testForwardAllPropertiesToObject() throws {
+    protocolMock.forwarding(to: implementer)
+    XCTAssertEqual(protocolMock.property, "foobar")
+    protocolMock.property = "hello"
+    XCTAssertEqual(protocolMock.property, "hello")
+    XCTAssertEqual(implementer.property, "hello")
+    verify(self.protocolMock.property).wasCalled(twice)
+  }
+  
+  func testForwardAllMethodsToObject() throws {
+    protocolMock.forwarding(to: implementer)
+    XCTAssertEqual(protocolMock.method(value: "hello"), "hello")
+    verify(protocolMock.method(value: "hello")).wasCalled()
+  }
+  
 }
