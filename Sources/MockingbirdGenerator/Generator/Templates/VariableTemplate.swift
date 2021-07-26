@@ -132,7 +132,7 @@ class VariableTemplate: Template {
     let setterReturnType = "Mockingbird.Mockable<\(separated: setterGenericTypes)>"
     let setterDefinition = FunctionDefinitionTemplate(
       attributes: variable.attributes.safeDeclarations,
-      declaration: "public \(modifiers)func set\(capitalizedName)(_ newValue: @escaping @autoclosure () -> \(matchableType)) -> \(setterReturnType)",
+      declaration: "public \(modifiers)func set\(capitalizedName)(_ newValue: @autoclosure () -> \(matchableType)) -> \(setterReturnType)",
       body: !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub : """
       return \(ObjectInitializationTemplate(
                 name: "Mockingbird.Mockable",

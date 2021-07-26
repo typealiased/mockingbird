@@ -14,38 +14,39 @@ import Foundation
 ///
 /// It goes without saying that this should probably never be done in production.
 
-private class ResolutionContext: Thread {
-  private let typeFacade: () -> Any?
-  let result: Result
-  let semaphore: DispatchSemaphore
-  
-  private enum Constants {
-    static let resultKey = "co.bird.mockingbird.ResolutionContext.result"
-    static let semaphoreKey = "co.bird.mockingbird.ResolutionContext.semaphore"
+private class ResolutionContext {
+  enum Constants {
+    static let contextKey = DispatchSpecificKey<ResolutionContext>()
+    static let resultSentinel = NSException(
+      name: NSExceptionName(rawValue: "co.bird.mockingbird.ResolutionContext.result"),
+      reason: nil,
+      userInfo: nil)
   }
   
   class Result {
-    var value: Any?
+    var value: Any? {
+      didSet {
+        MKBThrowException(Constants.resultSentinel)
+      }
+    }
+  }
+  let result = Result()
+  
+  private static let sharedQueue = DispatchQueue(label: "co.bird.mockingbird.ResolutionContext")
+  
+  static var sharedContext: ResolutionContext? {
+    return DispatchQueue.getSpecific(key: Constants.contextKey)
   }
   
-  static var result: Result? {
-    return Thread.current.threadDictionary[Constants.resultKey] as? Result
-  }
-  static var semaphore: DispatchSemaphore? {
-    return Thread.current.threadDictionary[Constants.semaphoreKey] as? DispatchSemaphore
-  }
-  
-  init<T>(typeFacade: @escaping () -> T) {
-    self.typeFacade = typeFacade
-    self.result = Result()
-    self.semaphore = DispatchSemaphore(value: 0)
-  }
-  
-  override func main() {
-    threadDictionary[Constants.resultKey] = self.result
-    threadDictionary[Constants.semaphoreKey] = self.semaphore
-    result.value = typeFacade()
-    semaphore.signal()
+  func resolveTypeFacade<T>(_ block: () -> T) -> Any? {
+    return Self.sharedQueue.sync {
+      _ = MKBTryBlock {
+        Self.sharedQueue.setSpecific(key: Constants.contextKey, value: self)
+        result.value = block() // Returns the real value if not an argument matcher.
+      }
+      Self.sharedQueue.setSpecific(key: Constants.contextKey, value: nil)
+      return result.value
+    }
   }
 }
 
@@ -66,79 +67,71 @@ func fakePrimitiveValue<T>() -> T {
 
 /// Wraps a value into any type `T` when resolved inside of a `ResolutionContext<T>`.
 func createTypeFacade<T>(_ value: Any?) -> T {
-  guard let result = ResolutionContext.result, let semaphore = ResolutionContext.semaphore else {
-    guard let recorder = InvocationRecorder.sharedRecorder else {
-      preconditionFailure("Invalid resolution thread context state")
-    }
-    // This is actually an invocation recording context, but the type is not mockable in Obj-C.
-    guard let argumentIndex = recorder.argumentIndex else {
-      /// Explicit argument indexes are required in certain cases. See the `arg(_:at:)` docs for
-      /// more information and usage.
-      if let matcher = (value as? ArgumentMatcher)?.declaration {
-        recorder.recordError("""
-        Cannot infer the argument index of '\(matcher)' when used in this context
-        
-        Wrap usages of '\(matcher)' in an explicit argument index, for example:
-           firstArg(\(matcher))
-           secondArg(\(matcher))
-           arg(\(matcher), at: 2)
-        """)
-      } else {
-        recorder.recordError("""
-        Cannot infer the argument index when used in this context
-        
-        Wrap usages in an explicit argument index, for example:
-           firstArg(any())
-           secondArg(any())
-           arg(any(), at: 2)
-        """)
-      }
-      fatalError("This should never run")
-    }
-    recorder.recordFacadeValue(value, at: argumentIndex)
-    return fakePrimitiveValue()
+  if let context = ResolutionContext.sharedContext {
+    context.result.value = value
+    fatalError("This should never run")
   }
   
-  result.value = value
-  semaphore.signal()
-  Thread.exit()
-  fatalError("This should never run")
+  guard let recorder = InvocationRecorder.sharedRecorder else {
+    preconditionFailure("Invalid resolution thread context state")
+  }
+  // This is actually an invocation recording context, but the type is not mockable in Obj-C.
+  guard let argumentIndex = recorder.argumentIndex else {
+    /// Explicit argument indexes are required in certain cases. See the `arg(_:at:)` docs for
+    /// more information and usage.
+    if let matcher = (value as? ArgumentMatcher)?.declaration {
+      recorder.recordError("""
+      Cannot infer the argument index of '\(matcher)' when used in this context
+      
+      Wrap usages of '\(matcher)' in an explicit argument index, for example:
+         firstArg(\(matcher))
+         secondArg(\(matcher))
+         arg(\(matcher), at: 2)
+      """)
+    } else {
+      recorder.recordError("""
+      Cannot infer the argument index when used in this context
+      
+      Wrap usages in an explicit argument index, for example:
+         firstArg(any())
+         secondArg(any())
+         arg(any(), at: 2)
+      """)
+    }
+    fatalError("This should never run")
+  }
+  recorder.recordFacadeValue(value, at: argumentIndex)
+  return fakePrimitiveValue()
 }
 
-// TODO: Clean up and docs
+/// Wraps a value into an Obj-C object `T` when resolved inside of a `ResolutionContext<T>`.
 func createTypeFacade<T: NSObjectProtocol>(_ value: Any?) -> T {
-  guard let result = ResolutionContext.result, let semaphore = ResolutionContext.semaphore else {
-    guard InvocationRecorder.sharedRecorder != nil else {
-      preconditionFailure("Invalid resolution thread context state")
-    }
-    // This is actually an invocation recording context.
-    return MKBTypeFacade(mock: MKBMock(T.self), object: value as Any).fixupType()
+  if let context = ResolutionContext.sharedContext {
+    context.result.value = value
+    fatalError("This should never run")
   }
-  
-  result.value = value
-  semaphore.signal()
-  Thread.exit()
-  fatalError("This should never run")
+
+  guard InvocationRecorder.sharedRecorder != nil else {
+    preconditionFailure("Invalid resolution thread context state")
+  }
+  // This is actually an invocation recording context.
+  return MKBTypeFacade(mock: MKBMock(T.self), object: value as Any).fixupType()
 }
 
 /// Resolve `parameter` when `T` is _not_ known to be `Equatable`.
-func resolve<T>(_ parameter: @escaping () -> T) -> ArgumentMatcher {
-  let context = ResolutionContext(typeFacade: parameter)
-  context.start()
-  context.semaphore.wait()
-  if let matcher = context.result.value as? ArgumentMatcher { return matcher }
-  if let typedValue = context.result.value as? T { return ArgumentMatcher(typedValue) }
-  return ArgumentMatcher(context.result.value)
+func resolve<T>(_ parameter: () -> T) -> ArgumentMatcher {
+  let resolvedValue = ResolutionContext().resolveTypeFacade(parameter)
+  if let matcher = resolvedValue as? ArgumentMatcher { return matcher }
+  if let typedValue = resolvedValue as? T { return ArgumentMatcher(typedValue) }
+  return ArgumentMatcher(resolvedValue)
 }
 
 /// Resolve `parameter` when `T` is known to be `Equatable`.
-func resolve<T: Equatable>(_ parameter: @escaping () -> T) -> ArgumentMatcher {
-  let context = ResolutionContext(typeFacade: parameter)
-  context.start()
-  context.semaphore.wait()
-  if let matcher = context.result.value as? ArgumentMatcher { return matcher }
-  if let typedValue = context.result.value as? T { return ArgumentMatcher(typedValue) }
-  return ArgumentMatcher(context.result.value)
+func resolve<T: Equatable>(_ parameter: () -> T) -> ArgumentMatcher {
+  let resolvedValue = ResolutionContext().resolveTypeFacade(parameter)
+  if let matcher = resolvedValue as? ArgumentMatcher { return matcher }
+  if let typedValue = resolvedValue as? T { return ArgumentMatcher(typedValue) }
+  return ArgumentMatcher(resolvedValue)
 }
 
 /// Resolve `parameter` when the closure returns an `ArgumentMatcher`.

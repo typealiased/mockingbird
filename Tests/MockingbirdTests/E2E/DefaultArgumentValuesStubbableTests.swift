@@ -12,15 +12,15 @@ import Mockingbird
 // MARK: - Stubbable declarations
 
 private protocol StubbableDefaultArgumentValuesProtocol {
-  func method(param1: @escaping @autoclosure () -> String,
-              param2: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject])
+  func method(param1: @autoclosure () -> String,
+              param2: @autoclosure () -> [MockingbirdTestsHost.NSObject])
   -> Mockable<FunctionDeclaration, (String, [MockingbirdTestsHost.NSObject]) -> Void, Void>
 }
 extension DefaultArgumentValuesProtocolMock: StubbableDefaultArgumentValuesProtocol {}
 
 private protocol StubbableDefaultArgumentValuesClass {
-  func method(param1: @escaping @autoclosure () -> String,
-              param2: @escaping @autoclosure () -> [MockingbirdTestsHost.NSObject])
+  func method(param1: @autoclosure () -> String,
+              param2: @autoclosure () -> [MockingbirdTestsHost.NSObject])
     -> Mockable<FunctionDeclaration, (String, [MockingbirdTestsHost.NSObject]) -> Void, Void>
 }
 extension DefaultArgumentValuesClassMock: StubbableDefaultArgumentValuesClass {}

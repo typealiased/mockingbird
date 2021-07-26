@@ -19,13 +19,13 @@ private protocol StubbableChildProtocol {
   
   func getChildInstanceVariable()
     -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
-  func setChildInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
+  func setChildInstanceVariable(_ newValue: @autoclosure () -> Bool)
     -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void>
   
   func childTrivialInstanceMethod()
     -> Mockable<FunctionDeclaration, () -> Void, Void>
-  func childParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
-                                        _ param2: @escaping @autoclosure () -> Int)
+  func childParameterizedInstanceMethod(param1: @autoclosure () -> Bool,
+                                        _ param2: @autoclosure () -> Int)
     -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
   
   static func getChildPrivateSetterStaticVariable()
@@ -33,13 +33,13 @@ private protocol StubbableChildProtocol {
   
   static func getChildStaticVariable()
     -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
-  static func setChildStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
+  static func setChildStaticVariable(_ newValue: @autoclosure () -> Bool)
     -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void>
   
   static func childTrivialStaticMethod()
     -> Mockable<FunctionDeclaration, () -> Void, Void>
-  static func childParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool,
-                                             _ param2: @escaping @autoclosure () -> Int)
+  static func childParameterizedStaticMethod(param1: @autoclosure () -> Bool,
+                                             _ param2: @autoclosure () -> Int)
     -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
   
   // MARK: Parent
@@ -48,13 +48,13 @@ private protocol StubbableChildProtocol {
   
   func getParentInstanceVariable()
     -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
-  func setParentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
+  func setParentInstanceVariable(_ newValue: @autoclosure () -> Bool)
     -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void>
   
   func parentTrivialInstanceMethod()
     -> Mockable<FunctionDeclaration, () -> Void, Void>
-  func parentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
-                                         _ param2: @escaping @autoclosure () -> Int)
+  func parentParameterizedInstanceMethod(param1: @autoclosure () -> Bool,
+                                         _ param2: @autoclosure () -> Int)
     -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
   
   static func getParentPrivateSetterStaticVariable()
@@ -62,13 +62,13 @@ private protocol StubbableChildProtocol {
   
   static func getParentStaticVariable()
     -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
-  static func setParentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
+  static func setParentStaticVariable(_ newValue: @autoclosure () -> Bool)
     -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void>
   
   static func parentTrivialStaticMethod()
     -> Mockable<FunctionDeclaration, () -> Void, Void>
-  static func parentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool,
-                                              _ param2: @escaping @autoclosure () -> Int)
+  static func parentParameterizedStaticMethod(param1: @autoclosure () -> Bool,
+                                              _ param2: @autoclosure () -> Int)
     -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
   
   // MARK: Grandparent
@@ -76,12 +76,12 @@ private protocol StubbableChildProtocol {
     -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
   
   func getGrandparentInstanceVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
-  func setGrandparentInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
+  func setGrandparentInstanceVariable(_ newValue: @autoclosure () -> Bool)
     -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void>
   
   func grandparentTrivialInstanceMethod() -> Mockable<FunctionDeclaration, () -> Void, Void>
-  func grandparentParameterizedInstanceMethod(param1: @escaping @autoclosure () -> Bool,
-                                              _ param2: @escaping @autoclosure () -> Int)
+  func grandparentParameterizedInstanceMethod(param1: @autoclosure () -> Bool,
+                                              _ param2: @autoclosure () -> Int)
     -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
   
   static func getGrandparentPrivateSetterStaticVariable()
@@ -89,30 +89,30 @@ private protocol StubbableChildProtocol {
   
   static func getGrandparentStaticVariable()
     -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool>
-  static func setGrandparentStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
+  static func setGrandparentStaticVariable(_ newValue: @autoclosure () -> Bool)
     -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void>
   
   static func grandparentTrivialStaticMethod()
     -> Mockable<FunctionDeclaration, () -> Void, Void>
-  static func grandparentParameterizedStaticMethod(param1: @escaping @autoclosure () -> Bool,
-                                                   _ param2: @escaping @autoclosure () -> Int)
+  static func grandparentParameterizedStaticMethod(param1: @autoclosure () -> Bool,
+                                                   _ param2: @autoclosure () -> Int)
     -> Mockable<FunctionDeclaration, (Bool, Int) -> Bool, Bool>
 }
 extension ChildProtocolMock: StubbableChildProtocol {}
 
 extension ChildProtocolMock {
-  func setChildPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
+  func setChildPrivateSetterInstanceVariable(_ newValue: @autoclosure () -> Bool)
     -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
-  static func setChildPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
-  
-  func setParentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
-    -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
-  static func setParentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
+  static func setChildPrivateSetterStaticVariable(_ newValue: @autoclosure () -> Bool)
     -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
   
-  func setGrandparentPrivateSetterInstanceVariable(_ newValue: @escaping @autoclosure () -> Bool)
+  func setParentPrivateSetterInstanceVariable(_ newValue: @autoclosure () -> Bool)
     -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
-  static func setGrandparentPrivateSetterStaticVariable(_ newValue: @escaping @autoclosure () -> Bool)
+  static func setParentPrivateSetterStaticVariable(_ newValue: @autoclosure () -> Bool)
+    -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
+  
+  func setGrandparentPrivateSetterInstanceVariable(_ newValue: @autoclosure () -> Bool)
+    -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
+  static func setGrandparentPrivateSetterStaticVariable(_ newValue: @autoclosure () -> Bool)
     -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
 }

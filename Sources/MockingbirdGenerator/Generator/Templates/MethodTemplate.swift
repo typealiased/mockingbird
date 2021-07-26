@@ -258,7 +258,7 @@ class MethodTemplate: Template {
     if mode.isInitializerProxy {
       additionalParameters = ["__file: StaticString = #file", "__line: UInt = #line"]
     } else if mode.variant == .subscriptSetter {
-      let closureType = mode.isMatching ? "@escaping @autoclosure () -> " : ""
+      let closureType = mode.isMatching ? "@autoclosure () -> " : ""
       additionalParameters = ["`newValue`: \(closureType)\(matchableReturnType)"]
     } else {
       additionalParameters = []
@@ -267,7 +267,7 @@ class MethodTemplate: Template {
     let parameterNames = method.parameters.map({ parameter -> String in
       let typeName: String
       if mode.isMatching && (!mode.useVariadics || !parameter.attributes.contains(.variadic)) {
-        typeName = "@escaping @autoclosure () -> \(parameter.matchableTypeName(in: self))"
+        typeName = "@autoclosure () -> \(parameter.matchableTypeName(in: self))"
       } else {
         typeName = parameter.mockableTypeName(context: self)
       }

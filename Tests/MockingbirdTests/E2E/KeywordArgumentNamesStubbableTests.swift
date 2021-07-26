@@ -13,13 +13,13 @@ import Mockingbird
 // MARK: - Stubbable declarations
 
 private protocol StubbableKeywordArgNamesProtocol {
-  func methodWithKeywordParam(`inout`: @escaping @autoclosure () -> String)
+  func methodWithKeywordParam(`inout`: @autoclosure () -> String)
       -> Mockable<FunctionDeclaration, (String) -> Void, Void>
-  func methodWithNamedKeywordParam(with `inout`: @escaping @autoclosure () -> String)
+  func methodWithNamedKeywordParam(with `inout`: @autoclosure () -> String)
       -> Mockable<FunctionDeclaration, (String) -> Void, Void>
-  func methodWithUnnamedKeywordParam(_ `inout`: @escaping @autoclosure () -> String)
+  func methodWithUnnamedKeywordParam(_ `inout`: @autoclosure () -> String)
       -> Mockable<FunctionDeclaration, (String) -> Void, Void>
-  func methodWithParamNamedKeyword(`inout` param: @escaping @autoclosure () -> String)
+  func methodWithParamNamedKeyword(`inout` param: @autoclosure () -> String)
       -> Mockable<FunctionDeclaration, (String) -> Void, Void>
 }
 
