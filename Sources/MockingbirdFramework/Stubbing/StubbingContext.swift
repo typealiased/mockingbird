@@ -24,8 +24,7 @@ import XCTest
     return stub
   }
   
-  @discardableResult
-  func failTest(for invocation: Invocation, at sourceLocation: SourceLocation? = nil) -> String {
+  func failTest(for invocation: Invocation, at sourceLocation: SourceLocation? = nil) -> Never {
     let stubbedSelectorNames = stubs.read({ Array($0.keys) }).sorted()
     let stackTrace = StackTrace(from: Thread.callStackSymbols)
     let error = TestFailure.missingStubbedImplementation(invocation: invocation,
@@ -37,12 +36,10 @@ import XCTest
       FailTest("\(error)", isFatal: true)
     }
     
-    // Usually test execution has stopped by this point.
-    fatalError("Missing stubbed implementation for \(invocation)")
+    fatalError("This should never run")
   }
   
-  @discardableResult
-  @objc public func failTest(for invocation: ObjCInvocation) -> String {
+  @objc public func failTest(for invocation: ObjCInvocation) -> Never {
     return failTest(for: invocation as Invocation)
   }
 

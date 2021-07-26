@@ -53,7 +53,10 @@ private class StandardTestFailer: TestFailer {
     guard isFatal else { return }
     
     // Raise an Objective-C exception to stop the test runner.
-    MKBStopTest(message)
+    MKBStopTest("Unable to continue test execution past this point due to errors")
+    
+    // Test execution should usually be stopped by this point.
+    fatalError(message)
   }
 }
 

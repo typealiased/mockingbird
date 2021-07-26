@@ -139,12 +139,10 @@ class ThunkTemplate: Template {
                           arguments: [("for", "\(parenthetical: returnType).self")]))
         """,
         body: "return mkbValue"))
-    \(FunctionCallTemplate(name: "fatalError", unlabeledArguments: [
-      FunctionCallTemplate(name: "\(context).stubbing.failTest",
+    \(FunctionCallTemplate(name: "\(context).stubbing.failTest",
                            arguments: [
                             ("for", "$0"),
-                            ("at", "\(context).sourceLocation")]).render()
-    ]))
+                            ("at", "\(context).sourceLocation")]).render())
     """))
     """
   }
