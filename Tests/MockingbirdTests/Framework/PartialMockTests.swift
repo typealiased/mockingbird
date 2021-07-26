@@ -155,7 +155,7 @@ class PartialMockTests: BaseTestCase {
   func testPropertySetterForwardingPrecedenceWithExplicitStubs() throws {
     given(self.protocolMock.property = firstArg(any())).willForward(to: OverriddenImplementer())
     let expectation = XCTestExpectation()
-    given(self.protocolMock.property = "foobar").will { (newVal: String) -> Void in expectation.fulfill() }
+    given(self.protocolMock.property = "foobar").will { expectation.fulfill() }
     protocolMock.property = "foobar"
     wait(for: [expectation], timeout: 2)
   }

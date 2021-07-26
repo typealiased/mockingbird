@@ -12,8 +12,8 @@ class ThunkTemplate: Template {
   let invocation: String
   let shortSignature: String?
   let longSignature: String
-  let bridgedSignature: String?
   let returnType: String
+  let isBridged: Bool
   let isThrowing: Bool
   let isStatic: Bool
   let callMember: (_ scope: Scope) -> String
@@ -34,8 +34,8 @@ class ThunkTemplate: Template {
        invocation: String,
        shortSignature: String?,
        longSignature: String,
-       bridgedSignature: String?,
        returnType: String,
+       isBridged: Bool,
        isThrowing: Bool,
        isStatic: Bool,
        callMember: @escaping (_ scope: Scope) -> String,
@@ -44,8 +44,8 @@ class ThunkTemplate: Template {
     self.invocation = invocation
     self.shortSignature = shortSignature
     self.longSignature = longSignature
-    self.bridgedSignature = bridgedSignature
     self.returnType = returnType
+    self.isBridged = isBridged
     self.isThrowing = isThrowing
     self.isStatic = isStatic
     self.callMember = callMember
@@ -69,14 +69,26 @@ class ThunkTemplate: Template {
         return \(FunctionCallTemplate(name: "mkbImpl", isThrowing: isThrowing))
         """).render()
     }()
-    let callBridged: String = {
-      guard let bridgedSignature = bridgedSignature else { return "" }
+    
+    let callBridgedDefault: String = {
+      guard isBridged else { return "" }
+      let bridgedSignature = """
+      (\(String(list: Array(repeating: "Any?", count: unlabledArguments.count)))) -> Any?
+      """
       return IfStatementTemplate(
         condition: "let mkbImpl = mkbImpl as? \(bridgedSignature)",
         body: """
         return \(FunctionCallTemplate(name: "mkbImpl",
                                       unlabeledArguments: unlabledArguments,
                                       isThrowing: isThrowing)) as! \(returnType)
+        """).render()
+    }()
+    let callBridgedConvenience: String = {
+      guard isBridged else { return "" }
+      return IfStatementTemplate(
+        condition: "let mkbImpl = mkbImpl as? () -> Any?",
+        body: """
+        return \(FunctionCallTemplate(name: "mkbImpl", isThrowing: isThrowing)) as! \(returnType)
         """).render()
     }()
     
@@ -100,7 +112,8 @@ class ThunkTemplate: Template {
     \(String(lines: [
       callDefault.render(),
       callConvenience,
-      callBridged,
+      callBridgedDefault,
+      callBridgedConvenience,
       !isSubclass && !isProxyable ? "" : ForInStatementTemplate(
         item: "mkbTargetBox",
         collection: "\(context).proxy.targets(for: $0)",

@@ -63,8 +63,8 @@ class MethodTemplate: Template {
                     invocation: mockableInvocation,
                     shortSignature: method.parameters.isEmpty ? nil : shortSignature,
                     longSignature: longSignature,
-                    bridgedSignature: nil,
                     returnType: method.returnTypeName,
+                    isBridged: false,
                     isThrowing: method.isThrowing,
                     isStatic: method.kind.typeScope.isStatic,
                     callMember: { scope in
