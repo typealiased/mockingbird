@@ -290,9 +290,9 @@ func createOrderedContext(at sourceLocation: SourceLocation,
   do {
     try group.verify()
   } catch let error as ExpectationGroup.Failure {
-    MKBFail(String(describing: error),
-            file: error.sourceLocation.file,
-            line: error.sourceLocation.line)
+    FailTest(String(describing: error),
+             file: error.sourceLocation.file,
+             line: error.sourceLocation.line)
   } catch {
     fatalError("Unexpected error type") // This shouldn't happen.
   }

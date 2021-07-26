@@ -10,26 +10,19 @@
 #import "MKBProtocolMock.h"
 #import <objc/runtime.h>
 
-id mkb_mock(id aType)
+id MKBMock(id aType)
 {
   if ([NSStringFromClass([aType class]) isEqualToString:@"Protocol"]) {
-    return mkb_mockProtocol(aType);
+    return MKBMockProtocol(aType);
   } else {
-    return mkb_mockClass((Class)aType);
+    return MKBMockClass((Class)aType);
   }
 }
 
-id mkb_mockClass(Class aClass) {
+id MKBMockClass(Class aClass) {
   return [[MKBClassMock alloc] initWithClass:aClass];
 }
 
-id mkb_mockProtocol(id aProtocol) {
+id MKBMockProtocol(id aProtocol) {
   return [[MKBProtocolMock alloc] initWithProtocol:aProtocol];
-}
-
-void mkb_fail_test(NSString *reason)
-{
-  @throw [NSException exceptionWithName:@"co.bird.mockingbird.TestFailure"
-                                 reason:reason
-                               userInfo:nil];
 }

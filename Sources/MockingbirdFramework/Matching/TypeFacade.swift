@@ -112,7 +112,7 @@ func createTypeFacade<T: NSObjectProtocol>(_ value: Any?) -> T {
       preconditionFailure("Invalid resolution thread context state")
     }
     // This is actually an invocation recording context.
-    return MKBTypeFacade(mock: mkb_mock(T.self), object: value as Any).fixupType()
+    return MKBTypeFacade(mock: MKBMock(T.self), object: value as Any).fixupType()
   }
   
   result.value = value

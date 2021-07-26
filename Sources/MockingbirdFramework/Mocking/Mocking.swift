@@ -63,7 +63,7 @@ public func mock<T>(_ type: T.Type) -> T { fatalError() }
 ///
 /// - Parameter type: The type to mock.
 public func mock<T: NSObjectProtocol>(_ type: T.Type) -> T {
-  return MKBTypeFacade.create(from: mkb_mock(type))
+  return MKBTypeFacade.create(from: MKBMock(type))
 }
 
 /// Remove all recorded invocations and configured stubs.

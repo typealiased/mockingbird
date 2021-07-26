@@ -32,9 +32,9 @@ import XCTest
                                                          stubbedSelectorNames: stubbedSelectorNames,
                                                          stackTrace: stackTrace)
     if let sourceLocation = sourceLocation {
-      MKBFail("\(error)", isFatal: true, file: sourceLocation.file, line: sourceLocation.line)
+      FailTest("\(error)", isFatal: true, file: sourceLocation.file, line: sourceLocation.line)
     } else {
-      MKBFail("\(error)", isFatal: true)
+      FailTest("\(error)", isFatal: true)
     }
     
     // Usually test execution has stopped by this point.

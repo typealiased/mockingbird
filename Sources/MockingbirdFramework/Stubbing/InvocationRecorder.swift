@@ -21,41 +21,58 @@ struct InvocationRecord {
   }
   
   enum Constants {
-    static let recorderKey = "co.bird.mockingbird.InvocationRecorder"
+    static let recorderKey = DispatchSpecificKey<InvocationRecorder>()
+    static let resultSentinel = NSException(
+      name: NSExceptionName(rawValue: "co.bird.mockingbird.InvocationRecorder.result"),
+      reason: nil,
+      userInfo: nil)
   }
   
-  private(set) var value: InvocationRecord?
-  private(set) var facadeValues = [Int: Any?]()
-  private(set) var argumentIndex: Int?
-  private(set) var errorMessage: String?
-  
-  @objc public let mode: Mode
-  @objc public let thread: Thread
-  let semaphore: DispatchSemaphore
-  
-  init(mode: Mode, block: @escaping () -> Any?) {
-    self.mode = mode
-    let semaphore = DispatchSemaphore(value: 0)
-    self.semaphore = semaphore
-    self.thread = Thread.init {
-      NotificationCenter.default.addObserver(forName: NSNotification.Name.NSThreadWillExit,
-                                             object: nil,
-                                             queue: nil) { _ in semaphore.signal() }
-      _ = block()
+  enum Result {
+    case value(InvocationRecord)
+    case error(String)
+  }
+  private(set) var result: Result? {
+    didSet {
+      MKBThrowException(Constants.resultSentinel)
     }
   }
   
+  private(set) var facadeValues = [Int: Any?]()
+  private(set) var argumentIndex: Int?
+  
+  @objc public let mode: Mode
+  private static let sharedQueue = DispatchQueue(label: "co.bird.mockingbird.InvocationRecorder")
+  
+  init(mode: Mode) {
+    self.mode = mode
+  }
+  
+  func startRecording(block: () -> Void) -> Self {
+    Self.sharedQueue.sync {
+      _ = MKBTryBlock {
+        Self.sharedQueue.setSpecific(key: Constants.recorderKey, value: self)
+        block()
+      }
+      Self.sharedQueue.setSpecific(key: Constants.recorderKey, value: nil)
+    }
+    return self
+  }
+  
   func recordInvocation(_ invocation: Invocation, context: Context) {
-    value = InvocationRecord(invocation: invocation, context: context)
-    Thread.exit()
+    result = .value(InvocationRecord(invocation: invocation, context: context))
   }
   
   @objc public func recordInvocation(_ invocation: ObjCInvocation, context: Context) {
     recordInvocation(invocation as Invocation, context: context)
   }
   
-  func recordArgumentIndex(_ argumentIndex: Int) {
-    self.argumentIndex = argumentIndex
+  func recordError(_ message: String) {
+    result = .error(message)
+  }
+  
+  func recordArgumentIndex(_ index: Int) {
+    self.argumentIndex = index
   }
   
   func recordFacadeValue(_ facadeValue: Any?, at argumentIndex: Int) {
@@ -66,22 +83,9 @@ struct InvocationRecord {
     return facadeValues[argumentIndex] ?? nil
   }
   
-  func recordError(_ message: String) {
-    self.errorMessage = message
-    Thread.exit()
-  }
-  
   // MARK: DispatchQueue utils
   
-  @objc public static func startRecording(mode: Mode,
-                                          block: @escaping () -> Any?) -> InvocationRecorder {
-    let recorder = InvocationRecorder(mode: mode, block: block)
-    recorder.thread.threadDictionary[Constants.recorderKey] = recorder
-    recorder.thread.start()
-    return recorder
-  }
-  
   @objc public static var sharedRecorder: InvocationRecorder? {
-    return Thread.current.threadDictionary[Constants.recorderKey] as? InvocationRecorder
+    return DispatchQueue.getSpecific(key: Constants.recorderKey)
   }
 }

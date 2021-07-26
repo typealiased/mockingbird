@@ -82,7 +82,7 @@ public func any<T: NSObjectProtocol>(_ type: T.Type = T.self) -> T {
                                 priority: .high) { (_, rhs) in
     return rhs is T || rhs is NonEscapingType
   }
-  return MKBTypeFacade(mock: mkb_mock(T.self), object: matcher).fixupType()
+  return MKBTypeFacade(mock: MKBMock(T.self), object: matcher).fixupType()
 }
 
 /// Matches argument values equal to any of the provided values.
@@ -294,7 +294,7 @@ public func any<T: NSObjectProtocol>(_ type: T.Type = T.self,
     guard let rhs = rhs as? T else { return false }
     return predicate(rhs)
   }
-  return MKBTypeFacade<T>(mock: mkb_mock(T.self), object: matcher).fixupType()
+  return MKBTypeFacade<T>(mock: MKBMock(T.self), object: matcher).fixupType()
 }
 
 /// Matches any non-nil argument value.

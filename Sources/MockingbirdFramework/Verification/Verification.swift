@@ -48,19 +48,27 @@ public func verify<DeclarationType: Declaration, InvocationType, ReturnType>(
 /// - Parameters:
 ///   - mock: A mocked declaration to verify.
 public func verify<ReturnType>(
-  _ declaration: @escaping @autoclosure () -> ReturnType,
+  _ declaration: @autoclosure () -> ReturnType,
   file: StaticString = #file, line: UInt = #line
 ) -> VerificationManager<Any?, ReturnType> {
-  let recorder = InvocationRecorder.startRecording(mode: .verifying, block: { declaration() })
-  recorder.semaphore.wait()
-  if let errorMessage = recorder.errorMessage {
-    preconditionFailure(MKBFail(errorMessage, isFatal: true, file: file, line: line))
+  let recorder = InvocationRecorder(mode: .verifying).startRecording(block: {
+    /// `EXC_BAD_ACCESS` usually happens when mocking a Swift type that inherits from `NSObject`.
+    ///   - Make sure that the Swift type has a generated mock, e.g. `SomeTypeMock` exists.
+    ///   - If you actually do want to use Obj-C dynamic mocking with a Swift type, the method must
+    ///     be annotated with both `@objc` and `dynamic`, e.g. `@objc dynamic func someMethod()`.
+    ///   - If this is happening on a pure Obj-C type, please file a bug report with the stack
+    ///     trace: https://github.com/birdrides/mockingbird/issues/new/choose
+    _ = declaration()
+  })
+  switch recorder.result {
+  case .value(let record):
+    return VerificationManager(from: record, at: SourceLocation(file, line))
+  case .error(let message):
+    preconditionFailure(FailTest(message, isFatal: true, file: file, line: line))
+  case .none:
+    preconditionFailure(
+      FailTest("\(TestFailure.unmockableExpression)", isFatal: true, file: file, line: line))
   }
-  guard let value = recorder.value else {
-    preconditionFailure(MKBFail("\(TestFailure.unmockableExpression)", isFatal: true,
-                                file: file, line: line))
-  }
-  return VerificationManager(from: value, at: SourceLocation(file, line))
 }
 
 /// An intermediate object used for verifying declarations returned by `verify`.
@@ -129,9 +137,9 @@ public class VerificationManager<InvocationType, ReturnType> {
     do {
       try expect(context.mocking, handled: invocation, using: expectation)
     } catch {
-      MKBFail(String(describing: error),
-              file: expectation.sourceLocation.file,
-              line: expectation.sourceLocation.line)
+      FailTest(String(describing: error),
+               file: expectation.sourceLocation.file,
+               line: expectation.sourceLocation.line)
     }
   }
 }

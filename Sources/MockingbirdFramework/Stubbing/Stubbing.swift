@@ -79,23 +79,25 @@ public func given<DeclarationType: Declaration, InvocationType, ReturnType>(
 ///
 /// - Parameter declaration: A stubbable declaration.
 public func given<ReturnType>(
-  _ declaration: @escaping @autoclosure () throws -> ReturnType
+  _ declaration: @autoclosure () throws -> ReturnType
 ) -> DynamicStubbingManager<ReturnType> {
-  /// `EXC_BAD_ACCESS` usually happens when mocking a Swift type that inherits from `NSObject`.
-  ///   - Make sure that the Swift type has a generated mock, e.g. `SomeTypeMock` exists.
-  ///   - If you actually do want to use Obj-C dynamic mocking with a Swift type, the method must
-  ///     be annotated with both `@objc` and `dynamic`, e.g. `@objc dynamic func someMethod()`.
-  ///   - If this is happening on a pure Obj-C type, please file a bug report with the stack trace.
-  ///     https://github.com/birdrides/mockingbird/issues/new/choose
-  let recorder = InvocationRecorder.startRecording(mode: .stubbing, block: { try? declaration() })
-  recorder.semaphore.wait()
-  if let errorMessage = recorder.errorMessage {
-    preconditionFailure(MKBFail(errorMessage, isFatal: true))
+  let recorder = InvocationRecorder(mode: .stubbing).startRecording(block: {
+    /// `EXC_BAD_ACCESS` usually happens when mocking a Swift type that inherits from `NSObject`.
+    ///   - Make sure that the Swift type has a generated mock, e.g. `SomeTypeMock` exists.
+    ///   - If you actually do want to use Obj-C dynamic mocking with a Swift type, the method must
+    ///     be annotated with both `@objc` and `dynamic`, e.g. `@objc dynamic func someMethod()`.
+    ///   - If this is happening on a pure Obj-C type, please file a bug report with the stack
+    ///     trace: https://github.com/birdrides/mockingbird/issues/new/choose
+    _ = try? declaration()
+  })
+  switch recorder.result {
+  case .value(let record):
+    return DynamicStubbingManager(invocation: record.invocation, context: record.context)
+  case .error(let message):
+    preconditionFailure(FailTest(message, isFatal: true))
+  case .none:
+    preconditionFailure(FailTest("\(TestFailure.unmockableExpression)", isFatal: true))
   }
-  guard let value = recorder.value else {
-    preconditionFailure(MKBFail("\(TestFailure.unmockableExpression)", isFatal: true))
-  }
-  return DynamicStubbingManager(invocation: value.invocation, context: value.context)
 }
 
 /// An intermediate object used for stubbing declarations returned by `given`.

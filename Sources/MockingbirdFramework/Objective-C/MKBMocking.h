@@ -9,11 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-id mkb_mock(id aType);
+id MKBMock(id aType);
 
-id mkb_mockClass(Class aClass);
-id mkb_mockProtocol(id aProtocol);
-
-void mkb_fail_test(NSString *reason);
+id MKBMockClass(Class aClass);
+id MKBMockProtocol(id aProtocol);
 
 NS_ASSUME_NONNULL_END

@@ -39,8 +39,8 @@ public func swizzleTestFailer(_ newTestFailer: TestFailer) {
 ///   - file: The file where the failure occurred.
 ///   - line: The line in the file where the failure occurred.
 @discardableResult
-public func MKBFail(_ message: String, isFatal: Bool = false,
-                    file: StaticString = #file, line: UInt = #line) -> String {
+func FailTest(_ message: String, isFatal: Bool = false,
+              file: StaticString = #file, line: UInt = #line) -> String {
   testFailer.fail(message: message, isFatal: isFatal, file: file, line: line)
   return message
 }
@@ -53,7 +53,7 @@ private class StandardTestFailer: TestFailer {
     guard isFatal else { return }
     
     // Raise an Objective-C exception to stop the test runner.
-    mkb_fail_test(message)
+    MKBStopTest(message)
   }
 }
 
