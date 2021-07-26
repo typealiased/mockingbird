@@ -49,11 +49,12 @@ func FailTest(_ message: String, isFatal: Bool = false,
 
 private class StandardTestFailer: TestFailer {
   func fail(message: String, isFatal: Bool, file: StaticString, line: UInt) {
-    XCTFail(message, file: file, line: line)
-    guard isFatal else { return }
+    guard isFatal else {
+      return XCTFail(message, file: file, line: line)
+    }
     
     // Raise an Objective-C exception to stop the test runner.
-    MKBStopTest("Unable to continue test execution past this point due to errors")
+    MKBStopTest(message)
     
     // Test execution should usually be stopped by this point.
     fatalError(message)

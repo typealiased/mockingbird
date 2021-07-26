@@ -34,13 +34,13 @@ struct ProxyContext {
   /// Returns available proxy targets in descending priority.
   func targets(for invocation: Invocation) -> [TargetBox] {
     let globalTargets: [TargetBox] = globalTargets.value.reversed()
-    guard let routeTarget = route(for: invocation)?.target else { return globalTargets }
-    return [routeTarget] + globalTargets
+    let routeTargets: [TargetBox] = routes(for: invocation).map({ $0.target }).reversed()
+    return routeTargets + globalTargets
   }
   
-  func route(for invocation: Invocation) -> Route? {
-    return routes.read({ $0[invocation.selectorName] })?
-      .last(where: { $0.invocation.isEqual(to: invocation) })
+  func routes(for invocation: Invocation) -> [Route] {
+    guard let routes = routes.read({ $0[invocation.selectorName] }) else { return [] }
+    return routes.filter({ $0.invocation.isEqual(to: invocation) })
   }
   
   func addTarget(_ target: Target, for invocation: Invocation? = nil) {
@@ -65,12 +65,5 @@ struct ProxyContext {
   func clearTargets() {
     globalTargets.update { $0.removeAll() }
     routes.update { $0.removeAll() }
-  }
-}
-
-public extension NSObjectProtocol {
-  // TODO: Docs
-  func forwarding(to target: Any?) {
-    // TODO
   }
 }

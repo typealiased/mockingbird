@@ -72,6 +72,9 @@ public struct ValueProvider {
   var storedValues = [ObjectIdentifier: Any]()
   var enabledIdentifiers = Set<String>()
   
+  /// Enables all mocks to handle methods that return `Void`.
+  static let baseValues: [ObjectIdentifier: Any] = [ObjectIdentifier(Void.self): ()]
+  
   init(values: [ObjectIdentifier: Any] = [:], identifiers: Set<String> = []) {
     self.storedValues = values
     self.enabledIdentifiers = identifiers
@@ -79,7 +82,7 @@ public struct ValueProvider {
   
   /// Create an empty value provider.
   public init() {
-    self.init(values: [ObjectIdentifier(Void.self): ()], identifiers: [])
+    self.init(values: Self.baseValues, identifiers: [])
   }
   
   
@@ -221,7 +224,7 @@ public struct ValueProvider {
   
   /// Remove all stored values, subproviders, and enabled identifiers.
   mutating func reset() {
-    storedValues.removeAll()
+    storedValues = Self.baseValues
     enabledIdentifiers.removeAll()
   }
   

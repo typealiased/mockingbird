@@ -305,18 +305,6 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
     context.proxy.addTarget(target, for: invocation)
     return self
   }
-  
-  // TODO: Docs
-  @discardableResult
-  public func willForwardToSuper() -> Self {
-    return addForwardingTarget(.super)
-  }
-  
-  // TODO: Docs
-  @discardableResult
-  public func willForward<T>(to object: T) -> Self {
-    return addForwardingTarget(.object(object))
-  }
 }
 
 extension StubbingManager where DeclarationType == ThrowingFunctionDeclaration {

@@ -42,6 +42,8 @@ class PartialMockTests: BaseTestCase {
     }
   }
   
+  class UnrelatedType {}
+  
   override func setUpWithError() throws {
     protocolMock = mock(MinimalProtocol.self)
     classMock = mock(MinimalClass.self)
@@ -192,7 +194,7 @@ class PartialMockTests: BaseTestCase {
   // MARK: - Global
   
   func testForwardAllPropertiesToObject() throws {
-    protocolMock.forwarding(to: implementer)
+    protocolMock.forwardCalls(to: implementer)
     XCTAssertEqual(protocolMock.property, "foobar")
     protocolMock.property = "hello"
     XCTAssertEqual(protocolMock.property, "hello")
@@ -201,9 +203,63 @@ class PartialMockTests: BaseTestCase {
   }
   
   func testForwardAllMethodsToObject() throws {
-    protocolMock.forwarding(to: implementer)
+    protocolMock.forwardCalls(to: implementer)
     XCTAssertEqual(protocolMock.method(value: "hello"), "hello")
     verify(protocolMock.method(value: "hello")).wasCalled()
+  }
+  
+  func testForwardAllMethodsPrecedence() throws {
+    protocolMock.forwardCalls(to: OverriddenImplementer())
+    protocolMock.forwardCalls(to: implementer)
+    XCTAssertEqual(protocolMock.property, "foobar")
+  }
+  
+  // MARK: - API misuse
+  
+  func testPropertyGetterForwardingUnrelatedTypeFails() throws {
+    shouldFail {
+      given(self.protocolMock.property).willForward(to: "foobar")
+      _ = self.protocolMock.property
+    }
+  }
+  func testPropertyGetterForwardingUnrelatedTypeFails_stubbingOperator() throws {
+    shouldFail {
+      given(self.protocolMock.property) ~> forward(to: "foobar")
+      _ = self.protocolMock.property
+    }
+  }
+  
+  func testPropertyGetterForwardingUnrelatedTypePassesThrough() throws {
+    given(protocolMock.property).willForward(to: implementer)
+    given(protocolMock.property).willForward(to: UnrelatedType())
+    XCTAssertEqual(protocolMock.property, "foobar")
+  }
+  func testPropertyGetterForwardingUnrelatedTypePassesThrough_stubbingOperator() throws {
+    given(protocolMock.property) ~> forward(to: implementer)
+    given(protocolMock.property) ~> forward(to: UnrelatedType())
+    XCTAssertEqual(protocolMock.property, "foobar")
+  }
+  
+  func testPropertySetterForwardingUnrelatedTypePassesThrough() throws {
+    given(protocolMock.property = "foobar").willForward(to: implementer)
+    given(protocolMock.property = "foobar").willForward(to: UnrelatedType())
+    XCTAssertEqual(implementer.property, "foobar")
+  }
+  func testPropertySetterForwardingUnrelatedTypePassesThrough_stubbingOperator() throws {
+    given(protocolMock.property = "foobar") ~> forward(to: implementer)
+    given(protocolMock.property = "foobar") ~> forward(to: UnrelatedType())
+    XCTAssertEqual(implementer.property, "foobar")
+  }
+  
+  func testMethodForwardingUnrelatedTypePassesThrough() throws {
+    given(protocolMock.method(value: any())).willForward(to: implementer)
+    given(protocolMock.method(value: any())).willForward(to: UnrelatedType())
+    XCTAssertEqual(protocolMock.method(value: "foobar"), "foobar")
+  }
+  func testMethodForwardingUnrelatedTypePassesThrough_stubbingOperator() throws {
+    given(protocolMock.method(value: any())) ~> forward(to: implementer)
+    given(protocolMock.method(value: any())) ~> forward(to: UnrelatedType())
+    XCTAssertEqual(protocolMock.method(value: "foobar"), "foobar")
   }
   
 }
