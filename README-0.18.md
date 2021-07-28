@@ -13,7 +13,7 @@
 let bird = mock(Bird.self)
 
 // Stubbing
-given(bird.getName()).willReturn("Ryan")
+given(bird.name).willReturn("Ryan")
 
 // Verification
 verify(bird.fly()).wasCalled()
@@ -62,7 +62,7 @@ With Mockingbird, it’s easy to stub return values and verify that mocked metho
 ```swift
 // Given a bird that can fly
 let bird = mock(Bird.self)
-given(bird.getCanFly()).willReturn(true)
+given(bird.canFly).willReturn(true)
 
 // When a person releases the bird
 Person().release(bird)
@@ -286,14 +286,14 @@ given(bird.canChirp(volume: 10)).willReturn(true)        // Volume = 10
 Stub properties with their getter and setter methods.
 
 ```swift
-given(bird.getName()).willReturn("Ryan")
+given(bird.name).willReturn("Ryan")
 given(bird.setName(any())).will { print($0) }
 ```
 
 Getters can be stubbed to automatically save and return values.
 
 ```swift
-given(bird.getName()).willReturn(lastSetValue(initial: ""))
+given(bird.name).willReturn(lastSetValue(initial: ""))
 print(bird.name)  // Prints ""
 bird.name = "Ryan"
 print(bird.name)  // Prints "Ryan"
@@ -305,7 +305,7 @@ Mocks are strict by default, meaning that calls to unstubbed methods will trigge
 
 ```swift
 let bird = mock(Bird.self)
-print(bird.name)  // Fails because `bird.getName()` is not stubbed
+print(bird.name)  // Fails because `bird.name` is not stubbed
 bird.fly()        // Okay because `fly()` has a `Void` return type
 ```
 
@@ -329,7 +329,7 @@ print(bird.name)  // Prints "Ryan"
 Values from concrete stubs always have a higher precedence than default values.
 
 ```swift
-given(bird.getName()).willReturn("Ryan")
+given(bird.name).willReturn("Ryan")
 print(bird.name)  // Prints "Ryan"
 
 bird.useDefaultValues(from: .standardProvider)
@@ -354,7 +354,7 @@ valueProvider.registerType(Array<Any>.self)
 Methods that return a different value each time can be stubbed with a sequence of values. The last value will be used for all subsequent invocations.
 
 ```swift
-given(bird.getName()).willReturn(sequence(of: "Ryan", "Sterling"))
+given(bird.name).willReturn(sequence(of: "Ryan", "Sterling"))
 print(bird.name)  // Prints "Ryan"
 print(bird.name)  // Prints "Sterling"
 print(bird.name)  // Prints "Sterling"
@@ -363,7 +363,7 @@ print(bird.name)  // Prints "Sterling"
 It’s also possible to stub a sequence of arbitrary behaviors.
 
 ```swift
-given(bird.getName())
+given(bird.name)
   .willReturn("Ryan")
   .willReturn("Sterling")
   .will { return Bool.random() ? "Ryan" : "Sterling" }
@@ -399,7 +399,7 @@ verify(bird.canChirp(volume: 10)).wasCalled()        // Called with volume = 10
 Verify property invocations using their getter and setter methods.
 
 ```swift
-verify(bird.getName()).wasCalled()
+verify(bird.name).wasCalled()
 verify(bird.setName(any())).wasCalled()
 ```
 

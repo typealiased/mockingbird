@@ -37,7 +37,7 @@ import XCTest
 ///
 /// This is equivalent to using the synthesized getter and setter methods.
 ///
-///     given(bird.getName()).willReturn("Ryan")
+///     given(bird.name).willReturn("Ryan")
 ///     given(bird.setName(any())).will { print("Hello \($0)") }
 ///
 ///     print(bird.name)        // Prints "Ryan"
@@ -72,7 +72,9 @@ public func given<DeclarationType: Declaration, InvocationType, ReturnType>(
 /// Properties can have stubs on both their getters and setters.
 ///
 ///     given(bird.name).willReturn("Ryan")
-///     given(bird.name = any()).will { print("Hello \($0)") }
+///     given(bird.name = firstArg(any())).will { (name: String) in
+///       print("Hello \(name)")
+///     }
 ///
 ///     print(bird.name)        // Prints "Ryan"
 ///     bird.name = "Sterling"  // Prints "Hello Sterling"
@@ -121,7 +123,7 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
     /// This transition strategy is particularly useful for non-finite value providers such as
     /// `sequence` and `loopingSequence`.
     ///
-    ///     given(bird.getName())
+    ///     given(bird.name)
     ///       .willReturn(loopingSequence(of: "Ryan", "Sterling"), transition: .after(3))
     ///       .willReturn("Andrew")
     ///
@@ -136,7 +138,7 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
     /// This transition strategy should be used for finite value providers like `finiteSequence`
     /// that are `nil` terminated to indicate an invalidated state.
     ///
-    ///     given(bird.getName())
+    ///     given(bird.name)
     ///       .willReturn(finiteSequence(of: "Ryan", "Sterling"), transition: .onFirstNil)
     ///       .willReturn("Andrew")
     ///
@@ -232,7 +234,7 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   /// There are several preset implementation providers such as `lastSetValue`, which can be used
   /// with property getters to automatically save and return values.
   ///
-  ///     given(bird.getName()).willReturn(lastSetValue(initial: ""))
+  ///     given(bird.name).willReturn(lastSetValue(initial: ""))
   ///     print(bird.name)  // Prints ""
   ///     bird.name = "Ryan"
   ///     print(bird.name)  // Prints "Ryan"
@@ -240,7 +242,7 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   /// Implementation providers usually return multiple values, so when using chained stubbing it's
   /// necessary to specify a transition strategy that defines when to go to the next stub.
   ///
-  ///     given(bird.getName())
+  ///     given(bird.name)
   ///       .willReturn(lastSetValue(initial: ""), transition: .after(2))
   ///       .willReturn("Sterling")
   ///
@@ -437,7 +439,7 @@ public func ~> <DeclarationType: Declaration, InvocationType, ReturnType>(
 /// There are several preset implementation providers such as `lastSetValue`, which can be used
 /// with property getters to automatically save and return values.
 ///
-///     given(bird.getName()) ~> lastSetValue(initial: "")
+///     given(bird.name) ~> lastSetValue(initial: "")
 ///     print(bird.name)  // Prints ""
 ///     bird.name = "Ryan"
 ///     print(bird.name)  // Prints "Ryan"
@@ -452,7 +454,21 @@ public func ~> <DeclarationType: Declaration, InvocationType, ReturnType>(
   manager.addProvider(provider, transition: .onFirstNil)
 }
 
-// TODO: Docs
+/// Stub a mocked method or property by forwarding invocations to a target.
+///
+/// Use the stubbing operator to bind a specific mocked declaration to a forwarding context.
+///
+///     class Crow {
+///       let name: String
+///       init(name: String) { self.name = name }
+///     }
+///
+///     given(bird.name) ~> forward(to: Crow(name: "Ryan"))
+///     print(bird.name)  // Prints "Ryan"
+///
+/// - Parameters:
+///   - manager: A stubbing manager containing declaration and argument metadata for stubbing.
+///   - forwardingContext: A context that should receive forwarded invocations.
 public func ~> <DeclarationType: Declaration, InvocationType, ReturnType>(
   manager: StubbingManager<DeclarationType, InvocationType, ReturnType>,
   forwardingContext: ForwardingContext

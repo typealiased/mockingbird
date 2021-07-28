@@ -12,7 +12,7 @@ import Foundation
 /// Getters can be stubbed to automatically save and return values.
 /// with property getters to automatically save and return values.
 ///
-///     given(bird.getName()).willReturn(lastSetValue(initial: ""))
+///     given(bird.name).willReturn(lastSetValue(initial: ""))
 ///     print(bird.name)  // Prints ""
 ///     bird.name = "Ryan"
 ///     print(bird.name)  // Prints "Ryan"

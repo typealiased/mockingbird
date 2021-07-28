@@ -13,7 +13,7 @@ import Foundation
 /// failure. Methods returning Void do not need to be stubbed in strict mode.
 ///
 ///     let bird = mock(Bird.self)
-///     print(bird.name)  // Fails because `bird.getName()` is not stubbed
+///     print(bird.name)  // Fails because `bird.name` is not stubbed
 ///     bird.fly()        // Okay because `fly()` has a `Void` return type
 ///
 /// To return default values for unstubbed methods, use a `ValueProvider` with the initialized mock.
@@ -38,7 +38,7 @@ import Foundation
 ///
 /// Values from concrete stubs always have a higher precedence than default values.
 ///
-///     given(bird.getName()) ~> "Ryan"
+///     given(bird.name) ~> "Ryan"
 ///     print(bird.name)  // Prints "Ryan"
 ///
 ///     useDefaultValues(from: .standardProvider, on: [bird, anotherBird])
@@ -61,7 +61,7 @@ public func useDefaultValues(from valueProvider: ValueProvider, on mocks: [Mock]
 /// failure. Methods returning Void do not need to be stubbed in strict mode.
 ///
 ///     let bird = mock(Bird.self)
-///     print(bird.name)  // Fails because `bird.getName()` is not stubbed
+///     print(bird.name)  // Fails because `bird.name` is not stubbed
 ///     bird.fly()        // Okay because `fly()` has a `Void` return type
 ///
 /// To return default values for unstubbed methods, use a `ValueProvider` with the initialized mock.
@@ -81,7 +81,7 @@ public func useDefaultValues(from valueProvider: ValueProvider, on mocks: [Mock]
 ///
 /// Values from concrete stubs always have a higher precedence than default values.
 ///
-///     given(bird.getName()) ~> "Ryan"
+///     given(bird.name) ~> "Ryan"
 ///     print(bird.name)  // Prints "Ryan"
 ///
 ///     useDefaultValues(from: .standardProvider, on: bird)
@@ -103,7 +103,7 @@ public extension Mock {
   /// failure. Methods returning Void do not need to be stubbed in strict mode.
   ///
   ///     let bird = mock(Bird.self)
-  ///     print(bird.name)  // Fails because `bird.getName()` is not stubbed
+  ///     print(bird.name)  // Fails because `bird.name` is not stubbed
   ///     bird.fly()        // Okay because `fly()` has a `Void` return type
   ///
   /// To return default values for unstubbed methods, use a `ValueProvider` with the initialized
@@ -123,7 +123,7 @@ public extension Mock {
   ///
   /// Values from concrete stubs always have a higher precedence than default values.
   ///
-  ///     given(bird.getName()) ~> "Ryan"
+  ///     given(bird.name) ~> "Ryan"
   ///     print(bird.name)  // Prints "Ryan"
   ///
   ///     bird.useDefaultValues(from: .standardProvider)
