@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreGraphics
 
 /// A type that can provide concrete instances of itself.
 ///

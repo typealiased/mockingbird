@@ -21,18 +21,6 @@ extension ValueProvider {
     }
   }
   
-  func provideTupleValue<T1, T2>(for type: (T1, T2).Type) -> (T1, T2)? {
-    if let tupleValue = storedValues[ObjectIdentifier(type)] as? (T1, T2) {
-      return tupleValue
-    } else if
-      let t1 = provideValue(for: T1.self),
-      let t2 = provideValue(for: T2.self) {
-      return (t1, t2)
-    } else {
-      return nil
-    }
-  }
-  
   func provideValue<T1, T2, T3>(for type: (T1, T2, T3).Type) -> (T1, T2, T3)? {
     if let tupleValue = storedValues[ObjectIdentifier(type)] as? (T1, T2, T3) {
       return tupleValue
