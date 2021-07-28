@@ -48,7 +48,7 @@ public func verify<DeclarationType: Declaration, InvocationType, ReturnType>(
 /// - Parameters:
 ///   - mock: A mocked declaration to verify.
 public func verify<ReturnType>(
-  _ declaration: @autoclosure () -> ReturnType,
+  _ declaration: @autoclosure () throws -> ReturnType,
   file: StaticString = #file, line: UInt = #line
 ) -> VerificationManager<Any?, ReturnType> {
   let recorder = InvocationRecorder(mode: .verifying).startRecording(block: {
@@ -58,7 +58,7 @@ public func verify<ReturnType>(
     ///     be annotated with both `@objc` and `dynamic`, e.g. `@objc dynamic func someMethod()`.
     ///   - If this is happening on a pure Obj-C type, please file a bug report with the stack
     ///     trace: https://github.com/birdrides/mockingbird/issues/new/choose
-    _ = declaration()
+    _ = try? declaration()
   })
   switch recorder.result {
   case .value(let record):

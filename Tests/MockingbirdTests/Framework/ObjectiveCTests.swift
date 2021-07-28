@@ -108,6 +108,7 @@ class ObjectiveCTests: BaseTestCase {
       XCTAssertEqual((error as NSError).domain, "co.bird.mockingbird.error")
       XCTAssertEqual((error as NSError).code, 1)
     })
+    verify(try self.testMock.throwing()).wasCalled()
   }
   
   func testThrowSwiftErrorStruct() throws {
@@ -118,6 +119,7 @@ class ObjectiveCTests: BaseTestCase {
     XCTAssertThrowsError(try testMock.throwing(), "Mock should throw", { error in
       XCTAssertEqual(error.localizedDescription, "foobar")
     })
+    verify(try self.testMock.throwing()).wasCalled()
   }
   
   func testThrowSwiftErrorClass() throws {
@@ -128,6 +130,7 @@ class ObjectiveCTests: BaseTestCase {
     XCTAssertThrowsError(try testMock.throwing(), "Mock should throw", { error in
       XCTAssertEqual(error.localizedDescription, "foobar")
     })
+    verify(try self.testMock.throwing()).wasCalled()
   }
   
   func testThrowFromClosure() throws {
@@ -138,6 +141,7 @@ class ObjectiveCTests: BaseTestCase {
     XCTAssertThrowsError(try testMock.throwing(), "Mock should throw", { error in
       XCTAssertEqual(error.localizedDescription, "foobar")
     })
+    verify(try self.testMock.throwing()).wasCalled()
   }
   
   func testThrowingOnNonThrowingMethod() throws {
