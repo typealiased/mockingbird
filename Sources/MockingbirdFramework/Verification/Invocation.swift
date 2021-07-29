@@ -7,65 +7,36 @@
 
 import Foundation
 
-protocol TargetBox {
-  var target: Any { get }
-  var function: Any { get }
-}
-
-/// Keep track of mutations on value (and reference) types when calling invocations.
-class ProxyTargetBox<T>: TargetBox {
-  var internalTarget: T
-  var target: Any { return internalTarget as Any }
+@objc(MKBSelectorType) public enum SelectorType: UInt, CustomStringConvertible {
+  case method
+  case getter
+  case setter
+  case subscriptGetter
+  case subscriptSetter
   
-  var internalFunction: Any!
-  var function: Any { return internalFunction! }
-  
-  init(_ target: T) {
-    self.internalTarget = target
-  }
-  
-  // Convenience to set the funtion and return self.
-  func setFunction(_ function: Any) -> Self {
-    self.internalFunction = function
-    return self
-  }
-}
-
-/// Holds function contexts with the same signature as the original invocation.
-@objc(MKBCallingContext) public class CallingContext: NSObject {
-  /// The super function implementation.
-  let `super`: Any?
-  /// Convert a proxy target to its function implementation and the new (mutated) target.
-  let proxy: ((_ target: Any) -> TargetBox)?
-  
-  init(super: Any?, proxy: ((_ target: Any) -> TargetBox)?) {
-    self.super = `super`
-    self.proxy = proxy
-  }
-  
-  @objc public override init() {
-    // TODO
-    self.super = nil
-    self.proxy = nil
+  public var description: String {
+    switch self {
+    case .method: return "method"
+    case .setter: return "setter"
+    case .getter: return "getter"
+    case .subscriptGetter: return "subscript getter"
+    case .subscriptSetter: return "subscript setter"
+    }
   }
 }
 
 /// Mocks create invocations when receiving calls to methods or member methods.
 protocol Invocation: CustomStringConvertible {
   var selectorName: String { get }
+  var selectorType: SelectorType { get }
   var arguments: [ArgumentMatcher] { get }
   var returnType: ObjectIdentifier { get }
-  var context: CallingContext { get }
   var uid: UInt { get }
   
   /// Selector name without tickmark escaping.
   var unwrappedSelectorName: String { get }
   /// Mockable declaration identifier, e.g. `someMethod`, `getSomeProperty`.
   var declarationIdentifier: String { get }
-  
-  var isMethod: Bool { get }
-  var isGetter: Bool { get }
-  var isSetter: Bool { get }
   
   /// If the current invocation referrs to a property getter, convert it to the equivalent setter.
   /// - Warning: This method is not available for invocations on mocked Objective-C types.
@@ -86,16 +57,17 @@ extension Invocation {
 
 struct SwiftInvocation: Invocation {
   let selectorName: String
+  let setterSelectorName: String?
+  let selectorType: SelectorType
   let arguments: [ArgumentMatcher]
   let returnType: ObjectIdentifier
-  let context: CallingContext
   let uid = MonotonicIncreasingIndex.getIndex()
 
   init(selectorName: String,
+       setterSelectorName: String? = nil,
+       selectorType: SelectorType,
        arguments: [ArgumentMatcher],
-       returnType: ObjectIdentifier,
-       context: CallingContext = CallingContext(super: nil, proxy: nil)) {
-    
+       returnType: ObjectIdentifier) {
     // Handle argument matchers in dynamic declaration contexts.
     var resolvedArguments = arguments
     if let recorder = InvocationRecorder.sharedRecorder {
@@ -106,9 +78,10 @@ struct SwiftInvocation: Invocation {
     }
     
     self.selectorName = selectorName
+    self.setterSelectorName = setterSelectorName
+    self.selectorType = selectorType
     self.arguments = resolvedArguments
     self.returnType = returnType
-    self.context = context
   }
   
   var unwrappedSelectorName: String {
@@ -117,7 +90,7 @@ struct SwiftInvocation: Invocation {
   
   var declarationIdentifier: String {
     let unwrappedSelectorName = self.unwrappedSelectorName
-    guard !isMethod else {
+    guard selectorType != .method else {
       let endIndex = unwrappedSelectorName.firstIndex(of: "(") ?? unwrappedSelectorName.endIndex
       return String(unwrappedSelectorName[..<endIndex])
     }
@@ -140,51 +113,38 @@ struct SwiftInvocation: Invocation {
     static let getterSuffix = ".getter"
     // Keep this in sync with `MockingbirdGenerator.VariableTemplate.setterName`
     static let setterSuffix = ".setter"
-    
-    static let getterPrefix = "get"
-    static let setterPrefix = "set"
-  }
-  
-  var isMethod: Bool {
-    return selectorName.contains("->")
-  }
-  
-  var isGetter: Bool {
-    return !isMethod && selectorName.hasSuffix(Constants.getterSuffix)
-  }
-  
-  var isSetter: Bool {
-    return !isMethod && selectorName.hasPrefix(Constants.setterSuffix)
   }
   
   func toSetter() -> Self? {
-    guard isGetter else { return nil }
-    let setterSelectorName = String(selectorName.dropLast(Constants.setterSuffix.count))
-      + Constants.setterSuffix
+    guard let selectorName = setterSelectorName else { return nil }
     let matcher = ArgumentMatcher(description: "any()",
                                   declaration: "any()",
                                   priority: .high) { return true }
-    return Self(selectorName: setterSelectorName,
+    return Self(selectorName: selectorName,
+                setterSelectorName: setterSelectorName,
+                selectorType: .setter,
                 arguments: [matcher],
-                returnType: ObjectIdentifier(Void.self),
-                context: context)
+                returnType: ObjectIdentifier(Void.self))
   }
 }
 
 @objc(MKBObjCInvocation) public class ObjCInvocation: NSObject, Invocation {
   let selectorName: String
+  let setterSelectorName: String?
+  let selectorType: SelectorType
   let arguments: [ArgumentMatcher]
   let returnType: ObjectIdentifier
-  let context: CallingContext
   let uid = MonotonicIncreasingIndex.getIndex()
   
   @objc public required init(selectorName: String,
-                             arguments: [ArgumentMatcher],
-                             context: CallingContext) {
+                             setterSelectorName: String?,
+                             selectorType: SelectorType,
+                             arguments: [ArgumentMatcher]) {
     self.selectorName = selectorName
+    self.setterSelectorName = setterSelectorName
+    self.selectorType = selectorType
     self.arguments = arguments
     self.returnType = ObjectIdentifier(Any.self) // Return type doesn't matter for Obj-C.
-    self.context = context
   }
   
   var unwrappedSelectorName: String { return selectorName }
@@ -198,11 +158,14 @@ struct SwiftInvocation: Invocation {
     return "'\(unwrappedSelectorName)' with arguments [\(matchers)]"
   }
   
-  let isMethod = true // Treat all invocations as a method type (an objc_msgSend to some selector).
-  let isGetter = false // Not supported.
-  let isSetter = false // Not supported.
-  
   func toSetter() -> Self? {
-    return nil
+    guard let selectorName = setterSelectorName else { return nil }
+    let matcher = ArgumentMatcher(description: "any()",
+                                  declaration: "any()",
+                                  priority: .high) { return true }
+    return Self(selectorName: selectorName,
+                setterSelectorName: selectorName,
+                selectorType: .setter,
+                arguments: [matcher])
   }
 }

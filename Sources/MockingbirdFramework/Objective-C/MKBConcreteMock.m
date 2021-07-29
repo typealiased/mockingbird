@@ -6,6 +6,7 @@
 //
 
 #import "MKBConcreteMock.h"
+#import "MKBProperty.h"
 #import "InvocationHandlers/MKBInvocationHandlerChain.h"
 #import "InvocationHandlers/NSInvocation+MKBErrorObjectType.h"
 #import <Mockingbird/Mockingbird-Swift.h>
@@ -28,6 +29,12 @@
 }
 #pragma GCC diagnostic pop
 
+- (NSArray<MKBProperty *> *)getProperties
+{
+  // Subclasses should override this implementation.
+  return [[NSArray alloc] init];
+}
+
 #pragma mark - NSProxy
 
 - (void)forwardInvocation:(NSInvocation *)invocation
@@ -47,11 +54,22 @@
      [self.invocationHandlerChain serializeArgumentAtIndex:i forInvocation:invocation]];
   }
   
-  MKBCallingContext *callingContext = [[MKBCallingContext alloc] init]; // TODO: How will this work?
+  MKBSelectorType selectorType = MKBSelectorTypeMethod;
+  NSString *setterSelectorName = nil;
+  for (MKBProperty *property in [self getProperties]) {
+    if (property.getter == invocation.selector) {
+      selectorType = MKBSelectorTypeGetter;
+    } else if (property.setter == invocation.selector) {
+      selectorType = MKBSelectorTypeSetter;
+      setterSelectorName = NSStringFromSelector(property.setter);
+    }
+  }
+  
   MKBObjCInvocation *objcInvocation =
     [[MKBObjCInvocation alloc] initWithSelectorName:selectorName
-                                          arguments:arguments
-                                            context:callingContext];
+                                 setterSelectorName:setterSelectorName
+                                       selectorType:selectorType
+                                          arguments:arguments];
   MKBInvocationRecorder *recorder = [MKBInvocationRecorder sharedRecorder];
   
   switch (recorder.mode) {

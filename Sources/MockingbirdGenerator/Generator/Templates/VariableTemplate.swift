@@ -38,6 +38,8 @@ class VariableTemplate: Template {
       name: "Mockingbird.SwiftInvocation",
       arguments: [
         ("selectorName", "\(doubleQuoted: getterName)"),
+        ("setterSelectorName", "\(doubleQuoted: setterName)"),
+        ("selectorType", "Mockingbird.SelectorType.getter"),
         ("arguments", "[]"),
         ("returnType", "Swift.ObjectIdentifier(\(parenthetical: matchableType).self)"),
       ]).render()
@@ -48,6 +50,8 @@ class VariableTemplate: Template {
       name: "Mockingbird.SwiftInvocation",
       arguments: [
         ("selectorName", "\(doubleQuoted: setterName)"),
+        ("setterSelectorName", "\(doubleQuoted: setterName)"),
+        ("selectorType", "Mockingbird.SelectorType.setter"),
         ("arguments", "[Mockingbird.ArgumentMatcher(newValue)]"),
         ("returnType", "Swift.ObjectIdentifier(Void.self)"),
       ]).render()
@@ -58,6 +62,8 @@ class VariableTemplate: Template {
       name: "Mockingbird.SwiftInvocation",
       arguments: [
         ("selectorName", "\(doubleQuoted: setterName)"),
+        ("setterSelectorName", "\(doubleQuoted: setterName)"),
+        ("selectorType", "Mockingbird.SelectorType.setter"),
         ("arguments", "[Mockingbird.resolve(newValue)]"),
         ("returnType", "Swift.ObjectIdentifier(Void.self)"),
       ]).render()

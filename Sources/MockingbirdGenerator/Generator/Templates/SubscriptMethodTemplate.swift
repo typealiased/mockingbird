@@ -16,6 +16,8 @@ class SubscriptMethodTemplate: MethodTemplate {
       name: "Mockingbird.SwiftInvocation",
       arguments: [
         ("selectorName", "\(doubleQuoted: uniqueDeclarationForSubscriptGetter)"),
+        ("setterSelectorName", "\(doubleQuoted: uniqueDeclarationForSubscriptSetter)"),
+        ("selectorType", "Mockingbird.SelectorType.subscriptGetter"),
         ("arguments", "[\(separated: mockArgumentMatchers)]"),
         ("returnType", "Swift.ObjectIdentifier(\(parenthetical: matchableReturnType).self)"),
       ])
@@ -25,6 +27,8 @@ class SubscriptMethodTemplate: MethodTemplate {
       name: "Mockingbird.SwiftInvocation",
       arguments: [
         ("selectorName", "\(doubleQuoted: uniqueDeclarationForSubscriptSetter)"),
+        ("setterSelectorName", "\(doubleQuoted: uniqueDeclarationForSubscriptSetter)"),
+        ("selectorType", "Mockingbird.SelectorType.subscriptSetter"),
         ("arguments", "[\(separated: setterArguments)]"),
         ("returnType", "Swift.ObjectIdentifier(Void.self)"),
       ])
@@ -144,6 +148,8 @@ class SubscriptMethodTemplate: MethodTemplate {
       name: "Mockingbird.SwiftInvocation",
       arguments: [
         ("selectorName", "\(doubleQuoted: selectorName)"),
+        ("setterSelectorName", "\(doubleQuoted: uniqueDeclarationForSubscriptSetter)"),
+        ("selectorType", "Mockingbird.SelectorType.subscript" + (isGetter ? "Getter" : "Setter")),
         ("arguments", "[\(argumentMatchers)]"),
         ("returnType", "Swift.ObjectIdentifier(\(returnType).self)"),
       ])

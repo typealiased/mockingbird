@@ -377,7 +377,7 @@ infix operator ~>
 /// Stubbing allows you to define custom behavior for mocks to perform.
 ///
 ///     given(bird.doMethod()) ~> someValue
-///     given(bird.getProperty()) ~> someValue
+///     given(bird.property) ~> someValue
 ///
 /// Match exact or wildcard argument values when stubbing methods with parameters. Stubs added
 /// later have a higher precedence, so add stubs with specific matchers last.

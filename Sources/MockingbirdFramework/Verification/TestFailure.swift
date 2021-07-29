@@ -70,11 +70,10 @@ enum TestFailure: Error, CustomStringConvertible {
         guard !stubbedSelectorNames.isEmpty else { return "   No concrete stubs" }
         return stubbedSelectorNames.map({ "   - " + $0 }).joined(separator: "\n")
       }
-      let invocationType = invocation.isMethod ? "method" : "property"
       return """
       Missing stubbed implementation for \(invocation)
       
-      Make sure the \(invocationType) has a concrete stub or a default value provider registered with the return type.
+      Make sure the \(invocation.selectorType) has a concrete stub or a default value provider registered with the return type.
       
       Examples:
          given(someMock.\(invocation.mockableExampleInvocation)).willReturn(someValue)
@@ -145,10 +144,12 @@ private extension Array where Element == StackTrace.Frame {
 
 private extension Invocation {
   var mockableExampleInvocation: String {
-    if isMethod {
-      return declarationIdentifier + "(" + (arguments.isEmpty ? "" : "…") + ")"
-    } else {
-      return declarationIdentifier + (isSetter ? " = any()" : "")
+    switch selectorType {
+    case .method: return "\(declarationIdentifier)(\(arguments.isEmpty ? "" : "…"))"
+    case .setter: return "\(declarationIdentifier) = any()"
+    case .getter: return declarationIdentifier
+    case .subscriptGetter: return "\(declarationIdentifier)[…]"
+    case .subscriptSetter: return "\(declarationIdentifier)[…] = any()"
     }
   }
 }

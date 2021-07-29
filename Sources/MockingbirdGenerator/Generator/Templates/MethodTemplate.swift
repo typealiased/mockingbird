@@ -296,6 +296,7 @@ class MethodTemplate: Template {
       name: "Mockingbird.SwiftInvocation",
       arguments: [
         ("selectorName", "\(doubleQuoted: uniqueDeclaration)"),
+        ("selectorType", "Mockingbird.SelectorType.method"),
         ("arguments", "[\(separated: mockArgumentMatchers)]"),
         ("returnType", "Swift.ObjectIdentifier(\(parenthetical: matchableReturnType).self)"),
       ]).render()
@@ -307,6 +308,7 @@ class MethodTemplate: Template {
       name: "Mockingbird.SwiftInvocation",
       arguments: [
         ("selectorName", "\(doubleQuoted: uniqueDeclaration)"),
+        ("selectorType", "Mockingbird.SelectorType.method"),
         ("arguments", "[\(matchers)]"),
         ("returnType", "Swift.ObjectIdentifier(\(parenthetical: matchableReturnType).self)"),
       ]).render()

@@ -45,14 +45,14 @@
 - (MKBArgumentMatcher *)serializeArgumentAtIndex:(NSUInteger)index
                                    forInvocation:(NSInvocation *)invocation
 {
-  // Superclass should override this implementation.
+  // Subclasses should override this implementation.
   [self doesNotRecognizeSelector:_cmd];
   return nil;
 }
 
 - (void)deserializeReturnValue:(id)returnValue forInvocation:(NSInvocation *)invocation
 {
-  // Superclass should override this implementation.
+  // Subclasses should override this implementation.
   [self doesNotRecognizeSelector:_cmd];
 }
 

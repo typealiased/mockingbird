@@ -6,6 +6,7 @@
 //
 
 #import "MKBProtocolMock.h"
+#import "MKBProperty.h"
 #import <objc/runtime.h>
 
 @implementation MKBProtocolMock
@@ -28,6 +29,18 @@
   const char *boxTypeName = class_getName(self.class);
   const char *mockedTypeName = protocol_getName(self.mockedProtocol);
   return [NSString stringWithFormat:@"%s<%s>", boxTypeName, mockedTypeName];
+}
+
+- (NSArray<MKBProperty *> *)getProperties
+{
+  uint count;
+  objc_property_t *propertyList = protocol_copyPropertyList(self.mockedProtocol, &count);
+  NSMutableArray<MKBProperty *> *properties = [[NSMutableArray alloc] initWithCapacity:count];
+  for (size_t i = 0; i < count; i++) {
+    [properties addObject:[[MKBProperty alloc] initWithProperty:propertyList[i]]];
+  }
+  free(propertyList);
+  return properties;
 }
 
 #pragma mark - NSObject
