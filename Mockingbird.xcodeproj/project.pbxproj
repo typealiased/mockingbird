@@ -72,6 +72,7 @@
 		28719AF026B21CB100C38C2C /* MKBProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 28719AEE26B21CB100C38C2C /* MKBProperty.h */; };
 		28719AF126B21CB100C38C2C /* MKBProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 28719AEF26B21CB100C38C2C /* MKBProperty.m */; };
 		28719AF326B22D1300C38C2C /* Stubbing+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28719AF226B22D1300C38C2C /* Stubbing+ObjC.swift */; };
+		28719AF526B23AB200C38C2C /* ObjectiveCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28719AF426B23AB200C38C2C /* ObjectiveCTests.swift */; };
 		287BB9CB26AE1578004014CA /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287BB9CA26AE1577004014CA /* Mock.swift */; };
 		287BB9CD26AE15F0004014CA /* InvocationForwarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287BB9CC26AE15F0004014CA /* InvocationForwarding.swift */; };
 		287C4F3B26A3547000A7E0D9 /* MKBClassMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 287C4F3926A3547000A7E0D9 /* MKBClassMock.h */; };
@@ -82,7 +83,7 @@
 		287C4F4426A3688100A7E0D9 /* MKBMocking.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F4226A3688100A7E0D9 /* MKBMocking.m */; };
 		287C4F4F26A36DC000A7E0D9 /* MKBTypeFacade.h in Headers */ = {isa = PBXBuildFile; fileRef = 287C4F4D26A36DC000A7E0D9 /* MKBTypeFacade.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		287C4F5026A36DC000A7E0D9 /* MKBTypeFacade.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F4E26A36DC000A7E0D9 /* MKBTypeFacade.m */; };
-		287C4F5426A36FFF00A7E0D9 /* ObjectiveCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F5326A36FFF00A7E0D9 /* ObjectiveCTests.swift */; };
+		287C4F5426A36FFF00A7E0D9 /* DynamicSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F5326A36FFF00A7E0D9 /* DynamicSwiftTests.swift */; };
 		287C4F5726A3710600A7E0D9 /* MKBConcreteMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 287C4F5526A3710600A7E0D9 /* MKBConcreteMock.h */; };
 		287C4F5826A3710600A7E0D9 /* MKBConcreteMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F5626A3710600A7E0D9 /* MKBConcreteMock.m */; };
 		287C4F6426A3D21D00A7E0D9 /* MonotonicIncreasingIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F6326A3D21D00A7E0D9 /* MonotonicIncreasingIndex.swift */; };
@@ -529,6 +530,7 @@
 		28719AEE26B21CB100C38C2C /* MKBProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBProperty.h; sourceTree = "<group>"; };
 		28719AEF26B21CB100C38C2C /* MKBProperty.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBProperty.m; sourceTree = "<group>"; };
 		28719AF226B22D1300C38C2C /* Stubbing+ObjC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stubbing+ObjC.swift"; sourceTree = "<group>"; };
+		28719AF426B23AB200C38C2C /* ObjectiveCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveCTests.swift; sourceTree = "<group>"; };
 		287BB9CA26AE1577004014CA /* Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
 		287BB9CC26AE15F0004014CA /* InvocationForwarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationForwarding.swift; sourceTree = "<group>"; };
 		287C4F3926A3547000A7E0D9 /* MKBClassMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBClassMock.h; sourceTree = "<group>"; };
@@ -539,7 +541,7 @@
 		287C4F4226A3688100A7E0D9 /* MKBMocking.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBMocking.m; sourceTree = "<group>"; };
 		287C4F4D26A36DC000A7E0D9 /* MKBTypeFacade.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBTypeFacade.h; sourceTree = "<group>"; };
 		287C4F4E26A36DC000A7E0D9 /* MKBTypeFacade.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBTypeFacade.m; sourceTree = "<group>"; };
-		287C4F5326A36FFF00A7E0D9 /* ObjectiveCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveCTests.swift; sourceTree = "<group>"; };
+		287C4F5326A36FFF00A7E0D9 /* DynamicSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicSwiftTests.swift; sourceTree = "<group>"; };
 		287C4F5526A3710600A7E0D9 /* MKBConcreteMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBConcreteMock.h; sourceTree = "<group>"; };
 		287C4F5626A3710600A7E0D9 /* MKBConcreteMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBConcreteMock.m; sourceTree = "<group>"; };
 		287C4F6326A3D21D00A7E0D9 /* MonotonicIncreasingIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonotonicIncreasingIndex.swift; sourceTree = "<group>"; };
@@ -1420,12 +1422,13 @@
 				OBJ_256 /* CollectionArgumentMatchingTests.swift */,
 				OBJ_257 /* CountMatcherTests.swift */,
 				OBJ_258 /* DefaultValueProviderTests.swift */,
+				287C4F5326A36FFF00A7E0D9 /* DynamicSwiftTests.swift */,
 				OBJ_259 /* FloatingPointMatcherTests.swift */,
 				D314ED7E24CE1C10000CC23D /* GenericsTests.swift */,
 				28843B2926AE77E800AFB8DF /* InlinePropertyTests.swift */,
 				OBJ_260 /* InitializerTests.swift */,
 				OBJ_261 /* LastSetValueStubTests.swift */,
-				287C4F5326A36FFF00A7E0D9 /* ObjectiveCTests.swift */,
+				28719AF426B23AB200C38C2C /* ObjectiveCTests.swift */,
 				OBJ_262 /* OrderedVerificationTests.swift */,
 				OBJ_263 /* OverloadedMethodTests.swift */,
 				28A1F3BF26ADA2A8002F282D /* PartialMockTests.swift */,
@@ -2094,7 +2097,7 @@
 				OBJ_1033 /* ExtensionsStubbableTests.swift in Sources */,
 				OBJ_1034 /* ExternalModuleClassScopedTypesMockableTests.swift in Sources */,
 				OBJ_1035 /* ExternalModuleClassScopedTypesStubbableTests.swift in Sources */,
-				287C4F5426A36FFF00A7E0D9 /* ObjectiveCTests.swift in Sources */,
+				287C4F5426A36FFF00A7E0D9 /* DynamicSwiftTests.swift in Sources */,
 				OBJ_1036 /* ExternalModuleTypesMockableTests.swift in Sources */,
 				OBJ_1037 /* ExternalModuleTypesStubbableTests.swift in Sources */,
 				OBJ_1038 /* GenericsMockableTests.swift in Sources */,
@@ -2138,6 +2141,7 @@
 				OBJ_1072 /* SubscriptTests.swift in Sources */,
 				OBJ_1073 /* BaseTestCase.swift in Sources */,
 				OBJ_1074 /* XFailTestFailer.swift in Sources */,
+				28719AF526B23AB200C38C2C /* ObjectiveCTests.swift in Sources */,
 				OBJ_1075 /* VariadicParametersTests.swift in Sources */,
 				OBJ_1076 /* XFailOrderedVerificationTests.swift in Sources */,
 				OBJ_1077 /* DeclaredTypeTests.swift in Sources */,
