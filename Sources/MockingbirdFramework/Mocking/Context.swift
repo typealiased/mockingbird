@@ -13,7 +13,7 @@ import Foundation
   /// Implementations for stubbing behaviors.
   @objc public let stubbing: StubbingContext
   /// Invocation handler chain.
-  let proxy: ProxyContext
+  @objc public let proxy: ProxyContext
   /// Static metadata about the mock created at generation time.
   let metadata: MockMetadata
   /// Where the mock was initialized, set after initialization for class mocks.

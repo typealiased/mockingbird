@@ -46,9 +46,9 @@ import XCTest
 /// - Parameter declaration: A stubbable declaration.
 public func given<DeclarationType: Declaration, InvocationType, ReturnType>(
   _ declaration: Mockable<DeclarationType, InvocationType, ReturnType>
-) -> StubbingManager<DeclarationType, InvocationType, ReturnType> {
-  return StubbingManager(invocation: declaration.invocation,
-                         context: declaration.mock.mockingbirdContext)
+) -> StaticStubbingManager<DeclarationType, InvocationType, ReturnType> {
+  return StaticStubbingManager(invocation: declaration.invocation,
+                               context: declaration.mock.mockingbirdContext)
 }
 
 /// Stub a declaration to return a value or perform an operation.
@@ -101,6 +101,10 @@ public func given<ReturnType>(
     preconditionFailure(FailTest("\(TestFailure.unmockableExpression)", isFatal: true))
   }
 }
+
+// TODO: Docs
+public class StaticStubbingManager<DeclarationType: Declaration, InvocationType, ReturnType>:
+StubbingManager<DeclarationType, InvocationType, ReturnType> {}
 
 /// An intermediate object used for stubbing declarations returned by `given`.
 public class StubbingManager<DeclarationType: Declaration, InvocationType, ReturnType> {
@@ -390,7 +394,7 @@ infix operator ~>
 ///   - manager: A stubbing manager containing declaration and argument metadata for stubbing.
 ///   - implementation: A stubbed value to return.
 public func ~> <DeclarationType: Declaration, InvocationType, ReturnType>(
-  manager: StubbingManager<DeclarationType, InvocationType, ReturnType>,
+  manager: StaticStubbingManager<DeclarationType, InvocationType, ReturnType>,
   implementation: @escaping @autoclosure () -> ReturnType
 ) {
   manager.addImplementation(implementation)
@@ -428,7 +432,7 @@ public func ~> <DeclarationType: Declaration, InvocationType, ReturnType>(
 ///   - manager: A stubbing manager containing declaration and argument metadata for stubbing.
 ///   - implementation: A closure implementation stub to evaluate.
 public func ~> <DeclarationType: Declaration, InvocationType, ReturnType>(
-  manager: StubbingManager<DeclarationType, InvocationType, ReturnType>,
+  manager: StaticStubbingManager<DeclarationType, InvocationType, ReturnType>,
   implementation: InvocationType
 ) {
   manager.addImplementation(implementation)

@@ -137,4 +137,55 @@ class ObjectiveCTests: BaseTestCase {
     XCTAssertEqual(peripheralCaptor.value?.identifier, UUID(uuidString: uid))
     wait(for: [expectation], timeout: 2)
   }
+  
+  
+  // MARK: - Invocation forwarding
+  
+  func testForwardGetterInvocation() throws {
+    let uid = "BA6C41BD-E803-4527-A91A-9951ADC57CBF"
+    let target = mock(CBPeripheral.self)
+    given(target.identifier).willReturn(UUID(uuidString: uid))
+    
+    given(peripheralMock.identifier).willForward(to: target)
+    XCTAssertEqual(peripheralMock.identifier, UUID(uuidString: uid))
+    
+    verify(peripheralMock.identifier).wasCalled()
+    verify(target.identifier).wasCalled()
+  }
+  func testForwardGetterInvocation_stubbingOperator() throws {
+    let uid = "BA6C41BD-E803-4527-A91A-9951ADC57CBF"
+    let target = mock(CBPeripheral.self)
+    given(target.identifier) ~> UUID(uuidString: uid)
+    
+    given(peripheralMock.identifier) ~> forward(to: target)
+    XCTAssertEqual(peripheralMock.identifier, UUID(uuidString: uid))
+    
+    verify(peripheralMock.identifier).wasCalled()
+    verify(target.identifier).wasCalled()
+  }
+  
+  func testForwardMethodInvocation() throws {
+    let expectation = XCTestExpectation()
+    let target = mock(CBCentralManager.self)
+    given(target.cancelPeripheralConnection(any())).will { expectation.fulfill() }
+    
+    given(centralManagerMock.cancelPeripheralConnection(any())).willForward(to: target)
+    centralManagerMock.cancelPeripheralConnection(peripheralMock)
+    
+    verify(centralManagerMock.cancelPeripheralConnection(any())).wasCalled()
+    verify(target.cancelPeripheralConnection(any())).wasCalled()
+    wait(for: [expectation], timeout: 2)
+  }
+  func testForwardMethodInvocation_stubbingOperator() throws {
+    let expectation = XCTestExpectation()
+    let target = mock(CBCentralManager.self)
+    given(target.cancelPeripheralConnection(any())) ~> { expectation.fulfill() }
+    
+    given(centralManagerMock.cancelPeripheralConnection(any())) ~> forward(to: target)
+    centralManagerMock.cancelPeripheralConnection(peripheralMock)
+    
+    verify(centralManagerMock.cancelPeripheralConnection(any())).wasCalled()
+    verify(target.cancelPeripheralConnection(any())).wasCalled()
+    wait(for: [expectation], timeout: 2)
+  }
 }

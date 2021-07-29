@@ -8,7 +8,7 @@
 import Foundation
 
 /// Stores potential targets that can handle forwarded invocations from mocked calls.
-struct ProxyContext {
+@objc(MKBProxyContext) public class ProxyContext: NSObject {
   enum Target {
     case `super`
     case object(Any)
@@ -36,6 +36,16 @@ struct ProxyContext {
     let globalTargets: [TargetBox] = globalTargets.value.reversed()
     let routeTargets: [TargetBox] = routes(for: invocation).map({ $0.target }).reversed()
     return routeTargets + globalTargets
+  }
+  
+  /// Returns available proxy targets in descending priority, type erased for Obj-C interop.
+  @objc public func targets(for invocation: ObjCInvocation) -> [Any] {
+    return targets(for: invocation as Invocation).compactMap({ box in
+      switch box.target {
+      case .super: return nil // Obj-C mocks don't subclass the mocked type.
+      case .object(let target): return target
+      }
+    })
   }
   
   func routes(for invocation: Invocation) -> [Route] {

@@ -80,23 +80,38 @@
           return [self.mockingbirdContext.stubbing returnValueFor:invocation];
         }];
 
-      if (!isVoidReturnType) {
-        if (returnValue == [MKBStubbingContext noImplementation]) {
-          if ([[self class] instancesRespondToSelector:invocation.selector]) {
-            break; // Forward the invocation to ourself to handle.
+      if (returnValue == [MKBStubbingContext noImplementation]) {
+        // Check whether a proxy forwarding target handle this.
+        for (id target in [self.mockingbirdContext.proxy targetsFor:objcInvocation]) {
+          if ([target respondsToSelector:invocation.selector]) {
+            [invocation invokeWithTarget:target];
+            return;
           }
-          // Mocks are strict by default, so fail the test now.
-          [self.mockingbirdContext.stubbing failTestFor:objcInvocation];
-        } else if ([returnValue isKindOfClass:[MKBErrorBox class]] &&
-                   [invocation isErrorArgumentTypeAtIndex:argumentCount-1]) {
-          __unsafe_unretained NSError *boxedError = [returnValue performSelector:@selector(error)];
-          __unsafe_unretained NSError **errorOut;
-          [invocation getArgument:&errorOut atIndex:argumentCount-1];
-          *errorOut = boxedError;
-        } else if (returnValue) {
-          [self.invocationHandlerChain deserializeReturnValue:returnValue forInvocation:invocation];
         }
+        
+        // Try to handle the invocation ourselves as an `NSObject[Protocol]`.
+        if ([[self class] instancesRespondToSelector:invocation.selector]) {
+          break;
+        }
+        
+        // TODO: Default value provider.
+        
+        // Mocks are strict by default except for `Void` return types.
+        if (!isVoidReturnType) {
+          [self.mockingbirdContext.stubbing failTestFor:objcInvocation];
+        }
+        
+      } else if ([returnValue isKindOfClass:[MKBErrorBox class]] &&
+                 [invocation isErrorArgumentTypeAtIndex:argumentCount-1]) {
+        __unsafe_unretained NSError *boxedError = [returnValue performSelector:@selector(error)];
+        __unsafe_unretained NSError **errorOut;
+        [invocation getArgument:&errorOut atIndex:argumentCount-1];
+        *errorOut = boxedError;
+        
+      } else if (returnValue) {
+        [self.invocationHandlerChain deserializeReturnValue:returnValue forInvocation:invocation];
       }
+      
       break;
     }
 
