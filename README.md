@@ -1,11 +1,13 @@
 <p align="center">
-  <img src="/Images/mockingbird-hero-image.png" alt="Mockingbird - Swift Mocking Framework" width="350">
+  <img src="/docs/images/mockingbird-hero-image.png" alt="Mockingbird - Swift Mocking Framework" width="150">
+  <h1 align="center">Mockingbird</h1>
+  <p align="center"><b>A convenient mocking framework for Swift</b></p>
 </p>
 
 <p align="center">
-  <a href="#installation"><img src="https://img.shields.io/badge/package-cocoapods%20%7C%20carthage%20%7C%20spm-4BC51D.svg" alt="Package managers"></a>
+  <a href="#installation"><img src="https://img.shields.io/badge/package-CocoaPods%20%7C%20Carthage%20%7C%20SwiftPM-4BC51D.svg" alt="Package managers"></a>
   <a href="/birdrides/mockingbird/blob/add-readme-logo/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
-  <a href="https://slofile.com/slack/birdopensource" rel="nofollow"><img src="https://img.shields.io/badge/slack-join%20channel-A417A6.svg" alt="Slack"></a>
+  <a href="https://slofile.com/slack/birdopensource" rel="nofollow"><img src="https://img.shields.io/badge/slack-%23mockingbird-A417A6.svg" alt="Slack channel"></a>
 </p>
 
 ```swift

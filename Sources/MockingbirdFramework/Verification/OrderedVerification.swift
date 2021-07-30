@@ -13,37 +13,37 @@ import XCTest
 /// Calls to `verify` within the scope of an `inOrder` verification block are checked relative to
 /// each other.
 ///
-///     // Verify that `fly` was called before `chirp`
+///     // Verify that `canFly` was called before `fly`
 ///     inOrder {
+///       verify(bird.canFly).wasCalled()
 ///       verify(bird.fly()).wasCalled()
-///       verify(bird.chirp()).wasCalled()
 ///     }
 ///
 /// Pass options to `inOrder` verification blocks for stricter checks with additional invariants.
 ///
 ///     inOrder(with: .noInvocationsAfter) {
+///       verify(bird.canFly).wasCalled()
 ///       verify(bird.fly()).wasCalled()
-///       verify(bird.chirp()).wasCalled()
 ///     }
 ///
 /// An `inOrder` block is resolved greedily, such that each verification must happen from the oldest
 /// remaining unsatisfied invocations.
 ///
 ///     // Given these unsatisfied invocations
+///     bird.canFly
+///     bird.canFly
 ///     bird.fly()
-///     bird.fly()
-///     bird.chirp()
 ///
-///     // Greedy strategy _must_ start from the first `fly`
+///     // Greedy strategy _must_ start from the first `canFly`
 ///     inOrder {
-///       verify(bird.fly()).wasCalled(twice)
-///       verify(bird.chirp()).wasCalled()
+///       verify(bird.canFly).wasCalled(twice)
+///       verify(bird.fly()).wasCalled()
 ///     }
 ///
-///     // Non-greedy strategy can start from the second `fly`
+///     // Non-greedy strategy can start from the second `canFly`
 ///     inOrder {
+///       verify(bird.canFly).wasCalled()
 ///       verify(bird.fly()).wasCalled()
-///       verify(bird.chirp()).wasCalled()
 ///     }
 ///
 /// - Parameters:
@@ -66,20 +66,20 @@ public struct OrderedVerificationOptions: OptionSet {
   ///
   /// Use this option to disallow invocations prior to those satisfying the first verification.
   ///
-  ///     bird.eat()
+  ///     bird.name
+  ///     bird.canFly
   ///     bird.fly()
-  ///     bird.chirp()
   ///
   ///     // Passes _without_ the option
   ///     inOrder {
+  ///       verify(bird.canFly).wasCalled()
   ///       verify(bird.fly()).wasCalled()
-  ///       verify(bird.chirp()).wasCalled()
   ///     }
   ///
   ///     // Fails with the option
   ///     inOrder(with: .noInvocationsBefore) {
+  ///       verify(bird.canFly).wasCalled()
   ///       verify(bird.fly()).wasCalled()
-  ///       verify(bird.chirp()).wasCalled()
   ///     }
   public static let noInvocationsBefore = OrderedVerificationOptions(rawValue: 1 << 0)
   
@@ -87,20 +87,20 @@ public struct OrderedVerificationOptions: OptionSet {
   ///
   /// Use this option to disallow subsequent invocations to those satisfying the last verification.
   ///
+  ///     bird.name
+  ///     bird.canFly
   ///     bird.fly()
-  ///     bird.chirp()
-  ///     bird.eat()
   ///
   ///     // Passes _without_ the option
   ///     inOrder {
-  ///       verify(bird.fly()).wasCalled()
-  ///       verify(bird.chirp()).wasCalled()
+  ///       verify(bird.name).wasCalled()
+  ///       verify(bird.canFly).wasCalled()
   ///     }
   ///
   ///     // Fails with the option
   ///     inOrder(with: .noInvocationsAfter) {
-  ///       verify(bird.fly()).wasCalled()
-  ///       verify(bird.chirp()).wasCalled()
+  ///       verify(bird.name).wasCalled()
+  ///       verify(bird.canFly).wasCalled()
   ///     }
   public static let noInvocationsAfter = OrderedVerificationOptions(rawValue: 1 << 1)
   
@@ -108,20 +108,20 @@ public struct OrderedVerificationOptions: OptionSet {
   ///
   /// Use this option to disallow non-consecutive invocations to each verification.
   ///
+  ///     bird.name
+  ///     bird.canFly
   ///     bird.fly()
-  ///     bird.eat()
-  ///     bird.chirp()
   ///
   ///     // Passes _without_ the option
   ///     inOrder {
+  ///       verify(bird.name).wasCalled()
   ///       verify(bird.fly()).wasCalled()
-  ///       verify(bird.chirp()).wasCalled()
   ///     }
   ///
   ///     // Fails with the option
-  ///     inOrder(with: .noInvocationsAfter) {
+  ///     inOrder(with: .onlyConsecutiveInvocations) {
+  ///       verify(bird.name).wasCalled()
   ///       verify(bird.fly()).wasCalled()
-  ///       verify(bird.chirp()).wasCalled()
   ///     }
   public static let onlyConsecutiveInvocations = OrderedVerificationOptions(rawValue: 1 << 2)
 }

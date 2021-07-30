@@ -132,7 +132,7 @@ public extension StubbingManager {
   
   /// Forward calls for a specific declaration to an object.
   ///
-  /// Objects are strongly referenced and receive proxed invocations until removed with
+  /// Objects are strongly referenced and receive forwarded invocations until removed with
   /// `clearStubs`. Targets added afterwards have a higher precedence and only pass calls down the
   /// forwarding chain if unable handle the invocation, such as when the target is unrelated to the
   /// mocked type.

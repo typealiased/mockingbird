@@ -111,7 +111,7 @@ public func given<ReturnType>(
   }
 }
 
-// TODO: Docs
+/// An intermediate object used for stubbing Swift declarations returned by `given`.
 public class StaticStubbingManager<DeclarationType: Declaration, InvocationType, ReturnType>:
 StubbingManager<DeclarationType, InvocationType, ReturnType> {}
 

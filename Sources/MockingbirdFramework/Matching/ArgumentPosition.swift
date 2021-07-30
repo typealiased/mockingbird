@@ -1,5 +1,5 @@
 //
-//  ArgumentIndex.swift
+//  ArgumentPosition.swift
 //  MockingbirdFramework
 //
 //  Created by typealias on 7/21/21.
@@ -7,26 +7,26 @@
 
 import Foundation
 
-/// Specifies the positional index of an argument matcher for dynamic mocks.
+/// Specifies the argument position for an argument matcher.
 ///
-/// When using dynamic mocking with wildcard argument matchers, you must provide the argument index
-/// if stubbing or verifying a primitive (non-object) parameter type.
+/// You must provide an explicit argument position when using argument matchers on an Objective-C
+/// method with multiple value type parameters.
 ///
 ///     @objc class Bird: NSObject {
 ///       @objc dynamic func chirp(volume: Int, duration: Int) {}
 ///     }
 ///
-///     given(bird.chirp(volume: firstArg(any()),
-///                      duration: secondArg(any()))).will {
+///     given(bird.chirp(volume: arg(any(), at: 0),
+///                      duration: arg(any(), at: 1))).will {
 ///       print($0 as! Int, $1 as! Int)
 ///     }
 ///
 ///     bird.chirp(42, 9001)  // Prints 42, 9001
 ///
-/// This is equivalent to the verbose form of declaring an argument index.
+/// This is equivalent to the verbose form of declaring an argument position.
 ///
-///     given(bird.chirp(volume: arg(any(), at: 0),
-///                      duration: arg(any(), at: 1))).will {
+///     given(bird.chirp(volume: firstArg(any()),
+///                      duration: secondArg(any()))).will {
 ///       print($0 as! Int, $1 as! Int)
 ///     }
 ///
@@ -35,10 +35,11 @@ import Foundation
 ///
 /// - Parameters:
 ///   - matcher: An argument matcher.
-///   - index: The position index of the argument in the mocked declaration.
-public func arg<T>(_ matcher: @autoclosure () -> T, at index: Int) -> T {
+///   - position: The position of the argument in the mocked declaration.
+public func arg<T>(_ matcher: @autoclosure () -> T, at position: Int) -> T {
+  precondition(position > 0, "Argument positions must be a positive integer")
   if let recorder = InvocationRecorder.sharedRecorder {
-    recorder.recordArgumentIndex(Int(index))
+    recorder.recordArgumentIndex(position-1)
   }
   return matcher()
 }
@@ -46,10 +47,10 @@ public func arg<T>(_ matcher: @autoclosure () -> T, at index: Int) -> T {
 
 // MARK: - Shorthand
 
-/// Specifies the first positional index of an argument matcher for dynamic mocks.
+/// Specifies the first argument position for an argument matcher.
 ///
-/// When using dynamic mocking with wildcard argument matchers, you must provide the argument index
-/// if stubbing or verifying a primitive (non-object) parameter type.
+/// You must provide an explicit argument position when using argument matchers on an Objective-C
+/// method with multiple value type parameters.
 ///
 ///     @objc class Bird: NSObject {
 ///       @objc dynamic func chirp(volume: Int, duration: Int) {}
@@ -62,7 +63,7 @@ public func arg<T>(_ matcher: @autoclosure () -> T, at index: Int) -> T {
 ///
 ///     bird.chirp(42, 9001)  // Prints 42, 9001
 ///
-/// This is equivalent to the verbose form of declaring an argument index.
+/// This is equivalent to the verbose form of declaring an argument position.
 ///
 ///     given(bird.chirp(volume: arg(any(), at: 0),
 ///                      duration: arg(any(), at: 1))).will {
@@ -75,13 +76,13 @@ public func arg<T>(_ matcher: @autoclosure () -> T, at index: Int) -> T {
 /// - Parameters:
 ///   - matcher: An argument matcher.
 public func firstArg<T>(_ matcher: @autoclosure () -> T) -> T {
-  return arg(matcher(), at: 0)
+  return arg(matcher(), at: 1)
 }
 
-/// Specifies the second argument positional index of an argument matcher for dynamic mocks.
+/// Specifies the second argument position for an argument matcher.
 ///
-/// When using dynamic mocking with wildcard argument matchers, you must provide the argument index
-/// if stubbing or verifying a primitive (non-object) parameter type.
+/// You must provide an explicit argument position when using argument matchers on an Objective-C
+/// method with multiple value type parameters.
 ///
 ///     @objc class Bird: NSObject {
 ///       @objc dynamic func chirp(volume: Int, duration: Int) {}
@@ -94,7 +95,7 @@ public func firstArg<T>(_ matcher: @autoclosure () -> T) -> T {
 ///
 ///     bird.chirp(42, 9001)  // Prints 42, 9001
 ///
-/// This is equivalent to the verbose form of declaring an argument index.
+/// This is equivalent to the verbose form of declaring an argument position.
 ///
 ///     given(bird.chirp(volume: arg(any(), at: 0),
 ///                      duration: arg(any(), at: 1))).will {
@@ -107,13 +108,13 @@ public func firstArg<T>(_ matcher: @autoclosure () -> T) -> T {
 /// - Parameters:
 ///   - matcher: An argument matcher.
 public func secondArg<T>(_ matcher: @autoclosure () -> T) -> T {
-  return arg(matcher(), at: 1)
+  return arg(matcher(), at: 2)
 }
 
-/// Specifies the third argument positional index of an argument matcher for dynamic mocks.
+/// Specifies the third argument position for an argument matcher.
 ///
-/// When using dynamic mocking with wildcard argument matchers, you must provide the argument index
-/// if stubbing or verifying a primitive (non-object) parameter type.
+/// You must provide an explicit argument position when using argument matchers on an Objective-C
+/// method with multiple value type parameters.
 ///
 ///     @objc class Bird: NSObject {
 ///       @objc dynamic func chirp(volume: Int, duration: Int) {}
@@ -126,7 +127,7 @@ public func secondArg<T>(_ matcher: @autoclosure () -> T) -> T {
 ///
 ///     bird.chirp(42, 9001)  // Prints 42, 9001
 ///
-/// This is equivalent to the verbose form of declaring an argument index.
+/// This is equivalent to the verbose form of declaring an argument position.
 ///
 ///     given(bird.chirp(volume: arg(any(), at: 0),
 ///                      duration: arg(any(), at: 1))).will {
@@ -139,13 +140,13 @@ public func secondArg<T>(_ matcher: @autoclosure () -> T) -> T {
 /// - Parameters:
 ///   - matcher: An argument matcher.
 public func thirdArg<T>(_ matcher: @autoclosure () -> T) -> T {
-  return arg(matcher(), at: 2)
+  return arg(matcher(), at: 3)
 }
 
-/// Specifies the fourth argument positional index of an argument matcher for dynamic mocks.
+/// Specifies the fourth argument position for an argument matcher.
 ///
-/// When using dynamic mocking with wildcard argument matchers, you must provide the argument index
-/// if stubbing or verifying a primitive (non-object) parameter type.
+/// You must provide an explicit argument position when using argument matchers on an Objective-C
+/// method with multiple value type parameters.
 ///
 ///     @objc class Bird: NSObject {
 ///       @objc dynamic func chirp(volume: Int, duration: Int) {}
@@ -158,7 +159,7 @@ public func thirdArg<T>(_ matcher: @autoclosure () -> T) -> T {
 ///
 ///     bird.chirp(42, 9001)  // Prints 42, 9001
 ///
-/// This is equivalent to the verbose form of declaring an argument index.
+/// This is equivalent to the verbose form of declaring an argument position.
 ///
 ///     given(bird.chirp(volume: arg(any(), at: 0),
 ///                      duration: arg(any(), at: 1))).will {
@@ -171,13 +172,13 @@ public func thirdArg<T>(_ matcher: @autoclosure () -> T) -> T {
 /// - Parameters:
 ///   - matcher: An argument matcher.
 public func fourthArg<T>(_ matcher: @autoclosure () -> T) -> T {
-  return arg(matcher(), at: 3)
+  return arg(matcher(), at: 4)
 }
 
-/// Specifies the fifth argument positional index of an argument matcher for dynamic mocks.
+/// Specifies the fifth argument position for an argument matcher.
 ///
-/// When using dynamic mocking with wildcard argument matchers, you must provide the argument index
-/// if stubbing or verifying a primitive (non-object) parameter type.
+/// You must provide an explicit argument position when using argument matchers on an Objective-C
+/// method with multiple value type parameters.
 ///
 ///     @objc class Bird: NSObject {
 ///       @objc dynamic func chirp(volume: Int, duration: Int) {}
@@ -190,7 +191,7 @@ public func fourthArg<T>(_ matcher: @autoclosure () -> T) -> T {
 ///
 ///     bird.chirp(42, 9001)  // Prints 42, 9001
 ///
-/// This is equivalent to the verbose form of declaring an argument index.
+/// This is equivalent to the verbose form of declaring an argument position.
 ///
 ///     given(bird.chirp(volume: arg(any(), at: 0),
 ///                      duration: arg(any(), at: 1))).will {
@@ -203,5 +204,5 @@ public func fourthArg<T>(_ matcher: @autoclosure () -> T) -> T {
 /// - Parameters:
 ///   - matcher: An argument matcher.
 public func fifthArg<T>(_ matcher: @autoclosure () -> T) -> T {
-  return arg(matcher(), at: 4)
+  return arg(matcher(), at: 5)
 }

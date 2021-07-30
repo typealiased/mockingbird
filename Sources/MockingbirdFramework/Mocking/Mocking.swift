@@ -42,7 +42,7 @@ public func mock<T>(_ type: T.Type) -> T { fatalError() }
 ///     - (instancetype)initWithName:(NSString *);
 ///     @end
 ///     @interface Tree : NSObject
-///     - (instancetype)initWithBird:(Bird *)bird;
+///     - (instancetype)initWithHeight:(NSInteger)height;
 ///     @end
 ///
 ///     let bird = mock(Bird.self)  // Protocol mock
@@ -58,7 +58,7 @@ public func mock<T>(_ type: T.Type) -> T { fatalError() }
 ///     }
 ///     @objc class Tree: NSObject {
 ///       @objc dynamic func shake() {}
-///       @objc dynamic var bird: Bird?
+///       @objc dynamic var height: Int
 ///     }
 ///
 /// - Parameter type: The type to mock.

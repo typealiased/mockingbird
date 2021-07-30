@@ -79,7 +79,7 @@ func createTypeFacade<T>(_ value: Any?) -> T {
   if let argumentIndex = recorder.argumentIndex {
     recorder.recordFacadeValue(value, at: argumentIndex)
   } else {
-    let error = TestFailure.missingExplicitArgumentIndex(matcher: value as? ArgumentMatcher)
+    let error = TestFailure.missingExplicitArgumentPosition(matcher: value as? ArgumentMatcher)
     recorder.recordUnindexedFacadeValue(value, error: error)
   }
   
