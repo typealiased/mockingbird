@@ -188,4 +188,30 @@ class ObjectiveCTests: BaseTestCase {
     verify(target.cancelPeripheralConnection(any())).wasCalled()
     wait(for: [expectation], timeout: 2)
   }
+  
+  
+  // MARK: - Mock resetting
+  
+  func testResetEntireContext() throws {
+    centralManagerMock.cancelPeripheralConnection(peripheralMock)
+    verify(centralManagerMock.cancelPeripheralConnection(peripheralMock)).wasCalled()
+    reset(centralManagerMock)
+    verify(centralManagerMock.cancelPeripheralConnection(peripheralMock)).wasNeverCalled()
+  }
+  
+  func testClearInvocations() throws {
+    centralManagerMock.cancelPeripheralConnection(peripheralMock)
+    verify(centralManagerMock.cancelPeripheralConnection(peripheralMock)).wasCalled()
+    clearInvocations(on: centralManagerMock)
+    verify(centralManagerMock.cancelPeripheralConnection(peripheralMock)).wasNeverCalled()
+  }
+  
+  func testClearStubs() throws {
+    given(centralManagerMock.isScanning).willReturn(true)
+    XCTAssertTrue(centralManagerMock.isScanning)
+    clearStubs(on: centralManagerMock)
+    shouldFail {
+      _ = self.centralManagerMock.isScanning
+    }
+  }
 }

@@ -128,6 +128,7 @@
 		28A1F3C026ADA2A8002F282D /* PartialMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3BF26ADA2A8002F282D /* PartialMockTests.swift */; };
 		28A1F3C226ADC9DA002F282D /* PropertyProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3C126ADC9DA002F282D /* PropertyProviders.swift */; };
 		28A1F3C426ADD57C002F282D /* MinimalTestTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3C326ADD57C002F282D /* MinimalTestTypes.swift */; };
+		28B4F6E226B3C9C7005C0049 /* ObjCTypeEncodings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4F6E126B3C9C7005C0049 /* ObjCTypeEncodings.swift */; };
 		28C8E5DB26A64D6C00C68A1D /* MKBInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */; };
 		28C8E5DC26A64D6C00C68A1D /* MKBInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */; };
 		28DAD96E251BDD66001A0B3F /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DAD96D251BDD66001A0B3F /* Project.swift */; };
@@ -581,6 +582,7 @@
 		28A1F3BF26ADA2A8002F282D /* PartialMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialMockTests.swift; sourceTree = "<group>"; };
 		28A1F3C126ADC9DA002F282D /* PropertyProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyProviders.swift; sourceTree = "<group>"; };
 		28A1F3C326ADD57C002F282D /* MinimalTestTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimalTestTypes.swift; sourceTree = "<group>"; };
+		28B4F6E126B3C9C7005C0049 /* ObjCTypeEncodings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjCTypeEncodings.swift; sourceTree = "<group>"; };
 		28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBInvocationHandler.h; sourceTree = "<group>"; };
 		28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBInvocationHandler.m; sourceTree = "<group>"; };
 		28DAD96D251BDD66001A0B3F /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -1548,6 +1550,7 @@
 			children = (
 				OBJ_49 /* Array+Extensions.swift */,
 				D3B3D4C1248C9D1600FEEDA0 /* CwlDemangle.swift */,
+				28B4F6E126B3C9C7005C0049 /* ObjCTypeEncodings.swift */,
 				D3E6F67B24844C5B000D1971 /* SourceLocation.swift */,
 				D3B3D4C5248CC15E00FEEDA0 /* StackTrace.swift */,
 				OBJ_51 /* String+Extensions.swift */,
@@ -1758,6 +1761,8 @@
 				28571AA026A6623C0063AB83 /* MKBFloatInvocationHandler.h in Headers */,
 				28571AAC26A664340063AB83 /* MKBSelectorInvocationHandler.h in Headers */,
 				28571AB026A664AF0063AB83 /* MKBShortInvocationHandler.h in Headers */,
+				287C4F3B26A3547000A7E0D9 /* MKBClassMock.h in Headers */,
+				287C4F5726A3710600A7E0D9 /* MKBConcreteMock.h in Headers */,
 				287C4F4326A3688100A7E0D9 /* MKBMocking.h in Headers */,
 				28571ACC26A668530063AB83 /* MKBInvocationHandlerChain.h in Headers */,
 				28571AC826A667300063AB83 /* MKBUnsignedShortInvocationHandler.h in Headers */,
@@ -1776,10 +1781,8 @@
 				28571A9826A660DB0063AB83 /* MKBClassInvocationHandler.h in Headers */,
 				28571ABC26A6663D0063AB83 /* MKBUnsignedIntInvocationHandler.h in Headers */,
 				28571A7C26A6548B0063AB83 /* MKBObjectInvocationHandler.h in Headers */,
-				287C4F5726A3710600A7E0D9 /* MKBConcreteMock.h in Headers */,
 				28719AF026B21CB100C38C2C /* MKBProperty.h in Headers */,
 				28571A8826A65EB80063AB83 /* MKBIntInvocationHandler.h in Headers */,
-				287C4F3B26A3547000A7E0D9 /* MKBClassMock.h in Headers */,
 				287C4F3F26A3547F00A7E0D9 /* MKBProtocolMock.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2301,6 +2304,7 @@
 				OBJ_885 /* ValueProvider+Foundation.swift in Sources */,
 				OBJ_886 /* ValueProvider+Tuples.swift in Sources */,
 				D3E6F67624844999000D1971 /* ImplementationProvider.swift in Sources */,
+				28B4F6E226B3C9C7005C0049 /* ObjCTypeEncodings.swift in Sources */,
 				28571AC126A6669D0063AB83 /* MKBUnsignedLongInvocationHandler.m in Sources */,
 				D3B3D4C6248CC15E00FEEDA0 /* StackTrace.swift in Sources */,
 				28719AF126B21CB100C38C2C /* MKBProperty.m in Sources */,

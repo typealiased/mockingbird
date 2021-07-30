@@ -45,8 +45,6 @@
   NSString *selectorName = NSStringFromSelector(invocation.selector);
   NSMutableArray<MKBArgumentMatcher *> *arguments = [[NSMutableArray alloc] init];
   const NSUInteger argumentCount = invocation.methodSignature.numberOfArguments;
-  const BOOL isVoidReturnType =
-    (invocation.methodSignature.methodReturnType[0] == @encode(void)[0]);
   
   // Account for self, _cmd arguments.
   for (NSUInteger i = 2; i < argumentCount; i++) {
@@ -69,7 +67,8 @@
     [[MKBObjCInvocation alloc] initWithSelectorName:selectorName
                                  setterSelectorName:setterSelectorName
                                        selectorType:selectorType
-                                          arguments:arguments];
+                                          arguments:arguments
+                                     objcReturnType:@(invocation.methodSignature.methodReturnType)];
   MKBInvocationRecorder *recorder = [MKBInvocationRecorder sharedRecorder];
   
   switch (recorder.mode) {
@@ -77,7 +76,7 @@
       id _Nullable returnValue =
         [self.mockingbirdContext.mocking
          objcDidInvoke:objcInvocation evaluating:^id _Nullable(MKBObjCInvocation *invocation) {
-          return [self.mockingbirdContext.stubbing returnValueFor:invocation];
+          return [self.mockingbirdContext.stubbing evaluateReturnValueFor:invocation];
         }];
 
       if (returnValue == [MKBStubbingContext noImplementation]) {
@@ -89,17 +88,22 @@
           }
         }
         
+        // Check whether the default value provider can handle this return type.
+        id _Nullable defaultValue =
+          [self.mockingbirdContext.stubbing provideDefaultValueFor:objcInvocation];
+        if (defaultValue != nil) {
+          [self.invocationHandlerChain deserializeReturnValue:defaultValue
+                                                forInvocation:invocation];
+          return;
+        }
+        
         // Try to handle the invocation ourselves as an `NSObject[Protocol]`.
         if ([[self class] instancesRespondToSelector:invocation.selector]) {
-          break;
+          return;
         }
         
-        // TODO: Default value provider.
-        
-        // Mocks are strict by default except for `Void` return types.
-        if (!isVoidReturnType) {
-          [self.mockingbirdContext.stubbing failTestFor:objcInvocation];
-        }
+        // Mocks are strict by default.
+        [self.mockingbirdContext.stubbing failTestFor:objcInvocation];
         
       } else if ([returnValue isKindOfClass:[MKBErrorBox class]] &&
                  [invocation isErrorArgumentTypeAtIndex:argumentCount-1]) {

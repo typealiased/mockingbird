@@ -69,7 +69,8 @@
 
 - (BOOL)respondsToSelector:(SEL)aSelector
 {
-  return [self methodSignatureForSelector:aSelector] != nil;
+  return [self methodSignatureForSelector:aSelector] != nil
+    || aSelector == @selector(mockingbirdContext);
 }
 
 @end

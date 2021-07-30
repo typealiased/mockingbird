@@ -134,17 +134,20 @@ struct SwiftInvocation: Invocation {
   let selectorType: SelectorType
   let arguments: [ArgumentMatcher]
   let returnType: ObjectIdentifier
+  let objcReturnType: String
   let uid = MonotonicIncreasingIndex.getIndex()
   
   @objc public required init(selectorName: String,
                              setterSelectorName: String?,
                              selectorType: SelectorType,
-                             arguments: [ArgumentMatcher]) {
+                             arguments: [ArgumentMatcher],
+                             objcReturnType: String) {
     self.selectorName = selectorName
     self.setterSelectorName = setterSelectorName
     self.selectorType = selectorType
     self.arguments = arguments
-    self.returnType = ObjectIdentifier(Any.self) // Return type doesn't matter for Obj-C.
+    self.returnType = ObjectIdentifier(Any?.self) // The return type as seen by Swift.
+    self.objcReturnType = objcReturnType
   }
   
   var unwrappedSelectorName: String { return selectorName }
@@ -166,6 +169,7 @@ struct SwiftInvocation: Invocation {
     return Self(selectorName: selectorName,
                 setterSelectorName: selectorName,
                 selectorType: .setter,
-                arguments: [matcher])
+                arguments: [matcher],
+                objcReturnType: objcReturnType)
   }
 }

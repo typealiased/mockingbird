@@ -95,7 +95,8 @@
 
 - (BOOL)respondsToSelector:(SEL)aSelector
 {
-  return [self.mockedClass instancesRespondToSelector:aSelector];
+  return [self.mockedClass instancesRespondToSelector:aSelector]
+    || aSelector == @selector(mockingbirdContext);
 }
 
 @end

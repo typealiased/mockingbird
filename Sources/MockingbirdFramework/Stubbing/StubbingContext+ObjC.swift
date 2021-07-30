@@ -37,7 +37,7 @@ extension StubbingContext {
   ///
   /// - Parameter invocation: An Objective-C invocation to handle.
   /// - Returns: The value returned from evaluating the Swift implementation.
-  @objc public func returnValue(for invocation: ObjCInvocation) -> Any? {
+  @objc public func evaluateReturnValue(for invocation: ObjCInvocation) -> Any? {
     let implementation = implementation(for: invocation as Invocation)
     do {
       return try applyInvocation(invocation, to: implementation)
@@ -48,6 +48,14 @@ extension StubbingContext {
     } catch let err {
       return SwiftErrorBox(err)
     }
+  }
+  
+  /// Attempts to return a value using the default value provider.
+  ///
+  /// - Parameter invocation: An Objective-C invocation to handle.
+  /// - Returns: A value or `nil` if the provider could not handle the Objective-C return type.
+  @objc public func provideDefaultValue(for invocation: ObjCInvocation) -> Any? {
+    return defaultValueProvider.read({ $0.provideValue(for: invocation.objcReturnType) })
   }
   
   private func applyInvocation(_ invocation: ObjCInvocation,

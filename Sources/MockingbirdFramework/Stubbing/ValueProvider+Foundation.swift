@@ -40,6 +40,9 @@ public extension ValueProvider {
     // Floating point
     ObjectIdentifier(Float.self): Float(), // Float32
     ObjectIdentifier(Double.self): Double(), // Float64
+    
+    // Objective-C compatibility
+    ObjectIdentifier(UnsafePointer<CChar>.self): "", // Implicitly bridged to char *
   ])
 }
 

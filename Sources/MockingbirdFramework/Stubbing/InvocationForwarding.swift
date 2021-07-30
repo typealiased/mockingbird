@@ -66,7 +66,7 @@ public func forwardToSuper() -> ForwardingContext {
 ///     given(bird.name) ~> forward(to: Crow(name: "Sterling"))
 ///     print(bird.name)  // Prints "Sterling"
 ///
-/// Explicit stubs always have a higher priority than forwarding targets, regardless of the order
+/// Concrete stubs always have a higher priority than forwarding targets, regardless of the order
 /// they were added.
 ///
 ///     given(bird.name) ~> "Ryan"
@@ -149,7 +149,7 @@ public extension StubbingManager {
   ///     given(bird.name).willForward(to: Crow(name: "Sterling"))
   ///     print(bird.name)  // Prints "Sterling"
   ///
-  /// Explicit stubs always have a higher priority than forwarding targets, regardless of the order
+  /// Concrete stubs always have a higher priority than forwarding targets, regardless of the order
   /// they were added.
   ///
   ///     given(bird.name).willReturn("Ryan")
@@ -194,7 +194,7 @@ public extension Mock {
   ///     bird.forwardCallsToSuper()
   ///     print(bird.name)  // Prints "Ryan"
   ///
-  /// Explicit stubs always have a higher priority than forwarding targets, regardless of the order
+  /// Concrete stubs always have a higher priority than forwarding targets, regardless of the order
   /// they were added.
   ///
   ///     let bird = mock(Bird.self).initialize(name: "Sterling")
@@ -240,7 +240,7 @@ public extension Mock {
   ///     bird.forwardCalls(to: Crow(name: "Sterling"))
   ///     print(bird.name)  // Prints "Sterling"
   ///
-  /// Explicit stubs always have a higher priority than forwarding targets, regardless of the order
+  /// Concrete stubs always have a higher priority than forwarding targets, regardless of the order
   /// they were added.
   ///
   ///     given(bird.name).willReturn("Ryan")
@@ -285,7 +285,7 @@ public extension NSObjectProtocol {
   ///     bird.forwardCallsToSuper()
   ///     print(bird.name)  // Prints "Ryan"
   ///
-  /// Explicit stubs always have a higher priority than forwarding targets, regardless of the order
+  /// Concrete stubs always have a higher priority than forwarding targets, regardless of the order
   /// they were added.
   ///
   ///     let bird = mock(Bird.self).initialize(name: "Sterling")
@@ -331,7 +331,7 @@ public extension NSObjectProtocol {
   ///     bird.forwardCalls(to: Crow(name: "Sterling"))
   ///     print(bird.name)  // Prints "Sterling"
   ///
-  /// Explicit stubs always have a higher priority than forwarding targets, regardless of the order
+  /// Concrete stubs always have a higher priority than forwarding targets, regardless of the order
   /// they were added.
   ///
   ///     given(bird.name).willReturn("Ryan")

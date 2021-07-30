@@ -28,7 +28,7 @@ private let collectionsProviderNSValues = [
   ObjectIdentifier(NSMutableOrderedSet.self): NSMutableOrderedSet(),
   ObjectIdentifier(NSPurgeableData.self): NSPurgeableData(),
   ObjectIdentifier(NSPointerArray.self): NSPointerArray(),
-]
+] as [ObjectIdentifier: Any]
 #else
 private let collectionsProviderValues = []
 #endif
