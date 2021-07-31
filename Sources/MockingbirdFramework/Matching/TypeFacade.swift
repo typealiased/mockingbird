@@ -75,32 +75,15 @@ func createTypeFacade<T>(_ value: Any?) -> T {
   guard let recorder = InvocationRecorder.sharedRecorder else {
     preconditionFailure("Invalid resolution thread context state")
   }
-  // This is actually an invocation recording context, but the type is not mockable in Obj-C.
-  guard let argumentIndex = recorder.argumentIndex else {
-    /// Explicit argument indexes are required in certain cases. See the `arg(_:at:)` docs for
-    /// more information and usage.
-    if let matcher = (value as? ArgumentMatcher)?.declaration {
-      recorder.recordError("""
-      Cannot infer the argument index of '\(matcher)' when used in this context
-      
-      Wrap usages of '\(matcher)' in an explicit argument index, for example:
-         firstArg(\(matcher))
-         secondArg(\(matcher))
-         arg(\(matcher), at: 2)
-      """)
-    } else {
-      recorder.recordError("""
-      Cannot infer the argument index when used in this context
-      
-      Wrap usages in an explicit argument index, for example:
-         firstArg(any())
-         secondArg(any())
-         arg(any(), at: 2)
-      """)
-    }
-    fatalError("This should never run")
+  
+  if let argumentIndex = recorder.argumentIndex {
+    recorder.recordFacadeValue(value, at: argumentIndex)
+  } else {
+    let error = TestFailure.missingExplicitArgumentIndex(matcher: value as? ArgumentMatcher)
+    recorder.recordUnindexedFacadeValue(value, error: error)
   }
-  recorder.recordFacadeValue(value, at: argumentIndex)
+  
+  // This is actually an invocation recording context, but the type is not mockable in Obj-C.
   return fakePrimitiveValue()
 }
 

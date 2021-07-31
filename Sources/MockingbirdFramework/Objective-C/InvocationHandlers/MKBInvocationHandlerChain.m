@@ -71,7 +71,10 @@
 - (MKBArgumentMatcher *)serializeArgumentAtIndex:(NSUInteger)index
                                    forInvocation:(NSInvocation *)invocation {
   // Handle argument matchers applied to primitive parameter types.
-  id _Nullable facadeValue = [[MKBInvocationRecorder sharedRecorder] getFacadeValueAt:index-2];
+  const NSUInteger argumentsCount = invocation.methodSignature.numberOfArguments;
+  id _Nullable facadeValue =
+    [[MKBInvocationRecorder sharedRecorder] getFacadeValueAt:index-2
+                                              argumentsCount:argumentsCount-2];
   if ([facadeValue isKindOfClass:[MKBArgumentMatcher class]]) {
     return (MKBArgumentMatcher *)facadeValue;
   }

@@ -15,6 +15,7 @@ import XCTest
   @objc dynamic func method(referenceType: Foundation.NSObject) -> Foundation.NSObject {
     fatalError()
   }
+  @objc dynamic func method(first: String, second: String) -> String { fatalError() }
   
   @objc dynamic func throwingMethod() throws {}
   @objc dynamic public func trivialMethod() {}
@@ -75,22 +76,22 @@ class DynamicSwiftTests: BaseTestCase {
   
   func testClassValueTypePropertySetterMatchesWildcard() throws {
     let expectation = XCTestExpectation()
-    given(classMock.valueTypeProperty = firstArg(any())).will { (newValue: Bool) in
+    given(classMock.valueTypeProperty = any()).will { (newValue: Bool) in
       XCTAssertTrue(newValue)
       expectation.fulfill()
     }
     classMock.valueTypeProperty = true
-    verify(classMock.valueTypeProperty = firstArg(any())).wasCalled()
+    verify(classMock.valueTypeProperty = any()).wasCalled()
     wait(for: [expectation], timeout: 2)
   }
   func testClassValueTypePropertySetterMatchesWildcard_stubbingOperator() throws {
     let expectation = XCTestExpectation()
-    given(classMock.valueTypeProperty = firstArg(any())) ~> { (newValue: Bool) in
+    given(classMock.valueTypeProperty = any()) ~> { (newValue: Bool) in
       XCTAssertTrue(newValue)
       expectation.fulfill()
     }
     classMock.valueTypeProperty = true
-    verify(classMock.valueTypeProperty = firstArg(any())).wasCalled()
+    verify(classMock.valueTypeProperty = any()).wasCalled()
     wait(for: [expectation], timeout: 2)
   }
   
@@ -130,22 +131,22 @@ class DynamicSwiftTests: BaseTestCase {
   
   func testClassBridgedPropertySetterMatchesWildcard() throws {
     let expectation = XCTestExpectation()
-    given(classMock.bridgedTypeProperty = firstArg(any())).will { (newValue: String) in
+    given(classMock.bridgedTypeProperty = any()).will { (newValue: String) in
       XCTAssertEqual(newValue, "Ryan")
       expectation.fulfill()
     }
     classMock.bridgedTypeProperty = "Ryan"
-    verify(classMock.bridgedTypeProperty = firstArg(any())).wasCalled()
+    verify(classMock.bridgedTypeProperty = any()).wasCalled()
     wait(for: [expectation], timeout: 2)
   }
   func testClassBridgedPropertySetterMatchesWildcard_stubbingOperator() throws {
     let expectation = XCTestExpectation()
-    given(classMock.bridgedTypeProperty = firstArg(any())) ~> { (newValue: String) in
+    given(classMock.bridgedTypeProperty = any()) ~> { (newValue: String) in
       XCTAssertEqual(newValue, "Ryan")
       expectation.fulfill()
     }
     classMock.bridgedTypeProperty = "Ryan"
-    verify(classMock.bridgedTypeProperty = firstArg(any())).wasCalled()
+    verify(classMock.bridgedTypeProperty = any()).wasCalled()
     wait(for: [expectation], timeout: 2)
   }
   
@@ -205,25 +206,25 @@ class DynamicSwiftTests: BaseTestCase {
   func testClassReferenceTypePropertySetterMatchesWildcard() throws {
     let ref = Foundation.NSObject()
     let expectation = XCTestExpectation()
-    given(classMock.referenceTypeProperty = firstArg(any())).will {
+    given(classMock.referenceTypeProperty = any()).will {
       (newValue: Foundation.NSObject) in
       XCTAssertEqual(newValue, ref)
       expectation.fulfill()
     }
     classMock.referenceTypeProperty = ref
-    verify(classMock.referenceTypeProperty = firstArg(any())).wasCalled()
+    verify(classMock.referenceTypeProperty = any()).wasCalled()
     wait(for: [expectation], timeout: 2)
   }
   func testClassReferenceTypePropertySetterMatchesWildcard_stubbingOperator() throws {
     let ref = Foundation.NSObject()
     let expectation = XCTestExpectation()
-    given(classMock.referenceTypeProperty = firstArg(any())) ~> {
+    given(classMock.referenceTypeProperty = any()) ~> {
       (newValue: Foundation.NSObject) in
       XCTAssertEqual(newValue, ref)
       expectation.fulfill()
     }
     classMock.referenceTypeProperty = ref
-    verify(classMock.referenceTypeProperty = firstArg(any())).wasCalled()
+    verify(classMock.referenceTypeProperty = any()).wasCalled()
     wait(for: [expectation], timeout: 2)
   }
   
@@ -236,15 +237,15 @@ class DynamicSwiftTests: BaseTestCase {
     given(classMock.method(valueType: true)).willReturn(true)
     XCTAssertTrue(classMock.method(valueType: true))
     verify(classMock.method(valueType: true)).wasCalled()
-    verify(classMock.method(bridgedType: firstArg(any()))).wasNeverCalled()
-    verify(classMock.method(referenceType: firstArg(any()))).wasNeverCalled()
+    verify(classMock.method(bridgedType: any())).wasNeverCalled()
+    verify(classMock.method(referenceType: any())).wasNeverCalled()
   }
   func testClassValueTypeMethodMatchesExact_stubbingOperator() throws {
     given(classMock.method(valueType: true)) ~> true
     XCTAssertTrue(classMock.method(valueType: true))
     verify(classMock.method(valueType: true)).wasCalled()
-    verify(classMock.method(bridgedType: firstArg(any()))).wasNeverCalled()
-    verify(classMock.method(referenceType: firstArg(any()))).wasNeverCalled()
+    verify(classMock.method(bridgedType: any())).wasNeverCalled()
+    verify(classMock.method(referenceType: any())).wasNeverCalled()
   }
   
   func testClassValueTypeMethodMatchesExactExclusive() throws {
@@ -269,11 +270,11 @@ class DynamicSwiftTests: BaseTestCase {
     XCTAssertFalse(classMock.method(valueType: false))
     verify(classMock.method(valueType: true)).wasCalled()
     verify(classMock.method(valueType: false)).wasCalled()
-    verify(classMock.method(bridgedType: firstArg(any()))).wasNeverCalled()
-    verify(classMock.method(referenceType: firstArg(any()))).wasNeverCalled()
+    verify(classMock.method(bridgedType: any())).wasNeverCalled()
+    verify(classMock.method(referenceType: any())).wasNeverCalled()
   }
   func testClassValueTypeMethodMatchesWildcard_stubbingOperator() throws {
-    given(classMock.method(valueType: firstArg(any()))) ~> {
+    given(classMock.method(valueType: any())) ~> {
       (valueType: Bool) in
       return valueType
     }
@@ -281,8 +282,8 @@ class DynamicSwiftTests: BaseTestCase {
     XCTAssertFalse(classMock.method(valueType: false))
     verify(classMock.method(valueType: true)).wasCalled()
     verify(classMock.method(valueType: false)).wasCalled()
-    verify(classMock.method(bridgedType: firstArg(any()))).wasNeverCalled()
-    verify(classMock.method(referenceType: firstArg(any()))).wasNeverCalled()
+    verify(classMock.method(bridgedType: any())).wasNeverCalled()
+    verify(classMock.method(referenceType: any())).wasNeverCalled()
   }
   
   // MARK: Bridged types
@@ -290,16 +291,16 @@ class DynamicSwiftTests: BaseTestCase {
   func testClassBridgedTypeMethodMatchesExact() throws {
     given(classMock.method(bridgedType: "Ryan")).willReturn("Ryan")
     XCTAssertEqual(classMock.method(bridgedType: "Ryan"), "Ryan")
-    verify(classMock.method(valueType: firstArg(any()))).wasNeverCalled()
+    verify(classMock.method(valueType: any())).wasNeverCalled()
     verify(classMock.method(bridgedType: "Ryan")).wasCalled()
-    verify(classMock.method(referenceType: firstArg(any()))).wasNeverCalled()
+    verify(classMock.method(referenceType: any())).wasNeverCalled()
   }
   func testClassBridgedTypeMethodMatchesExact_stubbingOperator() throws {
     given(classMock.method(bridgedType: "Ryan")) ~> "Ryan"
     XCTAssertEqual(classMock.method(bridgedType: "Ryan"), "Ryan")
-    verify(classMock.method(valueType: firstArg(any()))).wasNeverCalled()
+    verify(classMock.method(valueType: any())).wasNeverCalled()
     verify(classMock.method(bridgedType: "Ryan")).wasCalled()
-    verify(classMock.method(referenceType: firstArg(any()))).wasNeverCalled()
+    verify(classMock.method(referenceType: any())).wasNeverCalled()
   }
   
   func testClassBridgedTypeMethodMatchesExactExclusive() throws {
@@ -316,28 +317,28 @@ class DynamicSwiftTests: BaseTestCase {
   }
   
   func testClassBridgedTypeMethodMatchesWildcard() throws {
-    given(classMock.method(bridgedType: firstArg(any()))).will {
+    given(classMock.method(bridgedType: any())).will {
       (valueType: String) in
       return valueType
     }
     XCTAssertEqual(classMock.method(bridgedType: "Ryan"), "Ryan")
     XCTAssertEqual(classMock.method(bridgedType: "Sterling"), "Sterling")
-    verify(classMock.method(valueType: firstArg(any()))).wasNeverCalled()
+    verify(classMock.method(valueType: any())).wasNeverCalled()
     verify(classMock.method(bridgedType: "Ryan")).wasCalled()
     verify(classMock.method(bridgedType: "Sterling")).wasCalled()
-    verify(classMock.method(referenceType: firstArg(any()))).wasNeverCalled()
+    verify(classMock.method(referenceType: any())).wasNeverCalled()
   }
   func testClassBridgedTypeMethodMatchesWildcard_stubbingOperator() throws {
-    given(classMock.method(bridgedType: firstArg(any()))) ~> {
+    given(classMock.method(bridgedType: any())) ~> {
       (valueType: String) in
       return valueType
     }
     XCTAssertEqual(classMock.method(bridgedType: "Ryan"), "Ryan")
     XCTAssertEqual(classMock.method(bridgedType: "Sterling"), "Sterling")
-    verify(classMock.method(valueType: firstArg(any()))).wasNeverCalled()
+    verify(classMock.method(valueType: any())).wasNeverCalled()
     verify(classMock.method(bridgedType: "Ryan")).wasCalled()
     verify(classMock.method(bridgedType: "Sterling")).wasCalled()
-    verify(classMock.method(referenceType: firstArg(any()))).wasNeverCalled()
+    verify(classMock.method(referenceType: any())).wasNeverCalled()
   }
   
   // MARK: Reference types
@@ -346,16 +347,16 @@ class DynamicSwiftTests: BaseTestCase {
     let ref = Foundation.NSObject()
     given(classMock.method(referenceType: ref)).willReturn(ref)
     XCTAssertEqual(classMock.method(referenceType: ref), ref)
-    verify(classMock.method(valueType: firstArg(any()))).wasNeverCalled()
-    verify(classMock.method(bridgedType: firstArg(any()))).wasNeverCalled()
+    verify(classMock.method(valueType: any())).wasNeverCalled()
+    verify(classMock.method(bridgedType: any())).wasNeverCalled()
     verify(classMock.method(referenceType: ref)).wasCalled()
   }
   func testClassReferenceTypeMethodMatchesExact_stubbingOperator() throws {
     let ref = Foundation.NSObject()
     given(classMock.method(referenceType: ref)) ~> ref
     XCTAssertEqual(classMock.method(referenceType: ref), ref)
-    verify(classMock.method(valueType: firstArg(any()))).wasNeverCalled()
-    verify(classMock.method(bridgedType: firstArg(any()))).wasNeverCalled()
+    verify(classMock.method(valueType: any())).wasNeverCalled()
+    verify(classMock.method(bridgedType: any())).wasNeverCalled()
     verify(classMock.method(referenceType: ref)).wasCalled()
   }
   
@@ -375,7 +376,7 @@ class DynamicSwiftTests: BaseTestCase {
   }
   
   func testClassReferenceTypeMethodMatchesWildcard() throws {
-    given(classMock.method(referenceType: firstArg(any()))).will {
+    given(classMock.method(referenceType: any())).will {
       (valueType: Foundation.NSObject) in
       return valueType
     }
@@ -383,12 +384,12 @@ class DynamicSwiftTests: BaseTestCase {
     let ref2 = Foundation.NSObject()
     XCTAssertEqual(classMock.method(referenceType: ref1), ref1)
     XCTAssertEqual(classMock.method(referenceType: ref2), ref2)
-    verify(classMock.method(valueType: firstArg(any()))).wasNeverCalled()
-    verify(classMock.method(bridgedType: firstArg(any()))).wasNeverCalled()
-    verify(classMock.method(referenceType: firstArg(any()))).wasCalled(twice)
+    verify(classMock.method(valueType: any())).wasNeverCalled()
+    verify(classMock.method(bridgedType: any())).wasNeverCalled()
+    verify(classMock.method(referenceType: any())).wasCalled(twice)
   }
   func testClassReferenceTypeMethodMatchesWildcard_stubbingOperator() throws {
-    given(classMock.method(referenceType: firstArg(any()))) ~> {
+    given(classMock.method(referenceType: any())) ~> {
       (valueType: Foundation.NSObject) in
       return valueType
     }
@@ -396,9 +397,65 @@ class DynamicSwiftTests: BaseTestCase {
     let ref2 = Foundation.NSObject()
     XCTAssertEqual(classMock.method(referenceType: ref1), ref1)
     XCTAssertEqual(classMock.method(referenceType: ref2), ref2)
-    verify(classMock.method(valueType: firstArg(any()))).wasNeverCalled()
-    verify(classMock.method(bridgedType: firstArg(any()))).wasNeverCalled()
-    verify(classMock.method(referenceType: firstArg(any()))).wasCalled(twice)
+    verify(classMock.method(valueType: any())).wasNeverCalled()
+    verify(classMock.method(bridgedType: any())).wasNeverCalled()
+    verify(classMock.method(referenceType: any())).wasCalled(twice)
+  }
+  
+  // MARK: Multiple parameters
+  
+  func testClassMultipleParameterMethod_matchesHomogenousWildcard() throws {
+    given(classMock.method(first: any(), second: any())).will {
+      (first: String, second: String) in
+      return first + "-" + second
+    }
+    XCTAssertEqual(classMock.method(first: "a", second: "b"), "a-b")
+    verify(classMock.method(first: any(), second: any())).wasCalled()
+  }
+  
+  func testClassMultipleParameterMethod_matchesHomogenousWildcard_explicitIndexes() throws {
+    given(classMock.method(first: firstArg(any()), second: secondArg(any()))).will {
+      (first: String, second: String) in
+      return first + "-" + second
+    }
+    XCTAssertEqual(classMock.method(first: "a", second: "b"), "a-b")
+    verify(classMock.method(first: firstArg(any()), second: secondArg(any()))).wasCalled()
+  }
+  
+  func testClassMultipleParameterMethod_matchesHeterogenousWildcardFirst_explicitIndexes() throws {
+    given(classMock.method(first: "a", second: secondArg(any()))).will {
+      (first: String, second: String) in
+      return first + "-" + second
+    }
+    XCTAssertEqual(classMock.method(first: "a", second: "b"), "a-b")
+    verify(classMock.method(first: "a", second: secondArg(any()))).wasCalled()
+  }
+  
+  func testClassMultipleParameterMethod_matchesHeterogenousWildcardSecond_explicitIndexes() throws {
+    given(classMock.method(first: firstArg(any()), second: "b")).will {
+      (first: String, second: String) in
+      return first + "-" + second
+    }
+    XCTAssertEqual(classMock.method(first: "a", second: "b"), "a-b")
+    verify(classMock.method(first: firstArg(any()), second: "b")).wasCalled()
+  }
+  
+  func testClassMultipleParameterMethod_failsStubbingHeterogenous() throws {
+    shouldFail {
+      given(self.classMock.method(first: "a", second: any())).willReturn("foo")
+    }
+    shouldFail {
+      given(self.classMock.method(first: any(), second: "b")).willReturn("foo")
+    }
+  }
+  
+  func testClassMultipleParameterMethod_failsVerificationHeterogenous() throws {
+    shouldFail {
+      verify(self.classMock.method(first: "a", second: any())).wasNeverCalled()
+    }
+    shouldFail {
+      verify(self.classMock.method(first: any(), second: "b")).wasNeverCalled()
+    }
   }
   
   
@@ -457,7 +514,7 @@ class DynamicSwiftTests: BaseTestCase {
   func testSubclass() throws {
     let expectation = XCTestExpectation()
     expectation.expectedFulfillmentCount = 2
-    given(subclassMock.method(valueType: firstArg(any()))).will { (val: Bool) in
+    given(subclassMock.method(valueType: any())).will { (val: Bool) in
       expectation.fulfill()
       return val
     }
@@ -465,7 +522,7 @@ class DynamicSwiftTests: BaseTestCase {
     XCTAssertFalse(subclassMock.method(valueType: false))
     verify(subclassMock.method(valueType: true)).wasCalled()
     verify(subclassMock.method(valueType: false)).wasCalled()
-    verify(subclassMock.method(valueType: firstArg(any()))).wasCalled(twice)
+    verify(subclassMock.method(valueType: any())).wasCalled(twice)
     wait(for: [expectation], timeout: 2)
   }
 }

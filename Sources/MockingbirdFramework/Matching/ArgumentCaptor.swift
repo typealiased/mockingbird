@@ -16,7 +16,7 @@ import Foundation
 ///     bird.name = "Ryan"
 ///
 ///     let nameCaptor = ArgumentCaptor<String>()
-///     verify(bird.setName(nameCaptor.any())).wasCalled()
+///     verify(bird.name = any()).wasCalled()
 ///     print(nameCaptor.value)  // Prints "Ryan"
 public class ArgumentCaptor<ParameterType>: ArgumentMatcher {
   final class WeakBox<A: AnyObject> {

@@ -31,6 +31,9 @@ enum TestFailure: Error, CustomStringConvertible {
     stackTrace: StackTrace
   )
   case unmockableExpression
+  case missingExplicitArgumentIndex(
+    matcher: ArgumentMatcher?
+  )
 
   var description: String {
     switch self {
@@ -97,6 +100,27 @@ enum TestFailure: Error, CustomStringConvertible {
          given(someObjCMock.someMethod()).will { return someValue }
          given(someObjCMock.someProperty).willReturn(someValue)
       """
+      
+    case .missingExplicitArgumentIndex(let matcher):
+      if let declaration = matcher?.declaration {
+        return """
+        Cannot infer the argument index of '\(declaration)' when used in this context
+        
+        Wrap usages of '\(declaration)' in an explicit argument index, for example:
+           firstArg(\(declaration))
+           secondArg(\(declaration))
+           arg(\(declaration), at: 2)
+        """
+      } else {
+        return """
+        Cannot infer the argument index when used in this context
+        
+        Wrap usages in an explicit argument index, for example:
+           firstArg(any())
+           secondArg(any())
+           arg(any(), at: 2)
+        """
+      }
     }
   }
 }

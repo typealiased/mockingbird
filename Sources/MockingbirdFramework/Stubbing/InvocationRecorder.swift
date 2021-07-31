@@ -30,7 +30,7 @@ struct InvocationRecord {
   
   enum Result {
     case value(InvocationRecord)
-    case error(String)
+    case error(TestFailure)
   }
   private(set) var result: Result? {
     didSet {
@@ -40,6 +40,9 @@ struct InvocationRecord {
   
   private(set) var facadeValues = [Int: Any?]()
   private(set) var argumentIndex: Int?
+  
+  /// Gracefully handle invocations with only a single argument by deferring errors until later.
+  private(set) var unindexedFacadeValues = [(value: Any?, pendingError: TestFailure)]()
   
   @objc public let mode: Mode
   private static let sharedQueue = DispatchQueue(label: "co.bird.mockingbird.InvocationRecorder")
@@ -67,20 +70,37 @@ struct InvocationRecord {
     recordInvocation(invocation as Invocation, context: context)
   }
   
-  func recordError(_ message: String) {
-    result = .error(message)
+  func recordError(_ error: TestFailure) -> Never {
+    result = .error(error)
+    fatalError("This should never run")
   }
   
   func recordArgumentIndex(_ index: Int) {
-    self.argumentIndex = index
+    argumentIndex = index
   }
   
-  func recordFacadeValue(_ facadeValue: Any?, at argumentIndex: Int) {
-    facadeValues[argumentIndex] = facadeValue
+  func recordFacadeValue(_ facadeValue: Any?, at index: Int) {
+    facadeValues[index] = facadeValue
+    argumentIndex = nil
   }
   
-  @objc public func getFacadeValue(at argumentIndex: Int) -> Any? {
-    return facadeValues[argumentIndex] ?? nil
+  func recordUnindexedFacadeValue(_ facadeValue: Any?, error: TestFailure) {
+    unindexedFacadeValues.append((facadeValue, error))
+  }
+  
+  @objc public func getFacadeValue(at argumentIndex: Int, argumentsCount: Int) -> Any? {
+    // Indexes can only be inferred when the argument matching is homogenous.
+    // For example, arguments [any(), any()] and [1, 2] could be inferred, but [1, any()] could not.
+    if let indexedFacadeValue = facadeValues[argumentIndex] {
+      return indexedFacadeValue
+    } else if let unindexedFacadeValue = unindexedFacadeValues.get(argumentIndex)?.value,
+              argumentsCount == unindexedFacadeValues.count {
+      return unindexedFacadeValue
+    } else if let error = unindexedFacadeValues.last?.pendingError {
+      recordError(error)
+    } else {
+      return nil // Shouldn't be possible to reach this branch.
+    }
   }
   
   // MARK: DispatchQueue utils

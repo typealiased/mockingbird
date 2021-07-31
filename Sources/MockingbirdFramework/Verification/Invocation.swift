@@ -72,7 +72,8 @@ struct SwiftInvocation: Invocation {
     var resolvedArguments = arguments
     if let recorder = InvocationRecorder.sharedRecorder {
       for i in 0..<resolvedArguments.count {
-        guard let matcher = recorder.getFacadeValue(at: i) as? ArgumentMatcher else { continue }
+        guard let matcher = recorder.getFacadeValue(at: i, argumentsCount: resolvedArguments.count)
+                as? ArgumentMatcher else { continue }
         resolvedArguments[i] = matcher
       }
     }

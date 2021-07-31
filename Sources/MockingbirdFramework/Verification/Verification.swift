@@ -63,8 +63,8 @@ public func verify<ReturnType>(
   switch recorder.result {
   case .value(let record):
     return VerificationManager(from: record, at: SourceLocation(file, line))
-  case .error(let message):
-    preconditionFailure(FailTest(message, isFatal: true, file: file, line: line))
+  case .error(let error):
+    preconditionFailure(FailTest("\(error)", isFatal: true, file: file, line: line))
   case .none:
     preconditionFailure(
       FailTest("\(TestFailure.unmockableExpression)", isFatal: true, file: file, line: line))

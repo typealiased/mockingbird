@@ -13,32 +13,41 @@ import XCTest
 ///
 /// Stubbing allows you to define custom behavior for mocks to perform.
 ///
-///     given(bird.canChirp()).willReturn(true)
-///     given(bird.canChirp()).willThrow(BirdError())
-///     given(bird.canChirp(volume: any())).will { volume in
+///     protocol Bird {
+///       var name: String { get }
+///       func chirp(at volume: Int) throws -> Bool
+///     }
+///
+///     given(bird.name).willReturn("Ryan")
+///     given(bird.chirp(at: 42)).willThrow(BirdError())
+///     given(bird.chirp(at: any())).will { volume in
 ///       return volume < 42
 ///     }
 ///
 /// This is equivalent to the shorthand syntax using the stubbing operator `~>`.
 ///
-///     given(bird.canChirp()) ~> true
-///     given(bird.canChirp()) ~> { throw BirdError() }
-///     given(bird.canChirp(volume: any())) ~> { volume in
+///     given(bird.name) ~> "Ryan"
+///     given(bird.chirp(at: 42)) ~> { throw BirdError() }
+///     given(bird.chirp(at: any())) ~> { volume in
 ///       return volume < 42
 ///     }
 ///
 /// Properties can have stubs on both their getters and setters.
 ///
 ///     given(bird.name).willReturn("Ryan")
-///     given(bird.name = firstArg(any())).will { print("Hello \($0)") }
+///     given(bird.name = any()).will {
+///       print("Hello \($0)")
+///     }
 ///
 ///     print(bird.name)        // Prints "Ryan"
 ///     bird.name = "Sterling"  // Prints "Hello Sterling"
 ///
 /// This is equivalent to using the synthesized getter and setter methods.
 ///
-///     given(bird.name).willReturn("Ryan")
-///     given(bird.setName(any())).will { print("Hello \($0)") }
+///     given(bird.getName()).willReturn("Ryan")
+///     given(bird.setName(any())).will {
+///       print("Hello \($0)")
+///     }
 ///
 ///     print(bird.name)        // Prints "Ryan"
 ///     bird.name = "Sterling"  // Prints "Hello Sterling"
@@ -72,7 +81,7 @@ public func given<DeclarationType: Declaration, InvocationType, ReturnType>(
 /// Properties can have stubs on both their getters and setters.
 ///
 ///     given(bird.name).willReturn("Ryan")
-///     given(bird.name = firstArg(any())).will { (name: String) in
+///     given(bird.name = any()).will { (name: String) in
 ///       print("Hello \(name)")
 ///     }
 ///
@@ -95,8 +104,8 @@ public func given<ReturnType>(
   switch recorder.result {
   case .value(let record):
     return DynamicStubbingManager(invocation: record.invocation, context: record.context)
-  case .error(let message):
-    preconditionFailure(FailTest(message, isFatal: true))
+  case .error(let error):
+    preconditionFailure(FailTest("\(error)", isFatal: true))
   case .none:
     preconditionFailure(FailTest("\(TestFailure.unmockableExpression)", isFatal: true))
   }

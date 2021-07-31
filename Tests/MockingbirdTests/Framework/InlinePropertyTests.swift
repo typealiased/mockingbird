@@ -88,13 +88,32 @@ class InlinePropertyTests: BaseTestCase {
   func testSetterWildcardMatchCallsImplementation() throws {
     let expectation = XCTestExpectation()
     expectation.expectedFulfillmentCount = 2
+    given(protocolMock.property = any()).will { expectation.fulfill() }
+    protocolMock.property = "hello"
+    protocolMock.property = "goodbye"
+    verify(protocolMock.property = any()).wasCalled(twice)
+    wait(for: [expectation], timeout: 2)
+  }
+  func testSetterWildcardMatchCallsImplementation_stubbingOperator() throws {
+    let expectation = XCTestExpectation()
+    expectation.expectedFulfillmentCount = 2
+    given(protocolMock.property = any()) ~> { expectation.fulfill() }
+    protocolMock.property = "hello"
+    protocolMock.property = "goodbye"
+    verify(protocolMock.property = any()).wasCalled(twice)
+    wait(for: [expectation], timeout: 2)
+  }
+  
+  func testSetterWildcardMatchWithExplicitIndexCallsImplementation() throws {
+    let expectation = XCTestExpectation()
+    expectation.expectedFulfillmentCount = 2
     given(protocolMock.property = firstArg(any())).will { expectation.fulfill() }
     protocolMock.property = "hello"
     protocolMock.property = "goodbye"
     verify(protocolMock.property = firstArg(any())).wasCalled(twice)
     wait(for: [expectation], timeout: 2)
   }
-  func testSetterWildcardMatchCallsImplementation_stubbingOperator() throws {
+  func testSetterWildcardMatchWithExplicitIndexCallsImplementation_stubbingOperator() throws {
     let expectation = XCTestExpectation()
     expectation.expectedFulfillmentCount = 2
     given(protocolMock.property = firstArg(any())) ~> { expectation.fulfill() }
@@ -104,34 +123,35 @@ class InlinePropertyTests: BaseTestCase {
     wait(for: [expectation], timeout: 2)
   }
   
+  
   func testSetterConditionalWildcardMatchCallsImplementation() throws {
     let expectation = XCTestExpectation()
     expectation.expectedFulfillmentCount = 2
-    given(protocolMock.property = firstArg(any(where: { $0.first == "h" }))).will { expectation.fulfill() }
+    given(protocolMock.property = any(where: { $0.first == "h" })).will { expectation.fulfill() }
     protocolMock.property = "hello"
     protocolMock.property = "hey"
-    verify(protocolMock.property = firstArg(any(where: { $0.first == "h" }))).wasCalled(twice)
+    verify(protocolMock.property = any(where: { $0.first == "h" })).wasCalled(twice)
     wait(for: [expectation], timeout: 2)
   }
   func testSetterConditionalWildcardMatchCallsImplementation_stubbingOperator() throws {
     let expectation = XCTestExpectation()
     expectation.expectedFulfillmentCount = 2
-    given(protocolMock.property = firstArg(any(where: { $0.first == "h" }))) ~> { expectation.fulfill() }
+    given(protocolMock.property = any(where: { $0.first == "h" })) ~> { expectation.fulfill() }
     protocolMock.property = "hello"
     protocolMock.property = "hey"
-    verify(protocolMock.property = firstArg(any(where: { $0.first == "h" }))).wasCalled(twice)
+    verify(protocolMock.property = any(where: { $0.first == "h" })).wasCalled(twice)
     wait(for: [expectation], timeout: 2)
   }
   
   func testSetterConditionalWildcardMatchDoesNotCallImplementation() throws {
-    given(protocolMock.property = firstArg(any(where: { $0.count == 10 }))).will { XCTFail() }
+    given(protocolMock.property = any(where: { $0.count == 10 })).will { XCTFail() }
     protocolMock.property = "hello"
-    verify(protocolMock.property = firstArg(any(where: { $0.count == 10 }))).wasNeverCalled()
+    verify(protocolMock.property = any(where: { $0.count == 10 })).wasNeverCalled()
   }
   func testSetterConditionalWildcardMatchDoesNotCallImplementation_stubbingOperator() throws {
-    given(protocolMock.property = firstArg(any(where: { $0.count == 10 }))) ~> { XCTFail() }
+    given(protocolMock.property = any(where: { $0.count == 10 })) ~> { XCTFail() }
     protocolMock.property = "hello"
-    verify(protocolMock.property = firstArg(any(where: { $0.count == 10 }))).wasNeverCalled()
+    verify(protocolMock.property = any(where: { $0.count == 10 })).wasNeverCalled()
   }
   
   // MARK: - Precendence
