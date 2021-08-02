@@ -65,7 +65,7 @@ jobs:
           --disable-cache \
           --diagnostics all \
           --loglevel verbose \
-          --prune stub \
+          --prune disable \
           --verbose
     - name: Test All Thunks
       run: make clean-test

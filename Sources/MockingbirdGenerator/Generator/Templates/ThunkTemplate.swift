@@ -123,7 +123,7 @@ class ThunkTemplate: Template {
             (".super", isSubclass ? "break" : "return \(callMember(.super))"),
             (".object" + (isProxyable ? "(let mkbObject)" : ""), !isProxyable ? "break" : """
             \(GuardStatementTemplate(
-                condition: "var mkbObject = mkbObject as? \(supertype)", body: "continue"))
+                condition: "var mkbObject = mkbObject as? \(supertype)", body: "break"))
             let mkbValue: \(returnType) = \(callMember(.object))
             \(FunctionCallTemplate(
                 name: "\(context).proxy.updateTarget",

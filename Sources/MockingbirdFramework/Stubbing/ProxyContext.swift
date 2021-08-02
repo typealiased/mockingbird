@@ -33,9 +33,9 @@ import Foundation
   
   /// Returns available proxy targets in descending priority.
   func targets(for invocation: Invocation) -> [TargetBox] {
-    let globalTargets: [TargetBox] = globalTargets.value.reversed()
-    let routeTargets: [TargetBox] = routes(for: invocation).map({ $0.target }).reversed()
-    return routeTargets + globalTargets
+    let global: [TargetBox] = globalTargets.value.reversed()
+    let scoped: [TargetBox] = routes(for: invocation).map({ $0.target }).reversed()
+    return scoped + global
   }
   
   /// Returns available proxy targets in descending priority, type erased for Obj-C interop.

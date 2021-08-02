@@ -1516,7 +1516,6 @@
 				287BB9CA26AE1577004014CA /* Mock.swift */,
 				OBJ_37 /* Mocking.swift */,
 				OBJ_38 /* MockingContext.swift */,
-				2896E52F26A8E1CC00124D02 /* ProxyContext.swift */,
 				284C3B4726AAD05C00F076E2 /* GenericStaticMockContext.swift */,
 			);
 			path = Mocking;
@@ -1531,6 +1530,7 @@
 				287BB9CC26AE15F0004014CA /* InvocationForwarding.swift */,
 				287C4F6B26A4AAA900A7E0D9 /* InvocationRecorder.swift */,
 				28A1F3C126ADC9DA002F282D /* PropertyProviders.swift */,
+				2896E52F26A8E1CC00124D02 /* ProxyContext.swift */,
 				D3E6F67724844A0C000D1971 /* SequenceProviders.swift */,
 				OBJ_41 /* Stubbing.swift */,
 				28719AF226B22D1300C38C2C /* Stubbing+ObjC.swift */,

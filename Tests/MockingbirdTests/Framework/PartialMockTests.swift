@@ -17,8 +17,6 @@ class PartialMockTests: BaseTestCase {
   var classMock: MinimalClassMock!
   var classInstance: MinimalClass { return classMock }
   
-  var implementer: MinimalImplementer!
-  
   class MinimalImplementer: MinimalProtocol {
     var property: String = "foobar"
     func method(value: String) -> String {
@@ -47,20 +45,19 @@ class PartialMockTests: BaseTestCase {
   override func setUpWithError() throws {
     protocolMock = mock(MinimalProtocol.self)
     classMock = mock(MinimalClass.self)
-    implementer = MinimalImplementer()
   }
   
   // MARK: - Specific members
   
   func testForwardPropertyGetterToObject() throws {
-    given(protocolMock.property).willForward(to: implementer)
+    given(protocolMock.property).willForward(to: MinimalImplementer())
     XCTAssertEqual(protocolMock.property, "foobar")
     protocolMock.property = "hello"
     XCTAssertEqual(protocolMock.property, "foobar") // Setter is not stubbed
     verify(protocolMock.property).wasCalled(twice)
   }
   func testForwardPropertyGetterToObject_stubbingOperator() throws {
-    given(protocolMock.property) ~> forward(to: implementer)
+    given(protocolMock.property) ~> forward(to: MinimalImplementer())
     XCTAssertEqual(protocolMock.property, "foobar")
     protocolMock.property = "hello"
     XCTAssertEqual(protocolMock.property, "foobar") // Setter is not stubbed
@@ -68,12 +65,14 @@ class PartialMockTests: BaseTestCase {
   }
   
   func testForwardPropertySetterToObject() throws {
+    let implementer = MinimalImplementer()
     given(protocolMock.property = firstArg(any())).willForward(to: implementer)
     protocolMock.property = "hello"
     XCTAssertEqual(implementer.property, "hello")
     verify(protocolMock.property = "hello").wasCalled()
   }
   func testForwardPropertySetterToObject_stubbingOperator() throws {
+    let implementer = MinimalImplementer()
     given(protocolMock.property = firstArg(any())) ~> forward(to: implementer)
     protocolMock.property = "hello"
     XCTAssertEqual(implementer.property, "hello")
@@ -81,12 +80,12 @@ class PartialMockTests: BaseTestCase {
   }
   
   func testForwardMethodToObject() throws {
-    given(protocolMock.method(value: any())).willForward(to: implementer)
+    given(protocolMock.method(value: any())).willForward(to: MinimalImplementer())
     XCTAssertEqual(protocolMock.method(value: "hello"), "hello")
     verify(protocolMock.method(value: "hello")).wasCalled()
   }
   func testForwardMethodToObject_stubbingOperator() throws {
-    given(protocolMock.method(value: any())) ~> forward(to: implementer)
+    given(protocolMock.method(value: any())) ~> forward(to: MinimalImplementer())
     XCTAssertEqual(protocolMock.method(value: "hello"), "hello")
     verify(protocolMock.method(value: "hello")).wasCalled()
   }
@@ -123,12 +122,12 @@ class PartialMockTests: BaseTestCase {
   
   func testPropertyGetterForwardingPrecedence() throws {
     given(protocolMock.property).willForward(to: OverriddenImplementer())
-    given(protocolMock.property).willForward(to: implementer)
+    given(protocolMock.property).willForward(to: MinimalImplementer())
     XCTAssertEqual(protocolMock.property, "foobar")
   }
   func testPropertyGetterForwardingPrecedence_stubbingOperator() throws {
     given(protocolMock.property) ~> forward(to: OverriddenImplementer())
-    given(protocolMock.property) ~> forward(to: implementer)
+    given(protocolMock.property) ~> forward(to: MinimalImplementer())
     XCTAssertEqual(protocolMock.property, "foobar")
   }
   
@@ -145,12 +144,12 @@ class PartialMockTests: BaseTestCase {
   
   func testPropertySetterForwardingPrecedence() throws {
     given(protocolMock.property = firstArg(any())).willForward(to: OverriddenImplementer())
-    given(protocolMock.property = firstArg(any())).willForward(to: implementer)
+    given(protocolMock.property = firstArg(any())).willForward(to: MinimalImplementer())
     protocolMock.property = "foobar"
   }
   func testPropertySetterForwardingPrecedence_stubbingOperator() throws {
     given(protocolMock.property = firstArg(any())) ~> forward(to: OverriddenImplementer())
-    given(protocolMock.property = firstArg(any())) ~> forward(to: implementer)
+    given(protocolMock.property = firstArg(any())) ~> forward(to: MinimalImplementer())
     protocolMock.property = "foobar"
   }
   
@@ -171,12 +170,12 @@ class PartialMockTests: BaseTestCase {
   
   func testMethodForwardingPrecedence() throws {
     given(protocolMock.method(value: any())).willForward(to: OverriddenImplementer())
-    given(protocolMock.method(value: any())).willForward(to: implementer)
+    given(protocolMock.method(value: any())).willForward(to: MinimalImplementer())
     XCTAssertEqual(protocolMock.method(value: "hello"), "hello")
   }
   func testMethodForwardingPrecedence_stubbingOperator() throws {
     given(protocolMock.method(value: any())) ~> forward(to: OverriddenImplementer())
-    given(protocolMock.method(value: any())) ~> forward(to: implementer)
+    given(protocolMock.method(value: any())) ~> forward(to: MinimalImplementer())
     XCTAssertEqual(protocolMock.method(value: "hello"), "hello")
   }
   
@@ -194,6 +193,7 @@ class PartialMockTests: BaseTestCase {
   // MARK: - Global
   
   func testForwardAllPropertiesToObject() throws {
+    let implementer = MinimalImplementer()
     protocolMock.forwardCalls(to: implementer)
     XCTAssertEqual(protocolMock.property, "foobar")
     protocolMock.property = "hello"
@@ -203,14 +203,14 @@ class PartialMockTests: BaseTestCase {
   }
   
   func testForwardAllMethodsToObject() throws {
-    protocolMock.forwardCalls(to: implementer)
+    protocolMock.forwardCalls(to: MinimalImplementer())
     XCTAssertEqual(protocolMock.method(value: "hello"), "hello")
     verify(protocolMock.method(value: "hello")).wasCalled()
   }
   
   func testForwardAllMethodsPrecedence() throws {
     protocolMock.forwardCalls(to: OverriddenImplementer())
-    protocolMock.forwardCalls(to: implementer)
+    protocolMock.forwardCalls(to: MinimalImplementer())
     XCTAssertEqual(protocolMock.property, "foobar")
   }
   
@@ -230,34 +230,36 @@ class PartialMockTests: BaseTestCase {
   }
   
   func testPropertyGetterForwardingUnrelatedTypePassesThrough() throws {
-    given(protocolMock.property).willForward(to: implementer)
+    given(protocolMock.property).willForward(to: MinimalImplementer())
     given(protocolMock.property).willForward(to: UnrelatedType())
     XCTAssertEqual(protocolMock.property, "foobar")
   }
   func testPropertyGetterForwardingUnrelatedTypePassesThrough_stubbingOperator() throws {
-    given(protocolMock.property) ~> forward(to: implementer)
+    given(protocolMock.property) ~> forward(to: MinimalImplementer())
     given(protocolMock.property) ~> forward(to: UnrelatedType())
     XCTAssertEqual(protocolMock.property, "foobar")
   }
   
   func testPropertySetterForwardingUnrelatedTypePassesThrough() throws {
+    let implementer = MinimalImplementer()
     given(protocolMock.property = "foobar").willForward(to: implementer)
     given(protocolMock.property = "foobar").willForward(to: UnrelatedType())
     XCTAssertEqual(implementer.property, "foobar")
   }
   func testPropertySetterForwardingUnrelatedTypePassesThrough_stubbingOperator() throws {
+    let implementer = MinimalImplementer()
     given(protocolMock.property = "foobar") ~> forward(to: implementer)
     given(protocolMock.property = "foobar") ~> forward(to: UnrelatedType())
     XCTAssertEqual(implementer.property, "foobar")
   }
   
   func testMethodForwardingUnrelatedTypePassesThrough() throws {
-    given(protocolMock.method(value: any())).willForward(to: implementer)
+    given(protocolMock.method(value: any())).willForward(to: MinimalImplementer())
     given(protocolMock.method(value: any())).willForward(to: UnrelatedType())
     XCTAssertEqual(protocolMock.method(value: "foobar"), "foobar")
   }
   func testMethodForwardingUnrelatedTypePassesThrough_stubbingOperator() throws {
-    given(protocolMock.method(value: any())) ~> forward(to: implementer)
+    given(protocolMock.method(value: any())) ~> forward(to: MinimalImplementer())
     given(protocolMock.method(value: any())) ~> forward(to: UnrelatedType())
     XCTAssertEqual(protocolMock.method(value: "foobar"), "foobar")
   }

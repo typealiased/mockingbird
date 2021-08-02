@@ -38,10 +38,10 @@ extension StubbingContext {
   /// - Parameter invocation: An Objective-C invocation to handle.
   /// - Returns: The value returned from evaluating the Swift implementation.
   @objc public func evaluateReturnValue(for invocation: ObjCInvocation) -> Any? {
-    let implementation = implementation(for: invocation as Invocation)
+    let impl = implementation(for: invocation as Invocation)
     do {
-      return try applyInvocation(invocation, to: implementation)
-        ?? applyThrowingInvocation(invocation, to: implementation)
+      return try applyInvocation(invocation, to: impl)
+        ?? applyThrowingInvocation(invocation, to: impl)
         ?? Self.noImplementation
     } catch let err as NSError {
       return ObjCErrorBox(err)
