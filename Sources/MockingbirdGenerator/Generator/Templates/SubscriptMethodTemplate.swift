@@ -32,7 +32,14 @@ class SubscriptMethodTemplate: MethodTemplate {
         ("arguments", "[\(separated: setterArguments)]"),
         ("returnType", "Swift.ObjectIdentifier(Void.self)"),
       ])
-    let callArguments = invocationArguments.map({ $0.parameterName })
+    let callArguments = invocationArguments.map({
+      (argument: (argumentLabel: String?, parameterName: String)) -> String in
+      guard let argumentLabel = argument.argumentLabel,
+            argumentLabel.backtickUnwrapped != argument.parameterName.backtickUnwrapped else {
+        return argument.parameterName
+      }
+      return "\(argumentLabel): \(argument.parameterName)"
+    })
     
     let getterDefinition = PropertyDefinitionTemplate(
       type: .getter,
@@ -41,7 +48,7 @@ class SubscriptMethodTemplate: MethodTemplate {
                       invocation: getterInvocation.render(),
                       shortSignature: method.parameters.isEmpty ? nil : shortSignature,
                       longSignature: longSignature,
-                      returnType: method.returnTypeName,
+                      returnType: matchableReturnType,
                       isBridged: true,
                       isThrowing: method.isThrowing,
                       isStatic: method.kind.typeScope.isStatic,

@@ -18,7 +18,7 @@ struct FunctionCallTemplate: Template {
     self.name = name
     self.arguments = arguments.map({
       guard let argumentLabel = $0.argumentLabel else { return $0.parameterName }
-      return argumentLabel + ": " + $0.parameterName
+      return "\(argumentLabel): \($0.parameterName)"
     })
     self.isThrowing = isThrowing
   }
@@ -33,7 +33,7 @@ struct FunctionCallTemplate: Template {
     self.name = name
     self.arguments = parameters.map({ parameter -> String in
       guard let label = parameter.argumentLabel else { return parameter.name.backtickWrapped }
-      return "\(label): \(parameter.name.backtickWrapped)"
+      return "\(label): \(backticked: parameter.name)"
     })
     self.isThrowing = isThrowing
   }

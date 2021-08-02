@@ -63,7 +63,7 @@ class MethodTemplate: Template {
                     invocation: mockableInvocation,
                     shortSignature: method.parameters.isEmpty ? nil : shortSignature,
                     longSignature: longSignature,
-                    returnType: method.returnTypeName,
+                    returnType: matchableReturnType,
                     isBridged: false,
                     isThrowing: method.isThrowing,
                     isStatic: method.kind.typeScope.isStatic,
@@ -179,6 +179,13 @@ class MethodTemplate: Template {
   
   enum FunctionVariant {
     case function, subscriptGetter, subscriptSetter
+    
+    var isSubscript: Bool {
+      switch self {
+      case .function: return false
+      case .subscriptGetter, .subscriptSetter: return true
+      }
+    }
   }
   
   enum FullNameMode {
@@ -271,10 +278,14 @@ class MethodTemplate: Template {
       } else {
         typeName = parameter.mockableTypeName(context: self)
       }
-      let argumentLabel = parameter.argumentLabel?.backtickWrapped ?? "_"
+      let argumentLabel = parameter.argumentLabel ?? "_"
       let parameterName = parameter.name.backtickWrapped
-      if argumentLabel != parameterName {
+      if argumentLabel.backtickUnwrapped != parameter.name {
         return "\(argumentLabel) \(parameterName): \(typeName)"
+      } else if mode.isMatching && mode.variant.isSubscript {
+        // Synthesized declarations for subscripts don't use argument labels (unless the parameter
+        // name differs) for parity with bracket syntax.
+        return "_ \(parameterName): \(typeName)"
       } else {
         return "\(parameterName): \(typeName)"
       }

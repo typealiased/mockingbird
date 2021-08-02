@@ -78,9 +78,9 @@ class ThunkTemplate: Template {
       return IfStatementTemplate(
         condition: "let mkbImpl = mkbImpl as? \(bridgedSignature)",
         body: """
-        return \(FunctionCallTemplate(name: "mkbImpl",
+        return (\(FunctionCallTemplate(name: "mkbImpl",
                                       unlabeledArguments: unlabledArguments,
-                                      isThrowing: isThrowing)) as! \(returnType)
+                                      isThrowing: isThrowing)) as! \(returnType))
         """).render()
     }()
     let callBridgedConvenience: String = {
@@ -88,7 +88,7 @@ class ThunkTemplate: Template {
       return IfStatementTemplate(
         condition: "let mkbImpl = mkbImpl as? () -> Any?",
         body: """
-        return \(FunctionCallTemplate(name: "mkbImpl", isThrowing: isThrowing)) as! \(returnType)
+        return (\(FunctionCallTemplate(name: "mkbImpl", isThrowing: isThrowing)) as! \(returnType))
         """).render()
     }()
     

@@ -99,7 +99,8 @@ struct Method {
       })
     
     // Parse parameters.
-    let (shortName, labels) = name.extractArgumentLabels()
+    let (shortName, labels) = Method.parseArgumentLabels(name: name,
+                                                         parameters: rawParametersDeclaration)
     self.shortName = shortName
     let parameters = Method.parseParameters(labels: labels,
                                             substructure: substructure,
@@ -166,6 +167,21 @@ struct Method {
     return (fullAttributes, rawParametersDeclaration)
   }
   
+  private static func parseArgumentLabels(name: String, parameters: Substring?)
+  -> (shortName: String, labels: [String?]) {
+    let (shortName, labels) = name.extractArgumentLabels()
+    guard parameters?.isEmpty == false else {
+      return (shortName, labels)
+    }
+    let declarationLabels = parameters?.components(separatedBy: ",", excluding: .allGroups)
+      .map({ $0.components(separatedBy: ":", excluding: .allGroups)[0]
+            .trimmingCharacters(in: .whitespacesAndNewlines) })
+      .map({ $0.components(separatedBy: " ", excluding: .allGroups)[0]
+            .trimmingCharacters(in: .whitespacesAndNewlines) })
+      .map({ $0 != "_" ? $0 : nil })
+    return (shortName, declarationLabels ?? labels)
+  }
+  
   private static func parseWhereClauses(from dictionary: StructureDictionary,
                                         source: Data?,
                                         rawType: RawType,
@@ -221,7 +237,7 @@ struct Method {
     return substructure.compactMap({
       let rawDeclaration = rawDeclarations?.get(parameterIndex)
       guard let parameter = MethodParameter(from: $0,
-                                            argumentLabel: labels[parameterIndex],
+                                            argumentLabel: labels.get(parameterIndex) ?? nil,
                                             parameterIndex: parameterIndex,
                                             rawDeclaration: rawDeclaration,
                                             rawType: rawType,

@@ -19,6 +19,10 @@ public extension String {
     return "`\(self)`"
   }
   
+  var backtickUnwrapped: String {
+    return replacingOccurrences(of: "`", with: "")
+  }
+  
   /// Wraps the string in single quotes.
   var singleQuoted: String {
     return "'\(self)'"
