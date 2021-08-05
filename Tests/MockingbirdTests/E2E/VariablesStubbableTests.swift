@@ -65,7 +65,7 @@ extension VariablesContainerMock: StubbableVariablesContainer {}
 // MARK: Non-stubbable declarations
 
 extension VariablesContainerMock {
-  func setComputedVariable(_ newValue: @escaping @autoclosure () -> Bool)
+  func setComputedVariable(_ newValue: @autoclosure () -> Bool)
     -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { return any() }
   
   func getConstantVariableWithImplicitType()
@@ -76,6 +76,6 @@ extension VariablesContainerMock {
   
   func getLazyVariableWithComplexImplicitType()
     -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool> { fatalError() }
-  func setLazyVariableWithComplexImplicitType(_ newValue: @escaping @autoclosure () -> Bool)
+  func setLazyVariableWithComplexImplicitType(_ newValue: @autoclosure () -> Bool)
   -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
 }

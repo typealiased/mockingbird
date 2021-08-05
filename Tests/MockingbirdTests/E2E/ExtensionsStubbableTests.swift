@@ -34,32 +34,32 @@ extension NonExtendableClassMock: StubbableNonExtendableClass {}
 
 extension ExtendableProtocolMock {
   func trivialExtendedMethod() -> Mockable<FunctionDeclaration, () -> Void, Void> { fatalError() }
-  func parameterizedExtendedMethod(param1: @escaping @autoclosure () -> Bool)
+  func parameterizedExtendedMethod(param1: @autoclosure () -> Bool)
   -> Mockable<FunctionDeclaration, (Bool) -> Void, Void> { fatalError() }
-  func parameterizedReturningExtendedMethod(param1: @escaping @autoclosure () -> Bool)
+  func parameterizedReturningExtendedMethod(param1: @autoclosure () -> Bool)
   -> Mockable<FunctionDeclaration, (Bool) -> Bool, Bool> { fatalError() }
   
   func getExtendedVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool> { fatalError() }
-  func setExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool)
+  func setExtendedVariable(_ newValue: @autoclosure () -> Bool)
     -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
   
   func anotherTrivialExtendedMethod() -> Mockable<FunctionDeclaration, () -> Void, Void> { fatalError() }
 
   func getAnotherExtendedVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool> { fatalError() }
-  func setAnotherExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool)
+  func setAnotherExtendedVariable(_ newValue: @autoclosure () -> Bool)
     -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
 }
 
 extension NonExtendableClassMock {
   func trivialExtendedMethod() -> Mockable<FunctionDeclaration, () -> Void, Void> { fatalError() }
-  func parameterizedExtendedMethod(param1: @escaping @autoclosure () -> Bool)
+  func parameterizedExtendedMethod(param1: @autoclosure () -> Bool)
   -> Mockable<FunctionDeclaration, (Bool) -> Void, Void> { fatalError() }
-  func parameterizedReturningExtendedMethod(param1: @escaping @autoclosure () -> Bool)
+  func parameterizedReturningExtendedMethod(param1: @autoclosure () -> Bool)
   -> Mockable<FunctionDeclaration, (Bool) -> Bool, Bool> { fatalError() }
 
   func getExtendedVariable() -> Mockable<PropertyGetterDeclaration, () -> Bool, Bool> { fatalError() }
-  func setExtendedVariable(_ newValue: @escaping @autoclosure () -> Bool)
+  func setExtendedVariable(_ newValue: @autoclosure () -> Bool)
     -> Mockable<PropertySetterDeclaration, (Bool) -> Void, Void> { fatalError() }
 
-  func encode(to encoder: @escaping @autoclosure () -> Encoder) -> Mockable<FunctionDeclaration, (Encoder) throws -> Void, Void> { fatalError() }
+  func encode(to encoder: @autoclosure () -> Encoder) -> Mockable<FunctionDeclaration, (Encoder) throws -> Void, Void> { fatalError() }
 }

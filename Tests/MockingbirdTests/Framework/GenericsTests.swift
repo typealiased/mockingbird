@@ -38,7 +38,7 @@ class GenericsTests: BaseTestCase {
     return classMock
   }
   
-  let staticTestQueue = DispatchQueue(label: "co.bird.mockingbird.generic-tests")
+  let staticTestQueue = DispatchQueue(label: "co.bird.mockingbird.tests")
   
   override func setUp() {
     protocolMock = mock(AssociatedTypeProtocol<EquatableType, HashableType>.self)

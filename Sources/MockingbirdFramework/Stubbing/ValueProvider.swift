@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreGraphics
 
 /// A type that can provide concrete instances of itself.
 ///
@@ -45,6 +44,10 @@ extension Providable {
   static var providableIdentifier: String {
     return String(reflecting: self).removingGenericTyping()
   }
+  
+  func metatype() -> Self.Type {
+    return type(of: self)
+  }
 }
 
 /// Provides concrete instances of types.
@@ -68,6 +71,9 @@ public struct ValueProvider {
   var storedValues = [ObjectIdentifier: Any]()
   var enabledIdentifiers = Set<String>()
   
+  /// Enables all mocks to handle methods that return `Void`.
+  static let baseValues: [ObjectIdentifier: Any] = [ObjectIdentifier(Void.self): ()]
+  
   init(values: [ObjectIdentifier: Any] = [:], identifiers: Set<String> = []) {
     self.storedValues = values
     self.enabledIdentifiers = identifiers
@@ -75,7 +81,7 @@ public struct ValueProvider {
   
   /// Create an empty value provider.
   public init() {
-    self.init(values: [:], identifiers: [])
+    self.init(values: Self.baseValues, identifiers: [])
   }
   
   
@@ -217,7 +223,7 @@ public struct ValueProvider {
   
   /// Remove all stored values, subproviders, and enabled identifiers.
   mutating func reset() {
-    storedValues.removeAll()
+    storedValues = Self.baseValues
     enabledIdentifiers.removeAll()
   }
   
@@ -237,15 +243,20 @@ public struct ValueProvider {
   /// - Parameter type: A type to provide a value for.
   /// - Returns: A concrete instance of the given type, or `nil` if no value could be provided.
   public func provideValue<T>(for type: T.Type = T.self) -> T? {
-    return storedValues[ObjectIdentifier(type)] as? T
+    if let value = storedValues[ObjectIdentifier(type)] as? T {
+      return value
+    }
+    
+    // Handle providable generic types.
+    guard let providableType = type as? Providable.Type,
+          enabledIdentifiers.contains(providableType.providableIdentifier) else {
+      return nil
+    }
+    return providableType.createInstance() as? T
   }
   
-  /// Provide a value a given `Providable` type.
-  ///
-  /// - Parameter type: A `Providable` type to provide a value for.
-  /// - Returns: A concrete instance of the given type, or `nil` if no value could be provided.
-  public func provideValue<T: Providable>(for type: T.Type = T.self) -> T? {
-    return storedValues[ObjectIdentifier(type)] as? T ??
-      (enabledIdentifiers.contains(T.providableIdentifier) ? T.createInstance() : nil)
+  func provideValue(for objcType: String) -> Any? {
+    guard let objectIdentifier = objCTypeEncodings[objcType] else { return nil }
+    return storedValues[objectIdentifier]
   }
 }

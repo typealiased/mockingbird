@@ -9,7 +9,8 @@
 import Foundation
 import XCTest
 
-/// Create a TestKiller instance prior to triggering an XCTFail to permanently fail the test.
+/// Create an instance prior to triggering an `XCTFail` to permanently fail the test.
+/// - Warning: This no longer works in Xcode 12.
 class TestKiller: NSObject, XCTestObservation {
   override init() {
     super.init()

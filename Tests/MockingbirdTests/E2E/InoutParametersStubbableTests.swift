@@ -13,13 +13,13 @@ import Mockingbird
 // MARK: - Stubbable declarations
 
 private protocol StubbableInoutProtocol {
-  func parameterizedMethod(object: @escaping @autoclosure () -> String)
+  func parameterizedMethod(object: @autoclosure () -> String)
     -> Mockable<FunctionDeclaration, (inout String) -> Void, Void>
 }
 extension InoutProtocolMock: StubbableInoutProtocol {}
 
 private protocol StubbableInoutClass {
-  func parameterizedMethod(object: @escaping @autoclosure () -> String)
+  func parameterizedMethod(object: @autoclosure () -> String)
     -> Mockable<FunctionDeclaration, (inout String) -> Void, Void>
 }
 extension InoutClassMock: StubbableInoutClass {}

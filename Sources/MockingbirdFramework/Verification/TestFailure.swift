@@ -30,6 +30,10 @@ enum TestFailure: Error, CustomStringConvertible {
     stubbedSelectorNames: [String],
     stackTrace: StackTrace
   )
+  case unmockableExpression
+  case missingExplicitArgumentPosition(
+    matcher: ArgumentMatcher?
+  )
 
   var description: String {
     switch self {
@@ -39,7 +43,7 @@ enum TestFailure: Error, CustomStringConvertible {
                                        allInvocations):
       let countMatcherDescription = countMatcher.describe(invocation: invocation)
       return """
-      Got \(invocationCount) invocations of \(invocation) but expected \(countMatcherDescription)
+      Got \(invocationCount) invocation\(invocationCount != 1 ? "s" : "") of \(invocation) but expected \(countMatcherDescription)
       
       All invocations of '\(invocation.unwrappedSelectorName)':
       \(allInvocations.indentedDescription)
@@ -69,11 +73,10 @@ enum TestFailure: Error, CustomStringConvertible {
         guard !stubbedSelectorNames.isEmpty else { return "   No concrete stubs" }
         return stubbedSelectorNames.map({ "   - " + $0 }).joined(separator: "\n")
       }
-      let invocationType = invocation.isMethod ? "method" : "property"
       return """
       Missing stubbed implementation for \(invocation)
       
-      Make sure the \(invocationType) has a concrete stub or a default value provider registered with the return type.
+      Make sure the \(invocation.selectorType) has a concrete stub or a default value provider registered with the return type.
       
       Examples:
          given(someMock.\(invocation.mockableExampleInvocation)).willReturn(someValue)
@@ -86,6 +89,38 @@ enum TestFailure: Error, CustomStringConvertible {
       All stubs:
       \(allStubsDescription)
       """
+      
+    case .unmockableExpression:
+      return """
+      The expression contains no mockable Obj-C declarations
+      
+      Make sure the expression provided to 'given(…)' is declared by a mocked Obj-C type.
+      
+      Examples:
+         given(someObjCMock.someMethod()).will { return someValue }
+         given(someObjCMock.someProperty).willReturn(someValue)
+      """
+      
+    case .missingExplicitArgumentPosition(let matcher):
+      if let declaration = matcher?.declaration {
+        return """
+        Cannot infer the argument position of '\(declaration)' when used in this context
+        
+        Wrap usages of '\(declaration)' in an explicit argument position, for example:
+           firstArg(\(declaration))
+           secondArg(\(declaration))
+           arg(\(declaration), at: 3)
+        """
+      } else {
+        return """
+        Cannot infer the argument position when used in this context
+        
+        Wrap usages in an explicit argument position, for example:
+           firstArg(any())
+           secondArg(any())
+           arg(any(), at: 3)
+        """
+      }
     }
   }
 }
@@ -133,6 +168,12 @@ private extension Array where Element == StackTrace.Frame {
 
 private extension Invocation {
   var mockableExampleInvocation: String {
-    return declarationIdentifier + "(" + (arguments.isEmpty ? "" : "…") + ")"
+    switch selectorType {
+    case .method: return "\(declarationIdentifier)(\(arguments.isEmpty ? "" : "…"))"
+    case .setter: return "\(declarationIdentifier) = any()"
+    case .getter: return declarationIdentifier
+    case .subscriptGetter: return "\(declarationIdentifier)[…]"
+    case .subscriptSetter: return "\(declarationIdentifier)[…] = any()"
+    }
   }
 }

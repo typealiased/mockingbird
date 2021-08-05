@@ -31,16 +31,62 @@ public func verify<DeclarationType: Declaration, InvocationType, ReturnType>(
   return VerificationManager(with: declaration, at: SourceLocation(file, line))
 }
 
+/// Verify that a mock recieved a specific invocation some number of times.
+///
+/// Verification lets you assert that a mock received a particular invocation during its lifetime.
+///
+///     verify(bird.doMethod()).wasCalled()
+///     verify(bird.getProperty()).wasCalled()
+///     verify(bird.setProperty(any())).wasCalled()
+///
+/// Match exact or wildcard argument values when verifying methods with parameters.
+///
+///     verify(bird.canChirp(volume: any())).wasCalled()     // Called with any volume
+///     verify(bird.canChirp(volume: notNil())).wasCalled()  // Called with any non-nil volume
+///     verify(bird.canChirp(volume: 10)).wasCalled()        // Called with volume = 10
+///
+/// - Parameters:
+///   - mock: A mocked declaration to verify.
+public func verify<ReturnType>(
+  _ declaration: @autoclosure () throws -> ReturnType,
+  file: StaticString = #file, line: UInt = #line
+) -> VerificationManager<Any?, ReturnType> {
+  let recorder = InvocationRecorder(mode: .verifying).startRecording(block: {
+    /// `EXC_BAD_ACCESS` usually happens when mocking a Swift type that inherits from `NSObject`.
+    ///   - Make sure that the Swift type has a generated mock, e.g. `SomeTypeMock` exists.
+    ///   - If you actually do want to use Obj-C dynamic mocking with a Swift type, the method must
+    ///     be annotated with both `@objc` and `dynamic`, e.g. `@objc dynamic func someMethod()`.
+    ///   - If this is happening on a pure Obj-C type, please file a bug report with the stack
+    ///     trace: https://github.com/birdrides/mockingbird/issues/new/choose
+    _ = try? declaration()
+  })
+  switch recorder.result {
+  case .value(let record):
+    return VerificationManager(from: record, at: SourceLocation(file, line))
+  case .error(let error):
+    preconditionFailure(FailTest("\(error)", isFatal: true, file: file, line: line))
+  case .none:
+    preconditionFailure(
+      FailTest("\(TestFailure.unmockableExpression)", isFatal: true, file: file, line: line))
+  }
+}
+
 /// An intermediate object used for verifying declarations returned by `verify`.
-public struct VerificationManager<InvocationType, ReturnType> {
-  let mockingContext: MockingContext
+public class VerificationManager<InvocationType, ReturnType> {
+  let context: Context
   let invocation: Invocation
   let sourceLocation: SourceLocation
 
   init<DeclarationType>(with declaration: Mockable<DeclarationType, InvocationType, ReturnType>,
                         at sourceLocation: SourceLocation) {
-    self.mockingContext = declaration.mock.mockingContext
+    self.context = declaration.mock.mockingbirdContext
     self.invocation = declaration.invocation
+    self.sourceLocation = sourceLocation
+  }
+  
+  init(from record: InvocationRecord, at sourceLocation: SourceLocation) {
+    self.context = record.context
+    self.invocation = record.invocation
     self.sourceLocation = sourceLocation
   }
 
@@ -89,11 +135,11 @@ public struct VerificationManager<InvocationType, ReturnType> {
                                   sourceLocation: sourceLocation,
                                   group: DispatchQueue.currentExpectationGroup)
     do {
-      try expect(mockingContext, handled: invocation, using: expectation)
+      try expect(context.mocking, handled: invocation, using: expectation)
     } catch {
-      MKBFail(String(describing: error),
-              file: expectation.sourceLocation.file,
-              line: expectation.sourceLocation.line)
+      FailTest(String(describing: error),
+               file: expectation.sourceLocation.file,
+               line: expectation.sourceLocation.line)
     }
   }
 }
@@ -129,11 +175,11 @@ func findInvocations(in mockingContext: MockingContext,
     .filter({ invocation in
       var isBeforeNextInvocation: Bool {
         guard let nextInvocation = nextInvocation else { return true }
-        return invocation < nextInvocation
+        return invocation.uid < nextInvocation.uid
       }
       var isAfterBaseInvocation: Bool {
         guard let baseInvocation = baseInvocation else { return true }
-        return invocation > baseInvocation
+        return invocation.uid > baseInvocation.uid
       }
       return isBeforeNextInvocation && isAfterBaseInvocation
     })
@@ -157,7 +203,7 @@ func expect(_ mockingContext: MockingContext,
                                        with: invocation.selectorName,
                                        before: nextInvocation,
                                        after: baseInvocation)
-  let allMatchingInvocations = allInvocations.filter({ $0 == invocation })
+  let allMatchingInvocations = allInvocations.filter({ $0.isEqual(to: invocation) })
   
   let actualCallCount = allMatchingInvocations.count
   guard !expectation.countMatcher.matches(actualCallCount) else { return allInvocations }

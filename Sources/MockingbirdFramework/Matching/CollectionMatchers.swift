@@ -42,9 +42,10 @@ import Foundation
 ///   - type: The parameter type used to disambiguate overloaded methods.
 ///   - values: A set of values that must all exist in the collection to match.
 public func any<T: Collection>(_ type: T.Type = T.self, containing values: T.Element...) -> T {
-  let base: T? = nil
-  let description = "any<\(T.self)>(containing:)"
-  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
+  let matcher = ArgumentMatcher(nil as T?,
+                                description: "any<\(T.self)>(containing:)",
+                                declaration: "any(containing: …)",
+                                priority: .high) { (_, rhs) in
     guard let collection = rhs as? T else { return false }
     return values.allSatisfy({
       let valueMatcher = ArgumentMatcher($0)
@@ -107,9 +108,10 @@ public func any<T: Collection>(_ type: T.Type = T.self, containing values: T.Ele
 ///   - values: A set of values that must all exist in the dictionary to match.
 public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
                       containing values: V...) -> Dictionary<K, V> {
-  let base: Dictionary<K, V>? = nil
-  let description = "any<\(Dictionary<K, V>.self)>(containing:)"
-  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
+  let matcher = ArgumentMatcher(nil as Dictionary<K, V>?,
+                                description: "any<\(Dictionary<K, V>.self)>(containing:)",
+                                declaration: "any(containing: …)",
+                                priority: .high) { (_, rhs) in
     guard let collection = rhs as? Dictionary<K, V> else { return false }
     return values.allSatisfy({
       let valueMatcher = ArgumentMatcher($0)
@@ -130,7 +132,7 @@ public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
 ///
 ///     let messageId1 = UUID()
 ///     let messageId2 = UUID()
-///     given(bird.send(any(containing: messageId1, messageId2)))
+///     given(bird.send(any(keys: messageId1, messageId2)))
 ///       .will { print($0) }
 ///
 ///     bird.send([
@@ -153,7 +155,7 @@ public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
 ///
 ///     let messageId1 = UUID()
 ///     let messageId2 = UUID()
-///     given(bird.send(any([UUID: String].self, containing: messageId1, messageId2)))
+///     given(bird.send(any([UUID: String].self, keys: messageId1, messageId2)))
 ///       .will { print($0) }
 ///
 ///     bird.send([
@@ -171,9 +173,10 @@ public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
 ///   - keys: A set of keys that must all exist in the dictionary to match.
 public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
                       keys: K...) -> Dictionary<K, V> {
-  let base: Dictionary<K, V>? = nil
-  let description = "any<\(Dictionary<K, V>.self)>(keys:)"
-  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
+  let matcher = ArgumentMatcher(nil as Dictionary<K, V>?,
+                                description: "any<\(Dictionary<K, V>.self)>(keys:)",
+                                declaration: "any(keys: …)",
+                                priority: .high) { (_, rhs) in
     guard let collection = rhs as? Dictionary<K, V> else { return false }
     return keys.allSatisfy({
       let keyMatcher = ArgumentMatcher($0)
@@ -215,9 +218,10 @@ public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
 ///   - type: The parameter type used to disambiguate overloaded methods.
 ///   - countMatcher: A count matcher defining the number of acceptable elements in the collection.
 public func any<T: Collection>(_ type: T.Type = T.self, count countMatcher: CountMatcher) -> T {
-  let base: T? = nil
-  let description = "any<\(T.self)>(count:)"
-  let matcher = ArgumentMatcher(base, description: description, priority: .high) { (_, rhs) in
+  let matcher = ArgumentMatcher(nil as T?,
+                                description: "any<\(T.self)>(count:)",
+                                declaration: "any(count: …)",
+                                priority: .high) { (_, rhs) in
     guard let collection = rhs as? T else { return false }
     return countMatcher.matches(collection.count)
   }
@@ -278,8 +282,10 @@ public func notEmpty<T: Collection>(_ type: T.Type = T.self) -> T {
 ///   - value: The expected value.
 ///   - tolerance: Only matches if the absolute difference is strictly less than this value.
 public func around<T: FloatingPoint>(_ value: T, tolerance: T) -> T {
-  let description = "around<\(T.self)>()"
-  let matcher = ArgumentMatcher(value, description: description, priority: .high) { (lhs, rhs) in
+  let matcher = ArgumentMatcher(value,
+                                description: "around<\(T.self)>()",
+                                declaration: "around(…)",
+                                priority: .high) { (lhs, rhs) in
     guard let base = lhs as? T, let other = rhs as? T else { return false }
     return abs(other - base) < tolerance
   }

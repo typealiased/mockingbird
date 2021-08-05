@@ -16,7 +16,7 @@ import Foundation
 ///     bird.name = "Ryan"
 ///
 ///     let nameCaptor = ArgumentCaptor<String>()
-///     verify(bird.setName(nameCaptor.matcher)).wasCalled()
+///     verify(bird.name = any()).wasCalled()
 ///     print(nameCaptor.value)  // Prints "Ryan"
 public class ArgumentCaptor<ParameterType>: ArgumentMatcher {
   final class WeakBox<A: AnyObject> {
@@ -26,8 +26,22 @@ public class ArgumentCaptor<ParameterType>: ArgumentMatcher {
     }
   }
 
-  /// Passed as a parameter to mock verification contexts.
-  public var matcher: ParameterType { return createTypeFacade(self) }
+  /// Creates an argument matcher that can be passed to a mockable declaration.
+  @available(*, deprecated, renamed: "any()")
+  public var matcher: ParameterType {
+    return createTypeFacade(self)
+  }
+  
+  /// Creates an argument matcher that can be passed to a mockable declaration.
+  // The generic constraint shadows the class constraint so the ObjC overload is picked up.
+  public func any<ParameterType>() -> ParameterType {
+    return createTypeFacade(self)
+  }
+  
+  /// Creates an argument matcher that can be passed to a mockable declaration.
+  public func any<ParameterType: NSObjectProtocol>() -> ParameterType {
+    return createTypeFacade(self)
+  }
 
   /// All recorded argument values.
   public var allValues: [ParameterType] {
@@ -47,9 +61,11 @@ public class ArgumentCaptor<ParameterType>: ArgumentMatcher {
   /// - Parameter weak: Whether captured arguments should be stored weakly.
   public init(weak: Bool = false) {
     self.weak = weak
-    let base: ParameterType? = nil
-    super.init(base, description: "any<\(ParameterType.self)>()", priority: .high) { (_, rhs) in
-      return rhs is ParameterType
+    super.init(nil as ParameterType?,
+               description: "any<\(ParameterType.self)>() (captor)",
+               declaration: "any()",
+               priority: .high) { (_, rhs) in
+      return rhs is ParameterType || rhs is NonEscapingType
     }
   }
 

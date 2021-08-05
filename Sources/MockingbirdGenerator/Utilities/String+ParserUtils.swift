@@ -1,5 +1,5 @@
 //
-//  String+Extensions.swift
+//  String+ParserUtils.swift
 //  MockingbirdCli
 //
 //  Created by Andrew Chang on 8/16/19.
@@ -17,6 +17,10 @@ public extension String {
   /// Wraps the string with backticks, e.g. for escaping keywords
   var backtickWrapped: String {
     return "`\(self)`"
+  }
+  
+  var backtickUnwrapped: String {
+    return replacingOccurrences(of: "`", with: "")
   }
   
   /// Wraps the string in single quotes.
@@ -47,10 +51,10 @@ public extension String {
     guard offset > 0, !isEmpty else { return self }
     let lines = substringComponents(separatedBy: "\n")
     let indentation = String(repeating: "  ", count: offset)
-    return lines.map({
+    return String(lines: lines.map({
       guard !$0.isEmpty else { return String($0) }
       return indentation + $0
-    }).joined(separator: "\n")
+    }), keepEmptyLines: true)
   }
   
   /// Returns a new string created by removing implicitly unwrapped optionals.

@@ -38,21 +38,26 @@ public func swizzleTestFailer(_ newTestFailer: TestFailer) {
 ///   - isFatal: If `true`, test case execution should not continue.
 ///   - file: The file where the failure occurred.
 ///   - line: The line in the file where the failure occurred.
-public func MKBFail(_ message: String, isFatal: Bool = false,
-                    file: StaticString = #file, line: UInt = #line) {
+@discardableResult
+func FailTest(_ message: String, isFatal: Bool = false,
+              file: StaticString = #file, line: UInt = #line) -> String {
   testFailer.fail(message: message, isFatal: isFatal, file: file, line: line)
+  return message
 }
 
 // MARK: - Internal
 
 private class StandardTestFailer: TestFailer {
   func fail(message: String, isFatal: Bool, file: StaticString, line: UInt) {
-    _ = isFatal ? TestKiller() : nil
-    if Thread.current.isMainThread {
-      XCTFail(message, file: file, line: line)
-    } else {
-      DispatchQueue.main.sync { XCTFail(message, file: file, line: line) }
+    guard isFatal else {
+      return XCTFail(message, file: file, line: line)
     }
+    
+    // Raise an Objective-C exception to stop the test runner.
+    MKBStopTest(message)
+    
+    // Test execution should usually be stopped by this point.
+    fatalError(message)
   }
 }
 

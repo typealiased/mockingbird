@@ -12,87 +12,136 @@ import Foundation
 /// Subscripts are a special case and require synthesizing getters and setters for matching.
 class SubscriptMethodTemplate: MethodTemplate {
   override var mockedDeclarations: String {
-    let attributes = declarationAttributes.isEmpty ? "" : "\n  \(declarationAttributes)"
-    let stubbedSetterImplementationCall =
-      stubbedImplementationCall(parameterTypes: methodParameterTypesForSubscriptSetter,
-                                parameterNames: methodParameterNamesForSubscriptSetterInvocation,
-                                returnTypeName: "Void")
+    let getterInvocation = ObjectInitializationTemplate(
+      name: "Mockingbird.SwiftInvocation",
+      arguments: [
+        ("selectorName", "\(doubleQuoted: uniqueDeclarationForSubscriptGetter)"),
+        ("setterSelectorName", "\(doubleQuoted: uniqueDeclarationForSubscriptSetter)"),
+        ("selectorType", "Mockingbird.SelectorType.subscriptGetter"),
+        ("arguments", "[\(separated: mockArgumentMatchers)]"),
+        ("returnType", "Swift.ObjectIdentifier(\(parenthetical: matchableReturnType).self)"),
+      ])
     
-    let body: String
-    if context.shouldGenerateThunks {
-      body = """
-      {
-          get {
-            let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclarationForSubscriptGetter)", arguments: [\(mockArgumentMatchers)], returnType: Swift.ObjectIdentifier((\(unwrappedReturnTypeName)).self))
-      \(stubbedImplementationCall().indent())
-          }
-          set {
-            let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(uniqueDeclarationForSubscriptSetter)", arguments: [\(mockArgumentMatchersForSubscriptSetter)], returnType: Swift.ObjectIdentifier(Void.self))
-      \(stubbedSetterImplementationCall.indent())
-          }
-        }
-      """
-    } else {
-      body = "{ get { \(MockableTypeTemplate.Constants.thunkStub) } set { \(MockableTypeTemplate.Constants.thunkStub) } }"
-    }
+    let setterArguments = mockArgumentMatchers + ["Mockingbird.ArgumentMatcher(newValue)"]
+    let setterInvocation = ObjectInitializationTemplate(
+      name: "Mockingbird.SwiftInvocation",
+      arguments: [
+        ("selectorName", "\(doubleQuoted: uniqueDeclarationForSubscriptSetter)"),
+        ("setterSelectorName", "\(doubleQuoted: uniqueDeclarationForSubscriptSetter)"),
+        ("selectorType", "Mockingbird.SelectorType.subscriptSetter"),
+        ("arguments", "[\(separated: setterArguments)]"),
+        ("returnType", "Swift.ObjectIdentifier(Void.self)"),
+      ])
+    let callArguments = invocationArguments.map({
+      (argument: (argumentLabel: String?, parameterName: String)) -> String in
+      guard let argumentLabel = argument.argumentLabel,
+            argumentLabel.backtickUnwrapped != argument.parameterName.backtickUnwrapped else {
+        return argument.parameterName
+      }
+      return "\(argumentLabel): \(argument.parameterName)"
+    })
     
-    return """
-      // MARK: Mocked \(fullNameForMocking)
-    \(attributes)
-      public \(overridableModifiers)\(uniqueDeclaration) \(body)
+    let getterDefinition = PropertyDefinitionTemplate(
+      type: .getter,
+      body: !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub :
+        ThunkTemplate(mockableType: context.mockableType,
+                      invocation: getterInvocation.render(),
+                      shortSignature: method.parameters.isEmpty ? nil : shortSignature,
+                      longSignature: longSignature,
+                      returnType: matchableReturnType,
+                      isBridged: true,
+                      isThrowing: method.isThrowing,
+                      isStatic: method.kind.typeScope.isStatic,
+                      callMember: { scope in
+                        return "\(scope)[\(separated: callArguments)]"
+                      },
+                      invocationArguments: invocationArguments).render())
+    
+    let setterShortSignature = method.parameters.isEmpty ? nil : """
+    ()\(method.isThrowing ? " throws" : "") -> Void
     """
+    let setterParameterTypes = matchableParameterTypes + [matchableReturnType]
+    let setterLongSignature = """
+    (\(separated: setterParameterTypes))\(method.isThrowing ? " throws" : "") -> Void
+    """
+    let setterInvocationArguments = invocationArguments + [(nil, "newValue")]
+    let setterDefinition = PropertyDefinitionTemplate(
+      type: .setter,
+      body: !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub :
+        ThunkTemplate(mockableType: context.mockableType,
+                      invocation: setterInvocation.render(),
+                      shortSignature: setterShortSignature,
+                      longSignature: setterLongSignature,
+                      returnType: "Void",
+                      isBridged: true,
+                      isThrowing: method.isThrowing,
+                      isStatic: method.kind.typeScope.isStatic,
+                      callMember: { scope in
+                        return "\(scope)[\(separated: callArguments)] = newValue"
+                      },
+                      invocationArguments: setterInvocationArguments).render())
+    
+    return String(lines: [
+      "// MARK: Mocked \(fullNameForMocking)",
+      VariableDefinitionTemplate(attributes: method.attributes.safeDeclarations,
+                                 declaration: "public \(overridableModifiers)\(uniqueDeclaration)",
+                                 body: String(lines: [getterDefinition.render(),
+                                                      setterDefinition.render()])).render(),
+    ])
   }
   
-  override var frameworkDeclarations: String {
-    let attributes = declarationAttributes.isEmpty ? "" : "  \(declarationAttributes)\n"
-    let getterReturnTypeName = unwrappedReturnTypeName
-    let setterReturnTypeName = "Void"
+  override var synthesizedDeclarations: String {
+    let getterReturnType = matchableReturnType
+    let setterReturnType = "Void"
     
-    let getterInvocationType = "(\(methodParameterTypes)) \(returnTypeAttributesForMatching)-> \(getterReturnTypeName)"
-    let setterInvocationType = "(\(methodParameterTypesForSubscriptSetter)) \(returnTypeAttributesForMatching)-> \(setterReturnTypeName)"
+    let modifiers = method.isThrowing ? " throws" : ""
+    
+    let getterInvocationType = """
+    (\(separated: matchableParameterTypes))\(modifiers) -> \(getterReturnType)
+    """
+    
+    let setterParameterTypes = matchableParameterTypes + [matchableReturnType]
+    let setterInvocationType = """
+    (\(separated: setterParameterTypes))\(modifiers) -> \(setterReturnType)
+    """
     
     var mockableMethods = [String]()
     
-    let mockableGenericGetterTypes = ["\(Declaration.subscriptGetterDeclaration)",
-                                      getterInvocationType,
-                                      getterReturnTypeName].joined(separator: ", ")
-    let mockableGenericSetterTypes = ["\(Declaration.subscriptSetterDeclaration)",
-                                      setterInvocationType,
-                                      setterReturnTypeName].joined(separator: ", ")
+    let getterGenericTypes = ["\(Declaration.subscriptGetterDeclaration)",
+                              getterInvocationType,
+                              getterReturnType]
+    let setterGenericTypes = ["\(Declaration.subscriptSetterDeclaration)",
+                              setterInvocationType,
+                              setterReturnType]
     
     mockableMethods.append(matchableSubscript(isGetter: true,
-                                              attributes: attributes,
-                                              mockableGenericTypes: mockableGenericGetterTypes))
+                                              genericTypes: getterGenericTypes))
     mockableMethods.append(matchableSubscript(isGetter: false,
-                                              attributes: attributes,
-                                              mockableGenericTypes: mockableGenericSetterTypes))
+                                              genericTypes: setterGenericTypes))
     
-    if isVariadicMethod {
+    if method.isVariadic {
       // Allow methods with a variadic parameter to use variadics when stubbing.
       mockableMethods.append(matchableSubscript(isGetter: true,
                                                 isVariadic: true,
-                                                attributes: attributes,
-                                                mockableGenericTypes: mockableGenericGetterTypes))
+                                                genericTypes: getterGenericTypes))
       mockableMethods.append(matchableSubscript(isGetter: false,
                                                 isVariadic: true,
-                                                attributes: attributes,
-                                                mockableGenericTypes: mockableGenericSetterTypes))
+                                                genericTypes: setterGenericTypes))
     }
     
-    return mockableMethods.joined(separator: "\n\n")
+    return String(lines: mockableMethods, spacing: 2)
   }
   
   func matchableSubscript(isGetter: Bool,
                           isVariadic: Bool = false,
-                          attributes: String,
-                          mockableGenericTypes: String) -> String {
+                          genericTypes: [String]) -> String {
     let variant: FunctionVariant = isGetter ? .subscriptGetter : .subscriptSetter
-    let fullName = self.fullName(for: .matching(useVariadics: isVariadic, variant: variant))
+    let name = fullName(for: .matching(useVariadics: isVariadic, variant: variant))
     let namePrefix = isGetter ? "get" : "set"
-    let escapedReturnType = isGetter ? "(" + unwrappedReturnTypeName + ")" : "Void"
-    
+    let returnType = isGetter ? "\(parenthetical: matchableReturnType)" : "Void"
     let selectorName = isGetter ?
       uniqueDeclarationForSubscriptGetter : uniqueDeclarationForSubscriptSetter
+    
     let argumentMatchers: String
     if isVariadic {
       argumentMatchers = isGetter ?
@@ -102,44 +151,50 @@ class SubscriptMethodTemplate: MethodTemplate {
         resolvedArgumentMatchers : resolvedArgumentMatchersForSubscriptSetter
     }
     
-    let body: String
-    if context.shouldGenerateThunks {
-      body = """
-      {
-      \(argumentMatchers)
-          let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "\(selectorName)", arguments: arguments, returnType: Swift.ObjectIdentifier(\(escapedReturnType).self))
-          return Mockingbird.Mockable<\(mockableGenericTypes)>(mock: \(mockObject), invocation: invocation)
-        }
-      """
-    } else {
-      body = "{ \(MockableTypeTemplate.Constants.thunkStub) }"
-    }
+    let invocation = ObjectInitializationTemplate(
+      name: "Mockingbird.SwiftInvocation",
+      arguments: [
+        ("selectorName", "\(doubleQuoted: selectorName)"),
+        ("setterSelectorName", "\(doubleQuoted: uniqueDeclarationForSubscriptSetter)"),
+        ("selectorType", "Mockingbird.SelectorType.subscript" + (isGetter ? "Getter" : "Setter")),
+        ("arguments", "[\(argumentMatchers)]"),
+        ("returnType", "Swift.ObjectIdentifier(\(returnType).self)"),
+      ])
     
-    return """
-    \(attributes)  public \(regularModifiers)func \(namePrefix)\(fullName.capitalizedFirst) -> Mockingbird.Mockable<\(mockableGenericTypes)>\(genericConstraints) \(body)
+    let body = !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub : """
+    return \(ObjectInitializationTemplate(
+      name: "Mockingbird.Mockable",
+      genericTypes: genericTypes,
+              arguments: [("mock", mockObject), ("invocation", invocation.render())]))
     """
+    
+    let syntheizedReturnType = "Mockingbird.Mockable<\(separated: genericTypes)>"
+    let declaration = "public \(regularModifiers)func \(namePrefix)\(name.capitalizedFirst) -> \(syntheizedReturnType)"
+    let genericConstraints = method.whereClauses.map({ context.specializeTypeName("\($0)") })
+    return FunctionDefinitionTemplate(attributes: method.attributes.safeDeclarations,
+                                      declaration: declaration,
+                                      genericConstraints: genericConstraints,
+                                      body: body).render()
   }
   
   lazy var uniqueDeclarationForSubscriptGetter: String = {
     let fullName = self.fullName(for: .mocking(variant: .subscriptGetter))
-    return "get.\(fullName)\(returnTypeAttributesForMocking) -> \(specializedReturnTypeName)\(genericConstraints)"
+    return "get.\(fullName)\(returnTypeAttributesForMocking) -> \(mockableReturnType)\(genericConstraints)"
   }()
   
   lazy var uniqueDeclarationForSubscriptSetter: String = {
     let fullName = self.fullName(for: .mocking(variant: .subscriptSetter))
-    return "set.\(fullName)\(returnTypeAttributesForMocking) -> \(specializedReturnTypeName)\(genericConstraints)"
+    return "set.\(fullName)\(returnTypeAttributesForMocking) -> \(mockableReturnType)\(genericConstraints)"
   }()
   
-  lazy var mockArgumentMatchersForSubscriptSetter: String = {
-    return (mockArgumentMatchersList + ["Mockingbird.ArgumentMatcher(`newValue`)"])
-      .joined(separator: ", ")
+  lazy var resolvedArgumentMatchersForSubscriptSetter: String = {
+    let parameters = method.parameters.map({ ($0.name, true) }) + [("newValue", true)]
+    return resolvedArgumentMatchers(for: parameters)
   }()
   
-  lazy var methodParameterTypesForSubscriptSetter: String = {
-    return (methodParameterTypesList + [unwrappedReturnTypeName]).joined(separator: ", ")
+  lazy var resolvedVariadicArgumentMatchersForSubscriptSetter: String = {
+    let parameters = method.parameters.map({ ($0.name, !$0.attributes.contains(.variadic)) })
+      + [("newValue", true)]
+    return resolvedArgumentMatchers(for: parameters)
   }()
-  
-  lazy var methodParameterNamesForSubscriptSetterInvocation: String = {
-     return (methodParameterNamesForInvocationList + ["`newValue`"]).joined(separator: ", ")
-   }()
 }

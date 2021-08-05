@@ -7,39 +7,100 @@
 
 import Foundation
 
+@objc(MKBSelectorType) public enum SelectorType: UInt, CustomStringConvertible {
+  case method
+  case getter
+  case setter
+  case subscriptGetter
+  case subscriptSetter
+  
+  public var description: String {
+    switch self {
+    case .method: return "method"
+    case .setter: return "setter"
+    case .getter: return "getter"
+    case .subscriptGetter: return "subscript getter"
+    case .subscriptSetter: return "subscript setter"
+    }
+  }
+}
+
 /// Mocks create invocations when receiving calls to methods or member methods.
-struct Invocation: CustomStringConvertible {
+protocol Invocation: CustomStringConvertible {
+  var selectorName: String { get }
+  var selectorType: SelectorType { get }
+  var arguments: [ArgumentMatcher] { get }
+  var returnType: ObjectIdentifier { get }
+  var uid: UInt { get }
+  
+  /// Selector name without tickmark escaping.
+  var unwrappedSelectorName: String { get }
+  /// Mockable declaration identifier, e.g. `someMethod`, `getSomeProperty`.
+  var declarationIdentifier: String { get }
+  
+  /// If the current invocation referrs to a property getter, convert it to the equivalent setter.
+  /// - Warning: This method is not available for invocations on mocked Objective-C types.
+  func toSetter() -> Self?
+}
+
+extension Invocation {
+  // Avoids making `Invocation` a generic protocol.
+  func isEqual(to rhs: Invocation) -> Bool {
+    guard arguments.count == rhs.arguments.count else { return false }
+    guard returnType == rhs.returnType else { return false }
+    for (index, argument) in arguments.enumerated() {
+      if argument != rhs.arguments[index] { return false }
+    }
+    return true
+  }
+}
+
+struct SwiftInvocation: Invocation {
   let selectorName: String
+  let setterSelectorName: String?
+  let selectorType: SelectorType
   let arguments: [ArgumentMatcher]
   let returnType: ObjectIdentifier
-  let timestamp = Date()
-  let identifier = UUID()
+  let uid = MonotonicIncreasingIndex.getIndex()
 
-  init(selectorName: String, arguments: [ArgumentMatcher], returnType: ObjectIdentifier) {
+  init(selectorName: String,
+       setterSelectorName: String? = nil,
+       selectorType: SelectorType,
+       arguments: [ArgumentMatcher],
+       returnType: ObjectIdentifier) {
+    // Handle argument matchers in dynamic declaration contexts.
+    var resolvedArguments = arguments
+    if let recorder = InvocationRecorder.sharedRecorder {
+      for i in 0..<resolvedArguments.count {
+        guard let matcher = recorder.getFacadeValue(at: i, argumentsCount: resolvedArguments.count)
+                as? ArgumentMatcher else { continue }
+        resolvedArguments[i] = matcher
+      }
+    }
+    
     self.selectorName = selectorName
-    self.arguments = arguments
+    self.setterSelectorName = setterSelectorName
+    self.selectorType = selectorType
+    self.arguments = resolvedArguments
     self.returnType = returnType
   }
   
-  /// Selector name without tickmark escaping.
   var unwrappedSelectorName: String {
     return selectorName.replacingOccurrences(of: "`", with: "")
   }
   
-  /// Mockable declaration identifier, e.g. `someMethod`, `getSomeProperty`.
   var declarationIdentifier: String {
     let unwrappedSelectorName = self.unwrappedSelectorName
-    guard !isMethod else {
+    guard selectorType != .method else {
       let endIndex = unwrappedSelectorName.firstIndex(of: "(") ?? unwrappedSelectorName.endIndex
       return String(unwrappedSelectorName[..<endIndex])
     }
     
-    let propertyName = unwrappedSelectorName
+    // Extract the property name.
+    return unwrappedSelectorName
       .components(separatedBy: ".")
       .dropLast()
       .joined(separator: ".")
-    return (isGetter ? Constants.getterPrefix : Constants.setterPrefix) +
-      propertyName.prefix(1).uppercased() + propertyName.dropFirst()
   }
 
   var description: String {
@@ -49,78 +110,67 @@ struct Invocation: CustomStringConvertible {
   }
   
   enum Constants {
-    static let getterSuffix = ".get"
-    static let setterSuffix = ".set"
-    
-    static let getterPrefix = "get"
-    static let setterPrefix = "set"
+    // Keep this in sync with `MockingbirdGenerator.VariableTemplate.getterName`
+    static let getterSuffix = ".getter"
+    // Keep this in sync with `MockingbirdGenerator.VariableTemplate.setterName`
+    static let setterSuffix = ".setter"
   }
   
-  var isMethod: Bool {
-    return selectorName.contains("->")
-  }
-  
-  var isGetter: Bool {
-    return !isMethod && selectorName.hasSuffix(Constants.getterSuffix)
-  }
-  
-  var isSetter: Bool {
-    return !isMethod && selectorName.hasPrefix(Constants.setterSuffix)
-  }
-  
-  func toSetter() -> Invocation? {
-    guard isGetter else { return nil }
-    let setterSelectorName = String(selectorName.dropLast(4) + Constants.setterSuffix)
-    let matcher = ArgumentMatcher(description: "any()", priority: .high) { return true }
-    return Invocation(selectorName: setterSelectorName,
-                      arguments: [matcher],
-                      returnType: ObjectIdentifier(Void.self))
+  func toSetter() -> Self? {
+    guard let selectorName = setterSelectorName else { return nil }
+    let matcher = ArgumentMatcher(description: "any()",
+                                  declaration: "any()",
+                                  priority: .high) { return true }
+    return Self(selectorName: selectorName,
+                setterSelectorName: setterSelectorName,
+                selectorType: .setter,
+                arguments: [matcher],
+                returnType: ObjectIdentifier(Void.self))
   }
 }
 
-extension Invocation: Equatable {
-  static func == (lhs: Invocation, rhs: Invocation) -> Bool {
-    guard lhs.arguments.count == rhs.arguments.count else { return false }
-    guard lhs.returnType == rhs.returnType else { return false }
-    for (index, argument) in lhs.arguments.enumerated() {
-      if argument != rhs.arguments[index] { return false }
-    }
-    return true
+@objc(MKBObjCInvocation) public class ObjCInvocation: NSObject, Invocation {
+  let selectorName: String
+  let setterSelectorName: String?
+  let selectorType: SelectorType
+  let arguments: [ArgumentMatcher]
+  let returnType: ObjectIdentifier
+  let objcReturnType: String
+  let uid = MonotonicIncreasingIndex.getIndex()
+  
+  @objc public required init(selectorName: String,
+                             setterSelectorName: String?,
+                             selectorType: SelectorType,
+                             arguments: [ArgumentMatcher],
+                             objcReturnType: String) {
+    self.selectorName = selectorName
+    self.setterSelectorName = setterSelectorName
+    self.selectorType = selectorType
+    self.arguments = arguments
+    self.returnType = ObjectIdentifier(Any?.self) // The return type as seen by Swift.
+    self.objcReturnType = objcReturnType
+  }
+  
+  var unwrappedSelectorName: String { return selectorName }
+  var declarationIdentifier: String {
+    return String(selectorName.split(separator: ":").first ?? "")
+  }
+  
+  override public var description: String {
+    guard !arguments.isEmpty else { return "'\(unwrappedSelectorName)'" }
+    let matchers = arguments.map({ String(describing: $0) }).joined(separator: ", ")
+    return "'\(unwrappedSelectorName)' with arguments [\(matchers)]"
+  }
+  
+  func toSetter() -> Self? {
+    guard let selectorName = setterSelectorName else { return nil }
+    let matcher = ArgumentMatcher(description: "any()",
+                                  declaration: "any()",
+                                  priority: .high) { return true }
+    return Self(selectorName: selectorName,
+                setterSelectorName: selectorName,
+                selectorType: .setter,
+                arguments: [matcher],
+                objcReturnType: objcReturnType)
   }
 }
-
-extension Invocation: Comparable {
-  static func < (lhs: Invocation, rhs: Invocation) -> Bool {
-    return lhs.timestamp < rhs.timestamp
-  }
-}
-
-/// Types that cannot be stored and referenced later.
-protocol NonEscapingType {}
-
-/// Placeholder for non-escaping closure parameter types.
-///
-/// Non-escaping closures cannot be stored in an `Invocation` so an instance of a
-/// `NonEscapingClosure` is stored instead.
-///
-///     protocol Bird {
-///       func send(_ message: String, callback: (Result) -> Void)
-///     }
-///
-///     bird.send("Hello", callback: { print($0) })
-///
-///     // Must use a wildcard argument matcher like `any`
-///     verify(bird.send("Hello", callback: any())).wasCalled()
-///
-/// Mark closure parameter types as `@escaping` to capture closures during verification.
-///
-///     protocol Bird {
-///       func send(_ message: String, callback: @escaping (Result) -> Void)
-///     }
-///
-///     bird.send("Hello", callback: { print($0) })
-///
-///     let argumentCaptor = ArgumentCaptor<(Result) -> Void>()
-///     verify(bird.send("Hello", callback: argumentCaptor.matcher)).wasCalled()
-///     argumentCaptor.value?(.success)  // Prints Result.success
-public class NonEscapingClosure<ClosureType>: NonEscapingType {}

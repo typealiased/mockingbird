@@ -8,7 +8,7 @@
 import Foundation
 
 /// Matches argument values with a comparator.
-public class ArgumentMatcher: CustomStringConvertible {
+@objc(MKBArgumentMatcher) public class ArgumentMatcher: NSObject {
   /// Necessary for custom comparators such as `any()` that only work on the lhs.
   enum Priority: UInt {
     case low = 0, `default` = 500, high = 1000
@@ -20,8 +20,12 @@ public class ArgumentMatcher: CustomStringConvertible {
   /// The original type of the base instance.
   let baseType: Any?
 
-  /// A description for test failure output.
-  public let description: String
+  /// A debug description for verbose test failure output.
+  let internalDescription: String
+  public override var description: String { return internalDescription }
+  
+  /// The declaration of the matcher to use in test failure examples.
+  let declaration: String
 
   /// The commutativity of the matcher comparator.
   let priority: Priority
@@ -35,15 +39,20 @@ public class ArgumentMatcher: CustomStringConvertible {
 
   init<T: Equatable>(_ base: T?,
                      description: String? = nil,
+                     declaration: String? = nil,
                      priority: Priority = .default) {
     self.base = base
     self.baseType = T.self
-    self.description = description ?? "\(String.describe(base))"
     self.priority = priority
     self.comparator = { base == $1 as? T }
+    
+    let internalDescription = description ?? "\(String.describe(base))"
+    self.internalDescription = internalDescription
+    self.declaration = declaration ?? internalDescription
   }
   
   convenience init(description: String,
+                   declaration: String? = nil,
                    priority: Priority = .low,
                    comparator: @escaping () -> Bool) {
     self.init(Optional<ArgumentMatcher>(nil), description: description, priority: priority) {
@@ -54,6 +63,7 @@ public class ArgumentMatcher: CustomStringConvertible {
   
   init<T>(_ base: T? = nil,
           description: String? = nil,
+          declaration: String? = nil,
           priority: Priority = .low,
           comparator: ((Any?, Any?) -> Bool)? = nil) {
     self.base = base
@@ -61,7 +71,23 @@ public class ArgumentMatcher: CustomStringConvertible {
     self.priority = priority
     self.comparator = comparator ?? { $0 as AnyObject === $1 as AnyObject }
     let annotation = comparator == nil ? " (by reference)" : ""
-    self.description = description ?? "\(String.describe(base))\(annotation)"
+    
+    let internalDescription = description ?? "\(String.describe(base))\(annotation)"
+    self.internalDescription = internalDescription
+    self.declaration = declaration ?? internalDescription
+  }
+  
+  @objc public init(_ base: Any? = nil,
+                    description: String? = nil,
+                    comparator: @escaping (Any?, Any?) -> Bool) {
+    self.base = base
+    self.baseType = type(of: base)
+    self.priority = .low
+    self.comparator = comparator
+    
+    let internalDescription = description ?? String.describe(base)
+    self.internalDescription = internalDescription
+    self.declaration = internalDescription
   }
   
   init(_ matcher: ArgumentMatcher) {
@@ -69,16 +95,23 @@ public class ArgumentMatcher: CustomStringConvertible {
     self.baseType = type(of: matcher.base)
     self.priority = matcher.priority
     self.comparator = matcher.comparator
-    self.description = matcher.description
+    self.internalDescription = matcher.description
+    self.declaration = matcher.declaration
   }
 }
 
-extension ArgumentMatcher: Equatable {
+// MARK: - Equatable
+
+extension ArgumentMatcher {
   public static func == (lhs: ArgumentMatcher, rhs: ArgumentMatcher) -> Bool {
     if lhs.priority.rawValue >= rhs.priority.rawValue {
       return lhs.compare(with: rhs.base)
     } else {
       return rhs.compare(with: lhs.base)
     }
+  }
+  
+  public static func != (lhs: ArgumentMatcher, rhs: ArgumentMatcher) -> Bool {
+    return !(lhs == rhs)
   }
 }

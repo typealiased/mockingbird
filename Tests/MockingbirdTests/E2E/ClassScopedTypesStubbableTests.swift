@@ -12,22 +12,22 @@ import Mockingbird
 // MARK: - Stubbable declarations
 
 private protocol StubbableTopLevelType {
-  func topLevelMethod(param1: @escaping @autoclosure () -> TopLevelType.SecondLevelType,
-                      param2: @escaping @autoclosure () -> TopLevelType.SecondLevelType.ThirdLevelType)
+  func topLevelMethod(param1: @autoclosure () -> TopLevelType.SecondLevelType,
+                      param2: @autoclosure () -> TopLevelType.SecondLevelType.ThirdLevelType)
     -> Mockable<FunctionDeclaration, (TopLevelType.SecondLevelType, TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool>
 }
 extension TopLevelTypeMock: StubbableTopLevelType {}
 
 private protocol StubbableSecondLevelType {
-  func secondLevelMethod(param1: @escaping @autoclosure () -> TopLevelType,
-                         param2: @escaping @autoclosure () -> TopLevelType.SecondLevelType.ThirdLevelType)
+  func secondLevelMethod(param1: @autoclosure () -> TopLevelType,
+                         param2: @autoclosure () -> TopLevelType.SecondLevelType.ThirdLevelType)
     -> Mockable<FunctionDeclaration, (TopLevelType, TopLevelType.SecondLevelType.ThirdLevelType) -> Bool, Bool>
 }
 extension TopLevelTypeMock.SecondLevelTypeMock: StubbableSecondLevelType {}
 
 private protocol StubbableThirdLevelType {
-  func thirdLevelMethod(param1: @escaping @autoclosure () -> TopLevelType,
-                        param2: @escaping @autoclosure () -> TopLevelType.SecondLevelType)
+  func thirdLevelMethod(param1: @autoclosure () -> TopLevelType,
+                        param2: @autoclosure () -> TopLevelType.SecondLevelType)
     -> Mockable<FunctionDeclaration, (TopLevelType, TopLevelType.SecondLevelType) -> Bool, Bool>
 }
 extension TopLevelTypeMock.SecondLevelTypeMock.ThirdLevelTypeMock: StubbableThirdLevelType {}

@@ -12,6 +12,7 @@ import SourceKittenFramework
 struct Method {
   let name: String
   let shortName: String
+  let returnType: DeclaredType
   let returnTypeName: String
   let isInitializer: Bool
   let isDesignatedInitializer: Bool
@@ -72,11 +73,13 @@ struct Method {
                                                          attributes: attributes)
     
     // Parse return type.
-    let returnTypeName = Method.parseReturnTypeName(from: dictionary,
-                                                    rawType: rawType,
-                                                    moduleNames: moduleNames,
-                                                    rawTypeRepository: rawTypeRepository,
-                                                    typealiasRepository: typealiasRepository)
+    let (returnType, returnTypeName) = Method.parseReturnType(
+      from: dictionary,
+      rawType: rawType,
+      moduleNames: moduleNames,
+      rawTypeRepository: rawTypeRepository,
+      typealiasRepository: typealiasRepository)
+    self.returnType = returnType
     self.returnTypeName = returnTypeName
     
     // Parse generic type constraints and where clauses.
@@ -96,7 +99,8 @@ struct Method {
       })
     
     // Parse parameters.
-    let (shortName, labels) = name.extractArgumentLabels()
+    let (shortName, labels) = Method.parseArgumentLabels(name: name,
+                                                         parameters: rawParametersDeclaration)
     self.shortName = shortName
     let parameters = Method.parseParameters(labels: labels,
                                             substructure: substructure,
@@ -163,6 +167,21 @@ struct Method {
     return (fullAttributes, rawParametersDeclaration)
   }
   
+  private static func parseArgumentLabels(name: String, parameters: Substring?)
+  -> (shortName: String, labels: [String?]) {
+    let (shortName, labels) = name.extractArgumentLabels()
+    guard parameters?.isEmpty == false else {
+      return (shortName, labels)
+    }
+    let declarationLabels = parameters?.components(separatedBy: ",", excluding: .allGroups)
+      .map({ $0.components(separatedBy: ":", excluding: .allGroups)[0]
+            .trimmingCharacters(in: .whitespacesAndNewlines) })
+      .map({ $0.components(separatedBy: " ", excluding: .allGroups)[0]
+            .trimmingCharacters(in: .whitespacesAndNewlines) })
+      .map({ $0 != "_" ? $0 : nil })
+    return (shortName, declarationLabels ?? labels)
+  }
+  
   private static func parseWhereClauses(from dictionary: StructureDictionary,
                                         source: Data?,
                                         rawType: RawType,
@@ -181,13 +200,15 @@ struct Method {
                                             rawTypeRepository: rawTypeRepository) })
   }
   
-  private static func parseReturnTypeName(from dictionary: StructureDictionary,
-                                          rawType: RawType,
-                                          moduleNames: [String],
-                                          rawTypeRepository: RawTypeRepository,
-                                          typealiasRepository: TypealiasRepository) -> String {
+  private static func parseReturnType(
+    from dictionary: StructureDictionary,
+    rawType: RawType,
+    moduleNames: [String],
+    rawTypeRepository: RawTypeRepository,
+    typealiasRepository: TypealiasRepository
+  ) -> (DeclaredType, String) {
     guard let rawReturnTypeName = dictionary[SwiftDocKey.typeName.rawValue] as? String else {
-      return "Void"
+      return (DeclaredType(from: "Void"), "Void")
     }
     let declaredType = DeclaredType(from: rawReturnTypeName)
     let serializationContext = SerializationRequest
@@ -198,7 +219,7 @@ struct Method {
     let qualifiedTypeNameRequest = SerializationRequest(method: .moduleQualified,
                                                         context: serializationContext,
                                                         options: .standard)
-    return declaredType.serialize(with: qualifiedTypeNameRequest)
+    return (declaredType, declaredType.serialize(with: qualifiedTypeNameRequest))
   }
   
   private static func parseParameters(labels: [String?],
@@ -216,7 +237,7 @@ struct Method {
     return substructure.compactMap({
       let rawDeclaration = rawDeclarations?.get(parameterIndex)
       guard let parameter = MethodParameter(from: $0,
-                                            argumentLabel: labels[parameterIndex],
+                                            argumentLabel: labels.get(parameterIndex) ?? nil,
                                             parameterIndex: parameterIndex,
                                             rawDeclaration: rawDeclaration,
                                             rawType: rawType,
@@ -289,6 +310,7 @@ extension Method: Specializable {
   private init(from method: Method, returnTypeName: String, parameters: [MethodParameter]) {
     self.name = method.name
     self.shortName = method.shortName
+    self.returnType = DeclaredType(from: returnTypeName)
     self.returnTypeName = returnTypeName
     self.isInitializer = method.isInitializer
     self.isDesignatedInitializer = method.isDesignatedInitializer

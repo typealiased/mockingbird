@@ -1,5 +1,5 @@
 //
-//  Sequence.swift
+//  SequenceProviders.swift
 //  MockingbirdFramework
 //
 //  Created by Andrew Chang on 5/31/20.
@@ -34,7 +34,7 @@ enum SequenceType {
 /// Provide one or more values which will be returned sequentially for each invocation. The last
 /// value will be used if the number of invocations is greater than the number of values provided.
 ///
-///     given(bird.getName())
+///     given(bird.name)
 ///       .willReturn(sequence(of: "Ryan", "Sterling"))
 ///
 ///     print(bird.name)  // Prints "Ryan"
@@ -54,7 +54,7 @@ public func sequence<DeclarationType: Declaration, InvocationType, ReturnType>(
 /// last implementation will be used if the number of invocations is greater than the number of
 /// implementations provided.
 ///
-///     given(bird.getName()).willReturn(sequence(of: {
+///     given(bird.name).willReturn(sequence(of: {
 ///       return Bool.random() ? "Ryan" : "Meisters"
 ///     }, {
 ///       return Bool.random() ? "Sterling" : "Hackley"
@@ -77,7 +77,7 @@ public func sequence<DeclarationType: Declaration, InvocationType, ReturnType>(
 /// will loop from the beginning if the number of invocations is greater than the number of values
 /// provided.
 ///
-///     given(bird.getName())
+///     given(bird.name)
 ///       .willReturn(loopingSequence(of: "Ryan", "Sterling"))
 ///
 ///     print(bird.name)  // Prints "Ryan"
@@ -98,7 +98,7 @@ public func loopingSequence<DeclarationType: Declaration, InvocationType, Return
 /// sequence will loop from the beginning if the number of invocations is greater than the number of
 /// implementations provided.
 ///
-///     given(bird.getName()).willReturn(loopingSequence(of: {
+///     given(bird.name).willReturn(loopingSequence(of: {
 ///       return Bool.random() ? "Ryan" : "Meisters"
 ///     }, {
 ///       return Bool.random() ? "Sterling" : "Hackley"
@@ -121,7 +121,7 @@ public func loopingSequence<DeclarationType: Declaration, InvocationType, Return
 /// Provide one or more values which will be returned sequentially for each invocation. The stub
 /// will be invalidated if the number of invocations is greater than the number of values provided.
 ///
-///     given(bird.getName())
+///     given(bird.name)
 ///       .willReturn(finiteSequence(of: "Ryan", "Sterling"))
 ///
 ///     print(bird.name)  // Prints "Ryan"
@@ -141,7 +141,7 @@ public func finiteSequence<DeclarationType: Declaration, InvocationType, ReturnT
 /// stub will be invalidated if the number of invocations is greater than the number of
 /// implementations provided.
 ///
-///     given(bird.getName()).willReturn(finiteSequence(of: {
+///     given(bird.name).willReturn(finiteSequence(of: {
 ///       return Bool.random() ? "Ryan" : "Meisters"
 ///     }, {
 ///       return Bool.random() ? "Sterling" : "Hackley"
@@ -174,9 +174,7 @@ func sequence<DeclarationType: Declaration, InvocationType, ReturnType>(
   let availability: () -> Bool = {
     return values.get(index) != nil
   }
-  return ImplementationProvider(implementation: implementation,
-                                availability: availability,
-                                callback: nil)
+  return ImplementationProvider(implementation: implementation, availability: availability)
 }
 
 /// Stub a sequence of implementations.
@@ -192,23 +190,5 @@ func sequence<DeclarationType: Declaration, InvocationType, ReturnType>(
     index = type.nextIndex(index, count: implementations.count)
     return implementation
   }
-  return ImplementationProvider(implementationCreator: implementationCreator, callback: nil)
-}
-
-/// Stubs a variable getter to return the last value received by the setter.
-///
-/// - Parameter initial: The initial value to return.
-public func lastSetValue<DeclarationType: PropertyGetterDeclaration, InvocationType, ReturnType>(
-  initial: ReturnType
-) -> ImplementationProvider<DeclarationType, InvocationType, ReturnType> {
-  var currentValue = initial
-  let implementation: () -> ReturnType = { return currentValue }
-  let callback = { (stub: StubbingContext.Stub, context: StubbingContext) in
-    guard let setterInvocation = stub.invocation.toSetter() else { return }
-    let setterImplementation = { (newValue: ReturnType) -> Void in
-      currentValue = newValue
-    }
-    _ = context.swizzle(setterInvocation, with: { setterImplementation })
-  }
-  return ImplementationProvider(implementation: implementation, callback: callback)
+  return ImplementationProvider(implementationCreator: implementationCreator)
 }

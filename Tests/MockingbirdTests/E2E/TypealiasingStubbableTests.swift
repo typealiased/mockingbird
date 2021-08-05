@@ -12,57 +12,57 @@ import Mockingbird
 // MARK: - Stubbable declarations
 
 private protocol StubbableTypealiasedProtocol {
-  func request(callback: @escaping @autoclosure () -> TypealiasedProtocol.IndirectCallback)
+  func request(callback: @autoclosure () -> TypealiasedProtocol.IndirectCallback)
     -> Mockable<FunctionDeclaration, (TypealiasedProtocol.IndirectCallback) -> TypealiasedProtocol.IndirectRequestResult, TypealiasedProtocol.IndirectRequestResult>
-  func request(escapingCallback: @escaping @autoclosure () -> TypealiasedProtocol.IndirectCallback)
+  func request(escapingCallback: @autoclosure () -> TypealiasedProtocol.IndirectCallback)
     -> Mockable<FunctionDeclaration, (@escaping TypealiasedProtocol.IndirectCallback) -> TypealiasedProtocol.IndirectRequestResult, TypealiasedProtocol.IndirectRequestResult>
-  func request(callback: @escaping @autoclosure () -> TypealiasedProtocol.IndirectCallback)
+  func request(callback: @autoclosure () -> TypealiasedProtocol.IndirectCallback)
     -> Mockable<FunctionDeclaration, (TypealiasedProtocol.IndirectCallback) -> Foundation.NSObject, Foundation.NSObject>
   
-  func method(object: @escaping @autoclosure () -> TypealiasedProtocolMock.NSObject)
+  func method(object: @autoclosure () -> TypealiasedProtocolMock.NSObject)
     -> Mockable<FunctionDeclaration, (TypealiasedProtocolMock.NSObject) -> Void, Void>
-  func method(array: @escaping @autoclosure () -> TypealiasedProtocolMock.MyArray<String>)
+  func method(array: @autoclosure () -> TypealiasedProtocolMock.MyArray<String>)
     -> Mockable<FunctionDeclaration, (TypealiasedProtocolMock.MyArray<String>) -> Void, Void>
-  func method(dictionary: @escaping @autoclosure () -> TypealiasedProtocolMock.MyDictionary<String, Bool>)
+  func method(dictionary: @autoclosure () -> TypealiasedProtocolMock.MyDictionary<String, Bool>)
     -> Mockable<FunctionDeclaration, (TypealiasedProtocolMock.MyDictionary<String, Bool>) -> Void, Void>
 }
 extension TypealiasedProtocolMock: StubbableTypealiasedProtocol {}
 
 private protocol StubbableTypealiasedClass {
-  func request(callback: @escaping @autoclosure () -> TypealiasedClass.IndirectCallback)
+  func request(callback: @autoclosure () -> TypealiasedClass.IndirectCallback)
     -> Mockable<FunctionDeclaration, (TypealiasedClass.IndirectCallback) -> TypealiasedClass.IndirectRequestResult, TypealiasedClass.IndirectRequestResult>
-  func request(escapingCallback: @escaping @autoclosure () -> TypealiasedClass.IndirectCallback)
+  func request(escapingCallback: @autoclosure () -> TypealiasedClass.IndirectCallback)
     -> Mockable<FunctionDeclaration, (@escaping TypealiasedClass.IndirectCallback) -> TypealiasedClass.IndirectRequestResult, TypealiasedClass.IndirectRequestResult>
-  func request(callback: @escaping @autoclosure () -> TypealiasedClass.IndirectCallback)
+  func request(callback: @autoclosure () -> TypealiasedClass.IndirectCallback)
     -> Mockable<FunctionDeclaration, (TypealiasedClass.IndirectCallback) -> Foundation.NSObject, Foundation.NSObject>
   
-  func method(object: @escaping @autoclosure () -> TypealiasedClassMock.NSObject)
+  func method(object: @autoclosure () -> TypealiasedClassMock.NSObject)
     -> Mockable<FunctionDeclaration, (TypealiasedClassMock.NSObject) -> Void, Void>
-  func method(array: @escaping @autoclosure () -> TypealiasedClassMock.MyArray<String>)
+  func method(array: @autoclosure () -> TypealiasedClassMock.MyArray<String>)
     -> Mockable<FunctionDeclaration, (TypealiasedClassMock.MyArray<String>) -> Void, Void>
-  func method(dictionary: @escaping @autoclosure () -> TypealiasedClassMock.MyDictionary<String, Bool>)
+  func method(dictionary: @autoclosure () -> TypealiasedClassMock.MyDictionary<String, Bool>)
     -> Mockable<FunctionDeclaration, (TypealiasedClassMock.MyDictionary<String, Bool>) -> Void, Void>
 }
 extension TypealiasedClassMock: StubbableTypealiasedClass {}
 
 private protocol StubbableModuleScopedTypealiasedProtocol {
-  func request(object: @escaping @autoclosure () -> MockingbirdTestsHost.NSObject)
+  func request(object: @autoclosure () -> MockingbirdTestsHost.NSObject)
     -> Mockable<FunctionDeclaration, (MockingbirdTestsHost.NSObject) -> MockingbirdTestsHost.NSObject, MockingbirdTestsHost.NSObject>
-  func request(object: @escaping @autoclosure () -> Foundation.NSObject)
+  func request(object: @autoclosure () -> Foundation.NSObject)
     -> Mockable<FunctionDeclaration, (Foundation.NSObject) -> Foundation.NSObject, Foundation.NSObject>
   func genericRequest<T: MockingbirdTestsHost.NSObjectProtocol>
-    (object: @escaping @autoclosure () -> T)
+    (object: @autoclosure () -> T)
     -> Mockable<FunctionDeclaration, (T) -> T, T> where
     T.Element == Foundation.NSObjectProtocol,
     T.Subelement == MockingbirdTestsHost.NSObject
   
   // MARK: Optional overloads
-  func request(object: @escaping @autoclosure () -> MockingbirdTestsHost.NSObject?)
+  func request(object: @autoclosure () -> MockingbirdTestsHost.NSObject?)
     -> Mockable<FunctionDeclaration, (MockingbirdTestsHost.NSObject?) -> MockingbirdTestsHost.NSObject?, MockingbirdTestsHost.NSObject?>
-  func request(object: @escaping @autoclosure () -> Foundation.NSObject?)
+  func request(object: @autoclosure () -> Foundation.NSObject?)
     -> Mockable<FunctionDeclaration, (Foundation.NSObject?) -> Foundation.NSObject?, Foundation.NSObject?>
   func genericRequest<T: MockingbirdTestsHost.NSObjectProtocol>
-    (object: @escaping @autoclosure () -> T?)
+    (object: @autoclosure () -> T?)
     -> Mockable<FunctionDeclaration, (T?) -> T?, T?> where
     T.Element == Foundation.NSObjectProtocol?,
     T.Subelement == MockingbirdTestsHost.NSObject?

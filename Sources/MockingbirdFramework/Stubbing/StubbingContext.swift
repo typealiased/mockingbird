@@ -9,14 +9,13 @@ import Foundation
 import XCTest
 
 /// Stores stubbed implementations used by mocks.
-public class StubbingContext {
+@objc(MKBStubbingContext) public class StubbingContext: NSObject {
   struct Stub {
     let invocation: Invocation
     let implementationProvider: () -> Any?
   }
   var stubs = Synchronized<[String: [Stub]]>([:])
-  var defaultValueProvider = ValueProvider()
-  var sourceLocation: SourceLocation?
+  var defaultValueProvider = Synchronized<ValueProvider>(ValueProvider())
   
   func swizzle(_ invocation: Invocation,
                with implementationProvider: @escaping () -> Any?) -> Stub {
@@ -25,28 +24,31 @@ public class StubbingContext {
     return stub
   }
   
-  func failTest(for invocation: Invocation) -> String {
+  func failTest(for invocation: Invocation, at sourceLocation: SourceLocation? = nil) -> Never {
     let stubbedSelectorNames = stubs.read({ Array($0.keys) }).sorted()
     let stackTrace = StackTrace(from: Thread.callStackSymbols)
     let error = TestFailure.missingStubbedImplementation(invocation: invocation,
                                                          stubbedSelectorNames: stubbedSelectorNames,
                                                          stackTrace: stackTrace)
     if let sourceLocation = sourceLocation {
-      MKBFail("\(error)", isFatal: true, file: sourceLocation.file, line: sourceLocation.line)
+      FailTest("\(error)", isFatal: true, file: sourceLocation.file, line: sourceLocation.line)
     } else {
-      MKBFail("\(error)", isFatal: true)
+      FailTest("\(error)", isFatal: true)
     }
-    // Usually test execution has stopped by this point, but unfortunately there's no workaround for
-    // invocations called on background threads.
-    fatalError("Missing stubbed implementation for \(invocation)")
+    
+    fatalError("This should never run")
+  }
+  
+  @objc public func failTest(for invocation: ObjCInvocation) -> Never {
+    return failTest(for: invocation as Invocation)
   }
 
   func implementation(for invocation: Invocation) -> Any? {
     return stubs.read({ $0[invocation.selectorName] })?
-      .last(where: { $0.invocation == invocation })?
+      .last(where: { $0.invocation.isEqual(to: invocation) })?
       .implementationProvider()
   }
-
+  
   func clearStubs() {
     stubs.update { $0.removeAll() }
   }

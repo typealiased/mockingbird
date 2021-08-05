@@ -10,7 +10,7 @@ import Foundation
 /// Provides implementation functions used to stub behavior and return values.
 public struct ImplementationProvider<DeclarationType: Declaration, InvocationType, ReturnType> {
   private let createImplementation: () -> Any?
-  private let callback: ((StubbingContext.Stub, StubbingContext) -> Void)?
+  private let callback: ((StubbingContext.Stub, Context) -> Void)?
   
   /// Create an implementation provider with an optional callback.
   ///
@@ -25,7 +25,7 @@ public struct ImplementationProvider<DeclarationType: Declaration, InvocationTyp
   ///   - implementationCreator: A closure returning an implementation when evaluated.
   ///   - callback: Called when the provider is added to a mock.
   init(implementationCreator: @escaping () -> Any?,
-       callback: ((StubbingContext.Stub, StubbingContext) -> Void)? = nil) {
+       callback: ((StubbingContext.Stub, Context) -> Void)? = nil) {
     self.createImplementation = implementationCreator
     self.callback = callback
   }
@@ -38,7 +38,7 @@ public struct ImplementationProvider<DeclarationType: Declaration, InvocationTyp
   ///   - callback: Called when the provider is added to a mock.
   init(implementation: Any,
        availability: @escaping () -> Bool = { return true },
-       callback: ((StubbingContext.Stub, StubbingContext) -> Void)? = nil) {
+       callback: ((StubbingContext.Stub, Context) -> Void)? = nil) {
     self.init(implementationCreator: {
       guard availability() else { return nil }
       return implementation
@@ -51,7 +51,7 @@ public struct ImplementationProvider<DeclarationType: Declaration, InvocationTyp
   
   func didAddStub<DeclarationType: Declaration>(
     _ stub: StubbingContext.Stub,
-    context: StubbingContext,
+    context: Context,
     manager: StubbingManager<DeclarationType, InvocationType, ReturnType>
   ) {
     guard let callback = self.callback else { return }

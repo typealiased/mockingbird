@@ -1,45 +1,43 @@
 <p align="center">
-  <img src="/Images/mockingbird-hero-image.png" alt="Mockingbird - Swift Mocking Framework" width="350">
+  <img src="/docs/images/mockingbird-hero-image.png" alt="Mockingbird - Swift Mocking Framework" width="150">
+  <h1 align="center">Mockingbird</h1>
 </p>
 
 <p align="center">
-  <a href="#installation"><img src="https://img.shields.io/badge/package-cocoapods%20%7C%20carthage%20%7C%20spm-4BC51D.svg" alt="Package managers"></a>
+  <a href="#installation"><img src="https://img.shields.io/badge/package-CocoaPods%20%7C%20Carthage%20%7C%20SwiftPM-4BC51D.svg" alt="Package managers"></a>
   <a href="/birdrides/mockingbird/blob/add-readme-logo/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
-  <a href="https://slofile.com/slack/birdopensource" rel="nofollow"><img src="https://img.shields.io/badge/slack-join%20channel-A417A6.svg" alt="Slack"></a>
+  <a href="https://slofile.com/slack/birdopensource" rel="nofollow"><img src="https://img.shields.io/badge/slack-%23mockingbird-A417A6.svg" alt="Slack channel"></a>
 </p>
+
+Mockingbird lets you mock, stub, and verify objects written in either Swift or Objective-C. The syntax takes inspiration from (OC)Mockito but was designed to be “Swifty” in terms of type safety and expressiveness.
 
 ```swift
 // Mocking
 let bird = mock(Bird.self)
 
 // Stubbing
-given(bird.getName()).willReturn("Ryan")
+given(bird.name).willReturn("Ryan")
 
 // Verification
 verify(bird.fly()).wasCalled()
 ```
 
-## What is Mockingbird?
+Mockingbird was built to reduce the number of “artisanal” hand-written mocks and make it easier to write tests at Bird. Conceptually, Mockingbird uses codegen to statically mock Swift types and `NSProxy` to dynamically mock Objective-C types. The approach is similar to other automatic Swift mocking frameworks and is [unlikely to change](https://forums.swift.org/t/introduce-dynamic-member-fulfillment-of-protocols/13205/6) due to Swift’s limited runtime introspection capabilities.
 
-Mockingbird is a Swift mocking framework that lets you throw away your hand-written mocks and write clean, readable tests.
+That said, there are a few key differences from other frameworks:
 
-- **Expansive coverage of Swift language features**
-  - Mock classes and protocols in a single line of code
-  - Support for generics, inheritance, static members, nested classes, type aliasing, etc.
-- **Seamless integration with Xcode projects**
-  - Automatic discovery of source and dependency files
-  - Handling of external types from third-party libraries
-- **Convenient testing API**
-  - Clear stubbing and verification error messages
-  - Support for asynchronous code, in order verification, default return value stubbing, etc.
+- Generating mocks takes seconds instead of minutes on large codebases with thousands of mocked types.
+- Stubbing and verification failures appear inline and don’t abort the entire test run.
+- Production code is kept separate from tests and never modified with annotations.
+- Xcode projects can be used as the source of truth to automatically determine source files.
 
-### Under the Hood
+See a detailed feature comparison table [on this wiki page](https://github.com/birdrides/mockingbird/wiki/Alternatives-to-Mockingbird#feature-comparison).
 
-Mockingbird consists of two main components: the _generator_ and the _testing framework_. Before each test bundle compilation, the generator mocks types by implementing protocols and subclassing classes. The testing framework then hooks into the generated code and provides APIs for mocking, stubbing, and verification.
+### Downstream Users
 
-A key design consideration was performance. Mockingbird runs an optimized parser built on SwiftSyntax and SourceKit that is [~30-40x faster](https://github.com/birdrides/mockingbird/wiki/Performance) than existing frameworks and supports a [broad range](https://github.com/birdrides/mockingbird/wiki/Elephant-in-the-Room#other-third-party-mocking-frameworks) of complex Swift features like generics and type qualification.
+Mockingbird powers thousands of tests at companies including [Facebook](https://facebook.com), [Amazon](https://amazon.com), [Twilio](https://twilio.com), and [Bird](https://bird.co). Using Mockingbird to improve your testing workflow? Consider dropping us a line on the [Mockingbird Slack channel](https://slofile.com/slack/birdopensource).
 
-### A Simple Example
+### An Example
 
 Let’s say we wanted to test a `Person` class with a function that takes in a `Bird`.
 
@@ -62,7 +60,7 @@ With Mockingbird, it’s easy to stub return values and verify that mocked metho
 ```swift
 // Given a bird that can fly
 let bird = mock(Bird.self)
-given(bird.getCanFly()).willReturn(true)
+given(bird.canFly).willReturn(true)
 
 // When a person releases the bird
 Person().release(bird)
@@ -73,7 +71,7 @@ verify(bird.fly()).wasCalled()
 
 ## Installation
 
-Select your preferred dependency manager below for installation instructions and example projects.
+Select your preferred dependency manager below to get started.
 
 <details><summary><b>CocoaPods</b></summary>
 
@@ -212,40 +210,55 @@ Mockingbird provides a comprehensive [API reference](https://birdrides.github.io
 2. [Stubbing](#2-stubbing)
 3. [Verification](#3-verification)
 4. [Argument Matching](#4-argument-matching)
-5. [Miscellaneous](#5-miscellaneous)
+5. [Advanced Topics](#5-advanced-topics)
 
 ### 1. Mocking
 
-Initialized mocks can be passed in place of the original type. Protocol mocks do not require explicit initialization while class mocks should be created using `initialize(…)`.
+Mocks can be passed as instances of the original type, recording any calls they receive for later verification. Note that mocks are strict by default, meaning that calls to unstubbed non-void methods will trigger a test failure. To create a relaxed or “loose” mock, use a [default value provider](#stub-as-a-relaxed-mock).
 
 ```swift
-protocol Bird {
-  init(name: String)
-}
-class Tree {
-  init(with bird: Bird) {}
-}
+// Swift types
+let protocolMock = mock(MyProtocol.self)
+let classMock = mock(MyClass.self).initialize(…)
 
-let bird = mock(Bird.self)  // Protocol mock
-let tree = mock(Tree.self).initialize(with: bird)  // Class mock
+// Objective-C types
+let protocolMock = mock(MyProtocol.self)
+let classMock = mock(MyClass.self)
 ```
 
-Generated mock types are suffixed with `Mock` and should not be coerced into their supertype.
+#### Mock Swift Classes
+
+Swift class mocks rely on subclassing the original type which comes with a few [known limitations](https://github.com/birdrides/mockingbird/wiki/Known-Limitations). When creating a Swift class mock, you must initialize the instance by calling `initialize(…)` with appropriate values.
 
 ```swift
-let bird: BirdMock = mock(Bird.self)  // The concrete type is `BirdMock`
-let inferredBird = mock(Bird.self)    // Type inference also works
-let coerced: Bird = mock(Bird.self)   // Avoid upcasting mocks
+class Tree {
+  init(height: Int) { assert(height > 0) }
+}
+
+let tree = mock(Tree.self).initialize(height: 42)  // Initialized
+let tree = mock(Tree.self).initialize(height: 0)   // Assertion failed (height ≤ 0)
+```
+
+#### Store Mocks
+
+Generated Swift mock types are suffixed with `Mock`. Avoid coercing mocks into their original type as stubbing and verification will no longer work.
+
+```swift
+// Good
+let bird: BirdMock = mock(Bird.self)  // Concrete type is `BirdMock`
+let bird = mock(Bird.self)            // Inferred type is `BirdMock`
+
+// Avoid
+let bird: Bird = mock(Bird.self)      // Type is coerced into `Bird`
 ```
 
 #### Reset Mocks
 
-Reset mocks and clear specific configurations during test runs.
+You can reset mocks and clear specific metadata during test runs. However, resetting mocks isn’t usually necessary in well-constructed tests.
 
 ```swift
 reset(bird)                    // Reset everything
 clearStubs(on: bird)           // Only remove stubs
-clearDefaultValues(on: bird)   // Only remove default values
 clearInvocations(on: bird)     // Only remove recorded invocations
 ```
 
@@ -254,9 +267,9 @@ clearInvocations(on: bird)     // Only remove recorded invocations
 Stubbing allows you to define custom behavior for mocks to perform.
 
 ```swift
-given(bird.canChirp()).willReturn(true)
-given(bird.canChirp()).willThrow(BirdError())
-given(bird.canChirp(volume: any())).will { volume in
+given(bird.name).willReturn("Ryan")                   // Return a value
+given(bird.chirp(volume: 42)).willThrow(BirdError())  // Throw an error
+given(bird.chirp(volume: any())).will { volume in     // Call a closure
   return volume < 42
 }
 ```
@@ -264,52 +277,61 @@ given(bird.canChirp(volume: any())).will { volume in
 This is equivalent to the shorthand syntax using the stubbing operator `~>`.
 
 ```swift
-given(bird.canChirp()) ~> true
-given(bird.canChirp()) ~> { throw BirdError() }
-given(bird.canChirp(volume: any())) ~> { volume in
+given(bird.name) ~> "Ryan"                              // Return a value
+given(bird.chirp(volume: 42)) ~> { throw BirdError() }  // Throw an error
+given(bird.chirp(volume: any())) ~> { volume in         // Call a closure
   return volume < 42
 }
 ```
 
 #### Stub Methods with Parameters
 
-[Match argument values](#4-argument-matching) to stub methods with parameters. Stubs added later have a higher precedence, so add stubs with specific matchers last.
+[Match argument values](#4-argument-matching) to stub parameterized methods. Stubs added later have a higher precedence, so add stubs with specific matchers last.
 
 ```swift
-given(bird.canChirp(volume: any())).willReturn(true)     // Any volume
-given(bird.canChirp(volume: notNil())).willReturn(true)  // Any non-nil volume
-given(bird.canChirp(volume: 10)).willReturn(true)        // Volume = 10
+given(bird.chirp(volume: any())).willReturn(true)     // Any volume
+given(bird.chirp(volume: notNil())).willReturn(true)  // Any non-nil volume
+given(bird.chirp(volume: 10)).willReturn(true)        // Volume = 10
 ```
 
 #### Stub Properties
 
-Stub properties with their getter and setter methods.
+Properties can have stubs on both their getters and setters.
+
+```swift
+given(bird.name).willReturn("Ryan")
+given(bird.name = any()).will { (name: String) in
+  print("Hello \(name)")
+}
+
+print(bird.name)        // Prints "Ryan"
+bird.name = "Sterling"  // Prints "Hello Sterling"
+```
+
+This is equivalent to using the synthesized getter and setter methods.
 
 ```swift
 given(bird.getName()).willReturn("Ryan")
-given(bird.setName(any())).will { print($0) }
+given(bird.setName(any())).will { (name: String) in
+  print("Hello \(name)")
+}
+
+print(bird.name)        // Prints "Ryan"
+bird.name = "Sterling"  // Prints "Hello Sterling"
 ```
 
-Getters can be stubbed to automatically save and return values.
+Readwrite properties can be stubbed to automatically save and return values.
 
 ```swift
-given(bird.getName()).willReturn(lastSetValue(initial: ""))
+given(bird.name).willReturn(lastSetValue(initial: ""))
 print(bird.name)  // Prints ""
 bird.name = "Ryan"
 print(bird.name)  // Prints "Ryan"
 ```
 
-#### Relaxed Stubs with Default Values
+#### Stub as a Relaxed Mock
 
-Mocks are strict by default, meaning that calls to unstubbed methods will trigger a test failure. Methods returning `Void` do not need to be stubbed in strict mode.
-
-```swift
-let bird = mock(Bird.self)
-print(bird.name)  // Fails because `bird.getName()` is not stubbed
-bird.fly()        // Okay because `fly()` has a `Void` return type
-```
-
-To return default values for unstubbed methods, use a `ValueProvider` with the initialized mock. Mockingbird provides preset value providers which are guaranteed to be backwards compatible, such as `.standardProvider`.
+Use a `ValueProvider` to create a relaxed mock that returns default values for unstubbed methods. Mockingbird provides preset value providers which are guaranteed to be backwards compatible, such as `.standardProvider`.
 
 ```swift
 let bird = mock(Bird.self)
@@ -317,7 +339,7 @@ bird.useDefaultValues(from: .standardProvider)
 print(bird.name)  // Prints ""
 ```
 
-You can create custom value providers by registering values for types.
+You can create custom value providers by registering values for specific types.
 
 ```swift
 var valueProvider = ValueProvider()
@@ -329,7 +351,7 @@ print(bird.name)  // Prints "Ryan"
 Values from concrete stubs always have a higher precedence than default values.
 
 ```swift
-given(bird.getName()).willReturn("Ryan")
+given(bird.name).willReturn("Ryan")
 print(bird.name)  // Prints "Ryan"
 
 bird.useDefaultValues(from: .standardProvider)
@@ -349,12 +371,51 @@ extension Array: Providable {
 valueProvider.registerType(Array<Any>.self)
 ```
 
+#### Stub as a Partial Mock
+
+Partial mocks can be created by forwarding all calls to a specific object. Forwarding targets are strongly referenced and receive invocations until removed with `clearStubs`.
+
+```swift
+class Crow: Bird {
+  let name: String
+  init(name: String) { self.name = name }
+}
+
+let bird = mock(Bird.self)
+bird.forwardCalls(to: Crow(name: "Ryan"))
+print(bird.name)  // Prints "Ryan"
+```
+
+Swift class mocks can also forward invocations to its underlying superclass.
+
+```swift
+let tree = mock(Tree.self).initialize(height: 42)
+tree.forwardCallsToSuper()
+print(tree.height)  // Prints "42"
+```
+
+For more granular stubbing, it’s possible to scope both object and superclass forwarding targets to a specific declaration.
+
+```swift
+given(bird.name).willForward(to: Crow(name: "Ryan"))  // Object target
+given(tree.height).willForwardToSuper()               // Superclass target
+```
+
+Concrete stubs always have a higher priority than forwarding targets, regardless of the order
+they were added.
+
+```swift
+given(bird.name).willReturn("Ryan")
+given(bird.name).willForward(to: Crow(name: "Sterling"))
+print(bird.name)  // Prints "Ryan"
+```
+
 #### Stub a Sequence of Values
 
 Methods that return a different value each time can be stubbed with a sequence of values. The last value will be used for all subsequent invocations.
 
 ```swift
-given(bird.getName()).willReturn(sequence(of: "Ryan", "Sterling"))
+given(bird.name).willReturn(sequence(of: "Ryan", "Sterling"))
 print(bird.name)  // Prints "Ryan"
 print(bird.name)  // Prints "Sterling"
 print(bird.name)  // Prints "Sterling"
@@ -363,7 +424,7 @@ print(bird.name)  // Prints "Sterling"
 It’s also possible to stub a sequence of arbitrary behaviors.
 
 ```swift
-given(bird.getName())
+given(bird.name)
   .willReturn("Ryan")
   .willReturn("Sterling")
   .will { return Bool.random() ? "Ryan" : "Sterling" }
@@ -389,9 +450,9 @@ verify(bird.fly()).wasCalled()  // ...this also succeeds
 [Match argument values](#4-argument-matching) to verify methods with parameters.
 
 ```swift
-verify(bird.canChirp(volume: any())).wasCalled()     // Called with any volume
-verify(bird.canChirp(volume: notNil())).wasCalled()  // Called with any non-nil volume
-verify(bird.canChirp(volume: 10)).wasCalled()        // Called with volume = 10
+verify(bird.chirp(volume: any())).wasCalled()     // Any volume
+verify(bird.chirp(volume: notNil())).wasCalled()  // Any non-nil volume
+verify(bird.chirp(volume: 10)).wasCalled()        // Volume = 10
 ```
 
 #### Verify Properties
@@ -399,8 +460,8 @@ verify(bird.canChirp(volume: 10)).wasCalled()        // Called with volume = 10
 Verify property invocations using their getter and setter methods.
 
 ```swift
-verify(bird.getName()).wasCalled()
-verify(bird.setName(any())).wasCalled()
+verify(bird.name).wasCalled()
+verify(bird.name = any()).wasCalled()
 ```
 
 #### Verify the Number of Invocations
@@ -422,7 +483,7 @@ verify(bird.fly()).wasCalled(not(exactly(10)))           // n ≠ 10
 verify(bird.fly()).wasCalled(exactly(10).or(atMost(5)))  // n = 10 || n ≤ 5
 ```
 
-#### Argument Capturing
+#### Capture Argument Values
 
 An argument captor extracts received argument values which can be used in other parts of the test.
 
@@ -431,20 +492,20 @@ let bird = mock(Bird.self)
 bird.name = "Ryan"
 
 let nameCaptor = ArgumentCaptor<String>()
-verify(bird.setName(nameCaptor.matcher)).wasCalled()
+verify(bird.name = nameCaptor.any()).wasCalled()
 
 print(nameCaptor.value)  // Prints "Ryan"
 ```
 
-#### In Order Verification
+#### Verify Invocation Order
 
 Enforce the relative order of invocations with an `inOrder` verification block.
 
 ```swift
-// Verify that `fly` was called before `chirp`
+// Verify that `canFly` was called before `fly`
 inOrder {
+  verify(bird.canFly).wasCalled()
   verify(bird.fly()).wasCalled()
-  verify(bird.chirp()).wasCalled()
 }
 ```
 
@@ -452,32 +513,33 @@ Pass options to `inOrder` verification blocks for stricter checks with additiona
 
 ```swift
 inOrder(with: .noInvocationsAfter) {
+  verify(bird.canFly).wasCalled()
   verify(bird.fly()).wasCalled()
-  verify(bird.chirp()).wasCalled()
 }
 ```
 
-#### Asynchronous Verification
+#### Verify Asynchronous Calls
 
 Mocked methods that are invoked asynchronously can be verified using an `eventually` block which returns an `XCTestExpectation`.
 
 ```swift
 DispatchQueue.main.async {
-  Tree(with: bird).shake()
+  guard bird.canFly else { return }
+  bird.fly()
 }
 
 let expectation =
   eventually {
+    verify(bird.canFly).wasCalled()
     verify(bird.fly()).wasCalled()
-    verify(bird.chirp()).wasCalled()
   }
 
 wait(for: [expectation], timeout: 1.0)
 ```
 
-#### Verify Methods Overloaded by Return Type
+#### Verify Overloaded Methods
 
-Specify the expected return type to disambiguate overloaded methods.
+Use the `returning` modifier to disambiguate methods overloaded by return type. Methods overloaded by parameter types do not require disambiguation.
 
 ```swift
 protocol Bird {
@@ -495,42 +557,47 @@ Argument matching allows you to stub or verify specific invocations of parameter
 
 #### Match Exact Values
 
-Value types that explicitly conform to `Equatable` work out of the box. Note that structs able to synthesize `Equatable` conformance must still explicitly declare conformance.
+Types that explicitly conform to `Equatable` work out of the box, such as `String`.
+
+```swift
+given(bird.chirp(volume: 42)).willReturn(true)
+print(bird.chirp(volume: 42))               // Prints "true"
+verify(bird.chirp(volume: 42)).wasCalled()  // Passes
+```
+
+Structs able to synthesize `Equatable` conformance must explicitly declare conformance to enable exact argument matching.
 
 ```swift
 struct Fruit: Equatable {
   let size: Int
 }
 
+bird.eat(Fruit(size: 42))
 verify(bird.eat(Fruit(size: 42))).wasCalled()
-verify(bird.setName("Ryan")).wasCalled()
 ```
 
-Class instances can be safely compared by reference.
+Non-equatable classes are compared by reference instead.
 
 ```swift
-class Tree {
-  init(with bird: Bird) {
-    bird.home = self
-  }
-}
+class Fruit {}
+let fruit = Fruit()
 
-let tree = Tree(with: bird)
-verify(bird.setHome(tree)).wasCalled()
+bird.eat(fruit)
+verify(bird.eat(fruit)).wasCalled()
 ```
 
 #### Match Wildcard Values and Non-Equatable Types
 
-Argument matchers allow for wildcard and custom matching of arguments that don’t conform to `Equatable`.
+Argument matchers allow for wildcard or custom matching of arguments that are not `Equatable`.
 
 ```swift
-any()                    // Matches any value
-any(of: 1, 2, 3)         // Matches any value in {1, 2, 3}
-any(where: { $0 > 42 })  // Matches any number greater than 42
-notNil()                 // Matches any non-nil value
+any()                    // Any value
+any(of: 1, 2, 3)         // Any value in {1, 2, 3}
+any(where: { $0 > 42 })  // Any number greater than 42
+notNil()                 // Any non-nil value
 ```
 
-For methods overloaded by parameter type (such as with generics), using a matcher may cause ambiguity for the compiler. You can help the compiler by specifying an explicit type in the matcher.
+For methods overloaded by parameter type, you should help the compiler by specifying an explicit type in the matcher.
 
 ```swift
 any(Int.self)
@@ -542,10 +609,27 @@ notNil(String?.self)
 You can also match elements or keys within collection types.
 
 ```swift
-any(containing: 1, 2, 3)  // Matches any collection with values {1, 2, 3}
-any(keys: "a", "b", "c")  // Matches any dictionary with keys {"a", "b", "c"}
-any(count: atMost(42))    // Matches any collection with at most 42 elements
-notEmpty()                // Matches any non-empty collection
+any(containing: 1, 2, 3)  // Any collection with values {1, 2, 3}
+any(keys: "a", "b", "c")  // Any dictionary with keys {"a", "b", "c"}
+any(count: atMost(42))    // Any collection with at most 42 elements
+notEmpty()                // Any non-empty collection
+```
+
+#### Match Value Types in Objective-C
+
+You must specify an argument position when matching an Objective-C method with multiple value type parameters. Mockingbird will raise a test failure if the argument position is not inferrable and no explicit position was provided.
+
+```swift
+@objc class Bird: NSObject {
+  @objc dynamic func chirp(volume: Int, duration: Int) {}
+}
+
+verify(bird.chirp(volume: firstArg(any()),
+                  duration: secondArg(any())).wasCalled()
+
+// Equivalent verbose syntax
+verify(bird.chirp(volume: arg(any(), at: 1),
+                  duration: arg(any(), at: 2)).wasCalled()
 ```
 
 #### Match Floating Point Values
@@ -556,7 +640,7 @@ Mathematical operations on floating point numbers can cause loss of precision. F
 around(10.0, tolerance: 0.01)
 ```
 
-### 5. Miscellaneous
+### 5. Advanced Topics
 
 #### Excluding Files
 
