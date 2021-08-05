@@ -1,7 +1,6 @@
 <p align="center">
   <img src="/docs/images/mockingbird-hero-image.png" alt="Mockingbird - Swift Mocking Framework" width="150">
   <h1 align="center">Mockingbird</h1>
-  <p align="center"><b>A convenient mocking framework for Swift</b></p>
 </p>
 
 <p align="center">
@@ -124,7 +123,7 @@ github "birdrides/mockingbird" ~> 0.17
 In your project directory, build the framework, [link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets), and download the starter [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files).
 
 ```console
-$ carthage update
+$ carthage update --use-xcframeworks
 $ Carthage/Checkouts/mockingbird download starter-pack
 ```
 
