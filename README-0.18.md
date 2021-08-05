@@ -120,7 +120,7 @@ github "birdrides/mockingbird" ~> 0.18
 In your project directory, build the framework, [link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets), and download the starter [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files).
 
 ```console
-$ carthage update
+$ carthage update --use-xcframeworks
 $ Carthage/Checkouts/mockingbird download starter-pack
 ```
 
