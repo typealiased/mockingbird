@@ -40,6 +40,13 @@ class PartialMockTests: BaseTestCase {
     }
   }
   
+  class SelfReferencingImplementer: MinimalProtocol {
+    var property: String = "foobar"
+    func method(value: String) -> String {
+      return property
+    }
+  }
+  
   class UnrelatedType {}
   
   override func setUpWithError() throws {
@@ -108,13 +115,17 @@ class PartialMockTests: BaseTestCase {
   }
   
   func testForwardMethodToSuperclass() throws {
+    given(classMock.property).willReturn("world")
     given(classMock.method(value: any())).willForwardToSuper()
-    XCTAssertEqual(classMock.method(value: "hello"), "super-hello")
+    XCTAssertEqual(classMock.method(value: "hello"), "hello-world")
+    verify(classMock.property).wasCalled()
     verify(classMock.method(value: "hello")).wasCalled()
   }
   func testForwardMethodToSuperclass_stubbingOperator() throws {
+    given(classMock.property) ~> "world"
     given(classMock.method(value: any())) ~> forwardToSuper()
-    XCTAssertEqual(classMock.method(value: "hello"), "super-hello")
+    XCTAssertEqual(classMock.method(value: "hello"), "hello-world")
+    verify(classMock.property).wasCalled()
     verify(classMock.method(value: "hello")).wasCalled()
   }
   

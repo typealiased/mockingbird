@@ -14,5 +14,5 @@ protocol MinimalProtocol {
 
 class MinimalClass {
   var property: String = "super"
-  func method(value: String) -> String { return "super-" + value }
+  func method(value: String) -> String { return "\(value)-\(property)" }
 }
