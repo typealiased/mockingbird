@@ -78,9 +78,14 @@ class ThunkTemplate: Template {
       return IfStatementTemplate(
         condition: "let mkbImpl = mkbImpl as? \(bridgedSignature)",
         body: """
-        return (\(FunctionCallTemplate(name: "mkbImpl",
-                                      unlabeledArguments: unlabledArguments,
-                                      isThrowing: isThrowing)) as! \(returnType))
+        return \(FunctionCallTemplate(
+                  name: "Mockingbird.dynamicCast",
+                  unlabeledArguments: [
+                    FunctionCallTemplate(
+                      name: "mkbImpl",
+                      unlabeledArguments: unlabledArguments,
+                      isThrowing: isThrowing).render()
+                  ])) as \(returnType)
         """).render()
     }()
     let callBridgedConvenience: String = {
@@ -88,7 +93,11 @@ class ThunkTemplate: Template {
       return IfStatementTemplate(
         condition: "let mkbImpl = mkbImpl as? () -> Any?",
         body: """
-        return (\(FunctionCallTemplate(name: "mkbImpl", isThrowing: isThrowing)) as! \(returnType))
+        return \(FunctionCallTemplate(
+                  name: "Mockingbird.dynamicCast",
+                  unlabeledArguments: [
+                    FunctionCallTemplate(name: "mkbImpl", isThrowing: isThrowing).render()
+                  ])) as \(returnType)
         """).render()
     }()
     

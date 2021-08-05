@@ -132,6 +132,7 @@
 		28C8E5DB26A64D6C00C68A1D /* MKBInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */; };
 		28C8E5DC26A64D6C00C68A1D /* MKBInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */; };
 		28DAD96E251BDD66001A0B3F /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DAD96D251BDD66001A0B3F /* Project.swift */; };
+		28DDDFC126B8571D002556C7 /* DynamicCast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DDDFC026B8571D002556C7 /* DynamicCast.swift */; };
 		8356225C26A94CBE005CD5C5 /* TargetDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */; };
 		D314ED7F24CE1C10000CC23D /* GenericsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314ED7E24CE1C10000CC23D /* GenericsTests.swift */; };
 		D3643B6C247B78A5002DF069 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B6B247B78A4002DF069 /* Function.swift */; };
@@ -586,6 +587,7 @@
 		28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBInvocationHandler.h; sourceTree = "<group>"; };
 		28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBInvocationHandler.m; sourceTree = "<group>"; };
 		28DAD96D251BDD66001A0B3F /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		28DDDFC026B8571D002556C7 /* DynamicCast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCast.swift; sourceTree = "<group>"; };
 		8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetDescriptionTests.swift; sourceTree = "<group>"; };
 		942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
 		D314ED7E24CE1C10000CC23D /* GenericsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericsTests.swift; sourceTree = "<group>"; };
@@ -1550,6 +1552,7 @@
 			children = (
 				OBJ_49 /* Array+Extensions.swift */,
 				D3B3D4C1248C9D1600FEEDA0 /* CwlDemangle.swift */,
+				28DDDFC026B8571D002556C7 /* DynamicCast.swift */,
 				28B4F6E126B3C9C7005C0049 /* ObjCTypeEncodings.swift */,
 				D3E6F67B24844C5B000D1971 /* SourceLocation.swift */,
 				D3B3D4C5248CC15E00FEEDA0 /* StackTrace.swift */,
@@ -2301,6 +2304,7 @@
 				OBJ_883 /* TestKiller.swift in Sources */,
 				28A1F3C226ADC9DA002F282D /* PropertyProviders.swift in Sources */,
 				OBJ_884 /* ValueProvider+Collections.swift in Sources */,
+				28DDDFC126B8571D002556C7 /* DynamicCast.swift in Sources */,
 				OBJ_885 /* ValueProvider+Foundation.swift in Sources */,
 				OBJ_886 /* ValueProvider+Tuples.swift in Sources */,
 				D3E6F67624844999000D1971 /* ImplementationProvider.swift in Sources */,
