@@ -351,14 +351,13 @@ class Installer {
                                                    style: .bash,
                                                    shouldNormalize: false)
       let shellScript = """
-      set -e
-      
-      \(cliPath) generate \\
-        \(options.joined(separator: " \\\n  "))
+      set -eu
       
       # Ensure mocks are generated prior to running Compile Sources
       rm -f '\(cacheBreakerPath.absolute())'
       
+      \(cliPath) generate \\
+        \(options.joined(separator: " \\\n  "))
       """
       return PBXShellScriptBuildPhase(name: Constants.buildPhaseName,
                                       inputPaths: ["\(cacheBreakerPath.absolute())"],
