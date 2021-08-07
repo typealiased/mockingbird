@@ -2051,6 +2051,7 @@
 		};
 		D372A59C2455878B0000E80A /* Generate Embedded Dylibs */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -3183,7 +3184,7 @@
 			repositoryURL = "https://github.com/apple/swift-syntax.git";
 			requirement = {
 				kind = exactVersion;
-				version = 0.50400.0;
+				version = 0.50500.0;
 			};
 		};
 		287F852325194EF5007D135D /* XCRemoteSwiftPackageReference "SourceKitten" */ = {
@@ -3207,7 +3208,7 @@
 			repositoryURL = "https://github.com/tuist/XcodeProj.git";
 			requirement = {
 				kind = exactVersion;
-				version = 7.14.0;
+				version = 8.7.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
