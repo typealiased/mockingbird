@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Container for mock state and metadata.
 @objc(MKBContext) public class Context: NSObject {
   /// Information about received invocations.
   @objc public let mocking: MockingContext
