@@ -22,7 +22,7 @@ given(bird.name).willReturn("Ryan")
 verify(bird.fly()).wasCalled()
 ```
 
-Mockingbird was built to reduce the number of “artisanal” hand-written mocks and make it easier to write tests at Bird. Conceptually, Mockingbird uses codegen to statically mock Swift types and `NSProxy` to dynamically mock Objective-C types. The approach is similar to other automatic Swift mocking frameworks and is [unlikely to change](https://forums.swift.org/t/introduce-dynamic-member-fulfillment-of-protocols/13205/6) due to Swift’s limited runtime introspection capabilities.
+Mockingbird was built to reduce the number of “artisanal” hand-written mocks and make it easier to write tests at Bird. Conceptually, Mockingbird uses codegen to statically mock Swift types and `NSProxy` to dynamically mock Objective-C types. The approach is similar to other automatic Swift mocking frameworks and is unlikely to change due to Swift’s limited runtime introspection capabilities.
 
 That said, there are a few key differences from other frameworks:
 
@@ -31,11 +31,11 @@ That said, there are a few key differences from other frameworks:
 - Production code is kept separate from tests and never modified with annotations.
 - Xcode projects can be used as the source of truth to automatically determine source files.
 
-See a detailed feature comparison table [on this wiki page](https://github.com/birdrides/mockingbird/wiki/Alternatives-to-Mockingbird#feature-comparison).
+See a detailed [feature comparison table](https://github.com/birdrides/mockingbird/wiki/Alternatives-to-Mockingbird#feature-comparison) and [known limitations](https://github.com/birdrides/mockingbird/wiki/Known-Limitations).
 
-### Downstream Users
+### Who Uses Mockingbird?
 
-Mockingbird powers thousands of tests at companies including [Facebook](https://facebook.com), [Amazon](https://amazon.com), [Twilio](https://twilio.com), and [Bird](https://bird.co). Using Mockingbird to improve your testing workflow? Consider dropping us a line on the [Mockingbird Slack channel](https://slofile.com/slack/birdopensource).
+Mockingbird powers thousands of tests at companies including [Facebook](https://facebook.com), [Amazon](https://amazon.com), [Twilio](https://twilio.com), and [Bird](https://bird.co). Using Mockingbird to improve your testing workflow? Consider dropping us a line on the [#mockingbird Slack channel](https://slofile.com/slack/birdopensource).
 
 ### An Example
 
@@ -80,18 +80,17 @@ Add the framework to a test target in your `Podfile`, making sure to include the
 ```ruby
 target 'MyAppTests' do
   use_frameworks!
-  pod 'MockingbirdFramework', '~> 0.18'
+  pod 'MockingbirdFramework', '~> 0.19'
 end
 ```
 
-In your project directory, initialize the pod and download the starter [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files).
+In your project directory, initialize the pod.
 
 ```console
 $ pod install
-$ Pods/MockingbirdFramework/mockingbird download starter-pack
 ```
 
-Finally, configure a test target to generate mocks for each listed source module. For advanced usages, see the [available installer options](#install) and how to [set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
+Finally, configure a test target to generate mocks for each listed source module. This adds a build phase to the test target which calls [`mockingbird generate`](#generate). For advanced usages, modify the installed build phase or [set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
 
 ```console
 $ Pods/MockingbirdFramework/mockingbird install --target MyAppTests --sources MyApp MyLibrary1 MyLibrary2
@@ -100,12 +99,13 @@ $ Pods/MockingbirdFramework/mockingbird install --target MyAppTests --sources My
 Optional but recommended:
 
 - [Exclude generated files from source control](https://github.com/birdrides/mockingbird/wiki/Integration-Tips#source-control-exclusion)
+- [Add supporting source files for compatibility with external dependencies](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files)
 
 Have questions or issues?
 
-- Join the [Slack channel](https://slofile.com/slack/birdopensource)
-- Search the [troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
-- Check out the [CocoaPods tutorial + example project](/Examples/iOSMockingbirdExample-CocoaPods)
+- [Join the Slack channel](https://slofile.com/slack/birdopensource)
+- [Search the troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
+- [Check out the CocoaPods example project](/Examples/iOSMockingbirdExample-CocoaPods)
 
 </details>
 
@@ -114,17 +114,16 @@ Have questions or issues?
 Add the framework to your `Cartfile`.
 
 ```
-github "birdrides/mockingbird" ~> 0.18
+github "birdrides/mockingbird" ~> 0.19
 ```
 
-In your project directory, build the framework, [link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets), and download the starter [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files).
+In your project directory, build the framework and [link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets).
 
 ```console
 $ carthage update --use-xcframeworks
-$ Carthage/Checkouts/mockingbird download starter-pack
 ```
 
-Finally, configure a test target to generate mocks for each listed source module. For advanced usages, see the [available installer options](#install) and how to [set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
+Finally, configure a test target to generate mocks for each listed source module. This adds a build phase to the test target which calls [`mockingbird generate`](#generate). For advanced usages, modify the installed build phase or [set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
 
 ```console
 $ mockingbird install --target MyAppTests --sources MyApp MyLibrary1 MyLibrary2
@@ -133,58 +132,45 @@ $ mockingbird install --target MyAppTests --sources MyApp MyLibrary1 MyLibrary2
 Optional but recommended:
 
 - [Exclude generated files from source control](https://github.com/birdrides/mockingbird/wiki/Integration-Tips#source-control-exclusion)
+- [Add supporting source files for compatibility with external dependencies](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files)
 
 Have questions or issues?
 
-- Join the [Slack channel](https://slofile.com/slack/birdopensource)
-- Search the [troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
-- Check out the [Carthage tutorial + example project](/Examples/iOSMockingbirdExample-Carthage)
+- [Join the Slack channel](https://slofile.com/slack/birdopensource)
+- [Search the troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
+- [Check out the Carthage example project](/Examples/iOSMockingbirdExample-Carthage)
 
 </details>
 
 <details><summary><b>Swift Package Manager</b></summary>
 
-Add the framework as a package dependency and link it to your test target.
-
-1. File > Swift Packages > Add Package Dependency…
-2. Enter `https://github.com/birdrides/mockingbird` for the repository URL and click Next
-3. Choose “Up to Next Minor” for the version and click Next
-4. Select your test target under “Add to Target” and click Finish
-
-<details><summary>Click here if you are using a <code>Package.swift</code> manifest file instead.</summary>
-
-Add Mockingbird to your package and test target dependencies.
+Add Mockingbird as a package and test target dependency in your `Package.swift` manifest.
 
 ```swift
 let package = Package(
   name: "MyPackage",
   dependencies: [
-    // Add the line below
-    .package(name: "Mockingbird", url: "https://github.com/birdrides/mockingbird.git", .upToNextMinor(from: "0.18.0")),
+    .package(name: "Mockingbird", url: "https://github.com/birdrides/mockingbird.git", .upToNextMinor(from: "0.19.0")),
   ],
   targets: [
-    .testTarget(
-      name: "MyPackageTests",
-      dependencies: [
-        "Mockingbird", // Add this line
-      ]
-    ),
+    .testTarget(name: "MyPackageTests", dependencies: ["Mockingbird"]),
   ]
 )
 ```
 
-</details>
+In your project directory, initialize the package dependency.
 
-In your project directory, initialize the package dependency and download the starter [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files).
+> Parsing the `DERIVED_DATA` path can take a minute.
 
 ```console
 $ xcodebuild -resolvePackageDependencies
-$ DERIVED_DATA=$(xcodebuild -showBuildSettings | pcregrep -o1 'OBJROOT = (/.*)/Build')
+$ DERIVED_DATA="$(xcodebuild -showBuildSettings | pcregrep -o1 'OBJROOT = (/.*)/Build')"
 $ REPO_PATH="${DERIVED_DATA}/SourcePackages/checkouts/mockingbird"
-$ "${REPO_PATH}/mockingbird" download starter-pack
 ```
 
-Finally, configure a test target to generate mocks for each listed source module. For advanced usages, see the [available installer options](#install) and how to [set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
+Finally, configure a test target to generate mocks for each listed source module. This adds a build phase to the test target which calls [`mockingbird generate`](#generate). For advanced usages, modify the installed build phase or [set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
+
+> Not using an Xcode project? Generate mocks from the command line by calling [`mockingbird generate`](#generate).
 
 ```console
 $ "${REPO_PATH}/mockingbird" install --target MyPackageTests --sources MyPackage MyLibrary1 MyLibrary2
@@ -193,12 +179,13 @@ $ "${REPO_PATH}/mockingbird" install --target MyPackageTests --sources MyPackage
 Optional but recommended:
 
 - [Exclude generated files from source control](https://github.com/birdrides/mockingbird/wiki/Integration-Tips#source-control-exclusion)
+- [Add supporting source files for compatibility with external dependencies](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files)
 
 Have questions or issues?
 
-- Join the [Slack channel](https://slofile.com/slack/birdopensource)
-- Search the [troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
-- Check out the [Swift Package Manager tutorial + example project](/Examples/iOSMockingbirdExample-SPM)
+- [Join the Slack channel](https://slofile.com/slack/birdopensource)
+- [Search the troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
+- [Check out the Swift Package Manager example project](/Examples/iOSMockingbirdExample-SPM)
 
 </details>
 
@@ -257,9 +244,9 @@ let bird: Bird = mock(Bird.self)      // Type is coerced into `Bird`
 You can reset mocks and clear specific metadata during test runs. However, resetting mocks isn’t usually necessary in well-constructed tests.
 
 ```swift
-reset(bird)                    // Reset everything
-clearStubs(on: bird)           // Only remove stubs
-clearInvocations(on: bird)     // Only remove recorded invocations
+reset(bird)                 // Reset everything
+clearStubs(on: bird)        // Only remove stubs
+clearInvocations(on: bird)  // Only remove recorded invocations
 ```
 
 ### 2. Stubbing
@@ -267,9 +254,9 @@ clearInvocations(on: bird)     // Only remove recorded invocations
 Stubbing allows you to define custom behavior for mocks to perform.
 
 ```swift
-given(bird.name).willReturn("Ryan")                   // Return a value
-given(bird.chirp(volume: 42)).willThrow(BirdError())  // Throw an error
-given(bird.chirp(volume: any())).will { volume in     // Call a closure
+given(bird.name).willReturn("Ryan")                // Return a value
+given(bird.chirp()).willThrow(BirdError())         // Throw an error
+given(bird.chirp(volume: any())).will { volume in  // Call a closure
   return volume < 42
 }
 ```
@@ -277,9 +264,9 @@ given(bird.chirp(volume: any())).will { volume in     // Call a closure
 This is equivalent to the shorthand syntax using the stubbing operator `~>`.
 
 ```swift
-given(bird.name) ~> "Ryan"                              // Return a value
-given(bird.chirp(volume: 42)) ~> { throw BirdError() }  // Throw an error
-given(bird.chirp(volume: any())) ~> { volume in         // Call a closure
+given(bird.name) ~> "Ryan"                       // Return a value
+given(bird.chirp()) ~> { throw BirdError() }     // Throw an error
+given(bird.chirp(volume: any())) ~> { volume in  // Call a closure
   return volume < 42
 }
 ```
