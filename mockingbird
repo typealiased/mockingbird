@@ -5,23 +5,26 @@ set -eu
 workingDir="$(dirname "$0")"
 version=${MKB_VERSION:-"$(cd "${workingDir}" && make get-version)"}
 
-# Hermetic builds extract dylib dependencies into the enclosing directory
-# making them safer in sandboxed environments like a CI.
-hermetic=${HERMETIC:-1}
+# Installable builds extract dylib dependencies into a system library directory
+# allowing the binary to be installed globally e.g. to `/usr/local/bin`. This
+# makes them unsuitable for sandboxed environments like a CI. By default, the
+# launcher uses non-installable builds.
+installable=${MKB_INSTALLABLE:-0}
 
 versionString="${version}"
-if [[ "${hermetic}" -ne 1 ]]; then
-  versionString="${versionString}-portable"
+if [[ "${installable}" -eq 1 ]]; then
+  versionString="${versionString}-installable"
 fi
 echo "Using Mockingbird v${versionString}"
 
-binaryPath="${workingDir}/bin/${versionString}/mockingbird"
+binaryDir="${workingDir}/bin/${versionString}"
+binaryPath="${binaryDir}/mockingbird"
 
 # Download a versioned binary if needed.
 if [[ ! -f "${binaryPath}" ]]; then
   downloadUrl="$(cd "${workingDir}" && make get-release-url)"
   echo "Downloading CLI from ${downloadUrl}"
-  (cd "${workingDir}" && HERMETIC="${hermetic}" make download)
+  (cd "${workingDir}" && BIN_DIR="${binaryDir}" MKB_INSTALLABLE="${installable}" make download)
 fi
 
 MKB_LAUNCHER="$0" "${binaryPath}" "$@"

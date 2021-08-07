@@ -45,8 +45,8 @@ func loadDylibs(_ dylibs: [Resource],
                 onLoad block: () -> Void) {
   let environment = processInfo.environment
   
-  // Global world-writable place to output dylibs, must be kept in sync with `Makefile`.
-  #if RELATIVE_RPATH // Use relative paths for sandboxed CI builds.
+  #if !(MKB_INSTALLABLE)
+  // Use relative paths for sandboxed CI builds.
   let mockingbirdPath = Path(processInfo.arguments.first ?? "./mockingbird").absolute()
   var globalLibraryDirectory = mockingbirdPath.parent()
   if mockingbirdPath.isSymlink {
@@ -58,6 +58,7 @@ func loadDylibs(_ dylibs: [Resource],
     }
   }
   #else
+  // Global world-writable place to output dylibs, must be kept in sync with `Makefile`.
   let globalLibraryDirectory = Path("/var/tmp/mockingbird/\(mockingbirdVersion)/libs/")
   #endif
   

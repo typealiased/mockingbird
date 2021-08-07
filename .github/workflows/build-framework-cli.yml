@@ -19,7 +19,6 @@ jobs:
       run: make build-framework
     - name: Build and Install CLI
       run: |
-        make print-debug-info | grep "Mockingbird rpath: /var/tmp/mockingbird/$(make get-version)/libs"
         PREFIX=$(pwd) HERMETIC=1 make print-debug-info
         PREFIX=$(pwd) HERMETIC=1 make install
     - name: Set Up Caching Target
@@ -88,7 +87,6 @@ jobs:
       run: make build-framework
     - name: Build and Install CLI
       run: |
-        make print-debug-info | grep "Mockingbird rpath: /var/tmp/mockingbird/$(make get-version)/libs"
         PREFIX=$(pwd) HERMETIC=1 make print-debug-info
         PREFIX=$(pwd) HERMETIC=1 make install
     - name: Set Up Target
