@@ -550,7 +550,6 @@
 		287C4F6326A3D21D00A7E0D9 /* MonotonicIncreasingIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonotonicIncreasingIndex.swift; sourceTree = "<group>"; };
 		287C4F6526A3E00800A7E0D9 /* NonEscapingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonEscapingType.swift; sourceTree = "<group>"; };
 		287C4F6B26A4AAA900A7E0D9 /* InvocationRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationRecorder.swift; sourceTree = "<group>"; };
-		287F853D25196ACE007D135D /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = Sources/Package.swift; sourceTree = "<group>"; };
 		28843B2526AE710400AFB8DF /* MKBTestUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBTestUtils.h; sourceTree = "<group>"; };
 		28843B2626AE710400AFB8DF /* MKBTestUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBTestUtils.m; sourceTree = "<group>"; };
 		28843B2926AE77E800AFB8DF /* InlinePropertyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlinePropertyTests.swift; sourceTree = "<group>"; };
@@ -1683,7 +1682,6 @@
 		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				287F853D25196ACE007D135D /* Package.swift */,
 				OBJ_8 /* MockingbirdCli */,
 				OBJ_29 /* MockingbirdFramework */,
 				OBJ_62 /* MockingbirdGenerator */,

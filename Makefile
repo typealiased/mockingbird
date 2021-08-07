@@ -9,6 +9,8 @@ AC_USERNAME?=
 AC_PASSWORD?=
 PKG_IDENTITY?=Developer ID Installer: Bird Rides, Inc. (P2T4T6R4SL)
 BIN_IDENTITY?=Developer ID Application: Bird Rides, Inc. (P2T4T6R4SL)
+MKB_VERSION?=$(shell /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$(CLI_BUNDLE_PLIST)")
+ZIP_RELEASE_URL?=$(ARTIFACTS_URL)/$(VERSION_STRING)/$(ZIP_FILENAME)
 
 # Prevent bad things from happening when cleaning the temporary folder.
 TEMPORARY_FOLDER=$(TEMPORARY_FOLDER_ROOT)/Mockingbird.make.dst
@@ -16,7 +18,6 @@ TEMPORARY_INSTALLER_FOLDER=$(TEMPORARY_FOLDER)/install
 XCODEBUILD_DERIVED_DATA=$(TEMPORARY_FOLDER)/xcodebuild/DerivedData/MockingbirdFramework
 XCODE_PATH=$(shell xcode-select --print-path)
 CLI_BUNDLE_PLIST=Sources/MockingbirdCli/Info.plist
-MKB_VERSION?=$(shell /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$(CLI_BUNDLE_PLIST)")
 VERSION_STRING=$(MKB_VERSION)
 
 # Needs to be kept in sync with `LoadDylib.swift` and `build-framework-cli.yml`.
@@ -27,6 +28,7 @@ SIMULATOR_NAME=iphone11-mockingbird
 SIMULATOR_DEVICE_TYPE=com.apple.CoreSimulator.SimDeviceType.iPhone-11
 SIMULATOR_RUNTIME=$(shell xcrun simctl list runtimes | pcregrep -o1 '(com\.apple\.CoreSimulator\.SimRuntime\.iOS\-.*)')
 
+SWIFT_BUILD_ENV=MKB_BUILD_CLI=1
 SWIFT_BUILD_FLAGS=--configuration release -Xlinker -weak-l_InternalSwiftSyntaxParser $(RELATIVE_RPATH_FLAG)
 XCODEBUILD_FLAGS=-project 'Mockingbird.xcodeproj' DSTROOT=$(TEMPORARY_FOLDER)
 XCODEBUILD_MACOS_FLAGS=$(XCODEBUILD_FLAGS) -destination 'platform=OS X'
@@ -64,7 +66,7 @@ MACOS_FRAMEWORK_FILENAME=Mockingbird-macOS.framework
 IPHONESIMULATOR_FRAMEWORK_FILENAME=Mockingbird-iOS.framework
 APPLETVSIMULATOR_FRAMEWORK_FILENAME=Mockingbird-tvOS.framework
 
-EXECUTABLE_PATH=$(shell cd Sources && swift build $(SWIFT_BUILD_FLAGS) --show-bin-path)/mockingbird
+EXECUTABLE_PATH=$(shell $(SWIFT_BUILD_ENV) swift build $(SWIFT_BUILD_FLAGS) --show-bin-path)/mockingbird
 
 MACOS_FRAMEWORK_FOLDER=$(XCODEBUILD_DERIVED_DATA)/Build/Products/Release
 MACOS_FRAMEWORK_PATH=$(MACOS_FRAMEWORK_FOLDER)/$(FRAMEWORK_FILENAME)
@@ -91,7 +93,6 @@ OUTPUT_ZIP=Mockingbird.zip
 OUTPUT_STARTER_PACK_ZIP=MockingbirdSupport.zip
 OUTPUT_DOCS_FOLDER=docs/$(VERSION_STRING)
 
-ZIP_RELEASE_URL?=$(ARTIFACTS_URL)/$(VERSION_STRING)/$(ZIP_FILENAME)
 SUCCESS_MSG=✅ Verified the CLI binary code signature
 ERROR_MSG=❌ The CLI binary is not signed with the expected code signature! (Set VERIFY_SIGNATURES=0 to ignore this error.)
 
@@ -116,7 +117,7 @@ clean-xcode: clean-temporary-files
 
 .PHONY: clean-swift
 clean-swift:
-	(cd Sources && swift package clean)
+	swift package clean
 
 .PHONY: clean-installables
 clean-installables:
@@ -159,6 +160,7 @@ print-debug-info:
 	$(eval XCODEBUILD_VERSION = $(shell xcodebuild -version))
 	@echo "Xcodebuild version: $(XCODEBUILD_VERSION)"
 	@echo "Swift build flags: $(SWIFT_BUILD_FLAGS)"
+	@echo "Swift build env: $(SWIFT_BUILD_ENV)"
 	@echo "Simulator runtime: $(SIMULATOR_RUNTIME)"
 
 .PHONY: generate-embedded-dylibs
@@ -170,8 +172,8 @@ generate-embedded-dylibs:
 
 .PHONY: build-cli
 build-cli: generate-embedded-dylibs
-	(cd Sources && swift build $(SWIFT_BUILD_FLAGS) --product mockingbird)
 	# Inject custom rpath into binary.
+	$(SWIFT_BUILD_ENV) swift build $(SWIFT_BUILD_FLAGS) --product mockingbird
 	$(eval RPATH = $(DEFAULT_XCODE_RPATH))
 	install_name_tool -delete_rpath "$(RPATH)" "$(EXECUTABLE_PATH)"
 	install_name_tool -add_rpath "$(MOCKINGBIRD_RPATH)" "$(EXECUTABLE_PATH)"
