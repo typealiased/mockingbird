@@ -41,7 +41,7 @@ extension Mockingbird {
       
       do {
         // Some options should be forwarded to the generate command.
-        generatorOptions.append(contentsOf: ["--project", project!.path.string])
+        generatorOptions += ["--project", project!.path.string]
         generateCommand = try Generate.parse(generatorOptions)
       } catch {
         // Need to rethrow `CommandError` objects thrown when manually parsing.
@@ -67,6 +67,9 @@ extension Mockingbird {
       try downloader.download()
       print("🚀 Downloaded supporting source files")
       
+      let encoder = ArgumentsEncoder()
+      encoder.sourceRoot = generateCommand.srcroot!.path
+      
       let installerConfig = Installer.Configuration(
         projectPath: project!.path,
         testTargetName: testTarget,
@@ -74,7 +77,7 @@ extension Mockingbird {
         sourceRoot: generateCommand.srcroot!.path,
         sourceTargetNames: generateCommand.targets,
         outputPaths: generateCommand.outputs,
-        generatorOptions: generatorOptions,
+        generatorOptions: try encoder.encode(generateCommand),
         overwrite: true)
       let installer = try Installer(config: installerConfig)
       try installer.install()
@@ -82,6 +85,13 @@ extension Mockingbird {
       
       let wallTime = TimeUnit(Date().timeIntervalSince(start))
       print("✅ Successfully configured MyTestTarget in \(wallTime)")
+      
+      print("""
+      ⭐️ Usage:
+         1. Mock a type with `mock(SomeType.self)`
+         2. Build \(testTarget) (⇧⌘U) to generate mocks
+         3. Write some Swifty tests
+      """)
     }
   }
 }

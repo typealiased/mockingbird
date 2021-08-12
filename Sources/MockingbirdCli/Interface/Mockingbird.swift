@@ -20,7 +20,10 @@ struct Mockingbird: ParsableCommand {
   
   static var configuration = CommandConfiguration(
     abstract: "A convenient Swift mocking framework.",
-    subcommands: [Configure.self]
+    subcommands: [
+      Configure.self,
+      Generate.self,
+    ]
   )
   
   func validate() throws {

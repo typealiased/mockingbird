@@ -7,6 +7,7 @@
 
 import ArgumentParser
 import Foundation
+import MockingbirdGenerator
 import PathKit
 
 struct BinaryPath: ExpressibleByArgument {
@@ -17,6 +18,12 @@ struct BinaryPath: ExpressibleByArgument {
   }
   
   static var defaultCompletionKind: CompletionKind = .file()
+}
+
+extension BinaryPath: Encodable {
+  func encode(to encoder: Encoder) throws {
+    try OptionArgumentEncoding.encode(path, with: encoder)
+  }
 }
 
 extension BinaryPath: InferableArgument {

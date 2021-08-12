@@ -195,13 +195,20 @@ struct Installer {
     let cliPath = config.cliPath.getRelativePath(to: config.sourceRoot,
                                                  style: .bash,
                                                  shouldNormalize: false)
+    var options = config.generatorOptions
+    // TODO: Remove this for generator v2. Only needed for backwards compatibility.
+    if config.outputPaths.isEmpty {
+      options += ["--outputs"] + outputPaths.map({ path in
+        path.getRelativePath(to: config.sourceRoot, style: .bash).doubleQuoted
+      })
+    }
     return PBXShellScriptBuildPhase(
       name: Constants.buildPhaseName,
       outputPaths: outputPaths.map({ path in
         path.getRelativePath(to: config.sourceRoot, style: .make)
       }),
       shellScript: """
-      \(cliPath) generate \(config.generatorOptions.joined(separator: " "))
+      \(cliPath) generate \(options.joined(separator: " "))
       """,
       alwaysOutOfDate: true)
   }

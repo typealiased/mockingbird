@@ -25,6 +25,12 @@ class DirectoryPath: ExpressibleByArgument {
   static var defaultCompletionKind: CompletionKind = .directory
 }
 
+extension DirectoryPath: Encodable {
+  func encode(to encoder: Encoder) throws {
+    try OptionArgumentEncoding.encode(path, with: encoder)
+  }
+}
+
 extension DirectoryPath: ValidatableArgument {
   func validate(name: String) throws {
     guard path.exists, path.isDirectory else {

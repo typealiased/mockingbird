@@ -30,6 +30,12 @@ struct XcodeProjPath: ExpressibleByArgument {
   static var defaultCompletionKind: CompletionKind = .file(extensions: ["xcodeproj"])
 }
 
+extension XcodeProjPath: Encodable {
+  func encode(to encoder: Encoder) throws {
+    try OptionArgumentEncoding.encode(path, with: encoder)
+  }
+}
+
 extension XcodeProjPath: InferableArgument {
   init?(context: ArgumentContext) throws {
     if let xcodebuildProjectPath = context.environment["PROJECT_FILE_PATH"] {
