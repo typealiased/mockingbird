@@ -30,7 +30,7 @@
     
     // Handle multiple protocol conformance.
     NSMutableArray *protocolMocks = [[NSMutableArray alloc] init];
-    UInt32 count;
+    unsigned int count;
     Protocol *__unsafe_unretained _Nonnull *_Nullable protocolList = class_copyProtocolList(aClass, &count);
     for (size_t i = 0; i < count; i++) {
       const MKBProtocolMock *protocolMock = [[MKBProtocolMock alloc] initWithProtocol:protocolList[i]];

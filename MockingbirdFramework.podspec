@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.license                = { :type => 'MIT', :file => 'LICENSE' }
   s.author                 = { 'Andrew Chang' => 'typealiased@gmail.com' }
   s.source                 = { :git => s.homepage + '.git', :tag => s.version }
-  s.source_files           = 'Sources/MockingbirdFramework/**/*.swift'
+  s.source_files           = 'Sources/MockingbirdFramework/**/*.{swift,h,m,mm}'
   s.ios.deployment_target  = '9.0'
   s.osx.deployment_target  = '10.10'
   s.tvos.deployment_target = '9.0'
