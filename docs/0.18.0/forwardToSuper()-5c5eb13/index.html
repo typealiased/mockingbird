@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockingbird - forwardToSuper()</title>
+    <link rel="stylesheet" type="text/css" href="/mockingbird/0.18.0/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="/mockingbird/0.18.0">
+            <strong>
+                Mockingbird
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>0.18.0</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol/>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+<small>Function</small>
+<span class="name">forward​ToSuper()</span>
+</h1>
+
+<div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">forwardToSuper</span>() -&gt; <a href="/mockingbird/0.18.0/ForwardingContext-feff474"><span class="type">ForwardingContext</span></a>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Forward calls for a specific declaration to the superclass.</p>
+
+</div>
+<div class="discussion">
+    <p>Use <code>willForwardToSuper</code> on class mock declarations to call the superclass implementation.
+Superclass forwarding persists until removed with <code>clearStubs</code> or shadowed by a forwarding
+target that was added afterwards.</p>
+
+<html><body><pre class="highlight"><code><span class="keyword">class</span> <span class="type">Bird</span> {
+  <span class="keyword">let</span> <span class="variable">name</span>: <span class="type">String</span>
+  <span class="keyword">init</span>(<span class="variable">name</span>: <span class="type">String</span>) { <span class="keyword">self</span>.<span class="variable">name</span> = <span class="variable">name</span> }
+}
+
+<span class="comment">// `BirdMock` subclasses `Bird`</span>
+<span class="keyword">let</span> <span class="variable">bird</span>: <span class="type">BirdMock</span> = <span class="variable">mock</span>(<span class="variable">Bird</span>.<span class="keyword">self</span>).<span class="variable">initialize</span>(<span class="variable">name</span>: <span class="string literal">"</span><span class="string literal">Ryan</span><span class="string literal">"</span>)
+
+<span class="variable">given</span>(<span class="variable">bird</span>.<span class="variable">name</span>) ~&gt; <span class="variable">forwardToSuper</span>()
+<span class="variable">print</span>(<span class="variable">bird</span>.<span class="variable">name</span>)  <span class="comment">// Prints "Ryan"</span>
+</code></pre></body></html>
+<p>The mocked type must be a class. Adding superclass forwarding to mocked protocol declarations
+is a no-op.</p>
+
+<html><body><pre class="highlight"><code><span class="comment">// Not a class</span>
+<span class="keyword">protocol</span> <span class="type">AbstractBird</span> {
+  <span class="keyword">var</span> <span class="variable">name</span>: <span class="type">String</span> { <span class="keyword">get</span> }
+}
+
+<span class="keyword">let</span> <span class="variable">bird</span> = <span class="variable">mock</span>(<span class="variable">AbstractBird</span>.<span class="keyword">self</span>)
+<span class="variable">given</span>(<span class="variable">bird</span>.<span class="variable">name</span>) ~&gt; <span class="variable">forwardToSuper</span>()
+<span class="variable">print</span>(<span class="variable">bird</span>.<span class="variable">name</span>)  <span class="comment">// Error: Missing stubbed implementation</span>
+</code></pre></body></html>
+<aside class="note" title="Note">
+    <p>To forward all calls by default to the superclass, use <code>forwardCallsToSuper</code> on the mock instance instead.</p>
+
+</aside>
+</div>
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2021-08-07T04:48:40-0700">August 7, 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
+</p>
+    </footer>
+</body>
+</html>

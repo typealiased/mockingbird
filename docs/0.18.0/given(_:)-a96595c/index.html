@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockingbird - given(_:)</title>
+    <link rel="stylesheet" type="text/css" href="/mockingbird/0.18.0/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="/mockingbird/0.18.0">
+            <strong>
+                Mockingbird
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>0.18.0</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol/>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+<small>Function</small>
+<span class="name">given(_:​)</span>
+</h1>
+
+<div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">given</span>&lt;<span class="variable">ReturnType</span>&gt;(
+  <span class="keyword">_</span> <span class="variable">declaration</span>: <span class="attribute">@</span><span class="attribute">autoclosure</span> () <span class="keyword">throws</span> -&gt; <span class="type">ReturnType</span>
+) -&gt; <a href="/mockingbird/0.18.0/DynamicStubbingManager-824a4fd"><span class="type">DynamicStubbingManager</span></a>&lt;<span class="type">ReturnType</span>&gt;  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Stub a declaration to return a value or perform an operation.</p>
+
+</div>
+<div class="discussion">
+    <p>Stubbing allows you to define custom behavior for mocks to perform.</p>
+
+<html><body><pre class="highlight"><code><span class="variable">given</span>(<span class="variable">bird</span>.<span class="variable">canChirp</span>()).<span class="variable">willReturn</span>(<span class="keyword">true</span>)
+<span class="variable">given</span>(<span class="variable">bird</span>.<span class="variable">canChirp</span>()).<span class="variable">willThrow</span>(<span class="variable">BirdError</span>())
+<span class="variable">given</span>(<span class="variable">bird</span>.<span class="variable">canChirp</span>(<span class="variable">volume</span>: <span class="type">any</span>())).<span class="variable">will</span> { <span class="variable">volume</span> <span class="keyword">in</span>
+  <span class="keyword">return</span> <span class="variable">volume</span> <span class="keyword">as</span> <span class="type">Int</span> &lt; <span class="number literal">42</span>
+}
+</code></pre></body></html>
+<p>This is equivalent to the shorthand syntax using the stubbing operator <code>~&gt;</code>.</p>
+
+<html><body><pre class="highlight"><code><span class="variable">given</span>(<span class="variable">bird</span>.<span class="variable">canChirp</span>()) ~&gt; <span class="keyword">true</span>
+<span class="variable">given</span>(<span class="variable">bird</span>.<span class="variable">canChirp</span>()) ~&gt; { <span class="keyword">throw</span> <span class="variable">BirdError</span>() }
+<span class="variable">given</span>(<span class="variable">bird</span>.<span class="variable">canChirp</span>(<span class="variable">volume</span>: <span class="type">any</span>()) ~&gt; { <span class="variable">volume</span> <span class="keyword">in</span>
+  <span class="keyword">return</span> <span class="variable">volume</span> <span class="keyword">as</span> <span class="type">Int</span> &lt; <span class="number literal">42</span>
+}
+</code></pre></body></html>
+<p>Properties can have stubs on both their getters and setters.</p>
+
+<html><body><pre class="highlight"><code><span class="variable">given</span>(<span class="variable">bird</span>.<span class="variable">name</span>).<span class="variable">willReturn</span>(<span class="string literal">"</span><span class="string literal">Ryan</span><span class="string literal">"</span>)
+<span class="variable">given</span>(<span class="variable">bird</span>.<span class="variable">name</span> = <span class="variable">any</span>()).<span class="variable">will</span> { (<span class="variable">name</span>: <span class="type">String</span>) <span class="keyword">in</span>
+  <span class="variable">print</span>(<span class="string literal">"</span><span class="string literal">Hello </span>\<span class="string literal">(</span><span class="variable">name</span><span class="string literal">)</span><span class="string literal"/><span class="string literal">"</span>)
+}
+
+<span class="variable">print</span>(<span class="variable">bird</span>.<span class="variable">name</span>)        <span class="comment">// Prints "Ryan"</span>
+<span class="variable">bird</span>.<span class="variable">name</span> = <span class="string literal">"</span><span class="string literal">Sterling</span><span class="string literal">"</span>  <span class="comment">// Prints "Hello Sterling"</span>
+</code></pre></body></html>
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>declaration</th>
+    <td><code class="type">@autoclosure () throws -&gt; Return​Type</code></td>
+    <td><p>A stubbable declaration.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2021-08-07T04:48:40-0700">August 7, 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
+</p>
+    </footer>
+</body>
+</html>

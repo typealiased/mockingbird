@@ -14,6 +14,8 @@ struct InvocationRecord {
 
 /// Records invocations for stubbing and verification.
 @objc(MKBInvocationRecorder) public class InvocationRecorder: NSObject {
+  
+  /// Used to attribute declarations to stubbing and verification calls in tests.
   @objc(MKBInvocationRecorderMode) public enum Mode: UInt {
     case none = 0
     case stubbing
@@ -105,6 +107,7 @@ struct InvocationRecord {
   
   // MARK: DispatchQueue utils
   
+  /// The global invocation recorder instance.
   @objc public static var sharedRecorder: InvocationRecorder? {
     return DispatchQueue.getSpecific(key: Constants.recorderKey)
   }

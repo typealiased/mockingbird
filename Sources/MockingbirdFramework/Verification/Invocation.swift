@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Attributes selectors to a specific member type.
 @objc(MKBSelectorType) public enum SelectorType: UInt, CustomStringConvertible {
   case method
   case getter
@@ -129,6 +130,7 @@ struct SwiftInvocation: Invocation {
   }
 }
 
+/// An invocation recieved by an Objective-C.
 @objc(MKBObjCInvocation) public class ObjCInvocation: NSObject, Invocation {
   let selectorName: String
   let setterSelectorName: String?

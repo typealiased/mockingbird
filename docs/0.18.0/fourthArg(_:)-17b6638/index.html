@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockingbird - fourthArg(_:)</title>
+    <link rel="stylesheet" type="text/css" href="/mockingbird/0.18.0/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="/mockingbird/0.18.0">
+            <strong>
+                Mockingbird
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>0.18.0</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol/>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+<small>Function</small>
+<span class="name">fourth​Arg(_:​)</span>
+</h1>
+
+<div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fourthArg</span>&lt;<span class="variable">T</span>&gt;(<span class="keyword">_</span> <span class="variable">matcher</span>: <span class="attribute">@</span><span class="attribute">autoclosure</span> () -&gt; <span class="type">T</span>) -&gt; <span class="type">T</span>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Specifies the fourth argument position for an argument matcher.</p>
+
+</div>
+<div class="discussion">
+    <p>You must provide an explicit argument position when using argument matchers on an Objective-C
+method with multiple value type parameters.</p>
+
+<html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">objc</span> <span class="keyword">class</span> <span class="type">Bird</span>: <span class="type">NSObject</span> {
+  <span class="attribute">@</span><span class="attribute">objc</span> <span class="attribute">dynamic</span> <span class="keyword">func</span> <span class="function">chirp</span>(<span class="variable">volume</span>: <span class="type">Int</span>, <span class="variable">duration</span>: <span class="type">Int</span>) {}
+}
+
+<span class="variable">given</span>(<span class="variable">bird</span>.<span class="variable">chirp</span>(<span class="variable">volume</span>: <span class="type">firstArg</span>(<span class="variable">any</span>()),
+                 <span class="variable">duration</span>: <span class="type">secondArg</span>(<span class="variable">any</span>()))).<span class="variable">will</span> {
+  <span class="variable">print</span>(<span class="variable">$0</span> <span class="keyword">as</span>! <span class="type">Int</span>, <span class="variable">$1</span> <span class="keyword">as</span>! <span class="type">Int</span>)
+}
+
+<span class="variable">bird</span>.<span class="variable">chirp</span>(<span class="number literal">42</span>, <span class="number literal">9001</span>)  <span class="comment">// Prints 42, 9001</span>
+</code></pre></body></html>
+<p>This is equivalent to the verbose form of declaring an argument position.</p>
+
+<html><body><pre class="highlight"><code><span class="variable">given</span>(<span class="variable">bird</span>.<span class="variable">chirp</span>(<span class="variable">volume</span>: <span class="type">arg</span>(<span class="variable">any</span>(), <span class="variable">at</span>: <span class="number literal">0</span>),
+                 <span class="variable">duration</span>: <span class="type">arg</span>(<span class="variable">any</span>(), <span class="variable">at</span>: <span class="number literal">1</span>))).<span class="variable">will</span> {
+  <span class="variable">print</span>(<span class="variable">$0</span> <span class="keyword">as</span>! <span class="type">Int</span>, <span class="variable">$1</span> <span class="keyword">as</span>! <span class="type">Int</span>)
+}
+</code></pre></body></html>
+<aside class="note" title="Note">
+    <p>This helper has no effect on argument matchers passed to statically generated Swift mocks or to object parameter types.</p>
+
+</aside>
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>matcher</th>
+    <td><code class="type">@autoclosure () -&gt; T</code></td>
+    <td><p>An argument matcher.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2021-08-07T04:48:40-0700">August 7, 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
+</p>
+    </footer>
+</body>
+</html>
