@@ -8,7 +8,11 @@
 #import "MKBPointerInvocationHandler.h"
 #import "MKBComparator.h"
 #import "NSInvocation+MKBErrorObjectType.h"
+#if MKB_SWIFTPM
+@import Mockingbird;
+#else
 #import <Mockingbird/Mockingbird-Swift.h>
+#endif
 
 @implementation MKBPointerInvocationHandler
 

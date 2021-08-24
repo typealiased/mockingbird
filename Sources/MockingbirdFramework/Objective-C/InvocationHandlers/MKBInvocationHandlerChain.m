@@ -29,7 +29,11 @@
 #import "MKBUnsignedLongLongInvocationHandler.h"
 #import "MKBUnsignedShortInvocationHandler.h"
 
+#if MKB_SWIFTPM
+@import Mockingbird;
+#else
 #import <Mockingbird/Mockingbird-Swift.h>
+#endif
 
 @interface MKBInvocationHandlerChain ()
 
