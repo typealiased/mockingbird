@@ -7,7 +7,11 @@
 
 #import "MKBShortInvocationHandler.h"
 #import "MKBComparator.h"
+#if MKB_SWIFTPM
+@import Mockingbird;
+#else
 #import <Mockingbird/Mockingbird-Swift.h>
+#endif
 
 @implementation MKBShortInvocationHandler
 

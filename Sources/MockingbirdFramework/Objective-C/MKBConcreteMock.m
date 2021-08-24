@@ -9,7 +9,11 @@
 #import "MKBProperty.h"
 #import "InvocationHandlers/MKBInvocationHandlerChain.h"
 #import "InvocationHandlers/NSInvocation+MKBErrorObjectType.h"
+#if MKB_SWIFTPM
+@import Mockingbird;
+#else
 #import <Mockingbird/Mockingbird-Swift.h>
+#endif
 
 @interface MKBConcreteMock ()
 @property (nonatomic, strong, readwrite) MKBInvocationHandlerChain *invocationHandlerChain;
