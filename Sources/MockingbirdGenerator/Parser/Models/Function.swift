@@ -137,6 +137,7 @@ struct Function: CustomStringConvertible, CustomDebugStringConvertible, Serializ
   let parameters: [Parameter]
   let returnType: DeclaredType
   let isThrowing: Bool
+  let attributes: Attributes
   
   var description: String {
     let throwing = isThrowing ? "throws " : ""
@@ -153,7 +154,30 @@ struct Function: CustomStringConvertible, CustomDebugStringConvertible, Serializ
   
   func serialize(with request: SerializationRequest) -> String {
     let throwing = isThrowing ? "throws " : ""
-    return "(\(parameters.map({ $0.serialize(with: request) }).joined(separator: ", "))) \(throwing)-> \(returnType.serialize(with: request))"
+    let attributes: String
+
+    if self.attributes.isEmpty {
+      attributes = ""
+    } else {
+      var components: [String] = []
+
+      if self.attributes.contains(.escaping) {
+        components.append("@escaping")
+      }
+
+      // Closures can be both @escaping and @autoclosure so always check both.
+      if self.attributes.contains(.autoclosure) {
+        components.append("@autoclosure")
+      } else if self.attributes.contains(.inout) {
+        components.append("inout")
+      }
+
+      attributes = components.joined(separator: " ") + " "
+    }
+
+    let parameters = self.parameters.map({ $0.serialize(with: request) }).joined(separator: ", ")
+
+    return "\(attributes)(\(parameters)) \(throwing)-> \(returnType.serialize(with: request))"
   }
   
   init?(from serialized: Substring) {
@@ -162,6 +186,26 @@ struct Function: CustomStringConvertible, CustomDebugStringConvertible, Serializ
       let parametersEndIndex = serialized[serialized.index(after: parametersStartIndex)...]
         .firstIndex(of: ")", excluding: .allGroups)
       else { return nil }
+
+    let attributesString = serialized[..<parametersStartIndex]
+
+    self.attributes = attributesString
+      .components(separatedBy: .whitespacesAndNewlines)
+      .filter { !$0.isEmpty }
+      .reduce(Attributes.init(), { attributes, component in
+        switch component {
+        case "@autoclosure":
+          return attributes.union(.autoclosure)
+        case "@escaping":
+          return attributes.union(.escaping)
+        case "inout":
+          return attributes.union(.inout)
+        default:
+          logWarning("Ignoring unknown parameter attribute \(String(component).singleQuoted) in function type declaration \(String(serialized).singleQuoted)")
+          return attributes
+        }
+      })
+
     self.parameters = serialized[serialized.index(after: parametersStartIndex)..<parametersEndIndex]
       .components(separatedBy: ",", excluding: .allGroups)
       .filter({ !$0.isEmpty })

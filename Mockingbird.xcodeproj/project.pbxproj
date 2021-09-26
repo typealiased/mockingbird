@@ -134,6 +134,8 @@
 		28DAD96E251BDD66001A0B3F /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DAD96D251BDD66001A0B3F /* Project.swift */; };
 		28DDDFC126B8571D002556C7 /* DynamicCast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DDDFC026B8571D002556C7 /* DynamicCast.swift */; };
 		8356225C26A94CBE005CD5C5 /* TargetDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */; };
+		BEF1BBBD2700073C009E25E6 /* ClosureAttributesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF1BBBC2700073C009E25E6 /* ClosureAttributesTests.swift */; };
+		BEF1BBBF270007C6009E25E6 /* ClosureAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF1BBBE270007C6009E25E6 /* ClosureAttributes.swift */; };
 		D314ED7F24CE1C10000CC23D /* GenericsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314ED7E24CE1C10000CC23D /* GenericsTests.swift */; };
 		D3643B6C247B78A5002DF069 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B6B247B78A4002DF069 /* Function.swift */; };
 		D3643B72247C5107002DF069 /* String+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B71247C5107002DF069 /* String+Components.swift */; };
@@ -590,6 +592,8 @@
 		28DDDFC026B8571D002556C7 /* DynamicCast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCast.swift; sourceTree = "<group>"; };
 		8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetDescriptionTests.swift; sourceTree = "<group>"; };
 		942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
+		BEF1BBBC2700073C009E25E6 /* ClosureAttributesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureAttributesTests.swift; sourceTree = "<group>"; };
+		BEF1BBBE270007C6009E25E6 /* ClosureAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureAttributes.swift; sourceTree = "<group>"; };
 		D314ED7E24CE1C10000CC23D /* GenericsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericsTests.swift; sourceTree = "<group>"; };
 		D3643B6B247B78A4002DF069 /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
 		D3643B71247C5107002DF069 /* String+Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Components.swift"; sourceTree = "<group>"; };
@@ -1217,6 +1221,7 @@
 				OBJ_146 /* ClassInitializers.swift */,
 				OBJ_147 /* ClassOnlyProtocols.swift */,
 				OBJ_148 /* ClassScopedTypes.swift */,
+				BEF1BBBE270007C6009E25E6 /* ClosureAttributes.swift */,
 				OBJ_149 /* ClosureParameters.swift */,
 				OBJ_150 /* Collections.swift */,
 				OBJ_151 /* CompilationDirectives.swift */,
@@ -1421,6 +1426,7 @@
 				OBJ_252 /* ArgumentCaptorTests.swift */,
 				OBJ_253 /* ArgumentMatchingTests.swift */,
 				OBJ_254 /* AsyncVerificationTests.swift */,
+				BEF1BBBC2700073C009E25E6 /* ClosureAttributesTests.swift */,
 				OBJ_255 /* ClosureParameterTests.swift */,
 				D3E6F67324838182000D1971 /* ChainedStubbingTests.swift */,
 				OBJ_256 /* CollectionArgumentMatchingTests.swift */,
@@ -2102,6 +2108,7 @@
 				OBJ_1032 /* ExtensionsMockableTests.swift in Sources */,
 				OBJ_1033 /* ExtensionsStubbableTests.swift in Sources */,
 				OBJ_1034 /* ExternalModuleClassScopedTypesMockableTests.swift in Sources */,
+				BEF1BBBD2700073C009E25E6 /* ClosureAttributesTests.swift in Sources */,
 				OBJ_1035 /* ExternalModuleClassScopedTypesStubbableTests.swift in Sources */,
 				287C4F5426A36FFF00A7E0D9 /* DynamicSwiftTests.swift in Sources */,
 				OBJ_1036 /* ExternalModuleTypesMockableTests.swift in Sources */,
@@ -2187,6 +2194,7 @@
 				OBJ_1141 /* FakeableTypes.swift in Sources */,
 				OBJ_1142 /* Generics.swift in Sources */,
 				OBJ_1143 /* Grandparent.swift in Sources */,
+				BEF1BBBF270007C6009E25E6 /* ClosureAttributes.swift in Sources */,
 				OBJ_1144 /* GrandparentProtocol.swift in Sources */,
 				OBJ_1145 /* InheritedTypeQualification.swift in Sources */,
 				OBJ_1146 /* Initializers.swift in Sources */,
