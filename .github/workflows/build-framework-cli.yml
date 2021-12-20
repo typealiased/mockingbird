@@ -77,7 +77,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set Up Environment
-      run: sudo xcode-select -s /Applications/Xcode_13.2.app/Contents/Developer
+      run: sudo xcode-select -s /Applications/Xcode_13.app/Contents/Developer
     - name: Print Debug Info
       run: make print-debug-info
     - name: Set Up Project
