@@ -70,14 +70,14 @@ jobs:
     - name: Test All Thunks
       run: make clean-test
 
-  build-xcode-12:
-    name: Xcode 12 toolchain
+  build-xcode-13:
+    name: Xcode 13 toolchain
     runs-on: macOS-latest
 
     steps:
     - uses: actions/checkout@v2
     - name: Set Up Environment
-      run: sudo xcode-select -s /Applications/Xcode_12.app/Contents/Developer
+      run: sudo xcode-select -s /Applications/Xcode_13.2.app/Contents/Developer
     - name: Print Debug Info
       run: make print-debug-info
     - name: Set Up Project
