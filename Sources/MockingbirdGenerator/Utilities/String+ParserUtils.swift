@@ -35,6 +35,9 @@ public extension String {
   
   /// Escape the string for use in module names, replacing special characters and invalid prefixes.
   func escapingForModuleName() -> String {
+    guard rangeOfCharacter(from: .letters.inverted) != nil else {
+      return self
+    }
     let replaced = replacingOccurrences(of: "\\W", with: "_", options: .regularExpression)
     if String(replaced[startIndex]).range(of: "\\d", options: .regularExpression) != nil {
       return replaced.replacingCharacters(in: ...startIndex, with: "_")
