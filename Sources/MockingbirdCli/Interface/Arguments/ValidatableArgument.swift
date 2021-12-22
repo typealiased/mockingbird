@@ -13,19 +13,22 @@ protocol ValidatableArgument {
 }
 
 @discardableResult
-func validateRequiredArgument<T: ValidatableArgument>(_ argument: T?, name: String) throws -> T? {
-  guard argument != nil else {
+func validateRequiredArgument<T>(_ argument: T?, name: String) throws -> T {
+  guard let validatedArgument = try argument ??
+          validateOptionalArgument(argument, name: name) else {
     if argument is InferableArgument {
       throw ValidationError("Unable to infer a value for '\(name)'")
     } else {
       throw ValidationError("Missing required value for '\(name)'")
     }
   }
-  return try validateOptionalArgument(argument, name: name)
+  return validatedArgument
 }
 
 @discardableResult
-func validateOptionalArgument<T: ValidatableArgument>(_ argument: T?, name: String) throws -> T? {
-  try argument?.validate(name: name)
+func validateOptionalArgument<T>(_ argument: T?, name: String) throws -> T? {
+  if let validatableArgument = argument as? ValidatableArgument {
+    try validatableArgument.validate(name: name)
+  }
   return argument
 }

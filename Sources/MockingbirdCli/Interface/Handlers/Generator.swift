@@ -22,18 +22,30 @@ class Generator {
     let environmentTargetName: String?
     let outputPaths: [Path]?
     let supportPath: Path?
-    let header: [String]?
+    let header: [String]
     let compilationCondition: String?
     let pruningMethod: PruningMethod
-    let shouldImportModule: Bool
     let onlyMockProtocols: Bool
     let disableSwiftlint: Bool
     let disableCache: Bool
     let disableRelaxedLinking: Bool
   }
   
-  struct MalformedConfiguration: Error, CustomStringConvertible {
-    let description: String
+  enum Error: LocalizedError {
+    case mismatchedInputsAndOutputs(inputCount: Int, outputCount: Int)
+    case invalidOutputPath(path: Path)
+    case invalidInputTarget(name: String)
+    
+    var errorDescription: String? {
+      switch self {
+      case let .mismatchedInputsAndOutputs(inputCount, outputCount):
+        return "Mismatched number of input targets (\(inputCount)) and output file paths (\(outputCount))"
+      case let .invalidOutputPath(path):
+        return "Invalid output file path \(path)"
+      case let .invalidInputTarget(name):
+        return "The target '\(name)' does not exist in the project"
+      }
+    }
   }
   
   enum Constants {
@@ -136,9 +148,8 @@ class Generator {
   
   func generate() throws {
     guard config.outputPaths == nil || config.inputTargetNames.count == config.outputPaths?.count else {
-      throw MalformedConfiguration(
-        description: "Number of input targets does not match the number of output file paths"
-      )
+      throw Error.mismatchedInputsAndOutputs(inputCount: config.inputTargetNames.count,
+                                             outputCount: config.outputPaths?.count ?? 0)
     }
     
     if config.supportPath == nil {
@@ -196,9 +207,7 @@ class Generator {
     var pipelines = [Pipeline]()
     for (target, outputPath) in zip(targets, outputPaths) {
       guard !outputPath.isDirectory else {
-        throw MalformedConfiguration(
-          description: "Output file path points to a directory: \(outputPath)"
-        )
+        throw Error.invalidOutputPath(path: outputPath)
       }
       try pipelines.append(Pipeline(inputTarget: target,
                                     outputPath: outputPath,
@@ -286,9 +295,7 @@ class Generator {
     }
     
     guard let target = targets.first else {
-      throw MalformedConfiguration(
-        description: "Unable to find target named \(targetName.singleQuoted)"
-      )
+      throw Error.invalidInputTarget(name: targetName)
     }
     return target
   }

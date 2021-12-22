@@ -12,10 +12,14 @@ import PathKit
 
 /// Represents a CLI that can parse arguments and run the appropriate `Command`.
 struct Mockingbird: ParsableCommand {
-  @Flag(help: "Log all errors, warnings, and debug messages.")
+  @Flag(name: [.customLong("verbose"),
+               .customShort("v")],
+        help: "Log all errors, warnings, and debug messages.")
   var verbose = false
   
-  @Flag(help: "Only log error messages.")
+  @Flag(name: [.customLong("quiet"),
+               .customShort("q")],
+        help: "Only log error messages.")
   var quiet = false
   
   static var configuration = CommandConfiguration(

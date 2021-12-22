@@ -14,6 +14,7 @@ import XcodeProj
 struct Installer {
   struct Configuration {
     let projectPath: Path
+    let sourceProjectPath: Path
     let testTargetName: String
     let cliPath: Path
     let sourceRoot: Path
@@ -58,26 +59,23 @@ struct Installer {
   // MARK: - Install
   
   func install() throws {
-    let xcodeproj = try XcodeProj(path: config.projectPath)
+    let testProject = try XcodeProj(path: config.projectPath)
+    let sourceProject = try XcodeProj(path: config.sourceProjectPath)
     
-    guard let rootGroup = try xcodeproj.pbxproj.rootGroup() else {
-      throw Failure.invalidProjectConfiguration("Xcode project has no root group")
+    guard let rootGroup = try testProject.pbxproj.rootGroup() else {
+      throw Failure.invalidProjectConfiguration(
+        "Missing root group in Xcode project at \(config.projectPath.abbreviate())")
     }
     
     let testTarget = try findTarget(name: config.testTargetName,
-                                    project: xcodeproj,
+                                    project: testProject,
                                     testTarget: true)
     let sourceTargets = try config.sourceTargetNames.map({ targetName in
-      try findTarget(name: targetName, project: xcodeproj, testTarget: false)
+      try findTarget(name: targetName, project: sourceProject, testTarget: false)
     })
     
     if config.overwrite {
-      try uninstall(from: xcodeproj, target: testTarget, rootGroup: rootGroup)
-    } else if testTarget.buildPhases.contains(where: { buildPhase in
-      buildPhase.name() == Constants.buildPhaseName
-    }) {
-      throw Failure.invalidTargetConfiguration(
-        "Target \(singleQuoted: config.testTargetName) is already configured")
+      try uninstall(from: testProject, target: testTarget, rootGroup: rootGroup)
     }
     
     let sourceGroup = try createSourceGroup(name: Constants.sourceGroupName, rootGroup: rootGroup)
@@ -94,7 +92,7 @@ struct Installer {
         Generator.defaultOutputPath(for: .pbxTarget(sourceTarget),
                                     testTarget: .pbxTarget(testTarget),
                                     sourceRoot: config.sourceRoot,
-                                    environment: { xcodeproj.implicitBuildEnvironment })
+                                    environment: { testProject.implicitBuildEnvironment })
       })
     guard outputPaths.count == sourceTargets.count else {
       throw Failure.validationError(
@@ -104,17 +102,17 @@ struct Installer {
     // Add build phase to target and project.
     let buildPhase = createBuildPhase(outputPaths: outputPaths)
     testTarget.buildPhases.insert(buildPhase, at: buildPhaseIndex)
-    xcodeproj.pbxproj.add(object: buildPhase)
+    testProject.pbxproj.add(object: buildPhase)
     
     // Track the generated mock files.
     for outputPath in outputPaths {
       try addSourceFilePath(outputPath,
                             target: testTarget,
                             sourceGroup: sourceGroup,
-                            xcodeproj: xcodeproj)
+                            xcodeproj: testProject)
     }
     
-    try xcodeproj.writePBXProj(path: config.projectPath, outputSettings: PBXOutputSettings())
+    try testProject.writePBXProj(path: config.projectPath, outputSettings: PBXOutputSettings())
   }
   
   private func findTarget(name: String,
@@ -208,6 +206,13 @@ struct Installer {
         path.getRelativePath(to: config.sourceRoot, style: .make)
       }),
       shellScript: """
+      set -eu
+      
+      # Prevent Xcode 13 from running this script while indexing.
+      if [[ "${ACTION}" == "indexbuild" ]]; then
+        exit 0
+      fi
+      
       \(cliPath) generate \(options.joined(separator: " "))
       """,
       alwaysOutOfDate: true)

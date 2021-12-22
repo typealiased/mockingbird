@@ -20,13 +20,14 @@ enum AssetBundleType: String, ExpressibleByArgument, CustomStringConvertible {
     }
   }
   
-  func getURL(baseURL: String) -> URL? {
-    let fileName: String = {
-      switch self {
-      case .starterPack: return "MockingbirdSupport.zip"
-      }
-    }()
-    return URL(string: "\(baseURL)/\(mockingbirdVersion)/\(fileName)")
+  var fileName: String {
+    switch self {
+    case .starterPack: return "MockingbirdSupport.zip"
+    }
+  }
+  
+  func getURL(baseURL: URL) -> URL? {
+    return URL(string: "\(baseURL.absoluteString)/\(mockingbirdVersion)/\(fileName)")
   }
 }
 
@@ -34,13 +35,13 @@ struct Downloader {
   struct Configuration {
     let assetBundleType: AssetBundleType
     let outputPath: Path
-    let baseURL: String
+    let baseURL: URL
     let overwrite: Bool
     let urlSession: URLSession
     
     init(assetBundleType: AssetBundleType,
          outputPath: Path,
-         baseURL: String,
+         baseURL: URL,
          overwrite: Bool = false,
          urlSession: URLSession = URLSession(configuration: .ephemeral)) {
       self.assetBundleType = assetBundleType
@@ -51,15 +52,15 @@ struct Downloader {
     }
   }
   
-  enum Failure: LocalizedError {
-    case validationError(_ message: String)
-    case unableToDownload(_ message: String)
+  enum Error: LocalizedError {
+    case validationFailed(_ message: String)
+    case downloadFailed(_ message: String)
     case corruptBundle(_ message: String)
     
     var errorDescription: String? {
       switch self {
-      case .validationError(let message),
-           .unableToDownload(let message),
+      case .validationFailed(let message),
+           .downloadFailed(let message),
            .corruptBundle(let message):
         return message
       }
@@ -83,12 +84,12 @@ struct Downloader {
   
   func download() throws {
     guard let downloadURL = config.assetBundleType.getURL(baseURL: config.baseURL) else {
-      throw Failure.validationError("Invalid base URL \(config.baseURL)")
+      throw Error.validationFailed("Invalid base URL \(config.baseURL)")
     }
     switch downloadAssetBundle(at: downloadURL) {
     case .success(let fileURL):
       guard let archive = Archive(url: fileURL, accessMode: .read) else {
-        throw Failure.corruptBundle("Downloaded asset bundle is corrupt")
+        throw Error.corruptBundle("Downloaded asset bundle is corrupt")
       }
       try extractAssetBundle(archive, to: config.outputPath)
     case .failure(let error):
@@ -96,16 +97,16 @@ struct Downloader {
     }
   }
   
-  private func downloadAssetBundle(at url: URL) -> Result<URL, Failure> {
+  private func downloadAssetBundle(at url: URL) -> Result<URL, Error> {
     let semaphore = DispatchSemaphore(value: 0)
-    var result: Result<URL, Failure>?
+    var result: Result<URL, Error>?
     config.urlSession.downloadTask(with: url) { (url, _, error) in
       if let fileURL = url {
         result = .success(fileURL)
       } else if let error = error {
-        result = .failure(Failure.unableToDownload(error.localizedDescription))
+        result = .failure(.downloadFailed(error.localizedDescription))
       } else {
-        result = .failure(Failure.unableToDownload("Missing path to downloaded asset bundle"))
+        result = .failure(.downloadFailed("Missing path to downloaded asset bundle"))
       }
       semaphore.signal()
     }.resume()
@@ -121,11 +122,11 @@ struct Downloader {
         let firstComponent = entryPath.components.first,
         !Constants.excludedAssetRootDirectories.contains(firstComponent)
       else {
-        log("Skipping excluded asset bundle entry based on root directory at \(entryPath)")
+        log("Skipping asset bundle entry due to excluded root directory at \(entryPath)")
         continue
       }
       guard !Constants.excludedAssetFileNames.contains(entryPath.lastComponent) else {
-        log("Skipping excluded asset bundle entry based on file name at \(entryPath)")
+        log("Skipping asset bundle entry due to excluded file name at \(entryPath)")
         continue
       }
       

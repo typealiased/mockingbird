@@ -19,7 +19,7 @@ extension SupportingSourcesPath: InferableArgument {
       return nil
     }
     log("Using inferred support path at \(defaultSupportPath.absolute())")
-    self.init(argument: defaultSupportPath.absolute().string)
+    self.init(path: defaultSupportPath)
   }
   
   static func genDefaultPath(workingPath: Path) -> Path {

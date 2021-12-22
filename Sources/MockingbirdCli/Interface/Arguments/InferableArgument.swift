@@ -24,11 +24,10 @@ protocol InferableArgument {
   init?(context: ArgumentContext) throws
 }
 
-func inferArgument<T: InferableArgument>(_ argument: inout T?,
+func inferArgument<T: InferableArgument>(_ argument: T?,
                                          in context: ArgumentContext = .shared) throws -> T? {
   guard argument == nil else {
     return argument
   }
-  argument = try T(context: context)
-  return argument
+  return try T(context: context)
 }

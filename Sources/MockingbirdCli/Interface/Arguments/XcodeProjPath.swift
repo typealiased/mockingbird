@@ -12,6 +12,8 @@ import MockingbirdGenerator
 
 struct XcodeProjPath: ExpressibleByArgument {
   var path: Path
+  var defaultValueDescription: String { path.abbreviate().string }
+  static var defaultCompletionKind: CompletionKind = .file(extensions: ["xcodeproj"])
   
   init?(argument: String) {
     let path = Path(argument)
@@ -26,8 +28,6 @@ struct XcodeProjPath: ExpressibleByArgument {
       self.path = path
     }
   }
-  
-  static var defaultCompletionKind: CompletionKind = .file(extensions: ["xcodeproj"])
 }
 
 extension XcodeProjPath: Encodable {
@@ -43,7 +43,7 @@ extension XcodeProjPath: InferableArgument {
       return
     }
     
-    let containedXcodeProjects = try context.workingPath.findContainedXcodeProjects()
+    let containedXcodeProjects = try context.workingPath.findContainedXcodeProjects().sorted()
     if let firstXcodeProject = containedXcodeProjects.first {
       if containedXcodeProjects.count > 1 {
         logWarning("Found multiple Xcode projects in \(context.workingPath.absolute())")

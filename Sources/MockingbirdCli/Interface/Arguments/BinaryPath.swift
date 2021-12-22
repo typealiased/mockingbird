@@ -12,12 +12,12 @@ import PathKit
 
 struct BinaryPath: ExpressibleByArgument {
   var path: Path
+  var defaultValueDescription: String { path.abbreviate().string }
+  static var defaultCompletionKind: CompletionKind = .file()
   
   init?(argument: String) {
     self.path = Path(argument)
   }
-  
-  static var defaultCompletionKind: CompletionKind = .file()
 }
 
 extension BinaryPath: Encodable {

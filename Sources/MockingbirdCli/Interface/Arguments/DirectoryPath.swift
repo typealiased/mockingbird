@@ -12,6 +12,8 @@ import MockingbirdGenerator
 
 class DirectoryPath: ExpressibleByArgument {
   var path: Path
+  var defaultValueDescription: String { path.abbreviate().string }
+  static var defaultCompletionKind: CompletionKind = .directory
   
   required init?(argument: String) {
     self.path = Path(argument)
@@ -21,8 +23,6 @@ class DirectoryPath: ExpressibleByArgument {
     guard let path = path else { return nil }
     self.path = path
   }
-  
-  static var defaultCompletionKind: CompletionKind = .directory
 }
 
 extension DirectoryPath: Encodable {

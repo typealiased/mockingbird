@@ -92,7 +92,6 @@ extension Generator {
           outputPath: outputPath,
           header: config.header,
           compilationCondition: config.compilationCondition,
-          shouldImportModule: config.shouldImportModule,
           onlyMockProtocols: config.onlyMockProtocols,
           disableSwiftlint: config.disableSwiftlint,
           pruningMethod: config.pruningMethod
