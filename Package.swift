@@ -64,7 +64,7 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_CLI"] == nil {
     // These dependencies must be kept in sync with the Xcode project.
     // TODO: Add a build rule to enforce consistency.
     dependencies: [
-      .package(url: "https://github.com/apple/swift-package-manager.git", .exact("0.4.0")),
+      .package(url: "https://github.com/apple/swift-argument-parser.git", .exact("0.4.4")),
       .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50400.0")),
       .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.0")),
       .package(url: "https://github.com/tuist/XcodeProj.git", .exact("7.14.0")),
@@ -74,7 +74,7 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_CLI"] == nil {
       .target(
         name: "MockingbirdCli",
         dependencies: [
-          .product(name: "SPMUtility", package: "swift-package-manager"),
+          .product(name: "ArgumentParser", package: "swift-argument-parser"),
           "MockingbirdGenerator",
           "XcodeProj",
           "ZIPFoundation",
