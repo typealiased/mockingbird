@@ -6,10 +6,7 @@
 //
 
 import Foundation
-import SPMUtility
 
-extension ArgumentParserError: LocalizedError {}
-extension ArgumentConversionError: LocalizedError {}
 extension Generator.MalformedConfiguration: LocalizedError {}
 
 public extension LocalizedError where Self: CustomStringConvertible {

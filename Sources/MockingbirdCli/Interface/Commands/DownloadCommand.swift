@@ -42,9 +42,7 @@ enum AssetBundleType: String, ArgumentKind, CaseIterable, CustomStringConvertibl
     switch self {
     case .starterPack: fileName = "MockingbirdSupport.zip"
     }
-    return Foundation.URL(string:
-      "\(baseUrl)/\(mockingbirdVersion)/\(fileName)"
-    )!
+    return Foundation.URL(string: "\(baseUrl)/\(mockingbirdVersion)/\(fileName)")!
   }
 }
 

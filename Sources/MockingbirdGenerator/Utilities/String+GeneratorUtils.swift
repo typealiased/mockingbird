@@ -22,7 +22,7 @@ extension String {
   }
 }
 
-extension String.StringInterpolation {
+public extension String.StringInterpolation {
   mutating func appendInterpolation(singleQuoted str: String) {
     appendLiteral("'\(str)'")
   }

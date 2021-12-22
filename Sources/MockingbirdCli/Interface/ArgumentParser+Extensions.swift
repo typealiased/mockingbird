@@ -8,7 +8,6 @@
 import Foundation
 import MockingbirdGenerator
 import PathKit
-import SPMUtility
 
 extension ArgumentParser {
   // MARK: Options

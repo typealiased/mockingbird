@@ -51,7 +51,7 @@ func loadDylibs(_ dylibs: [Resource],
   var globalLibraryDirectory = mockingbirdPath.parent()
   if mockingbirdPath.isSymlink {
     do {
-      globalLibraryDirectory = try mockingbirdPath.symlinkDestination().absolute().parent()
+      globalLibraryDirectory = try mockingbirdPath.followRecursively().absolute().parent()
     } catch {
       logWarning("Mockingbird was run from a symbolic link, but the symbolic link destination " +
                  "could not be resolved. Dylibs may be extracted to the wrong location.")

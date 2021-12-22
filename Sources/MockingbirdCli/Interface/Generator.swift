@@ -9,7 +9,6 @@
 import Foundation
 import MockingbirdGenerator
 import PathKit
-import SPMUtility
 import XcodeProj
 import os.log
 
