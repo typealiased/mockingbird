@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MockingbirdGenerator
 import PathKit
 
 loadDylibs([swiftSyntaxParserDylib]) {
@@ -18,7 +19,9 @@ loadDylibs([swiftSyntaxParserDylib]) {
     default:
       try command.run()
     }
+    flushLogs()
   } catch {
+    flushLogs()
     Mockingbird.exit(withError: error)
   }
 }

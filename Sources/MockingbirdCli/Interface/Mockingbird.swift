@@ -23,6 +23,7 @@ struct Mockingbird: ParsableCommand {
     subcommands: [
       Configure.self,
       Generate.self,
+      Version.self,
     ]
   )
   
