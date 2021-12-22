@@ -306,7 +306,6 @@
 		OBJ_1181 /* MockingbirdModuleTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdModuleTestsHost::Product" /* MockingbirdModuleTestsHost.framework */; };
 		OBJ_814 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* Generator.swift */; };
 		OBJ_815 /* Installer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Installer.swift */; };
-		OBJ_816 /* LocalizedError+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* LocalizedError+Extensions.swift */; };
 		OBJ_817 /* Mockingbird.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* Mockingbird.swift */; };
 		OBJ_818 /* LoadDylib.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* LoadDylib.swift */; };
 		OBJ_819 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* Resource.swift */; };
@@ -660,7 +659,6 @@
 		OBJ_106 /* SourceFileAuxiliaryParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFileAuxiliaryParser.swift; sourceTree = "<group>"; };
 		OBJ_108 /* CodableTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableTarget.swift; sourceTree = "<group>"; };
 		OBJ_109 /* PBXTarget+Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBXTarget+Target.swift"; sourceTree = "<group>"; };
-		OBJ_11 /* ArgumentParser+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArgumentParser+Extensions.swift"; sourceTree = "<group>"; };
 		OBJ_110 /* SubstitutionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstitutionStyle.swift; sourceTree = "<group>"; };
 		OBJ_111 /* Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
 		OBJ_113 /* InferType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferType.swift; sourceTree = "<group>"; };
@@ -677,7 +675,6 @@
 		OBJ_127 /* String+ParserUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ParserUtils.swift"; sourceTree = "<group>"; };
 		OBJ_128 /* String+SHA1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SHA1.swift"; sourceTree = "<group>"; };
 		OBJ_129 /* Synchronized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronized.swift; sourceTree = "<group>"; };
-		OBJ_13 /* DownloadCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadCommand.swift; sourceTree = "<group>"; };
 		OBJ_130 /* Timing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timing.swift; sourceTree = "<group>"; };
 		OBJ_131 /* Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
 		OBJ_133 /* ClassScopedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassScopedTypes.swift; sourceTree = "<group>"; };
@@ -686,7 +683,6 @@
 		OBJ_136 /* ObjectiveC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
 		OBJ_137 /* Typealiasing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiasing.swift; sourceTree = "<group>"; };
 		OBJ_139 /* Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
-		OBJ_14 /* GenerateCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateCommand.swift; sourceTree = "<group>"; };
 		OBJ_141 /* MockingbirdTestsHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MockingbirdTestsHost.h; sourceTree = "<group>"; };
 		OBJ_143 /* ArgumentMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentMatching.swift; sourceTree = "<group>"; };
 		OBJ_144 /* Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Child.swift; sourceTree = "<group>"; };
@@ -695,7 +691,6 @@
 		OBJ_147 /* ClassOnlyProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassOnlyProtocols.swift; sourceTree = "<group>"; };
 		OBJ_148 /* ClassScopedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassScopedTypes.swift; sourceTree = "<group>"; };
 		OBJ_149 /* ClosureParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureParameters.swift; sourceTree = "<group>"; };
-		OBJ_15 /* InstallCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallCommand.swift; sourceTree = "<group>"; };
 		OBJ_150 /* Collections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
 		OBJ_151 /* CompilationDirectives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationDirectives.swift; sourceTree = "<group>"; };
 		OBJ_152 /* CompoundTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundTypes.swift; sourceTree = "<group>"; };
@@ -706,7 +701,6 @@
 		OBJ_157 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		OBJ_158 /* ExternalModuleClassScopedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleClassScopedTypes.swift; sourceTree = "<group>"; };
 		OBJ_159 /* ExternalModuleImplicitlyImportedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleImplicitlyImportedTypes.swift; sourceTree = "<group>"; };
-		OBJ_16 /* TestbedCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestbedCommand.swift; sourceTree = "<group>"; };
 		OBJ_160 /* ExternalModuleTypealiasing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleTypealiasing.swift; sourceTree = "<group>"; };
 		OBJ_161 /* ExternalModuleTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalModuleTypes.swift; sourceTree = "<group>"; };
 		OBJ_162 /* FakeableTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeableTypes.swift; sourceTree = "<group>"; };
@@ -717,14 +711,12 @@
 		OBJ_167 /* Initializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initializers.swift; sourceTree = "<group>"; };
 		OBJ_168 /* InoutParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InoutParameters.swift; sourceTree = "<group>"; };
 		OBJ_169 /* KeywordArgumentNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordArgumentNames.swift; sourceTree = "<group>"; };
-		OBJ_17 /* UninstallCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UninstallCommand.swift; sourceTree = "<group>"; };
 		OBJ_171 /* !EscapedNegationPrefixIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "!EscapedNegationPrefixIgnoredSource.swift"; sourceTree = "<group>"; };
 		OBJ_172 /* #EscapedCommentPrefixIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "#EscapedCommentPrefixIgnoredSource.swift"; sourceTree = "<group>"; };
 		OBJ_173 /* CascadingExcludedSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CascadingExcludedSource.swift; sourceTree = "<group>"; };
 		OBJ_174 /* CascadingIncludedSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CascadingIncludedSource.swift; sourceTree = "<group>"; };
 		OBJ_175 /* RelativeTopLevelFileIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeTopLevelFileIgnoredSource.swift; sourceTree = "<group>"; };
 		OBJ_178 /* DirectoryIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryIgnoredSource.swift; sourceTree = "<group>"; };
-		OBJ_18 /* VersionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionCommand.swift; sourceTree = "<group>"; };
 		OBJ_180 /* EnclosingDirectoryOverriddenIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnclosingDirectoryOverriddenIgnoredSource.swift; sourceTree = "<group>"; };
 		OBJ_181 /* OverriddenIncludedSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverriddenIncludedSource.swift; sourceTree = "<group>"; };
 		OBJ_182 /* WildcardFileIgnoredSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildcardFileIgnoredSource.swift; sourceTree = "<group>"; };
@@ -751,7 +743,6 @@
 		OBJ_206 /* UndefinedArgumentLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndefinedArgumentLabels.swift; sourceTree = "<group>"; };
 		OBJ_207 /* Variables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Variables.swift; sourceTree = "<group>"; };
 		OBJ_208 /* VariadicParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariadicParameters.swift; sourceTree = "<group>"; };
-		OBJ_21 /* LocalizedError+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalizedError+Extensions.swift"; sourceTree = "<group>"; };
 		OBJ_212 /* ChildMockMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildMockMockableTests.swift; sourceTree = "<group>"; };
 		OBJ_213 /* ChildMockStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildMockStubbableTests.swift; sourceTree = "<group>"; };
 		OBJ_214 /* ChildProtocolMockMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildProtocolMockMockableTests.swift; sourceTree = "<group>"; };
@@ -1112,7 +1103,6 @@
 		D36A3DC924922D2D007964DC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_21 /* LocalizedError+Extensions.swift */,
 				D36A3DCA24922D6B007964DC /* Encodable+SHA1.swift */,
 				28C28E7826C0EE4D00729617 /* Path+Symlink.swift */,
 			);
@@ -1146,7 +1136,6 @@
 		OBJ_10 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_11 /* ArgumentParser+Extensions.swift */,
 				OBJ_12 /* Commands */,
 				OBJ_19 /* Generator.swift */,
 				D3B3D4C7248D652500FEEDA0 /* Generator+Pipeline.swift */,
@@ -1221,12 +1210,6 @@
 		OBJ_12 /* Commands */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_13 /* DownloadCommand.swift */,
-				OBJ_14 /* GenerateCommand.swift */,
-				OBJ_15 /* InstallCommand.swift */,
-				OBJ_16 /* TestbedCommand.swift */,
-				OBJ_17 /* UninstallCommand.swift */,
-				OBJ_18 /* VersionCommand.swift */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -2278,7 +2261,6 @@
 				OBJ_814 /* Generator.swift in Sources */,
 				OBJ_815 /* Installer.swift in Sources */,
 				28874F8F26BF7C3C00097529 /* XcodeProjPath.swift in Sources */,
-				OBJ_816 /* LocalizedError+Extensions.swift in Sources */,
 				28C28E7926C0EE4D00729617 /* Path+Symlink.swift in Sources */,
 				28C28E7726C0EA4E00729617 /* BinaryPath.swift in Sources */,
 				OBJ_817 /* Mockingbird.swift in Sources */,
