@@ -9,6 +9,7 @@ import Foundation
 import MockingbirdGenerator
 import PathKit
 
+/// Encodes key-value options, normalizing values based on the configuration.
 struct OptionArgumentEncoding: Encoder {
   class EncodedArguments {
     private(set) var arguments: [String] = []
@@ -154,7 +155,7 @@ struct OptionArgumentKeyedEncoding<Key: CodingKey>: KeyedEncodingContainerProtoc
   }
   
   mutating func nestedContainer<NestedKey: CodingKey>(
-  keyedBy keyType: NestedKey.Type,
+    keyedBy keyType: NestedKey.Type,
     forKey key: Key
   ) -> KeyedEncodingContainer<NestedKey> {
     var container = OptionArgumentKeyedEncoding<NestedKey>(arguments: data, pathConfig: pathConfig)

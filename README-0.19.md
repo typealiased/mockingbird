@@ -683,7 +683,7 @@ Generate mocks for a set of targets in a project.
 
 ### Install
 
-Configure a test target to use mocks.
+Configure a test target to generate mocks.
 
 `mockingbird install`
 

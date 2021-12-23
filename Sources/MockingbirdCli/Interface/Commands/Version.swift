@@ -12,6 +12,11 @@ import PathKit
 
 extension Mockingbird {
   struct Version: ParsableCommand {
+    static var configuration = CommandConfiguration(
+      abstract: "Show the version.",
+      shouldDisplay: false
+    )
+    
     func run() throws {
       logInfo("\(mockingbirdVersion)")
     }

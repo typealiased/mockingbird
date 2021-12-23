@@ -12,6 +12,13 @@ import MockingbirdGenerator
 
 extension Mockingbird {
   struct Configure: ParsableCommand {
+    static var configuration = CommandConfiguration(
+      abstract: "Configure a test target to generate mocks."
+    )
+    
+    /// Inherited from parent command.
+    @OptionGroup() var globalOptions: Options
+    
     @Argument(help: "The name of a test target to configure.")
     var testTarget: String
     

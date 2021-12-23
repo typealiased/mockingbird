@@ -133,24 +133,25 @@ struct Installer {
     }
     
     guard let target = targets.first else {
-      throw Failure.validationError("Cannot find \(singleQuoted: name) in Xcode project. " +
-                                      "Valid targets: \(separated: validTargets())")
+      let targetType = testTarget ? "test target" : "target"
+      throw Failure.validationError("Cannot find the \(targetType) \(singleQuoted: name). " +
+                                    "Valid targets: \(separated: validTargets())")
     }
     
     guard let productType = target.productType else {
       throw Failure.invalidTargetConfiguration(
         "Target \(singleQuoted: name) has an unknown product type. " +
-          "Valid targets: \(separated: validTargets())")
+        "Valid targets: \(separated: validTargets())")
     }
     
     if testTarget && !productType.isSwiftUnitTestBundle {
       throw Failure.validationError("Target \(singleQuoted: name) is not a unit test bundle. " +
-                                      "Valid targets: \(separated: validTargets())")
+                                    "Valid targets: \(separated: validTargets())")
     }
     
     if !testTarget && productType.isTestBundle {
       throw Failure.validationError("Target \(singleQuoted: name) cannot be a test bundle. " +
-                                      "Valid targets: \(separated: validTargets())")
+                                    "Valid targets: \(separated: validTargets())")
     }
     
     return target

@@ -12,6 +12,13 @@ import PathKit
 
 extension Mockingbird {
   struct Generate: ParsableCommand {
+    static var configuration = CommandConfiguration(
+      abstract: "Generate mocks for a set of targets in a project."
+    )
+    
+    /// Inherited from parent command.
+    @OptionGroup() var globalOptions: Options
+    
     @Option(name: [.customLong("targets"),
                    .customLong("target"),
                    .customShort("t")],
@@ -177,6 +184,7 @@ extension Mockingbird.Generate: EncodableArguments {
   // Keep in sync with the options and flags declared in `Mockingbird.Generate`.
   enum CodingKeys: String, CodingKey {
     // Options
+    case globalOptions
     case targets
     case project
     case srcroot
@@ -198,6 +206,7 @@ extension Mockingbird.Generate: EncodableArguments {
   func encode(to encoder: Encoder) throws {
     try encodeOptions(to: encoder)
     try encodeFlags(to: encoder)
+    try encodeOptionGroups(to: encoder)
   }
   
   func encodeOptions(to encoder: Encoder) throws {
@@ -220,5 +229,10 @@ extension Mockingbird.Generate: EncodableArguments {
     try container.encode(disableSwiftlint, forKey: .disableSwiftlint)
     try container.encode(disableCache, forKey: .disableCache)
     try container.encode(disableRelaxedLinking, forKey: .disableRelaxedLinking)
+  }
+  
+  func encodeOptionGroups(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(globalOptions, forKey: .globalOptions)
   }
 }

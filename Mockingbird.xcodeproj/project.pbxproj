@@ -151,6 +151,7 @@
 		28C2EE4E27728C4F003CD0D5 /* URLArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C2EE4D27728C4F003CD0D5 /* URLArgument.swift */; };
 		28C8E5DB26A64D6C00C68A1D /* MKBInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */; };
 		28C8E5DC26A64D6C00C68A1D /* MKBInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */; };
+		28D08CD62775338100AE7C39 /* OptionGroupArgumentEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D08CD52775338100AE7C39 /* OptionGroupArgumentEncoding.swift */; };
 		28DAD96E251BDD66001A0B3F /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DAD96D251BDD66001A0B3F /* Project.swift */; };
 		28DDDFC126B8571D002556C7 /* DynamicCast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DDDFC026B8571D002556C7 /* DynamicCast.swift */; };
 		8356225C26A94CBE005CD5C5 /* TargetDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */; };
@@ -617,6 +618,7 @@
 		28C2EE4D27728C4F003CD0D5 /* URLArgument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLArgument.swift; sourceTree = "<group>"; };
 		28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBInvocationHandler.h; sourceTree = "<group>"; };
 		28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBInvocationHandler.m; sourceTree = "<group>"; };
+		28D08CD52775338100AE7C39 /* OptionGroupArgumentEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGroupArgumentEncoding.swift; sourceTree = "<group>"; };
 		28DAD96D251BDD66001A0B3F /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		28DDDFC026B8571D002556C7 /* DynamicCast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCast.swift; sourceTree = "<group>"; };
 		8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetDescriptionTests.swift; sourceTree = "<group>"; };
@@ -1060,6 +1062,7 @@
 				28C2EE3C2771952B003CD0D5 /* ArgumentsEncoder.swift */,
 				28C2EE40277195F5003CD0D5 /* FlagArgumentEncoding.swift */,
 				28C2EE3E277195B0003CD0D5 /* OptionArgumentEncoding.swift */,
+				28D08CD52775338100AE7C39 /* OptionGroupArgumentEncoding.swift */,
 			);
 			path = Encoding;
 			sourceTree = "<group>";
@@ -2302,6 +2305,7 @@
 			files = (
 				28C28E7F26C1009900729617 /* Downloader.swift in Sources */,
 				28C2EE482771A45F003CD0D5 /* Version.swift in Sources */,
+				28D08CD62775338100AE7C39 /* OptionGroupArgumentEncoding.swift in Sources */,
 				286467DB26BFADE2005CDD67 /* DirectoryPath.swift in Sources */,
 				28C2EE41277195F5003CD0D5 /* FlagArgumentEncoding.swift in Sources */,
 				D36A3DCB24922D6B007964DC /* Encodable+SHA1.swift in Sources */,

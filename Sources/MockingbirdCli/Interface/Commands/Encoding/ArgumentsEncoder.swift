@@ -12,6 +12,7 @@ import PathKit
 protocol EncodableArguments: Encodable {
   func encodeOptions(to encoder: Encoder) throws
   func encodeFlags(to encoder: Encoder) throws
+  func encodeOptionGroups(to encoder: Encoder) throws
 }
 
 /// Encodes an object into an array of command line option and flag arguments.
@@ -34,7 +35,12 @@ class ArgumentsEncoder {
     let flagEncoding = FlagArgumentEncoding()
     try value.encodeFlags(to: flagEncoding)
     
-    return optionEncoding.data.arguments + flagEncoding.data.arguments
+    let optionGroupEncoding = OptionGroupArgumentEncoding()
+    try value.encodeOptionGroups(to: optionGroupEncoding)
+    
+    return optionEncoding.data.arguments
+      + flagEncoding.data.arguments
+      + optionGroupEncoding.data.arguments
   }
 }
 
