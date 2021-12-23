@@ -14,8 +14,9 @@
 - (instancetype)initWithMock:(id)mock object:(id)object
 {
   if (self) {
-    _mock = mock;
-    _boxedObject = object;
+    _mkb_mock = mock;
+    _mkb_boxedObject = object;
+    _mkb_isTypeFacade = YES;
   }
   return self;
 }
@@ -31,11 +32,32 @@
   return object;
 }
 
+- (bool)isTypeFacadeSelector:(SEL)aSelector {
+  return aSelector == @selector(mkb_boxedObject)
+      || aSelector == @selector(mkb_mock)
+      || aSelector == @selector(mkb_isTypeFacade);
+}
+
 #pragma mark - NSProxy
 
 - (void)forwardInvocation:(NSInvocation *)invocation
 {
-  [invocation setTarget:self.mock];
+  if ([self isTypeFacadeSelector:invocation.selector]) {
+    [invocation setTarget:self];
+  } else {
+    [invocation setTarget:self.mkb_mock];
+  }
+}
+
+- (BOOL)respondsToSelector:(SEL)aSelector
+{
+  return [(NSObject *)self.mkb_mock respondsToSelector:aSelector]
+    || [self isTypeFacadeSelector:aSelector];
+}
+
+- (NSMethodSignature *_Nullable)methodSignatureForSelector:(SEL)aSelector
+{
+  return [(NSObject *)self.mkb_mock methodSignatureForSelector:aSelector];
 }
 
 @end

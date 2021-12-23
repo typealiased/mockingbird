@@ -13,8 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MKBTypeFacade<T> : NSProxy
 
-@property (nonatomic, strong, readonly) id boxedObject;
-@property (nonatomic, strong, readonly) MKBConcreteMock *mock;
+@property (nonatomic, strong, readonly) id mkb_boxedObject;
+@property (nonatomic, strong, readonly) MKBConcreteMock *mkb_mock;
+
+/// Used to check whether an instance is a type facade.
+/// Callers can just check whether the instance responds to the `mkb_isTypeFacade` selector and
+/// ignore the value of this property.
+@property (nonatomic, assign, readonly) bool mkb_isTypeFacade;
 
 - (instancetype)initWithMock:(id)mock object:(id)object NS_DESIGNATED_INITIALIZER;
 - (T)fixupType;

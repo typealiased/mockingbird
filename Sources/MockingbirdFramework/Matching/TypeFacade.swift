@@ -13,7 +13,6 @@ import Foundation
 /// guarantees and autocompletion compared to conforming all parameter types to a common protocol.
 ///
 /// It goes without saying that this should probably never be done in production.
-
 private class ResolutionContext {
   enum Constants {
     static let contextKey = DispatchSpecificKey<ResolutionContext>()
@@ -105,6 +104,7 @@ func createTypeFacade<T: NSObjectProtocol>(_ value: Any?) -> T {
 func resolve<T>(_ parameter: () -> T) -> ArgumentMatcher {
   let resolvedValue = ResolutionContext().resolveTypeFacade(parameter)
   if let matcher = resolvedValue as? ArgumentMatcher { return matcher }
+  if let boxedValue = resolveObjCTypeFacade(resolvedValue) { return boxedValue }
   if let typedValue = resolvedValue as? T { return ArgumentMatcher(typedValue) }
   return ArgumentMatcher(resolvedValue)
 }
@@ -113,6 +113,7 @@ func resolve<T>(_ parameter: () -> T) -> ArgumentMatcher {
 func resolve<T: Equatable>(_ parameter: () -> T) -> ArgumentMatcher {
   let resolvedValue = ResolutionContext().resolveTypeFacade(parameter)
   if let matcher = resolvedValue as? ArgumentMatcher { return matcher }
+  if let boxedValue = resolveObjCTypeFacade(resolvedValue) { return boxedValue }
   if let typedValue = resolvedValue as? T { return ArgumentMatcher(typedValue) }
   return ArgumentMatcher(resolvedValue)
 }
@@ -120,4 +121,18 @@ func resolve<T: Equatable>(_ parameter: () -> T) -> ArgumentMatcher {
 /// Resolve `parameter` when the closure returns an `ArgumentMatcher`.
 func resolve(_ parameter: @escaping () -> ArgumentMatcher) -> ArgumentMatcher {
   return parameter()
+}
+
+/// Check whether this is an Objective-C type facade and try to unbox the value.
+private func resolveObjCTypeFacade(_ value: Any?) -> ArgumentMatcher? {
+  let objectValue = value as AnyObject
+  if objectValue.responds(to: Selector(("mkb_isTypeFacade"))) {
+    let boxedObject = objectValue.perform(Selector(("mkb_boxedObject")))?.takeRetainedValue()
+    if let matcher = boxedObject as? ArgumentMatcher {
+      return ArgumentMatcher(matcher)
+    } else {
+      return ArgumentMatcher(boxedObject)
+    }
+  }
+  return nil
 }

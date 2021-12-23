@@ -29,8 +29,8 @@
   [invocation getArgument:&value atIndex:index];
   
   // Unwrapped boxed types within type facades.
-  if ([[value class] isSubclassOfClass:[MKBTypeFacade class]]) {
-    value = ((MKBTypeFacade *)value).boxedObject;
+  if ([value respondsToSelector:@selector(mkb_isTypeFacade)]) {
+    value = ((MKBTypeFacade *)value).mkb_boxedObject;
   }
   
   // Use argument matchers directly.
