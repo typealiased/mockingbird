@@ -154,6 +154,7 @@
 		28C8E5DB26A64D6C00C68A1D /* MKBInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */; };
 		28C8E5DC26A64D6C00C68A1D /* MKBInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */; };
 		28D08CD62775338100AE7C39 /* OptionGroupArgumentEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D08CD52775338100AE7C39 /* OptionGroupArgumentEncoding.swift */; };
+		28D08CCE2774247C00AE7C39 /* OptionalsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D08CCD2774247C00AE7C39 /* OptionalsTests.swift */; };
 		28DAD96E251BDD66001A0B3F /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DAD96D251BDD66001A0B3F /* Project.swift */; };
 		28DDDFC126B8571D002556C7 /* DynamicCast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DDDFC026B8571D002556C7 /* DynamicCast.swift */; };
 		8356225C26A94CBE005CD5C5 /* TargetDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */; };
@@ -623,6 +624,7 @@
 		28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBInvocationHandler.h; sourceTree = "<group>"; };
 		28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBInvocationHandler.m; sourceTree = "<group>"; };
 		28D08CD52775338100AE7C39 /* OptionGroupArgumentEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGroupArgumentEncoding.swift; sourceTree = "<group>"; };
+		28D08CCD2774247C00AE7C39 /* OptionalsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalsTests.swift; sourceTree = "<group>"; };
 		28DAD96D251BDD66001A0B3F /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		28DDDFC026B8571D002556C7 /* DynamicCast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCast.swift; sourceTree = "<group>"; };
 		8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetDescriptionTests.swift; sourceTree = "<group>"; };
@@ -1524,6 +1526,7 @@
 				OBJ_260 /* InitializerTests.swift */,
 				OBJ_261 /* LastSetValueStubTests.swift */,
 				28719AF426B23AB200C38C2C /* ObjectiveCTests.swift */,
+				28D08CCD2774247C00AE7C39 /* OptionalsTests.swift */,
 				OBJ_262 /* OrderedVerificationTests.swift */,
 				OBJ_263 /* OverloadedMethodTests.swift */,
 				28A1F3BF26ADA2A8002F282D /* PartialMockTests.swift */,
@@ -2179,6 +2182,7 @@
 				OBJ_1033 /* ExtensionsStubbableTests.swift in Sources */,
 				OBJ_1034 /* ExternalModuleClassScopedTypesMockableTests.swift in Sources */,
 				OBJ_1035 /* ExternalModuleClassScopedTypesStubbableTests.swift in Sources */,
+				28D08CCE2774247C00AE7C39 /* OptionalsTests.swift in Sources */,
 				287C4F5426A36FFF00A7E0D9 /* DynamicSwiftTests.swift in Sources */,
 				OBJ_1036 /* ExternalModuleTypesMockableTests.swift in Sources */,
 				OBJ_1037 /* ExternalModuleTypesStubbableTests.swift in Sources */,

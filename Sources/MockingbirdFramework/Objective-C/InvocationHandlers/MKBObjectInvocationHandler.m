@@ -47,6 +47,13 @@
 
 - (void)deserializeReturnValue:(id)returnValue forInvocation:(NSInvocation *)invocation
 {
+  // Handle nil values from Swift.
+  if ([returnValue isKindOfClass:[MKBNilValue class]]) {
+    id _Nullable nilReturnValue = nil;
+    [invocation setReturnValue:&nilReturnValue];
+    return;
+  }
+  
   [invocation setReturnValue:&returnValue];
 }
 
