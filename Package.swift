@@ -55,7 +55,7 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_CLI"] == nil {
   package = Package(
     name: "Mockingbird",
     platforms: [
-      .macOS(.v10_13),
+      .macOS(.v10_15),
     ],
     products: [
       .executable(name: "mockingbird", targets: ["MockingbirdCli"]),
