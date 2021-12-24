@@ -12,6 +12,7 @@ import os.log
 
 public struct GenerateFileConfig {
   let moduleName: String
+  let testTargetName: String?
   let outputPath: Path
   let header: [String]
   let compilationCondition: String?
@@ -20,6 +21,7 @@ public struct GenerateFileConfig {
   let pruningMethod: PruningMethod
   
   public init(moduleName: String,
+              testTargetName: String?,
               outputPath: Path,
               header: [String],
               compilationCondition: String?,
@@ -27,6 +29,7 @@ public struct GenerateFileConfig {
               disableSwiftlint: Bool,
               pruningMethod: PruningMethod) {
     self.moduleName = moduleName
+    self.testTargetName = testTargetName
     self.outputPath = outputPath
     self.header = header
     self.compilationCondition = compilationCondition
