@@ -83,7 +83,7 @@ class ThunkTemplate: Template {
                   unlabeledArguments: [
                     FunctionCallTemplate(
                       name: "mkbImpl",
-                      unlabeledArguments: unlabledArguments,
+                      unlabeledArguments: unlabledArguments.map({ $0 + " as Any?" }),
                       isThrowing: isThrowing).render()
                   ])) as \(returnType)
         """).render()

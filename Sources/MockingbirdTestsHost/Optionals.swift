@@ -30,8 +30,9 @@ protocol OptionalsProtocol {
   func methodWithMultiUnwrappedOptionalCompoundParameter(param: (Bool?, Int)???!)
   func methodWithMultiUnwrappedOptionalCompoundReturn() -> (Bool?, Int)???!
   
-  var optionalVariable: Bool? { get }
-  var optionalBridgedVariable: NSString? { get }
-  var unwrappedOptionalVariable: Bool! { get }
-  var multiUnwrappedOptionalVariable: Bool???! { get }
+  var optionalVariable: Bool? { get set }
+  var optionalBridgedVariable: NSString? { get set }
+  var unwrappedOptionalVariable: Bool! { get set }
+  var nestedOptionalVariable: Bool?? { get set }
+  var nestedUnwrappedOptionalVariable: Bool???! { get set }
 }
