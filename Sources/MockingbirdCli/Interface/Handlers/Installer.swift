@@ -209,20 +209,18 @@ struct Installer {
   }
   
   private func createBuildPhase(outputPaths: [Path]) -> PBXShellScriptBuildPhase {
-    let cliPath = config.cliPath.getRelativePath(to: config.sourceRoot,
-                                                 style: .bash,
-                                                 shouldNormalize: false)
+    let cliPath = config.cliPath.abbreviated(root: config.sourceRoot, variable: "SRCROOT")
     var options = config.generatorOptions
     // TODO: Remove this for generator v2. Only needed for backwards compatibility.
     if config.outputPaths.isEmpty {
       options += ["--outputs"] + outputPaths.map({ path in
-        path.getRelativePath(to: config.sourceRoot, style: .bash).doubleQuoted
+        path.abbreviated(root: config.sourceRoot, variable: "SRCROOT").doubleQuoted
       })
     }
     return PBXShellScriptBuildPhase(
       name: Constants.buildPhaseName,
       outputPaths: outputPaths.map({ path in
-        path.getRelativePath(to: config.sourceRoot, style: .make)
+        path.abbreviated(root: config.sourceRoot, variable: "SRCROOT", style: .make)
       }),
       shellScript: """
       set -eu
@@ -279,18 +277,5 @@ struct Installer {
         return generatedFilePaths.contains(fullPath.string)
       })
     }
-  }
-}
-
-extension Path {
-  func getRelativePath(to sourceRoot: Path,
-                       style: SubstitutionStyle,
-                       shouldNormalize: Bool = true) -> String {
-    let sourceRootPath = sourceRoot.absolute().string
-    let absolutePath = (shouldNormalize ? absolute() : abbreviate()).string
-    guard absolutePath.hasPrefix(sourceRootPath) else {
-      return absolutePath
-    }
-    return style.wrap("SRCROOT") + absolutePath.dropFirst(sourceRootPath.count)
   }
 }

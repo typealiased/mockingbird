@@ -51,9 +51,9 @@ struct OptionArgumentEncoding: Encoder {
     guard let config = encoder.userInfo[Self.pathConfigUserInfoKey] as? PathConfiguration else {
       return try container.encode(path.abbreviated())
     }
-    let relativePath = path.abbreviated()
-      .replacingOccurrences(of: config.sourceRoot.abbreviated(),
-                            with: config.substitutionStyle.wrap("SRCROOT"))
+    let relativePath = path.abbreviated(root: config.sourceRoot,
+                                        variable: "SRCROOT",
+                                        style: config.substitutionStyle)
     try container.encode(relativePath)
   }
   

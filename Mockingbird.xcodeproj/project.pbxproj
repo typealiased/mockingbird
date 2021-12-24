@@ -28,6 +28,7 @@
 		284C3B4026AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284C3B3F26AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift */; };
 		284C3B4326AACD5700F076E2 /* BlockTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284C3B4226AACD5700F076E2 /* BlockTemplate.swift */; };
 		284C3B4826AAD05C00F076E2 /* GenericStaticMockContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284C3B4726AAD05C00F076E2 /* GenericStaticMockContext.swift */; };
+		2852643F2775882B000298B3 /* SwiftFilePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852643E2775882B000298B3 /* SwiftFilePath.swift */; };
 		28571A7C26A6548B0063AB83 /* MKBObjectInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571A7A26A6548B0063AB83 /* MKBObjectInvocationHandler.h */; };
 		28571A7D26A6548B0063AB83 /* MKBObjectInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571A7B26A6548B0063AB83 /* MKBObjectInvocationHandler.m */; };
 		28571A8026A65A490063AB83 /* MKBComparator.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571A7E26A65A490063AB83 /* MKBComparator.h */; };
@@ -136,7 +137,6 @@
 		28A1F3C026ADA2A8002F282D /* PartialMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3BF26ADA2A8002F282D /* PartialMockTests.swift */; };
 		28A1F3C226ADC9DA002F282D /* PropertyProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3C126ADC9DA002F282D /* PropertyProviders.swift */; };
 		28A1F3C426ADD57C002F282D /* MinimalTestTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3C326ADD57C002F282D /* MinimalTestTypes.swift */; };
-		28B127E326C6663E00BC8B85 /* SourceRootPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B127E226C6663E00BC8B85 /* SourceRootPath.swift */; };
 		28B127E526C667C600BC8B85 /* TestBundleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B127E426C667C600BC8B85 /* TestBundleName.swift */; };
 		28B4F6E226B3C9C7005C0049 /* ObjCTypeEncodings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4F6E126B3C9C7005C0049 /* ObjCTypeEncodings.swift */; };
 		28C28E7726C0EA4E00729617 /* BinaryPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C28E7626C0EA4E00729617 /* BinaryPath.swift */; };
@@ -502,6 +502,7 @@
 		284C3B3F26AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominalTypeDefinitionTemplate.swift; sourceTree = "<group>"; };
 		284C3B4226AACD5700F076E2 /* BlockTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTemplate.swift; sourceTree = "<group>"; };
 		284C3B4726AAD05C00F076E2 /* GenericStaticMockContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericStaticMockContext.swift; sourceTree = "<group>"; };
+		2852643E2775882B000298B3 /* SwiftFilePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftFilePath.swift; sourceTree = "<group>"; };
 		28571A7A26A6548B0063AB83 /* MKBObjectInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBObjectInvocationHandler.h; sourceTree = "<group>"; };
 		28571A7B26A6548B0063AB83 /* MKBObjectInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBObjectInvocationHandler.m; sourceTree = "<group>"; };
 		28571A7E26A65A490063AB83 /* MKBComparator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBComparator.h; sourceTree = "<group>"; };
@@ -604,7 +605,6 @@
 		28A1F3BF26ADA2A8002F282D /* PartialMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialMockTests.swift; sourceTree = "<group>"; };
 		28A1F3C126ADC9DA002F282D /* PropertyProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyProviders.swift; sourceTree = "<group>"; };
 		28A1F3C326ADD57C002F282D /* MinimalTestTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimalTestTypes.swift; sourceTree = "<group>"; };
-		28B127E226C6663E00BC8B85 /* SourceRootPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceRootPath.swift; sourceTree = "<group>"; };
 		28B127E426C667C600BC8B85 /* TestBundleName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBundleName.swift; sourceTree = "<group>"; };
 		28B4F6E126B3C9C7005C0049 /* ObjCTypeEncodings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjCTypeEncodings.swift; sourceTree = "<group>"; };
 		28C28E7626C0EA4E00729617 /* BinaryPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryPath.swift; sourceTree = "<group>"; };
@@ -1076,8 +1076,8 @@
 				286467DA26BFADE2005CDD67 /* DirectoryPath.swift */,
 				28C2EE492771AA41003CD0D5 /* ExtendedGeneratorTypes.swift */,
 				28874F9226BF828800097529 /* InferableArgument.swift */,
-				28B127E226C6663E00BC8B85 /* SourceRootPath.swift */,
 				286467DC26BFB087005CDD67 /* SupportingSourcesPath.swift */,
+				2852643E2775882B000298B3 /* SwiftFilePath.swift */,
 				28B127E426C667C600BC8B85 /* TestBundleName.swift */,
 				28C2EE4D27728C4F003CD0D5 /* URLArgument.swift */,
 				28874F9026BF7FA400097529 /* ValidatableArgument.swift */,
@@ -2314,6 +2314,7 @@
 				D36A3DCB24922D6B007964DC /* Encodable+SHA1.swift in Sources */,
 				28C28E7D26C0FF4800729617 /* Generate.swift in Sources */,
 				D3DC37952492140D001E02A5 /* Generator+PruningPipeline.swift in Sources */,
+				2852643F2775882B000298B3 /* SwiftFilePath.swift in Sources */,
 				28C28E7B26C0FB2700729617 /* TimeUnit.swift in Sources */,
 				28C2EE4A2771AA41003CD0D5 /* ExtendedGeneratorTypes.swift in Sources */,
 				OBJ_814 /* Generator.swift in Sources */,
@@ -2324,7 +2325,6 @@
 				OBJ_817 /* Mockingbird.swift in Sources */,
 				OBJ_818 /* LoadDylib.swift in Sources */,
 				OBJ_819 /* Resource.swift in Sources */,
-				28B127E326C6663E00BC8B85 /* SourceRootPath.swift in Sources */,
 				OBJ_820 /* SwiftSyntaxParserDylib.generated.swift in Sources */,
 				286467DD26BFB087005CDD67 /* SupportingSourcesPath.swift in Sources */,
 				28C2EE3D2771952B003CD0D5 /* ArgumentsEncoder.swift in Sources */,

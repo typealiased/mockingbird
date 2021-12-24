@@ -75,9 +75,11 @@ extension Mockingbird {
       let generateCommand: Generate
       do {
         // Common options that should be forwarded to the generate command.
-        let forwardedOptions = [
-          "--project", sourceProject.string,
-        ]
+        var forwardedOptions: [String] = []
+        // Unnecessarily specifying the project path makes it brittle to refactoring.
+        if sourceProject != validProject.path {
+          forwardedOptions.append(contentsOf: ["--project", sourceProject.string])
+        }
         generateCommand = try Generate.parse(generatorOptions + forwardedOptions)
       } catch {
         // Need to rethrow `CommandError` objects thrown when manually parsing.

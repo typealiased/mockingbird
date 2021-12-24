@@ -38,9 +38,8 @@ extension Mockingbird {
                    .customLong("output"),
                    .customShort("o")],
             parsing: .upToNextOption,
-            help: "List of mock output file paths for each target.",
-            transform: Path.init(stringLiteral:))
-    var outputs: [Path] = [] // TODO: This will be optional in generator v2
+            help: "List of mock output file paths for each target.")
+    var outputs: [SwiftFilePath] = [] // TODO: This will be optional in generator v2
     
     @Option(help: "The directory containing supporting source files.")
     var support: DirectoryPath?
@@ -134,7 +133,7 @@ extension Mockingbird {
         targets: targets,
         project: validProject.path,
         srcroot: validSrcroot.path,
-        outputs: outputs,
+        outputs: outputs.map({ $0.path }),
         support: validSupportPath,
         testbundle: validTestBundle?.name,
         header: header,
