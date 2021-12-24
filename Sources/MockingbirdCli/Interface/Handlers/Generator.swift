@@ -110,7 +110,7 @@ class Generator {
   func getProjectHash(_ projectPath: Path) -> String? {
     if let projectHash = projectHash { return projectHash }
     let filePath = projectPath.extension == "xcodeproj"
-      ? projectPath.glob("*.pbxproj").first
+      ? projectPath.glob("*.pbxproj").sorted().first
       : projectPath
     let projectHash = try? filePath?.read().generateSha1Hash()
     self.projectHash = projectHash
@@ -135,13 +135,15 @@ class Generator {
   func getCachedTestTarget(targetName: String) -> TargetType? {
     guard config.pruningMethod != .disable,
       let cacheDirectory = testTargetCacheDirectory,
-      let projectHash = getProjectHash(config.projectPath),
+      let testProjectPath = config.environmentProjectFilePath,
+      let testSourceRoot = config.environmentSourceRoot,
+      let projectHash = getProjectHash(testProjectPath),
       let cachedTarget = findCachedTestTarget(for: targetName,
                                               projectHash: projectHash,
                                               cliVersion: cliVersion,
                                               configHash: configHash,
                                               cacheDirectory: cacheDirectory,
-                                              sourceRoot: config.sourceRoot)
+                                              sourceRoot: testSourceRoot)
       else { return nil }
     return .testTarget(cachedTarget)
   }
