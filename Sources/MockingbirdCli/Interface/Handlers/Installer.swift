@@ -60,7 +60,10 @@ struct Installer {
   
   func install() throws {
     let testProject = try XcodeProj(path: config.projectPath)
-    let sourceProject = try XcodeProj(path: config.sourceProjectPath)
+    let sourceProject: XcodeProj = try {
+      guard config.sourceProjectPath != config.projectPath else { return testProject }
+      return try XcodeProj(path: config.sourceProjectPath)
+    }()
     
     guard let rootGroup = try testProject.pbxproj.rootGroup() else {
       throw Failure.invalidProjectConfiguration(
@@ -182,10 +185,22 @@ struct Installer {
       return
     }
     
-    let fileReference = try sourceGroup.addFile(at: outputPath,
-                                                sourceRoot: config.sourceRoot,
-                                                override: true,
-                                                validatePresence: false)
+    let fileReference: PBXFileReference = try {
+      // Need to check if the file already exists, or XcodeProj will throw an invalidGroupPath error
+      // when re-running the installer.
+      if let existingReference = sourceGroup.file(named: outputPath.lastComponent),
+         (try? existingReference.fullPath(sourceRoot: config.sourceRoot)) == outputPath {
+        log("Using existing output mock file reference at \(outputPath)")
+        return existingReference
+      }
+      
+      log("Creating a new output mock file reference at \(outputPath)")
+      return try sourceGroup.addFile(at: outputPath,
+                                     sourceRoot: config.sourceRoot,
+                                     override: false,
+                                     validatePresence: false)
+    }()
+
     _ = try target.sourcesBuildPhase()?.add(file: fileReference)
     xcodeproj.pbxproj.add(object: fileReference)
   }
