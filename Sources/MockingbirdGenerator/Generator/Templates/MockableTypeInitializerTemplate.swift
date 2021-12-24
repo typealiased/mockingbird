@@ -80,37 +80,46 @@ struct MockableTypeInitializerTemplate: Template {
       supportingTypeDeclaration = ""
     }
     
-    let returnType: String
-    let returnStatement: String
-    let returnTypeDescription: String
-    
     let mockTypeScopedName =
       mockableTypeTemplate.createScopedName(with: containingTypeNames,
                                             genericTypeContext: genericTypeContext,
                                             suffix: "Mock")
     
+    let leadingTrivia: String
+    let attributes: [String]
+    let returnType: String
+    let returnStatement: String
+    
     if !mockableTypeTemplate.isAvailable {
       // Unavailable mocks do not generate real initializers.
+      leadingTrivia = ""
+      attributes = [mockableTypeTemplate.unavailableMockAttribute]
       returnType = mockTypeScopedName
       returnStatement = "fatalError()"
-      returnTypeDescription = mockableTypeTemplate.unavailableMockAttribute
     } else if !mockableTypeTemplate.shouldGenerateDefaultInitializer {
       // Requires an initializer proxy to create the partial class mock.
+      leadingTrivia = "/// Returns an abstract mock which should be initialized using `mock(\(mockableTypeTemplate.mockableType.name).self).initialize(…)`."
+      attributes = []
       returnType = "\(mockTypeScopedName).InitializerProxy.Type"
       returnStatement = "return \(mockTypeScopedName).InitializerProxy.self"
-      returnTypeDescription = "/// Returns an abstract mock which should be initialized using `mock(\(mockableTypeTemplate.mockableType.name).self).initialize(…)`."
     } else {
       // Does not require an initializer proxy.
+      leadingTrivia = "/// Returns a concrete mock of `\(mockableTypeTemplate.mockableType.name)`."
+      attributes = []
       returnType = mockTypeScopedName
       returnStatement = "return \(mockTypeScopedName)(sourceLocation: Mockingbird.SourceLocation(file, line))"
-      returnTypeDescription = "/// Returns a concrete mock of `\(mockableTypeTemplate.mockableType.name)`."
     }
     
-    return """
-    \(supportingTypeDeclaration)\(returnTypeDescription)
-    public func mock\(genericTypeConstraints)(_ type: \(metatype), file: StaticString = #file, line: UInt = #line) -> \(returnType) {
-      \(returnStatement)
-    }
+    let functionDeclaration = """
+    public func mock\(genericTypeConstraints)(_ type: \(metatype), file: StaticString = #file, line: UInt = #line) -> \(returnType)
     """
+    
+    return String(lines: [
+      supportingTypeDeclaration,
+      FunctionDefinitionTemplate(leadingTrivia: leadingTrivia,
+                                 attributes: attributes,
+                                 declaration: functionDeclaration,
+                                 body: returnStatement).render(),
+    ])
   }
 }

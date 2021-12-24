@@ -8,6 +8,7 @@
 import Foundation
 import MockingbirdModuleTestsHost
 import MockingbirdShadowedTestsHost
+import CoreBluetooth
 
 protocol LocalPublicExternalProtocol: PublicExternalProtocol {}
 
@@ -15,6 +16,14 @@ protocol LocalPublicExternalProtocol: PublicExternalProtocol {}
 class SubclassingExternalClass: ExternalClass {
   var internalVariable = true
   func internalMethod() {}
+}
+
+/// Cannot be mocked because of external inheritence without corresponding supporting source files.
+class SubclassingMissingExternalClass: CBCentralManager {}
+class SubclassingMissingExternalClassGeneric<T>: CBCentralManager {}
+protocol InheritingMissingExternalClass: CBCentralManager {}
+protocol InheritingMissingExternalClassGeneric: CBCentralManager {
+  associatedtype T
 }
 
 // MARK: - Inherited external initializer
