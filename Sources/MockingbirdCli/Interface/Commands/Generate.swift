@@ -32,7 +32,7 @@ extension Mockingbird {
     var project: XcodeProjPath?
     
     @Option(help: "The directory containing your project’s source files.")
-    var srcroot: SourceRootPath?
+    var srcroot: DirectoryPath? // TODO: This will be deprecated in generator v2
     
     @Option(name: [.customLong("outputs"),
                    .customLong("output"),
@@ -106,13 +106,10 @@ extension Mockingbird {
     nonmutating func infer() throws -> Arguments {
       let validProject = try validateRequiredArgument(inferArgument(project), name: "project")
       let validSrcroot = try validateRequiredArgument(
-        inferArgument(srcroot) ?? DirectoryPath(path: validProject.path.parent()),
-        name: "srcroot"
-      )
+        srcroot ?? DirectoryPath(path: validProject.path.parent()), name: "srcroot")
       let validTestBundle = try validateOptionalArgument(inferArgument(testbundle),
                                                          name: "testbundle")
-      
-      let supportPath = support?.path ?? (validSrcroot.path + "MockingbirdSupport")
+      let validSupportPath = support?.path ?? (validSrcroot.path + "MockingbirdSupport")
       
       let environment = ArgumentContext.shared.environment
       let environmentProjectFilePath: Path? = {
@@ -138,7 +135,7 @@ extension Mockingbird {
         project: validProject.path,
         srcroot: validSrcroot.path,
         outputs: outputs,
-        support: supportPath,
+        support: validSupportPath,
         testbundle: validTestBundle?.name,
         header: header,
         condition: condition,

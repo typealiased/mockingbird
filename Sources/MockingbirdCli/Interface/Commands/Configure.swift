@@ -115,7 +115,7 @@ extension Mockingbird {
       // Ensure consistency between the build phase and the generator frontend while also performing
       // path transformations to make the installation relative to the project source root.
       let encoder = ArgumentsEncoder()
-      encoder.sourceRoot = parsedGenerateArguments.srcroot
+      encoder.sourceRoot = parsedConfigureArguments.project.parent()
       
       let installerConfig = Installer.Configuration(
         projectPath: parsedConfigureArguments.project,

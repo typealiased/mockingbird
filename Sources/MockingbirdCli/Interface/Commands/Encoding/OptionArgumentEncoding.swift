@@ -49,10 +49,10 @@ struct OptionArgumentEncoding: Encoder {
   static func encode(_ path: Path, with encoder: Encoder) throws {
     var container = encoder.singleValueContainer()
     guard let config = encoder.userInfo[Self.pathConfigUserInfoKey] as? PathConfiguration else {
-      return try container.encode(path.absolute().string)
+      return try container.encode(path.abbreviated())
     }
-    let relativePath = path.absolute().string
-      .replacingOccurrences(of: config.sourceRoot.absolute().string,
+    let relativePath = path.abbreviated()
+      .replacingOccurrences(of: config.sourceRoot.abbreviated(),
                             with: config.substitutionStyle.wrap("SRCROOT"))
     try container.encode(relativePath)
   }
