@@ -46,8 +46,8 @@ EXAMPLE_COCOAPODS_XCODEBUILD_FLAGS=$(EXAMPLE_XCODEBUILD_FLAGS) \
 	-workspace 'Examples/CocoaPodsExample/CocoaPodsExample.xcworkspace' \
 	-scheme 'CocoaPodsExample'
 EXAMPLE_CARTHAGE_XCODEBUILD_FLAGS=$(EXAMPLE_XCODEBUILD_FLAGS) \
-	-project 'Examples/iOSMockingbirdExample-Carthage/iOSMockingbirdExample-Carthage.xcodeproj' \
-	-scheme 'iOSMockingbirdExample-Carthage'
+	-project 'Examples/CarthageExample/CarthageExample.xcodeproj' \
+	-scheme 'CarthageExample'
 EXAMPLE_SPM_XCODEBUILD_FLAGS=$(EXAMPLE_XCODEBUILD_FLAGS) \
 	-project 'Examples/iOSMockingbirdExample-SPM/iOSMockingbirdExample-SPM.xcodeproj' \
 	-scheme 'iOSMockingbirdExample-SPM'
@@ -206,8 +206,8 @@ setup-cocoapods:
 
 .PHONY: setup-carthage
 setup-carthage:
-	(cd Examples/iOSMockingbirdExample-Carthage && carthage update --use-xcframeworks --platform ios)
-	(cd Examples/iOSMockingbirdExample-Carthage/Carthage/Checkouts/mockingbird && make install-prebuilt)
+	(cd Examples/CarthageExample && carthage update --use-xcframeworks --platform ios)
+	(cd Examples/CarthageExample/Carthage/Checkouts/mockingbird && make install-prebuilt)
 
 .PHONY: setup-spm
 setup-spm:
@@ -246,10 +246,10 @@ clean-cocoapods: clean-temporary-files
 
 .PHONY: clean-carthage
 clean-carthage: clean-temporary-files
-	rm -f Examples/iOSMockingbirdExample-Carthage/MockingbirdMocks/*.generated.swift
-	rm -f Examples/iOSMockingbirdExample-Carthage/iOSMockingbirdExample-Carthage.xcodeproj/MockingbirdCache/*.lock
-	rm -f Examples/iOSMockingbirdExample-Carthage/Cartfile.resolved
-	rm -rf Examples/iOSMockingbirdExample-Carthage/Carthage
+	rm -f Examples/CarthageExample/MockingbirdMocks/*.generated.swift
+	rm -f Examples/CarthageExample/CarthageExample.xcodeproj/MockingbirdCache/*.lock
+	rm -f Examples/CarthageExample/Cartfile.resolved
+	rm -rf Examples/CarthageExample/Carthage
 	$(BUILD_TOOL) $(EXAMPLE_CARTHAGE_XCODEBUILD_FLAGS) clean
 
 .PHONY: clean-spm
