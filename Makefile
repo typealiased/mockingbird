@@ -43,8 +43,8 @@ XCODEBUILD_FRAMEWORK_FLAGS=$(XCODEBUILD_FLAGS) \
 # Example project build configuration.
 EXAMPLE_XCODEBUILD_FLAGS=DSTROOT=$(TEMPORARY_FOLDER)
 EXAMPLE_COCOAPODS_XCODEBUILD_FLAGS=$(EXAMPLE_XCODEBUILD_FLAGS) \
-	-workspace 'Examples/iOSMockingbirdExample-CocoaPods/iOSMockingbirdExample-CocoaPods.xcworkspace' \
-	-scheme 'iOSMockingbirdExample-CocoaPods'
+	-workspace 'Examples/CocoaPodsExample/CocoaPodsExample.xcworkspace' \
+	-scheme 'CocoaPodsExample'
 EXAMPLE_CARTHAGE_XCODEBUILD_FLAGS=$(EXAMPLE_XCODEBUILD_FLAGS) \
 	-project 'Examples/iOSMockingbirdExample-Carthage/iOSMockingbirdExample-Carthage.xcodeproj' \
 	-scheme 'iOSMockingbirdExample-Carthage'
@@ -201,8 +201,8 @@ build: build-cli build-framework
 
 .PHONY: setup-cocoapods
 setup-cocoapods:
-	(cd Examples/iOSMockingbirdExample-CocoaPods && pod install)
-	(cd Examples/iOSMockingbirdExample-CocoaPods/Pods/MockingbirdFramework && make install-prebuilt)
+	(cd Examples/CocoaPodsExample && pod install)
+	(cd Examples/CocoaPodsExample/Pods/MockingbirdFramework && make install-prebuilt)
 
 .PHONY: setup-carthage
 setup-carthage:
@@ -238,10 +238,10 @@ test-examples: test-cocoapods test-carthage test-spm
 
 .PHONY: clean-cocoapods
 clean-cocoapods: clean-temporary-files
-	rm -f Examples/iOSMockingbirdExample-CocoaPods/MockingbirdMocks/*.generated.swift
-	rm -f Examples/iOSMockingbirdExample-CocoaPods/iOSMockingbirdExample-CocoaPods.xcodeproj/MockingbirdCache/*.lock
-	rm -f Examples/iOSMockingbirdExample-CocoaPods/Podfile.lock
-	rm -rf Examples/iOSMockingbirdExample-CocoaPods/Pods
+	rm -f Examples/CocoaPodsExample/MockingbirdMocks/*.generated.swift
+	rm -f Examples/CocoaPodsExample/CocoaPodsExample.xcodeproj/MockingbirdCache/*.lock
+	rm -f Examples/CocoaPodsExample/Podfile.lock
+	rm -rf Examples/CocoaPodsExample/Pods
 	$(BUILD_TOOL) $(EXAMPLE_COCOAPODS_XCODEBUILD_FLAGS) clean
 
 .PHONY: clean-carthage
