@@ -1,0 +1,67 @@
+{
+  "dependencies" : [
+    {
+      "identity" : "mockingbird",
+      "name" : "Mockingbird",
+      "requirement" : {
+        "range" : [
+          {
+            "lower_bound" : "0.18.0",
+            "upper_bound" : "0.19.0"
+          }
+        ]
+      },
+      "url" : "https://github.com/birdrides/mockingbird.git"
+    }
+  ],
+  "name" : "SPMPackageExample",
+  "path" : "/Users/typealias/mockingbird/Examples/SPMPackageExample",
+  "platforms" : [
+
+  ],
+  "products" : [
+    {
+      "name" : "SPMPackageExample",
+      "targets" : [
+        "SPMPackageExample"
+      ],
+      "type" : {
+        "library" : [
+          "automatic"
+        ]
+      }
+    }
+  ],
+  "targets" : [
+    {
+      "c99name" : "SPMPackageExampleTests",
+      "module_type" : "SwiftTarget",
+      "name" : "SPMPackageExampleTests",
+      "path" : "Tests/SPMPackageExampleTests",
+      "sources" : [
+        "PersonTests.swift"
+      ],
+      "target_dependencies" : [
+        "SPMPackageExample"
+      ],
+      "type" : "test"
+    },
+    {
+      "c99name" : "SPMPackageExample",
+      "module_type" : "SwiftTarget",
+      "name" : "SPMPackageExample",
+      "path" : "Sources/SPMPackageExample",
+      "product_memberships" : [
+        "SPMPackageExample"
+      ],
+      "sources" : [
+        "Bird.swift",
+        "Fruit.swift",
+        "Person.swift",
+        "SPMPackageExample.swift"
+      ],
+      "type" : "library"
+    }
+  ],
+  "tools_version" : "5.5"
+}
