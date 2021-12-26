@@ -199,38 +199,33 @@ build-framework: build-framework-macos build-framework-iphonesimulator build-fra
 .PHONY: build
 build: build-cli build-framework
 
-.PHONY: setup-cocoapods
-setup-cocoapods:
-	(cd Examples/CocoaPodsExample && pod install)
-	(cd Examples/CocoaPodsExample/Pods/MockingbirdFramework && make install-prebuilt)
-
-.PHONY: setup-carthage
-setup-carthage:
-	(cd Examples/CarthageExample && carthage update --use-xcframeworks --platform ios)
-	(cd Examples/CarthageExample/Carthage/Checkouts/mockingbird && make install-prebuilt)
-
-.PHONY: setup-spm
-setup-spm:
-	(cd Examples/SPMProjectExample && xcodebuild -resolvePackageDependencies)
-	$(eval DERIVED_DATA = $(shell xcodebuild -project Examples/SPMProjectExample/SPMProjectExample.xcodeproj -showBuildSettings | pcregrep -o1 'OBJROOT = (/.*)/Build'))
-	(cd $(DERIVED_DATA)/SourcePackages/checkouts/mockingbird && make install-prebuilt)
+.PHONY: setup-simulator
+setup-simulator:
+	$(eval DEVICE_UUID = $(shell xcrun simctl create "$(SIMULATOR_NAME)" "$(SIMULATOR_DEVICE_TYPE)" "$(SIMULATOR_RUNTIME)"))
 
 .PHONY: test-cocoapods
-test-cocoapods: setup-cocoapods
-	$(eval DEVICE_UUID = $(shell xcrun simctl create "$(SIMULATOR_NAME)" "$(SIMULATOR_DEVICE_TYPE)" "$(SIMULATOR_RUNTIME)"))
+test-cocoapods: setup-simulator
+	(cd Examples/CocoaPodsExample && pod install)
 	$(BUILD_TOOL) -destination "platform=iOS Simulator,id=$(DEVICE_UUID)" $(EXAMPLE_COCOAPODS_XCODEBUILD_FLAGS) test
 	xcrun simctl delete "$(DEVICE_UUID)"
 
 .PHONY: test-carthage
-test-carthage: setup-carthage
-	$(eval DEVICE_UUID = $(shell xcrun simctl create "$(SIMULATOR_NAME)" "$(SIMULATOR_DEVICE_TYPE)" "$(SIMULATOR_RUNTIME)"))
+test-carthage: setup-simulator
+	(cd Examples/CarthageExample && xcodebuild -resolvePackageDependencies)
+	(cd Examples/CarthageExample && carthage update --use-xcframeworks --platform ios --verbose)
 	$(BUILD_TOOL) -destination "platform=iOS Simulator,id=$(DEVICE_UUID)" $(EXAMPLE_CARTHAGE_XCODEBUILD_FLAGS) test
 	xcrun simctl delete "$(DEVICE_UUID)"
 
 .PHONY: test-spm
-test-spm: setup-spm
-	$(eval DEVICE_UUID = $(shell xcrun simctl create "$(SIMULATOR_NAME)" "$(SIMULATOR_DEVICE_TYPE)" "$(SIMULATOR_RUNTIME)"))
+test-spm: setup-simulator
+	(cd Examples/SPMProjectExample && xcodebuild -resolvePackageDependencies)
 	$(BUILD_TOOL) -destination "platform=iOS Simulator,id=$(DEVICE_UUID)" $(EXAMPLE_SPM_XCODEBUILD_FLAGS) test
+	xcrun simctl delete "$(DEVICE_UUID)"
+
+.PHONY: test-spm-package
+test-spm-package: setup-simulator
+	(cd Examples/SPMPackageExample && swift package update && ./gen-mocks.sh)
+	(cd Examples/SPMPackageExample && swift test)
 	xcrun simctl delete "$(DEVICE_UUID)"
 
 .PHONY: test-examples
@@ -248,7 +243,6 @@ clean-cocoapods: clean-temporary-files
 clean-carthage: clean-temporary-files
 	rm -f Examples/CarthageExample/MockingbirdMocks/*.generated.swift
 	rm -f Examples/CarthageExample/CarthageExample.xcodeproj/MockingbirdCache/*.lock
-	rm -f Examples/CarthageExample/Cartfile.resolved
 	rm -rf Examples/CarthageExample/Carthage
 	$(BUILD_TOOL) $(EXAMPLE_CARTHAGE_XCODEBUILD_FLAGS) clean
 
@@ -258,6 +252,12 @@ clean-spm: clean-temporary-files
 	rm -f Examples/SPMProjectExample/SPMProjectExample.xcodeproj/MockingbirdCache/*.lock
 	rm -f Examples/SPMProjectExample/SPMProjectExample.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
 	$(BUILD_TOOL) $(EXAMPLE_SPM_XCODEBUILD_FLAGS) clean
+
+.PHONY: clean-spm-package
+clean-spm-package: clean-temporary-files
+	rm -f Examples/SPMPackageExample/Tests/SPMPackageExampleTests/MockingbirdMocks/*.generated.swift
+	rm -f Examples/SPMPackageExample/.mockingbird/*.lock
+	swift package clean
 
 .PHONY: clean-test-examples
 clean-test-examples: clean-cocoapods clean-carthage clean-spm test-examples

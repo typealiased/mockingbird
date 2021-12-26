@@ -24,7 +24,7 @@ jobs:
     - name: Test
       env:
         GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-      run: 'PATH=$(pwd)/bin:$PATH make test-cocoapods'
+      run: make test-cocoapods
     - name: Cached Test
       env:
         GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
@@ -41,7 +41,7 @@ jobs:
     - name: Test
       env:
         GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-      run: 'PATH=$(pwd)/bin:$PATH make test-carthage'
+      run: make test-carthage
     - name: Cached Test
       env:
         GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
@@ -58,8 +58,25 @@ jobs:
     - name: Test
       env:
         GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-      run: 'PATH=$(pwd)/bin:$PATH make test-spm'
+      run: make test-spm
     - name: Cached Test
       env:
         GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
       run: make test-spm
+
+  test-spm-package:
+    name: Check SPM package integration
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Clean
+      run: make clean-spm-package
+    - name: Test
+      env:
+        GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+      run: make test-spm-package
+    - name: Cached Test
+      env:
+        GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+      run: make test-spm-package
