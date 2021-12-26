@@ -39,7 +39,7 @@ Mockingbird powers thousands of tests at companies including [Meta](https://meta
 
 ### An Example
 
-Let’s say we wanted to test a `Person` class with a function that takes in a `Bird`.
+Let’s say we wanted to test a `Person` class with a method that takes a `Bird`.
 
 ```swift
 protocol Bird {
@@ -107,7 +107,7 @@ Have questions or issues?
 
 - [Join the Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw)
 - [Search the troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
-- [Check out the CocoaPods example project](/Examples/iOSMockingbirdExample-CocoaPods)
+- [Check out the CocoaPods example project](/Examples/CocoaPodsExample)
 
 </details>
 
@@ -142,11 +142,11 @@ Have questions or issues?
 
 - [Join the Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw)
 - [Search the troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
-- [Check out the Carthage example project](/Examples/iOSMockingbirdExample-Carthage)
+- [Check out the Carthage example project](/Examples/CarthageExample)
 
 </details>
 
-<details><summary><b>Swift Package Manager - Xcode Project</b></summary>
+<details><summary><b>SwiftPM - Xcode Project</b></summary>
 
 Add the framework to your project:
 
@@ -178,11 +178,11 @@ Have questions or issues?
 
 - [Join the Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw)
 - [Search the troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
-- [Check out the Swift Package Manager example project](/Examples/iOSMockingbirdExample-SPM)
+- [Check out the SwiftPM Xcode project example](/Examples/SPMProjectExample)
 
 </details>
 
-<details><summary><b>Swift Package Manager - Package Manifest</b></summary>
+<details><summary><b>SwiftPM - Package Manifest</b></summary>
 
 Add Mockingbird as a package and test target dependency in your `Package.swift` manifest.
 
@@ -250,7 +250,7 @@ Have questions or issues?
 
 - [Join the Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw)
 - [Search the troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
-- [Check out the Swift Package Manager example project](/Examples/iOSMockingbirdExample-SPM)
+- [Check out the SwiftPM package manifest example](/Examples/SPMPackageExample)
 
 </details>
 
@@ -809,11 +809,12 @@ Mockingbird uses the GitHub release artifacts located at `https://github.com/bir
 
 ## Additional Resources
 
-### Examples and Tutorials
+### Example Projects
 
-- [CocoaPods tutorial + example project](/Examples/iOSMockingbirdExample-CocoaPods)
-- [Carthage tutorial + example project](/Examples/iOSMockingbirdExample-Carthage)
-- [Swift Package Manager tutorial + example project](/Examples/iOSMockingbirdExample-SPM)
+- [CocoaPods](/Examples/CocoaPodsExample)
+- [Carthage](/Examples/CarthageExample)
+- [SwiftPM - Xcode Project](/Examples/SPMProjectExample)
+- [SwiftPM - Package Manifest](/Examples/SPMPackageExample)
 
 ### Help and Documentation
 
