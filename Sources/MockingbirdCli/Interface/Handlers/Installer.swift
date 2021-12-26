@@ -94,7 +94,7 @@ struct Installer {
       sourceTargets.map({ sourceTarget in
         Generator.defaultOutputPath(for: .pbxTarget(sourceTarget),
                                     testTarget: .pbxTarget(testTarget),
-                                    sourceRoot: config.sourceRoot,
+                                    outputDir: config.sourceRoot.mocksDirectory,
                                     environment: { testProject.implicitBuildEnvironment })
       })
     guard outputPaths.count == sourceTargets.count else {
@@ -103,7 +103,7 @@ struct Installer {
     }
     
     // Add build phase to target and project.
-    let buildPhase = createBuildPhase(outputPaths: outputPaths)
+    let buildPhase = try createBuildPhase(outputPaths: outputPaths)
     testTarget.buildPhases.insert(buildPhase, at: buildPhaseIndex)
     testProject.pbxproj.add(object: buildPhase)
     
@@ -116,6 +116,61 @@ struct Installer {
     }
     
     try testProject.writePBXProj(path: config.projectPath, outputSettings: PBXOutputSettings())
+  }
+  
+  /// Checks if a path is located in the same derived data directory as the test project. If so,
+  /// rewrites that path to use Bash substitution in the form `${DERIVED_DATA}/<subpath>`
+  private func rewriteDerivedDataPath(_ path: Path) throws -> String? {
+    // It's possible to use a custom derived data path (in addition to a custom build products
+    // location), but this is very uncommon so we won't try to handle it.
+    guard path.starts(with: Path("~/Library/Developer/Xcode/DerivedData/")) else {
+      return nil
+    }
+    log("Attempting to rewrite the derived data path \(path.abbreviate())")
+    
+    guard let derivedDataPath = try resolveDerivedDataPath()?.abbreviated() else {
+      return nil
+    }
+    
+    let pathString = path.abbreviated()
+    guard pathString.starts(with: derivedDataPath) else {
+      // Falls back to the abbreviated (home-relative) path, which is only portable between users on
+      // the same machine.
+      logWarning("The path \(pathString) is outside of the project’s derived data location ")
+      return nil
+    }
+    
+    return SubstitutionStyle.bash.wrap("DERIVED_DATA") + pathString.dropFirst(derivedDataPath.count)
+  }
+  
+  private func resolveDerivedDataPath() throws -> Path? {
+    let xcodebuild = Process()
+    xcodebuild.launchPath = "/usr/bin/env"
+    xcodebuild.arguments = ["xcodebuild", "-showBuildSettings"]
+    xcodebuild.currentDirectoryURL = config.projectPath.parent().url
+    xcodebuild.qualityOfService = .userInitiated
+    
+    let stdout = Pipe()
+    xcodebuild.standardOutput = stdout
+
+    try xcodebuild.run()
+    xcodebuild.waitUntilExit()
+    
+    let stdoutData = stdout.fileHandleForReading.readDataToEndOfFile()
+    guard let buildSettings = String(data: stdoutData, encoding: .utf8) else {
+      logWarning("Unable to read the build settings from xcodebuild")
+      return nil
+    }
+    
+    let components = buildSettings.components(matching: #"BUILD_ROOT = (.*)/Build"#)
+    guard let component = components.first, component.count == 2 else {
+      logWarning("Unable to parse the build settings from xcodebuild")
+      return nil
+    }
+    
+    let derivedData = Path(String(component[1]))
+    log("Resolved the derived data directory to \(derivedData.abbreviate())")
+    return derivedData
   }
   
   private func findTarget(name: String,
@@ -208,8 +263,27 @@ struct Installer {
     xcodeproj.pbxproj.add(object: fileReference)
   }
   
-  private func createBuildPhase(outputPaths: [Path]) -> PBXShellScriptBuildPhase {
-    let cliPath = config.cliPath.abbreviated(root: config.sourceRoot, variable: "SRCROOT")
+  private func createBuildPhase(outputPaths: [Path]) throws -> PBXShellScriptBuildPhase {
+    var scriptSections: [String] = [
+      "set -eu",
+      
+      """
+      # Prevent Xcode 13 from running this script while indexing.
+      [[ "${ACTION}" == "indexbuild" ]] && exit 0
+      """,
+    ]
+    
+    let cliPath: String
+    if let derivedDataCliPath = try rewriteDerivedDataPath(config.cliPath) {
+      cliPath = derivedDataCliPath
+      scriptSections.append(#"""
+      # Infer the derived data location from the build environment.
+      [[ -z "${DERIVED_DATA+x}" ]] && DERIVED_DATA="$(echo "${BUILD_ROOT}" | sed -n 's|\(.*\)/Build/.*|\1|p')"
+      """#)
+    } else {
+      cliPath = config.cliPath.abbreviated(root: config.sourceRoot, variable: "SRCROOT")
+    }
+    
     var options = config.generatorOptions
     // TODO: Remove this for generator v2. Only needed for backwards compatibility.
     if config.outputPaths.isEmpty {
@@ -217,21 +291,14 @@ struct Installer {
         path.abbreviated(root: config.sourceRoot, variable: "SRCROOT").doubleQuoted
       })
     }
+    scriptSections.append("\(doubleQuoted: cliPath) generate \(options.joined(separator: " "))")
+    
     return PBXShellScriptBuildPhase(
       name: Constants.buildPhaseName,
       outputPaths: outputPaths.map({ path in
         path.abbreviated(root: config.sourceRoot, variable: "SRCROOT", style: .make)
       }),
-      shellScript: """
-      set -eu
-      
-      # Prevent Xcode 13 from running this script while indexing.
-      if [[ "${ACTION}" == "indexbuild" ]]; then
-        exit 0
-      fi
-      
-      \(cliPath) generate \(options.joined(separator: " "))
-      """,
+      shellScript: scriptSections.joined(separator: "\n\n"),
       alwaysOutOfDate: true)
   }
   

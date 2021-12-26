@@ -20,7 +20,8 @@ class Generator {
     let environmentProjectFilePath: Path?
     let environmentSourceRoot: Path?
     let environmentTargetName: String?
-    let outputPaths: [Path]?
+    let outputPaths: [Path]
+    let outputDir: Path?
     let supportPath: Path?
     let header: [String]
     let compilationCondition: String?
@@ -149,9 +150,9 @@ class Generator {
   }
   
   func generate() throws {
-    guard config.outputPaths == nil || config.inputTargetNames.count == config.outputPaths?.count else {
+    if !config.outputPaths.isEmpty && config.inputTargetNames.count != config.outputPaths.count {
       throw Error.mismatchedInputsAndOutputs(inputCount: config.inputTargetNames.count,
-                                             outputCount: config.outputPaths?.count ?? 0)
+                                             outputCount: config.outputPaths.count)
     }
     
     if config.supportPath == nil {
@@ -185,12 +186,18 @@ class Generator {
     })
     
     // Resolve unspecified output paths to the default mock file output destination.
-    let outputPaths = try config.outputPaths ?? targets.map({ target throws -> Path in
-      try config.sourceRoot.mocksDirectory.mkpath()
-      return Generator.defaultOutputPath(for: target,
-                                         sourceRoot: config.sourceRoot,
-                                         environment: getBuildEnvironment)
-    })
+    let outputPaths: [Path] = try {
+      if !config.outputPaths.isEmpty {
+        return config.outputPaths
+      }
+      return try targets.map({ target throws -> Path in
+        let outputDir = config.outputDir ?? config.sourceRoot.mocksDirectory
+        try outputDir.mkpath()
+        return Generator.defaultOutputPath(for: target,
+                                           outputDir: outputDir,
+                                           environment: getBuildEnvironment)
+      })
+    }()
     
     let queue = OperationQueue.createForActiveProcessors()
     
@@ -263,7 +270,7 @@ class Generator {
   
   static func defaultOutputPath(for sourceTarget: TargetType,
                                 testTarget: TargetType? = nil,
-                                sourceRoot: Path,
+                                outputDir: Path,
                                 environment: () -> [String: Any]) -> Path {
     let moduleName = sourceTarget.resolveProductModuleName(environment: environment)
     
@@ -275,7 +282,7 @@ class Generator {
       prefix = "" // Probably installed on a source target instead of a test target.
     }
     
-    return sourceRoot.mocksDirectory + "\(prefix)\(moduleName)\(Constants.generatedFileNameSuffix)"
+    return outputDir + "\(prefix)\(moduleName)\(Constants.generatedFileNameSuffix)"
   }
   
   static func resolveTarget(targetName: String,

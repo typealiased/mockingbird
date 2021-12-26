@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		2803D96927781A4D00651C60 /* String+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2803D96827781A4D00651C60 /* String+Regex.swift */; };
 		281B6246251DC7220084EBED /* MockingbirdShadowedTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */; };
 		281B6286251DC7FC0084EBED /* ModuleNameShadowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B61F1251DBBDE0084EBED /* ModuleNameShadowing.swift */; };
 		281B62FF251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */; };
@@ -494,6 +495,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2803D96827781A4D00651C60 /* String+Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Regex.swift"; sourceTree = "<group>"; };
 		281B61F1251DBBDE0084EBED /* ModuleNameShadowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleNameShadowing.swift; sourceTree = "<group>"; };
 		281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MockingbirdShadowedTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		281B62CF251DCAB90084EBED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1166,6 +1168,7 @@
 				D36A3DCA24922D6B007964DC /* Encodable+SHA1.swift */,
 				2838FD2027756314007A1CB4 /* Path+Abbreviate.swift */,
 				28C28E7826C0EE4D00729617 /* Path+Symlink.swift */,
+				2803D96827781A4D00651C60 /* String+Regex.swift */,
 				28C28E7A26C0FB2700729617 /* TimeUnit.swift */,
 			);
 			path = Utils;
@@ -2109,7 +2112,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\n${BUILT_PRODUCTS_DIR}/MockingbirdCli generate \\\n  --targets 'MockingbirdTestsHost' 'MockingbirdShadowedTestsHost' \\\n  --outputs \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift\" \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdShadowedTestsHostMocks.generated.swift\" \\\n  --support \"${SRCROOT}/Sources/MockingbirdSupport\" \\\n  --diagnostics all \\\n  --disable-cache \\\n  --prune stub \\\n  --verbose\n";
+			shellScript = "set -eu\n\n# Prevent Xcode 13 from running this script while indexing.\n[[ \"${ACTION}\" == \"indexbuild\" ]] && exit 0\n\n\"${BUILT_PRODUCTS_DIR}/MockingbirdCli\" generate \\\n  --targets 'MockingbirdTestsHost' 'MockingbirdShadowedTestsHost' \\\n  --outputs \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift\" \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdShadowedTestsHostMocks.generated.swift\" \\\n  --support \"${SRCROOT}/Sources/MockingbirdSupport\" \\\n  --diagnostics all \\\n  --disable-cache \\\n  --prune stub \\\n  --verbose\n";
 		};
 		D372A59C2455878B0000E80A /* Generate Embedded Dylibs */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2316,6 +2319,7 @@
 				D3DC37952492140D001E02A5 /* Generator+PruningPipeline.swift in Sources */,
 				2852643F2775882B000298B3 /* SwiftFilePath.swift in Sources */,
 				28C28E7B26C0FB2700729617 /* TimeUnit.swift in Sources */,
+				2803D96927781A4D00651C60 /* String+Regex.swift in Sources */,
 				28C2EE4A2771AA41003CD0D5 /* ExtendedGeneratorTypes.swift in Sources */,
 				OBJ_814 /* Generator.swift in Sources */,
 				OBJ_815 /* Installer.swift in Sources */,
