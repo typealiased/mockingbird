@@ -49,8 +49,8 @@ EXAMPLE_CARTHAGE_XCODEBUILD_FLAGS=$(EXAMPLE_XCODEBUILD_FLAGS) \
 	-project 'Examples/CarthageExample/CarthageExample.xcodeproj' \
 	-scheme 'CarthageExample'
 EXAMPLE_SPM_XCODEBUILD_FLAGS=$(EXAMPLE_XCODEBUILD_FLAGS) \
-	-project 'Examples/iOSMockingbirdExample-SPM/iOSMockingbirdExample-SPM.xcodeproj' \
-	-scheme 'iOSMockingbirdExample-SPM'
+	-project 'Examples/SPMProjectExample/SPMProjectExample.xcodeproj' \
+	-scheme 'SPMProjectExample'
 
 PKG_BUNDLE_IDENTIFIER=co.bird.mockingbird
 CLI_DESIGNATED_REQUIREMENT=Codesigning/MockingbirdCli.dr
@@ -211,8 +211,8 @@ setup-carthage:
 
 .PHONY: setup-spm
 setup-spm:
-	(cd Examples/iOSMockingbirdExample-SPM && xcodebuild -resolvePackageDependencies)
-	$(eval DERIVED_DATA = $(shell xcodebuild -project Examples/iOSMockingbirdExample-SPM/iOSMockingbirdExample-SPM.xcodeproj -showBuildSettings | pcregrep -o1 'OBJROOT = (/.*)/Build'))
+	(cd Examples/SPMProjectExample && xcodebuild -resolvePackageDependencies)
+	$(eval DERIVED_DATA = $(shell xcodebuild -project Examples/SPMProjectExample/SPMProjectExample.xcodeproj -showBuildSettings | pcregrep -o1 'OBJROOT = (/.*)/Build'))
 	(cd $(DERIVED_DATA)/SourcePackages/checkouts/mockingbird && make install-prebuilt)
 
 .PHONY: test-cocoapods
@@ -254,9 +254,9 @@ clean-carthage: clean-temporary-files
 
 .PHONY: clean-spm
 clean-spm: clean-temporary-files
-	rm -f Examples/iOSMockingbirdExample-SPM/MockingbirdMocks/*.generated.swift
-	rm -f Examples/iOSMockingbirdExample-SPM/iOSMockingbirdExample-SPM.xcodeproj/MockingbirdCache/*.lock
-	rm -f Examples/iOSMockingbirdExample-SPM/iOSMockingbirdExample-SPM.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+	rm -f Examples/SPMProjectExample/MockingbirdMocks/*.generated.swift
+	rm -f Examples/SPMProjectExample/SPMProjectExample.xcodeproj/MockingbirdCache/*.lock
+	rm -f Examples/SPMProjectExample/SPMProjectExample.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
 	$(BUILD_TOOL) $(EXAMPLE_SPM_XCODEBUILD_FLAGS) clean
 
 .PHONY: clean-test-examples
