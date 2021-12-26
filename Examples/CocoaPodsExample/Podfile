@@ -1,3 +1,5 @@
+platform :ios, '15.0'
+
 target 'CocoaPodsExample' do
   use_frameworks!
   target 'CocoaPodsExampleTests' do
