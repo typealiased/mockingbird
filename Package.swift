@@ -8,6 +8,7 @@ import class Foundation.ProcessInfo
 enum BuildType: Int {
   case framework = 0
   case cli = 1
+  case automation = 2
   
   init(_ environment: [String: String]) {
     if let environmentBuildType = environment["MKB_BUILD_TYPE"],
@@ -118,4 +119,30 @@ case .cli:
       ),
     ]
   )
+  
+case .automation:
+  // MARK: Automation
+  package = Package(
+    name: "Mockingbird",
+    platforms: [
+      .macOS(.v10_15),
+    ],
+    products: [
+      .library(name: "MockingbirdAutomation", targets: ["MockingbirdAutomation"]),
+    ],
+    // These dependencies must be kept in sync with the Xcode project.
+    // TODO: Add a build rule to enforce consistency.
+    dependencies: [
+      .package(url: "https://github.com/kylef/PathKit.git", .exact("1.0.1")),
+    ],
+    targets: [
+      commonTarget,
+      .target(
+        name: "MockingbirdAutomation",
+        dependencies: ["MockingbirdCommon", "PathKit"],
+        path: "Sources/MockingbirdAutomation"
+      ),
+    ]
+  )
+  break
 }
