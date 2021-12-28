@@ -1,0 +1,11 @@
+#include "FrameworkBase.xcconfig"
+
+// Identifiers
+INFOPLIST_FILE = $(SRCROOT)/Sources/MockingbirdAutomation/Info.plist
+PRODUCT_MODULE_NAME = MockingbirdAutomation
+PRODUCT_NAME = MockingbirdAutomation
+TARGET_NAME = MockingbirdAutomation
+
+// Compatibility
+SUPPORTED_PLATFORMS = macosx
+MACOSX_DEPLOYMENT_TARGET = 10.15

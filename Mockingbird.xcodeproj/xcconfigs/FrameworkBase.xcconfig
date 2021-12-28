@@ -1,14 +1,6 @@
-// Identifiers
-INFOPLIST_FILE = $(SRCROOT)/Sources/MockingbirdFramework/Info.plist
-PRODUCT_BUNDLE_IDENTIFIER = co.bird.mockingbird
-PRODUCT_MODULE_NAME = Mockingbird
-PRODUCT_NAME = Mockingbird
-TARGET_NAME = Mockingbird
-
 // Build Flags
 ENABLE_BITCODE = NO
 ENABLE_TESTABILITY = YES
-BUILD_LIBRARY_FOR_DISTRIBUTION = YES
 DEFINES_MODULE = YES
 SKIP_INSTALL = YES
 
@@ -20,6 +12,5 @@ TVOS_DEPLOYMENT_TARGET = 9.0
 SWIFT_VERSION = 5.0
 
 // Linking
-OTHER_LDFLAGS = $(inherited) -framework XCTest
 LD_RUNPATH_SEARCH_PATHS = $(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx
 FRAMEWORK_SEARCH_PATHS = $(inherited) $(PLATFORM_DIR)/Developer/Library/Frameworks
