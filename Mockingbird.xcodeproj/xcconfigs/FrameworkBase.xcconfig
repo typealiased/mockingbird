@@ -5,10 +5,11 @@ DEFINES_MODULE = YES
 SKIP_INSTALL = YES
 
 // Compatibility
-SUPPORTED_PLATFORMS = macosx iphoneos iphonesimulator appletvos appletvsimulator
+SUPPORTED_PLATFORMS = macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator
 IPHONEOS_DEPLOYMENT_TARGET = 9.0
 MACOSX_DEPLOYMENT_TARGET = 10.10
 TVOS_DEPLOYMENT_TARGET = 9.0
+WATCHOS_DEPLOYMENT_TARGET = 7.4
 SWIFT_VERSION = 5.0
 
 // Linking

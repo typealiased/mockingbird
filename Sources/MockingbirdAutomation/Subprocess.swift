@@ -2,13 +2,19 @@ import Foundation
 import PathKit
 
 public struct Subprocess: CustomStringConvertible {
+  enum Error: LocalizedError {
+    case terminated(exitStatus: Int32)
+    var errorDescription: String? {
+      switch self {
+      case .terminated(let exitStatus): return "Subprocess exited with code \(exitStatus)"
+      }
+    }
+  }
   public let process: Process
   
   public let stdout = Pipe()
   public let stdin = Pipe()
   public let stderr = Pipe()
-  
-  public var exitStatus: Int32 { process.terminationStatus }
   
   public var workingDirectory: Path {
     Path(process.currentDirectoryURL?.path ?? FileManager.default.currentDirectoryPath)
@@ -20,11 +26,13 @@ public struct Subprocess: CustomStringConvertible {
   
   public init(_ command: String,
               _ arguments: [String] = [],
+              environment: [String: String] = ProcessInfo.processInfo.environment,
               workingDirectory: Path = Path.current) {
     let process = Process()
     process.launchPath = "/usr/bin/env"
     process.arguments = [command] + arguments
     process.currentDirectoryURL = workingDirectory.url
+    process.environment = environment
     process.qualityOfService = .userInitiated
     process.standardOutput = stdout
     process.standardInput = stdin
@@ -40,6 +48,9 @@ public struct Subprocess: CustomStringConvertible {
     try process.run()
     if !inBackground {
       process.waitUntilExit()
+      if process.terminationStatus != 0 {
+        throw Error.terminated(exitStatus: process.terminationStatus)
+      }
     }
     return self
   }

@@ -46,6 +46,7 @@ Carthage/Build
 Packages/
 .build/
 .swiftpm/
+/Package.resolved
 
 ## macOS
 .DS_Store

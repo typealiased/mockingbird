@@ -90,6 +90,7 @@
 		285C8E15277AD6C700DE525A /* CocoaPods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E14277AD6C700DE525A /* CocoaPods.swift */; };
 		285C8E17277AD76300DE525A /* SwiftPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E16277AD76300DE525A /* SwiftPackage.swift */; };
 		285C8E19277ADB6600DE525A /* ProcessInfo+ControlCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E18277ADB6600DE525A /* ProcessInfo+ControlCodes.swift */; };
+		285C8E85277C0A0B00DE525A /* FileManager+PosixPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E84277C0A0B00DE525A /* FileManager+PosixPermissions.swift */; };
 		286467DB26BFADE2005CDD67 /* DirectoryPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286467DA26BFADE2005CDD67 /* DirectoryPath.swift */; };
 		286467DD26BFB087005CDD67 /* SupportingSourcesPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286467DC26BFB087005CDD67 /* SupportingSourcesPath.swift */; };
 		28719AF026B21CB100C38C2C /* MKBProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 28719AEE26B21CB100C38C2C /* MKBProperty.h */; };
@@ -171,10 +172,10 @@
 		28C2EE4E27728C4F003CD0D5 /* URLArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C2EE4D27728C4F003CD0D5 /* URLArgument.swift */; };
 		28C8E5DB26A64D6C00C68A1D /* MKBInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */; };
 		28C8E5DC26A64D6C00C68A1D /* MKBInvocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */; };
-		28D08CD62775338100AE7C39 /* OptionGroupArgumentEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D08CD52775338100AE7C39 /* OptionGroupArgumentEncoding.swift */; };
 		28D08CCE2774247C00AE7C39 /* OptionalsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D08CCD2774247C00AE7C39 /* OptionalsTests.swift */; };
 		28D08CD0277477F700AE7C39 /* ObjCParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D08CCF277477F700AE7C39 /* ObjCParameters.swift */; };
 		28D08CD327747A4B00AE7C39 /* ObjectiveCParameterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D08CD1277479B600AE7C39 /* ObjectiveCParameterTests.swift */; };
+		28D08CD62775338100AE7C39 /* OptionGroupArgumentEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D08CD52775338100AE7C39 /* OptionGroupArgumentEncoding.swift */; };
 		28DAD96E251BDD66001A0B3F /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DAD96D251BDD66001A0B3F /* Project.swift */; };
 		28DDDFC126B8571D002556C7 /* DynamicCast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DDDFC026B8571D002556C7 /* DynamicCast.swift */; };
 		8356225C26A94CBE005CD5C5 /* TargetDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */; };
@@ -574,6 +575,18 @@
 		285C8E14277AD6C700DE525A /* CocoaPods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaPods.swift; sourceTree = "<group>"; };
 		285C8E16277AD76300DE525A /* SwiftPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPackage.swift; sourceTree = "<group>"; };
 		285C8E18277ADB6600DE525A /* ProcessInfo+ControlCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProcessInfo+ControlCodes.swift"; sourceTree = "<group>"; };
+		285C8E1E277B3A1800DE525A /* MockingbirdCli.dr */ = {isa = PBXFileReference; lastKnownFileType = text; path = MockingbirdCli.dr; sourceTree = "<group>"; };
+		285C8E1F277B3A2100DE525A /* MockingbirdFramework.xcscheme */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MockingbirdFramework.xcscheme; sourceTree = "<group>"; };
+		285C8E20277B3A2100DE525A /* MockingbirdTests.xcscheme */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MockingbirdTests.xcscheme; sourceTree = "<group>"; };
+		285C8E21277B3A2100DE525A /* MockingbirdTestsHost.xcscheme */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MockingbirdTestsHost.xcscheme; sourceTree = "<group>"; };
+		285C8E22277B3A2200DE525A /* MockingbirdGenerator.xcscheme */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MockingbirdGenerator.xcscheme; sourceTree = "<group>"; };
+		285C8E23277B3A2200DE525A /* MockingbirdCli.xcscheme */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MockingbirdCli.xcscheme; sourceTree = "<group>"; };
+		285C8E24277B3B1000DE525A /* mockingbird */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = mockingbird; sourceTree = "<group>"; };
+		285C8E26277B3C9200DE525A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		285C8E27277B3CC100DE525A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		285C8E28277B45A100DE525A /* BuildArtifact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildArtifact.swift; sourceTree = "<group>"; };
+		285C8E83277BFE2E00DE525A /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		285C8E84277C0A0B00DE525A /* FileManager+PosixPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+PosixPermissions.swift"; sourceTree = "<group>"; };
 		286467DA26BFADE2005CDD67 /* DirectoryPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryPath.swift; sourceTree = "<group>"; };
 		286467DC26BFB087005CDD67 /* SupportingSourcesPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportingSourcesPath.swift; sourceTree = "<group>"; };
 		28719AEE26B21CB100C38C2C /* MKBProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBProperty.h; sourceTree = "<group>"; };
@@ -649,10 +662,10 @@
 		28C2EE4D27728C4F003CD0D5 /* URLArgument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLArgument.swift; sourceTree = "<group>"; };
 		28C8E5D926A64D6C00C68A1D /* MKBInvocationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBInvocationHandler.h; sourceTree = "<group>"; };
 		28C8E5DA26A64D6C00C68A1D /* MKBInvocationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBInvocationHandler.m; sourceTree = "<group>"; };
-		28D08CD52775338100AE7C39 /* OptionGroupArgumentEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGroupArgumentEncoding.swift; sourceTree = "<group>"; };
 		28D08CCD2774247C00AE7C39 /* OptionalsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalsTests.swift; sourceTree = "<group>"; };
 		28D08CCF277477F700AE7C39 /* ObjCParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjCParameters.swift; sourceTree = "<group>"; };
 		28D08CD1277479B600AE7C39 /* ObjectiveCParameterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveCParameterTests.swift; sourceTree = "<group>"; };
+		28D08CD52775338100AE7C39 /* OptionGroupArgumentEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGroupArgumentEncoding.swift; sourceTree = "<group>"; };
 		28DAD96D251BDD66001A0B3F /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		28DDDFC026B8571D002556C7 /* DynamicCast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCast.swift; sourceTree = "<group>"; };
 		8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetDescriptionTests.swift; sourceTree = "<group>"; };
@@ -888,7 +901,7 @@
 		OBJ_66 /* Attributes+Sanitize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attributes+Sanitize.swift"; sourceTree = "<group>"; };
 		OBJ_67 /* FileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileGenerator.swift; sourceTree = "<group>"; };
 		OBJ_688 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
-		OBJ_689 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		OBJ_689 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		OBJ_69 /* GenerateFileOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateFileOperation.swift; sourceTree = "<group>"; };
 		OBJ_690 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		OBJ_691 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
@@ -1041,6 +1054,7 @@
 				285C8E12277AD56F00DE525A /* Carthage.swift */,
 				285C8E14277AD6C700DE525A /* CocoaPods.swift */,
 				285C8E0E277AA34000DE525A /* Logging.swift */,
+				285C8E84277C0A0B00DE525A /* FileManager+PosixPermissions.swift */,
 				285C8D842779482400DE525A /* Simulator.swift */,
 				285C8E16277AD76300DE525A /* SwiftPackage.swift */,
 				285C8E06277A7F9000DE525A /* XcodeBuild.swift */,
@@ -1053,7 +1067,9 @@
 		285C8DEC2779D2D500DE525A /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
+				285C8E28277B45A100DE525A /* BuildArtifact.swift */,
 				285C8D832779452800DE525A /* TestExampleProject.swift */,
+				285C8E1A277B380E00DE525A /* Resources */,
 			);
 			path = Scripts;
 			sourceTree = SOURCE_ROOT;
@@ -1072,6 +1088,37 @@
 			name = MockingbirdCommon;
 			path = Sources/MockingbirdCommon;
 			sourceTree = SOURCE_ROOT;
+		};
+		285C8E1A277B380E00DE525A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				285C8E1D277B393600DE525A /* Codesigning */,
+				285C8E1C277B38F000DE525A /* Xcode Schemes */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		285C8E1C277B38F000DE525A /* Xcode Schemes */ = {
+			isa = PBXGroup;
+			children = (
+				285C8E23277B3A2200DE525A /* MockingbirdCli.xcscheme */,
+				285C8E1F277B3A2100DE525A /* MockingbirdFramework.xcscheme */,
+				285C8E22277B3A2200DE525A /* MockingbirdGenerator.xcscheme */,
+				285C8E20277B3A2100DE525A /* MockingbirdTests.xcscheme */,
+				285C8E21277B3A2100DE525A /* MockingbirdTestsHost.xcscheme */,
+				285C8E26277B3C9200DE525A /* README.md */,
+			);
+			path = "Xcode Schemes";
+			sourceTree = "<group>";
+		};
+		285C8E1D277B393600DE525A /* Codesigning */ = {
+			isa = PBXGroup;
+			children = (
+				285C8E1E277B3A1800DE525A /* MockingbirdCli.dr */,
+				285C8E27277B3CC100DE525A /* README.md */,
+			);
+			path = Codesigning;
+			sourceTree = "<group>";
 		};
 		287F852C25195011007D135D /* Frameworks */ = {
 			isa = PBXGroup;
@@ -1733,12 +1780,14 @@
 				OBJ_647 /* Products */,
 				D372A58F245586DD0000E80A /* Xcode Configs */,
 				OBJ_688 /* Cartfile.resolved */,
-				OBJ_689 /* LICENSE */,
+				OBJ_689 /* LICENSE.md */,
 				OBJ_690 /* Makefile */,
 				OBJ_691 /* Cartfile */,
 				OBJ_692 /* README.md */,
 				OBJ_693 /* CONTRIBUTING.md */,
+				285C8E24277B3B1000DE525A /* mockingbird */,
 				OBJ_694 /* MockingbirdFramework.podspec */,
+				285C8E83277BFE2E00DE525A /* .gitignore */,
 				C5115F86A66BC03B1665F801 /* Generated Mocks */,
 				287F852C25195011007D135D /* Frameworks */,
 			);
@@ -2247,6 +2296,7 @@
 				285C8DED2779D34F00DE525A /* Simulator.swift in Sources */,
 				285C8E15277AD6C700DE525A /* CocoaPods.swift in Sources */,
 				285C8E07277A7F9100DE525A /* XcodeBuild.swift in Sources */,
+				285C8E85277C0A0B00DE525A /* FileManager+PosixPermissions.swift in Sources */,
 				285C8E13277AD56F00DE525A /* Carthage.swift in Sources */,
 				285C8DEA2779CE8B00DE525A /* Subprocess.swift in Sources */,
 				285C8E17277AD76300DE525A /* SwiftPackage.swift in Sources */,

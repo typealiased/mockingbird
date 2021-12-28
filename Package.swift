@@ -39,6 +39,7 @@ case .framework:
       .macOS(.v10_10),
       .iOS(.v9),
       .tvOS(.v9),
+      .watchOS("7.4"),
     ],
     products: [
       .library(name: "Mockingbird", targets: ["Mockingbird", "MockingbirdObjC"]),
@@ -144,5 +145,4 @@ case .automation:
       ),
     ]
   )
-  break
 }
