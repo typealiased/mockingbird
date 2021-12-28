@@ -27,7 +27,7 @@ SIMULATOR_RUNTIME=$(shell xcrun simctl list runtimes | pcregrep -o1 '(com\.apple
 # Needs to be kept in sync with `LoadDylib.swift` and `build-framework-cli.yml`.
 $(eval MKB_INSTALLABLE_FLAG = $(shell [[ $(MKB_INSTALLABLE) -eq 1 ]] && echo '-Xswiftc -DMKB_INSTALLABLE' || echo ''))
 
-SWIFT_BUILD_ENV=MKB_BUILD_CLI=1
+SWIFT_BUILD_ENV=MKB_BUILD_TYPE=1
 SWIFT_BUILD_FLAGS=--configuration release -Xlinker -weak-l_InternalSwiftSyntaxParser $(MKB_INSTALLABLE_FLAG)
 
 # CLI build configuration.

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MockingbirdCommon
 
 struct StackTrace {
   let callStackSymbols: [String]

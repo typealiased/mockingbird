@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension String {
+public extension String {
   /// Returns all matches and capture groups given a regex pattern. First element is the full match.
   func components(matching pattern: String) -> [[Substring]] {
     guard let regex = try? NSRegularExpression(pattern: pattern) else { return [] }

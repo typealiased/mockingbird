@@ -2,10 +2,35 @@
 import PackageDescription
 import class Foundation.ProcessInfo
 
-let package: Package
+// MARK: - Build flavors
+// SwiftUI previews fail when including the `mockingbird` executable target, so builds are kept
+// separate and gated by the `MKB_BUILD_TYPE` environment variable.
+enum BuildType: Int {
+  case framework = 0
+  case cli = 1
+  
+  init(_ environment: [String: String]) {
+    if let environmentBuildType = environment["MKB_BUILD_TYPE"],
+       let rawValue = Int(environmentBuildType),
+       let buildType = BuildType(rawValue: rawValue) {
+      self = buildType
+    } else {
+      self = .framework
+    }
+  }
+}
+let buildType = BuildType(ProcessInfo.processInfo.environment)
 
-// SwiftUI previews fail when including the `mockingbird` executable target.
-if ProcessInfo.processInfo.environment["MKB_BUILD_CLI"] == nil {
+// MARK: - Shared targets
+let commonTarget: Target = .target(
+  name: "MockingbirdCommon",
+  path: "Sources/MockingbirdCommon"
+)
+
+// MARK: - Package
+let package: Package
+switch buildType {
+case .framework:
   // MARK: Framework
   package = Package(
     name: "Mockingbird",
@@ -15,16 +40,13 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_CLI"] == nil {
       .tvOS(.v9),
     ],
     products: [
-      .library(name: "Mockingbird", targets: [
-        "Mockingbird",
-        "MockingbirdObjC",
-        "MockingbirdBridge"
-      ]),
+      .library(name: "Mockingbird", targets: ["Mockingbird", "MockingbirdObjC"]),
     ],
     targets: [
+      commonTarget,
       .target(
         name: "Mockingbird",
-        dependencies: ["MockingbirdBridge"],
+        dependencies: ["MockingbirdBridge", "MockingbirdCommon"],
         path: "Sources/MockingbirdFramework",
         exclude: ["Objective-C"],
         swiftSettings: [.define("MKB_SWIFTPM")],
@@ -50,7 +72,8 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_CLI"] == nil {
       ),
     ]
   )
-} else {
+  
+case .cli:
   // MARK: CLI
   package = Package(
     name: "Mockingbird",
@@ -64,17 +87,19 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_CLI"] == nil {
     // These dependencies must be kept in sync with the Xcode project.
     // TODO: Add a build rule to enforce consistency.
     dependencies: [
-      .package(url: "https://github.com/apple/swift-argument-parser.git", .exact("0.4.4")),
+      .package(url: "https://github.com/apple/swift-argument-parser.git", .exact("1.0.2")),
       .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", .exact("0.50500.0")),
       .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.0")),
       .package(url: "https://github.com/tuist/XcodeProj.git", .exact("8.7.1")),
       .package(url: "https://github.com/weichsel/ZIPFoundation.git", .exact("0.9.11")),
     ],
     targets: [
+      commonTarget,
       .target(
         name: "MockingbirdCli",
         dependencies: [
           .product(name: "ArgumentParser", package: "swift-argument-parser"),
+          "MockingbirdCommon",
           "MockingbirdGenerator",
           "XcodeProj",
           "ZIPFoundation",
@@ -85,6 +110,7 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_CLI"] == nil {
         name: "MockingbirdGenerator",
         dependencies: [
           .product(name: "SourceKittenFramework", package: "SourceKitten"),
+          "MockingbirdCommon",
           "SwiftSyntax",
           "XcodeProj",
         ],

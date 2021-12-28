@@ -21,7 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		2803D96927781A4D00651C60 /* String+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2803D96827781A4D00651C60 /* String+Regex.swift */; };
 		281B6246251DC7220084EBED /* MockingbirdShadowedTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */; };
 		281B6286251DC7FC0084EBED /* ModuleNameShadowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B61F1251DBBDE0084EBED /* ModuleNameShadowing.swift */; };
 		281B62FF251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */; };
@@ -72,6 +71,25 @@
 		28571ACC26A668530063AB83 /* MKBInvocationHandlerChain.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571ACA26A668530063AB83 /* MKBInvocationHandlerChain.h */; };
 		28571ACD26A668530063AB83 /* MKBInvocationHandlerChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571ACB26A668530063AB83 /* MKBInvocationHandlerChain.m */; };
 		28571ACF26A670E50063AB83 /* MKBComparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 28571ACE26A670E50063AB83 /* MKBComparator.m */; };
+		285C8DEA2779CE8B00DE525A /* Subprocess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8D852779487500DE525A /* Subprocess.swift */; };
+		285C8DED2779D34F00DE525A /* Simulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8D842779482400DE525A /* Simulator.swift */; };
+		285C8DFB2779E38400DE525A /* String+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2803D96827781A4D00651C60 /* String+Regex.swift */; };
+		285C8DFC2779E3F000DE525A /* MockingbirdCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 285C8DF72779E2D200DE525A /* MockingbirdCommon.framework */; };
+		285C8DFD2779E3FB00DE525A /* MockingbirdCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 285C8DF72779E2D200DE525A /* MockingbirdCommon.framework */; };
+		285C8E012779EB0E00DE525A /* MockingbirdCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 285C8DF72779E2D200DE525A /* MockingbirdCommon.framework */; };
+		285C8E022779ED8300DE525A /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_131 /* Version.swift */; };
+		285C8E032779EDCA00DE525A /* Synchronized.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_129 /* Synchronized.swift */; };
+		285C8E052779EE9400DE525A /* ExportedModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E042779EE9400DE525A /* ExportedModules.swift */; };
+		285C8E07277A7F9100DE525A /* XcodeBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E06277A7F9000DE525A /* XcodeBuild.swift */; };
+		285C8E0A277A838600DE525A /* PathKit in Frameworks */ = {isa = PBXBuildFile; productRef = 285C8E09277A838600DE525A /* PathKit */; };
+		285C8E0C277A870E00DE525A /* String+Interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E0B277A870E00DE525A /* String+Interpolation.swift */; };
+		285C8E0D277A87A200DE525A /* MockingbirdCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 285C8DF72779E2D200DE525A /* MockingbirdCommon.framework */; };
+		285C8E0F277AA34000DE525A /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E0E277AA34000DE525A /* Logging.swift */; };
+		285C8E11277AA3BD00DE525A /* String+ControlCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E10277AA3BD00DE525A /* String+ControlCodes.swift */; };
+		285C8E13277AD56F00DE525A /* Carthage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E12277AD56F00DE525A /* Carthage.swift */; };
+		285C8E15277AD6C700DE525A /* CocoaPods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E14277AD6C700DE525A /* CocoaPods.swift */; };
+		285C8E17277AD76300DE525A /* SwiftPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E16277AD76300DE525A /* SwiftPackage.swift */; };
+		285C8E19277ADB6600DE525A /* ProcessInfo+ControlCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E18277ADB6600DE525A /* ProcessInfo+ControlCodes.swift */; };
 		286467DB26BFADE2005CDD67 /* DirectoryPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286467DA26BFADE2005CDD67 /* DirectoryPath.swift */; };
 		286467DD26BFB087005CDD67 /* SupportingSourcesPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286467DC26BFB087005CDD67 /* SupportingSourcesPath.swift */; };
 		28719AF026B21CB100C38C2C /* MKBProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 28719AEE26B21CB100C38C2C /* MKBProperty.h */; };
@@ -191,7 +209,6 @@
 		D3EC1C0B2490BB92004E555F /* SourceTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EC1C0A2490BB92004E555F /* SourceTarget.swift */; };
 		D3EC1C0D2490BEB5004E555F /* TestTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EC1C0C2490BEB5004E555F /* TestTarget.swift */; };
 		D3EC1C0F2490EC5C004E555F /* Path+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EC1C0E2490EC5C004E555F /* Path+Codable.swift */; };
-		OBJ_1013 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_139 /* Empty.swift */; };
 		OBJ_1019 /* ChildMockMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_212 /* ChildMockMockableTests.swift */; };
 		OBJ_1020 /* ChildMockStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_213 /* ChildMockStubbableTests.swift */; };
 		OBJ_1021 /* ChildProtocolMockMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_214 /* ChildProtocolMockMockableTests.swift */; };
@@ -255,7 +272,6 @@
 		OBJ_1080 /* PathFnmatchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_276 /* PathFnmatchTests.swift */; };
 		OBJ_1081 /* StringExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_277 /* StringExtensionsTests.swift */; };
 		OBJ_1082 /* SubstitutionStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_278 /* SubstitutionStyleTests.swift */; };
-		OBJ_1084 /* MockingbirdPerformanceTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdPerformanceTestsHost::Product" /* MockingbirdPerformanceTestsHost.framework */; };
 		OBJ_1085 /* MockingbirdTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdTestsHost::Product" /* MockingbirdTestsHost.framework */; };
 		OBJ_1086 /* MockingbirdModuleTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdModuleTestsHost::Product" /* MockingbirdModuleTestsHost.framework */; };
 		OBJ_1087 /* MockingbirdGenerator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */; };
@@ -340,8 +356,6 @@
 		OBJ_887 /* ValueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_47 /* ValueProvider.swift */; };
 		OBJ_888 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_49 /* Array+Extensions.swift */; };
 		OBJ_890 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_51 /* String+Extensions.swift */; };
-		OBJ_891 /* Synchronized.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_52 /* Synchronized.swift */; };
-		OBJ_892 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_53 /* Version.swift */; };
 		OBJ_894 /* AsyncVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_56 /* AsyncVerification.swift */; };
 		OBJ_895 /* Invocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_57 /* Invocation.swift */; };
 		OBJ_896 /* OrderedVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_58 /* OrderedVerification.swift */; };
@@ -400,9 +414,7 @@
 		OBJ_956 /* Path+WriteUtf8Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_126 /* Path+WriteUtf8Strings.swift */; };
 		OBJ_957 /* String+ParserUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_127 /* String+ParserUtils.swift */; };
 		OBJ_958 /* String+SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_128 /* String+SHA1.swift */; };
-		OBJ_959 /* Synchronized.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_129 /* Synchronized.swift */; };
 		OBJ_960 /* Timing.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_130 /* Timing.swift */; };
-		OBJ_961 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_131 /* Version.swift */; };
 		OBJ_990 /* ClassScopedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_133 /* ClassScopedTypes.swift */; };
 		OBJ_991 /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_134 /* Generics.swift */; };
 		OBJ_992 /* MockableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_135 /* MockableTypes.swift */; };
@@ -438,13 +450,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = "Mockingbird::MockingbirdGenerator";
 			remoteInfo = MockingbirdGenerator;
-		};
-		D372A57C245586CC0000E80A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "Mockingbird::MockingbirdPerformanceTestsHost";
-			remoteInfo = MockingbirdPerformanceTestsHost;
 		};
 		D372A57D245586CC0000E80A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -550,6 +555,25 @@
 		28571ACA26A668530063AB83 /* MKBInvocationHandlerChain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBInvocationHandlerChain.h; sourceTree = "<group>"; };
 		28571ACB26A668530063AB83 /* MKBInvocationHandlerChain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBInvocationHandlerChain.m; sourceTree = "<group>"; };
 		28571ACE26A670E50063AB83 /* MKBComparator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBComparator.m; sourceTree = "<group>"; };
+		285C8D832779452800DE525A /* TestExampleProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExampleProject.swift; sourceTree = "<group>"; };
+		285C8D842779482400DE525A /* Simulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simulator.swift; sourceTree = "<group>"; };
+		285C8D852779487500DE525A /* Subprocess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subprocess.swift; sourceTree = "<group>"; };
+		285C8DE82779CE6800DE525A /* MockingbirdAutomation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MockingbirdAutomation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		285C8DEB2779CED400DE525A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		285C8DF72779E2D200DE525A /* MockingbirdCommon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MockingbirdCommon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		285C8DFA2779E32600DE525A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		285C8DFE2779E4BB00DE525A /* MockingbirdCommon.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdCommon.xcconfig; sourceTree = "<group>"; };
+		285C8DFF2779E56C00DE525A /* MockingbirdAutomation.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MockingbirdAutomation.xcconfig; sourceTree = "<group>"; };
+		285C8E002779E6AA00DE525A /* FrameworkBase.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkBase.xcconfig; sourceTree = "<group>"; };
+		285C8E042779EE9400DE525A /* ExportedModules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportedModules.swift; sourceTree = "<group>"; };
+		285C8E06277A7F9000DE525A /* XcodeBuild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeBuild.swift; sourceTree = "<group>"; };
+		285C8E0B277A870E00DE525A /* String+Interpolation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Interpolation.swift"; sourceTree = "<group>"; };
+		285C8E0E277AA34000DE525A /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
+		285C8E10277AA3BD00DE525A /* String+ControlCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ControlCodes.swift"; sourceTree = "<group>"; };
+		285C8E12277AD56F00DE525A /* Carthage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carthage.swift; sourceTree = "<group>"; };
+		285C8E14277AD6C700DE525A /* CocoaPods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaPods.swift; sourceTree = "<group>"; };
+		285C8E16277AD76300DE525A /* SwiftPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPackage.swift; sourceTree = "<group>"; };
+		285C8E18277ADB6600DE525A /* ProcessInfo+ControlCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProcessInfo+ControlCodes.swift"; sourceTree = "<group>"; };
 		286467DA26BFADE2005CDD67 /* DirectoryPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryPath.swift; sourceTree = "<group>"; };
 		286467DC26BFB087005CDD67 /* SupportingSourcesPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportingSourcesPath.swift; sourceTree = "<group>"; };
 		28719AEE26B21CB100C38C2C /* MKBProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBProperty.h; sourceTree = "<group>"; };
@@ -675,7 +699,6 @@
 		"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdModuleTestsHost::Product" /* MockingbirdModuleTestsHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdModuleTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"Mockingbird::MockingbirdPerformanceTestsHost::Product" /* MockingbirdPerformanceTestsHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdPerformanceTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdTests::Product" /* MockingbirdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = MockingbirdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mockingbird::MockingbirdTestsHost::Product" /* MockingbirdTestsHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockingbirdTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_100 /* ExtractSourcesOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractSourcesOperation.swift; sourceTree = "<group>"; };
@@ -710,7 +733,6 @@
 		OBJ_135 /* MockableTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockableTypes.swift; sourceTree = "<group>"; };
 		OBJ_136 /* ObjectiveC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
 		OBJ_137 /* Typealiasing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiasing.swift; sourceTree = "<group>"; };
-		OBJ_139 /* Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
 		OBJ_141 /* MockingbirdTestsHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MockingbirdTestsHost.h; sourceTree = "<group>"; };
 		OBJ_143 /* ArgumentMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentMatching.swift; sourceTree = "<group>"; };
 		OBJ_144 /* Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Child.swift; sourceTree = "<group>"; };
@@ -855,8 +877,6 @@
 		OBJ_47 /* ValueProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueProvider.swift; sourceTree = "<group>"; };
 		OBJ_49 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		OBJ_51 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
-		OBJ_52 /* Synchronized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronized.swift; sourceTree = "<group>"; };
-		OBJ_53 /* Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
 		OBJ_56 /* AsyncVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncVerification.swift; sourceTree = "<group>"; };
 		OBJ_57 /* Invocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invocation.swift; sourceTree = "<group>"; };
 		OBJ_58 /* OrderedVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedVerification.swift; sourceTree = "<group>"; };
@@ -911,7 +931,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_1014 /* Frameworks */ = {
+		285C8DE02779CE6800DE525A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				285C8E0A277A838600DE525A /* PathKit in Frameworks */,
+				285C8DFC2779E3F000DE525A /* MockingbirdCommon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		285C8DF22779E2D200DE525A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
@@ -922,7 +951,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_1084 /* MockingbirdPerformanceTestsHost.framework in Frameworks */,
 				OBJ_1085 /* MockingbirdTestsHost.framework in Frameworks */,
 				OBJ_1086 /* MockingbirdModuleTestsHost.framework in Frameworks */,
 				OBJ_1087 /* MockingbirdGenerator.framework in Frameworks */,
@@ -943,6 +971,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
+				285C8E012779EB0E00DE525A /* MockingbirdCommon.framework in Frameworks */,
 				287F85322519659B007D135D /* MockingbirdGenerator.framework in Frameworks */,
 				28874F8B26BF12DD00097529 /* ArgumentParser in Frameworks */,
 				287F852825194F2A007D135D /* ZIPFoundation in Frameworks */,
@@ -953,6 +982,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
+				285C8DFD2779E3FB00DE525A /* MockingbirdCommon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -960,6 +990,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
+				285C8E0D277A87A200DE525A /* MockingbirdCommon.framework in Frameworks */,
 				287F852525194EF5007D135D /* SourceKittenFramework in Frameworks */,
 				287F852E25195011007D135D /* XcodeProj in Frameworks */,
 				287F852225194E16007D135D /* SwiftSyntax in Frameworks */,
@@ -1002,6 +1033,45 @@
 			);
 			path = Primitives;
 			sourceTree = "<group>";
+		};
+		285C8D82277944A300DE525A /* MockingbirdAutomation */ = {
+			isa = PBXGroup;
+			children = (
+				285C8DEB2779CED400DE525A /* Info.plist */,
+				285C8E12277AD56F00DE525A /* Carthage.swift */,
+				285C8E14277AD6C700DE525A /* CocoaPods.swift */,
+				285C8E0E277AA34000DE525A /* Logging.swift */,
+				285C8D842779482400DE525A /* Simulator.swift */,
+				285C8E16277AD76300DE525A /* SwiftPackage.swift */,
+				285C8E06277A7F9000DE525A /* XcodeBuild.swift */,
+				285C8D852779487500DE525A /* Subprocess.swift */,
+			);
+			name = MockingbirdAutomation;
+			path = Sources/MockingbirdAutomation;
+			sourceTree = SOURCE_ROOT;
+		};
+		285C8DEC2779D2D500DE525A /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				285C8D832779452800DE525A /* TestExampleProject.swift */,
+			);
+			path = Scripts;
+			sourceTree = SOURCE_ROOT;
+		};
+		285C8DF92779E2E600DE525A /* MockingbirdCommon */ = {
+			isa = PBXGroup;
+			children = (
+				285C8DFA2779E32600DE525A /* Info.plist */,
+				285C8E18277ADB6600DE525A /* ProcessInfo+ControlCodes.swift */,
+				285C8E10277AA3BD00DE525A /* String+ControlCodes.swift */,
+				285C8E0B277A870E00DE525A /* String+Interpolation.swift */,
+				2803D96827781A4D00651C60 /* String+Regex.swift */,
+				OBJ_129 /* Synchronized.swift */,
+				OBJ_131 /* Version.swift */,
+			);
+			name = MockingbirdCommon;
+			path = Sources/MockingbirdCommon;
+			sourceTree = SOURCE_ROOT;
 		};
 		287F852C25195011007D135D /* Frameworks */ = {
 			isa = PBXGroup;
@@ -1174,7 +1244,6 @@
 				D36A3DCA24922D6B007964DC /* Encodable+SHA1.swift */,
 				2838FD2027756314007A1CB4 /* Path+Abbreviate.swift */,
 				28C28E7826C0EE4D00729617 /* Path+Symlink.swift */,
-				2803D96827781A4D00651C60 /* String+Regex.swift */,
 				28C28E7A26C0FB2700729617 /* TimeUnit.swift */,
 			);
 			path = Utils;
@@ -1183,6 +1252,9 @@
 		D372A58F245586DD0000E80A /* Xcode Configs */ = {
 			isa = PBXGroup;
 			children = (
+				285C8E002779E6AA00DE525A /* FrameworkBase.xcconfig */,
+				285C8DFF2779E56C00DE525A /* MockingbirdAutomation.xcconfig */,
+				285C8DFE2779E4BB00DE525A /* MockingbirdCommon.xcconfig */,
 				D372A590245586DD0000E80A /* MockingbirdTests.xcconfig */,
 				D372A591245586DD0000E80A /* MockingbirdModuleTestsHost.xcconfig */,
 				D372A592245586DD0000E80A /* MockingbirdFramework.xcconfig */,
@@ -1193,8 +1265,8 @@
 				D372A597245586DD0000E80A /* MockingbirdCli-Profile.xcconfig */,
 			);
 			name = "Xcode Configs";
-			path = .xcode/xcconfigs;
-			sourceTree = "<group>";
+			path = Mockingbird.xcodeproj/xcconfigs;
+			sourceTree = SOURCE_ROOT;
 		};
 		D3D647BB24819CCD007B5B49 /* Scripts */ = {
 			isa = PBXGroup;
@@ -1259,9 +1331,7 @@
 				OBJ_127 /* String+ParserUtils.swift */,
 				OBJ_128 /* String+SHA1.swift */,
 				D3643B73247C517D002DF069 /* Substring+Components.swift */,
-				OBJ_129 /* Synchronized.swift */,
 				OBJ_130 /* Timing.swift */,
-				OBJ_131 /* Version.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1290,22 +1360,12 @@
 			path = Sources/MockingbirdTestsHost/Module;
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_138 /* Performance */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_139 /* Empty.swift */,
-			);
-			name = Performance;
-			path = Sources/MockingbirdTestsHost/Performance;
-			sourceTree = SOURCE_ROOT;
-		};
 		OBJ_140 /* MockingbirdTestsHost */ = {
 			isa = PBXGroup;
 			children = (
 				281B62CF251DCAB90084EBED /* Info.plist */,
 				OBJ_170 /* MockingbirdIgnore */,
 				OBJ_132 /* Module */,
-				OBJ_138 /* Performance */,
 				281B623A251DC6B10084EBED /* Shadowed */,
 				OBJ_141 /* MockingbirdTestsHost.h */,
 				OBJ_143 /* ArgumentMatching.swift */,
@@ -1653,13 +1713,12 @@
 				OBJ_49 /* Array+Extensions.swift */,
 				D3B3D4C1248C9D1600FEEDA0 /* CwlDemangle.swift */,
 				28DDDFC026B8571D002556C7 /* DynamicCast.swift */,
+				285C8E042779EE9400DE525A /* ExportedModules.swift */,
 				289FD00126D5D8D6009786A3 /* MockingbirdBridge.swift */,
 				28B4F6E126B3C9C7005C0049 /* ObjCTypeEncodings.swift */,
 				D3E6F67B24844C5B000D1971 /* SourceLocation.swift */,
 				D3B3D4C5248CC15E00FEEDA0 /* StackTrace.swift */,
 				OBJ_51 /* String+Extensions.swift */,
-				OBJ_52 /* Synchronized.swift */,
-				OBJ_53 /* Version.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1668,6 +1727,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
+				285C8DEC2779D2D500DE525A /* Scripts */,
 				OBJ_7 /* Sources */,
 				OBJ_209 /* Tests */,
 				OBJ_647 /* Products */,
@@ -1726,12 +1786,13 @@
 			children = (
 				"Mockingbird::MockingbirdTests::Product" /* MockingbirdTests.xctest */,
 				"Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */,
-				"Mockingbird::MockingbirdPerformanceTestsHost::Product" /* MockingbirdPerformanceTestsHost.framework */,
 				"Mockingbird::MockingbirdTestsHost::Product" /* MockingbirdTestsHost.framework */,
 				"Mockingbird::MockingbirdModuleTestsHost::Product" /* MockingbirdModuleTestsHost.framework */,
 				"Mockingbird::MockingbirdCli::Product" /* MockingbirdCli */,
 				"Mockingbird::MockingbirdFramework::Product" /* Mockingbird.framework */,
 				281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */,
+				285C8DE82779CE6800DE525A /* MockingbirdAutomation.framework */,
+				285C8DF72779E2D200DE525A /* MockingbirdCommon.framework */,
 			);
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -1757,7 +1818,9 @@
 		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				285C8D82277944A300DE525A /* MockingbirdAutomation */,
 				OBJ_8 /* MockingbirdCli */,
+				285C8DF92779E2E600DE525A /* MockingbirdCommon */,
 				OBJ_29 /* MockingbirdFramework */,
 				OBJ_62 /* MockingbirdGenerator */,
 				OBJ_140 /* MockingbirdTestsHost */,
@@ -1917,6 +1980,43 @@
 			productReference = 281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		285C8D862779CE6800DE525A /* MockingbirdAutomation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 285C8DE42779CE6800DE525A /* Build configuration list for PBXNativeTarget "MockingbirdAutomation" */;
+			buildPhases = (
+				285C8D8D2779CE6800DE525A /* Sources */,
+				285C8DE02779CE6800DE525A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MockingbirdAutomation;
+			packageProductDependencies = (
+				285C8E09277A838600DE525A /* PathKit */,
+			);
+			productName = MockingbirdGenerator;
+			productReference = 285C8DE82779CE6800DE525A /* MockingbirdAutomation.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		285C8DEE2779E2D200DE525A /* MockingbirdCommon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 285C8DF32779E2D200DE525A /* Build configuration list for PBXNativeTarget "MockingbirdCommon" */;
+			buildPhases = (
+				285C8DEF2779E2D200DE525A /* Sources */,
+				285C8DF22779E2D200DE525A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MockingbirdCommon;
+			packageProductDependencies = (
+			);
+			productName = MockingbirdGenerator;
+			productReference = 285C8DF72779E2D200DE525A /* MockingbirdCommon.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		"Mockingbird::MockingbirdCli" /* MockingbirdCli */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_803 /* Build configuration list for PBXNativeTarget "MockingbirdCli" */;
@@ -1993,22 +2093,6 @@
 			productReference = "Mockingbird::MockingbirdModuleTestsHost::Product" /* MockingbirdModuleTestsHost.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		"Mockingbird::MockingbirdPerformanceTestsHost" /* MockingbirdPerformanceTestsHost */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_1009 /* Build configuration list for PBXNativeTarget "MockingbirdPerformanceTestsHost" */;
-			buildPhases = (
-				OBJ_1012 /* Sources */,
-				OBJ_1014 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = MockingbirdPerformanceTestsHost;
-			productName = MockingbirdPerformanceTestsHost;
-			productReference = "Mockingbird::MockingbirdPerformanceTestsHost::Product" /* MockingbirdPerformanceTestsHost.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		"Mockingbird::MockingbirdTests" /* MockingbirdTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_1015 /* Build configuration list for PBXNativeTarget "MockingbirdTests" */;
@@ -2022,7 +2106,6 @@
 			);
 			dependencies = (
 				D372A5992455875C0000E80A /* PBXTargetDependency */,
-				OBJ_1100 /* PBXTargetDependency */,
 				OBJ_1101 /* PBXTargetDependency */,
 				OBJ_1103 /* PBXTargetDependency */,
 				OBJ_1104 /* PBXTargetDependency */,
@@ -2087,19 +2170,21 @@
 				287F852625194F2A007D135D /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				287F852925194FEA007D135D /* XCRemoteSwiftPackageReference "XcodeProj" */,
 				28874F8926BF12DD00097529 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
+				285C8E08277A838600DE525A /* XCRemoteSwiftPackageReference "PathKit" */,
 			);
 			productRefGroup = OBJ_647 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				285C8D862779CE6800DE525A /* MockingbirdAutomation */,
 				"Mockingbird::MockingbirdCli" /* MockingbirdCli */,
+				285C8DEE2779E2D200DE525A /* MockingbirdCommon */,
 				"Mockingbird::MockingbirdFramework" /* MockingbirdFramework */,
 				"Mockingbird::MockingbirdGenerator" /* MockingbirdGenerator */,
 				"Mockingbird::MockingbirdTests" /* MockingbirdTests */,
 				"Mockingbird::MockingbirdTestsHost" /* MockingbirdTestsHost */,
 				"Mockingbird::MockingbirdModuleTestsHost" /* MockingbirdModuleTestsHost */,
 				281B621B251DC5AD0084EBED /* MockingbirdShadowedTestsHost */,
-				"Mockingbird::MockingbirdPerformanceTestsHost" /* MockingbirdPerformanceTestsHost */,
 				287F85372519698B007D135D /* mockingbird */,
 			);
 		};
@@ -2155,11 +2240,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_1012 /* Sources */ = {
+		285C8D8D2779CE6800DE525A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_1013 /* Empty.swift in Sources */,
+				285C8DED2779D34F00DE525A /* Simulator.swift in Sources */,
+				285C8E15277AD6C700DE525A /* CocoaPods.swift in Sources */,
+				285C8E07277A7F9100DE525A /* XcodeBuild.swift in Sources */,
+				285C8E13277AD56F00DE525A /* Carthage.swift in Sources */,
+				285C8DEA2779CE8B00DE525A /* Subprocess.swift in Sources */,
+				285C8E17277AD76300DE525A /* SwiftPackage.swift in Sources */,
+				285C8E0F277AA34000DE525A /* Logging.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		285C8DEF2779E2D200DE525A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				285C8E11277AA3BD00DE525A /* String+ControlCodes.swift in Sources */,
+				285C8E022779ED8300DE525A /* Version.swift in Sources */,
+				285C8E19277ADB6600DE525A /* ProcessInfo+ControlCodes.swift in Sources */,
+				285C8DFB2779E38400DE525A /* String+Regex.swift in Sources */,
+				285C8E032779EDCA00DE525A /* Synchronized.swift in Sources */,
+				285C8E0C277A870E00DE525A /* String+Interpolation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2331,7 +2435,6 @@
 				D3DC37952492140D001E02A5 /* Generator+PruningPipeline.swift in Sources */,
 				2852643F2775882B000298B3 /* SwiftFilePath.swift in Sources */,
 				28C28E7B26C0FB2700729617 /* TimeUnit.swift in Sources */,
-				2803D96927781A4D00651C60 /* String+Regex.swift in Sources */,
 				28C2EE4A2771AA41003CD0D5 /* ExtendedGeneratorTypes.swift in Sources */,
 				OBJ_814 /* Generator.swift in Sources */,
 				OBJ_815 /* Installer.swift in Sources */,
@@ -2365,6 +2468,7 @@
 				28571AA126A6623C0063AB83 /* MKBFloatInvocationHandler.m in Sources */,
 				287C4F5826A3710600A7E0D9 /* MKBConcreteMock.m in Sources */,
 				28571AC526A666E60063AB83 /* MKBUnsignedLongLongInvocationHandler.m in Sources */,
+				285C8E052779EE9400DE525A /* ExportedModules.swift in Sources */,
 				D3B3D4C2248C9D1600FEEDA0 /* CwlDemangle.swift in Sources */,
 				D3E6F67824844A0C000D1971 /* SequenceProviders.swift in Sources */,
 				28571AB126A664AF0063AB83 /* MKBShortInvocationHandler.m in Sources */,
@@ -2422,8 +2526,6 @@
 				OBJ_887 /* ValueProvider.swift in Sources */,
 				OBJ_888 /* Array+Extensions.swift in Sources */,
 				OBJ_890 /* String+Extensions.swift in Sources */,
-				OBJ_891 /* Synchronized.swift in Sources */,
-				OBJ_892 /* Version.swift in Sources */,
 				28719AF326B22D1300C38C2C /* Stubbing+ObjC.swift in Sources */,
 				OBJ_894 /* AsyncVerification.swift in Sources */,
 				28571A8926A65EB80063AB83 /* MKBIntInvocationHandler.m in Sources */,
@@ -2523,9 +2625,7 @@
 				OBJ_956 /* Path+WriteUtf8Strings.swift in Sources */,
 				OBJ_957 /* String+ParserUtils.swift in Sources */,
 				OBJ_958 /* String+SHA1.swift in Sources */,
-				OBJ_959 /* Synchronized.swift in Sources */,
 				OBJ_960 /* Timing.swift in Sources */,
-				OBJ_961 /* Version.swift in Sources */,
 				284C3B4026AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift in Sources */,
 				D3B3D4CA248D77F300FEEDA0 /* FindMockedTypesOperation.swift in Sources */,
 			);
@@ -2560,11 +2660,6 @@
 			isa = PBXTargetDependency;
 			target = "Mockingbird::MockingbirdCli" /* MockingbirdCli */;
 			targetProxy = D372A5982455875C0000E80A /* PBXContainerItemProxy */;
-		};
-		OBJ_1100 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "Mockingbird::MockingbirdPerformanceTestsHost" /* MockingbirdPerformanceTestsHost */;
-			targetProxy = D372A57C245586CC0000E80A /* PBXContainerItemProxy */;
 		};
 		OBJ_1101 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2654,29 +2749,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A597245586DD0000E80A /* MockingbirdCli-Profile.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-					"@executable_path",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
-				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = MockingbirdCli;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Profile;
 		};
@@ -2691,29 +2763,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A593245586DD0000E80A /* MockingbirdGenerator-Profile.xcconfig */;
 			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = MockingbirdGenerator;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Profile;
 		};
@@ -2835,36 +2884,6 @@
 			};
 			name = Profile;
 		};
-		28106AFF27716704003D9F6D /* Profile */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D372A595245586DD0000E80A /* MockingbirdTestsHost.xcconfig */;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = MockingbirdPerformanceTestsHost;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
-			};
-			name = Profile;
-		};
 		28106B0027716704003D9F6D /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2933,6 +2952,48 @@
 			};
 			name = Release;
 		};
+		285C8DE52779CE6800DE525A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 285C8DFF2779E56C00DE525A /* MockingbirdAutomation.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		285C8DE62779CE6800DE525A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 285C8DFF2779E56C00DE525A /* MockingbirdAutomation.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		285C8DE72779CE6800DE525A /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 285C8DFF2779E56C00DE525A /* MockingbirdAutomation.xcconfig */;
+			buildSettings = {
+			};
+			name = Profile;
+		};
+		285C8DF42779E2D200DE525A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 285C8DFE2779E4BB00DE525A /* MockingbirdCommon.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		285C8DF52779E2D200DE525A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 285C8DFE2779E4BB00DE525A /* MockingbirdCommon.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		285C8DF62779E2D200DE525A /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 285C8DFE2779E4BB00DE525A /* MockingbirdCommon.xcconfig */;
+			buildSettings = {
+			};
+			name = Profile;
+		};
 		287F85382519698B007D135D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2946,66 +3007,6 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		OBJ_1010 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D372A595245586DD0000E80A /* MockingbirdTestsHost.xcconfig */;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = MockingbirdPerformanceTestsHost;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
-			};
-			name = Debug;
-		};
-		OBJ_1011 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D372A595245586DD0000E80A /* MockingbirdTestsHost.xcconfig */;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = MockingbirdPerformanceTestsHost;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -3235,29 +3236,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A596245586DD0000E80A /* MockingbirdCli.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-					"@executable_path",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
-				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = MockingbirdCli;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -3265,29 +3243,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A596245586DD0000E80A /* MockingbirdCli.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-					"@executable_path",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
-				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = MockingbirdCli;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -3309,29 +3264,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A594245586DD0000E80A /* MockingbirdGenerator.xcconfig */;
 			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = MockingbirdGenerator;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -3339,29 +3271,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A594245586DD0000E80A /* MockingbirdGenerator.xcconfig */;
 			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = MockingbirdGenerator;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -3438,22 +3347,32 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		285C8DE42779CE6800DE525A /* Build configuration list for PBXNativeTarget "MockingbirdAutomation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				285C8DE52779CE6800DE525A /* Debug */,
+				285C8DE62779CE6800DE525A /* Release */,
+				285C8DE72779CE6800DE525A /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		285C8DF32779E2D200DE525A /* Build configuration list for PBXNativeTarget "MockingbirdCommon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				285C8DF42779E2D200DE525A /* Debug */,
+				285C8DF52779E2D200DE525A /* Release */,
+				285C8DF62779E2D200DE525A /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		287F853A2519698B007D135D /* Build configuration list for PBXAggregateTarget "mockingbird" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				287F85382519698B007D135D /* Debug */,
 				287F85392519698B007D135D /* Release */,
 				28106B0027716704003D9F6D /* Profile */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		OBJ_1009 /* Build configuration list for PBXNativeTarget "MockingbirdPerformanceTestsHost" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_1010 /* Debug */,
-				OBJ_1011 /* Release */,
-				28106AFF27716704003D9F6D /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3531,6 +3450,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		285C8E08277A838600DE525A /* XCRemoteSwiftPackageReference "PathKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kylef/PathKit";
+			requirement = {
+				kind = exactVersion;
+				version = 1.0.1;
+			};
+		};
 		287F852025194E16007D135D /* XCRemoteSwiftPackageReference "swift-syntax" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-syntax.git";
@@ -3568,12 +3495,17 @@
 			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
 			requirement = {
 				kind = exactVersion;
-				version = 0.4.4;
+				version = 1.0.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		285C8E09277A838600DE525A /* PathKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 285C8E08277A838600DE525A /* XCRemoteSwiftPackageReference "PathKit" */;
+			productName = PathKit;
+		};
 		287F852125194E16007D135D /* SwiftSyntax */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 287F852025194E16007D135D /* XCRemoteSwiftPackageReference "swift-syntax" */;

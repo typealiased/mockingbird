@@ -7,6 +7,7 @@
 
 import ArgumentParser
 import Foundation
+import MockingbirdCommon
 import MockingbirdGenerator
 import PathKit
 import ZIPFoundation
