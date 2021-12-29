@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 
-public struct Carthage {
+public enum Carthage {
   public enum Platform: String {
     case iOS = "iOS"
     case macOS = "macOS"

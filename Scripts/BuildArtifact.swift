@@ -22,7 +22,9 @@ struct BuildArtifact: ParsableCommand {
   @OptionGroup()
   var globalOptions: Options
   
-  static func archive(artifacts: [Path], destination: Path, includeLicense: Bool = true) throws {
+  static func archive(artifacts: [(location: String, path: Path)],
+                      destination: Path,
+                      includeLicense: Bool = true) throws {
     guard !artifacts.isEmpty else {
       logError("No artifacts to archive")
       return
@@ -31,6 +33,7 @@ struct BuildArtifact: ParsableCommand {
       logError("Archive destination is not a ZIP file")
       return
     }
+    logInfo("Creating archive at \(destination.abbreviate())")
       
     let stagingPath = Path("./.build/mockingbird/intermediates")
       + destination.lastComponentWithoutExtension
@@ -38,8 +41,12 @@ struct BuildArtifact: ParsableCommand {
     try stagingPath.mkpath()
     
     var items = artifacts
-    if includeLicense { items.append(Path("./LICENSE.md")) }
-    try items.forEach({ try $0.copy(stagingPath + $0.lastComponent) })
+    if includeLicense { items.append(("", Path("./LICENSE.md"))) }
+    try items.forEach({ artifact in
+      let destination = stagingPath + artifact.location + artifact.path.lastComponent
+      try destination.parent().mkpath()
+      try artifact.path.copy(destination)
+    })
     
     try? destination.delete()
     try destination.parent().mkpath()
@@ -55,30 +62,53 @@ struct BuildArtifact: ParsableCommand {
     @Option(help: "File path containing the designated requirement for codesigning.")
     var requirements: String = "./Scripts/Resources/CodesigningRequirements/mockingbird.txt"
     
-    @Flag(help: "Allow the CLI to run from system directories.")
-    var installable: Bool = false
-    
     @OptionGroup()
     var globalOptions: Options
     
+    func getVersionString() throws -> String {
+      return try PlistBuddy.printValue(key: "CFBundleShortVersionString",
+                                       plist: Path("./Sources/MockingbirdCli/Info.plist"))
+    }
+    
+    func fixupRpaths(binary: Path) throws {
+      let version = try getVersionString()
+      
+      // Get rid of toolchain-dependent rpaths which aren't guaranteed to have a compatible version
+      // of the internal SwiftSyntax parser lib.
+      let developerDirectory = try XcodeSelect.printPath()
+      let swiftToolchainPath = developerDirectory
+        + "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx"
+      try InstallNameTool.deleteRpath(swiftToolchainPath.absolute().string, binary: binary)
+      // Swift 5.5 is only present in Xcode 13.2+
+      let swift5_5ToolchainPath = developerDirectory
+        + "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-5.5/macosx"
+      try? InstallNameTool.deleteRpath(swift5_5ToolchainPath.absolute().string, binary: binary)
+      
+      // Add new rpaths in descending order of precedence.
+      try InstallNameTool.addRpath("/usr/lib/mockingbird/\(version)", binary: binary)
+      // Support environments with restricted write permissions to system resources.
+      try InstallNameTool.addRpath("/var/tmp/lib/mockingbird/\(version)", binary: binary)
+      try InstallNameTool.addRpath("/tmp/lib/mockingbird/\(version)", binary: binary)
+    }
+    
     func run() throws {
       let packagePath = Path("./Package.swift")
-      let installableOptions: [String] = installable ? ["-Xswiftc", "-DMKB_INSTALLABLE"] : []
       var environment = ProcessInfo.processInfo.environment
       environment["MKB_BUILD_TYPE"] = "1"
       let cliPath = try SwiftPackage.build(target: .product(name: "mockingbird"),
                                            configuration: .release,
-                                           buildOptions: [
-                                            "-Xlinker", "-weak-l_InternalSwiftSyntaxParser",
-                                           ] + installableOptions,
                                            environment: environment,
                                            package: packagePath)
+      try fixupRpaths(binary: cliPath)
       if let identity = signingIdentity {
         try Codesign.sign(binary: cliPath, identity: identity)
         try Codesign.verify(binary: cliPath, requirements: Path(requirements))
       }
       if let location = globalOptions.archiveLocation {
-        try archive(artifacts: [cliPath], destination: Path(location))
+        let libRoot = Path("./Sources/MockingbirdCli/Libraries")
+        let libPaths = libRoot.glob("*.dylib") + [libRoot + "LICENSE.txt"]
+        try archive(artifacts: [("", cliPath)] + libPaths.map({ ("Libraries", $0) }),
+                    destination: Path(location))
       }
     }
   }
@@ -91,6 +121,11 @@ struct BuildArtifact: ParsableCommand {
     
     @OptionGroup()
     var globalOptions: Options
+    
+    func getVersionString() throws -> String {
+      return try PlistBuddy.printValue(key: "CFBundleShortVersionString",
+                                       plist: Path("./Sources/MockingbirdFramework/Info.plist"))
+    }
     
     func run() throws {
       // Carthage with `--no-skip-current` searches for matching schemes in all nested Xcode
@@ -115,7 +150,7 @@ struct BuildArtifact: ParsableCommand {
       let frameworkPath = projectPath.parent() + "Carthage/Build/Mockingbird.xcframework"
       
       if let location = globalOptions.archiveLocation {
-        try archive(artifacts: [frameworkPath], destination: Path(location))
+        try archive(artifacts: [("", frameworkPath)], destination: Path(location))
       }
     }
   }

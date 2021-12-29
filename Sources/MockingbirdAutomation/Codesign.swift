@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 
-public struct Codesign {  
+public enum Codesign {  
   public static func sign(binary: Path, identity: String) throws {
     try Subprocess("xcrun", [
       "codesign",

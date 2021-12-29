@@ -92,6 +92,9 @@
 		285C8E19277ADB6600DE525A /* ProcessInfo+ControlCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E18277ADB6600DE525A /* ProcessInfo+ControlCodes.swift */; };
 		285C8E85277C0A0B00DE525A /* FileManager+PosixPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E84277C0A0B00DE525A /* FileManager+PosixPermissions.swift */; };
 		285C8E88277C30B700DE525A /* Codesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E87277C30B700DE525A /* Codesign.swift */; };
+		285C8E8C277C670300DE525A /* XcodeSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E8B277C670300DE525A /* XcodeSelect.swift */; };
+		285C8E8E277C677A00DE525A /* InstallNameTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E8D277C677A00DE525A /* InstallNameTool.swift */; };
+		285C8E90277C71F800DE525A /* PlistBuddy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E8F277C71F800DE525A /* PlistBuddy.swift */; };
 		286467DB26BFADE2005CDD67 /* DirectoryPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286467DA26BFADE2005CDD67 /* DirectoryPath.swift */; };
 		286467DD26BFB087005CDD67 /* SupportingSourcesPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286467DC26BFB087005CDD67 /* SupportingSourcesPath.swift */; };
 		28719AF026B21CB100C38C2C /* MKBProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 28719AEE26B21CB100C38C2C /* MKBProperty.h */; };
@@ -339,9 +342,6 @@
 		OBJ_814 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* Generator.swift */; };
 		OBJ_815 /* Installer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Installer.swift */; };
 		OBJ_817 /* Mockingbird.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* Mockingbird.swift */; };
-		OBJ_818 /* LoadDylib.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* LoadDylib.swift */; };
-		OBJ_819 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* Resource.swift */; };
-		OBJ_820 /* SwiftSyntaxParserDylib.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* SwiftSyntaxParserDylib.generated.swift */; };
 		OBJ_821 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* main.swift */; };
 		OBJ_874 /* ArgumentCaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* ArgumentCaptor.swift */; };
 		OBJ_875 /* ArgumentMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* ArgumentMatcher.swift */; };
@@ -589,6 +589,11 @@
 		285C8E84277C0A0B00DE525A /* FileManager+PosixPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+PosixPermissions.swift"; sourceTree = "<group>"; };
 		285C8E87277C30B700DE525A /* Codesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codesign.swift; sourceTree = "<group>"; };
 		285C8E89277C48C600DE525A /* mockingbird.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = mockingbird.txt; sourceTree = "<group>"; };
+		285C8E8B277C670300DE525A /* XcodeSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeSelect.swift; sourceTree = "<group>"; };
+		285C8E8D277C677A00DE525A /* InstallNameTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallNameTool.swift; sourceTree = "<group>"; };
+		285C8E8F277C71F800DE525A /* PlistBuddy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistBuddy.swift; sourceTree = "<group>"; };
+		285C8E91277C76DC00DE525A /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		285C8E92277C76DC00DE525A /* update.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = update.sh; sourceTree = "<group>"; };
 		286467DA26BFADE2005CDD67 /* DirectoryPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryPath.swift; sourceTree = "<group>"; };
 		286467DC26BFB087005CDD67 /* SupportingSourcesPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportingSourcesPath.swift; sourceTree = "<group>"; };
 		28719AEE26B21CB100C38C2C /* MKBProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBProperty.h; sourceTree = "<group>"; };
@@ -696,7 +701,6 @@
 		D3B3D4C7248D652500FEEDA0 /* Generator+Pipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generator+Pipeline.swift"; sourceTree = "<group>"; };
 		D3B3D4C9248D77F300FEEDA0 /* FindMockedTypesOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindMockedTypesOperation.swift; sourceTree = "<group>"; };
 		D3B410C9248DA35B008913A8 /* TestFileParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileParser.swift; sourceTree = "<group>"; };
-		D3D647BC24819CCD007B5B49 /* generate-resource-file.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "generate-resource-file.sh"; sourceTree = "<group>"; };
 		D3DC37942492140D001E02A5 /* Generator+PruningPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generator+PruningPipeline.swift"; sourceTree = "<group>"; };
 		D3E6F67324838182000D1971 /* ChainedStubbingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainedStubbingTests.swift; sourceTree = "<group>"; };
 		D3E6F67524844999000D1971 /* ImplementationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplementationProvider.swift; sourceTree = "<group>"; };
@@ -837,7 +841,6 @@
 		OBJ_237 /* InoutParametersStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InoutParametersStubbableTests.swift; sourceTree = "<group>"; };
 		OBJ_238 /* KeywordArgumentNamesMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordArgumentNamesMockableTests.swift; sourceTree = "<group>"; };
 		OBJ_239 /* KeywordArgumentNamesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordArgumentNamesStubbableTests.swift; sourceTree = "<group>"; };
-		OBJ_24 /* LoadDylib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadDylib.swift; sourceTree = "<group>"; };
 		OBJ_240 /* SubscriptMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptMockableTests.swift; sourceTree = "<group>"; };
 		OBJ_241 /* SubscriptStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptStubbableTests.swift; sourceTree = "<group>"; };
 		OBJ_242 /* TypealiasingMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypealiasingMockableTests.swift; sourceTree = "<group>"; };
@@ -848,7 +851,6 @@
 		OBJ_247 /* VariablesStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariablesStubbableTests.swift; sourceTree = "<group>"; };
 		OBJ_248 /* VariadicParametersMockableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariadicParametersMockableTests.swift; sourceTree = "<group>"; };
 		OBJ_249 /* VariadicParametersStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariadicParametersStubbableTests.swift; sourceTree = "<group>"; };
-		OBJ_25 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		OBJ_252 /* ArgumentCaptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentCaptorTests.swift; sourceTree = "<group>"; };
 		OBJ_253 /* ArgumentMatchingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentMatchingTests.swift; sourceTree = "<group>"; };
 		OBJ_254 /* AsyncVerificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncVerificationTests.swift; sourceTree = "<group>"; };
@@ -866,7 +868,6 @@
 		OBJ_266 /* SubscriptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptTests.swift; sourceTree = "<group>"; };
 		OBJ_268 /* BaseTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
 		OBJ_269 /* XFailTestFailer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XFailTestFailer.swift; sourceTree = "<group>"; };
-		OBJ_27 /* SwiftSyntaxParserDylib.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftSyntaxParserDylib.generated.swift; sourceTree = "<group>"; };
 		OBJ_270 /* VariadicParametersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariadicParametersTests.swift; sourceTree = "<group>"; };
 		OBJ_271 /* XFailOrderedVerificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XFailOrderedVerificationTests.swift; sourceTree = "<group>"; };
 		OBJ_273 /* DeclaredTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclaredTypeTests.swift; sourceTree = "<group>"; };
@@ -1056,12 +1057,15 @@
 				285C8E12277AD56F00DE525A /* Carthage.swift */,
 				285C8E14277AD6C700DE525A /* CocoaPods.swift */,
 				285C8E87277C30B700DE525A /* Codesign.swift */,
-				285C8E0E277AA34000DE525A /* Logging.swift */,
 				285C8E84277C0A0B00DE525A /* FileManager+PosixPermissions.swift */,
+				285C8E8D277C677A00DE525A /* InstallNameTool.swift */,
+				285C8E0E277AA34000DE525A /* Logging.swift */,
+				285C8E8F277C71F800DE525A /* PlistBuddy.swift */,
 				285C8D842779482400DE525A /* Simulator.swift */,
+				285C8D852779487500DE525A /* Subprocess.swift */,
 				285C8E16277AD76300DE525A /* SwiftPackage.swift */,
 				285C8E06277A7F9000DE525A /* XcodeBuild.swift */,
-				285C8D852779487500DE525A /* Subprocess.swift */,
+				285C8E8B277C670300DE525A /* XcodeSelect.swift */,
 			);
 			name = MockingbirdAutomation;
 			path = Sources/MockingbirdAutomation;
@@ -1319,14 +1323,6 @@
 			name = "Xcode Configs";
 			path = Mockingbird.xcodeproj/xcconfigs;
 			sourceTree = SOURCE_ROOT;
-		};
-		D3D647BB24819CCD007B5B49 /* Scripts */ = {
-			isa = PBXGroup;
-			children = (
-				D3D647BC24819CCD007B5B49 /* generate-resource-file.sh */,
-			);
-			path = Scripts;
-			sourceTree = "<group>";
 		};
 		OBJ_10 /* Interface */ = {
 			isa = PBXGroup;
@@ -1616,15 +1612,6 @@
 			path = E2E;
 			sourceTree = "<group>";
 		};
-		OBJ_23 /* Launcher */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_24 /* LoadDylib.swift */,
-				OBJ_25 /* Resource.swift */,
-			);
-			path = Launcher;
-			sourceTree = "<group>";
-		};
 		OBJ_250 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
@@ -1663,7 +1650,8 @@
 		OBJ_26 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_27 /* SwiftSyntaxParserDylib.generated.swift */,
+				285C8E91277C76DC00DE525A /* LICENSE.txt */,
+				285C8E92277C76DC00DE525A /* update.sh */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -1914,9 +1902,7 @@
 			children = (
 				OBJ_9 /* Info.plist */,
 				OBJ_10 /* Interface */,
-				OBJ_23 /* Launcher */,
 				OBJ_26 /* Libraries */,
-				D3D647BB24819CCD007B5B49 /* Scripts */,
 				D36A3DC924922D2D007964DC /* Utils */,
 				OBJ_28 /* main.swift */,
 			);
@@ -2075,7 +2061,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_803 /* Build configuration list for PBXNativeTarget "MockingbirdCli" */;
 			buildPhases = (
-				D372A59C2455878B0000E80A /* Generate Embedded Dylibs */,
 				OBJ_806 /* Sources */,
 				OBJ_822 /* Frameworks */,
 			);
@@ -2262,27 +2247,6 @@
 			shellPath = /bin/sh;
 			shellScript = "set -eu\n\n# Prevent Xcode 13 from running this script while indexing.\n[[ \"${ACTION}\" == \"indexbuild\" ]] && exit 0\n\n\"${BUILT_PRODUCTS_DIR}/MockingbirdCli\" generate \\\n  --targets 'MockingbirdTestsHost' 'MockingbirdShadowedTestsHost' \\\n  --outputs \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift\" \"${SRCROOT}/Tests/MockingbirdTests/Mocks/MockingbirdShadowedTestsHostMocks.generated.swift\" \\\n  --support \"${SRCROOT}/Sources/MockingbirdSupport\" \\\n  --diagnostics all \\\n  --disable-cache \\\n  --prune stub \\\n  --verbose\n";
 		};
-		D372A59C2455878B0000E80A /* Generate Embedded Dylibs */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Sources/MockingbirdCli/Libraries/lib_InternalSwiftSyntaxParser.dylib",
-			);
-			name = "Generate Embedded Dylibs";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(SRCROOT)/Sources/MockingbirdCli/Libraries/SwiftSyntaxParserDylib.generated.swift",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -eu\n\n# Prevent Xcode 13 from running this script while indexing.\nif [[ \"${ACTION}\" == \"indexbuild\" ]]; then\n  exit 0\nfi\n\n\"${SRCROOT}/Sources/MockingbirdCli/Scripts/generate-resource-file.sh\" \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\" 'swiftSyntaxParserDylib'\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -2305,8 +2269,11 @@
 				285C8E13277AD56F00DE525A /* Carthage.swift in Sources */,
 				285C8E88277C30B700DE525A /* Codesign.swift in Sources */,
 				285C8DEA2779CE8B00DE525A /* Subprocess.swift in Sources */,
+				285C8E90277C71F800DE525A /* PlistBuddy.swift in Sources */,
+				285C8E8C277C670300DE525A /* XcodeSelect.swift in Sources */,
 				285C8E17277AD76300DE525A /* SwiftPackage.swift in Sources */,
 				285C8E0F277AA34000DE525A /* Logging.swift in Sources */,
+				285C8E8E277C677A00DE525A /* InstallNameTool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2498,9 +2465,6 @@
 				28C28E7926C0EE4D00729617 /* Path+Symlink.swift in Sources */,
 				28C28E7726C0EA4E00729617 /* BinaryPath.swift in Sources */,
 				OBJ_817 /* Mockingbird.swift in Sources */,
-				OBJ_818 /* LoadDylib.swift in Sources */,
-				OBJ_819 /* Resource.swift in Sources */,
-				OBJ_820 /* SwiftSyntaxParserDylib.generated.swift in Sources */,
 				286467DD26BFB087005CDD67 /* SupportingSourcesPath.swift in Sources */,
 				28C2EE3D2771952B003CD0D5 /* ArgumentsEncoder.swift in Sources */,
 				28B127E526C667C600BC8B85 /* TestBundleName.swift in Sources */,
@@ -2805,6 +2769,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A597245586DD0000E80A /* MockingbirdCli-Profile.xcconfig */;
 			buildSettings = {
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path",
+					/foo/bar/baz,
+					"$(SRCROOT)/Sources/MockingbirdCli/Libraries",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+					"$(inherited)",
+				);
 			};
 			name = Profile;
 		};
@@ -3292,6 +3263,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A596245586DD0000E80A /* MockingbirdCli.xcconfig */;
 			buildSettings = {
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path",
+					/foo/bar/baz,
+					"$(SRCROOT)/Sources/MockingbirdCli/Libraries",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+					"$(inherited)",
+				);
 			};
 			name = Debug;
 		};
@@ -3299,6 +3277,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A596245586DD0000E80A /* MockingbirdCli.xcconfig */;
 			buildSettings = {
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path",
+					/foo/bar/baz,
+					"$(SRCROOT)/Sources/MockingbirdCli/Libraries",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+					"$(inherited)",
+				);
 			};
 			name = Release;
 		};

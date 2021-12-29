@@ -2,7 +2,7 @@ import Foundation
 import MockingbirdCommon
 import PathKit
 
-public struct XcodeBuild {
+public enum XcodeBuild {
   public enum Project {
     case project(path: Path)
     case workspace(path: Path)

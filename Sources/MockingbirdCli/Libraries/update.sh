@@ -2,8 +2,8 @@
 
 set -eu
 
-xcodeDeveloperDir="$(xcode-select -p)"
-xcodeToolchainPath="${xcodeDeveloperDir}/Toolchains/XcodeDefault.xctoolchain"
+readonly xcodeDeveloperDir="$(xcrun xcode-select -p)"
+readonly xcodeToolchainPath="${xcodeDeveloperDir}/Toolchains/XcodeDefault.xctoolchain"
 
 # Set the cwd relative to the script.
 cd "$(dirname "$0")"

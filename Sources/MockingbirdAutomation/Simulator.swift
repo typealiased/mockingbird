@@ -1,7 +1,7 @@
 import Foundation
 import MockingbirdCommon
 
-public struct Simulator {
+public enum Simulator {
   public enum Platform: String {
     case iOS = "iOS"
     case tvOS = "tvOS"

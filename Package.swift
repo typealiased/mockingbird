@@ -106,7 +106,11 @@ case .cli:
           "XcodeProj",
           "ZIPFoundation",
         ],
-        path: "Sources/MockingbirdCli"
+        path: "Sources/MockingbirdCli",
+        linkerSettings: [.unsafeFlags(["-Xlinker", "-rpath",
+                                       "-Xlinker", "@executable_path"]),
+                         .unsafeFlags(["-Xlinker", "-rpath",
+                                       "-Xlinker", "@executable_path/Libraries"])]
       ),
       .target(
         name: "MockingbirdGenerator",

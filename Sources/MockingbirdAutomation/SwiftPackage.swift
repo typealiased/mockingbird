@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 
-public struct SwiftPackage {
+public enum SwiftPackage {
   public enum BuildTarget {
     case target(name: String)
     case product(name: String)
@@ -50,7 +50,7 @@ public struct SwiftPackage {
       "--\(target.optionName)", target.name,
       "--configuration", configuration.rawValue,
     ] + buildOptions
-    try Subprocess("xcrun", buildArguments,
+    try Subprocess("xcrun", buildArguments + ["--verbose"],
                    environment: environment,
                    workingDirectory: package.parent()).runWithOutput()
     let (binPath, _) = try Subprocess("xcrun", buildArguments + ["--show-bin-path"],
