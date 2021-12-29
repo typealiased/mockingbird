@@ -49,6 +49,12 @@ struct BuildArtifact: ParsableCommand {
   struct BuildCli: ParsableCommand {
     static var configuration = CommandConfiguration(commandName: "cli")
     
+    @Option(name: .customLong("sign"), help: "Identity used to sign the built CLI binary.")
+    var signingIdentity: String?
+    
+    @Option(help: "File path containing the designated requirement for codesigning.")
+    var requirements: String = "./Scripts/Resources/CodesigningRequirements/mockingbird.txt"
+    
     @Flag(help: "Allow the CLI to run from system directories.")
     var installable: Bool = false
     
@@ -67,6 +73,10 @@ struct BuildArtifact: ParsableCommand {
                                            ] + installableOptions,
                                            environment: environment,
                                            package: packagePath)
+      if let identity = signingIdentity {
+        try Codesign.sign(binary: cliPath, identity: identity)
+        try Codesign.verify(binary: cliPath, requirements: Path(requirements))
+      }
       if let location = globalOptions.archiveLocation {
         try archive(artifacts: [cliPath], destination: Path(location))
       }
