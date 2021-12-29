@@ -93,7 +93,7 @@ case .cli:
       .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", .exact("0.50500.0")),
       .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.0")),
       .package(url: "https://github.com/tuist/XcodeProj.git", .exact("8.7.1")),
-      .package(url: "https://github.com/weichsel/ZIPFoundation.git", .exact("0.9.11")),
+      .package(url: "https://github.com/weichsel/ZIPFoundation.git", .exact("0.9.14")),
     ],
     targets: [
       commonTarget,
