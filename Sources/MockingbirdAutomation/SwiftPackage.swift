@@ -43,15 +43,19 @@ public struct SwiftPackage {
                            configuration: BuildConfiguration = .debug,
                            buildOptions: [String] = [],
                            environment: [String: String] = ProcessInfo.processInfo.environment,
-                           package: Path) throws {
-    try Subprocess(
-      "xcrun", [
-        "swift",
-        "build",
-        "--\(target.optionName)", target.name,
-        "--configuration", configuration.rawValue,
-      ] + buildOptions,
-      environment: environment,
-      workingDirectory: package.parent()).runWithOutput()
+                           package: Path) throws -> Path {
+    let buildArguments = [
+      "swift",
+      "build",
+      "--\(target.optionName)", target.name,
+      "--configuration", configuration.rawValue,
+    ] + buildOptions
+    try Subprocess("xcrun", buildArguments,
+                   environment: environment,
+                   workingDirectory: package.parent()).runWithOutput()
+    let (binPath, _) = try Subprocess("xcrun", buildArguments + ["--show-bin-path"],
+                                      environment: environment,
+                                      workingDirectory: package.parent()).runWithOutput()
+    return Path(binPath.trimmingCharacters(in: .whitespacesAndNewlines)) + "mockingbird"
   }
 }
