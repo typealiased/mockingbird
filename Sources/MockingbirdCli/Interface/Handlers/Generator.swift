@@ -114,7 +114,7 @@ class Generator {
     let filePath = projectPath.extension == "xcodeproj"
       ? projectPath.glob("*.pbxproj").sorted().first
       : projectPath
-    let projectHash = try? filePath?.read().generateSha1Hash()
+    let projectHash = try? filePath?.read().hash()
     self.projectHash = projectHash
     return projectHash
   }

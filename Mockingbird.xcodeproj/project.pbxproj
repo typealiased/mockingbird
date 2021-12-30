@@ -98,6 +98,7 @@
 		285C8EA8277DA59E00DE525A /* E2ETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8EA7277DA59E00DE525A /* E2ETests.swift */; };
 		285C8EA9277DA59E00DE525A /* MockingbirdAutomation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 285C8DE82779CE6800DE525A /* MockingbirdAutomation.framework */; };
 		285C8EBF277DC7C400DE525A /* BuildType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8EBE277DC7C400DE525A /* BuildType.swift */; };
+		285C8EC5277DE42400DE525A /* Data+SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8EC4277DE42400DE525A /* Data+SHA1.swift */; };
 		286467DB26BFADE2005CDD67 /* DirectoryPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286467DA26BFADE2005CDD67 /* DirectoryPath.swift */; };
 		286467DD26BFB087005CDD67 /* SupportingSourcesPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286467DC26BFB087005CDD67 /* SupportingSourcesPath.swift */; };
 		28719AF026B21CB100C38C2C /* MKBProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 28719AEE26B21CB100C38C2C /* MKBProperty.h */; };
@@ -418,7 +419,6 @@
 		OBJ_955 /* Path+Fnmatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_125 /* Path+Fnmatch.swift */; };
 		OBJ_956 /* Path+WriteUtf8Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_126 /* Path+WriteUtf8Strings.swift */; };
 		OBJ_957 /* String+ParserUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_127 /* String+ParserUtils.swift */; };
-		OBJ_958 /* String+SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_128 /* String+SHA1.swift */; };
 		OBJ_960 /* Timing.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_130 /* Timing.swift */; };
 		OBJ_990 /* ClassScopedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_133 /* ClassScopedTypes.swift */; };
 		OBJ_991 /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_134 /* Generics.swift */; };
@@ -612,6 +612,7 @@
 		285C8EBC277DBAF600DE525A /* MockingbirdTestsHost.xcscheme */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MockingbirdTestsHost.xcscheme; sourceTree = "<group>"; };
 		285C8EBD277DBAF600DE525A /* MockingbirdCli.xcscheme */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MockingbirdCli.xcscheme; sourceTree = "<group>"; };
 		285C8EBE277DC7C400DE525A /* BuildType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildType.swift; sourceTree = "<group>"; };
+		285C8EC4277DE42400DE525A /* Data+SHA1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+SHA1.swift"; sourceTree = "<group>"; };
 		286467DA26BFADE2005CDD67 /* DirectoryPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryPath.swift; sourceTree = "<group>"; };
 		286467DC26BFB087005CDD67 /* SupportingSourcesPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportingSourcesPath.swift; sourceTree = "<group>"; };
 		28719AEE26B21CB100C38C2C /* MKBProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBProperty.h; sourceTree = "<group>"; };
@@ -761,7 +762,6 @@
 		OBJ_125 /* Path+Fnmatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+Fnmatch.swift"; sourceTree = "<group>"; };
 		OBJ_126 /* Path+WriteUtf8Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+WriteUtf8Strings.swift"; sourceTree = "<group>"; };
 		OBJ_127 /* String+ParserUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ParserUtils.swift"; sourceTree = "<group>"; };
-		OBJ_128 /* String+SHA1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SHA1.swift"; sourceTree = "<group>"; };
 		OBJ_129 /* Synchronized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronized.swift; sourceTree = "<group>"; };
 		OBJ_130 /* Timing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timing.swift; sourceTree = "<group>"; };
 		OBJ_131 /* Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
@@ -1105,6 +1105,7 @@
 			children = (
 				285C8DFA2779E32600DE525A /* Info.plist */,
 				285C8EBE277DC7C400DE525A /* BuildType.swift */,
+				285C8EC4277DE42400DE525A /* Data+SHA1.swift */,
 				285C8E18277ADB6600DE525A /* ProcessInfo+ControlCodes.swift */,
 				285C8E10277AA3BD00DE525A /* String+ControlCodes.swift */,
 				285C8E0B277A870E00DE525A /* String+Interpolation.swift */,
@@ -1434,7 +1435,6 @@
 				D3643B71247C5107002DF069 /* String+Components.swift */,
 				2896E53326A91D0400124D02 /* String+GeneratorUtils.swift */,
 				OBJ_127 /* String+ParserUtils.swift */,
-				OBJ_128 /* String+SHA1.swift */,
 				D3643B73247C517D002DF069 /* Substring+Components.swift */,
 				OBJ_130 /* Timing.swift */,
 			);
@@ -2376,6 +2376,7 @@
 				285C8E11277AA3BD00DE525A /* String+ControlCodes.swift in Sources */,
 				285C8E022779ED8300DE525A /* Version.swift in Sources */,
 				285C8E19277ADB6600DE525A /* ProcessInfo+ControlCodes.swift in Sources */,
+				285C8EC5277DE42400DE525A /* Data+SHA1.swift in Sources */,
 				285C8DFB2779E38400DE525A /* String+Regex.swift in Sources */,
 				285C8E032779EDCA00DE525A /* Synchronized.swift in Sources */,
 				285C8EBF277DC7C400DE525A /* BuildType.swift in Sources */,
@@ -2745,7 +2746,6 @@
 				OBJ_955 /* Path+Fnmatch.swift in Sources */,
 				OBJ_956 /* Path+WriteUtf8Strings.swift in Sources */,
 				OBJ_957 /* String+ParserUtils.swift in Sources */,
-				OBJ_958 /* String+SHA1.swift in Sources */,
 				OBJ_960 /* Timing.swift in Sources */,
 				284C3B4026AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift in Sources */,
 				D3B3D4CA248D77F300FEEDA0 /* FindMockedTypesOperation.swift in Sources */,

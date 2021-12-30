@@ -19,14 +19,13 @@ class E2ETests: XCTestCase {
   
   override func setUpWithError() throws {
     guard let srcroot = ProcessInfo.processInfo.environment["SRCROOT"] else {
-      XCTFail("Missing 'SRCROOT' environment variable")
-      return
+      preconditionFailure("Missing 'SRCROOT' environment variable")
     }
     
     sourceRoot = Path(srcroot)
-    XCTAssertTrue(sourceRoot.isDirectory)
+    precondition(sourceRoot.isDirectory)
     projectPath = sourceRoot + "Mockingbird.xcodeproj"
-    XCTAssertTrue(projectPath.isDirectory)
+    precondition(projectPath.isDirectory)
     
     // The backup project is used to restore the original state after each test.
     backupProjectPath = sourceRoot + "Mockingbird.xcodeproj.backup"
@@ -47,7 +46,7 @@ class E2ETests: XCTestCase {
     try cleanTestIntermediates()
     
     guard backupProjectPath.isDirectory else {
-      XCTFail("Missing backup Xcode project at \(backupProjectPath.abbreviate())")
+      fatalError("Missing backup Xcode project at \(backupProjectPath.abbreviate())")
       return
     }
     try projectPath.delete()
@@ -138,12 +137,13 @@ class E2ETests: XCTestCase {
       "--",
       "--targets", "MockingbirdTestsHost", "MockingbirdShadowedTestsHost",
       "--support", "Sources/MockingbirdSupport",
+      "--prune", "disable",
       "--disable-cache",
       "--diagnostics", "all",
       "--verbose",
     ], workingDirectory: sourceRoot).runWithOutput()
     
-    try XcodeBuild.test(target: .scheme(name: "MockingbirdTests"),
+    try? XcodeBuild.test(target: .scheme(name: "MockingbirdTests"),
                          project: .project(path: projectPath),
                          destination: .macOS)
     
@@ -159,14 +159,15 @@ class E2ETests: XCTestCase {
       "--",
       "--targets", "MockingbirdTestsHost", "MockingbirdShadowedTestsHost",
       "--support", "Sources/MockingbirdSupport",
+      "--prune", "disable",
       "--header", "// CUSTOM HEADER - LINE 1", "// CUSTOM HEADER - LINE 2",
       "--diagnostics", "all",
       "--verbose",
     ], workingDirectory: sourceRoot).runWithOutput()
     
     try XcodeBuild.test(target: .scheme(name: "MockingbirdTests"),
-                         project: .project(path: projectPath),
-                         destination: .macOS)
+                        project: .project(path: projectPath),
+                        destination: .macOS)
     
     let testsHostMocks = sourceRoot
       + "MockingbirdMocks/MockingbirdTests-MockingbirdTestsHostMocks.generated.swift"

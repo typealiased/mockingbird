@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MockingbirdCommon
 import PathKit
 import XcodeProj
 
@@ -75,12 +76,12 @@ public class CodableTarget: Target, Codable {
         })
     }
     ignoredDependencies.formUnion(self.dependencies.map({ $0.target?.productModuleName ?? "" }))
-    self.sourceFilePaths = try target.findSourceFilePaths(sourceRoot: sourceRoot)
+    self.sourceFilePaths = target.findSourceFilePaths(sourceRoot: sourceRoot)
       .map({ $0.absolute() })
       .sorted()
       .map({
         let data = (try? $0.read()) ?? Data()
-        return try SourceFile(path: $0, hash: data.generateSha1Hash())
+        return SourceFile(path: $0, hash: data.hash())
       })
     self.sourceRoot = sourceRoot.absolute()
   }

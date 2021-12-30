@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MockingbirdCommon
 import MockingbirdGenerator
 import PathKit
 import XcodeProj
@@ -133,7 +134,7 @@ extension Generator {
                                   sourceRoot: sourceRoot,
                                   supportPaths: result.supportPaths.map({ $0.path }),
                                   projectHash: projectHash,
-                                  outputHash: outputPath.read().generateSha1Hash(),
+                                  outputHash: outputPath.read().hash(),
                                   mockedTypesHash: mockedTypesResult?.generateMockedTypeNamesHash(),
                                   targetPathsHash: result.generateTargetPathsHash(),
                                   dependencyPathsHash: result.generateDependencyPathsHash(),
@@ -147,7 +148,7 @@ extension Generator {
                                   sourceRoot: sourceRoot,
                                   supportPaths: result.supportPaths.map({ $0.path }),
                                   projectHash: projectHash,
-                                  outputHash: outputPath.read().generateSha1Hash(),
+                                  outputHash: outputPath.read().hash(),
                                   mockedTypesHash: mockedTypesResult?.generateMockedTypeNamesHash(),
                                   targetPathsHash: result.generateTargetPathsHash(),
                                   dependencyPathsHash: result.generateDependencyPathsHash(),
@@ -161,7 +162,7 @@ extension Generator {
                                   sourceRoot: sourceRoot,
                                   supportPaths: result.supportPaths.map({ $0.path }),
                                   projectHash: projectHash,
-                                  outputHash: outputPath.read().generateSha1Hash(),
+                                  outputHash: outputPath.read().hash(),
                                   mockedTypesHash: mockedTypesResult?.generateMockedTypeNamesHash(),
                                   targetPathsHash: result.generateTargetPathsHash(),
                                   dependencyPathsHash: result.generateDependencyPathsHash(),
