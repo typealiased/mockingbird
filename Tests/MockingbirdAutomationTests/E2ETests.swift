@@ -175,4 +175,27 @@ class E2ETests: XCTestCase {
     XCTAssertTrue(contents.contains(#"// CUSTOM HEADER - LINE 1"#))
     XCTAssertTrue(contents.contains(#"// CUSTOM HEADER - LINE 2"#))
   }
+  
+  func testOutputFlakiness() throws {
+    var expectedHash: String?
+    for _ in 0...10 {
+      // Call the generator directly as it takes a while to run the entire test suite.
+      try Subprocess(cliPath.absolute().string, [
+        "generate",
+        "--testbundle", "MockingbirdTests",
+        "--targets", "MockingbirdTestsHost",
+        "--support", "Sources/MockingbirdSupport",
+        "--prune", "disable",
+        "--diagnostics", "all",
+        "--disable-cache",
+        "--verbose",
+      ], workingDirectory: sourceRoot).runWithOutput()
+    
+      let testsHostMocks = sourceRoot
+        + "MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift"
+      let actualHash = try testsHostMocks.read().hash()
+      if expectedHash == nil { expectedHash = actualHash }
+      XCTAssertEqual(actualHash, expectedHash)
+    }
+  }
 }
