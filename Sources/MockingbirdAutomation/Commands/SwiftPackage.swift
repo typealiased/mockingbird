@@ -30,12 +30,15 @@ public enum SwiftPackage {
                    workingDirectory: package.parent()).runWithOutput()
   }
   
-  public static func test(productName: String? = nil, package: Path) throws {
+  public static func test(productName: String? = nil,
+                          environment: [String: String] = ProcessInfo.processInfo.environment,
+                          package: Path) throws {
     let testProductArguments: [String] = {
       guard let name = productName else { return [] }
       return ["--test-product", name]
     }()
     try Subprocess("xcrun", ["swift", "test"] + testProductArguments,
+                   environment: environment,
                    workingDirectory: package.parent()).runWithOutput()
   }
   
