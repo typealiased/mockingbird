@@ -36,7 +36,7 @@ struct TestExampleProject: ParsableCommand {
         try CocoaPods.install(workspace: workspacePath)
         try XcodeBuild.test(target: .scheme(name: "CocoaPodsExample"),
                             project: .workspace(path: workspacePath),
-                            deviceUUID: uuid)
+                            destination: .iOSSimulator(deviceUUID: uuid))
       }
     }
   }
@@ -55,7 +55,7 @@ struct TestExampleProject: ParsableCommand {
         try Carthage.update(platform: .iOS, project: projectPath)
         try XcodeBuild.test(target: .scheme(name: "CarthageExample"),
                             project: .project(path: projectPath),
-                            deviceUUID: uuid)
+                            destination: .iOSSimulator(deviceUUID: uuid))
       }
     }
   }
@@ -74,7 +74,7 @@ struct TestExampleProject: ParsableCommand {
         try XcodeBuild.resolvePackageDependencies(project: .project(path: projectPath))
         try XcodeBuild.test(target: .scheme(name: "SPMProjectExample"),
                             project: .project(path: projectPath),
-                            deviceUUID: uuid)
+                            destination: .iOSSimulator(deviceUUID: uuid))
       }
     }
   }

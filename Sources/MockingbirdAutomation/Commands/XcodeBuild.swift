@@ -46,13 +46,30 @@ public enum XcodeBuild {
     }
   }
   
+  public enum Destination {
+    case iOSSimulator(deviceUUID: UUID)
+    case macOS
+    public var platform: String {
+      switch self {
+      case .iOSSimulator: return "iOS Simulator"
+      case .macOS: return "OS X"
+      }
+    }
+    public var optionValue: String {
+      switch self {
+      case .iOSSimulator(let deviceUUID): return "platform=\(platform),id=\(deviceUUID)"
+      case .macOS: return "platform=\(platform)"
+      }
+    }
+  }
+  
   public enum Constants {
     public static let tmpBuildPath = Path("/tmp/Mockingbird.dst")
   }
   
   public static func test(target: Target,
                           project: Project,
-                          deviceUUID: UUID,
+                          destination: Destination,
                           buildPath: Path = Constants.tmpBuildPath) throws {
     try Subprocess("xcrun", [
       "xcodebuild",
@@ -60,7 +77,19 @@ public enum XcodeBuild {
       "DSTROOT=\(doubleQuoted: buildPath.absolute().string)",
       "-\(target.optionName)", target.name,
       "-\(project.optionName)", project.path.absolute().string,
-      "-destination", "platform=iOS Simulator,id=\(deviceUUID.uuidString)",
+      "-destination", destination.optionValue,
+    ]).runWithOutput()
+  }
+  
+  public static func clean(target: Target,
+                           project: Project,
+                           buildPath: Path = Constants.tmpBuildPath) throws {
+    try Subprocess("xcrun", [
+      "xcodebuild",
+      "clean",
+      "DSTROOT=\(doubleQuoted: buildPath.absolute().string)",
+      "-\(target.optionName)", target.name,
+      "-\(project.optionName)", project.path.absolute().string,
     ]).runWithOutput()
   }
   

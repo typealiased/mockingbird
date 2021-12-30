@@ -8,4 +8,3 @@ TARGET_NAME = MockingbirdCommon
 
 // Build Flags
 BUILD_LIBRARY_FOR_DISTRIBUTION = YES
-MACH_O_TYPE = staticlib

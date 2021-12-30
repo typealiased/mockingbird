@@ -37,6 +37,7 @@ Mockingbird.xcodeproj/xcshareddata/xcschemes/*.xcscheme
 *.moved-aside
 *.xcuserstate
 *.xcscmblueprint
+*.xcodeproj.backup
 
 ## Carthage
 Carthage/Checkouts

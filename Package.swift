@@ -2,35 +2,12 @@
 import PackageDescription
 import class Foundation.ProcessInfo
 
-// MARK: - Build flavors
-// SwiftUI previews fail when including the `mockingbird` executable target, so builds are kept
-// separate and gated by the `MKB_BUILD_TYPE` environment variable.
-enum BuildType: Int {
-  case framework = 0
-  case cli = 1
-  case automation = 2
-  
-  init(_ environment: [String: String]) {
-    if let environmentBuildType = environment["MKB_BUILD_TYPE"],
-       let rawValue = Int(environmentBuildType),
-       let buildType = BuildType(rawValue: rawValue) {
-      self = buildType
-    } else {
-      self = .framework
-    }
-  }
-}
-let buildType = BuildType(ProcessInfo.processInfo.environment)
-
-// MARK: - Shared targets
-let commonTarget: Target = .target(
-  name: "MockingbirdCommon",
-  path: "Sources/MockingbirdCommon"
-)
-
-// MARK: - Package
+// MARK: - Package definitions
+/// The manifest is split into several sub-packages based on build type. It's a slight hack, but
+/// does offer a few advantages until SPM evolves, such as no package dependencies when consuming
+/// just the framework product, target-specific platform requirements, and SwiftUI compatibility.
 let package: Package
-switch buildType {
+switch BuildType(ProcessInfo.processInfo.environment[BuildType.environmentKey]) {
 case .framework:
   // MARK: Framework
   package = Package(
@@ -45,15 +22,13 @@ case .framework:
       .library(name: "Mockingbird", targets: ["Mockingbird", "MockingbirdObjC"]),
     ],
     targets: [
-      commonTarget,
       .target(
         name: "Mockingbird",
         dependencies: ["MockingbirdBridge", "MockingbirdCommon"],
         path: "Sources/MockingbirdFramework",
         exclude: ["Objective-C"],
         swiftSettings: [.define("MKB_SWIFTPM")],
-        linkerSettings: [.linkedFramework("XCTest")]
-      ),
+        linkerSettings: [.linkedFramework("XCTest")]),
       .target(
         name: "MockingbirdObjC",
         dependencies: ["Mockingbird", "MockingbirdBridge"],
@@ -62,16 +37,14 @@ case .framework:
         cSettings: [
           .headerSearchPath("./"),
           .define("MKB_SWIFTPM"),
-        ]
-      ),
+        ]),
       .target(
         name: "MockingbirdBridge",
         path: "Sources/MockingbirdFramework/Objective-C/Bridge",
         cSettings: [
           .headerSearchPath("include"),
           .define("MKB_SWIFTPM"),
-        ]
-      ),
+        ]),
     ]
   )
   
@@ -84,7 +57,6 @@ case .cli:
     ],
     products: [
       .executable(name: "mockingbird", targets: ["MockingbirdCli"]),
-      .library(name: "MockingbirdGenerator", targets: ["MockingbirdGenerator"]),
     ],
     // These dependencies must be kept in sync with the Xcode project.
     // TODO: Add a build rule to enforce consistency.
@@ -96,7 +68,6 @@ case .cli:
       .package(url: "https://github.com/weichsel/ZIPFoundation.git", .exact("0.9.14")),
     ],
     targets: [
-      commonTarget,
       .target(
         name: "MockingbirdCli",
         dependencies: [
@@ -106,12 +77,10 @@ case .cli:
           "XcodeProj",
           "ZIPFoundation",
         ],
-        path: "Sources/MockingbirdCli",
         linkerSettings: [.unsafeFlags(["-Xlinker", "-rpath",
                                        "-Xlinker", "@executable_path"]),
                          .unsafeFlags(["-Xlinker", "-rpath",
-                                       "-Xlinker", "@executable_path/Libraries"])]
-      ),
+                                       "-Xlinker", "@executable_path/Libraries"])]),
       .target(
         name: "MockingbirdGenerator",
         dependencies: [
@@ -119,9 +88,7 @@ case .cli:
           "MockingbirdCommon",
           "SwiftSyntax",
           "XcodeProj",
-        ],
-        path: "Sources/MockingbirdGenerator"
-      ),
+        ]),
     ]
   )
   
@@ -134,6 +101,7 @@ case .automation:
     ],
     products: [
       .library(name: "MockingbirdAutomation", targets: ["MockingbirdAutomation"]),
+      .library(name: "MockingbirdCommon", targets: ["MockingbirdCommon"]),
     ],
     // These dependencies must be kept in sync with the Xcode project.
     // TODO: Add a build rule to enforce consistency.
@@ -141,12 +109,35 @@ case .automation:
       .package(url: "https://github.com/kylef/PathKit.git", .exact("1.0.1")),
     ],
     targets: [
-      commonTarget,
       .target(
         name: "MockingbirdAutomation",
-        dependencies: ["MockingbirdCommon", "PathKit"],
-        path: "Sources/MockingbirdAutomation"
-      ),
+        dependencies: ["MockingbirdCommon", "PathKit"]),
+      .testTarget(
+        name: "MockingbirdAutomationTests",
+        dependencies: ["MockingbirdAutomation"]),
     ]
   )
+}
+
+// MARK: - Shared targets
+package.targets.append(.target(name: "MockingbirdCommon", path: "Sources/MockingbirdCommon"))
+
+// MARK: - Build types
+/// Keep this in sync with `Sources/MockingbirdCommon/BuildType.swift`.
+public enum BuildType: Int {
+  case framework = 0
+  case cli = 1
+  case automation = 2
+  
+  public init(_ stringValue: String?) {
+    if let stringValue = stringValue,
+       let intValue = Int(stringValue),
+       let buildType = BuildType(rawValue: intValue) {
+      self = buildType
+    } else {
+      self = .framework
+    }
+  }
+  
+  public static let environmentKey = "MKB_BUILD_TYPE"
 }

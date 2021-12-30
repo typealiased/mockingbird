@@ -2,6 +2,7 @@
 
 import ArgumentParser  // apple/swift-argument-parser == 1.0.2
 import MockingbirdAutomation  // ../
+import MockingbirdCommon
 import PathKit  // @kylef == 1.0.1
 import Foundation
 import ZIPFoundation  // @weichsel == 0.9.14
@@ -96,7 +97,7 @@ struct BuildArtifact: ParsableCommand {
     func run() throws {
       let packagePath = Path("./Package.swift")
       var environment = ProcessInfo.processInfo.environment
-      environment["MKB_BUILD_TYPE"] = "1"
+      environment[BuildType.environmentKey] = String(BuildType.cli.rawValue)
       let cliPath = try SwiftPackage.build(target: .product(name: "mockingbird"),
                                            configuration: .release,
                                            environment: environment,

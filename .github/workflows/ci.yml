@@ -1,20 +1,16 @@
-name: Build + Test
+name: CI
 
 on: [push, pull_request]
 
 jobs:
-  build-latest:
-    name: Run on latest macOS
+  endToEnd:
+    name: Test Generator and Framework
     runs-on: macOS-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: Print Debug Info
-      run: make print-debug-info
     - name: Set Up Project
-      run: make setup-project
-    - name: Clean
-      run: make clean
+      run: Scripts/swift-sh Scripts/ManageProject.swift load --overwrite
     - name: Build Framework
       run: make build-framework
     - name: Build and Install CLI
@@ -74,3 +70,30 @@ jobs:
           --verbose
     - name: Test All Thunks
       run: make clean-test
+
+  test-podspec:
+    name: Test Podspec
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test
+      env:
+        GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+      run: pod spec lint MockingbirdFramework.podspec
+
+  test-example-project:
+    name: Test Example Project (${{ matrix.type }})
+    runs-on: macOS-latest
+    strategy:
+      matrix:
+        type:
+        - cocoapods
+        - carthage
+        - spm-project
+        - spm-package
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test
+      env:
+        GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+      run: Scripts/swift-sh Scripts/TestExampleProject.swift ${{ matrix.type }}
