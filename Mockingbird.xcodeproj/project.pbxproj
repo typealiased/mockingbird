@@ -595,6 +595,7 @@
 		285C8E91277C76DC00DE525A /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		285C8E92277C76DC00DE525A /* update.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = update.sh; sourceTree = "<group>"; };
 		285C8E93277D315F00DE525A /* ManageProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageProject.swift; sourceTree = "<group>"; };
+		285C8E95277D444B00DE525A /* swift-sh */ = {isa = PBXFileReference; lastKnownFileType = text; path = "swift-sh"; sourceTree = "<group>"; };
 		286467DA26BFADE2005CDD67 /* DirectoryPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryPath.swift; sourceTree = "<group>"; };
 		286467DC26BFB087005CDD67 /* SupportingSourcesPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportingSourcesPath.swift; sourceTree = "<group>"; };
 		28719AEE26B21CB100C38C2C /* MKBProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBProperty.h; sourceTree = "<group>"; };
@@ -1075,6 +1076,7 @@
 		285C8DEC2779D2D500DE525A /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
+				285C8E95277D444B00DE525A /* swift-sh */,
 				285C8E28277B45A100DE525A /* BuildArtifact.swift */,
 				285C8E93277D315F00DE525A /* ManageProject.swift */,
 				285C8D832779452800DE525A /* TestExampleProject.swift */,

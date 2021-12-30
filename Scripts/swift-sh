@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -eu
+
+if [[ ! -x "$(command -v swift-sh)" ]]; then
+  brew install swift-sh
+fi
+
+MKB_BUILD_TYPE=2 xcrun swift sh "$@"
