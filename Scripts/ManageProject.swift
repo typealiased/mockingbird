@@ -15,7 +15,9 @@ struct ManageProject: ParsableCommand {
     ])
   
   struct LoadSchemes: ParsableCommand {
-    static var configuration = CommandConfiguration(commandName: "load")
+    static var configuration = CommandConfiguration(
+      commandName: "load",
+      abstract: "Apply shared schemes to the Xcode project.")
     
     @Flag(help: "Overwrite existing schemes.")
     var overwrite: Bool = false
@@ -58,7 +60,9 @@ struct ManageProject: ParsableCommand {
   }
   
   struct SaveSchemes: ParsableCommand {
-    static var configuration = CommandConfiguration(commandName: "save")
+    static var configuration = CommandConfiguration(
+      commandName: "save",
+      abstract: "Save shared Xcode schemes.")
     func run() throws {
       let schemes = try Path("Mockingbird.xcodeproj/xcshareddata/xcschemes").glob("*.xcscheme")
       logInfo("Found \(schemes.count) scheme\(schemes.count != 1 ? "s" : "") to save")

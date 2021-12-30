@@ -54,9 +54,11 @@ struct BuildArtifact: ParsableCommand {
   }
   
   struct BuildCli: ParsableCommand {
-    static var configuration = CommandConfiguration(commandName: "cli")
+    static var configuration = CommandConfiguration(
+      commandName: "cli",
+      abstract: "Build the command line interface.")
     
-    @Option(name: .customLong("sign"), help: "Identity used to sign the built CLI binary.")
+    @Option(name: .customLong("sign"), help: "Identity used to sign the built binary.")
     var signingIdentity: String?
     
     @Option(help: "File path containing the designated requirement for codesigning.")
@@ -114,7 +116,9 @@ struct BuildArtifact: ParsableCommand {
   }
   
   struct BuildFramework: ParsableCommand {
-    static var configuration = CommandConfiguration(commandName: "framework")
+    static var configuration = CommandConfiguration(
+      commandName: "framework",
+      abstract: "Build a fat XCFramework bundle.")
     
     @Option(help: "The target platform.")
     var platform: Carthage.Platform = .all

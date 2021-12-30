@@ -23,7 +23,9 @@ struct TestExampleProject: ParsableCommand {
   }
   
   struct TestCocoaPods: ParsableCommand {
-    static var configuration = CommandConfiguration(commandName: "cocoapods")
+    static var configuration = CommandConfiguration(
+      commandName: "cocoapods",
+      abstract: "Test the CocoaPods example project.")
     func run() throws {
       try Simulator.performInSimulator { uuid in
         guard let uuid = uuid else {
@@ -40,7 +42,9 @@ struct TestExampleProject: ParsableCommand {
   }
   
   struct TestCarthage: ParsableCommand {
-    static var configuration = CommandConfiguration(commandName: "carthage")
+    static var configuration = CommandConfiguration(
+      commandName: "carthage",
+      abstract: "Test the Carthage example project.")
     func run() throws {
       try Simulator.performInSimulator { uuid in
         guard let uuid = uuid else {
@@ -57,7 +61,9 @@ struct TestExampleProject: ParsableCommand {
   }
   
   struct TestSpmProject: ParsableCommand {
-    static var configuration = CommandConfiguration(commandName: "spm-project")
+    static var configuration = CommandConfiguration(
+      commandName: "spm-project",
+      abstract: "Test the SwiftPM example project.")
     func run() throws {
       try Simulator.performInSimulator { uuid in
         guard let uuid = uuid else {
@@ -74,7 +80,9 @@ struct TestExampleProject: ParsableCommand {
   }
   
   struct TestSpmPackage: ParsableCommand {
-    static var configuration = CommandConfiguration(commandName: "spm-package")
+    static var configuration = CommandConfiguration(
+      commandName: "spm-package",
+      abstract: "Test the SwiftPM example package.")
     func run() throws {
       let packagePath = Path("Examples/SPMPackageExample/Package.swift")
       try SwiftPackage.update(package: packagePath)
