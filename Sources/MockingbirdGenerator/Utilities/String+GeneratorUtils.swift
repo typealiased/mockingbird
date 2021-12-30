@@ -16,4 +16,15 @@ extension String {
   init(list values: [String], separator: String = ", ") {
     self = values.joined(separator: separator)
   }
+  
+  func justified(columns: Int, separatedBy delimiter: Character = " ") -> [String] {
+    let tokens = substringComponents(separatedBy: delimiter)
+    return tokens.reduce(into: []) { lines, token in
+      guard let line = lines.last, line.count + token.count + 1 <= columns else {
+        lines.append(String(token))
+        return
+      }
+      lines[lines.count-1] = line + String(delimiter) + token
+    }
+  }
 }
