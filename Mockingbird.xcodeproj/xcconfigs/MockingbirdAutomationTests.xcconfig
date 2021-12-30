@@ -1,0 +1,6 @@
+#include "TestBase.xcconfig"
+
+// Identifiers
+PRODUCT_MODULE_NAME = MockingbirdAutomationTests
+PRODUCT_NAME = MockingbirdAutomationTests
+TARGET_NAME = MockingbirdAutomationTests

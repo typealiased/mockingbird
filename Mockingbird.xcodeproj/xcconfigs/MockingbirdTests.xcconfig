@@ -1,2 +1,6 @@
-INFOPLIST_FILE = $(SRCROOT)/Tests/MockingbirdTests/Info.plist
-MACOSX_DEPLOYMENT_TARGET = 10.14
+#include "TestBase.xcconfig"
+
+// Identifiers
+PRODUCT_MODULE_NAME = MockingbirdTests
+PRODUCT_NAME = MockingbirdTests
+TARGET_NAME = MockingbirdTests

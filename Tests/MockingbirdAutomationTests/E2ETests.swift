@@ -32,11 +32,9 @@ class E2ETests: XCTestCase {
     try? backupProjectPath.delete()
     try projectPath.copy(backupProjectPath)
     
-    var environment = ProcessInfo.processInfo.environment
-    environment[BuildType.environmentKey] = String(BuildType.cli.rawValue)
     cliPath = try SwiftPackage.build(target: .product(name: "mockingbird"),
                                      configuration: .release,
-                                     environment: environment,
+                                     packageConfiguration: .executables,
                                      package: sourceRoot + "Package.swift")
     
     try cleanTestIntermediates()
@@ -47,7 +45,6 @@ class E2ETests: XCTestCase {
     
     guard backupProjectPath.isDirectory else {
       fatalError("Missing backup Xcode project at \(backupProjectPath.abbreviate())")
-      return
     }
     try projectPath.delete()
     try backupProjectPath.move(projectPath)

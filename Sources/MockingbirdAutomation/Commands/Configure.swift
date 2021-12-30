@@ -1,18 +1,21 @@
-#!/usr/bin/env xcrun swift sh
-
-import ArgumentParser  // apple/swift-argument-parser == 1.0.2
-import MockingbirdAutomation  // ../
-import PathKit  // @kylef == 1.0.1
+import ArgumentParser
+import MockingbirdAutomation
+import PathKit
 import Foundation
 
-struct ManageProject: ParsableCommand {
+struct Configure: ParsableCommand {
   static var configuration = CommandConfiguration(
-    abstract: "Manage the project environment.",
+    abstract: "Configure the project environment.",
     subcommands: [
       LoadSchemes.self,
       UnloadSchemes.self,
       SaveSchemes.self,
     ])
+  
+  enum Constants {
+    static let resourcesPath = Path("./Sources/MockingbirdAutomation/Resources")
+    static let projectPath = Path("./Mockingbird.xcodeproj")
+  }
   
   struct LoadSchemes: ParsableCommand {
     static var configuration = CommandConfiguration(
@@ -23,11 +26,10 @@ struct ManageProject: ParsableCommand {
     var overwrite: Bool = false
     
     func run() throws {
-      let schemes = try Path("Scripts/Resources/XcodeSchemes").glob("*.xcscheme")
+      let schemes = (Constants.resourcesPath + "XcodeSchemes").glob("*.xcscheme")
       logInfo("Found \(schemes.count) scheme\(schemes.count != 1 ? "s" : "") to load")
       try schemes.forEach({ scheme in
-        let destination = Path("Mockingbird.xcodeproj/xcshareddata/xcschemes")
-          + scheme.lastComponent
+        let destination = Constants.projectPath + "xcshareddata/xcschemes" + scheme.lastComponent
         guard overwrite || !destination.isFile else {
           logInfo("Skipping existing scheme \(singleQuoted: destination.lastComponent)")
           return
@@ -48,7 +50,7 @@ struct ManageProject: ParsableCommand {
     var keep: [String] = []
     
     func run() throws {
-      let schemes = try Path("Mockingbird.xcodeproj/xcshareddata/xcschemes").glob("*.xcscheme")
+      let schemes = (Constants.projectPath + "xcshareddata/xcschemes").glob("*.xcscheme")
       logInfo("Found \(schemes.count) potential scheme\(schemes.count != 1 ? "s" : "") to unload")
       let denyList = Set(keep)
       try schemes.forEach({ scheme in
@@ -64,10 +66,10 @@ struct ManageProject: ParsableCommand {
       commandName: "save",
       abstract: "Save shared Xcode schemes.")
     func run() throws {
-      let schemes = try Path("Mockingbird.xcodeproj/xcshareddata/xcschemes").glob("*.xcscheme")
+      let schemes = (Constants.projectPath + "xcshareddata/xcschemes").glob("*.xcscheme")
       logInfo("Found \(schemes.count) scheme\(schemes.count != 1 ? "s" : "") to save")
       try schemes.forEach({ scheme in
-        let destination = Path("Scripts/Resources/XcodeSchemes") + scheme.lastComponent
+        let destination = Constants.resourcesPath + "XcodeSchemes" + scheme.lastComponent
         try? destination.delete()
         try scheme.copy(destination)
         logInfo("Copied scheme to \(destination.abbreviate())")
@@ -75,5 +77,3 @@ struct ManageProject: ParsableCommand {
     }
   }
 }
-
-ManageProject.main()

@@ -14,14 +14,13 @@ import PathKit
 /// Represents a CLI that can parse arguments and run the appropriate `Command`.
 struct Mockingbird: ParsableCommand {
   static var configuration = CommandConfiguration(
-    abstract: "A convenient Swift mocking framework.",
+    abstract: "A convenient mocking framework for Swift.",
     version: "\(mockingbirdVersion)",
     subcommands: [
       Configure.self,
       Generate.self,
       Version.self,
-    ]
-  )
+    ])
   
   struct Options: ParsableArguments {
     @Flag(help: "Log all errors, warnings, and debug messages.")

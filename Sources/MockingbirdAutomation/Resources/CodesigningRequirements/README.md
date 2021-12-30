@@ -13,7 +13,7 @@ There are a few prerequisites to testing the code signing flow:
 Once your environment is set up, simply modify a requirements file and run the `BuildArtifact` script with `--sign` to validate your changes.
 
 ```console
-$ export MKB_BUILD_TYPE=2 swift sh Scripts/BuildArtifact.swift cli --sign <identity>
+$ Sources/MockingbirdAutomation/buildAndRun.sh build cli --sign <identity>
 ```
 
 ## Supporting Links

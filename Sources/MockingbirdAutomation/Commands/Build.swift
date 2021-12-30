@@ -1,13 +1,10 @@
-#!/usr/bin/env xcrun swift sh
-
-import ArgumentParser  // apple/swift-argument-parser == 1.0.2
-import MockingbirdAutomation  // ../
-import MockingbirdCommon
-import PathKit  // @kylef == 1.0.1
+import ArgumentParser
+import MockingbirdAutomation
+import PathKit
 import Foundation
-import ZIPFoundation  // @weichsel == 0.9.14
+import ZIPFoundation
 
-struct BuildArtifact: ParsableCommand {
+struct Build: ParsableCommand {
   static var configuration = CommandConfiguration(
     abstract: "Build a project artifact.",
     subcommands: [
@@ -63,7 +60,8 @@ struct BuildArtifact: ParsableCommand {
     var signingIdentity: String?
     
     @Option(help: "File path containing the designated requirement for codesigning.")
-    var requirements: String = "./Scripts/Resources/CodesigningRequirements/mockingbird.txt"
+    var requirements: String =
+      "./Sources/MockingbirdAutomation/Resources/CodesigningRequirements/mockingbird.txt"
     
     @OptionGroup()
     var globalOptions: Options
@@ -96,11 +94,9 @@ struct BuildArtifact: ParsableCommand {
     
     func run() throws {
       let packagePath = Path("./Package.swift")
-      var environment = ProcessInfo.processInfo.environment
-      environment[BuildType.environmentKey] = String(BuildType.cli.rawValue)
       let cliPath = try SwiftPackage.build(target: .product(name: "mockingbird"),
                                            configuration: .release,
-                                           environment: environment,
+                                           packageConfiguration: .executables,
                                            package: packagePath)
       try fixupRpaths(binary: cliPath)
       if let identity = signingIdentity {
@@ -108,7 +104,7 @@ struct BuildArtifact: ParsableCommand {
         try Codesign.verify(binary: cliPath, requirements: Path(requirements))
       }
       if let location = globalOptions.archiveLocation {
-        let libRoot = Path("./Sources/MockingbirdCli/Libraries")
+        let libRoot = Path("./Sources/MockingbirdCli/Resources/Libraries")
         let libPaths = libRoot.glob("*.dylib") + [libRoot + "LICENSE.txt"]
         try archive(artifacts: [("", cliPath)] + libPaths.map({ ("Libraries", $0) }),
                     destination: Path(location))
@@ -162,5 +158,3 @@ struct BuildArtifact: ParsableCommand {
 }
 
 extension Carthage.Platform: ExpressibleByArgument {}
-
-BuildArtifact.main()

@@ -1,12 +1,11 @@
-#!/usr/bin/env xcrun swift sh
-
-import ArgumentParser  // apple/swift-argument-parser == 1.0.2
-import MockingbirdAutomation  // ../
-import PathKit  // @kylef == 1.0.1
+import ArgumentParser
+import MockingbirdAutomation
+import PathKit
 import Foundation
 
 struct TestExampleProject: ParsableCommand {
   static var configuration = CommandConfiguration(
+    commandName: "example",
     abstract: "Run an end-to-end example project test.",
     subcommands: [
       TestCocoaPods.self,
@@ -91,5 +90,3 @@ struct TestExampleProject: ParsableCommand {
     }
   }
 }
-
-TestExampleProject.main()

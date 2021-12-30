@@ -1,0 +1,7 @@
+#include "ExecutableBase.xcconfig"
+
+// Identifiers
+INFOPLIST_FILE = $(SRCROOT)/Sources/MockingbirdAutomation/Info.plist
+PRODUCT_MODULE_NAME = MockingbirdAutomationCli
+PRODUCT_NAME = MockingbirdAutomationCli
+TARGET_NAME = MockingbirdAutomationCli

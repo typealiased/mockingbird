@@ -58,20 +58,25 @@ public struct Subprocess: CustomStringConvertible {
   @discardableResult
   public func runWithOutput(inBackground: Bool = false,
                             printCommand: Bool = true) throws -> (stdout: String, stderr: String) {
+    let outputQueue = DispatchQueue(label: "co.bird.mockingbird.automation", qos: .userInitiated)
     var stdoutBuffer: [String] = []
-    stdout.fileHandleForReading.readabilityHandler = { pipe in
-      guard let line = String(data: pipe.availableData, encoding: .utf8) else { return }
-      fputs(line, Darwin.stdout)
-      stdoutBuffer.append(line)
-    }
     var stderrBuffer: [String] = []
-    stderr.fileHandleForReading.readabilityHandler = { pipe in
-      guard let line = String(data: pipe.availableData, encoding: .utf8) else { return }
-      fputs(line, Darwin.stderr)
-      stderrBuffer.append(line)
+    stdout.fileHandleForReading.readabilityHandler = { pipe in
+      outputQueue.async {
+        guard let line = String(data: pipe.availableData, encoding: .utf8) else { return }
+        fputs(line, Darwin.stdout)
+        stdoutBuffer.append(line)
+      }
     }
-    
+    stderr.fileHandleForReading.readabilityHandler = { pipe in
+      outputQueue.async {
+        guard let line = String(data: pipe.availableData, encoding: .utf8) else { return }
+        fputs(line, Darwin.stderr)
+        stderrBuffer.append(line)
+      }
+    }
     try run(inBackground: inBackground, printCommand: printCommand)
+    outputQueue.sync {}
     return (stdoutBuffer.joined(separator: "\n"), stderrBuffer.joined(separator: "\n"))
   }
 }

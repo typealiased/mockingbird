@@ -2,13 +2,11 @@
 import PackageDescription
 import class Foundation.ProcessInfo
 
-// MARK: - Package definitions
 /// The manifest is split into several sub-packages based on build type. It's a slight hack, but
 /// does offer a few advantages until SPM evolves, such as no package dependencies when consuming
 /// just the framework product, target-specific platform requirements, and SwiftUI compatibility.
 let package: Package
-switch BuildType(ProcessInfo.processInfo.environment[BuildType.environmentKey]) {
-case .framework:
+if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
   // MARK: Framework
   package = Package(
     name: "Mockingbird",
@@ -34,22 +32,15 @@ case .framework:
         dependencies: ["Mockingbird", "MockingbirdBridge"],
         path: "Sources/MockingbirdFramework/Objective-C",
         exclude: ["Bridge"],
-        cSettings: [
-          .headerSearchPath("./"),
-          .define("MKB_SWIFTPM"),
-        ]),
+        cSettings: [.headerSearchPath("./"), .define("MKB_SWIFTPM")]),
       .target(
         name: "MockingbirdBridge",
         path: "Sources/MockingbirdFramework/Objective-C/Bridge",
-        cSettings: [
-          .headerSearchPath("include"),
-          .define("MKB_SWIFTPM"),
-        ]),
+        cSettings: [.headerSearchPath("include"), .define("MKB_SWIFTPM")]),
     ]
   )
-  
-case .cli:
-  // MARK: CLI
+} else {
+  // MARK: Executables
   package = Package(
     name: "Mockingbird",
     platforms: [
@@ -57,11 +48,13 @@ case .cli:
     ],
     products: [
       .executable(name: "mockingbird", targets: ["MockingbirdCli"]),
+      .executable(name: "automation", targets: ["MockingbirdAutomation"]),
     ],
     // These dependencies must be kept in sync with the Xcode project.
     // TODO: Add a build rule to enforce consistency.
     dependencies: [
       .package(url: "https://github.com/apple/swift-argument-parser.git", .exact("1.0.2")),
+      .package(url: "https://github.com/kylef/PathKit.git", .exact("1.0.1")),
       .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", .exact("0.50500.0")),
       .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.0")),
       .package(url: "https://github.com/tuist/XcodeProj.git", .exact("8.7.1")),
@@ -77,10 +70,10 @@ case .cli:
           "XcodeProj",
           "ZIPFoundation",
         ],
-        linkerSettings: [.unsafeFlags(["-Xlinker", "-rpath",
-                                       "-Xlinker", "@executable_path"]),
-                         .unsafeFlags(["-Xlinker", "-rpath",
-                                       "-Xlinker", "@executable_path/Libraries"])]),
+        linkerSettings: [
+          .unsafeFlags(["-Xlinker", "-rpath", "-Xlinker", "@executable_path"]),
+          .unsafeFlags(["-Xlinker", "-rpath", "-Xlinker", "@executable_path/Libraries"]),
+        ]),
       .target(
         name: "MockingbirdGenerator",
         dependencies: [
@@ -89,29 +82,14 @@ case .cli:
           "SwiftSyntax",
           "XcodeProj",
         ]),
-    ]
-  )
-  
-case .automation:
-  // MARK: Automation
-  package = Package(
-    name: "Mockingbird",
-    platforms: [
-      .macOS(.v10_15),
-    ],
-    products: [
-      .library(name: "MockingbirdAutomation", targets: ["MockingbirdAutomation"]),
-      .library(name: "MockingbirdCommon", targets: ["MockingbirdCommon"]),
-    ],
-    // These dependencies must be kept in sync with the Xcode project.
-    // TODO: Add a build rule to enforce consistency.
-    dependencies: [
-      .package(url: "https://github.com/kylef/PathKit.git", .exact("1.0.1")),
-    ],
-    targets: [
       .target(
         name: "MockingbirdAutomation",
-        dependencies: ["MockingbirdCommon", "PathKit"]),
+        dependencies: [
+          .product(name: "ArgumentParser", package: "swift-argument-parser"),
+          "MockingbirdCommon",
+          "PathKit",
+          "ZIPFoundation",
+        ]),
       .testTarget(
         name: "MockingbirdAutomationTests",
         dependencies: ["MockingbirdAutomation"]),
@@ -119,25 +97,4 @@ case .automation:
   )
 }
 
-// MARK: - Shared targets
 package.targets.append(.target(name: "MockingbirdCommon", path: "Sources/MockingbirdCommon"))
-
-// MARK: - Build types
-/// Keep this in sync with `Sources/MockingbirdCommon/BuildType.swift`.
-public enum BuildType: Int {
-  case framework = 0
-  case cli = 1
-  case automation = 2
-  
-  public init(_ stringValue: String?) {
-    if let stringValue = stringValue,
-       let intValue = Int(stringValue),
-       let buildType = BuildType(rawValue: intValue) {
-      self = buildType
-    } else {
-      self = .framework
-    }
-  }
-  
-  public static let environmentKey = "MKB_BUILD_TYPE"
-}
