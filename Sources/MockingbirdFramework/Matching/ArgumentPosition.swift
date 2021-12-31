@@ -12,23 +12,27 @@ import Foundation
 /// You must provide an explicit argument position when using argument matchers on an Objective-C
 /// method with multiple value type parameters.
 ///
-///     @objc class Bird: NSObject {
-///       @objc dynamic func chirp(volume: Int, duration: Int) {}
-///     }
+/// ```swift
+/// @objc class Bird: NSObject {
+///   @objc dynamic func chirp(volume: Int, duration: Int) {}
+/// }
 ///
-///     given(bird.chirp(volume: arg(any(), at: 0),
-///                      duration: arg(any(), at: 1))).will {
-///       print($0 as! Int, $1 as! Int)
-///     }
+/// given(bird.chirp(volume: arg(any(), at: 0),
+///                  duration: arg(any(), at: 1))).will {
+///   print($0 as! Int, $1 as! Int)
+/// }
 ///
-///     bird.chirp(42, 9001)  // Prints 42, 9001
+/// bird.chirp(42, 9001)  // Prints 42, 9001
+/// ```
 ///
 /// This is equivalent to the verbose form of declaring an argument position.
 ///
-///     given(bird.chirp(volume: firstArg(any()),
-///                      duration: secondArg(any()))).will {
-///       print($0 as! Int, $1 as! Int)
-///     }
+/// ```swift
+/// given(bird.chirp(volume: firstArg(any()),
+///                  duration: secondArg(any()))).will {
+///   print($0 as! Int, $1 as! Int)
+/// }
+/// ```
 ///
 /// - Note: This helper has no effect on argument matchers passed to statically generated Swift
 /// mocks or to object parameter types.
@@ -52,23 +56,27 @@ public func arg<T>(_ matcher: @autoclosure () -> T, at position: Int) -> T {
 /// You must provide an explicit argument position when using argument matchers on an Objective-C
 /// method with multiple value type parameters.
 ///
-///     @objc class Bird: NSObject {
-///       @objc dynamic func chirp(volume: Int, duration: Int) {}
-///     }
+/// ```swift
+/// @objc class Bird: NSObject {
+///   @objc dynamic func chirp(volume: Int, duration: Int) {}
+/// }
 ///
-///     given(bird.chirp(volume: firstArg(any()),
-///                      duration: secondArg(any()))).will {
-///       print($0 as! Int, $1 as! Int)
-///     }
+/// given(bird.chirp(volume: firstArg(any()),
+///                  duration: secondArg(any()))).will {
+///   print($0 as! Int, $1 as! Int)
+/// }
 ///
-///     bird.chirp(42, 9001)  // Prints 42, 9001
+/// bird.chirp(42, 9001)  // Prints 42, 9001
+/// ```
 ///
 /// This is equivalent to the verbose form of declaring an argument position.
 ///
-///     given(bird.chirp(volume: arg(any(), at: 0),
-///                      duration: arg(any(), at: 1))).will {
-///       print($0 as! Int, $1 as! Int)
-///     }
+/// ```swift
+/// given(bird.chirp(volume: arg(any(), at: 0),
+///                  duration: arg(any(), at: 1))).will {
+///   print($0 as! Int, $1 as! Int)
+/// }
+/// ```
 ///
 /// - Note: This helper has no effect on argument matchers passed to statically generated Swift
 /// mocks or to object parameter types.
@@ -84,23 +92,27 @@ public func firstArg<T>(_ matcher: @autoclosure () -> T) -> T {
 /// You must provide an explicit argument position when using argument matchers on an Objective-C
 /// method with multiple value type parameters.
 ///
-///     @objc class Bird: NSObject {
-///       @objc dynamic func chirp(volume: Int, duration: Int) {}
-///     }
+/// ```swift
+/// @objc class Bird: NSObject {
+///   @objc dynamic func chirp(volume: Int, duration: Int) {}
+/// }
 ///
-///     given(bird.chirp(volume: firstArg(any()),
-///                      duration: secondArg(any()))).will {
-///       print($0 as! Int, $1 as! Int)
-///     }
+/// given(bird.chirp(volume: firstArg(any()),
+///                  duration: secondArg(any()))).will {
+///   print($0 as! Int, $1 as! Int)
+/// }
 ///
-///     bird.chirp(42, 9001)  // Prints 42, 9001
+/// bird.chirp(42, 9001)  // Prints 42, 9001
+/// ```
 ///
 /// This is equivalent to the verbose form of declaring an argument position.
 ///
-///     given(bird.chirp(volume: arg(any(), at: 0),
-///                      duration: arg(any(), at: 1))).will {
-///       print($0 as! Int, $1 as! Int)
-///     }
+/// ```swift
+/// given(bird.chirp(volume: arg(any(), at: 0),
+///                  duration: arg(any(), at: 1))).will {
+///   print($0 as! Int, $1 as! Int)
+/// }
+/// ```
 ///
 /// - Note: This helper has no effect on argument matchers passed to statically generated Swift
 /// mocks or to object parameter types.
@@ -116,23 +128,27 @@ public func secondArg<T>(_ matcher: @autoclosure () -> T) -> T {
 /// You must provide an explicit argument position when using argument matchers on an Objective-C
 /// method with multiple value type parameters.
 ///
-///     @objc class Bird: NSObject {
-///       @objc dynamic func chirp(volume: Int, duration: Int) {}
-///     }
+/// ```swift
+/// @objc class Bird: NSObject {
+///   @objc dynamic func chirp(volume: Int, duration: Int) {}
+/// }
 ///
-///     given(bird.chirp(volume: firstArg(any()),
-///                      duration: secondArg(any()))).will {
-///       print($0 as! Int, $1 as! Int)
-///     }
+/// given(bird.chirp(volume: firstArg(any()),
+///                  duration: secondArg(any()))).will {
+///   print($0 as! Int, $1 as! Int)
+/// }
 ///
-///     bird.chirp(42, 9001)  // Prints 42, 9001
+/// bird.chirp(42, 9001)  // Prints 42, 9001
+/// ```
 ///
 /// This is equivalent to the verbose form of declaring an argument position.
 ///
-///     given(bird.chirp(volume: arg(any(), at: 0),
-///                      duration: arg(any(), at: 1))).will {
-///       print($0 as! Int, $1 as! Int)
-///     }
+/// ```swift
+/// given(bird.chirp(volume: arg(any(), at: 0),
+///                  duration: arg(any(), at: 1))).will {
+///   print($0 as! Int, $1 as! Int)
+/// }
+/// ```
 ///
 /// - Note: This helper has no effect on argument matchers passed to statically generated Swift
 /// mocks or to object parameter types.
@@ -148,23 +164,27 @@ public func thirdArg<T>(_ matcher: @autoclosure () -> T) -> T {
 /// You must provide an explicit argument position when using argument matchers on an Objective-C
 /// method with multiple value type parameters.
 ///
-///     @objc class Bird: NSObject {
-///       @objc dynamic func chirp(volume: Int, duration: Int) {}
-///     }
+/// ```swift
+/// @objc class Bird: NSObject {
+///   @objc dynamic func chirp(volume: Int, duration: Int) {}
+/// }
 ///
-///     given(bird.chirp(volume: firstArg(any()),
-///                      duration: secondArg(any()))).will {
-///       print($0 as! Int, $1 as! Int)
-///     }
+/// given(bird.chirp(volume: firstArg(any()),
+///                  duration: secondArg(any()))).will {
+///   print($0 as! Int, $1 as! Int)
+/// }
 ///
-///     bird.chirp(42, 9001)  // Prints 42, 9001
+/// bird.chirp(42, 9001)  // Prints 42, 9001
+/// ```
 ///
 /// This is equivalent to the verbose form of declaring an argument position.
 ///
-///     given(bird.chirp(volume: arg(any(), at: 0),
-///                      duration: arg(any(), at: 1))).will {
-///       print($0 as! Int, $1 as! Int)
-///     }
+/// ```swift
+/// given(bird.chirp(volume: arg(any(), at: 0),
+///                  duration: arg(any(), at: 1))).will {
+///   print($0 as! Int, $1 as! Int)
+/// }
+/// ```
 ///
 /// - Note: This helper has no effect on argument matchers passed to statically generated Swift
 /// mocks or to object parameter types.
@@ -180,23 +200,27 @@ public func fourthArg<T>(_ matcher: @autoclosure () -> T) -> T {
 /// You must provide an explicit argument position when using argument matchers on an Objective-C
 /// method with multiple value type parameters.
 ///
-///     @objc class Bird: NSObject {
-///       @objc dynamic func chirp(volume: Int, duration: Int) {}
-///     }
+/// ```swift
+/// @objc class Bird: NSObject {
+///   @objc dynamic func chirp(volume: Int, duration: Int) {}
+/// }
 ///
-///     given(bird.chirp(volume: firstArg(any()),
-///                      duration: secondArg(any()))).will {
-///       print($0 as! Int, $1 as! Int)
-///     }
+/// given(bird.chirp(volume: firstArg(any()),
+///                  duration: secondArg(any()))).will {
+///   print($0 as! Int, $1 as! Int)
+/// }
 ///
-///     bird.chirp(42, 9001)  // Prints 42, 9001
+/// bird.chirp(42, 9001)  // Prints 42, 9001
+/// ```
 ///
 /// This is equivalent to the verbose form of declaring an argument position.
 ///
-///     given(bird.chirp(volume: arg(any(), at: 0),
-///                      duration: arg(any(), at: 1))).will {
-///       print($0 as! Int, $1 as! Int)
-///     }
+/// ```swift
+/// given(bird.chirp(volume: arg(any(), at: 0),
+///                  duration: arg(any(), at: 1))).will {
+///   print($0 as! Int, $1 as! Int)
+/// }
+/// ```
 ///
 /// - Note: This helper has no effect on argument matchers passed to statically generated Swift
 /// mocks or to object parameter types.

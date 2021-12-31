@@ -12,21 +12,25 @@ import Foundation
 /// Initialized mocks can be passed in place of the original type. Protocol mocks do not require
 /// explicit initialization while class mocks should be created using `initialize(…)`.
 ///
-///     protocol Bird {
-///       init(name: String)
-///     }
-///     class Tree {
-///       init(with bird: Bird) {}
-///     }
+/// ```swift
+/// protocol Bird {
+///   init(name: String)
+/// }
+/// class Tree {
+///   init(with bird: Bird) {}
+/// }
 ///
-///     let bird = mock(Bird.self)  // Protocol mock
-///     let tree = mock(Tree.self).initialize(with: bird)  // Class mock
+/// let bird = mock(Bird.self)  // Protocol mock
+/// let tree = mock(Tree.self).initialize(with: bird)  // Class mock
+/// ```
 ///
 /// Generated mock types are suffixed with `Mock` and should not be coerced into their supertype.
 ///
-///     let bird: BirdMock = mock(Bird.self)  // The concrete type is `BirdMock`
-///     let inferredBird = mock(Bird.self)    // Type inference also works
-///     let coerced: Bird = mock(Bird.self)   // Avoid upcasting mocks
+/// ```swift
+/// let bird: BirdMock = mock(Bird.self)  // The concrete type is `BirdMock`
+/// let inferredBird = mock(Bird.self)    // Type inference also works
+/// let coerced: Bird = mock(Bird.self)   // Avoid upcasting mocks
+/// ```
 ///
 /// - Parameter type: The type to mock.
 @available(*, unavailable, message: "No generated mock for this type which might be resolved by building the test target (⇧⌘U)")
@@ -37,29 +41,33 @@ public func mock<T>(_ type: T.Type) -> T { fatalError() }
 /// Initialized mocks can be passed in place of the original type. Dynamic mocks use the
 /// Objective-C runtime and do not require explicit initialization like Swift class mocks.
 ///
-///     // Objective-C declarations
-///     @protocol Bird <NSObject>
-///     - (instancetype)initWithName:(NSString *);
-///     @end
-///     @interface Tree : NSObject
-///     - (instancetype)initWithHeight:(NSInteger)height;
-///     @end
+/// ```swift
+/// // Objective-C declarations
+/// @protocol Bird <NSObject>
+/// - (instancetype)initWithName:(NSString *);
+/// @end
+/// @interface Tree : NSObject
+/// - (instancetype)initWithHeight:(NSInteger)height;
+/// @end
 ///
-///     let bird = mock(Bird.self)  // Protocol mock
-///     let tree = mock(Tree.self)  // Class mock
+/// let bird = mock(Bird.self)  // Protocol mock
+/// let tree = mock(Tree.self)  // Class mock
+/// ```
 ///
 /// It's also possible to mock Swift types inheriting from `NSObject` or conforming to
 /// `NSObjectProtocol`. Members must be dynamically dispatched and available to the Objective-C
 /// runtime by specifying the `objc` attribute and `dynamic` modifier.
 ///
-///     @objc protocol Bird: NSObjectProtocol {
-///       @objc dynamic func chirp()
-///       @objc dynamic var name: String { get }
-///     }
-///     @objc class Tree: NSObject {
-///       @objc dynamic func shake() {}
-///       @objc dynamic var height: Int
-///     }
+/// ```swift
+/// @objc protocol Bird: NSObjectProtocol {
+///   @objc dynamic func chirp()
+///   @objc dynamic var name: String { get }
+/// }
+/// @objc class Tree: NSObject {
+///   @objc dynamic func shake() {}
+///   @objc dynamic var height: Int
+/// }
+/// ```
 ///
 /// - Parameter type: The type to mock.
 public func mock<T: NSObjectProtocol>(_ type: T.Type) -> T {
@@ -71,16 +79,18 @@ public func mock<T: NSObjectProtocol>(_ type: T.Type) -> T {
 /// Fully reset a set of mocks during test runs by removing all recorded invocations and clearing
 /// all configurations.
 ///
-///     let bird = mock(Bird.self)
-///     given(bird.name).willReturn("Ryan")
+/// ```swift
+/// let bird = mock(Bird.self)
+/// given(bird.name).willReturn("Ryan")
 ///
-///     print(bird.name)  // Prints "Ryan"
-///     verify(bird.name).wasCalled()  // Passes
+/// print(bird.name)  // Prints "Ryan"
+/// verify(bird.name).wasCalled()  // Passes
 ///
-///     reset(bird)
+/// reset(bird)
 ///
-///     print(bird.name)  // Error: Missing stubbed implementation
-///     verify(bird.name).wasCalled()  // Error: Got 0 invocations
+/// print(bird.name)  // Error: Missing stubbed implementation
+/// verify(bird.name).wasCalled()  // Error: Got 0 invocations
+/// ```
 ///
 /// - Parameter mocks: A set of mocks to reset.
 public func reset(_ mocks: Mock...) {
@@ -90,23 +100,25 @@ public func reset(_ mocks: Mock...) {
   })
 }
 
-/// Remove all recorded invocations and configured stubs.
+/// Remove all recorded invocations and configured stubs for Objective-C mocks.
 ///
 /// Fully reset a set of mocks during test runs by removing all recorded invocations and clearing
 /// all configurations.
 ///
-///     let bird = mock(Bird.self)
-///     given(bird.name).willReturn("Ryan")
+/// ```swift
+/// let bird = mock(Bird.self)
+/// given(bird.name).willReturn("Ryan")
 ///
-///     print(bird.name)  // Prints "Ryan"
-///     verify(bird.name).wasCalled()  // Passes
+/// print(bird.name)  // Prints "Ryan"
+/// verify(bird.name).wasCalled()  // Passes
 ///
-///     reset(bird)
+/// reset(bird)
 ///
-///     print(bird.name)  // Error: Missing stubbed implementation
-///     verify(bird.name).wasCalled()  // Error: Got 0 invocations
+/// print(bird.name)  // Error: Missing stubbed implementation
+/// verify(bird.name).wasCalled()  // Error: Got 0 invocations
+/// ```
 ///
-/// - Parameter mocks: A set of mocks to reset.
+/// - Parameter mocks: A set of Objective-C mocks to reset.
 public func reset(_ mocks: NSObjectProtocol...) {
   mocks.forEach({ mock in
     clearInvocations(on: mock)
@@ -118,38 +130,42 @@ public func reset(_ mocks: NSObjectProtocol...) {
 ///
 /// Partially reset a set of mocks during test runs by removing all recorded invocations.
 ///
-///     let bird = mock(Bird.self)
-///     given(bird.name).willReturn("Ryan")
+/// ```swift
+/// let bird = mock(Bird.self)
+/// given(bird.name).willReturn("Ryan")
 ///
-///     print(bird.name)  // Prints "Ryan"
-///     verify(bird.name).wasCalled()  // Passes
+/// print(bird.name)  // Prints "Ryan"
+/// verify(bird.name).wasCalled()  // Passes
 ///
-///     clearInvocations(on: bird)
+/// clearInvocations(on: bird)
 ///
-///     print(bird.name)  // Prints "Ryan"
-///     verify(bird.name).wasCalled()  // Error: Got 0 invocations
+/// print(bird.name)  // Prints "Ryan"
+/// verify(bird.name).wasCalled()  // Error: Got 0 invocations
+/// ```
 ///
 /// - Parameter mocks: A set of mocks to reset.
 public func clearInvocations(on mocks: Mock...) {
   mocks.forEach({ $0.mockingbirdContext.mocking.clearInvocations() })
 }
 
-/// Remove all recorded invocations.
+/// Remove all recorded invocations for Objective-C mocks.
 ///
 /// Partially reset a set of mocks during test runs by removing all recorded invocations.
 ///
-///     let bird = mock(Bird.self)
-///     given(bird.name).willReturn("Ryan")
+/// ```swift
+/// let bird = mock(Bird.self)
+/// given(bird.name).willReturn("Ryan")
 ///
-///     print(bird.name)  // Prints "Ryan"
-///     verify(bird.name).wasCalled()  // Passes
+/// print(bird.name)  // Prints "Ryan"
+/// verify(bird.name).wasCalled()  // Passes
 ///
-///     clearInvocations(on: bird)
+/// clearInvocations(on: bird)
 ///
-///     print(bird.name)  // Prints "Ryan"
-///     verify(bird.name).wasCalled()  // Error: Got 0 invocations
+/// print(bird.name)  // Prints "Ryan"
+/// verify(bird.name).wasCalled()  // Error: Got 0 invocations
+/// ```
 ///
-/// - Parameter mocks: A set of mocks to reset.
+/// - Parameter mocks: A set of Objective-C mocks to reset.
 public func clearInvocations(on mocks: NSObjectProtocol...) {
   mocks.forEach({ mock in
     guard let context = mock.mockingbirdContext else { return }
@@ -161,15 +177,17 @@ public func clearInvocations(on mocks: NSObjectProtocol...) {
 ///
 /// Partially reset a set of mocks during test runs by removing all stubs.
 ///
-///     let bird = mock(Bird.self)
-///     given(bird.name).willReturn("Ryan")
+/// ```swift
+/// let bird = mock(Bird.self)
+/// given(bird.name).willReturn("Ryan")
 ///
-///     print(bird.name)  // Prints "Ryan"
-///     verify(bird.name).wasCalled()  // Passes
+/// print(bird.name)  // Prints "Ryan"
+/// verify(bird.name).wasCalled()  // Passes
 ///
-///     clearStubs(on: bird)
+/// clearStubs(on: bird)
 ///
-///     print(bird.name)  // Error: Missing stubbed implementation
+/// print(bird.name)  // Error: Missing stubbed implementation
+/// ```
 ///
 /// - Parameter mocks: A set of mocks to reset.
 public func clearStubs(on mocks: Mock...) {
@@ -181,19 +199,21 @@ public func clearStubs(on mocks: Mock...) {
   })
 }
 
-/// Remove all concrete stubs.
+/// Remove all concrete stubs for Objective-C mocks.
 ///
 /// Partially reset a set of mocks during test runs by removing all stubs.
 ///
-///     let bird = mock(Bird.self)
-///     given(bird.name).willReturn("Ryan")
+/// ```swift
+/// let bird = mock(Bird.self)
+/// given(bird.name).willReturn("Ryan")
 ///
-///     print(bird.name)  // Prints "Ryan"
-///     verify(bird.name).wasCalled()  // Passes
+/// print(bird.name)  // Prints "Ryan"
+/// verify(bird.name).wasCalled()  // Passes
 ///
-///     clearStubs(on: bird)
+/// clearStubs(on: bird)
 ///
-///     print(bird.name)  // Error: Missing stubbed implementation
+/// print(bird.name)  // Error: Missing stubbed implementation
+/// ```
 ///
 /// - Parameter mocks: A set of mocks to reset.
 public func clearStubs(on mocks: NSObjectProtocol...) {
@@ -209,15 +229,17 @@ public func clearStubs(on mocks: NSObjectProtocol...) {
 ///
 /// Partially reset a set of mocks during test runs by removing all registered default values.
 ///
-///     let bird = mock(Bird.self)
-///     bird.useDefaultValues(from: .standardProvider)
+/// ```swift
+/// let bird = mock(Bird.self)
+/// bird.useDefaultValues(from: .standardProvider)
 ///
-///     print(bird.name)  // Prints ""
-///     verify(bird.name).wasCalled()  // Passes
+/// print(bird.name)  // Prints ""
+/// verify(bird.name).wasCalled()  // Passes
 ///
-///     clearDefaultValues(on: bird)
+/// clearDefaultValues(on: bird)
 ///
-///     print(bird.name)  // Error: Missing stubbed implementation
+/// print(bird.name)  // Error: Missing stubbed implementation
+/// ```
 ///
 /// - Parameter mocks: A set of mocks to reset.
 @available(*, deprecated, renamed: "clearStubs")

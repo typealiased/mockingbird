@@ -18,15 +18,19 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Stubbing allows you to define custom behavior for mocks to perform.
   ///
-  ///     given(bird.doMethod()).willReturn(someValue)
-  ///     given(bird.property).willReturn(someValue)
+  /// ```swift
+  /// given(bird.doMethod()).willReturn(someValue)
+  /// given(bird.property).willReturn(someValue)
+  /// ```
   ///
   /// Match exact or wildcard argument values when stubbing methods with parameters. Stubs added
   /// later have a higher precedence, so add stubs with specific matchers last.
   ///
-  ///     given(bird.canChirp(volume: any())).willReturn(true)     // Any volume
-  ///     given(bird.canChirp(volume: notNil())).willReturn(true)  // Any non-nil volume
-  ///     given(bird.canChirp(volume: 10)).willReturn(true)        // Volume = 10
+  /// ```swift
+  /// given(bird.canChirp(volume: any())).willReturn(true)     // Any volume
+  /// given(bird.canChirp(volume: notNil())).willReturn(true)  // Any non-nil volume
+  /// given(bird.canChirp(volume: 10)).willReturn(true)        // Volume = 10
+  /// ```
   ///
   /// - Parameter value: A stubbed value to return.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -40,8 +44,10 @@ public class DynamicStubbingManager<ReturnType>:
   /// Stubbing allows you to define custom behavior for mocks to perform. Methods that throw or
   /// rethrow errors can be stubbed with a throwable object.
   ///
-  ///     struct BirdError: Error {}
-  ///     given(bird.throwingMethod()).willThrow(BirdError())
+  /// ```swift
+  /// struct BirdError: Error {}
+  /// given(bird.throwingMethod()).willThrow(BirdError())
+  /// ```
   ///
   /// - Note: Methods overloaded by return type should chain `returning` with `willThrow` to
   /// disambiguate the mocked declaration.
@@ -62,10 +68,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -82,10 +90,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -103,10 +113,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -124,10 +136,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -145,10 +159,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -166,10 +182,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -187,10 +205,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -208,10 +228,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -230,10 +252,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -252,10 +276,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -274,10 +300,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -298,10 +326,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -318,10 +348,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -339,10 +371,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -360,10 +394,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -381,10 +417,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -402,10 +440,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -423,10 +463,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -444,10 +486,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -466,10 +510,12 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// ```swift
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
+  /// ```
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -488,10 +534,10 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
@@ -510,10 +556,10 @@ public class DynamicStubbingManager<ReturnType>:
   ///
   /// Use a closure to implement stubs that contain logic, interact with arguments, or throw errors.
   ///
-  ///     given(bird.canChirp(volume: any()))
-  ///       .will { volume in
-  ///         return volume < 42
-  ///       }
+  /// given(bird.canChirp(volume: any()))
+  ///   .will { volume in
+  ///     return volume < 42
+  ///   }
   ///
   /// - Parameter implementation: A closure implementation stub to evaluate.
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.

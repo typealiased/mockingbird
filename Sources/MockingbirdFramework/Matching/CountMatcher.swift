@@ -45,16 +45,20 @@ public let twice: Int = 2
 /// The `exactly` count matcher can be used to verify that the actual number of invocations received
 /// by a mock equals the expected number of invocations.
 ///
-///     // Given two invocations (n = 2)
-///     bird.fly()
-///     bird.fly()
+/// ```swift
+/// // Given two invocations (n = 2)
+/// bird.fly()
+/// bird.fly()
 ///
-///     verify(bird.fly()).wasCalled(exactly(1))  // Fails (n ≠ 1)
-///     verify(bird.fly()).wasCalled(exactly(2))  // Passes
+/// verify(bird.fly()).wasCalled(exactly(1))  // Fails (n ≠ 1)
+/// verify(bird.fly()).wasCalled(exactly(2))  // Passes
+/// ```
 ///
 /// You can combine count matchers with adverbial counts for improved readability.
 ///
-///     verify(bird.fly()).wasCalled(exactly(once))
+/// ```swift
+/// verify(bird.fly()).wasCalled(exactly(once))
+/// ```
 ///
 /// - Parameter times: An exact integer count.
 /// - Returns: A count matcher.
@@ -67,17 +71,21 @@ public func exactly(_ times: Int) -> CountMatcher {
 /// The `atLeast` count matcher can be used to verify that the actual number of invocations received
 /// by a mock is greater than or equal to the expected number of invocations.
 ///
-///     // Given two invocations (n = 2)
-///     bird.fly()
-///     bird.fly()
+/// ```swift
+/// // Given two invocations (n = 2)
+/// bird.fly()
+/// bird.fly()
 ///
-///     verify(bird.fly()).wasCalled(atLeast(1))  // Passes
-///     verify(bird.fly()).wasCalled(atLeast(2))  // Passes
-///     verify(bird.fly()).wasCalled(atLeast(3))  // Fails (n < 3)
+/// verify(bird.fly()).wasCalled(atLeast(1))  // Passes
+/// verify(bird.fly()).wasCalled(atLeast(2))  // Passes
+/// verify(bird.fly()).wasCalled(atLeast(3))  // Fails (n < 3)
+/// ```
 ///
 /// You can combine count matchers with adverbial counts for improved readability.
 ///
-///     verify(bird.fly()).wasCalled(atLeast(once))
+/// ```swift
+/// verify(bird.fly()).wasCalled(atLeast(once))
+/// ```
 ///
 /// - Parameter times: An inclusive lower bound.
 /// - Returns: A count matcher.
@@ -90,17 +98,21 @@ public func atLeast(_ times: Int) -> CountMatcher {
 /// The `atMost` count matcher can be used to verify that the actual number of invocations received
 /// by a mock is less than or equal to the expected number of invocations.
 ///
-///     // Given two invocations (n = 2)
-///     bird.fly()
-///     bird.fly()
+/// ```swift
+/// // Given two invocations (n = 2)
+/// bird.fly()
+/// bird.fly()
 ///
-///     verify(bird.fly()).wasCalled(atMost(1))  // Fails (n > 1)
-///     verify(bird.fly()).wasCalled(atMost(2))  // Passes
-///     verify(bird.fly()).wasCalled(atMost(3))  // Passes
+/// verify(bird.fly()).wasCalled(atMost(1))  // Fails (n > 1)
+/// verify(bird.fly()).wasCalled(atMost(2))  // Passes
+/// verify(bird.fly()).wasCalled(atMost(3))  // Passes
+/// ```
 ///
 /// You can combine count matchers with adverbial counts for improved readability.
 ///
-///     verify(bird.fly()).wasCalled(atMost(once))
+/// ```swift
+/// verify(bird.fly()).wasCalled(atMost(once))
+/// ```
 ///
 /// - Parameter times: An inclusive upper bound.
 /// - Returns: A count matcher.
@@ -113,16 +125,20 @@ public func atMost(_ times: Int) -> CountMatcher {
 /// The `between` count matcher can be used to verify that the actual number of invocations received
 /// by a mock is within an inclusive range of expected invocations.
 ///
-///     // Given two invocations (n = 2)
-///     bird.fly()
-///     bird.fly()
+/// ```swift
+/// // Given two invocations (n = 2)
+/// bird.fly()
+/// bird.fly()
 ///
-///     verify(bird.fly()).wasCalled(between(1...2))  // Passes
-///     verify(bird.fly()).wasCalled(between(3...4))  // Fails (3 ≮ n < 4)
+/// verify(bird.fly()).wasCalled(between(1...2))  // Passes
+/// verify(bird.fly()).wasCalled(between(3...4))  // Fails (3 ≮ n < 4)
+/// ```
 ///
 /// You can combine count matchers with adverbial counts for improved readability.
 ///
-///     verify(bird.fly()).wasCalled(between(once...twice))
+/// ```swift
+/// verify(bird.fly()).wasCalled(between(once...twice))
+/// ```
 ///
 /// - Parameter range: An closed integer range.
 /// - Returns: A count matcher.
@@ -138,8 +154,10 @@ extension CountMatcher {
   /// Combined count matchers can be used to perform complex checks on the number of invocations
   /// received.
   ///
-  ///     // Checks that n = 1 || n ≥ 42
-  ///     verify(bird.fly()).wasCalled(exactly(once).or(atLeast(42)))
+  /// ```swift
+  /// // Checks that n = 1 || n ≥ 42
+  /// verify(bird.fly()).wasCalled(exactly(once).or(atLeast(42)))
+  /// ```
   ///
   /// - Parameter countMatcher: Another count matcher to combine.
   /// - Returns: A combined count matcher.
@@ -160,8 +178,10 @@ extension CountMatcher {
   /// Combined count matchers can be used to perform complex checks on the number of invocations
   /// received.
   ///
-  ///     // Checks that n = 1 || n = 2
-  ///     verify(bird.fly()).wasCalled(exactly(once).or(twice))
+  /// ```swift
+  /// // Checks that n = 1 || n = 2
+  /// verify(bird.fly()).wasCalled(exactly(once).or(twice))
+  /// ```
   ///
   /// - Parameter times: An exact count to combine.
   /// - Returns: A combined count matcher.
@@ -172,8 +192,10 @@ extension CountMatcher {
   /// Combined count matchers can be used to perform complex checks on the number of invocations
   /// received.
   ///
-  ///     // Checks that n = 1 && n ≥ 42
-  ///     verify(bird.fly()).wasCalled(exactly(once).and(atLeast(42)))
+  /// ```swift
+  /// // Checks that n = 1 && n ≥ 42
+  /// verify(bird.fly()).wasCalled(exactly(once).and(atLeast(42)))
+  /// ```
   ///
   /// - Parameter countMatcher: Another count matcher to combine.
   /// - Returns: A combined count matcher.
@@ -194,8 +216,10 @@ extension CountMatcher {
   /// Combined count matchers can be used to perform complex checks on the number of invocations
   /// received.
   ///
-  ///     // Checks that n ≤ 2 ⊕ n ≥ 1
-  ///     verify(bird.fly()).wasCalled(atMost(twice).xor(atLeast(once)))
+  /// ```swift
+  /// // Checks that n ≤ 2 ⊕ n ≥ 1
+  /// verify(bird.fly()).wasCalled(atMost(twice).xor(atLeast(once)))
+  /// ```
   ///
   /// - Parameter countMatcher: Another count matcher to combine.
   /// - Returns: A combined count matcher.
@@ -216,8 +240,10 @@ extension CountMatcher {
   /// Combined count matchers can be used to perform complex checks on the number of invocations
   /// received.
   ///
-  ///     // Checks that n ≥ 1 ⊕ n = 2
-  ///     verify(bird.fly()).wasCalled(atLeast(once).xor(twice))
+  /// ```swift
+  /// // Checks that n ≥ 1 ⊕ n = 2
+  /// verify(bird.fly()).wasCalled(atLeast(once).xor(twice))
+  /// ```
   ///
   /// - Parameter times: An exact count.
   /// - Returns: A combined count matcher.
@@ -229,8 +255,10 @@ extension CountMatcher {
 /// Combined count matchers can be used to perform complex checks on the number of invocations
 /// received.
 ///
-///     // Checks that n ≠ 1
-///     verify(bird.fly()).wasCalled(not(exactly(once)))
+/// ```swift
+/// // Checks that n ≠ 1
+/// verify(bird.fly()).wasCalled(not(exactly(once)))
+/// ```
 ///
 /// - Parameter countMatcher: A count matcher to negate.
 /// - Returns: A negated count matcher.
@@ -248,8 +276,10 @@ public func not(_ countMatcher: CountMatcher) -> CountMatcher {
 /// Combined count matchers can be used to perform complex checks on the number of invocations
 /// received.
 ///
-///     // Checks that n ≠ 1
-///     verify(bird.fly()).wasCalled(not(once))
+/// ```swift
+/// // Checks that n ≠ 1
+/// verify(bird.fly()).wasCalled(not(once))
+/// ```
 ///
 /// - Parameter countMatcher: An exact count to negate.
 /// - Returns: A negated count matcher.

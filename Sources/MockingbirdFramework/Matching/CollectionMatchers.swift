@@ -13,30 +13,34 @@ import Foundation
 /// Use the argument matcher `any(containing:)` to match collections that contain all specified
 /// values.
 ///
-///     protocol Bird {
-///       func send(_ messages: [String])
-///     }
+/// ```swift
+/// protocol Bird {
+///   func send(_ messages: [String])
+/// }
 ///
-///     given(bird.send(any(containing: "Hi", "Hello")))
-///       .will { print($0) }
+/// given(bird.send(any(containing: "Hi", "Hello")))
+///   .will { print($0) }
 ///
-///     bird.send(["Hi", "Hello"])  // Prints ["Hi", "Hello"]
-///     bird.send(["Hi", "Bye"])    // Error: Missing stubbed implementation
-///     bird.send(["Bye"])          // Error: Missing stubbed implementation
+/// bird.send(["Hi", "Hello"])  // Prints ["Hi", "Hello"]
+/// bird.send(["Hi", "Bye"])    // Error: Missing stubbed implementation
+/// bird.send(["Bye"])          // Error: Missing stubbed implementation
+/// ```
 ///
 /// Methods overloaded by parameter type can be disambiguated by explicitly specifying the type.
 ///
-///     protocol Bird {
-///       func send<T>(_ messages: [T])    // Overloaded generically
-///       func send(_ messages: [String])  // Overloaded explicitly
-///       func send(_ messages: [Data])
-///     }
+/// ```swift
+/// protocol Bird {
+///   func send<T>(_ messages: [T])    // Overloaded generically
+///   func send(_ messages: [String])  // Overloaded explicitly
+///   func send(_ messages: [Data])
+/// }
 ///
-///     given(bird.send(any([String].self, containing: ["Hi", "Hello"])))
-///       .will { print($0) }
+/// given(bird.send(any([String].self, containing: ["Hi", "Hello"])))
+///   .will { print($0) }
 ///
-///     bird.send(["Hi", "Hello"])       // Prints ["Hi", "Hello"]
-///     bird.send([Data([1]), Data(2)])  // Error: Missing stubbed implementation
+/// bird.send(["Hi", "Hello"])       // Prints ["Hi", "Hello"]
+/// bird.send([Data([1]), Data(2)])  // Error: Missing stubbed implementation
+/// ```
 ///
 /// - Parameters:
 ///   - type: The parameter type used to disambiguate overloaded methods.
@@ -61,47 +65,51 @@ public func any<T: Collection>(_ type: T.Type = T.self, containing values: T.Ele
 /// Use the argument matcher `any(containing:)` to match dictionaries that contain all specified
 /// values.
 ///
-///     protocol Bird {
-///       func send(_ messages: [UUID: String])
-///     }
+/// ```swift
+/// protocol Bird {
+///   func send(_ messages: [UUID: String])
+/// }
 ///
-///     given(bird.send(any(containing: "Hi", "Hello")))
-///       .will { print($0) }
+/// given(bird.send(any(containing: "Hi", "Hello")))
+///   .will { print($0) }
 ///
-///     bird.send([
-///       UUID(): "Hi",
-///       UUID(): "Hello",
-///     ])  // Prints ["Hi", "Hello"]
+/// bird.send([
+///   UUID(): "Hi",
+///   UUID(): "Hello",
+/// ])  // Prints ["Hi", "Hello"]
 ///
-///     bird.send([
-///       UUID(): "Hi",
-///       UUID(): "Bye",
-///     ])  // Error: Missing stubbed implementation
+/// bird.send([
+///   UUID(): "Hi",
+///   UUID(): "Bye",
+/// ])  // Error: Missing stubbed implementation
 ///
-///     bird.send([
-///       UUID(): "Bye",
-///     ]) // Error: Missing stubbed implementation
+/// bird.send([
+///   UUID(): "Bye",
+/// ]) // Error: Missing stubbed implementation
+/// ```
 ///
 /// Methods overloaded by parameter type can be disambiguated by explicitly specifying the type.
 ///
-///     protocol Bird {
-///       func send<T>(_ messages: [UUID: T])    // Overloaded generically
-///       func send(_ messages: [UUID: String])  // Overloaded explicitly
-///       func send(_ messages: [UUID: Data])
-///     }
+/// ```swift
+/// protocol Bird {
+///   func send<T>(_ messages: [UUID: T])    // Overloaded generically
+///   func send(_ messages: [UUID: String])  // Overloaded explicitly
+///   func send(_ messages: [UUID: Data])
+/// }
 ///
-///     given(bird.send(any([UUID: String].self, containing: "Hi", "Hello")))
-///       .will { print($0) }
+/// given(bird.send(any([UUID: String].self, containing: "Hi", "Hello")))
+///   .will { print($0) }
 ///
-///     bird.send([
-///       UUID(): "Hi",
-///       UUID(): "Hello",
-///     ])  // Prints ["Hi", "Hello"]
+/// bird.send([
+///   UUID(): "Hi",
+///   UUID(): "Hello",
+/// ])  // Prints ["Hi", "Hello"]
 ///
-///     bird.send([
-///       UUID(): Data([1]),
-///       UUID(): Data([2]),
-///     ])  // Error: Missing stubbed implementation
+/// bird.send([
+///   UUID(): Data([1]),
+///   UUID(): Data([2]),
+/// ])  // Error: Missing stubbed implementation
+/// ```
 ///
 /// - Parameters:
 ///   - type: The parameter type used to disambiguate overloaded methods.
@@ -126,47 +134,51 @@ public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
 /// Argument matching allows you to stub or verify specific invocations of parameterized methods.
 /// Use the argument matcher `any(keys:)` to match dictionaries that contain all specified keys.
 ///
-///     protocol Bird {
-///       func send(_ messages: [UUID: String])
-///     }
+/// ```swift
+/// protocol Bird {
+///   func send(_ messages: [UUID: String])
+/// }
 ///
-///     let messageId1 = UUID()
-///     let messageId2 = UUID()
-///     given(bird.send(any(keys: messageId1, messageId2)))
-///       .will { print($0) }
+/// let messageId1 = UUID()
+/// let messageId2 = UUID()
+/// given(bird.send(any(keys: messageId1, messageId2)))
+///   .will { print($0) }
 ///
-///     bird.send([
-///       messageId1: "Hi",
-///       messageId2: "Hello",
-///     ])  // Prints ["Hi", "Hello"]
+/// bird.send([
+///   messageId1: "Hi",
+///   messageId2: "Hello",
+/// ])  // Prints ["Hi", "Hello"]
 ///
-///     bird.send([
-///       UUID(): "Hi",
-///       UUID(): "Hello",
-///     ])  // Error: Missing stubbed implementation
+/// bird.send([
+///   UUID(): "Hi",
+///   UUID(): "Hello",
+/// ])  // Error: Missing stubbed implementation
+/// ```
 ///
 /// Methods overloaded by parameter type can be disambiguated by explicitly specifying the type.
 ///
-///     protocol Bird {
-///       func send<T>(_ messages: [UUID: T])    // Overloaded generically
-///       func send(_ messages: [UUID: String])  // Overloaded explicitly
-///       func send(_ messages: [UUID: Data])
-///     }
+/// ```swift
+/// protocol Bird {
+///   func send<T>(_ messages: [UUID: T])    // Overloaded generically
+///   func send(_ messages: [UUID: String])  // Overloaded explicitly
+///   func send(_ messages: [UUID: Data])
+/// }
 ///
-///     let messageId1 = UUID()
-///     let messageId2 = UUID()
-///     given(bird.send(any([UUID: String].self, keys: messageId1, messageId2)))
-///       .will { print($0) }
+/// let messageId1 = UUID()
+/// let messageId2 = UUID()
+/// given(bird.send(any([UUID: String].self, keys: messageId1, messageId2)))
+///   .will { print($0) }
 ///
-///     bird.send([
-///       messageId1: "Hi",
-///       messageId2: "Hello",
-///     ])  // Prints ["Hi", "Hello"]
+/// bird.send([
+///   messageId1: "Hi",
+///   messageId2: "Hello",
+/// ])  // Prints ["Hi", "Hello"]
 ///
-///     bird.send([
-///       messageId1: Data([1]),
-///       messageId2: Data([2]),
-///     ])  // Error: Missing stubbed implementation
+/// bird.send([
+///   messageId1: Data([1]),
+///   messageId2: Data([2]),
+/// ])  // Error: Missing stubbed implementation
+/// ```
 ///
 /// - Parameters:
 ///   - type: The parameter type used to disambiguate overloaded methods.
@@ -191,28 +203,32 @@ public func any<K, V>(_ type: Dictionary<K, V>.Type = Dictionary<K, V>.self,
 /// Argument matching allows you to stub or verify specific invocations of parameterized methods.
 /// Use the argument matcher `any(count:)` to match collections with a specific number of elements.
 ///
-///     protocol Bird {
-///       func send(_ messages: [String])
-///     }
+/// ```swift
+/// protocol Bird {
+///   func send(_ messages: [String])
+/// }
 ///
-///     given(bird.send(any(count: 2))).will { print($0) }
+/// given(bird.send(any(count: 2))).will { print($0) }
 ///
-///     bird.send(["Hi", "Hello"])  // Prints ["Hi", "Hello"]
-///     bird.send(["Hi"])           // Error: Missing stubbed implementation
+/// bird.send(["Hi", "Hello"])  // Prints ["Hi", "Hello"]
+/// bird.send(["Hi"])           // Error: Missing stubbed implementation
+/// ```
 ///
 /// Methods overloaded by parameter type can be disambiguated by explicitly specifying the type.
 ///
-///     protocol Bird {
-///       func send<T>(_ messages: [T])    // Overloaded generically
-///       func send(_ messages: [String])  // Overloaded explicitly
-///       func send(_ messages: [Data])
-///     }
+/// ```swift
+/// protocol Bird {
+///   func send<T>(_ messages: [T])    // Overloaded generically
+///   func send(_ messages: [String])  // Overloaded explicitly
+///   func send(_ messages: [Data])
+/// }
 ///
-///     given(bird.send(any([String].self, count: 2)))
-///       .will { print($0) }
+/// given(bird.send(any([String].self, count: 2)))
+///   .will { print($0) }
 ///
-///     bird.send(["Hi", "Hello"])         // Prints ["Hi", "Hello"]
-///     bird.send([Data([1]), Data([2])])  // Error: Missing stubbed implementation
+/// bird.send(["Hi", "Hello"])         // Prints ["Hi", "Hello"]
+/// bird.send([Data([1]), Data([2])])  // Error: Missing stubbed implementation
+/// ```
 ///
 /// - Parameters:
 ///   - type: The parameter type used to disambiguate overloaded methods.
@@ -233,28 +249,32 @@ public func any<T: Collection>(_ type: T.Type = T.self, count countMatcher: Coun
 /// Argument matching allows you to stub or verify specific invocations of parameterized methods.
 /// Use the argument matcher `notEmpty` to match collections with one or more elements.
 ///
-///     protocol Bird {
-///       func send(_ messages: [String])
-///     }
+/// ```swift
+/// protocol Bird {
+///   func send(_ messages: [String])
+/// }
 ///
-///     given(bird.send(any(count: 2))).will { print($0) }
+/// given(bird.send(any(count: 2))).will { print($0) }
 ///
-///     bird.send(["Hi"])  // Prints ["Hi"]
-///     bird.send([])      // Error: Missing stubbed implementation
+/// bird.send(["Hi"])  // Prints ["Hi"]
+/// bird.send([])      // Error: Missing stubbed implementation
+/// ```
 ///
 /// Methods overloaded by parameter type can be disambiguated by explicitly specifying the type.
 ///
-///     protocol Bird {
-///       func send<T>(_ messages: [T])    // Overloaded generically
-///       func send(_ messages: [String])  // Overloaded explicitly
-///       func send(_ messages: [Data])
-///     }
+/// ```swift
+/// protocol Bird {
+///   func send<T>(_ messages: [T])    // Overloaded generically
+///   func send(_ messages: [String])  // Overloaded explicitly
+///   func send(_ messages: [Data])
+/// }
 ///
-///     given(bird.send(notEmpty([String].self)))
-///       .will { print($0) }
+/// given(bird.send(notEmpty([String].self)))
+///   .will { print($0) }
 ///
-///     bird.send(["Hi"])       // Prints ["Hi"]
-///     bird.send([Data([1])])  // Error: Missing stubbed implementation
+/// bird.send(["Hi"])       // Prints ["Hi"]
+/// bird.send([Data([1])])  // Error: Missing stubbed implementation
+/// ```
 ///
 /// - Parameter type: The parameter type used to disambiguate overloaded methods.
 public func notEmpty<T: Collection>(_ type: T.Type = T.self) -> T {
@@ -267,16 +287,18 @@ public func notEmpty<T: Collection>(_ type: T.Type = T.self) -> T {
 ///
 /// Mathematical operations on floating point numbers can cause loss of precision. Fuzzily match floating point arguments instead of using exact values to increase the robustness of tests.
 ///
-///     protocol Bird {
-///       func canChirp(volume: Double) -> Bool
-///     }
+/// ```swift
+/// protocol Bird {
+///   func canChirp(volume: Double) -> Bool
+/// }
 ///
-///     given(bird.canChirp(volume: around(42.0, tolerance: 0.1)))
-///       .willReturn(true)
+/// given(bird.canChirp(volume: around(42.0, tolerance: 0.1)))
+///   .willReturn(true)
 ///
-///     print(bird.canChirp(volume: 42.0))     // Prints "true"
-///     print(bird.canChirp(volume: 42.0999))  // Prints "true"
-///     print(bird.canChirp(volume: 42.1))     // Prints "false"
+/// print(bird.canChirp(volume: 42.0))     // Prints "true"
+/// print(bird.canChirp(volume: 42.0999))  // Prints "true"
+/// print(bird.canChirp(volume: 42.1))     // Prints "false"
+/// ```
 ///
 /// - Parameters:
 ///   - value: The expected value.
