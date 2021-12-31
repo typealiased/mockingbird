@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-  <a href="#installation"><img src="https://img.shields.io/badge/package-CocoaPods%20%7C%20Carthage%20%7C%20SwiftPM-4BC51D.svg" alt="Package managers"></a>
+  <a href="#quick-start"><img src="https://img.shields.io/badge/package-CocoaPods%20%7C%20Carthage%20%7C%20SwiftPM-4BC51D.svg" alt="Package managers"></a>
   <a href="/birdrides/mockingbird/blob/add-readme-logo/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
   <a href="https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw" rel="nofollow"><img src="https://img.shields.io/badge/slack-%23mockingbird-A417A6.svg" alt="Slack channel"></a>
 </p>
@@ -39,7 +39,7 @@ Mockingbird powers thousands of tests at companies including [Meta](https://meta
 
 ### An Example
 
-Let’s say we wanted to test a `Person` class with a function that takes in a `Bird`.
+Let’s say we wanted to test a `Person` class with a method that takes a `Bird`.
 
 ```swift
 protocol Bird {
@@ -69,7 +69,7 @@ Person().release(bird)
 verify(bird.fly()).wasCalled()
 ```
 
-## Installation
+## Quick Start
 
 Select your preferred dependency manager below to get started.
 
@@ -80,7 +80,7 @@ Add the framework to a test target in your `Podfile`, making sure to include the
 ```ruby
 target 'MyAppTests' do
   use_frameworks!
-  pod 'MockingbirdFramework', '~> 0.18'
+  pod 'MockingbirdFramework', '~> 0.19'
 end
 ```
 
@@ -90,10 +90,12 @@ In your project directory, initialize the pod.
 $ pod install
 ```
 
-Finally, configure a test target to generate mocks for each listed source module. This adds a build phase to the test target which calls [`mockingbird generate`](#generate). For advanced usages, modify the installed build phase or [set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
+Finally, configure the test target to generate mocks for specific modules or libraries.
+
+> The configurator adds a build phase to the test target which automatically calls [`mockingbird generate`](#generate). You can pass additional arguments to the generator after the double-dash (`--`) or [manually set up targets](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
 
 ```console
-$ Pods/MockingbirdFramework/mockingbird install --target MyAppTests --sources MyApp MyLibrary1 MyLibrary2
+$ Pods/MockingbirdFramework/mockingbird configure MyAppTests -- --targets MyApp MyLibrary1 MyLibrary2
 ```
 
 Optional but recommended:
@@ -105,7 +107,7 @@ Have questions or issues?
 
 - [Join the Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw)
 - [Search the troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
-- [Check out the CocoaPods example project](/Examples/iOSMockingbirdExample-CocoaPods)
+- [Check out the CocoaPods example project](/Examples/CocoaPodsExample)
 
 </details>
 
@@ -114,7 +116,7 @@ Have questions or issues?
 Add the framework to your `Cartfile`.
 
 ```
-github "birdrides/mockingbird" ~> 0.18
+github "birdrides/mockingbird" ~> 0.19
 ```
 
 In your project directory, build the framework and [link it to your test target](https://github.com/birdrides/mockingbird/wiki/Linking-Test-Targets).
@@ -123,10 +125,12 @@ In your project directory, build the framework and [link it to your test target]
 $ carthage update --use-xcframeworks
 ```
 
-Finally, configure a test target to generate mocks for each listed source module. This adds a build phase to the test target which calls [`mockingbird generate`](#generate). For advanced usages, modify the installed build phase or [set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
+Finally, configure the test target to generate mocks for specific modules or libraries.
+
+> The configurator adds a build phase to the test target which automatically calls [`mockingbird generate`](#generate). You can pass additional arguments to the generator after the double-dash (`--`) or [manually set up targets](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
 
 ```console
-$ mockingbird install --target MyAppTests --sources MyApp MyLibrary1 MyLibrary2
+$ Carthage/Checkouts/mockingbird/mockingbird configure MyAppTests -- --targets MyApp MyLibrary1 MyLibrary2
 ```
 
 Optional but recommended:
@@ -138,11 +142,47 @@ Have questions or issues?
 
 - [Join the Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw)
 - [Search the troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
-- [Check out the Carthage example project](/Examples/iOSMockingbirdExample-Carthage)
+- [Check out the Carthage example project](/Examples/CarthageExample)
 
 </details>
 
-<details><summary><b>Swift Package Manager</b></summary>
+<details><summary><b>SwiftPM - Xcode Project</b></summary>
+
+Add the framework to your project:
+
+1. Navigate to **File › Add Packages…** and enter `https://github.com/birdrides/mockingbird`
+2. Change **Dependency Rule** to “Up to Next Minor Version” and enter `0.19.0`
+3. Click **Add Package**
+4. Select your test target and click **Add Package**
+
+In your project directory, resolve the derived data path. This can take a few moments.
+
+```console
+$ DERIVED_DATA="$(xcodebuild -showBuildSettings | sed -n 's|.*BUILD_ROOT = \(.*\)/Build/.*|\1|p'
+```
+
+Finally, configure the test target to generate mocks for specific modules or libraries.
+
+> The configurator adds a build phase to the test target which automatically calls [`mockingbird generate`](#generate). You can pass additional arguments to the generator after the double-dash (`--`) or [manually set up targets](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
+
+```console
+$ "${DERIVED_DATA}/SourcePackages/checkouts/mockingbird/mockingbird" configure MyPackageTests -- --targets MyPackage MyLibrary1 MyLibrary2
+```
+
+Optional but recommended:
+
+- [Exclude generated files from source control](https://github.com/birdrides/mockingbird/wiki/Integration-Tips#source-control-exclusion)
+- [Add supporting source files for compatibility with external dependencies](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files)
+
+Have questions or issues?
+
+- [Join the Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw)
+- [Search the troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
+- [Check out the SwiftPM Xcode project example](/Examples/SPMProjectExample)
+
+</details>
+
+<details><summary><b>SwiftPM - Package Manifest</b></summary>
 
 Add Mockingbird as a package and test target dependency in your `Package.swift` manifest.
 
@@ -150,7 +190,7 @@ Add Mockingbird as a package and test target dependency in your `Package.swift` 
 let package = Package(
   name: "MyPackage",
   dependencies: [
-    .package(name: "Mockingbird", url: "https://github.com/birdrides/mockingbird.git", .upToNextMinor(from: "0.18.0")),
+    .package(name: "Mockingbird", url: "https://github.com/birdrides/mockingbird.git", .upToNextMinor(from: "0.19.0")),
   ],
   targets: [
     .testTarget(name: "MyPackageTests", dependencies: ["Mockingbird"]),
@@ -158,22 +198,47 @@ let package = Package(
 )
 ```
 
-In your project directory, initialize the package dependency.
-
-> Parsing the `DERIVED_DATA` path can take a minute.
+In your package directory, initialize the dependency.
 
 ```console
-$ xcodebuild -resolvePackageDependencies
-$ DERIVED_DATA="$(xcodebuild -showBuildSettings | pcregrep -o1 'OBJROOT = (/.*)/Build')"
-$ REPO_PATH="${DERIVED_DATA}/SourcePackages/checkouts/mockingbird"
+$ swift package update Mockingbird
 ```
 
-Finally, configure a test target to generate mocks for each listed source module. This adds a build phase to the test target which calls [`mockingbird generate`](#generate). For advanced usages, modify the installed build phase or [set up targets manually](https://github.com/birdrides/mockingbird/wiki/Manual-Setup).
+Next, create a Bash script named `gen-mocks.sh` in the same directory as your package manifest. Copy the example below, making sure to change the lines marked with `FIXME`.
 
-> Not using an Xcode project? Generate mocks from the command line by calling [`mockingbird generate`](#generate).
+```bash
+#!/bin/bash
+set -eu
+cd "$(dirname "$0")"
+swift package describe --type json > project.json
+.build/checkouts/mockingbird/mockingbird generate --project project.json \
+  --output-dir Sources/MyPackageTests/MockingbirdMocks \  # FIXME: Where mocks should be generated.
+  --testbundle MyPackageTests \                           # FIXME: Name of your test target.
+  --targets MyPackage MyLibrary1 MyLibrary2               # FIXME: Specific modules or libraries that should be mocked.
+```
+
+Ensure that the script runs and generates mock files.
 
 ```console
-$ "${REPO_PATH}/mockingbird" install --target MyPackageTests --sources MyPackage MyLibrary1 MyLibrary2
+$ chmod u+x gen-mocks.sh
+$ ./gen-mocks.sh
+Generated file to MockingbirdMocks/MyPackageTests-MyPackage.generated.swift
+Generated file to MockingbirdMocks/MyPackageTests-MyLibrary1.generated.swift
+Generated file to MockingbirdMocks/MyPackageTests-MyLibrary2.generated.swift
+```
+
+Finally, add each generated mock file to your test target sources.
+
+```swift
+.testTarget(
+  name: "MyPackageTests",
+  dependencies: ["Mockingbird"],
+  sources: [
+    "Tests/MyPackageTests",
+    "MockingbirdMocks/MyPackageTests-MyPackage.generated.swift",
+    "MockingbirdMocks/MyPackageTests-MyLibrary1.generated.swift",
+    "MockingbirdMocks/MyPackageTests-MyLibrary2.generated.swift",
+  ]),
 ```
 
 Optional but recommended:
@@ -185,7 +250,7 @@ Have questions or issues?
 
 - [Join the Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw)
 - [Search the troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
-- [Check out the Swift Package Manager example project](/Examples/iOSMockingbirdExample-SPM)
+- [Check out the SwiftPM package manifest example](/Examples/SPMPackageExample)
 
 </details>
 
@@ -662,10 +727,11 @@ Generate mocks for a set of targets in a project.
 
 | Option | Default Value | Description |
 | --- | --- | --- |
-| `--targets` | *(required)* | List of target names to generate mocks for. |
-| `--project` | [`(inferred)`](#--project) | Path to an `.xcodeproj` file or a [JSON project description](https://github.com/birdrides/mockingbird/wiki/Manual-Setup#generating-mocks-for-non-xcode-projects). |
+| `-t, --targets` | *(required)* | List of target names to generate mocks for. |
+| `-o, --outputs` | [`(inferred)`](#--outputs) | List of output file paths corresponding to each target. |
+| `-p, --project` | [`(inferred)`](#--project) | Path to an Xcode project or a [JSON project description](https://github.com/birdrides/mockingbird/wiki/Manual-Setup#generating-mocks-for-non-xcode-projects). |
+| `--output-dir` | [`(inferred)`](#--outputs) | The directory where generated files should be output. |
 | `--srcroot` | [`(inferred)`](#--srcroot) | The directory containing your project’s source files. |
-| `--outputs` | [`(inferred)`](#--outputs) | List of mock output file paths for each target. |
 | `--support` | [`(inferred)`](#--support) | The directory containing [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files). |
 | `--testbundle` | [`(inferred)`](#--testbundle) | The name of the test bundle using the mocks. |
 | `--header` |  `(none)` | Content to add at the beginning of each generated mock file. |
@@ -676,65 +742,31 @@ Generate mocks for a set of targets in a project.
 | Flag | Description |
 | --- | --- |
 | `--only-protocols` | Only generate mocks for protocols. |
-| `--disable-module-import` | Omit `@testable import <module>` from generated mocks. |
 | `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
 | `--disable-cache` | Ignore cached mock information stored on disk. |
 | `--disable-relaxed-linking` | Only search explicitly imported modules. |
 
-### Install
+### Configure
 
-Configure a test target to use mocks.
+Configure a test target to generate mocks.
 
-`mockingbird install`
+`mockingbird configure <test-target> -- <generator-options>`
+
+| Argument | Description |
+| --- | --- |
+| `test-target` | The name of a test target to configure. |
+| `generator-options` | Arguments to use when running the generator. See the 'generate' command for all options. |
 
 | Option | Default Value | Description |
 | --- | --- | --- |
-| `--target` | *(required)* | The name of a test target to configure. |
-| `--sources` | *(required)* | List of target names to generate mocks for. |
-| `--project` | [`(inferred)`](#--project) | Path to an `.xcodeproj` file or a [JSON project description](https://github.com/birdrides/mockingbird/wiki/Manual-Setup#generating-mocks-for-non-xcode-projects). |
-| `--srcroot` | [`(inferred)`](#--srcroot) | The directory containing your project’s source files. |
-| `--outputs` | [`(inferred)`](#--outputs) | List of mock output file paths for each target. |
-| `--support` | [`(inferred)`](#--support) | The directory containing [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files). |
-| `--header` |  `(none)` | Content to add at the beginning of each generated mock file. |
-| `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
-| `--diagnostics` | `(none)` | List of [diagnostic generator warnings](https://github.com/birdrides/mockingbird/wiki/Diagnostic-Warnings-and-Errors) to enable. |
-| `--loglevel` |  `(none)` | The log level to use when generating mocks, `quiet` or `verbose`. |
-| `--prune` | `omit` | The [pruning method](#thunk-pruning) to use on unreferenced types. |
+| `-p, --project` | [`(inferred)`](#--project) | Path to an Xcode project. |
+| `--srcproject` | [`(inferred)`](#--project) | Path to the Xcode project with source modules, if separate from tests. |
+| `--generator` | [`(inferred)`](#--generator) | Path to the Mockingbird generator executable. |
+| `--url` | [`(inferred)`](#--url) | The base URL hosting downloadable asset bundles. |
 
 | Flag | Description |
 | --- | --- |
-| `--preserve-existing` | Don’t overwrite previously installed configurations. |
-| `--asynchronous` | Generate mocks asynchronously in the background when building. |
-| `--only-protocols` | Only generate mocks for protocols. |
-| `--disable-swiftlint` | Disable all SwiftLint rules in generated mocks. |
-| `--disable-cache` | Ignore cached mock information stored on disk. |
-| `--disable-relaxed-linking` | Only search explicitly imported modules. |
-
-### Uninstall
-
-Remove Mockingbird from a test target.
-
-`mockingbird uninstall`
-
-| Option | Default Value | Description |
-| --- | --- | --- |
-| `--targets` | *(required)* | List of target names to uninstall the Run Script Phase. |
-| `--project` | [`(inferred)`](#--project) | Your project’s `.xcodeproj` file. |
-| `--srcroot` | [`(inferred)`](#--srcroot) | The directory containing your project’s source files. |
-
-### Download
-
-Download and unpack a compatible asset bundle. Bundles will never overwrite existing files on disk.
-
-`mockingbird download <asset>`
-
-| Asset | Description |
-| --- | --- |
-| `starter-pack` | Starter [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files). |
-
-| Option | Default Value | Description |
-| --- | --- | --- |
-| `--url` | `https://github.com/birdrides/mockingbird/releases/download` | The base URL containing downloadable asset bundles. |
+| `--preserve-existing` | Keep previously added Mockingbird build phases. |
 
 ### Global Options
 
@@ -742,8 +774,10 @@ Download and unpack a compatible asset bundle. Bundles will never overwrite exis
 | --- | --- |
 | `--verbose` | Log all errors, warnings, and debug messages. |
 | `--quiet` | Only log error messages. |
+| `--version` | Show the version. |
+| `-h, --help` | Show help information. |
 
-### Inferred Paths
+### Default Inferred Values
 
 #### `--project`
 
@@ -755,7 +789,7 @@ Mockingbird checks the environment variables `SRCROOT` and `SOURCE_ROOT` set by 
 
 #### `--outputs`
 
-By Mockingbird generates mocks into the directory `$(SRCROOT)/MockingbirdMocks` with the file name `$(PRODUCT_MODULE_NAME)Mocks.generated.swift`.
+Mockingbird generates mocks into the directory `$(SRCROOT)/MockingbirdMocks` with the file name `$(PRODUCT_MODULE_NAME)Mocks-$(TEST_TARGET_NAME).generated.swift`.
 
 #### `--support`
 
@@ -765,13 +799,22 @@ Mockingbird recursively looks for [supporting source files](https://github.com/b
 
 Mockingbird checks the environment variables `TARGET_NAME` and `TARGETNAME` set by the Xcode build context and verifies that it refers to a valid Swift unit test target. The test bundle option must be set when using [JSON project descriptions](https://github.com/birdrides/mockingbird/wiki/Manual-Setup#generating-mocks-for-non-xcode-projects) in order to enable thunk stubs.
 
+#### `--generator`
+
+Mockingbird uses the current executable path and attempts to make it relative to the project’s `SRCROOT` or derived data. To improve portability across development environments, avoid linking executables outside of project-specific directories.
+
+#### `--url`
+
+Mockingbird uses the GitHub release artifacts located at `https://github.com/birdrides/mockingbird/releases/download`. Note that asset bundles are versioned by release.
+
 ## Additional Resources
 
-### Examples and Tutorials
+### Example Projects
 
-- [CocoaPods tutorial + example project](/Examples/iOSMockingbirdExample-CocoaPods)
-- [Carthage tutorial + example project](/Examples/iOSMockingbirdExample-Carthage)
-- [Swift Package Manager tutorial + example project](/Examples/iOSMockingbirdExample-SPM)
+- [CocoaPods](/Examples/CocoaPodsExample)
+- [Carthage](/Examples/CarthageExample)
+- [SwiftPM - Xcode Project](/Examples/SPMProjectExample)
+- [SwiftPM - Package Manifest](/Examples/SPMPackageExample)
 
 ### Help and Documentation
 
