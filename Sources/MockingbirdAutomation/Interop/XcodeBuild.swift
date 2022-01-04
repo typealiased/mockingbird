@@ -78,7 +78,7 @@ public enum XcodeBuild {
       "-\(target.optionName)", target.name,
       "-\(project.optionName)", project.path.absolute().string,
       "-destination", destination.optionValue,
-    ]).runWithOutput()
+    ]).run()
   }
   
   public static func clean(target: Target,
@@ -90,7 +90,7 @@ public enum XcodeBuild {
       "DSTROOT=\(doubleQuoted: buildPath.absolute().string)",
       "-\(target.optionName)", target.name,
       "-\(project.optionName)", project.path.absolute().string,
-    ]).runWithOutput()
+    ]).run()
   }
   
   public static func resolvePackageDependencies(project: Project) throws {
@@ -98,6 +98,6 @@ public enum XcodeBuild {
       "xcodebuild",
       "-resolvePackageDependencies",
       "-\(project.optionName)", project.path.absolute().string,
-    ]).runWithOutput()
+    ]).run()
   }
 }

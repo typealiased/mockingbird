@@ -48,7 +48,7 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
     ],
     products: [
       .executable(name: "mockingbird", targets: ["MockingbirdCli"]),
-      .executable(name: "automation", targets: ["MockingbirdAutomation"]),
+      .executable(name: "automation", targets: ["MockingbirdAutomationCli"]),
     ],
     // These dependencies must be kept in sync with the Xcode project.
     // TODO: Add a build rule to enforce consistency.
@@ -83,12 +83,19 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
           "XcodeProj",
         ]),
       .target(
-        name: "MockingbirdAutomation",
+        name: "MockingbirdAutomationCli",
         dependencies: [
           .product(name: "ArgumentParser", package: "swift-argument-parser"),
+          "MockingbirdAutomation",
           "MockingbirdCommon",
           "PathKit",
           "ZIPFoundation",
+        ]),
+      .target(
+        name: "MockingbirdAutomation",
+        dependencies: [
+          "MockingbirdCommon",
+          "PathKit",
         ]),
       .testTarget(
         name: "MockingbirdAutomationTests",

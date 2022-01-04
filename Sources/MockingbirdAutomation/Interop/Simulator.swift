@@ -34,11 +34,10 @@ public enum Simulator {
     struct Response: Codable {
       let runtimes: [Runtime]
     }
-    let simctl = try Subprocess("xcrun", [
+    let (runtimes, _) = try Subprocess("xcrun", [
       "simctl", "list", "runtimes", "-j", platform.rawValue,
-    ]).run()
-    let response = try JSONDecoder()
-      .decode(Response.self, from: simctl.stdout.fileHandleForReading.readDataToEndOfFile())
+    ]).runWithDataOutput()
+    let response = try JSONDecoder().decode(Response.self, from: runtimes)
     return response.runtimes
   }
   
@@ -47,14 +46,14 @@ public enum Simulator {
                                      deviceType: Runtime.DeviceType) throws -> UUID? {
     let (stdout, _) = try Subprocess("xcrun", [
       "simctl", "create", name, deviceType.identifier, runtime.identifier,
-    ]).runWithOutput()
+    ]).runWithStringOutput()
     return UUID(uuidString: stdout.trimmingCharacters(in: .whitespacesAndNewlines))
   }
   
   public static func deleteSimulator(uuid: UUID) throws {
     try Subprocess("xcrun", [
       "simctl", "delete", uuid.uuidString,
-    ]).runWithOutput()
+    ]).run()
   }
   
   public static func performInSimulator(platform: Platform = .iOS,

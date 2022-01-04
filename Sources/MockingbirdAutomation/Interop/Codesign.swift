@@ -10,7 +10,7 @@ public enum Codesign {
       "--options", "runtime", // Enable hardened runtime for notarization.
       "--verbose",
       binary.string,
-    ]).runWithOutput()
+    ]).run()
   }
   
   public static func verify(binary: Path, requirements: Path) throws {
@@ -20,6 +20,6 @@ public enum Codesign {
       "--test-requirement", requirements.string,
       "--verbose",
       binary.string,
-    ]).runWithOutput()
+    ]).run()
   }
 }

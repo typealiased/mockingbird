@@ -20,18 +20,18 @@ jobs:
         p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
         p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
     - name: Set Up Project
-      run: Sources/MockingbirdAutomation/buildAndRun.sh configure load --overwrite
+      run: Sources/MockingbirdAutomationCli/buildAndRun.sh configure unload --keep MockingbirdFramework
     - name: Build CLI
       env:
         AC_USERNAME: ${{ secrets.AC_USERNAME }}
         AC_PASSWORD: ${{ secrets.AC_PASSWORD }}
       run: |
-        Sources/MockingbirdAutomation/buildAndRun.sh build cli \
+        Sources/MockingbirdAutomationCli/buildAndRun.sh build cli \
           --sign 'Developer ID Application: Bird Rides, Inc. (P2T4T6R4SL)' \
           --archive .build/mockingbird/artifacts/Mockingbird.zip
     - name: Build Framework
       run: |
-        Sources/MockingbirdAutomation/buildAndRun.sh build framework \
+        Sources/MockingbirdAutomationCli/buildAndRun.sh build framework \
           --archive .build/mockingbird/artifacts/Mockingbird.xcframework.zip
     - name: Document SHAs
       run: |

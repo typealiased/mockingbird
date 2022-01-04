@@ -6,7 +6,7 @@ public enum PlistBuddy {
     let (value, _) = try Subprocess("/usr/libexec/PlistBuddy", [
       "-c", "Print :\(key)",
       plist.string,
-    ]).runWithOutput()
+    ]).runWithStringOutput()
     return value.trimmingCharacters(in: .whitespacesAndNewlines)
   }
 }

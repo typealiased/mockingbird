@@ -41,42 +41,58 @@ public struct Subprocess: CustomStringConvertible {
   }
   
   @discardableResult
-  public func run(inBackground: Bool = false, printCommand: Bool = true) throws -> Self {
-    if printCommand {
-      logInfo(String(describing: self))
+  public func run(silent: Bool = false,
+                  stdoutHandler: ((Data) -> Void)? = nil,
+                  stderrHandler: ((Data) -> Void)? = nil) throws -> Self {
+    logInfo(String(describing: self))
+    
+    let readabilityHandler = {
+      (pipe: FileHandle, handler: ((Data) -> Void)?, output: UnsafeMutablePointer<FILE>) in
+      let data = pipe.availableData
+      handler?(data)
+      guard !silent, let line = String(data: data, encoding: .utf8) else { return }
+      fputs(line, output)
     }
+    stdout.fileHandleForReading.readabilityHandler = { pipe in
+      readabilityHandler(pipe, stdoutHandler, Darwin.stdout)
+    }
+    stderr.fileHandleForReading.readabilityHandler = { pipe in
+      readabilityHandler(pipe, stderrHandler, Darwin.stderr)
+    }
+    
     try process.run()
-    if !inBackground {
-      process.waitUntilExit()
-      if process.terminationStatus != 0 {
-        throw Error.terminated(exitStatus: process.terminationStatus)
-      }
+    
+    // Forcefully terminate the subprocess when receiving a SIGINT.
+    signal(SIGINT, SIG_IGN)
+    let sigintSource = DispatchSource.makeSignalSource(signal: SIGINT, queue: .main)
+    sigintSource.setEventHandler {
+      process.terminate()
+      exit(0)
+    }
+    defer {
+      sigintSource.cancel()
+      signal(SIGINT, SIG_DFL)
+    }
+    sigintSource.resume()
+
+    process.waitUntilExit()
+    if process.terminationStatus != 0 {
+      throw Error.terminated(exitStatus: process.terminationStatus)
     }
     return self
   }
   
-  @discardableResult
-  public func runWithOutput(inBackground: Bool = false,
-                            printCommand: Bool = true) throws -> (stdout: String, stderr: String) {
-    let outputQueue = DispatchQueue(label: "co.bird.mockingbird.automation", qos: .userInitiated)
-    var stdoutBuffer: [String] = []
-    var stderrBuffer: [String] = []
-    stdout.fileHandleForReading.readabilityHandler = { pipe in
-      outputQueue.async {
-        guard let line = String(data: pipe.availableData, encoding: .utf8) else { return }
-        fputs(line, Darwin.stdout)
-        stdoutBuffer.append(line)
-      }
-    }
-    stderr.fileHandleForReading.readabilityHandler = { pipe in
-      outputQueue.async {
-        guard let line = String(data: pipe.availableData, encoding: .utf8) else { return }
-        fputs(line, Darwin.stderr)
-        stderrBuffer.append(line)
-      }
-    }
-    try run(inBackground: inBackground, printCommand: printCommand)
-    outputQueue.sync {}
-    return (stdoutBuffer.joined(separator: "\n"), stderrBuffer.joined(separator: "\n"))
+  public func runWithDataOutput() throws -> (stdout: Data, stderr: Data) {
+    var stdoutBuffer = Data()
+    var stderrBuffer = Data()
+    try run(stdoutHandler: { stdoutBuffer.append($0) },
+            stderrHandler: { stderrBuffer.append($0) })
+    return (stdoutBuffer, stderrBuffer)
+  }
+  
+  public func runWithStringOutput() throws -> (stdout: String, stderr: String) {
+    let (stdoutBuffer, stderrBuffer) = try runWithDataOutput()
+    return (String(data: stdoutBuffer, encoding: .utf8) ?? "",
+            String(data: stderrBuffer, encoding: .utf8) ?? "")
   }
 }

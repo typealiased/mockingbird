@@ -1,6 +1,7 @@
 import ArgumentParser
 import MockingbirdAutomation
 import PathKit
+import MockingbirdAutomation
 import Foundation
 
 struct TestExampleProject: ParsableCommand {
@@ -85,7 +86,7 @@ struct TestExampleProject: ParsableCommand {
     func run() throws {
       let packagePath = Path("Examples/SPMPackageExample/Package.swift")
       try SwiftPackage.update(package: packagePath)
-      try Subprocess("./gen-mocks.sh", workingDirectory: packagePath.parent()).runWithOutput()
+      try Subprocess("./gen-mocks.sh", workingDirectory: packagePath.parent()).run()
       try SwiftPackage.test(package: packagePath)
     }
   }

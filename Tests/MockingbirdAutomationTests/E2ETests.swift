@@ -65,7 +65,7 @@ class E2ETests: XCTestCase {
       "--support", "Sources/MockingbirdSupport",
       "--diagnostics", "all",
       "--verbose",
-    ], workingDirectory: sourceRoot).runWithOutput()
+    ], workingDirectory: sourceRoot).run()
     
     try? XcodeBuild.test(target: .scheme(name: "MockingbirdTests"),
                          project: .project(path: projectPath),
@@ -91,7 +91,7 @@ class E2ETests: XCTestCase {
       "--prune", "stub",
       "--diagnostics", "all",
       "--verbose",
-    ], workingDirectory: sourceRoot).runWithOutput()
+    ], workingDirectory: sourceRoot).run()
     
     try XcodeBuild.test(target: .scheme(name: "MockingbirdTests"),
                          project: .project(path: projectPath),
@@ -114,7 +114,7 @@ class E2ETests: XCTestCase {
       "--prune", "disable",
       "--diagnostics", "all",
       "--verbose",
-    ], workingDirectory: sourceRoot).runWithOutput()
+    ], workingDirectory: sourceRoot).run()
     
     try XcodeBuild.test(target: .scheme(name: "MockingbirdTests"),
                          project: .project(path: projectPath),
@@ -138,7 +138,7 @@ class E2ETests: XCTestCase {
       "--disable-cache",
       "--diagnostics", "all",
       "--verbose",
-    ], workingDirectory: sourceRoot).runWithOutput()
+    ], workingDirectory: sourceRoot).run()
     
     try? XcodeBuild.test(target: .scheme(name: "MockingbirdTests"),
                          project: .project(path: projectPath),
@@ -160,7 +160,7 @@ class E2ETests: XCTestCase {
       "--header", "// CUSTOM HEADER - LINE 1", "// CUSTOM HEADER - LINE 2",
       "--diagnostics", "all",
       "--verbose",
-    ], workingDirectory: sourceRoot).runWithOutput()
+    ], workingDirectory: sourceRoot).run()
     
     try XcodeBuild.test(target: .scheme(name: "MockingbirdTests"),
                         project: .project(path: projectPath),
@@ -186,7 +186,7 @@ class E2ETests: XCTestCase {
         "--diagnostics", "all",
         "--disable-cache",
         "--verbose",
-      ], workingDirectory: sourceRoot).runWithOutput()
+      ], workingDirectory: sourceRoot).run()
     
       let testsHostMocks = sourceRoot
         + "MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift"

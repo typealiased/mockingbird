@@ -45,7 +45,7 @@ public enum SwiftPackage {
   
   public static func update(package: Path) throws {
     try Subprocess("xcrun", ["swift", "package", "update"],
-                   workingDirectory: package.parent()).runWithOutput()
+                   workingDirectory: package.parent()).run()
   }
   
   public static func test(productName: String? = nil,
@@ -58,7 +58,7 @@ public enum SwiftPackage {
     }()
     try Subprocess("xcrun", ["swift", "test"] + testProductArguments,
                    environment: packageConfiguration?.getEnvironment(environment) ?? environment,
-                   workingDirectory: package.parent()).runWithOutput()
+                   workingDirectory: package.parent()).run()
   }
   
   public static func build(target: BuildTarget,
@@ -75,10 +75,10 @@ public enum SwiftPackage {
     let environment = packageConfiguration?.getEnvironment(environment) ?? environment
     try Subprocess("xcrun", buildArguments + ["--verbose"],
                    environment: environment,
-                   workingDirectory: package.parent()).runWithOutput()
+                   workingDirectory: package.parent()).run()
     let (binPath, _) = try Subprocess("xcrun", buildArguments + ["--show-bin-path"],
                                       environment: environment,
-                                      workingDirectory: package.parent()).runWithOutput()
+                                      workingDirectory: package.parent()).runWithStringOutput()
     return Path(binPath.trimmingCharacters(in: .whitespacesAndNewlines)) + "mockingbird"
   }
 }

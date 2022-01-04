@@ -9,9 +9,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set Up Project
-      run: Sources/MockingbirdAutomation/buildAndRun.sh configure load --overwrite
+      run: Sources/MockingbirdAutomationCli/buildAndRun.sh configure load --overwrite
     - name: Test
-      run: Sources/MockingbirdAutomation/buildAndRun.sh test e2e
+      run: Sources/MockingbirdAutomationCli/buildAndRun.sh test e2e
 
   test-podspec:
     name: Test Podspec
@@ -38,4 +38,4 @@ jobs:
     - name: Test
       env:
         GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-      run: Sources/MockingbirdAutomation/buildAndRun.sh test example ${{ matrix.type }}
+      run: Sources/MockingbirdAutomationCli/buildAndRun.sh test example ${{ matrix.type }}

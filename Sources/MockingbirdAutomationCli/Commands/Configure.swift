@@ -1,6 +1,7 @@
 import ArgumentParser
 import MockingbirdAutomation
 import PathKit
+import MockingbirdAutomation
 import Foundation
 
 struct Configure: ParsableCommand {

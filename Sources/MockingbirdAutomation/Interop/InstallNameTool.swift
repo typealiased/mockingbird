@@ -12,7 +12,7 @@ public enum InstallNameTool {
       "install_name_tool",
       "-delete_rpath", rpath,
       binary.string,
-    ]).runWithOutput()
+    ]).run()
   }
   
   public static func addRpath(_ rpath: String, binary: Path) throws {
@@ -20,6 +20,6 @@ public enum InstallNameTool {
       "install_name_tool",
       "-add_rpath", rpath,
       binary.string,
-    ]).runWithOutput()
+    ]).run()
   }
 }

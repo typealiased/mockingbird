@@ -5,3 +5,6 @@ INFOPLIST_FILE = $(SRCROOT)/Sources/MockingbirdAutomation/Info.plist
 PRODUCT_MODULE_NAME = MockingbirdAutomationCli
 PRODUCT_NAME = MockingbirdAutomationCli
 TARGET_NAME = MockingbirdAutomationCli
+
+// Linking
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path @executable_path/PackageFrameworks
