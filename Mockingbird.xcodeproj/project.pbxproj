@@ -177,6 +177,8 @@
 		28D08CD327747A4B00AE7C39 /* ObjectiveCParameterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D08CD1277479B600AE7C39 /* ObjectiveCParameterTests.swift */; };
 		28D08CD62775338100AE7C39 /* OptionGroupArgumentEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D08CD52775338100AE7C39 /* OptionGroupArgumentEncoding.swift */; };
 		28DAD96E251BDD66001A0B3F /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DAD96D251BDD66001A0B3F /* Project.swift */; };
+		28DBC3DF277ED20800A6C96F /* BuildDocumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DBC3DE277ED20800A6C96F /* BuildDocumentation.swift */; };
+		28DBC3F0277EDAFC00A6C96F /* DocC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DBC3EE277EDAF600A6C96F /* DocC.swift */; };
 		28DDDFC126B8571D002556C7 /* DynamicCast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DDDFC026B8571D002556C7 /* DynamicCast.swift */; };
 		28E2A58E277E8F43002975B3 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 28E2A56C277E8F43002975B3 /* ArgumentParser */; };
 		28E2A58F277E8F43002975B3 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 28E2A56A277E8F43002975B3 /* ZIPFoundation */; };
@@ -722,6 +724,8 @@
 		28D08CD1277479B600AE7C39 /* ObjectiveCParameterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveCParameterTests.swift; sourceTree = "<group>"; };
 		28D08CD52775338100AE7C39 /* OptionGroupArgumentEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGroupArgumentEncoding.swift; sourceTree = "<group>"; };
 		28DAD96D251BDD66001A0B3F /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		28DBC3DE277ED20800A6C96F /* BuildDocumentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildDocumentation.swift; sourceTree = "<group>"; };
+		28DBC3EE277EDAF600A6C96F /* DocC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocC.swift; sourceTree = "<group>"; };
 		28DDDFC026B8571D002556C7 /* DynamicCast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCast.swift; sourceTree = "<group>"; };
 		28E2A530277E8BE1002975B3 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		28E2A594277E8F43002975B3 /* MockingbirdAutomationCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MockingbirdAutomationCli; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1196,6 +1200,7 @@
 				285C8E12277AD56F00DE525A /* Carthage.swift */,
 				285C8E14277AD6C700DE525A /* CocoaPods.swift */,
 				285C8E87277C30B700DE525A /* Codesign.swift */,
+				28DBC3EE277EDAF600A6C96F /* DocC.swift */,
 				285C8E8D277C677A00DE525A /* InstallNameTool.swift */,
 				285C8E8F277C71F800DE525A /* PlistBuddy.swift */,
 				285C8D842779482400DE525A /* Simulator.swift */,
@@ -1396,6 +1401,7 @@
 			children = (
 				285C8E28277B45A100DE525A /* Build.swift */,
 				285CEA8B278523C70005C91F /* BuildCli.swift */,
+				28DBC3DE277ED20800A6C96F /* BuildDocumentation.swift */,
 				285CEA8C278523C70005C91F /* BuildFramework.swift */,
 				285C8E93277D315F00DE525A /* Configure.swift */,
 				285C8E96277D554000DE525A /* Test.swift */,
@@ -2181,7 +2187,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				288872FE2785327C001B92CF /* PBXTargetDependency */,
+				28DBC3E5277ED39C00A6C96F /* PBXTargetDependency */,
 			);
 			name = MockingbirdAutomation;
 			packageProductDependencies = (
@@ -2201,9 +2207,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				2896E3E8278530A700C2C574 /* PBXTargetDependency */,
-				28887300278532A7001B92CF /* PBXTargetDependency */,
-				28E2A568277E8F43002975B3 /* PBXTargetDependency */,
+				28DBC3E1277ED38A00A6C96F /* PBXTargetDependency */,
+				28DBC3E3277ED39300A6C96F /* PBXTargetDependency */,
 			);
 			name = MockingbirdAutomationCli;
 			packageProductDependencies = (
@@ -2225,6 +2230,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				2855B8ED278568DF00E2ECD7 /* PBXTargetDependency */,
 				OBJ_849 /* PBXTargetDependency */,
 			);
 			name = MockingbirdCli;
@@ -2247,6 +2253,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				28DBC3E9277ED3B000A6C96F /* PBXTargetDependency */,
 			);
 			name = MockingbirdFramework;
 			productName = MockingbirdFramework;
@@ -2263,6 +2270,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				28DBC3EB277ED3B400A6C96F /* PBXTargetDependency */,
 			);
 			name = MockingbirdGenerator;
 			packageProductDependencies = (
@@ -2307,6 +2315,7 @@
 				OBJ_1103 /* PBXTargetDependency */,
 				OBJ_1104 /* PBXTargetDependency */,
 				OBJ_1116 /* PBXTargetDependency */,
+				28DBC3ED277ED3BA00A6C96F /* PBXTargetDependency */,
 			);
 			name = MockingbirdTests;
 			productName = MockingbirdTests;
@@ -2458,6 +2467,7 @@
 				286DE64C277EB78C0047B0F3 /* Carthage.swift in Sources */,
 				286DE64D277EB78C0047B0F3 /* CocoaPods.swift in Sources */,
 				286DE64E277EB78C0047B0F3 /* Codesign.swift in Sources */,
+				28DBC3F0277EDAFC00A6C96F /* DocC.swift in Sources */,
 				286DE64F277EB78C0047B0F3 /* InstallNameTool.swift in Sources */,
 				286DE650277EB78C0047B0F3 /* PlistBuddy.swift in Sources */,
 				286DE651277EB78C0047B0F3 /* Simulator.swift in Sources */,
@@ -2479,6 +2489,7 @@
 				28E2A597277E8F56002975B3 /* Build.swift in Sources */,
 				28E2A598277E8F58002975B3 /* Configure.swift in Sources */,
 				28E2A599277E8F59002975B3 /* Test.swift in Sources */,
+				28DBC3DF277ED20800A6C96F /* BuildDocumentation.swift in Sources */,
 				285CEA8E278523C70005C91F /* BuildFramework.swift in Sources */,
 				28E2A59A277E8F5D002975B3 /* TestExampleProject.swift in Sources */,
 			);
