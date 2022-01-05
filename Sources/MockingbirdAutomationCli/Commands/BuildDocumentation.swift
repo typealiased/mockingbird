@@ -36,10 +36,14 @@ extension Build {
       
       let bundlePath = Path(bundle)
       if let location = globalOptions.archiveLocation {
+        let outputPath = Path("./.build/mockingbird/artifacts/Mockingbird.doccarchive")
+        try outputPath.parent().mkpath()
+        try? outputPath.delete()
         try DocC.convert(bundle: bundlePath,
                          symbolGraph: filteredSymbolGraphs,
                          renderer: Path(renderer),
-                         output: Path(location))
+                         output: outputPath)
+        try archive(artifacts: [("", outputPath)], destination: Path(location))
       } else {
         try DocC.preview(bundle: bundlePath,
                          symbolGraph: filteredSymbolGraphs,

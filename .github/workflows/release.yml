@@ -9,7 +9,7 @@ on:
     - '*'
 
 jobs:
-  build:
+  build-signed-artifacts:
     name: Build Signed Artifacts
     runs-on: macOS-latest
     steps:
@@ -40,10 +40,27 @@ jobs:
     - name: Upload CLI
       uses: actions/upload-artifact@v2
       with:
-        name: Mockingbird
+        name: Mockingbird.zip
         path: .build/mockingbird/artifacts/Mockingbird.zip
     - name: Upload Framework
       uses: actions/upload-artifact@v2
       with:
-        name: Mockingbird.xcframework
+        name: Mockingbird.xcframework.zip
         path: .build/mockingbird/artifacts/Mockingbird.xcframework.zip
+
+  build-docs:
+    name: Build Docs
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set Up Project
+      run: Sources/MockingbirdAutomationCli/buildAndRun.sh configure load --overwrite
+    - name: Build
+      run: |
+        Sources/MockingbirdAutomationCli/buildAndRun.sh build docs \
+          --archive .build/mockingbird/artifacts/Mockingbird.doccarchive.zip
+    - name: Upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: Mockingbird.doccarchive.zip
+        path: .build/mockingbird/artifacts/Mockingbird.doccarchive.zip
