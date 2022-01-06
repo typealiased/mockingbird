@@ -86,24 +86,24 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
   }
   
   /// Returns the compiled source file paths for a single given target.
-  private var memoizedSourceFilePaths = [T: Set<SourcePath>]()
+  private var memoizedSourceFilePaths = [String: Set<SourcePath>]()
   private func sourceFilePaths(for target: T) -> Set<SourcePath> {
-    if let memoized = memoizedSourceFilePaths[target] { return memoized }
+    if let memoized = memoizedSourceFilePaths[target.name] { return memoized }
     
     let moduleName = resolveProductModuleName(for: target)
     let paths = target.findSourceFilePaths(sourceRoot: sourceRoot)
       .map({ SourcePath(path: $0, moduleName: moduleName) })
     
     let includedPaths = includedSourcePaths(for: Set(paths))
-    memoizedSourceFilePaths[target] = includedPaths
+    memoizedSourceFilePaths[target.name] = includedPaths
     
     return includedPaths
   }
   
   /// Recursively find all targets and its dependency targets.
-  private var memoizedTargets = [T: Set<T>]()
+  private var memoizedTargets = [String: Set<T>]()
   private func allTargets(for target: T) -> Set<T> {
-    if let memoized = memoizedTargets[target] { return memoized }
+    if let memoized = memoizedTargets[target.name] { return memoized }
     
     let targets = Set([target]).union(
       target.dependencies
@@ -114,7 +114,7 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
     result.moduleDependencies[productModuleName] = Set(targets.map({
       resolveProductModuleName(for: $0)
     }))
-    memoizedTargets[target] = targets
+    memoizedTargets[target.name] = targets
     
     return targets
   }
@@ -153,11 +153,11 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
     return Set(operations.compactMap({ $0.result.sourcePath }))
   }
   
-  private var memoizedProductModuleNames = [T: String]()
+  private var memoizedProductModuleNames = [String: String]()
   private func resolveProductModuleName(for target: T) -> String {
-    if let memoized = memoizedProductModuleNames[target] { return memoized }
+    if let memoized = memoizedProductModuleNames[target.name] { return memoized }
     let productModuleName = target.resolveProductModuleName(environment: environment)
-    memoizedProductModuleNames[target] = productModuleName
+    memoizedProductModuleNames[target.name] = productModuleName
     return productModuleName
   }
 }

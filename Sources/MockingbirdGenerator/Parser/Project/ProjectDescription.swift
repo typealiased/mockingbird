@@ -20,8 +20,27 @@ public struct TargetDescription: Hashable {
   public let sources: [Path]
   public let dependencies: [String]
   
-  public var productModuleName: String {
-    return c99name ?? name.escapingForModuleName()
+  // Synthesized
+  public let productModuleName: String
+  
+  init(name: String,
+       c99name: String?,
+       type: String,
+       path: Path,
+       sources: [Path],
+       dependencies: [String]) {
+    self.name = name
+    self.c99name = c99name
+    self.type = type
+    self.path = path
+    self.sources = sources
+    self.dependencies = dependencies
+    self.productModuleName = c99name ?? name.escapingForModuleName()
+  }
+  
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(name)
+    hasher.combine(type)
   }
 }
 
@@ -47,6 +66,7 @@ extension TargetDescription: Codable {
     self.type = try container.decode(String.self, forKey: .type)
     self.path = try container.decode(Path.self, forKey: .path)
     self.sources = try container.decodeIfPresent([Path].self, forKey: .sources) ?? []
+    self.productModuleName = self.c99name ?? self.name.escapingForModuleName()
     
     let spmContainer = try decoder.container(keyedBy: SwiftPackageManagerKeys.self)
     self.dependencies = try spmContainer.decodeIfPresent([String].self, forKey: .targetDependencies)
@@ -72,13 +92,12 @@ public struct DescribedTarget: Target {
   public let productType: TargetDescriptionType?
   
   public init(from description: TargetDescription,
-              descriptions: [TargetDescription],
+              descriptions: [String: TargetDescription],
               processedTargets: [String] = []) {
     self.description = description
     self.productType = TargetDescriptionType(rawValue: description.type)
     self.dependencies = description.dependencies.compactMap({ name in
-      guard let dependency = descriptions.first(where: { $0.productModuleName == name })
-      else { return nil }
+      guard let dependency = descriptions[name] else { return nil }
       let attributedProcessedTargets = processedTargets + [dependency.productModuleName]
       guard !processedTargets.contains(dependency.productModuleName) else {
         logWarning("Breaking circular dependency \(attributedProcessedTargets.joined(separator: " -> "))")
@@ -98,20 +117,28 @@ public struct DescribedTarget: Target {
   public func findSourceFilePaths(sourceRoot: Path) -> [Path] {
     return description.sources.map({ description.path + $0 })
   }
+  
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(description)
+  }
 }
 
 public class JSONProject {
   let path: Path
-  let descriptions: [TargetDescription]
+  let targets: [TargetDescription]
+  let descriptions: [String: TargetDescription]
   
   required public init(path: Path) throws {
     self.path = path
-    self.descriptions = try JSONDecoder().decode(ProjectDescription.self, from: path.read()).targets
+    self.targets = try JSONDecoder().decode(ProjectDescription.self, from: path.read()).targets
+    self.descriptions = targets.reduce(into: [:]) { (descriptions, target) in
+      descriptions[target.productModuleName] = target
+    }
   }
   
   public func targets(named name: String) -> [DescribedTarget] {
-    return descriptions
-      .filter({ $0.name == name })
-      .map({ DescribedTarget(from: $0, descriptions: descriptions) })
+    return targets.filter({ $0.name == name }).map({ target in
+      DescribedTarget(from: target, descriptions: descriptions)
+    })
   }
 }
