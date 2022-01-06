@@ -20,6 +20,9 @@ import XCTest
   @objc dynamic func throwingMethod() throws {}
   @objc dynamic public func trivialMethod() {}
   
+  @objc dynamic func methodReturningOptionalValue() -> String? { fatalError() }
+  @objc dynamic var optionalProperty: String? = nil
+  
   @objc dynamic var valueTypeProperty = false
   @objc dynamic var bridgedTypeProperty = ""
   @objc dynamic var referenceTypeProperty = Foundation.NSObject()
@@ -524,5 +527,32 @@ class DynamicSwiftTests: BaseTestCase {
     verify(subclassMock.method(valueType: false)).wasCalled()
     verify(subclassMock.method(valueType: any())).wasCalled(twice)
     wait(for: [expectation], timeout: 2)
+  }
+  
+  
+  // MARK: - Optionals
+  
+  func testMethodReturningOptionalNilValue() throws {
+    given(classMock.methodReturningOptionalValue()).willReturn(nil)
+    XCTAssertNil(classMock.methodReturningOptionalValue())
+    verify(classMock.methodReturningOptionalValue()).wasCalled()
+  }
+  
+  func testMethodReturningOptionalNonNilValue() throws {
+    given(classMock.methodReturningOptionalValue()).willReturn("foobar")
+    XCTAssertEqual(classMock.methodReturningOptionalValue(), "foobar")
+    verify(classMock.methodReturningOptionalValue()).wasCalled()
+  }
+  
+  func testOptionalPropertyWithNilValue() throws {
+    given(classMock.optionalProperty).willReturn(nil)
+    XCTAssertNil(classMock.optionalProperty)
+    verify(classMock.optionalProperty).wasCalled()
+  }
+  
+  func testOptionalPropertyWithNonNilValue() throws {
+    given(classMock.optionalProperty).willReturn("foobar")
+    XCTAssertEqual(classMock.optionalProperty, "foobar")
+    verify(classMock.optionalProperty).wasCalled()
   }
 }

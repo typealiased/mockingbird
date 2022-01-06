@@ -11,10 +11,12 @@ protocol OptionalsProtocol {
   func methodWithOptionalParameter(param: Bool?)
   func methodWithOptionalVariadicParameter(param: Bool?...)
   func methodWithOptionalReturn() -> Bool?
+  func methodWithOptionalBridgedReturn() -> NSString?
   
   func methodWithMultiOptionalParameter(param: Bool???)
   func methodWithMultiOptionalVariadicParameter(param: Bool???...)
   func methodWithMultiOptionalReturn() -> Bool???
+  func methodWithMultiOptionalBridgedReturn() -> NSString???
   
   func methodWithUnwrappedParameter(param: Bool!)
   func methodWithUnwrappedReturn() -> Bool!
@@ -29,6 +31,7 @@ protocol OptionalsProtocol {
   func methodWithMultiUnwrappedOptionalCompoundReturn() -> (Bool?, Int)???!
   
   var optionalVariable: Bool? { get }
+  var optionalBridgedVariable: NSString? { get }
   var unwrappedOptionalVariable: Bool! { get }
   var multiUnwrappedOptionalVariable: Bool???! { get }
 }

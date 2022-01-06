@@ -29,3 +29,8 @@ NSException *_Nullable MKBTryBlock(void(^_Nonnull NS_NOESCAPE block)(void))
   }
   return nil;
 }
+
+bool MKBCheckIfTypeErasedNil(id _Nullable value)
+{
+  return value == [NSNull null];
+}
