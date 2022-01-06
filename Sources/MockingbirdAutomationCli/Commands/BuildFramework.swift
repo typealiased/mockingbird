@@ -9,8 +9,11 @@ extension Build {
       commandName: "framework",
       abstract: "Build a fat XCFramework bundle.")
     
-    @Option(help: "The target platform.")
-    var platform: Carthage.Platform = .all
+    @Option(name: [.customLong("platform"),
+                   .customLong("platforms")],
+            parsing: .upToNextOption,
+            help: "List of target platforms to build against.")
+    var platforms: [Carthage.Platform] = [.all]
     
     @OptionGroup()
     var globalOptions: Options
@@ -39,7 +42,7 @@ extension Build {
       }
 
       let projectPath = Path("./Mockingbird.xcodeproj")
-      try Carthage.build(platform: platform, project: projectPath)
+      try Carthage.build(platforms: platforms, project: projectPath)
       
       // Carthage doesn't provide a way to query for the built product path, so this is inferred.
       let frameworkPath = projectPath.parent() + "Carthage/Build/Mockingbird.xcframework"

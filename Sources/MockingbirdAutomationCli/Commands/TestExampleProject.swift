@@ -53,7 +53,7 @@ extension Test {
             return
           }
           let projectPath = Path("Examples/CarthageExample/CarthageExample.xcodeproj")
-          try Carthage.update(platform: .iOS, project: projectPath)
+          try Carthage.update(platforms: [.iOS], project: projectPath)
           try XcodeBuild.test(target: .scheme(name: "CarthageExample"),
                               project: .project(path: projectPath),
                               destination: .iOSSimulator(deviceUUID: uuid))
