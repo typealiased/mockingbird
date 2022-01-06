@@ -89,6 +89,7 @@ extension Generator {
         findMockedTypesResult: findMockedTypesOperation?.result,
         config: GenerateFileConfig(
           moduleName: moduleName,
+          testTargetName: config.environmentTargetName,
           outputPath: outputPath,
           header: config.header,
           compilationCondition: config.compilationCondition,

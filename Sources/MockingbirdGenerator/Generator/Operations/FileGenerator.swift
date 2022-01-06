@@ -90,8 +90,14 @@ class FileGenerator {
   }
   
   private func generateFileBody() -> PartialFileContent {
-    guard !mockableTypes.isEmpty else { return PartialFileContent(contents: "") }
-    let operations = mockableTypes
+    guard !mockableTypes.isEmpty else {
+      return PartialFileContent(contents: """
+      // No mockable types in \(singleQuoted: config.moduleName). Check that the module's
+      // source files have classes or protocols that are not private and not marked as final.
+      """)
+    }
+    
+    let availableMockableTypes = mockableTypes
       .filter({ mockableType in
         switch config.pruningMethod {
         case .omit:
@@ -100,6 +106,16 @@ class FileGenerator {
         case .disable, .stub: return true
         }
       })
+    guard !availableMockableTypes.isEmpty else {
+      let testTarget = config.testTargetName?.singleQuoted ?? "your test target"
+      return PartialFileContent(contents: """
+      // No mocks used in \(testTarget). Mockingbird is configured to
+      // only generate mocks for types that are explicitly initialized in your tests with
+      // `mock(SomeType.self)`. For more information, see 'Thunk Pruning' in the README.
+      """)
+    }
+      
+    let operations = availableMockableTypes
       .sorted(by: <)
       .flatMap({ mockableType -> [RenderTemplateOperation] in
         let mockableTypeTemplate = MockableTypeTemplate(mockableType: mockableType,
@@ -137,7 +153,7 @@ class FileGenerator {
                               substructure: [generateFileHeader(),
                                              generateFileBody(),
                                              generateFileFooter()].filter({ !$0.isEmpty }),
-                              delimiter: "\n",
+                              delimiter: "\n\n",
                               footer: "\n")
   }
   
