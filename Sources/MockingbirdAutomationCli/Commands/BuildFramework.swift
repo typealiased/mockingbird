@@ -28,11 +28,13 @@ extension Build {
       logInfo("Locking the example projects directory")
       let exampleProjects = Path("./Examples")
       let fileManager = FileManager()
+      let originalAttributes = try fileManager.attributesOfItem(atPath: exampleProjects.string)
       try fileManager.setAttributes([.posixPermissions: FileManager.PosixPermissions.writeOnly],
                                     ofItemAtPath: exampleProjects.string)
       defer {
         logInfo("Unlocking the example projects directory")
-        try? fileManager.setAttributes([.posixPermissions: FileManager.PosixPermissions.readWrite],
+        try? fileManager.setAttributes([.posixPermissions: originalAttributes[.posixPermissions]
+                                          ?? FileManager.PosixPermissions.readWrite],
                                        ofItemAtPath: exampleProjects.string)
       }
 
