@@ -158,7 +158,7 @@ Add the framework to your project:
 In your project directory, resolve the derived data path. This can take a few moments.
 
 ```console
-$ DERIVED_DATA="$(xcodebuild -showBuildSettings | pcregrep -o1 'OBJROOT = (/.*)/Build')"
+$ DERIVED_DATA="$(xcodebuild -showBuildSettings | sed -n 's|.*BUILD_ROOT = \(.*\)/Build/.*|\1|p'
 ```
 
 Finally, configure the test target to generate mocks for specific modules or libraries.
@@ -198,30 +198,30 @@ let package = Package(
 )
 ```
 
-In your project directory, initialize the package.
+In your package directory, initialize the dependency.
 
 ```console
-$ xcodebuild -resolvePackageDependencies
+$ swift package update Mockingbird
 ```
 
-Next, save Bash script below in the same directory as your package manifest. Change the lines marked with `FIXME`.
+Next, create a Bash script named `gen-mocks.sh` in the same directory as your package manifest. Copy the example below, making sure to change the lines marked with `FIXME`.
 
 ```bash
 #!/bin/bash
 set -eu
 cd "$(dirname "$0")"
-readonly derivedData="$(xcodebuild -showBuildSettings | pcregrep -o1 'OBJROOT = (/.*)/Build')"
 swift package describe --type json > project.json
-"${derivedData}/SourcePackages/checkouts/mockingbird/mockingbird" generate --project project.json \
-  --testbundle MyPackageTests \ # FIXME: The name of your test target.
-  --targets MyPackage MyLibrary1 MyLibrary2 # FIXME: Specific modules or libraries that should be mocked.
+.build/checkouts/mockingbird/mockingbird generate --project project.json \
+  --output-dir Sources/MyPackageTests/MockingbirdMocks \  # FIXME: Where mocks should be generated.
+  --testbundle MyPackageTests \                           # FIXME: Name of your test target.
+  --targets MyPackage MyLibrary1 MyLibrary2               # FIXME: Specific modules or libraries that should be mocked.
 ```
 
 Ensure that the script runs and generates mock files.
 
 ```console
-$ chmod u+x generate-mocks.sh
-$ ./generate-mocks.sh
+$ chmod u+x gen-mocks.sh
+$ ./gen-mocks.sh
 Generated file to MockingbirdMocks/MyPackageTests-MyPackage.generated.swift
 Generated file to MockingbirdMocks/MyPackageTests-MyLibrary1.generated.swift
 Generated file to MockingbirdMocks/MyPackageTests-MyLibrary2.generated.swift
@@ -728,8 +728,9 @@ Generate mocks for a set of targets in a project.
 | Option | Default Value | Description |
 | --- | --- | --- |
 | `-t, --targets` | *(required)* | List of target names to generate mocks for. |
-| `-o, --outputs` | [`(inferred)`](#--outputs) | List of mock output file paths for each target. |
+| `-o, --outputs` | [`(inferred)`](#--outputs) | List of output file paths corresponding to each target. |
 | `-p, --project` | [`(inferred)`](#--project) | Path to an Xcode project or a [JSON project description](https://github.com/birdrides/mockingbird/wiki/Manual-Setup#generating-mocks-for-non-xcode-projects). |
+| `--output-dir` | [`(inferred)`](#--outputs) | The directory where generated files should be output. |
 | `--srcroot` | [`(inferred)`](#--srcroot) | The directory containing your project’s source files. |
 | `--support` | [`(inferred)`](#--support) | The directory containing [supporting source files](https://github.com/birdrides/mockingbird/wiki/Supporting-Source-Files). |
 | `--testbundle` | [`(inferred)`](#--testbundle) | The name of the test bundle using the mocks. |
@@ -788,7 +789,7 @@ Mockingbird checks the environment variables `SRCROOT` and `SOURCE_ROOT` set by 
 
 #### `--outputs`
 
-Mockingbird generates mocks into the directory `$(SRCROOT)/MockingbirdMocks` with the file name `$(PRODUCT_MODULE_NAME)Mocks.generated.swift`.
+Mockingbird generates mocks into the directory `$(SRCROOT)/MockingbirdMocks` with the file name `$(PRODUCT_MODULE_NAME)Mocks-$(TEST_TARGET_NAME).generated.swift`.
 
 #### `--support`
 
@@ -797,6 +798,10 @@ Mockingbird recursively looks for [supporting source files](https://github.com/b
 #### `--testbundle`
 
 Mockingbird checks the environment variables `TARGET_NAME` and `TARGETNAME` set by the Xcode build context and verifies that it refers to a valid Swift unit test target. The test bundle option must be set when using [JSON project descriptions](https://github.com/birdrides/mockingbird/wiki/Manual-Setup#generating-mocks-for-non-xcode-projects) in order to enable thunk stubs.
+
+### `--generator`
+
+Mockingbird uses the current executable path and attempts to make it relative to the project’s `SRCROOT` or derived data. To improve portability across development environments, avoid linking executables outside of project-specific directories.
 
 ### `--url`
 

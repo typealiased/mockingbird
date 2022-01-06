@@ -38,8 +38,11 @@ extension Mockingbird {
                    .customLong("output"),
                    .customShort("o")],
             parsing: .upToNextOption,
-            help: "List of mock output file paths for each target.")
+            help: "List of output file paths corresponding to each target.")
     var outputs: [SwiftFilePath] = [] // TODO: This will be optional in generator v2
+    
+    @Option(help: "The directory where generated files should be output.")
+    var outputDir: DirectoryPath?
     
     @Option(help: "The directory containing supporting source files.")
     var support: DirectoryPath?
@@ -80,6 +83,7 @@ extension Mockingbird {
       let project: Path
       let srcroot: Path
       let outputs: [Path]
+      let outputDir: Path?
       let support: Path
       let testbundle: String?
       let header: [String]
@@ -134,6 +138,7 @@ extension Mockingbird {
         project: validProject.path,
         srcroot: validSrcroot.path,
         outputs: outputs.map({ $0.path }),
+        outputDir: outputDir?.path, // Managed by the generator.
         support: validSupportPath,
         testbundle: validTestBundle?.name,
         header: header,
@@ -162,6 +167,7 @@ extension Mockingbird {
         environmentSourceRoot: arguments.environmentSourceRoot,
         environmentTargetName: arguments.environmentTargetName,
         outputPaths: arguments.outputs,
+        outputDir: arguments.outputDir,
         supportPath: arguments.support,
         header: arguments.header,
         compilationCondition: arguments.condition,
@@ -185,6 +191,7 @@ extension Mockingbird.Generate: EncodableArguments {
     case project
     case srcroot
     case outputs
+    case outputDir
     case support
     case testbundle
     case header
@@ -211,6 +218,7 @@ extension Mockingbird.Generate: EncodableArguments {
     try container.encode(project, forKey: .project)
     try container.encode(srcroot, forKey: .srcroot)
     try container.encode(outputs, forKey: .outputs)
+    try container.encode(outputDir, forKey: .outputDir)
     try container.encode(support, forKey: .support)
     try container.encode(testbundle, forKey: .testbundle)
     try container.encode(header, forKey: .header)
