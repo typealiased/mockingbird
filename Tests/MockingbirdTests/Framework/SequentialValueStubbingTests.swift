@@ -1,10 +1,3 @@
-//
-//  SequentialValueStubbingTests.swift
-//  MockingbirdFramework
-//
-//  Created by Andrew Chang on 4/15/20.
-//
-
 import XCTest
 import Mockingbird
 @testable import MockingbirdTestsHost

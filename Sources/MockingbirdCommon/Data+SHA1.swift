@@ -1,10 +1,3 @@
-//
-//  String+SHA1.swift
-//  MockingbirdCommon
-//
-//  Created by typealias on 12/30/21.
-//
-
 import Foundation
 import CommonCrypto
 

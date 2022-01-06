@@ -1,10 +1,3 @@
-//
-//  OutputStream+Extensions.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 4/24/20.
-//
-
 import Foundation
 
 public extension OutputStream {

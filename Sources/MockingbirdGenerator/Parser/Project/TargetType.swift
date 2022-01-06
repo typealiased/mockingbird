@@ -1,10 +1,3 @@
-//
-//  TargetType.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 6/9/20.
-//
-
 import Foundation
 import XcodeProj
 

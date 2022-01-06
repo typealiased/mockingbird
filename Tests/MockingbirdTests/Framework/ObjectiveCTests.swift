@@ -1,10 +1,3 @@
-//
-//  ObjectiveCTests.swift
-//  MockingbirdTests
-//
-//  Created by typealias on 7/28/21.
-//
-
 import CoreBluetooth
 import Mockingbird
 @testable import MockingbirdTestsHost

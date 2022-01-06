@@ -1,10 +1,3 @@
-//
-//  ClosureTemplate.swift
-//  MockingbirdGenerator
-//
-//  Created by typealias on 7/22/21.
-//
-
 import Foundation
 
 struct ClosureTemplate: Template {

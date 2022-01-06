@@ -1,10 +1,3 @@
-//
-//  ValueProvider+Tuples.swift
-//  MockingbirdFramework
-//
-//  Created by Andrew Chang on 4/13/20.
-//
-
 import Foundation
 
 // Tuples only work for non-generic types, since generic parameters cannot be inferred here.

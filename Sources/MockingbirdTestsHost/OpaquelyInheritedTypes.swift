@@ -1,10 +1,3 @@
-//
-//  OpaquelyInheritedTypes.swift
-//  MockingbirdTestsHost
-//
-//  Created by Andrew Chang on 9/17/19.
-//
-
 import Foundation
 import AppKit
 

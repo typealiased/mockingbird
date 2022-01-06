@@ -1,10 +1,3 @@
-//
-//  Path+WriteUtf8Strings.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 9/3/19.
-//
-
 import Foundation
 import PathKit
 

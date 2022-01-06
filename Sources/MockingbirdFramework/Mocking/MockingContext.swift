@@ -1,10 +1,3 @@
-//
-//  MockingbirdMockingContext.swift
-//  Mockingbird
-//
-//  Created by Andrew Chang on 7/29/19.
-//
-
 import Foundation
 
 /// Stores invocations received by mocks.

@@ -1,10 +1,3 @@
-//
-//  TargetDescriptionTests.swift
-//  MockingbirdTests
-//
-//  Created by Kiel Gillard on 22/7/21.
-//
-
 import XCTest
 @testable import MockingbirdGenerator
 

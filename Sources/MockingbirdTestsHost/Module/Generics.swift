@@ -1,10 +1,3 @@
-//
-//  Generics.swift
-//  MockingbirdModuleTestsHost
-//
-//  Created by Andrew Chang on 9/21/19.
-//
-
 import Foundation
 import AppKit
 

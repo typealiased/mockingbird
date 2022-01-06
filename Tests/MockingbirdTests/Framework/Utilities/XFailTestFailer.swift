@@ -1,10 +1,3 @@
-//
-//  XFailTestFailer.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 3/11/20.
-//
-
 import Foundation
 import Mockingbird
 import XCTest

@@ -1,10 +1,3 @@
-//
-//  GenericsTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 7/26/20.
-//
-
 import Mockingbird
 import XCTest
 @testable import MockingbirdTestsHost

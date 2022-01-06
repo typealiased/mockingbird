@@ -1,11 +1,3 @@
-//
-//  Version.swift
-//  MockingbirdShared
-//
-//  Created by Andrew Chang on 8/23/19.
-//  Copyright © 2019 Bird Rides, Inc. All rights reserved.
-//
-
 import Foundation
 
 public let mockingbirdVersion = Version(shortString: "0.18.0")

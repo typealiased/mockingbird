@@ -1,10 +1,3 @@
-//
-//  SourceLocation.swift
-//  MockingbirdFramework
-//
-//  Created by Andrew Chang on 5/31/20.
-//
-
 import Foundation
 
 /// References a line of code in a file.

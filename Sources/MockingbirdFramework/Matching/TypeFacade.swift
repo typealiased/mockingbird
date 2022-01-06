@@ -1,10 +1,3 @@
-//
-//  TypeFacade.swift
-//  Mockingbird
-//
-//  Created by Andrew Chang on 8/3/19.
-//
-
 import Foundation
 
 /// This is a hack to get strongly-typed stubbing/verification parameters. The goal is to have

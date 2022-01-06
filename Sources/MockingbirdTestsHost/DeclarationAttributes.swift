@@ -1,10 +1,3 @@
-//
-//  DeclarationAttributes.swift
-//  MockingbirdTestsHost
-//
-//  Created by Andrew Chang on 9/6/19.
-//
-
 import Foundation
 
 protocol DeclarationAttributesProtocol {

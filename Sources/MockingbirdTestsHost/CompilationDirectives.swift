@@ -1,10 +1,3 @@
-//
-//  CompilationDirectives.swift
-//  MockingbirdTestsHost
-//
-//  Created by Andrew Chang on 9/18/19.
-//
-
 import Foundation
 
 #if DEBUG

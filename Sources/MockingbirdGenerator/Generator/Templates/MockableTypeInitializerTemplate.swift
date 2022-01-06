@@ -1,10 +1,3 @@
-//
-//  MockableTypeInitializerTemplate.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 9/14/19.
-//
-
 import Foundation
 
 struct MockableTypeInitializerTemplate: Template {

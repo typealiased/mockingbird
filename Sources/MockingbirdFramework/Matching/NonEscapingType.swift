@@ -1,10 +1,3 @@
-//
-//  NonEscapingType.swift
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/17/21.
-//
-
 import Foundation
 
 /// Types that cannot be stored and referenced later.

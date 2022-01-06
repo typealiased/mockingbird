@@ -1,10 +1,3 @@
-//
-//  DynamicStubbingManager.swift
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/20/21.
-//
-
 import Foundation
 
 /// An intermediate object used for stubbing Objective-C declarations returned by `given`.

@@ -1,10 +1,3 @@
-//
-//  DeclaredType.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 9/1/19.
-//
-
 import Foundation
 
 /// Recursively parses type declarations.

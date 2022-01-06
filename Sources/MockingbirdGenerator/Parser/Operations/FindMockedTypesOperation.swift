@@ -1,10 +1,3 @@
-//
-//  FindMockedTypesOperation.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 6/7/20.
-//
-
 import Foundation
 import MockingbirdCommon
 import PathKit

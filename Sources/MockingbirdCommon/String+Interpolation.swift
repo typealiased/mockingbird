@@ -1,10 +1,3 @@
-//
-//  String+Interpolation.swift
-//  MockingbirdCommon
-//
-//  Created by typealias on 12/27/21.
-//
-
 import Foundation
 
 public extension String.StringInterpolation {

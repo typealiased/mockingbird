@@ -1,10 +1,3 @@
-//
-//  CompoundTypes.swift
-//  MockingbirdTestsHost
-//
-//  Created by Andrew Chang on 9/2/19.
-//
-
 import Foundation
 
 protocol ArrayTypes {

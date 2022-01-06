@@ -1,10 +1,3 @@
-//
-//  MethodParameter.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 9/15/19.
-//
-
 import Foundation
 import SourceKittenFramework
 

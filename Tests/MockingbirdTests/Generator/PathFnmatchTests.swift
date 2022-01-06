@@ -1,10 +1,3 @@
-//
-//  PathFnmatchTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 10/29/19.
-//
-
 import XCTest
 import PathKit
 @testable import MockingbirdGenerator

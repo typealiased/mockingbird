@@ -1,10 +1,3 @@
-//
-//  BuildSetting.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 5/25/20.
-//
-
 import Foundation
 
 /// Super tiny recursive parser for Xcode build settings.

@@ -1,10 +1,3 @@
-//
-//  ArgumentPosition.swift
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/21/21.
-//
-
 import Foundation
 
 /// Specifies the argument position for an argument matcher.

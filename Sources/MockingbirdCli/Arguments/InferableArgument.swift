@@ -1,10 +1,3 @@
-//
-//  InferableArgument.swift
-//  MockingbirdCli
-//
-//  Created by typealias on 8/7/21.
-//
-
 import Foundation
 import PathKit
 

@@ -1,10 +1,3 @@
-//
-//  Variables.swift
-//  MockingbirdTestsHost
-//
-//  Created by Andrew Chang on 8/27/19.
-//
-
 import Foundation
 
 protocol VariablesContainerProtocol {

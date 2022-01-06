@@ -1,11 +1,3 @@
-//
-//  InferType.swift
-//  MockingbirdCli
-//
-//  Created by Andrew Chang on 8/10/19.
-//  Copyright © 2019 Bird Rides, Inc. All rights reserved.
-//
-
 import Foundation
 
 /// This type inference system is passable but still a bit lacking. We need to modify the type

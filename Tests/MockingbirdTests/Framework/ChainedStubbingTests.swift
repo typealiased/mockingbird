@@ -1,10 +1,3 @@
-//
-//  ChainedStubbingTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 5/30/20.
-//
-
 import XCTest
 import Mockingbird
 @testable import MockingbirdTestsHost

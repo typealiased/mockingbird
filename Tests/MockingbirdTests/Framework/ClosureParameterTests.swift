@@ -1,10 +1,3 @@
-//
-//  ClosureParameterTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 11/29/19.
-//
-
 import XCTest
 import Mockingbird
 @testable import MockingbirdTestsHost

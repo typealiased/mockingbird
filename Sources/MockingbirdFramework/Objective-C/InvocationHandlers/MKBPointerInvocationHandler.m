@@ -1,10 +1,3 @@
-//
-//  MKBPointerInvocationHandler.m
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/19/21.
-//
-
 #import "MKBPointerInvocationHandler.h"
 #import "MKBComparator.h"
 #import "NSInvocation+MKBErrorObjectType.h"

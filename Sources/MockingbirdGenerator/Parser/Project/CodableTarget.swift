@@ -1,10 +1,3 @@
-//
-//  CodableTarget.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 9/29/19.
-//
-
 import Foundation
 import MockingbirdCommon
 import PathKit

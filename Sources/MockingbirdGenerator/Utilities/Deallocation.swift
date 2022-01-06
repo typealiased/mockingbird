@@ -1,10 +1,3 @@
-//
-//  Deallocation.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 4/23/20.
-//
-
 import Foundation
 
 private var objectReferences = [AnyObject]()

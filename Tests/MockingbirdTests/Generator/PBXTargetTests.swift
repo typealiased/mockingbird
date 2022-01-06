@@ -1,10 +1,3 @@
-//
-//  PBXTargetTests.swift
-//  MockingbirdTests
-//
-//  Created by Sterling Hackley on 10/26/19.
-//
-
 import XCTest
 import XcodeProj
 @testable import MockingbirdGenerator

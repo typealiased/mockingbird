@@ -1,10 +1,3 @@
-//
-//  Stubbing+ObjC.swift
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/28/21.
-//
-
 import Foundation
 
 /// Stub a mocked Objective-C method or property by returning a single value.

@@ -1,10 +1,3 @@
-//
-//  SubscriptStubbableTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 4/25/20.
-//
-
 import Foundation
 import Mockingbird
 @testable import MockingbirdTestsHost

@@ -1,10 +1,3 @@
-//
-//  SwitchStatementTemplate.swift
-//  MockingbirdGenerator
-//
-//  Created by typealias on 7/24/21.
-//
-
 import Foundation
 
 struct SwitchStatementTemplate: Template {

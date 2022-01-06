@@ -1,10 +1,3 @@
-//
-//  MKBUnsignedCharInvocationHandler.m
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/19/21.
-//
-
 #import "MKBUnsignedCharInvocationHandler.h"
 #import "MKBComparator.h"
 #if MKB_SWIFTPM

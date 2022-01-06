@@ -1,10 +1,3 @@
-//
-//  OverloadedMethodTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 8/25/19.
-//
-
 import XCTest
 import Mockingbird
 @testable import MockingbirdTestsHost

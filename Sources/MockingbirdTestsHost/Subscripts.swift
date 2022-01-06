@@ -1,10 +1,3 @@
-//
-//  Subscripts.swift
-//  MockingbirdTestsHost
-//
-//  Created by Andrew Chang on 4/18/20.
-//
-
 import Foundation
 
 protocol SubscriptedProtocol {

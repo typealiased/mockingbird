@@ -1,10 +1,3 @@
-//
-//  Typealiasing.swift
-//  MockingbirdTestsHost
-//
-//  Created by Andrew Chang on 8/29/19.
-//
-
 import Foundation
 
 // MARK: - Type-scoped typealiases

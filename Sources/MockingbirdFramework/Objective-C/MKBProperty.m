@@ -1,10 +1,3 @@
-//
-//  MKBProperty.m
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/28/21.
-//
-
 #import "MKBProperty.h"
 
 @implementation MKBProperty

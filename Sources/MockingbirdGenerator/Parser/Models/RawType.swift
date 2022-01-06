@@ -1,10 +1,3 @@
-//
-//  RawType.swift
-//  MockingbirdCli
-//
-//  Created by Andrew Chang on 8/29/19.
-//
-
 import Foundation
 import SourceKittenFramework
 

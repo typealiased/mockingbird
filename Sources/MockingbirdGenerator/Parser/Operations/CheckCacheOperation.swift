@@ -1,10 +1,3 @@
-//
-//  CheckCacheOperation.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 9/30/19.
-//
-
 import Foundation
 import MockingbirdCommon
 import PathKit

@@ -1,10 +1,3 @@
-//
-//  MKBComparator.m
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/19/21.
-//
-
 #import "MKBComparator.h"
 
 const MKBComparator MKBEquatableComparator = ^BOOL(id _Nullable lhs, id _Nullable rhs) {

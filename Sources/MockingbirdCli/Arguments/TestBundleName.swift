@@ -1,10 +1,3 @@
-//
-//  TestBundleName.swift
-//  MockingbirdCli
-//
-//  Created by typealias on 8/13/21.
-//
-
 import ArgumentParser
 import Foundation
 import MockingbirdGenerator

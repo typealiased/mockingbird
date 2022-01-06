@@ -1,10 +1,3 @@
-//
-//  OSLog+Extensions.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 9/12/19.
-//
-
 import Foundation
 import os.signpost
 

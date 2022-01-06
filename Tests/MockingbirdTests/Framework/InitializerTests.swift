@@ -1,10 +1,3 @@
-//
-//  InitializerTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 9/5/19.
-//
-
 import XCTest
 import Mockingbird
 @testable import MockingbirdTestsHost

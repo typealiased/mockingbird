@@ -1,10 +1,3 @@
-//
-//  DeclaredTypeTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 9/2/19.
-//
-
 import XCTest
 @testable import MockingbirdGenerator
 

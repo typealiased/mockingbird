@@ -1,10 +1,3 @@
-//
-//  ObjectiveCTests.swift
-//  MockingbirdTests
-//
-//  Created by typealias on 7/17/21.
-//
-
 import Mockingbird
 @testable import MockingbirdTestsHost
 import XCTest

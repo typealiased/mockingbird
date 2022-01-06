@@ -1,10 +1,3 @@
-//
-//  InvocationRecorder.swift
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/18/21.
-//
-
 import Foundation
 
 struct InvocationRecord {

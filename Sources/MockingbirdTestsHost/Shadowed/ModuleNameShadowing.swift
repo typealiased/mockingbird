@@ -1,10 +1,3 @@
-//
-//  ModuleNameShadowing.swift
-//  MockingbirdShadowedTestsHost
-//
-//  Created by typealias on 9/24/20.
-//
-
 import Foundation
 
 // In cases where the module name is shadowed by a type declaration, we need to avoid qualifying

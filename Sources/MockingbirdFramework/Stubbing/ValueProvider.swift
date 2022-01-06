@@ -1,10 +1,3 @@
-//
-//  ValueProvider.swift
-//  MockingbirdFramework
-//
-//  Created by Andrew Chang on 4/11/20.
-//
-
 import Foundation
 
 /// A type that can provide concrete instances of itself.

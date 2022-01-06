@@ -1,10 +1,3 @@
-//
-//  XCTFailSwizzler.swift
-//  MockingbirdFramework
-//
-//  Created by Andrew Chang on 3/11/20.
-//
-
 import Foundation
 import XCTest
 

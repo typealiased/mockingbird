@@ -1,10 +1,3 @@
-//
-//  AsyncVerification.swift
-//  MockingbirdFramework
-//
-//  Created by Andrew Chang on 3/8/20.
-//
-
 import Foundation
 import XCTest
 

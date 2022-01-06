@@ -1,10 +1,3 @@
-//
-//  CharacterSet+Extensions.swift
-//  MockingbirdCli
-//
-//  Created by Andrew Chang on 8/30/19.
-//
-
 import Foundation
 
 extension CharacterSet {

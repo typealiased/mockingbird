@@ -1,10 +1,3 @@
-//
-//  OptionGroupArgumentEncoding.swift
-//  MockingbirdCli
-//
-//  Created by typealias on 12/23/21.
-//
-
 import Foundation
 import MockingbirdGenerator
 import PathKit

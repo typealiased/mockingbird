@@ -1,10 +1,3 @@
-//
-//  Specializable.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 3/26/20.
-//
-
 import Foundation
 
 /// Stores type specializations, e.g. `Dictionary<String, Int>`, mapping each generic type parameter

@@ -1,10 +1,3 @@
-//
-//  SourceFileAuxiliaryParser.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 4/22/20.
-//
-
 import Foundation
 import SwiftSyntax
 

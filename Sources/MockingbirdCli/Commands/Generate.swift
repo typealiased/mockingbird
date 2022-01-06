@@ -1,10 +1,3 @@
-//
-//  Generate.swift
-//  MockingbirdCli
-//
-//  Created by typealias on 8/8/21.
-//
-
 import ArgumentParser
 import Foundation
 import MockingbirdGenerator

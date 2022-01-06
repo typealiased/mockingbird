@@ -1,10 +1,3 @@
-//
-//  SourceTarget.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 6/9/20.
-//
-
 import Foundation
 import MockingbirdCommon
 import PathKit

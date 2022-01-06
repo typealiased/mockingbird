@@ -1,10 +1,3 @@
-//
-//  CountMatcher.swift
-//  Mockingbird
-//
-//  Created by Andrew Chang on 7/29/19.
-//
-
 import Foundation
 
 /// Checks whether a number matches some expected count.

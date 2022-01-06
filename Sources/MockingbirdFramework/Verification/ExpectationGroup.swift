@@ -1,10 +1,3 @@
-//
-//  ExpectationGroup.swift
-//  MockingbirdFramework
-//
-//  Created by Andrew Chang on 5/31/20.
-//
-
 import Foundation
 
 /// A deferred expectation that can be fulfilled when an invocation arrives later.

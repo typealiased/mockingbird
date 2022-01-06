@@ -1,10 +1,3 @@
-//
-//  MKBMocking.m
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/17/21.
-//
-
 #import "../include/MKBMocking.h"
 #import <objc/runtime.h>
 

@@ -1,10 +1,3 @@
-//
-//  GenericStaticMockContext.swift
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/23/21.
-//
-
 import Foundation
 
 /// Resolves runtime generic type names to a `StaticMock` instance.

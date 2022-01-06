@@ -1,10 +1,3 @@
-//
-//  MinimalTestTypes.swift
-//  MockingbirdTestsHost
-//
-//  Created by typealias on 7/25/21.
-//
-
 import Foundation
 
 protocol MinimalProtocol {

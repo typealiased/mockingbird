@@ -1,10 +1,3 @@
-//
-//  ClassOnlyProtocols.swift
-//  MockingbirdTestsHost
-//
-//  Created by Andrew Chang on 10/1/19.
-//
-
 import Foundation
 
 // MARK: - Deprecated class conformance

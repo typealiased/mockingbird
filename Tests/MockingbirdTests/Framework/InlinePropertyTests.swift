@@ -1,10 +1,3 @@
-//
-//  InlinePropertyTests.swift
-//  MockingbirdTests
-//
-//  Created by typealias on 7/25/21.
-//
-
 import Mockingbird
 import XCTest
 @testable import MockingbirdTestsHost

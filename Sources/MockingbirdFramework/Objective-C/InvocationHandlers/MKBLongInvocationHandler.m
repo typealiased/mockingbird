@@ -1,10 +1,3 @@
-//
-//  MKBLongInvocationHandler.m
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/19/21.
-//
-
 #import "MKBLongInvocationHandler.h"
 #import "MKBComparator.h"
 #if MKB_SWIFTPM

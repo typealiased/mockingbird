@@ -1,10 +1,3 @@
-//
-//  Attributes+Sanitize.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 2/22/20.
-//
-
 import Foundation
 
 private enum Constants {

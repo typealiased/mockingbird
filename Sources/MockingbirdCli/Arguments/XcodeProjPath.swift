@@ -1,10 +1,3 @@
-//
-//  Path+ExpressibleByArgument.swift
-//  MockingbirdCli
-//
-//  Created by typealias on 8/7/21.
-//
-
 import ArgumentParser
 import Foundation
 import PathKit

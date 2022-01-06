@@ -1,10 +1,3 @@
-//
-//  BlockTemplate.swift
-//  MockingbirdGenerator
-//
-//  Created by typealias on 7/23/21.
-//
-
 import Foundation
 
 struct BlockTemplate: Template {

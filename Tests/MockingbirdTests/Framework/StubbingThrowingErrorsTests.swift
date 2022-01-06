@@ -1,10 +1,3 @@
-//
-//  StubbingThrowingErrorsTests.swift
-//  MockingbirdTests
-//
-//  Created by typealias on 7/25/21.
-//
-
 import Foundation
 import Mockingbird
 @testable import MockingbirdTestsHost
