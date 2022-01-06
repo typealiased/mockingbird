@@ -1,8 +1,12 @@
-# SwiftPM Quick Start Guide - Package Manifest
+# SPM Package Quick Start Guide
 
-Integrate Mockingbird into a SwiftPM package manifest.
+Integrate Mockingbird into a SwiftPM package.
 
 ## Overview
+
+This guide is for SwiftPM packages with a `Package.swift` manifest. If you have an Xcode project that uses SwiftPM, please see the <doc:SPM-Project-QuickStart> instead.
+
+### 1. Add the framework
 
 Add Mockingbird as a package and test target dependency in your `Package.swift` manifest.
 
@@ -24,6 +28,8 @@ In your package directory, initialize the dependency.
 $ swift package update Mockingbird
 ```
 
+### 2. Create a script
+
 Next, create a Bash script called `gen-mocks.sh` in the same directory as your package manifest. Copy the example below, making sure to change the lines marked with `FIXME`.
 
 ```bash
@@ -40,33 +46,30 @@ swift package describe --type json > project.json
 Ensure that the script runs and generates mock files.
 
 ```console
-$ chmod u+x gen-mocks.sh
+$ chmod +x gen-mocks.sh
 $ ./gen-mocks.sh
 Generated file to MockingbirdMocks/MyPackageTests-MyPackage.generated.swift
 Generated file to MockingbirdMocks/MyPackageTests-MyLibrary1.generated.swift
 Generated file to MockingbirdMocks/MyPackageTests-MyLibrary2.generated.swift
 ```
 
-Finally, add each generated mock file to your test target sources.
+### Recommended
 
-```swift
-.testTarget(
-  name: "MyPackageTests",
-  dependencies: ["Mockingbird"],
-  sources: [
-    "Tests/MyPackageTests",
-    "MockingbirdMocks/MyPackageTests-MyPackage.generated.swift",
-    "MockingbirdMocks/MyPackageTests-MyLibrary1.generated.swift",
-    "MockingbirdMocks/MyPackageTests-MyLibrary2.generated.swift",
-  ]),
+Exclude generated files, binaries, and caches from source control to prevent merge conflicts.
+
+```bash
+# Generated
+*.generated.swift
+
+# Binaries
+lib_InternalSwiftSyntaxParser.dylib
+
+# Caches
+.mockingbird/
 ```
-
-## Recommended
-
-- [Exclude generated files from source control](https://github.com/birdrides/mockingbird/wiki/Integration-Tips#source-control-exclusion)
 
 ## Need Help?
 
-- [Join the #mockingbird Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw)
-- [Search the troubleshooting guide for common issues](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
-- [Check out the SPM Xcode project example](https://github.com/birdrides/mockingbird/tree/master/Examples/SPMPackageExample)
+- [#mockingbird Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw)
+- [SwiftPM example package](https://github.com/birdrides/mockingbird/tree/master/Examples/SPMPackageExample)
+- <doc:Common-Problems>

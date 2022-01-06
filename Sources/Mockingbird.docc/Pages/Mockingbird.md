@@ -10,14 +10,14 @@ Mockingbird makes it easy to mock, stub, and verify objects in Swift unit tests.
 
 Mockingbird’s syntax takes inspiration from (OC)Mockito but was designed to be “Swifty” in terms of type safety, expressiveness, and readability. In addition to the basics, it provides functionality for advanced features such as creating partial mocks, verifying the order of calls, and testing asynchronous code.
 
-Conceptually, Mockingbird uses codegen to statically mock Swift types at compile time and `NSProxy` to dynamically mock Objective-C types at run time. The approach is similar to other mocking frameworks that augment Swift’s limited introspection capabilities through codegen, but there are a few key differences:
+Conceptually, Mockingbird uses codegen to statically mock Swift types at compile time and `NSProxy` to dynamically mock Objective-C types at run time. Although the approach is similar to other frameworks that augment Swift’s limited introspection capabilities with codegen, there are a few key differences:
 
 - Generating mocks takes seconds instead of minutes on large Swift codebases.
 - Stubbing and verification failures appear inline and don’t abort the entire test run.
 - Production code is kept separate from tests and never modified with annotations.
 - Xcode projects can be used as the source of truth to automatically determine source files.
 
-See a detailed [feature comparison table](https://github.com/birdrides/mockingbird/wiki/Alternatives-to-Mockingbird#feature-comparison) and [known limitations](https://github.com/birdrides/mockingbird/wiki/Known-Limitations).
+See the <doc:Feature-Comparison> and <doc:Known-Limitations>.
 
 ### Example
 
@@ -47,16 +47,39 @@ Mockingbird powers thousands of tests at companies including [Meta](https://meta
 
 - <doc:CocoaPods-QuickStart>
 - <doc:Carthage-QuickStart>
-- <doc:SwiftPM-Project-QuickStart>
-- <doc:SwiftPM-Package-QuickStart>
+- <doc:SPM-Project-QuickStart>
+- <doc:SPM-Package-QuickStart>
 
-### Usage
+### Essentials
 
 - <doc:Mocking>
 - <doc:Stubbing>
 - <doc:Verification>
 - <doc:Matching-Arguments>
 
-### Advanced
+### Command Line Interface
 
+- <doc:Generate>
+- <doc:Configure>
+- <doc:Default-Values>
+- <doc:JSON-Project-Description>
+- <doc:Thunk-Pruning>
+
+### Advanced Topics
+
+- <doc:Mocking-External-Types>
+- <doc:Supporting-Source-Files>
+- <doc:Excluding-Files>
+
+### Troubleshooting
+
+- <doc:Common-Problems>
+- <doc:Debugging-the-Generator>
+- <doc:Generator-Diagnostics>
+
+### Meta
+
+- <doc:Known-Limitations>
+- <doc:Feature-Comparison>
+- <doc:Local-Development>
 - <doc:Internal>

@@ -142,9 +142,8 @@ verify(bird.getMessage()).returning(String.self).wasCalled()
 - ``/documentation/Mockingbird/not(_:)-7i8si``
 - ``/documentation/Mockingbird/not(_:)-8uq76``
 
-### Advanced
+### Advanced Verification
 
 - ``ArgumentCaptor``
 - ``inOrder(with:file:line:_:)``
-- ``OrderedVerificationOptions``
 - ``eventually(_:_:)``

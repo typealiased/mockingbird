@@ -1,10 +1,6 @@
 # Objective-C Stubbing Operator
 
-This is an abstract
-
-## Overview
-
-This is the overview section
+Objective-C specific overloads for the stubbing operator.
 
 ## Topics
 

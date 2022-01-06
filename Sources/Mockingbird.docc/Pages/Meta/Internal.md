@@ -1,10 +1,6 @@
-# Internal
+# Internal APIs
 
-Abstract
-
-## Overview
-
-Overview
+Functionality not designed for general use.
 
 ## Topics
 
@@ -23,12 +19,13 @@ Overview
 - ``StaticStubbingManager``
 - ``ForwardingContext``
 - ``ImplementationProvider``
+- <doc:ObjC-Stubbing-Operator>
 
 ### Verification
 
 - ``VerificationManager``
 
-### Test API
+### Testing
 
 - ``swizzleTestFailer(_:)``
 - ``documentation/Mockingbird/mock(_:)-kz0y``
@@ -44,6 +41,7 @@ Overview
 - ``SelectorType``
 - ``CountMatcher``
 - ``ArgumentMatcher``
+- ``OrderedVerificationOptions``
 
 ### Objective-C
 

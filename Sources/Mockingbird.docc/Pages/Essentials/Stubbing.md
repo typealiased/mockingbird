@@ -186,7 +186,7 @@ given(bird.name)
 
 - ``lastSetValue(initial:)``
 
-### Sequential Stubbing
+### Stubbing Sequences
 
 - ``/documentation/Mockingbird/sequence(of:)-7dfhm``
 - ``/documentation/Mockingbird/sequence(of:)-2t65o``
@@ -195,7 +195,7 @@ given(bird.name)
 - ``/documentation/Mockingbird/finiteSequence(of:)-73crl``
 - ``/documentation/Mockingbird/finiteSequence(of:)-7srgo``
 
-### Objective-C Argument Position
+### Objective-C Arguments
 
 - ``firstArg(_:)``
 - ``secondArg(_:)``
@@ -204,11 +204,14 @@ given(bird.name)
 - ``fifthArg(_:)``
 - ``arg(_:at:)``
 
-### Default Value Providing
+### Providing Default Values
 
 - ``Providable``
 - ``ValueProvider``
 
-### Operator
+### Stubbing Operator
 
-- <doc:Stubbing-Operator>
+- ``/documentation/Mockingbird/~_(_:_:)-6m8gw``
+- ``/documentation/Mockingbird/~_(_:_:)-3eb81``
+- ``/documentation/Mockingbird/~_(_:_:)-6yox8``
+- ``/documentation/Mockingbird/~_(_:_:)-3to0j``

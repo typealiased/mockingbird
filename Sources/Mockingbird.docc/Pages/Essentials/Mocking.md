@@ -4,7 +4,7 @@ Create test doubles of Swift and Objective-C types.
 
 ## Overview
 
-Mocks can be passed as instances of the original type, recording any calls they receive for later verification. Note that mocks are strict by default, meaning that calls to unstubbed non-void methods will trigger a test failure. To create a relaxed or “loose” mock, use a [default value provider](#stub-as-a-relaxed-mock).
+Mocks can be passed as instances of the original type, recording any calls they receive for later verification. Note that mocks are strict by default, meaning that calls to unstubbed non-void methods will trigger a test failure. To create a relaxed or “loose” mock, use a default value provider when <doc:Stubbing>.
 
 ```swift
 // Swift types
@@ -18,7 +18,7 @@ let classMock = mock(MyClass.self)
 
 ### Mock Swift Classes
 
-Swift class mocks rely on subclassing the original type which comes with a few [known limitations](https://github.com/birdrides/mockingbird/wiki/Known-Limitations). When creating a Swift class mock, you must initialize the instance by calling `initialize(…)` with appropriate values.
+Swift class mocks rely on subclassing the original type which comes with a few <doc:Known-Limitations>. When creating a Swift class mock, you must initialize the instance by calling `initialize(…)` with appropriate values.
 
 ```swift
 class Tree {
