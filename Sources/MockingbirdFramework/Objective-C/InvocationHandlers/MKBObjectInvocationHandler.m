@@ -7,8 +7,13 @@
 
 #import "MKBObjectInvocationHandler.h"
 #import "MKBComparator.h"
-#import <Mockingbird/MKBTypeFacade.h>
+#if MKB_SWIFTPM
+@import Mockingbird;
+@import MockingbirdBridge;
+#else
 #import <Mockingbird/Mockingbird-Swift.h>
+#import <Mockingbird/MKBTypeFacade.h>
+#endif
 
 @implementation MKBObjectInvocationHandler
 

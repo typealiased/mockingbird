@@ -90,7 +90,7 @@ public enum LogLevel: String, RawRepresentable, CaseIterable {
   public static let `default` = Synchronized<LogLevel>(.normal)
 }
 
-public enum DiagnosticType: String, Hashable, CaseIterable {
+public enum DiagnosticType: String, Hashable, Codable, CaseIterable {
   case all = "all"
   case notMockable = "not-mockable"
   case undefinedType = "undefined-type"

@@ -6,7 +6,7 @@
 <p align="center">
   <a href="#installation"><img src="https://img.shields.io/badge/package-CocoaPods%20%7C%20Carthage%20%7C%20SwiftPM-4BC51D.svg" alt="Package managers"></a>
   <a href="/birdrides/mockingbird/blob/add-readme-logo/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
-  <a href="https://slofile.com/slack/birdopensource" rel="nofollow"><img src="https://img.shields.io/badge/slack-%23mockingbird-A417A6.svg" alt="Slack channel"></a>
+  <a href="https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw" rel="nofollow"><img src="https://img.shields.io/badge/slack-%23mockingbird-A417A6.svg" alt="Slack channel"></a>
 </p>
 
 Mockingbird lets you mock, stub, and verify objects written in either Swift or Objective-C. The syntax takes inspiration from (OC)Mockito but was designed to be “Swifty” in terms of type safety and expressiveness.
@@ -35,7 +35,7 @@ See a detailed [feature comparison table](https://github.com/birdrides/mockingbi
 
 ### Who Uses Mockingbird?
 
-Mockingbird powers thousands of tests at companies including [Facebook](https://facebook.com), [Amazon](https://amazon.com), [Twilio](https://twilio.com), and [Bird](https://bird.co). Using Mockingbird to improve your testing workflow? Consider dropping us a line on the [#mockingbird Slack channel](https://slofile.com/slack/birdopensource).
+Mockingbird powers thousands of tests at companies including [Meta](https://meta.com), [Amazon](https://amazon.com), [Twilio](https://twilio.com), and [Bird](https://bird.co). Using Mockingbird to improve your testing workflow? Consider dropping us a line on the [#mockingbird Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw).
 
 ### An Example
 
@@ -103,7 +103,7 @@ Optional but recommended:
 
 Have questions or issues?
 
-- [Join the Slack channel](https://slofile.com/slack/birdopensource)
+- [Join the Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw)
 - [Search the troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
 - [Check out the CocoaPods example project](/Examples/iOSMockingbirdExample-CocoaPods)
 
@@ -136,7 +136,7 @@ Optional but recommended:
 
 Have questions or issues?
 
-- [Join the Slack channel](https://slofile.com/slack/birdopensource)
+- [Join the Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw)
 - [Search the troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
 - [Check out the Carthage example project](/Examples/iOSMockingbirdExample-Carthage)
 
@@ -183,7 +183,7 @@ Optional but recommended:
 
 Have questions or issues?
 
-- [Join the Slack channel](https://slofile.com/slack/birdopensource)
+- [Join the Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw)
 - [Search the troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
 - [Check out the Swift Package Manager example project](/Examples/iOSMockingbirdExample-SPM)
 
@@ -650,7 +650,7 @@ To improve compilation times for large projects, Mockingbird only generates mock
 Usage is determined by statically analyzing test target sources for calls to `mock(SomeType.self)`, which may not work out of the box for projects that indirectly synthesize types such as through Objective-C based dependency injection.
 
 - **Option 1:** Explicitly reference each indirectly synthesized type in your tests, e.g. `_ = mock(SomeType.self)`. References can be placed anywhere in the test target sources, such as in the `setUp` method of a test case or in a single file.
-- **Option 2:** Disable pruning entirely by setting the prune level with `--prunelevel disable`. Note that this may increase compilation times for large projects.
+- **Option 2:** Disable pruning entirely by setting the prune level with `--prune disable`. Note that this may increase compilation times for large projects.
 
 ## Mockingbird CLI
 
@@ -671,7 +671,7 @@ Generate mocks for a set of targets in a project.
 | `--header` |  `(none)` | Content to add at the beginning of each generated mock file. |
 | `--condition` | `(none)` | [Compilation condition](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#ID538) to wrap all generated mocks in, e.g. `DEBUG`. |
 | `--diagnostics` | `(none)` | List of [diagnostic generator warnings](https://github.com/birdrides/mockingbird/wiki/Diagnostic-Warnings-and-Errors) to enable. |
-| `--prune` | `stub` | The [pruning method](#thunk-pruning) to use on unreferenced types. |
+| `--prune` | `omit` | The [pruning method](#thunk-pruning) to use on unreferenced types. |
 
 | Flag | Description |
 | --- | --- |
@@ -776,6 +776,6 @@ Mockingbird checks the environment variables `TARGET_NAME` and `TARGETNAME` set 
 ### Help and Documentation
 
 - [API reference](https://birdrides.github.io/mockingbird/latest/)
-- [Slack channel](https://slofile.com/slack/birdopensource)
+- [Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw)
 - [Troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
 - [Mockingbird wiki](https://github.com/birdrides/mockingbird/wiki/)

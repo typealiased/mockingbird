@@ -36,8 +36,8 @@ class FileGenerator {
   private func generateFileHeader() -> PartialFileContent {
     var headerSections = [String]()
     
-    if let customHeader = config.header?.joined(separator: "\n") {
-      headerSections.append(customHeader)
+    if !config.header.isEmpty {
+      headerSections.append(String(lines: config.header))
     } else {
       headerSections.append("""
       //
@@ -61,7 +61,7 @@ class FileGenerator {
     let implicitImports = [
       ImportDeclaration("Foundation"),
       ImportDeclaration("Mockingbird", testable: true),
-      config.shouldImportModule ? ImportDeclaration(config.moduleName, testable: true) : nil,
+      ImportDeclaration(config.moduleName, testable: true),
     ].compactMap({ $0?.fullDeclaration })
     
     let explicitImports = parsedFiles

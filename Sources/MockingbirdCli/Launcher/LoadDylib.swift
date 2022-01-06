@@ -45,19 +45,20 @@ func loadDylibs(_ dylibs: [Resource],
                 onLoad block: () -> Void) {
   let environment = processInfo.environment
   
-  // Global world-writable place to output dylibs, must be kept in sync with `Makefile`.
-  #if RELATIVE_RPATH // Use relative paths for sandboxed CI builds.
+  #if !(MKB_INSTALLABLE)
+  // Use relative paths for sandboxed CI builds.
   let mockingbirdPath = Path(processInfo.arguments.first ?? "./mockingbird").absolute()
   var globalLibraryDirectory = mockingbirdPath.parent()
   if mockingbirdPath.isSymlink {
     do {
-      globalLibraryDirectory = try mockingbirdPath.symlinkDestination().absolute().parent()
+      globalLibraryDirectory = try mockingbirdPath.followRecursively().absolute().parent()
     } catch {
       logWarning("Mockingbird was run from a symbolic link, but the symbolic link destination " +
                  "could not be resolved. Dylibs may be extracted to the wrong location.")
     }
   }
   #else
+  // Global world-writable place to output dylibs, must be kept in sync with `Makefile`.
   let globalLibraryDirectory = Path("/var/tmp/mockingbird/\(mockingbirdVersion)/libs/")
   #endif
   

@@ -7,20 +7,21 @@
 //
 
 import Foundation
-
-func main(arguments: [String]) -> Int32 {
-  let program = Program(usage: "<method>",
-                        overview: "Mockingbird mock generator",
-                        commands: [GenerateCommand.self,
-                                   ConfigureCommand.self,
-                                   InstallCommand.self,
-                                   UninstallCommand.self,
-                                   DownloadCommand.self,
-                                   TestbedCommand.self,
-                                   VersionCommand.self])
-  return program.run(with: arguments)
-}
+import MockingbirdGenerator
+import PathKit
 
 loadDylibs([swiftSyntaxParserDylib]) {
-  exit(main(arguments: ProcessInfo.processInfo.arguments))
+  do {
+    var command = try Mockingbird.parseAsRoot()
+    switch command {
+    case var subcommand as Mockingbird.Configure:
+      try subcommand.run()
+    default:
+      try command.run()
+    }
+    flushLogs()
+  } catch {
+    flushLogs()
+    Mockingbird.exit(withError: error)
+  }
 }

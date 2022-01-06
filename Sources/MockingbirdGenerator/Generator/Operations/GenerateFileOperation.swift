@@ -13,18 +13,16 @@ import os.log
 public struct GenerateFileConfig {
   let moduleName: String
   let outputPath: Path
-  let header: [String]?
+  let header: [String]
   let compilationCondition: String?
-  let shouldImportModule: Bool
   let onlyMockProtocols: Bool
   let disableSwiftlint: Bool
   let pruningMethod: PruningMethod
   
   public init(moduleName: String,
               outputPath: Path,
-              header: [String]?,
+              header: [String],
               compilationCondition: String?,
-              shouldImportModule: Bool,
               onlyMockProtocols: Bool,
               disableSwiftlint: Bool,
               pruningMethod: PruningMethod) {
@@ -32,7 +30,6 @@ public struct GenerateFileConfig {
     self.outputPath = outputPath
     self.header = header
     self.compilationCondition = compilationCondition
-    self.shouldImportModule = shouldImportModule
     self.onlyMockProtocols = onlyMockProtocols
     self.disableSwiftlint = disableSwiftlint
     self.pruningMethod = pruningMethod
