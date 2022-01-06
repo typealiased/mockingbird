@@ -28,7 +28,7 @@ extension Mockingbird {
     var project: XcodeProjPath?
     
     @Option(name: [.customLong("srcproject")],
-            help: "Path to the Xcode project with source modules, if separate from tests.")
+            help: "Path to the Xcode project with source modules.")
     var sourceProject: XcodeProjPath?
     
     @Option(help: "Path to the Mockingbird generator executable.")

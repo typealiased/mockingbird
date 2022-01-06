@@ -51,17 +51,17 @@ extension Mockingbird {
     var testbundle: TestBundleName?
     
     @Option(parsing: .upToNextOption,
-            help: "Content to add at the beginning of each generated mock file.")
+            help: "Lines to show at the top of generated mock files.")
     var header: [String] = []
     
-    @Option(help: "Compilation condition to wrap all generated mocks in, e.g. 'DEBUG'.")
+    @Option(help: "Compilation condition to wrap all generated mocks in.")
     var condition: String?
     
     @Option(parsing: .upToNextOption,
             help: "List of diagnostic generator warnings to enable.")
     var diagnostics: [DiagnosticType] = []
     
-    @Option(help: "The pruning method to use on unreferenced types.")
+    @Option(help: "The thunk pruning level for unreferenced types.")
     var prune: PruningMethod?
     
     // MARK: Flags
