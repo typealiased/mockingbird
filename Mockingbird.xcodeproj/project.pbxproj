@@ -443,34 +443,6 @@
 			remoteGlobalIDString = 286DE635277EAD380047B0F3;
 			remoteInfo = MockingbirdAutomation;
 		};
-		288872FD2785327C001B92CF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 285C8DEE2779E2D200DE525A;
-			remoteInfo = MockingbirdCommon;
-		};
-		288872FF278532A7001B92CF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 285C8DEE2779E2D200DE525A;
-			remoteInfo = MockingbirdCommon;
-		};
-		2896E3E7278530A700C2C574 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 286DE635277EAD380047B0F3;
-			remoteInfo = MockingbirdAutomation;
-		};
-		28E2A569277E8F43002975B3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "Mockingbird::MockingbirdGenerator";
-			remoteInfo = MockingbirdGenerator;
-		};
 		D372A54B245586CC0000E80A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
@@ -704,6 +676,7 @@
 		28A1F3BF26ADA2A8002F282D /* PartialMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialMockTests.swift; sourceTree = "<group>"; };
 		28A1F3C126ADC9DA002F282D /* PropertyProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyProviders.swift; sourceTree = "<group>"; };
 		28A1F3C326ADD57C002F282D /* MinimalTestTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimalTestTypes.swift; sourceTree = "<group>"; };
+		28A651142788E58E00B35800 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		28B127E426C667C600BC8B85 /* TestBundleName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBundleName.swift; sourceTree = "<group>"; };
 		28B4F6E126B3C9C7005C0049 /* ObjCTypeEncodings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjCTypeEncodings.swift; sourceTree = "<group>"; };
 		28C28E7626C0EA4E00729617 /* BinaryPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryPath.swift; sourceTree = "<group>"; };
@@ -961,7 +934,6 @@
 		OBJ_69 /* GenerateFileOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateFileOperation.swift; sourceTree = "<group>"; };
 		OBJ_691 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		OBJ_692 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		OBJ_693 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		OBJ_694 /* MockingbirdFramework.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = MockingbirdFramework.podspec; sourceTree = "<group>"; };
 		OBJ_70 /* RenderTemplateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderTemplateOperation.swift; sourceTree = "<group>"; };
 		OBJ_72 /* InitializerMethodTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializerMethodTemplate.swift; sourceTree = "<group>"; };
@@ -1891,7 +1863,6 @@
 				OBJ_688 /* Cartfile.resolved */,
 				OBJ_689 /* LICENSE.md */,
 				OBJ_691 /* Cartfile */,
-				OBJ_693 /* CONTRIBUTING.md */,
 				285C8E24277B3B1000DE525A /* mockingbird */,
 				OBJ_694 /* MockingbirdFramework.podspec */,
 				285C8E83277BFE2E00DE525A /* .gitignore */,
@@ -1919,6 +1890,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_63 /* Info.plist */,
+				28A651142788E58E00B35800 /* README.md */,
 				OBJ_64 /* Generator */,
 				OBJ_79 /* Parser */,
 				OBJ_116 /* Utilities */,
@@ -2187,7 +2159,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				28DBC3E5277ED39C00A6C96F /* PBXTargetDependency */,
 			);
 			name = MockingbirdAutomation;
 			packageProductDependencies = (
@@ -2207,8 +2178,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				28DBC3E1277ED38A00A6C96F /* PBXTargetDependency */,
-				28DBC3E3277ED39300A6C96F /* PBXTargetDependency */,
 			);
 			name = MockingbirdAutomationCli;
 			packageProductDependencies = (
@@ -2230,7 +2199,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				2855B8ED278568DF00E2ECD7 /* PBXTargetDependency */,
 				OBJ_849 /* PBXTargetDependency */,
 			);
 			name = MockingbirdCli;
@@ -2253,7 +2221,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				28DBC3E9277ED3B000A6C96F /* PBXTargetDependency */,
 			);
 			name = MockingbirdFramework;
 			productName = MockingbirdFramework;
@@ -2270,7 +2237,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				28DBC3EB277ED3B400A6C96F /* PBXTargetDependency */,
 			);
 			name = MockingbirdGenerator;
 			packageProductDependencies = (
@@ -2315,7 +2281,6 @@
 				OBJ_1103 /* PBXTargetDependency */,
 				OBJ_1104 /* PBXTargetDependency */,
 				OBJ_1116 /* PBXTargetDependency */,
-				28DBC3ED277ED3BA00A6C96F /* PBXTargetDependency */,
 			);
 			name = MockingbirdTests;
 			productName = MockingbirdTests;
@@ -2879,26 +2844,6 @@
 			isa = PBXTargetDependency;
 			target = 286DE635277EAD380047B0F3 /* MockingbirdAutomation */;
 			targetProxy = 2855B8F0278596D900E2ECD7 /* PBXContainerItemProxy */;
-		};
-		288872FE2785327C001B92CF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 285C8DEE2779E2D200DE525A /* MockingbirdCommon */;
-			targetProxy = 288872FD2785327C001B92CF /* PBXContainerItemProxy */;
-		};
-		28887300278532A7001B92CF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 285C8DEE2779E2D200DE525A /* MockingbirdCommon */;
-			targetProxy = 288872FF278532A7001B92CF /* PBXContainerItemProxy */;
-		};
-		2896E3E8278530A700C2C574 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 286DE635277EAD380047B0F3 /* MockingbirdAutomation */;
-			targetProxy = 2896E3E7278530A700C2C574 /* PBXContainerItemProxy */;
-		};
-		28E2A568277E8F43002975B3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "Mockingbird::MockingbirdGenerator" /* MockingbirdGenerator */;
-			targetProxy = 28E2A569277E8F43002975B3 /* PBXContainerItemProxy */;
 		};
 		D372A5992455875C0000E80A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
