@@ -8,7 +8,7 @@ Mockingbird makes it easy to mock, stub, and verify objects in Swift unit tests.
 
 ![Mockingbird hero](hero)
 
-Mockingbird’s syntax takes inspiration from (OC)Mockito but was designed to be “Swifty” in terms of type safety, expressiveness, and readability. In addition to the basics, it provides functionality for advanced features such as creating partial mocks, verifying the order of calls, and testing asynchronous code.
+Mockingbird’s syntax takes inspiration from (OC)Mockito but was designed to be “Swifty” in terms of type safety, expressiveness, and readability. In addition to the basics, it provides advanced features like creating partial mocks, verifying the order of calls, and testing asynchronous code.
 
 Conceptually, Mockingbird uses codegen to statically mock Swift types at compile time and `NSProxy` to dynamically mock Objective-C types at run time. Although the approach is similar to other frameworks that augment Swift’s limited introspection capabilities with codegen, there are a few key differences:
 

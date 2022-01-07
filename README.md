@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/Sources/Mockingbird.docc/Resources/logo@3x.png" alt="Mockingbird - Swift Mocking Framework" width="150">
+  <img src="/Sources/Documentation/Mockingbird.docc/Resources/logo@3x.png" alt="Mockingbird - Swift Mocking Framework" width="150">
   <h1 align="center">Mockingbird</h1>
 </p>
 
