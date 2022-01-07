@@ -1,0 +1,13 @@
+// Build Flags
+COPY_PHASE_STRIP = NO
+GENERATE_INFOPLIST_FILE = YES
+CLANG_ENABLE_MODULES = YES
+CLANG_ENABLE_OBJC_WEAK = YES
+SWIFT_VERSION = 5.0
+
+// Compatibility
+MACOSX_DEPLOYMENT_TARGET = 10.15
+
+// Linking
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @loader_path/../Frameworks @loader_path/Frameworks
+FRAMEWORK_SEARCH_PATHS = $(inherited) $(PLATFORM_DIR)/Developer/Library/Frameworks

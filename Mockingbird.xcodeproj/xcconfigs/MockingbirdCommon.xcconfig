@@ -1,0 +1,10 @@
+#include "FrameworkBase.xcconfig"
+
+// Identifiers
+INFOPLIST_FILE = $(SRCROOT)/Sources/MockingbirdCommon/Info.plist
+PRODUCT_MODULE_NAME = MockingbirdCommon
+PRODUCT_NAME = MockingbirdCommon
+TARGET_NAME = MockingbirdCommon
+
+// Build Flags
+BUILD_LIBRARY_FOR_DISTRIBUTION = YES

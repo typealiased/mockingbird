@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MockingbirdCommon
 import PathKit
 import SwiftSyntax
 
@@ -15,7 +16,7 @@ public class FindMockedTypesOperation: BasicOperation {
     public fileprivate(set) var mockedTypeNames = [Path: Set<String>]()
     
     public func generateMockedTypeNamesHash() throws -> String {
-      return try allMockedTypeNames.sorted().joined(separator: ":").generateSha1Hash()
+      return try allMockedTypeNames.sorted().joined(separator: ":").hash()
     }
   }
   
@@ -94,7 +95,7 @@ private class ParseTestFileOperation: BasicOperation {
   
   private func checkCached() throws -> Set<String>? {
     guard let cachedMockedTypeNames = cachedMockedTypeNames else { return nil }
-    let currentHash = try sourcePath.path.read().generateSha1Hash()
+    let currentHash = try sourcePath.path.read().hash()
     guard currentHash == cachedMockedTypeNames.fileHash else {
       log("Invalidated cached referenced mock types because the test file content hash changed from \(cachedMockedTypeNames.fileHash.singleQuoted) to \(currentHash.singleQuoted) for \(sourcePath.path.absolute())")
       return nil

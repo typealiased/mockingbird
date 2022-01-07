@@ -1,2 +1,0 @@
-INFOPLIST_FILE = $(SRCROOT)/Tests/MockingbirdTests/Info.plist
-MACOSX_DEPLOYMENT_TARGET = 10.14

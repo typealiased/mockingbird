@@ -9,6 +9,7 @@
 // swiftlint:disable leading_whitespace
 
 import Foundation
+import MockingbirdCommon
 
 enum Declaration: String, CustomStringConvertible {
   case functionDeclaration = "Mockingbird.FunctionDeclaration"

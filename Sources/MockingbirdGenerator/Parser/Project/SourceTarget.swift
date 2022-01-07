@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MockingbirdCommon
 import PathKit
 import XcodeProj
 
@@ -42,12 +43,12 @@ public class SourceTarget: CodableTarget {
                          configHash: String,
                          ignoredDependencies: inout Set<String>,
                          environment: () -> [String: Any]) throws {
-    self.supportingFilePaths = try supportPaths
+    self.supportingFilePaths = supportPaths
       .map({ $0.absolute() })
       .sorted()
       .map({
         let data = (try? $0.read()) ?? Data()
-        return try SourceFile(path: $0, hash: data.generateSha1Hash())
+        return SourceFile(path: $0, hash: data.hash())
       })
     self.targetPathsHash = targetPathsHash
     self.dependencyPathsHash = dependencyPathsHash

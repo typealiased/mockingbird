@@ -6,45 +6,8 @@
 //
 
 import Foundation
+import MockingbirdCommon
 import PathKit
-
-enum ControlCode: CustomStringConvertible {
-  // MARK: Colors
-  case red
-  case green
-  case yellow
-  case cyan
-  case white
-  case black
-  case grey
-  
-  // MARK: Misc
-  case bold
-  case removeFormatting
-  
-  /// Returns the color code which can be prefixed on a string to display it in that color.
-  var description: String {
-    switch self {
-    case .red: return "\u{001B}[31m"
-    case .green: return "\u{001B}[32m"
-    case .yellow: return "\u{001B}[33m"
-    case .cyan: return "\u{001B}[36m"
-    case .white: return "\u{001B}[37m"
-    case .black: return "\u{001B}[30m"
-    case .grey: return "\u{001B}[30;1m"
-    case .bold: return "\u{001B}[1m"
-    case .removeFormatting: return "\u{001B}[0m"
-    }
-  }
-}
-
-private extension String {
-  func formatted(with controlCodes: ControlCode...) -> String {
-    return controlCodes.map({ "\($0)" }).joined(separator: "")
-      + self
-      + "\(ControlCode.removeFormatting)"
-  }
-}
 
 public enum LogType: Int, CustomStringConvertible {
   case debug = 0, info, warn, error
@@ -52,8 +15,8 @@ public enum LogType: Int, CustomStringConvertible {
   public var formattedDescription: String {
     switch self {
     case .debug, .info: return ""
-    case .warn: return description.formatted(with: ControlCode.yellow, ControlCode.bold)
-    case .error: return description.formatted(with: ControlCode.red, ControlCode.bold)
+    case .warn: return description.formatted(.yellow, .bold)
+    case .error: return description.formatted(.red, .bold)
     }
   }
   
@@ -133,9 +96,8 @@ public func log(_ message: @escaping @autoclosure () -> String,
     }
     
     let output = output ?? type.output
-    let isTTY = isatty(fileno(output)) != 0 &&
-      ProcessInfo.processInfo.environment["TERM"] != "dumb" // Terminals without color support.
-    let typeDescription = isTTY ? type.formattedDescription : type.description
+    let typeDescription = ProcessInfo.supportsControlCodes(output: output)
+      ? type.formattedDescription : type.description
     let typePrefix = typeDescription + (typeDescription.isEmpty ? "" : " ")
     
     let logMessage = locationPrefix + typePrefix + message() + "\n"

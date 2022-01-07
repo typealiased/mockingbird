@@ -9,6 +9,7 @@
 // swiftlint:disable leading_whitespace
 
 import Foundation
+import MockingbirdCommon
 import PathKit
 import os.log
 
@@ -91,10 +92,10 @@ class FileGenerator {
   
   private func generateFileBody() -> PartialFileContent {
     guard !mockableTypes.isEmpty else {
-      return PartialFileContent(contents: """
-      // No mockable types in \(singleQuoted: config.moduleName). Check that the module's
-      // source files have classes or protocols that are not private and not marked as final.
-      """)
+      return PartialFileContent(contents: String(
+        lines: ("No mockable types in \(singleQuoted: config.moduleName). Check that the " +
+                "module's source files have classes or protocols that are not private and not " +
+                "marked as final.").justified(columns: 100-3).map({ "// " + $0 })))
     }
     
     let availableMockableTypes = mockableTypes
@@ -108,11 +109,11 @@ class FileGenerator {
       })
     guard !availableMockableTypes.isEmpty else {
       let testTarget = config.testTargetName?.singleQuoted ?? "your test target"
-      return PartialFileContent(contents: """
-      // No mocks used in \(testTarget). Mockingbird is configured to
-      // only generate mocks for types that are explicitly initialized in your tests with
-      // `mock(SomeType.self)`. For more information, see 'Thunk Pruning' in the README.
-      """)
+      return PartialFileContent(contents: String(
+        lines: ("No mocks used in \(testTarget). Mockingbird is configured to only generate " +
+                "mocks for types that are explicitly initialized in your tests with " +
+                "`mock(SomeType.self)`. For more information, see 'Thunk Pruning' in the README.")
+          .justified(columns: 100-3).map({ "// " + $0 })))
     }
       
     let operations = availableMockableTypes

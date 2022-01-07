@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MockingbirdCommon
 import PathKit
 
 public class CheckCacheOperation: BasicOperation {
@@ -57,17 +58,17 @@ public class CheckCacheOperation: BasicOperation {
       }
       
       let outputFileData = (try? outputFilePath.read()) ?? Data()
-      let currentOutputFilePathHash = try outputFileData.generateSha1Hash()
+      let currentOutputFilePathHash = outputFileData.hash()
       guard currentOutputFilePathHash == target.outputHash else {
         log("Invalidated cached mocks for \(target.name.singleQuoted) because the output file content hash changed from \(target.outputHash.singleQuoted) to \(currentOutputFilePathHash.singleQuoted)")
         return
       }
       
-      let changedFiles = try extractSourcesResult.targetPaths
+      let changedFiles = extractSourcesResult.targetPaths
         .union(extractSourcesResult.dependencyPaths)
         .filter({
           let data = (try? $0.path.read()) ?? Data()
-          return try data.generateSha1Hash() != sourceHashes[$0.path]
+          return data.hash() != sourceHashes[$0.path]
         })
       guard changedFiles.isEmpty else {
         log("Invalidated cached mocks for \(target.name.singleQuoted) because \(changedFiles.count) source file\(changedFiles.count != 1 ? "s" : "") were modified - \(changedFiles.map({ "\($0.path.absolute())" }).sorted())")
@@ -121,7 +122,7 @@ public extension ExtractSourcesOperationResult {
       .map({ "\($0.path.absolute())" })
       .sorted()
       .joined(separator: ":")
-      .generateSha1Hash()
+      .hash()
   }
   
   func generateDependencyPathsHash() throws -> String {
@@ -129,6 +130,6 @@ public extension ExtractSourcesOperationResult {
       .map({ "\($0.path.absolute())" })
       .sorted()
       .joined(separator: ":")
-      .generateSha1Hash()
+      .hash()
   }
 }

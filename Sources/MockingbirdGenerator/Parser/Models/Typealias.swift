@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MockingbirdCommon
 import SourceKittenFramework
 
 struct Typealias {

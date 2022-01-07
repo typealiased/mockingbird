@@ -1,30 +1,54 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# ::DESCRIPTION
+# Launcher that downloads a versioned release artifact if no executable exists.
+#
+# ::OVERRIDES
+# Usage: export <option>=<value>
+# - MKB_VERSION: The release artifact version.
+# - MKB_ARTIFACTS_URL: A templated URL in the format `https://example.com/<VERSION>/<FILE>`.
+# - MKB_NO_VERIFY: Disable verifying the code signature of downloaded artifacts.
 
 set -eu
+cd "$(dirname "$0")"
 
-workingDir="$(dirname "$0")"
-version=${MKB_VERSION:-"$(cd "${workingDir}" && make get-version)"}
+function getVersion {
+  /usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' Sources/MockingbirdCli/Info.plist
+}
+readonly version="${MKB_VERSION:-"$(getVersion)"}"
+echo "Using Mockingbird v${version}"
 
-# Installable builds extract dylib dependencies into a system library directory
-# allowing the binary to be installed globally e.g. to `/usr/local/bin`. This
-# makes them unsuitable for sandboxed environments like a CI. By default, the
-# launcher uses non-installable builds.
-installable=${MKB_INSTALLABLE:-0}
+readonly binDir="bin/${version}"
+readonly executable="${binDir}/mockingbird"
+mkdir -p "${binDir}"
 
-versionString="${version}"
-if [[ "${installable}" -eq 1 ]]; then
-  versionString="${versionString}-installable"
+if [[ ! -x "${executable}" ]]; then
+  readonly archiveName='Mockingbird.zip'
+  curlOpts=( --progress-bar --location --output "${binDir}/${archiveName}" )
+  if [[ -n "${GH_ACCESS_TOKEN+x}" ]]; then
+    curlOpts+=( --header "Authorization: token ${GH_ACCESS_TOKEN}" )
+  fi
+  
+  # Download
+  readonly artifactsUrl="${MKB_ARTIFACTS_URL:-https://github.com/birdrides/mockingbird/releases/download/<VERSION>/<FILE>}"
+  readonly downloadUrl="$(echo "${artifactsUrl}" | sed -n "s|<VERSION>|${version}|p" | sed -n "s|<FILE>|${archiveName}|p")"
+  echo "Downloading Mockingbird from ${downloadUrl} into ${binDir}"
+  curl "${curlOpts[@]}" "${downloadUrl}"
+  
+  # Extract
+  unzip -oq "${binDir}/${archiveName}" -d "${binDir}"
+  rm "${binDir}/${archiveName}"
+  
+  # Verify
+  if [[ "${MKB_NO_VERIFY:-}" -ne 1 ]]; then
+    if xcrun codesign -vv -R Scripts/Resources/CodesigningRequirements/mockingbird.txt "${executable}"; then
+      echo '✅ Verified the code signature'
+    else
+      echo -e '\033[1;31merror:\033[0m The downloaded binary does not have a valid code signature. Set `MKB_NO_VERIFY=1` to bypass this error at your own risk.'
+      rm "${executable}"
+      exit 1
+    fi
+  fi
+  chmod u+x "${executable}"
 fi
-echo "Using Mockingbird v${versionString}"
 
-binaryDir="${workingDir}/bin/${versionString}"
-binaryPath="${binaryDir}/mockingbird"
-
-# Download a versioned binary if needed.
-if [[ ! -f "${binaryPath}" ]]; then
-  downloadUrl="$(cd "${workingDir}" && make get-release-url)"
-  echo "Downloading CLI from ${downloadUrl}"
-  (cd "${workingDir}" && BIN_DIR="${binaryDir}" MKB_INSTALLABLE="${installable}" make download)
-fi
-
-MKB_LAUNCHER="$0" "${binaryPath}" "$@"
+MKB_LAUNCHER="$0" "${executable}" "$@"

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MockingbirdCommon
 import SourceKittenFramework
 
 /// Given a set of `RawType` partials for a single type, creates a `MockableType` object by going to

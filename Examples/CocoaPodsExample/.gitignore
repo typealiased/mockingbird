@@ -1,3 +1,4 @@
 Pods/
 *.generated.swift
 *.xcodeproj/MockingbirdCache
+*.xcworkspace/

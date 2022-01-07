@@ -1,0 +1,14 @@
+#include "FrameworkBase.xcconfig"
+
+// Identifiers
+INFOPLIST_FILE = $(SRCROOT)/Sources/MockingbirdFramework/Info.plist
+PRODUCT_BUNDLE_IDENTIFIER = co.bird.mockingbird
+PRODUCT_MODULE_NAME = Mockingbird
+PRODUCT_NAME = Mockingbird
+TARGET_NAME = Mockingbird
+
+// Build Flags
+BUILD_LIBRARY_FOR_DISTRIBUTION = YES
+
+// Linking
+OTHER_LDFLAGS = $(inherited) -framework XCTest

@@ -8,20 +8,11 @@
 
 import Foundation
 import MockingbirdGenerator
-import PathKit
 
-loadDylibs([swiftSyntaxParserDylib]) {
-  do {
-    var command = try Mockingbird.parseAsRoot()
-    switch command {
-    case var subcommand as Mockingbird.Configure:
-      try subcommand.run()
-    default:
-      try command.run()
-    }
-    flushLogs()
-  } catch {
-    flushLogs()
-    Mockingbird.exit(withError: error)
-  }
+do {
+  defer { flushLogs() }
+  var command = try Mockingbird.parseAsRoot()
+  try command.run()
+} catch {
+  Mockingbird.exit(withError: error)
 }

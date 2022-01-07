@@ -1,0 +1,61 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test-e2e:
+    name: Test E2E
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set Up Project
+      run: Sources/MockingbirdAutomationCli/buildAndRun.sh configure load --overwrite
+    - name: Test
+      run: Sources/MockingbirdAutomationCli/buildAndRun.sh test e2e
+
+  test-example-project:
+    name: Test Example Project (${{ matrix.type }})
+    runs-on: macOS-latest
+    strategy:
+      matrix:
+        type:
+        - cocoapods
+        - carthage
+        - spm-project
+        - spm-package
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test
+      env:
+        GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+      run: Sources/MockingbirdAutomationCli/buildAndRun.sh test example ${{ matrix.type }}
+
+  build-cocoapods:
+    name: Build CocoaPods
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      env:
+        GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+      run: pod lib lint MockingbirdFramework.podspec
+
+  build-carthage:
+    name: Build Carthage
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set Up Project
+      run: Sources/MockingbirdAutomationCli/buildAndRun.sh configure unload --keep MockingbirdFramework
+    - name: Build Release
+      run: Sources/MockingbirdAutomationCli/buildAndRun.sh build
+
+  build-swiftpm:
+    name: Build SwiftPM
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build Debug
+      run: swift build --configuration debug
+    - name: Build Release
+      run: swift build --configuration release
