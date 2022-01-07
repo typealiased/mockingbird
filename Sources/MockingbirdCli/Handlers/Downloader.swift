@@ -27,8 +27,10 @@ enum AssetBundleType: String, ExpressibleByArgument, CustomStringConvertible {
     }
   }
   
-  func getURL(baseURL: URL) -> URL? {
-    return URL(string: "\(baseURL.absoluteString)/\(mockingbirdVersion)/\(fileName)")
+  func getURL(template: String) -> URL? {
+    return URL(string: template
+      .replacingOccurrences(of: "<VERSION>", with: mockingbirdVersion.shortString)
+      .replacingOccurrences(of: "<FILE>", with: fileName))
   }
 }
 
@@ -36,18 +38,18 @@ struct Downloader {
   struct Configuration {
     let assetBundleType: AssetBundleType
     let outputPath: Path
-    let baseURL: URL
+    let urlTemplate: String
     let overwrite: Bool
     let urlSession: URLSession
     
     init(assetBundleType: AssetBundleType,
          outputPath: Path,
-         baseURL: URL,
+         urlTemplate: String,
          overwrite: Bool = false,
          urlSession: URLSession = URLSession(configuration: .ephemeral)) {
       self.assetBundleType = assetBundleType
       self.outputPath = outputPath
-      self.baseURL = baseURL
+      self.urlTemplate = urlTemplate
       self.overwrite = overwrite
       self.urlSession = urlSession
     }
@@ -84,8 +86,8 @@ struct Downloader {
   }
   
   func download() throws {
-    guard let downloadURL = config.assetBundleType.getURL(baseURL: config.baseURL) else {
-      throw Error.validationFailed("Invalid base URL \(config.baseURL)")
+    guard let downloadURL = config.assetBundleType.getURL(template: config.urlTemplate) else {
+      throw Error.validationFailed("Invalid URL template \(config.urlTemplate)")
     }
     switch downloadAssetBundle(at: downloadURL) {
     case .success(let fileURL):

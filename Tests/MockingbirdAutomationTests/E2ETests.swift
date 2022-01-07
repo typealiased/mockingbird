@@ -12,6 +12,12 @@ import XCTest
 
 class E2ETests: XCTestCase {
   
+  enum Constants {
+    /// Used to download supporting source files. Should be pinned to an existing release.
+    static let urlTemplate =
+      "https://github.com/birdrides/mockingbird/releases/download/0.18.1/<FILE>"
+  }
+  
   var sourceRoot: Path!
   var projectPath: Path!
   var backupProjectPath: Path!
@@ -59,6 +65,7 @@ class E2ETests: XCTestCase {
     try Subprocess(cliPath.absolute().string, [
       "configure",
       "MockingbirdTests",
+      "--url", Constants.urlTemplate,
       "--verbose",
       "--",
       "--targets", "MockingbirdTestsHost", "MockingbirdShadowedTestsHost",
@@ -84,6 +91,7 @@ class E2ETests: XCTestCase {
     try Subprocess(cliPath.absolute().string, [
       "configure",
       "MockingbirdTests",
+      "--url", Constants.urlTemplate,
       "--verbose",
       "--",
       "--targets", "MockingbirdTestsHost", "MockingbirdShadowedTestsHost",
@@ -107,6 +115,7 @@ class E2ETests: XCTestCase {
     try Subprocess(cliPath.absolute().string, [
       "configure",
       "MockingbirdTests",
+      "--url", Constants.urlTemplate,
       "--verbose",
       "--",
       "--targets", "MockingbirdTestsHost", "MockingbirdShadowedTestsHost",
@@ -130,6 +139,7 @@ class E2ETests: XCTestCase {
     try Subprocess(cliPath.absolute().string, [
       "configure",
       "MockingbirdTests",
+      "--url", Constants.urlTemplate,
       "--verbose",
       "--",
       "--targets", "MockingbirdTestsHost", "MockingbirdShadowedTestsHost",
@@ -152,6 +162,7 @@ class E2ETests: XCTestCase {
     try Subprocess(cliPath.absolute().string, [
       "configure",
       "MockingbirdTests",
+      "--url", Constants.urlTemplate,
       "--verbose",
       "--",
       "--targets", "MockingbirdTestsHost", "MockingbirdShadowedTestsHost",

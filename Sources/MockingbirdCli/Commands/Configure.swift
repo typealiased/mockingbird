@@ -35,8 +35,9 @@ extension Mockingbird {
     var generator: BinaryPath?
     
     @Option(name: [.customLong("url")],
-            help: "The base URL hosting downloadable asset bundles.")
-    var baseURL: URLArgument = URLArgument(URL(string: "https://github.com/birdrides/mockingbird/releases/download")!)
+            help: "A templated URL for downloading artifacts.")
+    var urlTemplate: String =
+      "https://github.com/birdrides/mockingbird/releases/download/<VERSION>/<FILE>"
     
     // MARK: Flags
     
@@ -53,7 +54,7 @@ extension Mockingbird {
       let project: Path
       let sourceProject: Path
       let generator: Path
-      let baseURL: URL
+      let urlTemplate: String
       let preserveExisting: Bool
       let generatorOptions: [String]
       let generateCommand: Generate
@@ -91,7 +92,7 @@ extension Mockingbird {
         project: validProject.path,
         sourceProject: sourceProject,
         generator: validGenerator.path,
-        baseURL: baseURL.url,
+        urlTemplate: urlTemplate,
         preserveExisting: preserveExisting,
         generatorOptions: generatorOptions,
         generateCommand: generateCommand)
@@ -109,7 +110,7 @@ extension Mockingbird {
       let downloaderConfig = Downloader.Configuration(
         assetBundleType: .starterPack,
         outputPath: parsedGenerateArguments.support.parent(),
-        baseURL: parsedConfigureArguments.baseURL)
+        urlTemplate: parsedConfigureArguments.urlTemplate)
       let downloader = Downloader(config: downloaderConfig)
       try downloader.download()
       logInfo("✅ Downloaded supporting source files")
