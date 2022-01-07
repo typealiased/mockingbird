@@ -1,0 +1,60 @@
+From f239fcaa8a0b462c230ef8a5a9622e431653e7e1 Mon Sep 17 00:00:00 2001
+From: Andrew Chang <typealias@fb.com>
+Date: Thu, 6 Jan 2022 19:31:31 -1000
+Subject: [PATCH 2/2] Routing
+
+- Allow pages to be served from site root
+---
+ src/routes.js           | 2 +-
+ src/utils/data.js       | 6 +++++-
+ src/utils/url-helper.js | 4 +++-
+ 3 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/src/routes.js b/src/routes.js
+index e5cb746..4fbcdd5 100644
+--- a/src/routes.js
++++ b/src/routes.js
+@@ -28,7 +28,7 @@ export default [
+     ),
+   },
+   {
+-    path: '/documentation/*',
++    path: '*',
+     name: documentationTopicName,
+     component: () => import(
+       /* webpackChunkName: "documentation-topic" */ 'theme/views/DocumentationTopic.vue'
+diff --git a/src/utils/data.js b/src/utils/data.js
+index 822f669..0186a48 100644
+--- a/src/utils/data.js
++++ b/src/utils/data.js
+@@ -53,7 +53,11 @@ export async function fetchData(path, params = {}) {
+ 
+ function createDataPath(path) {
+   const dataPath = path.replace(/\/$/, '');
+-  return `${pathJoin([baseUrl, 'data', dataPath])}.json`;
++  const basePath = pathJoin([baseUrl, 'data', 'documentation', 'mockingbird']);
++  if (dataPath === '') {
++    return `${basePath}.json`;
++  }
++  return `${pathJoin([basePath, dataPath])}.json`;
+ }
+ 
+ export async function fetchDataForRouteEnter(to, from, next) {
+diff --git a/src/utils/url-helper.js b/src/utils/url-helper.js
+index 01afb2d..ffe99fa 100644
+--- a/src/utils/url-helper.js
++++ b/src/utils/url-helper.js
+@@ -25,7 +25,9 @@ export function buildUrl(url, { changes, language, context } = {}) {
+ 
+   const combinator = hasQueryParams ? '&' : '?';
+ 
+-  const pathString = fragment ? urlWithoutFragment : url;
++  const pathString = (fragment ? urlWithoutFragment : url)
++    .replace(/^\/documentation\/mockingbird$/, '/')
++    .replace(/^\/documentation\/mockingbird/, '');
+   const queryString = query ? `${combinator}${query}` : '';
+   const fragmentString = fragment ? `#${fragment}` : '';
+ 
+-- 
+2.31.1
+
