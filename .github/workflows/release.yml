@@ -55,9 +55,35 @@ jobs:
     - uses: actions/checkout@v2
     - name: Set Up Project
       run: Sources/MockingbirdAutomationCli/buildAndRun.sh configure load --overwrite
-    - name: Build
+
+    - name: Checkout Swift-DocC
+      uses: actions/checkout@v2
+      with:
+        repository: apple/swift-docc
+        path: swift-docc
+    - name: Build Swift-DocC
+      working-directory: swift-docc
+      run: swift build --configuration release
+
+    - name: Checkout Swift-DocC-Render
+      uses: actions/checkout@v2
+      with:
+        repository: apple/swift-docc-render
+        path: swift-docc-render
+    - name: Patch Swift-DocC-Render
+      working-directory: swift-docc-render
+      run: git apply ../Sources/Documentation/Patches/swift-docc-render/*.patch
+    - name: Build Swift-DocC-Render
+      working-directory: swift-docc-render
+      run: |
+        npm install
+        npm run build
+
+    - name: Build DocC Archive
       run: |
         Sources/MockingbirdAutomationCli/buildAndRun.sh build docs \
+          --docc swift-docc/.build/release/docc \
+          --renderer swift-docc-render/dist \
           --archive .build/mockingbird/artifacts/Mockingbird.doccarchive.zip
     - name: Upload
       uses: actions/upload-artifact@v2
