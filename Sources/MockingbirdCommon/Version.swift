@@ -1,6 +1,6 @@
 import Foundation
 
-public let mockingbirdVersion = Version(shortString: "0.18.0")
+public let mockingbirdVersion = Version(shortString: "0.19.0")
 
 public struct Version: Comparable, CustomStringConvertible {
   public let semver: [Int]
