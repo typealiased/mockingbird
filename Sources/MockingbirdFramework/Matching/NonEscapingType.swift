@@ -15,24 +15,28 @@ protocol NonEscapingType {}
 /// Non-escaping closures cannot be stored in an `Invocation` so an instance of a
 /// `NonEscapingClosure` is stored instead.
 ///
-///     protocol Bird {
-///       func send(_ message: String, callback: (Result) -> Void)
-///     }
+/// ```swift
+/// protocol Bird {
+///   func send(_ message: String, callback: (Result) -> Void)
+/// }
 ///
-///     bird.send("Hello", callback: { print($0) })
+/// bird.send("Hello", callback: { print($0) })
 ///
-///     // Must use a wildcard argument matcher like `any`
-///     verify(bird.send("Hello", callback: any())).wasCalled()
+/// // Must use a wildcard argument matcher like `any`
+/// verify(bird.send("Hello", callback: any())).wasCalled()
+/// ```
 ///
 /// Mark closure parameter types as `@escaping` to capture closures during verification.
 ///
-///     protocol Bird {
-///       func send(_ message: String, callback: @escaping (Result) -> Void)
-///     }
+/// ```swift
+/// protocol Bird {
+///   func send(_ message: String, callback: @escaping (Result) -> Void)
+/// }
 ///
-///     bird.send("Hello", callback: { print($0) })
+/// bird.send("Hello", callback: { print($0) })
 ///
-///     let argumentCaptor = ArgumentCaptor<(Result) -> Void>()
-///     verify(bird.send("Hello", callback: argumentCaptor.matcher)).wasCalled()
-///     argumentCaptor.value?(.success)  // Prints Result.success
+/// let argumentCaptor = ArgumentCaptor<(Result) -> Void>()
+/// verify(bird.send("Hello", callback: argumentCaptor.matcher)).wasCalled()
+/// argumentCaptor.value?(.success)  // Prints Result.success
+/// ```
 public class NonEscapingClosure<ClosureType>: NonEscapingType {}

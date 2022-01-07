@@ -10,6 +10,7 @@ struct Build: ParsableCommand {
     subcommands: [
       BuildCli.self,
       BuildFramework.self,
+      BuildDocumentation.self,
     ])
   
   struct Options: ParsableArguments {
@@ -48,7 +49,10 @@ struct Build: ParsableCommand {
     
     try? destination.delete()
     try destination.parent().mkpath()
-    try FileManager().zipItem(at: stagingPath.url, to: destination.url, compressionMethod: .deflate)
+    try FileManager().zipItem(at: stagingPath.url,
+                              to: destination.url,
+                              shouldKeepParent: items.count > 1,
+                              compressionMethod: .deflate)
   }
 }
 

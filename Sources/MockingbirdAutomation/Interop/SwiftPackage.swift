@@ -81,4 +81,21 @@ public enum SwiftPackage {
                                       workingDirectory: package.parent()).runWithStringOutput()
     return Path(binPath.trimmingCharacters(in: .whitespacesAndNewlines)) + "mockingbird"
   }
+  
+  public static func emitSymbolGraph(
+    target: BuildTarget,
+    environment: [String: String] = ProcessInfo.processInfo.environment,
+    packageConfiguration: PackageConfiguration? = nil,
+    output: Path,
+    package: Path
+  ) throws {
+    let environment = packageConfiguration?.getEnvironment(environment) ?? environment
+    try Subprocess("xcrun", [
+      "swift",
+      "build",
+      "--\(target.optionName)", target.name,
+      "-Xswiftc", "-emit-symbol-graph",
+      "-Xswiftc", "-emit-symbol-graph-dir", "-Xswiftc", output.string,
+    ], environment: environment, workingDirectory: package.parent()).run()
+  }
 }

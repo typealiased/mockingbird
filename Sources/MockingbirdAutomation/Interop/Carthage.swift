@@ -10,19 +10,19 @@ public enum Carthage {
     case all = "all"
   }
   
-  public static func update(platform: Platform = .all, project: Path) throws {
+  public static func update(platforms: [Platform] = [.all], project: Path) throws {
     try Subprocess("carthage", [
       "update",
-      "--platform", platform.rawValue,
+      "--platform", platforms.map({ $0.rawValue }).joined(separator: ","),
       "--use-xcframeworks",
       "--verbose",
     ], workingDirectory: project.parent()).run()
   }
   
-  public static func build(platform: Platform = .all, project: Path) throws {
+  public static func build(platforms: [Platform] = [.all], project: Path) throws {
     try Subprocess("carthage", [
       "build",
-      "--platform", platform.rawValue,
+      "--platform", platforms.map({ $0.rawValue }).joined(separator: ","),
       "--use-xcframeworks",
       "--no-skip-current",
       "--cache-builds",

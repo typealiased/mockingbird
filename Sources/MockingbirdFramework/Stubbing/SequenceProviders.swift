@@ -34,12 +34,14 @@ enum SequenceType {
 /// Provide one or more values which will be returned sequentially for each invocation. The last
 /// value will be used if the number of invocations is greater than the number of values provided.
 ///
-///     given(bird.name)
-///       .willReturn(sequence(of: "Ryan", "Sterling"))
+/// ```swift
+/// given(bird.name)
+///   .willReturn(sequence(of: "Ryan", "Sterling"))
 ///
-///     print(bird.name)  // Prints "Ryan"
-///     print(bird.name)  // Prints "Sterling"
-///     print(bird.name)  // Prints "Sterling"
+/// print(bird.name)  // Prints "Ryan"
+/// print(bird.name)  // Prints "Sterling"
+/// print(bird.name)  // Prints "Sterling"
+/// ```
 ///
 /// - Parameter values: A sequence of values to stub.
 public func sequence<DeclarationType: Declaration, InvocationType, ReturnType>(
@@ -54,15 +56,17 @@ public func sequence<DeclarationType: Declaration, InvocationType, ReturnType>(
 /// last implementation will be used if the number of invocations is greater than the number of
 /// implementations provided.
 ///
-///     given(bird.name).willReturn(sequence(of: {
-///       return Bool.random() ? "Ryan" : "Meisters"
-///     }, {
-///       return Bool.random() ? "Sterling" : "Hackley"
-///     }))
+/// ```swift
+/// given(bird.name).willReturn(sequence(of: {
+///   return Bool.random() ? "Ryan" : "Meisters"
+/// }, {
+///   return Bool.random() ? "Sterling" : "Hackley"
+/// }))
 ///
-///     print(bird.name)  // Prints "Ryan"
-///     print(bird.name)  // Prints "Sterling"
-///     print(bird.name)  // Prints "Hackley"
+/// print(bird.name)  // Prints "Ryan"
+/// print(bird.name)  // Prints "Sterling"
+/// print(bird.name)  // Prints "Hackley"
+/// ```
 ///
 /// - Parameter implementations: A sequence of implementations to stub.
 public func sequence<DeclarationType: Declaration, InvocationType, ReturnType>(
@@ -77,13 +81,15 @@ public func sequence<DeclarationType: Declaration, InvocationType, ReturnType>(
 /// will loop from the beginning if the number of invocations is greater than the number of values
 /// provided.
 ///
-///     given(bird.name)
-///       .willReturn(loopingSequence(of: "Ryan", "Sterling"))
+/// ```swift
+/// given(bird.name)
+///   .willReturn(loopingSequence(of: "Ryan", "Sterling"))
 ///
-///     print(bird.name)  // Prints "Ryan"
-///     print(bird.name)  // Prints "Sterling"
-///     print(bird.name)  // Prints "Ryan"
-///     print(bird.name)  // Prints "Sterling"
+/// print(bird.name)  // Prints "Ryan"
+/// print(bird.name)  // Prints "Sterling"
+/// print(bird.name)  // Prints "Ryan"
+/// print(bird.name)  // Prints "Sterling"
+/// ```
 ///
 /// - Parameter values: A sequence of values to stub.
 public func loopingSequence<DeclarationType: Declaration, InvocationType, ReturnType>(
@@ -98,16 +104,18 @@ public func loopingSequence<DeclarationType: Declaration, InvocationType, Return
 /// sequence will loop from the beginning if the number of invocations is greater than the number of
 /// implementations provided.
 ///
-///     given(bird.name).willReturn(loopingSequence(of: {
-///       return Bool.random() ? "Ryan" : "Meisters"
-///     }, {
-///       return Bool.random() ? "Sterling" : "Hackley"
-///     }))
+/// ```swift
+/// given(bird.name).willReturn(loopingSequence(of: {
+///   return Bool.random() ? "Ryan" : "Meisters"
+/// }, {
+///   return Bool.random() ? "Sterling" : "Hackley"
+/// }))
 ///
-///     print(bird.name)  // Prints "Ryan"
-///     print(bird.name)  // Prints "Sterling"
-///     print(bird.name)  // Prints "Meisters"
-///     print(bird.name)  // Prints "Hackley"
+/// print(bird.name)  // Prints "Ryan"
+/// print(bird.name)  // Prints "Sterling"
+/// print(bird.name)  // Prints "Meisters"
+/// print(bird.name)  // Prints "Hackley"
+/// ```
 ///
 /// - Parameter implementations: A sequence of implementations to stub.
 public func loopingSequence<DeclarationType: Declaration, InvocationType, ReturnType>(
@@ -121,12 +129,14 @@ public func loopingSequence<DeclarationType: Declaration, InvocationType, Return
 /// Provide one or more values which will be returned sequentially for each invocation. The stub
 /// will be invalidated if the number of invocations is greater than the number of values provided.
 ///
-///     given(bird.name)
-///       .willReturn(finiteSequence(of: "Ryan", "Sterling"))
+/// ```swift
+/// given(bird.name)
+///   .willReturn(finiteSequence(of: "Ryan", "Sterling"))
 ///
-///     print(bird.name)  // Prints "Ryan"
-///     print(bird.name)  // Prints "Sterling"
-///     print(bird.name)  // Error: Missing stubbed implementation
+/// print(bird.name)  // Prints "Ryan"
+/// print(bird.name)  // Prints "Sterling"
+/// print(bird.name)  // Error: Missing stubbed implementation
+/// ```
 ///
 /// - Parameter values: A sequence of values to stub.
 public func finiteSequence<DeclarationType: Declaration, InvocationType, ReturnType>(
@@ -141,15 +151,17 @@ public func finiteSequence<DeclarationType: Declaration, InvocationType, ReturnT
 /// stub will be invalidated if the number of invocations is greater than the number of
 /// implementations provided.
 ///
-///     given(bird.name).willReturn(finiteSequence(of: {
-///       return Bool.random() ? "Ryan" : "Meisters"
-///     }, {
-///       return Bool.random() ? "Sterling" : "Hackley"
-///     }))
+/// ```swift
+/// given(bird.name).willReturn(finiteSequence(of: {
+///   return Bool.random() ? "Ryan" : "Meisters"
+/// }, {
+///   return Bool.random() ? "Sterling" : "Hackley"
+/// }))
 ///
-///     print(bird.name)  // Prints "Ryan"
-///     print(bird.name)  // Prints "Sterling"
-///     print(bird.name)  // Error: Missing stubbed implementation
+/// print(bird.name)  // Prints "Ryan"
+/// print(bird.name)  // Prints "Sterling"
+/// print(bird.name)  // Error: Missing stubbed implementation
+/// ```
 ///
 /// - Parameter implementations: A sequence of implementations to stub.
 public func finiteSequence<DeclarationType: Declaration, InvocationType, ReturnType>(

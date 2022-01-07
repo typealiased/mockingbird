@@ -19,28 +19,32 @@ public struct ForwardingContext {
 /// Superclass forwarding persists until removed with `clearStubs` or shadowed by a forwarding
 /// target that was added afterwards.
 ///
-///     class Bird {
-///       let name: String
-///       init(name: String) { self.name = name }
-///     }
+/// ```swift
+/// class Bird {
+///   let name: String
+///   init(name: String) { self.name = name }
+/// }
 ///
-///     // `BirdMock` subclasses `Bird`
-///     let bird: BirdMock = mock(Bird.self).initialize(name: "Ryan")
+/// // `BirdMock` subclasses `Bird`
+/// let bird: BirdMock = mock(Bird.self).initialize(name: "Ryan")
 ///
-///     given(bird.name) ~> forwardToSuper()
-///     print(bird.name)  // Prints "Ryan"
+/// given(bird.name) ~> forwardToSuper()
+/// print(bird.name)  // Prints "Ryan"
+/// ```
 ///
 /// The mocked type must be a class. Adding superclass forwarding to mocked protocol declarations
 /// is a no-op.
 ///
-///     // Not a class
-///     protocol AbstractBird {
-///       var name: String { get }
-///     }
+/// ```swift
+/// // Not a class
+/// protocol AbstractBird {
+///   var name: String { get }
+/// }
 ///
-///     let bird = mock(AbstractBird.self)
-///     given(bird.name) ~> forwardToSuper()
-///     print(bird.name)  // Error: Missing stubbed implementation
+/// let bird = mock(AbstractBird.self)
+/// given(bird.name) ~> forwardToSuper()
+/// print(bird.name)  // Error: Missing stubbed implementation
+/// ```
 ///
 /// - Note: To forward all calls by default to the superclass, use `forwardCallsToSuper` on the mock
 /// instance instead.
@@ -54,35 +58,41 @@ public func forwardToSuper() -> ForwardingContext {
 /// Targets added afterwards have a higher precedence and only pass calls down the forwarding chain
 /// if unable handle the invocation, such as when the target is unrelated to the mocked type.
 ///
-///     class Crow: Bird {
-///       let name: String
-///       init(name: String) { self.name = name }
-///     }
+/// ```swift
+/// class Crow: Bird {
+///   let name: String
+///   init(name: String) { self.name = name }
+/// }
 ///
-///     given(bird.name) ~> forward(to: Crow(name: "Ryan"))
-///     print(bird.name)  // Prints "Ryan"
+/// given(bird.name) ~> forward(to: Crow(name: "Ryan"))
+/// print(bird.name)  // Prints "Ryan"
 ///
-///     // Additional targets take precedence
-///     given(bird.name) ~> forward(to: Crow(name: "Sterling"))
-///     print(bird.name)  // Prints "Sterling"
+/// // Additional targets take precedence
+/// given(bird.name) ~> forward(to: Crow(name: "Sterling"))
+/// print(bird.name)  // Prints "Sterling"
+/// ```
 ///
 /// Concrete stubs always have a higher priority than forwarding targets, regardless of the order
 /// they were added.
 ///
-///     given(bird.name) ~> "Ryan"
-///     given(bird.name) ~> forward(to: Crow(name: "Sterling"))
-///     print(bird.name)  // Prints "Ryan"
+/// ```swift
+/// given(bird.name) ~> "Ryan"
+/// given(bird.name) ~> forward(to: Crow(name: "Sterling"))
+/// print(bird.name)  // Prints "Ryan"
+/// ```
 ///
 /// Objects must inherit from the mocked type to handle forwarded invocations, even if the
 /// declaration is identical. Adding an unrelated type as a forwarding target is a no-op.
 ///
-///     // Not a `Bird`
-///     class Person {
-///       var name = "Ryan"
-///     }
+/// ```swift
+/// // Not a `Bird`
+/// class Person {
+///   var name = "Ryan"
+/// }
 ///
-///     given(bird.name) ~> forward(to: Person())
-///     print(bird.name)  // Error: Missing stubbed implementation
+/// given(bird.name) ~> forward(to: Person())
+/// print(bird.name)  // Error: Missing stubbed implementation
+/// ```
 ///
 /// - Note: To forward all calls to an object, use `forwardCalls` on the mock instance instead.
 ///
@@ -98,28 +108,32 @@ public extension StubbingManager {
   /// receiving a matching invocation. Superclass forwarding persists until removed with
   /// `clearStubs` or shadowed by a forwarding target that was added afterwards.
   ///
-  ///     class Bird {
-  ///       let name: String
-  ///       init(name: String) { self.name = name }
-  ///     }
+  /// ```swift
+  /// class Bird {
+  ///   let name: String
+  ///   init(name: String) { self.name = name }
+  /// }
   ///
-  ///     // `BirdMock` subclasses `Bird`
-  ///     let bird: BirdMock = mock(Bird.self).initialize(name: "Ryan")
+  /// // `BirdMock` subclasses `Bird`
+  /// let bird: BirdMock = mock(Bird.self).initialize(name: "Ryan")
   ///
-  ///     given(bird.name).willForwardToSuper()
-  ///     print(bird.name)  // Prints "Ryan"
+  /// given(bird.name).willForwardToSuper()
+  /// print(bird.name)  // Prints "Ryan"
+  /// ```
   ///
   /// The mocked type must be a class. Adding superclass forwarding to mocked protocol declarations
   /// is a no-op.
   ///
-  ///     // Not a class
-  ///     protocol AbstractBird {
-  ///       var name: String { get }
-  ///     }
+  /// ```swift
+  /// // Not a class
+  /// protocol AbstractBird {
+  ///   var name: String { get }
+  /// }
   ///
-  ///     let bird = mock(AbstractBird.self)
-  ///     given(bird.name).willForwardToSuper()
-  ///     print(bird.name)  // Error: Missing stubbed implementation
+  /// let bird = mock(AbstractBird.self)
+  /// given(bird.name).willForwardToSuper()
+  /// print(bird.name)  // Error: Missing stubbed implementation
+  /// ```
   ///
   /// - Note: To forward all calls by default to the superclass, use `forwardCallsToSuper` on the
   /// mock instance instead.
@@ -137,35 +151,41 @@ public extension StubbingManager {
   /// forwarding chain if unable handle the invocation, such as when the target is unrelated to the
   /// mocked type.
   ///
-  ///     class Crow: Bird {
-  ///       let name: String
-  ///       init(name: String) { self.name = name }
-  ///     }
+  /// ```swift
+  /// class Crow: Bird {
+  ///   let name: String
+  ///   init(name: String) { self.name = name }
+  /// }
   ///
-  ///     given(bird.name).willForward(to: Crow(name: "Ryan"))
-  ///     print(bird.name)  // Prints "Ryan"
+  /// given(bird.name).willForward(to: Crow(name: "Ryan"))
+  /// print(bird.name)  // Prints "Ryan"
   ///
-  ///     // Additional targets take precedence
-  ///     given(bird.name).willForward(to: Crow(name: "Sterling"))
-  ///     print(bird.name)  // Prints "Sterling"
+  /// // Additional targets take precedence
+  /// given(bird.name).willForward(to: Crow(name: "Sterling"))
+  /// print(bird.name)  // Prints "Sterling"
+  /// ```
   ///
   /// Concrete stubs always have a higher priority than forwarding targets, regardless of the order
   /// they were added.
   ///
-  ///     given(bird.name).willReturn("Ryan")
-  ///     given(bird.name).willForward(to: Crow(name: "Sterling"))
-  ///     print(bird.name)  // Prints "Ryan"
+  /// ```swift
+  /// given(bird.name).willReturn("Ryan")
+  /// given(bird.name).willForward(to: Crow(name: "Sterling"))
+  /// print(bird.name)  // Prints "Ryan"
+  /// ```
   ///
   /// Objects must inherit from the mocked type to handle forwarded invocations, even if the
   /// declaration is identical. Adding an unrelated type as a forwarding target is a no-op.
   ///
-  ///     // Not a `Bird`
-  ///     class Person {
-  ///       var name = "Ryan"
-  ///     }
+  /// ```swift
+  /// // Not a `Bird`
+  /// class Person {
+  ///   var name = "Ryan"
+  /// }
   ///
-  ///     given(bird.name).willForward(to: Person())
-  ///     print(bird.name)  // Error: Missing stubbed implementation
+  /// given(bird.name).willForward(to: Person())
+  /// print(bird.name)  // Error: Missing stubbed implementation
+  /// ```
   ///
   /// - Note: To forward all calls to an object, use `forwardCalls` on the mock instance instead.
   ///
@@ -183,36 +203,42 @@ public extension Mock {
   /// forwarding persists until removed with `clearStubs` or shadowed by a forwarding target that
   /// was added afterwards.
   ///
-  ///     class Bird {
-  ///       let name: String
-  ///       init(name: String) { self.name = name }
-  ///     }
+  /// ```swift
+  /// class Bird {
+  ///   let name: String
+  ///   init(name: String) { self.name = name }
+  /// }
   ///
-  ///     // `BirdMock` subclasses `Bird`
-  ///     let bird: BirdMock = mock(Bird.self).initialize(name: "Ryan")
+  /// // `BirdMock` subclasses `Bird`
+  /// let bird: BirdMock = mock(Bird.self).initialize(name: "Ryan")
   ///
-  ///     bird.forwardCallsToSuper()
-  ///     print(bird.name)  // Prints "Ryan"
+  /// bird.forwardCallsToSuper()
+  /// print(bird.name)  // Prints "Ryan"
+  /// ```
   ///
   /// Concrete stubs always have a higher priority than forwarding targets, regardless of the order
   /// they were added.
   ///
-  ///     let bird = mock(Bird.self).initialize(name: "Sterling")
-  ///     given(bird.name).willReturn("Ryan")
-  ///     bird.forwardCallsToSuper()
-  ///     print(bird.name)  // Prints "Ryan"
+  /// ```swift
+  /// let bird = mock(Bird.self).initialize(name: "Sterling")
+  /// given(bird.name).willReturn("Ryan")
+  /// bird.forwardCallsToSuper()
+  /// print(bird.name)  // Prints "Ryan"
+  /// ```
   ///
   /// Objects must inherit from the mocked type to handle forwarded invocations, even if the
   /// declaration is identical. Adding an unrelated type as a forwarding target is a no-op.
   ///
-  ///     // Not a class
-  ///     protocol AbstractBird {
-  ///       var name: String { get }
-  ///     }
+  /// ```swift
+  /// // Not a class
+  /// protocol AbstractBird {
+  ///   var name: String { get }
+  /// }
   ///
-  ///     let bird = mock(AbstractBird.self)
-  ///     bird.forwardCallsToSuper()
-  ///     print(bird.name)  // Error: Missing stubbed implementation
+  /// let bird = mock(AbstractBird.self)
+  /// bird.forwardCallsToSuper()
+  /// print(bird.name)  // Error: Missing stubbed implementation
+  /// ```
   ///
   /// - Returns: A partial mock using the superclass to handle invocations.
   @discardableResult
@@ -227,36 +253,42 @@ public extension Mock {
   /// `clearStubs`. Targets added afterwards have a higher precedence and only pass calls down the forwarding chain if unable handle the invocation, such as when the target is unrelated to the
   /// mocked type.
   ///
-  ///     class Crow: Bird {
-  ///       let name: String
-  ///       init(name: String) { self.name = name }
-  ///     }
+  /// ```swift
+  /// class Crow: Bird {
+  ///   let name: String
+  ///   init(name: String) { self.name = name }
+  /// }
   ///
-  ///     let bird = mock(Bird.self)
-  ///     bird.forwardCalls(to: Crow(name: "Ryan"))
-  ///     print(bird.name)  // Prints "Ryan"
+  /// let bird = mock(Bird.self)
+  /// bird.forwardCalls(to: Crow(name: "Ryan"))
+  /// print(bird.name)  // Prints "Ryan"
   ///
-  ///     // Additional targets take precedence
-  ///     bird.forwardCalls(to: Crow(name: "Sterling"))
-  ///     print(bird.name)  // Prints "Sterling"
+  /// // Additional targets take precedence
+  /// bird.forwardCalls(to: Crow(name: "Sterling"))
+  /// print(bird.name)  // Prints "Sterling"
+  /// ```
   ///
   /// Concrete stubs always have a higher priority than forwarding targets, regardless of the order
   /// they were added.
   ///
-  ///     given(bird.name).willReturn("Ryan")
-  ///     bird.forwardCalls(to: Crow(name: "Sterling"))
-  ///     print(bird.name)  // Prints "Ryan"
+  /// ```swift
+  /// given(bird.name).willReturn("Ryan")
+  /// bird.forwardCalls(to: Crow(name: "Sterling"))
+  /// print(bird.name)  // Prints "Ryan"
+  /// ```
   ///
   /// Objects must inherit from the mocked type to handle forwarded invocations, even if the
   /// declaration is identical. Adding an unrelated type as a forwarding target is a no-op.
   ///
-  ///     // Not a `Bird`
-  ///     class Person {
-  ///       var name = "Ryan"
-  ///     }
+  /// ```swift
+  /// // Not a `Bird`
+  /// class Person {
+  ///   var name = "Ryan"
+  /// }
   ///
-  ///     bird.forwardCalls(to: Person())
-  ///     print(bird.name)  // Error: Missing stubbed implementation
+  /// bird.forwardCalls(to: Person())
+  /// print(bird.name)  // Error: Missing stubbed implementation
+  /// ```
   ///
   /// - Parameter object: An object that should handle forwarded invocations.
   /// - Returns: A partial mock using `object` to handle invocations.
@@ -274,36 +306,42 @@ public extension NSObjectProtocol {
   /// forwarding persists until removed with `clearStubs` or shadowed by a forwarding target that
   /// was added afterwards.
   ///
-  ///     class Bird {
-  ///       let name: String
-  ///       init(name: String) { self.name = name }
-  ///     }
+  /// ```swift
+  /// class Bird {
+  ///   let name: String
+  ///   init(name: String) { self.name = name }
+  /// }
   ///
-  ///     // `BirdMock` subclasses `Bird`
-  ///     let bird: BirdMock = mock(Bird.self).initialize(name: "Ryan")
+  /// // `BirdMock` subclasses `Bird`
+  /// let bird: BirdMock = mock(Bird.self).initialize(name: "Ryan")
   ///
-  ///     bird.forwardCallsToSuper()
-  ///     print(bird.name)  // Prints "Ryan"
+  /// bird.forwardCallsToSuper()
+  /// print(bird.name)  // Prints "Ryan"
+  /// ```
   ///
   /// Concrete stubs always have a higher priority than forwarding targets, regardless of the order
   /// they were added.
   ///
-  ///     let bird = mock(Bird.self).initialize(name: "Sterling")
-  ///     given(bird.name).willReturn("Ryan")
-  ///     bird.forwardCallsToSuper()
-  ///     print(bird.name)  // Prints "Ryan"
+  /// ```swift
+  /// let bird = mock(Bird.self).initialize(name: "Sterling")
+  /// given(bird.name).willReturn("Ryan")
+  /// bird.forwardCallsToSuper()
+  /// print(bird.name)  // Prints "Ryan"
+  /// ```
   ///
   /// Objects must inherit from the mocked type to handle forwarded invocations, even if the
   /// declaration is identical. Adding an unrelated type as a forwarding target is a no-op.
   ///
-  ///     // Not a class
-  ///     protocol AbstractBird {
-  ///       var name: String { get }
-  ///     }
+  /// ```swift
+  /// // Not a class
+  /// protocol AbstractBird {
+  ///   var name: String { get }
+  /// }
   ///
-  ///     let bird = mock(AbstractBird.self)
-  ///     bird.forwardCallsToSuper()
-  ///     print(bird.name)  // Error: Missing stubbed implementation
+  /// let bird = mock(AbstractBird.self)
+  /// bird.forwardCallsToSuper()
+  /// print(bird.name)  // Error: Missing stubbed implementation
+  /// ```
   ///
   /// - Returns: A partial mock using the superclass to handle invocations.
   @discardableResult
@@ -318,36 +356,42 @@ public extension NSObjectProtocol {
   /// `clearStubs`. Targets added afterwards have a higher precedence and only pass calls down the forwarding chain if unable handle the invocation, such as when the target is unrelated to the
   /// mocked type.
   ///
-  ///     class Crow: Bird {
-  ///       let name: String
-  ///       init(name: String) { self.name = name }
-  ///     }
+  /// ```swift
+  /// class Crow: Bird {
+  ///   let name: String
+  ///   init(name: String) { self.name = name }
+  /// }
   ///
-  ///     let bird = mock(Bird.self)
-  ///     bird.forwardCalls(to: Crow(name: "Ryan"))
-  ///     print(bird.name)  // Prints "Ryan"
+  /// let bird = mock(Bird.self)
+  /// bird.forwardCalls(to: Crow(name: "Ryan"))
+  /// print(bird.name)  // Prints "Ryan"
   ///
-  ///     // Additional targets take precedence
-  ///     bird.forwardCalls(to: Crow(name: "Sterling"))
-  ///     print(bird.name)  // Prints "Sterling"
+  /// // Additional targets take precedence
+  /// bird.forwardCalls(to: Crow(name: "Sterling"))
+  /// print(bird.name)  // Prints "Sterling"
+  /// ```
   ///
   /// Concrete stubs always have a higher priority than forwarding targets, regardless of the order
   /// they were added.
   ///
-  ///     given(bird.name).willReturn("Ryan")
-  ///     bird.forwardCalls(to: Crow(name: "Sterling"))
-  ///     print(bird.name)  // Prints "Ryan"
+  /// ```swift
+  /// given(bird.name).willReturn("Ryan")
+  /// bird.forwardCalls(to: Crow(name: "Sterling"))
+  /// print(bird.name)  // Prints "Ryan"
+  /// ```
   ///
   /// Objects must inherit from the mocked type to handle forwarded invocations, even if the
   /// declaration is identical. Adding an unrelated type as a forwarding target is a no-op.
   ///
-  ///     // Not a `Bird`
-  ///     class Person {
-  ///       var name = "Ryan"
-  ///     }
+  /// ```swift
+  /// // Not a `Bird`
+  /// class Person {
+  ///   var name = "Ryan"
+  /// }
   ///
-  ///     bird.forwardCalls(to: Person())
-  ///     print(bird.name)  // Error: Missing stubbed implementation
+  /// bird.forwardCalls(to: Person())
+  /// print(bird.name)  // Error: Missing stubbed implementation
+  /// ```
   ///
   /// - Parameter object: An object that should handle forwarded invocations.
   /// - Returns: A partial mock using `object` to handle invocations.

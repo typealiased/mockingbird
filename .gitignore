@@ -49,5 +49,8 @@ Packages/
 .swiftpm/
 /Package.resolved
 
+## DocC
+.docc-build
+
 ## macOS
 .DS_Store

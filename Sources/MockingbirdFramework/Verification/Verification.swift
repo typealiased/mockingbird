@@ -8,19 +8,23 @@
 import Foundation
 import XCTest
 
-/// Verify that a mock recieved a specific invocation some number of times.
+/// Verify that a declaration was called.
 ///
 /// Verification lets you assert that a mock received a particular invocation during its lifetime.
 ///
-///     verify(bird.doMethod()).wasCalled()
-///     verify(bird.getProperty()).wasCalled()
-///     verify(bird.setProperty(any())).wasCalled()
+/// ```swift
+/// verify(bird.doMethod()).wasCalled()
+/// verify(bird.getProperty()).wasCalled()
+/// verify(bird.setProperty(any())).wasCalled()
+/// ```
 ///
 /// Match exact or wildcard argument values when verifying methods with parameters.
 ///
-///     verify(bird.canChirp(volume: any())).wasCalled()     // Called with any volume
-///     verify(bird.canChirp(volume: notNil())).wasCalled()  // Called with any non-nil volume
-///     verify(bird.canChirp(volume: 10)).wasCalled()        // Called with volume = 10
+/// ```swift
+/// verify(bird.canChirp(volume: any())).wasCalled()     // Called with any volume
+/// verify(bird.canChirp(volume: notNil())).wasCalled()  // Called with any non-nil volume
+/// verify(bird.canChirp(volume: 10)).wasCalled()        // Called with volume = 10
+/// ```
 ///
 /// - Parameters:
 ///   - mock: A mocked declaration to verify.
@@ -31,19 +35,23 @@ public func verify<DeclarationType: Declaration, InvocationType, ReturnType>(
   return VerificationManager(with: declaration, at: SourceLocation(file, line))
 }
 
-/// Verify that a mock recieved a specific invocation some number of times.
+/// Verify that an Objective-C mock or property declaration was called.
 ///
 /// Verification lets you assert that a mock received a particular invocation during its lifetime.
 ///
-///     verify(bird.doMethod()).wasCalled()
-///     verify(bird.getProperty()).wasCalled()
-///     verify(bird.setProperty(any())).wasCalled()
+/// ```swift
+/// verify(bird.doMethod()).wasCalled()
+/// verify(bird.getProperty()).wasCalled()
+/// verify(bird.setProperty(any())).wasCalled()
+/// ```
 ///
 /// Match exact or wildcard argument values when verifying methods with parameters.
 ///
-///     verify(bird.canChirp(volume: any())).wasCalled()     // Called with any volume
-///     verify(bird.canChirp(volume: notNil())).wasCalled()  // Called with any non-nil volume
-///     verify(bird.canChirp(volume: 10)).wasCalled()        // Called with volume = 10
+/// ```swift
+/// verify(bird.canChirp(volume: any())).wasCalled()     // Called with any volume
+/// verify(bird.canChirp(volume: notNil())).wasCalled()  // Called with any non-nil volume
+/// verify(bird.canChirp(volume: 10)).wasCalled()        // Called with volume = 10
+/// ```
 ///
 /// - Parameters:
 ///   - mock: A mocked declaration to verify.
@@ -114,15 +122,17 @@ public class VerificationManager<InvocationType, ReturnType> {
   /// Declarations for methods overloaded by return type cannot type inference and should be
   /// disambiguated.
   ///
-  ///     protocol Bird {
-  ///       func getMessage<T>() throws -> T    // Overloaded generically
-  ///       func getMessage() throws -> String  // Overloaded explicitly
-  ///       func getMessage() throws -> Data
-  ///     }
+  /// ```swift
+  /// protocol Bird {
+  ///   func getMessage<T>() throws -> T    // Overloaded generically
+  ///   func getMessage() throws -> String  // Overloaded explicitly
+  ///   func getMessage() throws -> Data
+  /// }
   ///
-  ///     verify(bird.send(any()))
-  ///       .returning(String.self)
-  ///       .wasCalled()
+  /// verify(bird.send(any()))
+  ///   .returning(String.self)
+  ///   .wasCalled()
+  /// ```
   ///
   /// - Parameter type: The return type of the declaration to verify.
   public func returning(_ type: ReturnType.Type = ReturnType.self) -> Self {

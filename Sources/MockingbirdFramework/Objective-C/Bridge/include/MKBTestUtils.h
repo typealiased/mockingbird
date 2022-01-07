@@ -21,13 +21,15 @@ NSException *_Nullable MKBTryBlock(void(^_Nonnull NS_NOESCAPE block)(void));
 ///
 /// Fully type erased optionals in Swift causes typical `nil` checks to fail. For example:
 ///
-///     func erase<T>(_ value: T) {
-///       print(value == nil)                       // false
-///       print(value as Optional<Any> == nil)      // false
-///       print(value as? Optional<String> == nil)  // false
-///       print(value as! Optional<String> == nil)  // true
-///     }
-///     erase(Optional<String>(nil))
+/// ```swift
+/// func erase<T>(_ value: T) {
+///   print(value == nil)                       // false
+///   print(value as Optional<Any> == nil)      // false
+///   print(value as? Optional<String> == nil)  // false
+///   print(value as! Optional<String> == nil)  // true
+/// }
+/// erase(Optional<String>(nil))
+/// ```
 ///
 /// Since Objective-C implicitly bridges to `NSNull`, an easy (albeit hacky) way to check if the
 /// value is both an `Optional` and `nil` at runtime is to pass it Objective-C. Swift does support
