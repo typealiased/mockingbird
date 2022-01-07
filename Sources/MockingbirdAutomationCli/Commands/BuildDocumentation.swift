@@ -10,10 +10,13 @@ extension Build {
       abstract: "Build a documentation archive using DocC.")
     
     @Option(help: "Path to the documentation bundle directory.")
-    var bundle: String = "./Sources/Mockingbird.docc"
+    var bundle: String = "./Sources/Documentation/Mockingbird.docc"
+    
+    @Option(help: "Path to a DocC executable.")
+    var docc: String?
     
     @Option(help: "Path to a documentation renderer.")
-    var renderer: String = "./Sources/Mockingbird.docc/Renderer"
+    var renderer: String?
     
     @OptionGroup()
     var globalOptions: Options
@@ -34,6 +37,16 @@ extension Build {
         + [symbolGraphs + "Mockingbird.symbols.json"]
       try mockingbirdSymbolGraphs.forEach({ try $0.copy(filteredSymbolGraphs + $0.lastComponent) })
       
+      let rendererPath: Path? = {
+        guard let renderer = renderer else { return nil }
+        return Path(renderer)
+      }()
+      
+      let doccPath: Path? = {
+        guard let docc = docc else { return nil }
+        return Path(docc)
+      }()
+      
       let bundlePath = Path(bundle)
       if let location = globalOptions.archiveLocation {
         let outputPath = Path("./.build/mockingbird/artifacts/Mockingbird.doccarchive")
@@ -41,13 +54,17 @@ extension Build {
         try? outputPath.delete()
         try DocC.convert(bundle: bundlePath,
                          symbolGraph: filteredSymbolGraphs,
-                         renderer: Path(renderer),
+                         renderer: rendererPath,
+                         docc: doccPath,
                          output: outputPath)
-        try archive(artifacts: [("", outputPath)], destination: Path(location))
+        try archive(artifacts: [("", outputPath)],
+                    destination: Path(location),
+                    includeLicense: false)
       } else {
         try DocC.preview(bundle: bundlePath,
                          symbolGraph: filteredSymbolGraphs,
-                         renderer: Path(renderer))
+                         renderer: rendererPath,
+                         docc: doccPath)
       }
     }
   }

@@ -15,23 +15,27 @@ public enum DocC {
   
   public static func preview(bundle: Path,
                              symbolGraph: Path,
-                             renderer: Path? = nil) throws {
+                             renderer: Path? = nil,
+                             docc: Path? = nil) throws {
     try Subprocess("xcrun", [
-      "docc",
+      docc?.string ?? "docc",
       "preview", bundle.string,
       "--additional-symbol-graph-dir", symbolGraph.string,
+      "--experimental-enable-custom-templates",
     ], environment: getEnvironment(renderer: renderer)).run()
   }
   
   public static func convert(bundle: Path,
                              symbolGraph: Path,
                              renderer: Path? = nil,
+                             docc: Path? = nil,
                              output: Path) throws {
     try Subprocess("xcrun", [
-      "docc",
+      docc?.string ?? "docc",
       "convert", bundle.string,
       "--additional-symbol-graph-dir", symbolGraph.string,
       "--output-dir", output.string,
+      "--experimental-enable-custom-templates",
     ], environment: getEnvironment(renderer: renderer)).run()
   }
 }
