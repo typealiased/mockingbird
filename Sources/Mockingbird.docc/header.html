@@ -1,0 +1,294 @@
+<!--
+  NOTICE
+  This is a modified version of the DocC header from Swift.org.
+  Licensed under Apache 2.0. See LICENSE.txt for details.
+-->
+
+<!-- Inlined to prevent flash of unstyled content. -->
+<style type="text/css">
+:host {
+  --color-header-background-light: var(--color-fill-secondary);
+  --color-header-text-light: #333333;
+  --icon-close-url-light: url("https://swift.org/assets/images/icon-close.svg");
+  --icon-menu-url-light: url("https://swift.org/assets/images/icon-menu.svg");
+  --github-logo-url-light: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23333' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
+  --github-logo-url-hover-light: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%2336f' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
+  --slack-logo-url-light: url("data:image/svg+xml;charset=utf-8,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='71 71 128 128' style='enable-background:new 71 71 128 128;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%23333;%7D%0A%3C/style%3E%3Cg%3E%3Cg%3E%3Cpath class='st0' d='M99.4,151.2c0,7.1-5.8,12.9-12.9,12.9s-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h12.9V151.2z'/%3E%3Cpath class='st0' d='M105.9,151.2c0-7.1,5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v32.3c0,7.1-5.8,12.9-12.9,12.9 s-12.9-5.8-12.9-12.9C105.9,183.5,105.9,151.2,105.9,151.2z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M118.8,99.4c-7.1,0-12.9-5.8-12.9-12.9s5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v12.9H118.8z'/%3E%3Cpath class='st0' d='M118.8,105.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9H86.5c-7.1,0-12.9-5.8-12.9-12.9 s5.8-12.9,12.9-12.9C86.5,105.9,118.8,105.9,118.8,105.9z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M170.6,118.8c0-7.1,5.8-12.9,12.9-12.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9h-12.9V118.8z'/%3E%3Cpath class='st0' d='M164.1,118.8c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9V86.5c0-7.1,5.8-12.9,12.9-12.9 c7.1,0,12.9,5.8,12.9,12.9V118.8z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M151.2,170.6c7.1,0,12.9,5.8,12.9,12.9c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9v-12.9H151.2z'/%3E%3Cpath class='st0' d='M151.2,164.1c-7.1,0-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h32.3c7.1,0,12.9,5.8,12.9,12.9 c0,7.1-5.8,12.9-12.9,12.9H151.2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  --slack-logo-url-hover-light: url("data:image/svg+xml;charset=utf-8,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='71 71 128 128' style='enable-background:new 71 71 128 128;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%2336f;%7D%0A%3C/style%3E%3Cg%3E%3Cg%3E%3Cpath class='st0' d='M99.4,151.2c0,7.1-5.8,12.9-12.9,12.9s-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h12.9V151.2z'/%3E%3Cpath class='st0' d='M105.9,151.2c0-7.1,5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v32.3c0,7.1-5.8,12.9-12.9,12.9 s-12.9-5.8-12.9-12.9C105.9,183.5,105.9,151.2,105.9,151.2z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M118.8,99.4c-7.1,0-12.9-5.8-12.9-12.9s5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v12.9H118.8z'/%3E%3Cpath class='st0' d='M118.8,105.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9H86.5c-7.1,0-12.9-5.8-12.9-12.9 s5.8-12.9,12.9-12.9C86.5,105.9,118.8,105.9,118.8,105.9z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M170.6,118.8c0-7.1,5.8-12.9,12.9-12.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9h-12.9V118.8z'/%3E%3Cpath class='st0' d='M164.1,118.8c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9V86.5c0-7.1,5.8-12.9,12.9-12.9 c7.1,0,12.9,5.8,12.9,12.9V118.8z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M151.2,170.6c7.1,0,12.9,5.8,12.9,12.9c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9v-12.9H151.2z'/%3E%3Cpath class='st0' d='M151.2,164.1c-7.1,0-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h32.3c7.1,0,12.9,5.8,12.9,12.9 c0,7.1-5.8,12.9-12.9,12.9H151.2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+  --color-header-background-dark: var(--color-fill-secondary);
+  --color-header-text-dark: #fafafa;
+  --icon-close-url-dark: url("https://swift.org/assets/images/icon-close~dark.svg");
+  --icon-menu-url-dark: url("https://swift.org/assets/images/icon-menu~dark.svg");
+  --github-logo-url-dark: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23fafafa' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
+  --github-logo-url-hover-dark: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%2309f' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
+  --slack-logo-url-dark: url("data:image/svg+xml;charset=utf-8,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='71 71 128 128' style='enable-background:new 71 71 128 128;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%23fafafa;%7D%0A%3C/style%3E%3Cg%3E%3Cg%3E%3Cpath class='st0' d='M99.4,151.2c0,7.1-5.8,12.9-12.9,12.9s-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h12.9V151.2z'/%3E%3Cpath class='st0' d='M105.9,151.2c0-7.1,5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v32.3c0,7.1-5.8,12.9-12.9,12.9 s-12.9-5.8-12.9-12.9C105.9,183.5,105.9,151.2,105.9,151.2z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M118.8,99.4c-7.1,0-12.9-5.8-12.9-12.9s5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v12.9H118.8z'/%3E%3Cpath class='st0' d='M118.8,105.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9H86.5c-7.1,0-12.9-5.8-12.9-12.9 s5.8-12.9,12.9-12.9C86.5,105.9,118.8,105.9,118.8,105.9z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M170.6,118.8c0-7.1,5.8-12.9,12.9-12.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9h-12.9V118.8z'/%3E%3Cpath class='st0' d='M164.1,118.8c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9V86.5c0-7.1,5.8-12.9,12.9-12.9 c7.1,0,12.9,5.8,12.9,12.9V118.8z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M151.2,170.6c7.1,0,12.9,5.8,12.9,12.9c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9v-12.9H151.2z'/%3E%3Cpath class='st0' d='M151.2,164.1c-7.1,0-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h32.3c7.1,0,12.9,5.8,12.9,12.9 c0,7.1-5.8,12.9-12.9,12.9H151.2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  --slack-logo-url-hover-dark: url("data:image/svg+xml;charset=utf-8,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='71 71 128 128' style='enable-background:new 71 71 128 128;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%2309f;%7D%0A%3C/style%3E%3Cg%3E%3Cg%3E%3Cpath class='st0' d='M99.4,151.2c0,7.1-5.8,12.9-12.9,12.9s-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h12.9V151.2z'/%3E%3Cpath class='st0' d='M105.9,151.2c0-7.1,5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v32.3c0,7.1-5.8,12.9-12.9,12.9 s-12.9-5.8-12.9-12.9C105.9,183.5,105.9,151.2,105.9,151.2z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M118.8,99.4c-7.1,0-12.9-5.8-12.9-12.9s5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v12.9H118.8z'/%3E%3Cpath class='st0' d='M118.8,105.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9H86.5c-7.1,0-12.9-5.8-12.9-12.9 s5.8-12.9,12.9-12.9C86.5,105.9,118.8,105.9,118.8,105.9z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M170.6,118.8c0-7.1,5.8-12.9,12.9-12.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9h-12.9V118.8z'/%3E%3Cpath class='st0' d='M164.1,118.8c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9V86.5c0-7.1,5.8-12.9,12.9-12.9 c7.1,0,12.9,5.8,12.9,12.9V118.8z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M151.2,170.6c7.1,0,12.9,5.8,12.9,12.9c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9v-12.9H151.2z'/%3E%3Cpath class='st0' d='M151.2,164.1c-7.1,0-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h32.3c7.1,0,12.9,5.8,12.9,12.9 c0,7.1-5.8,12.9-12.9,12.9H151.2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+  --color-header-background: var(--color-header-background-light);
+  --color-header-border: var(--color-nav-keyline);
+  --color-header-link-hover: var(--color-link);
+  --color-header-text: var(--color-header-text-light);
+  --icon-close-url: var(--icon-close-url-light);
+  --icon-menu-url: var(--icon-menu-url-light);
+  --github-logo-url: var(--github-logo-url-light);
+  --github-logo-hover-url: var(--github-logo-url-hover-light);
+  --slack-logo-url: var(--slack-logo-url-light);
+  --slack-logo-hover-url: var(--slack-logo-url-hover-light);
+
+  font-family:
+    -apple-system,
+  BlinkMacSystemFont,
+  "SF Hello",
+  "Helvetica Neue",
+  Helvetica,
+  Arial,
+  Verdana,
+  sans-serif;
+}
+
+:host([data-color-scheme="dark"]) {
+  --color-header-background: var(--color-header-background-dark);
+  --color-header-text: var(--color-header-text-dark);
+  --icon-close-url: var(--icon-close-url-dark);
+  --icon-menu-url: var(--icon-menu-url-dark);
+  --github-logo-url: var(--github-logo-url-dark);
+  --github-logo-hover-url: var(--github-logo-url-hover-dark);
+  --slack-logo-url: var(--slack-logo-url-dark);
+  --slack-logo-hover-url: var(--slack-logo-url-hover-dark);
+}
+@media screen and (prefers-color-scheme: dark) {
+  :host([data-color-scheme="auto"]) {
+    --color-header-background: var(--color-header-background-dark);
+    --color-header-text: var(--color-header-text-dark);
+    --icon-close-url: var(--icon-close-url-dark);
+    --icon-menu-url: var(--icon-menu-url-dark);
+    --github-logo-url: var(--github-logo-url-dark);
+    --github-logo-hover-url: var(--github-logo-url-hover-dark);
+    --slack-logo-url: var(--slack-logo-url-dark);
+    --slack-logo-hover-url: var(--slack-logo-url-hover-dark);
+  }
+}
+
+header {
+  background: var(--color-header-background);
+  border-bottom: 1px solid var(--color-header-border);
+  min-height: 52px;
+}
+
+
+a,
+a:active,
+a:hover,
+a:visited {
+  color: var(--color-header-text);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-link);
+}
+
+.container {
+  --padding-x: 22px;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 0 var(--padding-x);
+  width: 980px;
+}
+
+
+#logo {
+  --size: 30px;
+  /* DRAGON: Logo flashes on hover/active state changes in Chrome when using a var. */
+  background-image: url("/images/nav-logo@2x.png");
+  background-position: 0 center;
+  background-repeat: no-repeat;
+  background-size: var(--size);
+  padding-left: calc(var(--size) + 10px);
+  display: flex;
+  align-items: center;
+  height: 52px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+#small-menu-toggle {
+  display: none;
+}
+
+.github-logo {
+  --size: 20px;
+  background-image: var(--github-logo-url);
+  background-position: center;
+  background-repeat: no-repeat;
+  content: "";
+  display: flex;
+  height: var(--size);
+  width: var(--size);
+}
+
+.links .github-logo {
+  margin-right: 10px;
+}
+
+a:hover .github-logo {
+  background-image: var(--github-logo-hover-url);
+}
+
+.slack-logo {
+  --size: 20px;
+  background-image: var(--slack-logo-url);
+  background-position: center;
+  background-repeat: no-repeat;
+  content: "";
+  display: flex;
+  height: var(--size);
+  width: var(--size);
+}
+
+.links .slack-logo {
+  margin-right: 10px;
+}
+
+a:hover .slack-logo {
+  background-image: var(--slack-logo-hover-url);
+}
+
+.links {
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.links li {
+  display: inline-block;
+}
+
+.links li a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  line-height: 52px;
+  padding: 0 var(--padding-x);
+  text-align: center;
+}
+
+.links li:first-child a {
+  padding-left: 0;
+ }
+
+.links li:last-child a {
+  padding-right: 0;
+}
+
+@supports (padding:calc(max(0px))) {
+  .container {
+    padding-left: calc(max(var(--padding-x), env(safe-area-inset-left)));
+    padding-right: calc(max(var(--padding-x), env(safe-area-inset-right)));
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .container {
+    box-sizing: border-box;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .container {
+    --padding-x: 16px;
+  }
+
+  #menu {
+    display: none;
+  }
+
+  #small-menu-toggle {
+    --toggle-size: 20px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    background-image: var(--icon-menu-url);
+    background-repeat: no-repeat;
+    background-size: var(--toggle-size) var(--toggle-size);
+    border: none;
+    cursor: pointer;
+    display: block;
+    height: var(--toggle-size);
+    margin: 0;
+    padding: 0;
+    width: var(--toggle-size);
+  }
+
+  [data-small-menu-is-expanded] #small-menu-toggle {
+    background-image: var(--icon-close-url);
+  }
+
+  [data-small-menu-is-expanded] #menu {
+    --color-menu-border: var(--color-dropdown-border);
+    display: block;
+    flex-basis: 100%;
+  }
+
+  [data-small-menu-is-expanded] .links {
+    border-top: 1px solid var(--color-menu-border);
+    margin: 20px 0 30px 0;
+    flex-direction: column;
+  }
+
+ [data-small-menu-is-expanded] .links li {
+    border-bottom: 1px solid var(--color-menu-border);
+    display: block;
+  }
+
+  [data-small-menu-is-expanded] .links li a {
+    line-height: 1em;
+    padding: 10px;
+    text-align: left;
+  }
+
+  [data-small-menu-is-expanded] .links li:first-child a {
+    padding-left: 10px;
+  }
+
+  [data-small-menu-is-expanded] .links li:last-child a {
+    padding-right: 10px;
+  }
+}
+</style>
+
+<header id="header" role="banner">
+  <div class="container">
+    <nav id="home" role="navigation">
+      <a id="logo" href="/">Mockingbird</a>
+    </nav>
+    <button id="small-menu-toggle"></button>
+    <nav id="menu">
+      <ul class="links">
+        <li><a target="_blank" href="https://github.com/birdrides/mockingbird"><div class="github-logo"></div> birdrides/mockingbird</a></li>
+        <li><a target="_blank" href="https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw"><div class="slack-logo"></div> Slack Community</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Navigation state -->
+<script type="text/javascript">
+(() => {
+  const shadowRoot = document.querySelector('custom-header').shadowRoot;
+  const header = shadowRoot.getElementById('header');
+  const button = shadowRoot.getElementById('small-menu-toggle');
+  button.addEventListener('click', () => {
+    header.toggleAttribute('data-small-menu-is-expanded');
+  });
+})();
+</script>
