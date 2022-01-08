@@ -116,7 +116,8 @@ struct Installer {
   private func rewriteDerivedDataPath(_ path: Path) throws -> String? {
     // It's possible to use a custom derived data path (in addition to a custom build products
     // location), but this is very uncommon so we won't try to handle it.
-    guard path.starts(with: Path("~/Library/Developer/Xcode/DerivedData/")) else {
+    let derivedDataRootPath = Path("~/Library/Developer/Xcode/DerivedData/").absolute().string
+    guard path.absolute().string.starts(with: derivedDataRootPath) else {
       return nil
     }
     log("Attempting to rewrite the derived data path \(path.abbreviate())")

@@ -94,9 +94,15 @@ extension Mockingbird {
     mutating func run() throws {
       let start = Date()
       let parsedConfigureArguments = try infer()
-      let parsedGenerateArguments = try parsedConfigureArguments.generateCommand.infer()
+      let parsedGenerateArguments = try parsedConfigureArguments.generateCommand
+        .infer(context: ArgumentContext(workingPath: parsedConfigureArguments.project.parent()))
       
-      logInfo("🛠  Project: \(parsedConfigureArguments.project.abbreviate())")
+      if parsedConfigureArguments.sourceProject == parsedConfigureArguments.project {
+        logInfo("🛠  Project: \(parsedConfigureArguments.project.abbreviate())")
+      } else {
+        logInfo("🛠  Test Project: \(parsedConfigureArguments.project.abbreviate())")
+        logInfo("🛠  Source Project: \(parsedConfigureArguments.sourceProject.abbreviate())")
+      }
       logInfo("🎯 Test Target: \(parsedConfigureArguments.testTarget)")
       logInfo("🧰 Supporting sources: \(parsedGenerateArguments.support.abbreviate())")
       
