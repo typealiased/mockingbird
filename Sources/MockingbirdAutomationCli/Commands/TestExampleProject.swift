@@ -50,11 +50,33 @@ extension Test {
             logError("Unable to create simulator")
             return
           }
-          let workspacePath = Path("Examples/CocoaPodsExample/CocoaPodsExample.xcworkspace")
-          try CocoaPods.install(workspace: workspacePath)
-          try XcodeBuild.test(target: .scheme(name: "CocoaPodsExample"),
-                              project: .workspace(path: workspacePath),
-                              destination: .iOSSimulator(deviceUUID: uuid))
+          
+          let srcroot = Path("Examples/CocoaPodsExample")
+          let workspacePath = srcroot + "CocoaPodsExample.xcworkspace"
+          let podfilePath = srcroot + "Podfile"
+          try backup([podfilePath, srcroot + "Podfile.lock"]) {
+            // Point to the local revision.
+            let rev = try Git.getHEAD(repository: Path.current)
+            let podfileContents = try podfilePath.read()
+              .replacingOccurrences(of: #"pod 'MockingbirdFramework', '~> [\d\.]+'"#,
+                                    with: "pod 'MockingbirdFramework', " +
+                                      ":git => '\(Path.current.absolute())', " +
+                                      ":commit => '\(rev)'",
+                                    options: [.regularExpression])
+            try podfilePath.delete()
+            try podfilePath.write(podfileContents)
+            
+            // Pull and build the framework.
+            try CocoaPods.install(workspace: workspacePath)
+            
+            // Inject the local binary.
+            let binPath = srcroot + "Pods/MockingbirdFramework/bin/\(mockingbirdVersion)"
+            try applyLocallyBuiltCli(binPath: binPath)
+            
+            try XcodeBuild.test(target: .scheme(name: "CocoaPodsExample"),
+                                project: .workspace(path: workspacePath),
+                                destination: .iOSSimulator(deviceUUID: uuid))
+          }
         }
       }
     }
