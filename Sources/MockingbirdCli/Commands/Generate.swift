@@ -99,11 +99,12 @@ extension Mockingbird {
     }
     
     @discardableResult
-    nonmutating func infer() throws -> Arguments {
-      let validProject = try validateRequiredArgument(inferArgument(project), name: "project")
+    nonmutating func infer(context: ArgumentContext = .shared) throws -> Arguments {
+      let validProject = try validateRequiredArgument(inferArgument(project, in: context),
+                                                      name: "project")
       let validSrcroot = try validateRequiredArgument(
         srcroot ?? DirectoryPath(path: validProject.path.parent()), name: "srcroot")
-      let validTestBundle = try validateOptionalArgument(inferArgument(testbundle),
+      let validTestBundle = try validateOptionalArgument(inferArgument(testbundle, in: context),
                                                          name: "testbundle")
       let validSupportPath = support?.path ?? (validSrcroot.path + "MockingbirdSupport")
       
