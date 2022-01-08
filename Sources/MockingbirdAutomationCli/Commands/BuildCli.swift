@@ -14,7 +14,7 @@ extension Build {
     
     @Option(help: "File path containing the designated requirement for codesigning.")
     var requirements: String =
-      "./Sources/MockingbirdAutomation/Resources/CodesigningRequirements/mockingbird.txt"
+      "./Sources/MockingbirdAutomationCli/Resources/CodesigningRequirements/mockingbird.txt"
     
     @OptionGroup()
     var globalOptions: Options

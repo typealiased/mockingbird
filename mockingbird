@@ -43,7 +43,7 @@ if [[ ! -x "${executable}" ]]; then
 
   # Verify
   if [[ "${MKB_NO_VERIFY:-}" -ne 1 ]]; then
-    if xcrun codesign -vv -R Scripts/Resources/CodesigningRequirements/mockingbird.txt "${executable}"; then
+    if xcrun codesign -vv -R Sources/MockingbirdAutomationCli/Resources/CodesigningRequirements/mockingbird.txt "${executable}"; then
       echo '✅ Verified the code signature'
     else
       echo -e '\033[1;31merror:\033[0m The downloaded binary does not have a valid code signature. Set `MKB_NO_VERIFY=1` to bypass this error at your own risk.'

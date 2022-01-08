@@ -14,7 +14,7 @@ struct Configure: ParsableCommand {
     ])
   
   enum Constants {
-    static let resourcesPath = Path("./Sources/MockingbirdAutomation/Resources")
+    static let resourcesPath = Path("./Sources/MockingbirdAutomationCli/Resources")
     static let projectPath = Path("./Mockingbird.xcodeproj")
   }
   
