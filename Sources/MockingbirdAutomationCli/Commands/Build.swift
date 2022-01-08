@@ -10,6 +10,7 @@ struct Build: ParsableCommand {
       BuildCli.self,
       BuildFramework.self,
       BuildDocumentation.self,
+      BuildSupportingSources.self,
     ])
   
   struct Options: ParsableArguments {
