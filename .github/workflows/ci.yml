@@ -30,6 +30,17 @@ jobs:
         GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
       run: Sources/MockingbirdAutomationCli/buildAndRun.sh test example ${{ matrix.type }}
 
+  test-cli-launcher:
+    name: Test CLI Launcher
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test
+      env:
+        GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+        MKB_ARTIFACTS_URL: https://github.com/birdrides/mockingbird/releases/download/0.19.0/<FILE>
+      run: ./mockingbird version
+
   build-cocoapods:
     name: Build CocoaPods
     runs-on: macOS-latest

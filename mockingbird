@@ -9,7 +9,10 @@
 # - MKB_NO_VERIFY: Disable verifying the code signature of downloaded artifacts.
 
 set -eu
-cd "$(dirname "$0")"
+
+readonly srcroot="$(dirname "$0")"
+pushd .
+cd "${srcroot}"
 
 function getVersion {
   /usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' Sources/MockingbirdCli/Info.plist
@@ -54,4 +57,5 @@ if [[ ! -x "${executable}" ]]; then
   chmod u+x "${executable}"
 fi
 
-MKB_LAUNCHER="$0" "${executable}" "$@"
+popd
+MKB_LAUNCHER="$0" "${srcroot}/${executable}" "$@"

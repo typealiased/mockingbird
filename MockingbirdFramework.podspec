@@ -12,24 +12,28 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target      = '9.0'
   s.watchos.deployment_target   = '7.4'
   s.swift_version               = '5.0'
-  s.preserve_paths              = [
+  s.frameworks                  = 'XCTest'
+  
+  s.user_target_xcconfig = {
+    'FRAMEWORK_SEARCH_PATHS' => '$(PLATFORM_DIR)/Developer/Library/Frameworks',
+  }
+  
+  s.pod_target_xcconfig = {
+    'ENABLE_BITCODE' => 'NO',
+    'ENABLE_TESTABILITY' => 'YES',
+  }
+
+  s.source_files = [
+    'Sources/MockingbirdFramework/**/*.{swift,h,m,mm}',
+    'Sources/MockingbirdCommon/**/*.swift',
+  ]
+
+  s.preserve_paths = [
     'README.md',
     'LICENSE.md',
     'mockingbird',
     'Sources/MockingbirdAutomationCli/Resources/CodesigningRequirements/*',
     'Sources/MockingbirdFramework/Info.plist',
+    'Sources/MockingbirdCli/Info.plist',
   ]
-
-  s.subspec 'Common' do |common|
-    common.source_files         = 'Sources/MockingbirdCommon/**/*.swift'
-  end
-
-  s.subspec 'Core' do |core|
-    core.dependency 'MockingbirdFramework/Common'
-    core.source_files           = 'Sources/MockingbirdFramework/**/*.{swift,h,m,mm}'
-    core.exclude_files          = 'Sources/MockingbirdFramework/Utilities/ExportedModules.swift'
-    core.frameworks             = 'XCTest'
-    core.user_target_xcconfig   = { 'FRAMEWORK_SEARCH_PATHS' => '$(PLATFORM_DIR)/Developer/Library/Frameworks' }
-    core.pod_target_xcconfig    = { 'ENABLE_BITCODE' => 'NO', 'ENABLE_TESTABILITY' => 'YES' }
-  end
 end

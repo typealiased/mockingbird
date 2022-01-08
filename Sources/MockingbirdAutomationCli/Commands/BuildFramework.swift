@@ -48,7 +48,9 @@ extension Build {
       let frameworkPath = projectPath.parent() + "Carthage/Build/Mockingbird.xcframework"
       
       if let location = globalOptions.archiveLocation {
-        try archive(artifacts: [("", frameworkPath)], destination: Path(location))
+        try archive(artifacts: [("", frameworkPath)],
+                    destination: Path(location),
+                    includeLicense: false)
       }
     }
   }
