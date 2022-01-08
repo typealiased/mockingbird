@@ -1,10 +1,3 @@
-//
-//  Optionals.swift
-//  MockingbirdTestsHost
-//
-//  Created by Andrew Chang on 9/7/19.
-//
-
 import Foundation
 
 protocol OptionalsProtocol {

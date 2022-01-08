@@ -1,10 +1,3 @@
-//
-//  main.swift
-//  MockingbirdAutomation
-//
-//  Created by typealias on 12/30/21.
-//
-
 import Foundation
 import ArgumentParser
 

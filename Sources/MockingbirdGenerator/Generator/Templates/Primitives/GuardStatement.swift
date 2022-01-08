@@ -1,10 +1,3 @@
-//
-//  GuardStatement.swift
-//  MockingbirdGenerator
-//
-//  Created by typealias on 7/24/21.
-//
-
 import Foundation
 
 struct GuardStatementTemplate: Template {

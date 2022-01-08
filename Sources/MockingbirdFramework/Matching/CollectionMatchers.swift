@@ -1,10 +1,3 @@
-//
-//  CollectionMatchers.swift
-//  MockingbirdFramework
-//
-//  Created by Andrew Chang on 5/31/20.
-//
-
 import Foundation
 
 /// Matches any collection containing all of the values.

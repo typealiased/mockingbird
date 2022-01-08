@@ -1,10 +1,3 @@
-//
-//  SequenceProviders.swift
-//  MockingbirdFramework
-//
-//  Created by Andrew Chang on 5/31/20.
-//
-
 import Foundation
 
 /// The sequence behavior when the number of invocations exceeds the number of values provided.

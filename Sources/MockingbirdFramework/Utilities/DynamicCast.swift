@@ -1,10 +1,3 @@
-//
-//  DynamicCast.swift
-//  MockingbirdFramework
-//
-//  Created by typealias on 8/2/21.
-//
-
 import Foundation
 
 /// Swift versions before 5.4 cannot cast from `Any` to a more optional type.

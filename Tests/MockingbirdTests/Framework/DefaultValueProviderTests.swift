@@ -1,10 +1,3 @@
-//
-//  DefaultValueProviderTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 4/11/20.
-//
-
 import XCTest
 import Mockingbird
 @testable import MockingbirdTestsHost

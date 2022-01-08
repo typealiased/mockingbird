@@ -1,10 +1,3 @@
-//
-//  Primitives.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 9/7/19.
-//
-
 import Foundation
 
 /// Static cache for primative `DeclaredType` objects.

@@ -1,11 +1,3 @@
-//
-//  Synchronized.swift
-//  Mockingbird
-//
-//  Created by Andrew Chang on 8/10/19.
-//  Copyright © 2019 Bird Rides, Inc. All rights reserved.
-//
-
 import Foundation
 
 public class Synchronized<T> {

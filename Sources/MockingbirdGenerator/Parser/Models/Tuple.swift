@@ -1,10 +1,3 @@
-//
-//  Tuple.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 3/24/20.
-//
-
 import Foundation
 
 struct Tuple: CustomStringConvertible, CustomDebugStringConvertible, SerializableType {

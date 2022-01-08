@@ -1,10 +1,3 @@
-//
-//  ImplementationProvider.swift
-//  MockingbirdFramework
-//
-//  Created by Andrew Chang on 5/31/20.
-//
-
 import Foundation
 
 /// Provides implementation functions used to stub behavior and return values.

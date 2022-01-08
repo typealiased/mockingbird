@@ -1,10 +1,3 @@
-//
-//  Project.swift
-//  MockingbirdGenerator
-//
-//  Created by typealias on 9/23/20.
-//
-
 import Foundation
 import XcodeProj
 

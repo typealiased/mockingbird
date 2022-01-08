@@ -1,10 +1,3 @@
-//
-//  Path+Fnmatch.swift
-//  MockingbirdFramework
-//
-//  Created by Andrew Chang on 9/11/19.
-//
-
 import PathKit
 import Darwin
 

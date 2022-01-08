@@ -1,10 +1,3 @@
-//
-//  Function.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 5/24/20.
-//
-
 import Foundation
 
 struct Function: CustomStringConvertible, CustomDebugStringConvertible, SerializableType {

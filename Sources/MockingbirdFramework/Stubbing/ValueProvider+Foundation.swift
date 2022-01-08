@@ -1,10 +1,3 @@
-//
-//  ValueProvider+Foundation.swift
-//  MockingbirdFramework
-//
-//  Created by Andrew Chang on 4/12/20.
-//
-
 import Foundation
 #if canImport(ObjectiveC)
 import ObjectiveC

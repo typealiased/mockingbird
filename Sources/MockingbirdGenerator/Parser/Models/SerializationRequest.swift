@@ -1,10 +1,3 @@
-//
-//  SerializationRequest.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 9/7/19.
-//
-
 import Foundation
 
 /// Fully qualifies tokenized `DeclaredType` objects given a declaration context.

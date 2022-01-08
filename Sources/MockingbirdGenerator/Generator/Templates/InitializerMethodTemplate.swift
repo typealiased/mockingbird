@@ -1,10 +1,3 @@
-//
-//  InitializerMethodTemplate.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 4/18/20.
-//
-
 import Foundation
 
 /// Renders initializer method declarations.

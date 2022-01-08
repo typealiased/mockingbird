@@ -1,10 +1,3 @@
-//
-//  FakeableTypes.swift
-//  MockingbirdTestsHost
-//
-//  Created by Andrew Chang on 4/11/20.
-//
-
 import Foundation
 
 // MARK: - Types

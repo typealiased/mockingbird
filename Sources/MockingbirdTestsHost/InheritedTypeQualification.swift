@@ -1,10 +1,3 @@
-//
-//  InheritedTypeQualification.swift
-//  MockingbirdTestsHost
-//
-//  Created by Andrew Chang on 8/31/19.
-//
-
 import Foundation
 
 struct UnscopedType {}

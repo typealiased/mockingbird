@@ -1,10 +1,3 @@
-//
-//  E2ETests.swift
-//  MockingbirdAutomationTests
-//
-//  Created by typealias on 12/29/21.
-//
-
 import MockingbirdAutomation
 import MockingbirdCommon
 import PathKit

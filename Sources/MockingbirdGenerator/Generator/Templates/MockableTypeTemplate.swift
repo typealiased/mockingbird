@@ -1,11 +1,3 @@
-//
-//  MockGenerator.swift
-//  MockingbirdCli
-//
-//  Created by Andrew Chang on 8/6/19.
-//  Copyright © 2019 Bird Rides, Inc. All rights reserved.
-//
-
 // swiftlint:disable leading_whitespace
 
 import Foundation

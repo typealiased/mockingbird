@@ -1,10 +1,3 @@
-//
-//  FloatingPointMatcherTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 3/3/20.
-//
-
 import Mockingbird
 import XCTest
 @testable import MockingbirdTestsHost

@@ -1,10 +1,3 @@
-//
-//  DuplicateProtocolMembers.swift
-//  MockingbirdTestsHost
-//
-//  Created by Andrew Chang on 5/8/20.
-//
-
 import Foundation
 
 // General de-deduplication of inherited methods and properties.

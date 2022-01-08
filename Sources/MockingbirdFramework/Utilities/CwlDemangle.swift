@@ -1,11 +1,3 @@
-//
-//  CwlDemangle.swift
-//  CwlDemangle
-//
-//  Created by Matt Gallagher on 2017/11/17.
-//  Copyright © 2017 Matt Gallagher. All rights reserved.
-//
-
 import Foundation
 
 /// This is likely to be the primary entry point to this file. Pass a string containing a Swift mangled symbol or type, get a parsed SwiftSymbol structure which can then be directly examined or printed.

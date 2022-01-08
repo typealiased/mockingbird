@@ -1,10 +1,3 @@
-//
-//  BaseTestCase.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 3/11/20.
-//
-
 import Foundation
 import XCTest
 import Mockingbird

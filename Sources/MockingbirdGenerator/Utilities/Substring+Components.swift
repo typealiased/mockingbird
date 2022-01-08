@@ -1,10 +1,3 @@
-//
-//  Substring+Components.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 5/25/20.
-//
-
 import Foundation
 
 public extension Substring {

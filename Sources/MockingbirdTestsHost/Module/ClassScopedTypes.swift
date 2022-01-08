@@ -1,10 +1,3 @@
-//
-//  ClassScopedTypes.swift
-//  MockingbirdModuleTestsHost
-//
-//  Created by Andrew Chang on 9/15/19.
-//
-
 import Foundation
 
 open class TopLevelType {

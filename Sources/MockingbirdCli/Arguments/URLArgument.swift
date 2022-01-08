@@ -1,10 +1,3 @@
-//
-//  URLArgument.swift
-//  MockingbirdCli
-//
-//  Created by typealias on 12/21/21.
-//
-
 import ArgumentParser
 import Foundation
 import MockingbirdGenerator

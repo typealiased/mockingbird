@@ -1,10 +1,3 @@
-//
-//  MKBUnsignedShortInvocationHandler.m
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/19/21.
-//
-
 #import "MKBUnsignedShortInvocationHandler.h"
 #import "MKBComparator.h"
 #if MKB_SWIFTPM

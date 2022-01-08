@@ -1,10 +1,3 @@
-//
-//  Single.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 3/24/20.
-//
-
 import Foundation
 
 indirect enum Single: CustomStringConvertible, CustomDebugStringConvertible, SerializableType {

@@ -1,10 +1,3 @@
-//
-//  StackTrace.swift
-//  MockingbirdFramework
-//
-//  Created by Andrew Chang on 6/6/20.
-//
-
 import Foundation
 
 struct StackTrace {

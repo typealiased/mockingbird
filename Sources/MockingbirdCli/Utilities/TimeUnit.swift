@@ -1,10 +1,3 @@
-//
-//  TimeInterval+Normalize.swift
-//  MockingbirdCli
-//
-//  Created by typealias on 8/8/21.
-//
-
 import Foundation
 
 enum TimeUnit: CustomStringConvertible {

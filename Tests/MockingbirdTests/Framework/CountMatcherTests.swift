@@ -1,10 +1,3 @@
-//
-//  CountMatcherTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 3/2/20.
-//
-
 import Mockingbird
 import XCTest
 @testable import MockingbirdTestsHost

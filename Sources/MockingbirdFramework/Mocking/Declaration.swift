@@ -1,10 +1,3 @@
-//
-//  Declaration.swift
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/21/21.
-//
-
 import Foundation
 
 /// All mockable declaration types conform to this protocol.

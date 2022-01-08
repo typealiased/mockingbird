@@ -1,10 +1,3 @@
-//
-//  SwiftFilePath.swift
-//  MockingbirdCli
-//
-//  Created by typealias on 12/23/21.
-//
-
 import ArgumentParser
 import Foundation
 import PathKit

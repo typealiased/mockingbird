@@ -1,10 +1,3 @@
-//
-//  InvocationForwarding.swift
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/25/21.
-//
-
 import Foundation
 
 /// Intermediary object for binding forwarding targets to a mock.

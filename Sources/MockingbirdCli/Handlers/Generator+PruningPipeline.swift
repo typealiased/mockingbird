@@ -1,10 +1,3 @@
-//
-//  Generator+PruningPipeline.swift
-//  MockingbirdCli
-//
-//  Created by Andrew Chang on 6/11/20.
-//
-
 import Foundation
 import MockingbirdGenerator
 import PathKit

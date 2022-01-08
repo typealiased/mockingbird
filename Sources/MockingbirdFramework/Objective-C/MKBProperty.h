@@ -1,10 +1,3 @@
-//
-//  MKBProperty.h
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/28/21.
-//
-
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
 

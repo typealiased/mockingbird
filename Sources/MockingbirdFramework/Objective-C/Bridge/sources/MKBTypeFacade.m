@@ -1,10 +1,3 @@
-//
-//  MKBTypeFacade.m
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/17/21.
-//
-
 #import "../include/MKBTypeFacade.h"
 
 @implementation MKBTypeFacade

@@ -1,10 +1,3 @@
-//
-//  ObjCParameters.swift
-//  MockingbirdTestsHost
-//
-//  Created by typealias on 12/22/21.
-//
-
 import AppKit
 import Foundation
 

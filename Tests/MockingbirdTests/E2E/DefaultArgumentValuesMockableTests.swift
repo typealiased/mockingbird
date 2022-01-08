@@ -1,10 +1,3 @@
-//
-//  DefaultArgumentValuesMockableTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 9/2/19.
-//
-
 import Foundation
 import Mockingbird
 @testable import MockingbirdTestsHost

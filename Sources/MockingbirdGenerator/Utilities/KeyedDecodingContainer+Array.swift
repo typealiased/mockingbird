@@ -1,10 +1,3 @@
-//
-//  KeyedDecodingContainer+Array.swift
-//  MockingbirdGenerator
-//
-//  Created by typealias on 7/22/21.
-//
-
 import Foundation
 
 extension KeyedDecodingContainer {

@@ -1,10 +1,3 @@
-//
-//  PBXTarget+Target.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 4/15/20.
-//
-
 import Foundation
 import PathKit
 import XcodeProj

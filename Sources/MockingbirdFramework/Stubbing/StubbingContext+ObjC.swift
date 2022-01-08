@@ -1,10 +1,3 @@
-//
-//  StubbingContext+ObjC.swift
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/20/21.
-//
-
 import Foundation
 
 /// Used to forward errors thrown from stubbed implementations to the Objective-C runtime.

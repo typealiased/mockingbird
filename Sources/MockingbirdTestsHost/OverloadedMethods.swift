@@ -1,10 +1,3 @@
-//
-//  OverloadedMethods.swift
-//  MockingbirdTestsHost
-//
-//  Created by Andrew Chang on 8/25/19.
-//
-
 import Foundation
 
 protocol OverloadedMethodsProtocol {

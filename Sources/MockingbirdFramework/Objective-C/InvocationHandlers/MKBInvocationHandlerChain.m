@@ -1,10 +1,3 @@
-//
-//  MKBInvocationHandlerChain.m
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/19/21.
-//
-
 #import "MKBComparator.h"
 #import "MKBInvocationHandlerChain.h"
 #import "MKBInvocationHandler.h"

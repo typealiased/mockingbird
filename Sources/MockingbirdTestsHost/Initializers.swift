@@ -1,10 +1,3 @@
-//
-//  Initializers.swift
-//  MockingbirdTestsHost
-//
-//  Created by Andrew Chang on 9/5/19.
-//
-
 import Foundation
 
 protocol InitializerProtocol {

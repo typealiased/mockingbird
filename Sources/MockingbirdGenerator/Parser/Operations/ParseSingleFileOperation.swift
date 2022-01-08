@@ -1,10 +1,3 @@
-//
-//  ParseSingleFileOperation.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 4/22/20.
-//
-
 import Foundation
 import MockingbirdCommon
 import PathKit

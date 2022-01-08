@@ -1,11 +1,3 @@
-//
-//  GenerateFileOperation.swift
-//  MockingbirdCli
-//
-//  Created by Andrew Chang on 8/17/19.
-//  Copyright © 2019 Bird Rides, Inc. All rights reserved.
-//
-
 import Foundation
 import PathKit
 import os.log

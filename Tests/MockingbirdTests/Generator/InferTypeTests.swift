@@ -1,10 +1,3 @@
-//
-//  InferTypeTests.swift
-//  MockingbirdTests
-//
-//  Created by Ryan Meisters on 4/23/20.
-//
-
 import XCTest
 
 @testable import MockingbirdGenerator

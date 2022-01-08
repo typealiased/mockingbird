@@ -1,10 +1,3 @@
-//
-//  MKBTestUtils.m
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/25/21.
-//
-
 #import "../include/MKBTestUtils.h"
 
 void MKBStopTest(NSString *reason)

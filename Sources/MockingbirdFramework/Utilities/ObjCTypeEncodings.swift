@@ -1,10 +1,3 @@
-//
-//  ObjCTypeEncodings.swift
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/29/21.
-//
-
 import Foundation
 
 /// Maps Objective-C runtime type encodings to a Swift `ObjectIdentifier`.

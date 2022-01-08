@@ -1,10 +1,3 @@
-//
-//  OrderedVerificationTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 3/9/20.
-//
-
 import XCTest
 import Mockingbird
 @testable import MockingbirdTestsHost

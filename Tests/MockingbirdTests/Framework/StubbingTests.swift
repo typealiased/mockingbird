@@ -1,11 +1,3 @@
-//
-//  StubbingTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 8/18/19.
-//  Copyright © 2019 Bird Rides, Inc. All rights reserved.
-//
-
 import Mockingbird
 import XCTest
 @testable import MockingbirdTestsHost

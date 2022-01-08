@@ -1,10 +1,3 @@
-//
-//  CollectionArgumentMatchingTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 9/6/19.
-//
-
 import XCTest
 import Mockingbird
 @testable import MockingbirdTestsHost

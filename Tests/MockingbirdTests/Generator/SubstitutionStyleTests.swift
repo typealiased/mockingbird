@@ -1,10 +1,3 @@
-//
-//  SubstitutionStyleTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 4/15/20.
-//
-
 import XCTest
 @testable import MockingbirdGenerator
 

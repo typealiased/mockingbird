@@ -1,10 +1,3 @@
-//
-//  Generator+Pipeline.swift
-//  MockingbirdCli
-//
-//  Created by Andrew Chang on 6/7/20.
-//
-
 import Foundation
 import MockingbirdCommon
 import MockingbirdGenerator

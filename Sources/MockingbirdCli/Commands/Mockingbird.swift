@@ -1,10 +1,3 @@
-//
-//  Mockingbird.swift
-//  MockingbirdCli
-//
-//  Created by Andrew Chang on 8/23/19.
-//
-
 import ArgumentParser
 import Foundation
 import MockingbirdCommon

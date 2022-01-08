@@ -1,10 +1,3 @@
-//
-//  Mock.swift
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/25/21.
-//
-
 import Foundation
 
 /// All generated mocks conform to this protocol.

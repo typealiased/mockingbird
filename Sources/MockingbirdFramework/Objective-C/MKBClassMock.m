@@ -1,10 +1,3 @@
-//
-//  MKBClassMock.m
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/17/21.
-//
-
 #import "MKBClassMock.h"
 #import "MKBProtocolMock.h"
 #import "MKBProperty.h"

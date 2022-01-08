@@ -1,10 +1,3 @@
-//
-//  TestFileParser.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 6/7/20.
-//
-
 import Foundation
 import SwiftSyntax
 

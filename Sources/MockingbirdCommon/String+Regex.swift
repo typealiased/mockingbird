@@ -1,10 +1,3 @@
-//
-//  String+Regex.swift
-//  MockingbirdCli
-//
-//  Created by typealias on 12/25/21.
-//
-
 import Foundation
 
 public extension String {

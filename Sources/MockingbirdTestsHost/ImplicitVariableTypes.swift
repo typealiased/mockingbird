@@ -1,10 +1,3 @@
-//
-//  ImplicitVariableTypes.swift
-//  MockingbirdTestsHost
-//
-//  Created by Andrew Chang on 5/4/20.
-//
-
 import Foundation
 
 func NotAType() -> Bool { return true }

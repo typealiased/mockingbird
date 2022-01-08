@@ -1,10 +1,3 @@
-//
-//  Path+Codable.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 6/10/20.
-//
-
 import Foundation
 import PathKit
 

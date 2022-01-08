@@ -1,10 +1,3 @@
-//
-//  PropertyProviders.swift
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/25/21.
-//
-
 import Foundation
 
 /// Stubs a variable getter to return the last value received by the setter.

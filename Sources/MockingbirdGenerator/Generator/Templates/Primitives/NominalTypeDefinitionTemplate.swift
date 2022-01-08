@@ -1,10 +1,3 @@
-//
-//  NominalTypeDefinitionTemplate.swift
-//  MockingbirdGenerator
-//
-//  Created by typealias on 7/23/21.
-//
-
 import Foundation
 
 struct NominalTypeDefinitionTemplate: Template {

@@ -1,10 +1,3 @@
-//
-//  SubstitutionStyle.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 4/15/20.
-//
-
 import Foundation
 
 /// Variable substitution using parentheses or curly braces. Technically Make accepts Bash-style

@@ -1,10 +1,3 @@
-//
-//  TypealiasingMockableTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 8/31/19.
-//
-
 import Foundation
 import Mockingbird
 @testable import MockingbirdTestsHost

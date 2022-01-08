@@ -1,10 +1,3 @@
-//
-//  SubscriptMethodTemplate.swift
-//  MockingbirdGenerator
-//
-//  Created by Andrew Chang on 4/18/20.
-//
-
 // swiftlint:disable leading_whitespace
 
 import Foundation

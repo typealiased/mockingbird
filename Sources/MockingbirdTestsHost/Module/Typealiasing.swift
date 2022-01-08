@@ -1,10 +1,3 @@
-//
-//  Typealiasing.swift
-//  MockingbirdModuleTestsHost
-//
-//  Created by Andrew Chang on 9/15/19.
-//
-
 import Foundation
 
 public typealias NSObject = TopLevelType

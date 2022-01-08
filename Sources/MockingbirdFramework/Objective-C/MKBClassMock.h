@@ -1,10 +1,3 @@
-//
-//  MKBClassMock.h
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/17/21.
-//
-
 #import "MKBConcreteMock.h"
 #import <Foundation/Foundation.h>
 

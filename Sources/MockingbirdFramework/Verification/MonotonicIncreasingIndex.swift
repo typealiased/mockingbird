@@ -1,10 +1,3 @@
-//
-//  MonotonicIncreasingIndex.swift
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/17/21.
-//
-
 import Foundation
 
 private let index = Synchronized<UInt>(0)

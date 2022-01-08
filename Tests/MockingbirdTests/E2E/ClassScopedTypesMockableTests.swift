@@ -1,10 +1,3 @@
-//
-//  ClassScopedTypesMockableTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 8/27/19.
-//
-
 import Foundation
 import Mockingbird
 @testable import MockingbirdTestsHost

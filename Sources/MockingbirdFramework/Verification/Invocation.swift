@@ -1,10 +1,3 @@
-//
-//  MockingbirdInvocation.swift
-//  Mockingbird
-//
-//  Created by Andrew Chang on 7/29/19.
-//
-
 import Foundation
 
 /// Attributes selectors to a specific member type.

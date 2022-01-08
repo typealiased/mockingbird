@@ -1,10 +1,3 @@
-//
-//  NSInvocation+MKBErrorObjectType.m
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/20/21.
-//
-
 #import "NSInvocation+MKBErrorObjectType.h"
 
 @implementation NSInvocation (MKBErrorObjectType)

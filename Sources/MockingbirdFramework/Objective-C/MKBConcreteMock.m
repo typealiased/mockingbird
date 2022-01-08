@@ -1,10 +1,3 @@
-//
-//  MKBConcreteMock.m
-//  MockingbirdFramework
-//
-//  Created by typealias on 7/17/21.
-//
-
 #import "MKBConcreteMock.h"
 #import "MKBProperty.h"
 #import "InvocationHandlers/MKBInvocationHandlerChain.h"

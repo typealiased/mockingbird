@@ -1,10 +1,3 @@
-//
-//  SubscriptTests.swift
-//  MockingbirdTests
-//
-//  Created by Andrew Chang on 4/18/20.
-//
-
 import XCTest
 import Mockingbird
 @testable import MockingbirdTestsHost

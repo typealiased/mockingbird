@@ -1,10 +1,3 @@
-//
-//  StubbingInoutTests.swift
-//  MockingbirdTests
-//
-//  Created by typealias on 7/25/21.
-//
-
 import Mockingbird
 @testable import MockingbirdTestsHost
 import XCTest
