@@ -43,8 +43,11 @@ public enum SwiftPackage {
     }
   }
   
-  public static func update(package: Path) throws {
+  public static func update(package: Path,
+                            environment: [String: String] = ProcessInfo.processInfo.environment,
+                            packageConfiguration: PackageConfiguration? = nil) throws {
     try Subprocess("xcrun", ["swift", "package", "update"],
+                   environment: packageConfiguration?.getEnvironment(environment) ?? environment,
                    workingDirectory: package.parent()).run()
   }
   

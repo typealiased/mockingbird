@@ -119,10 +119,30 @@ extension Test {
         commandName: "spm-package",
         abstract: "Test the SwiftPM example package.")
       func run() throws {
-        let packagePath = Path("Examples/SPMPackageExample/Package.swift")
-        try SwiftPackage.update(package: packagePath)
-        try Subprocess("./gen-mocks.sh", workingDirectory: packagePath.parent()).run()
-        try SwiftPackage.test(package: packagePath)
+        let srcroot = Path("Examples/SPMPackageExample")
+        let packagePath = srcroot + "Package.swift"
+        try backup([packagePath, srcroot + "Package.resolved"]) {
+          // Point to the local revision.
+          let rev = try Git.getHEAD(repository: Path.current)
+          let packageContents = try packagePath.read()
+            .replacingOccurrences(of: "https://github.com/birdrides/mockingbird.git",
+                                  with: Path.current.absolute().string)
+            .replacingOccurrences(of: #"\.upToNextMinor\(from: "[\d\.]+"\)"#,
+                                  with: ".revision(\(doubleQuoted: rev))",
+                                  options: [.regularExpression])
+          try packagePath.delete()
+          try packagePath.write(packageContents)
+          
+          // Pull and build the framework.
+          try SwiftPackage.update(package: packagePath, packageConfiguration: .libraries)
+          
+          // Inject the local binary.
+          let binPath = srcroot + ".build/checkouts/mockingbird/bin/\(mockingbirdVersion)"
+          try applyLocallyBuiltCli(binPath: binPath)
+          
+          try Subprocess("./gen-mocks.sh", workingDirectory: packagePath.parent()).run()
+          try SwiftPackage.test(packageConfiguration: .libraries, package: packagePath)
+        }
       }
     }
   }
