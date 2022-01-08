@@ -1,7 +1,7 @@
 import ArgumentParser
 import MockingbirdAutomation
+import MockingbirdCommon
 import PathKit
-import MockingbirdAutomation
 import Foundation
 
 extension Test {
@@ -21,6 +21,23 @@ extension Test {
       case carthage = "carthage"
       case spmProject = "spm-project"
       case spmPackage = "spm-package"
+    }
+    
+    static func applyLocallyBuiltCli(binPath: Path) throws {
+      try? binPath.delete()
+      try binPath.mkpath()
+      let cliPath = try SwiftPackage.build(target: .product(name: "mockingbird"),
+                                           configuration: .debug,
+                                           package: Path("Package.swift"))
+      try cliPath.copy(binPath + "mockingbird")
+      let cliLibrariesPath = Path("Sources/MockingbirdCli/Resources/Libraries")
+      try cliLibrariesPath.copy(binPath + cliLibrariesPath.lastComponent)
+    }
+    
+    static func backup(_ files: [Path], block: () throws -> Void) throws {
+      try files.forEach({ try $0.backup() })
+      defer { files.forEach({ try? $0.restore() }) }
+      try block()
     }
     
     struct TestCocoaPods: ParsableCommand {
@@ -52,11 +69,28 @@ extension Test {
             logError("Unable to create simulator")
             return
           }
-          let projectPath = Path("Examples/CarthageExample/CarthageExample.xcodeproj")
-          try Carthage.update(platforms: [.iOS], project: projectPath)
-          try XcodeBuild.test(target: .scheme(name: "CarthageExample"),
-                              project: .project(path: projectPath),
-                              destination: .iOSSimulator(deviceUUID: uuid))
+          
+          let srcroot = Path("Examples/CarthageExample")
+          let cartfilePath = srcroot + "Cartfile"
+          try backup([cartfilePath, srcroot + "Cartfile.resolved"]) {
+            // Point to the local revision.
+            try cartfilePath.write("""
+            git "file://\(Path.current.absolute())" "HEAD"
+            """)
+            
+            // Pull and build the framework.
+            try? (srcroot + "Carthage").delete()
+            let projectPath = srcroot + "CarthageExample.xcodeproj"
+            try Carthage.update(platforms: [.iOS], project: projectPath)
+            
+            // Inject the local binary.
+            let binPath = srcroot + "Carthage/Checkouts/mockingbird/bin/\(mockingbirdVersion)"
+            try applyLocallyBuiltCli(binPath: binPath)
+            
+            try XcodeBuild.test(target: .scheme(name: "CarthageExample"),
+                                project: .project(path: projectPath),
+                                destination: .iOSSimulator(deviceUUID: uuid))
+          }
         }
       }
     }

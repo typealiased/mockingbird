@@ -194,6 +194,7 @@
 		28FB7EC42789C14000125FDA /* ProcessInfo+ControlCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E18277ADB6600DE525A /* ProcessInfo+ControlCodes.swift */; };
 		28FB7EC52789C14000125FDA /* String+Interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E0B277A870E00DE525A /* String+Interpolation.swift */; };
 		28FB7EC62789C14000125FDA /* Data+SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8EC4277DE42400DE525A /* Data+SHA1.swift */; };
+		28FB7EC82789D0E000125FDA /* Path+Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FB7EC72789D0E000125FDA /* Path+Backup.swift */; };
 		8356225C26A94CBE005CD5C5 /* TargetDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */; };
 		D314ED7F24CE1C10000CC23D /* GenericsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314ED7E24CE1C10000CC23D /* GenericsTests.swift */; };
 		D3643B6C247B78A5002DF069 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B6B247B78A4002DF069 /* Function.swift */; };
@@ -710,6 +711,7 @@
 		28FB7EBD2789B9B000125FDA /* MockingbirdTestsHost.xcscheme */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MockingbirdTestsHost.xcscheme; sourceTree = "<group>"; };
 		28FB7EBE2789B9B000125FDA /* MockingbirdAutomationCli.xcscheme */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MockingbirdAutomationCli.xcscheme; sourceTree = "<group>"; };
 		28FB7EBF2789B9B000125FDA /* MockingbirdCommon.xcscheme */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MockingbirdCommon.xcscheme; sourceTree = "<group>"; };
+		28FB7EC72789D0E000125FDA /* Path+Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+Backup.swift"; sourceTree = "<group>"; };
 		8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetDescriptionTests.swift; sourceTree = "<group>"; };
 		942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
 		D314ED7E24CE1C10000CC23D /* GenericsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericsTests.swift; sourceTree = "<group>"; };
@@ -1159,6 +1161,7 @@
 			children = (
 				285C8E84277C0A0B00DE525A /* FileManager+PosixPermissions.swift */,
 				285C8E0E277AA34000DE525A /* Logging.swift */,
+				28FB7EC72789D0E000125FDA /* Path+Backup.swift */,
 				285C8D852779487500DE525A /* Subprocess.swift */,
 			);
 			path = Utilities;
@@ -2438,6 +2441,7 @@
 				286DE64C277EB78C0047B0F3 /* Carthage.swift in Sources */,
 				286DE64D277EB78C0047B0F3 /* CocoaPods.swift in Sources */,
 				286DE64E277EB78C0047B0F3 /* Codesign.swift in Sources */,
+				28FB7EC82789D0E000125FDA /* Path+Backup.swift in Sources */,
 				28DBC3F0277EDAFC00A6C96F /* DocC.swift in Sources */,
 				286DE64F277EB78C0047B0F3 /* InstallNameTool.swift in Sources */,
 				286DE650277EB78C0047B0F3 /* PlistBuddy.swift in Sources */,
