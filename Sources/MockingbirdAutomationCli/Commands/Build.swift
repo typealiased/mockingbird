@@ -2,7 +2,6 @@ import ArgumentParser
 import Foundation
 import MockingbirdAutomation
 import PathKit
-import ZIPFoundation
 
 struct Build: ParsableCommand {
   static var configuration = CommandConfiguration(
@@ -49,10 +48,8 @@ struct Build: ParsableCommand {
     
     try? destination.delete()
     try destination.parent().mkpath()
-    try FileManager().zipItem(at: stagingPath.url,
-                              to: destination.url,
-                              shouldKeepParent: items.count > 1,
-                              compressionMethod: .deflate)
+    try Zip.deflate(input: items.count == 1 ? items[0].path : stagingPath,
+                    output: destination)
   }
 }
 

@@ -95,6 +95,7 @@
 		28719AF126B21CB100C38C2C /* MKBProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 28719AEF26B21CB100C38C2C /* MKBProperty.m */; };
 		28719AF326B22D1300C38C2C /* Stubbing+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28719AF226B22D1300C38C2C /* Stubbing+ObjC.swift */; };
 		28719AF526B23AB200C38C2C /* ObjectiveCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28719AF426B23AB200C38C2C /* ObjectiveCTests.swift */; };
+		2873D49A27896DE7004523BC /* Zip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2873D49927896DE7004523BC /* Zip.swift */; };
 		287BB9CB26AE1578004014CA /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287BB9CA26AE1577004014CA /* Mock.swift */; };
 		287BB9CD26AE15F0004014CA /* InvocationForwarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287BB9CC26AE15F0004014CA /* InvocationForwarding.swift */; };
 		287C4F3B26A3547000A7E0D9 /* MKBClassMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 287C4F3926A3547000A7E0D9 /* MKBClassMock.h */; };
@@ -622,6 +623,7 @@
 		28719AEF26B21CB100C38C2C /* MKBProperty.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBProperty.m; sourceTree = "<group>"; };
 		28719AF226B22D1300C38C2C /* Stubbing+ObjC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stubbing+ObjC.swift"; sourceTree = "<group>"; };
 		28719AF426B23AB200C38C2C /* ObjectiveCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveCTests.swift; sourceTree = "<group>"; };
+		2873D49927896DE7004523BC /* Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zip.swift; sourceTree = "<group>"; };
 		287BB9CA26AE1577004014CA /* Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
 		287BB9CC26AE15F0004014CA /* InvocationForwarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationForwarding.swift; sourceTree = "<group>"; };
 		287C4F3926A3547000A7E0D9 /* MKBClassMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBClassMock.h; sourceTree = "<group>"; };
@@ -1179,6 +1181,7 @@
 				285C8E16277AD76300DE525A /* SwiftPackage.swift */,
 				285C8E06277A7F9000DE525A /* XcodeBuild.swift */,
 				285C8E8B277C670300DE525A /* XcodeSelect.swift */,
+				2873D49927896DE7004523BC /* Zip.swift */,
 			);
 			path = Interop;
 			sourceTree = "<group>";
@@ -2440,6 +2443,7 @@
 				286DE653277EB78C0047B0F3 /* XcodeBuild.swift in Sources */,
 				286DE654277EB78C0047B0F3 /* XcodeSelect.swift in Sources */,
 				286DE655277EB7940047B0F3 /* FileManager+PosixPermissions.swift in Sources */,
+				2873D49A27896DE7004523BC /* Zip.swift in Sources */,
 				286DE656277EB7940047B0F3 /* Logging.swift in Sources */,
 				286DE657277EB7940047B0F3 /* Subprocess.swift in Sources */,
 			);
