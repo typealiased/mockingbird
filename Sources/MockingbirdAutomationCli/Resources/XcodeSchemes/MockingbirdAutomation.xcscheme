@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Mockingbird.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "285C8EA4277DA59E00DE525A"
+               BuildableName = "MockingbirdAutomationTests.xctest"
+               BlueprintName = "MockingbirdAutomationTests"
+               ReferencedContainer = "container:Mockingbird.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -28,6 +42,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "285C8EA4277DA59E00DE525A"
+               BuildableName = "MockingbirdAutomationTests.xctest"
+               BlueprintName = "MockingbirdAutomationTests"
+               ReferencedContainer = "container:Mockingbird.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
