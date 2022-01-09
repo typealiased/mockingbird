@@ -45,6 +45,12 @@ class ExpectationGroup {
   func addSubgroup(_ subgroup: ExpectationGroup) {
     subgroups.append(subgroup)
   }
+  
+  func countExpectations() -> Int {
+    return expectations.count + subgroups.reduce(into: 0) { count, subgroup in
+      count += subgroup.countExpectations()
+    }
+  }
 }
 
 extension DispatchQueue {

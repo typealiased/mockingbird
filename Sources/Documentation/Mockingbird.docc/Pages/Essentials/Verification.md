@@ -92,7 +92,7 @@ inOrder(with: .noInvocationsAfter) {
 
 ### Verify Asynchronous Calls
 
-Mocked methods that are invoked asynchronously can be verified using an `eventually` block which returns an `XCTestExpectation`.
+Mocked methods that are invoked asynchronously can be verified using an `eventually` block which creates an `XCTestExpectation` and attaches it to the current `XCTestCase`.
 
 ```swift
 DispatchQueue.main.async {
@@ -100,13 +100,12 @@ DispatchQueue.main.async {
   bird.fly()
 }
 
-let expectation =
-  eventually {
-    verify(bird.canFly).wasCalled()
-    verify(bird.fly()).wasCalled()
-  }
+eventually {
+  verify(bird.canFly).wasCalled()
+  verify(bird.fly()).wasCalled()
+}
 
-wait(for: [expectation], timeout: 1.0)
+waitForExpectations(timeout: 1.0)
 ```
 
 ### Verify Overloaded Methods
