@@ -22,9 +22,10 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
     targets: [
       .target(
         name: "Mockingbird",
-        dependencies: ["MockingbirdBridge", "MockingbirdCommon"],
-        path: "Sources/MockingbirdFramework",
-        exclude: ["Objective-C"],
+        dependencies: ["MockingbirdBridge"],
+        path: "Sources",
+        exclude: ["MockingbirdFramework/Objective-C"],
+        sources: ["MockingbirdFramework", "MockingbirdCommon"],
         swiftSettings: [.define("MKB_SWIFTPM")],
         linkerSettings: [.linkedFramework("XCTest")]),
       .target(
@@ -61,6 +62,7 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
       .package(url: "https://github.com/weichsel/ZIPFoundation.git", .exact("0.9.14")),
     ],
     targets: [
+      .target(name: "MockingbirdCommon"),
       .target(
         name: "MockingbirdCli",
         dependencies: [
@@ -102,5 +104,3 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
     ]
   )
 }
-
-package.targets.append(.target(name: "MockingbirdCommon", path: "Sources/MockingbirdCommon"))
