@@ -89,7 +89,6 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
           "MockingbirdAutomation",
           "MockingbirdCommon",
           "PathKit",
-          "ZIPFoundation",
         ]),
       .target(
         name: "MockingbirdAutomation",

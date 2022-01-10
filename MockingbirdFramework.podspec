@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
     'README.md',
     'LICENSE.md',
     'mockingbird',
-    'Scripts/Resources/CodesigningRequirements/*',
+    'Sources/MockingbirdAutomationCli/Resources/CodesigningRequirements/*',
     'Sources/MockingbirdFramework/Info.plist',
   ]
 
