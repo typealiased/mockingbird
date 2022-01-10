@@ -21,6 +21,8 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig = {
     'ENABLE_BITCODE' => 'NO',
     'ENABLE_TESTABILITY' => 'YES',
+    'COPY_PHASE_STRIP' => 'NO',
+    'DEFINES_MODULE' => 'YES',
   }
 
   s.source_files = [

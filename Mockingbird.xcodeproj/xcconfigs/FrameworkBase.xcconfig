@@ -3,6 +3,7 @@ ENABLE_BITCODE = NO
 ENABLE_TESTABILITY = YES
 DEFINES_MODULE = YES
 SKIP_INSTALL = YES
+COPY_PHASE_STRIP = NO
 
 // Compatibility
 SUPPORTED_PLATFORMS = macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator
