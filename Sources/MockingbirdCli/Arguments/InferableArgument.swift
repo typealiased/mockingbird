@@ -6,11 +6,15 @@ struct ArgumentContext: Codable {
   let environment: [String: String]
   let arguments: [String]
   
-  static var shared = ArgumentContext(
-    workingPath: Path(FileManager.default.currentDirectoryPath),
-    environment: ProcessInfo.processInfo.environment,
-    arguments: CommandLine.arguments
-  )
+  static var shared = ArgumentContext()
+  
+  init(workingPath: Path = Path(FileManager.default.currentDirectoryPath),
+       environment: [String: String] = ProcessInfo.processInfo.environment,
+       arguments: [String] = CommandLine.arguments) {
+    self.workingPath = workingPath
+    self.environment = environment
+    self.arguments = arguments
+  }
 }
 
 protocol InferableArgument {
