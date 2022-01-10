@@ -29,7 +29,7 @@ public enum SwiftPackage {
   public enum PackageConfiguration {
     case libraries
     case executables
-    func getEnvironment(
+    public func getEnvironment(
       _ baseEnvironment: [String: String] = ProcessInfo.processInfo.environment
     ) -> [String: String] {
       var processEnvironment = baseEnvironment

@@ -128,10 +128,13 @@ extension Test {
             return
           }
           let projectPath = Path("Examples/SPMProjectExample/SPMProjectExample.xcodeproj")
-          try XcodeBuild.resolvePackageDependencies(project: .project(path: projectPath))
+          let environment = SwiftPackage.PackageConfiguration.libraries.getEnvironment()
+          try XcodeBuild.resolvePackageDependencies(project: .project(path: projectPath),
+                                                    environment: environment)
           try XcodeBuild.test(target: .scheme(name: "SPMProjectExample"),
                               project: .project(path: projectPath),
-                              destination: .iOSSimulator(deviceUUID: uuid))
+                              destination: .iOSSimulator(deviceUUID: uuid),
+                              environment: environment)
         }
       }
     }
