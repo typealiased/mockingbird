@@ -1,16 +1,16 @@
 PODS:
-  - MockingbirdFramework (0.18.1)
+  - MockingbirdFramework (0.19.1)
 
 DEPENDENCIES:
-  - MockingbirdFramework (~> 0.18)
+  - MockingbirdFramework (~> 0.19)
 
 SPEC REPOS:
   trunk:
     - MockingbirdFramework
 
 SPEC CHECKSUMS:
-  MockingbirdFramework: f68dfb16f5b8bff2ebb6e8fefe565f8a1d573cc7
+  MockingbirdFramework: c85c2e2ec44890c5ec609a11398795cb2fe474a1
 
-PODFILE CHECKSUM: 80451792bd34783abf5eec5eb11f80a5b5850bc5
+PODFILE CHECKSUM: b671ca82bfe4d83304df291b7f0c23c6e1fb93d2
 
 COCOAPODS: 1.11.2

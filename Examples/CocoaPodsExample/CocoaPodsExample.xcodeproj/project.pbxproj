@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18F86AACCDF3985595C8864E /* CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2685EC5AA11B76B8B45741D /* CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift */; };
 		24A195D12D36DF221C5354EF /* Pods_CocoaPodsExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE50D55BDECD335E01A9D9B7 /* Pods_CocoaPodsExample.framework */; };
 		2803D8CD2776A08B00651C60 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2803D8CC2776A08B00651C60 /* Bird.swift */; };
 		2803D8D32776A19100651C60 /* PersonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2803D8D22776A19100651C60 /* PersonTests.swift */; };
@@ -18,6 +17,7 @@
 		2852645127769CEC000298B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2852645027769CEC000298B3 /* Assets.xcassets */; };
 		2852645427769CEC000298B3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2852645327769CEC000298B3 /* Preview Assets.xcassets */; };
 		2F948F49E2B63DFC45AE2BFE /* Pods_CocoaPodsExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34132D90ECAACCBBD8217029 /* Pods_CocoaPodsExampleTests.framework */; };
+		C01D23DD1577F866B666F5DB /* CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B931A7B4B18AAC3A9A4027 /* CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,11 +45,11 @@
 		2852645327769CEC000298B3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2852645927769CEC000298B3 /* CocoaPodsExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaPodsExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		34132D90ECAACCBBD8217029 /* Pods_CocoaPodsExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPodsExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		61B931A7B4B18AAC3A9A4027 /* CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift"; path = "MockingbirdMocks/CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift"; sourceTree = "<group>"; };
 		82A90B13498132DF88301F72 /* Pods-CocoaPodsExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-CocoaPodsExampleTests/Pods-CocoaPodsExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9BD33FD3D336D5492627F106 /* Pods-CocoaPodsExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsExampleTests.release.xcconfig"; path = "Target Support Files/Pods-CocoaPodsExampleTests/Pods-CocoaPodsExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		A3C3C30350B77C3C403E8A47 /* Pods-CocoaPodsExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsExample.debug.xcconfig"; path = "Target Support Files/Pods-CocoaPodsExample/Pods-CocoaPodsExample.debug.xcconfig"; sourceTree = "<group>"; };
 		AE50D55BDECD335E01A9D9B7 /* Pods_CocoaPodsExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPodsExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2685EC5AA11B76B8B45741D /* CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift"; path = "MockingbirdMocks/CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,7 +147,7 @@
 		86BE5DA1B7EBC6D6EE5E3D2F /* Generated Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				D2685EC5AA11B76B8B45741D /* CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift */,
+				61B931A7B4B18AAC3A9A4027 /* CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift */,
 			);
 			name = "Generated Mocks";
 			sourceTree = "<group>";
@@ -187,7 +187,6 @@
 			buildConfigurationList = 2852647027769CEC000298B3 /* Build configuration list for PBXNativeTarget "CocoaPodsExampleTests" */;
 			buildPhases = (
 				1CE1A05DF61B14E2FB4460D8 /* [CP] Check Pods Manifest.lock */,
-				6ADD0EA29254C22C4E14682B /* Clean Mockingbird Mocks */,
 				F009A44DFA6C09BC0FF61D3B /* Generate Mockingbird Mocks */,
 				2852645527769CEC000298B3 /* Sources */,
 				2852645627769CEC000298B3 /* Frameworks */,
@@ -306,21 +305,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6ADD0EA29254C22C4E14682B /* Clean Mockingbird Mocks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Clean Mockingbird Mocks";
-			outputPaths = (
-				"/tmp/Mockingbird-5DE10430-A98E-4307-8F77-968CD8B5F01D",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo $RANDOM > '/tmp/Mockingbird-5DE10430-A98E-4307-8F77-968CD8B5F01D'\n";
-		};
 		E46A3A1DB52F18771FFD5E10 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -329,9 +313,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-CocoaPodsExampleTests/Pods-CocoaPodsExampleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-CocoaPodsExampleTests/Pods-CocoaPodsExampleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -340,11 +328,11 @@
 		};
 		F009A44DFA6C09BC0FF61D3B /* Generate Mockingbird Mocks */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"/tmp/Mockingbird-5DE10430-A98E-4307-8F77-968CD8B5F01D",
 			);
 			name = "Generate Mockingbird Mocks";
 			outputPaths = (
@@ -352,7 +340,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -eu\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-5DE10430-A98E-4307-8F77-968CD8B5F01D'\n\nPods/MockingbirdFramework/mockingbird generate \\\n  --targets 'CocoaPodsExample' \\\n  --outputs \"${SRCROOT}/MockingbirdMocks/CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift\"\n";
+			shellScript = "set -eu\n\n# Prevent Xcode 13 from running this script while indexing.\n[[ \"${ACTION}\" == \"indexbuild\" ]] && exit 0\n\n\"${SRCROOT}/Pods/MockingbirdFramework/mockingbird\" generate --targets \"CocoaPodsExample\" --outputs \"${SRCROOT}/MockingbirdMocks/CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -374,7 +362,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2803D8D32776A19100651C60 /* PersonTests.swift in Sources */,
-				18F86AACCDF3985595C8864E /* CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift in Sources */,
+				C01D23DD1577F866B666F5DB /* CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
