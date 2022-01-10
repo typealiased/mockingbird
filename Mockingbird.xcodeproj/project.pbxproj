@@ -128,6 +128,8 @@
 		28887301278532AE001B92CF /* MockingbirdCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 285C8DF72779E2D200DE525A /* MockingbirdCommon.framework */; };
 		2894622626A2AF6F00044839 /* Mockingbird.h in Headers */ = {isa = PBXBuildFile; fileRef = 2894622526A2AF6F00044839 /* Mockingbird.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		28950E2D251C4C82008EEE29 /* ProjectDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28950E2C251C4C82008EEE29 /* ProjectDescription.swift */; };
+		28967D09278BF3E600E523D9 /* MKBTestExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = 28967D07278BF3E600E523D9 /* MKBTestExpectation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		28967D0A278BF3E600E523D9 /* MKBTestExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 28967D08278BF3E600E523D9 /* MKBTestExpectation.m */; };
 		2896E51826A6E93A00124D02 /* StubbingContext+ObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E51726A6E93A00124D02 /* StubbingContext+ObjC.swift */; };
 		2896E51A26A6E97900124D02 /* DynamicStubbingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896E51926A6E97900124D02 /* DynamicStubbingManager.swift */; };
 		2896E51D26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.h in Headers */ = {isa = PBXBuildFile; fileRef = 2896E51B26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.h */; };
@@ -646,6 +648,8 @@
 		28874F9226BF828800097529 /* InferableArgument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferableArgument.swift; sourceTree = "<group>"; };
 		2894622526A2AF6F00044839 /* Mockingbird.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mockingbird.h; sourceTree = "<group>"; };
 		28950E2C251C4C82008EEE29 /* ProjectDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescription.swift; sourceTree = "<group>"; };
+		28967D07278BF3E600E523D9 /* MKBTestExpectation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBTestExpectation.h; sourceTree = "<group>"; };
+		28967D08278BF3E600E523D9 /* MKBTestExpectation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBTestExpectation.m; sourceTree = "<group>"; };
 		2896E51726A6E93A00124D02 /* StubbingContext+ObjC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StubbingContext+ObjC.swift"; sourceTree = "<group>"; };
 		2896E51926A6E97900124D02 /* DynamicStubbingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicStubbingManager.swift; sourceTree = "<group>"; };
 		2896E51B26A7E94400124D02 /* NSInvocation+MKBErrorObjectType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSInvocation+MKBErrorObjectType.h"; sourceTree = "<group>"; };
@@ -1226,6 +1230,7 @@
 			children = (
 				2894622526A2AF6F00044839 /* Mockingbird.h */,
 				287C4F4126A3688100A7E0D9 /* MKBMocking.h */,
+				28967D07278BF3E600E523D9 /* MKBTestExpectation.h */,
 				28843B2526AE710400AFB8DF /* MKBTestUtils.h */,
 				287C4F4D26A36DC000A7E0D9 /* MKBTypeFacade.h */,
 			);
@@ -1236,6 +1241,7 @@
 			isa = PBXGroup;
 			children = (
 				287C4F4226A3688100A7E0D9 /* MKBMocking.m */,
+				28967D08278BF3E600E523D9 /* MKBTestExpectation.m */,
 				28843B2626AE710400AFB8DF /* MKBTestUtils.m */,
 				287C4F4E26A36DC000A7E0D9 /* MKBTypeFacade.m */,
 			);
@@ -2062,6 +2068,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2894622626A2AF6F00044839 /* Mockingbird.h in Headers */,
+				28967D09278BF3E600E523D9 /* MKBTestExpectation.h in Headers */,
 				28571AB826A666070063AB83 /* MKBUnsignedCharInvocationHandler.h in Headers */,
 				28571A8C26A65F680063AB83 /* MKBBoolInvocationHandler.h in Headers */,
 				28843B2726AE710400AFB8DF /* MKBTestUtils.h in Headers */,
@@ -2743,6 +2750,7 @@
 				28FB7EC32789C14000125FDA /* Synchronized.swift in Sources */,
 				28571A8526A65D8A0063AB83 /* MKBLongInvocationHandler.m in Sources */,
 				OBJ_896 /* OrderedVerification.swift in Sources */,
+				28967D0A278BF3E600E523D9 /* MKBTestExpectation.m in Sources */,
 				28571AB526A664F70063AB83 /* MKBStructInvocationHandler.m in Sources */,
 				OBJ_897 /* TestFailure.swift in Sources */,
 				2896E51826A6E93A00124D02 /* StubbingContext+ObjC.swift in Sources */,

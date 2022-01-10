@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "28E2A567277E8F43002975B3"
-               BuildableName = "MockingbirdAutomation"
+               BuildableName = "MockingbirdAutomationCli"
                BlueprintName = "MockingbirdAutomationCli"
                ReferencedContainer = "container:Mockingbird.xcodeproj">
             </BuildableReference>
@@ -28,16 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "285C8EA4277DA59E00DE525A"
-               BuildableName = "MockingbirdAutomationTests.xctest"
-               BlueprintName = "MockingbirdAutomationTests"
-               ReferencedContainer = "container:Mockingbird.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -45,7 +35,8 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
-      useCustomWorkingDirectory = "NO"
+      useCustomWorkingDirectory = "YES"
+      customWorkingDirectory = "$(SRCROOT)"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
@@ -55,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "28E2A567277E8F43002975B3"
-            BuildableName = "MockingbirdAutomation"
+            BuildableName = "MockingbirdAutomationCli"
             BlueprintName = "MockingbirdAutomationCli"
             ReferencedContainer = "container:Mockingbird.xcodeproj">
          </BuildableReference>
@@ -72,7 +63,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "28E2A567277E8F43002975B3"
-            BuildableName = "MockingbirdAutomation"
+            BuildableName = "MockingbirdAutomationCli"
             BlueprintName = "MockingbirdAutomationCli"
             ReferencedContainer = "container:Mockingbird.xcodeproj">
          </BuildableReference>

@@ -61,8 +61,6 @@
             ReferencedContainer = "container:Mockingbird.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Profile"
