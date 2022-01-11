@@ -1,12 +1,3 @@
----
-name: Pull Request
-about: Submit a new pull request
-title: ''
-labels: ''
-assignees: ''
-
----
-
 ## Overview
 
 The motivation for making this change, what it does, and any additional considerations.
