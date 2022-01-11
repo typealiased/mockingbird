@@ -4,6 +4,6 @@ target 'CocoaPodsExample' do
   use_frameworks!
   target 'CocoaPodsExampleTests' do
     inherit! :search_paths
-    pod 'MockingbirdFramework', '~> 0.18'
+    pod 'MockingbirdFramework', '~> 0.19'
   end
 end

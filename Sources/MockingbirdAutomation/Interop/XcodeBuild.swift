@@ -67,10 +67,13 @@ public enum XcodeBuild {
     public static let tmpBuildPath = Path("/tmp/Mockingbird.dst")
   }
   
-  public static func test(target: Target,
-                          project: Project,
-                          destination: Destination,
-                          buildPath: Path = Constants.tmpBuildPath) throws {
+  public static func test(
+    target: Target,
+    project: Project,
+    destination: Destination,
+    buildPath: Path = Constants.tmpBuildPath,
+    environment: [String: String] = ProcessInfo.processInfo.environment
+  ) throws {
     try Subprocess("xcrun", [
       "xcodebuild",
       "test",
@@ -78,7 +81,7 @@ public enum XcodeBuild {
       "-\(target.optionName)", target.name,
       "-\(project.optionName)", project.path.absolute().string,
       "-destination", destination.optionValue,
-    ]).run()
+    ], environment: environment).run()
   }
   
   public static func clean(target: Target,
@@ -93,11 +96,14 @@ public enum XcodeBuild {
     ]).run()
   }
   
-  public static func resolvePackageDependencies(project: Project) throws {
+  public static func resolvePackageDependencies(
+    project: Project,
+    environment: [String: String] = ProcessInfo.processInfo.environment
+  ) throws {
     try Subprocess("xcrun", [
       "xcodebuild",
       "-resolvePackageDependencies",
       "-\(project.optionName)", project.path.absolute().string,
-    ]).run()
+    ], environment: environment).run()
   }
 }

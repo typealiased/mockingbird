@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0BD8FDBE67453E1CF48F7318 /* SPMProjectExampleTests-SPMProjectExampleMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F02931C308F7FB7AD6FED6F /* SPMProjectExampleTests-SPMProjectExampleMocks.generated.swift */; };
 		2803D9322777F9AE00651C60 /* SPMProjectExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2803D9312777F9AE00651C60 /* SPMProjectExampleApp.swift */; };
 		2803D9342777F9AE00651C60 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2803D9332777F9AE00651C60 /* ContentView.swift */; };
 		2803D9362777F9B100651C60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2803D9352777F9B100651C60 /* Assets.xcassets */; };
@@ -16,7 +17,6 @@
 		2803D9632777FAD400651C60 /* Fruit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2803D9602777FAD400651C60 /* Fruit.swift */; };
 		2803D9642777FAD400651C60 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2803D9612777FAD400651C60 /* Person.swift */; };
 		2803D9672777FBDE00651C60 /* Mockingbird in Frameworks */ = {isa = PBXBuildFile; productRef = 2803D9662777FBDE00651C60 /* Mockingbird */; };
-		DDD24D98DB4EA69DEE0015DC /* SPMProjectExampleTests-SPMProjectExampleMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DBF62A89CDF87671D25BBC /* SPMProjectExampleTests-SPMProjectExampleMocks.generated.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +41,7 @@
 		2803D95F2777FAD400651C60 /* Bird.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
 		2803D9602777FAD400651C60 /* Fruit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fruit.swift; sourceTree = "<group>"; };
 		2803D9612777FAD400651C60 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
-		C4DBF62A89CDF87671D25BBC /* SPMProjectExampleTests-SPMProjectExampleMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "SPMProjectExampleTests-SPMProjectExampleMocks.generated.swift"; path = "MockingbirdMocks/SPMProjectExampleTests-SPMProjectExampleMocks.generated.swift"; sourceTree = "<group>"; };
+		5F02931C308F7FB7AD6FED6F /* SPMProjectExampleTests-SPMProjectExampleMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "SPMProjectExampleTests-SPMProjectExampleMocks.generated.swift"; path = "MockingbirdMocks/SPMProjectExampleTests-SPMProjectExampleMocks.generated.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +66,7 @@
 		26416AED1E2ACC4BD972D443 /* Generated Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				C4DBF62A89CDF87671D25BBC /* SPMProjectExampleTests-SPMProjectExampleMocks.generated.swift */,
+				5F02931C308F7FB7AD6FED6F /* SPMProjectExampleTests-SPMProjectExampleMocks.generated.swift */,
 			);
 			name = "Generated Mocks";
 			sourceTree = "<group>";
@@ -247,7 +247,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -eu\n\n# Prevent Xcode 13 from running this script while indexing.\n[[ \"${ACTION}\" == \"indexbuild\" ]] && exit 0\n\n# Infer the derived data location from the build environment.\n[[ -z \"${DERIVED_DATA+x}\" ]] && DERIVED_DATA=\"$(echo \"${BUILD_ROOT}\" | sed -n 's|\\(.*\\)/Build/.*|\\1|p')\"\n\n\"${DERIVED_DATA}/SourcePackages/checkouts/mockingbird/mockingbird\" generate \\\n  --targets 'SPMProjectExample' \\\n  --outputs \"${SRCROOT}/MockingbirdMocks/SPMProjectExampleTests-SPMProjectExampleMocks.generated.swift\" \\\n  --support \"${SRCROOT}/MockingbirdSupport\"\n";
+			shellScript = "set -eu\n\n# Prevent Xcode 13 from running this script while indexing.\n[[ \"${ACTION}\" == \"indexbuild\" ]] && exit 0\n\n# Infer the derived data location from the build environment.\n[[ -z \"${DERIVED_DATA+x}\" ]] && DERIVED_DATA=\"$(echo \"${BUILD_ROOT}\" | sed -n 's|\\(.*\\)/Build/.*|\\1|p')\"\n\n\"${DERIVED_DATA}/SourcePackages/checkouts/mockingbird/mockingbird\" generate --targets \"SPMProjectExample\" --outputs \"${SRCROOT}/MockingbirdMocks/SPMProjectExampleTests-SPMProjectExampleMocks.generated.swift\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -269,7 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2803D95E2777FAB600651C60 /* PersonTests.swift in Sources */,
-				DDD24D98DB4EA69DEE0015DC /* SPMProjectExampleTests-SPMProjectExampleMocks.generated.swift in Sources */,
+				0BD8FDBE67453E1CF48F7318 /* SPMProjectExampleTests-SPMProjectExampleMocks.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,7 +551,7 @@
 			repositoryURL = "https://github.com/birdrides/mockingbird";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 0.18.0;
+				minimumVersion = 0.19.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
