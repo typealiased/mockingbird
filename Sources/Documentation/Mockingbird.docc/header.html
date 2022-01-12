@@ -7,25 +7,24 @@
 <!-- Inlined to prevent flash of unstyled content. -->
 <style type="text/css">
 :host {
-  --color-header-background-light: var(--color-fill-secondary);
   --color-header-text-light: #333333;
-  --icon-close-url-light: url("https://swift.org/assets/images/icon-close.svg");
-  --icon-menu-url-light: url("https://swift.org/assets/images/icon-menu.svg");
+  --icon-close-url-light: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg width='21px' height='21px' viewBox='0 0 21 21' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Ctitle%3Eicon-close%3C/title%3E%3Cdesc%3EClose Icon%3C/desc%3E%3Cdefs%3E%3C/defs%3E%3Cg id='Container' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='icon-close' stroke='%23333333' stroke-linecap='square'%3E%3Cpath d='M5,5 L16.3137085,16.3137085' id='Line-Copy-8'%3E%3C/path%3E%3Cpath d='M5,16.3137086 L16.3137084,5' id='Line-Copy-7'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  --icon-menu-url-light: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg width='21px' height='21px' viewBox='0 0 21 21' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Ctitle%3Eicon-menu%3C/title%3E%3Cdesc%3EMenu Icon%3C/desc%3E%3Cdefs%3E%3C/defs%3E%3Cg id='Container' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='icon-menu' stroke='%23333333' stroke-linecap='square'%3E%3Cpath d='M2.5,7.5 L18.5,7.5' id='Line-Copy-8'%3E%3C/path%3E%3Cpath d='M2.5,13.5 L18.5,13.5' id='Line-Copy-7'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   --github-logo-url-light: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23333' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
   --github-logo-url-hover-light: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%2336f' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
   --slack-logo-url-light: url("data:image/svg+xml;charset=utf-8,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='71 71 128 128' style='enable-background:new 71 71 128 128;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%23333;%7D%0A%3C/style%3E%3Cg%3E%3Cg%3E%3Cpath class='st0' d='M99.4,151.2c0,7.1-5.8,12.9-12.9,12.9s-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h12.9V151.2z'/%3E%3Cpath class='st0' d='M105.9,151.2c0-7.1,5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v32.3c0,7.1-5.8,12.9-12.9,12.9 s-12.9-5.8-12.9-12.9C105.9,183.5,105.9,151.2,105.9,151.2z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M118.8,99.4c-7.1,0-12.9-5.8-12.9-12.9s5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v12.9H118.8z'/%3E%3Cpath class='st0' d='M118.8,105.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9H86.5c-7.1,0-12.9-5.8-12.9-12.9 s5.8-12.9,12.9-12.9C86.5,105.9,118.8,105.9,118.8,105.9z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M170.6,118.8c0-7.1,5.8-12.9,12.9-12.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9h-12.9V118.8z'/%3E%3Cpath class='st0' d='M164.1,118.8c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9V86.5c0-7.1,5.8-12.9,12.9-12.9 c7.1,0,12.9,5.8,12.9,12.9V118.8z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M151.2,170.6c7.1,0,12.9,5.8,12.9,12.9c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9v-12.9H151.2z'/%3E%3Cpath class='st0' d='M151.2,164.1c-7.1,0-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h32.3c7.1,0,12.9,5.8,12.9,12.9 c0,7.1-5.8,12.9-12.9,12.9H151.2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   --slack-logo-url-hover-light: url("data:image/svg+xml;charset=utf-8,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='71 71 128 128' style='enable-background:new 71 71 128 128;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%2336f;%7D%0A%3C/style%3E%3Cg%3E%3Cg%3E%3Cpath class='st0' d='M99.4,151.2c0,7.1-5.8,12.9-12.9,12.9s-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h12.9V151.2z'/%3E%3Cpath class='st0' d='M105.9,151.2c0-7.1,5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v32.3c0,7.1-5.8,12.9-12.9,12.9 s-12.9-5.8-12.9-12.9C105.9,183.5,105.9,151.2,105.9,151.2z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M118.8,99.4c-7.1,0-12.9-5.8-12.9-12.9s5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v12.9H118.8z'/%3E%3Cpath class='st0' d='M118.8,105.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9H86.5c-7.1,0-12.9-5.8-12.9-12.9 s5.8-12.9,12.9-12.9C86.5,105.9,118.8,105.9,118.8,105.9z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M170.6,118.8c0-7.1,5.8-12.9,12.9-12.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9h-12.9V118.8z'/%3E%3Cpath class='st0' d='M164.1,118.8c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9V86.5c0-7.1,5.8-12.9,12.9-12.9 c7.1,0,12.9,5.8,12.9,12.9V118.8z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M151.2,170.6c7.1,0,12.9,5.8,12.9,12.9c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9v-12.9H151.2z'/%3E%3Cpath class='st0' d='M151.2,164.1c-7.1,0-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h32.3c7.1,0,12.9,5.8,12.9,12.9 c0,7.1-5.8,12.9-12.9,12.9H151.2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 
-  --color-header-background-dark: var(--color-fill-secondary);
   --color-header-text-dark: #fafafa;
-  --icon-close-url-dark: url("https://swift.org/assets/images/icon-close~dark.svg");
-  --icon-menu-url-dark: url("https://swift.org/assets/images/icon-menu~dark.svg");
+  --icon-close-url-dark: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg width='21px' height='21px' viewBox='0 0 21 21' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Ctitle%3Eicon-close%3C/title%3E%3Cdesc%3EClose Icon%3C/desc%3E%3Cdefs%3E%3C/defs%3E%3Cg id='Container' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='icon-close' stroke='%23fafafa' stroke-linecap='square'%3E%3Cpath d='M5,5 L16.3137085,16.3137085' id='Line-Copy-8'%3E%3C/path%3E%3Cpath d='M5,16.3137086 L16.3137084,5' id='Line-Copy-7'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  --icon-menu-url-dark: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg width='21px' height='21px' viewBox='0 0 21 21' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Ctitle%3Eicon-menu%3C/title%3E%3Cdesc%3EMenu Icon%3C/desc%3E%3Cdefs%3E%3C/defs%3E%3Cg id='Container' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='icon-menu' stroke='%23fafafa' stroke-linecap='square'%3E%3Cpath d='M2.5,7.5 L18.5,7.5' id='Line-Copy-8'%3E%3C/path%3E%3Cpath d='M2.5,13.5 L18.5,13.5' id='Line-Copy-7'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   --github-logo-url-dark: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23fafafa' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
   --github-logo-url-hover-dark: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%2309f' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
   --slack-logo-url-dark: url("data:image/svg+xml;charset=utf-8,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='71 71 128 128' style='enable-background:new 71 71 128 128;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%23fafafa;%7D%0A%3C/style%3E%3Cg%3E%3Cg%3E%3Cpath class='st0' d='M99.4,151.2c0,7.1-5.8,12.9-12.9,12.9s-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h12.9V151.2z'/%3E%3Cpath class='st0' d='M105.9,151.2c0-7.1,5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v32.3c0,7.1-5.8,12.9-12.9,12.9 s-12.9-5.8-12.9-12.9C105.9,183.5,105.9,151.2,105.9,151.2z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M118.8,99.4c-7.1,0-12.9-5.8-12.9-12.9s5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v12.9H118.8z'/%3E%3Cpath class='st0' d='M118.8,105.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9H86.5c-7.1,0-12.9-5.8-12.9-12.9 s5.8-12.9,12.9-12.9C86.5,105.9,118.8,105.9,118.8,105.9z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M170.6,118.8c0-7.1,5.8-12.9,12.9-12.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9h-12.9V118.8z'/%3E%3Cpath class='st0' d='M164.1,118.8c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9V86.5c0-7.1,5.8-12.9,12.9-12.9 c7.1,0,12.9,5.8,12.9,12.9V118.8z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M151.2,170.6c7.1,0,12.9,5.8,12.9,12.9c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9v-12.9H151.2z'/%3E%3Cpath class='st0' d='M151.2,164.1c-7.1,0-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h32.3c7.1,0,12.9,5.8,12.9,12.9 c0,7.1-5.8,12.9-12.9,12.9H151.2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   --slack-logo-url-hover-dark: url("data:image/svg+xml;charset=utf-8,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='71 71 128 128' style='enable-background:new 71 71 128 128;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%2309f;%7D%0A%3C/style%3E%3Cg%3E%3Cg%3E%3Cpath class='st0' d='M99.4,151.2c0,7.1-5.8,12.9-12.9,12.9s-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h12.9V151.2z'/%3E%3Cpath class='st0' d='M105.9,151.2c0-7.1,5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v32.3c0,7.1-5.8,12.9-12.9,12.9 s-12.9-5.8-12.9-12.9C105.9,183.5,105.9,151.2,105.9,151.2z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M118.8,99.4c-7.1,0-12.9-5.8-12.9-12.9s5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v12.9H118.8z'/%3E%3Cpath class='st0' d='M118.8,105.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9H86.5c-7.1,0-12.9-5.8-12.9-12.9 s5.8-12.9,12.9-12.9C86.5,105.9,118.8,105.9,118.8,105.9z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M170.6,118.8c0-7.1,5.8-12.9,12.9-12.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9h-12.9V118.8z'/%3E%3Cpath class='st0' d='M164.1,118.8c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9V86.5c0-7.1,5.8-12.9,12.9-12.9 c7.1,0,12.9,5.8,12.9,12.9V118.8z'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st0' d='M151.2,170.6c7.1,0,12.9,5.8,12.9,12.9c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9v-12.9H151.2z'/%3E%3Cpath class='st0' d='M151.2,164.1c-7.1,0-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h32.3c7.1,0,12.9,5.8,12.9,12.9 c0,7.1-5.8,12.9-12.9,12.9H151.2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 
-  --color-header-background: var(--color-header-background-light);
+  --color-header-background: var(--color-fill-secondary);
+  --color-header-secondary-background: var(--color-fill);
   --color-header-border: var(--color-nav-keyline);
   --color-header-link-hover: var(--color-link);
   --color-header-text: var(--color-header-text-light);
@@ -36,19 +35,21 @@
   --slack-logo-url: var(--slack-logo-url-light);
   --slack-logo-hover-url: var(--slack-logo-url-hover-light);
 
+  /* Cannot override `--docsearch-primary-color` and propagate those changes. */
+  --docsearch-searchbox-shadow: var(--color-link) 0px 0px 0px 2px inset;
+
   font-family:
     -apple-system,
-  BlinkMacSystemFont,
-  "SF Hello",
-  "Helvetica Neue",
-  Helvetica,
-  Arial,
-  Verdana,
-  sans-serif;
+    BlinkMacSystemFont,
+    "SF Hello",
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    Verdana,
+    sans-serif;
 }
 
 :host([data-color-scheme="dark"]) {
-  --color-header-background: var(--color-header-background-dark);
   --color-header-text: var(--color-header-text-dark);
   --icon-close-url: var(--icon-close-url-dark);
   --icon-menu-url: var(--icon-menu-url-dark);
@@ -59,7 +60,6 @@
 }
 @media screen and (prefers-color-scheme: dark) {
   :host([data-color-scheme="auto"]) {
-    --color-header-background: var(--color-header-background-dark);
     --color-header-text: var(--color-header-text-dark);
     --icon-close-url: var(--icon-close-url-dark);
     --icon-menu-url: var(--icon-menu-url-dark);
@@ -77,6 +77,8 @@ header {
 }
 
 
+/* Hyperlinks */
+
 a,
 a:active,
 a:hover,
@@ -89,17 +91,8 @@ a:hover {
   color: var(--color-link);
 }
 
-.container {
-  --padding-x: 22px;
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 0 auto;
-  padding: 0 var(--padding-x);
-  width: 980px;
-}
 
+/* Logo */
 
 #logo {
   --size: 30px;
@@ -150,6 +143,9 @@ a:hover .github-logo {
   width: var(--size);
 }
 
+
+/* Links */
+
 .links .slack-logo {
   margin-right: 10px;
 }
@@ -161,6 +157,7 @@ a:hover .slack-logo {
 .links {
   display: flex;
   flex-direction: row;
+  align-items: center;
   font-size: 14px;
   list-style: none;
   margin: 0;
@@ -188,6 +185,34 @@ a:hover .slack-logo {
   padding-right: 0;
 }
 
+
+/* Search box */
+
+#searchbox .DocSearch-Button {
+  --padding-left: 10px;
+  --padding-right: 6px;
+
+  border-radius: var(--padding-right);
+  padding: 0;
+  padding-left: var(--padding-left);
+  padding-right: var(--padding-right);
+  margin: 0;
+  margin-left: var(--padding-x);
+}
+
+/* Container */
+
+.container {
+  --padding-x: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 0 var(--padding-x);
+  width: calc(1023px - var(--padding-x) * 2);
+}
+
 @supports (padding:calc(max(0px))) {
   .container {
     padding-left: calc(max(var(--padding-x), env(safe-area-inset-left)));
@@ -199,12 +224,13 @@ a:hover .slack-logo {
   .container {
     box-sizing: border-box;
     width: 100%;
+    --padding-x: 16px;
   }
 }
 
 @media only screen and (max-width: 767px) {
   .container {
-    --padding-x: 16px;
+    --padding-x-compact: 10px;
   }
 
   #menu {
@@ -243,28 +269,43 @@ a:hover .slack-logo {
     border-top: 1px solid var(--color-menu-border);
     margin: 20px 0 30px 0;
     flex-direction: column;
+    align-items: flex-start;
   }
 
  [data-small-menu-is-expanded] .links li {
     border-bottom: 1px solid var(--color-menu-border);
     display: block;
+    width: 100%;
   }
 
   [data-small-menu-is-expanded] .links li a {
     line-height: 1em;
-    padding: 10px;
+    padding: var(--padding-x-compact);
     text-align: left;
   }
 
   [data-small-menu-is-expanded] .links li:first-child a {
-    padding-left: 10px;
+    padding-left: var(--padding-x-compact);
   }
 
   [data-small-menu-is-expanded] .links li:last-child a {
-    padding-right: 10px;
+    padding-right: var(--padding-x-compact);
+  }
+
+  [data-small-menu-is-expanded] #searchbox .DocSearch-Button {
+    width: calc(100% - var(--padding-x-compact) - var(--padding-left));
+    margin: var(--padding-x-compact);
+  }
+
+  [data-small-menu-is-expanded] #searchbox .DocSearch-Button-Keys,
+  [data-small-menu-is-expanded] #searchbox .DocSearch-Button-Placeholder {
+    display: flex;
   }
 }
 </style>
+
+<!-- Algolia DocSearch styles -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@alpha" />
 
 <header id="header" role="banner">
   <div class="container">
@@ -276,6 +317,7 @@ a:hover .slack-logo {
       <ul class="links">
         <li><a target="_blank" href="https://github.com/birdrides/mockingbird"><div class="github-logo"></div> birdrides/mockingbird</a></li>
         <li><a target="_blank" href="https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw"><div class="slack-logo"></div> Slack Community</a></li>
+        <li><div id="searchbox"></div></li>
       </ul>
     </nav>
   </div>
@@ -290,5 +332,64 @@ a:hover .slack-logo {
   button.addEventListener('click', () => {
     header.toggleAttribute('data-small-menu-is-expanded');
   });
+})();
+</script>
+
+<!-- Algolia DocSearch scripts -->
+<script type="text/javascript">
+(() => {
+  const shadowRoot = document.querySelector('custom-header').shadowRoot;
+
+  // HACK: DocC loads the header into a shadow DOM, but DocSearch injects itself into the document
+  // root. We load the styles twice (once into the shadow DOM, once into the document root) in
+  // order to get styles for both the header button and the main search UI.
+  const docSearchCSS = document.createElement('link');
+  docSearchCSS.setAttribute('href', 'https://cdn.jsdelivr.net/npm/@docsearch/css@alpha');
+  docSearchCSS.setAttribute('rel', 'stylesheet');
+  document.head.appendChild(docSearchCSS);
+
+  // Minor patches to the DocSearch CSS.
+  const docSearchPatchCSS = document.createElement('style');
+  docSearchPatchCSS.setAttribute('type', 'text/css');
+  docSearchPatchCSS.innerHTML = `
+  :root { --docsearch-primary-color: #00f }
+  :root[data-theme=dark] { --docsearch-primary-color: #09f }
+  .DocSearch-Container { z-index: 99999 }
+  `;
+  document.head.appendChild(docSearchPatchCSS);
+
+  const docSearchJS = document.createElement('script');
+  docSearchJS.setAttribute('src', 'https://cdn.jsdelivr.net/npm/@docsearch/js@alpha');
+  docSearchJS.setAttribute('async', 'async');
+  docSearchJS.addEventListener('load', () => {
+    window.docsearch({
+      appId: 'V4RBEC3IZV',
+      apiKey: '74af6bde0e4ca22145dba62c119421d0', // Public API key
+      indexName: 'mockingbirdswift',
+      container: shadowRoot.getElementById('searchbox'),
+      debug: false,
+    });
+  });
+  shadowRoot.appendChild(docSearchJS);
+
+  // DocC uses `body[data-color-scheme]` instead of the standard `html[data-theme]` used by
+  // DocSearch. We propagate changes from `body` to `html` to keep DocSearch synchronized.
+  const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+  function handlePreferredColorScheme(event) {
+    document.documentElement.setAttribute('data-theme', event.matches ? 'dark' : 'light');
+  }
+  function synchronizeColorScheme() {
+    const colorScheme = document.body.getAttribute('data-color-scheme');
+    if (colorScheme !== 'auto') {
+      document.documentElement.setAttribute('data-theme', colorScheme);
+      mediaQueryList.removeEventListener('change', handlePreferredColorScheme);
+      return;
+    }
+    mediaQueryList.addEventListener('change', handlePreferredColorScheme);
+    handlePreferredColorScheme(mediaQueryList);
+  }
+  synchronizeColorScheme();
+  const observer = new MutationObserver(synchronizeColorScheme);
+  observer.observe(document.body, { attributes: true });
 })();
 </script>
