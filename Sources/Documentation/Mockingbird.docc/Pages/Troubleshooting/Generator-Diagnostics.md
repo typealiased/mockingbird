@@ -25,9 +25,9 @@ A mocked method that must return a value was called without a stubbed implementa
 
 | **Error** |
 | --- |
-| Got [`<X>`] invocations of '`<I>`' but expected `<Y>` |
+| Got `<X>` invocations of '`<I>`' but expected `<Y>` |
 
-The actual number of invocations of a method did not match the expected count. Parameterized methods must have parameter types that explicitly conform to `Equatable` or be matched with a wildcard [argument matcher](https://github.com/birdrides/mockingbird#argument-matching).
+The actual number of invocations of a method did not match the expected count. Parameterized methods must have parameter types that explicitly conform to `Equatable` or be matched with a wildcard argument matcher.
 
 | **Error** |
 | --- |
@@ -55,7 +55,7 @@ The type being mocked does not exist in a generated mock file. The project may n
 | --- |
 | '`<M>`' inherits from the externally-defined type '`<T>`' which needs to be declared in a supporting source file |
 
-The protocol being mocked inherits from a type defined outside of the project. In order to generate valid mocking code, the inherited type needs to be defined in a [supporting source file](https://github.com/birdrides/mockingbird#supporting-source-files).
+The protocol being mocked inherits from a type defined outside of the project. In order to generate valid mocking code, the inherited type needs to be defined in one of the <doc:Supporting-Source-Files>.
 
 ```swift
 // Defined outside of the project, e.g. in a library

@@ -42,6 +42,9 @@ Functionality not designed for general use.
 - ``CountMatcher``
 - ``ArgumentMatcher``
 - ``OrderedVerificationOptions``
+- ``Synchronized``
+- ``Version``
+- ``mockingbirdVersion``
 
 ### Objective-C
 
