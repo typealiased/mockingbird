@@ -36,14 +36,20 @@ class InitializerMethodTemplate: MethodTemplate {
     
     let trivia = "// MARK: Mocked \(fullNameForMocking)"
     let declaration = "public \(overridableModifiers)\(uniqueDeclaration)"
+    lazy var didInvoke = FunctionCallTemplate(name: "self.mockingbirdContext.mocking.didInvoke",
+                                              unlabeledArguments: [mockableInvocation],
+                                              isThrowing: method.attributes.contains(.throws)).render()
     
     if isClassBound {
       // Class-defined initializer, called from an `InitializerProxy`.
       let body = !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub :
-        FunctionCallTemplate(name: "super.init",
-                             parameters: method.parameters,
-                             isAsync: method.isAsync,
-                             isThrowing: method.attributes.contains(.throws)).render()
+        String(lines: [
+          FunctionCallTemplate(name: "super.init",
+                               parameters: method.parameters,
+                               isAsync: method.isAsync,
+                               isThrowing: method.attributes.contains(.throws)).render(),
+          didInvoke,
+        ])
       return String(lines: [
         trivia,
         FunctionDefinitionTemplate(attributes: method.attributes.safeDeclarations,
@@ -53,8 +59,11 @@ class InitializerMethodTemplate: MethodTemplate {
     } else if !context.containsOverridableDesignatedInitializer {
       // Pure protocol or class-only protocol with no class-defined initializers.
       let body = !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub :
-        (context.protocolClassConformance == nil ? "" :
-          FunctionCallTemplate(name: "super.init").render())
+        String(lines: [
+          context.protocolClassConformance == nil ? "" :
+            FunctionCallTemplate(name: "super.init").render(),
+          didInvoke,
+        ])
       return String(lines: [
         trivia,
         FunctionDefinitionTemplate(attributes: method.attributes.safeDeclarations,
