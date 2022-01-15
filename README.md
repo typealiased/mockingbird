@@ -15,6 +15,29 @@ Mockingbird makes it easy to mock, stub, and verify objects in Swift unit tests.
 
 Visit [MockingbirdSwift.com](https://mockingbirdswift.com) for quick start guides, walkthroughs, and API reference articles.
 
+## Getting Started
+1. Add Mockingbird as a dependency using your favorite dependency manager
+2. Look for mockingbird shell script in the dependency files
+3. Drag & drop the shell script into the terminal
+4. With the shell path written in the terminal, add the following ` configure {Test Target} -- --target {Main Target}`
+
+<details>
+<summary>Hint</summary>
+  
+  
+```console
+/path/to/mockingbird configure MockingbirdWalkthroughTests -- --target MockingbirdWalkthrough
+```
+  
+</details>
+
+5. Get back to Xcode
+6. Hit `⇧⌘U`
+7. Now you're ready to start using the framework
+
+
+> Still struggling? Check out [this video](https://youtu.be/vBFVzMFzl3s) then.
+
 ## Examples
 
 Automatically generating mocks.
