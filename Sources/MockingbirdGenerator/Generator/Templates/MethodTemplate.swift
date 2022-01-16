@@ -156,7 +156,9 @@ class MethodTemplate: Template {
   lazy var overridableModifiers: String = { return modifiers(allowOverride: true) }()
   func modifiers(allowOverride: Bool = true) -> String {
     let isRequired = method.attributes.contains(.required)
-    let required = (isRequired || method.isInitializer ? "required " : "")
+    let required = allowOverride // Only mocked methods can have a required modifier.
+      && (isRequired || method.isInitializer)
+      ? "required " : ""
     let shouldOverride = method.isOverridable && !isRequired && allowOverride
     let override = shouldOverride ? "override " : ""
     let `static` = method.kind.typeScope.isStatic ? "static " : ""
@@ -219,23 +221,31 @@ class MethodTemplate: Template {
   
   func shortName(for mode: FullNameMode) -> String {
     let failable: String
-    if mode.isInitializerProxy {
-      failable = ""
-    } else if method.attributes.contains(.failable) {
-      failable = "?"
-    } else if method.attributes.contains(.unwrappedFailable) {
-      failable = "!"
-    } else {
+    let shouldBeFailable = method.isInitializer
+      && !mode.isInitializerProxy
+      && !mode.isMatching // Methods for matching should not be failable.
+    switch shouldBeFailable {
+    case true:
+      if method.attributes.contains(.failable) {
+        failable = "?"
+      } else if method.attributes.contains(.unwrappedFailable) {
+        failable = "!"
+      } else {
+        fallthrough
+      }
+    case false:
       failable = ""
     }
     
     // Don't escape initializers, subscripts, and special functions with reserved tokens like `==`.
-    let shouldEscape = !method.isInitializer
+    let shouldEscape = (!method.isInitializer || mode.isMatching)
       && method.kind != .functionSubscript
       && (method.shortName.first?.isLetter == true
         || method.shortName.first?.isNumber == true
         || method.shortName.first == "_")
-    let escapedShortName = mode.isInitializerProxy ? "initialize" :
+    let shouldRename = mode.isInitializerProxy
+      || (mode.isMatching && method.isInitializer) // Synthesized initializers should also be renamed.
+    let escapedShortName = shouldRename ? "initialize" :
       (shouldEscape ? method.shortName.backtickWrapped : method.shortName)
     
     return genericTypes.isEmpty

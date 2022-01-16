@@ -84,8 +84,6 @@ class InitializerMethodTemplate: MethodTemplate {
     }
   }
   
-  override var synthesizedDeclarations: String { return "" }
-  
   lazy var fullNameForInitializerProxy: String = {
     return fullName(for: .initializerProxy)
   }()
