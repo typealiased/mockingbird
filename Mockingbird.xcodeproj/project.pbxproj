@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2813969C279759FA00025F2D /* Optional+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2813969B279759FA00025F2D /* Optional+Extensions.swift */; };
 		281B6246251DC7220084EBED /* MockingbirdShadowedTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */; };
 		281B6286251DC7FC0084EBED /* ModuleNameShadowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B61F1251DBBDE0084EBED /* ModuleNameShadowing.swift */; };
 		281B62FF251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */; };
@@ -521,6 +522,7 @@
 
 /* Begin PBXFileReference section */
 		2803D96827781A4D00651C60 /* String+Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Regex.swift"; sourceTree = "<group>"; };
+		2813969B279759FA00025F2D /* Optional+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Extensions.swift"; sourceTree = "<group>"; };
 		281B61F1251DBBDE0084EBED /* ModuleNameShadowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleNameShadowing.swift; sourceTree = "<group>"; };
 		281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MockingbirdShadowedTestsHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		281B62CF251DCAB90084EBED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1862,6 +1864,7 @@
 				28DDDFC026B8571D002556C7 /* DynamicCast.swift */,
 				289FD00126D5D8D6009786A3 /* MockingbirdBridge.swift */,
 				28B4F6E126B3C9C7005C0049 /* ObjCTypeEncodings.swift */,
+				2813969B279759FA00025F2D /* Optional+Extensions.swift */,
 				D3E6F67B24844C5B000D1971 /* SourceLocation.swift */,
 				D3B3D4C5248CC15E00FEEDA0 /* StackTrace.swift */,
 				OBJ_51 /* String+Extensions.swift */,
@@ -2688,6 +2691,7 @@
 				D3E6F67C24844C5B000D1971 /* SourceLocation.swift in Sources */,
 				28843B2826AE710400AFB8DF /* MKBTestUtils.m in Sources */,
 				287C4F5026A36DC000A7E0D9 /* MKBTypeFacade.m in Sources */,
+				2813969C279759FA00025F2D /* Optional+Extensions.swift in Sources */,
 				28571ACD26A668530063AB83 /* MKBInvocationHandlerChain.m in Sources */,
 				28571A9126A65FD80063AB83 /* MKBCharInvocationHandler.m in Sources */,
 				287C4F6626A3E00800A7E0D9 /* NonEscapingType.swift in Sources */,
