@@ -11,7 +11,7 @@ import XCTest
 /// verify(bird.setProperty(any())).wasCalled()
 /// ```
 ///
-/// Match exact or wildcard argument values when verifying methods with parameters.
+/// You can match exact or wildcard argument values when verifying.
 ///
 /// ```swift
 /// verify(bird.canChirp(volume: any())).wasCalled()     // Called with any volume
@@ -38,7 +38,7 @@ public func verify<DeclarationType: Declaration, InvocationType, ReturnType>(
 /// verify(bird.setProperty(any())).wasCalled()
 /// ```
 ///
-/// Match exact or wildcard argument values when verifying methods with parameters.
+/// You can match exact or wildcard argument values when verifying.
 ///
 /// ```swift
 /// verify(bird.canChirp(volume: any())).wasCalled()     // Called with any volume

@@ -1,5 +1,12 @@
 import Foundation
 
+/// Type-erased `Optional`.
+public protocol AnyOptional {
+  associatedtype Wrapped
+}
+
+extension Optional: AnyOptional {}
+
 protocol Nullable {
   var isNil: Bool { get }
 }
