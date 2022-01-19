@@ -1,33 +1,16 @@
 import Foundation
 
-/// Returns a mock of a given Swift type.
+/// Fallback for types without a generated mock.
 ///
-/// Initialized mocks can be passed in place of the original type. Protocol mocks do not require
-/// explicit initialization while class mocks should be created using `initialize(…)`.
-///
-/// ```swift
-/// protocol Bird {
-///   init(name: String)
-/// }
-/// class Tree {
-///   init(with bird: Bird) {}
-/// }
-///
-/// let bird = mock(Bird.self)  // Protocol mock
-/// let tree = mock(Tree.self).initialize(with: bird)  // Class mock
-/// ```
-///
-/// Generated mock types are suffixed with `Mock` and should not be coerced into their supertype.
-///
-/// ```swift
-/// let bird: BirdMock = mock(Bird.self)  // The concrete type is `BirdMock`
-/// let inferredBird = mock(Bird.self)    // Type inference also works
-/// let coerced: Bird = mock(Bird.self)   // Avoid upcasting mocks
-/// ```
-///
-/// - Parameter type: The type to mock.
-@available(*, unavailable, message: "No generated mock for this type which might be resolved by building the test target (⇧⌘U)")
-public func mock<T>(_ type: T.Type) -> T { fatalError() }
+/// Each generated mock defines a specialized version of `mock`, and the absence of a mocked type is
+/// detected at compile time with this overload. In most cases, generating mocks for the current
+/// test target will fix the issue. Otherwise, please consult the troubleshooting guide for
+/// additional solutions: https://mockingbirdswift.com/common-problems
+@available(*, unavailable,
+           message: "No generated mock for this type; try building the test target (⇧⌘U) to generate mocks")
+public func mock<T>(_ type: T.Type) -> T {
+  fatalError()
+}
 
 /// Returns a dynamic mock of a given Objective-C object type.
 ///

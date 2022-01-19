@@ -61,6 +61,31 @@ public func given<DeclarationType: Declaration, InvocationType, ReturnType>(
                                context: declaration.mock.mockingbirdContext)
 }
 
+/// Stub a Swift declaration to return a value or perform an operation.
+///
+/// This overload is used to help debug typing errors by disambiguating Swift method declarations
+/// from Objective-C or property declarations.
+///
+/// - Parameter declaration: A stubbable Swift declaration.
+public func givenSwift<DeclarationType: Declaration, InvocationType, ReturnType>(
+  _ declaration: Mockable<DeclarationType, InvocationType, ReturnType>
+) -> StaticStubbingManager<DeclarationType, InvocationType, ReturnType> {
+  return given(declaration)
+}
+
+/// Overload to catch Swift typing errors.
+///
+/// Stubbing a Swift method with incorrect parameter or return types is not always caught by the
+/// compiler due to the generic version of `given` for Objective-C and property declarations. This
+/// overload ensures that stubs with mismatched types are surfaced as a compile-time warning.
+///
+/// - Parameter declaration: A stubbable Swift declaration.
+@available(*, deprecated, renamed: "givenSwift",
+           message: "Unable to infer types for this stub; switch to 'givenSwift' to disambiguate")
+public func given<T: AnyMockable>(_ declaration: T) -> DynamicStubbingManager<Never> {
+  fatalError("Incorrect parameter or return types")
+}
+
 /// Stub an Objective-C or property declaration to return a value or perform an operation.
 ///
 /// Stubbing allows you to define custom behavior for mocks to perform.
@@ -96,6 +121,7 @@ public func given<DeclarationType: Declaration, InvocationType, ReturnType>(
 /// ```
 ///
 /// - Parameter declaration: A stubbable declaration.
+@_disfavoredOverload
 public func given<ReturnType>(
   _ declaration: @autoclosure () throws -> ReturnType
 ) -> DynamicStubbingManager<ReturnType> {
@@ -528,4 +554,67 @@ public func ~> <DeclarationType: Declaration, InvocationType, ReturnType>(
   forwardingContext: ForwardingContext
 ) {
   manager.addForwardingTarget(forwardingContext.target)
+}
+
+// MARK: Dynamic stubbing compatibility
+
+/// Stub a mocked method or property by returning an implicitly unwrapped optional value.
+///
+/// Implicitly unwrapped optional stubs cannot be automatically unwrapped by the compiler due to the
+/// generic overload of `given` for Objective-C and property declarations. This function allows you
+/// to pass an optional in place of the expected non-optional return type to support storing stubs
+/// as an implicitly unwrapped variable.
+///
+/// ```swift
+/// let name: String! = "Ryan"
+/// given(bird.name) ~> name  // Converted from `String?` to `String`
+/// ```
+///
+/// - Parameters:
+///   - manager: A stubbing manager containing declaration and argument metadata for stubbing.
+///   - implementation: A stubbed implicitly unwrapped optional value to return.
+public func ~> <DeclarationType: Declaration, InvocationType, ReturnType>(
+  manager: StaticStubbingManager<DeclarationType, InvocationType, ReturnType>,
+  implementation: @escaping @autoclosure () -> ReturnType?
+) {
+  manager.addImplementation({ () -> ReturnType in
+    guard let value = implementation() else {
+      // Ideally this would be a compile-time check.
+      preconditionFailure(FailTest("Cannot stub 'nil' for a method with a non-optional return type",
+                                   isFatal: true))
+    }
+    return value
+  })
+}
+
+/// Stub an optional mocked method or property with a concrete value.
+///
+/// Concrete value stubs cannot be automatically wrapped to an optional by the compiler due to the
+/// generic overload of `given` for Objective-C and property declarations. This function allows you
+/// to pass a value in place of an expected optional return type.
+///
+/// ```swift
+/// protocol Bird {
+///   var optionalName: String? { get }
+/// }
+/// given(bird.optionalName) ~> "Ryan"  // Converted from `String` to `String?`
+/// ```
+public func ~> <DeclarationType: Declaration, InvocationType, ReturnType: AnyOptional>(
+  manager: StaticStubbingManager<DeclarationType, InvocationType, ReturnType>,
+  implementation: @escaping @autoclosure () -> ReturnType.Wrapped
+) {
+  manager.addImplementation({ () -> ReturnType in
+    // Re-wrap the optional to match the expected implementation type.
+    return Optional<ReturnType.Wrapped>(implementation()) as! ReturnType
+  })
+}
+
+/// Overload to catch Swift typing errors.
+///
+/// See ``givenSwift(_:)`` for more information.
+public func ~> <Implementation>(
+  manager: DynamicStubbingManager<Never>,
+  implementation: Implementation
+) {
+    fatalError()
 }
