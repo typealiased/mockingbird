@@ -26,17 +26,25 @@ given(bird.chirp(volume: any())) ~> { volume in  // Call a closure
 
 ### Stub Methods with Parameters
 
-[Match argument values](#4-argument-matching) to stub parameterized methods. Stubs added later have a higher precedence, so add stubs with specific matchers last.
+You can match exact or wildcard argument values when stubbing. See <doc:Matching-Arguments> for more examples.
 
 ```swift
 given(bird.chirp(volume: any())).willReturn(true)     // Any volume
 given(bird.chirp(volume: notNil())).willReturn(true)  // Any non-nil volume
-given(bird.chirp(volume: 10)).willReturn(true)        // Volume = 10
+given(bird.chirp(volume: 42)).willReturn(true)        // Volume = 42
+```
+
+It’s possible to add multiple stubs to a single method or property. Stubs are checked in reverse order, so add stubs with specific matchers last.
+
+```swift
+given(bird.chirp(volume: 42)).willReturn(true)      // #2
+given(bird.chirp(volume: any())).willReturn(false)  // #1
+print(bird.chirp(volume: 42))  // Prints "false"
 ```
 
 ### Stub Properties
 
-Properties can have stubs on both their getters and setters.
+Property getters and setters can both be stubbed.
 
 ```swift
 given(bird.name).willReturn("Ryan")
@@ -118,11 +126,11 @@ Partial mocks can be created by forwarding all calls to a specific object. Forwa
 ```swift
 class Crow: Bird {
   let name: String
-  init(name: String) { self.name = name }
+  init(_ name: String) { self.name = name }
 }
 
 let bird = mock(Bird.self)
-bird.forwardCalls(to: Crow(name: "Ryan"))
+bird.forwardCalls(to: Crow("Ryan"))
 print(bird.name)  // Prints "Ryan"
 ```
 
@@ -137,8 +145,8 @@ print(tree.height)  // Prints "42"
 For more granular stubbing, it’s possible to scope both object and superclass forwarding targets to a specific declaration.
 
 ```swift
-given(bird.name).willForward(to: Crow(name: "Ryan"))  // Object target
-given(tree.height).willForwardToSuper()               // Superclass target
+given(bird.name).willForward(to: Crow("Ryan"))  // Object target
+given(tree.height).willForwardToSuper()         // Superclass target
 ```
 
 Concrete stubs always have a higher priority than forwarding targets, regardless of the order
@@ -146,7 +154,7 @@ they were added.
 
 ```swift
 given(bird.name).willReturn("Ryan")
-given(bird.name).willForward(to: Crow(name: "Sterling"))
+given(bird.name).willForward(to: Crow("Sterling"))
 print(bird.name)  // Prints "Ryan"
 ```
 
