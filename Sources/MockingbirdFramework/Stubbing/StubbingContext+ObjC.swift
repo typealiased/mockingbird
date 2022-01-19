@@ -43,7 +43,7 @@ extension StubbingContext {
         ?? Self.noImplementation
       // It's possible to stub `NSNull` as a return value, so we need to check that this is an
       // actual nil Swift value before creating a `NilValue` representation for Obj-C.
-      if !(value is NSNull) && MKBCheckIfTypeErasedNil(value) {
+      if !(value is NSNull) && (value as? Nullable)?.isNil ?? false {
         return NilValue()
       } else {
         return value
