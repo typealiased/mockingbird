@@ -161,6 +161,34 @@ class StubbingTests: BaseTestCase {
     }
   }
   
+  // MARK: Implicitly unwrapped optionals
+  
+  func testStubReturnIUOValue_onClassMock() {
+    let value: Bool! = true
+    given(child.getChildComputedInstanceVariable()) ~> value
+    XCTAssertTrue(childInstance.childComputedInstanceVariable)
+    verify(child.getChildComputedInstanceVariable()).wasCalled()
+  }
+  func testStubReturnIUOValue_onProtocolMock() {
+    let value: Bool! = true
+    given(childProtocol.getChildInstanceVariable()) ~> value
+    XCTAssertTrue(childProtocolInstance.childInstanceVariable)
+    verify(childProtocol.getChildInstanceVariable()).wasCalled()
+  }
+  
+  func testStubReturnIUOValue_onClassMock_explicitSyntax() {
+    let value: Bool! = true
+    given(child.getChildComputedInstanceVariable()).willReturn(value)
+    XCTAssertTrue(childInstance.childComputedInstanceVariable)
+    verify(child.getChildComputedInstanceVariable()).wasCalled()
+  }
+  func testStubReturnIUOValue_onProtocolMock_explicitSyntax() {
+    let value: Bool! = true
+    given(childProtocol.getChildInstanceVariable()).willReturn(value)
+    XCTAssertTrue(childProtocolInstance.childInstanceVariable)
+    verify(childProtocol.getChildInstanceVariable()).wasCalled()
+  }
+  
   // MARK: Value consistency
   
   func testStubReturnValueReturnsSameValue_onClassMock() {

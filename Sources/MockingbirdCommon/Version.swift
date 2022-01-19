@@ -1,7 +1,9 @@
 import Foundation
 
+/// The current version of Mockingbird.
 public let mockingbirdVersion = Version(shortString: "0.19.0")
 
+/// A comparable semantic version.
 public struct Version: Comparable, CustomStringConvertible {
   public let semver: [Int]
   public var shortString: String { return semver.map({ "\($0)" }).joined(separator: ".") }

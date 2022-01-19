@@ -184,6 +184,7 @@ given(bird.name)
 
 - ``/documentation/Mockingbird/given(_:)-8yr0t``
 - ``/documentation/Mockingbird/given(_:)-88nm9``
+- ``givenSwift(_:)``
 
 ### Forwarding Invocations
 

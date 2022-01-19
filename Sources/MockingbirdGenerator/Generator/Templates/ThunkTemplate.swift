@@ -66,7 +66,7 @@ class ThunkTemplate: Template {
     let callBridgedDefault: String = {
       guard isBridged else { return "" }
       let bridgedSignature = """
-      (\(String(list: Array(repeating: "Any?", count: unlabledArguments.count)))) -> Any?
+      (\(String(list: Array(repeating: "Any?", count: unlabledArguments.count)))) -> Any
       """
       return IfStatementTemplate(
         condition: "let mkbImpl = mkbImpl as? \(bridgedSignature)",
@@ -82,9 +82,9 @@ class ThunkTemplate: Template {
         """).render()
     }()
     let callBridgedConvenience: String = {
-      guard isBridged else { return "" }
+      guard isBridged, !unlabledArguments.isEmpty else { return "" }
       return IfStatementTemplate(
-        condition: "let mkbImpl = mkbImpl as? () -> Any?",
+        condition: "let mkbImpl = mkbImpl as? () -> Any",
         body: """
         return \(FunctionCallTemplate(
                   name: "Mockingbird.dynamicCast",

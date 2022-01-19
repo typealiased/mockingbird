@@ -5,13 +5,13 @@ import XCTest
 @objc(MKBStubbingContext) public class StubbingContext: NSObject {
   struct Stub {
     let invocation: Invocation
-    let implementationProvider: () -> Any?
+    let implementationProvider: () -> Any
   }
   var stubs = Synchronized<[String: [Stub]]>([:])
   var defaultValueProvider = Synchronized<ValueProvider>(ValueProvider())
   
   func swizzle(_ invocation: Invocation,
-               with implementationProvider: @escaping () -> Any?) -> Stub {
+               with implementationProvider: @escaping () -> Any) -> Stub {
     let stub = Stub(invocation: invocation, implementationProvider: implementationProvider)
     stubs.update { $0[invocation.selectorName, default: []].append(stub) }
     return stub

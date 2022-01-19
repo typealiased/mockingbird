@@ -201,7 +201,7 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   init(invocation: Invocation, context: Context) {
     self.context = context
     self.invocation = invocation
-    let stub = context.stubbing.swizzle(invocation) { return self.getCurrentImplementation() }
+    let stub = context.stubbing.swizzle(invocation) { self.getCurrentImplementation() as Any }
     self.stubs.append((stub, context))
   }
   
@@ -267,13 +267,21 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   /// given(bird.property).willReturn(someValue)
   /// ```
   ///
-  /// Match exact or wildcard argument values when stubbing methods with parameters. Stubs added
-  /// later have a higher precedence, so add stubs with specific matchers last.
+  /// You can match exact or wildcard argument values when stubbing.
   ///
   /// ```swift
   /// given(bird.canChirp(volume: any())).willReturn(true)     // Any volume
   /// given(bird.canChirp(volume: notNil())).willReturn(true)  // Any non-nil volume
   /// given(bird.canChirp(volume: 10)).willReturn(true)        // Volume = 10
+  /// ```
+  ///
+  /// It’s possible to add multiple stubs to a single method or property. Stubs are checked in
+  /// reverse order, so add stubs with specific matchers last.
+  ///
+  /// ```swift
+  /// given(bird.chirp(volume: 42)).willReturn(true)      // #2
+  /// given(bird.chirp(volume: any())).willReturn(false)  // #1
+  /// print(bird.chirp(volume: 42))  // Prints "false"
   /// ```
   ///
   /// - Parameter value: A stubbed value to return.
@@ -449,13 +457,21 @@ infix operator ~>
 /// given(bird.property) ~> someValue
 /// ```
 ///
-/// Match exact or wildcard argument values when stubbing methods with parameters. Stubs added
-/// later have a higher precedence, so add stubs with specific matchers last.
+/// You can match exact or wildcard argument values when stubbing.
 ///
 /// ```swift
 /// given(bird.canChirp(volume: any())) ~> true     // Any volume
 /// given(bird.canChirp(volume: notNil())) ~> true  // Any non-nil volume
 /// given(bird.canChirp(volume: 10)) ~> true        // Volume = 10
+/// ```
+///
+/// It’s possible to add multiple stubs to a single method or property. Stubs are checked in
+/// reverse order, so add stubs with specific matchers last.
+///
+/// ```swift
+/// given(bird.chirp(volume: 42)) ~> true      // #2
+/// given(bird.chirp(volume: any())) ~> false  // #1
+/// print(bird.chirp(volume: 42))  // Prints "false"
 /// ```
 ///
 /// - Parameters:
