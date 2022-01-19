@@ -19,7 +19,7 @@ verify(bird.fly()).wasCalled()  // ...this also succeeds
 
 ### Verify Methods with Parameters
 
-[Match argument values](#4-argument-matching) to verify methods with parameters.
+You can match exact or wildcard argument values when verifying. See <doc:Matching-Arguments> for more examples.
 
 ```swift
 verify(bird.chirp(volume: any())).wasCalled()     // Any volume
@@ -29,7 +29,7 @@ verify(bird.chirp(volume: 10)).wasCalled()        // Volume = 10
 
 ### Verify Properties
 
-Verify property invocations using their getter and setter methods.
+Property getters and setters can both be verified.
 
 ```swift
 verify(bird.name).wasCalled()

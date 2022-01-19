@@ -7,7 +7,7 @@ Look up solutions to common issues.
 Need help? Join the [#mockingbird Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw) or
 [file an issue](https://github.com/birdrides/mockingbird/issues/new/choose).
 
-> Note: The problems below are ordered by how far in the setup process they would occur.
+> Note: The problems below are ordered by how far in the setup process they typically occur.
 
 ### Mocks don’t exist or are out of date
 
