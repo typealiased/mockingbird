@@ -1,5 +1,6 @@
 import Foundation
 
+/// A simple wrapper for thread-safe data access.
 public class Synchronized<T> {
   private(set) public var unsafeValue: T
   public var value: T {

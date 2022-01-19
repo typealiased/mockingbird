@@ -29,7 +29,9 @@ public class DynamicStubbingManager<ReturnType>:
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
   @discardableResult
   override public func willReturn(_ value: ReturnType) -> Self {
-    return addImplementation({ () -> Any? in return value as Any? })
+    return addImplementation({ () -> Any in
+      return value as Any
+    })
   }
   
   /// Stub a mocked method that throws with an error.
@@ -52,7 +54,9 @@ public class DynamicStubbingManager<ReturnType>:
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
   @discardableResult
   public func willThrow(_ error: Error) -> Self {
-    return addImplementation({ () throws -> Any? in throw error })
+    return addImplementation({ () throws -> Any in
+      throw error
+    })
   }
   
   // MARK: - Non-throwing
@@ -75,7 +79,7 @@ public class DynamicStubbingManager<ReturnType>:
     _ implementation: @escaping () -> ReturnType
   ) -> Self {
     return addImplementation({
-      implementation() as Any?
+      implementation() as Any
     })
   }
 
@@ -98,7 +102,7 @@ public class DynamicStubbingManager<ReturnType>:
   ) -> Self {
     return addImplementation({
       (p0: Any?) in
-      implementation(p0 as! P0) as Any?
+      implementation(p0 as! P0) as Any
     })
   }
   
@@ -121,7 +125,7 @@ public class DynamicStubbingManager<ReturnType>:
   ) -> Self {
     return addImplementation({
       (p0: Any?, p1: Any?) in
-      implementation(p0 as! P0, p1 as! P1) as Any?
+      implementation(p0 as! P0, p1 as! P1) as Any
     })
   }
   
@@ -144,7 +148,7 @@ public class DynamicStubbingManager<ReturnType>:
   ) -> Self {
     return addImplementation({
       (p0: Any?, p1: Any?, p2: Any?) in
-      implementation(p0 as! P0, p1 as! P1, p2 as! P2) as Any?
+      implementation(p0 as! P0, p1 as! P1, p2 as! P2) as Any
     })
   }
   
@@ -167,7 +171,7 @@ public class DynamicStubbingManager<ReturnType>:
   ) -> Self {
     return addImplementation({
       (p0: Any?, p1: Any?, p2: Any?, p3: Any?) in
-      implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3) as Any?
+      implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3) as Any
     })
   }
   
@@ -190,7 +194,7 @@ public class DynamicStubbingManager<ReturnType>:
   ) -> Self {
     return addImplementation({
       (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?) in
-      implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4) as Any?
+      implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4) as Any
     })
   }
   
@@ -213,7 +217,7 @@ public class DynamicStubbingManager<ReturnType>:
   ) -> Self {
     return addImplementation({
       (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?) in
-      implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5) as Any?
+      implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5) as Any
     })
   }
   
@@ -237,7 +241,7 @@ public class DynamicStubbingManager<ReturnType>:
     return addImplementation({
       (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?) in
       implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5, p6 as! P6)
-        as Any?
+        as Any
     })
   }
   
@@ -261,7 +265,7 @@ public class DynamicStubbingManager<ReturnType>:
     return addImplementation({
       (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?, p7: Any?) in
        implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5, p6 as! P6,
-                      p7 as! P7) as Any?
+                      p7 as! P7) as Any
     })
   }
   
@@ -285,7 +289,7 @@ public class DynamicStubbingManager<ReturnType>:
     return addImplementation({
       (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?, p7: Any?, p8: Any?) in
        implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5, p6 as! P6,
-                      p7 as! P7, p8 as! P8) as Any?
+                      p7 as! P7, p8 as! P8) as Any
     })
   }
   
@@ -307,9 +311,10 @@ public class DynamicStubbingManager<ReturnType>:
     _ implementation: @escaping (P0,P1,P2,P3,P4,P5,P6,P7,P8,P9) -> ReturnType
   ) -> Self {
     return addImplementation({
-      (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?, p7: Any?, p8: Any?, p9: Any?) in
+      (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?, p7: Any?, p8: Any?,
+       p9: Any?) in
       implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5, p6 as! P6,
-                     p7 as! P7, p8 as! P8, p9 as! P9) as Any?
+                     p7 as! P7, p8 as! P8, p9 as! P9) as Any
     })
   }
   
@@ -333,7 +338,7 @@ public class DynamicStubbingManager<ReturnType>:
     _ implementation: @escaping () throws -> ReturnType
   ) -> Self {
     return addImplementation({
-      try implementation() as Any?
+      try implementation() as Any
     })
   }
 
@@ -356,7 +361,7 @@ public class DynamicStubbingManager<ReturnType>:
   ) -> Self {
     return addImplementation({
       (p0: Any?) in
-      try implementation(p0 as! P0) as Any?
+      try implementation(p0 as! P0) as Any
     })
   }
   
@@ -379,7 +384,7 @@ public class DynamicStubbingManager<ReturnType>:
   ) -> Self {
     return addImplementation({
       (p0: Any?, p1: Any?) in
-      try implementation(p0 as! P0, p1 as! P1) as Any?
+      try implementation(p0 as! P0, p1 as! P1) as Any
     })
   }
   
@@ -402,7 +407,7 @@ public class DynamicStubbingManager<ReturnType>:
   ) -> Self {
     return addImplementation({
       (p0: Any?, p1: Any?, p2: Any?) in
-      try implementation(p0 as! P0, p1 as! P1, p2 as! P2) as Any?
+      try implementation(p0 as! P0, p1 as! P1, p2 as! P2) as Any
     })
   }
   
@@ -425,7 +430,7 @@ public class DynamicStubbingManager<ReturnType>:
   ) -> Self {
     return addImplementation({
       (p0: Any?, p1: Any?, p2: Any?, p3: Any?) in
-      try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3) as Any?
+      try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3) as Any
     })
   }
   
@@ -448,7 +453,7 @@ public class DynamicStubbingManager<ReturnType>:
   ) -> Self {
     return addImplementation({
       (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?) in
-      try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4) as Any?
+      try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4) as Any
     })
   }
   
@@ -471,7 +476,7 @@ public class DynamicStubbingManager<ReturnType>:
   ) -> Self {
     return addImplementation({
       (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?) in
-      try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5) as Any?
+      try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5) as Any
     })
   }
   
@@ -495,7 +500,7 @@ public class DynamicStubbingManager<ReturnType>:
     return addImplementation({
       (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?) in
       try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5,
-                         p6 as! P6) as Any?
+                         p6 as! P6) as Any
     })
   }
   
@@ -519,7 +524,7 @@ public class DynamicStubbingManager<ReturnType>:
     return addImplementation({
       (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?, p7: Any?) in
        try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5,
-                          p6 as! P6, p7 as! P7) as Any?
+                          p6 as! P6, p7 as! P7) as Any
     })
   }
   
@@ -541,7 +546,7 @@ public class DynamicStubbingManager<ReturnType>:
     return addImplementation({
       (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?, p7: Any?, p8: Any?) in
        try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5,
-                          p6 as! P6, p7 as! P7, p8 as! P8) as Any?
+                          p6 as! P6, p7 as! P7, p8 as! P8) as Any
     })
   }
   
@@ -561,9 +566,10 @@ public class DynamicStubbingManager<ReturnType>:
     _ implementation: @escaping (P0,P1,P2,P3,P4,P5,P6,P7,P8,P9) throws -> ReturnType
   ) -> Self {
     return addImplementation({
-      (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?, p7: Any?, p8: Any?, p9: Any?) in
+      (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?, p7: Any?, p8: Any?,
+       p9: Any?) in
       try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5,
-                         p6 as! P6, p7 as! P7, p8 as! P8, p9 as! P9) as Any?
+                         p6 as! P6, p7 as! P7, p8 as! P8, p9 as! P9) as Any
     })
   }
 }

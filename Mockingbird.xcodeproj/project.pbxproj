@@ -368,7 +368,6 @@
 		OBJ_879 /* MockingContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* MockingContext.swift */; };
 		OBJ_881 /* Stubbing.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* Stubbing.swift */; };
 		OBJ_882 /* StubbingContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_42 /* StubbingContext.swift */; };
-		OBJ_883 /* TestKiller.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_43 /* TestKiller.swift */; };
 		OBJ_884 /* ValueProvider+Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_44 /* ValueProvider+Collections.swift */; };
 		OBJ_885 /* ValueProvider+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_45 /* ValueProvider+Foundation.swift */; };
 		OBJ_886 /* ValueProvider+Tuples.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_46 /* ValueProvider+Tuples.swift */; };
@@ -930,7 +929,6 @@
 		OBJ_38 /* MockingContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockingContext.swift; sourceTree = "<group>"; };
 		OBJ_41 /* Stubbing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stubbing.swift; sourceTree = "<group>"; };
 		OBJ_42 /* StubbingContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbingContext.swift; sourceTree = "<group>"; };
-		OBJ_43 /* TestKiller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKiller.swift; sourceTree = "<group>"; };
 		OBJ_44 /* ValueProvider+Collections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValueProvider+Collections.swift"; sourceTree = "<group>"; };
 		OBJ_45 /* ValueProvider+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValueProvider+Foundation.swift"; sourceTree = "<group>"; };
 		OBJ_46 /* ValueProvider+Tuples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValueProvider+Tuples.swift"; sourceTree = "<group>"; };
@@ -1847,7 +1845,6 @@
 				28719AF226B22D1300C38C2C /* Stubbing+ObjC.swift */,
 				OBJ_42 /* StubbingContext.swift */,
 				2896E51726A6E93A00124D02 /* StubbingContext+ObjC.swift */,
-				OBJ_43 /* TestKiller.swift */,
 				OBJ_47 /* ValueProvider.swift */,
 				OBJ_44 /* ValueProvider+Collections.swift */,
 				OBJ_45 /* ValueProvider+Foundation.swift */,
@@ -2726,7 +2723,6 @@
 				OBJ_882 /* StubbingContext.swift in Sources */,
 				28571AB926A666070063AB83 /* MKBUnsignedCharInvocationHandler.m in Sources */,
 				28571AAD26A664340063AB83 /* MKBSelectorInvocationHandler.m in Sources */,
-				OBJ_883 /* TestKiller.swift in Sources */,
 				28A1F3C226ADC9DA002F282D /* PropertyProviders.swift in Sources */,
 				28FB7EC22789C14000125FDA /* Version.swift in Sources */,
 				OBJ_884 /* ValueProvider+Collections.swift in Sources */,

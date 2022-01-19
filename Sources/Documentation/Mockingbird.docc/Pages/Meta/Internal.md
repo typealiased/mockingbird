@@ -11,6 +11,7 @@ Functionality not designed for general use.
 - ``MockingContext``
 - ``StaticMock``
 - ``MockMetadata``
+- ``/documentation/Mockingbird/mock(_:)-kz0y``
 
 ### Stubbing
 
@@ -19,16 +20,15 @@ Functionality not designed for general use.
 - ``StaticStubbingManager``
 - ``ForwardingContext``
 - ``ImplementationProvider``
+- ``/documentation/Mockingbird/given(_:)-f9d8``
+- ``/documentation/Mockingbird/~_(_:_:)-169fr``
+- ``/documentation/Mockingbird/~_(_:_:)-9qohy``
+- ``/documentation/Mockingbird/~_(_:_:)-557fp``
 - <doc:ObjC-Stubbing-Operator>
 
 ### Verification
 
 - ``VerificationManager``
-
-### Testing
-
-- ``swizzleTestFailer(_:)``
-- ``documentation/Mockingbird/mock(_:)-kz0y``
 
 ### Runtime
 
@@ -45,6 +45,9 @@ Functionality not designed for general use.
 - ``Synchronized``
 - ``Version``
 - ``mockingbirdVersion``
+- ``swizzleTestFailer(_:)``
+- ``AnyMockable``
+- ``AnyOptional``
 
 ### Objective-C
 

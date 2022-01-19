@@ -25,7 +25,9 @@ public func ~> <ReturnType>(
   manager: DynamicStubbingManager<ReturnType>,
   implementation: @escaping @autoclosure () -> ReturnType
 ) {
-  manager.addImplementation({ implementation() as Any? })
+  manager.addImplementation({
+    implementation() as Any
+  })
 }
 
 
@@ -49,7 +51,7 @@ public func ~> <ReturnType>(
   implementation: @escaping () -> ReturnType
 ) {
   manager.addImplementation({
-    implementation() as Any?
+    implementation() as Any
   })
 }
 
@@ -72,7 +74,7 @@ public func ~> <P0,ReturnType>(
 ) {
   manager.addImplementation({
     (p0: Any?) in
-    implementation(p0 as! P0) as Any?
+    implementation(p0 as! P0) as Any
   })
 }
 
@@ -95,7 +97,7 @@ public func ~> <P0,P1,ReturnType>(
 ) {
   manager.addImplementation({
     (p0: Any?, p1: Any?) in
-    implementation(p0 as! P0, p1 as! P1) as Any?
+    implementation(p0 as! P0, p1 as! P1) as Any
   })
 }
 
@@ -118,7 +120,7 @@ public func ~> <P0,P1,P2,ReturnType>(
 ) {
   manager.addImplementation({
     (p0: Any?, p1: Any?, p2: Any?) in
-    implementation(p0 as! P0, p1 as! P1, p2 as! P2) as Any?
+    implementation(p0 as! P0, p1 as! P1, p2 as! P2) as Any
   })
 }
 
@@ -141,7 +143,7 @@ public func ~> <P0,P1,P2,P3,ReturnType>(
 ) {
   manager.addImplementation({
     (p0: Any?, p1: Any?, p2: Any?, p3: Any?) in
-    implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3) as Any?
+    implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3) as Any
   })
 }
 
@@ -164,7 +166,7 @@ public func ~> <P0,P1,P2,P3,P4,ReturnType>(
 ) {
   manager.addImplementation({
     (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?) in
-    implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4) as Any?
+    implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4) as Any
   })
 }
 
@@ -187,7 +189,7 @@ public func ~> <P0,P1,P2,P3,P4,P5,ReturnType>(
 ) {
   manager.addImplementation({
     (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?) in
-    implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5) as Any?
+    implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5) as Any
   })
 }
 
@@ -211,7 +213,7 @@ public func ~> <P0,P1,P2,P3,P4,P5,P6,ReturnType>(
   manager.addImplementation({
     (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?) in
     implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5, p6 as! P6)
-      as Any?
+      as Any
   })
 }
 
@@ -235,7 +237,7 @@ public func ~> <P0,P1,P2,P3,P4,P5,P6,P7,ReturnType>(
   manager.addImplementation({
     (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?, p7: Any?) in
     implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5, p6 as! P6,
-                   p7 as! P7) as Any?
+                   p7 as! P7) as Any
   })
 }
 
@@ -259,7 +261,7 @@ public func ~> <P0,P1,P2,P3,P4,P5,P6,P7,P8,ReturnType>(
   manager.addImplementation({
     (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?, p7: Any?, p8: Any?) in
     implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5, p6 as! P6,
-                   p7 as! P7, p8 as! P8) as Any?
+                   p7 as! P7, p8 as! P8) as Any
   })
 }
 
@@ -284,7 +286,7 @@ public func ~> <P0,P1,P2,P3,P4,P5,P6,P7,P8,P9,ReturnType>(
     (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?, p7: Any?, p8: Any?,
      p9: Any?) in
     implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5, p6 as! P6,
-                   p7 as! P7, p8 as! P8, p9 as! P9) as Any?
+                   p7 as! P7, p8 as! P8, p9 as! P9) as Any
   })
 }
 
@@ -309,7 +311,7 @@ public func ~> <ReturnType>(
   implementation: @escaping () throws -> ReturnType
 ) {
   manager.addImplementation({
-    try implementation() as Any?
+    try implementation() as Any
   })
 }
 
@@ -332,7 +334,7 @@ public func ~> <P0,ReturnType>(
 ) {
   manager.addImplementation({
     (p0: Any?) in
-    try implementation(p0 as! P0) as Any?
+    try implementation(p0 as! P0) as Any
   })
 }
 
@@ -355,7 +357,7 @@ public func ~> <P0,P1,ReturnType>(
 ) {
   manager.addImplementation({
     (p0: Any?, p1: Any?) in
-    try implementation(p0 as! P0, p1 as! P1) as Any?
+    try implementation(p0 as! P0, p1 as! P1) as Any
   })
 }
 
@@ -378,7 +380,7 @@ public func ~> <P0,P1,P2,ReturnType>(
 ) {
   manager.addImplementation({
     (p0: Any?, p1: Any?, p2: Any?) in
-    try implementation(p0 as! P0, p1 as! P1, p2 as! P2) as Any?
+    try implementation(p0 as! P0, p1 as! P1, p2 as! P2) as Any
   })
 }
 
@@ -401,7 +403,7 @@ public func ~> <P0,P1,P2,P3,ReturnType>(
 ) {
   manager.addImplementation({
     (p0: Any?, p1: Any?, p2: Any?, p3: Any?) in
-    try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3) as Any?
+    try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3) as Any
   })
 }
 
@@ -424,7 +426,7 @@ public func ~> <P0,P1,P2,P3,P4,ReturnType>(
 ) {
   manager.addImplementation({
     (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?) in
-    try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4) as Any?
+    try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4) as Any
   })
 }
 
@@ -447,7 +449,7 @@ public func ~> <P0,P1,P2,P3,P4,P5,ReturnType>(
 ) {
   manager.addImplementation({
     (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?) in
-    try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5) as Any?
+    try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5) as Any
   })
 }
 
@@ -471,7 +473,7 @@ public func ~> <P0,P1,P2,P3,P4,P5,P6,ReturnType>(
   manager.addImplementation({
     (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?) in
     try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5, p6 as! P6)
-      as Any?
+      as Any
   })
 }
 
@@ -495,7 +497,7 @@ public func ~> <P0,P1,P2,P3,P4,P5,P6,P7,ReturnType>(
   manager.addImplementation({
     (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?, p7: Any?) in
     try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5, p6 as! P6,
-                       p7 as! P7) as Any?
+                       p7 as! P7) as Any
   })
 }
 
@@ -519,7 +521,7 @@ public func ~> <P0,P1,P2,P3,P4,P5,P6,P7,P8,ReturnType>(
   manager.addImplementation({
     (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?, p7: Any?, p8: Any?) in
     try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5, p6 as! P6,
-                       p7 as! P7, p8 as! P8) as Any?
+                       p7 as! P7, p8 as! P8) as Any
   })
 }
 
@@ -544,7 +546,7 @@ public func ~> <P0,P1,P2,P3,P4,P5,P6,P7,P8,P9,ReturnType>(
     (p0: Any?, p1: Any?, p2: Any?, p3: Any?, p4: Any?, p5: Any?, p6: Any?, p7: Any?, p8: Any?,
      p9: Any?) in
     try implementation(p0 as! P0, p1 as! P1, p2 as! P2, p3 as! P3, p4 as! P4, p5 as! P5, p6 as! P6,
-                       p7 as! P7, p8 as! P8, p9 as! P9) as Any?
+                       p7 as! P7, p8 as! P8, p9 as! P9) as Any
   })
 }
 

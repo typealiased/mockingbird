@@ -63,37 +63,37 @@ extension StubbingContext {
     return defaultValueProvider.read({ $0.provideValue(for: invocation.objcReturnType) })
   }
   
-  private func applyInvocation(_ invocation: ObjCInvocation,
-                               to implementation: Any?) -> Any? {
-    if let concreteImplementation = implementation as? () -> Any? {
+  private func applyInvocation(_ invocation: ObjCInvocation, to implementation: Any?) -> Any? {
+    if let concreteImplementation = implementation
+                as? () -> Any {
       return concreteImplementation()
     } else if let concreteImplementation = implementation
-                as? (Any?) -> Any? {
+                as? (Any?) -> Any {
       return concreteImplementation(invocation.arguments.get(0)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?) -> Any? {
+                as? (Any?, Any?) -> Any {
       return concreteImplementation(invocation.arguments.get(0)?.base,
                                     invocation.arguments.get(1)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?) -> Any? {
+                as? (Any?, Any?, Any?) -> Any {
       return concreteImplementation(invocation.arguments.get(0)?.base,
                                     invocation.arguments.get(1)?.base,
                                     invocation.arguments.get(2)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?) -> Any? {
+                as? (Any?, Any?, Any?, Any?) -> Any {
       return concreteImplementation(invocation.arguments.get(0)?.base,
                                     invocation.arguments.get(1)?.base,
                                     invocation.arguments.get(2)?.base,
                                     invocation.arguments.get(3)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?) -> Any? {
+                as? (Any?, Any?, Any?, Any?, Any?) -> Any {
       return concreteImplementation(invocation.arguments.get(0)?.base,
                                     invocation.arguments.get(1)?.base,
                                     invocation.arguments.get(2)?.base,
                                     invocation.arguments.get(3)?.base,
                                     invocation.arguments.get(4)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?, Any?) -> Any? {
+                as? (Any?, Any?, Any?, Any?, Any?, Any?) -> Any {
       return concreteImplementation(invocation.arguments.get(0)?.base,
                                     invocation.arguments.get(1)?.base,
                                     invocation.arguments.get(2)?.base,
@@ -101,7 +101,7 @@ extension StubbingContext {
                                     invocation.arguments.get(4)?.base,
                                     invocation.arguments.get(5)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Any? {
+                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Any {
       return concreteImplementation(invocation.arguments.get(0)?.base,
                                     invocation.arguments.get(1)?.base,
                                     invocation.arguments.get(2)?.base,
@@ -110,7 +110,7 @@ extension StubbingContext {
                                     invocation.arguments.get(5)?.base,
                                     invocation.arguments.get(6)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Any? {
+                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Any {
       return concreteImplementation(invocation.arguments.get(0)?.base,
                                     invocation.arguments.get(1)?.base,
                                     invocation.arguments.get(2)?.base,
@@ -120,7 +120,7 @@ extension StubbingContext {
                                     invocation.arguments.get(6)?.base,
                                     invocation.arguments.get(7)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Any? {
+                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Any {
       return concreteImplementation(invocation.arguments.get(0)?.base,
                                     invocation.arguments.get(1)?.base,
                                     invocation.arguments.get(2)?.base,
@@ -131,7 +131,7 @@ extension StubbingContext {
                                     invocation.arguments.get(7)?.base,
                                     invocation.arguments.get(8)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Any? {
+                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Any {
       return concreteImplementation(invocation.arguments.get(0)?.base,
                                     invocation.arguments.get(1)?.base,
                                     invocation.arguments.get(2)?.base,
@@ -148,35 +148,36 @@ extension StubbingContext {
   
   private func applyThrowingInvocation(_ invocation: ObjCInvocation,
                                        to implementation: Any?) throws -> Any? {
-    if let concreteImplementation = implementation as? () throws -> Any? {
+    if let concreteImplementation = implementation
+                as? () throws -> Any {
       return try concreteImplementation()
     } else if let concreteImplementation = implementation
-                as? (Any?) throws -> Any? {
+                as? (Any?) throws -> Any {
       return try concreteImplementation(invocation.arguments.get(0)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?) throws -> Any? {
+                as? (Any?, Any?) throws -> Any {
       return try concreteImplementation(invocation.arguments.get(0)?.base,
                                         invocation.arguments.get(1)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?) throws -> Any? {
+                as? (Any?, Any?, Any?) throws -> Any {
       return try concreteImplementation(invocation.arguments.get(0)?.base,
                                         invocation.arguments.get(1)?.base,
                                         invocation.arguments.get(2)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?) throws -> Any? {
+                as? (Any?, Any?, Any?, Any?) throws -> Any {
       return try concreteImplementation(invocation.arguments.get(0)?.base,
                                         invocation.arguments.get(1)?.base,
                                         invocation.arguments.get(2)?.base,
                                         invocation.arguments.get(3)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?) throws -> Any? {
+                as? (Any?, Any?, Any?, Any?, Any?) throws -> Any {
       return try concreteImplementation(invocation.arguments.get(0)?.base,
                                         invocation.arguments.get(1)?.base,
                                         invocation.arguments.get(2)?.base,
                                         invocation.arguments.get(3)?.base,
                                         invocation.arguments.get(4)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?, Any?) throws -> Any? {
+                as? (Any?, Any?, Any?, Any?, Any?, Any?) throws -> Any {
       return try concreteImplementation(invocation.arguments.get(0)?.base,
                                         invocation.arguments.get(1)?.base,
                                         invocation.arguments.get(2)?.base,
@@ -184,7 +185,7 @@ extension StubbingContext {
                                         invocation.arguments.get(4)?.base,
                                         invocation.arguments.get(5)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?) throws -> Any? {
+                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?) throws -> Any {
       return try concreteImplementation(invocation.arguments.get(0)?.base,
                                         invocation.arguments.get(1)?.base,
                                         invocation.arguments.get(2)?.base,
@@ -193,7 +194,7 @@ extension StubbingContext {
                                         invocation.arguments.get(5)?.base,
                                         invocation.arguments.get(6)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) throws -> Any? {
+                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) throws -> Any {
       return try concreteImplementation(invocation.arguments.get(0)?.base,
                                         invocation.arguments.get(1)?.base,
                                         invocation.arguments.get(2)?.base,
@@ -203,7 +204,7 @@ extension StubbingContext {
                                         invocation.arguments.get(6)?.base,
                                         invocation.arguments.get(7)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) throws -> Any? {
+                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) throws -> Any {
       return try concreteImplementation(invocation.arguments.get(0)?.base,
                                         invocation.arguments.get(1)?.base,
                                         invocation.arguments.get(2)?.base,
@@ -214,7 +215,7 @@ extension StubbingContext {
                                         invocation.arguments.get(7)?.base,
                                         invocation.arguments.get(8)?.base)
     } else if let concreteImplementation = implementation
-                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) throws -> Any? {
+                as? (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) throws -> Any {
       return try concreteImplementation(invocation.arguments.get(0)?.base,
                                         invocation.arguments.get(1)?.base,
                                         invocation.arguments.get(2)?.base,
