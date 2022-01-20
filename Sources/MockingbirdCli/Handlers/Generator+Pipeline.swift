@@ -59,6 +59,9 @@ extension Generator {
                                          target: target,
                                          outputFilePath: outputPath)
         checkCache?.addDependency(extractSources)
+        if let findMockedTypesOperation = findMockedTypesOperation {
+          checkCache?.addDependency(findMockedTypesOperation)
+        }
         
       case .testTarget:
         fatalError("Invalid pipeline input target")
@@ -169,7 +172,8 @@ extension Generator {
       }
       
       let data = try JSONEncoder().encode(target)
-      let filePath = cacheDirectory.targetLockFilePath(for: target.name, testBundle: self.environmentTargetName)
+      let filePath = cacheDirectory.targetLockFilePath(for: target.name,
+                                                       testBundle: self.environmentTargetName)
       try filePath.write(data)
       log("Cached pipeline input target \(inputTarget.name.singleQuoted) to \(filePath.absolute())")
     }
@@ -181,7 +185,8 @@ extension Generator {
                               configHash: String,
                               cacheDirectory: Path,
                               sourceRoot: Path) -> SourceTarget? {
-    let filePath = cacheDirectory.targetLockFilePath(for: targetName, testBundle: self.config.environmentTargetName)
+    let filePath = cacheDirectory.targetLockFilePath(for: targetName,
+                                                     testBundle: self.config.environmentTargetName)
     
     guard filePath.exists else {
       log("No cached source target metadata exists for \(targetName.singleQuoted) at \(filePath.absolute())")

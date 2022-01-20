@@ -117,11 +117,10 @@ extension Mockingbird {
         return path
       }()
       let environmentSourceRoot: Path? = {
-        guard validProject.path.extension == "xcodeproj" else { return validProject.path.parent() }
-        guard let sourceRoot = environment["SRCROOT"] ?? environment["SOURCE_ROOT"] else {
-          return nil
+        if let sourceRoot = environment["SRCROOT"] ?? environment["SOURCE_ROOT"] {
+          return Path(sourceRoot)
         }
-        return Path(sourceRoot)
+        return environmentProjectFilePath?.parent()
       }()
       let environmentTargetName: String? = validTestBundle?.name
         ?? environment["TARGET_NAME"]
