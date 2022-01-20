@@ -60,8 +60,7 @@ public class CheckCacheOperation: BasicOperation {
       let changedFiles = extractSourcesResult.targetPaths
         .union(extractSourcesResult.dependencyPaths)
         .filter({
-          let data = (try? $0.path.read()) ?? Data()
-          return data.hash() != sourceHashes[$0.path]
+          return (try? $0.path.read())?.hash() != sourceHashes[$0.path.absolute()]
         })
       guard changedFiles.isEmpty else {
         log("Invalidated cached mocks for \(target.name.singleQuoted) because \(changedFiles.count) source file\(changedFiles.count != 1 ? "s" : "") were modified - \(changedFiles.map({ "\($0.path.absolute())" }).sorted())")
@@ -81,8 +80,8 @@ extension SourceTarget {
     
     // Merge each module's flattened source hashes, de-duping by path.
     var sourceHashes = [Path: String]()
-    moduleSourceHashes.forEach({
-      sourceHashes.merge($0.value) { (current, new) in return new }
+    moduleSourceHashes.values.forEach({ hashes in
+      sourceHashes.merge(hashes) { $1 }
     })
     
     return sourceHashes
@@ -101,7 +100,9 @@ extension CodableTarget {
     guard current[productModuleName] == nil else { return }
     
     var sourceHashes = [Path: String]()
-    (sourceFilePaths + (supportingFilePaths ?? [])).forEach({ sourceHashes[$0.path] = $0.hash })
+    (sourceFilePaths + (supportingFilePaths ?? [])).forEach({
+      sourceHashes[$0.path.absolute()] = $0.hash
+    })
     
     // Traverse module dependencies.
     dependencies.compactMap({ $0.target }).forEach({ $0.flattenModuleSourceHashes(&current) })

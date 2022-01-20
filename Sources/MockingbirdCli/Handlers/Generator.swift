@@ -100,14 +100,14 @@ class Generator {
     }
   }
   
-  var projectHash: String?
+  var projectHashes: [Path: String] = [:]
   func getProjectHash(_ projectPath: Path) -> String? {
-    if let projectHash = projectHash { return projectHash }
+    if let projectHash = projectHashes[projectPath.absolute()] { return projectHash }
     let filePath = projectPath.extension == "xcodeproj"
       ? projectPath.glob("*.pbxproj").sorted().first
       : projectPath
     let projectHash = try? filePath?.read().hash()
-    self.projectHash = projectHash
+    self.projectHashes[projectPath.absolute()] = projectHash
     return projectHash
   }
   
@@ -135,7 +135,6 @@ class Generator {
       let cachedTarget = findCachedTestTarget(for: targetName,
                                               projectHash: projectHash,
                                               cliVersion: cliVersion,
-                                              configHash: configHash,
                                               cacheDirectory: cacheDirectory,
                                               sourceRoot: testSourceRoot)
       else { return nil }
@@ -249,11 +248,12 @@ class Generator {
     // Cache test target for thunk pruning.
     if config.pruningMethod != .disable {
       if let testTargetCacheDirectory = testTargetCacheDirectory,
-        let environmentSourceRoot = config.environmentSourceRoot {
+         let environmentSourceRoot = config.environmentSourceRoot,
+         let testProjectPath = config.environmentProjectFilePath,
+         let projectHash = getProjectHash(testProjectPath) {
         try testTargetCacheDirectory.mkpath()
         try pruningPipeline?.cache(projectHash: projectHash,
                                    cliVersion: cliVersion,
-                                   configHash: configHash,
                                    sourceRoot: environmentSourceRoot,
                                    cacheDirectory: testTargetCacheDirectory,
                                    environment: getBuildEnvironment)
