@@ -120,6 +120,8 @@
 		28843B2726AE710400AFB8DF /* MKBTestUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 28843B2526AE710400AFB8DF /* MKBTestUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		28843B2826AE710400AFB8DF /* MKBTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 28843B2626AE710400AFB8DF /* MKBTestUtils.m */; };
 		28843B2A26AE77E800AFB8DF /* InlinePropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28843B2926AE77E800AFB8DF /* InlinePropertyTests.swift */; };
+		288678E6279B9C25004FFB3D /* ObjCProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288678E5279B9C25004FFB3D /* ObjCProtocol.swift */; };
+		288678E8279B9C5E004FFB3D /* ObjectiveCProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288678E7279B9C5E004FFB3D /* ObjectiveCProtocolTests.swift */; };
 		28874F8B26BF12DD00097529 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 28874F8A26BF12DD00097529 /* ArgumentParser */; };
 		28874F8D26BF7AB000097529 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28874F8C26BF7AB000097529 /* Configure.swift */; };
 		28874F8F26BF7C3C00097529 /* XcodeProjPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28874F8E26BF7C3C00097529 /* XcodeProjPath.swift */; };
@@ -643,6 +645,8 @@
 		28843B2526AE710400AFB8DF /* MKBTestUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBTestUtils.h; sourceTree = "<group>"; };
 		28843B2626AE710400AFB8DF /* MKBTestUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBTestUtils.m; sourceTree = "<group>"; };
 		28843B2926AE77E800AFB8DF /* InlinePropertyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlinePropertyTests.swift; sourceTree = "<group>"; };
+		288678E5279B9C25004FFB3D /* ObjCProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjCProtocol.swift; sourceTree = "<group>"; };
+		288678E7279B9C5E004FFB3D /* ObjectiveCProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveCProtocolTests.swift; sourceTree = "<group>"; };
 		28874F8C26BF7AB000097529 /* Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
 		28874F8E26BF7C3C00097529 /* XcodeProjPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeProjPath.swift; sourceTree = "<group>"; };
 		28874F9026BF7FA400097529 /* ValidatableArgument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableArgument.swift; sourceTree = "<group>"; };
@@ -1557,6 +1561,7 @@
 				28A1F3C326ADD57C002F282D /* MinimalTestTypes.swift */,
 				OBJ_196 /* ModuleImportCases.swift */,
 				28D08CCF277477F700AE7C39 /* ObjCParameters.swift */,
+				288678E5279B9C25004FFB3D /* ObjCProtocol.swift */,
 				OBJ_198 /* OpaquelyInheritedTypes.swift */,
 				OBJ_199 /* Optionals.swift */,
 				OBJ_200 /* OverloadedMethods.swift */,
@@ -1740,6 +1745,7 @@
 				OBJ_261 /* LastSetValueStubTests.swift */,
 				28719AF426B23AB200C38C2C /* ObjectiveCTests.swift */,
 				28D08CD1277479B600AE7C39 /* ObjectiveCParameterTests.swift */,
+				288678E7279B9C5E004FFB3D /* ObjectiveCProtocolTests.swift */,
 				28D08CCD2774247C00AE7C39 /* OptionalsTests.swift */,
 				OBJ_262 /* OrderedVerificationTests.swift */,
 				OBJ_263 /* OverloadedMethodTests.swift */,
@@ -2548,6 +2554,7 @@
 				OBJ_1066 /* InitializerTests.swift in Sources */,
 				OBJ_1067 /* LastSetValueStubTests.swift in Sources */,
 				OBJ_1068 /* OrderedVerificationTests.swift in Sources */,
+				288678E8279B9C5E004FFB3D /* ObjectiveCProtocolTests.swift in Sources */,
 				OBJ_1069 /* OverloadedMethodTests.swift in Sources */,
 				OBJ_1070 /* SequentialValueStubbingTests.swift in Sources */,
 				OBJ_1071 /* StubbingTests.swift in Sources */,
@@ -2590,6 +2597,7 @@
 				OBJ_1136 /* Extensions.swift in Sources */,
 				OBJ_1137 /* ExternalModuleClassScopedTypes.swift in Sources */,
 				OBJ_1138 /* ExternalModuleImplicitlyImportedTypes.swift in Sources */,
+				288678E6279B9C25004FFB3D /* ObjCProtocol.swift in Sources */,
 				OBJ_1139 /* ExternalModuleTypealiasing.swift in Sources */,
 				OBJ_1140 /* ExternalModuleTypes.swift in Sources */,
 				OBJ_1141 /* FakeableTypes.swift in Sources */,
