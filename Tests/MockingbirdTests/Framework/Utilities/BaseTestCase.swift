@@ -6,7 +6,7 @@ class BaseTestCase: XCTestCase {
   
   func shouldFail(_ times: Int = 1,
                   file: String = #file, line: Int = #line,
-                  _ context: @escaping () -> Void) {
+                  @_implicitSelfCapture _ context: @escaping () -> Void) {
     let testFailer = XFailTestFailer(testCase: self, file: file, line: line)
     swizzleTestFailer(testFailer)
     

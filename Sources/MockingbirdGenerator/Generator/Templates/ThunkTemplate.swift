@@ -10,6 +10,7 @@ class ThunkTemplate: Template {
   let isAsync: Bool
   let isThrowing: Bool
   let isStatic: Bool
+  let isOptional: Bool
   let callMember: (_ scope: Scope) -> String
   let invocationArguments: [(argumentLabel: String?, parameterName: String)]
   
@@ -33,6 +34,7 @@ class ThunkTemplate: Template {
        isAsync: Bool,
        isThrowing: Bool,
        isStatic: Bool,
+       isOptional: Bool,
        callMember: @escaping (_ scope: Scope) -> String,
        invocationArguments: [(argumentLabel: String?, parameterName: String)]) {
     self.mockableType = mockableType
@@ -44,6 +46,7 @@ class ThunkTemplate: Template {
     self.isAsync = isAsync
     self.isThrowing = isThrowing
     self.isStatic = isStatic
+    self.isOptional = isOptional
     self.callMember = callMember
     self.invocationArguments = invocationArguments
   }
@@ -100,6 +103,11 @@ class ThunkTemplate: Template {
                   ])) as \(returnType)
         """).render()
     }()
+    let callProxyObject: String = {
+      let objectInvocation = callMember(.object)
+      guard !objectInvocation.isEmpty else { return "" }
+      return "let mkbValue: \(returnType) = \(objectInvocation)"
+    }()
     
     let supertype = isStatic ? "MockingbirdSupertype.Type" : "MockingbirdSupertype"
     let didInvoke = FunctionCallTemplate(name: "self.mockingbirdContext.mocking.didInvoke",
@@ -131,15 +139,17 @@ class ThunkTemplate: Template {
           controlExpression: "mkbTargetBox.target",
           cases: [
             (".super", isSubclass ? "break" : "return \(callMember(.super))"),
-            (".object" + (isProxyable ? "(let mkbObject)" : ""), !isProxyable ? "break" : """
-            \(GuardStatementTemplate(
-                condition: "var mkbObject = mkbObject as? \(supertype)", body: "break"))
-            let mkbValue: \(returnType) = \(callMember(.object))
-            \(FunctionCallTemplate(
+            (".object" + (isProxyable ? "(let mkbObject)" : ""), !isProxyable ? "break" : 
+            String(lines: [
+              GuardStatementTemplate(
+                condition: "var mkbObject = mkbObject as? \(supertype)", body: "break").render(),
+              !isOptional || callProxyObject.isEmpty ? callProxyObject :
+                GuardStatementTemplate(condition: callProxyObject, body: "break").render(),
+              FunctionCallTemplate(
                 name: "self.mockingbirdContext.proxy.updateTarget",
-                arguments: [(nil, "&mkbObject"), ("in", "mkbTargetBox")]))
-            return mkbValue
-            """)
+                arguments: [(nil, "&mkbObject"), ("in", "mkbTargetBox")]).render(),
+              callProxyObject.isEmpty ? "" : "return mkbValue",
+            ])),
           ]).render()).render(),
     ]))
     \(IfStatementTemplate(
