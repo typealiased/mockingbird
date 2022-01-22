@@ -72,8 +72,8 @@
     case MKBInvocationRecorderModeNone: {
       id _Nullable returnValue =
         [self.mockingbirdContext.mocking
-         objcDidInvoke:objcInvocation evaluating:^id _Nullable(MKBObjCInvocation *invocation) {
-          return [self.mockingbirdContext.stubbing evaluateReturnValueFor:invocation];
+         objcDidInvoke:objcInvocation evaluating:^id _Nullable(MKBObjCInvocation *invo) {
+          return [self.mockingbirdContext.stubbing evaluateReturnValueFor:invo];
         }];
 
       if (returnValue == [MKBStubbingContext noImplementation]) {

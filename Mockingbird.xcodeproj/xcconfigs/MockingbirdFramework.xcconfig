@@ -9,6 +9,8 @@ TARGET_NAME = Mockingbird
 
 // Build Flags
 BUILD_LIBRARY_FOR_DISTRIBUTION = YES
+GCC_ENABLE_OBJC_EXCEPTIONS = YES
+GCC_WARN_SHADOW = YES
 
 // Linking
 OTHER_LDFLAGS = $(inherited) -framework XCTest

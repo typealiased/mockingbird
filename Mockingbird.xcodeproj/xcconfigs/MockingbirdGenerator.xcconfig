@@ -1,7 +1,11 @@
 #include "FrameworkBase.xcconfig"
 
+// Identifiers
 INFOPLIST_FILE = $(SRCROOT)/Sources/MockingbirdGenerator/Info.plist
 SUPPORTED_PLATFORMS = macosx
 PRODUCT_MODULE_NAME = MockingbirdGenerator
 PRODUCT_NAME = MockingbirdGenerator
 TARGET_NAME = MockingbirdGenerator
+
+// Compatibility
+MACOSX_DEPLOYMENT_TARGET = 10.15
