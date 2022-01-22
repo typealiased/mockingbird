@@ -11,7 +11,7 @@
 set -eu
 
 readonly srcroot="$(dirname "$0")"
-pushd .
+pushd . > /dev/null
 cd "${srcroot}"
 
 function getVersion {
@@ -49,7 +49,7 @@ if [[ ! -x "${executable}" ]]; then
     if xcrun codesign -vv -R Sources/MockingbirdAutomationCli/Resources/CodesigningRequirements/mockingbird.txt "${executable}"; then
       echo '✅ Verified the code signature'
     else
-      echo -e '\033[1;31merror:\033[0m The downloaded binary does not have a valid code signature. Set `MKB_NO_VERIFY=1` to bypass this error at your own risk.'
+      echo "error: Mockingbird does not have a valid code signature; set 'MKB_NO_VERIFY=1' to bypass this error at your own risk"
       rm "${executable}"
       exit 1
     fi
@@ -57,5 +57,5 @@ if [[ ! -x "${executable}" ]]; then
   chmod u+x "${executable}"
 fi
 
-popd
+popd > /dev/null
 MKB_LAUNCHER="$0" "${srcroot}/${executable}" "$@"
