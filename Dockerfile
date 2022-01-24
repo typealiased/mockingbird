@@ -3,15 +3,16 @@ FROM swift:5.5.2-centos8
 # Set up
 WORKDIR /mockingbird
 COPY . .
+RUN yum install -y zip
 RUN swift --version
 
-# Build
-RUN Sources/MockingbirdCli/buildAndRun.sh --configuration release
+# Build automation
+RUN Sources/MockingbirdAutomationCli/buildAndRun.sh
+RUN cp .build/debug/automation /usr/bin
 
-# Copy artifacts
-RUN mkdir -p /usr/bin/Libraries
-RUN cp .build/release/mockingbird /usr/bin
-RUN cp Sources/MockingbirdCli/Resources/Libraries/lib_InternalSwiftSyntaxParser.dylib /usr/bin/Libraries
+# Build generator
+RUN Sources/MockingbirdCli/buildAndRun.sh
+RUN cp .build/debug/mockingbird /usr/bin
 
 ENTRYPOINT ["mockingbird"]
 CMD ["--help"]

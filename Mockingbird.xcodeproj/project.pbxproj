@@ -168,6 +168,8 @@
 		28A1F3C426ADD57C002F282D /* MinimalTestTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A1F3C326ADD57C002F282D /* MinimalTestTypes.swift */; };
 		28B127E526C667C600BC8B85 /* TestBundleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B127E426C667C600BC8B85 /* TestBundleName.swift */; };
 		28B4F6E226B3C9C7005C0049 /* ObjCTypeEncodings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4F6E126B3C9C7005C0049 /* ObjCTypeEncodings.swift */; };
+		28B9B6E6279E7F1B00E0FEA6 /* Xcrun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B9B6E5279E7F1B00E0FEA6 /* Xcrun.swift */; };
+		28B9B6E8279E8E8600E0FEA6 /* Path+Symlink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B9B6E7279E8E8600E0FEA6 /* Path+Symlink.swift */; };
 		28C28E7726C0EA4E00729617 /* BinaryPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C28E7626C0EA4E00729617 /* BinaryPath.swift */; };
 		28C28E7926C0EE4D00729617 /* Path+Symlink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C28E7826C0EE4D00729617 /* Path+Symlink.swift */; };
 		28C28E7B26C0FB2700729617 /* TimeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C28E7A26C0FB2700729617 /* TimeUnit.swift */; };
@@ -693,6 +695,8 @@
 		28B4F6E126B3C9C7005C0049 /* ObjCTypeEncodings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjCTypeEncodings.swift; sourceTree = "<group>"; };
 		28B9B6DF279DD8A400E0FEA6 /* .mockingbird-ignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".mockingbird-ignore"; sourceTree = "<group>"; };
 		28B9B6E0279DFBA300E0FEA6 /* MockingbirdAutomationTests.xcscheme */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MockingbirdAutomationTests.xcscheme; sourceTree = "<group>"; };
+		28B9B6E5279E7F1B00E0FEA6 /* Xcrun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Xcrun.swift; sourceTree = "<group>"; };
+		28B9B6E7279E8E8600E0FEA6 /* Path+Symlink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+Symlink.swift"; sourceTree = "<group>"; };
 		28C28E7626C0EA4E00729617 /* BinaryPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryPath.swift; sourceTree = "<group>"; };
 		28C28E7826C0EE4D00729617 /* Path+Symlink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+Symlink.swift"; sourceTree = "<group>"; };
 		28C28E7A26C0FB2700729617 /* TimeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUnit.swift; sourceTree = "<group>"; };
@@ -1164,6 +1168,7 @@
 				285C8E16277AD76300DE525A /* SwiftPackage.swift */,
 				285C8E06277A7F9000DE525A /* XcodeBuild.swift */,
 				285C8E8B277C670300DE525A /* XcodeSelect.swift */,
+				28B9B6E5279E7F1B00E0FEA6 /* Xcrun.swift */,
 				2873D49927896DE7004523BC /* Zip.swift */,
 			);
 			path = Interop;
@@ -1175,6 +1180,7 @@
 				285C8E84277C0A0B00DE525A /* FileManager+PosixPermissions.swift */,
 				285C8E0E277AA34000DE525A /* Logging.swift */,
 				28FB7EC72789D0E000125FDA /* Path+Backup.swift */,
+				28B9B6E7279E8E8600E0FEA6 /* Path+Symlink.swift */,
 				285C8D852779487500DE525A /* Subprocess.swift */,
 			);
 			path = Utilities;
@@ -2463,6 +2469,7 @@
 				286DE64D277EB78C0047B0F3 /* CocoaPods.swift in Sources */,
 				286DE64E277EB78C0047B0F3 /* Codesign.swift in Sources */,
 				28FB7EC82789D0E000125FDA /* Path+Backup.swift in Sources */,
+				28B9B6E8279E8E8600E0FEA6 /* Path+Symlink.swift in Sources */,
 				28DBC3F0277EDAFC00A6C96F /* DocC.swift in Sources */,
 				286DE64F277EB78C0047B0F3 /* InstallNameTool.swift in Sources */,
 				286DE650277EB78C0047B0F3 /* PlistBuddy.swift in Sources */,
@@ -2474,6 +2481,7 @@
 				286DE655277EB7940047B0F3 /* FileManager+PosixPermissions.swift in Sources */,
 				2873D49A27896DE7004523BC /* Zip.swift in Sources */,
 				286DE656277EB7940047B0F3 /* Logging.swift in Sources */,
+				28B9B6E6279E7F1B00E0FEA6 /* Xcrun.swift in Sources */,
 				286DE657277EB7940047B0F3 /* Subprocess.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

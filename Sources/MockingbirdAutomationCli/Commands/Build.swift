@@ -44,7 +44,7 @@ struct Build: ParsableCommand {
     try items.forEach({ artifact in
       let destination = stagingPath + artifact.location + artifact.path.lastComponent
       try destination.parent().mkpath()
-      try artifact.path.copy(destination)
+      try artifact.path.followRecursively().copy(destination)
     })
     
     try? destination.delete()

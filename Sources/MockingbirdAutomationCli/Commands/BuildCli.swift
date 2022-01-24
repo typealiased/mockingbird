@@ -16,15 +16,24 @@ extension Build {
     var requirements: String =
       "./Sources/MockingbirdAutomationCli/Resources/CodesigningRequirements/mockingbird.txt"
     
+    @Option(help: "The platform flavor for distribution.")
+    var platform: Platform = .macOS
+    
     @OptionGroup()
     var globalOptions: Options
+    
+    enum Platform: String, ExpressibleByArgument {
+      case macOS = "macos"
+      case centOS8 = "centos8"
+      // TODO: Support other Linux distros
+    }
     
     func getVersionString() throws -> String {
       return try PlistBuddy.printValue(key: "CFBundleShortVersionString",
                                        plist: Path("./Sources/MockingbirdCli/Info.plist"))
     }
     
-    func fixupRpaths(binary: Path) throws {
+    func fixupRpaths(_ binary: Path) throws {
       let version = try getVersionString()
       
       // Get rid of toolchain-dependent rpaths which aren't guaranteed to have a compatible version
@@ -45,23 +54,92 @@ extension Build {
       try InstallNameTool.addRpath("/tmp/lib/mockingbird/\(version)", binary: binary)
     }
     
+    private func codesign(_ binary: Path) throws {
+      guard let identity = signingIdentity else { return }
+      try Codesign.sign(binary: binary, identity: identity)
+      try Codesign.verify(binary: binary, requirements: Path(requirements))
+    }
+    
+    private func archiveMacOS(_ binary: Path) throws {
+      guard let location = globalOptions.archiveLocation else { return }
+      let libRoot = Path("./Sources/MockingbirdCli/Resources/Libraries")
+      let libPaths = libRoot.glob("*.dylib") + [libRoot + "LICENSE.txt"]
+      try archive(artifacts: [("", binary)] + libPaths.map({ ("Libraries", $0) }),
+                  destination: Path(location))
+    }
+    
+    private func archiveCentOS8(_ binary: Path) throws {
+      guard let location = globalOptions.archiveLocation else { return }
+      let libPaths = SharedLibraries.centOS8.map({ Path($0) })
+      try archive(artifacts: [("", binary)] + libPaths.map({ ("", $0) }),
+                  destination: Path(location))
+    }
+    
     func run() throws {
       let packagePath = Path("./Package.swift")
       let cliPath = try SwiftPackage.build(target: .product(name: "mockingbird"),
                                            configuration: .release,
                                            packageConfiguration: .executables,
                                            package: packagePath)
-      try fixupRpaths(binary: cliPath)
-      if let identity = signingIdentity {
-        try Codesign.sign(binary: cliPath, identity: identity)
-        try Codesign.verify(binary: cliPath, requirements: Path(requirements))
-      }
-      if let location = globalOptions.archiveLocation {
-        let libRoot = Path("./Sources/MockingbirdCli/Resources/Libraries")
-        let libPaths = libRoot.glob("*.dylib") + [libRoot + "LICENSE.txt"]
-        try archive(artifacts: [("", cliPath)] + libPaths.map({ ("Libraries", $0) }),
-                    destination: Path(location))
+      
+      switch platform {
+      case .macOS:
+        try fixupRpaths(cliPath)
+        try codesign(cliPath)
+        try archiveMacOS(cliPath)
+      case .centOS8:
+        try archiveCentOS8(cliPath)
       }
     }
   }
+}
+
+private enum SharedLibraries {
+  static let centOS8 = [
+    "/lib64/libc.so.6",
+    "/lib64/libcom_err.so.2",
+    "/lib64/libcrypt.so.1",
+    "/lib64/libcrypto.so.1.1",
+    "/lib64/libcurl.so.4",
+    "/lib64/libdl.so.2",
+    "/lib64/libgcc_s.so.1",
+    "/lib64/libgssapi_krb5.so.2",
+    "/lib64/libidn2.so.0",
+    "/lib64/libk5crypto.so.3",
+    "/lib64/libkeyutils.so.1",
+    "/lib64/libkrb5.so.3",
+    "/lib64/libkrb5support.so.0",
+    "/lib64/liblber-2.4.so.2",
+    "/lib64/libldap-2.4.so.2",
+    "/lib64/liblzma.so.5",
+    "/lib64/libm.so.6",
+    "/lib64/libnghttp2.so.14",
+    "/lib64/libpcre2-8.so.0",
+    "/lib64/libpthread.so.0",
+    "/lib64/libresolv.so.2",
+    "/lib64/librt.so.1",
+    "/lib64/libsasl2.so.3",
+    "/lib64/libselinux.so.1",
+    "/lib64/libssl.so.1.1",
+    "/lib64/libstdc++.so.6",
+    "/lib64/libtinfo.so.6",
+    "/lib64/libunistring.so.2",
+    "/lib64/libuuid.so.1",
+    "/lib64/libxml2.so.2",
+    "/lib64/libz.so.1",
+    "/usr/lib/libsourcekitdInProc.so",
+    "/usr/lib/swift/linux/libBlocksRuntime.so",
+    "/usr/lib/swift/linux/libFoundation.so",
+    "/usr/lib/swift/linux/libFoundationNetworking.so",
+    "/usr/lib/swift/linux/libFoundationXML.so",
+    "/usr/lib/swift/linux/lib_InternalSwiftSyntaxParser.so",
+    "/usr/lib/swift/linux/libdispatch.so",
+    "/usr/lib/swift/linux/libicudataswift.so.65",
+    "/usr/lib/swift/linux/libicui18nswift.so.65",
+    "/usr/lib/swift/linux/libicuucswift.so.65",
+    "/usr/lib/swift/linux/libswiftCore.so",
+    "/usr/lib/swift/linux/libswiftDispatch.so",
+    "/usr/lib/swift/linux/libswiftGlibc.so",
+    "/usr/lib/swift/linux/libswift_Concurrency.so",
+  ]
 }

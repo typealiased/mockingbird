@@ -39,9 +39,9 @@ jobs:
           --archive .build/mockingbird/artifacts/MockingbirdSupport.zip
     - name: Document SHAs
       run: |
-        shasum -a 512 .build/mockingbird/artifacts/Mockingbird.zip
-        shasum -a 512 .build/mockingbird/artifacts/Mockingbird.xcframework.zip
-        shasum -a 512 .build/mockingbird/artifacts/MockingbirdSupport.zip
+        openssl sha512 .build/mockingbird/artifacts/Mockingbird.zip
+        openssl sha512 .build/mockingbird/artifacts/Mockingbird.xcframework.zip
+        openssl sha512 .build/mockingbird/artifacts/MockingbirdSupport.zip
     - name: Upload CLI
       uses: actions/upload-artifact@v2
       with:
@@ -57,6 +57,29 @@ jobs:
       with:
         name: MockingbirdSupport.zip
         path: .build/mockingbird/artifacts/MockingbirdSupport.zip
+
+  build-centos8-artifacts:
+    name: Build CentOS 8 Artifacts
+    runs-on: ubuntu-latest  # GitHub Actions only supports Ubuntu as a Linux base image
+    container:
+      image: swift:5.5.2-centos8
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set Up Environment
+      run: yum install -y zip
+    - name: Build CLI
+      run: |
+        Sources/MockingbirdAutomationCli/buildAndRun.sh build cli \
+          --platform centos8 \
+          --archive .build/mockingbird/artifacts/Mockingbird-centos8.zip
+    - name: Document SHAs
+      run: |
+        openssl sha512 .build/mockingbird/artifacts/Mockingbird-centos8.zip
+    - name: Upload CLI
+      uses: actions/upload-artifact@v2
+      with:
+        name: Mockingbird-centos8.zip
+        path: .build/mockingbird/artifacts/Mockingbird-centos8.zip
 
   build-docs:
     name: Build Docs

@@ -46,7 +46,8 @@ public enum SwiftPackage {
   public static func update(package: Path,
                             environment: [String: String] = ProcessInfo.processInfo.environment,
                             packageConfiguration: PackageConfiguration? = nil) throws {
-    try Subprocess("xcrun", ["swift", "package", "update"],
+    let (command, arguments) = try Xcrun.createCommand(from: ["swift", "package", "update"])
+    try Subprocess(command, arguments,
                    environment: packageConfiguration?.getEnvironment(environment) ?? environment,
                    workingDirectory: package.parent()).run()
   }
@@ -59,7 +60,9 @@ public enum SwiftPackage {
       guard let name = productName else { return [] }
       return ["--test-product", name]
     }()
-    try Subprocess("xcrun", ["swift", "test"] + testProductArguments,
+    let (command, arguments) = try Xcrun.createCommand(from: ["swift", "test"] +
+                                                       testProductArguments)
+    try Subprocess(command, arguments,
                    environment: packageConfiguration?.getEnvironment(environment) ?? environment,
                    workingDirectory: package.parent()).run()
   }
@@ -76,10 +79,13 @@ public enum SwiftPackage {
       "--configuration", configuration.rawValue,
     ]
     let environment = packageConfiguration?.getEnvironment(environment) ?? environment
-    try Subprocess("xcrun", buildArguments + ["--verbose"],
+    let (command, arguments) = try Xcrun.createCommand(from: buildArguments + ["--verbose"])
+    try Subprocess(command, arguments,
                    environment: environment,
                    workingDirectory: package.parent()).run()
-    let (binPath, _) = try Subprocess("xcrun", buildArguments + ["--show-bin-path"],
+    let (pathCommand, pathArguments) = try Xcrun.createCommand(from: buildArguments +
+                                                               ["--show-bin-path"])
+    let (binPath, _) = try Subprocess(pathCommand, pathArguments,
                                       environment: environment,
                                       workingDirectory: package.parent()).runWithStringOutput()
     return Path(binPath.trimmingCharacters(in: .whitespacesAndNewlines)) + "mockingbird"
@@ -93,12 +99,15 @@ public enum SwiftPackage {
     package: Path
   ) throws {
     let environment = packageConfiguration?.getEnvironment(environment) ?? environment
-    try Subprocess("xcrun", [
+    let (command, arguments) = try Xcrun.createCommand(from: [
       "swift",
       "build",
       "--\(target.optionName)", target.name,
       "-Xswiftc", "-emit-symbol-graph",
       "-Xswiftc", "-emit-symbol-graph-dir", "-Xswiftc", output.string,
-    ], environment: environment, workingDirectory: package.parent()).run()
+    ])
+    try Subprocess(command, arguments,
+                   environment: environment,
+                   workingDirectory: package.parent()).run()
   }
 }

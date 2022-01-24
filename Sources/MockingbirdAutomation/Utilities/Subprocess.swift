@@ -42,6 +42,7 @@ public struct Subprocess: CustomStringConvertible {
   
   @discardableResult
   public func run(silent: Bool = false,
+                  propagateError: Bool = true,
                   stdoutHandler: ((Data) -> Void)? = nil,
                   stderrHandler: ((Data) -> Void)? = nil) throws -> Self {
     logInfo(String(describing: self))
@@ -54,10 +55,10 @@ public struct Subprocess: CustomStringConvertible {
       fputs(line, output)
     }
     stdout.fileHandleForReading.readabilityHandler = { pipe in
-      readabilityHandler(pipe, stdoutHandler, Darwin.stdout)
+      readabilityHandler(pipe, stdoutHandler, Foundation.stdout)
     }
     stderr.fileHandleForReading.readabilityHandler = { pipe in
-      readabilityHandler(pipe, stderrHandler, Darwin.stderr)
+      readabilityHandler(pipe, stderrHandler, Foundation.stderr)
     }
     
     try process.run()
@@ -76,7 +77,7 @@ public struct Subprocess: CustomStringConvertible {
     sigintSource.resume()
 
     process.waitUntilExit()
-    if process.terminationStatus != 0 {
+    if propagateError && process.terminationStatus != 0 {
       throw Error.terminated(exitStatus: process.terminationStatus)
     }
     return self
@@ -94,5 +95,10 @@ public struct Subprocess: CustomStringConvertible {
     let (stdoutBuffer, stderrBuffer) = try runWithDataOutput()
     return (String(data: stdoutBuffer, encoding: .utf8) ?? "",
             String(data: stderrBuffer, encoding: .utf8) ?? "")
+  }
+  
+  public func runWithExitCode() throws -> Int {
+    try run(propagateError: false)
+    return Int(process.terminationStatus)
   }
 }
