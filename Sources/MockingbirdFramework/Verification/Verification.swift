@@ -28,6 +28,33 @@ public func verify<DeclarationType: Declaration, InvocationType, ReturnType>(
   return VerificationManager(with: declaration, at: SourceLocation(file, line))
 }
 
+/// Verify that a declaration was called.
+///
+/// Verification lets you assert that a mock received a particular invocation during its lifetime.
+///
+/// ```swift
+/// verify(bird.doMethod()).wasCalled()
+/// verify(bird.getProperty()).wasCalled()
+/// verify(bird.setProperty(any())).wasCalled()
+/// ```
+///
+/// You can match exact or wildcard argument values when verifying.
+///
+/// ```swift
+/// verify(bird.canChirp(volume: any())).wasCalled()     // Called with any volume
+/// verify(bird.canChirp(volume: notNil())).wasCalled()  // Called with any non-nil volume
+/// verify(bird.canChirp(volume: 10)).wasCalled()        // Called with volume = 10
+/// ```
+///
+/// - Parameters:
+///   - mock: A mocked declaration to verify.
+public func verifyAsync<DeclarationType: Declaration, InvocationType, ReturnType>(
+  _ declaration: Mockable<DeclarationType, InvocationType, ReturnType>,
+  file: StaticString = #file, line: UInt = #line
+) -> VerificationManager<InvocationType, ReturnType> {
+  return verify(declaration, file: file, line: line)
+}
+
 /// Verify that an Objective-C mock or property declaration was called.
 ///
 /// Verification lets you assert that a mock received a particular invocation during its lifetime.

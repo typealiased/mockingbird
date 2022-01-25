@@ -61,6 +61,64 @@ public func given<DeclarationType: Declaration, InvocationType, ReturnType>(
                                context: declaration.mock.mockingbirdContext)
 }
 
+/// Stub a declaration to return a value or perform an operation.
+///
+/// Stubbing allows you to define custom behavior for mocks to perform.
+///
+/// ```swift
+/// protocol Bird {
+///   var name: String { get }
+///   func chirp(at volume: Int) throws -> Bool
+/// }
+///
+/// given(bird.name).willReturn("Ryan")
+/// given(bird.chirp(at: 42)).willThrow(BirdError())
+/// given(bird.chirp(at: any())).will { volume in
+///   return volume < 42
+/// }
+/// ```
+///
+/// This is equivalent to the shorthand syntax using the stubbing operator `~>`.
+///
+/// ```swift
+/// given(bird.name) ~> "Ryan"
+/// given(bird.chirp(at: 42)) ~> { throw BirdError() }
+/// given(bird.chirp(at: any())) ~> { volume in
+///   return volume < 42
+/// }
+/// ```
+///
+/// Properties can have stubs on both their getters and setters.
+///
+/// ```swift
+/// given(bird.name).willReturn("Ryan")
+/// given(bird.name = any()).will {
+///   print("Hello \($0)")
+/// }
+///
+/// print(bird.name)        // Prints "Ryan"
+/// bird.name = "Sterling"  // Prints "Hello Sterling"
+/// ```
+///
+/// This is equivalent to using the synthesized getter and setter methods.
+///
+/// ```swift
+/// given(bird.getName()).willReturn("Ryan")
+/// given(bird.setName(any())).will {
+///   print("Hello \($0)")
+/// }
+///
+/// print(bird.name)        // Prints "Ryan"
+/// bird.name = "Sterling"  // Prints "Hello Sterling"
+/// ```
+///
+/// - Parameter declaration: A stubbable declaration.
+public func givenAsync<DeclarationType: Declaration, InvocationType, ReturnType>(
+  _ declaration: Mockable<DeclarationType, InvocationType, ReturnType>
+) -> StaticStubbingManager<DeclarationType, InvocationType, ReturnType> {
+  return given(declaration)
+}
+
 /// Stub a Swift declaration to return a value or perform an operation.
 ///
 /// This overload is used to help debug typing errors by disambiguating Swift method declarations

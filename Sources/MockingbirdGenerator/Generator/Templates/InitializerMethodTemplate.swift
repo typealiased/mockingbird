@@ -19,6 +19,7 @@ class InitializerMethodTemplate: MethodTemplate {
     let mock: \(scopedName)\(failable) = \(FunctionCallTemplate(
                                             name: scopedName,
                                             parameters: method.parameters,
+                                            isAsync: method.isAsync,
                                             isThrowing: method.isThrowing))
     mock\(failable).mockingbirdContext.sourceLocation = SourceLocation(__file, __line)
     return mock
@@ -41,6 +42,7 @@ class InitializerMethodTemplate: MethodTemplate {
       let body = !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub :
         FunctionCallTemplate(name: "super.init",
                              parameters: method.parameters,
+                             isAsync: method.isAsync,
                              isThrowing: method.attributes.contains(.throws)).render()
       return String(lines: [
         trivia,

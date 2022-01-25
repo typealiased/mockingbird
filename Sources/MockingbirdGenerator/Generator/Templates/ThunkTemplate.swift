@@ -4,9 +4,12 @@ class ThunkTemplate: Template {
   let mockableType: MockableType
   let invocation: String
   let shortSignature: String?
+  let shortSignatureIgnoringAsync: String?
   let longSignature: String
+  let longSignatureIgnoringAsync: String?
   let returnType: String
   let isBridged: Bool
+  let isAsync: Bool
   let isThrowing: Bool
   let isStatic: Bool
   let callMember: (_ scope: Scope) -> String
@@ -26,9 +29,12 @@ class ThunkTemplate: Template {
   init(mockableType: MockableType,
        invocation: String,
        shortSignature: String?,
+       shortSignatureIgnoringAsync: String?,
        longSignature: String,
+       longSignatureIgnoringAsync: String?,
        returnType: String,
        isBridged: Bool,
+       isAsync: Bool,
        isThrowing: Bool,
        isStatic: Bool,
        callMember: @escaping (_ scope: Scope) -> String,
@@ -36,9 +42,12 @@ class ThunkTemplate: Template {
     self.mockableType = mockableType
     self.invocation = invocation
     self.shortSignature = shortSignature
+    self.shortSignatureIgnoringAsync = shortSignatureIgnoringAsync
     self.longSignature = longSignature
+    self.longSignatureIgnoringAsync = longSignatureIgnoringAsync
     self.returnType = returnType
     self.isBridged = isBridged
+    self.isAsync = isAsync
     self.isThrowing = isThrowing
     self.isStatic = isStatic
     self.callMember = callMember
@@ -52,14 +61,34 @@ class ThunkTemplate: Template {
       body: """
       return \(FunctionCallTemplate(name: "mkbImpl",
                                     unlabeledArguments: unlabledArguments,
+                                    isAsync: isAsync,
                                     isThrowing: isThrowing))
-      """)
+      """).render()
+    let callDefaultIgnoringAsync: String = {
+      guard let longSignatureIgnoringAsync = longSignatureIgnoringAsync, isAsync == true else { return "" }
+      return IfStatementTemplate(
+        condition: "let mkbImpl = mkbImpl as? \(longSignatureIgnoringAsync)",
+        body: """
+        return \(FunctionCallTemplate(name: "mkbImpl",
+                                      unlabeledArguments: unlabledArguments,
+                                      isAsync: false,
+                                      isThrowing: isThrowing))
+        """).render()
+    }()
     let callConvenience: String = {
       guard let shortSignature = shortSignature else { return "" }
       return IfStatementTemplate(
         condition: "let mkbImpl = mkbImpl as? \(shortSignature)",
         body: """
-        return \(FunctionCallTemplate(name: "mkbImpl", isThrowing: isThrowing))
+        return \(FunctionCallTemplate(name: "mkbImpl", isAsync: isAsync, isThrowing: isThrowing))
+        """).render()
+    }()
+    let callConvenienceIgnoringAsync: String = {
+      guard let shortSignatureIgnoringAsync = shortSignatureIgnoringAsync, isAsync == true else { return "" }
+      return IfStatementTemplate(
+        condition: "let mkbImpl = mkbImpl as? \(shortSignatureIgnoringAsync)",
+        body: """
+        return \(FunctionCallTemplate(name: "mkbImpl", isAsync: false, isThrowing: isThrowing))
         """).render()
     }()
     
@@ -77,6 +106,7 @@ class ThunkTemplate: Template {
                     FunctionCallTemplate(
                       name: "mkbImpl",
                       unlabeledArguments: unlabledArguments.map({ $0 + " as Any?" }),
+                      isAsync: isAsync,
                       isThrowing: isThrowing).render()
                   ])) as \(returnType)
         """).render()
@@ -89,7 +119,7 @@ class ThunkTemplate: Template {
         return \(FunctionCallTemplate(
                   name: "Mockingbird.dynamicCast",
                   unlabeledArguments: [
-                    FunctionCallTemplate(name: "mkbImpl", isThrowing: isThrowing).render()
+                    FunctionCallTemplate(name: "mkbImpl", isAsync: isAsync, isThrowing: isThrowing).render()
                   ])) as \(returnType)
         """).render()
     }()
@@ -98,6 +128,7 @@ class ThunkTemplate: Template {
     let supertype = isStatic ? "MockingbirdSupertype.Type" : "MockingbirdSupertype"
     let didInvoke = FunctionCallTemplate(name: "\(context).mocking.didInvoke",
                                          unlabeledArguments: [invocation],
+                                         isAsync: isAsync,
                                          isThrowing: isThrowing)
     
     let isSubclass = mockableType.kind != .class
@@ -112,8 +143,10 @@ class ThunkTemplate: Template {
     let mkbImpl = \(FunctionCallTemplate(name: "\(context).stubbing.implementation",
                                          arguments: [("for", "$0")]))
     \(String(lines: [
-      callDefault.render(),
+      callDefault,
+      callDefaultIgnoringAsync,
       callConvenience,
+      callConvenienceIgnoringAsync,
       callBridgedDefault,
       callBridgedConvenience,
       !isSubclass && !isProxyable ? "" : ForInStatementTemplate(
