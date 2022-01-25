@@ -1,5 +1,5 @@
 import Foundation
-import MockingbirdCommon
+import MockingbirdGenerator
 
 extension Encodable {
   /// Encodes the instance to a stable SHA-1 hash.

@@ -1,6 +1,5 @@
 import Foundation
 import PathKit
-import os.log
 
 public struct GenerateFileConfig {
   let moduleName: String

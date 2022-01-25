@@ -15,19 +15,6 @@ enum WriteUtf8StringFailure: Error, CustomStringConvertible {
   }
 }
 
-private class FileManagerMoveDelegate: NSObject, FileManagerDelegate {
-  func fileManager(_ fileManager: FileManager, shouldMoveItemAt srcURL: URL, to dstURL: URL)
-    -> Bool { return true }
-  
-  func fileManager(_ fileManager: FileManager,
-                   shouldProceedAfterError error: Error,
-                   movingItemAt srcURL: URL,
-                   to dstURL: URL)
-    -> Bool { return true }
-  
-  static let shared = FileManagerMoveDelegate()
-}
-
 struct PartialFileContent {
   let contents: String?
   let substructure: [PartialFileContent]
@@ -117,10 +104,7 @@ extension Path {
     outputStream.close()
     
     guard atomically else { return }
-    let tmpFileURL = URL(fileURLWithPath: "\(tmpFilePath.absolute())", isDirectory: false)
-    let outputFileURL = URL(fileURLWithPath: "\(absolute())", isDirectory: false)
-    
-    FileManager.default.delegate = FileManagerMoveDelegate.shared
-    _ = try FileManager.default.moveItem(at: tmpFileURL, to: outputFileURL)
+    try? delete()
+    try tmpFilePath.move(self)
   }
 }

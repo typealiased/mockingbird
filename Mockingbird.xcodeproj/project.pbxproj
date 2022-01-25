@@ -70,7 +70,6 @@
 		285C8E11277AA3BD00DE525A /* String+ControlCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E10277AA3BD00DE525A /* String+ControlCodes.swift */; };
 		285C8E19277ADB6600DE525A /* ProcessInfo+ControlCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E18277ADB6600DE525A /* ProcessInfo+ControlCodes.swift */; };
 		285C8EA8277DA59E00DE525A /* E2ETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8EA7277DA59E00DE525A /* E2ETests.swift */; };
-		285C8EC5277DE42400DE525A /* Data+SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8EC4277DE42400DE525A /* Data+SHA1.swift */; };
 		285CEA8D278523C70005C91F /* BuildCli.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285CEA8B278523C70005C91F /* BuildCli.swift */; };
 		285CEA8E278523C70005C91F /* BuildFramework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285CEA8C278523C70005C91F /* BuildFramework.swift */; };
 		286467DB26BFADE2005CDD67 /* DirectoryPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286467DA26BFADE2005CDD67 /* DirectoryPath.swift */; };
@@ -122,6 +121,8 @@
 		28843B2A26AE77E800AFB8DF /* InlinePropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28843B2926AE77E800AFB8DF /* InlinePropertyTests.swift */; };
 		288678E6279B9C25004FFB3D /* ObjCProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288678E5279B9C25004FFB3D /* ObjCProtocol.swift */; };
 		288678E8279B9C5E004FFB3D /* ObjectiveCProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288678E7279B9C5E004FFB3D /* ObjectiveCProtocolTests.swift */; };
+		288678EC279C98F8004FFB3D /* Data+SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8EC4277DE42400DE525A /* Data+SHA1.swift */; };
+		288678EE279C9957004FFB3D /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 288678ED279C9957004FFB3D /* Crypto */; };
 		28874F8B26BF12DD00097529 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 28874F8A26BF12DD00097529 /* ArgumentParser */; };
 		28874F8D26BF7AB000097529 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28874F8C26BF7AB000097529 /* Configure.swift */; };
 		28874F8F26BF7C3C00097529 /* XcodeProjPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28874F8E26BF7C3C00097529 /* XcodeProjPath.swift */; };
@@ -198,7 +199,6 @@
 		28FB7EC32789C14000125FDA /* Synchronized.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_129 /* Synchronized.swift */; };
 		28FB7EC42789C14000125FDA /* ProcessInfo+ControlCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E18277ADB6600DE525A /* ProcessInfo+ControlCodes.swift */; };
 		28FB7EC52789C14000125FDA /* String+Interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E0B277A870E00DE525A /* String+Interpolation.swift */; };
-		28FB7EC62789C14000125FDA /* Data+SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8EC4277DE42400DE525A /* Data+SHA1.swift */; };
 		28FB7EC82789D0E000125FDA /* Path+Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FB7EC72789D0E000125FDA /* Path+Backup.swift */; };
 		28FB7ECA2789D87800125FDA /* Git.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FB7EC92789D87800125FDA /* Git.swift */; };
 		8356225C26A94CBE005CD5C5 /* TargetDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */; };
@@ -687,6 +687,7 @@
 		28A651142788E58E00B35800 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		28B127E426C667C600BC8B85 /* TestBundleName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBundleName.swift; sourceTree = "<group>"; };
 		28B4F6E126B3C9C7005C0049 /* ObjCTypeEncodings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjCTypeEncodings.swift; sourceTree = "<group>"; };
+		28B9B6DF279DD8A400E0FEA6 /* .mockingbird-ignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".mockingbird-ignore"; sourceTree = "<group>"; };
 		28C28E7626C0EA4E00729617 /* BinaryPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryPath.swift; sourceTree = "<group>"; };
 		28C28E7826C0EE4D00729617 /* Path+Symlink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+Symlink.swift"; sourceTree = "<group>"; };
 		28C28E7A26C0FB2700729617 /* TimeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUnit.swift; sourceTree = "<group>"; };
@@ -949,10 +950,8 @@
 		OBJ_63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		OBJ_66 /* Attributes+Sanitize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attributes+Sanitize.swift"; sourceTree = "<group>"; };
 		OBJ_67 /* FileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileGenerator.swift; sourceTree = "<group>"; };
-		OBJ_688 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
 		OBJ_689 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		OBJ_69 /* GenerateFileOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateFileOperation.swift; sourceTree = "<group>"; };
-		OBJ_691 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		OBJ_692 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		OBJ_694 /* MockingbirdFramework.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = MockingbirdFramework.podspec; sourceTree = "<group>"; };
 		OBJ_70 /* RenderTemplateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderTemplateOperation.swift; sourceTree = "<group>"; };
@@ -1071,6 +1070,7 @@
 			buildActionMask = 0;
 			files = (
 				285C8E0D277A87A200DE525A /* MockingbirdCommon.framework in Frameworks */,
+				288678EE279C9957004FFB3D /* Crypto in Frameworks */,
 				287F852525194EF5007D135D /* SourceKittenFramework in Frameworks */,
 				287F852E25195011007D135D /* XcodeProj in Frameworks */,
 				287F852225194E16007D135D /* SwiftSyntax in Frameworks */,
@@ -1137,7 +1137,6 @@
 			isa = PBXGroup;
 			children = (
 				285C8DFA2779E32600DE525A /* Info.plist */,
-				285C8EC4277DE42400DE525A /* Data+SHA1.swift */,
 				285C8E18277ADB6600DE525A /* ProcessInfo+ControlCodes.swift */,
 				285C8E10277AA3BD00DE525A /* String+ControlCodes.swift */,
 				285C8E0B277A870E00DE525A /* String+Interpolation.swift */,
@@ -1478,6 +1477,7 @@
 			children = (
 				OBJ_117 /* Array+Extensions.swift */,
 				OBJ_118 /* CharacterSet+Extensions.swift */,
+				285C8EC4277DE42400DE525A /* Data+SHA1.swift */,
 				OBJ_120 /* Deallocation.swift */,
 				2896E54026AA52A400124D02 /* KeyedDecodingContainer+Array.swift */,
 				OBJ_121 /* Log.swift */,
@@ -1581,6 +1581,7 @@
 		OBJ_170 /* MockingbirdIgnore */ = {
 			isa = PBXGroup;
 			children = (
+				28B9B6DF279DD8A400E0FEA6 /* .mockingbird-ignore */,
 				OBJ_171 /* !EscapedNegationPrefixIgnoredSource.swift */,
 				OBJ_172 /* #EscapedCommentPrefixIgnoredSource.swift */,
 				OBJ_173 /* CascadingExcludedSource.swift */,
@@ -1884,9 +1885,7 @@
 				OBJ_209 /* Tests */,
 				OBJ_647 /* Products */,
 				D372A58F245586DD0000E80A /* Xcode Configs */,
-				OBJ_688 /* Cartfile.resolved */,
 				OBJ_689 /* LICENSE.md */,
-				OBJ_691 /* Cartfile */,
 				285C8E24277B3B1000DE525A /* mockingbird */,
 				OBJ_694 /* MockingbirdFramework.podspec */,
 				285C8E83277BFE2E00DE525A /* .gitignore */,
@@ -2268,6 +2267,7 @@
 				287F852125194E16007D135D /* SwiftSyntax */,
 				287F852425194EF5007D135D /* SourceKittenFramework */,
 				287F852D25195011007D135D /* XcodeProj */,
+				288678ED279C9957004FFB3D /* Crypto */,
 			);
 			productName = MockingbirdGenerator;
 			productReference = "Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */;
@@ -2368,6 +2368,7 @@
 				287F852925194FEA007D135D /* XCRemoteSwiftPackageReference "XcodeProj" */,
 				28874F8926BF12DD00097529 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
 				285C8E08277A838600DE525A /* XCRemoteSwiftPackageReference "PathKit" */,
+				288678E9279C981A004FFB3D /* XCRemoteSwiftPackageReference "swift-crypto" */,
 			);
 			productRefGroup = OBJ_647 /* Products */;
 			projectDirPath = "";
@@ -2435,7 +2436,6 @@
 				285C8E11277AA3BD00DE525A /* String+ControlCodes.swift in Sources */,
 				285C8E022779ED8300DE525A /* Version.swift in Sources */,
 				285C8E19277ADB6600DE525A /* ProcessInfo+ControlCodes.swift in Sources */,
-				285C8EC5277DE42400DE525A /* Data+SHA1.swift in Sources */,
 				285C8DFB2779E38400DE525A /* String+Regex.swift in Sources */,
 				285C8E032779EDCA00DE525A /* Synchronized.swift in Sources */,
 				285C8E0C277A870E00DE525A /* String+Interpolation.swift in Sources */,
@@ -2709,7 +2709,6 @@
 				28571AA526A662E40063AB83 /* MKBLongLongInvocationHandler.m in Sources */,
 				OBJ_877 /* TypeFacade.swift in Sources */,
 				284C3B4826AAD05C00F076E2 /* GenericStaticMockContext.swift in Sources */,
-				28FB7EC62789C14000125FDA /* Data+SHA1.swift in Sources */,
 				28571AA926A6635F0063AB83 /* MKBPointerInvocationHandler.m in Sources */,
 				287C4F4426A3688100A7E0D9 /* MKBMocking.m in Sources */,
 				OBJ_878 /* Mocking.swift in Sources */,
@@ -2804,6 +2803,7 @@
 				2896E53D26A949F400124D02 /* VariableDefinitionTemplate.swift in Sources */,
 				OBJ_921 /* ParsedFile.swift in Sources */,
 				28A1F3B426AC85C8002F282D /* IfStatementTemplate.swift in Sources */,
+				288678EC279C98F8004FFB3D /* Data+SHA1.swift in Sources */,
 				D3B410CA248DA35B008913A8 /* TestFileParser.swift in Sources */,
 				OBJ_922 /* Single.swift in Sources */,
 				D3643B6C247B78A5002DF069 /* Function.swift in Sources */,
@@ -3662,7 +3662,7 @@
 			repositoryURL = "https://github.com/jpsim/SourceKitten.git";
 			requirement = {
 				kind = exactVersion;
-				version = 0.30.0;
+				version = 0.31.1;
 			};
 		};
 		287F852625194F2A007D135D /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
@@ -3679,6 +3679,14 @@
 			requirement = {
 				kind = exactVersion;
 				version = 8.7.1;
+			};
+		};
+		288678E9279C981A004FFB3D /* XCRemoteSwiftPackageReference "swift-crypto" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-crypto.git";
+			requirement = {
+				kind = exactVersion;
+				version = 2.0.4;
 			};
 		};
 		28874F8926BF12DD00097529 /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
@@ -3742,6 +3750,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 287F852925194FEA007D135D /* XCRemoteSwiftPackageReference "XcodeProj" */;
 			productName = XcodeProj;
+		};
+		288678ED279C9957004FFB3D /* Crypto */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 288678E9279C981A004FFB3D /* XCRemoteSwiftPackageReference "swift-crypto" */;
+			productName = Crypto;
 		};
 		28874F8A26BF12DD00097529 /* ArgumentParser */ = {
 			isa = XCSwiftPackageProductDependency;

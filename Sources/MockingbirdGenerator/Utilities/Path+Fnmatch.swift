@@ -1,5 +1,9 @@
 import PathKit
+#if os(macOS)
 import Darwin
+#elseif os(Linux)
+import Glibc
+#endif
 
 extension Path {
   /// Checks whether `pattern` matches the absolute path using POSIX fnmatch.

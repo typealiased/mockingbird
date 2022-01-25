@@ -3,7 +3,6 @@ import MockingbirdCommon
 import MockingbirdGenerator
 import PathKit
 import XcodeProj
-import os.log
 
 class Generator {
   struct Configuration: Encodable {

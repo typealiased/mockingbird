@@ -3,7 +3,6 @@
 import Foundation
 import MockingbirdCommon
 import PathKit
-import os.log
 
 class FileGenerator {
   let mockableTypes: [MockableType]

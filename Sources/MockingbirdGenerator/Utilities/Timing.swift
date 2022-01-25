@@ -1,27 +1,28 @@
 import Foundation
+#if os(macOS)
 import os.log
+#endif
 
 @inlinable
 public func time<T>(_ signpostType: SignpostType, _ block: () throws -> T) rethrows -> T {
-  #if PROFILE
+  #if PROFILE && os(macOS)
   var signpost: Signpost!
   if #available(OSX 10.14, *) {
-    signpost = OSLog.beginSignpost(signpostType)
+    signpost = beginSignpost(signpostType)
   }
+  #else
+  let start = ProcessInfo.processInfo.systemUptime
   #endif
   
-  let start = mach_absolute_time()
   let returnValue = try block()
   
-  #if !(PROFILE)
-  let delta = round(Double(mach_absolute_time() - start) / 10000.0) / 100.0
-  log("\(signpostType.name) - Took \(delta) ms")
-  #endif
-  
-  #if PROFILE
+  #if PROFILE && os(macOS)
   if #available(OSX 10.14, *) {
-    OSLog.endSignpost(signpost)
+    endSignpost(signpost)
   }
+  #else
+  let delta = round(Double(ProcessInfo.processInfo.systemUptime - start) * 1000 * 100) / 100
+  log("\(signpostType.name) - Took \(delta) ms")
   #endif
   return returnValue
 }

@@ -1,6 +1,5 @@
 import Foundation
 import SourceKittenFramework
-import os.log
 
 public class ProcessTypesOperation: BasicOperation {
   let parseFilesResult: ParseFilesOperation.Result

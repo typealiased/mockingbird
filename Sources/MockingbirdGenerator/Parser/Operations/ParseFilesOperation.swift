@@ -2,7 +2,6 @@ import Foundation
 import PathKit
 import SourceKittenFramework
 import SwiftSyntax
-import os.log
 
 public class ParseFilesOperation: BasicOperation {
   let extractSourcesResult: ExtractSourcesOperationResult

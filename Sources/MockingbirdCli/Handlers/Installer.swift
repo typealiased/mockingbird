@@ -139,7 +139,7 @@ struct Installer {
   
   private func resolveDerivedDataPath() throws -> Path? {
     let xcodebuild = Process()
-    xcodebuild.launchPath = "/usr/bin/env"
+    xcodebuild.executableURL = URL(fileURLWithPath: "/usr/bin/env", isDirectory: false)
     xcodebuild.arguments = ["xcodebuild", "-showBuildSettings"]
     xcodebuild.currentDirectoryURL = config.projectPath.parent().url
     xcodebuild.qualityOfService = .userInitiated

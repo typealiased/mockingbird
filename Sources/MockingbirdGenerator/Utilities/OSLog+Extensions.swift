@@ -1,5 +1,7 @@
 import Foundation
+#if os(macOS)
 import os.signpost
+#endif
 
 private enum Constants {
   static let subsystem = "co.bird.mockingbird"
@@ -37,6 +39,7 @@ public enum SignpostType {
   }
 }
 
+#if os(macOS)
 @available(OSX 10.14, *)
 public struct Signpost {
   let id: OSSignpostID
@@ -56,20 +59,21 @@ public extension OSLog {
       category: .pointsOfInterest
     )
   }
-  
-  static func beginSignpost(_ type: SignpostType) -> Signpost {
-    let signpost = Signpost(type)
-    os_signpost(.begin,
-                log: .pointsOfInterest,
-                name: signpost.type.name,
-                signpostID: signpost.id)
-    return signpost
-  }
-  
-  static func endSignpost(_ signpost: Signpost) {
-    os_signpost(.end,
-                log: .pointsOfInterest,
-                name: signpost.type.name,
-                signpostID: signpost.id)
-  }
 }
+
+public func beginSignpost(_ type: SignpostType) -> Signpost {
+  let signpost = Signpost(type)
+  os_signpost(.begin,
+              log: .pointsOfInterest,
+              name: signpost.type.name,
+              signpostID: signpost.id)
+  return signpost
+}
+
+public func endSignpost(_ signpost: Signpost) {
+  os_signpost(.end,
+              log: .pointsOfInterest,
+              name: signpost.type.name,
+              signpostID: signpost.id)
+}
+#endif

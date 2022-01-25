@@ -1,15 +1,12 @@
 import Foundation
-import CommonCrypto
+import Crypto
 
 public extension Data {
   /// Returns a SHA-1 digest as a hex-formatted string.
   func hash() -> String {
-    let hash = withUnsafeBytes({ (pointer: UnsafeRawBufferPointer) -> [UInt8] in
-      var hash = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH))
-      CC_SHA1(pointer.baseAddress!, CC_LONG(count), &hash)
-      return hash
-    })
-    return hash.map({ String(format: "%02x", $0) }).joined()
+    return Insecure.SHA1.hash(data: self).prefix(Insecure.SHA1.byteCount).map({
+      String(format: "%02x", $0)
+    }).joined()
   }
 }
 
@@ -21,7 +18,7 @@ public extension String {
     }
   }
   
-  /// Returns a SHA-1 digest as a hex-formatted string.
+  /// Returns a SHA-1 digest of the current string.
   func hash(as encoding: Encoding = .utf8) throws -> String {
     guard let encodedData = data(using: encoding, allowLossyConversion: false) else {
       throw EncodingError(encoding: encoding)

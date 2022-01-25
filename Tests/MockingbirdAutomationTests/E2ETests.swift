@@ -1,5 +1,4 @@
 import MockingbirdAutomation
-import MockingbirdCommon
 import PathKit
 import XCTest
 
@@ -178,7 +177,7 @@ class E2ETests: XCTestCase {
   }
   
   func testOutputFlakiness() throws {
-    var expectedHash: String?
+    var expectedContents: Data?
     for _ in 0...10 {
       // Call the generator directly as it takes a while to run the entire test suite.
       try Subprocess(cliPath.absolute().string, [
@@ -194,9 +193,9 @@ class E2ETests: XCTestCase {
     
       let testsHostMocks = sourceRoot
         + "MockingbirdMocks/MockingbirdTestsHostMocks.generated.swift"
-      let actualHash = try testsHostMocks.read().hash()
-      if expectedHash == nil { expectedHash = actualHash }
-      XCTAssertEqual(actualHash, expectedHash)
+      let actualContents = try testsHostMocks.read()
+      if expectedContents == nil { expectedContents = actualContents }
+      XCTAssertEqual(actualContents, expectedContents)
     }
   }
 }

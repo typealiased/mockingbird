@@ -29,7 +29,7 @@ public struct Subprocess: CustomStringConvertible {
               environment: [String: String] = ProcessInfo.processInfo.environment,
               workingDirectory: Path = Path.current) {
     let process = Process()
-    process.launchPath = "/usr/bin/env"
+    process.executableURL = URL(fileURLWithPath: "/usr/bin/env", isDirectory: false)
     process.arguments = [command] + arguments
     process.currentDirectoryURL = workingDirectory.url
     process.environment = environment

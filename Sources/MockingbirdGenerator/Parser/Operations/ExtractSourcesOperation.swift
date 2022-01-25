@@ -1,7 +1,6 @@
 import Foundation
 import PathKit
 import XcodeProj
-import os.log
 
 public struct SourcePath: Hashable, Equatable {
   public let path: Path
