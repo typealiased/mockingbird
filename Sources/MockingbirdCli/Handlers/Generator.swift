@@ -190,17 +190,15 @@ class Generator {
       })
     }()
     
-    let queue = OperationQueue.createForActiveProcessors()
+    let actionGraph = ActionGraph()
     
     // Create operations to find used mock types in tests.
     let pruningPipeline = config.pruningMethod == .disable ? nil :
       PruningPipeline(config: config,
+                      actionGraph: actionGraph,
                       getCachedTarget: getCachedTestTarget,
                       getProject: getProject,
                       environment: getBuildEnvironment)
-    if let pruningOperations = pruningPipeline?.operations {
-      queue.addOperations(pruningOperations, waitUntilFinished: false)
-    }
     let findMockedTypesOperation = pruningPipeline?.findMockedTypesOperation
     
     // Create abstract generation pipelines from targets and output paths.
@@ -212,15 +210,14 @@ class Generator {
       try pipelines.append(Pipeline(inputTarget: target,
                                     outputPath: outputPath,
                                     config: config,
+                                    actionGraph: actionGraph,
                                     findMockedTypesOperation: findMockedTypesOperation,
                                     environment: getBuildEnvironment))
     }
-    pipelines.forEach({ queue.addOperations($0.operations, waitUntilFinished: false) })
     
     // Run the operations.
-    let operationsCopy = queue.operations.compactMap({ $0 as? BasicOperation })
-    queue.waitUntilAllOperationsAreFinished()
-    operationsCopy.compactMap({ $0.error }).forEach({ log($0) })
+    actionGraph.run()
+    actionGraph.waitForAll()
     
     // Write intermediary module cache info into project cache directory.
     if !config.disableCache {

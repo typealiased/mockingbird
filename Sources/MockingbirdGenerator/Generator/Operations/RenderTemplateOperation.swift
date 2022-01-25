@@ -1,6 +1,6 @@
 import Foundation
 
-class RenderTemplateOperation: BasicOperation {
+class RenderTemplateOperation: Runnable {
   let template: Template
   
   class Result {
@@ -8,12 +8,13 @@ class RenderTemplateOperation: BasicOperation {
   }
   
   let result = Result()
+  var description: String { "Render Template" }
   
   init(template: Template) {
     self.template = template
   }
   
-  override func run() {
+  func run(context: RunnableContext) {
     result.renderedContents = template.render()
   }
 }

@@ -1,7 +1,7 @@
 import Foundation
 import SourceKittenFramework
 
-public class ProcessTypesOperation: BasicOperation {
+public class ProcessTypesOperation: Runnable {
   let parseFilesResult: ParseFilesOperation.Result
   let checkCacheResult: CheckCacheOperation.Result?
   let useRelaxedLinking: Bool
@@ -12,10 +12,10 @@ public class ProcessTypesOperation: BasicOperation {
   }
   
   public let result = Result()
+  public var description: String { "Process Types" }
+  
   let rawTypeRepository = RawTypeRepository()
   let typealiasRepository = TypealiasRepository()
-  
-  public override var description: String { "Process Types" }
   
   public init(parseFilesResult: ParseFilesOperation.Result,
               checkCacheResult: CheckCacheOperation.Result?,
@@ -27,10 +27,9 @@ public class ProcessTypesOperation: BasicOperation {
     retainForever(typealiasRepository)
   }
   
-  override func run() {
+  public func run(context: RunnableContext) {
     guard checkCacheResult?.isCached != true else { return }
     time(.processTypes) {
-      let queue = OperationQueue.createForActiveProcessors()
       let processStructuresOperations = parseFilesResult.parsedFiles
         .map({ parsedFile -> ProcessStructuresOperation in
           let structureDictionary = parsedFile.structure.dictionary
@@ -39,7 +38,8 @@ public class ProcessTypesOperation: BasicOperation {
           retainForever(operation)
           return operation
         })
-      queue.addOperations(processStructuresOperations, waitUntilFinished: true)
+      context.registerChildren(processStructuresOperations)
+      context.runAndWait(for: processStructuresOperations)
       processStructuresOperations.forEach({
         $0.result.rawTypes.forEach({
           rawTypeRepository.addRawType($0)
@@ -63,7 +63,8 @@ public class ProcessTypesOperation: BasicOperation {
           retainForever(operation)
           return operation
         })
-      queue.addOperations(flattenInheritanceOperations, waitUntilFinished: true)
+      context.registerChildren(flattenInheritanceOperations)
+      context.runAndWait(for: flattenInheritanceOperations)
       result.mockableTypes = flattenInheritanceOperations
         .compactMap({ $0.result.mockableType })
         .filter({ !$0.isContainedType })

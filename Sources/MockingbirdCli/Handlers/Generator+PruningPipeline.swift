@@ -6,12 +6,13 @@ import XcodeProj
 extension Generator {
   /// Constructs an operation graph for pruning thunks in generated mocks.
   struct PruningPipeline {
-    let operations: [BasicOperation]
+    let operations: [Runnable]
     let testTarget: TargetType
     let findMockedTypesOperation: FindMockedTypesOperation
     private let environmentTargetName: String
     
     init?(config: Configuration,
+          actionGraph: ActionGraph,
           getCachedTarget: (String) -> TargetType?,
           getProject: (Path) throws -> Project,
           environment: @escaping () -> [String: Any]) {
@@ -48,7 +49,7 @@ extension Generator {
         return nil
       }
       
-      let extractSources: BasicOperation
+      let extractSources: Runnable
       let extractSourcesResult: ExtractSourcesOperationResult
       let cachedTestTarget: TestTarget?
       switch testTarget {
@@ -90,7 +91,7 @@ extension Generator {
         extractSourcesResult: extractSourcesResult,
         cachedTestTarget: cachedTestTarget
       )
-      findMockedTypesOperation.addDependency(extractSources)
+      actionGraph.register(findMockedTypesOperation, dependencies: [extractSources])
       
       self.operations = [extractSources, findMockedTypesOperation]
       self.testTarget = testTarget

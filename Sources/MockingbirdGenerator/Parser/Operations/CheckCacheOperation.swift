@@ -2,7 +2,7 @@ import Foundation
 import MockingbirdCommon
 import PathKit
 
-public class CheckCacheOperation: BasicOperation {
+public class CheckCacheOperation: Runnable {
   let extractSourcesResult: ExtractSourcesOperationResult
   let findMockedTypesResult: FindMockedTypesOperation.Result?
   let target: SourceTarget
@@ -14,8 +14,7 @@ public class CheckCacheOperation: BasicOperation {
   }
   
   public let result = Result()
-  
-  public override var description: String { "Check Cache" }
+  public var description: String { "Check Cache" }
   
   public init(extractSourcesResult: ExtractSourcesOperationResult,
               findMockedTypesResult: FindMockedTypesOperation.Result?,
@@ -28,7 +27,7 @@ public class CheckCacheOperation: BasicOperation {
     self.sourceHashes = target.flattenedSourceHashes()
   }
   
-  override func run() throws {
+  public func run(context: RunnableContext) throws {
     try time(.checkCache) {
       let mockedTypesHash = try findMockedTypesResult?.generateMockedTypeNamesHash()
       guard mockedTypesHash == target.mockedTypesHash else {

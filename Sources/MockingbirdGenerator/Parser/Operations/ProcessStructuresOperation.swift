@@ -4,24 +4,23 @@ import SourceKittenFramework
 /// Creates minimal `RawType` partial objects from `ParsedFile` SourceKitten structures. Partials
 /// can be classes, protocols, extensions, typealiases, etc, which are then combined later in a
 /// `FlattenInheritanceOperation` to create a hydrated `MockableType`.
-class ProcessStructuresOperation: BasicOperation {
+class ProcessStructuresOperation: Runnable {
   let structureDictionary: StructureDictionary
   let parsedFile: ParsedFile
   
   class Result {
     fileprivate(set) var rawTypes = [RawType]()
   }
-  
+
   let result = Result()
-  
-  override var description: String { "Process Structures" }
+  var description: String { "Process Structures" }
   
   init(structureDictionary: StructureDictionary, parsedFile: ParsedFile) {
     self.structureDictionary = structureDictionary
     self.parsedFile = parsedFile
   }
   
-  override func run() throws {
+  func run(context: RunnableContext) throws {
     result.rawTypes.append(contentsOf: processStructureDictionary(structureDictionary,
                                                                   parsedFile: parsedFile,
                                                                   containingTypeNames: [],

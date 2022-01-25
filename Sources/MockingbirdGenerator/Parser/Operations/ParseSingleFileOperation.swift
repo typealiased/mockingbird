@@ -4,13 +4,13 @@ import PathKit
 import SourceKittenFramework
 import SwiftSyntax
 
-class ParseSingleFileOperation: BasicOperation {
+class ParseSingleFileOperation: Runnable {
   class Result {
     fileprivate(set) var parsedFile: ParsedFile?
   }
-  
+
   let result = Result()
-  override var description: String { "Single File" }
+  var description: String { "Single File" }
   
   let sourcePath: SourcePath
   let shouldMock: Bool
@@ -29,13 +29,14 @@ class ParseSingleFileOperation: BasicOperation {
   
   private static var memoizedParsedFiles = Synchronized<[SourcePath: ParsedFile]>([:])
   
-  override func run() throws {
+  func run(context: RunnableContext) throws {
     let sourcePath = self.sourcePath
     if let memoized = ParseSingleFileOperation.memoizedParsedFiles.read({ $0[sourcePath] }) {
       result.parsedFile = ParsedFile(from: memoized, shouldMock: shouldMock)
       return
     }
     guard let file = sourceKitResult.file, let structure = sourceKitResult.structure else {
+      logWarning("Unable to parse file at \(sourcePath.path.absolute()) due to SourceKit failure")
       return // SourceKit parsing failed earlier.
     }
     
@@ -60,42 +61,42 @@ class ParseSingleFileOperation: BasicOperation {
   }
 }
 
-class ParseSourceKitOperation: BasicOperation {
+class ParseSourceKitOperation: Runnable {
   class Result {
     fileprivate(set) var structure: Structure?
     fileprivate(set) var file: File?
   }
   
   let result = Result()
-  override var description: String { "Parse SourceKit" }
+  var description: String { "Parse SourceKit" }
   let sourcePath: SourcePath
   
   init(sourcePath: SourcePath) {
     self.sourcePath = sourcePath
   }
   
-  override func run() throws {
+  func run(context: RunnableContext) throws {
     let file = try sourcePath.path.getFile()
     result.file = file
     result.structure = try Structure(file: file)
   }
 }
 
-class ParseSwiftSyntaxOperation: BasicOperation {
+class ParseSwiftSyntaxOperation: Runnable {
   class Result {
     fileprivate(set) var importDeclarations = Set<ImportDeclaration>()
     fileprivate(set) var compilationDirectives = [CompilationDirective]()
   }
   
   let result = Result()
-  override var description: String { "Parse SwiftSyntax" }
+  var description: String { "Parse SwiftSyntax" }
   let sourcePath: SourcePath
   
   init(sourcePath: SourcePath) {
     self.sourcePath = sourcePath
   }
   
-  override func run() throws {
+  func run(context: RunnableContext) throws {
     // File reading is not shared with the parse SourceKit operation, but parsing >> reading.
     let file = try sourcePath.path.getFile()
     let sourceFile = try SyntaxParser.parse(source: file.contents)

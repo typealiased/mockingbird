@@ -14,7 +14,7 @@ public class ExtractSourcesOperationResult {
   fileprivate(set) public var moduleDependencies = [String: Set<String>]()
 }
 
-public protocol ExtractSourcesAbstractOperation: BasicOperation {
+public protocol ExtractSourcesAbstractOperation: Runnable {
   var result: ExtractSourcesOperationResult { get }
 }
 
@@ -31,7 +31,7 @@ public struct ExtractSourcesOptions: OptionSet {
 }
 
 /// Given a target, find all related source files including those compiled by dependencies.
-public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesAbstractOperation {
+public class ExtractSourcesOperation<T: Target>: ExtractSourcesAbstractOperation {
   public let target: T
   let sourceRoot: Path
   let supportPath: Path?
@@ -39,8 +39,7 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
   let environment: () -> [String: Any]
   
   public let result = ExtractSourcesOperationResult()
-  
-  public override var description: String { "Extract Sources" }
+  public var description: String { "Extract Sources" }
   
   public init(target: T,
               sourceRoot: Path,
@@ -54,8 +53,10 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
     self.environment = environment
   }
   
-  override func run() throws {
+  private weak var context: RunnableContext?
+  public func run(context: RunnableContext) throws {
     try time(.extractSources) {
+      self.context = context
       result.targetPaths = sourceFilePaths(for: target)
       
       if options.contains(.dependencyPaths) {
@@ -85,6 +86,7 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
     let paths = target.findSourceFilePaths(sourceRoot: sourceRoot)
       .map({ SourcePath(path: $0, moduleName: moduleName) })
     
+    print("Getting source file paths for target \(target.name)")
     let includedPaths = includedSourcePaths(for: Set(paths))
     memoizedSourceFilePaths[target.name] = includedPaths
     
@@ -139,8 +141,8 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
     let operations = sourcePaths.map({
       retainForever(GlobSearchOperation(sourcePath: $0, sourceRoot: sourceRoot))
     })
-    let queue = OperationQueue.createForActiveProcessors()
-    queue.addOperations(operations, waitUntilFinished: true)
+    context?.registerChildren(operations)
+    context?.runAndWait(for: operations)
     return Set(operations.compactMap({ $0.result.sourcePath }))
   }
   
@@ -154,7 +156,7 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
 }
 
 /// Finds whether a given source path is ignored by a `.mockingbird-ignore` file.
-private class GlobSearchOperation: BasicOperation {
+private class GlobSearchOperation: Runnable {
   class Result {
     fileprivate(set) var sourcePath: SourcePath?
   }
@@ -174,9 +176,9 @@ private class GlobSearchOperation: BasicOperation {
     static let escapingToken = "\\"
   }
   
-  override var description: String { "Glob Search" }
+  var description: String { "Glob Search" }
   
-  override func run() throws {
+  public func run(context: RunnableContext) throws {
     guard shouldInclude(sourcePath: sourcePath.path, in: sourcePath.path.parent()).value else {
       log("Ignoring source path at \(sourcePath.path.absolute())")
       return

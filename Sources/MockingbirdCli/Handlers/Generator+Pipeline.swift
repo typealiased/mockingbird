@@ -9,7 +9,7 @@ extension Generator {
   struct Pipeline {
     let inputTarget: TargetType
     let outputPath: Path
-    let operations: [BasicOperation]
+    let operations: [Runnable]
     var usedCache: Bool {
       return operations.contains(where: {
         guard let operation = $0 as? CheckCacheOperation else { return false }
@@ -22,6 +22,7 @@ extension Generator {
     init(inputTarget: TargetType,
          outputPath: Path,
          config: Configuration,
+         actionGraph: ActionGraph,
          findMockedTypesOperation: FindMockedTypesOperation?,
          environment: @escaping () -> [String: Any]) throws {
       self.inputTarget = inputTarget
@@ -58,9 +59,9 @@ extension Generator {
                                          findMockedTypesResult: findMockedTypesOperation?.result,
                                          target: target,
                                          outputFilePath: outputPath)
-        checkCache?.addDependency(extractSources)
-        if let findMockedTypesOperation = findMockedTypesOperation {
-          checkCache?.addDependency(findMockedTypesOperation)
+        if let operation = checkCache {
+          let dependencies: [Runnable?] = [extractSources, findMockedTypesOperation]
+          actionGraph.register(operation, dependencies: dependencies.compactMap({ $0 }))
         }
         
       case .testTarget:
@@ -70,13 +71,17 @@ extension Generator {
       // Parse files.
       let parseFiles = ParseFilesOperation(extractSourcesResult: extractSources.result,
                                            checkCacheResult: checkCache?.result)
-      parseFiles.addDependency(extractSources)
+      if let checkCache = checkCache {
+        actionGraph.register(parseFiles, dependencies: [extractSources, checkCache])
+      } else {
+        actionGraph.register(parseFiles, dependencies: [extractSources])
+      }
       
       // Process types.
       let processTypes = ProcessTypesOperation(parseFilesResult: parseFiles.result,
                                                checkCacheResult: checkCache?.result,
                                                useRelaxedLinking: !config.disableRelaxedLinking)
-      processTypes.addDependency(parseFiles)
+      actionGraph.register(processTypes, dependencies: [parseFiles])
       
       // Generate files.
       let moduleName = inputTarget.resolveProductModuleName(environment: environment)
@@ -95,15 +100,12 @@ extension Generator {
           pruningMethod: config.pruningMethod
         )
       )
-      generateFile.addDependency(processTypes)
+      let dependencies: [Runnable?] = [processTypes, findMockedTypesOperation]
+      actionGraph.register(generateFile, dependencies: dependencies.compactMap({ $0 }))
       
-      if let findMockedTypesOperation = findMockedTypesOperation {
-        generateFile.addDependency(findMockedTypesOperation)
-      }
       self.mockedTypesResult = findMockedTypesOperation?.result
       
       if let checkCache = checkCache {
-        parseFiles.addDependency(checkCache)
         self.operations = [extractSources, checkCache, parseFiles, processTypes, generateFile]
       } else {
         self.operations = [extractSources, parseFiles, processTypes, generateFile]

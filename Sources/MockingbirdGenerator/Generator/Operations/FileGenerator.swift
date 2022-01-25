@@ -81,7 +81,7 @@ class FileGenerator {
     return PartialFileContent(contents: String(lines: headerSections, spacing: 2))
   }
   
-  private func generateFileBody() -> PartialFileContent {
+  private func generateFileBody(context: RunnableContext) -> PartialFileContent {
     guard !mockableTypes.isEmpty else {
       return PartialFileContent(contents: String(
         lines: ("No mockable types in \(singleQuoted: config.moduleName). Check that the " +
@@ -121,15 +121,16 @@ class FileGenerator {
         let generateInitializerOperation = RenderTemplateOperation(template: initializerTemplate)
         
         // The initializer accesses lazy vars from `mockableTypeTemplate` which is not thread-safe.
-        generateInitializerOperation.addDependency(generateMockableTypeOperation)
+        context.registerChild(generateInitializerOperation,
+                              dependencies: [generateMockableTypeOperation])
         
         retainForever(generateMockableTypeOperation)
         retainForever(generateInitializerOperation)
         
         return [generateMockableTypeOperation, generateInitializerOperation]
       })
-    let queue = OperationQueue.createForActiveProcessors()
-    queue.addOperations(operations, waitUntilFinished: true)
+    context.runAndWait(for: operations)
+    
     let substructure = [PartialFileContent(contents: genericTypesStaticMocks)]
       + operations.map({ PartialFileContent(contents: $0.result.renderedContents) })
     return PartialFileContent(substructure: substructure, delimiter: "\n\n")
@@ -140,10 +141,10 @@ class FileGenerator {
     return PartialFileContent(contents: "\n#endif")
   }
   
-  func generate() -> PartialFileContent {
+  func generate(context: RunnableContext) -> PartialFileContent {
     return PartialFileContent(contents: nil,
                               substructure: [generateFileHeader(),
-                                             generateFileBody(),
+                                             generateFileBody(context: context),
                                              generateFileFooter()].filter({ !$0.isEmpty }),
                               delimiter: "\n\n",
                               footer: "\n")

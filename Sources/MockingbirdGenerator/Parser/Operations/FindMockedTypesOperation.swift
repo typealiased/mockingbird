@@ -3,7 +3,7 @@ import MockingbirdCommon
 import PathKit
 import SwiftSyntax
 
-public class FindMockedTypesOperation: BasicOperation {
+public class FindMockedTypesOperation: Runnable {
   public class Result {
     public fileprivate(set) var allMockedTypeNames = Set<String>()
     public fileprivate(set) var mockedTypeNames = [Path: Set<String>]()
@@ -14,7 +14,7 @@ public class FindMockedTypesOperation: BasicOperation {
   }
   
   public let result = Result()
-  public override var description: String { "Find Mocked Types" }
+  public var description: String { "Find Mocked Types" }
   let extractSourcesResult: ExtractSourcesOperationResult
   let cachedTestTarget: TestTarget?
   
@@ -24,7 +24,7 @@ public class FindMockedTypesOperation: BasicOperation {
     self.cachedTestTarget = cachedTestTarget
   }
   
-  override func run() throws {
+  public func run(context: RunnableContext) throws {
     time(.parseTests) {
       let cachedMockedTypeNames = cachedTestTarget?.sourceFilePaths
         .reduce(into: [Path: (typeNames: Set<String>, fileHash: String)]()) {
@@ -45,8 +45,9 @@ public class FindMockedTypesOperation: BasicOperation {
           retainForever(operation)
           return operation
         })
-      let queue = OperationQueue.createForActiveProcessors()
-      queue.addOperations(operations, waitUntilFinished: true)
+      context.registerChildren(operations)
+      context.runAndWait(for: operations)
+      
       result.allMockedTypeNames = Set(operations.flatMap({ $0.result.mockedTypeNames }))
       result.mockedTypeNames = operations.reduce(into: [Path: Set<String>]()) {
         (mockedTypeNames, operation) in
@@ -57,13 +58,14 @@ public class FindMockedTypesOperation: BasicOperation {
 }
 
 /// Find mock types that are referenced in a `mock(SomeType.self)` initializer.
-private class ParseTestFileOperation: BasicOperation {
+private class ParseTestFileOperation: Runnable {
   class Result {
     fileprivate(set) var mockedTypeNames = Set<String>()
   }
   
   let result = Result()
-  override var description: String { "Parse Test File" }
+  var description: String { "Parse Test File" }
+  let id = UUID()
   let sourcePath: SourcePath
   let cachedMockedTypeNames: (typeNames: Set<String>, fileHash: String)?
   
@@ -72,7 +74,7 @@ private class ParseTestFileOperation: BasicOperation {
     self.cachedMockedTypeNames = cachedMockedTypeNames
   }
   
-  override func run() throws {
+  func run(context: RunnableContext) throws {
     if let cached = try checkCached() {
       result.mockedTypeNames = cached
       return

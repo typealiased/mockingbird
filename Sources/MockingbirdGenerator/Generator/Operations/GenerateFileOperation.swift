@@ -30,11 +30,14 @@ public struct GenerateFileConfig {
   }
 }
 
-public class GenerateFileOperation: BasicOperation {
+public class GenerateFileOperation: Runnable {
   let processTypesResult: ProcessTypesOperation.Result
   let checkCacheResult: CheckCacheOperation.Result?
   let findMockedTypesResult: FindMockedTypesOperation.Result?
   let config: GenerateFileConfig
+  
+  public var description: String { "Generate File" }
+  public let id = UUID()
   
   public init(processTypesResult: ProcessTypesOperation.Result,
               checkCacheResult: CheckCacheOperation.Result?,
@@ -46,7 +49,7 @@ public class GenerateFileOperation: BasicOperation {
     self.config = config
   }
   
-  override func run() throws {
+  public func run(context: RunnableContext) throws {
     guard checkCacheResult?.isCached != true else { return }
     var contents: PartialFileContent!
     time(.renderMocks) {
@@ -56,7 +59,7 @@ public class GenerateFileOperation: BasicOperation {
         parsedFiles: processTypesResult.parsedFiles,
         config: config
       )
-      contents = generator.generate()
+      contents = generator.generate(context: context)
     }
     
     try time(.writeFiles) {

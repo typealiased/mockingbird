@@ -3,7 +3,7 @@ import PathKit
 import SourceKittenFramework
 import SwiftSyntax
 
-public class ParseFilesOperation: BasicOperation {
+public class ParseFilesOperation: Runnable {
   let extractSourcesResult: ExtractSourcesOperationResult
   let checkCacheResult: CheckCacheOperation.Result?
   
@@ -13,8 +13,7 @@ public class ParseFilesOperation: BasicOperation {
   }
   
   public let result = Result()
-  
-  public override var description: String { "Parse Files" }
+  public var description: String { "Parse Files" }
   
   public init(extractSourcesResult: ExtractSourcesOperationResult,
               checkCacheResult: CheckCacheOperation.Result?) {
@@ -22,37 +21,39 @@ public class ParseFilesOperation: BasicOperation {
     self.checkCacheResult = checkCacheResult
   }
   
-  override func run() throws {
-    guard checkCacheResult?.isCached != true else { return }
-    
+  public func run(context: RunnableContext) throws {
     time(.parseFiles) {
-      let createOperations: (SourcePath, Bool) -> [BasicOperation] = { (sourcePath, shouldMock) in
-        let parseSourceKit = ParseSourceKitOperation(sourcePath: sourcePath)
-        let parseSwiftSyntax = ParseSwiftSyntaxOperation(sourcePath: sourcePath)
-        let parseSingleFile = ParseSingleFileOperation(sourcePath: sourcePath,
-                                                       shouldMock: shouldMock,
-                                                       sourceKitResult: parseSourceKit.result,
-                                                       swiftSyntaxResult: parseSwiftSyntax.result)
-        parseSingleFile.addDependency(parseSourceKit)
-        parseSingleFile.addDependency(parseSwiftSyntax)
-        
-        retainForever(parseSourceKit)
-        retainForever(parseSwiftSyntax)
-        retainForever(parseSingleFile)
-        
-        return [parseSourceKit, parseSwiftSyntax, parseSingleFile]
-      }
+      guard checkCacheResult?.isCached != true else { return }
       
-      let queue = OperationQueue.createForActiveProcessors()
-      let operations = extractSourcesResult.targetPaths.flatMap({ createOperations($0, true) })
-        + extractSourcesResult.dependencyPaths.flatMap({ createOperations($0, false) })
-      queue.addOperations(operations, waitUntilFinished: true)
-      
-      result.parsedFiles = operations.compactMap({ operation in
-        return (operation as? ParseSingleFileOperation)?.result.parsedFile
+      let sourceOperations = extractSourcesResult.targetPaths.map({ path in
+        createOperations(path: path, shouldMock: true, context: context)
       })
+      let dependencyOperations = extractSourcesResult.dependencyPaths.map({ path in
+        createOperations(path: path, shouldMock: false, context: context)
+      })
+      let operations = sourceOperations + dependencyOperations
+      context.runAndWait(for: operations)
+      result.parsedFiles = operations.compactMap({ $0.result.parsedFile })
     }
     
     result.moduleDependencies = extractSourcesResult.moduleDependencies
+  }
+  
+  func createOperations(path: SourcePath,
+                        shouldMock: Bool,
+                        context: RunnableContext) -> ParseSingleFileOperation {
+    let parseSourceKit = ParseSourceKitOperation(sourcePath: path)
+    let parseSwiftSyntax = ParseSwiftSyntaxOperation(sourcePath: path)
+    let parseSingleFile = ParseSingleFileOperation(sourcePath: path,
+                                                   shouldMock: shouldMock,
+                                                   sourceKitResult: parseSourceKit.result,
+                                                   swiftSyntaxResult: parseSwiftSyntax.result)
+    
+    retainForever(parseSourceKit)
+    retainForever(parseSwiftSyntax)
+    retainForever(parseSingleFile)
+    
+    context.registerChild(parseSingleFile, dependencies: [parseSourceKit, parseSwiftSyntax])
+    return parseSingleFile
   }
 }
