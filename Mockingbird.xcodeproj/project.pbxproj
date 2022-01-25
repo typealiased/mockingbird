@@ -3654,7 +3654,7 @@
 			repositoryURL = "https://github.com/jpsim/SourceKitten.git";
 			requirement = {
 				kind = exactVersion;
-				version = 0.30.0;
+				version = 0.31.1;
 			};
 		};
 		287F852625194F2A007D135D /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
