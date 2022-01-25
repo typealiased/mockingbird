@@ -340,11 +340,9 @@ class MethodTemplate: Template {
   
   lazy var returnTypeAttributesForMocking: String = {
     var attributes = ""
-    if method.attributes.contains(.async) {
-      attributes += " async"
-    }
+    if method.attributes.contains(.async) { attributes += " async" }
     if method.attributes.contains(.rethrows) { attributes += " rethrows" }
-    if method.attributes.contains(.throws) { attributes += " throws" }
+    else if method.attributes.contains(.throws) { attributes += " throws" }
     return attributes
   }()
   

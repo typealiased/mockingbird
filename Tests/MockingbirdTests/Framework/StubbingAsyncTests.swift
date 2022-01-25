@@ -5,20 +5,20 @@ import XCTest
 
 @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
 extension XCTest {
-    func XCTAssertThrowsAsyncError<T: Sendable>(
-        _ expression: @autoclosure () async throws -> T,
-        _ message: @autoclosure () -> String = "XCTAssertThrowsAsyncError failed: did not throw an error",
-        file: StaticString = #filePath,
-        line: UInt = #line,
-        _ errorHandler: (_ error: Error) -> Void = { _ in }
-    ) async {
-        do {
-            _ = try await expression()
-            XCTFail(message(), file: file, line: line)
-        } catch {
-            errorHandler(error)
-        }
+  func XCTAssertThrowsAsyncError<T: Sendable>(
+    _ expression: @autoclosure () async throws -> T,
+    _ message: @autoclosure () -> String = "XCTAssertThrowsAsyncError failed: did not throw an error",
+    file: StaticString = #filePath,
+    line: UInt = #line,
+    _ errorHandler: (_ error: Error) -> Void = { _ in }
+  ) async {
+    do {
+      _ = try await expression()
+      XCTFail(message(), file: file, line: line)
+    } catch {
+      errorHandler(error)
     }
+  }
 }
 
 @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
