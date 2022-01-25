@@ -5,7 +5,9 @@ import MockingbirdCommon
 
 enum Declaration: String, CustomStringConvertible {
   case functionDeclaration = "Mockingbird.FunctionDeclaration"
+  case asyncFunctionDeclaration = "Mockingbird.AsyncFunctionDeclaration"
   case throwingFunctionDeclaration = "Mockingbird.ThrowingFunctionDeclaration"
+  case throwingAsyncFunctionDeclaration = "Mockingbird.ThrowingAsyncFunctionDeclaration"
   
   case propertyGetterDeclaration = "Mockingbird.PropertyGetterDeclaration"
   case propertySetterDeclaration = "Mockingbird.PropertySetterDeclaration"

@@ -15,8 +15,12 @@ public class PropertySetterDeclaration: VariableDeclaration {}
 
 /// Mockable function declarations.
 public class FunctionDeclaration: Declaration {}
+/// Mockable async function declarations.
+public class AsyncFunctionDeclaration: FunctionDeclaration {}
 /// Mockable throwing function declarations.
 public class ThrowingFunctionDeclaration: FunctionDeclaration {}
+/// Mockable throwing async function declarations.
+public class ThrowingAsyncFunctionDeclaration: AsyncFunctionDeclaration {}
 
 /// Mockable subscript declarations.
 public class SubscriptDeclaration: Declaration {}

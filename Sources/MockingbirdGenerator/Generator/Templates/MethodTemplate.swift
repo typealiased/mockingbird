@@ -54,9 +54,7 @@ class MethodTemplate: Template {
       ThunkTemplate(mockableType: context.mockableType,
                     invocation: mockableInvocation,
                     shortSignature: method.parameters.isEmpty ? nil : shortSignature,
-                    shortSignatureIgnoringAsync: method.parameters.isEmpty ? nil : shortSignatureIgnoringAsync,
                     longSignature: longSignature,
-                    longSignatureIgnoringAsync: longSignatureIgnoringAsync,
                     returnType: matchableReturnType,
                     isBridged: false,
                     isAsync: method.isAsync,
@@ -359,9 +357,17 @@ class MethodTemplate: Template {
   
   lazy var declarationTypeForMocking: String = {
     if method.attributes.contains(.throws) {
-      return "\(Declaration.throwingFunctionDeclaration)"
+      if method.isAsync {
+        return "\(Declaration.throwingAsyncFunctionDeclaration)"
+      } else {
+        return "\(Declaration.throwingFunctionDeclaration)"
+      }
     } else {
-      return "\(Declaration.functionDeclaration)"
+      if method.isAsync {
+        return "\(Declaration.asyncFunctionDeclaration)"
+      } else {
+        return "\(Declaration.functionDeclaration)"
+      }
     }
   }()
   
@@ -404,22 +410,10 @@ class MethodTemplate: Template {
     return "(\(separated: matchableParameterTypes))\(modifiers) -> \(matchableReturnType)"
   }()
   
-  /// General function signature for matching ignoring async.
-  lazy var longSignatureIgnoringAsync: String = {
-    let modifiers = method.isThrowing ? " throws" : ""
-    return "(\(separated: matchableParameterTypes))\(modifiers) -> \(matchableReturnType)"
-  }()
-  
   /// Convenience function signature for matching without any arguments.
   lazy var shortSignature: String = {
     var modifiers = method.isAsync ? " async" : ""
     modifiers += method.isThrowing ? " throws" : ""
-    return "()\(modifiers) -> \(matchableReturnType)"
-  }()
-  
-  /// Convenience function signature for matching without any arguments and ignoring async.
-  lazy var shortSignatureIgnoringAsync: String = {
-    let modifiers = method.isThrowing ? " throws" : ""
     return "()\(modifiers) -> \(matchableReturnType)"
   }()
   

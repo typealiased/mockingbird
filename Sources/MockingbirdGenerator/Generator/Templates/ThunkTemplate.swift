@@ -4,9 +4,7 @@ class ThunkTemplate: Template {
   let mockableType: MockableType
   let invocation: String
   let shortSignature: String?
-  let shortSignatureIgnoringAsync: String?
   let longSignature: String
-  let longSignatureIgnoringAsync: String?
   let returnType: String
   let isBridged: Bool
   let isAsync: Bool
@@ -29,9 +27,7 @@ class ThunkTemplate: Template {
   init(mockableType: MockableType,
        invocation: String,
        shortSignature: String?,
-       shortSignatureIgnoringAsync: String?,
        longSignature: String,
-       longSignatureIgnoringAsync: String?,
        returnType: String,
        isBridged: Bool,
        isAsync: Bool,
@@ -42,9 +38,7 @@ class ThunkTemplate: Template {
     self.mockableType = mockableType
     self.invocation = invocation
     self.shortSignature = shortSignature
-    self.shortSignatureIgnoringAsync = shortSignatureIgnoringAsync
     self.longSignature = longSignature
-    self.longSignatureIgnoringAsync = longSignatureIgnoringAsync
     self.returnType = returnType
     self.isBridged = isBridged
     self.isAsync = isAsync
@@ -64,31 +58,12 @@ class ThunkTemplate: Template {
                                     isAsync: isAsync,
                                     isThrowing: isThrowing))
       """).render()
-    let callDefaultIgnoringAsync: String = {
-      guard let longSignatureIgnoringAsync = longSignatureIgnoringAsync, isAsync == true else { return "" }
-      return IfStatementTemplate(
-        condition: "let mkbImpl = mkbImpl as? \(longSignatureIgnoringAsync)",
-        body: """
-        return \(FunctionCallTemplate(name: "mkbImpl",
-                                      unlabeledArguments: unlabledArguments,
-                                      isAsync: false,
-                                      isThrowing: isThrowing))
-        """).render()
-    }()
     let callConvenience: String = {
       guard let shortSignature = shortSignature else { return "" }
       return IfStatementTemplate(
         condition: "let mkbImpl = mkbImpl as? \(shortSignature)",
         body: """
         return \(FunctionCallTemplate(name: "mkbImpl", isAsync: isAsync, isThrowing: isThrowing))
-        """).render()
-    }()
-    let callConvenienceIgnoringAsync: String = {
-      guard let shortSignatureIgnoringAsync = shortSignatureIgnoringAsync, isAsync == true else { return "" }
-      return IfStatementTemplate(
-        condition: "let mkbImpl = mkbImpl as? \(shortSignatureIgnoringAsync)",
-        body: """
-        return \(FunctionCallTemplate(name: "mkbImpl", isAsync: false, isThrowing: isThrowing))
         """).render()
     }()
     
@@ -144,9 +119,7 @@ class ThunkTemplate: Template {
                                          arguments: [("for", "$0")]))
     \(String(lines: [
       callDefault,
-      callDefaultIgnoringAsync,
       callConvenience,
-      callConvenienceIgnoringAsync,
       callBridgedDefault,
       callBridgedConvenience,
       !isSubclass && !isProxyable ? "" : ForInStatementTemplate(
