@@ -20,6 +20,19 @@ class InitializerTests: XCTestCase {
   func testInitializerProtocol() {
     initializerProtocol = mock(InitializerProtocol.self)
   }
+
+  func testInitializerVerification() {
+    initializerProtocol = (InitializerProtocolMock.self as InitializerProtocol.Type).init() as? InitializerProtocolMock
+    verify(initializerProtocol.initialize()).wasCalled()
+    initializerProtocol = (InitializerProtocolMock.self as InitializerProtocol.Type).init(param: true) as? InitializerProtocolMock
+    verify(initializerProtocol.initialize(param: true)).wasCalled()
+    initializerProtocol = (InitializerProtocolMock.self as InitializerProtocol.Type).init(param: 1) as? InitializerProtocolMock
+    verify(initializerProtocol.initialize(param: 1)).wasCalled()
+    initializerProtocol = try! (InitializerProtocolMock.self as InitializerProtocol.Type).init(param: "hello world") as? InitializerProtocolMock
+    verify(initializerProtocol.initialize(param: "hello world")).wasCalled()
+    initializerProtocol = (InitializerProtocolMock.self as InitializerProtocol.Type).init(param: Optional<String>(nil)) as? InitializerProtocolMock
+    verify(initializerProtocol.initialize(param: Optional<String>(nil))).wasCalled()
+  }
   
   
   // MARK: Empty type initialization
