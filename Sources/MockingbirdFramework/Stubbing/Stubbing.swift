@@ -296,15 +296,16 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
   @discardableResult
   public func willReturn(_ value: ReturnType) -> Self {
+#if swift(>=5.5.2)
     if isAsync {
       if isThrowing {
         return addImplementation({ () async throws in value })
       } else {
         return addImplementation({ () async in value })
       }
-    } else {
-      return addImplementation({ value })
     }
+#endif
+    return addImplementation({ value })
   }
   
   /// Stub a mocked method or property with an implementation provider.
@@ -497,15 +498,17 @@ public func ~> <DeclarationType: Declaration, InvocationType, ReturnType>(
   manager: StaticStubbingManager<DeclarationType, InvocationType, ReturnType>,
   implementation: @escaping @autoclosure () -> ReturnType
 ) {
+#if swift(>=5.5.2)
   if manager.isAsync {
     if manager.isThrowing {
       manager.addImplementation({ () async throws in implementation() })
     } else {
       manager.addImplementation({ () async in implementation() })
     }
-  } else {
-    manager.addImplementation({ implementation() })
+    return
   }
+#endif
+  manager.addImplementation({ implementation() })
 }
 
 /// Stub a mocked method or property with a closure implementation.

@@ -1,5 +1,6 @@
 import Foundation
 
+#if swift(>=5.5.2)
 protocol AsyncProtocol {  
   @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
   func asyncMethodVoid() async
@@ -19,3 +20,4 @@ protocol AsyncProtocol {
   @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
   func asyncClosureThrowingMethod(block: () async throws -> Bool) async throws -> Bool
 }
+#endif
