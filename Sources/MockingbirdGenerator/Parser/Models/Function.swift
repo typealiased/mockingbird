@@ -129,24 +129,28 @@ struct Function: CustomStringConvertible, CustomDebugStringConvertible, Serializ
   
   let parameters: [Parameter]
   let returnType: DeclaredType
+  let isAsync: Bool
   let isThrowing: Bool
   
   var description: String {
+    let `async` = isAsync ? "async " : ""
     let throwing = isThrowing ? "throws " : ""
-    return "(\(parameters.map({ "\($0)" }).joined(separator: ", "))) \(throwing)-> \(returnType)"
+    return "(\(parameters.map({ "\($0)" }).joined(separator: ", "))) \(`async`)\(throwing)-> \(returnType)"
   }
   
   var debugDescription: String {
     var description: String {
+      let `async` = isAsync ? "async " : ""
       let throwing = isThrowing ? "throws " : ""
-      return "(\(parameters.map({ String(reflecting: $0) }).joined(separator: ", "))) \(throwing)-> \(String(reflecting: returnType))"
+      return "(\(parameters.map({ String(reflecting: $0) }).joined(separator: ", "))) \(`async`)\(throwing)-> \(String(reflecting: returnType))"
     }
     return "Function(\(description))"
   }
   
   func serialize(with request: SerializationRequest) -> String {
+    let `async` = isAsync ? "async " : ""
     let throwing = isThrowing ? "throws " : ""
-    return "(\(parameters.map({ $0.serialize(with: request) }).joined(separator: ", "))) \(throwing)-> \(returnType.serialize(with: request))"
+    return "(\(parameters.map({ $0.serialize(with: request) }).joined(separator: ", "))) \(`async`)\(throwing)-> \(returnType.serialize(with: request))"
   }
   
   init?(from serialized: Substring) {
@@ -166,6 +170,8 @@ struct Function: CustomStringConvertible, CustomDebugStringConvertible, Serializ
     
     let returnAttributes = serialized[parametersEndIndex..<returnTypeIndex]
       .trimmingCharacters(in: .whitespacesAndNewlines)
+    self.isAsync = !returnAttributes.isEmpty &&
+      returnAttributes.range(of: #"\basync\b"#, options: .regularExpression) != nil
     self.isThrowing = !returnAttributes.isEmpty &&
       returnAttributes.range(of: #"\bthrows\b"#, options: .regularExpression) != nil
   }

@@ -93,17 +93,18 @@ struct Attributes: OptionSet, Hashable {
   // MARK: Inferred attributes
   static let constant = Attributes(rawValue: 1 << 8)
   static let readonly = Attributes(rawValue: 1 << 9)
-  static let `throws` = Attributes(rawValue: 1 << 10)
-  static let `inout` = Attributes(rawValue: 1 << 11)
-  static let variadic = Attributes(rawValue: 1 << 12)
-  static let failable = Attributes(rawValue: 1 << 13)
-  static let unwrappedFailable = Attributes(rawValue: 1 << 14)
-  static let closure = Attributes(rawValue: 1 << 15)
-  static let escaping = Attributes(rawValue: 1 << 16)
-  static let autoclosure = Attributes(rawValue: 1 << 17)
+  static let async = Attributes(rawValue: 1 << 10)
+  static let `throws` = Attributes(rawValue: 1 << 11)
+  static let `inout` = Attributes(rawValue: 1 << 12)
+  static let variadic = Attributes(rawValue: 1 << 13)
+  static let failable = Attributes(rawValue: 1 << 14)
+  static let unwrappedFailable = Attributes(rawValue: 1 << 15)
+  static let closure = Attributes(rawValue: 1 << 16)
+  static let escaping = Attributes(rawValue: 1 << 17)
+  static let autoclosure = Attributes(rawValue: 1 << 18)
   
   // MARK: Custom attributes
-  static let implicit = Attributes(rawValue: 1 << 18)
+  static let implicit = Attributes(rawValue: 1 << 19)
   
   static let attributesKey = "key.attributes"
   static let attributeKey = "key.attribute"

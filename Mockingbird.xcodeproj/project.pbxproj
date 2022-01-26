@@ -199,6 +199,8 @@
 		28FB7EC62789C14000125FDA /* Data+SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8EC4277DE42400DE525A /* Data+SHA1.swift */; };
 		28FB7EC82789D0E000125FDA /* Path+Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FB7EC72789D0E000125FDA /* Path+Backup.swift */; };
 		28FB7ECA2789D87800125FDA /* Git.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FB7EC92789D87800125FDA /* Git.swift */; };
+		5E45ADF4279DA63D004AB972 /* StubbingAsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E45ADF3279DA63D004AB972 /* StubbingAsyncTests.swift */; };
+		5E45ADF7279DB9A9004AB972 /* AsyncMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E45ADF5279DB949004AB972 /* AsyncMethods.swift */; };
 		8356225C26A94CBE005CD5C5 /* TargetDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */; };
 		D314ED7F24CE1C10000CC23D /* GenericsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314ED7E24CE1C10000CC23D /* GenericsTests.swift */; };
 		D3643B6C247B78A5002DF069 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3643B6B247B78A4002DF069 /* Function.swift */; };
@@ -719,6 +721,8 @@
 		28FB7EBF2789B9B000125FDA /* MockingbirdCommon.xcscheme */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MockingbirdCommon.xcscheme; sourceTree = "<group>"; };
 		28FB7EC72789D0E000125FDA /* Path+Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+Backup.swift"; sourceTree = "<group>"; };
 		28FB7EC92789D87800125FDA /* Git.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Git.swift; sourceTree = "<group>"; };
+		5E45ADF3279DA63D004AB972 /* StubbingAsyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbingAsyncTests.swift; sourceTree = "<group>"; };
+		5E45ADF5279DB949004AB972 /* AsyncMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncMethods.swift; sourceTree = "<group>"; };
 		8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetDescriptionTests.swift; sourceTree = "<group>"; };
 		942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
 		D314ED7E24CE1C10000CC23D /* GenericsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericsTests.swift; sourceTree = "<group>"; };
@@ -1526,6 +1530,7 @@
 				281B623A251DC6B10084EBED /* Shadowed */,
 				OBJ_141 /* MockingbirdTestsHost.h */,
 				OBJ_143 /* ArgumentMatching.swift */,
+				5E45ADF5279DB949004AB972 /* AsyncMethods.swift */,
 				OBJ_144 /* Child.swift */,
 				OBJ_145 /* ChildProtocol.swift */,
 				OBJ_146 /* ClassInitializers.swift */,
@@ -1745,6 +1750,7 @@
 				OBJ_263 /* OverloadedMethodTests.swift */,
 				28A1F3BF26ADA2A8002F282D /* PartialMockTests.swift */,
 				OBJ_264 /* SequentialValueStubbingTests.swift */,
+				5E45ADF3279DA63D004AB972 /* StubbingAsyncTests.swift */,
 				OBJ_265 /* StubbingTests.swift */,
 				28A1F3BB26AD9E3B002F282D /* StubbingThrowingErrorsTests.swift */,
 				28A1F3BD26AD9EAB002F282D /* StubbingInoutTests.swift */,
@@ -2507,6 +2513,7 @@
 				OBJ_1032 /* ExtensionsMockableTests.swift in Sources */,
 				OBJ_1033 /* ExtensionsStubbableTests.swift in Sources */,
 				OBJ_1034 /* ExternalModuleClassScopedTypesMockableTests.swift in Sources */,
+				5E45ADF4279DA63D004AB972 /* StubbingAsyncTests.swift in Sources */,
 				OBJ_1035 /* ExternalModuleClassScopedTypesStubbableTests.swift in Sources */,
 				28D08CCE2774247C00AE7C39 /* OptionalsTests.swift in Sources */,
 				287C4F5426A36FFF00A7E0D9 /* DynamicSwiftTests.swift in Sources */,
@@ -2591,6 +2598,7 @@
 				OBJ_1137 /* ExternalModuleClassScopedTypes.swift in Sources */,
 				OBJ_1138 /* ExternalModuleImplicitlyImportedTypes.swift in Sources */,
 				OBJ_1139 /* ExternalModuleTypealiasing.swift in Sources */,
+				5E45ADF7279DB9A9004AB972 /* AsyncMethods.swift in Sources */,
 				OBJ_1140 /* ExternalModuleTypes.swift in Sources */,
 				OBJ_1141 /* FakeableTypes.swift in Sources */,
 				OBJ_1142 /* Generics.swift in Sources */,
@@ -3654,7 +3662,7 @@
 			repositoryURL = "https://github.com/jpsim/SourceKitten.git";
 			requirement = {
 				kind = exactVersion;
-				version = 0.30.0;
+				version = 0.31.1;
 			};
 		};
 		287F852625194F2A007D135D /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {

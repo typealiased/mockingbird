@@ -162,6 +162,14 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   var implementationsProvidedCount = 0
   var stubs = [(stub: StubbingContext.Stub, context: Context)]()
   
+  var isAsync: Bool {
+    return DeclarationType.self == AsyncFunctionDeclaration.self || DeclarationType.self == ThrowingAsyncFunctionDeclaration.self
+  }
+  
+  var isThrowing: Bool {
+    return DeclarationType.self == ThrowingFunctionDeclaration.self || DeclarationType.self == ThrowingAsyncFunctionDeclaration.self
+  }
+  
   /// When to use the next chained implementation provider.
   public enum TransitionStrategy {
     /// Go to the next provider after providing a certain number of implementations.
@@ -288,7 +296,15 @@ public class StubbingManager<DeclarationType: Declaration, InvocationType, Retur
   /// - Returns: The current stubbing manager which can be used to chain additional stubs.
   @discardableResult
   public func willReturn(_ value: ReturnType) -> Self {
-    return addImplementation({ return value })
+    if isAsync {
+      if isThrowing {
+        return addImplementation({ () async throws in value })
+      } else {
+        return addImplementation({ () async in value })
+      }
+    } else {
+      return addImplementation({ value })
+    }
   }
   
   /// Stub a mocked method or property with an implementation provider.
@@ -481,7 +497,15 @@ public func ~> <DeclarationType: Declaration, InvocationType, ReturnType>(
   manager: StaticStubbingManager<DeclarationType, InvocationType, ReturnType>,
   implementation: @escaping @autoclosure () -> ReturnType
 ) {
-  manager.addImplementation(implementation)
+  if manager.isAsync {
+    if manager.isThrowing {
+      manager.addImplementation({ () async throws in implementation() })
+    } else {
+      manager.addImplementation({ () async in implementation() })
+    }
+  } else {
+    manager.addImplementation({ implementation() })
+  }
 }
 
 /// Stub a mocked method or property with a closure implementation.

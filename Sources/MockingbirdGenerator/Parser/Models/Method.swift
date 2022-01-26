@@ -152,6 +152,9 @@ struct Method {
     let returnAttributesEndIndex = declaration.firstIndex(of: "-", excluding: .allGroups)
       ?? declaration.endIndex
     let returnAttributes = declaration[returnAttributesStartIndex..<returnAttributesEndIndex]
+    if returnAttributes.range(of: #"\basync\b"#, options: .regularExpression) != nil {
+      fullAttributes.insert(.async)
+    }
     if returnAttributes.range(of: #"\bthrows\b"#, options: .regularExpression) != nil {
       fullAttributes.insert(.throws)
     }

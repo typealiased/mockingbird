@@ -57,6 +57,7 @@ class MethodTemplate: Template {
                     longSignature: longSignature,
                     returnType: matchableReturnType,
                     isBridged: false,
+                    isAsync: method.isAsync,
                     isThrowing: method.isThrowing,
                     isStatic: method.kind.typeScope.isStatic,
                     callMember: { scope in
@@ -65,6 +66,7 @@ class MethodTemplate: Template {
                         return FunctionCallTemplate(
                           name: scopedName,
                           arguments: self.invocationArguments,
+                          isAsync: self.method.isAsync,
                           isThrowing: self.method.isThrowing).render()
                       }
                       
@@ -77,6 +79,7 @@ class MethodTemplate: Template {
                       return FunctionCallTemplate(
                         name: name.render(),
                         unlabeledArguments: self.invocationArguments.map({ $0.parameterName }),
+                        isAsync: self.method.isAsync,
                         isThrowing: self.method.isThrowing).render()
                     },
                     invocationArguments: invocationArguments).render()
@@ -111,7 +114,7 @@ class MethodTemplate: Template {
     let genericTypes = [declarationTypeForMocking, invocationType, matchableReturnType]
     let returnType = "Mockingbird.Mockable<\(separated: genericTypes)>"
     
-    let declaration = "public \(regularModifiers)func \(fullNameForMatching) -> \(returnType)"
+    let declaration = "public \(regularModifiers)func \(fullNameForMatching)\(returnTypeAttributesForMockableDeclaration) -> \(returnType)"
     let genericConstraints = method.whereClauses.map({ context.specializeTypeName("\($0)") })
     
     let body = !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub : """
@@ -336,20 +339,37 @@ class MethodTemplate: Template {
   }
   
   lazy var returnTypeAttributesForMocking: String = {
-    if method.attributes.contains(.rethrows) { return " rethrows" }
-    if method.attributes.contains(.throws) { return " throws" }
-    return ""
+    var attributes = ""
+    if method.attributes.contains(.async) { attributes += " async" }
+    if method.attributes.contains(.rethrows) { attributes += " rethrows" }
+    else if method.attributes.contains(.throws) { attributes += " throws" }
+    return attributes
+  }()
+  
+  lazy var returnTypeAttributesForMockableDeclaration: String = {
+    return method.isAsync ? " async" : ""
   }()
   
   lazy var returnTypeAttributesForMatching: String = {
-    return method.isThrowing ? "throws " : ""
+    var returnType = ""
+    if method.isAsync { returnType += "async " }
+    if method.isThrowing { returnType += "throws " }
+    return returnType
   }()
   
   lazy var declarationTypeForMocking: String = {
     if method.attributes.contains(.throws) {
-      return "\(Declaration.throwingFunctionDeclaration)"
+      if method.isAsync {
+        return "\(Declaration.throwingAsyncFunctionDeclaration)"
+      } else {
+        return "\(Declaration.throwingFunctionDeclaration)"
+      }
     } else {
-      return "\(Declaration.functionDeclaration)"
+      if method.isAsync {
+        return "\(Declaration.asyncFunctionDeclaration)"
+      } else {
+        return "\(Declaration.functionDeclaration)"
+      }
     }
   }()
   
@@ -377,7 +397,8 @@ class MethodTemplate: Template {
   
   /// Original function signature for casting to a matchable signature (variadics support).
   lazy var originalSignature: String = {
-    let modifiers = method.isThrowing ? " throws" : ""
+    var modifiers = method.isAsync ? " async" : ""
+    modifiers += method.isThrowing ? " throws" : ""
     let parameterTypes = method.parameters.map({
       $0.matchableTypeName(context: self, bridgeVariadics: false)
     })
@@ -386,13 +407,15 @@ class MethodTemplate: Template {
   
   /// General function signature for matching.
   lazy var longSignature: String = {
-    let modifiers = method.isThrowing ? " throws" : ""
+    var modifiers = method.isAsync ? " async" : ""
+    modifiers += method.isThrowing ? " throws" : ""
     return "(\(separated: matchableParameterTypes))\(modifiers) -> \(matchableReturnType)"
   }()
   
   /// Convenience function signature for matching without any arguments.
   lazy var shortSignature: String = {
-    let modifiers = method.isThrowing ? " throws" : ""
+    var modifiers = method.isAsync ? " async" : ""
+    modifiers += method.isThrowing ? " throws" : ""
     return "()\(modifiers) -> \(matchableReturnType)"
   }()
   
@@ -418,6 +441,10 @@ class MethodTemplate: Template {
 }
 
 extension Method {
+  var isAsync: Bool {
+    return attributes.contains(.async)
+  }
+  
   var isThrowing: Bool {
     return attributes.contains(.throws) || attributes.contains(.rethrows)
   }

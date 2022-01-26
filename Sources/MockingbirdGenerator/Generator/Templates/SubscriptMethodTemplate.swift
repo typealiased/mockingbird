@@ -43,6 +43,7 @@ class SubscriptMethodTemplate: MethodTemplate {
                       longSignature: longSignature,
                       returnType: matchableReturnType,
                       isBridged: true,
+                      isAsync: method.isAsync,
                       isThrowing: method.isThrowing,
                       isStatic: method.kind.typeScope.isStatic,
                       callMember: { scope in
@@ -67,6 +68,7 @@ class SubscriptMethodTemplate: MethodTemplate {
                       longSignature: setterLongSignature,
                       returnType: "Void",
                       isBridged: true,
+                      isAsync: method.isAsync,
                       isThrowing: method.isThrowing,
                       isStatic: method.kind.typeScope.isStatic,
                       callMember: { scope in

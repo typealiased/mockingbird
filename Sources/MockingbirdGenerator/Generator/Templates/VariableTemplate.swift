@@ -71,6 +71,7 @@ class VariableTemplate: Template {
                       longSignature: "() -> \(matchableType)",
                       returnType: matchableType,
                       isBridged: true,
+                      isAsync: false,
                       isThrowing: false,
                       isStatic: variable.kind.typeScope.isStatic,
                       callMember: { scope in
@@ -86,6 +87,7 @@ class VariableTemplate: Template {
                       longSignature: "\(parenthetical: matchableType) -> Void",
                       returnType: "Void",
                       isBridged: true,
+                      isAsync: false,
                       isThrowing: false,
                       isStatic: variable.kind.typeScope.isStatic,
                       callMember: { scope in
