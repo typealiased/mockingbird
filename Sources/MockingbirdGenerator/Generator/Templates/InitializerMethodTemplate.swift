@@ -37,8 +37,7 @@ class InitializerMethodTemplate: MethodTemplate {
     let trivia = "// MARK: Mocked \(fullNameForMocking)"
     let declaration = "public \(overridableModifiers)\(uniqueDeclaration)"
     lazy var didInvoke = FunctionCallTemplate(name: "self.mockingbirdContext.mocking.didInvoke",
-                                              unlabeledArguments: [mockableInvocation],
-                                              isThrowing: method.attributes.contains(.throws)).render()
+                                              unlabeledArguments: [mockableInvocation]).render()
     
     if isClassBound {
       // Class-defined initializer, called from an `InitializerProxy`.
@@ -89,6 +88,6 @@ class InitializerMethodTemplate: MethodTemplate {
   }()
   
   override var overridableUniqueDeclaration: String {
-    return "\(fullNameForMocking)\(returnTypeAttributesForMocking)\(genericConstraints) "
+    return fullNameForMocking + returnTypeAttributesForMocking + genericConstraints
   }
 }

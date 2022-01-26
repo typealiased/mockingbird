@@ -94,7 +94,9 @@ class ThunkTemplate: Template {
         return \(FunctionCallTemplate(
                   name: "Mockingbird.dynamicCast",
                   unlabeledArguments: [
-                    FunctionCallTemplate(name: "mkbImpl", isAsync: isAsync, isThrowing: isThrowing).render()
+                    FunctionCallTemplate(name: "mkbImpl",
+                                         isAsync: isAsync,
+                                         isThrowing: isThrowing).render()
                   ])) as \(returnType)
         """).render()
     }()

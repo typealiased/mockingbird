@@ -88,7 +88,9 @@ class MethodTemplate: Template {
       "// MARK: Mocked \(fullNameForMocking)",
       FunctionDefinitionTemplate(attributes: method.attributes.safeDeclarations,
                                  declaration: declaration,
-                                 genericConstraints: method.whereClauses.map({ context.specializeTypeName("\($0)") }),
+                                 genericConstraints: method.whereClauses.map({
+                                   context.specializeTypeName("\($0)")
+                                 }),
                                  body: body).render(),
     ])
   }
@@ -108,7 +110,7 @@ class MethodTemplate: Template {
   
   /// Methods synthesized specifically for the stubbing and verification APIs.
   var synthesizedDeclarations: String {
-    let invocationType = "(\(separated: matchableParameterTypes)) \(returnTypeAttributesForMatching)-> \(matchableReturnType)"
+    let invocationType = "(\(separated: matchableParameterTypes))\(returnTypeAttributesForMatching) -> \(matchableReturnType)"
     
     var methods = [String]()
     let genericTypes = [declarationTypeForMocking, invocationType, matchableReturnType]
@@ -361,10 +363,10 @@ class MethodTemplate: Template {
   }()
   
   lazy var returnTypeAttributesForMatching: String = {
-    var returnType = ""
-    if method.isAsync { returnType += "async " }
-    if method.isThrowing { returnType += "throws " }
-    return returnType
+    var attributes = ""
+    if method.isAsync { attributes += " async" }
+    if method.isThrowing { attributes += " throws" }
+    return attributes
   }()
   
   lazy var declarationTypeForMocking: String = {
