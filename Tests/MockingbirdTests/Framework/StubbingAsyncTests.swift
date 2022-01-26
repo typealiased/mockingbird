@@ -34,78 +34,78 @@ class StubbingAsyncTests: BaseTestCase {
   }
   
   func testStubAsyncMethodVoid() async {
-    givenAsync(asyncProtocol.asyncMethodVoid()).willReturn()
+    given(await asyncProtocol.asyncMethodVoid()).willReturn()
     await asyncProtocolInstance.asyncMethodVoid()
-    verifyAsync(asyncProtocol.asyncMethodVoid()).wasCalled()
+    verify(await asyncProtocol.asyncMethodVoid()).wasCalled()
   }
   
   func testStubAsyncMethod_returnsValue() async {
-    givenAsync(asyncProtocol.asyncMethod()) ~> true
+    given(await asyncProtocol.asyncMethod()) ~> true
     
     let result: Bool = await asyncProtocolInstance.asyncMethod()
 
     XCTAssertEqual(result, true)
-    verifyAsync(asyncProtocol.asyncMethod()).wasCalled()
+    verify(await asyncProtocol.asyncMethod()).wasCalled()
   }
   
   func testStubAsyncMethodWithParameter_returnsValue() async {
-    givenAsync(asyncProtocol.asyncMethod(parameter: any())) ~> 2
+    given(await asyncProtocol.asyncMethod(parameter: any())) ~> 2
     
     let result: Int = await asyncProtocolInstance.asyncMethod(parameter: "parameter")
 
     XCTAssertEqual(result, 2)
-    verifyAsync(asyncProtocol.asyncMethod(parameter: "parameter")).wasCalled()
+    verify(await asyncProtocol.asyncMethod(parameter: "parameter")).wasCalled()
   }
   
   func testStubAsyncThrowingMethod_returnsValue() async throws {
-    givenAsync(asyncProtocol.asyncThrowingMethod()) ~> 1
+    given(await asyncProtocol.asyncThrowingMethod()) ~> 1
     
     let result: Int = try await asyncProtocolInstance.asyncThrowingMethod()
 
     XCTAssertEqual(result, 1)
-    verifyAsync(asyncProtocol.asyncThrowingMethod()).wasCalled()
+    verify(await asyncProtocol.asyncThrowingMethod()).wasCalled()
   }
   
   func testStubAsyncThrowingMethod_throwsError() async throws {
-    givenAsync(asyncProtocol.asyncThrowingMethod()) ~> { () throws -> Int in throw FakeError() }
+    given(await asyncProtocol.asyncThrowingMethod()) ~> { () throws -> Int in throw FakeError() }
     await XCTAssertThrowsAsyncError(try await asyncProtocolInstance.asyncThrowingMethod())
-    verifyAsync(asyncProtocol.asyncThrowingMethod()).wasCalled()
+    verify(await asyncProtocol.asyncThrowingMethod()).wasCalled()
   }
   
   func testStubAsyncClosureMethod() async throws {
-    givenAsync(asyncProtocol.asyncClosureMethod(block: any())).willReturn()
+    given(await asyncProtocol.asyncClosureMethod(block: any())).willReturn()
     await asyncProtocolInstance.asyncClosureMethod(block: { true })
-    verifyAsync(asyncProtocol.asyncClosureMethod(block: any())).wasCalled()
+    verify(await asyncProtocol.asyncClosureMethod(block: any())).wasCalled()
   }
   
   func testStubAsyncClosureThrowingMethod_returnsValue() async throws {
-    givenAsync(asyncProtocol.asyncClosureThrowingMethod(block: any())) ~> true
+    given(await asyncProtocol.asyncClosureThrowingMethod(block: any())) ~> true
     
     let result: Bool = try await asyncProtocolInstance.asyncClosureThrowingMethod(block: { false })
 
     XCTAssertTrue(result)
-    verifyAsync(asyncProtocol.asyncClosureThrowingMethod(block: any())).wasCalled()
+    verify(await asyncProtocol.asyncClosureThrowingMethod(block: any())).wasCalled()
   }
   
   func testStubAsyncClosureThrowingMethod_throwsError() async throws {
-    givenAsync(asyncProtocol.asyncClosureThrowingMethod(block: any())) ~> { _ in throw FakeError() }
+    given(await asyncProtocol.asyncClosureThrowingMethod(block: any())) ~> { _ in throw FakeError() }
     await XCTAssertThrowsAsyncError(try await asyncProtocolInstance.asyncClosureThrowingMethod(block: { true }))
-    verifyAsync(asyncProtocol.asyncClosureThrowingMethod(block: any())).wasCalled()
+    verify(await asyncProtocol.asyncClosureThrowingMethod(block: any())).wasCalled()
   }
   
   func testStubAsyncClosureThrowingMethod_returnsValueFromBlock() async throws {
-    givenAsync(asyncProtocol.asyncClosureThrowingMethod(block: any())) ~> { try await $0() }
+    given(await asyncProtocol.asyncClosureThrowingMethod(block: any())) ~> { try await $0() }
     
     let result: Bool = try await asyncProtocolInstance.asyncClosureThrowingMethod(block: { true })
 
     XCTAssertTrue(result)
-    verifyAsync(asyncProtocol.asyncClosureThrowingMethod(block: any())).wasCalled()
+    verify(await asyncProtocol.asyncClosureThrowingMethod(block: any())).wasCalled()
   }
   
   func testStubAsyncClosureThrowingMethod_throwsErrorFromBlock() async throws {
-    givenAsync(asyncProtocol.asyncClosureThrowingMethod(block: any())) ~> { try await $0() }
+    given(await asyncProtocol.asyncClosureThrowingMethod(block: any())) ~> { try await $0() }
     await XCTAssertThrowsAsyncError(try await asyncProtocolInstance.asyncClosureThrowingMethod(block: { throw FakeError() }))
-    verifyAsync(asyncProtocol.asyncClosureThrowingMethod(block: any())).wasCalled()
+    verify(await asyncProtocol.asyncClosureThrowingMethod(block: any())).wasCalled()
   }
   
 }

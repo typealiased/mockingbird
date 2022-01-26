@@ -114,7 +114,7 @@ class MethodTemplate: Template {
     let genericTypes = [declarationTypeForMocking, invocationType, matchableReturnType]
     let returnType = "Mockingbird.Mockable<\(separated: genericTypes)>"
     
-    let declaration = "public \(regularModifiers)func \(fullNameForMatching) -> \(returnType)"
+    let declaration = "public \(regularModifiers)func \(fullNameForMatching)\(returnTypeAttributesForMockableDeclaration) -> \(returnType)"
     let genericConstraints = method.whereClauses.map({ context.specializeTypeName("\($0)") })
     
     let body = !context.shouldGenerateThunks ? MockableTypeTemplate.Constants.thunkStub : """
@@ -344,6 +344,10 @@ class MethodTemplate: Template {
     if method.attributes.contains(.rethrows) { attributes += " rethrows" }
     else if method.attributes.contains(.throws) { attributes += " throws" }
     return attributes
+  }()
+  
+  lazy var returnTypeAttributesForMockableDeclaration: String = {
+    return method.isAsync ? " async" : ""
   }()
   
   lazy var returnTypeAttributesForMatching: String = {
