@@ -1,12 +1,12 @@
 import Foundation
 import PathKit
 
-enum WriteUtf8StringFailure: Error, CustomStringConvertible {
+enum WriteUtf8StringFailure: Error, LocalizedError {
   case streamCreationFailure(path: Path)
   case dataEncodingFailure
   case streamWritingFailure(error: Error?)
   
-  var description: String {
+  var errorDescription: String? {
     switch self {
     case .streamCreationFailure(let path): return "Unable to create output stream to \(path)"
     case .dataEncodingFailure: return "Unable to encode data to UTF8"

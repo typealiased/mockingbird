@@ -153,27 +153,9 @@ class Generator {
     }
     
     // Resolve target names to concrete Xcode project targets.
-    let isSourceTarget: (TargetType) -> Bool = { target in
-      switch target {
-      case .pbxTarget(let target):
-        guard target.productType?.isTestBundle != true else {
-          logWarning("Excluding \(target.name.singleQuoted) from mock generation because it is a test bundle target")
-          return false
-        }
-        return true
-      case .describedTarget(let target):
-        switch target.productType {
-        case .library: return true
-        case .test, .none: return false
-        }
-      case .sourceTarget: return true
-      case .testTarget: return false
-      }
-    }
     let targets = try config.inputTargetNames.compactMap({ targetName throws -> TargetType? in
       return try Generator.resolveTarget(targetName: targetName,
                                          projectPath: config.projectPath,
-                                         isValidTarget: isSourceTarget,
                                          getCachedTarget: getCachedSourceTarget,
                                          getProject: getProject)
     })
@@ -222,7 +204,7 @@ class Generator {
     // Run the operations.
     let operationsCopy = queue.operations.compactMap({ $0 as? BasicOperation })
     queue.waitUntilAllOperationsAreFinished()
-    operationsCopy.compactMap({ $0.error }).forEach({ log($0) })
+    operationsCopy.compactMap({ $0.error }).forEach({ logError($0) })
     
     // Write intermediary module cache info into project cache directory.
     if !config.disableCache {
@@ -280,7 +262,7 @@ class Generator {
   
   static func resolveTarget(targetName: String,
                             projectPath: Path,
-                            isValidTarget: (TargetType) -> Bool,
+                            isValidTarget: (TargetType) -> Bool = { _ in true },
                             getCachedTarget: (String) -> TargetType?,
                             getProject: (Path) throws -> Project) throws -> TargetType {
     // Check if the target is cached in the project.
