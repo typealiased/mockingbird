@@ -4,3 +4,6 @@
 PRODUCT_MODULE_NAME = MockingbirdTests
 PRODUCT_NAME = MockingbirdTests
 TARGET_NAME = MockingbirdTests
+
+// Build flags
+SWIFT_TREAT_WARNINGS_AS_ERRORS = YES
