@@ -76,12 +76,16 @@ class SubscriptMethodTemplate: MethodTemplate {
                       },
                       invocationArguments: setterInvocationArguments).render())
     
+    let accessors = method.attributes.contains(.readonly) ? [getterDefinition.render()] : [
+      getterDefinition.render(),
+      setterDefinition.render(),
+    ]
+    
     return String(lines: [
       "// MARK: Mocked \(fullNameForMocking)",
       VariableDefinitionTemplate(attributes: method.attributes.safeDeclarations,
                                  declaration: "public \(overridableModifiers)\(uniqueDeclaration)",
-                                 body: String(lines: [getterDefinition.render(),
-                                                      setterDefinition.render()])).render(),
+                                 body: String(lines: accessors)).render(),
     ])
   }
   
