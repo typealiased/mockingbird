@@ -19,7 +19,7 @@ public extension NSObject {
                   timeout: seconds,
                   enforceOrder: enforceOrderOfFulfillment)
   }
-  
+
   /// Create a deferrable test expectation from a block containing verification calls.
   ///
   /// Mocked methods that are invoked asynchronously can be verified using an `eventually` block
@@ -35,7 +35,7 @@ public extension NSObject {
   ///   verify(bird.chirp()).wasCalled()
   /// }
   ///
-  /// waitForExpectations(timeout: 1.0)
+  /// waitForExpectations(timeout: 1)
   /// ```
   ///
   /// - Parameters:
@@ -79,7 +79,7 @@ func createAsyncContext(expectation: XCTestExpectation, block scope: () -> Void)
       capturedExpectation.mockingContext
         .addObserver(observer, for: capturedExpectation.invocation.selectorName)
     })
-    
+
     group.subgroups.forEach({ subgroup in
       let observer = InvocationObserver({ (invocation, mockingContext) -> Bool in
         do {
@@ -93,10 +93,10 @@ func createAsyncContext(expectation: XCTestExpectation, block scope: () -> Void)
       subgroup.expectations.forEach({ $0.mockingContext.addObserver(observer) })
     })
   }
-  
+
   let queue = DispatchQueue(label: "co.bird.mockingbird.verify.eventually")
   queue.setSpecific(key: ExpectationGroup.contextKey, value: group)
   queue.sync { scope() }
-  
+
   try? group.verify()
 }

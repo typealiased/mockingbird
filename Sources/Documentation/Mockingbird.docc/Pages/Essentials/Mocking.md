@@ -52,6 +52,28 @@ clearStubs(on: bird)        // Only remove stubs
 clearInvocations(on: bird)  // Only remove recorded invocations
 ```
 
+### Mock Static Members
+
+Just like instances of generated mocks, the mock types themselves can be used as test doubles.
+
+```swift
+protocol Bird {
+  static var species: String { get }
+}
+
+// Use `type(of: mock(…))` so that the mock is generated
+let birdType: BirdMock.Type = type(of: mock(Bird.self))
+print(birdType is Bird.self)  // Prints "true"
+```
+
+The state of static methods and properties persists between tests, so you must reset the mock before stubbing or verifying static members.
+
+```swift
+func setUp() {
+  reset(type(of: mock(Bird.self)))
+}
+```
+
 ## Topics
 
 ### Creating a Mock
@@ -61,9 +83,12 @@ clearInvocations(on: bird)  // Only remove recorded invocations
 ### Resetting State
 
 - ``/documentation/Mockingbird/reset(_:)-2rnp3``
+- ``/documentation/Mockingbird/reset(_:)-7v6hg``
 - ``/documentation/Mockingbird/reset(_:)-1qqcc``
 - ``/documentation/Mockingbird/clearInvocations(on:)-9e90o``
+- ``/documentation/Mockingbird/clearInvocations(on:)-24p8c``
 - ``/documentation/Mockingbird/clearInvocations(on:)-1wkme``
 - ``/documentation/Mockingbird/clearStubs(on:)-3qkw6``
+- ``/documentation/Mockingbird/clearStubs(on:)-4b0ra``
 - ``/documentation/Mockingbird/clearStubs(on:)-23b4v``
 - ``clearDefaultValues(on:)``

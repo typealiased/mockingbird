@@ -126,7 +126,8 @@ class VariableTemplate: Template {
       return \(ObjectInitializationTemplate(
                 name: "Mockingbird.Mockable",
                 genericTypes: getterGenericTypes,
-                arguments: [("mock", mockObject), ("invocation", getterInvocation)]))
+                arguments: [("context", "self.mockingbirdContext"),
+                            ("invocation", getterInvocation)]))
       """)
     
     let setterReturnType = "Mockingbird.Mockable<\(separated: setterGenericTypes)>"
@@ -137,7 +138,8 @@ class VariableTemplate: Template {
       return \(ObjectInitializationTemplate(
                 name: "Mockingbird.Mockable",
                 genericTypes: setterGenericTypes,
-                arguments: [("mock", mockObject), ("invocation", matchableSetterInvocation)]))
+                arguments: [("context", "self.mockingbirdContext"),
+                            ("invocation", matchableSetterInvocation)]))
       """)
     
     let accessors = !shouldGenerateSetter ? [getterDefinition.render()] : [
@@ -149,10 +151,6 @@ class VariableTemplate: Template {
   
   lazy var modifiers: String = {
     return variable.kind.typeScope.isStatic ? "class " : ""
-  }()
-  
-  lazy var mockObject: String = {
-    return variable.kind.typeScope.isStatic ? "staticMock" : "self"
   }()
   
   // Keep this in sync with `MockingbirdFramework.Invocation.Constants.getterSuffix`

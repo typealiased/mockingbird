@@ -36,8 +36,4 @@ _(Empty entries indicate that the feature is not applicable for the given mock t
 | Swift Unavailable Method | ✴️ | ✴️ | ✴️ |   |
 | Swift Unavailable Property | ✴️ | ✴️ | ✴️ |   |
 | | | | |
-| **Swift 5.5** | | | |
-| Swift Async Method | ✴️ | ✴️ |   |   |
-| Swift Actors | ✴️ | ✴️ |   |   |
-| | | | |
 | (This row is intentionally left blank for table formatting.) |   |   |   |   |

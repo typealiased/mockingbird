@@ -4,12 +4,9 @@ import Foundation
 public protocol Mock: AnyObject {
   /// Runtime metdata about the mock instance.
   var mockingbirdContext: Context { get }
-}
-
-/// Used to store invocations on static or class scoped methods.
-public class StaticMock: Mock {
-  /// Runtime metdata about the mock instance.
-  public let mockingbirdContext = Context()
+  
+  /// The static mocking context.
+  static var mockingbirdContext: Context { get }
 }
 
 /// Stores information about generated mocks.

@@ -76,6 +76,32 @@ public func reset(_ mocks: Mock...) {
   })
 }
 
+/// Remove all recorded invocations and configured stubs on static members.
+///
+/// Fully reset a set of mocks during test runs by removing all recorded invocations and clearing
+/// all configurations.
+///
+/// ```swift
+/// let bird = mock(Bird.self)
+/// given(bird.name).willReturn("Ryan")
+///
+/// print(bird.name)  // Prints "Ryan"
+/// verify(bird.name).wasCalled()  // Passes
+///
+/// reset(bird)
+///
+/// print(bird.name)  // Error: Missing stubbed implementation
+/// verify(bird.name).wasCalled()  // Error: Got 0 invocations
+/// ```
+///
+/// - Parameter mocks: A set of static mocks to reset.
+public func reset(_ staticMocks: Mock.Type...) {
+  staticMocks.forEach({ mock in
+    clearInvocations(on: mock)
+    clearStubs(on: mock)
+  })
+}
+
 /// Remove all recorded invocations and configured stubs for Objective-C mocks.
 ///
 /// Fully reset a set of mocks during test runs by removing all recorded invocations and clearing
@@ -114,13 +140,30 @@ public func reset(_ mocks: NSObjectProtocol...) {
 /// verify(bird.name).wasCalled()  // Passes
 ///
 /// clearInvocations(on: bird)
-///
-/// print(bird.name)  // Prints "Ryan"
 /// verify(bird.name).wasCalled()  // Error: Got 0 invocations
 /// ```
 ///
 /// - Parameter mocks: A set of mocks to reset.
 public func clearInvocations(on mocks: Mock...) {
+  mocks.forEach({ $0.mockingbirdContext.mocking.clearInvocations() })
+}
+
+/// Remove all recorded invocations on static members.
+///
+/// Partially reset a set of static mocks during test runs by removing all recorded invocations.
+///
+/// ```swift
+/// given(BirdMock.species).willReturn("Mimus polyglottos")
+///
+/// print(BirdMock.name)  // Prints "Mimus polyglottos"
+/// verify(BirdMock.name).wasCalled()  // Passes
+///
+/// clearInvocations(on: BirdMock.self)
+/// verify(BirdMock.species).wasCalled()  // Error: Got 0 invocations
+/// ```
+///
+/// - Parameter mocks: A set of static mocks to reset.
+public func clearInvocations(on mocks: Mock.Type...) {
   mocks.forEach({ $0.mockingbirdContext.mocking.clearInvocations() })
 }
 
@@ -136,8 +179,6 @@ public func clearInvocations(on mocks: Mock...) {
 /// verify(bird.name).wasCalled()  // Passes
 ///
 /// clearInvocations(on: bird)
-///
-/// print(bird.name)  // Prints "Ryan"
 /// verify(bird.name).wasCalled()  // Error: Got 0 invocations
 /// ```
 ///
@@ -158,21 +199,30 @@ public func clearInvocations(on mocks: NSObjectProtocol...) {
 /// given(bird.name).willReturn("Ryan")
 ///
 /// print(bird.name)  // Prints "Ryan"
-/// verify(bird.name).wasCalled()  // Passes
-///
 /// clearStubs(on: bird)
-///
 /// print(bird.name)  // Error: Missing stubbed implementation
 /// ```
 ///
 /// - Parameter mocks: A set of mocks to reset.
 public func clearStubs(on mocks: Mock...) {
-  mocks.forEach({
-    let context = $0.mockingbirdContext
-    context.stubbing.clearStubs()
-    context.stubbing.defaultValueProvider.update { $0.reset() }
-    context.proxy.clearTargets()
-  })
+  mocks.forEach({ clearStubs(on: $0.mockingbirdContext) })
+}
+
+/// Remove all concrete stubs on static members.
+///
+/// Partially reset a set of static mocks during test runs by removing all stubs.
+///
+/// ```swift
+/// given(BirdMock.species).willReturn("Mimus polyglottos")
+///
+/// print(BirdMock.species)  // Prints "Mimus polyglottos"
+/// clearStubs(on: bird)
+/// print(BirdMock.species)  // Error: Missing stubbed implementation
+/// ```
+///
+/// - Parameter mocks: A set of mocks to reset.
+public func clearStubs(on mocks: Mock.Type...) {
+  mocks.forEach({ clearStubs(on: $0.mockingbirdContext) })
 }
 
 /// Remove all concrete stubs for Objective-C mocks.
@@ -184,10 +234,7 @@ public func clearStubs(on mocks: Mock...) {
 /// given(bird.name).willReturn("Ryan")
 ///
 /// print(bird.name)  // Prints "Ryan"
-/// verify(bird.name).wasCalled()  // Passes
-///
 /// clearStubs(on: bird)
-///
 /// print(bird.name)  // Error: Missing stubbed implementation
 /// ```
 ///
@@ -195,10 +242,15 @@ public func clearStubs(on mocks: Mock...) {
 public func clearStubs(on mocks: NSObjectProtocol...) {
   mocks.forEach({ mock in
     guard let context = mock.mockingbirdContext else { return }
-    context.stubbing.clearStubs()
-    context.stubbing.defaultValueProvider.update { $0.reset() }
-    context.proxy.clearTargets()
+    clearStubs(on: context)
   })
+}
+
+/// Removes all configured stubs in a context.
+private func clearStubs(on context: Context) {
+  context.stubbing.clearStubs()
+  context.stubbing.defaultValueProvider.update { $0.reset() }
+  context.proxy.clearTargets()
 }
 
 /// Remove all registered default values.
@@ -213,7 +265,6 @@ public func clearStubs(on mocks: NSObjectProtocol...) {
 /// verify(bird.name).wasCalled()  // Passes
 ///
 /// clearDefaultValues(on: bird)
-///
 /// print(bird.name)  // Error: Missing stubbed implementation
 /// ```
 ///

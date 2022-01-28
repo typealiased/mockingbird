@@ -101,9 +101,8 @@ class ThunkTemplate: Template {
         """).render()
     }()
     
-    let context = isStatic ? "self.staticMock.mockingbirdContext" : "self.mockingbirdContext"
     let supertype = isStatic ? "MockingbirdSupertype.Type" : "MockingbirdSupertype"
-    let didInvoke = FunctionCallTemplate(name: "\(context).mocking.didInvoke",
+    let didInvoke = FunctionCallTemplate(name: "self.mockingbirdContext.mocking.didInvoke",
                                          unlabeledArguments: [invocation],
                                          isAsync: isAsync,
                                          isThrowing: isThrowing)
@@ -116,8 +115,9 @@ class ThunkTemplate: Template {
     
     return """
     return \(didInvoke) \(BlockTemplate(body: """
-    \(FunctionCallTemplate(name: "\(context).recordInvocation", arguments: [(nil, "$0")]))
-    let mkbImpl = \(FunctionCallTemplate(name: "\(context).stubbing.implementation",
+    \(FunctionCallTemplate(name: "self.mockingbirdContext.recordInvocation",
+                           arguments: [(nil, "$0")]))
+    let mkbImpl = \(FunctionCallTemplate(name: "self.mockingbirdContext.stubbing.implementation",
                                          arguments: [("for", "$0")]))
     \(String(lines: [
       callDefault,
@@ -126,7 +126,7 @@ class ThunkTemplate: Template {
       callBridgedConvenience,
       !isSubclass && !isProxyable ? "" : ForInStatementTemplate(
         item: "mkbTargetBox",
-        collection: "\(context).proxy.targets(for: $0)",
+        collection: "self.mockingbirdContext.proxy.targets(for: $0)",
         body: SwitchStatementTemplate(
           controlExpression: "mkbTargetBox.target",
           cases: [
@@ -136,7 +136,7 @@ class ThunkTemplate: Template {
                 condition: "var mkbObject = mkbObject as? \(supertype)", body: "break"))
             let mkbValue: \(returnType) = \(callMember(.object))
             \(FunctionCallTemplate(
-                name: "\(context).proxy.updateTarget",
+                name: "self.mockingbirdContext.proxy.updateTarget",
                 arguments: [(nil, "&mkbObject"), ("in", "mkbTargetBox")]))
             return mkbValue
             """)
@@ -145,14 +145,14 @@ class ThunkTemplate: Template {
     \(IfStatementTemplate(
         condition: """
         let mkbValue = \(FunctionCallTemplate(
-                          name: "\(context).stubbing.defaultValueProvider.value.provideValue",
+                          name: "self.mockingbirdContext.stubbing.defaultValueProvider.value.provideValue",
                           arguments: [("for", "\(parenthetical: returnType).self")]))
         """,
         body: "return mkbValue"))
-    \(FunctionCallTemplate(name: "\(context).stubbing.failTest",
+    \(FunctionCallTemplate(name: "self.mockingbirdContext.stubbing.failTest",
                            arguments: [
                             ("for", "$0"),
-                            ("at", "\(context).sourceLocation")]).render())
+                            ("at", "self.mockingbirdContext.sourceLocation")]).render())
     """))
     """
   }
