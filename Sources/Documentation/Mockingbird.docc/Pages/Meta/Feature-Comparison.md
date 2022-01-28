@@ -25,10 +25,11 @@ Compare Swift mocking frameworks by features.
 | Mock Subscripts | ✅ | ❌ | ✅ | ✅ |
 | Mock Static Methods | ✅ | ❌ | ✅ | ✅ |
 | Mock Static Properties | ✅ | ❌ | ✅ | ✅ |
+| Mock Async Methods | ✅ | ✅ | ✅ | ✅ |
 | | | | |
 | Stub Returning Value | ✅ | ✅ | ✅ | ✅ |
 | Stub Throwing Errors | ✅ | ✅ | ✅ | ✅ |
-| Stub Parameterized Method | ✅ | ✅ | ✅ | ✅ |
+| Stub Parameterized Methods | ✅ | ✅ | ✅ | ✅ |
 | Stub Variadic Parameters | ✅ | ❌ | ❌ | ✅ |
 | Stub Inout Parameters | ✅ | ❌ | ✅ | ✴️ |
 | Stub Sequences | ✅ | ✅ | ✅ | ✴️ |

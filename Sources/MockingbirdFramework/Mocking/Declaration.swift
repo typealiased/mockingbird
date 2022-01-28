@@ -34,6 +34,6 @@ public protocol AnyMockable {}
 
 /// Represents a mocked declaration that can be stubbed or verified.
 public struct Mockable<DeclarationType: Declaration, InvocationType, ReturnType>: AnyMockable {
-  let mock: Mock
+  let context: Context
   let invocation: Invocation
 }

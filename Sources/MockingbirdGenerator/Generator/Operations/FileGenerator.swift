@@ -151,6 +151,6 @@ class FileGenerator {
   }
   
   private var genericTypesStaticMocks: String {
-    return "private let genericStaticMockContext = Mockingbird.GenericStaticMockContext()"
+    return "private let mkbGenericStaticMockContext = Mockingbird.GenericStaticMockContext()"
   }
 }

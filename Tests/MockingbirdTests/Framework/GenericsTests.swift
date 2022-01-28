@@ -31,11 +31,11 @@ class GenericsTests: BaseTestCase {
     return classMock
   }
   
-  let staticTestQueue = DispatchQueue(label: "co.bird.mockingbird.tests")
-  
   override func setUp() {
     protocolMock = mock(AssociatedTypeProtocol<EquatableType, HashableType>.self)
     classMock = mock(AssociatedTypeGenericImplementer<EquatableType, [EquatableType]>.self)
+    reset(type(of: protocolMock))
+    reset(type(of: classMock))
   }
   
   // MARK: - Associated type protocol
@@ -61,37 +61,29 @@ class GenericsTests: BaseTestCase {
   }
   
   func testProtocolMock_stubParameterizedReturningStaticMethod_wildcardMatcher() {
-    staticTestQueue.sync {
-      reset(type(of: protocolMock).staticMock)
-      
-      given(type(of: protocolMock).methodUsingEquatableTypeWithReturn(equatable: any()))
-        .will { return $0 }
-      XCTAssertEqual(call(type(of: protocolMock), with: EquatableType(value: 1)),
-                     EquatableType(value: 1))
-      verify(type(of: protocolMock).methodUsingEquatableTypeWithReturn(equatable: any()))
-        .wasCalled()
-    }
+    given(type(of: protocolMock).methodUsingEquatableTypeWithReturn(equatable: any()))
+      .will { return $0 }
+    XCTAssertEqual(call(type(of: protocolMock), with: EquatableType(value: 1)),
+                   EquatableType(value: 1))
+    verify(type(of: protocolMock).methodUsingEquatableTypeWithReturn(equatable: any()))
+      .wasCalled()
   }
   
   func testProtocolMock_stubParameterizedReturningStaticMethod_exactMatcher() {
-    staticTestQueue.sync {
-      reset(protocolMock)
-      
-      given(type(of: protocolMock)
-        .methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 1)))
-        .will { return $0 }
-      given(type(of: protocolMock)
-        .methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 2)))
-        .willReturn(EquatableType(value: 42))
-      XCTAssertEqual(call(type(of: protocolMock), with: EquatableType(value: 2)),
-                     EquatableType(value: 42))
-      verify(type(of: protocolMock)
-        .methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 1)))
-        .wasNeverCalled()
-      verify(type(of: protocolMock)
-        .methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 2)))
-        .wasCalled()
-    }
+    given(type(of: protocolMock)
+      .methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 1)))
+      .will { return $0 }
+    given(type(of: protocolMock)
+      .methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 2)))
+      .willReturn(EquatableType(value: 42))
+    XCTAssertEqual(call(type(of: protocolMock), with: EquatableType(value: 2)),
+                   EquatableType(value: 42))
+    verify(type(of: protocolMock)
+      .methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 1)))
+      .wasNeverCalled()
+    verify(type(of: protocolMock)
+      .methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 2)))
+      .wasCalled()
   }
   
   // MARK: - Generic class
@@ -121,39 +113,31 @@ class GenericsTests: BaseTestCase {
   }
   
   func testClassMock_stubParameterizedReturningClassMethod_wildcardMatcher() {
-    staticTestQueue.sync {
-      reset(type(of: classMock).staticMock)
-      
-      given(type(of: classMock).methodUsingEquatableTypeWithReturn(equatable: any()))
-        .will { return $0 }
-      XCTAssertEqual(
-        type(of: classMock).methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 1)),
-        EquatableType(value: 1)
-      )
-      verify(type(of: classMock).methodUsingEquatableTypeWithReturn(equatable: any())).wasCalled()
-    }
+    given(type(of: classMock).methodUsingEquatableTypeWithReturn(equatable: any()))
+      .will { return $0 }
+    XCTAssertEqual(
+      type(of: classMock).methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 1)),
+      EquatableType(value: 1)
+    )
+    verify(type(of: classMock).methodUsingEquatableTypeWithReturn(equatable: any())).wasCalled()
   }
   
   func testClassMock_stubParameterizedReturningClassMethod_exactMatcher() {
-    staticTestQueue.sync {
-      reset(type(of: classMock).staticMock)
-      
-      given(type(of: classMock)
-        .methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 1)))
-        .will { return $0 }
-      given(type(of: classMock)
-        .methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 2)))
-        .willReturn(EquatableType(value: 42))
-      XCTAssertEqual(
-        type(of: classMock).methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 2)),
-        EquatableType(value: 42)
-      )
-      verify(type(of: classMock)
-        .methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 1)))
-        .wasNeverCalled()
-      verify(type(of: classMock)
-        .methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 2)))
-        .wasCalled()
-    }
+    given(type(of: classMock)
+            .methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 1)))
+      .will { return $0 }
+    given(type(of: classMock)
+            .methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 2)))
+      .willReturn(EquatableType(value: 42))
+    XCTAssertEqual(
+      type(of: classMock).methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 2)),
+      EquatableType(value: 42)
+    )
+    verify(type(of: classMock)
+            .methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 1)))
+      .wasNeverCalled()
+    verify(type(of: classMock)
+            .methodUsingEquatableTypeWithReturn(equatable: EquatableType(value: 2)))
+      .wasCalled()
   }
 }

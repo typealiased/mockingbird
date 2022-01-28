@@ -15,6 +15,7 @@ class StubbingTests: BaseTestCase {
   override func setUp() {
     child = mock(Child.self)
     childProtocol = mock(ChildProtocol.self)
+    reset(type(of: mock(ChildProtocol.self)))
   }
   
   func testStubTrivialMethod_onClassMock_implicitlyStubbed() {
@@ -416,5 +417,19 @@ class StubbingTests: BaseTestCase {
     XCTAssertTrue(childProtocolInstance.childInstanceVariable)
     
     verify(childProtocol.getChildInstanceVariable()).wasCalled(exactly(4))
+  }
+  
+  // MARK: Static members
+  
+  func testStubStaticProperty() {
+    given(ChildProtocolMock.childStaticVariable).willReturn(true)
+    XCTAssertTrue(ChildProtocolMock.childStaticVariable)
+    verify(ChildProtocolMock.childStaticVariable).wasCalled()
+  }
+  
+  func testStubStaticMethod() {
+    given(ChildProtocolMock.childParameterizedStaticMethod(param1: any(), any())).willReturn(true)
+    XCTAssertTrue(ChildProtocolMock.childParameterizedStaticMethod(param1: true, 1))
+    verify(ChildProtocolMock.childParameterizedStaticMethod(param1: any(), any())).wasCalled()
   }
 }

@@ -77,6 +77,30 @@ bird.name = "Ryan"
 print(bird.name)  // Prints "Ryan"
 ```
 
+### Stub Async Methods
+
+Use the `await` keyword to stub asynchronous methods.
+
+```swift
+protocol Bird {
+  func fetchMessage() async -> String
+}
+given(await bird.fetchMessage()).willReturn("Hello")
+```
+
+### Stub Static Members
+
+Static methods and properties can be stubbed in the same way as instance members. Make sure to reset the mock type before each test run. See <doc:Mocking#Mock-Static-Members> for additional guidance.
+
+```swift
+protocol Bird {
+  static var species: String { get }
+}
+let birdType = type(of: mock(Bird.self))
+given(birdType.species).willReturn("Mimus polyglottos")
+print(birdType.species)  // Prints "Mimus polyglottos"
+```
+
 ### Stub as a Relaxed Mock
 
 Use a `ValueProvider` to create a relaxed mock that returns default values for unstubbed methods. Mockingbird provides preset value providers which are guaranteed to be backwards compatible, such as `.standardProvider`.

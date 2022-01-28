@@ -63,6 +63,8 @@ Functionality not designed for general use.
 - ``AnyDeclaration``
 - ``FunctionDeclaration``
 - ``ThrowingFunctionDeclaration``
+- ``AsyncFunctionDeclaration``
+- ``ThrowingAsyncFunctionDeclaration``
 - ``VariableDeclaration``
 - ``PropertyGetterDeclaration``
 - ``PropertySetterDeclaration``

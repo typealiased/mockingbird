@@ -164,7 +164,8 @@ class SubscriptMethodTemplate: MethodTemplate {
     return \(ObjectInitializationTemplate(
       name: "Mockingbird.Mockable",
       genericTypes: genericTypes,
-              arguments: [("mock", mockObject), ("invocation", invocation.render())]))
+              arguments: [("context", "self.mockingbirdContext"),
+                          ("invocation", invocation.render())]))
     """
     
     let syntheizedReturnType = "Mockingbird.Mockable<\(separated: genericTypes)>"

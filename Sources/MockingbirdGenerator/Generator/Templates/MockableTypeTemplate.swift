@@ -190,12 +190,12 @@ class MockableTypeTemplate: Template {
     if !mockableType.genericTypes.isEmpty || mockableType.isInGenericContainingType {
       // Class-level generic types don't support static variables directly.
       let body = !shouldGenerateThunks ? Constants.thunkStub :
-        "return genericStaticMockContext.resolveTypeNames([\(runtimeGenericTypeNames)])"
+        "return mkbGenericStaticMockContext.resolve([\(runtimeGenericTypeNames)])"
       return """
-      static var staticMock: Mockingbird.StaticMock \(BlockTemplate(body: body, multiline: false))
+      public static var mockingbirdContext: Mockingbird.Context \(BlockTemplate(body: body, multiline: false))
       """
     } else {
-      return "static let staticMock = Mockingbird.StaticMock()"
+      return "public static let mockingbirdContext = Mockingbird.Context()"
     }
   }
   
@@ -401,7 +401,7 @@ class MockableTypeTemplate: Template {
       body: String(lines: [
         canCallSuper ? "super.init()" : "",
         "self.mockingbirdContext.sourceLocation = sourceLocation",
-        "\(mockableType.name)Mock.staticMock.mockingbirdContext.sourceLocation = sourceLocation",
+        "\(mockableType.name)Mock.mockingbirdContext.sourceLocation = sourceLocation",
       ])).render()
   }
   

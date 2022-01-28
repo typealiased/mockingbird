@@ -123,7 +123,8 @@ class MethodTemplate: Template {
     return \(ObjectInitializationTemplate(
               name: "Mockingbird.Mockable",
               genericTypes: genericTypes,
-              arguments: [("mock", mockObject), ("invocation", matchableInvocation())]))
+              arguments: [("context", "self.mockingbirdContext"),
+                          ("invocation", matchableInvocation())]))
     """
     methods.append(
       FunctionDefinitionTemplate(attributes: method.attributes.safeDeclarations,
@@ -138,7 +139,7 @@ class MethodTemplate: Template {
       return \(ObjectInitializationTemplate(
                 name: "Mockingbird.Mockable",
                 genericTypes: genericTypes,
-                arguments: [("mock", mockObject),
+                arguments: [("context", "self.mockingbirdContext"),
                             ("invocation", matchableInvocation(isVariadic: true))]))
       """
       let declaration = "public \(regularModifiers)func \(fullNameForMatchingVariadics) -> \(returnType)"
@@ -401,10 +402,6 @@ class MethodTemplate: Template {
         name: "Mockingbird.ArgumentMatcher",
         arguments: [(nil, "\(backticked: parameter.name)")]).render()
     })
-  }()
-  
-  lazy var mockObject: String = {
-    return method.kind.typeScope.isStatic ? "self.staticMock" : "self"
   }()
   
   /// Original function signature for casting to a matchable signature (variadics support).

@@ -36,6 +36,29 @@ verify(bird.name).wasCalled()
 verify(bird.name = any()).wasCalled()
 ```
 
+### Verify Async Methods
+
+Use the `await` keyword to verify asynchronous methods.
+
+```swift
+protocol Bird {
+  func fetchMessage() async -> String
+}
+verify(await bird.fetchMessage()).wasCalled()
+```
+
+### Verify Static Members
+
+Static methods and properties can be verified in the same way as instance members. Make sure to reset the mock type before each test run. See <doc:Mocking#Mock-Static-Members> for additional guidance.
+
+```swift
+protocol Bird {
+  static var species: String { get }
+}
+let birdType = type(of: mock(Bird.self))
+verify(birdType.species).wasCalled()
+```
+
 ### Verify the Number of Invocations
 
 It’s possible to verify that an invocation was called a specific number of times with a count matcher.
@@ -105,7 +128,7 @@ eventually {
   verify(bird.fly()).wasCalled()
 }
 
-waitForExpectations(timeout: 1.0)
+waitForExpectations(timeout: 1)
 ```
 
 ### Verify Overloaded Methods
@@ -114,12 +137,14 @@ Use the `returning` modifier to disambiguate methods overloaded by return type. 
 
 ```swift
 protocol Bird {
-  func getMessage<T>() -> T    // Overloaded generically
-  func getMessage() -> String  // Overloaded explicitly
-  func getMessage() -> Data
+  func fetchMessage<T>() -> T    // Overloaded generically
+  func fetchMessage() -> String  // Overloaded explicitly
+  func fetchMessage() -> Data
 }
 
-verify(bird.getMessage()).returning(String.self).wasCalled()
+verify(bird.fetchMessage())
+  .returning(String.self)
+  .wasCalled()
 ```
 
 ## Topics
@@ -145,4 +170,3 @@ verify(bird.getMessage()).returning(String.self).wasCalled()
 
 - ``ArgumentCaptor``
 - ``inOrder(with:file:line:_:)``
-- ``eventually(_:_:)``

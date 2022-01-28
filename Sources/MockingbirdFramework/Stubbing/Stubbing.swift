@@ -58,7 +58,7 @@ public func given<DeclarationType: Declaration, InvocationType, ReturnType>(
   _ declaration: Mockable<DeclarationType, InvocationType, ReturnType>
 ) -> StaticStubbingManager<DeclarationType, InvocationType, ReturnType> {
   return StaticStubbingManager(invocation: declaration.invocation,
-                               context: declaration.mock.mockingbirdContext)
+                               context: declaration.context)
 }
 
 /// Stub a Swift declaration to return a value or perform an operation.
@@ -424,12 +424,12 @@ extension StubbingManager where DeclarationType == ThrowingFunctionDeclaration {
   ///
   /// ```swift
   /// protocol Bird {
-  ///   func getMessage<T>() throws -> T    // Overloaded generically
-  ///   func getMessage() throws -> String  // Overloaded explicitly
-  ///   func getMessage() throws -> Data
+  ///   func fetchMessage<T>() throws -> T    // Overloaded generically
+  ///   func fetchMessage() throws -> String  // Overloaded explicitly
+  ///   func fetchMessage() throws -> Data
   /// }
   ///
-  /// given(bird.send(any()))
+  /// given(bird.fetchMessage())
   ///   .returning(String.self)
   ///   .willThrow(BirdError())
   /// ```
