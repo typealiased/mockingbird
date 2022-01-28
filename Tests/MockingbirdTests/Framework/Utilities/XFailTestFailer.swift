@@ -5,7 +5,7 @@ import XCTest
 class XFailTestFailer: TestFailer {
   private var failures = [String]()
   private let testCase: XCTestCase
-  private let sourceLocation: (file: String, line: Int)
+  private let sourceLocation: XCTSourceCodeLocation
   
   enum Constants {
     static let threadSemaphoreKey = "kMKBXFailTestSemaphoreKey"
@@ -13,7 +13,7 @@ class XFailTestFailer: TestFailer {
   
   init(testCase: XCTestCase, file: String = #file, line: Int = #line) {
     self.testCase = testCase
-    self.sourceLocation = (file, line)
+    self.sourceLocation = XCTSourceCodeLocation(filePath: file, lineNumber: line)
   }
   
   func fail(message: String, isFatal: Bool, file: StaticString, line: UInt) {
@@ -42,16 +42,18 @@ class XFailTestFailer: TestFailer {
         })
         .joined(separator: "\n\n")
     
-    let description = """
-    Expected \(expectedFailuresDescription) but got \(failures.count)
+    let compactDescription = "Expected \(expectedFailuresDescription) but got \(failures.count)"
+    let detailedDescription = """
+    \(compactDescription)
     
     All failures:
     \(allFailures)
     """
     
-    testCase.recordFailure(withDescription: description,
-                           inFile: sourceLocation.file,
-                           atLine: sourceLocation.line,
-                           expected: true)
+    let issue = XCTIssue(type: .assertionFailure,
+                         compactDescription: compactDescription,
+                         detailedDescription: detailedDescription,
+                         sourceCodeContext: XCTSourceCodeContext(location: sourceLocation))
+    testCase.record(issue)
   }
 }
