@@ -74,6 +74,7 @@ class VariableTemplate: Template {
                       isAsync: false,
                       isThrowing: false,
                       isStatic: variable.kind.typeScope.isStatic,
+                      isOptional: variable.attributes.contains(.optional),
                       callMember: { scope in
                         return "\(scope).\(backticked: self.variable.name)"
                       },
@@ -90,7 +91,13 @@ class VariableTemplate: Template {
                       isAsync: false,
                       isThrowing: false,
                       isStatic: variable.kind.typeScope.isStatic,
+                      isOptional: variable.attributes.contains(.optional),
                       callMember: { scope in
+                        guard !self.variable.attributes.contains(.optional) else {
+                          // Optional readwrite properties cannot be assigned to:
+                          // `Cannot assign to property: 'object' is immutable`
+                          return ""
+                        }
                         return "\(scope).\(backticked: self.variable.name) = newValue"
                       },
                       invocationArguments: [(nil, "newValue")]).render())

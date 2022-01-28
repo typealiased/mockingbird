@@ -60,8 +60,11 @@ class MethodTemplate: Template {
                     isAsync: method.isAsync,
                     isThrowing: method.isThrowing,
                     isStatic: method.kind.typeScope.isStatic,
+                    isOptional: method.attributes.contains(.optional),
                     callMember: { scope in
-                      let scopedName = "\(scope).\(backticked: self.method.shortName)"
+                      let optionalPostfix = self.method.attributes.contains(.optional) ? "?" : ""
+                      let scopedName =
+                        "\(scope).\(backticked: self.method.shortName)\(optionalPostfix)"
                       guard self.method.isVariadic else {
                         return FunctionCallTemplate(
                           name: scopedName,

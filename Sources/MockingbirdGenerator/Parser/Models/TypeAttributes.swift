@@ -89,22 +89,23 @@ struct Attributes: OptionSet, Hashable {
   static let convenience = Attributes(rawValue: 1 << 5)
   static let override = Attributes(rawValue: 1 << 6)
   static let objcName = Attributes(rawValue: 1 << 7)
+  static let `optional` = Attributes(rawValue: 1 << 8)
   
   // MARK: Inferred attributes
-  static let constant = Attributes(rawValue: 1 << 8)
-  static let readonly = Attributes(rawValue: 1 << 9)
-  static let async = Attributes(rawValue: 1 << 10)
-  static let `throws` = Attributes(rawValue: 1 << 11)
-  static let `inout` = Attributes(rawValue: 1 << 12)
-  static let variadic = Attributes(rawValue: 1 << 13)
-  static let failable = Attributes(rawValue: 1 << 14)
-  static let unwrappedFailable = Attributes(rawValue: 1 << 15)
-  static let closure = Attributes(rawValue: 1 << 16)
-  static let escaping = Attributes(rawValue: 1 << 17)
-  static let autoclosure = Attributes(rawValue: 1 << 18)
+  static let constant = Attributes(rawValue: 1 << 9)
+  static let readonly = Attributes(rawValue: 1 << 10)
+  static let async = Attributes(rawValue: 1 << 11)
+  static let `throws` = Attributes(rawValue: 1 << 12)
+  static let `inout` = Attributes(rawValue: 1 << 13)
+  static let variadic = Attributes(rawValue: 1 << 14)
+  static let failable = Attributes(rawValue: 1 << 15)
+  static let unwrappedFailable = Attributes(rawValue: 1 << 16)
+  static let closure = Attributes(rawValue: 1 << 17)
+  static let escaping = Attributes(rawValue: 1 << 18)
+  static let autoclosure = Attributes(rawValue: 1 << 19)
   
   // MARK: Custom attributes
-  static let implicit = Attributes(rawValue: 1 << 19)
+  static let implicit = Attributes(rawValue: 1 << 20)
   
   static let attributesKey = "key.attributes"
   static let attributeKey = "key.attribute"
@@ -121,6 +122,7 @@ extension Attributes {
     case .convenience: self = .convenience
     case .override: self = .override
     case .objcName: self = .objcName
+    case .`optional`: self = .`optional`
     default: return nil
     }
   }

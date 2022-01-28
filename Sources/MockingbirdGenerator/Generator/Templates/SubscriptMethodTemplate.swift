@@ -46,6 +46,7 @@ class SubscriptMethodTemplate: MethodTemplate {
                       isAsync: method.isAsync,
                       isThrowing: method.isThrowing,
                       isStatic: method.kind.typeScope.isStatic,
+                      isOptional: method.attributes.contains(.optional),
                       callMember: { scope in
                         return "\(scope)[\(separated: callArguments)]"
                       },
@@ -71,7 +72,13 @@ class SubscriptMethodTemplate: MethodTemplate {
                       isAsync: method.isAsync,
                       isThrowing: method.isThrowing,
                       isStatic: method.kind.typeScope.isStatic,
+                      isOptional: method.attributes.contains(.optional),
                       callMember: { scope in
+                        guard !self.method.attributes.contains(.optional) else {
+                          // Optional readwrite subscripts cannot be assigned to:
+                          // Cannot assign through subscript: 'object' is immutable
+                          return ""
+                        }
                         return "\(scope)[\(separated: callArguments)] = newValue"
                       },
                       invocationArguments: setterInvocationArguments).render())

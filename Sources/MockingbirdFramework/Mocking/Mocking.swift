@@ -46,6 +46,7 @@ public func mock<T>(_ type: T.Type) -> T {
 /// ```
 ///
 /// - Parameter type: The type to mock.
+@_disfavoredOverload
 public func mock<T: NSObjectProtocol>(_ type: T.Type) -> T {
   return MKBTypeFacade.create(from: MKBMock(type))
 }
@@ -121,6 +122,7 @@ public func reset(_ staticMocks: Mock.Type...) {
 /// ```
 ///
 /// - Parameter mocks: A set of Objective-C mocks to reset.
+@_disfavoredOverload
 public func reset(_ mocks: NSObjectProtocol...) {
   mocks.forEach({ mock in
     clearInvocations(on: mock)
@@ -183,6 +185,7 @@ public func clearInvocations(on mocks: Mock.Type...) {
 /// ```
 ///
 /// - Parameter mocks: A set of Objective-C mocks to reset.
+@_disfavoredOverload
 public func clearInvocations(on mocks: NSObjectProtocol...) {
   mocks.forEach({ mock in
     guard let context = mock.mockingbirdContext else { return }
@@ -239,6 +242,7 @@ public func clearStubs(on mocks: Mock.Type...) {
 /// ```
 ///
 /// - Parameter mocks: A set of mocks to reset.
+@_disfavoredOverload
 public func clearStubs(on mocks: NSObjectProtocol...) {
   mocks.forEach({ mock in
     guard let context = mock.mockingbirdContext else { return }

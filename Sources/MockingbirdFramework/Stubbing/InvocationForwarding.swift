@@ -337,6 +337,7 @@ public extension NSObjectProtocol {
   /// ```
   ///
   /// - Returns: A partial mock using the superclass to handle invocations.
+  @_disfavoredOverload
   @discardableResult
   func forwardCallsToSuper() -> Self {
     mockingbirdContext?.proxy.addTarget(.super)
@@ -388,6 +389,7 @@ public extension NSObjectProtocol {
   ///
   /// - Parameter object: An object that should handle forwarded invocations.
   /// - Returns: A partial mock using `object` to handle invocations.
+  @_disfavoredOverload
   @discardableResult
   func forwardCalls<T>(to target: T) -> Self {
     mockingbirdContext?.proxy.addTarget(.object(target))
