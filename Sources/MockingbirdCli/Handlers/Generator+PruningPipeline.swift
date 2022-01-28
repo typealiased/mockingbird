@@ -99,7 +99,6 @@ extension Generator {
     
     func cache(projectHash: String,
                cliVersion: String,
-               configHash: String,
                sourceRoot: Path,
                cacheDirectory: Path,
                environment: () -> [String: Any]) throws {
@@ -113,7 +112,6 @@ extension Generator {
                                 mockedTypeNames: mockedTypeNames,
                                 projectHash: projectHash,
                                 cliVersion: cliVersion,
-                                configHash: configHash,
                                 environment: environment)
         
       case .describedTarget(let pipelineTarget):
@@ -122,7 +120,6 @@ extension Generator {
                                 mockedTypeNames: mockedTypeNames,
                                 projectHash: projectHash,
                                 cliVersion: cliVersion,
-                                configHash: configHash,
                                 environment: environment)
         
       case .sourceTarget:
@@ -134,12 +131,12 @@ extension Generator {
                                 mockedTypeNames: mockedTypeNames,
                                 projectHash: projectHash,
                                 cliVersion: cliVersion,
-                                configHash: configHash,
                                 environment: environment)
       }
       
       let data = try JSONEncoder().encode(target)
-      let filePath = cacheDirectory.targetLockFilePath(for: target.name, testBundle:  environmentTargetName)
+      let filePath = cacheDirectory.targetLockFilePath(for: target.name,
+                                                       testBundle: environmentTargetName)
       try filePath.write(data)
       log("Cached pipeline test target \(target.name.singleQuoted) to \(filePath.absolute())")
     }
@@ -148,10 +145,10 @@ extension Generator {
   func findCachedTestTarget(for targetName: String,
                             projectHash: String,
                             cliVersion: String,
-                            configHash: String,
                             cacheDirectory: Path,
                             sourceRoot: Path) -> TestTarget? {
-    let filePath = cacheDirectory.targetLockFilePath(for: targetName, testBundle: self.config.environmentTargetName)
+    let filePath = cacheDirectory.targetLockFilePath(for: targetName,
+                                                     testBundle: self.config.environmentTargetName)
     
     guard filePath.exists else {
       log("No cached test target metadata exists for \(targetName.singleQuoted) at \(filePath.absolute())")
@@ -175,11 +172,6 @@ extension Generator {
     
     guard cliVersion == target.cliVersion else {
       log("Invalidated cached test target metadata for \(target.name.singleQuoted) because the CLI version changed from \(target.cliVersion.singleQuoted) to \(cliVersion.singleQuoted)")
-      return nil
-    }
-    
-    guard configHash == target.configHash else {
-      log("Invalidated cached test target metadata for \(target.name.singleQuoted) because the config hash changed from \(target.configHash.singleQuoted) to \(configHash.singleQuoted)")
       return nil
     }
     
