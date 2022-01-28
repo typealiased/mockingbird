@@ -62,6 +62,8 @@ struct Method {
      rawParametersDeclaration) = Method.parseDeclaration(from: dictionary,
                                                          source: source,
                                                          isInitializer: isInitializer,
+                                                         kind: kind,
+                                                         rootKind: rootKind,
                                                          attributes: attributes)
     
     // Parse return type.
@@ -121,6 +123,8 @@ struct Method {
   private static func parseDeclaration(from dictionary: StructureDictionary,
                                        source: Data?,
                                        isInitializer: Bool,
+                                       kind: SwiftDeclarationKind,
+                                       rootKind: SwiftDeclarationKind,
                                        attributes: Attributes) -> (Attributes, Substring?) {
     guard let declaration = SourceSubstring.key.extract(from: dictionary, contents: source)
       else { return (attributes, nil) }
@@ -159,7 +163,32 @@ struct Method {
       fullAttributes.insert(.throws)
     }
     
+    // Parse kind-specific attributes.
+    switch kind {
+    case .functionSubscript:
+      if isReadOnlySubscript(from: dictionary, rootKind: rootKind, source: source) {
+        fullAttributes.insert(.readonly)
+      }
+    default:
+      break
+    }
+    
     return (fullAttributes, rawParametersDeclaration)
+  }
+  
+  private static func isReadOnlySubscript(from dictionary: StructureDictionary,
+                                          rootKind: SwiftDeclarationKind,
+                                          source: Data?) -> Bool {
+    let setterAccessLevel = AccessLevel(setter: dictionary)
+    if rootKind == .class {
+      guard setterAccessLevel != .fileprivate,
+            setterAccessLevel != .private
+      else { return true }
+      let body = SourceSubstring.body.extract(from: dictionary, contents: source) ?? ""
+      return !body.contains("set", excluding: ["{": "}"])
+    } else {
+      return setterAccessLevel == nil
+    }
   }
   
   private static func parseArgumentLabels(name: String, parameters: Substring?)

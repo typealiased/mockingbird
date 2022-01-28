@@ -15,25 +15,28 @@ class SubscriptTests: BaseTestCase {
     classMock = mock(SubscriptedClass.self)
   }
   
+  private class MyObject {}
+  
   // MARK: - Protocol mock
   
   // MARK: Getter
   
   func testSubscriptProtocol_handlesBasicSingleParameterGetter() {
+    let object = MyObject()
     given(protocolMock.getSubscript(42)) ~> "bar"
     given(protocolMock.getSubscript(42)) ~> true
     given(protocolMock.getSubscript("foo")) ~> "bar"
-    given(protocolMock.getSubscript(42)) ~> 99
+    given(protocolMock.getSubscript(object)) ~> 99
     
     XCTAssertEqual(protocolInstance[42], "bar")
     XCTAssertEqual(protocolInstance[42], true)
     XCTAssertEqual(protocolInstance["foo"], "bar")
-    XCTAssertEqual(protocolInstance[42], 99)
+    XCTAssertEqual(protocolInstance[object], 99)
     
     verify(protocolMock.getSubscript(42)).returning(String.self).wasCalled()
     verify(protocolMock.getSubscript(42)).returning(Bool.self).wasCalled()
     verify(protocolMock.getSubscript("foo")).returning(String.self).wasCalled()
-    verify(protocolMock.getSubscript(42)).returning(Int.self).wasCalled()
+    verify(protocolMock.getSubscript(object)).returning(Int.self).wasCalled()
   }
   
   func testSubscriptProtocol_handlesMultipleParameterGetter() {
@@ -109,20 +112,21 @@ class SubscriptTests: BaseTestCase {
   // MARK: - Class mock
   
   func testSubscriptClass_handlesBasicSingleParameterCalls() {
+    let object = MyObject()
     given(classMock.getSubscript(42)) ~> "bar"
     given(classMock.getSubscript(42)) ~> true
     given(classMock.getSubscript("foo")) ~> "bar"
-    given(classMock.getSubscript(42)) ~> 99
+    given(classMock.getSubscript(object)) ~> 99
     
     XCTAssertEqual(classInstance[42], "bar")
     XCTAssertEqual(classInstance[42], true)
     XCTAssertEqual(classInstance["foo"], "bar")
-    XCTAssertEqual(classInstance[42], 99)
+    XCTAssertEqual(classInstance[object], 99)
     
     verify(classMock.getSubscript(42)).returning(String.self).wasCalled()
     verify(classMock.getSubscript(42)).returning(Bool.self).wasCalled()
     verify(classMock.getSubscript("foo")).returning(String.self).wasCalled()
-    verify(classMock.getSubscript(42)).returning(Int.self).wasCalled()
+    verify(classMock.getSubscript(object)).returning(Int.self).wasCalled()
   }
   
   func testSubscriptClass_handlesMultipleParameterCalls() {

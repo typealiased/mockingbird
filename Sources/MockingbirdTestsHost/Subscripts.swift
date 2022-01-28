@@ -4,7 +4,7 @@ protocol SubscriptedProtocol {
   subscript(index: Int) -> String { get set }
   subscript(index: Int) -> Bool { get set } // Overloaded parameter type
   subscript(index: String) -> String { get set } // Overloaded return type
-  subscript(index: Int) -> Int { get } // Only getter
+  subscript(object: AnyObject) -> Int { get } // Only getter
   subscript(row: Int, column: Int) -> String { get set } // Multiple parameters
   subscript(indexes: String...) -> String { get set } // Variadic parameter
   subscript<IndexType: Equatable, ReturnType: Hashable>(index: IndexType) -> ReturnType { get set }
@@ -29,8 +29,14 @@ class SubscriptedClass {
   }
   
   // Only getter
-  subscript(index: Int) -> Int {
+  subscript(object: AnyObject) -> Int {
     get { fatalError() }
+  }
+  
+  // Private setter
+  private(set) subscript(object: NSObject) -> Int {
+    get { fatalError() }
+    set { fatalError() }
   }
   
   // Multiple parameters
