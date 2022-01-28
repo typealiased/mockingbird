@@ -100,13 +100,13 @@ public func log(_ message: @escaping @autoclosure () -> String,
   }
 }
 
-/// Convenience for logging a `.info` message type.
+/// Log an informational message.
 public func logInfo(_ message: @escaping @autoclosure () -> String,
                     output: UnsafeMutablePointer<FILE>? = nil) {
   log(message(), type: .info, output: output)
 }
 
-/// Convenience for logging a `.warn` message type.
+/// Log a warning message.
 public func logWarning(_ message: @escaping @autoclosure () -> String,
                        diagnostic: DiagnosticType? = nil,
                        output: UnsafeMutablePointer<FILE>? = nil,
@@ -120,16 +120,33 @@ public func logWarning(_ message: @escaping @autoclosure () -> String,
       line: line())
 }
 
-/// Convenience for logging an `.error` message type.
-public func log(_ error: Error,
-                diagnostic: DiagnosticType? = nil,
-                output: UnsafeMutablePointer<FILE>? = nil,
-                filePath: Path? = nil,
-                line: @escaping @autoclosure () -> Int? = nil) {
-  log("\(error)",
+/// Log an error message.
+public func logError(_ message: String,
+                     diagnostic: DiagnosticType? = nil,
+                     output: UnsafeMutablePointer<FILE>? = nil,
+                     filePath: Path? = nil,
+                     line: @escaping @autoclosure () -> Int? = nil) {
+  log(message,
       type: .error,
       diagnostic: diagnostic,
       output: output,
       filePath: filePath,
       line: line())
+}
+
+/// Convenience for logging an error.
+public func logError(_ error: Error,
+                     diagnostic: DiagnosticType? = nil,
+                     output: UnsafeMutablePointer<FILE>? = nil,
+                     filePath: Path? = nil,
+                     line: @escaping @autoclosure () -> Int? = nil) {
+  let localizedDescription: String = {
+    guard let localizedError = error as? LocalizedError else { return "\(error)" }
+    return localizedError.localizedDescription
+  }()
+  logError(localizedDescription,
+           diagnostic: diagnostic,
+           output: output,
+           filePath: filePath,
+           line: line())
 }

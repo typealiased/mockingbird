@@ -36,7 +36,6 @@ public class FindMockedTypesOperation: BasicOperation {
       }
       
       let operations = extractSourcesResult.targetPaths
-        .filter({ "\($0.path)".hasSuffix(".generated.swift") == false })
         .map({ sourcePath -> ParseTestFileOperation in
           let operation = ParseTestFileOperation(
             sourcePath: sourcePath,

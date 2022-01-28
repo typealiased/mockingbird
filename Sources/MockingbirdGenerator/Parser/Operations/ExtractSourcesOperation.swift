@@ -84,6 +84,7 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
     
     let moduleName = resolveProductModuleName(for: target)
     let paths = target.findSourceFilePaths(sourceRoot: sourceRoot)
+      .filter({ !$0.string.hasSuffix(".generated.swift") })
       .map({ SourcePath(path: $0, moduleName: moduleName) })
     
     let includedPaths = includedSourcePaths(for: Set(paths))
