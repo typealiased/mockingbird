@@ -20,6 +20,14 @@ import Foundation
     return try thunk(invocation)
   }
   
+  /// Invoke a non-throwing thunk.
+  func didInvoke<T, I: Invocation>(_ invocation: I, evaluating thunk: (I) -> T) -> T {
+    // Ensures that the thunk is evaluated prior to recording the invocation.
+    defer { didInvoke(invocation) }
+    return thunk(invocation)
+  }
+  
+#if swift(>=5.5.2)
   /// Invoke an async thunk that can throw.
   @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
   func didInvoke<T, I: Invocation>(_ invocation: I,
@@ -29,13 +37,6 @@ import Foundation
     return try await thunk(invocation)
   }
   
-  /// Invoke a non-throwing thunk.
-  func didInvoke<T, I: Invocation>(_ invocation: I, evaluating thunk: (I) -> T) -> T {
-    // Ensures that the thunk is evaluated prior to recording the invocation.
-    defer { didInvoke(invocation) }
-    return thunk(invocation)
-  }
-  
   /// Invoke an async non-throwing thunk.
   @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
   func didInvoke<T, I: Invocation>(_ invocation: I, evaluating thunk: (I) async -> T) async -> T {
@@ -43,6 +44,7 @@ import Foundation
     defer { didInvoke(invocation) }
     return await thunk(invocation)
   }
+#endif
   
   /// Invoke a thunk from Objective-C.
   @objc public func objcDidInvoke(_ invocation: ObjCInvocation,

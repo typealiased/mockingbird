@@ -3,6 +3,7 @@ import Mockingbird
 @testable import MockingbirdTestsHost
 import XCTest
 
+#if swift(>=5.5.2)
 @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
 extension XCTest {
   func XCTAssertThrowsAsyncError<T: Sendable>(
@@ -109,3 +110,4 @@ class StubbingAsyncTests: BaseTestCase {
   }
   
 }
+#endif

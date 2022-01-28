@@ -1,18 +1,23 @@
 name: CI
 
 on: [push, pull_request]
-env:
-  DEVELOPER_DIR: /Applications/Xcode_13.2.app/Contents/Developer
 
 jobs:
   test-e2e:
-    name: Test E2E
+    name: Test E2E (Xcode ${{ matrix.xcode }})
     runs-on: macOS-latest
+    strategy:
+      matrix:
+        xcode:
+        - '13.1' # Swift 5.5
+        - '13.2' # Swift 5.5.2
     steps:
     - uses: actions/checkout@v2
     - name: Set Up Project
       run: Sources/MockingbirdAutomationCli/buildAndRun.sh configure load --overwrite
     - name: Test
+      env:
+        DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
       run: Sources/MockingbirdAutomationCli/buildAndRun.sh test e2e
 
   test-example-project:
@@ -30,6 +35,7 @@ jobs:
     - name: Test
       env:
         GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+        DEVELOPER_DIR: /Applications/Xcode_13.2.app/Contents/Developer
       run: Sources/MockingbirdAutomationCli/buildAndRun.sh test example ${{ matrix.type }}
 
   test-cli-launcher:
