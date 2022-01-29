@@ -1,16 +1,11 @@
 import Foundation
+import MockingbirdCommon
 import MockingbirdGenerator
 
-func main() -> Int32 {
+do {
   defer { flushLogs() }
-  do {
-    var command = try Mockingbird.parseAsRoot()
-    try command.run()
-    return 0
-  } catch {
-    logError(error)
-    return 1
-  }
+  var command = try Mockingbird.parseAsRoot()
+  try command.run()
+} catch {
+  Mockingbird.exit(withError: error)
 }
-
-exit(main())

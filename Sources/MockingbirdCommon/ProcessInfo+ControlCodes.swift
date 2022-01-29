@@ -6,4 +6,8 @@ public extension ProcessInfo {
       // Standard convention to indicate a terminal with limited capabilities.
       && processInfo.environment["TERM"] != "dumb"
   }
+  
+  static var isXcodeBuildContext: Bool {
+    return Int(processInfo.environment["XCODE_VERSION_ACTUAL"] ?? "") != nil
+  }
 }
