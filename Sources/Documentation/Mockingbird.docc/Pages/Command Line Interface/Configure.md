@@ -1,4 +1,4 @@
-# Configure Command Options
+# Configurator Options
 
 Configure a test target to generate mocks.
 

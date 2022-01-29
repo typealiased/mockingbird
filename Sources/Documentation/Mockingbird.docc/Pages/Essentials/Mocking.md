@@ -54,19 +54,27 @@ clearInvocations(on: bird)  // Only remove recorded invocations
 
 ### Mock Static Members
 
-Just like instances of generated mocks, the mock types themselves can be used as test doubles.
+Just like mock instances, mock _metatype_ instances can be used as test doubles.
 
 ```swift
-protocol Bird {
-  static var species: String { get }
-}
-
 // Use `type(of: mock(…))` so that the mock is generated
 let birdType: BirdMock.Type = type(of: mock(Bird.self))
 print(birdType is Bird.self)  // Prints "true"
 ```
 
-The state of static methods and properties persists between tests, so you must reset the mock before stubbing or verifying static members.
+Provide the metatype instance to your system under test using dependency injection.
+
+```swift
+protocol Bird {
+  static var species: String { get }
+}
+func getSpecies(of birdType: Bird.Type) -> String {
+  return birdType.species
+}
+getSpecies(of: birdType)
+```
+
+Note that the state of static methods and properties persists between tests, so you must reset the mock before stubbing or verifying static members.
 
 ```swift
 func setUp() {

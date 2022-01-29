@@ -14,7 +14,7 @@ Add Mockingbird as a package and test target dependency in your `Package.swift` 
 let package = Package(
   name: "MyPackage",
   dependencies: [
-    .package(name: "Mockingbird", url: "https://github.com/birdrides/mockingbird.git", .upToNextMinor(from: "0.19.0")),
+    .package(name: "Mockingbird", url: "https://github.com/birdrides/mockingbird.git", .upToNextMinor(from: "0.20.0")),
   ],
   targets: [
     .testTarget(name: "MyPackageTests", dependencies: ["Mockingbird"]),

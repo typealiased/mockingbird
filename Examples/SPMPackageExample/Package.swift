@@ -13,7 +13,7 @@ let package = Package(
     .package(
       name: "Mockingbird",
       url: "https://github.com/birdrides/mockingbird.git",
-      .upToNextMinor(from: "0.19.0")),
+      .upToNextMinor(from: "0.20.0")),
   ],
   targets: [
     .target(

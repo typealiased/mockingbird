@@ -9,7 +9,7 @@ Add the framework to a test target in your `Podfile`, making sure to include the
 ```ruby
 target 'MyAppTests' do
   use_frameworks!
-  pod 'MockingbirdFramework', '~> 0.19'
+  pod 'MockingbirdFramework', '~> 0.20'
 end
 ```
 

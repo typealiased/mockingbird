@@ -7,7 +7,7 @@ Integrate Mockingbird into a Carthage Xcode project.
 Add the framework to your `Cartfile`.
 
 ```
-github "birdrides/mockingbird" ~> 0.19
+github "birdrides/mockingbird" ~> 0.20
 ```
 
 In your project directory, build the framework and link it to your test target.
