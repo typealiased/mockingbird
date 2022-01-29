@@ -20,7 +20,6 @@ $ open CocoaPodsExample.xcworkspace
 
 ## Additional Resources
 
-- [API reference](https://birdrides.github.io/mockingbird/latest/)
-- [Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw)
-- [Troubleshooting guide](https://github.com/birdrides/mockingbird/wiki/Troubleshooting)
-- [Mockingbird wiki](https://github.com/birdrides/mockingbird/wiki/)
+- [#mockingbird Slack channel](https://join.slack.com/t/birdopensource/shared_invite/zt-wogxij50-3ZM7F8ZxFXvPkE0j8xTtmw)
+- [Troubleshooting guide](https://mockingbirdswift.com/common-problems)
+- [API reference](https://mockingbirdswift.com)

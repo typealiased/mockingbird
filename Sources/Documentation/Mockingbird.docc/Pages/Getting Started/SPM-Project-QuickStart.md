@@ -11,7 +11,7 @@ This guide is for Xcode projects that use SwiftPM to manage dependencies. If you
 Add the framework to your Xcode project:
 
 1. Navigate to **File › Add Packages…** and enter “https://github.com/birdrides/mockingbird”
-2. Change **Dependency Rule** to **Up to Next Minor Version** and enter “0.19.0”
+2. Change **Dependency Rule** to **Up to Next Minor Version** and enter “0.20.0”
 3. Click **Add Package**
 4. Select your test target and click **Add Package**
 

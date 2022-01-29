@@ -1,4 +1,4 @@
-# Generate Command Options
+# Generator Options
 
 Generate mocks for a set of targets in a project.
 
