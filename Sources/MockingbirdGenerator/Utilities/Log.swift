@@ -140,11 +140,7 @@ public func logError(_ error: Error,
                      output: UnsafeMutablePointer<FILE>? = nil,
                      filePath: Path? = nil,
                      line: @escaping @autoclosure () -> Int? = nil) {
-  let localizedDescription: String = {
-    guard let localizedError = error as? LocalizedError else { return "\(error)" }
-    return localizedError.localizedDescription
-  }()
-  logError(localizedDescription,
+  logError((error as NSError).localizedDescription,
            diagnostic: diagnostic,
            output: output,
            filePath: filePath,
