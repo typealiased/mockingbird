@@ -154,6 +154,7 @@ struct Method {
     // Parse return type attributes.
     let returnAttributesStartIndex = parametersEndIndex ?? declaration.startIndex
     let returnAttributesEndIndex = declaration.firstIndex(of: "-", excluding: .allGroups)
+      ?? declaration.firstIndex(of: "{", excluding: .allGroups) // Void methods
       ?? declaration.endIndex
     let returnAttributes = declaration[returnAttributesStartIndex..<returnAttributesEndIndex]
     if returnAttributes.range(of: #"\basync\b"#, options: .regularExpression) != nil {
