@@ -179,7 +179,7 @@ private class GlobSearchOperation: BasicOperation {
   override var description: String { "Glob Search" }
   
   override func run() throws {
-    guard shouldInclude(sourcePath: sourcePath.path, in: sourcePath.path.parent()).value else {
+    guard shouldInclude(sourcePath: sourcePath.path.absolute(), in: sourcePath.path.parent()).value else {
       log("Ignoring source path at \(sourcePath.path.absolute())")
       return
     }
