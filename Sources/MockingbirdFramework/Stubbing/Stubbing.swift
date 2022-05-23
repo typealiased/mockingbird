@@ -440,6 +440,51 @@ extension StubbingManager where DeclarationType == ThrowingFunctionDeclaration {
   }
 }
 
+@available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+extension StubbingManager where DeclarationType == ThrowingAsyncFunctionDeclaration {
+  /// Stub a mocked async method that throws with an error.
+  ///
+  /// Stubbing allows you to define custom behavior for mocks to perform. Methods that throw or
+  /// rethrow errors can be stubbed with a throwable object.
+  ///
+  /// ```swift
+  /// struct BirdError: Error {}
+  /// given(await bird.throwingMethod()).willThrow(BirdError())
+  /// ```
+  ///
+  /// - Note: Methods overloaded by return type should chain `returning` with `willThrow` to
+  /// disambiguate the mocked declaration.
+  ///
+  /// - Parameter error: A stubbed error object to throw.
+  /// - Returns: The current stubbing manager which can be used to chain additional stubs.
+  @discardableResult
+  public func willThrow(_ error: Error) -> Self {
+    return addImplementation({ () async throws -> ReturnType in throw error })
+  }
+  
+  /// Disambiguate async throwing methods overloaded by return type.
+  ///
+  /// Declarations for methods overloaded by return type and stubbed with `willThrow` cannot use
+  /// type inference and should be disambiguated.
+  ///
+  /// ```swift
+  /// protocol Bird {
+  ///   func fetchMessage<T>() async throws -> T    // Overloaded generically
+  ///   func fetchMessage() async throws -> String  // Overloaded explicitly
+  ///   func fetchMessage() async throws -> Data
+  /// }
+  ///
+  /// given(await bird.fetchMessage())
+  ///   .returning(String.self)
+  ///   .willThrow(BirdError())
+  /// ```
+  ///
+  /// - Parameter type: The return type of the declaration to stub.
+  public func returning(_ type: ReturnType.Type = ReturnType.self) -> Self {
+    return self
+  }
+}
+
 extension StubbingManager where ReturnType == Void {
   /// Stub a mocked method or property that returns `Void`.
   ///
