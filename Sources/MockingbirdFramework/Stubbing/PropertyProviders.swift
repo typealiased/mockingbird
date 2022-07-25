@@ -13,7 +13,7 @@ import Foundation
 /// ```
 ///
 /// - Parameter initial: The initial value to return.
-public func lastSetValue<DeclarationType: PropertyGetterDeclaration, InvocationType, ReturnType>(
+public func lastSetValue<DeclarationType: AnyDeclaration, InvocationType, ReturnType>(
   initial: ReturnType
 ) -> ImplementationProvider<DeclarationType, InvocationType, ReturnType> {
   var currentValue = initial
