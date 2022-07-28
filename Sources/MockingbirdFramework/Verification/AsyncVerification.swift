@@ -62,8 +62,7 @@ public extension NSObject {
 func createAsyncContext(expectation: XCTestExpectation, block scope: () -> Void) {
   let group = ExpectationGroup { group in
     expectation.expectedFulfillmentCount = group.countExpectations()
-    print(expectation.expectedFulfillmentCount)
-    print("asdasfdasfd")
+
     group.expectations.forEach({ capturedExpectation in
       let observer = InvocationObserver({ (invocation, mockingContext) -> Bool in
         do {
