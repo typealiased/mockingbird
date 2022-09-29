@@ -127,6 +127,12 @@ class DeclaredTypeTests: XCTestCase {
     XCTAssert(actual.isFunction)
   }
   
+  func testDeclaredType_parsesFunctionTypeAttributesIgnoringUnrecognized() {
+    let actual = DeclaredType(from: "(@NotARealAttribute @escaping (Int) -> String) -> Void")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(@escaping DeclaredType(Single(Function((Parameter(DeclaredType(Single(Int)))) -> DeclaredType(Single(String))))))) -> DeclaredType(Single(Void)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
   func testDeclaredType_parsesFunctionTypeAttributesWithoutWhitespace() {
     let actual = DeclaredType(from: "(@escaping(String)) -> Void")
     XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(@escaping DeclaredType(Single(String)))) -> DeclaredType(Single(Void)))))")
