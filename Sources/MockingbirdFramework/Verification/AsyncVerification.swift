@@ -159,7 +159,10 @@ func createAsyncContext(expectation: XCTestExpectation, block scope: @escaping (
 
       Task {
           
-          await scope()
+          await Transaction.$currentExpectationGroup.withValue(group) {
+              await scope()
+          }
+          
           semaphore.signal()
       }
       
@@ -167,4 +170,9 @@ func createAsyncContext(expectation: XCTestExpectation, block scope: @escaping (
   }
 
   try? group.verify()
+}
+
+@available(iOS 13.0, *)
+enum Transaction {
+    @TaskLocal static var currentExpectationGroup: ExpectationGroup? = nil
 }
