@@ -152,8 +152,7 @@ func createAsyncContext(expectation: XCTestExpectation, block scope: @escaping (
   let queue = DispatchQueue(label: "co.bird.mockingbird.verify.eventually")
   queue.setSpecific(key: ExpectationGroup.contextKey, value: group)
     
-  let semaphore = DispatchSemaphore(value: 1)
-  semaphore.wait()
+  let semaphore = DispatchSemaphore(value: 0)
     
   queue.sync {
 
@@ -167,6 +166,7 @@ func createAsyncContext(expectation: XCTestExpectation, block scope: @escaping (
       }
       
       semaphore.wait()
+      semaphore.signal()
   }
 
   try? group.verify()
