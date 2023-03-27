@@ -55,6 +55,10 @@ class ExpectationGroup {
 
 extension DispatchQueue {
   class var currentExpectationGroup: ExpectationGroup? {
-    return DispatchQueue.getSpecific(key: ExpectationGroup.contextKey)
+      if #available(iOS 13.0, *) {
+          return Transaction.currentExpectationGroup ?? DispatchQueue.getSpecific(key: ExpectationGroup.contextKey)
+      } else {
+          return DispatchQueue.getSpecific(key: ExpectationGroup.contextKey)
+      }
   }
 }

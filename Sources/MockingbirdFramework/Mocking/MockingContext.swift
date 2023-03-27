@@ -75,6 +75,7 @@ import Foundation
 
   func clearInvocations() {
     invocations.update { $0.removeAll() }
+    allInvocations.update { $0.removeAll() }
   }
   
   func removeInvocations(before invocation: Invocation, inclusive: Bool = false) {

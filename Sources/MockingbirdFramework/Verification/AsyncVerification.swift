@@ -54,6 +54,20 @@ public extension NSObject {
     createAsyncContext(expectation: expectation, block: block)
     return TestExpectation.create(from: expectation)
   }
+    
+    @available(iOS 13.0, *)
+    @discardableResult
+    func eventually(_ description: String = "Async verification group",
+                    _ block: @escaping () async -> Void) -> TestExpectation {
+      let expectation: XCTestExpectation = {
+        guard let testCase = self as? XCTestCase else {
+          return XCTestExpectation(description: description)
+        }
+        return testCase.expectation(description: description)
+      }()
+      createAsyncContext(expectation: expectation, block: block)
+      return TestExpectation.create(from: expectation)
+    }
 }
 
 /// Internal helper for `eventually` async verification scopes.
@@ -98,4 +112,67 @@ func createAsyncContext(expectation: XCTestExpectation, block scope: () -> Void)
   queue.sync { scope() }
 
   try? group.verify()
+}
+
+@available(iOS 13.0, *)
+func createAsyncContext(expectation: XCTestExpectation, block scope: @escaping () async -> Void) {
+  let group = ExpectationGroup { group in
+    expectation.expectedFulfillmentCount = group.countExpectations()
+
+    group.expectations.forEach({ capturedExpectation in
+      let observer = InvocationObserver({ (invocation, mockingContext) -> Bool in
+        do {
+          try expect(mockingContext,
+                     handled: capturedExpectation.invocation,
+                     using: capturedExpectation.expectation)
+          expectation.fulfill()
+          return true
+        } catch {
+          return false
+        }
+      })
+      capturedExpectation.mockingContext
+        .addObserver(observer, for: capturedExpectation.invocation.selectorName)
+    })
+
+    group.subgroups.forEach({ subgroup in
+      let observer = InvocationObserver({ (invocation, mockingContext) -> Bool in
+        do {
+          try subgroup.verify()
+          expectation.fulfill()
+          return true
+        } catch {
+          return false
+        }
+      })
+      subgroup.expectations.forEach({ $0.mockingContext.addObserver(observer) })
+    })
+  }
+
+  let queue = DispatchQueue(label: "co.bird.mockingbird.verify.eventually")
+  queue.setSpecific(key: ExpectationGroup.contextKey, value: group)
+    
+  let semaphore = DispatchSemaphore(value: 0)
+    
+  queue.sync {
+
+      Task {
+          
+          await Transaction.$currentExpectationGroup.withValue(group) {
+              await scope()
+          }
+          
+          semaphore.signal()
+      }
+      
+      semaphore.wait()
+      semaphore.signal()
+  }
+
+  try? group.verify()
+}
+
+@available(iOS 13.0, *)
+enum Transaction {
+    @TaskLocal static var currentExpectationGroup: ExpectationGroup? = nil
 }
