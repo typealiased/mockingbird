@@ -32,7 +32,7 @@ extension Build {
       let developerDirectory = try XcodeSelect.printPath()
       let swiftToolchainPath = developerDirectory
         + "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx"
-      try InstallNameTool.deleteRpath(swiftToolchainPath.absolute().string, binary: binary)
+      try? InstallNameTool.deleteRpath(swiftToolchainPath.absolute().string, binary: binary)
       // Swift 5.5 is only present in Xcode 13.2+
       let swift5_5ToolchainPath = developerDirectory
         + "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-5.5/macosx"
