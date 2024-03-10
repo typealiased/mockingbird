@@ -143,7 +143,7 @@ private extension Array where Element == CapturedExpectation {
 
 private extension Array where Element == StackTrace.Frame {
   var indentedDescription: String {
-    guard count > 1 else { return  "   No call stack symbols" }
+    guard count > 1 else { return "   No call stack symbols" }
     
     let framesStartIndex = index(after: self[1...].firstIndex(where: {
       $0.location == "Mockingbird"
